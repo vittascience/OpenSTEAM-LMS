@@ -1,0 +1,22 @@
+<div id="classroom-dashboard-profil-panel" style="display:none;" class="dashboard-block profile-panel">
+        <img src="assets/media/profile_picture.svg" alt="Photo de profil" class="user-picture">
+        <span id="user-name" data-i18n="classroom.profile.identity"></span>
+        <span><span data-i18n="classroom.profil.class"></span><span id="classroom-name"></span></span>
+        <!-- <span id="establishment-name"><?= $school['school_name'] ?></span> -->
+
+        <div id="classroom-dashboard-profile-stats">
+                <div style="grid-column: 1; grid-row: 1;" class="activity-panel-link"><span
+                                class="stats-secondary todo-activities"></span><span class="text-span-initial stats-description"
+                                data-i18n="[html]classroom.profil.todo"></span></div>
+                <div style="grid-column: 2; grid-row: 0;" class="activity-panel-link"><span
+                                class="stats-primary done-activities"></span><span class="text-span-initial stats-description"
+                                data-i18n="[html]classroom.profil.done"></span></div>
+        </div>
+        <!-- <div id="space-return-button"></div> -->
+
+        <button class="btn mb-2 c-btn-outline-primary" id="settings-student"><span data-i18n="words.settings" class="text-capitalize mr-1 text-span-initial"></span><i class="fas fa-cog"></i></button>
+        <button id="teacherSwitchButton" class="btn  mb-2 c-btn-outline-primary" onclick="modeProf()"><span class="text-span-initial mr-1" data-i18n="[html]classroom.profil.switchModeTeacher"></span><i class="fas fa-cog"></i></button>
+        <button class="btn mb-2 c-btn-red" onclick="goToDisconnect('classroom');"><span
+                        data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
+                <i class="fas fa-power-off"></i></button>
+</div>

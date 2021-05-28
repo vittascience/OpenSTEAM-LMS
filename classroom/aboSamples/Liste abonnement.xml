@@ -1,0 +1,50 @@
+Requête :
+GET /abonnements
+
+Body :
+<?xml version="1.0" encoding="UTF-8"?>
+<filtres xmlns="http://www.atosworldline.com/wsabonnement/v1.0/">
+      <filtre>
+            <filtreNom>idDistributeurCom</filtreNom>
+            <filtreValeur>123448915_0000000122425488</filtreValeur>
+      </filtre> 
+	  <filtre>
+            <filtreNom>uaiEtab</filtreNom>
+            <filtreValeur>0560010G</filtreValeur>
+      </filtre> 
+      <filtreParDate>
+            <dateName>debutValidite</dateName>
+            <dateAvant>2018-08-15T00:00:00</dateAvant>
+			<dateApres>2017-09-01T09:00:00</dateApres>
+      </filtreParDate>
+	  <filtreParDate>
+            <dateName>finValidite</dateName>
+            <dateAvant>2018-08-15T00:00:00</dateAvant>
+			<dateApres>2017-09-01T09:00:00</dateApres>
+      </filtreParDate>
+</filtres>
+
+Réponse :
+
+200 OK
+
+Body :
+
+<abonnements>
+	<abonnement xmlns="http://www.atosworldline.com/wsabonnement/v1.0/">
+	   <idAbonnement>0560010G_FBJ_2018-08-31</idAbonnement>
+	   <commentaireAbonnement>Abonnement à  FBJ jusqu'en 2021</commentaireAbonnement>
+	   <idDistributeurCom>123448915_0000000122425488</idDistributeurCom>
+	   <idRessource>ark:/34885/ytfy/wr000hghj0002</idRessource>
+	   <typeIdRessource>ark</typeIdRessource>
+	   <libelleRessource>Fleury et Bott Junior</libelleRessource>
+	   <debutValidite>2017-09-01T09:00:00</debutValidite>
+	   <finValidite>2018-07-15T23:00:00</finValidite>
+	   <uaiEtab>0560010G</uaiEtab>
+	   <categorieAffectation>transferable</categorieAffectation>
+	   <typeAffectation>INDIV</typeAffectation>
+	   <nbLicenceGlobale>5</nbLicenceGlobale>
+	   <publicCible>ENSEIGNANT</publicCible>
+	   <publicCible>DOCUMENTALISTE</publicCible>
+	</abonnement>
+</abonnements>

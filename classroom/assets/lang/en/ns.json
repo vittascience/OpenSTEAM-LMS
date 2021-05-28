@@ -1,0 +1,495 @@
+{
+	"release-announcement-banner": "Watch the May 12, 2021 video on the launch of the Vittascience Classroom module on YouTube! <a href='/classroom/'>Find out more</a>",
+	"classroom": {
+		"login": {
+			"announcement": {
+				"discoverButton": "Discover the video on Youtube",
+				"officialRelease": "Official release",
+				"classroomModule": "Classroom Module",
+				"releaseDate": "On May 12th 2021 on Youtube"
+			},
+			"noClass": "The code entered does not correspond to any classroom.",
+			"countdown1": "The Classroom management module is currently in its beta stage. If you wish to try it out, please <a href=\"/about?contact=1\">contact the Vittascience team</a>.",
+			"countdown2": "Official release in",
+			"hello1": "'Hello!'",
+			"hello2": "Hello!",
+			"title": "Manage your Classrooms</br>with Vittascience",
+			"subtitle": "Discover - Learn - Share",
+			"login": "Log in",
+			"activities": "easily create </br> your activities",
+			"attribute": "assign them </br> to your students",
+			"visualize": "visualize </br> their results",
+			"helpers": " By our side to <span>accompany you.</span>",
+			"student": "STUDENT",
+            "codeInput": " Enter your Classroom code",
+            "teacher": "TEACHER",
+			"hasAccount": "Already have a Vittascience account?",
+			"gar": "Enjoy the Classroom module with ease using GAR.</br><i class=\"fas fa-exclamation-triangle\" style=\"color:var(--vitta-orange-light)\"></i> The connection to GAR is not yet finalized, but will be ready soon.",
+			"signup": "SIGN UP",
+			"firstVisit": "First time? Please choose a username.",
+			"signin": "SIGN IN",
+			"hasReturned": "Back to this Classroom?",
+			"forgot": "I forgot my password",
+			"error": {
+				"used": "This username is already in use, please choose another",
+				"badInput": "Your username or password is wrong."
+			},
+			"suscribe": {
+				"title": "subscribe",
+				"content": "The Classroom management module is available for free as a trial version. Benefit from all the features with the Vittascience Premium subscription. Find all the advantages and details of the Vittascience Premium offer using the button below.",
+				"premium": "Discover Vittascience Premium"
+			},
+			"carousel": {
+				"activities": {
+					"title": "easily create your activities",
+					"content": "The activity editor makes it easy to create instructional content by including text, images, videos, Vittascience APIs, Genially presentations, and more.</br></br>Browse the Vittascience collaborative resource bank, which includes several hundred free and reusable activities. If the author of a resource allows it, you can even make changes to adapt the content to your students."
+				},
+				"attribute": {
+					"title": "assign them to your students",
+					"content": "Once your activities have been created, you can assign them to your students. They can be assigned individually or to entire groups, such as a class or science club.</br></br>Students can securely log in using a Classroom code, link, QR code, or GAR, and complete their assigned activities."
+				},
+				"visualize": {
+					"title": "visualize their results",
+					"content": "The dashboard allows you to track students' progress as they move through the activities and courses. Find your students' work in one click and leave comments.</br></br>Thanks to the automatic validation/correction system for blocks and Python, the dashboard fills up automatically with your students' results. Rapidly identify struggling students, gaining valuable time to accompany them."
+				}
+			}
+		},
+		"successPanel": "Congratulation, you succeed this activity !",
+		"failPanel": "The answer is wrong",
+		"toCorrectPanel": "The activity was send to your teacher,</br>who will correct it soon ! <i class=\"fas fa-pen\"></i>",
+		"bank": {
+			"helpTooltip": "The resource center contains numerous activities that you can use freely! Your teacher won't have access to your activities results"
+		},
+		"help": {
+			"student": {
+				"label": "Ask your teacher",
+				"question": "Write your questions...",
+				"title": "Object"
+			},
+			"teacher": {
+				"label": "Ask our team"
+			}
+		},
+		"profil": {
+			"identity": "Firstname Surname ",
+			"class": "CLASSROOM : ",
+			"todo": "Activities </br> to do",
+			"done": "Activities </br> done",
+			"create": "Activities </br> create",
+			"correctionToDo": "Corrections </br> to do",
+			"switchMode": "Switch to learner mode",
+			"switchModeTeacher": "Back to teacher mode"
+		},
+		"notif": {
+			"shareProjectTeacher": "The project has been shared with your teacher",
+			"addActivities": "The selected activities have been added to your list",
+			"addActivity": "The activity has beed added to your list",
+			"saveProject": "Did you saved your activity?",
+			"savedProject": "Your draft has been saved.",
+			"deleteProject": "The project has been deleted.",
+			"shareProject": "The project has been shared.",
+			"corrections": "An exercise has been realized in your classes",
+			"deleteAccount": "Are you sure you want to delete the learner's account?",
+			"accountIsDelete": "The learner's account has been deleted",
+			"newPwd": "The learner's new password is {{pwd}} for {{pseudo}}",
+			"classCreatedButNotUsers": "The classroom {{classroomName}} has been created, but not the associated accounts (Your account does not allow you to have {{learnerNumber}} learners)",
+			"classUpdatedButNotUsers": "The classroom {{classroomName}} has been updated, but not the associated accounts (Your account does not allow you to have {{learnerNumber}} learners)",
+			"usersNotAdded": "The learner could not be added (Your account does not allow you to have {{learnerNumber}} learners)",
+			"cantLoginLimitLearners": "You cannot join the class. Your teacher has reached his maximum number of learners.",
+			"classNotCreated": "You cannot have more than one classroom.",
+			"attributeActivityUndone" : "The activity has been unassigned",
+			"pseudoUpdated": "The learner's new nickname is {{newPseudo}}",
+			"classroomDeleted": "The classroom {{classroomName}} has been deleted",
+			"classroomCreated": "The classroom {{classroomName}} has been created, as well as all associated accounts",
+			"classroomUpdated": "The classroom {{classroomName}} has been updated, along with all associated accounts",
+			"usersAdded": "Accounts have been created",
+			"activityDeleted": "The activity {{activityName}} has been removed",
+			"mustAttributeToStudent": "You must assign the activity to students",
+			"activityAttributed": "The activity {{activityTitle}} has been assigned to the listed learners",
+			"activityAttributionChanged": "The assignment of the activity {{activityTitle}} has been changed for the listed learners",
+			"activityCreated": "The activity {{activityTitle}} has been created",
+			"activityChanged": "Activity {{activityTitle}} has been changed"
+		},
+		"ids": {
+			"classroom-dashboard-help-panel-teacher": "Help",
+			"classroom-dashboard-activities-panel-teacher": "My activities",
+			"classroom-dashboard-classes-panel-teacher": "My classes",
+			"classroom-dashboard-sandbox-panel": "Sandbox",
+			"classroom-dashboard-profil-panel-teacher": "Profile",
+			"classroom-dashboard-activities-panel": "My activities",
+			"classroom-dashboard-profil-panel": "Profile",
+			"classroom-dashboard-help-panel": "Help",
+			"classroom-dashboard-activities-panel-library-teacher": "Resource center",
+			"classroom-dashboard-new-activity-panel": "Activity creation",
+			"classroom-dashboard-new-activity-panel2": "Intermediate",
+			"classroom-dashboard-new-activity-panel3": "Attribution",
+			"classroom-table-panel-teacher": "Class {{name}}",
+			"classroom-dashboard-sandbox-creation": "Interface selection",
+			"classroom-dashboard-ide-panel": "{{interface}} sandbox ",
+			"classroom-dashboard-activity-panel": "Activity {{name}}"
+		},
+		"displayCode": "Display the code",
+		"navbar": {
+			"activities": "Activities"
+		},
+		"classes": {
+			"add": "Add a new classroom",
+			"form": {
+				"title": "Add a classroom",
+				"name": "Classroom name",
+				"school": "School name",
+				"addStudent": "Add a learner",
+				"noStudent": "No learner yet in this classroom",
+				"save": "Save the classroom",
+				"return": "Return to the classroom"
+			}
+		},
+		"activities": {
+			"title": "Activities",
+			"save": "Save the draft ",
+			"add": "Create an activity",
+			"new": "New",
+			"current": "In progress",
+			"waiting": "Not yet completed",
+			"done": "Done",
+			"todo": "To correct",
+			"anonymise": "Anonymise your learners list, allowing you to display it for everyone.",
+			"save-draft": "Save as a draft",
+			"validate": "Validate the activity",
+			"accept": "Very good proficiency",
+            "vgood": "Good proficiency",
+            "good": "Weak proficiency",
+            "refuse": "Insufficient proficiency",
+			"instruction": "Instructions",
+			"commentary": "Comment",
+			"sendResults": "Send the comment to the learner ",
+			"noSend": "This activity hasn't been returned",
+			"comments": "Write your comments there",
+			"bilan": {
+				"title": "Bilan",
+				"results": "Results"
+			},
+			"form": {
+				"1": "Activity creation",
+				"2": "Attribution",
+				"title": {
+					"label": "Activity title",
+					"placeholder": "Part title"
+				},
+				"content": {
+					"label": "Activity content"
+				},
+				"button": "Save and approve",
+				"success": "Congratulations, you create an activity !",
+				"attribute": "Attribute the activity right now",
+				"attribute2": "Attribute the activity ",
+				"return": "Return to My activities",
+				"hint": "You can still attribute this activity later from your dashboard.",
+				"modify": "Modify the activity",
+				"select1": "Select the learners",
+				"select2": " selected.",
+				"instructions": "Specific instructions for these learners",
+				"autocorrect": "This activity has automated correction, do you like to activate it ?",
+				"nature": "What is the nature of this activity ?",
+				"dateBegin": "Begin date :",
+				"dateEnd": "End date :"
+			},
+			"toCopy": "This code allow you to join the classroom at ease :",
+			"copyLink": "The link to your class has been added to the clipboard",
+			"dateBefore": "To give back before",
+			"integrate": "Integrate in an activity",
+			"veryGoodProficiency": "Very good proficiency",
+			"goodProficiency": "Good proficiency",
+			"weakProficiency": "Weak proficiency",
+			"insufficientProficiency": "Insufficient proficiency"
+		},
+		"filter": {
+			"desc": "From oldest to newest",
+			"asc": "From newest to oldest",
+			"placeholder": "Search..."
+		},
+		"sandbox": {
+			"mine": "My projects",
+			"shared": "Shared projects",
+			"add": "Create a program",
+			"chooseInterface": "Select the interface where you want to create a program : ",
+			"teacherSharedDescription": "Find here the programs shared by your learners.",
+			"studentSharedDescription": "Find here the programs shared by your teacher."
+		},
+		"footer": {
+			"privacy": "Privacy policy ",
+			"cgu": "Terms of Service",
+			"copyright": "Copyright © 2020 Vittascience"
+		},
+		"teacherHelpPanel": {
+			"contactForm": {
+				"title": "Contact Vittascience",
+				"objectPlaceholder": "Object",
+				"messagePlaceholder": "Write your message here. (Maximum 800 characters)",
+				"sendButton": "Send the message"
+			}
+		},
+		"sandBoxCreationPanel": {
+			"title": "Select the interface on which you want to create a program",
+			"knowMoreButton": "Learn more about interfaces",
+			"interfacesDescription": {
+				"arduino": "Programming interface for the Arduino board",
+				"microbit": "Programming interface for the Micro:bit board",
+				"python": "Programming interface for Python 3 thought for education",
+				"texas-instruments": "Programming interface for calculator with the micro:bit board",
+				"esp32": "Programming interface for the ESP32 boards (Wemos D1R32, NodeMCU, Huzzah32, …)",
+				"quickpi": "Programming interface for the Quick-Pi board"
+			}
+		},
+		"modals": {
+			"addActivity": {
+				"title": "Add an activity",
+				"resourceBank": {
+					"title": "Browse the collaborative resource center",
+					"button": "Resource center "
+				},
+				"orSeparator": "OR",
+				"attributeActivity": {
+					"title": "Consult my existing activities",
+					"button": "My activities "
+				},
+				"createActivity": {
+					"title": "Create a new activity",
+					"button": "Create an activity "
+				}
+			},
+			"settingsTeacher": {
+				"title": "Account settings",
+				"lang": "Language",
+				"description": "To change your password or other account settings",
+				"accessButton": "Access your Vittascience profile "
+			},
+			"addStudent": {
+				"title": "Add students",
+				"pseudo": "Pseudonym",
+				"addStudentButton": "Add student"
+			},
+			"listClass": {
+				"title": "Switch in student mode",
+				"description": "You can easily test the interface as a learner, and return to your teacher profile at any time. Progress as a learner will be saved to the Vittademo account.",
+				"switchButton": "Switch to learner mode"
+			},
+			"changePseudo": {
+				"title": "Change pseudo",
+				"description": "Change pseudo",
+				"validateButton": "Validate"
+			}
+		}
+	},
+	"faqInfo": {
+		"1": {
+			"section_title": "General questions",
+			"question_list": {
+				"1": {
+					"title": "What is the Classroom module?",
+					"answer": "The Classroom module facilitates the allocation of educational content and the monitoring of learners. Teachers can use community contents, or create their own activities and share them."
+				},
+				"2": {
+					"title": "Who uses the Classroom module?",
+					"answer": "In class as at home or in an extracurricular workshop, the classroom module is used by teachers (teachers, facilitators, trainers, etc.) and their learners (pupils, students, apprentices, etc.). The Class module has been designed for secondary level (~ 10 to 18 years old), but can be adapted to other contexts."
+				},
+				"3": {
+					"title": "What is the nature of the support from the Ministry of National Education?",
+					"answer": "Vittascience is the winner of the Édu-up program to support the production of innovative digital resources. More details are available on <a href=\"/eduUp\"> the page dedicated to Edu-up </a>."
+				},
+				"4": {
+					"title": "On which media can the Class module be used?",
+					"answer": "The classroom module works on computers, tablets and smartphones with most browsers and an internet connection."
+				},
+				"5": {
+					"title": "Can we request a demonstration?",
+					"answer": "We regularly organize Class module presentation webinars, you can subscribe to <a href=\"https://www.youtube.com/Vittascience\"> the Vittascience Youtube channel </a> to view the replay and see the next scheduled webinars. To book a video conference demonstration with one of our pedagogical representatives, <a href=\"/about?contact=1\"> contact us using this form </a>."
+				},
+				"6": {
+					"title": "How do I report bugs and provide feedback on the Classroom module?",
+					"answer": "You can contact us on the Classroom module in the profile tab with the \"Help \" button."
+				},
+				"7": {
+					"title": "Is the Class module available in multiple languages?",
+					"answer": "Yes, the Classroom module is currently available in French and English. To change the language, go to the profile tab, click on the Settings button, then select the language that suits you."
+				}
+			}
+		},
+		"2": {
+			"3": {
+				"section_title": "Licenses and Authorizations",
+				"question_list": {
+					"1": {
+						"title": "Can we give a description or presentation of the Class module?",
+						"answer": "Yes, you can reuse the visuals for Classroom module to create a description, presentation, training, tutorial, course or other. If you wish to include images or activity content, please mention the author (see next question)."
+					},
+					"2": {
+						"title": "Can we reuse the activities of the Vittascience community?",
+						"answer": "Yes, all activities visible in the Vittascience resource bank are under a Creative Commons license. Two cases are possible: <ul> <li> CC BY-NC-SA: the author wants the content to be shared for non-commercial use only and on condition of mentioning his name. The content is subject to change. </li> <li> CC BY-NC-ND: The author wants the content to be shared for non-commercial use only and on condition of mentioning his name. The content cannot be changed. </li> </ul>"
+					},
+					"3": {
+						"title": "Where can I find the source code for the Classroom module?",
+						"answer": "The source code for the Classroom module is not available at the moment. You can find many open-source modules of the Vittascience platform on <a href=\"https://github.com/vittascience\"> the Vittascience GitHub folder </a>, don't hesitate to contribute!"
+					}
+				}
+			},
+			"section_title": "Accounts",
+			"question_list": {
+				"1": {
+					"title": "How to connect to the Classroom module?",
+					"answer": "It is possible to connect to the Classroom module in three ways:<ul><li>Classroom code: allows learners to register or connect quickly with only a pseudonym (without entering an email address). A classroom code is automatically generated for each class created by the teacher.</li><li>Vittascience account: allows the teacher to connect with a Vittascience account (email address and password). This method is reserved for teachers and is not suitable for learners (RGPD).</li><li>GAR account: the resource access manager (\"GAR\") aims to simplify and secure authenticated access between ENT users and their digital resources. More information is available on the page <a href=\"/gar\"> accessing Vittascience through the GAR </a>. </li> </ul> Respect for privacy is essential for Vittascience, for Find out more on the <a href=\"/privacy\"> page dedicated to the protection of personal data </a>."
+				},
+				"2": {
+					"title": "Can I use Vittascience without an account?",
+					"answer": "Without an account, it is possible to use the Schedule page and access Vittascience Educational Resources. However, you will need an account to complete classroom activities, save your achievements, and share your content. Your learners do not need to create a Vittascience account if you invite them via the Classroom module."
+				},
+				"3": {
+					"title": "How to create an account?",
+					"answer": "Just click \"Subscribe\" on the Classroom module home page. You will need to choose the offer that suits you and provide some information.<ul><li>If you have opted for the free offer, an email will be sent to you to confirm your account. Just click on the link to confirm your account. Once your account is confirmed, you can explore the interface, create your activities and share them.</li><li>If you have opted for a paid offer, you can proceed to the creation of a quote for your establishment or upon purchase, then your account will be activated.</li></ul>"
+				},
+				"4": {
+					"title": "What is a teacher account?",
+					"answer": "Any Vittascience account created from an email address or from the GAR can be used as a teacher account. A teacher account has features for creating learner accounts, organizing activities and exchanging comments with his learners."
+				},
+				"5": {
+					"title": "What is a learner account?",
+					"answer": "A learner account allows you to carry out activities requested by teachers, explore Vittascience programming interfaces and share your own achievements. Only a pseudonym is required for the creation of a learner account. A 4-digit code is automatically generated to secure learner access, only the teacher can modify it."
+				},
+				"6": {
+					"title": "Forgot username or password?",
+					"answer": "If you have a Vittascience (teacher) account, you can receive a password recovery email via <a href=\"/passwordRecovery\">this link</a>. As a learner, you must ask your teacher to reset your 4-digit code."
+				},
+				"7": {
+					"title": "How do I change my password or other account settings?",
+					"answer": "To change password or other settings, go to <a href=\"/profile\">your profile page</a>. In the case of GAR, the settings are those of your ENT."
+				}
+			}
+		},
+		"3": {
+			"section_title": "Licenses and authorizations",
+			"question_list": {
+				"1": {
+					"title": "Can I make my own description or presentation of the Classroom module?",
+					"answer": "Yes, you may reuse the visuals for the Classroom module to create your own description, presentation, training module, tutorial, course or other content. If you wish to include activity content or images, please mention the author (see next question)."
+				},
+				"2": {
+					"title": "Can I reuse the activities of the Vittascience community?",
+					"answer": "Yes, all activities visible in the Vittascience resource bank are under a Creative Commons license. Two cases are possible:<ul><li>CC BY-NC-SA: the author wishes to share the content for non-commercial use only and on condition that their name is mentioned. The content may be modified.</li><li>CC BY-NC-ND: the author wishes to share the content for non-commercial use only and on condition that their name is mentioned. The content may not be modified.</li></ul>"
+				},
+				"3": {
+					"title": "Where can I find the Classroom module source code?",
+					"answer": "The source code of the Classroom module is not currently available. You can find many open-source modules of the Vittascience platform on <a href=\"https://github.com/vittascience\">the Vittascience Github repository</a>. Feel free to contribute!"
+				}
+			}
+		},
+		"title": "Frequently Asked Questions",
+		"hint": "Cannot find the answer to your question?<a href=\"/about?contact=1\">Contact us through this form</a>."
+	},
+	"login_popup": {
+		"title": "Login",
+		"details": "Enter your login details to access your Vittascience account.",
+		"form": {
+			"addressmail": "E-mail address",
+			"addressmail_placeholder": "exemple@domaine.com",
+			"password": "Password",
+			"password_placeholder": "Your password.",
+			"forgot_password": "I forgot my password.",
+			"btn_connect": "Log in"
+		},
+		"success": "Authentication was successful. Redirection...",
+		"error": "Error. Please verify your login details.",
+		"errorBeta": "You must be a beta tester to access this functionality.<a href='https://fr.vittascience.com/about#contact'>Contact the Vittascience team</a> to find out more."
+	},
+	"signup-popup": {
+		"title": "Registration",
+		"notice": "Please complete the following fields to create your Vittascience account.",
+		"firstName": "First name",
+		"lastName": "Last name",
+		"mail": "e-mail address",
+		"telephone": "Phone number",
+		"password": "Password",
+		"passwordConfirmed": "Confirmation",
+		"firstNamePlaceholder": "Your first name.",
+		"lastNamePlaceholder": "Your last name.",
+		"mailPlaceholder": "A confirmation email will be sent.",
+		"telephonePlaceholder": "Your phone number (optional).",
+		"passwordPlaceholder": "Minimum 8 characters. Uppercase, lowercase and numbers.",
+		"passwordConfirmedPlaceholder": "Repeat your password a second time.",
+		"mandatory": "Fields marked with a <span class=\"mandatory \"> * </span> are mandatory.",
+		"submit": "Confirm",
+		"back": "Back",
+		"title2nd": "Please provide us with some additional information",
+		"areYou": "Are you...",
+		"member": "Individual?",
+		"teacher": "A teacher?",
+		"teacher-grade": "Level of education",
+		"grades": {
+			"primary": "Primary school",
+			"middle": "Middle school",
+			"high": "High school",
+			"highbis": "Professionnal high school",
+			"higher": "Post-BAC"
+		},
+		"establishement": "Institution",
+		"establishementPlaceholder": "Search by institution name or city.",
+		"subject": "Subject",
+		"bio": "Mini-bio",
+		"bioPlaceholder": "Tell us a little about yourself, other users of the site will be able to find out a little more about your journey :) Maximum 800 characters.",
+		"profilPicture": "Profile picture (optional)",
+		"allowPictures": "Accepted formats: jpeg, jpg, png. Max. 10MB",
+		"allowPublicName": "Do you agree that your first and last name are public on the site?",
+		"allowNewsletter": "Would you like to receive our newsletter by email?",
+		"allowAlertMessage": "Would you like to receive email alerts when you receive new messages on the website?",
+		"allowMessageReceive": "Would you like to be able to be contacted by other users of the site?",
+		"confirmCGU": "By validating this form, you accept the <a target=\"_blank\" href=\"/cgu\">general conditions of use</a>.",
+		"errors": {
+			"mailUsed": "The e-mail {{ mail }} is already in use. Please choose another one.",
+			"mailUsedServer": "The email address provided already exists.",
+			"lastName": "The provided last name is incorrect.",
+			"firstName": "The provided first name is incorrect.",
+			"mailInvalid": "The email address is invalid.",
+			"passwordInvalid": "The password does not respect security constraints.",
+			"biographyInvalid": "The biography is incorrect.",
+			"telephoneInvalid": "The phone number is incorrect.",
+			"profilPictureInvalid": "The provided profile photo does not follow the format indicated.",
+			"establishementIncorrect": "The institution name is incorrect.",
+			"gradeIncorrect": "The level of education is incorrect.",
+			"subjectIncorrect": "The name of the taucht subject is incorrect."
+		},
+		"success": {
+			"main": "Your registration has been successfully registered! A confirmation link has been sent to you at <b>{{mail}}</b>",
+			"notice": "You must access this link before you can connect. If you cannot find the corresponding email, please check your spam folder."
+		}
+	},
+	"switchAccessibility": {
+		"title": "Accessibility",
+		"theme": "Theme",
+		"light_theme": "Light theme",
+		"dark_theme": "Dark theme",
+		"font": "Fonts",
+		"basic_font": "Basic",
+		"know_more": "Know more"
+	},
+	"words": {
+		"send": "send",
+		"settings": "settings",
+		"disconnect": "disconnect",
+		"help": "help",
+		"duplicate": "duplicate",
+		"delete": "delete",
+		"attribute": "attribute",
+		"modify": "modify",
+		"optional": "optional",
+		"evaluation": "evaluation",
+		"exercise": "exercice",
+		"return": "return",
+		"anonymize": "anonymiser",
+		"days": "days",
+		"hours": "hours",
+		"minutes": "minutes",
+		"seconds": "seconds",
+		"confirm": "confirm",
+		"username": "pseudonym",
+		"password": "Password"
+	}
+}

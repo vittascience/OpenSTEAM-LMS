@@ -1,0 +1,43 @@
+<div id="classroom-dashboard-help-panel" style="display:none;" class="dashboard-block help-panel-student">
+    <div class="teacher-contact-panel">
+
+    <h3 data-i18n="classroom.help.student.label"></h3>
+    <div id="about-contact-info-student"></div>
+    <form class="c-primary-form" id="about-contact-form-student">
+        <select id="help-student-select" style="width: 70%;">
+        </select>
+
+        <input type="text" id="subject-studenToTeacher" name="subject-studenToTeacher"
+            data-i18n="[placeholder]classroom.help.student.title" style="width: 70%;">
+        <input type="text" name="za78e-username-contact" autocomplete="off" value="za78e username"
+            id="za78e-username-contact-student" class="za78e-field" />
+        <input type="number" name="za78e-number-contact" autocomplete="off" max="10" min="0"
+            id="za78e-number-contact-student" class="za78e-field" />
+        <textarea name="message-studenToTeacher" id="message-studenToTeacher"
+            data-i18n="[placeholder]classroom.help.student.question" rows="15" cols="25"
+            style="resize: none; width: 100%;"></textarea>
+
+        <div class="btn btn-lg login-button c-btn-primary"
+            onclick="sendMailForm('za78e-number-contact-student','za78e-username-contact-student','about-contact-form-student','about-contact-info-student')"
+            style="align-self: flex-end;"><span data-i18n="words.send" class="text-capitalize"></span> <i
+                class="fas fa-chevron-right"></i>
+        </div>
+    </form>
+
+    <div id="footer-content" style="justify-content: space-around;width: 70%;flex-wrap: wrap;">
+        <div class="col">
+            <a class="footer-link text-uppercase d-block" href="/privacy" data-i18n="classroom.footer.privacy"></a>
+        </div>
+        <div class="col">
+            <a class="footer-link text-uppercase d-block" href="/cgu" target="_blank"
+                data-i18n="[html]classroom.footer.cgu"></a>
+        </div>
+        <div class="col" data-i18n="classroom.footer.copyright">
+        </div>
+    </div>
+</div>
+<div class="faq-panel">
+    <h2 class="c-text-secondary font-weight-bold text-center mt-5">FAQ</h2>
+    <div id="student-faq-container"></div>
+</div>
+</div>

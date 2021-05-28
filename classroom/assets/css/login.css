@@ -1,0 +1,566 @@
+/* PRESENTATION PAGE */
+
+/* Release announcement */
+.release-announcement-container{
+    margin: 0;
+    background: var(--bg-2);
+    height: calc(100vh - 66px);
+    display: grid;
+    grid-template-columns: 4fr 5fr;
+    position: relative;
+}
+
+.announcement-content{
+    display: flex;
+    flex-direction: column;
+    margin-top: 40%;
+    align-items: flex-end;
+    padding: 0px 20px 0px 0px;
+    position: relative;
+}
+
+.play-picto-background{
+    position: absolute;
+    left: 40%;
+    top: 0;
+    width: 30%;
+    z-index: 200;
+}
+
+.image-content{
+    background: url('../media/release-announcement-background.png') no-repeat top right;
+    background-size: cover;
+    height: 100%;
+}
+
+.announcement-text-1{
+    text-transform: uppercase;
+    color: var(--vitta-black);
+    font-size: 1.7rem;
+    font-weight: 300;
+    margin: 0;
+    z-index: 201;
+}
+
+.announcement-text-2{
+    text-transform: uppercase;
+    color: var(--vitta-blue-dark);
+    font-size: 2.4rem;
+    font-weight: 800;
+    margin: 0;
+    z-index: 201;
+}
+
+.announcement-text-3{
+    color: var(--vitta-orange-light);
+    font-size: 1.65rem;
+    font-weight: 700;
+    margin: 0;
+    z-index: 201;
+}
+
+.announcement-content a{
+    z-index: 201;
+}
+
+.announcement-skipping{
+    position: absolute;
+    top: calc(100% - 50px);
+    left: calc(50% - 12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--vitta-orange-light);
+    border: solid 1px var(--vitta-orange-light);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+}
+
+.announcement-skipping:hover{
+    text-decoration: none;
+    color: var(--vitta-orange);
+    border: solid 1px var(--vitta-orange);
+}
+
+@media (max-width: 910px) {
+    .release-announcement-container{
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr;
+        height: calc(100vh - 2em);
+    }
+
+    .announcement-content{
+        margin-top: 5%;
+        align-items: center;
+        padding: 0;
+    }
+
+    .image-content{
+        width: 100%;
+        background-position: center;
+    }
+}
+
+/* Jumbotron */
+
+#home-jumbotron {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: calc(100vh - 2em);
+    text-align: center;
+    background: no-repeat bottom center/100% url("../media/home_bg.png");
+}
+
+#interactive-elements-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#fake-blockly {
+    width: 200px;
+    height: 100px;
+    position: relative;
+}
+
+#fake-blockly-desc {
+    position: relative;
+    left: -65px;
+    top: 38px;
+    font-size: 0.8em;
+    font-weight: 600;
+    color: var(--text-3);
+    opacity: 0.5;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#fake-blockly-input {
+    border-color: transparent !important;
+    background: transparent !important;
+    position: relative;
+    left: 31px;
+    top: -46px;
+    font-size: 0.75em;
+    width: 74px;
+    font-weight: 600;
+    color: var(--text-0);
+}
+
+#arrow-try-change {
+    position: absolute;
+}
+
+#fake-code {
+    font-family: var(--monospace-font);
+    color: var(--text-0);
+    font-size: 1.5em;
+}
+
+#fake-display {
+    font-weight: 700;
+    color: var(--vitta-yellow);
+    font-size: 3em;
+    max-width: 33%;
+}
+
+#home-jumbotron h1 {
+    color: var(--text-1);
+    font-weight: 800;
+    font-size: 70px;
+    width: 65%;
+    margin: 0 auto;
+    line-height: 1.5em;
+}
+
+#home-jumbotron .sub-text {
+    color: var(--text-2);
+    font-weight: 400;
+    font-size: x-large;
+}
+
+#classroom-flow span {
+    font-weight: 800;
+    color: var(--text-0);
+    font-size: 1.2em;
+    text-transform: uppercase;
+    width: 50%;
+}
+
+
+#classroom-carousel {
+    background-color: var(--bg-2);
+}
+
+#classroom-carousel h3 {
+    font-weight: 800;
+    font-size: 1em;
+    text-transform: uppercase;
+}
+
+#classroom-carousel .classroom-carousel-text {
+    font-size: 1.2em;
+
+}
+
+/* carousel buttons */
+#classroom-carousel .slick-dots,
+.quotes-carousel .slick-dots {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    margin: 0;
+    padding: 1rem 0;
+    list-style-type: none;
+}
+
+#classroom-carousel .slick-dots li,
+.quotes-carousel .slick-dots li {
+    margin: 0 0.25rem;
+}
+
+#classroom-carousel .slick-dots button,
+.quotes-carousel .slick-dots button {
+    display: block;
+    height: 0.75em;
+    width: 0.75em;
+    border-radius: 50%;
+    background-color: #65656565;
+    border: none;
+    padding: 0;
+    color: transparent;
+}
+
+#classroom-carousel .slick-dots li.slick-active button {
+    background-color: var(--vitta-green);
+}
+
+.quotes-carousel .slick-dots li.slick-active button {
+    background-color: var(--text-0);
+}
+
+/* Helpers section */
+
+.theme-dark #classroom-helpers img {
+    padding: 10px;
+    background-color: var(--vitta-white);
+    border-radius: 20px;
+}
+
+#classroom-helpers #eduup-logo,
+#classroom-helpers #gar-logo {
+    display: block;
+    margin: 0 auto;
+    max-height: 70%;
+    width: auto;
+}
+
+#helpers {
+    font-weight: 800;
+    font-size: 2.9em;
+    color: var(--text-0);
+    text-transform: uppercase;
+    line-height: 1em;
+}
+
+#helpers span {
+    color: var(--vitta-orange-light);
+}
+
+
+/* Subscribe section */
+
+#classroom-subscribe {
+    background-color: var(--vitta-green);
+    color: var(--vitta-white);
+}
+
+#classroom-subscribe h3 {
+    font-weight: 800;
+    font-size: 3em;
+}
+
+#classroom-subscribe a {
+    border: 2px solid var(--vitta-white);
+    border-radius: 3em;
+    background: transparent;
+    color: var(--vitta-white);
+    padding: 0.5em 1em;
+    font-size: 1.2em;
+}
+
+
+/* Stats section [unused for now] */
+
+/* 
+
+#classroom-stats #stats {
+    list-style-type: none;
+}
+
+#classroom-stats #stats>li {
+    font-weight: 800;
+    font-size: 1.5em;
+    color: var(--text-0);
+    text-transform: capitalize;
+    text-align: center;
+}
+
+#classroom-stats #stats>li span {
+    font-size: 3em;
+    color: var(--vitta-green);
+
+}
+
+*/
+
+/* FAQ section */
+
+#classroom-faq h2 {
+
+    color: var(--vitta-orange-light);
+    font-weight: 800;
+    font-size: 4em;
+    text-align: center;
+}
+
+#classroom-faq .kit-faq-box {
+
+    background: var(--bg-0);
+    border: 1px solid #cccccc;
+    color: solid(--text-1);
+    padding: 15px 1em;
+}
+
+#classroom-faq .faq-box-dropdown {
+
+    background: transparent;
+    color: #cccccc;
+    border: 1px solid #cccccc;
+
+}
+
+/* LOGIN PAGE */
+
+#open-login-menu a {
+    margin: 1em;
+    filter: grayscale(1);
+    text-decoration: underline;
+}
+
+a.forgot-password {
+    filter: grayscale(1)
+}
+
+#classroom-desc {
+    text-align: center;
+    font-size: 1.4em;
+    align-self: stretch;
+    width: 100%;
+    font-weight: bolder;
+    color: var(--classroom-text-1);
+    height: 75px;
+}
+
+.inner-login-container {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-content: center;
+    width: 80%;
+    height: 450px;
+    margin: 10vh auto;
+    box-shadow: 0px 0px 10px #00000029;
+    border-radius: 1em;
+    overflow: hidden;
+    flex-wrap: wrap;
+}
+
+.classroom-close-btn {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    color: var(--bg-4);
+    border: 2px solid var(--bg-5);
+    border-radius: 50%;
+    font-size: 1.2rem;
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+    text-align: center;
+    background-color: var(--bg-1);
+    cursor: pointer;
+}
+
+#classroom-login-gar,
+#classroom-login-vittascience-account,
+#classroom-login-account,
+#classroom-create-account,
+#classroom-login-code {
+    /* border: 2px solid var(--bg-5); */
+    padding: 1em;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-content: center;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: inherit;
+    flex: 1;
+}
+
+.container-border-center#classroom-login-vittascience-account::before,
+.container-border-center#classroom-login-account::before {
+    content: 'OU';
+    position: absolute;
+    left: -2px;
+    color: var(--bg-5);
+    background-color: var(--bg-1);
+
+    border-top: 190px solid #d8d8d8;
+    border-bottom: 190px solid #d8d8d8;
+    width: 0px;
+    padding-right: 2px;
+    text-indent: -10px;
+}
+
+.container-border-center#classroom-login-vittascience-account::after,
+.container-border-center#classroom-login-account::after,
+#classroom-create-account::after {
+    content: 'OU';
+    position: absolute;
+    right: -2px;
+    color: var(--bg-5);
+    background-color: var(--bg-1);
+
+    border-top: 190px solid #d8d8d8;
+    border-bottom: 190px solid #d8d8d8;
+    width: 0px;
+    padding-right: 2px;
+    text-indent: -10px;
+}
+
+.container-border-left {
+    border-radius: 1em 0% 0%1em;
+    border-right-width: 0px !important;
+}
+
+.container-border-left-enable {
+    border-right-width: 2px !important;
+}
+
+.container-border-right {
+    border-radius: 0%1em 1em 0%;
+    border-left-width: 0px !important;
+}
+
+@media (max-width: 800px) {
+    #classroom-desc {
+        margin: 1em auto 0px;
+        width: 70%;
+    }
+
+    #classroom-login-gar,
+    #classroom-login-vittascience-account,
+    #classroom-login-account,
+    #classroom-create-account,
+    #classroom-login-code {
+        height: 100%;
+        max-height: 300px;
+        width: 100%;
+    }
+
+    .inner-login-container {
+        flex-direction: column;
+        width: 90%;
+        height: calc(90% - (70px + 1rem));
+        margin: 30px auto;
+        flex-wrap: nowrap;
+    }
+
+    #classroom-login-gar {
+        flex-direction: row;
+    }
+
+    .container-border-left {
+        border-radius: 1em 1em 0% 0%;
+        border-right-width: 2px !important;
+        border-bottom-width: 0px !important;
+    }
+
+    .container-border-left-enable {
+        border-bottom-width: 2px !important;
+    }
+
+    .container-border-right {
+        border-radius: 0% 0% 1em 1em;
+        border-left-width: 2px !important;
+        border-top-width: 0px !important;
+    }
+
+    .classroom-close-btn {
+        right: calc(5% - 10px);
+    }
+
+    label {
+        font-size: 1rem !important;
+    }
+
+    #center-container {
+        margin-bottom: 1rem;
+    }
+
+    .container-border-center#classroom-login-vittascience-account::before,
+    .container-border-center#classroom-login-account::before {
+        height: 2px;
+        margin: auto;
+        left: unset;
+        top: 0px;
+        margin: auto;
+        padding: 0 3px;
+
+        color: var(--bg-5);
+        background-color: var(--bg-1);
+
+        border: none;
+        border-left: 260px solid #d8d8d8;
+        border-right: 260px solid #d8d8d8;
+
+        width: unset;
+        text-indent: unset;
+        line-height: 0px;
+    }
+
+    .container-border-center#classroom-login-vittascience-account::after,
+    .container-border-center#classroom-login-account::after,
+    #classroom-create-account::after {
+        height: 2px;
+        margin: auto;
+        right: unset;
+        bottom: 0px;
+        padding: 0 3px;
+
+        color: var(--bg-5);
+        background-color: var(--bg-1);
+
+        border: none;
+        border-left: 260px solid #d8d8d8;
+        border-right: 260px solid #d8d8d8;
+
+        width: unset;
+        text-indent: unset;
+        line-height: 0px;
+
+    }
+}

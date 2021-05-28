@@ -1,0 +1,160 @@
+<div id="classroom-dashboard-activities-panel-teacher" style="display:none;" class="dashboard-block">
+    <div class="d-flex w-75 c-primary-form" style="margin: 0 auto;">
+        <input type="search" id="filter-activity-input" placeholder="Recherche..." class="flex-fill">
+
+        <button id="filter-activity" class="c-btn-primary" style="width: 3em;height: 3em;">
+            <i class="fas fa-search"></i>
+        </button>
+
+        <select name="filter-activity-select" id="filter-activity-select" class="c-primary-form">
+            <option value="desc" data-i18n="classroom.filter.desc"></option>
+            <option value="asc" data-i18n="classroom.filter.asc"></option>
+        </select>
+
+    </div>
+    </br>
+
+    <div class="buttons-interactions">
+
+        <button id="new-activity-panel1" onclick="createActivity()" class=" btn c-btn-outline-secondary"><span class="mr-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <div id="list-activities-teacher">
+
+    </div>
+</div>
+
+<div id="classroom-dashboard-activities-panel-library-teacher" style="display:none;" class="dashboard-block">
+</div>
+
+<div id="classroom-dashboard-new-activity-panel" style="display:none;margin-right:0px;"
+    class="activity-creation-form row dashboard-block">
+    <nav class="row w-50" style="margin: 0 auto;">
+        <div class="col-4 text-center"><span class="form-activity form-activity-activate"><b>1</b></span><span
+                data-i18n="classroom.activities.form.1"></span></div>
+        <div class="col-4">__________________________</div>
+        <div class=" col-4 text-center"><span class="form-activity form-activity-desactivate"><b>2</b></span>
+            <span data-i18n="classroom.activities.form.2"></span></div>
+    </nav>
+    <div class="form-group mb-2 part-content-index part-row c-primary-form" style="max-width: 60%;">
+        <div class="form-row mt-1">
+            <label for="part-content-input" class="tutorial-label">
+                <span data-i18n="classroom.activities.form.title.label"></span>
+            </label>
+            <input data-i18n="[placeholder]classroom.activities.form.title.placeholder" type="text"
+                id="activity-form-title" class="form-control part-title-input">
+        </div>
+        <div class="form-row mt-1">
+            <label for="part-content-input" class="tutorial-label">
+                <span data-i18n='classroom.activities.form.content.label'></span>
+            </label>
+            <textarea id="activity-form-content" class='part-content' width='100%' style='min-height: 60vh;'></textarea>
+        </div>
+        <div class="form-row mt-1">
+        </div>
+    </div>
+    <button class="new-activity-panel2 c-btn-primary"><span data-i18n="classroom.activities.form.button"></span> <i
+            class="fas fa-check"></i></button>
+</div>
+<div id="classroom-dashboard-new-activity-panel2" style="display:none;"
+    class="row flex-column dashboard-block class-creation-form-step2">
+    <nav class="row w-50" style="margin: 0 auto;">
+        <div class="col-4 text-center"><span class="form-activity form-activity-activate"><b>1</b></span><span
+                data-i18n="classroom.activities.form.1"></span></div>
+        <div class="col-4">__________________________</div>
+        <div class=" col-4 text-center"><span class="form-activity form-activity-desactivate"><b>2</b></span>
+            <span data-i18n="classroom.activities.form.2"></span></div>
+    </nav>
+    <h1 data-i18n="classroom.activities.form.success"></h1>
+    <div class="buttons">
+        <button id="new-activity-panel3" class="new-activity-panel3 c-btn-primary"><span
+                data-i18n="classroom.activities.form.attribute"></span> <i class="fas fa-chevron-right"></i></button>
+        <button onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')"
+            class="c-btn-primary"><span data-i18n="classroom.activities.form.return"></span><i
+                class="fas fa-chevron-right"></i></button>
+    </div>
+    <p data-i18n="classroom.activities.form.hint"></p>
+    <button class="c-btn-primary" onclick="createActivity()" data-i18n="classroom.activities.form.modify"></button>
+</div>
+<!-- <div id="classroom-dashboard-new-course-panel2" style="display:none;" class=" row dashboard-block">
+    <h1>Bravo, vous avez crée un parcours</h1>
+    <button id="new-course-attribute">Attribuer le parcours dès maintenant</button>
+    <button id="new-course-check2">Sauvegarder et fermer le parcours </button>
+    <p>Vous pourrez toujours plus tard attribuer ce parcours depuis le tableau de bord</p>
+</div> -->
+<div id="classroom-dashboard-new-activity-panel3" style="display:none;" class="dashboard-block">
+    <nav class="row w-50 mb-3" style="margin: 0 auto;">
+        <div class="col-4 text-center"><span class="form-activity form-activity-activate"><b>1</b></span><span
+                data-i18n="classroom.activities.form.1"></span></div>
+        <div class="col-4">__________________________</div>
+        <div class=" col-4 text-center"><span class="form-activity form-activity-desactivate"><b>2</b></span>
+            <span data-i18n="classroom.activities.form.2"></span></div>
+    </nav>
+    <div class="row w-50" style="margin: 0 auto;">
+
+        <div class="col-12 mb-5 text-center">
+            <button id="new-activity-attribute" class="btn btn-lg login-button c-btn-primary">
+                <span data-i18n="classroom.activities.form.select1"></span> (<span class="student-number">0</span> <span
+                    data-i18n="classroom.activities.form.select2"></span>)
+            </button>
+        </div>
+
+        <div class="col-12 mb-5 text-center c-primary-form">
+            <label for="introduction-activity-form"><span data-i18n="classroom.activities.form.instructions"></span>
+                <i data-i18n="words.optional"></i></label></br>
+            <textarea rows="3" class="col-12" id="introduction-activity-form"></textarea>
+        </div>
+
+        <div class="col-12 mb-5 text-center c-primary-form">
+            <div id="form-autocorrect">
+                <label for="isAutocorrection-activity-form"
+                    data-i18n="classroom.activities.form.autocorrect"></label></br>
+                <label class="switch-mini"><input type="checkbox" id="isAutocorrection-activity-form"
+                        onclick="autocorrectSwitch()">
+                    <span class="slider-mini round"></span>
+
+                </label>
+            </div>
+            <div class="d-flex">
+                <label for="isEval-activity-form" data-i18n="classroom.activities.form.nature"></label></br>
+                <div class="switcher">
+                    <input type="radio" name="isEval-activity-form" value="true" id="isEval-activity-form"
+                        class="switcher__input switcher__input--yin" checked="">
+                    <label for="isEval-activity-form" class="switcher__label text-capitalize"
+                        data-i18n="words.evaluation"></label>
+
+                    <input type="radio" name="isEval-activity-form" value="false" id="isExo-activity-form"
+                        class="switcher__input switcher__input--right">
+                    <label for="isExo-activity-form" class="switcher__label text-capitalize"
+                        data-i18n="words.exercise"></label>
+
+                    <span class="switcher__toggle"></span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-6 c-primary-form">
+            <label for="date-begin-activity-form" data-i18n="classroom.activities.form.dateBegin"></label>
+            <input type="date" id="date-begin-activity-form">
+        </div>
+
+        <div class="col-6 text-right">
+            <label for="date-end-activity-form" data-i18n="classroom.activities.form.dateEnd"></label>
+            <input type="date" id="date-end-activity-form">
+        </div>
+
+        <div class="col-6 d-flex justify-content-start mt-5">
+            <button class="btn login-button grey-button"
+                onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')"><i
+                    class="fas fa-angle-left"></i> <span class="text-capitalize"
+                    data-i18n="words.return"></span></button>
+        </div>
+
+        <div class="col-6 d-flex justify-content-end mt-5">
+            <button id="attribute-activity-to-students" class="btn login-button c-btn-primary"><span
+                    data-i18n="classroom.activities.form.attribute2"></span><i class="fas fa-angle-right"></i></button>
+        </div>
+    </div>
+</div>

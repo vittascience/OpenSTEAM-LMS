@@ -1,0 +1,416 @@
+<!-- page de garde -->
+<div id="notif-div"></div>
+<div id="home-container">
+    <div class="release-announcement-container">
+        <div class="announcement-content">
+            <p class="announcement-text-1" data-i18n="classroom.login.announcement.officialRelease"></p>
+            <p class="announcement-text-2" data-i18n="classroom.login.announcement.classroomModule"></p>
+            <p class="announcement-text-3" data-i18n="classroom.login.announcement.releaseDate"></p>
+            <a class="btn c-btn-primary mt-5" href="https://www.youtube.com/watch?v=rN3hhDZCRMc" target="_blank"><span data-i18n="classroom.login.announcement.discoverButton">Découvrir la vidéo sur Youtube</span> <i class="fas fa-chevron-right"></i></a>
+            <img class="play-picto-background" src="assets/media/play-icon.png" alt="Play icon">
+        </div>
+        <div class="image-content"></div>
+        <a href="#home-jumbotron" class="announcement-skipping">
+            <i class="fas fa-chevron-down fa-lg"></i>
+        </a>
+    </div>
+    <div id="home-jumbotron">
+        <div id="interactive-elements-container" style="flex-grow:1;">
+            <div id="fake-blockly">
+                <span id="fake-blockly-desc">afficher</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="200" viewBox="0 0 191.9 55.4">
+                    <g id="fake-blockly-svg">
+                        <path
+                            d="M31.8 55.4h-8.9a5.46 5.46 0 01-3.8-1.6L16 50.7a4.57 4.57 0 00-3.1-1.3H5.4A5.38 5.38 0 010 44V6.8a5.38 5.38 0 015.4-5.4h7.1a5.43 5.43 0 013.6 1.4l3.8 3.5a4.62 4.62 0 003 1.1h10.2a4.4 4.4 0 003.5-1.7L39 2.6A5.4 5.4 0 0143.2.5L186.5 0a5.38 5.38 0 015.4 5.4v37.7a5.38 5.38 0 01-5.4 5.4l-143.7-.1a4.82 4.82 0 00-3.2 1.3l-3.9 4a5.22 5.22 0 01-3.9 1.7zM5.3 2.4A4.44 4.44 0 00.9 6.8V44a4.44 4.44 0 004.4 4.4h7.5a5.46 5.46 0 013.8 1.6l3.1 3.1a4.57 4.57 0 003.1 1.3h8.9a4.82 4.82 0 003.2-1.3l3.9-4a5.52 5.52 0 013.9-1.6l143.7.1a4.44 4.44 0 004.4-4.4V5.5a4.44 4.44 0 00-4.4-4.4l-143.3.5a4.4 4.4 0 00-3.5 1.7l-2.4 3.1a5.45 5.45 0 01-4.3 2.1H22.7a5.43 5.43 0 01-3.6-1.4l-3.8-3.5a4.62 4.62 0 00-3-1.1l-7-.1z"
+                            fill="#24a069" />
+                        <path
+                            d="M185.9 23.9a16.35 16.35 0 00-16.4-16.4H79.3a16.35 16.35 0 00-16.4 16.4v.2a16.35 16.35 0 0016.4 16.4h90.2a16.35 16.35 0 0016.4-16.4v-.2zm-27 11.6a2 2 0 01-2 2h-65a2 2 0 01-2-2v-22a2 2 0 012-2h65a2 2 0 012 2z"
+                            fill="#e6e6e6" />
+                        <path fill="#fff" class="cls-3"
+                            d="M76.9 23a1.9 1.9 0 01.8 1.5 2.27 2.27 0 01-.6 1.6 2.17 2.17 0 01-3 0 1.82 1.82 0 01-.6-1.4 2.72 2.72 0 01.6-1.7l1.8-2.6H78L76.9 23zm6 0a1.9 1.9 0 01.8 1.5 2.27 2.27 0 01-.6 1.6 2.17 2.17 0 01-3 0 1.82 1.82 0 01-.6-1.4 2.72 2.72 0 01.6-1.7l1.8-2.6H84L82.9 23zM173.9 24.1a1.9 1.9 0 01-.8-1.5 2.11 2.11 0 01.6-1.6 2.17 2.17 0 013 0 1.82 1.82 0 01.6 1.4 2.72 2.72 0 01-.6 1.7l-1.8 2.6h-2.1zm-6 0a1.9 1.9 0 01-.8-1.5 2.11 2.11 0 01.6-1.6 2.17 2.17 0 013 0 1.82 1.82 0 01.6 1.4 2.72 2.72 0 01-.6 1.7l-1.8 2.6h-2.1z" />
+                    </g>
+                </svg>
+                <input type="text" id="fake-blockly-input" name="name" maxlength="20" placeholder="Bonjour !"
+                    value="Bonjour !" autocomplete="off" data-lpignore="true">
+            </div>
+            <span id="fake-code"><span style="color: #AC00B1;">print</span><span>(</span><span id="fake-code-text"
+                    style="color:#009651;" data-i18n="classroom.login.hello1"></span><span>)</span></span>
+            <span id="fake-display" data-i18n="classroom.login.hello2"></span>
+        </div>
+        <div style="flex-grow:1;">
+            <h1 data-i18n="[html]classroom.login.title"></h1>
+            <span class="sub-text" data-i18n="classroom.login.subtitle"></span>
+        </div>
+
+        <div id="open-login-menu" style="flex-grow:2;">
+            <button class="btn btn-lg c-btn-primary" id="home-connexion"><span
+                    data-i18n="classroom.login.login"></span> <i class="fas fa-chevron-right"></i></button></br>
+            <!--<a href="#">En savoir plus</a>-->
+        </div>
+
+    </div>
+    <div id="classroom-flow" class="row w-100 py-5 justify-content-md-center">
+        <div class="col-4 col-lg-3 text-center">
+            <img class="img-fluid" src="assets/media/create_activities.png" alt=""></br>
+            <span class="text-uppercase" data-i18n="[html]classroom.login.activities"></span>
+        </div>
+        <div class="col-4 col-lg-3 text-center">
+            <img class="img-fluid" src="assets/media/assign_activities.png" alt=""></br>
+            <span class="text-uppercase" data-i18n="[html]classroom.login.attribute"></span>
+
+        </div>
+        <div class="col-4 col-lg-3 text-center">
+            <img class="img-fluid" src="assets/media/visualise_activities.png" alt=""></br>
+            <span class="text-uppercase" data-i18n="[html]classroom.login.visualize"></span>
+        </div>
+    </div>
+    <div id="classroom-carousel">
+        <div class="container py-3">
+            <div class="features-carousel">
+                <div>
+                    <div class="row">
+                        <div class="col m-4">
+                            <img class="img-fluid" src="assets/media/create_activities-pc.png" alt="">
+                        </div>
+                        <div class="col mt-4">
+                            <div class="w-75 classroom-carousel-text ">
+                                <h3 class="text-uppercase" data-i18n="classroom.login.carousel.activities.title"></h3>
+                                <p data-i18n="[html]classroom.login.carousel.activities.content"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="row">
+                        <div class="col m-4">
+                            <img class=" img-fluid" src="assets/media/assign_activities-pc.png" alt="">
+                        </div>
+                        <div class="col mt-4">
+                            <div class="w-75 classroom-carousel-text ">
+                                <h3 class="text-uppercase" data-i18n="classroom.login.carousel.attribute.title"></h3>
+                                <p data-i18n="[html]classroom.login.carousel.attribute.content"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="row">
+                        <div class="col m-4">
+                            <img class=" img-fluid" src="assets/media/visualise_activities-pc.png" alt="">
+                        </div>
+                        <div class="col mt-4">
+                            <div class="w-75 classroom-carousel-text ">
+                                <h3 class="text-uppercase" data-i18n="classroom.login.carousel.visualize.title"></h3>
+                                <p data-i18n="[html]classroom.login.carousel.visualize.content"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="classroom-helpers">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-4">
+                    <div id="helpers" data-i18n="[html]classroom.login.helpers">
+                    </div>
+                </div>
+                <div class="col">
+                    <img id="eduup-logo" class="img-fluid" src="assets/media/eduUp.png">
+                </div>
+                <div class="col">
+                    <img id="ministry-logo" class="img-fluid" src="assets/media/logo_education_nationale.jpg">
+                </div>
+                <div class="col">
+                    <img id="gar-logo" class="img-fluid" src="assets/media/gar.png">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="classroom-subscribe">
+        <div class="container text-center py-5 ">
+            <h3 data-i18n="classroom.login.suscribe.title" class="text-uppercase"></h3>
+            <p data-i18n="classroom.login.suscribe.content" class="w-75 mx-auto"></p>
+            <a href="/pricing" class="btn" disabled><span data-i18n="classroom.login.suscribe.premium"></span> <i
+                    class="fas fa-chevron-right"></i></a>
+        </div>
+    </div>
+
+    <!--
+    <div id="classroom-stats">
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <ul id="stats">
+                        <li><span>30</span> établissements</li>
+                        <li><span>120</span> enseignants</li>
+                        <li><span>3000</span> élèves</li>
+                    </ul>
+                </div>
+                <div class="col-6">
+                    <div>
+                        <div class="quotes-carousel">
+                            <div>1</div>
+                            <div>2</div>
+                            <div>3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
+
+    <div id="classroom-faq">
+        <div class="container py-5 mb-3">
+            <h2 data-i18n="faqInfo.title"></h2>
+            <p class="text-center my-1" data-i18n="[html]faqInfo.hint"></p>
+        </div>
+    </div>
+
+
+</div>
+<!-- page de login à choix multiple -->
+<div id="classroom-login-container" style="display:none;">
+    <div class="inner-login-container">
+        <div id="classroom-login-code" class="container-border-left">
+            
+            <h3 class="font-weight-bold c-text-secondary" data-i18n="classroom.login.student"></h3>
+            <div class="c-secondary-form">
+                <img src="assets/media/orange_lock.png" class="icon-label">
+                <label for="secret_code" data-i18n="classroom.login.codeInput"></label></br>
+                <input type="text" placeholder="123ABC" name="secret_code" id="class-code" required>
+            </div>
+            <button class="btn c-btn-secondary" id="class-connexion" type="submit"><span data-i18n="words.confirm"></span>
+                <i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div id="classroom-login-vittascience-account" class="container-border-center">
+            <h3 class="font-weight-bold c-text-primary" data-i18n="classroom.login.teacher"></h3>
+            <p data-i18n="classroom.login.hasAccount"></p>
+            <span id="login-vittascience" class="btn c-btn-primary" role="button">
+                <span data-i18n="classroom.login.login"></span> <i class="fas fa-chevron-down"></i>
+            </span>
+        </div>
+        <div id="classroom-login-gar" class="container-border-right">
+            <img src="assets/media/logoGAR.png" alt="Logo GAR">
+            <span class="gar-presentation-text my-3" data-i18n="[html]classroom.login.gar"></span>
+        </div>
+        <button onclick="returnToConnectionPanel('#home-container')" class="btn close-login-classroom"><i
+                class="fas fa-times"></i></button>
+
+    </div>
+</div>
+<!-- page de login via un lien -->
+<div id="classroom-login-container-bis" style="display:none;">
+    <div class="inner-login-container">
+        <p id="classroom-desc"></p>
+        <div id="classroom-create-account" class="container-border-left container-border-left-enable">
+            <h3 class="font-weight-bold c-text-primary" data-i18n="classroom.login.signup"></h3>
+            <div class="c-primary-form">
+                <p data-i18n="classroom.login.firstVisit"></p>
+                <img src="assets/media/green_user.png" class="icon-label">
+                <label for="username" data-i18n="words.username" class="text-capitalize"></label></br>
+                <input type="text" placeholder="Vitta" name="username" id="new-user-pseudo-form" required>
+            </div>
+            <button class="btn c-btn-primary" id="create-user" type="submit"><span data-i18n="words.confirm"></span> <i
+                    class="fas fa-chevron-right"></i></button>
+            <span id="warning-pseudo-used" style="display:none;" data-i18n="classroom.login.error.used"></span>
+        </div>
+        <div id="classroom-login-account" class="container-border-right">
+            <div class="c-primary-form">
+                <h3 class="font-weight-bold c-text-primary" data-i18n="classroom.login.signin"></h3>
+                <p data-i18n="classroom.login.hasReturned"></p>
+
+                <img src="assets/media/green_user.png" class="icon-label">
+                <label for="username" data-i18n="words.username" class="text-capitalize"></label></br>
+                <input type="text" placeholder="Vitta" id="user-pseudo-form" name="secret_code" required></br>
+
+                <img src="assets/media/green_lock.png" class="icon-label">
+                <label for="username" data-i18n="words.password"></label></br>
+                <input type="password" placeholder="••••••••••" name="secret_code" id="user-password-form"
+                    required></br>
+                <a href="#" data-i18n="classroom.login.forgot"></a></br>
+                <span class="mt-2 mb-2 alert alert-warning mismatched-login" style="display:none;"
+                    data-i18n="classroom.login.error.badInput"></span>
+            </div>
+            <button class="btn c-btn-primary" id="connect-nongar-user"><span data-i18n="words.confirm"
+                    class="text-capitalize"></span> <i class="fas fa-chevron-right"></i></button>
+        </div>
+        <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
+                class="fas fa-times"></i></button>
+    </div>
+</div>
+<div id="login-container" style="display:none;position:relative;">
+    <div class="login-form" id="signupin-div">
+        <h1><span class="fa fa-sign-in-alt"></span><span data-i18n="login_popup.title"></span> <button
+                onclick="returnToConnectionPanel('#login-container')" class="btn close-login-classroom"><i
+                    class="fas fa-times"></i></button></h1>
+
+        <p data-i18n="login_popup.details"></p>
+        <p><a data-i18n="login-page.createAccount" href='#' onclick="displaySignupClass();"></a></p>
+        <div id="info-div">
+
+        </div>
+        <form id="login-form">
+            <label for="login-mail-input">
+                <span class="fa fa-at"></span> <span data-i18n="login_popup.form.addressmail"></span><span
+                    class="mandatory">*</span>
+            </label>
+            <input name='mail' style="margin-bottom:5px;"
+                data-i18n="[placeholder]login_popup.form.addressmail_placeholder" class="form-control" type="email"
+                id="login-mail-input">
+
+            <label for="login-pwd-input">
+                <span class="fa fa-key"></span> <span data-i18n="login_popup.form.password"></span><span
+                    class="mandatory">*</span>
+            </label>
+            <input name='password' data-i18n="[placeholder]login_popup.form.password_placeholder" class="form-control"
+                type="password" id="login-pwd-input">
+
+            <input type="text" name="za78e-username" autocomplete="off" value="" id="za78e-username" class="za78e-field"
+                placeholder="za78e username" />
+            <input type="number" name="za78e-number" autocomplete="off" max="10" min="0" id="za78e-number"
+                class="za78e-field" placeholder="za78e number" />
+
+            <div>
+                <a class="hint" href="/passwordRecovery" data-i18n="login_popup.form.forgot_password"></a>
+            </div>
+            <button type='button' style="margin-top:10px;" onclick="checkLogin();" class="btn vitta-button"
+                id="login-button" data-i18n="login_popup.form.btn_connect"></button>
+        </form>
+    </div>
+</div>
+
+<script>
+    /* CAROUSEL SETUP */
+    $(document).ready(function () {
+        $('.features-carousel').slick({
+            infinite: true,
+            dots: true,
+            arrows: false,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            fadeSpeed: 1000
+        });
+        $('.quotes-carousel').slick({
+            infinite: true,
+            dots: true,
+            arrows: false,
+            autoplay: true,
+            autoplaySpeed: 10000,
+            fadeSpeed: 1000
+        });
+    });
+
+    /* INTERACTIVE BLOCK */
+    $("#fake-blockly-input").on("input", (function () {
+        var text = $("#fake-blockly-input").val().trim();
+
+        /*
+        if (text == null || text == '') {
+            text = 'Bonjour !';
+            $("#fake-blockly-input").val(text)
+        }
+        */
+
+        $('#fake-code-text').html('\'' + text + '\'');
+        $('#fake-display').html(text);
+    }));
+</script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/8.1.0/i18next.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-i18next/1.2.1/jquery-i18next.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/i18next-xhr-backend/1.5.1/i18nextXHRBackend.min.js"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/i18next-browser-languagedetector/2.2.3/i18nextBrowserLanguageDetector.min.js">
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="assets/js/utils/translate.js"></script>
+<script src="assets/js/utils/get.js"></script>
+<script src="assets/js/scripts/dashboardActivities.js"></script>
+<script src="assets/js/scripts/displayPanel.js"></script>
+<script src="assets/js/lib/EasyAutocomplete-1.3.5/jquery.easy-autocomplete.min.js"></script>
+<script src="assets/js/scripts/signup.js"></script>
+<script src="assets/js/main/Loader.js"></script>
+<script src="assets/js/main/UIManager.js"></script>
+<script src="assets/js/main/User.js"></script>
+<script src="assets/js/main/ClassroomManager.js"></script>
+<script src="assets/js/main/Main.js"></script>
+<script src="assets/js/scripts/main-login.js"></script>
+<script src="assets/js/scripts/login.js"></script>
+<script src="assets/js/scripts/buttons.js"></script>
+<script>
+    UIManager.init().then((resolve) => {
+        UserManager.init().then((resolve) => {
+
+                Main.init().then((resolve) => {
+                    loginFaq()
+                    /* FAQ BOXES */
+                    var headers = document.getElementsByClassName("faq-box-header");
+                    $(headers).rotate({
+                        bind: {
+                            click: function () {
+                                var drop = $(this).find(".faq-box-dropdown");
+                                var content = $(this).parent().find(".faq-box-content");
+                                if (drop.hasClass("dropped")) {
+                                    drop.rotate({
+                                        angle: drop.getRotateAngle(),
+                                        animateTo: 0
+                                    });
+                                    content.fadeOut("slow", function () {
+                                        drop.removeClass("dropped");
+                                    });
+                                } else {
+                                    drop.rotate({
+                                        angle: drop.getRotateAngle(),
+                                        animateTo: 90
+                                    });
+                                    content.fadeIn("slow", function () {
+                                        drop.addClass("dropped");
+                                    });
+                                }
+                            }
+                        }
+                    });
+                    if ($_GET('link')) {
+                        findClassroomToConnect($_GET('link'))
+                    }
+                })
+            },
+            (reason) => {
+                console.log("UserManager failed to load: " + reason);
+                failedToLoad();
+            }
+        );
+    })
+
+    function findClassroomToConnect(linkC) {
+        $('#classroom-login-container').hide();
+        $('#home-container').hide();
+        Main.getClassroomManager().getClassroom(linkC).then(function (classroom) {
+            let link = window.location.origin + window.location.pathname + '?link=' + linkC
+            $('#classroom-login-container-bis').show();
+            let state = {};
+            var title = '';
+            history.pushState(state, title, link);
+            if (classroom != false) {
+                $('#classroom-desc').html(classroom[0].link.toUpperCase() + ' - CLASSE \"' + classroom[0].name +'\"');
+            } else {
+                $('#classroom-desc').html('Le code entré ne correspond à aucune classe.')
+                $('#classroom-login-account,#classroom-create-account').hide()
+ 
+            }
+        })
+    }
+</script>

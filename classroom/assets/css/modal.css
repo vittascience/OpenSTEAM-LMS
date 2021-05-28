@@ -1,0 +1,267 @@
+.vitta-modal {
+    width: 100%;
+    min-width: 100px;
+    max-width: 1200px;
+    height: auto;
+    max-height: calc(100% - 20vh);
+    display: none;
+    padding: 20px;
+    background: var(--bg-3);
+    box-shadow: 0 0 3px var(--shadow-color);
+    border-radius: 20px;
+    z-index: 1000;
+    overflow-y: auto;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 15vh auto;
+    overflow-x: hidden;
+}
+
+.vitta-modal.vitta-modal-warning .modal-content-div {
+    background-color: var(--bg-1);
+    border-color: var(--bg-2);
+    padding: 0.75rem 1.25rem;
+    border-radius: 10px;
+}
+
+@media (max-width: 800px) {
+    .vitta-modal button {
+        white-space: normal;
+    }
+}
+
+.vitta-modal-warning {
+    z-index: 2000 !important;
+}
+
+@media (min-width: 1000px) {
+    .vitta-modal {
+        width: 65%
+    }
+}
+@media (max-width: 1000px) {
+    .vitta-modal {
+        width: 70%
+    }
+}
+
+@media (max-width: 800px) {
+    .vitta-modal {
+        width: 80%;
+    }
+}
+
+@media (max-width: 600px) {
+    .vitta-modal {
+        width: 100%;
+    }
+}
+
+@media (min-width: 600px) {
+    .vitta-modal-warning {
+        width: 50%;
+    }
+}
+
+.vitta-modal-tall {
+    margin-top: 10vh;
+    max-height: calc(100% - 15vh)
+}
+
+.vitta-modal-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    flex-grow: 1;
+}
+
+.vitta-modal-title {
+    font-size: 20px;
+    color: var(--vitta-green);
+    align-items: center;
+    font-weight: bold;
+}
+
+.vitta-modal-title span {
+    margin-left: 5px;
+}
+
+.vitta-modal-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+}
+
+.vitta-modal-footer {
+    display: flex;
+    margin-top: 0.5rem;
+    flex-grow: 1;
+}
+
+.vitta-btn {
+    width: auto;
+    height: auto;
+    background-color: var(--bg-3);
+    border: 1px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.vitta-modal-exit-btn {
+    height: 38px;
+    width: 42px;
+}
+
+.vitta-btn:hover {
+    background-color: var(--vitta-orange-light) !important;
+}
+
+.modal-footer-div {
+    width: 100%;
+    display: flex;
+}
+
+.modal-content-div {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.modal-message-noUser {
+    position: absolute;
+    width: calc(100% + 10px);
+    height: calc(100% - 30px);
+    background-color: rgba(253, 253, 253, 0.8);
+    border-radius: 0.25rem;
+    border: 1px solid var(--bg-5);
+    margin: 0 0 -5px -5px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    z-index: 10;
+}
+
+.theme-dark .modal-message-noUser {
+    background-color: rgba(32, 32, 32, 0.8);
+}
+
+.modal-message-noUser span {
+    opacity: 100%;
+    color: var(--text-1);
+    font-size: 25px;
+    margin:auto;
+}
+/* Custom rules */
+/* Precise the modal affected like followed */
+
+div#modal-openproject .vitta-modal-footer .file-input, div#modal-openproject .vitta-modal-footer .file-preview {
+    display: flex;
+    flex-direction: column;
+}
+div#modal-openproject .vitta-modal-footer .modal-footer-div {
+    flex-direction: column;
+}
+div#modal-openproject .vitta-modal-footer .modal-footer-div .file-preview {
+    background-color: var(--bg-1);
+    border-radius: 10px !important;
+}
+
+div#modal-shareproject .tab-pane {
+    background-color: var(--bg-1);
+    border-left: 1px solid var(--bg-4);
+    border-bottom: 1px solid var(--bg-4);
+    border-right: 1px solid var(--bg-4);
+    border-radius: 0 10px 10px 10px;
+    padding: 0 10px 15px 10px;
+}
+div#modal-shareproject .nav-tabs {
+    border-bottom: 0 !important;
+}
+
+div#modal-shareproject #modal-shareproject-options-title b i {
+    transition: all 0.8s
+}
+div#modal-shareproject #modal-shareproject-options-title[aria-expanded='false'] b i {
+    transform: rotate(-90deg);
+}
+
+div#modal-gpsmap {
+    height: 70vh;
+}
+
+
+div#modal-gpsmap .vitta-modal-content {
+    height: 95%;
+}
+
+.modal-separator{
+    position: relative;
+    width: 100%;
+}
+
+.modal-separator::before{
+    position: absolute;
+    width:100%;
+    border-top: 2px solid #ccc;
+    content: "";
+    top:45%;
+    z-index: 1001;
+}
+
+.grey-cog{
+    color: #ccc;
+}
+
+.modal-separator span{
+    background-color: #fff;
+    color: #ccc;
+    font-weight: bold;
+    font-size: 1.7rem;
+    z-index: 1002;
+    padding: 0px 5px;
+}
+
+@media (max-width: 1000px) {
+    div#modal-blocklysettings {
+        width: 80%;
+    }
+}
+
+@media (max-width:  850px) {
+    div#modal-blocklysettings {
+        width: 90%;
+    }
+}
+
+@media (max-width: 769px) {
+    div#modal-blocklysettings #blocks-settings-style, div#modal-blocklysettings #blocks-settings-font, div#modal-blocklysettings #toolbox-settings {
+        border-left: 0 !important;
+        border-top: 1px solid var(--bg-5);
+        padding-top: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    div#modal-gpsmap {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+	div#modal-gpsmap {
+		width: 100%;
+	}
+	div#modal-gpsmap .map-container {
+		height: 35vh;
+	}
+}

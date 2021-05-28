@@ -1,0 +1,46 @@
+{
+    "require-dev": {
+        "phpunit/phpunit": "8.0.0",
+        "vittascience/vtuser": "dev-rewrite-services",
+        "vittascience/vtinterfaces": "dev-main",
+        "vittascience/vtclassroom": "dev-main",
+        "vittascience/vtlearn": "dev-main",
+        "vittascience/vutils": "dev-main"
+    },
+    "require": {
+        "doctrine/orm": "^2.6.2",
+        "symfony/yaml": "2.*",
+        "mikey179/vfsstream": "^1.6.8",
+        "monolog/monolog": "^2.0",
+        "chriskonnertz/bbcode": "^1.1",
+        "phpmailer/phpmailer": "^6.1",
+        "aiken/i18next": "dev-master",
+        "vlucas/phpdotenv": "^4.1",
+        "google/apiclient": "^2.0",
+        "jasig/phpcas": "^1.3",
+        "guzzlehttp/guzzle": "7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cmd\\": "cmd/",
+            "DAO\\": "DAO/",
+            "models\\": "models/",
+            "Database\\": "database/src/",
+            "VittaLogger\\": "vitta_logger/src/",
+            "Interfaces\\": "vendor/vittascience/vtinterface/src",
+            "User\\": "vendor/vittascience/vtuser/src",
+            "Python\\": "python/",
+            "Esp\\": "esp/",
+            "Learn\\": "vendor/vittascience/vtlearn",
+            "Utils\\": "vendor/vittascience/vutils/src",
+            "Classroom\\": "vendor/vittascience/vtclassroom/src",
+            "Plugins\\": "plugins"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "EntityManager\\Tests\\": "entity_manager/tests",
+            "EntityManager\\Tests\\Helpers\\": "entity_manager/tests/helpers"
+        }
+    }
+}

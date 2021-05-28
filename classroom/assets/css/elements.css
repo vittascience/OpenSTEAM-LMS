@@ -1,0 +1,180 @@
+/* Text */
+.c-text-primary {
+    color: var(--classroom-primary)
+}
+
+.c-text-secondary {
+    color: var(--classroom-secondary)
+}
+
+.c-text-tertiary {
+    color: var(--classroom-tertiary)
+}
+
+/* Buttons */
+.c-btn-primary {
+    background: var(--classroom-primary);
+    color: white;
+    border-radius: 256px;
+}
+
+.c-btn-outline-primary {
+    border: 2px solid var(--classroom-primary);
+    color: var(--classroom-primary);
+    background: transparent;
+}
+
+.c-btn-secondary {
+    background: var(--classroom-secondary);
+    color: white;
+    border-radius: 256px;
+}
+
+.c-btn-outline-secondary {
+    border: 2px solid var(--classroom-secondary);
+    color: var(--classroom-secondary);
+    background: transparent;
+}
+
+.c-btn-tertiary {
+    background: var(--classroom-tertiary);
+    color: white;
+    border-radius: 256px;
+}
+
+.c-btn-outline-tertiary {
+    border: 2px solid var(--classroom-tertiary);
+    color: var(--classroom-tertiary);
+    background: transparent;
+}
+
+.c-btn-red {
+    background: var(--classroom-red);
+    color: white;
+    border-radius: 256px;
+}
+
+.c-btn-outline-red {
+    border: 2px solid var(--classroom-tertiary);
+    color: var(--classroom-tertiary);
+    background: transparent;
+}
+
+.c-btn-outline-primary,
+.c-btn-primary,
+.c-btn-outline-secondary,
+.c-btn-secondary,
+.c-btn-outline-tertiary,
+.c-btn-tertiary,
+.c-btn-outline-red,
+.c-btn-red {
+    font-weight: 700;
+    border-radius: 256px;
+}
+
+.c-btn-outline-primary:focus,
+.c-btn-primary:focus,
+.c-btn-outline-secondary:focus,
+.c-btn-secondary:focus,
+.c-btn-outline-tertiary:focus,
+.c-btn-tertiary:focus,
+.c-btn-outline-red:focus,
+.c-btn-red:focus {
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(0, 0, 0, .25);
+}
+
+.c-btn-outline-primary:hover,
+.c-btn-primary:hover,
+.c-btn-outline-secondary:hover,
+.c-btn-secondary:hover,
+.c-btn-outline-tertiary:hover,
+.c-btn-tertiary:hover,
+.c-btn-outline-red:hover,
+.c-btn-red:hover {
+    filter: brightness(0.9);
+}
+
+/* Forms */
+
+.c-primary-form input[type="text"],
+.c-primary-form textarea,
+.c-primary-form input[type="datetime-local"],
+.c-primary-form input[type="color"],
+.c-primary-form input[type="email"],
+.c-primary-form select,
+.c-primary-form input[type="password"],
+.c-secondary-form input[type="text"],
+.c-secondary-form textarea,
+.c-secondary-form input[type="datetime-local"],
+.c-secondary-form input[type="color"],
+.c-secondary-form input[type="email"],
+.c-secondary-form select,
+.c-secondary-form input[type="password"],
+.c-tertiary-form input[type="text"],
+.c-tertiary-form textarea,
+.c-tertiary-form input[type="datetime-local"],
+.c-tertiary-form input[type="color"],
+.c-tertiary-form input[type="email"],
+.c-tertiary-form select,
+.c-tertiary-form input[type="password"] {
+    border: 2px solid var(--text-1);
+    border-radius: 0.5em;
+    margin: 0.5em;
+    padding: 0.2em 0.5em;
+}
+
+
+.c-primary-form input[type="text"],
+.c-primary-form textarea,
+.c-primary-form input[type="datetime-local"],
+.c-primary-form input[type="color"],
+.c-primary-form input[type="email"],
+.c-primary-form select,
+.c-primary-form input[type="password"] {
+    border-color: var(--classroom-primary);
+}
+
+.c-secondary-form input[type="text"],
+.c-secondary-form textarea,
+.c-secondary-form input[type="datetime-local"],
+.c-secondary-form input[type="color"],
+.c-secondary-form input[type="email"],
+.c-secondary-form select,
+.c-secondary-form input[type="password"]{
+    border-color: var(--classroom-secondary);
+}
+
+.c-tertiary-form input[type="text"],
+.c-tertiary-form textarea,
+.c-tertiary-form input[type="datetime-local"],
+.c-tertiary-form input[type="color"],
+.c-tertiary-form input[type="email"],
+.c-tertiary-form select,
+.c-tertiary-form input[type="password"] {
+    border-color: var(--classroom-tertiary);
+}
+
+.c-primary-form select,
+.c-secondary-form select,
+.c-tertiary-form select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url('../media/theme/dropdown_icon_fallback.svg');
+    background-repeat: no-repeat, repeat;
+    background-position: right .7em top 50%, 0 0;
+    background-size: 1em auto, 100%;
+    text-transform: uppercase;
+    padding-right: 2em;
+}
+
+.c-primary-form select {
+    background-image: url('../media/theme/dropdown_icon_primary.svg');
+}
+.c-secondary-form select {
+    background-image: url('../media/theme/dropdown_icon_secondary.svg');
+}
+.c-tertiary-form select {
+    background-image: url('../media/theme/dropdown_icon_tertiary.svg');
+}

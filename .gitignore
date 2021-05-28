@@ -1,0 +1,6 @@
+/vendor
+/node_modules
+.env 
+composer.lock
+/plugins
+classroom/assets/plugins

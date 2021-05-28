@@ -1,0 +1,122 @@
+<div id="classroom-dashboard-classes-panel-teacher" style="display:none;" class="dashboard-block classes-panel">
+    <div id="space-groupes"></div>
+    </select>
+
+    <div class="buttons-interactions">
+        <button class="btn c-btn-outline-primary teacher-new-classe">
+            <span data-i18n="classroom.classes.add"></span> <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+
+    </select>
+    <div class="list-classes mt-3">
+        <div class="class-item">
+            <div class="class-card-action action-new-class teacher-new-classe">
+                <i class="fas fa-plus fa-5x"></i>
+                <h4 id="classroom-card-class-title" data-i18n="classroom.classes.add"></h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="classroom-dashboard-form-classe-panel" style="display:none;"
+    class="mx-3 dashboard-block classes-panel class-creation-form">
+    <h3 data-i18n="classroom.classes.form.title"></h3>
+    <div class="form-group part-content-index part-row c-primary-form">
+        <div class="form-row">
+            <label for="classroom-form-name" class="tutorial-label" data-i18n="classroom.classes.form.name"></label>
+            <input type="text" id="classroom-form-name" class="form-control form-control-lg">
+        </div>
+        <div class="form-row">
+            <label for="classroom-form-school" class="tutorial-label" data-i18n="classroom.classes.form.school">
+            </label>
+            <input type="text" id="classroom-form-school" class="form-control form-control-lg">
+        </div>
+    </div>
+    <button class="new-student-modal c-btn-primary m-3"><i class="fas fa-user-plus"></i><span class="ml-1" data-i18n="classroom.classes.form.addStudent"></span> </button>
+    <div id="table-students">
+        <ul>
+            <li id="no-student-label" data-i18n="classroom.classes.form.noStudent"></li>
+        </ul>
+    </div>
+    <button class="new-classroom-form c-btn-primary m-3"><i class="fas fa-save"></i><span class="ml-1" data-i18n="classroom.classes.form.save"></span> </button>
+</div>
+
+<div id="classroom-table-panel-teacher" style="display:none; width:100%;"
+    class="row dashboard-block classes-panel class-stats-panel">
+    <div style="height: 60vh; overflow: scroll;padding: 10px;max-width: 80%;width:100%;">
+        <table>
+            <tr id="header-table-teach">
+            </tr>
+            <tbody id="body-table-teach">
+
+            </tbody>
+        </table>
+
+
+    </div>
+    <div id="classroom-panel-legend" class="row">
+        <div id="add-student-container" class="col">
+        </div>
+        <div class="col-auto">
+            <ul class="row legend" style="list-style:none;">
+                <li class="ml-3">
+                    <div class="bilan-legend bilan-3"></div>
+                    <span data-i18n="classroom.activities.veryGoodProficiency"></span>
+                </li>
+                <li class="ml-3">
+                    <div class="bilan-legend bilan-2"></div>
+                    <span data-i18n="classroom.activities.goodProficiency"></span>
+                </li>
+                <li class="ml-3">
+                    <div class="bilan-legend bilan-1"></div>
+                    <span data-i18n="classroom.activities.weakProficiency"></span>
+                </li>
+                <li class="ml-3">
+                    <div class="bilan-legend bilan-0"></div>
+                    <span data-i18n="classroom.activities.insufficientProficiency"></span>
+                </li>
+            </ul>
+            <ul class="row legend" style="list-style:none;">
+                <li class="ml-3">
+                    <div class="bilan-legend fas fa-pen"></div>
+                    <span data-i18n="classroom.activities.todo"></span>
+                </li>
+                <li class="ml-3">
+                    <div class="bilan-legend fas fa-stopwatch"></div>
+                    <span data-i18n="classroom.activities.waiting"></span>
+                </li>
+
+                <li class="ml-3">
+                    <input type="checkbox" id="is-anonymised" title="" class="mr-2"><label><span class="text-capitalize mr-2" data-i18n="words.anonymize"></span><i data-i18n="[title]classroom.activities.anonymise" class="fas fa-question-circle"></i> </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <p id="classroom-info">
+        <span data-i18n="classroom.activities.toCopy"></span> <span id="classroom-link-tocopy"><span
+                style="display:none;"
+                id="hidden-link-prefix"></span><span
+                class="classroom-link"></span></span>
+        <button onclick="navigatePanel('classroom-table-panel-teacher-code', 'dashboard-classroom-teacher')"
+            class="btn c-btn-primary" title="Agrandir le code"><i class="fas fa-expand"></i></button><button
+            id="code-copy" class="btn c-btn-primary" title="Copier le lien" class="js-copy"
+            data-target="#classroom-link-tocopy"><i class="far fa-copy"></i></button>
+    </p>
+
+</div>
+<div id="classroom-table-panel-teacher-code" style="display:none;"
+    class="row dashboard-block classes-panel class-stats-panel">
+    <button onclick="navigatePanel('classroom-table-panel-teacher', 'dashboard-classroom-teacher')"
+        class="btn c-btn-primary" title="Copier le lien" class="js-copy" data-target="#classroom-link-tocopy"><i
+            class="fas fa-backward"></i><span data-i18n="classroom.activities.toCopy"></span></button>
+    <div class="d-flex align-content-center text-center">
+        <div>
+            <span data-i18n="classroom.activities.toCopy"></span> </br>
+            <p style="font-size:200px;">
+                <span class="classroom-link"></span>
+            </p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,137 @@
+<!-- objet abonnement -->
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<abonnement xmlns="http://www.atosworldline.com/wsabonnement/v1.0/">
+    <idAbonnement>reference abonnement DCR</idAbonnement>
+    <!-- identifiant d'abonnement pour le DCR.-->
+    <!--Il est recommandé de le faire précéder d'un préfixe désignant le DCR-->
+    <commentaireAbonnement>commentaire</commentaireAbonnement>
+    <!-- commentaire libre du DCR-->
+    <idDistributeurCom>[codeSIREN_codeISNI]</idDistributeurCom>
+    <!-- Id du DCR utilisée par le GAR-->
+    <!--SIREN sur 9 caractères, séparateur "_", ISNI sur 16 caractères-->
+    <!-- soit 26 caractères au total-->
+    <!-- si INSI absent, coder 0000000000000000-->
+    <idRessource>ark:/49591/Vittascience.p</idRessource>
+    <!-- identifiant de la ressource (ark)-->
+    <typeIdRessource>ark</typeIdRessource>
+    <!-- type d'identifiant, généralement ark-->
+    <libelleRessource>Titre</libelleRessource>
+    <!-- titre de la ressource-->
+    <debutValidite>2017-09-01T00:00:00</debutValidite>
+    <!-- date de début, ISO 8601 AAAA-MM-DDTHH:MM:SS-->
+    <finValidite>2018-08-16T00:00:00</finValidite>
+    <!-- date de fin, ISO 8601 AAAA-MM-DDTHH:MM:SS-->
+    <uaiEtab>0560048Y</uaiEtab>
+    <uaiEtab>0350017D</uaiEtab>
+    <!-- liste uai-->
+    <categorieAffectation>non transferable</categorieAffectation>
+    <typeAffectation>ETABL</typeAffectation>
+    <!-- INDIV ou ETABL-->
+    <nbLicenceGlobale>ILLIMITE</nbLicenceGlobale>
+    <!-- soit licence globale, soit licence par type-->
+    <!-- (enseignant, élève, documentaliste)-->
+    <!--<nbLicenceEnseignant>10</nbLicenceEnseignant>-->
+    <!--<nbLicenceEleve>100</nbLicenceEleve>-->
+    <!--<nbLicenceProfDoc>2</nbLicenceProfDoc>-->
+    <!--< nbLicenceAutrePersonnel >4</ nbLicenceAutrePersonnel >-->
+    <!-- pour tous les nbLicence, un nombre ou ILLIMITE-->
+    <publicCible>ENSEIGNANT</publicCible>
+    <publicCible>ELEVE</publicCible>
+    <publicCible>DOCUMENTALISTE</publicCible>
+    <publicCible>AUTRE PERSONNEL</publicCible>
+    <!-- publicCible ENSEIGNANT, ELEVE, DOCUMENTALISTE, AUTRE PERSONNEL de 1 à 4
+valeurs-->
+</abonnement>
+
+<!-- Différentes commandes -->
+PUT /{idAbonnement} HTTP/1.1 <!-- Ajout d'un abonnement -->
+DELETE /{idAbonnement} HTTP/1.1 <!-- Suppression d'un abonnement, pas de corps de requete -->
+POST /{idAbonnement} HTTP/1.1<!-- Modification abonnement -->
+GET /abonnements{?debut=XX&fin=XX} HTTP/1.1 <!-- Listage des abonnements selon filtre -->
+GET /etablissements/etablissements.xml HTTP/1.1<!-- Listage des établissements connus du GAR -->
+
+<!-- Exemple de requete -->
+POST / HTTP/1.1
+Host: domain.com
+Date: Mon, 10 Dec 2015 14:25:01 GMT
+Content-Type: application/xml
+Content-Length: 3495
+Accept: application/json
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<abonnement xmlns="http://www.atosworldline.com/wsabonnement/v1.0/">
+    <idAbonnement>abonnement1</idAbonnement>
+    <commentaireAbonnement>commentaire1</commentaireAbonnement>
+    <idDistributeurCom>000000000_0000000000000000</idDistributeurCom>
+    <idRessource>ark:/ressource1</idRessource>
+    <typeIdRessource>ark</typeIdRessource>
+    <libelleRessource>ressource1</libelleRessource>
+    <debutValidite>2015-09-01T09:00:00</debutValidite>
+    <finValidite>2016-08-16T23:59:59</finValidite>
+    <uaiEtab>01200000X</uaiEtab>
+    <uaiEtab>03400000Y</uaiEtab>
+    <categorieAffectation>non transferable</categorieAffectation>
+    <typeAffectation>INDIV</typeAffectation>
+    <nbLicenceEnseignant>10</nbLicenceEnseignant>
+    <nbLicenceEleve>100</nbLicenceEleve>
+    <nbLicenceProfDoc>2</nbLicenceProfDoc>
+    <nbLicenceAutrePersonnel>4</nbLicenceAutrePersonnel>
+    <!--<nbLicenceGlobale>0</nbLicenceGlobale>-->
+    <publicCible>ELEVE</publicCible>
+    <publicCible>ENSEIGNANT</publicCible>
+    <publicCible>DOCUMENTALISTE</publicCible>
+    <publicCible>AUTRE PERSONNEL</publicCible>
+</abonnement>
+
+<!-- Exemple de réponse -->
+HTTP/1.1 200 OK
+Date: Fri, 16 Jun 2014 23:59:59 UTC
+Content-Type: application/json
+Content-Length : 321
+Server : monserveur
+{
+ "abonnement": {
+ "-xmlns": "http://www.atosworldline.com/wsabonnement/v1.0/",
+ "idAbonnement": "abonnement1",
+ "commentaireAbonnement": "commentaire1",
+ "idDistributeurCom": "000000000_0000000000000000",
+ "idRessource": "ark:/ressource1",
+ "typeIdRessource": "ark",
+ "libelleRessource": "ressource1",
+ "debutValidite": "2015-09-01T09:00:00",
+ "finValidite": "2016-08-15T23:59:59",
+ "uaiEtab": [
+ "01200000X",
+ "03400000Y"
+ ],
+ "categorieAffectation": "non transferable",
+ "typeAffectation": "INDIV",
+Référentiel technique, fonctionnel et de sécurité du GAR 4.0
+Informations détaillées pour les distributeurs technique PAGE 32 SUR 96
+Ministère de l'Éducation nationale - Diffusion restreinte
+ "nbLicenceEnseignant": "10",
+ "nbLicenceEleve": "100",
+ "nbLicenceProfDoc": "2",
+ "nbLicenceAutrePersonnel": "5",
+ "publicCible": ["ELEVE", "ENSEIGNANT", "DOCUMENTALISTE", "AUTRE PERSONNEL"]
+ }
+}
+
+<!-- Exemple de filtre pour une requete GET -->
+<filtres xmlns="http://www.atosworldline.com/wsabonnement/v1.0/">
+    <filtre>
+        <filtreNom>publicCible</filtreNom>
+        <filtreValeur>ELEVE</filtreValeur>
+    </filtre>
+    <filtreParDate>
+        <dateName>dateCreation</dateName>
+        <dateAvant>2015-08-25T09:00:00</dateAvant>
+        <dateApres>2016-08-26T09:00:00</dateApres>
+    </filtreParDate>
+    <filtreParDate>
+        <dateName>debutValidite</dateName>
+        <dateAvant>2015-09-01T09:00:00</dateAvant>
+    </filtreParDate>
+    <triPar>idAbonnement</triPar>
+    <tri>ASC</tri>
+</filtres>

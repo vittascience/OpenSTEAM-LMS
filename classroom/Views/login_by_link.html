@@ -1,0 +1,40 @@
+<!-- page de login via un lien -->
+<div id="classroom-login-container-bis" style="display:none;">
+    <p id="classroom-desc"></p>
+    <div class="inner-login-container">
+        <div id="classroom-create-account" class="container-border-left container-border-left-enable">
+            <div class="c-primary-form">
+                <p>Première viste ? Veuillez choisir un identifiant.</p>
+                <img src="./assets/media/green_user.png" class="icon-label">
+                <label for="username">Pseudonyme</label></br>
+                <input type="text" placeholder="Vitta" name="username" id="new-user-pseudo-form" required>
+            </div>
+            <button class="btn login-button" id="create-user" type="submit">Confirmer <i
+                    class="fas fa-chevron-right"></i></button>
+            <span id="warning-pseudo-used" style="display:none;">Ce pseudo est déja utilisé, veuillez en choisir un
+                autre</span>
+        </div>
+        <div id="classroom-login-account" class="container-border-right">
+            <div class="c-primary-form">
+
+                <p>De retour dans cette classe ?</p>
+
+                <img src="./assets/media/green_user.png" class="icon-label">
+                <label for="username">Pseudonyme</label></br>
+                <input type="text" placeholder="Vitta" id="user-pseudo-form" name="secret_code" required></br>
+
+                <img src="./assets/media/green_lock.png" class="icon-label">
+                <label for="username">Mot de passe</label></br>
+                <input type="password" placeholder="••••••••••" name="secret_code" id="user-password-form"
+                    required></br>
+                <a href="#">J'ai oublié mon mot de passe</a></br>
+                <span class="mt-2 mb-2 alert alert-warning mismatched-login" style="display:none;">Votre pseudo ou mot
+                    de passe est erroné.</span>
+            </div>
+            <button class="btn login-button c-btn-primary" id="connect-nongar-user">Confirmer <i
+                    class="fas fa-chevron-right"></i></button>
+        </div>
+        <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
+                class="fas fa-times"></i></button>
+    </div>
+</div>
