@@ -96,7 +96,7 @@ Run `composer install` to download all the needed PHP dependencies.
 Then, run `npm install` to download all the needed JavaScript dependencies (for instance for the gulp build...).
 
 Now you should be able to access the lms on your browser in ```http://steamlms/classroom```
-The default account login is ```the email you provide here ADMIN_EMAIL``` and password is ```the password you provided here ADMIN_PASSWORD``` => Don't forget to remove this account in your database before pushing it online.
+The default account login is ```the email you provide here ADMIN_EMAIL``` and password is ```the password you provided here ADMIN_PASSWORD```
 
 ## Build
 
