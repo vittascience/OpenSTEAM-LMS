@@ -68,6 +68,10 @@ VS_MAIL_PORT=
 VS_MAIL_TYPE=
 VS_MAIL_ADDRESS=
 VS_MAIL_PASSWORD=
+# setup the new admin data
+ADMIN_PSEUDO=PSEUDO_DE_VOTRE_CHOIX
+ADMIN_PASSWORD=MOT_DE_PASSE
+ADMIN_EMAIL=EMAIL
 ```
 
 Don't forget to fill/change these constants with relevant information (at least all the VS_DB)
