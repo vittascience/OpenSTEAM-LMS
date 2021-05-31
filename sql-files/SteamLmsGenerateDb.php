@@ -3,7 +3,7 @@ require("./vendor/autoload.php");
 use Dotenv\Dotenv;
 
 // Load .env file data
-$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv = Dotenv::createImmutable(__DIR__."/../");
 $dotenv->safeLoad();
 
 class SteamLmsGenerateDb{
@@ -59,7 +59,7 @@ class SteamLmsGenerateDb{
         $this->db = $this->getConnection(true);
 
         // get the content of sql file and insert the tables in db
-        $this->queryFile = file_get_contents("steam-lms-generate-db.sql");
+        $this->queryFile = file_get_contents("sql-files/steam-lms-generate-db.sql");
         $req = $this->db->prepare($this->queryFile);
         $req->execute();
         
