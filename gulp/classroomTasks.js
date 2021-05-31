@@ -320,20 +320,26 @@ class AutoBuildManager {
      */
     loadPluginsList() {
         return new Promise((resolve, reject) => {
-            fs.readdir(this.pluginFolder, (err, files) => {
-                files.forEach(file => {
-                    let currentPlugin = {
-                        name: file,
-                        views: [],
-                        css: [],
-                        js: [],
-                        images: [],
-                        controllers: [],
-                        entities: []
-                    };
-                    this.pluginsList.push(currentPlugin);
-                });
-                resolve();
+            fs.access(this.pluginFolder, (err) => {
+                if(err){
+                    resolve();
+                }else{
+                    fs.readdir(this.pluginFolder, (err, files) => {
+                        files.forEach(file => {
+                            let currentPlugin = {
+                                name: file,
+                                views: [],
+                                css: [],
+                                js: [],
+                                images: [],
+                                controllers: [],
+                                entities: []
+                            };
+                            this.pluginsList.push(currentPlugin);
+                        });
+                        resolve();
+                    });
+                }
             });
         });
     }
