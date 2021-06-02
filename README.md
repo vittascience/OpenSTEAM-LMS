@@ -80,6 +80,8 @@ Don't forget to fill/change these constants with relevant information (at least 
 
 3. 🏗️ Add steamlms:80 as a VirtualHost in your XAMPP/MAMP/hosting software
 
+4. Make sure that PHP is running a version 7.x (with x above 2).
+
 ## Database setup
 
 To setup the database, just load the .sql file that is in the folder ```sql-files``` at the root of the repository. To avoid any issue, it it very important to disactivate the foreign key check.
