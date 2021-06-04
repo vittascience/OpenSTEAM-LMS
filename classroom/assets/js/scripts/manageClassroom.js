@@ -238,24 +238,26 @@ $('body').on('click', '.save-student-in-classroom', function () {
 
 })
 
+/**
+ * Order the current user array of activities to fit the current classroom index of activities
+ * @param {Object} activities - The current user array of activities
+ * @param {array} indexes - The current classroom index of activities
+ * @returns {array} - The current user array of activities ordered to fit the current classroom index of activities
+ */
 function reorderActivities(activities, indexes) {
-    let arrayActivities = new Array()
-    let arrayActivitiesbis = new Array()
-    indexes.forEach(element => {
-        arrayActivities.push(element)
-        arrayActivitiesbis.push(element)
-    })
-    activities.forEach(element => {
-        let i = 0
-        arrayActivities.forEach(elbis => {
-
-            if (elbis.id == element.reference) {
-                arrayActivitiesbis[i] = element
+    let orderedActivities = [];
+    for(let i=0; i<indexes.length; i++){
+        for(activity of activities){
+            if(activity.reference == indexes[i].id){
+                orderedActivities[i] = activity;
+                break;
+            }else{
+                orderedActivities[i] = false;
             }
-            i++
-        })
-    })
-    return arrayActivitiesbis
+        
+        };
+    }
+    return orderedActivities;
 }
 //ne peut attribuer une activité qu'une fois pour le dashboard
 //faudrait ajouter une notif "cette activité lui a déja été attribuée"
@@ -275,8 +277,12 @@ function listIndexesActivities(students) {
 
             }
         })
-    })
-    return indexArraybis
+    });
+    // sorting the index array by date
+    indexArraybis.sort((a, b) => {
+        return (a.id > b.id) ? 1 : -1;
+    });
+    return indexArraybis;
 }
 
 function addUserAndGetDashboard(link) {
@@ -422,67 +428,110 @@ function filterSandboxInList(keywords = [], orderBy = 'id', asc = true) {
 
 }
 
+/**
+ * Display the teacher dashboard in the classroom tab
+ * @param {array} students - Array of students in a classroom
+ */
 function displayStudentsInClassroom(students) {
-    $('#body-table-teach').html('') //clean the display
-    $('#add-student-container').html('') //clean the display
-    $('#header-table-teach').html('<th class="table-title" style="max-width: 250px; font-size: 19pt; text-align: left; height: 3em;" data-i18n="classroom.activities.title">Activités</th>')
-    let index = 0;
-    let arrayIndexesActivities = listIndexesActivities(students)
+    $('#body-table-teach').html(''); //clean the display
+    $('#add-student-container').html(''); //clean the display
+    $('#header-table-teach').html('<th class="table-title" style="max-width: 250px; font-size: 19pt; text-align: left; height: 3em;" data-i18n="classroom.activities.title">Activités</th>');
+    // get the current classroom index of activities
+    let arrayIndexesActivities = listIndexesActivities(students);
+
+    // create the current classroom index of activities with the activities id
+    let activitiesIndexWithId = [];
+    for(let i=0; i<arrayIndexesActivities.length; i++){
+        for(let student of students){
+            if(activitiesIndexWithId[i]){
+                break;
+            }else{
+                for(let activity of student.activities){
+                    if(activity.reference == arrayIndexesActivities[i].id){
+                        activitiesIndexWithId.push({
+                            "title": activity.activity.title,
+                            "id": activity.activity.id,
+                            "reference": activity.reference
+                        });
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    // sort the students by their name (it doesn't seem to work yet)
     if (students[0].user.pseudo == "vittademo") {
         students.sort(function (a, b) {
             return (a.pseudo > b.pseudo) ? 1 : -1;
         })
     }
+
+
     students.forEach(element => {
-        let arrayActivities = reorderActivities(element.activities, arrayIndexesActivities)
-        let html = ''
-        let pseudo = element.user.pseudo
+        // reorder the current student activities to fit to the classroom index of activities
+        let arrayActivities = reorderActivities(element.activities, arrayIndexesActivities);
+        let html = '';
+        let pseudo = element.user.pseudo;
+        // shorten the current student nickname to fit in the table
         if (element.user.pseudo.length > 10) {
-            pseudo = element.user.pseudo.slice(0, 9) + "&#8230;"
+            pseudo = element.user.pseudo.slice(0, 9) + "&#8230;";
         }
+        // Add vittademo's head table cell if it's the current student
         if (element.user.pseudo == "vittademo") {
-            html = `<tr><td class="username row" data-student-id="` + element.user.id + `"><img class="col-2 propic" src="/public/content/img/alphabet/` + element.user.pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil"><div class="col-7 line_height34" title="` + element.user.pseudo + `">` + pseudo + ` </div> <div class="dropdown col "><i class="classroom-clickable line_height34 fas fa-exchange-alt" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+            html = `<tr><td class="username row" data-student-id="` + element.user.id + `"><img class="col-2 propic" src="${_PATH}assets/media/alphabet/` + element.user.pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil"><div class="col-7 line_height34" title="` + element.user.pseudo + `">` + pseudo + ` </div> <div class="dropdown col "><i class="classroom-clickable line_height34 fas fa-exchange-alt" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
             <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
         <li id="mode-apprenant" class="dropdown-item classroom-clickable col-12" href="#" onclick="modeApprenant()">Mode apprenant</li>
-      </div>
-      </div></td>`
+        </div>
+        </div></td>`;
+        // Add the current student head table cell
         } else {
-            html = `<tr><td class="username row" data-student-id="` + element.user.id + `"><img class="col-2 propic" src="/public/content/img/alphabet/` + element.user.pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil"><div class="col-7 line_height34" title="` + element.user.pseudo + `">` + pseudo + ` </div><div class="dropdown col"><i class="classroom-clickable line_height34 fas fa-cog" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+            html = `<tr><td class="username row" data-student-id="` + element.user.id + `"><img class="col-2 propic" src="${_PATH}assets/media/alphabet/` + element.user.pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil"><div class="col-7 line_height34" title="` + element.user.pseudo + `">` + pseudo + ` </div><div class="dropdown col"><i class="classroom-clickable line_height34 fas fa-cog" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
             <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
             <li class="col-12 pwd-display-stud" href="#">Votre mot de passe : <span class="masked">${element.pwd}  </span><i class="classroom-clickable fas fa-low-vision switch-pwd ml-2"></i></li>
             <li class="modal-student-password classroom-clickable col-12 dropdown-item" href="#">Régenérer le mot de passe</li>
         <li class="classroom-clickable col-12 dropdown-item" href="#"><span class="classroom-clickable" onclick="changePseudoModal('${element.user.pseudo}',${element.user.id})">Modifier le pseudo</span></li>
         <li class="dropdown-item modal-student-delete classroom-clickable col-12" href="#">Supprimer</li>
-      </div>
-      </div></td>`
+        </div>
+        </div></td>`;
         }
-        let activityNumber = 1
-        arrayActivities.forEach(el => {
+        let activityNumber = 1;
+        // Display the current student activities in the dashboard
+
+        // Loop in the classroom activities index (with ids) to generate the dashboard table header and body
+        for(let i=0; i<activitiesIndexWithId.length; i++){
             if (element.user.pseudo == "vittademo") {
-                if (el.activity) {
-                    $('#header-table-teach').append(`<th><div class="dropdown dropdown-act" style="width:30px;"><div id="dropdown-act-${activityNumber}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="span-act">Act.</br>n°${ activityNumber }</span><i style="display:none;font-size:2em;" class="fa fa-cog i-act" aria-hidden="true"></i><div class="dropdown-menu" aria-labelledby="dropdown-act-${activityNumber}"  data-id="${el.activity.id}" style="text-transform: none;">
-                    <li class="ml-5" style="border-bottom:solid 2px black;"><b>${ el.activity.title }</b></li>
-                    <li class="classroom-clickable col-12 dropdown-item " onclick="activityWatch(${el.activity.id})" ><i class="fas fa-eye"></i> Voir l'activité</li>
-                    <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${el.activity.id})"><i class="fas fa-pen"></i> Modifier l'activité</li>
-                <li class="classroom-clickable col-12 dropdown-item" onclick="attributeActivity(${el.activity.id},${el.reference})"><i class="fas fa-user-alt"></i> Modifier l'attribution</li>
-                <li class="dropdown-item classroom-clickable col-12" onclick="undoAttributeActivity(${el.reference},'${el.activity.title}')"><i class="fas fa-trash-alt"></i> Retirer l'attribution</li>
-              </div>
-              </div></th>`)
+                $('#header-table-teach').append(`
+                <th>
+                    <div class="dropdown dropdown-act" style="width:30px;">
+                        <div id="dropdown-act-${activityNumber}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="span-act">Act.</br>n°${ activityNumber }</span>
+                            <i style="display:none;font-size:2em;" class="fa fa-cog i-act" aria-hidden="true"></i><div class="dropdown-menu" aria-labelledby="dropdown-act-${activityNumber}"  data-id="${activitiesIndexWithId[i].id}" style="text-transform: none;">
+                            <li class="ml-5" style="border-bottom:solid 2px black;"><b>${ activitiesIndexWithId[i].title }</b></li>
+                            <li class="classroom-clickable col-12 dropdown-item " onclick="activityWatch(${activitiesIndexWithId[i].id})" ><i class="fas fa-eye"></i> Voir l'activité</li>
+                            <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activitiesIndexWithId[i].id})"><i class="fas fa-pen"></i> Modifier l'activité</li>
+                            <li class="classroom-clickable col-12 dropdown-item" onclick="attributeActivity(${activitiesIndexWithId[i].id},${activitiesIndexWithId[i].reference})"><i class="fas fa-user-alt"></i> Modifier l'attribution</li>
+                            <li class="dropdown-item classroom-clickable col-12" onclick="undoAttributeActivity(${activitiesIndexWithId[i].reference},'${activitiesIndexWithId[i].title}')"><i class="fas fa-trash-alt"></i> Retirer l'attribution</li>
+                        </div>
+                    </div>
+                </th>`);
                     activityNumber++
-                } else {}
             }
-            if (el.activity) {
-                html += '<td class="' + statusActivity(el) + ' bilan-cell classroom-clickable" data-state="' + statusActivity(el, false) + '" data-id="' + el.id + '" title="A rendre avant le ' + formatDay(el.dateEnd) + '"></td>'
+            // Display the current student activities in the dashboard
+            let currentActivity = arrayActivities[i];
+            if (currentActivity) {
+                html += '<td class="' + statusActivity(currentActivity) + ' bilan-cell classroom-clickable" data-state="' + statusActivity(currentActivity, false) + '" data-id="' + currentActivity.id + '" title="A rendre avant le ' + formatDay(currentActivity.dateEnd) + '"></td>';
             } else {
-                html += '<td class="no-activity bilan-cell" "></td>'
+                html += '<td class="no-activity bilan-cell" "></td>';
             }
-        });
-        for (let i = 0; i < 6; i++) {
-            html += '<td class="no-activity bilan-cell"></td>'
         }
-        html += '</tr>'
-        $('#body-table-teach').append(html)
-        index++
+        // addition of 6 "empty" cells at the end of the current table row
+        for (let i = 0; i < 6; i++) {
+            html += '<td class="no-activity bilan-cell"></td>';
+        }
+        // end of the current table row
+        html += '</tr>';
+        $('#body-table-teach').append(html);
     });
     $('#add-student-container').append(`<button id="add-student-dashboard-panel" class="btn c-btn-primary">Ajouter un apprenant</button>`);
     $('#header-table-teach').append(`<th colspan="7"> <button class="btn c-btn-primary dashboard-activities-teacher" onclick="pseudoModal.openModal('add-activity-modal')">Ajouter une activité</button></th>`)
