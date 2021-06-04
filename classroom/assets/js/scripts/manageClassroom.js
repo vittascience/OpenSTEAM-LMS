@@ -51,7 +51,8 @@ $('body').on('click', '#update-pseudo-close', function () {
 })
 
 //classroom modal-->supprimer
-$('body').on('click', '.modal-classroom-delete', function () {
+$('body').on('click', '.modal-classroom-delete', function (e) {
+    e.stopPropagation();
     let confirm = window.confirm("Etes vous sur de vouloir supprimer la classe?")
     if (confirm) {
         ClassroomSettings.classroom = $(this).parent().parent().parent().attr('data-link')
@@ -65,7 +66,8 @@ $('body').on('click', '.modal-classroom-delete', function () {
 })
 
 //classroom modal-->modifier
-$('body').on('click', '.modal-classroom-modify', function () {
+$('body').on('click', '.modal-classroom-modify', function (e) {
+    e.stopPropagation();
     ClassroomSettings.classroom = $(this).parent().parent().parent().attr('data-link')
     navigatePanel('classroom-dashboard-form-classe-panel', 'dashboard-classes-teacher')
 })
@@ -167,10 +169,18 @@ $('.new-classroom-form').click(function () {
             }
         });
     } else {
+        let currentClassroomIsBlocked;
+        for(let classroom of Main.getClassroomManager()._myClasses){
+            if(classroom.classroom.link == ClassroomSettings.classroom){
+                currentClassroomIsBlocked = classroom.classroom.isBlocked;
+            }
+        }
+        console.log(currentClassroomIsBlocked);
         Main.getClassroomManager().updateClassroom({
             'name': $('#classroom-form-name').val(),
             'school': $('#classroom-form-school').val(),
-            'link': ClassroomSettings.classroom
+            'link': ClassroomSettings.classroom,
+            'isBlocked': currentClassroomIsBlocked
         }).then(function (classroom) {
             let students = []
             let existingStudents = []
@@ -187,7 +197,9 @@ $('.new-classroom-form').click(function () {
                 }
             })
             Main.getClassroomManager().addUsersToGroup(students, existingStudents, classroom.link).then(function (response) {
-                if(!response.isUsersAdded){
+                console.log(response);
+                let noAdditionError = response.isUsersAdded ? response.isUsersAdded : response.noUser;
+                if(!noAdditionError){
                     displayNotification('#notif-div', "classroom.notif.classUpdatedButNotUsers", "error", `'{"classroomName": "${classroom.name}", "learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
                 }
                 else{
