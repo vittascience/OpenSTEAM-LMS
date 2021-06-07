@@ -1372,6 +1372,18 @@ i.line_height34 {
 
 }
 
+.blocking-class{
+    cursor: pointer;
+    border-radius:10em;
+    font-weight: 700;
+    border: 1px solid orange;
+    color:orange;
+}
+
+.greyscale{
+    filter: grayscale(0.8);
+}
+
 .close-login-classroom {
     position: absolute;
     right: 0px;

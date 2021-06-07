@@ -183,11 +183,15 @@ DisplayPanel.prototype.classroom_dashboard_sandbox_panel = function () {
 
 DisplayPanel.prototype.classroom_dashboard_form_classe_panel = function () {
     if (ClassroomSettings.classroom != null) {
-
         let classroom = getClassroomInListByLink(ClassroomSettings.classroom)[0]
         $('#classroom-form-name').val(classroom.classroom.name),
-            $('#classroom-form-school').val(classroom.classroom.school)
+        $('#classroom-form-school').val(classroom.classroom.school)
         $('#add-student-div').html(BASE_STUDENT_FORM)
+        if(classroom.classroom.isBlocked){
+            document.querySelector('#classroom-form-is-blocked').checked = true;
+        }else{
+            document.querySelector('#classroom-form-is-blocked').checked = false;
+        }
         classroom.students.forEach(function (student) {
             let html = `<div class="c-primary-form row col-12">
             <label class="col-5" data-i18n="classroom.modals.addStudent.pseudo">Pseudonyme</label>
@@ -196,6 +200,7 @@ DisplayPanel.prototype.classroom_dashboard_form_classe_panel = function () {
             $('#add-student-div').append(html)
         })
     } else {
+        document.querySelector('#classroom-form-is-blocked').checked = false;
         $('#classroom-form-name').val(''),
             $('#classroom-form-school').val('')
         $('#add-student-div').html(BASE_STUDENT_FORM)
@@ -225,6 +230,12 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
             let students = getClassroomInListByLink(link)[0].students
             displayStudentsInClassroom(students)
             $('.classroom-link').html(ClassroomSettings.classroom)
+            // Block classroom feature
+            if (getClassroomInListByLink(link)[0].classroom.isBlocked == false) {
+                $('#classroom-info').addClass('greyscale')
+            } else {
+                $('#classroom-info').removeClass('greyscale')
+            }
         }
 
 

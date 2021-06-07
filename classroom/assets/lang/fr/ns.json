@@ -96,6 +96,7 @@
 			"classUpdatedButNotUsers": "La classe {{classroomName}} a bien été mise à jour, mais pas les comptes associés (Votre compte ne vous permet pas d'avoir {{learnerNumber}} apprenants)",
 			"usersNotAdded": "L'apprenant n'a pas pu être ajouté (Votre compte ne vous permet pas d'avoir {{learnerNumber}} apprenants)",
 			"cantLoginLimitLearners": "Vous ne pouvez pas rejoindre la classe. Votre professeur a atteint son nombre maximum d'apprenants.",
+			"cantLoginClassroomBlocked": "Vous ne pouvez pas rejoindre la classe, votre professeur en a verrouillé l'accès.",
 			"classNotCreated": "Vous ne pouvez pas avoir plus d'une classe.",
 			"attributeActivityUndone": "L'activité a été désattribuée",
 			"pseudoUpdated": "Le nouveau pseudo de l'apprenant est {{newPseudo}}",
@@ -140,6 +141,7 @@
 				"school": "Nom de l'établissement",
 				"addStudent": "Ajouter un apprenant",
 				"noStudent": "Pas encore d'apprenants dans cette classe",
+				"isBlockedButton": "Limiter à ces apprenants, personne d'autre ne pourra rejoindre la classe.",
 				"save": "Sauvegarder la classe",
 				"return": "Retour à la classe"
 			}
