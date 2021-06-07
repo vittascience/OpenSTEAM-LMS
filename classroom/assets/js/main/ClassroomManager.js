@@ -367,8 +367,7 @@
                         }
                     });
                 } else {
-                    resolve([])
-
+                    resolve({"noUser": true});
                 }
             })
         }
