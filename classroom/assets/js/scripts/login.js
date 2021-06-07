@@ -78,7 +78,15 @@ $('#create-user').click(function () {
         if (result != false) {
             console.log("ezfused")
             if(!result.isUsersAdded){
-                displayNotification('#notif-div', "classroom.notif.cantLoginLimitLearners", "error");
+                switch (result.errorType) {
+                    case 'classroomBlocked':
+                        displayNotification('#notif-div', "classroom.notif.cantLoginClassroomBlocked", "error");
+                        break;
+                
+                    default:
+                        displayNotification('#notif-div', "classroom.notif.cantLoginLimitLearners", "error");
+                        break;
+                }
             }else{
                 window.open('/classroom/login.php', "_self");
             }

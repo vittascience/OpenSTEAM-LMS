@@ -565,6 +565,22 @@ $('body').on('change', '#action-teach-setting', function () {
     console.log('check')
 })
 
+/**
+ * Toggle the block class mode (to lock/unlock the access to the classroom)
+ */
+function toggleBlockClass() {
+    let classroom = getClassroomInListByLink($_GET('option'))[0].classroom;
+    if (classroom.isBlocked == true) {
+        classroom.isBlocked = false;
+        $('#classroom-info').addClass('greyscale');
+    } else {
+        classroom.isBlocked = true;
+        $('#classroom-info').removeClass('greyscale');
+    }
+    Main.getClassroomManager().updateClassroom(classroom).then(function (response) {
+        console.log(`Classroom locked: ${response.isBlocked}`);
+    });
+}
 
 function formatDay(da) {
     let d = new Date(da.date)

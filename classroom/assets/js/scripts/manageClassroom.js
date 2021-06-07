@@ -131,7 +131,8 @@ $('.new-classroom-form').click(function () {
     if (ClassroomSettings.classroom == null) {
         Main.getClassroomManager().addClassroom({
             'name': $('#classroom-form-name').val(),
-            'school': $('#classroom-form-school').val()
+            'school': $('#classroom-form-school').val(),
+            'isBlocked': document.querySelector('#classroom-form-is-blocked').checked
         }).then(function (classroom) {
             // If the backend detects that the user is not a premium user and that he already has one classroom
             if(classroom == false){
@@ -169,18 +170,11 @@ $('.new-classroom-form').click(function () {
             }
         });
     } else {
-        let currentClassroomIsBlocked;
-        for(let classroom of Main.getClassroomManager()._myClasses){
-            if(classroom.classroom.link == ClassroomSettings.classroom){
-                currentClassroomIsBlocked = classroom.classroom.isBlocked;
-            }
-        }
-        console.log(currentClassroomIsBlocked);
         Main.getClassroomManager().updateClassroom({
             'name': $('#classroom-form-name').val(),
             'school': $('#classroom-form-school').val(),
             'link': ClassroomSettings.classroom,
-            'isBlocked': currentClassroomIsBlocked
+            'isBlocked': document.querySelector('#classroom-form-is-blocked').checked
         }).then(function (classroom) {
             let students = []
             let existingStudents = []
