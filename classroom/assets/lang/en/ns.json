@@ -104,12 +104,15 @@
 			"classroomCreated": "The classroom {{classroomName}} has been created, as well as all associated accounts",
 			"classroomUpdated": "The classroom {{classroomName}} has been updated, along with all associated accounts",
 			"usersAdded": "Accounts have been created",
+			"usersAddedFromCsv": "The accounts were created from the csv file",
 			"activityDeleted": "The activity {{activityName}} has been removed",
 			"mustAttributeToStudent": "You must assign the activity to students",
 			"activityAttributed": "The activity {{activityTitle}} has been assigned to the listed learners",
 			"activityAttributionChanged": "The assignment of the activity {{activityTitle}} has been changed for the listed learners",
 			"activityCreated": "The activity {{activityTitle}} has been created",
-			"activityChanged": "Activity {{activityTitle}} has been changed"
+			"activityChanged": "Activity {{activityTitle}} has been changed",
+			"CsvFileMissing": "You did not choose a csv file",
+			"errorWithCsv": "Error while opening csv file: {{error}}"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
@@ -203,7 +206,9 @@
 			"veryGoodProficiency": "Very good proficiency",
 			"goodProficiency": "Good proficiency",
 			"weakProficiency": "Weak proficiency",
-			"insufficientProficiency": "Insufficient proficiency"
+			"insufficientProficiency": "Insufficient proficiency",
+			"addLearner": "Add a learner",
+			"exportCsv": "Export csv"
 		},
 		"filter": {
 			"desc": "From oldest to newest",
@@ -269,7 +274,17 @@
 			"addStudent": {
 				"title": "Add students",
 				"pseudo": "Pseudonym",
-				"addStudentButton": "Add student"
+				"addStudentButton": "Add student",
+				"addStudentByCsvButton": "Add a learner file (.csv)"
+			},
+			"addStudentByCsv": {
+				"title": "Add students with a .csv file",
+				"importStudentByCsvButton": "Importer learners"
+			},
+			"exportCsv": {
+				"title": "Export in csv format",
+				"exportLearners": "Download the list of learners",
+				"exportDashboard": "Download the dashboard"
 			},
 			"listClass": {
 				"title": "Switch in student mode",
