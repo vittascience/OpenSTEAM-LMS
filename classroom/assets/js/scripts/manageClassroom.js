@@ -245,6 +245,182 @@ $('body').on('click', '.save-student-in-classroom', function () {
 })
 
 /**
+ * Open the modal which allows to add users using a csv file
+ */
+function openCsvModal(){
+    pseudoModal.openModal('import-csv');
+}
+
+/**
+ * Add students to a classroom using a csv file
+ */
+function importLearnerCsv(){
+    if(ClassroomSettings.classroom){
+        csvToClassroom(ClassroomSettings.classroom).then((response) => {
+            pseudoModal.closeModal('import-csv');
+            Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
+                let students = getClassroomInListByLink(ClassroomSettings.classroom)[0].students;
+                displayStudentsInClassroom(students);
+                displayNotification('#notif-div', "classroom.notif.usersAddedFromCsv", "success");
+            });
+        })
+        .catch((response) => {
+            console.warn(response);
+        });
+    }
+}
+
+/**
+ * Process and send data from csv to the server
+ * @param {string} link 
+ */
+function csvToClassroom(link) {
+    return new Promise((resolve, reject) => {
+        let csvFile = document.getElementById('importcsv-fileinput').files[0];
+        if(csvFile){
+            var reader = new FileReader();
+            try {
+                reader.readAsText(csvFile);
+                reader.onload = function (event) {
+                    var csv = event.target.result;
+                    let json = csvJSON(csv);
+                    Main.getClassroomManager().addUsersToGroupByCsv(JSON.parse(json), link, "csv")
+                    .then((response) => {
+                        resolve(response);
+                    });
+                }
+            } catch (error) {
+                reject(`Error while opening the csv file! Reason: ${error}`);
+                displayNotification('#notif-div', "classroom.notif.errorWithCsv", "error", `'{"error": "${error}"}'`);
+            }
+        }else{
+            reject('No csv file given!');
+            displayNotification('#notif-div', "classroom.notif.CsvFileMissing", "error");
+        }
+    });
+}
+
+/**
+ * Convert a csv file into data to be sent to the server
+ * @param {*} csv 
+ * @returns {string} - list of learners and their passwords
+ */
+function csvJSON(csv) {
+
+    var lines = csv.split("\n");
+
+    var result = [];
+
+    // NOTE: If your columns contain commas in their values, you'll need
+    // to deal with those before doing the next step 
+    // (you might convert them to &&& or something, then convert them back later)
+    // jsfiddle showing the issue https://jsfiddle.net/
+    var headers = lines[0].split(/[,;]/);
+
+    for (var i = 1; i < lines.length; i++) {
+
+        var obj = {};
+        var currentline = lines[i].split(/[,;]/);
+
+        for (var j = 0; j < headers.length; j++) {
+            obj[headers[j]] = currentline[j];
+        }
+
+        result.push(obj);
+
+    }
+    return JSON.stringify(result); //JSON
+}
+
+/**
+ * Open the modal which allows to download csv files
+ */
+function openDownloadCsvModal(){
+    pseudoModal.openModal('export-csv');
+}
+
+/**
+ * Download the current classroom list of learners and close the export-csv modal
+ */
+function exportLearnerCsv(){
+    if(ClassroomSettings.classroom){
+        classroomToCsv(ClassroomSettings.classroom);
+        pseudoModal.closeModal('export-csv');
+    }
+}
+
+/**
+ * Download the current classroom dashboard and close the export-csv modal
+ */
+function exportDashboardCsv(){
+    if(ClassroomSettings.classroom){
+        dashboardToCsv(ClassroomSettings.classroom);
+        pseudoModal.closeModal('export-csv');
+    }
+}
+
+/**
+ * Generate and download a csv file containing the list of the learners in the classroom and their passwords
+ * @param {string} link - link of the classroom
+ */
+function classroomToCsv(link) {
+    let html = "apprenant;mot de passe \n"
+    let classroom = getClassroomInListByLink(link)[0]
+    for (let i = 0; i < classroom.students.length; i++) {
+        html += classroom.students[i].user.pseudo + ";" + classroom.students[i].pwd + "\n"
+    }
+    console.log(html)
+    let date = new Date();
+    let name = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear() + '-' + date.getHours() + 'h-' + date.getMinutes() + 'm.csv';
+    let element = document.createElement('a');
+    let encodedUri = 'data:application/csv;charset=utf-8,' + encodeURIComponent(html);
+    element.setAttribute('href', encodedUri);
+    element.setAttribute('download', name)
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
+
+/**
+ * Generate and download a csv file containing the classroom dashboard
+ * @param {string} link - link of the classroom
+ */
+function dashboardToCsv(link) {
+    let html = ""
+    let headHtml = "apprenant;"
+    let classroom = getClassroomInListByLink(link)[0]
+    let index = listIndexesActivities(classroom.students)
+    console.log(index)
+    for (let j = 1; j < index.length; j++) {
+        headHtml += index[j].title + ';'
+    }
+    headHtml += "\n"
+    for (let i = 0; i < classroom.students.length; i++) {
+        let arrayActivities = reorderActivities(classroom.students[i].activities, index)
+        html += classroom.students[i].user.pseudo + ";"
+        for (let j = 1; j < arrayActivities.length; j++) {
+            html += statusActivity(arrayActivities[j], 'csv') + ';'
+
+        }
+        html += "\n"
+    }
+    html = headHtml + html
+    console.log(html)
+    let date = new Date();
+    let name = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear() + '-' + date.getHours() + 'h-' + date.getMinutes() + 'm.csv';
+    let element = document.createElement('a');
+    let encodedUri = 'data:application/csv;charset=utf-8,' + encodeURIComponent(html);
+    element.setAttribute('href', encodedUri);
+    element.setAttribute('download', name)
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+
+}
+
+/**
  * Order the current user array of activities to fit the current classroom index of activities
  * @param {Object} activities - The current user array of activities
  * @param {array} indexes - The current classroom index of activities
@@ -539,7 +715,8 @@ function displayStudentsInClassroom(students) {
         html += '</tr>';
         $('#body-table-teach').append(html);
     });
-    $('#add-student-container').append(`<button id="add-student-dashboard-panel" class="btn c-btn-primary">Ajouter un apprenant</button>`);
+    $('#add-student-container').append(`<button id="add-student-dashboard-panel" class="btn c-btn-primary"><span data-i18n="classroom.activities.addLearner">Ajouter un apprenant</span></button>`);
+    $('#add-student-container').append(`<button id="download-csv" class="btn c-btn-secondary ml-2" onclick="openDownloadCsvModal()"><i class="fa fa-download" aria-hidden="true"></i><span class="ml-1" data-i18n="classroom.activities.exportCsv">Exporter csv</span></button>`);
     $('#header-table-teach').append(`<th colspan="7"> <button class="btn c-btn-primary dashboard-activities-teacher" onclick="pseudoModal.openModal('add-activity-modal')">Ajouter une activité</button></th>`)
 }
 

@@ -104,12 +104,15 @@
 			"classroomCreated": "La classe {{classroomName}} a été créée, ainsi que tous les comptes associés",
 			"classroomUpdated": "La classe {{classroomName}} a été mise à jour, ainsi que tous les comptes associés",
 			"usersAdded": "Les comptes ont été créés",
+			"usersAddedFromCsv": "Les comptes ont été créés d'après le fichier csv",
 			"activityDeleted": "L'activité {{activityName}} a été supprimée",
 			"mustAttributeToStudent": "Vous devez attribuer l'activité à des étudiants",
 			"activityAttributed": "L'activité {{activityTitle}} a été attribuée aux apprenants listés",
 			"activityAttributionChanged": "L'attribution de l'activité {{activityTitle}} a été modifiée pour les apprenants listés",
 			"activityCreated": "L'activité {{activityTitle}} a été créée",
-			"activityChanged": "L'activité {{activityTitle}} a été modifiée"
+			"activityChanged": "L'activité {{activityTitle}} a été modifiée",
+			"CsvFileMissing": "Vous n'avez pas choisi de fichier csv",
+			"errorWithCsv": "Erreur lors de l'ouverture du fichier csv : {{error}}"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",
@@ -203,7 +206,9 @@
 			"veryGoodProficiency": "Très bonne maîtrise",
 			"goodProficiency": "Maîtrise satisfaisante",
 			"weakProficiency": "Maîtrise fragile",
-			"insufficientProficiency": "Maîtrise insuffisante"
+			"insufficientProficiency": "Maîtrise insuffisante",
+			"addLearner": "Ajouter un apprenant",
+			"exportCsv": "Exporter csv"
 		},
 		"filter": {
 			"desc": "Du moins récent au plus récent",
@@ -269,7 +274,17 @@
 			"addStudent": {
 				"title": "Ajouter des étudiants",
 				"pseudo": "Pseudonyme",
-				"addStudentButton": "Ajouter l'apprenant"
+				"addStudentButton": "Ajouter l'apprenant",
+				"addStudentByCsvButton": "Ajouter un fichier d'apprenants (.csv)"
+			},
+			"addStudentByCsv": {
+				"title": "Ajouter des étudiants avec un fichier .csv",
+				"importStudentByCsvButton": "Importer les apprenants"
+			},
+			"exportCsv": {
+				"title": "Exporter au format csv",
+				"exportLearners": "Télécharger la liste des apprenants",
+				"exportDashboard": "Télécharger le tableau de bord"
 			},
 			"listClass": {
 				"title": "Passer en mode apprenant",

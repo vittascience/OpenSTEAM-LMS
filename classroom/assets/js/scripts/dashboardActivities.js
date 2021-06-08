@@ -308,30 +308,42 @@ function statusActivityForStudent(id, activityList) {
 
 function statusActivity(activity, state = true) {
     if (activity.correction == 0 || activity.correction == null) {
-        if (state)
+        if (state == true)
             return "fas fa-stopwatch"
+        if (state == "csv")
+            return "à faire"
         return "new-activity"
     }
     if (activity.correction == 1) {
-        if (state)
+        if (state == true)
             return "fas fa-pen";
+        if (state == "csv")
+            return "à corriger"
         return "todo-activity"
     }
     if (activity.note == 3) {
-        if (state)
+        if (state == true)
             return "bilan-3";
+        if (state == "csv")
+            return "très bien"
         return "done-activity"
     } else if (activity.note == 2) {
-        if (state)
+        if (state == true)
             return "bilan-2";
+        if (state == "csv")
+            return "bien"
         return "done-activity"
     } else if (activity.note == 1) {
-        if (state)
+        if (state == true)
             return "bilan-1";
+        if (state == "csv")
+            return "correct"
         return "done-activity"
     } else {
-        if (state)
+        if (state == true)
             return "bilan-0";
+        if (state == "csv")
+            return "à revoir"
         return "done-activity"
     }
 
