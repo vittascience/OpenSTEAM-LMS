@@ -6,6 +6,45 @@ const BASE_STUDENT_FORM = `<div class="green-form row col-12">
 const LINK_REGEX = /(\[iframe\].*link=)([a-f0-9]{13})/
 const NO_CLASS = "<p class='no-classes'> Vous devez d'abord créer une classe pour pouvoir utiliser cette fonctionalité"
 const classroomModals = {
+    'import-csv': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.modals.addStudentByCsv.title'
+        },
+        content: `<div class="text-center mx-auto w-100 mh-100 mb-2">
+                    <input type="file" id="importcsv-fileinput" name="importcsvfileinput"/><br>
+                    <button class="btn c-btn-secondary mt-2" onclick="importLearnerCsv()">
+                        <i class="fas fa-file-csv"></i> 
+                        <span data-i18n="classroom.modals.addStudentByCsv.importStudentByCsvButton">Importer les apprenants</span>
+                    </button>
+                </div>`,
+        footer: ``
+    },
+    'export-csv': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.modals.exportCsv.title'
+        },
+        content: `
+            <div class="text-center mx-auto w-100 mh-100 mb-2">
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <button class="btn c-btn-secondary mt-2" onclick="exportLearnerCsv()">
+                        <i class="fa fa-download" aria-hidden="true"></i> 
+                        <span data-i18n="classroom.modals.exportCsv.exportLearners">Exporter la liste des apprenants</span>
+                    </button>
+                    <div class="d-flex justify-content-center modal-separator mt-4 mb-4">
+                        <span data-i18n="classroom.modals.addActivity.orSeparator">OU</span>
+                    </div>
+                    <button class="btn c-btn-secondary mt-2" onclick="exportDashboardCsv()">
+                        <i class="fa fa-download" aria-hidden="true"></i> 
+                        <span data-i18n="classroom.modals.exportCsv.exportDashboard">Exporter le tableau de bord</span>
+                    </button>
+                </div>
+            </div>`,
+        footer: ``
+    },
     'settings-student-modal': {
         selector: '',
         header: {
@@ -132,13 +171,21 @@ const classroomModals = {
             title: 'classroom.modals.addStudent.title'
         },
         content: `
-        <div id="add-student-div">
+        <div id="add-student-div" class=">
         <div class="c-primary-form row col-12">
         
         <label class="col-5" data-i18n="classroom.modals.addStudent.pseudo">Pseudonyme</label>
         <input class="col-5 student-form-name" type="text">
     </div></div>
-    <button class="save-student-in-classroom c-btn-primary m-3"><i class="fas fa-save"></i> <span class="ml-1" data-i18n="classroom.modals.addStudent.addStudentButton">Ajouter l'apprenant</span></button>`,
+    <button class="save-student-in-classroom c-btn-primary m-3"><i class="fas fa-save"></i> <span class="ml-1" data-i18n="classroom.modals.addStudent.addStudentButton">Ajouter l'apprenant</span></button>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+        <div class="d-flex justify-content-center modal-separator mt-4 mb-4">
+            <span data-i18n="classroom.modals.addActivity.orSeparator">OU</span>
+        </div>
+        <button class="btn c-btn-secondary" onclick="openCsvModal();">
+            <span data-i18n="classroom.modals.addStudent.addStudentByCsvButton">Ajouter un fichier d'apprenants (.csv)</span><i class="fas fa-chevron-right ml-1"></i>
+        </button>
+    </div>`,
         footer: ``
     }
 

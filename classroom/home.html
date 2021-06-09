@@ -291,6 +291,10 @@
             <li id="no-student-label" data-i18n="classroom.classes.form.noStudent"></li>
         </ul>
     </div>
+    <div>
+        <input type="checkbox" name="classroom-form-is-blocked" id="classroom-form-is-blocked">
+        <label for="classroom-form-is-blocked" data-i18n="classroom.classes.form.isBlockedButton"></label>
+    </div>
     <button class="new-classroom-form c-btn-primary m-3"><i class="fas fa-save"></i><span class="ml-1" data-i18n="classroom.classes.form.save"></span> </button>
 </div>
 
@@ -308,7 +312,7 @@
 
     </div>
     <div id="classroom-panel-legend" class="row">
-        <div id="add-student-container" class="col">
+        <div id="add-student-container" class="col ml-3">
         </div>
         <div class="col-auto">
             <ul class="row legend" style="list-style:none;">
@@ -346,6 +350,7 @@
         </div>
     </div>
     <p id="classroom-info">
+        <i class="fa fa-lock blocking-class" onclick="toggleBlockClass()"></i>
         <span data-i18n="classroom.activities.toCopy"></span> <span id="classroom-link-tocopy"><span
                 style="display:none;"
                 id="hidden-link-prefix"></span><span

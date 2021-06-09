@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : mariadb
--- Généré le : ven. 28 mai 2021 à 06:51
+-- Généré le : ven. 28 mai 2021 à 07:21
 -- Version du serveur :  10.5.10-MariaDB-1:10.5.10+maria~focal
 -- Version de PHP : 7.4.16
 
@@ -112,14 +112,6 @@ CREATE TABLE `connection_tokens` (
   `date_inserted` timestamp NULL DEFAULT current_timestamp(),
   `is_expired` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Déchargement des données de la table `connection_tokens`
---
-
-INSERT INTO `connection_tokens` (`id`, `user_ref`, `token`, `last_time_active`, `date_inserted`, `is_expired`) VALUES
-(1, 1, 'd7669dbca9581d2c79859ea18d402faca5e2f19d157ce3110238f5ecf7cf1fab', '2021-05-28 06:37:35', '2021-05-28 06:37:35', 1),
-(2, 1, '95015c5b1e083374b0647eedd2d874bb79a6dc8b1e685b3cf65b240008af0456', '2021-05-28 06:40:03', '2021-05-28 06:40:03', 0);
 
 -- --------------------------------------------------------
 
@@ -299,13 +291,6 @@ CREATE TABLE `users` (
   `picture` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Déchargement des données de la table `users`
---
-
-INSERT INTO `users` (`id`, `firstname`, `pseudo`, `surname`, `password`, `insert_date`, `update_date`, `picture`) VALUES
-(1, 'admin', 'admin', 'admin', '$2y$10$c69YCRKKJ4hR3vnkORWbheT890C4odsFEYswTFZ9lcnScmR5rAPhi', '2021-05-23 13:57:40', '2021-05-23 13:57:40', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -332,13 +317,6 @@ CREATE TABLE `user_premium` (
   `date_end` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Déchargement des données de la table `user_premium`
---
-
-INSERT INTO `user_premium` (`id_user`, `date_begin`, `date_end`) VALUES
-(1, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -360,13 +338,6 @@ CREATE TABLE `user_regulars` (
   `is_admin` tinyint(1) NOT NULL DEFAULT 0,
   `private_flag` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Déchargement des données de la table `user_regulars`
---
-
-INSERT INTO `user_regulars` (`id`, `bio`, `email`, `telephone`, `confirm_token`, `contact_flag`, `newsletter`, `mail_messages`, `is_active`, `recovery_token`, `new_mail`, `is_admin`, `private_flag`) VALUES
-(1, 'admin par défaut', 'admin@admin.com', NULL, NULL, 1, 1, 0, 1, NULL, NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -556,7 +527,7 @@ ALTER TABLE `user_teachers`
 -- AUTO_INCREMENT pour la table `classrooms`
 --
 ALTER TABLE `classrooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `classroom_activities_link_classroom`
@@ -574,7 +545,7 @@ ALTER TABLE `classroom_activities_link_classroom_users`
 -- AUTO_INCREMENT pour la table `connection_tokens`
 --
 ALTER TABLE `connection_tokens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `interfaces_projects`
@@ -616,7 +587,7 @@ ALTER TABLE `learn_courses`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `user_teachers`

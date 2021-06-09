@@ -398,7 +398,18 @@
     function findClassroomToConnect(linkC) {
         $('#classroom-login-container').hide();
         $('#home-container').hide();
+        $('#create-user').show();
         Main.getClassroomManager().getClassroom(linkC).then(function (classroom) {
+            // Block classroom feature
+            $('#classroom-create-account .green-form').show();
+            $('#blocked-class').remove();
+            if (classroom[0].isBlocked == true) {
+                $('#classroom-create-account').after(
+                    "<div id='blocked-class'>Cette classe a été bloquée par l'enseignant.e qui l'a crée, tu ne peux donc pas créer de nouveau compte. <br> Si tu as déja un compte, essaye plutot de te connecter</div>"
+                );
+                $('#classroom-create-account .green-form').hide();
+                $('#create-user').hide();
+            }
             let link = window.location.origin + window.location.pathname + '?link=' + linkC
             $('#classroom-login-container-bis').show();
             let state = {};

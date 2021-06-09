@@ -68,6 +68,10 @@ VS_MAIL_PORT=
 VS_MAIL_TYPE=
 VS_MAIL_ADDRESS=
 VS_MAIL_PASSWORD=
+# setup the new admin data
+ADMIN_PSEUDO=PSEUDO
+ADMIN_PASSWORD=PASSWORD
+ADMIN_EMAIL=EMAIL
 ```
 
 Don't forget to fill/change these constants with relevant information (at least all the VS_DB)
@@ -84,7 +88,8 @@ Don't forget to fill/change these constants with relevant information (at least 
 
 ## Database setup
 
-To setup the database, just load the .sql file that is in the folder ```sql-files``` at the root of the repository. To avoid any issue, it it very important to disactivate the foreign key check.
+To setup the database, type this command in your shell: php sql-files/SteamLmsGenerateDb.php
+Make sure you added the necessay informations (below # setup the new admin data) in the .env file
 Then you have to check if the created database name match the VS_DB_NAME in the .env file.
 
 ## Dependencies
@@ -93,7 +98,7 @@ Run `composer install` to download all the needed PHP dependencies.
 Then, run `npm install` to download all the needed JavaScript dependencies (for instance for the gulp build...).
 
 Now you should be able to access the lms on your browser in ```http://steamlms/classroom```
-The default account login is ```admin@admin.com``` and password is ```admin``` => Don't forget to remove this account in your database before pushing it online.
+The default account login is ```the email you provide here ADMIN_EMAIL``` and password is ```the password you provided here ADMIN_PASSWORD```
 
 ## Build
 
