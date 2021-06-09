@@ -55,7 +55,7 @@ try {
         }
     }
     // Intercept action.
-    $logPath = $dotenv['LOG_PATH'] ? $dotenv['LOG_PATH'] : "/logs/log.log";
+    $logPath = $_ENV['LOG_PATH'] ?: "/logs/log.log";
     $log = Log::createSharedInstance($controller, $logPath, Logger::NOTICE);
 
     // get and scan the entire plugins folder
