@@ -112,7 +112,9 @@
 			"activityCreated": "L'activité {{activityTitle}} a été créée",
 			"activityChanged": "L'activité {{activityTitle}} a été modifiée",
 			"CsvFileMissing": "Vous n'avez pas choisi de fichier csv",
-			"errorWithCsv": "Erreur lors de l'ouverture du fichier csv : {{error}}"
+			"errorWithCsv": "Erreur lors de l'ouverture du fichier csv : {{error}}",
+			"cantGetPassword": "Erreur, vous ne pouvez pas voir votre mot de passe",
+			"cantResetPassword": "Erreur, vous ne pouvez pas réinitialiser votre mot de passe"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",
@@ -269,7 +271,10 @@
 				"title": "Paramètres du compte",
 				"lang": "Langue",
 				"description": "Pour modifier votre mot de passe ou d'autres paramètres de votre compte",
-				"accessButton": "Accéder à votre profil Vittascience "
+				"accessButton": "Accéder à votre profil",
+				"password": "Mot de passe",
+				"passwordDescription": "Voici ton mot de passe. Pense à le mémoriser, autrement seul ton professeur pourra te le redonner.",
+				"resetPassword": "Réinitialiser"
 			},
 			"addStudent": {
 				"title": "Ajouter des étudiants",

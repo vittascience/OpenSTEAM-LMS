@@ -56,15 +56,14 @@ const classroomModals = {
             <img class="flags-item" alt="flag" src="assets/media/flags/fr.png" onclick="changeLang('fr')">
             <img class="flags-item" alt="flag" src="assets/media/flags/en.png" onclick="changeLang('en')">
         </div>
-        <!--
-        <h4>Mot de passe</h4>
+        <h4 data-i18n="classroom.modals.settingsTeacher.password">Mot de passe</h4>
+        <p class="text-center" data-i18n="classroom.modals.settingsTeacher.passwordDescription"></p>
         <div class="d-flex justify-content-center">
             <div class="pwd-display-stud pwd-display-stud-modal" href="#">
-                <span class="modal-pwd masked">1234</span><i class="classroom-clickable fas fa-low-vision switch-pwd ml-2"></i>
+                <input type="password" class="modal-pwd" id="password-display-area"><i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
             </div>
             
-            <button class="btn c-btn-secondary" id="pwd-change-modal">Réinitialiser <i class="fas fa-chevron-right"></i></button>
-        </div>-->`,
+            <button class="btn c-btn-secondary" id="pwd-change-modal">Réinitialiser <i class="fas fa-chevron-right"></i></button>`,
         footer: ``
     },
     'settings-teacher-modal': {

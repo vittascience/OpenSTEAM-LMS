@@ -112,7 +112,9 @@
 			"activityCreated": "The activity {{activityTitle}} has been created",
 			"activityChanged": "Activity {{activityTitle}} has been changed",
 			"CsvFileMissing": "You did not choose a csv file",
-			"errorWithCsv": "Error while opening csv file: {{error}}"
+			"errorWithCsv": "Error while opening csv file: {{error}}",
+			"cantGetPassword": "Error, you cannot see your password",
+			"cantResetPassword": "Error, you cannot reset your password"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
@@ -269,7 +271,10 @@
 				"title": "Account settings",
 				"lang": "Language",
 				"description": "To change your password or other account settings",
-				"accessButton": "Access your Vittascience profile "
+				"accessButton": "Access your profile ",
+				"password": "Password",
+				"passwordDescription": "Here is your password. Remember to memorize it, otherwise only your teacher will be able to give it back to you.",
+				"resetPassword": "Reset"
 			},
 			"addStudent": {
 				"title": "Add students",

@@ -969,4 +969,48 @@ class ClassroomManager {
         })
     }
 
+    /**
+     * Get the password of a student using his id
+     * @param {number} userId - the id of the current student
+     */
+    getStudentPassword(userId){
+        return new Promise((resolve, reject) => {
+            // $.ajax({
+            //     type: "POST",
+            //     url: "/routing/Routing.php?controller=user&action=get_student_password",
+            //     data: {
+            //         "id": userId
+            //     },
+            //     success: function (response) {
+            //         resolve(JSON.parse(response.password));
+            //     },
+            //     error: function () {
+            //         reject();
+            //     }
+            // });
+            resolve('8888');
+        });
+    }
+
+    /**
+     * Reset the password of a student using his id
+     * @param {number} userId - the id of the current student
+     */
+    resetStudentPassword(userId){
+        // $.ajax({
+        //     type: "POST",
+        //     url: "/routing/Routing.php?controller=user&action=reset_student_password",
+        //     data: {
+        //         "id": userId
+        //     },
+        //     success: function (response) {
+        //         resolve(JSON.parse(response.password));
+        //     },
+        //     error: function () {
+        //         reject();
+        //     }
+        // });
+        resolve('7777');
+    }
+
 }

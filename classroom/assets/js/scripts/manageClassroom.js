@@ -773,3 +773,22 @@ function addStudentRow(pseudo) {
         </button>
     </li>`
 }
+
+/**
+ * Password display toggler : if an element that has the class password-display-toggler is clicked, it show/hide the password in the adjacent input element
+ */
+
+document.getElementsByTagName('body')[0].addEventListener('click', (e) => {
+    e.stopPropagation();
+    if(e.target.classList.contains('password-display-toggler')){
+        for(let childElt of e.target.parentNode.childNodes){
+            if(childElt.tagName == 'INPUT'){
+                if(childElt.getAttribute('type') == 'password'){
+                    childElt.setAttribute('type', 'text');
+                }else{
+                    childElt.setAttribute('type', 'password');
+                }
+            }
+        }
+    }
+});
