@@ -60,7 +60,7 @@ const classroomModals = {
         <p class="text-center" data-i18n="classroom.modals.settingsTeacher.passwordDescription"></p>
         <div class="d-flex justify-content-center">
             <div class="pwd-display-stud pwd-display-stud-modal" href="#">
-                <input type="password" class="modal-pwd" id="password-display-area"><i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
+                <input type="password" readonly class="modal-pwd" id="password-display-area"><i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
             </div>
             
             <button class="btn c-btn-secondary" id="pwd-change-modal">Réinitialiser <i class="fas fa-chevron-right"></i></button>`,
