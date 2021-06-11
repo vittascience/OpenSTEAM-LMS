@@ -84,7 +84,9 @@ Don't forget to fill/change these constants with relevant information (at least 
 
 3. 🏗️ Add steamlms:80 as a VirtualHost in your XAMPP/MAMP/hosting software
 
-4. Make sure that PHP is running a version 7.x (with x above 2).
+4. Make sure that PHP is running a version 7.x (with x above 2) and that NodeJS at least 14 is there.
+
+5. Choose a logs directory. By default, this is `/logs/`. You can change this value using the entry in the `.env` named  `LOG_PATH`, e.g. `LOG_PATH=/tmp/log`.
 
 ## Database setup
 
@@ -112,7 +114,9 @@ To do so, you just need to follow few steps:
 
 3. Type the command ```gulp build```
 
-4. Wait for the tasks to finish and voilà !
+4. Wait for the tasks to finish
+
+5.  If using php-fpm, restart or refresh it, e.g. `service php7.4-fpm restart`and voilà !
 
 ## Plugins
 

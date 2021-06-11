@@ -31,6 +31,11 @@ use Learn\Controller\ControllerCollection;
 use Monolog\Logger;
 use VittaLogger\Log;
 
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__."/../");
+$dotenv->safeLoad();
+
 const OK = "OK";
 $controller = isset($_GET['controller']) ? $_GET['controller'] : null;
 $action = isset($_GET['action']) ? $_GET['action'] : null;
@@ -50,7 +55,8 @@ try {
         }
     }
     // Intercept action.
-    $log = Log::createSharedInstance($controller, "/logs/log.log", Logger::NOTICE);
+    $logPath = $_ENV['LOG_PATH'] ?: "/logs/log.log";
+    $log = Log::createSharedInstance($controller, $logPath, Logger::NOTICE);
 
     // get and scan the entire plugins folder
     $pluginsDir = '../plugins';
