@@ -293,7 +293,8 @@ $('#settings-teacher').click(function () {
 
 //profil élève-->paramètres
 $('#settings-student').click(function () {
-    pseudoModal.openModal('settings-student-modal')
+    getAndDisplayStudentPassword('#password-display-area');
+    pseudoModal.openModal('settings-student-modal');
 })
 
 //profil prof-->aide
@@ -662,4 +663,46 @@ function sectionToggle(id) {
     $('#i-' + id).toggleClass('fa-chevron-up')
 
 
+}
+
+/**
+ * Get the current student password from database and show it in the dedicated area
+ * @param {string} querySelector - css selector
+ */
+function getAndDisplayStudentPassword(querySelector){
+    let userId = UserManager.getUser().id;
+    if(userId){
+        Main.getClassroomManager().getStudentPassword(userId).then((response) => {
+            displayStudentPassword(querySelector, response);
+        });
+    }else{
+        displayNotification('#notif-div', "classroom.notif.cantGetPassword", "error");
+        displayStudentPassword(querySelector, '');
+    }
+}
+
+/**
+ * Display the password in the selected dom element
+ * @param {string} querySelector - css selector
+ * @param {string} password - password
+ */
+function displayStudentPassword(querySelector, password){
+    let displayArea = document.querySelector(querySelector);
+    displayArea.value = password;
+}
+
+/**
+ * Reset the current student password and show it in the dedicated area
+ * @param {string} querySelector - css selector
+ */
+function resetStudentPassword(querySelector){
+    let userId = UserManager.getUser().id;
+    if(userId){
+        Main.getClassroomManager().resetStudentPassword(userId).then((response) => {
+            displayStudentPassword(querySelector, response);
+        });
+    }else{
+        displayNotification('#notif-div', "classroom.notif.cantResetPassword", "error");
+        displayStudentPassword(querySelector, '');
+    }
 }
