@@ -78,7 +78,17 @@
 			"create": "Activities </br> create",
 			"correctionToDo": "Corrections </br> to do",
 			"switchMode": "Switch to learner mode",
-			"switchModeTeacher": "Back to teacher mode"
+			"switchModeTeacher": "Back to teacher mode",
+			"accountSettings": {
+				"title": "My account",
+				"firstname": "First name",
+				"lastname": "Last name",
+				"nickname": "Nickname",
+				"email": "E-mail",
+				"password": "Password",
+				"confirmPassword": "Confirm password",
+				"updateButton": "Update"
+			}
 		},
 		"notif": {
 			"shareProjectTeacher": "The project has been shared with your teacher",
@@ -114,7 +124,18 @@
 			"CsvFileMissing": "You did not choose a csv file",
 			"errorWithCsv": "Error while opening csv file: {{error}}",
 			"cantGetPassword": "Error, you cannot see your password",
-			"cantResetPassword": "Error, you cannot reset your password"
+			"cantResetPassword": "Error, you cannot reset your password",
+			"accountUpdated": "Your account has been updated",
+			"firstNameTooShort": "The first name must be at least 2 characters long",
+			"lastNameTooShort": "The last name must be at least 2 characters long",
+			"pseudoTooShort": "The nickname must be at least 2 characters long",
+			"invalidEmail": "The entered email address is invalid",
+			"invalidPassword": "The entered password is invalid. It must be at least 8 characters long, including at least: one uppercase, one lowercase, one number and one special character",
+			"passwordAndConfirmMismatch": "Password and password confirmation are not the same!",
+			"unknownUser": "Error updating account: user does not exist!",
+			"passwordInvalid": "The password does not respect security constraints.",
+			"emailInvalid": "The email address sent is invalid",
+			"emailExists": "The email address is already assigned to another account"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
