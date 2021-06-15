@@ -1478,3 +1478,9 @@ i.line_height34 {
     clear: both;
     font-weight: 400;
 }
+
+/* Teacher account panel */
+.form-input-error{
+    border-color: var(--classroom-red) !important;
+    color: var(--classroom-red) !important;
+}

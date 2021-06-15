@@ -82,14 +82,19 @@ const classroomModals = {
                     <input type="checkbox" id="nonotif-teach-setting" ><label>Je ne souhaite pas recevoir de notification par mail</label></br>
                     */
         content: `<div>
-                   
+
                     <h4 data-i18n="classroom.modals.settingsTeacher.lang">Langue</h4>
                     <div id="switch-lang-list" class="justify-content-center">
                     <img class="flags-item" alt="flag" src="assets/media/flags/fr.png" onclick="changeLang('fr')">
                     <img class="flags-item" alt="flag" src="assets/media/flags/en.png" onclick="changeLang('en')">
                     </div>
                     <h4 data-i18n="classroom.modals.settingsTeacher.description">Pour modifier votre mot de passe ou d'autres paramètres de votre compte</h4>
-                    <a target="_blank" href="/profile" class="d-block text-center"><button class="btn c-btn-primary"><span data-i18n="classroom.modals.settingsTeacher.accessButton">Accéder à votre profil Vittascience</span><i class="fas fa-external-link-alt"></i></button></a>
+                    <div class="d-flex flex-column align-items-center">
+                        <button class="btn c-btn-primary" id="teacher-account-button" onclick="openTeacherAccountPanel()">
+                            <span data-i18n="classroom.modals.settingsTeacher.accessButton">Accéder à votre profil</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </button>
+                    </div>
                 </div>`,
         footer: ``
     },

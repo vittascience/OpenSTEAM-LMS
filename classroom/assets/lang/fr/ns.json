@@ -78,7 +78,17 @@
 			"create": "Activités </br> crées",
 			"correctionToDo": "Corrections </br> à faire",
 			"switchMode": "Passer en mode apprenant",
-			"switchModeTeacher": "Retour au mode enseignant"
+			"switchModeTeacher": "Retour au mode enseignant",
+			"accountSettings": {
+				"title": "Mon compte",
+				"firstname": "Prénom",
+				"lastname": "Nom",
+				"nickname": "Pseudo",
+				"email": "E-mail",
+				"password": "Mot de passe",
+				"confirmPassword": "Confirmer le mot de passe",
+				"updateButton": "Mettre à jour"
+			}
 		},
 		"notif": {
 			"shareProjectTeacher": "Le projet a été partagé avec votre enseignant",
@@ -114,7 +124,18 @@
 			"CsvFileMissing": "Vous n'avez pas choisi de fichier csv",
 			"errorWithCsv": "Erreur lors de l'ouverture du fichier csv : {{error}}",
 			"cantGetPassword": "Erreur, vous ne pouvez pas voir votre mot de passe",
-			"cantResetPassword": "Erreur, vous ne pouvez pas réinitialiser votre mot de passe"
+			"cantResetPassword": "Erreur, vous ne pouvez pas réinitialiser votre mot de passe",
+			"accountUpdated": "Votre compte a été mis à jour",
+			"firstNameTooShort": "Le prénom doit au moins comporter 2 caractères",
+			"lastNameTooShort": "Le nom doit au moins comporter 2 caractères",
+			"pseudoTooShort": "Le pseudo doit au moins comporter 2 caractères",
+			"invalidEmail": "L'adresse e-mail saisie est invalide",
+			"invalidPassword": "Le mot de passe saisi est invalide. Il doit comporter au moins 8 caractères dont au moins : une majuscule, une minuscule, un chiffre et un caractère spécial",
+			"passwordAndConfirmMismatch": "Le mot de passe et la confirmation du mot de passe ne sont pas identiques !",
+			"unknownUser": "Erreur lors de la mise à jour du compte : l'utilisateur n'existe pas !",
+			"passwordInvalid": "Le mot de passe ne respecte pas les contraintes de sécurité.",
+			"emailInvalid": "L'adresse e-mail envoyée est invalide",
+			"emailExists": "L'adresse e-mail est déjà attribuée à un autre compte"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",
