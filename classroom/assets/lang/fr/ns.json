@@ -135,7 +135,10 @@
 			"unknownUser": "Erreur lors de la mise à jour du compte : l'utilisateur n'existe pas !",
 			"passwordInvalid": "Le mot de passe ne respecte pas les contraintes de sécurité.",
 			"emailInvalid": "L'adresse e-mail envoyée est invalide",
-			"emailExists": "L'adresse e-mail est déjà attribuée à un autre compte"
+			"emailExists": "L'adresse e-mail est déjà attribuée à un autre compte",
+			"UserNotExists": "Erreur lors du chargement / de la réinitialisation du mot de passe : utilisateur incorrect !",
+			"RegularUserNotAllowed": "Erreur lors du chargement / de la réinitialisation du mot de passe : seul les apprenants peuvent afficher / réinitialiser leur mot de passe !",
+			"PasswordLengthInvalid": "Impossible de récupérer le mot de passe : mot de passe erroné !"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",

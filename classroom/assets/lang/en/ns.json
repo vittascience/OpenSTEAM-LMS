@@ -135,7 +135,10 @@
 			"unknownUser": "Error updating account: user does not exist!",
 			"passwordInvalid": "The password does not respect security constraints.",
 			"emailInvalid": "The email address sent is invalid",
-			"emailExists": "The email address is already assigned to another account"
+			"emailExists": "The email address is already assigned to another account",
+			"UserNotExists": "Error loading / reseting password: incorrect user!",
+			"RegularUserNotAllowed": "Error loading / reseting password: only learners can view / reset their password!",
+			"PasswordLengthInvalid": "Unable to retrieve password: wrong password!"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
