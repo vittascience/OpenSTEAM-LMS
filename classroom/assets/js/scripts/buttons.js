@@ -644,7 +644,11 @@ function docopy(self) {
 }
 
 function returnToConnectionPanel(currentPanel) {
-    $('#classroom-login-container').toggle();
+    if(window.getComputedStyle(document.getElementById('classroom-register-container')).display == 'block'){
+        $('#classroom-register-container').hide();
+    }else{
+        $('#classroom-login-container').toggle();
+    }
     $(currentPanel).toggle();
 }
 

@@ -28,6 +28,7 @@
 			"signup": "SIGN UP",
 			"firstVisit": "First time? Please choose a username.",
 			"signin": "SIGN IN",
+			"registerLink": "Create an account",
 			"hasReturned": "Back to this Classroom?",
 			"forgot": "I forgot my password",
 			"error": {
@@ -52,6 +53,12 @@
 					"title": "visualize their results",
 					"content": "The dashboard allows you to track students' progress as they move through the activities and courses. Find your students' work in one click and leave comments.</br></br>Thanks to the automatic validation/correction system for blocks and Python, the dashboard fills up automatically with your students' results. Rapidly identify struggling students, gaining valuable time to accompany them."
 				}
+			},
+			"register": {
+				"title": "Register",
+				"description": "Please complete the following fields to create your account.",
+				"passwordConstraints": "Minimum 8 characters: 1 uppercase, 1 lowercase, 1 number and a special character.",
+				"createButton": "Register"
 			}
 		},
 		"successPanel": "Congratulation, you succeed this activity !",
@@ -126,6 +133,7 @@
 			"cantGetPassword": "Error, you cannot see your password",
 			"cantResetPassword": "Error, you cannot reset your password",
 			"accountUpdated": "Your account has been updated",
+			"emailUpdated": "Please go to the confirmation link just communicated to you on the new e-mail address to finalize the update",
 			"firstNameTooShort": "The first name must be at least 2 characters long",
 			"lastNameTooShort": "The last name must be at least 2 characters long",
 			"pseudoTooShort": "The nickname must be at least 2 characters long",
@@ -138,7 +146,15 @@
 			"emailExists": "The email address is already assigned to another account",
 			"UserNotExists": "Error loading / reseting password: incorrect user!",
 			"RegularUserNotAllowed": "Error loading / reseting password: only learners can view / reset their password!",
-			"PasswordLengthInvalid": "Unable to retrieve password: wrong password!"
+			"PasswordLengthInvalid": "Unable to retrieve password: wrong password!",
+			"accountCreated": "The account has been created. Please go to the confirmation link that has just been sent to you by e-mail to finalize the registration and be able to log in.",
+			"firstnameMissing": "You must enter your first name",
+			"surnameMissing": "You must enter your last name",
+			"pseudoMissing": "You must enter your nickname",
+			"emailMissing": "You must enter your email address",
+			"passwordMissing": "You must enter your password",
+			"passwordConfirmMissing": "You must enter the password confirmation",
+			"passwordsMismatch": "Password and confirmation are not the same"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",

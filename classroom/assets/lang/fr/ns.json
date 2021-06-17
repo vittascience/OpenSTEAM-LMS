@@ -28,6 +28,7 @@
 			"signup": "S'INSCRIRE",
 			"firstVisit": "Première viste ? Veuillez choisir un identifiant.",
 			"signin": "SE CONNECTER",
+			"registerLink": "Créer un compte",
 			"hasReturned": "De retour dans cette classe ?",
 			"forgot": "J'ai oublié mon mot de passe",
 			"error": {
@@ -52,6 +53,12 @@
 					"title": "visualisez leurs résultats",
 					"content": "Le tableau de bord permet de suivre la progression des apprenants à mesure qu'ils avancent dans les activités et parcours. Retrouvez le travail de vos apprenants en un clic avec possibilité de commenter le rendu.</br></br>Grâce au système de correction automatique pour blocs et Python, le tableau de bord se remplit directement avec les résultats des élèves. Identifiez rapidement les apprenants en difficulté et gagnez un temps précieux pour les accompagner."
 				}
+			},
+			"register": {
+				"title": "Inscription",
+				"description": "Merci de compléter les champs suivants pour créer votre compte.",
+				"passwordConstraints": "Minimum 8 caractères : 1 majuscule, 1 minuscule, 1 chiffre et un caractère spécial.",
+				"createButton": "Inscription"
 			}
 		},
 		"successPanel": "Bravo, tu as réussi cette activité !",
@@ -126,6 +133,7 @@
 			"cantGetPassword": "Erreur, vous ne pouvez pas voir votre mot de passe",
 			"cantResetPassword": "Erreur, vous ne pouvez pas réinitialiser votre mot de passe",
 			"accountUpdated": "Votre compte a été mis à jour",
+			"emailUpdated": "Veuillez vous rendre sur le lien de confirmation qui vient de vous être communiqué sur la nouvelle adresse e-mail pour en finaliser la mise à jour",
 			"firstNameTooShort": "Le prénom doit au moins comporter 2 caractères",
 			"lastNameTooShort": "Le nom doit au moins comporter 2 caractères",
 			"pseudoTooShort": "Le pseudo doit au moins comporter 2 caractères",
@@ -138,7 +146,15 @@
 			"emailExists": "L'adresse e-mail est déjà attribuée à un autre compte",
 			"UserNotExists": "Erreur lors du chargement / de la réinitialisation du mot de passe : utilisateur incorrect !",
 			"RegularUserNotAllowed": "Erreur lors du chargement / de la réinitialisation du mot de passe : seul les apprenants peuvent afficher / réinitialiser leur mot de passe !",
-			"PasswordLengthInvalid": "Impossible de récupérer le mot de passe : mot de passe erroné !"
+			"PasswordLengthInvalid": "Impossible de récupérer le mot de passe : mot de passe erroné !",
+			"accountCreated": "Le compte a été créé. Veuillez vous rendre sur le lien de confirmation qui vient de vous être communiqué par e-mail pour finaliser l'inscription et pouvoir vous connecter.",
+			"firstnameMissing": "Vous devez renseigner votre prénom",
+			"surnameMissing": "Vous devez renseigner votre nom",
+			"pseudoMissing": "Vous devez rensigner votre pseudo",
+			"emailMissing": "Vous devez renseigner votre adresse e-mail",
+			"passwordMissing": "Vous devez renseigner votre mot de passe",
+			"passwordConfirmMissing": "Vous devez renseigner la confirmation du mot de passe",
+			"passwordsMismatch": "Le mot de passe et la confirmation ne sont pas identiques"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",
