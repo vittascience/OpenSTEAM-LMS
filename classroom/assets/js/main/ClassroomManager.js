@@ -973,7 +973,7 @@ class ClassroomManager {
      * Get the password of a student using his id
      * @param {number} userId - the id of the current student
      */
-    getStudentPassword(userId){
+    getStudentPassword(userId) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "POST",
@@ -995,7 +995,7 @@ class ClassroomManager {
      * Reset the password of a student using his id
      * @param {number} userId - the id of the current student
      */
-    resetStudentPassword(userId){
+    resetStudentPassword(userId) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "POST",
@@ -1017,7 +1017,7 @@ class ClassroomManager {
      * Update the current teacher account by sending the new typed informations
      * @param {object} formData - form data object
      */
-    updateTeacherAccount(formData){
+    updateTeacherAccount(formData) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: 'POST',
@@ -1040,4 +1040,29 @@ class ClassroomManager {
         });
     }
 
+    /**
+     * Create teacher account (registration)
+     */
+    createTeacherAccount(formData) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: 'POST',
+                url: '/routing/Routing.php?controller=user&action=register',
+                data: {
+                    'firstname': formData.get('first-name'),
+                    'surname': formData.get('last-name'),
+                    'pseudo': formData.get('nickname'),
+                    'email': formData.get('email'),
+                    'password': formData.get('password'),
+                    'password_confirm': formData.get('confirm-password')
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        });
+    }
 }
