@@ -54,6 +54,20 @@
 				}
 			}
 		},
+		"register":{
+			"accountConfirmationEmail":{
+				"emailSubject":"Activate my account",
+				"bodyTitle":"Activate my account",
+				"textBeforeLink":"If the button above does not work, copy and paste into your browser, the following link :"
+			}
+		},
+		"updateUserInfos":{
+			"emailUpdateConfirmation":{
+				"emailSubject":"Confirm my new email address",
+				"bodyTitle":"Confirm my new email address",
+				"textBeforeLink":"If the button above does not work, copy and paste into your browser, the following link :"
+			}
+		},
 		"successPanel": "Congratulation, you succeed this activity !",
 		"failPanel": "The answer is wrong",
 		"toCorrectPanel": "The activity was send to your teacher,</br>who will correct it soon ! <i class=\"fas fa-pen\"></i>",
