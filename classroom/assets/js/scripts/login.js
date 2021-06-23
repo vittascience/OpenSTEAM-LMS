@@ -71,6 +71,34 @@ function loginFaq() {
     }
 }
 
+function loginFaqNeutral() {
+    let html = ''
+    let index = [6, 7, 3]
+    for (let i = 1; i < 4; i++) {
+        html += "<h3 data-i18n='[html]faqInfoNeutral." + i + ".section_title'></h3>";
+        for (let j = 1; j < index[i - 1]; j++) {
+            html += `<div class="kit-faq-box">
+            <div class="faq-box-header" style="transform: rotate(0deg); transform-origin: 50% 50% 0px;">
+                <div class="faq-box-dropdown">
+                    <span class="fa fa-chevron-right" style="line-height:40px; font-size:16px;"></span>
+                </div>
+                <p style="font-size:16px; margin:0; padding:0;">
+                    <b data-i18n='[html]faqInfoNeutral.` + i + `.question_list.` + j + `.title'></b>
+                </p>
+            </div>
+            <div class="faq-box-content">
+            <p data-i18n='[html]faqInfoNeutral.` + i + `.question_list.` + j + `.answer'></p>
+            </div>
+        </div>`
+
+        }
+    }
+    $('#classroom-faq div h2').after(html)
+    if ($("#classroom-faq").localize){
+        $("#classroom-faq").localize();
+    }
+}
+
 $('#create-user').click(function () {
     let pseudo = $('#new-user-pseudo-form').val()
     let link = $_GET('link')
