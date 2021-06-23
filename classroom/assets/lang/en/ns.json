@@ -14,6 +14,7 @@
 			"hello1": "'Hello!'",
 			"hello2": "Hello!",
 			"title": "Manage your Classrooms</br>with Vittascience",
+			"neutralTitle": "Open STEAM LMS",
 			"subtitle": "Discover - Learn - Share",
 			"login": "Log in",
 			"activities": "easily create </br> your activities",
@@ -23,11 +24,12 @@
 			"student": "STUDENT",
             "codeInput": " Enter your Classroom code",
             "teacher": "TEACHER",
-			"hasAccount": "Already have a Vittascience account?",
+			"hasAccount": "Already have an account?",
 			"gar": "Enjoy the Classroom module with ease using GAR.</br><i class=\"fas fa-exclamation-triangle\" style=\"color:var(--vitta-orange-light)\"></i> The connection to GAR is not yet finalized, but will be ready soon.",
 			"signup": "SIGN UP",
 			"firstVisit": "First time? Please choose a username.",
 			"signin": "SIGN IN",
+			"registerLink": "Create an account",
 			"hasReturned": "Back to this Classroom?",
 			"forgot": "I forgot my password",
 			"error": {
@@ -52,6 +54,26 @@
 					"title": "visualize their results",
 					"content": "The dashboard allows you to track students' progress as they move through the activities and courses. Find your students' work in one click and leave comments.</br></br>Thanks to the automatic validation/correction system for blocks and Python, the dashboard fills up automatically with your students' results. Rapidly identify struggling students, gaining valuable time to accompany them."
 				}
+			},
+			"register": {
+				"title": "Register",
+				"description": "Please complete the following fields to create your account.",
+				"passwordConstraints": "Minimum 8 characters: 1 uppercase, 1 lowercase, 1 number and a special character.",
+				"createButton": "Register"
+			}
+		},
+		"register":{
+			"accountConfirmationEmail":{
+				"emailSubject":"Activate my account",
+				"bodyTitle":"Activate my account",
+				"textBeforeLink":"If the button above does not work, copy and paste into your browser, the following link :"
+			}
+		},
+		"updateUserInfos":{
+			"emailUpdateConfirmation":{
+				"emailSubject":"Confirm my new email address",
+				"bodyTitle":"Confirm my new email address",
+				"textBeforeLink":"If the button above does not work, copy and paste into your browser, the following link :"
 			}
 		},
 		"successPanel": "Congratulation, you succeed this activity !",
@@ -126,6 +148,7 @@
 			"cantGetPassword": "Error, you cannot see your password",
 			"cantResetPassword": "Error, you cannot reset your password",
 			"accountUpdated": "Your account has been updated",
+			"emailUpdated": "Please go to the confirmation link just communicated to you on the new e-mail address to finalize the update",
 			"firstNameTooShort": "The first name must be at least 2 characters long",
 			"lastNameTooShort": "The last name must be at least 2 characters long",
 			"pseudoTooShort": "The nickname must be at least 2 characters long",
@@ -135,7 +158,18 @@
 			"unknownUser": "Error updating account: user does not exist!",
 			"passwordInvalid": "The password does not respect security constraints.",
 			"emailInvalid": "The email address sent is invalid",
-			"emailExists": "The email address is already assigned to another account"
+			"emailExists": "The email address is already assigned to another account",
+			"UserNotExists": "Error loading / reseting password: incorrect user!",
+			"RegularUserNotAllowed": "Error loading / reseting password: only learners can view / reset their password!",
+			"PasswordLengthInvalid": "Unable to retrieve password: wrong password!",
+			"accountCreated": "The account has been created. Please go to the confirmation link that has just been sent to you by e-mail to finalize the registration and be able to log in.",
+			"firstnameMissing": "You must enter your first name",
+			"surnameMissing": "You must enter your last name",
+			"pseudoMissing": "You must enter your nickname",
+			"emailMissing": "You must enter your email address",
+			"passwordMissing": "You must enter your password",
+			"passwordConfirmMissing": "You must enter the password confirmation",
+			"passwordsMismatch": "Password and confirmation are not the same"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
@@ -249,11 +283,11 @@
 		"footer": {
 			"privacy": "Privacy policy ",
 			"cgu": "Terms of Service",
-			"copyright": "Copyright © 2020 Vittascience"
+			"copyright": ""
 		},
 		"teacherHelpPanel": {
 			"contactForm": {
-				"title": "Contact Vittascience",
+				"title": "Contact us",
 				"objectPlaceholder": "Object",
 				"messagePlaceholder": "Write your message here. (Maximum 800 characters)",
 				"sendButton": "Send the message"
@@ -430,7 +464,7 @@
 	},
 	"login_popup": {
 		"title": "Login",
-		"details": "Enter your login details to access your Vittascience account.",
+		"details": "Enter your login details to access your account.",
 		"form": {
 			"addressmail": "E-mail address",
 			"addressmail_placeholder": "exemple@domaine.com",

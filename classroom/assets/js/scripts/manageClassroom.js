@@ -842,10 +842,13 @@ document.getElementById('update-teacher-account-form').addEventListener('submit'
     if(teacherAccountUpdateFormCheck(data)){
         Main.getClassroomManager().updateTeacherAccount(data).then((response) => {
             if(response.isUserUpdated){
-                UserManager.init();
                 document.getElementById('profile-form-password').value = '';
                 document.getElementById('profile-form-confirm-password').value = '';
                 displayNotification('#notif-div', "classroom.notif.accountUpdated", "success");
+                if(data.get('email') != UserManager.getUser().isRegular){
+                    displayNotification('#notif-div', "classroom.notif.emailUpdated", "success");
+                }
+                UserManager.init();
             }else{
                 if(response.errorType){
                     switch (response.errorType) {

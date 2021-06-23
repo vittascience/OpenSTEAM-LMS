@@ -1,20 +1,7 @@
 <!-- page de garde -->
 <div id="notif-div"></div>
 <div id="home-container">
-    <div class="release-announcement-container">
-        <div class="announcement-content">
-            <p class="announcement-text-1" data-i18n="classroom.login.announcement.officialRelease"></p>
-            <p class="announcement-text-2" data-i18n="classroom.login.announcement.classroomModule"></p>
-            <p class="announcement-text-3" data-i18n="classroom.login.announcement.releaseDate"></p>
-            <a class="btn c-btn-primary mt-5" href="https://www.youtube.com/watch?v=rN3hhDZCRMc" target="_blank"><span data-i18n="classroom.login.announcement.discoverButton">Découvrir la vidéo sur Youtube</span> <i class="fas fa-chevron-right"></i></a>
-            <img class="play-picto-background" src="assets/media/play-icon.png" alt="Play icon">
-        </div>
-        <div class="image-content"></div>
-        <a href="#home-jumbotron" class="announcement-skipping">
-            <i class="fas fa-chevron-down fa-lg"></i>
-        </a>
-    </div>
-    <div id="home-jumbotron">
+    <div class="text-center d-flex flex-column justify-content-center jumbotron-neutral">
         <div id="interactive-elements-container" style="flex-grow:1;">
             <div id="fake-blockly">
                 <span id="fake-blockly-desc">afficher</span>
@@ -38,7 +25,7 @@
             <span id="fake-display" data-i18n="classroom.login.hello2"></span>
         </div>
         <div style="flex-grow:1;">
-            <h1 data-i18n="[html]classroom.login.title"></h1>
+            <h1 data-i18n="[html]classroom.login.neutralTitle"></h1>
             <span class="sub-text" data-i18n="classroom.login.subtitle"></span>
         </div>
 
@@ -64,113 +51,10 @@
             <span class="text-uppercase" data-i18n="[html]classroom.login.visualize"></span>
         </div>
     </div>
-    <div id="classroom-carousel">
-        <div class="container py-3">
-            <div class="features-carousel">
-                <div>
-                    <div class="row">
-                        <div class="col m-4">
-                            <img class="img-fluid" src="assets/media/create_activities-pc.png" alt="">
-                        </div>
-                        <div class="col mt-4">
-                            <div class="w-75 classroom-carousel-text ">
-                                <h3 class="text-uppercase" data-i18n="classroom.login.carousel.activities.title"></h3>
-                                <p data-i18n="[html]classroom.login.carousel.activities.content"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="row">
-                        <div class="col m-4">
-                            <img class=" img-fluid" src="assets/media/assign_activities-pc.png" alt="">
-                        </div>
-                        <div class="col mt-4">
-                            <div class="w-75 classroom-carousel-text ">
-                                <h3 class="text-uppercase" data-i18n="classroom.login.carousel.attribute.title"></h3>
-                                <p data-i18n="[html]classroom.login.carousel.attribute.content"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="row">
-                        <div class="col m-4">
-                            <img class=" img-fluid" src="assets/media/visualise_activities-pc.png" alt="">
-                        </div>
-                        <div class="col mt-4">
-                            <div class="w-75 classroom-carousel-text ">
-                                <h3 class="text-uppercase" data-i18n="classroom.login.carousel.visualize.title"></h3>
-                                <p data-i18n="[html]classroom.login.carousel.visualize.content"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div id="classroom-helpers">
-        <div class="container py-5">
-            <div class="row align-items-center">
-                <div class="col-4">
-                    <div id="helpers" data-i18n="[html]classroom.login.helpers">
-                    </div>
-                </div>
-                <div class="col">
-                    <img id="eduup-logo" class="img-fluid" src="assets/media/eduUp.png">
-                </div>
-                <div class="col">
-                    <img id="ministry-logo" class="img-fluid" src="assets/media/logo_education_nationale.jpg">
-                </div>
-                <div class="col">
-                    <img id="gar-logo" class="img-fluid" src="assets/media/gar.png">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="classroom-subscribe">
-        <div class="container text-center py-5 ">
-            <h3 data-i18n="classroom.login.suscribe.title" class="text-uppercase"></h3>
-            <p data-i18n="classroom.login.suscribe.content" class="w-75 mx-auto"></p>
-            <a href="/pricing" class="btn" disabled><span data-i18n="classroom.login.suscribe.premium"></span> <i
-                    class="fas fa-chevron-right"></i></a>
-        </div>
-    </div>
-
-    <!--
-    <div id="classroom-stats">
-        <div class="container">
-            <div class="row">
-                <div class="col-6">
-                    <ul id="stats">
-                        <li><span>30</span> établissements</li>
-                        <li><span>120</span> enseignants</li>
-                        <li><span>3000</span> élèves</li>
-                    </ul>
-                </div>
-                <div class="col-6">
-                    <div>
-                        <div class="quotes-carousel">
-                            <div>1</div>
-                            <div>2</div>
-                            <div>3</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    -->
 
     <div id="classroom-faq">
         <div class="container py-5 mb-3">
             <h2 data-i18n="faqInfo.title"></h2>
-            <p class="text-center my-1" data-i18n="[html]faqInfo.hint"></p>
         </div>
     </div>
 
@@ -196,6 +80,7 @@
             <span id="login-vittascience" class="btn c-btn-primary" role="button">
                 <span data-i18n="classroom.login.login"></span> <i class="fas fa-chevron-down"></i>
             </span>
+            <a href="#" id="register-link" data-i18n="classroom.login.registerLink"></a>
         </div>
         <div id="classroom-login-gar" class="container-border-right">
             <img src="assets/media/logoGAR.png" alt="Logo GAR">
@@ -204,6 +89,72 @@
         <button onclick="returnToConnectionPanel('#home-container')" class="btn close-login-classroom"><i
                 class="fas fa-times"></i></button>
 
+    </div>
+</div>
+<!-- Register page -->
+<div id="classroom-register-container" style="display:none;">
+    <div class="inner-register-container">
+        <form action="#" id="create-teacher-account-form">
+            <div class="form-group part-content-index part-row c-primary-form row">
+
+                <div class="col-md-12">
+                    <h3 class="font-weight-bold c-text-primary text-center mb-4 text-uppercase" data-i18n="classroom.login.register.title"></h3>
+                    <p class="text-center font-weight-bold" data-i18n="classroom.login.register.description"></p>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-row mb-4">
+                        <label for="profile-form-first-name" class="tutorial-label" data-i18n="classroom.profil.accountSettings.firstname"></label>
+                        <input type="text" name="first-name" id="profile-form-first-name" class="form-control form-control-lg">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-row mb-4">
+                        <label for="profile-form-last-name" class="tutorial-label" data-i18n="classroom.profil.accountSettings.lastname"></label>
+                        <input type="text" name="last-name" id="profile-form-last-name" class="form-control form-control-lg">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-row mb-4">
+                        <label for="profile-form-nick-name" class="tutorial-label" data-i18n="classroom.profil.accountSettings.nickname"></label>
+                        <input type="text" name="nickname" id="profile-form-nick-name" class="form-control form-control-lg">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-row mb-4">
+                        <label for="profile-form-email" class="tutorial-label" data-i18n="classroom.profil.accountSettings.email"></label>
+                        <input type="email" name="email" id="profile-form-email" class="form-control form-control-lg">
+                    </div>  
+                </div>
+
+                <div class="col-md-6">
+                    <div>
+                        <label for="profile-form-password" class="tutorial-label" data-i18n="classroom.profil.accountSettings.password"></label>
+                    </div>
+                    <div class="form-inline">
+                        <input type="password" name="password" id="profile-form-password" class="form-control form-control-lg">
+                        <i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
+                        <p class="font-italic ml-2" data-i18n="classroom.login.register.passwordConstraints"></p>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="profile-form-confirm-password" class="tutorial-label" data-i18n="classroom.profil.accountSettings.confirmPassword"></label>
+                    <div class="form-inline">
+                        <input type="password" name="confirm-password" id="profile-form-confirm-password" class="form-control form-control-lg">
+                        <i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
+                    </div>
+                </div>
+                
+                <div class="col-md-12 d-flex flex-column align-items-center">
+                    <input class="btn c-btn-secondary m-3" type="submit" data-i18n="[value]classroom.login.register.createButton">
+                </div>
+            </div>
+        </form>
+        <button onclick="returnToConnectionPanel('#home-container')" class="btn close-login-classroom mt-3 mr-3">
+            <i class="fas fa-times"></i>
+        </button>
     </div>
 </div>
 <!-- page de login via un lien -->
@@ -288,26 +239,6 @@
 </div>
 
 <script>
-    /* CAROUSEL SETUP */
-    $(document).ready(function () {
-        $('.features-carousel').slick({
-            infinite: true,
-            dots: true,
-            arrows: false,
-            autoplay: true,
-            autoplaySpeed: 3000,
-            fadeSpeed: 1000
-        });
-        $('.quotes-carousel').slick({
-            infinite: true,
-            dots: true,
-            arrows: false,
-            autoplay: true,
-            autoplaySpeed: 10000,
-            fadeSpeed: 1000
-        });
-    });
-
     /* INTERACTIVE BLOCK */
     $("#fake-blockly-input").on("input", (function () {
         var text = $("#fake-blockly-input").val().trim();
@@ -355,7 +286,7 @@
         UserManager.init().then((resolve) => {
 
                 Main.init().then((resolve) => {
-                    loginFaq()
+                    loginFaqNeutral();
                     /* FAQ BOXES */
                     var headers = document.getElementsByClassName("faq-box-header");
                     $(headers).rotate({
@@ -420,7 +351,6 @@
             } else {
                 $('#classroom-desc').html('Le code entré ne correspond à aucune classe.')
                 $('#classroom-login-account,#classroom-create-account').hide()
- 
             }
         })
     }

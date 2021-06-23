@@ -36,7 +36,6 @@ $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 
-
 // Database configuration parameters
 $connectionParams = array(
     'dbname' =>  $_ENV['VS_DB_NAME'],

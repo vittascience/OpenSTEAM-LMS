@@ -115,6 +115,10 @@
     background: no-repeat bottom center/100% url("../media/home_bg.png");
 }
 
+.jumbotron-neutral {
+    min-height: 100vh;
+}
+
 #interactive-elements-container {
     display: flex;
     flex-direction: row;
@@ -384,6 +388,19 @@ a.forgot-password {
     border-radius: 1em;
     overflow: hidden;
     flex-wrap: wrap;
+}
+
+.inner-register-container{
+    position: relative;
+    width: 80%;
+    margin: 10vh auto;
+    box-shadow: 0px 0px 10px #00000029;
+    border-radius: 1em;
+    padding: 20px;
+}
+
+.inner-register-container label{
+    margin-left: 0.5em;
 }
 
 .classroom-close-btn {

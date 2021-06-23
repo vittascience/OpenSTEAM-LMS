@@ -295,7 +295,14 @@ $('#settings-teacher').click(function () {
 $('#settings-student').click(function () {
     getAndDisplayStudentPassword('#password-display-area');
     pseudoModal.openModal('settings-student-modal');
-})
+});
+
+document.getElementsByTagName('body')[0].addEventListener('click', (e) => {
+    if(e.target.id == 'pwd-change-modal'){
+        e.stopPropagation();
+        resetStudentPassword('#password-display-area');
+    }
+});
 
 //profil prof-->aide
 $('#help-teacher').click(function () {
@@ -308,9 +315,11 @@ $('#accessDropdown').click(function () {
 })
 
 var accessForm = document.querySelector('#access-form');
-accessForm.addEventListener("change", function (e) {
-    updateWebsiteAcessibility($(this));
-});
+if(accessForm){
+    accessForm.addEventListener("change", function (e) {
+        updateWebsiteAcessibility($(this));
+    });
+}
 
 //navbar prof-->new sandbox
 $('.open-ide').click(function () {
@@ -444,7 +453,7 @@ function saveActivity() {
                 "panel": $_GET('panel'),
                 "nav": $_GET('nav'),
                 "option": $_GET('option'),
-                "interface": $_GET('interface')
+                "interface": 'savedActivities'
             };
             navigatePanel(navParam.panel, navParam.nav, navParam.option, navParam.interface, true);
         });
@@ -635,7 +644,11 @@ function docopy(self) {
 }
 
 function returnToConnectionPanel(currentPanel) {
-    $('#classroom-login-container').toggle();
+    if(window.getComputedStyle(document.getElementById('classroom-register-container')).display == 'block'){
+        $('#classroom-register-container').hide();
+    }else{
+        $('#classroom-login-container').toggle();
+    }
     $(currentPanel).toggle();
 }
 
@@ -673,7 +686,11 @@ function getAndDisplayStudentPassword(querySelector){
     let userId = UserManager.getUser().id;
     if(userId){
         Main.getClassroomManager().getStudentPassword(userId).then((response) => {
-            displayStudentPassword(querySelector, response);
+            if(response.errorType){
+                displayNotification('#notif-div', `classroom.notif.${response.errorType}`, "error");
+            }else{
+                displayStudentPassword(querySelector, response.password);
+            }
         });
     }else{
         displayNotification('#notif-div', "classroom.notif.cantGetPassword", "error");
@@ -699,7 +716,11 @@ function resetStudentPassword(querySelector){
     let userId = UserManager.getUser().id;
     if(userId){
         Main.getClassroomManager().resetStudentPassword(userId).then((response) => {
-            displayStudentPassword(querySelector, response);
+            if(response.errorType){
+                displayNotification('#notif-div', `classroom.notif.${response.errorType}`, "error");
+            }else{
+                displayStudentPassword(querySelector, response.newPassword);
+            }
         });
     }else{
         displayNotification('#notif-div', "classroom.notif.cantResetPassword", "error");

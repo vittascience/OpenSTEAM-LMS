@@ -14,6 +14,7 @@
 			"hello1": "'Bonjour!'",
 			"hello2": "Bonjour!",
 			"title": "Gérez vos classes</br>avec Vittascience",
+			"neutralTitle": "Open STEAM LMS",
 			"subtitle": "Découvrir - Apprendre - Partager",
 			"login": "Se connecter",
 			"activities": "créez facilement </br> vos activités",
@@ -23,11 +24,12 @@
             "student": "APPRENANT",
             "codeInput": " Rentrez ici votre code classe",
             "teacher": "ENSEIGNANT",
-			"hasAccount": "Vous avez déja un compte Vittascience ?",
+			"hasAccount": "Vous avez déja un compte ?",
 			"gar": "Profitez du module classe en toute simplicité à l'aide du GAR.</br><i class=\"fas fa-exclamation-triangle\" style=\"color:var(--vitta-orange-light)\"></i> Le raccordement au GAR n’est pas encore finalisé, il sera prêt prochainement.",
 			"signup": "S'INSCRIRE",
 			"firstVisit": "Première viste ? Veuillez choisir un identifiant.",
 			"signin": "SE CONNECTER",
+			"registerLink": "Créer un compte",
 			"hasReturned": "De retour dans cette classe ?",
 			"forgot": "J'ai oublié mon mot de passe",
 			"error": {
@@ -52,6 +54,26 @@
 					"title": "visualisez leurs résultats",
 					"content": "Le tableau de bord permet de suivre la progression des apprenants à mesure qu'ils avancent dans les activités et parcours. Retrouvez le travail de vos apprenants en un clic avec possibilité de commenter le rendu.</br></br>Grâce au système de correction automatique pour blocs et Python, le tableau de bord se remplit directement avec les résultats des élèves. Identifiez rapidement les apprenants en difficulté et gagnez un temps précieux pour les accompagner."
 				}
+			},
+			"register": {
+				"title": "Inscription",
+				"description": "Merci de compléter les champs suivants pour créer votre compte.",
+				"passwordConstraints": "Minimum 8 caractères : 1 majuscule, 1 minuscule, 1 chiffre et un caractère spécial.",
+				"createButton": "Inscription"
+			}
+		},
+		"register":{
+			"accountConfirmationEmail":{
+				"emailSubject":"Activer mon compte",
+				"bodyTitle":"Activer mon compte",
+				"textBeforeLink":"Si le bouton ci-dessus ne fonctionne pas, copiez et collez dans votre navigateur, le lien suivant :"
+			}
+		},
+		"updateUserInfos":{
+			"emailUpdateConfirmation":{
+				"emailSubject":"Confirmez ma nouvelle adresse email",
+				"bodyTitle":"Confirmez ma nouvelle adresse email",
+				"textBeforeLink":"Si le bouton ci-dessus ne fonctionne pas, copiez et collez dans votre navigateur, le lien suivant :"
 			}
 		},
 		"successPanel": "Bravo, tu as réussi cette activité !",
@@ -126,6 +148,7 @@
 			"cantGetPassword": "Erreur, vous ne pouvez pas voir votre mot de passe",
 			"cantResetPassword": "Erreur, vous ne pouvez pas réinitialiser votre mot de passe",
 			"accountUpdated": "Votre compte a été mis à jour",
+			"emailUpdated": "Veuillez vous rendre sur le lien de confirmation qui vient de vous être communiqué sur la nouvelle adresse e-mail pour en finaliser la mise à jour",
 			"firstNameTooShort": "Le prénom doit au moins comporter 2 caractères",
 			"lastNameTooShort": "Le nom doit au moins comporter 2 caractères",
 			"pseudoTooShort": "Le pseudo doit au moins comporter 2 caractères",
@@ -135,7 +158,18 @@
 			"unknownUser": "Erreur lors de la mise à jour du compte : l'utilisateur n'existe pas !",
 			"passwordInvalid": "Le mot de passe ne respecte pas les contraintes de sécurité.",
 			"emailInvalid": "L'adresse e-mail envoyée est invalide",
-			"emailExists": "L'adresse e-mail est déjà attribuée à un autre compte"
+			"emailExists": "L'adresse e-mail est déjà attribuée à un autre compte",
+			"UserNotExists": "Erreur lors du chargement / de la réinitialisation du mot de passe : utilisateur incorrect !",
+			"RegularUserNotAllowed": "Erreur lors du chargement / de la réinitialisation du mot de passe : seul les apprenants peuvent afficher / réinitialiser leur mot de passe !",
+			"PasswordLengthInvalid": "Impossible de récupérer le mot de passe : mot de passe erroné !",
+			"accountCreated": "Le compte a été créé. Veuillez vous rendre sur le lien de confirmation qui vient de vous être communiqué par e-mail pour finaliser l'inscription et pouvoir vous connecter.",
+			"firstnameMissing": "Vous devez renseigner votre prénom",
+			"surnameMissing": "Vous devez renseigner votre nom",
+			"pseudoMissing": "Vous devez rensigner votre pseudo",
+			"emailMissing": "Vous devez renseigner votre adresse e-mail",
+			"passwordMissing": "Vous devez renseigner votre mot de passe",
+			"passwordConfirmMissing": "Vous devez renseigner la confirmation du mot de passe",
+			"passwordsMismatch": "Le mot de passe et la confirmation ne sont pas identiques"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",
@@ -249,11 +283,11 @@
 		"footer": {
 			"privacy": "Politique de confidentialité ",
 			"cgu": "Conditions<br>générales d'utilisation",
-			"copyright": "Copyright © 2020 Vittascience"
+			"copyright": ""
 		},
 		"teacherHelpPanel": {
 			"contactForm": {
-				"title": "Contacter Vittascience",
+				"title": "Nous contacter",
 				"objectPlaceholder": "Objet",
 				"messagePlaceholder": "Écrivez votre message ici. (Maximum 800 caractères)",
 				"sendButton": "Envoyer le message"
@@ -422,6 +456,77 @@
 				"3": {
 					"title": "Où peut-on trouver le code source du module Classe ?",
 					"answer": "Le code source du module Classe n'est pas disponible pour le moment. Vous pouvez retrouver de nombreux modules open-source de la plateforme Vittascience sur <a href=\"https://github.com/vittascience\">le dossier GitHub de Vittascience</a>, n'hésitez pas à contribuer !"
+				}
+			}
+		},
+		"title": "Foire Aux Questions",
+		"hint": "Vous ne trouvez pas la réponse à votre question ? <a href=\"/about?contact=1\">Contactez-nous via ce formulaire</a>."
+	},
+	"faqInfoNeutral": {
+		"1": {
+			"section_title": "Questions générales",
+			"question_list": {
+				"1": {
+					"title": "Qu’est-ce que le module Classe ?",
+					"answer": "Le module Classe facilite l'attribution de contenus pédagogiques et le suivi des apprenants. Les enseignants peuvent utiliser les contenus de la communauté, ou bien créer leurs propres activités et les partager."
+				},
+				"2": {
+					"title": "Qui utilise le module Classe ?",
+					"answer": "En cours comme à la maison ou en atelier périscolaire, le module classe est utilisé par des enseignants (professeurs, animateurs, formateurs, etc.) et leurs apprenants (élèves, étudiants, apprentis, etc.). Le module Classe a été pensé pour le niveau secondaire (~10 à 18 ans), mais peut s'adapter à d'autres contextes."
+				},
+				"3": {
+					"title": "Sur quels supports peut-on utiliser le module Classe ?",
+					"answer": "Le module classe fonctionne sur ordinateurs, tablettes et smartphones avec la plupart des navigateurs et une connexion internet."
+				},
+				"4": {
+					"title": "Comment signaler des bugs et faire part de mes commentaires sur le module Classe ?",
+					"answer": "Vous pouvez nous contacter sur le module Classe dans l’onglet profil avec le bouton \"Aide\"."
+				},
+				"5": {
+					"title": "Est-ce que le module Classe est disponible en plusieurs langues ?",
+					"answer": "Oui, le module Classe est actuellement disponible en français et en anglais. Pour changer de langue, allez dans l'onglet profil, cliquez sur le bouton Paramètres, puis sélectionnez la langue qui vous convient."
+				}
+			}
+		},
+		"2": {
+			"section_title": "Comptes",
+			"question_list": {
+				"1": {
+					"title": "Comment se connecter au module Classe ?",
+					"answer": "Il est possible de se connecter au module Classe de trois façons :<ul><li>Code classe : permet aux apprenants de s'inscrire ou se connecter rapidement avec seulement un pseudonyme (sans renseigner d'adresse courriel). Un code classe est généré automatiquement pour chaque classe créée par l'enseignant.</li><li>Compte Open STEAM LMS : permet à l'enseignant de se connecter grâce à un compte Open STEAM LMS (adresse courriel et mot de passe). Cette méthode est réservée aux enseignants et ne convient pas aux apprenants (RGPD).</li><li>Compte GAR : le gestionnaire d’accès aux ressources (« GAR ») a pour objectif de simplifier et sécuriser les accès authentifiés entre les usagers des ENT et leurs ressources numériques. Plus de renseignements sont disponibles sur la page <a href=\"/gar\">accéder à Open STEAM LMS par le GAR</a>.</li></ul>Le respect de la vie privée est primordial pour Open STEAM LMS, pour en savoir plus retrouvez la <a href=\"/privacy\">page dédiée à la protection des données personnelles</a>."
+				},
+				"2": {
+					"title": "Comment créer un compte ?",
+					"answer": "Cliquez simplement sur « Créer un compte » de la page d’accueil du module Classe. Vous devrez fournir quelques informations. Un e-mail vous sera envoyé pour confirmer votre compte. Cliquez simplement sur le lien pour confirmer votre compte. Une fois votre compte confirmé, vous pourrez explorer l’interface, créer vos activités et les partager."
+				},
+				"3": {
+					"title": "Qu’est-ce qu’un compte enseignant ?",
+					"answer": "Tout compte Open STEAM LMS créé à partir d'une adresse courriel ou du GAR peut être utilisé comme compte enseignant. Un compte enseignant possède des fonctionnalités pour créer des comptes apprenants, organiser les activités et échanger des commentaires avec ses apprenants."
+				},
+				"4": {
+					"title": "Qu’est-ce qu’un compte apprenant ?",
+					"answer": "Un compte apprenant permet de réaliser les activités demandées par des enseignants et de partager ses propres réalisations. Seul un pseudonyme est requis pour la création d'un compte apprenant. Un code à 4 chiffres est généré automatiquement pour sécuriser l'accès des apprenants, seul l'enseignant peut modifier manuellement celui-ci. L'apprenant peut toutefois effectuer une réinitialisation pour en obtenir un nouveau."
+				},
+				"5": {
+					"title": "Nom d’utilisateur ou mot de passe oublié ?",
+					"answer": "Si vous avez un compte Open STEAM LMS (enseignant), vous pouvez recevoir un courriel de récupération de mot de passe via <a href=\"/passwordRecovery\">ce lien</a>. En tant qu'apprenant, vous devez demander à votre enseignant de réinitialiser votre code à 4 chiffres."
+				},
+				"6": {
+					"title": "Comment changer de mot de passe ou d’autres paramètres de compte ?",
+					"answer": "Pour changer de mot de passe ou d’autres paramètres, allez sur votre panel \"profil\" puis cliquez sur \"paramètres\" et enfin sur \"Accéder à votre profil\". Dans le cas du GAR, les paramètres sont ceux de votre ENT."
+				}
+			}
+		},
+		"3": {
+			"section_title": "Licences et autorisations",
+			"question_list": {
+				"1": {
+					"title": "Peut-on faire une description ou présentation du module Classe ?",
+					"answer": "Oui, vous pouvez réutiliser les visuels pour module Classe pour créer une description, présentation, formation, tutoriel, cours ou autre. Si vous souhaitez inclure des images ou contenus d'activités, veuillez mentionner l'auteur (voir question suivante)."
+				},
+				"2": {
+					"title": "Où peut-on trouver le code source du module Classe ?",
+					"answer": "Le code source du module Classe Open STEAM LMS est disponible <a href=\"https://github.com/vittascience/OpenSTEAM-LMS\">sur le repo git associé</a>, n'hésitez pas à contribuer !"
 				}
 			}
 		},
@@ -746,7 +851,7 @@
     },
 	"login_popup": {
 		"title": "Login",
-		"details": "Entrez vos identifiants pour accéder à votre compte Vittascience.",
+		"details": "Entrez vos identifiants pour accéder à votre compte.",
 		"form": {
 			"addressmail": "Adresse mail",
 			"addressmail_placeholder": "exemple@domaine.com",
