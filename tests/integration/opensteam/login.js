@@ -1,11 +1,7 @@
 const selector = require("../opensteam/selector");
+const page = require("../opensteam/page");
 
 class Login {
-    clickOnButton (button) {
-        expect(button).toBeDisplayed();
-        button.scrollIntoView();
-        button.click();
-    }
 
     async inputEmailAndPassword (email, password) {
         expect(selector.emailInput).toBeDisplayed();
@@ -21,6 +17,21 @@ class Login {
         await passwordInput.setValue(password);
 
         expect(selector.buttonConnexionThirdPage).toBeEnabled();
+    }
+
+    async login (email, password) {
+        await page.open('login.php');
+
+        let buttonConnexionFirstPage = await selector.buttonConnexionFirstPage;
+        await page.clickButtonWhenDisplayed(buttonConnexionFirstPage);
+
+        let buttonConnexionSecondPage = await selector.buttonConnexionSecondPage;
+        await page.clickButtonWhenDisplayed(buttonConnexionSecondPage);
+
+        let buttonConnexionThirdPage = await selector.buttonConnexionThirdPage;
+        await page.waitElementDisplayed(buttonConnexionThirdPage);
+        await this.inputEmailAndPassword(email, password);
+        page.clickOnButton(buttonConnexionThirdPage);
     }
 }
 

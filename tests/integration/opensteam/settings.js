@@ -1,36 +1,62 @@
 const selector = require("../opensteam/selector");
 const page = require("../opensteam/page");
 
-class Login {
-    clickOnButton (button) {
-        expect(button).toBeDisplayed();
-        button.scrollIntoView();
-        button.click();
+class Settings {
+    constructor() {
+        this.formInformations = {
+            firstname: "",
+            lastname: "",
+            email: "",
+            password: "",
+        };
     }
 
-    async inputEmailAndPassword (email, password) {
-        expect(selector.emailInput).toBeDisplayed();
-        expect(selector.passwordInput).toBeDisplayed();
-        expect(selector.buttonConnexionThirdPage).toBeDisplayed();
+    async inputFirstName (firstname) {
+        let formInputFirstName = await selector.formInputFirstName;
 
-        expect(selector.buttonConnexionThirdPage).toBeDisabled();
+        expect(formInputFirstName).toBeDisplayed();
 
-        let emailInput = await selector.emailInput;
-        let passwordInput = await selector.passwordInput;
-
-        await emailInput.setValue(email);
-        await passwordInput.setValue(password);
-
-        expect(selector.buttonConnexionThirdPage).toBeEnabled();
+        await formInputFirstName.setValue(firstname);
     }
 
-    async login (email, password) {
-        await page.open('login.php');
-        this.clickOnButton(await selector.buttonConnexionFirstPage);
-        this.clickOnButton(await selector.buttonConnexionSecondPage);
-        await this.inputEmailAndPassword(email, password);
-        this.clickOnButton(await selector.buttonConnexionThirdPage);
+    async inputLastName (lastname) {
+        let formInputLastName = await selector.formInputLastName;
+
+        expect(formInputLastName).toBeDisplayed();
+
+        await formInputLastName.setValue(lastname);
+    }
+
+    async inputEmail (email) {
+        let formInputEmail = await selector.formInputEmail;
+
+        expect(formInputEmail).toBeDisplayed();
+
+        await formInputEmail.setValue(email);
+    }
+
+    async inputPasswords (password) {
+        let formInputPassword = await selector.formInputPassword;
+        let formInputConfirmPassword = await selector.formInputConfirmPassword;
+
+        expect(formInputPassword).toBeDisplayed();
+        expect(formInputConfirmPassword).toBeDisplayed();
+
+        await formInputPassword.setValue(password);
+        await formInputConfirmPassword.setValue(password);
+    }
+
+    async inputInForm (firstname, lastname, email, password) {
+        this.formInformations.firstname = firstname;
+        this.formInformations.lastname = lastname;
+        this.formInformations.email = email;
+        this.formInformations.password = password;
+
+        await this.inputFirstName(firstname);
+        await this.inputLastName(lastname);
+        await this.inputEmail(email);
+        await this.inputPasswords(password);
     }
 }
 
-module.exports = new Login();
+module.exports = new Settings();
