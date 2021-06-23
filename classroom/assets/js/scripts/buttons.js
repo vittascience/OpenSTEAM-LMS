@@ -453,7 +453,7 @@ function saveActivity() {
                 "panel": $_GET('panel'),
                 "nav": $_GET('nav'),
                 "option": $_GET('option'),
-                "interface": $_GET('interface')
+                "interface": 'savedActivities'
             };
             navigatePanel(navParam.panel, navParam.nav, navParam.option, navParam.interface, true);
         });
