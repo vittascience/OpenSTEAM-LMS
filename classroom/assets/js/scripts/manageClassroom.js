@@ -392,7 +392,7 @@ function dashboardToCsv(link) {
     let headHtml = "apprenant;"
     let classroom = getClassroomInListByLink(link)[0]
     let index = listIndexesActivities(classroom.students)
-    for (let j = 1; j < index.length; j++) {
+    for (let j = 0; j < index.length; j++) {
         headHtml += index[j].title + ';'
     }
     headHtml += "\n"
@@ -400,7 +400,7 @@ function dashboardToCsv(link) {
         if(classroom.students[i].user.pseudo != 'vittademo'){
             let arrayActivities = reorderActivities(classroom.students[i].activities, index)
             html += classroom.students[i].user.pseudo + ";"
-            for (let j = 1; j < arrayActivities.length; j++) {
+            for (let j = 0; j < arrayActivities.length; j++) {
                 html += statusActivity(arrayActivities[j], 'csv') + ';'
 
             }

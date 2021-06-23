@@ -13,6 +13,7 @@ const classroomModals = {
             title: 'classroom.modals.addStudentByCsv.title'
         },
         content: `<div class="text-center mx-auto w-100 mh-100 mb-2">
+                    <p><span data-i18n="classroom.modals.addStudentByCsv.description"></span><a data-i18n="classroom.modals.addStudentByCsv.csvTemplate" href="${_PATH}assets/media/csv_template.csv"></a> - <a data-i18n="classroom.modals.addStudentByCsv.csvTemplateNoPassword" href="${_PATH}assets/media/csv_template_nopw.csv"></a>.</p>
                     <input type="file" id="importcsv-fileinput" name="importcsvfileinput"/><br>
                     <button class="btn c-btn-secondary mt-2" onclick="importLearnerCsv()">
                         <i class="fas fa-file-csv"></i> 
@@ -30,6 +31,7 @@ const classroomModals = {
         content: `
             <div class="text-center mx-auto w-100 mh-100 mb-2">
                 <div class="d-flex flex-column justify-content-center align-items-center">
+                    <p data-i18n="classroom.modals.exportCsv.exportLearnersDescription"></p>
                     <button class="btn c-btn-secondary mt-2" onclick="exportLearnerCsv()">
                         <i class="fa fa-download" aria-hidden="true"></i> 
                         <span data-i18n="classroom.modals.exportCsv.exportLearners">Exporter la liste des apprenants</span>
@@ -37,6 +39,7 @@ const classroomModals = {
                     <div class="d-flex justify-content-center modal-separator mt-4 mb-4">
                         <span data-i18n="classroom.modals.addActivity.orSeparator">OU</span>
                     </div>
+                    <p data-i18n="classroom.modals.exportCsv.exportDashboardDescription"></p>
                     <button class="btn c-btn-secondary mt-2" onclick="exportDashboardCsv()">
                         <i class="fa fa-download" aria-hidden="true"></i> 
                         <span data-i18n="classroom.modals.exportCsv.exportDashboard">Exporter le tableau de bord</span>

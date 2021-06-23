@@ -310,8 +310,24 @@ function statusActivity(activity, state = true) {
     if (activity.correction == 0 || activity.correction == null) {
         if (state == true)
             return "fas fa-stopwatch"
-        if (state == "csv")
-            return "à faire"
+        if (state == "csv"){
+            switch (activity.correction) {
+                case 0:
+                    return "Pas encore réalisé"
+                    break;
+            
+                case null:
+                    return "Pas encore réalisé"
+                    break;
+
+                case undefined:
+                    return "Pas attribué"
+                    break;
+
+                default:
+                    break;
+            }
+        }
         return "new-activity"
     }
     if (activity.correction == 1) {
