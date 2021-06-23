@@ -1,7 +1,7 @@
 exports.config = {
     runner: 'local',
     specs: [
-        './tests/integration/specs/**/*.js'
+        './integration/specs/**/*.js'
     ],
     exclude: [
     ],
