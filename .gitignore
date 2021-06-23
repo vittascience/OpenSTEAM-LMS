@@ -5,6 +5,8 @@ composer.lock
 /plugins
 classroom/assets/plugins
 /EmailTemplates
+tests/node_modules/**
+tests/node_modules/
 
 # Created by https://www.toptal.com/developers/gitignore/api/intellij,phpstorm,webstorm,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=intellij,phpstorm,webstorm,visualstudiocode
