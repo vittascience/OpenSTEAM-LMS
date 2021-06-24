@@ -20,8 +20,6 @@ class Login {
     }
 
     async login (email, password) {
-        await page.open('login.php');
-
         let buttonConnexionFirstPage = await selector.buttonConnexionFirstPage;
         await page.clickButtonWhenDisplayed(buttonConnexionFirstPage);
 

@@ -15,6 +15,14 @@ class Selector {
         return $("#teacher-account-button");
     }
 
+    get teacherName() {
+        return $("#user-name-teacher");
+    }
+
+    get logoutButton() {
+        return $("#classroom-dashboard-profil-panel-teacher button:last-child");
+    }
+
     /**
      *    My settings page
      */
@@ -43,7 +51,7 @@ class Selector {
     }
 
     get notifOfUpdateInformation() {
-        return $("#notif-div");
+        return $("#notif-div div");
     }
 
 

@@ -1,8 +1,7 @@
 exports.config = {
     runner: 'local',
     specs: [
-        //'./integration/specs/**/*.js'
-        './integration/specs/**/modify.personal.information.setting.js'
+        './integration/specs/**/*.js'
     ],
     exclude: [
     ],

@@ -5,7 +5,8 @@ const settings = require('../opensteam/settings');
 
 describe("Teacher login on OpenSTEAM LMS", () => {
     it("login", async () => {
-        await login.login("admin@cabri.com", "password");
+        await page.open('login.php');
+        await login.login("admin@cabri.com", "Password123@");
         const isDisplayed = await browser.waitUntil(async () => {
             return await (await selector.accessibilityButton).isDisplayed();
         },{
@@ -49,9 +50,27 @@ describe("Teacher login on OpenSTEAM LMS", () => {
     });
 
     it("Modify profile informations", async () => {
-        await settings.inputInForm("Cabri", "log", "cabri@cabri.com", "123Cabri");
-        page.clickButtonWhenDisplayed(await selector.formButtonUpdate);
-        await browser.pause(5000);
+        await settings.completeFormular("Cabri", "Log", "cabri@cabri.com", "Password123@");
+        await settings.checkSuccess();
+    });
+
+    it("Logout", async () => {
+        page.clickOnButton(await selector.buttonProfile);
+        await page.clickButtonWhenDisplayed(await selector.logoutButton);
+    });
+
+    it("Login with new informations", async () => {
+        await login.login(settings.formInformations.email, settings.formInformations.password);
+        let isDiplayed = await page.waitElementDisplayed(await selector.accessibilityButton);
+        if(isDiplayed)
+            console.log("login successful");
+        else
+            console.log("login failed")
+    });
+
+    it("Check profile update", async () => {
+        page.clickOnButton(await selector.buttonProfile);
+        await settings.checkTeacherName();
     });
 });
 

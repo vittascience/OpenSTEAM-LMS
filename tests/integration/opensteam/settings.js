@@ -51,11 +51,50 @@ class Settings {
         this.formInformations.lastname = lastname;
         this.formInformations.email = email;
         this.formInformations.password = password;
+        if(firstname)
+            await this.inputFirstName(firstname);
+        if(lastname)
+            await this.inputLastName(lastname);
+        if(email)
+            await this.inputEmail(email);
+        if(password)
+            await this.inputPasswords(password);
+    }
 
-        await this.inputFirstName(firstname);
-        await this.inputLastName(lastname);
-        await this.inputEmail(email);
-        await this.inputPasswords(password);
+    async completeFormular (firstname, lastname, email, password) {
+        await this.inputInForm(firstname, lastname, email, password);
+        await page.clickButtonWhenDisplayed(await selector.formButtonUpdate);
+    }
+
+    async checkSuccess () {
+        const success = /status-success/g;
+        let notifOfUpdateInformation = await selector.notifOfUpdateInformation;
+
+        await page.waitElementDisplayed(notifOfUpdateInformation);
+
+        let classAttrsOfNotif = await notifOfUpdateInformation.getAttribute('class');
+        if (classAttrsOfNotif.match(success) === null) {
+            expect(false).toBeTruthy();
+        } else {
+            expect(true).toBeTruthy();
+        }
+    }
+
+    async checkTeacherName () {
+        let teacherName = await selector.teacherName;
+
+        await page.waitElementDisplayed(teacherName);
+
+        let textOfTeacherName = await teacherName.getText();
+        const pieceOfTeacherName = textOfTeacherName.split(' ');
+
+        const isRightName = pieceOfTeacherName[0] === this.formInformations.firstname
+            && pieceOfTeacherName[1] === this.formInformations.lastname;
+
+        if(!isRightName)
+            console.log("bad update of teacher name");
+
+        expect(isRightName).toBeTruthy();
     }
 }
 
