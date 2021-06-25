@@ -68,6 +68,13 @@ VS_MAIL_PORT=
 VS_MAIL_TYPE=
 VS_MAIL_ADDRESS=
 VS_MAIL_PASSWORD=
+VS_REPLY_TO_MAIL=support@your_company_name.com
+VS_REPLY_TO_NAME=Support # it can be Support,Contact or something else
+VS_SET_FROM=your_website.com
+
+# path to use for the activity logger(ie: routing/Routing.php)
+LOG_PATH=/logs/log.log
+
 # setup the new admin data
 ADMIN_PSEUDO=PSEUDO
 ADMIN_PASSWORD=PASSWORD

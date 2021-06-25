@@ -14,6 +14,7 @@
 			"hello1": "'Hello!'",
 			"hello2": "Hello!",
 			"title": "Manage your Classrooms</br>with Vittascience",
+			"neutralTitle": "Open STEAM LMS",
 			"subtitle": "Discover - Learn - Share",
 			"login": "Log in",
 			"activities": "easily create </br> your activities",
@@ -23,7 +24,7 @@
 			"student": "STUDENT",
             "codeInput": " Enter your Classroom code",
             "teacher": "TEACHER",
-			"hasAccount": "Already have a Vittascience account?",
+			"hasAccount": "Already have an account?",
 			"gar": "Enjoy the Classroom module with ease using GAR.</br><i class=\"fas fa-exclamation-triangle\" style=\"color:var(--vitta-orange-light)\"></i> The connection to GAR is not yet finalized, but will be ready soon.",
 			"signup": "SIGN UP",
 			"firstVisit": "First time? Please choose a username.",
@@ -282,11 +283,11 @@
 		"footer": {
 			"privacy": "Privacy policy ",
 			"cgu": "Terms of Service",
-			"copyright": "Copyright © 2020 Vittascience"
+			"copyright": ""
 		},
 		"teacherHelpPanel": {
 			"contactForm": {
-				"title": "Contact Vittascience",
+				"title": "Contact us",
 				"objectPlaceholder": "Object",
 				"messagePlaceholder": "Write your message here. (Maximum 800 characters)",
 				"sendButton": "Send the message"
@@ -338,11 +339,16 @@
 			},
 			"addStudentByCsv": {
 				"title": "Add students with a .csv file",
+				"description": "You can add one or more learners at once by importing them from a .csv file. It is optionally possible to define the password for each of them. Here are the .csv template files: ",
+				"csvTemplate": "template file with password",
+				"csvTemplateNoPassword": "template file without password",
 				"importStudentByCsvButton": "Importer learners"
 			},
 			"exportCsv": {
 				"title": "Export in csv format",
+				"exportLearnersDescription": "Download the list of learners for this class as well as their password. The downloaded file is in .csv format.",
 				"exportLearners": "Download the list of learners",
+				"exportDashboardDescription": "Download the list of learners for this class as well as, for each of them, their assigned activities as well as the status of each activity (not yet carried out, to be corrected, completed). The downloaded file is in .csv format.",
 				"exportDashboard": "Download the dashboard"
 			},
 			"listClass": {
@@ -463,7 +469,7 @@
 	},
 	"login_popup": {
 		"title": "Login",
-		"details": "Enter your login details to access your Vittascience account.",
+		"details": "Enter your login details to access your account.",
 		"form": {
 			"addressmail": "E-mail address",
 			"addressmail_placeholder": "exemple@domaine.com",

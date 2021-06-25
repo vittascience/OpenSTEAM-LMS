@@ -113,9 +113,12 @@ function classeItem(classe, nbStudents, students) {
         return count
     }
     let maxAct = maxLength(students)
+    let remainingCorrections = getRemainingCorrections(students);
+    let remainingCorrectionsSpanElt = remainingCorrections ? `<span class="results-correcting c-text-secondary"><i class="fas fa-pen"></i></i> ${remainingCorrections}</span>` : '';
     let html = `<div class="class-item"><div class="class-card">
                 <div class="class-card-top"  data-id="${classe.id}" data-link="${classe.link}">
                 <span><i class="fas fa-user fa-2x"></i></i> ${nbStudents}</span>
+                ${remainingCorrectionsSpanElt}
                 <div class="dropdown"><i class="fas fa-cog fa-2x" type="button" id="dropdown-classeItem-${classe.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                     <div class="dropdown-menu" aria-labelledby="dropdown-classeItem-${classe.id}">
                 <li class="modal-classroom-modify classroom-clickable col-12 dropdown-item" href="#">` + capitalizeFirstLetter(i18next.t('words.modify')) + `</li>
@@ -133,6 +136,19 @@ function classeItem(classe, nbStudents, students) {
     html += `</div></div>`
 
     return html;
+}
+
+function getRemainingCorrections(students) {
+    let remainingCorrectionCount = 0;
+    for (let student of students) {
+        for (let activity of student.activities) {
+            if (activity.correction == 1){
+                remainingCorrectionCount++;
+            }
+        }
+    }
+
+    return remainingCorrectionCount;
 }
 
 function hasAttribution(student, ref) {
@@ -310,8 +326,24 @@ function statusActivity(activity, state = true) {
     if (activity.correction == 0 || activity.correction == null) {
         if (state == true)
             return "fas fa-stopwatch"
-        if (state == "csv")
-            return "à faire"
+        if (state == "csv"){
+            switch (activity.correction) {
+                case 0:
+                    return "Pas encore réalisé"
+                    break;
+            
+                case null:
+                    return "Pas encore réalisé"
+                    break;
+
+                case undefined:
+                    return "Pas attribué"
+                    break;
+
+                default:
+                    break;
+            }
+        }
         return "new-activity"
     }
     if (activity.correction == 1) {

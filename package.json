@@ -7,8 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "build": "gulp build",
-    "test": "npx wdio"
+    "build": "gulp build"
   },
   "repository": {
     "type": "git",
@@ -25,10 +24,6 @@
   },
   "homepage": "https://github.com/vittascience/OpenSTEAM-LMS#readme",
   "devDependencies": {
-    "@wdio/local-runner": "^7.7.3",
-    "@wdio/mocha-framework": "^7.7.3",
-    "@wdio/spec-reporter": "^7.7.3",
-    "chromedriver": "^91.0.1",
     "del": "^5.1.0",
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
@@ -37,11 +32,9 @@
     "gulp-html-replace": "^1.6.2",
     "gulp-minify": "^3.1.0",
     "gulp-rename": "^2.0.0",
-    "require-dir": "^1.2.0",
-    "wdio-chromedriver-service": "^7.1.0"
+    "require-dir": "^1.2.0"
   },
   "dependencies": {
-    "@wdio/cli": "^7.7.3",
     "gulp-merge-json": "^2.1.1",
     "gulp-replace": "^1.0.0"
   }

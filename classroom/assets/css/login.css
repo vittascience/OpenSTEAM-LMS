@@ -115,6 +115,10 @@
     background: no-repeat bottom center/100% url("../media/home_bg.png");
 }
 
+.jumbotron-neutral {
+    min-height: 100vh;
+}
+
 #interactive-elements-container {
     display: flex;
     flex-direction: row;
