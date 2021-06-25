@@ -1,8 +1,7 @@
 function DisplayPanel() {}
 
 DisplayPanel.prototype.classroom_dashboard_classes_panel_teacher = function () {
-
-    classroomsDisplay()
+    classroomsDisplay();
 }
 
 DisplayPanel.prototype.classroom_dashboard_new_activity_panel2 = function (id) {
@@ -227,6 +226,7 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
             })
 
         } else {
+            // Load the classroom with the current cache data
             let students = getClassroomInListByLink(link)[0].students
             displayStudentsInClassroom(students)
             $('.classroom-link').html(ClassroomSettings.classroom)
@@ -236,9 +236,14 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
             } else {
                 $('#classroom-info').removeClass('greyscale')
             }
+            // Get the classes from database and refresh the dashboard
+            Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
+                let students = getClassroomInListByLink(link)[0].students
+                displayStudentsInClassroom(students)
+            });
         }
 
-
+        setTimeout(dashboardAutoRefresh, 15000);
     } else {
         navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher', 'WK' + id, '')
         displayNotification('#notif-div', "classroom.login.noClass", "warning")

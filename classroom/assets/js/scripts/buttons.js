@@ -556,13 +556,20 @@ function sandboxDisplay(projects = Main.getClassroomManager()._myProjects) {
 }
 
 function classroomsDisplay() {
-    $('.list-classes').html(``)
-    let classes = Main.getClassroomManager()._myClasses
-
-    classes.forEach(element => {
-        $('.list-classes').append(classeItem(element.classroom, element.students.length, element.students))
+    // Display the classes from cached data
+    $('.list-classes').html(``);
+    let classes = Main.getClassroomManager()._myClasses;
+    classes.forEach(classroom => {
+        $('.list-classes').append(classeItem(classroom.classroom, classroom.students.length, classroom.students));
     });
-
+    // Get the classes from the database and refresh the panel it there are differences
+    Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
+        $('.list-classes').html(``);
+        let classes = Main.getClassroomManager()._myClasses;
+        classes.forEach(classroom => {
+            $('.list-classes').append(classeItem(classroom.classroom, classroom.students.length, classroom.students));
+        });
+    });
 }
 
 function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherActivities) {
