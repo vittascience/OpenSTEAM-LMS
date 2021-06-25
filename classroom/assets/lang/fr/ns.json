@@ -339,11 +339,16 @@
 			},
 			"addStudentByCsv": {
 				"title": "Ajouter des étudiants avec un fichier .csv",
+				"description": "Vous pouvez ajouter un ou plusieurs apprenants d'un seul coup en les important depuis un fichier .csv. Il est facultativement possible de définir le mot de passe pour chacun d'entre eux. Voici les fichiers .csv modèles : ",
+				"csvTemplate": "fichier modèle avec mot de passe",
+				"csvTemplateNoPassword": "fichier modèle sans mot de passe",
 				"importStudentByCsvButton": "Importer les apprenants"
 			},
 			"exportCsv": {
 				"title": "Exporter au format csv",
+				"exportLearnersDescription": "Télécharcher la liste des apprenants pour cette classe ainsi que leur mot de passe. Le fichier téléchargé est au format .csv.",
 				"exportLearners": "Télécharger la liste des apprenants",
+				"exportDashboardDescription": "Télécharger la liste des apprenants pour cette classe ainsi que, pour chacun d'entre eux, leur activités attribuées ainsi que l'état de chaque activité (pas encore réalisée, à corriger, complétée). Le fichier téléchargé est au format .csv.",
 				"exportDashboard": "Télécharger le tableau de bord"
 			},
 			"listClass": {

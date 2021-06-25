@@ -339,11 +339,16 @@
 			},
 			"addStudentByCsv": {
 				"title": "Add students with a .csv file",
+				"description": "You can add one or more learners at once by importing them from a .csv file. It is optionally possible to define the password for each of them. Here are the .csv template files: ",
+				"csvTemplate": "template file with password",
+				"csvTemplateNoPassword": "template file without password",
 				"importStudentByCsvButton": "Importer learners"
 			},
 			"exportCsv": {
 				"title": "Export in csv format",
+				"exportLearnersDescription": "Download the list of learners for this class as well as their password. The downloaded file is in .csv format.",
 				"exportLearners": "Download the list of learners",
+				"exportDashboardDescription": "Download the list of learners for this class as well as, for each of them, their assigned activities as well as the status of each activity (not yet carried out, to be corrected, completed). The downloaded file is in .csv format.",
 				"exportDashboard": "Download the dashboard"
 			},
 			"listClass": {
