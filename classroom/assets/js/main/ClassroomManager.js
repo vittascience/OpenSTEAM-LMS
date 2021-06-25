@@ -20,6 +20,7 @@ class ClassroomManager {
         this._myActivities = []
         this._myClasses = []
         this._myTeacherActivities = []
+        this._promisesPool = [];
     }
 
     /**
@@ -61,29 +62,37 @@ class ClassroomManager {
      * @returns {Array}
      */
     getClasses(container) {
-        return new Promise(function (resolve, reject) {
-            var process = function (thisInstance, response) {
-                if (response.error_message && response.error_message !== undefined) {
-                    thisInstance.errors.push(GET_PUBLIC_PROJECTS_ERROR)
+        // Adding the current Promise in the promisePool array
+        this._promisesPool.push(
+            new Promise(async (resolve, reject) => {
+                // If there is any Promise already in the array, wait for the last added Promise to end before processing the ajax request (to avoid older request to overwrite newer)
+                if(this._promisesPool.length > 0){
+                    await this._promisesPool[this._promisesPool.length -2];
                 }
-                thisInstance._myClasses = response;
-                resolve()
-
-            };
-            var callBack = function (thisInstance, response) {
-                process(thisInstance, response);
-            };
-            $.ajax({
-                type: "POST",
-                url: "/routing/Routing.php?controller=classroom&action=get_by_user",
-                success: function (response) {
-                    callBack(container, JSON.parse(response));
-                },
-                error: function () {
-                    console.log('error')
-                }
-            });
-        })
+                var process = (thisInstance, response) => {
+                    if (response.error_message && response.error_message !== undefined) {
+                        thisInstance.errors.push(GET_PUBLIC_PROJECTS_ERROR)
+                    }
+                    thisInstance._myClasses = response;
+                    resolve()
+    
+                };
+                var callBack = (thisInstance, response) => {
+                    process(thisInstance, response);
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "/routing/Routing.php?controller=classroom&action=get_by_user",
+                    success: function (response) {
+                        callBack(container, JSON.parse(response));
+                    },
+                    error: function () {
+                        console.log('error')
+                    }
+                });
+            })
+        );
+        return this._promisesPool[this._promisesPool.length-1];
     };
 
     /**
