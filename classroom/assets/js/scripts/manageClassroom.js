@@ -367,9 +367,10 @@ function classroomToCsv(link) {
     let html = "apprenant;mot de passe \n"
     let classroom = getClassroomInListByLink(link)[0]
     for (let i = 0; i < classroom.students.length; i++) {
-        html += classroom.students[i].user.pseudo + ";" + classroom.students[i].pwd + "\n"
+        if(classroom.students[i].user.pseudo != 'vittademo'){
+            html += classroom.students[i].user.pseudo + ";" + classroom.students[i].pwd + "\n";
+        }
     }
-    console.log(html)
     let date = new Date();
     let name = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear() + '-' + date.getHours() + 'h-' + date.getMinutes() + 'm.csv';
     let element = document.createElement('a');
@@ -391,22 +392,22 @@ function dashboardToCsv(link) {
     let headHtml = "apprenant;"
     let classroom = getClassroomInListByLink(link)[0]
     let index = listIndexesActivities(classroom.students)
-    console.log(index)
-    for (let j = 1; j < index.length; j++) {
+    for (let j = 0; j < index.length; j++) {
         headHtml += index[j].title + ';'
     }
     headHtml += "\n"
     for (let i = 0; i < classroom.students.length; i++) {
-        let arrayActivities = reorderActivities(classroom.students[i].activities, index)
-        html += classroom.students[i].user.pseudo + ";"
-        for (let j = 1; j < arrayActivities.length; j++) {
-            html += statusActivity(arrayActivities[j], 'csv') + ';'
+        if(classroom.students[i].user.pseudo != 'vittademo'){
+            let arrayActivities = reorderActivities(classroom.students[i].activities, index)
+            html += classroom.students[i].user.pseudo + ";"
+            for (let j = 0; j < arrayActivities.length; j++) {
+                html += statusActivity(arrayActivities[j], 'csv') + ';'
 
+            }
+            html += "\n"
         }
-        html += "\n"
     }
     html = headHtml + html
-    console.log(html)
     let date = new Date();
     let name = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear() + '-' + date.getHours() + 'h-' + date.getMinutes() + 'm.csv';
     let element = document.createElement('a');
@@ -958,4 +959,14 @@ function teacherAccountUpdateFormCheck(formData){
  */
 function showFormInputError(id){
     document.getElementById(id).classList.add('form-input-error');
+}
+
+function dashboardAutoRefresh(){
+    if($_GET('panel') == 'classroom-table-panel-teacher' && $_GET('option')){
+        Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
+            let students = getClassroomInListByLink($_GET('option'))[0].students
+            displayStudentsInClassroom(students)
+        });
+        setTimeout(dashboardAutoRefresh, 15000);
+    }
 }

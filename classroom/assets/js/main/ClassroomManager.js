@@ -20,6 +20,42 @@ class ClassroomManager {
         this._myActivities = []
         this._myClasses = []
         this._myTeacherActivities = []
+        this._tasksQueue = [];
+        this._isExecutingTaskInQueue = false;
+    }
+
+    /**
+     * Add a task to the queue and execute the queue manager
+     * @param {function} task - Function that perform an xhr
+     */
+    _addTaskToQueue(task) {
+        this._tasksQueue.push(task);
+        this._executeTasksInQueue();
+    }
+
+    /**
+     * Loop in the queue and execute queued taks one after another. If the executing loop is already in progress, doesn't do anything.
+     */
+    async _executeTasksInQueue() {
+        // Return if the loop is already in progress.
+        if (this._isExecutingTaskInQueue)
+            return;
+        // Change the state to currently executing the loop
+        this._isExecutingTaskInQueue = true;
+        // Loop in the queue by shifting tasks and executing them one by one (awaiting for a task to end before looping again)
+        while (this._tasksQueue.length > 0) {
+            let currentTask = this._tasksQueue.shift();
+            await new Promise((resolve, reject) => {
+                try {
+                    currentTask(resolve);
+                } catch (error) {
+                    console.warn(error);
+                    resolve();
+                }
+            });
+        }
+        // When the loop has ended (no more task in the queue), change the state to currently idle
+        this._isExecutingTaskInQueue = false;
     }
 
     /**
@@ -61,30 +97,30 @@ class ClassroomManager {
      * @returns {Array}
      */
     getClasses(container) {
-        return new Promise(function (resolve, reject) {
-            var process = function (thisInstance, response) {
-                if (response.error_message && response.error_message !== undefined) {
-                    thisInstance.errors.push(GET_PUBLIC_PROJECTS_ERROR)
-                }
-                thisInstance._myClasses = response;
-                resolve()
-
-            };
-            var callBack = function (thisInstance, response) {
-                process(thisInstance, response);
-            };
-            $.ajax({
-                type: "POST",
-                url: "/routing/Routing.php?controller=classroom&action=get_by_user",
-                success: function (response) {
-                    callBack(container, JSON.parse(response));
-                },
-                error: function () {
-                    console.log('error')
-                }
-            });
-        })
-    };
+        return new Promise((resolve, reject) => {
+            // Wrap the current action into a task function
+            let currentTask = (onEnd) => {
+                $.ajax({
+                    type: "POST",
+                    url: "/routing/Routing.php?controller=classroom&action=get_by_user",
+                    success: function (response) {
+                        if (JSON.parse(response).error_message && JSON.parse(response).error_message !== undefined) {
+                            container.errors.push(GET_PUBLIC_PROJECTS_ERROR)
+                        }
+                        container._myClasses = JSON.parse(response);
+                        onEnd();
+                        resolve();
+                    },
+                    error: function () {
+                        console.log('error');
+                        onEnd();
+                    }
+                });
+            }
+            // Add the current task to the tasks queue
+            this._addTaskToQueue(currentTask);
+        });
+    }
 
     /**
      * Get teachers from the classroom

@@ -35,14 +35,15 @@ You can find the LMS tutorial on [a video on Youtube](https://www.youtube.com/wa
 
 # How to setup project environment
 
-1. [Clone the repository](https://github.com/vittascience/STEAMS-LMS#clone-the-repository)
-2. [.env file creation](https://github.com/vittascience/STEAMS-LMS#env-file-creation)
-3. [VirtualHost Setup](https://github.com/vittascience/STEAMS-LMS#virtualhost-setup)
-4. [Database setup](https://github.com/vittascience/STEAMS-LMS#database-setup)
-5. [Dependencies](https://github.com/vittascience/STEAMS-LMS#dependencies)
-6. [Build](https://github.com/vittascience/STEAMS-LMS#build)
-7. [Plugins](https://github.com/vittascience/STEAMS-LMS#plugins)
-8. [OpenSTEAM LMS back end core](https://github.com/vittascience/STEAMS-LMS#opensteam-lms-back-end-core)
+1. [Clone the repository](https://github.com/vittascience/OpenSTEAM-LMS#clone-the-repository)
+2. [.env file creation](https://github.com/vittascience/OpenSTEAM-LMS#env-file-creation)
+3. [VirtualHost Setup](https://github.com/vittascience/OpenSTEAM-LMS#virtualhost-setup)
+4. [Database setup](https://github.com/vittascience/OpenSTEAM-LMS#database-setup)
+5. [Dependencies](https://github.com/vittascience/OpenSTEAM-LMS#dependencies)
+6. [Build](https://github.com/vittascience/OpenSTEAM-LMS#build)
+7. [Plugins](https://github.com/vittascience/OpenSTEAM-LMS#plugins)
+8. [Email Templates](https://github.com/vittascience/OpenSTEAM-LMS#email-templates)
+9. [OpenSTEAM LMS back end core](https://github.com/vittascience/OpenSTEAM-LMS#opensteam-lms-back-end-core)
 
 ## Clone the repository
 
@@ -163,6 +164,37 @@ You just need to put it in a folder named ```plugins``` at the root of the OpenS
 ### 3. Launch the Build
 
 Follow the steps described in the Build section above
+
+## Email Templates
+
+Once you have set up all the fields related to emails + the ```VS_HOST``` in your .env file, the users who will register or request an email address update will receive a confirmation email to active their new account/ confirm their new email address.
+
+A default html email is used, but you can create your own html emails and overwrite the default email templates.
+
+How to do ?
+
+- create a folder at the root of openSteamLMS and name it ```emailTemplates```
+- inside emailTemplates folder, add a 'Fr' and a 'En' folder for example
+- inside theses folders, add a ```en_confirm_account.php``` and a ```en_confirm_email_update.php``` file (these files will contain your email's html markups)
+
+email directory tree
+
+```
++---database
++---emailTemplates
+|   +---En
+|       +---en_confirm_account.php
+|       +---en_confirm_email_update.php
+|   +---Fr
+|       +---fr_confirm_account.php
+|       +---fr_confirm_email_update.php
++---gulp
+```
+Note: your email template have to have a ```<div> <?php echo  $body;?> </div>``` variable hard coded.
+
+If you go to openSteamLMS/vendor/vtuser/src/Controller/ControllerUser, you will find the register and update_user_infos methods that have a ```$body``` defined.
+
+This $body variable will be injected inside your html emails before sending each email.
 
 ## OpenSTEAM LMS back end core
 
