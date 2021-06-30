@@ -31,6 +31,10 @@ class Page {
         this.clickOnButton(selector);
         expect(isDisplay).toBeTruthy();
     }
+
+    randomNumberBetween1to100() {
+        return Math.floor(Math.random() * 100);
+    }
 }
 
 module.exports = new Page();

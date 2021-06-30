@@ -1,5 +1,6 @@
 const selector = require("../opensteam/selector");
 const page = require("../opensteam/page");
+const login = require("../opensteam/login");
 
 class Settings {
     constructor() {
@@ -95,6 +96,18 @@ class Settings {
             console.log("bad update of teacher name");
 
         expect(isRightName).toBeTruthy();
+    }
+
+    async modifyProfileTeacher(email, password) {
+        await login.login(this.formInformations.email, this.formInformations.password);
+        const isDisplayed = page.waitElementDisplayed(await selector.accessibilityButton);
+        expect(isDisplayed).toBeTruthy();
+        await page.clickButtonWhenDisplayed(await selector.buttonProfile);
+        await page.clickButtonWhenDisplayed(await selector.buttonSettings);
+        // the popup
+        await page.clickButtonWhenDisplayed(await selector.buttonGoToProfile);
+        await this.completeFormular("Cabri", "Log", email, password);
+        await this.checkSuccess();
     }
 }
 
