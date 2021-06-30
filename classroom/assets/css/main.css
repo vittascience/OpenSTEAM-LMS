@@ -111,7 +111,7 @@
 }
 
 /* SWITCHER */
-input:checked + .slider-mini {
+input:checked+.slider-mini {
     background-color: var(--classroom-primary) !important;
 }
 
@@ -129,7 +129,7 @@ input:checked + .slider-mini {
     background-color: var(--classroom-background);
 }
 
-#teacherSwitchButton{
+#teacherSwitchButton {
     display: none;
 }
 
@@ -256,8 +256,6 @@ button {
 
 }
 
-
-
 .sidebar-classroom .active img {
     border-color: #1e8956;
     /* /!\ Do not change ! The color will be changed by a CSS filter */
@@ -316,6 +314,55 @@ button {
 .dashboard-block {
     margin-top: 2.5em;
 }
+
+
+@media (max-width: 768px) {
+
+    #classroom-dashboard-background {
+        padding: 0px;
+        width: 100vw;
+    }
+
+    #classroom-dashboard-container {
+        grid-template-columns: 100%;
+        grid-template-rows: auto 125px;
+    }
+
+    #classroom-dashboard-sidebar,
+    #classroom-dashboard-sidebar-teacher {
+        grid-row-start: 2;
+        width: 100%;
+    }
+
+    .sidebar-classroom {
+        height: 100%;
+        grid-auto-flow: column;
+    }
+
+    .sidebar-classroom #classroom-sidebar-logo {
+        display: none;
+    }
+
+    .sidebar-classroom div:not(:first-child) {
+        height: 100%;
+        background: transparent;
+    }
+
+    .sidebar-classroom div span {
+        display: none;
+    }
+
+    .sidebar-classroom .active:not(:first-child) {
+        border-radius:0em 0em 15px 15px ;
+    }
+
+
+    #classroom-dashboard-content {
+        border-radius: 0px;
+    }
+
+}
+
 
 /* DASHBOARD ELEMENTS */
 
@@ -378,7 +425,7 @@ button {
     font-weight: 700;
 }
 
-.profile-panel .text-span-initial{
+.profile-panel .text-span-initial {
     font-size: initial;
 }
 
@@ -569,18 +616,19 @@ button {
 }
 
 /* Wysibb -> text editor in tutorial and classroom */
-span.btn-span-peertube, span.btn-span-cabri{
+span.btn-span-peertube,
+span.btn-span-cabri {
     text-align: center;
 }
 
-img.btn-peertube{
+img.btn-peertube {
     width: 20px;
     height: 20px;
     margin: 3px 0px 0px 0px;
     filter: grayscale(1);
 }
 
-img.btn-cabri{
+img.btn-cabri {
     width: 26px;
     height: 26px;
 }
@@ -623,7 +671,7 @@ img.btn-cabri{
     }
 }
 
-#classroom-dashboard-sandbox-creation-container .card{
+#classroom-dashboard-sandbox-creation-container .card {
     border: 0;
     box-shadow: 1px 1px 5px #00000029;
     border-radius: 21px;
@@ -631,39 +679,39 @@ img.btn-cabri{
     padding: 20px 0px 0px 0px;
 }
 
-#classroom-dashboard-sandbox-creation-container .instructions-title{
+#classroom-dashboard-sandbox-creation-container .instructions-title {
     font-weight: 700;
     font-size: 1rem;
     line-height: 1.5rem;
     text-align: center;
 }
 
-#classroom-dashboard-sandbox-creation-container .btn-know-more{
+#classroom-dashboard-sandbox-creation-container .btn-know-more {
     margin: 10px auto 0px auto;
     white-space: initial;
     font-size: 0.8rem;
     display: block;
 }
 
-#classroom-dashboard-sandbox-creation-container .card .card-img-top{
+#classroom-dashboard-sandbox-creation-container .card .card-img-top {
     width: 80%;
     height: 8em;
     margin: 0 auto 10px auto;
     object-fit: scale-down;
 }
 
-#classroom-dashboard-sandbox-creation-container .card .card-body{
+#classroom-dashboard-sandbox-creation-container .card .card-body {
     padding: 0rem 1.25rem 1.25rem 1.25rem;
 }
 
-#classroom-dashboard-sandbox-creation-container .card.open-ide .card-title{
+#classroom-dashboard-sandbox-creation-container .card.open-ide .card-title {
     text-transform: uppercase;
     font-weight: 600;
     text-align: center;
     font-size: 1rem;
 }
 
-#classroom-dashboard-sandbox-creation-container .card.open-ide .interface-description{
+#classroom-dashboard-sandbox-creation-container .card.open-ide .interface-description {
     text-align: center;
 }
 
@@ -1142,7 +1190,7 @@ h3.section-done {
     color: var(--classroom-text-2);
 }
 
-#is-anonymised{
+#is-anonymised {
     left: 0px !important;
 }
 
@@ -1242,9 +1290,11 @@ i.line_height34 {
 .open-ide:hover {
     filter: grayscale(0.70);
 }
-.open-ide{
+
+.open-ide {
     cursor: pointer;
 }
+
 .wysibb-text-editor {
     min-height: 50vh !important;
 }
@@ -1372,15 +1422,15 @@ i.line_height34 {
 
 }
 
-.blocking-class{
+.blocking-class {
     cursor: pointer;
-    border-radius:10em;
+    border-radius: 10em;
     font-weight: 700;
     border: 1px solid orange;
-    color:orange;
+    color: orange;
 }
 
-.greyscale{
+.greyscale {
     filter: grayscale(0.8);
 }
 
@@ -1480,7 +1530,7 @@ i.line_height34 {
 }
 
 /* Teacher account panel */
-.form-input-error{
+.form-input-error {
     border-color: var(--classroom-red) !important;
     color: var(--classroom-red) !important;
 }
