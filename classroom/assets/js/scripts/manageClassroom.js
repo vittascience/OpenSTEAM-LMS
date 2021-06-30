@@ -960,3 +960,13 @@ function teacherAccountUpdateFormCheck(formData){
 function showFormInputError(id){
     document.getElementById(id).classList.add('form-input-error');
 }
+
+function dashboardAutoRefresh(){
+    if($_GET('panel') == 'classroom-table-panel-teacher' && $_GET('option')){
+        Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
+            let students = getClassroomInListByLink($_GET('option'))[0].students
+            displayStudentsInClassroom(students)
+        });
+        setTimeout(dashboardAutoRefresh, 15000);
+    }
+}
