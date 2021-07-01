@@ -39,6 +39,15 @@ class Page {
     waitForExist(selector) {
         selector.waitForExist({timeout: 30000});
     }
+
+    async input (selector, input) {
+        if(input) {
+            expect(selector).toBeDisplayed();
+            await selector.setValue(input);
+        } else {
+            expect(false).toBeTruthy();
+        }
+    }
 }
 
 module.exports = new Page();

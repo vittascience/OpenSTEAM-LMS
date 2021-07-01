@@ -96,6 +96,59 @@ class Selector {
     get infoConnexion () {
         return $("#info-div div");
     }
+
+    /**
+     *    Classroom page
+     */
+    get buttonClasses () {
+        return $("#dashboard-classes-teacher");
+    }
+
+    get buttonCreateClass () {
+        return $("#classroom-dashboard-classes-panel-teacher .btn");
+    }
+
+    get inputClassName() {
+        return $("#classroom-form-name");
+    }
+
+    get inputSchoolName() {
+        return $("#classroom-form-school");
+    }
+
+    get inputLimitLearner() {
+        return $("#classroom-form-is-blocked");
+    }
+
+    get buttonAddLearner() {
+        return $("#classroom-dashboard-form-classe-panel button");
+    }
+
+    // modal
+    get inputLearnerName() {
+        return $("#add-student-div input");
+    }
+
+    // modal
+    get buttonAddLearnerInModal() {
+        return $("#add-student-modal button");
+    }
+
+    get tableLearner() {
+        return $("#table-students ul");
+    }
+
+    get buttonRemoveLearner() {
+        return $("#table-students li button");
+    }
+
+    get buttonSaveClass() {
+        return $("#classroom-dashboard-form-classe-panel .new-classroom-form:last-child");
+    }
+
+    get divListMyClasses () {
+        return $("#classroom-dashboard-classes-panel-teacher .list-classes");
+    }
 }
 
 module.exports = new Selector();
