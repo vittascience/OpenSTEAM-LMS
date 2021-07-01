@@ -325,18 +325,25 @@ button {
 
     #classroom-dashboard-container {
         grid-template-columns: 100%;
-        grid-template-rows: auto 125px;
+        grid-template-rows: auto 0px;
     }
 
     #classroom-dashboard-sidebar,
     #classroom-dashboard-sidebar-teacher {
+        z-index: 3;
+        position: fixed;
+        bottom: 0;
         grid-row-start: 2;
         width: 100%;
+        background: var(--classroom-dashboard);
+        height: 125px;
     }
 
     .sidebar-classroom {
         height: 100%;
         grid-auto-flow: column;
+        align-items: flex-start;
+        justify-content: space-evenly;
     }
 
     .sidebar-classroom #classroom-sidebar-logo {
@@ -344,9 +351,9 @@ button {
     }
 
     .sidebar-classroom div:not(:first-child) {
-        width: 80%;
-        height: 70%;
-                background: transparent;
+        width: 120px;
+        height: 110px;
+        background: transparent;
         grid-template-rows: auto 0px;
     }
 
@@ -355,12 +362,13 @@ button {
     }
 
     .sidebar-classroom .active:not(:first-child) {
-        border-radius:0em 0em 15px 15px ;
+        border-radius: 0em 0em 15px 15px;
     }
 
 
     #classroom-dashboard-content {
         border-radius: 0px;
+        padding-bottom: 125px;
     }
 
 }
