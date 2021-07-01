@@ -35,6 +35,10 @@ class Page {
     randomNumberBetween1to100() {
         return Math.floor(Math.random() * 100);
     }
+
+    waitForExist(selector) {
+        selector.waitForExist({timeout: 30000});
+    }
 }
 
 module.exports = new Page();

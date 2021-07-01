@@ -24,7 +24,7 @@ class Selector {
     }
 
     /**
-     *    My settings page
+     *    My personal info. form page
      */
     get formInputFirstName() {
         return $("#profile-form-first-name");
@@ -32,6 +32,10 @@ class Selector {
 
     get formInputLastName() {
         return $("#profile-form-last-name");
+    }
+
+    get formInputNickname() {
+        return $("#profile-form-nick-name");
     }
 
     get formInputEmail() {
@@ -48,6 +52,10 @@ class Selector {
 
     get formButtonUpdate() {
         return $("#update-teacher-account-form div div:last-child input:last-child");
+    }
+
+    get formButtonRegister () {
+        return $("#create-teacher-account-form .btn");
     }
 
     get notifOfUpdateInformation() {
@@ -69,6 +77,10 @@ class Selector {
         return $("#login-vittascience");
     }
 
+    get buttonRegisterSecondPage () {
+        return $("#register-link");
+    }
+
     get buttonConnexionThirdPage () {
         return $("#login-button");
     }
@@ -84,11 +96,6 @@ class Selector {
     get infoConnexion () {
         return $("#info-div div");
     }
-
-    waitForExist(selector) {
-        selector.waitForExist({timeout: 30000});
-    }
-
 }
 
 module.exports = new Selector();
