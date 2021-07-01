@@ -240,7 +240,7 @@ button {
     text-transform: uppercase;
     color: var(--classroom-dashboard);
     background: var(--classroom-background);
-    border-radius: 1em -1em -1em 1em;
+    border-radius: 1em 0em 0em 1em;
 }
 
 .sidebar-classroom div img {
@@ -344,8 +344,10 @@ button {
     }
 
     .sidebar-classroom div:not(:first-child) {
-        height: 100%;
-        background: transparent;
+        width: 80%;
+        height: 70%;
+                background: transparent;
+        grid-template-rows: auto 0px;
     }
 
     .sidebar-classroom div span {
