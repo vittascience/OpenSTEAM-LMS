@@ -40,8 +40,7 @@ describe("Creation of classroom", () => {
     });
 
     it("Class was created", async () => {
-        const wasCreated = await classes.checkSuccess();
-        expect(wasCreated).toBeTruthy();
+        await classes.checkSuccess();
     });
 });
 
