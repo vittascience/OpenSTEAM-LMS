@@ -276,6 +276,15 @@ button {
     height: 100%;
 }
 
+#classroom-dashboard-top-bar {
+    display: flex;
+    padding: 0.5em 1em;
+    align-items: center;
+    justify-content: flex-end;
+    position: absolute;
+    width: calc(100% - 13vw);
+}
+
 #classroom-dashboard-content {
     background: var(--classroom-background);
     border-radius: 15px;
@@ -361,10 +370,18 @@ button {
         display: none;
     }
 
+    .sidebar-classroom div img {
+        width: 60px;
+        height: 60px;
+    }
+
     .sidebar-classroom .active:not(:first-child) {
         border-radius: 0em 0em 15px 15px;
     }
 
+    #classroom-dashboard-top-bar {
+        width: 100%;
+    }
 
     #classroom-dashboard-content {
         border-radius: 0px;
