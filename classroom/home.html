@@ -48,9 +48,7 @@
     <div id="classroom-dashboard-top-bar" style="display: flex;padding: 0.5em 1em; align-items: center; justify-content: flex-end;position: absolute;
         width: calc(100% - 13vw);">
         <!-- Breadcrumb -->
-        <!-- <div id="breadcrumb" class="col-10 row">
-                    <span id="firstLevel"></span><span id="secondLevel" style="display:none;"></span>
-                </div> -->
+        <div id="breadcrumb" class="row ml-2 mr-auto"></div>
 
         <div id="notif-div"></div>
         <button class="btn c-btn-secondary" type="button" id="questionMenuButton" style="display: none;">
@@ -404,7 +402,7 @@
 </div>
 <div id="classroom-table-panel-teacher-code" style="display:none;"
     class="row dashboard-block classes-panel class-stats-panel">
-    <button onclick="navigatePanel('classroom-table-panel-teacher', 'dashboard-classroom-teacher')"
+    <button onclick="backToClassroomFromCode()"
         class="btn c-btn-primary" title="Copier le lien" class="js-copy" data-target="#classroom-link-tocopy"><i
             class="fas fa-backward"></i><span data-i18n="classroom.activities.toCopy"></span></button>
     <div class="d-flex align-content-center text-center">
