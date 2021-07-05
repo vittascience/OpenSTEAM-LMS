@@ -176,7 +176,16 @@ function backToClassroomFromCode() {
     }
 }
 
-function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = false) {
+/**
+ * Navigate trough panels
+ * @param {string} id - The destination panel
+ * @param {string} idNav - The destination nav (the current "tab")
+ * @param {string} option - The option (current classroom, activity etc.)
+ * @param {string} interface - The interface (if the target is an interface or an activity using one)
+ * @param {boolean} skipConfirm - If set to true, the exit confirmation prompt won't be displayed
+ * @param {boolean} isOnpopstate - If set to true, the current navigation won't be saved in history (dedicated to onpopstate events)
+ */
+function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = false, isOnpopstate = false) {
     let confirmExit = true;
     if ($_GET('interface') == "newActivities" && !Activity.project && !skipConfirm) {
         confirmExit = confirm(i18next.t("classroom.notif.saveProject"));
@@ -203,7 +212,9 @@ function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = fal
             endUrl += '&interface=' + interface;
         }
         let link = window.location.origin + window.location.pathname + "?panel=" + id + "&nav=" + endUrl;
-        history.pushState(state, title, link);
+        if (!isOnpopstate){
+            history.pushState(state, title, link);
+        }
         let formateId = id.replace(/\-/g, '_');
         if (displayPanel[formateId]) {
             displayPanel[formateId](option);
@@ -229,6 +240,13 @@ function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = fal
         $('[data-toggle="tooltip"]').tooltip()
     })
 }
+
+/**
+ * History navigation
+ */
+window.onpopstate = () => {
+    navigatePanel($_GET('panel'), $_GET('nav'), option = $_GET('option'), interface = $_GET('interface'), false, true);
+};
 
 /**
  * Browse the tree structure to find the path to the current panel
