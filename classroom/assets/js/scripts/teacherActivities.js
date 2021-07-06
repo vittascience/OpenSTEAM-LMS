@@ -185,6 +185,10 @@ $('body').on('click', '.student-list-button', function () {
 //création/modification de l'activité
 $('.new-activity-panel2').click(function () {
     $(this).attr('disabled', 'disabled')
+    if (document.getElementById('activity-form-title').value.length < 1) {
+        displayNotification('#notif-div', "classroom.notif.activityTitleMissing", "error");
+        return;
+    }
     if (ClassroomSettings.status != 'edit') {
         Main.getClassroomManager().addActivity({
             'title': $('#activity-form-title').val(),

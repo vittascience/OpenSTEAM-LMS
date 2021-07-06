@@ -9,6 +9,36 @@ var subjectInput = document.getElementById("contact-subject-input");
 
 var btn = document.getElementById("contact-submit-btn");
 
+function checkText (input,min,max){
+    var value = input.value.trim();
+    if (value.length === 0){
+        input.className = "form-control";
+    }
+    else {
+        if (value.length >= min && value.length <= max){
+            input.className = "form-control is-valid";
+        }
+        else {
+            input.className = "form-control is-invalid";
+        }
+    }
+}
+
+function enableButton(btn, title = false) {
+    btn.removeAttribute("disabled");
+    btn.style.cursor = "pointer";
+    if (title != false) {
+        btn.setAttribute('title', "")
+    }
+}
+
+function disableButton(btn, title = false) {
+    btn.setAttribute("disabled", "disabled");
+    btn.style.cursor = "not-allowed";
+    if (title != false) {
+        btn.setAttribute('title', title)
+    }
+}
 
 messageInput.onkeyup = function () {
     checkText(this, MIN_MESSAGE_SIZE, MAX_MESSAGE_SIZE);
