@@ -143,6 +143,7 @@
 			"activityAttributionChanged": "The assignment of the activity {{activityTitle}} has been changed for the listed learners",
 			"activityCreated": "The activity {{activityTitle}} has been created",
 			"activityChanged": "Activity {{activityTitle}} has been changed",
+			"activityTitleMissing": "You must enter the title of the activity",
 			"CsvFileMissing": "You did not choose a csv file",
 			"errorWithCsv": "Error while opening csv file: {{error}}",
 			"cantGetPassword": "Error, you cannot see your password",
@@ -252,7 +253,7 @@
 				"select2": " selected.",
 				"instructions": "Specific instructions for these learners",
 				"autocorrect": "This activity has automated correction, do you like to activate it ?",
-				"nature": "What is the nature of this activity ?",
+				"nature": "Can the student submit the activity multiple times?",
 				"dateBegin": "Begin date :",
 				"dateEnd": "End date :"
 			},
@@ -572,6 +573,8 @@
 		"seconds": "seconds",
 		"confirm": "confirm",
 		"username": "pseudonym",
-		"password": "Password"
+		"password": "Password",
+		"yes": "Yes",
+		"no": "No"
 	}
 }
