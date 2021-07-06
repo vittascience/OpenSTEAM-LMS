@@ -3,9 +3,6 @@ const login = require('../opensteam/login');
 const selector = require('../opensteam/selector');
 const classes = require('../opensteam/classes');
 
-
-
-
 describe("Creation of classroom", () => {
     it("Login", async () => {
         await page.open('login.php');
@@ -29,10 +26,14 @@ describe("Creation of classroom", () => {
     it("Add two learner", async () => {
         await classes.addLearner("Paul");
         await classes.addLearner("Seif");
+        await page.waitForExist(await selector.secondLearnerInTable);
+        await page.checkNumberOfElements(await selector.tableLearner, 2);
     });
 
-    it("Add remove one learner", async () => {
+    it("Remove one learner", async () => {
         await page.clickButtonWhenDisplayed(await selector.buttonRemoveLearner);
+        await page.waitForNotExist(await selector.secondLearnerInTable);
+        await page.checkNumberOfElements(await selector.tableLearner, 1);
     });
 
     it("Save class", async () => {
@@ -43,5 +44,3 @@ describe("Creation of classroom", () => {
         await classes.checkSuccess();
     });
 });
-
-

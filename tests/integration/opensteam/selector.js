@@ -135,7 +135,11 @@ class Selector {
     }
 
     get tableLearner() {
-        return $("#table-students ul");
+        return $$("#table-students ul li");
+    }
+
+    get secondLearnerInTable() {
+        return $("#table-students ul li:nth-child(2)");
     }
 
     get buttonRemoveLearner() {
