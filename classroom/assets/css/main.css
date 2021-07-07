@@ -112,7 +112,7 @@
 
 /* MODAL ELEMENTS */
 
-.vitta-modal-content #list-classes > div {
+.vitta-modal-content #list-classes>div {
     padding: 10px;
     font-weight: 500;
     text-transform: uppercase;
@@ -293,6 +293,7 @@ button {
     justify-content: flex-end;
     position: absolute;
     width: calc(100% - 13vw);
+    z-index: 10;
 }
 
 #classroom-dashboard-content {
@@ -406,11 +407,15 @@ button {
     padding: 0.1rem 0.8rem;
     font-weight: 600;
     font-size: 0.8rem;
+    background-color: var(--bg-1);
+
 }
 
-#breadcrumb button.last{
+#breadcrumb button.last {
+    background-color: var(--bg-1);
     border-color: var(--classroom-primary);
     color: var(--classroom-primary);
+
 }
 
 /* DASHBOARD ELEMENTS */
@@ -1020,10 +1025,11 @@ h3.section-done {
     .activity-search {
         width: 90%;
     }
+
     .activity-search #filter-activity-select {
         width: 100%;
     }
-    
+
 }
 
 /* ACTIVITY RESOURCES BANK */
@@ -1039,11 +1045,59 @@ h3.section-done {
 
 /* ACTIVITY CREATE FORM */
 
+
 .activity-creation-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.activity-creation-form>nav {
+    width: 50%;
+}
+
+#classroom-dashboard-new-activity-panel > nav > div:nth-child(2) {
+    border-bottom: 1px solid var(--text-1);
+    height: 1px;
+    align-self: center;
+}
+
+
+.activity-creation-form > div {
+    max-width: 60%;
+}
+
+@media (max-width: 768px) {
+    .activity-creation-form>nav {
+        width: 100%;
+    }
+
+    #classroom-dashboard-new-activity-panel > nav > div:nth-child(1) {
+        max-width: 100%;
+        color: var(--classroom-white);
+        background: var(--classroom-dashboard);
+        flex: 1;
+        padding: 2.5rem 1rem 0.5rem;
+        font-weight: 600;
+        margin-top: -2.5em;
+    }
+
+    #classroom-dashboard-new-activity-panel>nav>div>.form-activity,
+    #classroom-dashboard-new-activity-panel > nav > div:nth-child(2), 
+    #classroom-dashboard-new-activity-panel > nav > div:nth-child(3) {
+        display: none;
+    }
+
+    #classroom-dashboard-new-activity-panel>nav>div>span.form-activity.form-activity-activate {
+        display: none;
+    }
+
+    .activity-creation-form > div {
+        max-width: 85%;
+    }
+    
+
 }
 
 /* ACTIVITY ASSIGN FORM */
