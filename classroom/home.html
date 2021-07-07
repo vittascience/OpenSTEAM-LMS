@@ -1,9 +1,8 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/checkboxes.css">
     <link rel="stylesheet" href="assets/css/modal.css">
-    <!-- PLUGIN CSS-->
+    <link rel="stylesheet" href="assets/plugins/css/cabri.theme.css">
 
-    <!-- END PLUGIN CSS -->
     <script src="assets/js/scripts/classroom-lang.js"></script>
 </head>
 
@@ -629,9 +628,22 @@
 <script>
     $(document).ready(function () {
         let wbbOpt = {
-            buttons: ",bold,italic,underline,|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe"
+            buttons: ",cabriiframe"
         }
         $("#activity-form-content").wysibb(wbbOpt);
+        document.getElementsByClassName('modeSwitch')[0].style.display = 'none';
+        document.getElementById('activity-form-content').style.display= 'none';
+        document.getElementsByClassName('wysibb-text-editor')[0].setAttribute('style', 'min-height: auto !important');
+        document.getElementsByClassName('wysibb-text-editor')[0].style.cursor = 'default';
+        document.getElementsByClassName('wysibb-toolbar-btn wbb-cabriiframe')[0].style.width = "200px";
+        document.getElementsByClassName('btn-span-cabri')[0].insertAdjacentText('beforeend', 'Insérer cahier');
+        document.getElementsByClassName('wbb-cabriiframe')[0].addEventListener('mousedown', ()=>{
+            document.getElementsByClassName('wysibb-text-editor')[0].innerHTML = '<br>';
+        });
+        document.getElementsByClassName('wysibb-text-editor')[0].addEventListener('focus', (e)=>{
+            e.preventDefault();
+            e.target.blur();
+        });
     })
 </script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -746,8 +758,6 @@
     })
 </script>
 <script src="assets/js/utils/translate.js"></script>
-<!-- PLUGIN SCRIPTS-->
 
-<!-- END PLUGIN SCRIPTS -->
 </body>
 </html>
