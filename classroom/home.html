@@ -185,7 +185,7 @@
 
 
 <div id="classroom-dashboard-activity-panel" class="dashboard-block row mx-0" style="display:none;">
-    <div id="main-div" class="col-8" style="margin: 0 auto;">
+    <div id="main-div" class="col-md-8" style="margin: 0 auto;">
         <h3 id="activity-title"></h3>
         <h4 id="activity-details"></h4>
         <p id="activity-content"> </p>
@@ -415,12 +415,14 @@
     </div>
 </div>
 <div id="classroom-dashboard-activities-panel-teacher" style="display:none;" class="dashboard-block">
-    <div class="d-flex w-75 c-primary-form" style="margin: 0 auto;">
-        <input type="search" id="filter-activity-input" placeholder="Recherche..." class="flex-fill">
+    <div class="d-flex justify-content-center c-primary-form activity-search" style="margin: 0 auto;">
+        <div class="d-flex flex-fill">
+            <input type="search" id="filter-activity-input" placeholder="Recherche..." class="flex-fill">
 
-        <button id="filter-activity" class="c-btn-primary" style="width: 3em;height: 3em;">
-            <i class="fas fa-search"></i>
-        </button>
+            <button id="filter-activity" class="c-btn-primary" style="width: 3em;height: 3em;">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
 
         <select name="filter-activity-select" id="filter-activity-select" class="c-primary-form">
             <option value="desc" data-i18n="classroom.filter.desc"></option>
@@ -430,8 +432,7 @@
     </div>
     </br>
 
-    <div class="buttons-interactions">
-
+    <div class="buttons-interactions flex-wrap">
         <button id="new-activity-panel1" onclick="createActivity()" class=" btn c-btn-outline-secondary"><span class="mr-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
         </button>
     </div>
