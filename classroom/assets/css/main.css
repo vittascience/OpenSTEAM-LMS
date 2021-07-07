@@ -400,6 +400,18 @@ button {
 
 }
 
+/* BREADCRUMB */
+#breadcrumb button {
+    text-transform: uppercase;
+    padding: 0.1rem 0.8rem;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+#breadcrumb button.last{
+    border-color: var(--classroom-primary);
+    color: var(--classroom-primary);
+}
 
 /* DASHBOARD ELEMENTS */
 
