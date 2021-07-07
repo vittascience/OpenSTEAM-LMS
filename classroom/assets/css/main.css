@@ -1057,7 +1057,7 @@ h3.section-done {
     width: 50%;
 }
 
-#classroom-dashboard-new-activity-panel > nav > div:nth-child(2) {
+.dashboard-block > nav > div:nth-child(2) {
     border-bottom: 1px solid var(--text-1);
     height: 1px;
     align-self: center;
@@ -1069,11 +1069,11 @@ h3.section-done {
 }
 
 @media (max-width: 768px) {
-    .activity-creation-form>nav {
+    .dashboard-block >nav {
         width: 100%;
     }
 
-    #classroom-dashboard-new-activity-panel > nav > div:nth-child(1) {
+    .dashboard-block > nav > div:nth-child(1) {
         max-width: 100%;
         color: var(--classroom-white);
         background: var(--classroom-dashboard);
@@ -1083,13 +1083,13 @@ h3.section-done {
         margin-top: -2.5em;
     }
 
-    #classroom-dashboard-new-activity-panel>nav>div>.form-activity,
-    #classroom-dashboard-new-activity-panel > nav > div:nth-child(2), 
-    #classroom-dashboard-new-activity-panel > nav > div:nth-child(3) {
+    .dashboard-block>nav>div>.form-activity,
+    .dashboard-block > nav > div:nth-child(2), 
+    .dashboard-block > nav > div:nth-child(3) {
         display: none;
     }
 
-    #classroom-dashboard-new-activity-panel>nav>div>span.form-activity.form-activity-activate {
+    .dashboard-block>nav>div>span.form-activity.form-activity-activate {
         display: none;
     }
 
@@ -1610,7 +1610,7 @@ i.line_height34 {
 }
 
 .form-activity {
-    line-height: 40px;
+    line-height: 44px;
 }
 
 .wysibb {
