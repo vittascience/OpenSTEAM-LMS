@@ -226,6 +226,14 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
             })
 
         } else {
+            if(link == null || link == ''){
+                if(ClassroomSettings.classroom != null){
+                    link = ClassroomSettings.classroom;
+                }else{
+                    navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher', '', '');
+                    return;
+                }
+            }
             // Load the classroom with the current cache data
             let students = getClassroomInListByLink(link)[0].students
             displayStudentsInClassroom(students)
