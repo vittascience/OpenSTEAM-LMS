@@ -169,7 +169,19 @@
 			"emailMissing": "You must enter your email address",
 			"passwordMissing": "You must enter your password",
 			"passwordConfirmMissing": "You must enter the password confirmation",
-			"passwordsMismatch": "Password and confirmation are not the same"
+			"passwordsMismatch": "Password and confirmation are not the same",
+			"invalidUserId": "Error sending the message: your username is invalid",
+			"helpRequestFromTeacherSent": "Your message has been sent. We will get back to you as soon as possible.",
+			"subjectMissingTeacherHelpForm": "You must enter the subject of the message",
+			"messageMissingTeacherHelpForm": "You must enter your message",
+			"invalidUserIdTeacherHelpForm": "Error sending the message: your username is invalid",
+			"unknownUserTeacherHelpForm": "Error sending the message: your username does not correspond to any teacher account",
+			"helpRequestFromLearnerSent": "Your message has been sent to your teacher",
+			"subjectMissingLearnerHelpForm": "You must enter the subject of the message",
+			"messageMissingLearnerHelpForm": "You have to enter your message",
+			"invalidUserIdLearnerHelpForm": "Error sending the message: your username is invalid",
+			"unknownUserLearnerHelpForm": "Error sending the message: your username is unknown",
+			"unknownEmailLearnerHelpForm": "Error sending message: your teacher's email address is unknown"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
@@ -290,7 +302,8 @@
 				"title": "Contact us",
 				"objectPlaceholder": "Object",
 				"messagePlaceholder": "Write your message here. (Maximum 800 characters)",
-				"sendButton": "Send the message"
+				"sendButton": "Send the message",
+				"fillInAllTheFields": "Fill in all the fields"
 			}
 		},
 		"sandBoxCreationPanel": {
