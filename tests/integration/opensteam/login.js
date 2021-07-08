@@ -1,6 +1,13 @@
+require('dotenv').config({ path: '../.env' });
+
 const selector = require("../opensteam/selector");
+const page = require("../opensteam/page");
 
 class Login {
+    constructor() {
+        this.email = process.env.ADMIN_EMAIL;
+        this.password = process.env.ADMIN_PASSWORD;
+    }
     clickOnButton (button) {
         expect(button).toBeDisplayed();
         button.scrollIntoView();

@@ -16,7 +16,7 @@ describe("Teacher login on OpenSTEAM LMS", () => {
     });
 
     it("Enter username and password and login", async () => {
-        await login.inputEmailAndPassword("admin@cabri.com", "password");
+        await login.inputEmailAndPassword(login.email, login.password);
     });
 
     it("Click to connect", async () => {
