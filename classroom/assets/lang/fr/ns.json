@@ -143,6 +143,7 @@
 			"activityAttributionChanged": "L'attribution de l'activité {{activityTitle}} a été modifiée pour les apprenants listés",
 			"activityCreated": "L'activité {{activityTitle}} a été créée",
 			"activityChanged": "L'activité {{activityTitle}} a été modifiée",
+			"activityTitleMissing": "Vous devez renseigner le titre de l'activité",
 			"CsvFileMissing": "Vous n'avez pas choisi de fichier csv",
 			"errorWithCsv": "Erreur lors de l'ouverture du fichier csv : {{error}}",
 			"cantGetPassword": "Erreur, vous ne pouvez pas voir votre mot de passe",
@@ -169,7 +170,19 @@
 			"emailMissing": "Vous devez renseigner votre adresse e-mail",
 			"passwordMissing": "Vous devez renseigner votre mot de passe",
 			"passwordConfirmMissing": "Vous devez renseigner la confirmation du mot de passe",
-			"passwordsMismatch": "Le mot de passe et la confirmation ne sont pas identiques"
+			"passwordsMismatch": "Le mot de passe et la confirmation ne sont pas identiques",
+			"invalidUserId": "Erreur lors de l'envoi du message : votre identifiant est invalide",
+			"helpRequestFromTeacherSent": "Votre message a bien été envoyé. Nous vous répondons au plus vite.",
+			"subjectMissingTeacherHelpForm": "Vous devez renseigner l'objet du message",
+			"messageMissingTeacherHelpForm": "Vous devez saisir votre message",
+			"invalidUserIdTeacherHelpForm": "Erreur lors de l'envoi du message : votre identifiant est invalide",
+			"unknownUserTeacherHelpForm": "Erreur lors de l'envoi du message : votre identifiant ne correspond à aucun compte enseignant",
+			"helpRequestFromLearnerSent": "Ton message a bien été envoyé à ton enseignant",
+			"subjectMissingLearnerHelpForm": "Tu dois renseigner l'objet du message",
+			"messageMissingLearnerHelpForm": "Tu dois saisir ton message",
+			"invalidUserIdLearnerHelpForm": "Erreur lors de l'envoi du message : ton identifiant est invalide",
+			"unknownUserLearnerHelpForm": "Erreur lors de l'envoi du message : ton identifiant est inconnu",
+			"unknownEmailLearnerHelpForm": "Erreur lors de l'envoi du message : l'adresse e-mail de ton enseignant est inconnue"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",
@@ -252,7 +265,7 @@
 				"select2": " sélectionnés.",
 				"instructions": "Consigne spécifique pour ces apprenants",
 				"autocorrect": "Cette activité dispose de correction automatique, souhaitez-vous l'activer ?",
-				"nature": "Quelle est la nature de cette activité ?",
+				"nature": "L’élève peut-il soumettre plusieurs fois l’activité ?",
 				"dateBegin": "Date de début :",
 				"dateEnd": "Date de fin :"
 			},
@@ -290,7 +303,8 @@
 				"title": "Nous contacter",
 				"objectPlaceholder": "Objet",
 				"messagePlaceholder": "Écrivez votre message ici. (Maximum 800 caractères)",
-				"sendButton": "Envoyer le message"
+				"sendButton": "Envoyer le message",
+				"fillInAllTheFields": "Complétez tous les champs"
 			}
 		},
 		"sandBoxCreationPanel": {
@@ -339,11 +353,16 @@
 			},
 			"addStudentByCsv": {
 				"title": "Ajouter des étudiants avec un fichier .csv",
+				"description": "Vous pouvez ajouter un ou plusieurs apprenants d'un seul coup en les important depuis un fichier .csv. Il est facultativement possible de définir le mot de passe pour chacun d'entre eux. Voici les fichiers .csv modèles : ",
+				"csvTemplate": "fichier modèle avec mot de passe",
+				"csvTemplateNoPassword": "fichier modèle sans mot de passe",
 				"importStudentByCsvButton": "Importer les apprenants"
 			},
 			"exportCsv": {
 				"title": "Exporter au format csv",
+				"exportLearnersDescription": "Télécharcher la liste des apprenants pour cette classe ainsi que leur mot de passe. Le fichier téléchargé est au format .csv.",
 				"exportLearners": "Télécharger la liste des apprenants",
+				"exportDashboardDescription": "Télécharger la liste des apprenants pour cette classe ainsi que, pour chacun d'entre eux, leur activités attribuées ainsi que l'état de chaque activité (pas encore réalisée, à corriger, complétée). Le fichier téléchargé est au format .csv.",
 				"exportDashboard": "Télécharger le tableau de bord"
 			},
 			"listClass": {
@@ -954,6 +973,8 @@
 		"seconds": "secondes",
 		"confirm": "confirmer",
 		"username": "pseudonyme",
-		"password": "Mot de passe"
+		"password": "Mot de passe",
+		"yes": "Oui",
+		"no": "Non"
 	}
 }

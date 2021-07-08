@@ -45,7 +45,34 @@ let ClassroomSettings = {
     studentPanels: ['classroom-dashboard-activities-panel', 'classroom-dashboard-activity-panel-success', 'classroom-dashboard-activity-panel-fail', 'classroom-dashboard-activity-panel-correcting', 'classroom-dashboard-help-panel', 'classroom-dashboard-profil-panel', ''
 
     ],
-    mixPanels: ['classroom-dashboard-ide-panel', 'classroom-dashboard-sandbox-panel', 'classroom-dashboard-sandbox-creation', 'classroom-dashboard-activity-panel']
+    mixPanels: ['classroom-dashboard-ide-panel', 'classroom-dashboard-sandbox-panel', 'classroom-dashboard-sandbox-creation', 'classroom-dashboard-activity-panel'],
+    treeStructure: {
+        "classroom-dashboard-activities-panel-teacher": {
+            "classroom-dashboard-new-activity-panel": {},
+            "classroom-dashboard-new-activity-panel3": {},
+            "classroom-dashboard-new-activity-panel2": {},
+            "classroom-dashboard-activity-panel": {}
+        },
+        "classroom-dashboard-classes-panel-teacher": {
+            "classroom-dashboard-form-classe-panel": {},
+            "classroom-table-panel-teacher": {
+                "classroom-table-panel-teacher-code": {}
+            }
+        },
+        "classroom-dashboard-sandbox-panel": {
+            "classroom-dashboard-sandbox-creation": {},
+            "classroom-dashboard-ide-panel": {}
+        },
+        "classroom-dashboard-profil-panel-teacher": {
+            "classroom-dashboard-account-panel-teacher": {},
+            "classroom-dashboard-help-panel-teacher": {}
+        },
+        "classroom-dashboard-activities-panel": {
+            "classroom-dashboard-activity-panel": {}
+        },
+        "classroom-dashboard-profil-panel": {},
+        "classroom-dashboard-help-panel": {}
+    }
 }
 let Breadcrumb = {
     "dashboard-activities": "classroom-dashboard-activities-panel",
@@ -87,9 +114,10 @@ $('#return-last-panel').click(function () {
     navigatePanel(lastPage.history, lastPage.navbar)
 
 })
-$('body').on('click', '#backward-bc', function () {
-    $('#secondLevel').hide()
-    navigatePanel($('#firstLevel').attr('data-panel'), $('#firstLevel').attr('data-nav'))
+$('body').on('click', '.breadcrumb-clickable', function (e) {
+    if (e.target.getAttribute('data-nav') && e.target.getAttribute('data-panel')) {
+        navigatePanel(e.target.getAttribute('data-panel'), e.target.getAttribute('data-nav'));
+    }
 })
 $('body').on('mouseenter mouseleave', '.dropdown-act', function () {
     $(this).find('.span-act').toggle()
@@ -138,51 +166,74 @@ $('body').on('click', '.fa-share', function () {
     }
 })
 
-function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = false) {
-    let confirmExit = true
+/**
+ * Go back to the current classroom from the code display panel
+ */
+function backToClassroomFromCode() {
+    let link = ClassroomSettings.classroom;
+    if (link) {
+        navigatePanel('classroom-table-panel-teacher', 'dashboard-classroom-teacher', link);
+    }
+}
+
+/**
+ * Navigate trough panels
+ * @param {string} id - The destination panel
+ * @param {string} idNav - The destination nav (the current "tab")
+ * @param {string} option - The option (current classroom, activity etc.)
+ * @param {string} interface - The interface (if the target is an interface or an activity using one)
+ * @param {boolean} skipConfirm - If set to true, the exit confirmation prompt won't be displayed
+ * @param {boolean} isOnpopstate - If set to true, the current navigation won't be saved in history (dedicated to onpopstate events)
+ */
+function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = false, isOnpopstate = false) {
+    let confirmExit = true;
     if ($_GET('interface') == "newActivities" && !Activity.project && !skipConfirm) {
-        confirmExit = confirm(i18next.t("classroom.notif.saveProject"))
+        confirmExit = confirm(i18next.t("classroom.notif.saveProject"));
     }
     if (confirmExit) {
-        $('.classroom-navbar-button').removeClass("active")
+        $('.classroom-navbar-button').removeClass("active");
         $('.dashboard-block').hide();
         $('#' + id).show();
-        $('#' + idNav).addClass("active")
+        $('#' + idNav).addClass("active");
         if (id == 'resource-center-classroom') {
-            $('#classroom-dashboard-activities-panel-library-teacher').html('<iframe id="resource-center-classroom" src="/learn/?use=classroom" frameborder="0" style="height:80vh;width:80vw"></iframe>')
+            $('#classroom-dashboard-activities-panel-library-teacher').html('<iframe id="resource-center-classroom" src="/learn/?use=classroom" frameborder="0" style="height:80vh;width:80vw"></iframe>');
         }
         ClassroomSettings.lastPage.unshift({
             history: id,
             navbar: idNav
-        })
+        });
         let state = {};
         var title = '';
-        let endUrl = idNav
+        let endUrl = idNav;
         if (option != "") {
-            endUrl += '&option=' + option
+            endUrl += '&option=' + option;
         }
         if (id == 'classroom-dashboard-ide-panel' || id == 'classroom-dashboard-activity-panel') {
-            endUrl += '&interface=' + interface
+            endUrl += '&interface=' + interface;
         }
         let link = window.location.origin + window.location.pathname + "?panel=" + id + "&nav=" + endUrl;
-        history.pushState(state, title, link);
-        let formateId = id.replace(/\-/g, '_')
+        if (!isOnpopstate){
+            history.pushState(state, title, link);
+        }
+        let formateId = id.replace(/\-/g, '_');
         if (displayPanel[formateId]) {
-            displayPanel[formateId](option)
+            displayPanel[formateId](option);
         }
-        if (!ClassroomSettings.firstLevel.includes(id)) {
-            $('#secondLevel').html('<i id="backward-bc" class="fas fa-arrow-right"></i>' + i18next.t('classroom.ids.' + id))
-            $('#secondLevel').show()
-            let firstlvlid = Breadcrumb[idNav]
-            $('#firstLevel').html(i18next.t('classroom.ids.' + firstlvlid));
-            $('#firstLevel').attr('data-nav', idNav);
-            $('#firstLevel').attr('data-panel', firstlvlid);
-        } else {
-            $('#secondLevel').hide()
-            $('#firstLevel').html(i18next.t('classroom.ids.' + id));
-            $('#firstLevel').attr('data-nav', idNav);
-            $('#firstLevel').attr('data-panel', id);
+        // Breadcrumb management
+        let breadcrumbElt = document.getElementById('breadcrumb');
+        let innerBreadCrumbHtml = '';
+        let currentBreadcrumbStructure = findCurrentPanelInTreeStructure(id, ClassroomSettings.treeStructure);
+        for (let i = 0; i < currentBreadcrumbStructure.length - 1; i++) {
+            // Define the last element of the breadcrumb
+            if (i == currentBreadcrumbStructure.length - 2) {
+                innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('${currentBreadcrumbStructure[i]}', '${idNav}')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
+            // Define all the elements of the breadcrumb except the last
+            } else {
+                innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary last" onclick="navigatePanel('${currentBreadcrumbStructure[i]}', '${idNav}')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span><i class="fas fa-chevron-right ml-2"></i></button>`;
+            }
         }
+        breadcrumbElt.innerHTML = innerBreadCrumbHtml;
+        $('#breadcrumb').localize();
     }
 
     $(function () {
@@ -190,20 +241,59 @@ function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = fal
     })
 }
 
+/**
+ * History navigation
+ */
+window.onpopstate = () => {
+    navigatePanel($_GET('panel'), $_GET('nav'), option = $_GET('option'), interface = $_GET('interface'), false, true);
+};
+
+/**
+ * Browse the tree structure to find the path to the current panel
+ * @param {string} searchedPanel - The current panel id
+ * @param {object} treeStructure - The tree structure (ClassroomSettings.treeStructure)
+ * @param {string} currentPanel - Don't give any argument to this parameter (it's used by the recursion)
+ * @param {array} history - Don't give any argument to this parameter (it's used by the recursion)
+ * @returns {array} - Returns the array containing the path to the current panel
+ */
+function findCurrentPanelInTreeStructure(searchedPanel, treeStructure = null, currentPanel = null, history = []) {
+    // Init
+    if (currentPanel == null) {
+        currentPanel = treeStructure;
+    }
+
+    // Loop with recursivity
+    for (let child in currentPanel) {
+        history.push(child);
+        if (searchedPanel == child) {
+            return history;
+        } else {
+            if (typeof (currentPanel[child]) === 'object') {
+                let result = findCurrentPanelInTreeStructure(searchedPanel, currentPanel, currentPanel[child], history);
+                if (result != false) {
+                    return result;
+                }
+            }
+            history.pop();
+        }
+    }
+    return false;
+}
+
 // Add activity modal (Classroom management) -> Resource Bank button
-function goToResourceBank(){
+function goToResourceBank() {
     Modal.prototype.closeAllModal();
     navigatePanel('classroom-dashboard-activities-panel-library-teacher', 'dashboard-activity-teacher');
 }
 
 // Add activity modal (Classroom management) -> Resource Bank button
-function goToActivityPanel(){
+function goToActivityPanel() {
     Modal.prototype.closeAllModal();
     navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher');
 }
 
 // Add activity modal (Classroom management) -> Resource Bank button
-function goToCreateActivityPanel(){
+function goToCreateActivityPanel() {
     Modal.prototype.closeAllModal();
     navigatePanel('classroom-dashboard-new-activity-panel', 'dashboard-activities-teacher');
 }
@@ -237,13 +327,13 @@ function listeModeApprenant() {
 }
 //vittademo-->prof
 function modeProf() {
-    Main.getClassroomManager().getTeacherAccount(ClassroomSettings.classroom).then(()=>{
+    Main.getClassroomManager().getTeacherAccount(ClassroomSettings.classroom).then(() => {
         window.localStorage.showSwitchTeacherButton = 'false';
     });
 }
 
 // Hide the switch teacher mode button when irrelevant
-if(window.localStorage.showSwitchTeacherButton == 'true'){
+if (window.localStorage.showSwitchTeacherButton == 'true') {
     document.getElementById('teacherSwitchButton').style.display = 'block';
 }
 
@@ -283,7 +373,7 @@ window.addEventListener('storage', () => {
     try {
         addProjectInList(JSON.parse(window.localStorage.saveProject))
         delete window.localStorage.saveProject
-    } catch (e) {}
+    } catch (e) { }
 })
 
 //profil prof-->paramètres
@@ -298,7 +388,7 @@ $('#settings-student').click(function () {
 });
 
 document.getElementsByTagName('body')[0].addEventListener('click', (e) => {
-    if(e.target.id == 'pwd-change-modal'){
+    if (e.target.id == 'pwd-change-modal') {
         e.stopPropagation();
         resetStudentPassword('#password-display-area');
     }
@@ -315,7 +405,7 @@ $('#accessDropdown').click(function () {
 })
 
 var accessForm = document.querySelector('#access-form');
-if(accessForm){
+if (accessForm) {
     accessForm.addEventListener("change", function (e) {
         updateWebsiteAcessibility($(this));
     });
@@ -448,7 +538,7 @@ function saveActivity() {
         actualizeStudentActivities(activity, correction)
         $("#activity-save").attr("disabled", false);
         displayNotification('#notif-div', "classroom.notif.savedProject", "success")
-        Main.getClassroomManager().getStudentActivities(Main.getClassroomManager()).then(()=>{
+        Main.getClassroomManager().getStudentActivities(Main.getClassroomManager()).then(() => {
             let navParam = {
                 "panel": $_GET('panel'),
                 "nav": $_GET('nav'),
@@ -542,11 +632,11 @@ function sandboxDisplay(projects = Main.getClassroomManager()._myProjects) {
     if (!sharedProjects.length) {
         if (UserManager.getUser().isRegular) {
             $('#shared-sandbox').html(`
-            <p>${ i18next.t('classroom.sandbox.teacherSharedDescription')}</p>
+            <p>${i18next.t('classroom.sandbox.teacherSharedDescription')}</p>
             `);
         } else {
             $('#shared-sandbox').html(`
-            <p>${ i18next.t('classroom.sandbox.studentSharedDescription')}</p>
+            <p>${i18next.t('classroom.sandbox.studentSharedDescription')}</p>
             `);
         }
     }
@@ -556,13 +646,20 @@ function sandboxDisplay(projects = Main.getClassroomManager()._myProjects) {
 }
 
 function classroomsDisplay() {
-    $('.list-classes').html(``)
-    let classes = Main.getClassroomManager()._myClasses
-
-    classes.forEach(element => {
-        $('.list-classes').append(classeItem(element.classroom, element.students.length, element.students))
+    // Display the classes from cached data
+    $('.list-classes').html(``);
+    let classes = Main.getClassroomManager()._myClasses;
+    classes.forEach(classroom => {
+        $('.list-classes').append(classeItem(classroom.classroom, classroom.students.length, classroom.students));
     });
-
+    // Get the classes from the database and refresh the panel it there are differences
+    Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
+        $('.list-classes').html(``);
+        let classes = Main.getClassroomManager()._myClasses;
+        classes.forEach(classroom => {
+            $('.list-classes').append(classeItem(classroom.classroom, classroom.students.length, classroom.students));
+        });
+    });
 }
 
 function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherActivities) {
@@ -644,9 +741,9 @@ function docopy(self) {
 }
 
 function returnToConnectionPanel(currentPanel) {
-    if(window.getComputedStyle(document.getElementById('classroom-register-container')).display == 'block'){
+    if (window.getComputedStyle(document.getElementById('classroom-register-container')).display == 'block') {
         $('#classroom-register-container').hide();
-    }else{
+    } else {
         $('#classroom-login-container').toggle();
     }
     $(currentPanel).toggle();
@@ -682,17 +779,17 @@ function sectionToggle(id) {
  * Get the current student password from database and show it in the dedicated area
  * @param {string} querySelector - css selector
  */
-function getAndDisplayStudentPassword(querySelector){
+function getAndDisplayStudentPassword(querySelector) {
     let userId = UserManager.getUser().id;
-    if(userId){
+    if (userId) {
         Main.getClassroomManager().getStudentPassword(userId).then((response) => {
-            if(response.errorType){
+            if (response.errorType) {
                 displayNotification('#notif-div', `classroom.notif.${response.errorType}`, "error");
-            }else{
+            } else {
                 displayStudentPassword(querySelector, response.password);
             }
         });
-    }else{
+    } else {
         displayNotification('#notif-div', "classroom.notif.cantGetPassword", "error");
         displayStudentPassword(querySelector, '');
     }
@@ -703,7 +800,7 @@ function getAndDisplayStudentPassword(querySelector){
  * @param {string} querySelector - css selector
  * @param {string} password - password
  */
-function displayStudentPassword(querySelector, password){
+function displayStudentPassword(querySelector, password) {
     let displayArea = document.querySelector(querySelector);
     displayArea.value = password;
 }
@@ -712,17 +809,17 @@ function displayStudentPassword(querySelector, password){
  * Reset the current student password and show it in the dedicated area
  * @param {string} querySelector - css selector
  */
-function resetStudentPassword(querySelector){
+function resetStudentPassword(querySelector) {
     let userId = UserManager.getUser().id;
-    if(userId){
+    if (userId) {
         Main.getClassroomManager().resetStudentPassword(userId).then((response) => {
-            if(response.errorType){
+            if (response.errorType) {
                 displayNotification('#notif-div', `classroom.notif.${response.errorType}`, "error");
-            }else{
+            } else {
                 displayStudentPassword(querySelector, response.newPassword);
             }
         });
-    }else{
+    } else {
         displayNotification('#notif-div', "classroom.notif.cantResetPassword", "error");
         displayStudentPassword(querySelector, '');
     }

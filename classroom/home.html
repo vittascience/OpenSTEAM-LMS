@@ -1,9 +1,8 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/checkboxes.css">
     <link rel="stylesheet" href="assets/css/modal.css">
-    <!-- PLUGIN CSS-->
+    <link rel="stylesheet" href="assets/plugins/css/cabri.theme.css">
 
-    <!-- END PLUGIN CSS -->
     <script src="assets/js/scripts/classroom-lang.js"></script>
 </head>
 
@@ -48,9 +47,7 @@
     <div id="classroom-dashboard-top-bar" style="display: flex;padding: 0.5em 1em; align-items: center; justify-content: flex-end;position: absolute;
         width: calc(100% - 13vw);">
         <!-- Breadcrumb -->
-        <!-- <div id="breadcrumb" class="col-10 row">
-                    <span id="firstLevel"></span><span id="secondLevel" style="display:none;"></span>
-                </div> -->
+        <div id="breadcrumb" class="row ml-2 mr-auto"></div>
 
         <div id="notif-div"></div>
         <button class="btn c-btn-secondary" type="button" id="questionMenuButton" style="display: none;">
@@ -130,21 +127,11 @@
         <select id="help-student-select" style="width: 70%;">
         </select>
 
-        <input type="text" id="subject-studenToTeacher" name="subject-studenToTeacher"
-            data-i18n="[placeholder]classroom.help.student.title" style="width: 70%;">
-        <input type="text" name="za78e-username-contact" autocomplete="off" value="za78e username"
-            id="za78e-username-contact-student" class="za78e-field" />
-        <input type="number" name="za78e-number-contact" autocomplete="off" max="10" min="0"
-            id="za78e-number-contact-student" class="za78e-field" />
-        <textarea name="message-studenToTeacher" id="message-studenToTeacher"
-            data-i18n="[placeholder]classroom.help.student.question" rows="15" cols="25"
-            style="resize: none; width: 100%;"></textarea>
+        <input type="text" name="subject" class="form-control" id="learner-contact-subject-input"  data-i18n="[placeholder]classroom.help.student.title" placeholder="Objet" style="width: 70%;">
 
-        <div class="btn btn-lg login-button c-btn-primary"
-            onclick="sendMailForm('za78e-number-contact-student','za78e-username-contact-student','about-contact-form-student','about-contact-info-student')"
-            style="align-self: flex-end;"><span data-i18n="words.send" class="text-capitalize"></span> <i
-                class="fas fa-chevron-right"></i>
-        </div>
+        <textarea name="message" id="learner-contact-message-input" rows="15" cols="25" style="resize: none; width: 100%;" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder" placeholder="Écrivez votre message ici. (Maximum 800 caractères)"></textarea>
+
+        <input type="submit" data-i18n="[value]classroom.teacherHelpPanel.contactForm.sendButton" disabled="disabled" style="cursor:not-allowed;" class="btn btn-lg login-button c-btn-primary" >
     </form>
 
     <div id="footer-content" style="justify-content: space-around;width: 70%;flex-wrap: wrap;">
@@ -404,7 +391,7 @@
 </div>
 <div id="classroom-table-panel-teacher-code" style="display:none;"
     class="row dashboard-block classes-panel class-stats-panel">
-    <button onclick="navigatePanel('classroom-table-panel-teacher', 'dashboard-classroom-teacher')"
+    <button onclick="backToClassroomFromCode()"
         class="btn c-btn-primary" title="Copier le lien" class="js-copy" data-target="#classroom-link-tocopy"><i
             class="fas fa-backward"></i><span data-i18n="classroom.activities.toCopy"></span></button>
     <div class="d-flex align-content-center text-center">
@@ -540,12 +527,12 @@
                     <input type="radio" name="isEval-activity-form" value="true" id="isEval-activity-form"
                         class="switcher__input switcher__input--yin" checked="">
                     <label for="isEval-activity-form" class="switcher__label text-capitalize"
-                        data-i18n="words.evaluation"></label>
+                        data-i18n="words.no"></label>
 
                     <input type="radio" name="isEval-activity-form" value="false" id="isExo-activity-form"
                         class="switcher__input switcher__input--right">
                     <label for="isExo-activity-form" class="switcher__label text-capitalize"
-                        data-i18n="words.exercise"></label>
+                        data-i18n="words.yes"></label>
 
                     <span class="switcher__toggle"></span>
                 </div>
@@ -582,21 +569,11 @@
     <h3 data-i18n="classroom.teacherHelpPanel.contactForm.title">Contacter Vittascience</h3>
     <div id="about-contact-info"></div>
     <form id="about-contact-form" class="c-primary-form">
-        <input type="text" name="za78e-username-contact" autocomplete="off" value="za78e username"
-            id="za78e-username-contact" class="za78e-field" />
-        <input type="number" name="za78e-number-contact" autocomplete="off" max="10" min="0" id="za78e-number-contact"
-            class="za78e-field" />
-
-        <input type="text" name="subject" class="form-control" id="contact-subject-input"  data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.objectPlaceholder" placeholder="Objet"
-            style="width: 70%;">
+        <input type="text" name="subject" class="form-control" id="contact-subject-input"  data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.objectPlaceholder" placeholder="Objet" style="width: 70%;">
 
         <textarea name="message" id="contact-message-input" rows="8" cols="25" style="resize: none; width: 100%;" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder" placeholder="Écrivez votre message ici. (Maximum 800 caractères)"></textarea>
 
-        <div disabled="disabled" style="cursor:not-allowed;" class="btn btn-lg login-button c-btn-primary"
-            id="contact-submit-btn" title="Complétez tous les champs"
-            onclick="sendMailForm('za78e-number-contact','za78e-username-contact','about-contact-form','about-contact-info')">
-            <span data-i18n="classroom.teacherHelpPanel.contactForm.sendButton">Envoyer le message</span>
-        </div>
+        <input type="submit" data-i18n="[value]classroom.teacherHelpPanel.contactForm.sendButton" disabled="disabled" style="cursor:not-allowed;" class="btn btn-lg login-button c-btn-primary" >
     </form>
 
         <div id="footer-content" class="row" style="justify-content: space-around;width: 70%;flex-wrap: wrap;">
@@ -631,9 +608,22 @@
 <script>
     $(document).ready(function () {
         let wbbOpt = {
-            buttons: ",bold,italic,underline,|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe"
+            buttons: ",cabriiframe"
         }
         $("#activity-form-content").wysibb(wbbOpt);
+        document.getElementsByClassName('modeSwitch')[0].style.display = 'none';
+        document.getElementById('activity-form-content').style.display= 'none';
+        document.getElementsByClassName('wysibb-text-editor')[0].setAttribute('style', 'min-height: auto !important');
+        document.getElementsByClassName('wysibb-text-editor')[0].style.cursor = 'default';
+        document.getElementsByClassName('wysibb-toolbar-btn wbb-cabriiframe')[0].style.width = "200px";
+        document.getElementsByClassName('btn-span-cabri')[0].insertAdjacentText('beforeend', 'Insérer cahier');
+        document.getElementsByClassName('wbb-cabriiframe')[0].addEventListener('mousedown', ()=>{
+            document.getElementsByClassName('wysibb-text-editor')[0].innerHTML = '<br>';
+        });
+        document.getElementsByClassName('wysibb-text-editor')[0].addEventListener('focus', (e)=>{
+            e.preventDefault();
+            e.target.blur();
+        });
     })
 </script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -748,8 +738,6 @@
     })
 </script>
 <script src="assets/js/utils/translate.js"></script>
-<!-- PLUGIN SCRIPTS-->
 
-<!-- END PLUGIN SCRIPTS -->
 </body>
 </html>
