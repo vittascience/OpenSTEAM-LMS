@@ -168,7 +168,7 @@ class Selector {
     }
 
     get settingsDropdownDeleteButton () {
-        return $("#classroom-dashboard-classes-panel-teacher .dropdown .dropdown-menu li:nth-child(1)");
+        return $("#classroom-dashboard-classes-panel-teacher .dropdown .dropdown-menu li:nth-child(2)");
     }
 }
 
