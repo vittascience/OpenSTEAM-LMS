@@ -10,6 +10,31 @@ class Page {
     open (path) {
         return browser.url(`/classroom/` + path)
     }
+
+    clickOnButton (button) {
+        expect(button).toBeDisplayed();
+        button.scrollIntoView();
+        button.click();
+    }
+
+    async waitElementDisplayed (selector) {
+        return await browser.waitUntil(async () => {
+            return await (selector).isDisplayed();
+        },{
+            timeout: 35000,
+            timeoutMsg: "Element never appear"
+        });
+    }
+
+    async clickButtonWhenDisplayed(selector) {
+        let isDisplay = await this.waitElementDisplayed(selector);
+        this.clickOnButton(selector);
+        expect(isDisplay).toBeTruthy();
+    }
+
+    randomNumberBetween1to100() {
+        return Math.floor(Math.random() * 100);
+    }
 }
 
 module.exports = new Page();
