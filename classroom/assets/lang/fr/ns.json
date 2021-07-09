@@ -58,7 +58,7 @@
 			"register": {
 				"title": "Inscription",
 				"description": "Merci de compléter les champs suivants pour créer votre compte.",
-				"passwordConstraints": "Minimum 8 caractères : 1 majuscule, 1 minuscule, 1 chiffre et un caractère spécial.",
+				"passwordConstraints": "Minimum 8 caractères.",
 				"createButton": "Inscription"
 			}
 		},
@@ -154,7 +154,7 @@
 			"lastNameTooShort": "Le nom doit au moins comporter 2 caractères",
 			"pseudoTooShort": "Le pseudo doit au moins comporter 2 caractères",
 			"invalidEmail": "L'adresse e-mail saisie est invalide",
-			"invalidPassword": "Le mot de passe saisi est invalide. Il doit comporter au moins 8 caractères dont au moins : une majuscule, une minuscule, un chiffre et un caractère spécial",
+			"invalidPassword": "Le mot de passe saisi est invalide. Il doit comporter au moins 8 caractères.",
 			"passwordAndConfirmMismatch": "Le mot de passe et la confirmation du mot de passe ne sont pas identiques !",
 			"unknownUser": "Erreur lors de la mise à jour du compte : l'utilisateur n'existe pas !",
 			"passwordInvalid": "Le mot de passe ne respecte pas les contraintes de sécurité.",

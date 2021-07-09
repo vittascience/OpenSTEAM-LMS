@@ -300,7 +300,7 @@ function teacherAccountCreateFormCheck(formData){
         showFormInputError(formValues.email.id);
     }
 
-    if(!formValues.password.value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)){
+    if(!formValues.password.value.length > 7){
         errors.push('invalidPassword');
         showFormInputError(formValues.password.id);
     }

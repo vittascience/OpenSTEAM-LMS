@@ -58,7 +58,7 @@
 			"register": {
 				"title": "Register",
 				"description": "Please complete the following fields to create your account.",
-				"passwordConstraints": "Minimum 8 characters: 1 uppercase, 1 lowercase, 1 number and a special character.",
+				"passwordConstraints": "Minimum 8 characters.",
 				"createButton": "Register"
 			}
 		},
@@ -154,7 +154,7 @@
 			"lastNameTooShort": "The last name must be at least 2 characters long",
 			"pseudoTooShort": "The nickname must be at least 2 characters long",
 			"invalidEmail": "The entered email address is invalid",
-			"invalidPassword": "The entered password is invalid. It must be at least 8 characters long, including at least: one uppercase, one lowercase, one number and one special character",
+			"invalidPassword": "The entered password is invalid. It must be at least 8 characters long.",
 			"passwordAndConfirmMismatch": "Password and password confirmation are not the same!",
 			"unknownUser": "Error updating account: user does not exist!",
 			"passwordInvalid": "The password does not respect security constraints.",
