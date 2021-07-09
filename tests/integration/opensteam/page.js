@@ -12,14 +12,15 @@ class Page {
     }
 
     clickOnButton (button) {
-        expect(button).toBeDisplayed();
+        expect(button).toBeDisplayedInViewport();
         button.scrollIntoView();
         button.click();
     }
 
     async waitElementDisplayed (selector) {
+        selector.scrollIntoView();
         return await browser.waitUntil(async () => {
-            return await (selector).isDisplayed();
+            return await (selector).isDisplayedInViewport();
         },{
             timeout: 35000,
             timeoutMsg: "Element never appear"
@@ -27,9 +28,15 @@ class Page {
     }
 
     async clickButtonWhenDisplayed(selector) {
+        selector.scrollIntoView();
         let isDisplay = await this.waitElementDisplayed(selector);
         this.clickOnButton(selector);
         expect(isDisplay).toBeTruthy();
+    }
+
+    async checkNumberOfElements(selector, wantedNumber) {
+        const number = selector.length;
+        expect(number === wantedNumber).toBeTruthy();
     }
 
     randomNumberBetween1to100() {
@@ -38,6 +45,19 @@ class Page {
 
     waitForExist(selector) {
         selector.waitForExist({timeout: 30000});
+    }
+
+    waitForNotExist(selector) {
+        selector.waitForExist({timeout: 30000, reverse: true});
+    }
+
+    async input (selector, input) {
+        if(input) {
+            expect(selector).toBeDisplayed();
+            await selector.setValue(input);
+        } else {
+            expect(false).toBeTruthy();
+        }
     }
 }
 

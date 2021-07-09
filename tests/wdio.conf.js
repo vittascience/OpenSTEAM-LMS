@@ -1,7 +1,7 @@
 exports.config = {
     runner: 'local',
     specs: [
-        './integration/specs/**/inscription.teacher.js'
+        './integration/specs/**/create.classroom.js'
     ],
     exclude: [
     ],
