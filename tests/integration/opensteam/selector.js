@@ -100,6 +100,7 @@ class Selector {
     /**
      *    Classroom page
      */
+
     get buttonClasses () {
         return $("#dashboard-classes-teacher");
     }
@@ -126,7 +127,7 @@ class Selector {
 
     // modal
     get inputLearnerName() {
-        return $("#add-student-div input");
+        return $("#add-student-div input:first-child");
     }
 
     // modal
@@ -152,6 +153,22 @@ class Selector {
 
     get divListMyClasses () {
         return $("#classroom-dashboard-classes-panel-teacher .list-classes");
+    }
+
+    get settingsButtonOnClassCard () {
+        return $("#classroom-dashboard-classes-panel-teacher .dropdown i");
+    }
+
+    get settingsDropdown () {
+        return $("#classroom-dashboard-classes-panel-teacher .dropdown .dropdown-menu");
+    }
+
+    get settingsDropdownModifyButton () {
+        return $("#classroom-dashboard-classes-panel-teacher .dropdown .dropdown-menu li:nth-child(1)");
+    }
+
+    get settingsDropdownDeleteButton () {
+        return $("#classroom-dashboard-classes-panel-teacher .dropdown .dropdown-menu li:nth-child(1)");
     }
 }
 
