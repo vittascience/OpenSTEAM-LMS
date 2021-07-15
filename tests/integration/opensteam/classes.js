@@ -36,6 +36,35 @@ class Classes {
             expect(true).toBeTruthy();
         }
     }
+
+    async createClass () {
+        await page.clickButtonWhenDisplayed(await selector.buttonClasses);
+        await page.clickButtonWhenDisplayed(await selector.buttonCreateClass);
+        const className = "Class " + page.randomNumberBetween1to100();
+        const schoolName = "UTBM" + page.randomNumberBetween1to100();
+        await this.inputInForm(className, schoolName);
+        await this.addLearner("Paul");
+        await this.addLearner("Seif");
+        await page.waitForExist(await selector.secondLearnerInTable);
+        await page.checkNumberOfElements(await selector.tableLearner, 2);
+        await page.clickButtonWhenDisplayed(await selector.buttonRemoveLearner);
+        await page.waitForNotExist(await selector.secondLearnerInTable);
+        await page.checkNumberOfElements(await selector.tableLearner, 1);
+        await page.clickButtonWhenDisplayed(await selector.buttonSaveClass);
+        await this.checkSuccess();
+    }
+
+    async deleteClass () {
+        await page.clickButtonWhenDisplayed(await selector.buttonClasses);
+        await page.clickButtonWhenDisplayed(await selector.settingsButtonOnClassCard);
+        const settingsDropdownDeleteButton = await selector.settingsDropdownDeleteButton;
+        await page.waitForExist(settingsDropdownDeleteButton);
+        await page.clickButtonWhenDisplayed(settingsDropdownDeleteButton);
+        await browser.acceptAlert();
+        await this.checkSuccess();
+    }
+
+
 }
 
 module.exports = new Classes();

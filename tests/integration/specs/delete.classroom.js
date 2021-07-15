@@ -9,6 +9,10 @@ describe("update of classroom", () => {
         await login.login(login.email, login.password);
     });
 
+    it("Create class", async () => {
+        await classes.createClass();
+    });
+
     it("Click on classes button", async () => {
         await page.clickButtonWhenDisplayed(await selector.buttonClasses);
     });
@@ -18,12 +22,13 @@ describe("update of classroom", () => {
     });
 
     it("Click on modify button", async () => {
-        await page.waitForExist(await selector.settingsDropdownDeleteButton);
-        await page.clickButtonWhenDisplayed(await selector.settingsDropdownDeleteButton);
+        const settingsDropdownDeleteButton = await selector.settingsDropdownDeleteButton;
+        await page.waitForExist(settingsDropdownDeleteButton);
+        await page.clickButtonWhenDisplayed(settingsDropdownDeleteButton);
     });
 
     it("Comfirm delete class", async () => {
-        await browser.acceptAlert();
+        await browser.acceptAlert(); // TODO : Bug sur l'alert
     });
 
     it("Check class was deleted", async () => {

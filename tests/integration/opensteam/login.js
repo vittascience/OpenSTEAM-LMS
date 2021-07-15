@@ -1,4 +1,5 @@
 require('dotenv').config({ path: '../../.env' });
+require('dotenv').config({ path: '../.env' });
 
 const selector = require("../opensteam/selector");
 const page = require("../opensteam/page");

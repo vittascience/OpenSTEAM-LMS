@@ -127,7 +127,7 @@ class Selector {
 
     // modal
     get inputLearnerName() {
-        return $("#add-student-div input:first-child");
+        return $("#add-student-div div:first-child input");
     }
 
     // modal

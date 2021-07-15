@@ -3,10 +3,14 @@ const login = require('../opensteam/login');
 const selector = require('../opensteam/selector');
 const classes = require('../opensteam/classes');
 
-describe("update of classroom", () => {
+describe("Update of classroom", () => {
     it("Login", async () => {
         await page.open('login.php');
         await login.login(login.email, login.password);
+    });
+
+    it("Create class", async () => {
+        await classes.createClass();
     });
 
     it("Click on classes button", async () => {
@@ -18,8 +22,9 @@ describe("update of classroom", () => {
     });
 
     it("Click on modify button", async () => {
-        await page.waitForExist(await selector.settingsDropdown);
-        await page.clickButtonWhenDisplayed(await selector.settingsDropdownModifyButton);
+        const settingsDropdownModifyButton = await selector.settingsDropdownModifyButton;
+        await page.waitForExist(settingsDropdownModifyButton);
+        await page.clickButtonWhenDisplayed(settingsDropdownModifyButton);
     });
 
     it("Change name of class and school", async () => {
@@ -32,7 +37,7 @@ describe("update of classroom", () => {
         await page.clickButtonWhenDisplayed(await selector.buttonSaveClass);
     });
 
-    it("Class was created", async () => {
+    it("Class was modified", async () => {
         await classes.checkSuccess();
     });
 });
