@@ -4,8 +4,6 @@ const selector = require('../opensteam/selector');
 const register = require('../opensteam/register');
 
 
-
-
 describe("Teacher try to subscribe", () => {
     it("Click login on first page", async () => {
         await page.open('login.php');

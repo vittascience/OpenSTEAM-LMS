@@ -55,12 +55,25 @@ class Classes {
     }
 
     async deleteClass () {
-        await page.clickButtonWhenDisplayed(await selector.buttonClasses);
-        await page.clickButtonWhenDisplayed(await selector.settingsButtonOnClassCard);
+        const buttonProfile = await selector.buttonProfile;
+        const buttonClasses = await selector.buttonClasses;
+        const settingsButtonOnClassCard = await selector.settingsButtonOnClassCard;
         const settingsDropdownDeleteButton = await selector.settingsDropdownDeleteButton;
+
+        await page.waitForExist(buttonProfile);
+        await page.clickButtonWhenDisplayed(buttonProfile);
+
+        await page.waitForExist(buttonClasses);
+        await page.clickButtonWhenDisplayed(buttonClasses);
+
+        await page.waitForExist(settingsButtonOnClassCard);
+        await page.clickButtonWhenDisplayed(settingsButtonOnClassCard);
+
         await page.waitForExist(settingsDropdownDeleteButton);
         await page.clickButtonWhenDisplayed(settingsDropdownDeleteButton);
-        await browser.acceptAlert();
+
+        await browser.acceptAlert(); // TODO : follow a post https://github.com/webdriverio/webdriverio/issues/6423
+
         await this.checkSuccess();
     }
 

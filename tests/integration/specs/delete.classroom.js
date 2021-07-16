@@ -21,7 +21,7 @@ describe("update of classroom", () => {
         await page.clickButtonWhenDisplayed(await selector.settingsButtonOnClassCard);
     });
 
-    it("Click on modify button", async () => {
+    it("Click on delete button", async () => {
         const settingsDropdownDeleteButton = await selector.settingsDropdownDeleteButton;
         await page.waitForExist(settingsDropdownDeleteButton);
         await page.clickButtonWhenDisplayed(settingsDropdownDeleteButton);

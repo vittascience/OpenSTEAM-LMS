@@ -17,12 +17,11 @@ describe("Update of classroom", () => {
         await page.clickButtonWhenDisplayed(await selector.buttonClasses);
     });
 
-    it("Click on settings button", async () => {
-        await page.clickButtonWhenDisplayed(await selector.settingsButtonOnClassCard);
-    });
-
     it("Click on modify button", async () => {
         const settingsDropdownModifyButton = await selector.settingsDropdownModifyButton;
+        const settingsButtonOnClassCard = await selector.settingsButtonOnClassCard;
+        await page.waitForExist(settingsButtonOnClassCard);
+        await page.clickButtonWhenDisplayed(settingsButtonOnClassCard);
         await page.waitForExist(settingsDropdownModifyButton);
         await page.clickButtonWhenDisplayed(settingsDropdownModifyButton);
     });
@@ -40,4 +39,9 @@ describe("Update of classroom", () => {
     it("Class was modified", async () => {
         await classes.checkSuccess();
     });
+
+    it("delete class was created", async () => {
+        await classes.deleteClass();
+    });
+
 });

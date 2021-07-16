@@ -1,3 +1,5 @@
+const { alertIsPresent } = require('wdio-wait-for');
+
 /**
 * main page object containing all methods, selectors and functionality
 * that is shared across all page objects
@@ -49,6 +51,13 @@ class Page {
 
     waitForNotExist(selector) {
         selector.waitForExist({timeout: 30000, reverse: true});
+    }
+
+    async waitAlertOpen () {
+        return await browser.waitUntil(alertIsPresent(),
+            { timeout: 5000,
+                timeoutMsg: 'Failed, after waiting for the alert to be present'
+            })
     }
 
     async input (selector, input) {

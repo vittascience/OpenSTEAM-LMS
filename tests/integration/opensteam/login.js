@@ -36,7 +36,7 @@ class Login {
         let buttonConnexionThirdPage = await selector.buttonConnexionThirdPage;
         await page.waitElementDisplayed(buttonConnexionThirdPage);
         await this.inputEmailAndPassword(email, password);
-        page.clickOnButton(buttonConnexionThirdPage);
+        await page.clickOnButton(buttonConnexionThirdPage);
     }
 }
 
