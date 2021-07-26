@@ -251,7 +251,10 @@ button {
     color: var(--classroom-dashboard);
     background: var(--classroom-background);
     border-radius: 1em 0em 0em 1em;
+    position: relative;
 }
+
+
 
 .sidebar-classroom div img {
     width: 6em;
@@ -263,6 +266,30 @@ button {
 
     border-radius: 50%;
     border: 3px solid transparent;
+
+}
+
+.sidebar-classroom .active::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    right: 0;
+    left: 0;
+    height: 10px;
+    background: radial-gradient(farthest-side at top left, transparent 98%, var(--bg-1) 100%) 0/10px no-repeat;
+    background-position: right;
+
+}
+
+.sidebar-classroom .active::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    right: 0;
+    left: 0;
+    height: 10px;
+    background: radial-gradient(farthest-side at bottom left, transparent 98%, var(--bg-1) 100%) 0/10px no-repeat;
+    background-position: right;
 
 }
 
@@ -307,15 +334,18 @@ button {
     scrollbar-color: var(--bg-3) transparent;
 }
 
-#classroom-dashboard-content::-webkit-scrollbar {
+#classroom-dashboard-content::-webkit-scrollbar,
+#classroom-panel-table-container::-webkit-scrollbar {
     width: 11px;
 }
 
-#classroom-dashboard-content::-webkit-scrollbar-track {
+#classroom-dashboard-content::-webkit-scrollbar-track,
+#classroom-panel-table-container::-webkit-scrollbar-track {
     background: transparent;
 }
 
-#classroom-dashboard-content::-webkit-scrollbar-thumb {
+#classroom-dashboard-content::-webkit-scrollbar-thumb,
+#classroom-panel-table-container::-webkit-scrollbar-thumb {
     background-color: var(--bg-3);
     border-radius: 6px;
     border: 3px solid transparent;
@@ -506,6 +536,16 @@ button {
 #body-table-teach .propic {
     width: 36px;
     height: 36px;
+}
+
+#body-table-teach .propic:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    background: var(--classroom-text-1);
+    clip-path: circle();
 }
 
 #classroom-dashboard-profile-stats,
@@ -1057,23 +1097,23 @@ h3.section-done {
     width: 50%;
 }
 
-.dashboard-block > nav > div:nth-child(2) {
+.dashboard-block>nav>div:nth-child(2) {
     border-bottom: 1px solid var(--text-1);
     height: 1px;
     align-self: center;
 }
 
 
-.activity-creation-form > div {
+.activity-creation-form>div {
     max-width: 60%;
 }
 
 @media (max-width: 768px) {
-    .dashboard-block >nav {
+    .dashboard-block>nav {
         width: 100%;
     }
 
-    .dashboard-block > nav > div:nth-child(1) {
+    .dashboard-block>nav>div:nth-child(1) {
         max-width: 100%;
         color: var(--classroom-white);
         background: var(--classroom-dashboard);
@@ -1084,8 +1124,8 @@ h3.section-done {
     }
 
     .dashboard-block>nav>div>.form-activity,
-    .dashboard-block > nav > div:nth-child(2), 
-    .dashboard-block > nav > div:nth-child(3) {
+    .dashboard-block>nav>div:nth-child(2),
+    .dashboard-block>nav>div:nth-child(3) {
         display: none;
     }
 
@@ -1093,10 +1133,10 @@ h3.section-done {
         display: none;
     }
 
-    .activity-creation-form > div {
+    .activity-creation-form>div {
         max-width: 85%;
     }
-    
+
 
 }
 
@@ -1213,7 +1253,7 @@ h3.section-done {
 }
 
 
-/* CLASSROOM CREATE FORM*/
+/* CLASSROOM CREATE FORM */
 
 .class-creation-form,
 .class-creation-form-step2 {
@@ -1271,6 +1311,99 @@ h3.section-done {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 90%;
+}
+
+.class-stats-panel #classroom-panel-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+
+.class-stats-panel .global-class-stats {
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+    padding: 0.5em;
+    margin: 0px 1em;
+    max-width: 80%;
+    box-shadow: 0px 0px 10px var(--classroom-shadow-1);
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -o-user-select: none;
+}
+
+.class-stats-panel .global-class-stats .stat-element {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin: 0 20px;
+}
+
+.class-stats-panel .global-class-stats .stat-element span.todo-ring,
+.class-stats-panel .global-class-stats .stat-element span.done-ring,
+.class-stats-panel .global-class-stats .stat-element .average-ring {
+    flex-shrink: 0;
+
+}
+
+.class-stats-panel .global-class-stats .stat-element span.todo-ring,
+.class-stats-panel .global-class-stats .stat-element span.done-ring {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 2px solid var(--text-1);
+    color: var(--text-1);
+    border-radius: 50%;
+
+    width: 50px;
+    height: 50px;
+    margin: 1px 10px;
+
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+.class-stats-panel .global-class-stats .stat-element span.todo-ring-label,
+.class-stats-panel .global-class-stats .stat-element span.done-ring-label,
+.class-stats-panel .global-class-stats .stat-element span.average-ring-label {
+    font-weight: 200;
+    font-size: initial;
+    font-style: oblique;
+    text-transform: uppercase;
+    word-wrap: break-word;
+    max-width: 96px;
+}
+
+.class-stats-panel .global-class-stats .stat-element span.todo-ring {
+    border: 2px solid var(--correction-0);
+    color: var(--correction-0);
+}
+
+.class-stats-panel .global-class-stats .stat-element span.done-ring {
+    border: 2px solid var(--correction-3);
+    color: var(--correction-3);
+}
+
+.class-stats-panel .global-class-stats .stat-element .average-ring__circle {
+    transition: stroke-dashoffset 0.35s;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+}
+
+.class-stats-panel #classroom-panel-table-container {
+
+    overflow: scroll;
+    padding: 10px;
+    max-width: 80%;
+    width: 100%;
+    flex-grow: 1;
 }
 
 .class-stats-panel table {
@@ -1291,11 +1424,17 @@ h3.section-done {
     text-transform: uppercase;
     font-size: 0.9em;
     color: var(--classroom-text-0);
+    text-align: center;
+
+}
+
+.class-stats-panel th.add-activity-th {
+    text-align: center;
 
 }
 
 .class-stats-panel .username {
-    border: 1px solid #E6E6E6;
+    border: 1px solid var(--bg-3);
     padding: 0.7em;
     width: 11em;
     border-radius: 10px;
@@ -1321,6 +1460,7 @@ h3.section-done {
     vertical-align: bottom;
     margin: 0 3px;
     display: inline-block;
+    line-height: 32px;
 }
 
 .bilan-legend.fas::before {
@@ -1431,11 +1571,57 @@ i.line_height34 {
 }
 
 #classroom-info {
-    border: 2px solid var(--classroom-secondary);
     border-radius: 10px;
     padding: 0.5em;
     margin: 0.5em;
+    width: 90%;
+    box-shadow: 0px 0px 10px var(--classroom-shadow-1);
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
 }
+
+#classroom-info .blocking-class {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    cursor: pointer;
+    font-weight: 800;
+}
+
+#classroom-info .blocking-class i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: x-large;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background: orange;
+    color: var(--classroom-white);
+}
+
+#classroom-info #class-join {
+    display: flex;
+}
+
+#classroom-info #class-join div {
+    border: 2px solid var(--classroom-secondary);
+    padding: 5px;
+    border-radius: 0.7em;
+    margin: 0px 0.5em;
+}
+
+#classroom-info #class-join div .classroom-link {
+    text-transform: uppercase;
+    margin-left: 0.5em;
+}
+
 
 #body-table-bilan {
     height: 30px;
@@ -1443,6 +1629,7 @@ i.line_height34 {
 
 #classroom-table-panel-teacher-code .classroom-link {
     color: var(--classroom-secondary);
+    text-transform: uppercase;
 
 }
 
@@ -1542,16 +1729,8 @@ i.line_height34 {
 
 }
 
-.blocking-class {
-    cursor: pointer;
-    border-radius: 10em;
-    font-weight: 700;
-    border: 1px solid orange;
-    color: orange;
-}
-
 .greyscale {
-    filter: grayscale(0.8);
+    filter: grayscale(1);
 }
 
 .close-login-classroom {

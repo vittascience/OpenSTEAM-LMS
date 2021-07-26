@@ -307,8 +307,7 @@
     </div>
 </div>
 
-<div id="classroom-dashboard-form-classe-panel" style="display:none;"
-    class="mx-3 dashboard-block classes-panel class-creation-form">
+<div id="classroom-dashboard-form-classe-panel" style="display:none;" class="mx-3 dashboard-block classes-panel class-creation-form">
     <h3 data-i18n="classroom.classes.form.title"></h3>
     <div class="form-group part-content-index part-row c-primary-form">
         <div class="form-row">
@@ -334,9 +333,31 @@
     <button class="new-classroom-form c-btn-primary m-3"><i class="fas fa-save"></i><span class="ml-1" data-i18n="classroom.classes.form.save"></span> </button>
 </div>
 
-<div id="classroom-table-panel-teacher" style="display:none; width:100%;"
-    class="row dashboard-block classes-panel class-stats-panel">
-    <div style="height: 60vh; overflow: scroll;padding: 10px;max-width: 80%;width:100%;">
+<div id="classroom-table-panel-teacher" style="display:none; width:100%; max-height: 100%;" class="row dashboard-block classes-panel class-stats-panel">
+    <div id="classroom-panel-header">
+        <div class="global-class-stats">
+            <div class="stat-element">
+                <span class="todo-ring">0</span>
+                <span class="todo-ring-label">Activités à faire</span>
+            </div>
+            <div class="stat-element">
+                <span class="done-ring">2</span>
+                <span class="done-ring-label">Activités réalisées</span>
+            </div>
+            <div class="stat-element">
+                <svg class="average-ring" width="60" height="60">
+                    <circle class="average-ring__bg" stroke="var(--classroom-text-2)" stroke-width="4" fill="transparent" r="25" cx="30" cy="30" opacity="0.2" />
+                    <circle class="average-ring__circle" stroke="var(--classroom-secondary)" stroke-width="4" fill="transparent" r="25" cx="30" cy="30" />
+                </svg>
+                <span class="average-ring-label">Moyenne générale</span>
+
+            </div>
+        </div>
+        <div id="export-class-container"></div>
+
+    </div>
+
+    <div id="classroom-panel-table-container">
         <table>
             <tr id="header-table-teach">
             </tr>
@@ -344,9 +365,8 @@
 
             </tbody>
         </table>
-
-
     </div>
+
     <div id="classroom-panel-legend" class="row">
         <div id="add-student-container" class="col ml-3">
         </div>
@@ -385,24 +405,34 @@
             </ul>
         </div>
     </div>
-    <p id="classroom-info">
-        <i class="fa fa-lock blocking-class" onclick="toggleBlockClass()"></i>
-        <span data-i18n="classroom.activities.toCopy"></span> <span id="classroom-link-tocopy"><span
-                style="display:none;"
-                id="hidden-link-prefix"></span><span
-                class="classroom-link"></span></span>
-        <button onclick="navigatePanel('classroom-table-panel-teacher-code', 'dashboard-classroom-teacher')"
-            class="btn c-btn-primary" title="Agrandir le code"><i class="fas fa-expand"></i></button><button
-            id="code-copy" class="btn c-btn-primary" title="Copier le lien" class="js-copy"
-            data-target="#classroom-link-tocopy"><i class="far fa-copy"></i></button>
-    </p>
+    <div id="classroom-info">
+        <div class="blocking-class" onclick="toggleBlockClass()">
+            <div>
+                <i class="fa fa-lock-open fa-2x"></i>
+            </div>
+            <span>Lien d'invitation activé</span>
+        </div>
+
+        <div id="class-join">
+            <div>
+                <span data-i18n="classroom.activities.toCopy"></span> <span id="classroom-link-tocopy"><span style="display:none;" id="hidden-link-prefix"></span><span class="classroom-link"></span></span>
+            </div>
+            <button id="code-copy" class="btn c-btn-secondary" title="Copier le lien direct" class="js-copy" data-target="#classroom-link-tocopy">Copier le lien direct</button>
+        </div>
+
+        <div class="blocking-class" onclick="navigatePanel('classroom-table-panel-teacher-code', 'dashboard-classroom-teacher')">
+            <div>
+                <i class="fa fa-expand"></i>
+            </div>
+            <span>Agrandir en plein écran</span>
+        </div>
+
+    </div>
 
 </div>
-<div id="classroom-table-panel-teacher-code" style="display:none;"
-    class="row dashboard-block classes-panel class-stats-panel">
-    <button onclick="backToClassroomFromCode()"
-        class="btn c-btn-primary" title="Copier le lien" class="js-copy" data-target="#classroom-link-tocopy"><i
-            class="fas fa-backward"></i><span data-i18n="classroom.activities.toCopy"></span></button>
+
+<div id="classroom-table-panel-teacher-code" style="display:none;" class="row dashboard-block classes-panel class-stats-panel">
+    <button onclick="backToClassroomFromCode()" class="btn c-btn-primary" title="Copier le lien" class="js-copy" data-target="#classroom-link-tocopy"><i class="fas fa-backward"></i><span data-i18n="classroom.activities.toCopy"></span></button>
     <div class="d-flex align-content-center text-center">
         <div>
             <span data-i18n="classroom.activities.toCopy"></span> </br>
@@ -443,7 +473,7 @@
 <div id="classroom-dashboard-activities-panel-library-teacher" style="display:none;" class="dashboard-block">
 </div>
 
-<div id="classroom-dashboard-new-activity-panel" style="display:none;margin-right:0px;"
+<div id="classroom-dashboard-new-activity-panel" style="display:none;"
     class="activity-creation-form row dashboard-block">
     <nav class="row" style="margin: 0 auto;">
         <div class="col-4 text-center">
