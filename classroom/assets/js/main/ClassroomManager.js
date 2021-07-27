@@ -1101,4 +1101,56 @@ class ClassroomManager {
             });
         });
     }
+
+    /**
+     * Send e-mail to the LMS owner
+     * @param {formData object} formData
+     */
+    sendHelpRequestFromTeacher(formData) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: 'POST',
+                url: '/routing/Routing.php?controller=user&action=help_request_from_teacher',
+                data: {
+                    'subject': formData.get('subject'),
+                    'message': formData.get('message'),
+                    'id': formData.get('id')
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        });
+    }
+
+    /**
+     * Send e-mail to the teacher of the current learner
+     * @param {formData object} formData
+     */
+    sendHelpRequestFromLearner(formData) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: 'POST',
+                url: '/routing/Routing.php?controller=user&action=help_request_from_student',
+                data: {
+                    'subject': formData.get('subject'),
+                    'message': formData.get('message'),
+                    'id': formData.get('id')
+                },
+                success: function (response) {
+                    try {
+                        resolve(JSON.parse(response));
+                    } catch(error) {
+                        console.warn(error);
+                    }
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        });
+    }
 }

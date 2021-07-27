@@ -58,7 +58,7 @@
 			"register": {
 				"title": "Inscription",
 				"description": "Merci de compléter les champs suivants pour créer votre compte.",
-				"passwordConstraints": "Minimum 8 caractères : 1 majuscule, 1 minuscule, 1 chiffre et un caractère spécial.",
+				"passwordConstraints": "Minimum 8 caractères.",
 				"createButton": "Inscription"
 			}
 		},
@@ -154,7 +154,7 @@
 			"lastNameTooShort": "Le nom doit au moins comporter 2 caractères",
 			"pseudoTooShort": "Le pseudo doit au moins comporter 2 caractères",
 			"invalidEmail": "L'adresse e-mail saisie est invalide",
-			"invalidPassword": "Le mot de passe saisi est invalide. Il doit comporter au moins 8 caractères dont au moins : une majuscule, une minuscule, un chiffre et un caractère spécial",
+			"invalidPassword": "Le mot de passe saisi est invalide. Il doit comporter au moins 8 caractères.",
 			"passwordAndConfirmMismatch": "Le mot de passe et la confirmation du mot de passe ne sont pas identiques !",
 			"unknownUser": "Erreur lors de la mise à jour du compte : l'utilisateur n'existe pas !",
 			"passwordInvalid": "Le mot de passe ne respecte pas les contraintes de sécurité.",
@@ -170,7 +170,19 @@
 			"emailMissing": "Vous devez renseigner votre adresse e-mail",
 			"passwordMissing": "Vous devez renseigner votre mot de passe",
 			"passwordConfirmMissing": "Vous devez renseigner la confirmation du mot de passe",
-			"passwordsMismatch": "Le mot de passe et la confirmation ne sont pas identiques"
+			"passwordsMismatch": "Le mot de passe et la confirmation ne sont pas identiques",
+			"invalidUserId": "Erreur lors de l'envoi du message : votre identifiant est invalide",
+			"helpRequestFromTeacherSent": "Votre message a bien été envoyé. Nous vous répondons au plus vite.",
+			"subjectMissingTeacherHelpForm": "Vous devez renseigner l'objet du message",
+			"messageMissingTeacherHelpForm": "Vous devez saisir votre message",
+			"invalidUserIdTeacherHelpForm": "Erreur lors de l'envoi du message : votre identifiant est invalide",
+			"unknownUserTeacherHelpForm": "Erreur lors de l'envoi du message : votre identifiant ne correspond à aucun compte enseignant",
+			"helpRequestFromLearnerSent": "Ton message a bien été envoyé à ton enseignant",
+			"subjectMissingLearnerHelpForm": "Tu dois renseigner l'objet du message",
+			"messageMissingLearnerHelpForm": "Tu dois saisir ton message",
+			"invalidUserIdLearnerHelpForm": "Erreur lors de l'envoi du message : ton identifiant est invalide",
+			"unknownUserLearnerHelpForm": "Erreur lors de l'envoi du message : ton identifiant est inconnu",
+			"unknownEmailLearnerHelpForm": "Erreur lors de l'envoi du message : l'adresse e-mail de ton enseignant est inconnue"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",
@@ -291,7 +303,8 @@
 				"title": "Nous contacter",
 				"objectPlaceholder": "Objet",
 				"messagePlaceholder": "Écrivez votre message ici. (Maximum 800 caractères)",
-				"sendButton": "Envoyer le message"
+				"sendButton": "Envoyer le message",
+				"fillInAllTheFields": "Complétez tous les champs"
 			}
 		},
 		"sandBoxCreationPanel": {
@@ -539,18 +552,18 @@
 		"title": "Foire Aux Questions",
 		"hint": "Vous ne trouvez pas la réponse à votre question ? <a href=\"/about?contact=1\">Contactez-nous via ce formulaire</a>."
 	},
-	"faqTeacher": {
+	"faqTeacherNeutral": {
         "title": "FAQ",
         "1": {
             "section_title": "Activités",
             "question_list": {
                 "1": {
                     "title": "À quoi sert l’onglet Mes activités ?",
-                    "answer": "Dans l’onglet <b>Mes activités</b>, vous allez pouvoir :<ol><li>Utiliser une Banque de Ressources collaborative pour découvrir des activités avec vos apprenants,</li><li>Créer vos propres activités et parcours,</li><li>Puis les attribuez à vos apprenants !</li></ol>"
+                    "answer": "Dans l’onglet <b>Mes activités</b>, vous allez pouvoir :<ol><li>Créer vos propres activités et parcours,</li><li>Puis les attribuer à vos apprenants !</li></ol>"
                 },
                 "2": {
                     "title": "Qu’est-ce qu’une activité ?",
-                    "answer": "Une activité est un contenu interactif qui peut mêler du texte, des images, des vidéos, des PDF, des interfaces Vittascience ainsi que des outils externes comme Genially et bien d'autres.<br>Le format d'affichage est basé sur les technologies du Web (HTML), ce qui permet de s'adapter à toute taille d'écran et de profiter d'options d'accessibilité avancées (police, couleurs, taille...)."
+                    "answer": "Une activité est un contenu interactif qui peut mêler du texte, des images, des vidéos, des PDF ainsi que des outils externes comme Genially et bien d'autres.<br>Le format d'affichage est basé sur les technologies du Web (HTML), ce qui permet de s'adapter à toute taille d'écran et de profiter d'options d'accessibilité avancées (police, couleurs, taille...)."
                 },
                 "3": {
                     "title": "Comment créer ou modifier une activité ?",
@@ -567,39 +580,10 @@
 				"6": {
                     "title": "Comment supprimer l’attribution d’une activité sans supprimer l’activité ?",
                     "answer": "Pour supprimer l’attribution d’une activité, aller dans l’onglet <b>Classe</b>, ouvrir le tableau de bord d’une des classes, puis cliquez sur l’activité (l’icône devient <i class=\"fas fa-cog\"></i> quand on passe dessus) puis sur Modifier l’attribution. Vous n’avez plus qu’à modifier les paramètres, sélectionner ou désélectionner les apprenants."
-                },
-				"7": {
-                    "title": "Qu’est-ce que la Banque de Ressources ?",
-                    "answer": "La Banque de ressources, c'est des ressources gratuites et sous licence libre partagées par la communauté Vittascience. À tout moment, vous pouvez y piocher du contenu pédagogique pour faire des activités avec vos apprenants ou y trouver l’inspiration pour créer les vôtres et les publier à votre tour."
                 }
             }
         },
         "2": {
-            "section_title": "Bac à sable",
-            "question_list": {
-                "1": {
-
-                    "title": "À quoi sert l’onglet Bac à sable ?",
-                    "answer": "Dans l’onglet Bac à sable, vous allez pouvoir :<ol><li>Explorer les possibilités de l’interface avec les plusieurs modes de programmations : Arduino, Micro:bit, Python, etc.</li><li>Créer vos programmes.</li><li>Visualiser les programmes qu’on vous partage !</li></ol>"
-                },
-                "2": {
-
-                    "title": "Comment sauvegarder un programme ?",
-                    "answer": "Pour sauvegarder un programme, une fois celui-ci réalisé, il vous suffit de cliquer sur l’icône <i class=\"fas fa-save\"></i> sur l’interface en haut à gauche. Ensuite, vous pourrez la retrouver à tout moment dans l’onglet Bac à sable."
-                },
-                "3": {
-
-                    "title": "Comment intégrer un programme dans une activité ?",
-                    "answer": "Plusieurs options s’offrent à vous :<ol><li>Pour intégrer un programme dans <b>une nouvelle activité</b>, il vous suffit de cliquer sur l’icône <i class=\"fas fa-cog\"></i> de votre programme qui se situe dans l’onglet Bac à sable, puis sur “Intégrer dans une activité”. Ce programme sera alors automatiquement inscrit dans le contenu de l’activité sous forme de balise [iframe], vous n’aurez plus qu’à compléter et sauvegarder l’activité.</li><li>Pour intégrer un programme dans <b>une activité déjà existante</b>, rendez-vous dans l’onglet Mes activités, cliquer sur l’icône <i class=\"fas fa-cog\"></i> de votre activité, puis cliquer sur modifier. Une fois arrivé sur votre activité, cliquez sur l’icône Vittascience (!) dans l’éditeur du contenu de l’activité et suivez les instructions pour copier le lien du programme.</li></ol>"
-                },
-                "4": {
-
-                    "title": "Comment partager un programme ?",
-                    "answer": "<p>Pour partager un programme, rendez-vous dans l’onglet Bac à sable et cliquez sur l’icône <i class=\"fas fa-share\"></i> de votre programme. Ensuite, il vous suffit de sélectionner les apprenants ou les classes avec qui vous souhaitez partager le programme.</p><p>Si vous souhaitez vérifier son envoi, passez en mode apprenant et allez dans l’onglet Bac à sable de Vittademo. Pour en savoir plus sur le mode apprenant, allez voir la question “<b>Qu’est-ce que le mode apprenant ?</b>” de la rubrique profil.</p>"
-                }
-            }
-        },
-        "3": {
             "section_title": "Classe",
             "question_list": {
                 "1": {
@@ -608,7 +592,7 @@
                 },
                 "2": {
                     "title": "Comment ajouter mes apprenants à ma classe ?",
-                    "answer": "Plusieurs options s’offrent à vous :<ol><li>En classe, vous pouvez <b>projeter le code au tableau</b>. Pour cela, rendez-vous dans votre classe et cliquez sur le bouton agrandir le code ci-dessous :<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image1.png\">Vos apprenants n’auront plus qu’à s'inscrire ou se connecter sur le site en rentrant le code. Ils pourront également noter ce code pour se connecter chez eux.</li><li>Vous pouvez également créer des apprenants avec le bouton “Ajouter un apprenant” et ensuite leur <b>communiquer leur mot de passe individuellement</b>, celui-ci est visible sur le Tableau de bord de la classe ci-dessous :<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image2.png\"></li><li>L’ajout d’apprenants par CSV sera possible très prochainement,</li><li>L’ajout d'apprenants pourra également être automatique via le GAR, la sortie est prévue en septembre 2021.</li></ol>"
+                    "answer": "Plusieurs options s’offrent à vous :<ol><li>En classe, vous pouvez <b>projeter le code au tableau</b>. Pour cela, rendez-vous dans votre classe et cliquez sur le bouton agrandir le code ci-dessous :<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image1.png\">Vos apprenants n’auront plus qu’à s'inscrire ou se connecter sur le site en rentrant le code. Ils pourront également noter ce code pour se connecter chez eux.</li><li>Vous pouvez également créer des apprenants avec le bouton “Ajouter un apprenant” et ensuite leur <b>communiquer leur mot de passe individuellement</b>, celui-ci est visible sur le Tableau de bord de la classe ci-dessous :<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image2.png\"></li></ol>"
                 },
                 "3": {
                     "title": "Un apprenant peut-il se trouver dans deux classes différentes ?",
@@ -648,7 +632,7 @@
                 }
             }
         },
-        "4": {
+        "3": {
             "section_title": "Profil",
             "question_list": {
                 "1": {
@@ -669,28 +653,20 @@
                 }
             }
         },
-        "5": {
+        "4": {
             "section_title": "Questions générales",
             "question_list": {
                 "1": {
-                    "title": "Comment prendre en main le module Classe ?",
-                    "answer": "Nous organisons régulièrement des webinaires de présentation du module Classe, vous pouvez vous abonner à <a href=\"https://www.youtube.com/Vittascience\" target=\"_blank\">la chaîne YouTube de Vittascience</a> pour visionner les replays et voir les prochains webinaires prévus. Pour réserver une démonstration en visioconférence avec l’un de nos délégués pédagogiques, <a href=\"/about?contact=1\" target=\"_blank\">contactez-nous via ce formulaire.</a>"
-				},
-                "2": {
                     "title": "Sur quel support le module classe est-il compatible ?",
                     "answer": "<p>Les interfaces fonctionnent sans installation, sur ordinateur, tablette et smartphone ! Les mises à jour sont automatiques et vos programmes sont sauvegardés dans le cloud.</p><p>Pour profiter pleinement de toutes les fonctionnalités, nous vous conseillons d’utiliser Chrome ou Firefox.</p>"
 				},
-                "3": {
+                "2": {
                     "title": "Comment créer un raccourci pour accéder au module Classe ?",
-                    "answer": "<p>Vous avez la possibilité de mettre une icône sur le bureau de l'ordinateur pour accéder rapidement au module Classe. Pour cela :</p><p>Sur Windows et sur Mac:</p><ol><li>Ouvrez la page : <a href=\"/classroom\" target=\"_blank\">https://fr.vittascience.com/classroom/</a>, puis réduisez la taille de la fenêtre du navigateur afin de voir le bureau à côté.</li><li>Dans votre navigateur Web, sélectionnez à la souris le symbole situé à gauche de l'adresse et, sans relâcher votre clic, faites glisser le pointeur jusqu'au Bureau. Relâchez pour créer le raccourci.</li><li>Le raccourci est créé. Vous n’aurez plus qu’à double-cliquer dessus pour ouvrir la page web liée.</li></ol><p>Sur Android avec Chrome :</p><ol><li>Ouvrez la page : <a href=\"/classroom\" target=\"_blank\">https://fr.vittascience.com/classroom/</a>, puis appuyez sur le bouton de menu, puis sélectionnez \"Ajouter à l'écran d'accueil\".</li><li>Nommez la page et appuyez sur \"Ajouter\".</li><li>Le raccourci est créé. Vous n’aurez plus qu’à double-cliquer dessus pour ouvrir la page web liée.</li></ol><p>Sur Android avec Firefox :</p><ol><li>Ouvrez la page : <a href=\"/classroom\" target=\"_blank\">https://fr.vittascience.com/classroom/</a>, puis appuyez sur le bouton de menu, puis appuyez sur Page.</li><li>Appuyez sur Ajouter un raccourci vers la page.</li><li>Le raccourci est créé sur l’écran d’accueil. Vous n’aurez plus qu’à cliquer dessus pour ouvrir la page web liée.</li></ol><p>Sur iOS avec Safari :</p><ol><li>Ouvrez la page : <a href=\"/classroom\" target=\"_blank\">https://fr.vittascience.com/classroom/</a>, puis touchez l'icône Partage.</li><li>Sélectionnez sur l'écran d'accueil, puis appuyez sur Ajouter.</li><li>Le raccourci est créé sur l’écran d’accueil. Vous n’aurez plus qu’à cliquer dessus pour ouvrir la page web liée.</li></ol><p>Vous pourrez trouver d'autres tutoriels sur Internet pour créer un raccourci sur le bureau.</p>"
-				},
-                "4": {
-                    "title": "Où puis-je réserver mon ou mes heures d’accompagnement offertes ?",
-                    "answer": "Pour réserver vos heures, il vous suffit de nous contacter via le formulaire d’aide dans votre profil."
-                }
+                    "answer": "<p>Vous avez la possibilité de mettre une icône sur le bureau de l'ordinateur pour accéder rapidement au module Classe. Pour cela :</p><p>Sur Windows et sur Mac:</p><ol><li>Ouvrez la page : <a href=\"/classroom\" target=\"_blank\">classroom/</a>, puis réduisez la taille de la fenêtre du navigateur afin de voir le bureau à côté.</li><li>Dans votre navigateur Web, sélectionnez à la souris le symbole situé à gauche de l'adresse et, sans relâcher votre clic, faites glisser le pointeur jusqu'au Bureau. Relâchez pour créer le raccourci.</li><li>Le raccourci est créé. Vous n’aurez plus qu’à double-cliquer dessus pour ouvrir la page web liée.</li></ol><p>Sur Android avec Chrome :</p><ol><li>Ouvrez la page : <a href=\"/classroom\" target=\"_blank\">classroom/</a>, puis appuyez sur le bouton de menu, puis sélectionnez \"Ajouter à l'écran d'accueil\".</li><li>Nommez la page et appuyez sur \"Ajouter\".</li><li>Le raccourci est créé. Vous n’aurez plus qu’à double-cliquer dessus pour ouvrir la page web liée.</li></ol><p>Sur Android avec Firefox :</p><ol><li>Ouvrez la page : <a href=\"/classroom\" target=\"_blank\">classroom/</a>, puis appuyez sur le bouton de menu, puis appuyez sur Page.</li><li>Appuyez sur Ajouter un raccourci vers la page.</li><li>Le raccourci est créé sur l’écran d’accueil. Vous n’aurez plus qu’à cliquer dessus pour ouvrir la page web liée.</li></ol><p>Sur iOS avec Safari :</p><ol><li>Ouvrez la page : <a href=\"/classroom\" target=\"_blank\">classroom/</a>, puis touchez l'icône Partage.</li><li>Sélectionnez sur l'écran d'accueil, puis appuyez sur Ajouter.</li><li>Le raccourci est créé sur l’écran d’accueil. Vous n’aurez plus qu’à cliquer dessus pour ouvrir la page web liée.</li></ol><p>Vous pourrez trouver d'autres tutoriels sur Internet pour créer un raccourci sur le bureau.</p>"
+				}
             }
         },
-        "6": {
+        "5": {
             "section_title": "Problème technique",
             "question_list": {
                 "1": {
@@ -703,24 +679,7 @@
                 }
             }
         },
-        "7": {
-            "section_title": "Abonnement",
-            "question_list": {
-                "1": {
-                    "title": "Où retrouver les détails des offres Vittascience ?",
-                    "answer": "Pour retrouver toutes les informations sur les offres Vittascience, rendez-vous sur <a href=\"/pricing\" target=\"_blank\">cette page</a>."
-                },
-                "2": {
-                    "title": "Comment change-t-on d’abonnement ?",
-                    "answer": "Pour changer d’abonnement, rendez-vous sur <a href=\"/pricing\" target=\"_blank\">cette page</a> ou contactez-nous dans l’onglet Profil avec le bouton “Aide”.<br>Vous pouvez changer d’abonnement en cours d’année si vous passez d’une licence 1 classe (abonnement gratuit) à une licence payante.<br>Vous devez attendre la fin de votre abonnement payant pour revenir à un abonnement gratuit."
-                },
-                "3": {
-                    "title": "Comment renouveler mon abonnement ?",
-                    "answer": "<p>Pour renouveler votre abonnement via le GAR, rapprochez-vous de la personne qui gère les accès dans votre établissement.</p><p>Si vous accédez au mode classe depuis l’ENT, contactez nous : <a href=\"mailto:contact@vittascience.com\">contact@vittascience.com</p>"
-                }
-            }
-        },
-        "8": {
+        "6": {
             "section_title": "Licences et autorisations",
             "question_list": {
                 "1": {
@@ -728,21 +687,13 @@
                     "answer": "Oui, vous pouvez réutiliser les visuels pour module Classe pour créer une description, présentation, formation, tutoriel, cours ou autre. Si vous souhaitez inclure des images ou contenus d'activités, veuillez mentionner l'auteur (voir question suivante)."
                 },
                 "2": {
-                    "title": "Peut-on réutiliser les activités de la communauté Vittascience ?",
-                    "answer": "Oui, toutes les activités visibles dans la banque de ressources Vittascience sont sous licence Creative Commons. Deux cas sont possibles :<ul><li>CC BY-NC-SA : l'auteur souhaite que le contenu soit partagé dans un usage non-commercial uniquement et à condition de mentionner son nom. Le contenu peut être modifié.</li><li>CC BY-NC-ND : l'auteur souhaite que le contenu soit partagé dans un usage non-commercial uniquement et à condition de mentionner son nom. Le contenu ne peut pas être modifié.</li></ul>"
-                },
-                "3": {
-                    "title": "Que se passe-t-il lorsque vous partagez un programme avec la communauté ?",
-                    "answer": "<p>Lorsque vous partagez un programme avec la communauté, celui-ci se retrouve dans les projets partagés des interfaces Vittascience. Vous pouvez les retrouver ainsi que la communauté via les interfaces du module Classe dans l’onglet Bac à sable ou sur <a href=\"/code\">la page Programmer</a> du site Vittascience.</p><p>Actuellement, il n’est pas encore possible de partager vos activités dans la <a href=\"/learn/\">Banque de ressource de Vittascience</a>, mais cela sera possible à l’avenir.</p>"
-                },
-                "4": {
                     "title": "Où peut-on trouver le code source du module Classe ?",
-                    "answer": "Le code source du module Classe n'est pas disponible pour le moment. Vous pouvez retrouver de nombreux modules open-source de la plateforme Vittascience sur <a href=\"https://github.com/vittascience\" target=\"_href\">le dossier GitHub de Vittascience</a>, n'hésitez pas à contribuer !"
+                    "answer": "Le code source du module Classe est disponible sur le <a href=\"https://github.com/vittascience/OpenSTEAM-LMS\" target=\"_href\">repository git OpenSTEAM-LMS</a>, n'hésitez pas à contribuer !"
                 }
             }
         }
     },
-	"faqStudent": {
+	"faqStudentNeutral": {
         "title": "FAQ",
         "1": {
             "section_title": "Activités",
@@ -753,35 +704,11 @@
                 },
                 "2": {
                     "title": "Qu’est-ce qu’une activité ?",
-                    "answer": "Une activité est un contenu interactif qui peut mêler du texte, des images, des vidéos, des PDF, des interfaces Vittascience ainsi que des outils externes comme Genially et bien d'autres.<br>Le format d'affichage est basé sur les technologies du Web (HTML), ce qui permet de s'adapter à toute taille d'écran et de profiter d'options d'accessibilité avancées (police, couleurs, taille...)."
-                },
-                "3": {
-                    "title": "Qu’est-ce que la Banque de Ressources ?",
-                    "answer": "La Banque de ressources, c'est des ressources gratuites et sous licence libre partagées par la communauté Vittascience. À tout moment, tu peux y chercher des activités pour t’entraîner et apprendre au-delà de ce que ton enseignant te fournis."
+                    "answer": "Une activité est un contenu interactif qui peut mêler du texte, des images, des vidéos, des PDF ainsi que des outils externes comme Genially et bien d'autres.<br>Le format d'affichage est basé sur les technologies du Web (HTML), ce qui permet de s'adapter à toute taille d'écran et de profiter d'options d'accessibilité avancées (police, couleurs, taille...)."
                 }
             }
         },
         "2": {
-            "section_title": "Bac à sable",
-            "question_list": {
-                "1": {
-
-                    "title": "À quoi sert l’onglet Bac à sable ?",
-                    "answer": "Dans l’onglet Bac à sable, tu vas pouvoir :<ol><li>Explorer les possibilités de l’interface avec les plusieurs modes de programmations : Arduino, Micro:bit, Python, etc.</li><li>Créer tes propres programmes.</li><li>Et visualiser les programmes qu’on te partage !</li></ol>"
-                },
-                "2": {
-
-                    "title": "Comment sauvegarder un programme ?",
-                    "answer": "Pour sauvegarder un programme, une fois celui-ci réalisé, il te suffit de cliquer sur l’icône <i class=\"fas fa-save\"></i> sur l’interface en haut à gauche. Ensuite, tu pourras la retrouver à tout moment dans l’onglet Bac à sable."
-                },
-                "3": {
-
-                    "title": "Comment partager un programme ?",
-                    "answer": "Pour partager un programme, rends-toi dans l’onglet Bac à sable et clique sur l’icône <i class=\"fas fa-share\"></i> de ton programme. Ensuite, il te suffit de sélectionner les personnes avec qui tu souhaites partager le programme."
-                }
-            }
-        },
-        "3": {
             "section_title": "Appel à l'aide",
             "question_list": {
                 "1": {
@@ -790,7 +717,7 @@
                 }
             }
         },
-        "4": {
+        "3": {
             "section_title": "Profil",
             "question_list": {
                 "1": {
@@ -807,7 +734,7 @@
                 }
             }
         },
-        "5": {
+        "4": {
             "section_title": "Questions générales",
             "question_list": {
                 "1": {
@@ -820,11 +747,11 @@
                 },
                 "3": {
                     "title": "Comment créer un raccourci pour accéder au module Classe ?",
-                    "answer": "<p>Tu as la possibilité de mettre une icône sur le bureau de l'ordinateur pour accéder rapidement au module Classe. Pour cela :</p><p>Sur Windows et sur Mac:</p><ol><li>Ouvre la page : <a href=\"/classroom\" target=\"_blank\">https://fr.vittascience.com/classroom/</a>, puis réduis la taille de la fenêtre du navigateur afin de voir le bureau à côté.</li><li>Dans votre navigateur Web, sélectionne à la souris le symbole situé à gauche de l'adresse et, sans relâcher ton clic, faits glisser le pointeur jusqu'au Bureau. Relâche pour créer le raccourci.</li><li>Le raccourci est créé. Tu n’auras plus qu’à double-cliquer dessus pour ouvrir la page web liée.</li></ol><p>Sur Android avec Chrome :</p><ol><li>Ouvre la page : <a href=\"/classroom\" target=\"_blank\">https://fr.vittascience.com/classroom/</a>, puis appuie sur le bouton de menu, puis sélectionne \"Ajouter à l'écran d'accueil\".</li><li>Nomme la page et appuie sur \"Ajouter\".</li><li>Le raccourci est créé. Tu n'auras plus qu’à double-cliquer dessus pour ouvrir la page web liée.</li></ol><p>Sur Android avec Firefox :</p><ol><li>Ouvre la page : <a href=\"/classroom\" target=\"_blank\">https://fr.vittascience.com/classroom/</a>, puis appuie sur le bouton de menu, puis appuie sur Page.</li><li>Appuie sur Ajouter un raccourci vers la page.</li><li>Le raccourci est créé sur l’écran d’accueil. Tu n'auras plus qu’à cliquer dessus pour ouvrir la page web liée.</li></ol><p>Sur iOS avec Safari :</p><ol><li>Ouvre la page : <a href=\"/classroom\" target=\"_blank\">https://fr.vittascience.com/classroom/</a>, puis touche l'icône Partage.</li><li>Sélectionne sur l'écran d'accueil, puis appuie sur Ajouter.</li><li>Le raccourci est créé sur l’écran d’accueil. Tu n'auras plus qu’à cliquer dessus pour ouvrir la page web liée.</li></ol><p>Tu pourras trouver d'autres tutoriels sur Internet pour créer un raccourci sur le bureau.</p>"
+                    "answer": "<p>Tu as la possibilité de mettre une icône sur le bureau de l'ordinateur pour accéder rapidement au module Classe. Pour cela :</p><p>Sur Windows et sur Mac:</p><ol><li>Ouvre la page : <a href=\"/classroom\" target=\"_blank\">/classroom/</a>, puis réduis la taille de la fenêtre du navigateur afin de voir le bureau à côté.</li><li>Dans votre navigateur Web, sélectionne à la souris le symbole situé à gauche de l'adresse et, sans relâcher ton clic, faits glisser le pointeur jusqu'au Bureau. Relâche pour créer le raccourci.</li><li>Le raccourci est créé. Tu n’auras plus qu’à double-cliquer dessus pour ouvrir la page web liée.</li></ol><p>Sur Android avec Chrome :</p><ol><li>Ouvre la page : <a href=\"/classroom\" target=\"_blank\">/classroom/</a>, puis appuie sur le bouton de menu, puis sélectionne \"Ajouter à l'écran d'accueil\".</li><li>Nomme la page et appuie sur \"Ajouter\".</li><li>Le raccourci est créé. Tu n'auras plus qu’à double-cliquer dessus pour ouvrir la page web liée.</li></ol><p>Sur Android avec Firefox :</p><ol><li>Ouvre la page : <a href=\"/classroom\" target=\"_blank\">/classroom/</a>, puis appuie sur le bouton de menu, puis appuie sur Page.</li><li>Appuie sur Ajouter un raccourci vers la page.</li><li>Le raccourci est créé sur l’écran d’accueil. Tu n'auras plus qu’à cliquer dessus pour ouvrir la page web liée.</li></ol><p>Sur iOS avec Safari :</p><ol><li>Ouvre la page : <a href=\"/classroom\" target=\"_blank\">/classroom/</a>, puis touche l'icône Partage.</li><li>Sélectionne sur l'écran d'accueil, puis appuie sur Ajouter.</li><li>Le raccourci est créé sur l’écran d’accueil. Tu n'auras plus qu’à cliquer dessus pour ouvrir la page web liée.</li></ol><p>Tu pourras trouver d'autres tutoriels sur Internet pour créer un raccourci sur le bureau.</p>"
                 }
             }
         },
-        "6": {
+        "5": {
             "section_title": "Problème technique",
             "question_list": {
                 "1": {
@@ -837,20 +764,12 @@
                 }
             }
         },
-        "7": {
+        "6": {
             "section_title": "Licences et autorisations",
             "question_list": {
                 "1": {
-                    "title": "Peut-on réutiliser les activités de la communauté Vittascience ?",
-                    "answer": "Oui, toutes les activités visibles dans la banque de ressources Vittascience sont sous licence Creative Commons. Deux cas sont possibles :<ul><li>CC BY-NC-SA : l'auteur souhaite que le contenu soit partagé dans un usage non-commercial uniquement et à condition de mentionner son nom. Le contenu peut être modifié.</li><li>CC BY-NC-ND : l'auteur souhaite que le contenu soit partagé dans un usage non-commercial uniquement et à condition de mentionner son nom. Le contenu ne peut pas être modifié.</li></ul>"
-                },
-                "2": {
-                    "title": "Que se passe-t-il lorsque vous partagez un programme avec la communauté ?",
-                    "answer": "Lorsque tu partages un programme avec la communauté, celui-ci se retrouve dans la Banque de ressource de Vittascience. Tu peux les retrouver ainsi que la communauté via le module Classe dans l’onglet Mes activités ou sur la <a href=\"/learn/?search=&support=0,1,2&difficulty=0,1,2,3&lang=fr,en\">page Ressource</a> du site Vittascience."
-                },
-                "3": {
                     "title": "Où peut-on trouver le code source du module Classe ?",
-                    "answer": "Le code source du module Classe n'est pas disponible pour le moment. Tu peux retrouver de nombreux modules open-source de la plateforme Vittascience sur <a href=\"https://github.com/vittascience\" target=\"_href\">le dossier GitHub de Vittascience</a>, n'hésites pas à contribuer !"
+                    "answer": "Le code source du module Classe est disponible sur <a href=\"https://github.com/vittascience/OpenSTEAM-LMS\" target=\"_href\">le repository git OpenSTEAM-LMS</a>, n'hésites pas à contribuer !"
                 }
             }
         }

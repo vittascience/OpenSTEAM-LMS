@@ -58,7 +58,7 @@
 			"register": {
 				"title": "Register",
 				"description": "Please complete the following fields to create your account.",
-				"passwordConstraints": "Minimum 8 characters: 1 uppercase, 1 lowercase, 1 number and a special character.",
+				"passwordConstraints": "Minimum 8 characters.",
 				"createButton": "Register"
 			}
 		},
@@ -154,7 +154,7 @@
 			"lastNameTooShort": "The last name must be at least 2 characters long",
 			"pseudoTooShort": "The nickname must be at least 2 characters long",
 			"invalidEmail": "The entered email address is invalid",
-			"invalidPassword": "The entered password is invalid. It must be at least 8 characters long, including at least: one uppercase, one lowercase, one number and one special character",
+			"invalidPassword": "The entered password is invalid. It must be at least 8 characters long.",
 			"passwordAndConfirmMismatch": "Password and password confirmation are not the same!",
 			"unknownUser": "Error updating account: user does not exist!",
 			"passwordInvalid": "The password does not respect security constraints.",
@@ -170,7 +170,19 @@
 			"emailMissing": "You must enter your email address",
 			"passwordMissing": "You must enter your password",
 			"passwordConfirmMissing": "You must enter the password confirmation",
-			"passwordsMismatch": "Password and confirmation are not the same"
+			"passwordsMismatch": "Password and confirmation are not the same",
+			"invalidUserId": "Error sending the message: your username is invalid",
+			"helpRequestFromTeacherSent": "Your message has been sent. We will get back to you as soon as possible.",
+			"subjectMissingTeacherHelpForm": "You must enter the subject of the message",
+			"messageMissingTeacherHelpForm": "You must enter your message",
+			"invalidUserIdTeacherHelpForm": "Error sending the message: your username is invalid",
+			"unknownUserTeacherHelpForm": "Error sending the message: your username does not correspond to any teacher account",
+			"helpRequestFromLearnerSent": "Your message has been sent to your teacher",
+			"subjectMissingLearnerHelpForm": "You must enter the subject of the message",
+			"messageMissingLearnerHelpForm": "You have to enter your message",
+			"invalidUserIdLearnerHelpForm": "Error sending the message: your username is invalid",
+			"unknownUserLearnerHelpForm": "Error sending the message: your username is unknown",
+			"unknownEmailLearnerHelpForm": "Error sending message: your teacher's email address is unknown"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
@@ -291,7 +303,8 @@
 				"title": "Contact us",
 				"objectPlaceholder": "Object",
 				"messagePlaceholder": "Write your message here. (Maximum 800 characters)",
-				"sendButton": "Send the message"
+				"sendButton": "Send the message",
+				"fillInAllTheFields": "Fill in all the fields"
 			}
 		},
 		"sandBoxCreationPanel": {

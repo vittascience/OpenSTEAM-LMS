@@ -126,21 +126,11 @@
         <select id="help-student-select" style="width: 70%;">
         </select>
 
-        <input type="text" id="subject-studenToTeacher" name="subject-studenToTeacher"
-            data-i18n="[placeholder]classroom.help.student.title" style="width: 70%;">
-        <input type="text" name="za78e-username-contact" autocomplete="off" value="za78e username"
-            id="za78e-username-contact-student" class="za78e-field" />
-        <input type="number" name="za78e-number-contact" autocomplete="off" max="10" min="0"
-            id="za78e-number-contact-student" class="za78e-field" />
-        <textarea name="message-studenToTeacher" id="message-studenToTeacher"
-            data-i18n="[placeholder]classroom.help.student.question" rows="15" cols="25"
-            style="resize: none; width: 100%;"></textarea>
+        <input type="text" name="subject" class="form-control" id="learner-contact-subject-input"  data-i18n="[placeholder]classroom.help.student.title" placeholder="Objet" style="width: 70%;">
 
-        <div class="btn btn-lg login-button c-btn-primary"
-            onclick="sendMailForm('za78e-number-contact-student','za78e-username-contact-student','about-contact-form-student','about-contact-info-student')"
-            style="align-self: flex-end;"><span data-i18n="words.send" class="text-capitalize"></span> <i
-                class="fas fa-chevron-right"></i>
-        </div>
+        <textarea name="message" id="learner-contact-message-input" rows="15" cols="25" style="resize: none; width: 100%;" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder" placeholder="Écrivez votre message ici. (Maximum 800 caractères)"></textarea>
+
+        <input type="submit" data-i18n="[value]classroom.teacherHelpPanel.contactForm.sendButton" disabled="disabled" style="cursor:not-allowed;" class="btn btn-lg login-button c-btn-primary" >
     </form>
 
     <div id="footer-content" style="justify-content: space-around;width: 70%;flex-wrap: wrap;">
@@ -621,21 +611,11 @@
     <h3 data-i18n="classroom.teacherHelpPanel.contactForm.title">Contacter Vittascience</h3>
     <div id="about-contact-info"></div>
     <form id="about-contact-form" class="c-primary-form">
-        <input type="text" name="za78e-username-contact" autocomplete="off" value="za78e username"
-            id="za78e-username-contact" class="za78e-field" />
-        <input type="number" name="za78e-number-contact" autocomplete="off" max="10" min="0" id="za78e-number-contact"
-            class="za78e-field" />
-
-        <input type="text" name="subject" class="form-control" id="contact-subject-input"  data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.objectPlaceholder" placeholder="Objet"
-            style="width: 70%;">
+        <input type="text" name="subject" class="form-control" id="contact-subject-input"  data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.objectPlaceholder" placeholder="Objet" style="width: 70%;">
 
         <textarea name="message" id="contact-message-input" rows="8" cols="25" style="resize: none; width: 100%;" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder" placeholder="Écrivez votre message ici. (Maximum 800 caractères)"></textarea>
 
-        <div disabled="disabled" style="cursor:not-allowed;" class="btn btn-lg login-button c-btn-primary"
-            id="contact-submit-btn" title="Complétez tous les champs"
-            onclick="sendMailForm('za78e-number-contact','za78e-username-contact','about-contact-form','about-contact-info')">
-            <span data-i18n="classroom.teacherHelpPanel.contactForm.sendButton">Envoyer le message</span>
-        </div>
+        <input type="submit" data-i18n="[value]classroom.teacherHelpPanel.contactForm.sendButton" disabled="disabled" style="cursor:not-allowed;" class="btn btn-lg login-button c-btn-primary" >
     </form>
 
         <div id="footer-content" class="row" style="justify-content: space-around;width: 70%;flex-wrap: wrap;">
