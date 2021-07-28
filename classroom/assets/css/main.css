@@ -1786,10 +1786,10 @@ i.line_height34 {
     font-family: 'password';
 }
 
-#vitta-footer {
+/* #vitta-footer {
     position: absolute;
     bottom: 0px;
-}
+} */
 
 #home-container #vitta-footer {
     position: static;

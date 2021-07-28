@@ -22,8 +22,8 @@
 			"visualize": "visualize </br> their results",
 			"helpers": " By our side to <span>accompany you.</span>",
 			"student": "STUDENT",
-            "codeInput": " Enter your Classroom code",
-            "teacher": "TEACHER",
+			"codeInput": " Enter your Classroom code",
+			"teacher": "TEACHER",
 			"hasAccount": "Already have an account?",
 			"gar": "Enjoy the Classroom module with ease using GAR.</br><i class=\"fas fa-exclamation-triangle\" style=\"color:var(--vitta-orange-light)\"></i> The connection to GAR is not yet finalized, but will be ready soon.",
 			"signup": "SIGN UP",
@@ -62,18 +62,18 @@
 				"createButton": "Register"
 			}
 		},
-		"register":{
-			"accountConfirmationEmail":{
-				"emailSubject":"Activate my account",
-				"bodyTitle":"Activate my account",
-				"textBeforeLink":"If the button above does not work, copy and paste into your browser, the following link :"
+		"register": {
+			"accountConfirmationEmail": {
+				"emailSubject": "Activate my account",
+				"bodyTitle": "Activate my account",
+				"textBeforeLink": "If the button above does not work, copy and paste into your browser, the following link :"
 			}
 		},
-		"updateUserInfos":{
-			"emailUpdateConfirmation":{
-				"emailSubject":"Confirm my new email address",
-				"bodyTitle":"Confirm my new email address",
-				"textBeforeLink":"If the button above does not work, copy and paste into your browser, the following link :"
+		"updateUserInfos": {
+			"emailUpdateConfirmation": {
+				"emailSubject": "Confirm my new email address",
+				"bodyTitle": "Confirm my new email address",
+				"textBeforeLink": "If the button above does not work, copy and paste into your browser, the following link :"
 			}
 		},
 		"successPanel": "Congratulation, you succeed this activity !",
@@ -130,7 +130,7 @@
 			"cantLoginLimitLearners": "You cannot join the class. Your teacher has reached his maximum number of learners.",
 			"cantLoginClassroomBlocked": "You cannot join the classroom, your teacher has locked access to it.",
 			"classNotCreated": "You cannot have more than one classroom.",
-			"attributeActivityUndone" : "The activity has been unassigned",
+			"attributeActivityUndone": "The activity has been unassigned",
 			"pseudoUpdated": "The learner's new nickname is {{newPseudo}}",
 			"classroomDeleted": "The classroom {{classroomName}} has been deleted",
 			"classroomCreated": "The classroom {{classroomName}} has been created, as well as all associated accounts",
@@ -232,9 +232,9 @@
 			"save-draft": "Save as a draft",
 			"validate": "Validate the activity",
 			"accept": "Very good proficiency",
-            "vgood": "Good proficiency",
-            "good": "Weak proficiency",
-            "refuse": "Insufficient proficiency",
+			"vgood": "Good proficiency",
+			"good": "Weak proficiency",
+			"refuse": "Insufficient proficiency",
 			"instruction": "Instructions",
 			"commentary": "Comment",
 			"sendResults": "Send the comment to the learner ",
@@ -589,5 +589,44 @@
 		"password": "Password",
 		"yes": "Yes",
 		"no": "No"
+	},
+	"navbar": {
+		"items": {
+			"kits": "Hardware",
+			"community": {
+				"title": "Community",
+				"dropdown": {
+					"vittamap": "Vittamap",
+					"blog": "Blog",
+					"gallery": "Gallery",
+					"about": "About"
+				}
+			},
+			"tooltips": {
+				"backToHome": "Go back to the homepage",
+				"programming": "Coding with Vittascience",
+				"resources": "Educational resource center",
+				"classroom": "Manage your classes with Vittascience",
+				"hardware": "Discover our kits and products"
+			},
+			"programming": "Programming",
+			"classroom": "Classroom",
+			"arduino": "Arduino",
+			"microbit": "Microbit",
+			"microbit-tutorials": "Microbit Tutorials",
+			"ressources": "Resources",
+			"accessibility": "Change the theme and font of the site",
+			"lang": "Change language",
+			"user_shortcuts": {
+				"welcome": "Welcome!",
+				"signup": "Sign up",
+				"login": "Connect",
+				"hello": "Hello",
+				"account": "My account",
+				"disconnect": "Disconnect",
+				"willSignup": "sign in",
+				"willSignin": "Log in"
+			}
+		}
 	}
 }
