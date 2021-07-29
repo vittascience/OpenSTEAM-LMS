@@ -830,7 +830,9 @@
 		"allowNewsletter": "Souhaitez-vous recevoir notre newsletter par mail ?",
 		"allowAlertMessage": "Souhaitez-vous recevoir des alertes par mail lors de la réception de nouveaux messages sur le site ?",
 		"allowMessageReceive": "Souhaitez-vous pouvoir être contacté par les autres utilisateurs du site ?",
+		"eighteenConfirm": "Je confirme avoir plus de 18 ans (article 1124 du code civil)",
 		"confirmCGU": "En validant ce formulaire, vous acceptez les <a target=\"_blank\" href=\"/cgu\">conditions générales d'utilisation</a>.",
+		"concernedAboutPrivacy": "Vittascience place la sécurité et la confidentialité des données personnelles de ses utilisateurs au coeur de ses préoccupations. Découvrez <a target=\"_blank\" href=\"/privacy\">notre politique de protection des données personnelles</a>",
 		"errors": {
 			"mailUsed": "Le mail {{ mail }} est déjà utilisé. Veuillez en choisir un autre.",
 			"mailUsedServer": "L'adresse email fournie existe déjà.",
