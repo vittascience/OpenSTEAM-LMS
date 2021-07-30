@@ -13,6 +13,24 @@ class Page {
         return browser.url(`/classroom/` + path)
     }
 
+    // important to accept a Alert pop-up
+    async defineAlert(isConfirm) {
+        await browser.execute(() => {
+            window.alert = () => {
+                return isConfirm;
+            }
+        });
+    }
+
+    // important to accept a confirm pop-up
+    async defineConfirm(isConfirm) {
+        await browser.execute(() => {
+           window.confirm = () => {
+               return isConfirm;
+           }
+        });
+    }
+
     clickOnButton (button) {
         expect(button).toBeDisplayedInViewport();
         button.scrollIntoView();

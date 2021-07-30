@@ -38,19 +38,19 @@ class Classes {
     }
 
     async createClass () {
-        await page.clickButtonWhenDisplayed(await selector.buttonClasses);
-        await page.clickButtonWhenDisplayed(await selector.buttonCreateClass);
+        const buttonClasses = await selector.buttonClasses;
+        const buttonCreateClass = await selector.buttonCreateClass;
+        const buttonSaveClass = await selector.buttonSaveClass;
+
+        await page.clickButtonWhenDisplayed(buttonClasses);
+        await page.clickButtonWhenDisplayed(buttonCreateClass);
+
         const className = "Class " + page.randomNumberBetween1to100();
         const schoolName = "UTBM" + page.randomNumberBetween1to100();
         await this.inputInForm(className, schoolName);
-        await this.addLearner("Paul");
-        await this.addLearner("Seif");
-        await page.waitForExist(await selector.secondLearnerInTable);
-        await page.checkNumberOfElements(await selector.tableLearner, 2);
-        await page.clickButtonWhenDisplayed(await selector.buttonRemoveLearner);
-        await page.waitForNotExist(await selector.secondLearnerInTable);
-        await page.checkNumberOfElements(await selector.tableLearner, 1);
-        await page.clickButtonWhenDisplayed(await selector.buttonSaveClass);
+
+        await page.clickButtonWhenDisplayed(buttonSaveClass);
+
         await this.checkSuccess();
     }
 
@@ -71,8 +71,6 @@ class Classes {
 
         await page.waitForExist(settingsDropdownDeleteButton);
         await page.clickButtonWhenDisplayed(settingsDropdownDeleteButton);
-
-        await browser.acceptAlert(); // TODO : follow a post https://github.com/webdriverio/webdriverio/issues/6423
 
         await this.checkSuccess();
     }

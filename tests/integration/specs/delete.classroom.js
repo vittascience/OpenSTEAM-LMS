@@ -6,6 +6,8 @@ const classes = require('../opensteam/classes');
 describe("update of classroom", () => {
     it("Login", async () => {
         await page.open('login.php');
+        await page.defineConfirm(true); // all confirm will be accept
+        browser.pause(20000)
         await login.login(login.email, login.password);
     });
 
@@ -17,18 +19,13 @@ describe("update of classroom", () => {
         await page.clickButtonWhenDisplayed(await selector.buttonClasses);
     });
 
-    it("Click on settings button", async () => {
-        await page.clickButtonWhenDisplayed(await selector.settingsButtonOnClassCard);
-    });
-
     it("Click on delete button", async () => {
+        const settingsButtonOnClassCard = await selector.settingsButtonOnClassCard;
         const settingsDropdownDeleteButton = await selector.settingsDropdownDeleteButton;
+        await page.waitForExist(settingsButtonOnClassCard);
+        await page.clickButtonWhenDisplayed(settingsButtonOnClassCard);
         await page.waitForExist(settingsDropdownDeleteButton);
         await page.clickButtonWhenDisplayed(settingsDropdownDeleteButton);
-    });
-
-    it("Comfirm delete class", async () => {
-        await browser.acceptAlert(); // TODO : Bug sur l'alert
     });
 
     it("Check class was deleted", async () => {

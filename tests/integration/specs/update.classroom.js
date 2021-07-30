@@ -6,6 +6,7 @@ const classes = require('../opensteam/classes');
 describe("Update of classroom", () => {
     it("Login", async () => {
         await page.open('login.php');
+        await page.defineConfirm(true);
         await login.login(login.email, login.password);
     });
 
