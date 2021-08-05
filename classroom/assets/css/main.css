@@ -75,6 +75,7 @@
 
 .vitta-modal-exit-btn {
     background-color: var(--classroom-primary) !important;
+    color: var(--classroom-white) !important;
 }
 
 .vitta-modal-exit-btn:hover {
@@ -135,6 +136,14 @@ input:checked + .slider-mini {
 
 
 /* THEMED ELEMENTS */
+
+body {
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
+    font-family: var(--main-font);
+    scroll-behavior: smooth;
+}
+
 
 .info-class {
     font-weight: bold;
@@ -256,7 +265,29 @@ button {
 
 }
 
+.sidebar-classroom .active::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    right: 0;
+    left: 0;
+    height: 10px;
+    background: radial-gradient(farthest-side at top left, transparent 98%, var(--classroom-background) 100%) 0/10px no-repeat;
+    background-position: right;
 
+}
+
+.sidebar-classroom .active::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    right: 0;
+    left: 0;
+    height: 10px;
+    background: radial-gradient(farthest-side at bottom left, transparent 98%, var(--classroom-background) 100%) 0/10px no-repeat;
+    background-position: right;
+
+}
 
 .sidebar-classroom .active img {
     border-color: #1e8956;
@@ -311,10 +342,102 @@ button {
 .a11y-dropdown {
     left: -50px;
     width: 18em;
+    background: var(--classroom-background);
+    color: var(--classroom-text-0);
+    padding: 1em;
 }
 
 .dashboard-block {
     margin-top: 2.5em;
+}
+
+
+@media (max-width: 768px) {
+
+    #classroom-dashboard-background {
+        padding: 0px;
+        width: 100vw;
+    }
+
+    #classroom-dashboard-container {
+        grid-template-columns: 100%;
+        grid-template-rows: auto 0px;
+    }
+
+    #classroom-dashboard-sidebar,
+    #classroom-dashboard-sidebar-teacher {
+        z-index: 3;
+        position: fixed;
+        bottom: 0;
+        grid-row-start: 2;
+        width: 100%;
+        background: var(--classroom-dashboard);
+        height: 110px;
+    }
+
+    .sidebar-classroom {
+        height: 100%;
+        grid-auto-flow: column;
+        align-items: flex-start;
+        justify-content: space-evenly;
+    }
+
+    .sidebar-classroom #classroom-sidebar-logo {
+        display: none;
+    }
+
+    .sidebar-classroom div:not(:first-child) {
+        width: 100px;
+        height: 100px;
+        background: transparent;
+        grid-template-rows: auto 0px;
+    }
+
+    .sidebar-classroom div span {
+        display: none;
+    }
+
+    .sidebar-classroom div img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .sidebar-classroom .active:not(:first-child) {
+        border-radius: 0em 0em 15px 15px;
+    }
+
+    .sidebar-classroom .active::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: -10px;
+        width: 10px;
+        background: radial-gradient(farthest-side at bottom left, transparent 98%, var(--classroom-background) 100%) 0/10px no-repeat;
+        background-position: right;
+
+    }
+
+    .sidebar-classroom .active::after {
+        content: "";
+        position: absolute;
+        bottom: calc(100% - 10px);
+        right: 0;
+        left: 100%;
+        width: 10px;
+        background: radial-gradient(farthest-side at bottom right, transparent 98%, var(--classroom-background) 100%) 0/10px no-repeat;
+        background-position: right;
+    }
+
+    #classroom-dashboard-top-bar {
+        width: 100%;
+    }
+
+    #classroom-dashboard-content {
+        border-radius: 0px;
+        padding-bottom: 110px;
+    }
+
 }
 
 /* BREADCRUMB */
@@ -323,9 +446,12 @@ button {
     padding: 0.1rem 0.8rem;
     font-weight: 600;
     font-size: 0.8rem;
+    background-color: var(--classroom-background);
+
 }
 
-#breadcrumb button.last{
+#breadcrumb button.last {
+    background-color: var(--classroom-background);
     border-color: var(--classroom-primary);
     color: var(--classroom-primary);
 }
@@ -640,7 +766,7 @@ img.btn-cabri{
     border: 0;
     box-shadow: 1px 1px 5px #00000029;
     border-radius: 21px;
-    background-color: var(--bg-1);
+    background-color: var(--classroom-background);
     padding: 20px 0px 0px 0px;
 }
 
@@ -697,7 +823,7 @@ img.btn-cabri{
 }
 
 #classroom-dashboard-sandbox-creation .sandbox-square:hover {
-    border-color: var(--bg-1);
+    border-color: var(--classroom-background);
 }
 
 #classroom-dashboard-sandbox-creation .sandbox-square-img {
@@ -945,6 +1071,53 @@ h3.section-done {
     align-items: center;
 }
 
+.activity-creation-form>nav {
+    width: 50%;
+}
+
+.dashboard-block>nav>div:nth-child(2) {
+    border-bottom: 1px solid var(--classroom-text-1);
+    height: 1px;
+    align-self: center;
+}
+
+
+.activity-creation-form>div {
+    max-width: 60%;
+}
+
+@media (max-width: 768px) {
+    .dashboard-block>nav {
+        width: 100%;
+    }
+
+    .dashboard-block>nav>div:nth-child(1) {
+        max-width: 100%;
+        color: var(--classroom-white);
+        background: var(--classroom-dashboard);
+        flex: 1;
+        padding: 2.5rem 1rem 0.5rem;
+        font-weight: 600;
+        margin-top: -2.5em;
+    }
+
+    .dashboard-block>nav>div>.form-activity,
+    .dashboard-block>nav>div:nth-child(2),
+    .dashboard-block>nav>div:nth-child(3) {
+        display: none;
+    }
+
+    .dashboard-block>nav>div>span.form-activity.form-activity-activate {
+        display: none;
+    }
+
+    .activity-creation-form>div {
+        max-width: 85%;
+    }
+
+
+}
+
 /* ACTIVITY ASSIGN FORM */
 
 #classroom-dashboard-new-activity-panel3 {
@@ -1116,6 +1289,104 @@ h3.section-done {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 90%;
+    width: 100%;
+    max-height: 100%;
+}
+
+.class-stats-panel #classroom-panel-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+
+.class-stats-panel .global-class-stats {
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+    padding: 0.5em;
+    margin: 0.5em;
+    width: 640px;
+    box-shadow: 0px 0px 10px var(--classroom-shadow-1);
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -o-user-select: none;
+}
+
+.class-stats-panel .global-class-stats .stat-element {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin: 0 20px;
+}
+
+.class-stats-panel .global-class-stats .stat-element span.todo-ring,
+.class-stats-panel .global-class-stats .stat-element span.done-ring,
+.class-stats-panel .global-class-stats .stat-element .average-ring {
+    flex-shrink: 0;
+
+}
+
+.class-stats-panel .global-class-stats .stat-element span.todo-ring,
+.class-stats-panel .global-class-stats .stat-element span.done-ring {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 2px solid var(--classroom-text-1);
+    color: var(--classroom-text-1);
+    border-radius: 50%;
+
+    width: 50px;
+    height: 50px;
+    margin: 1px 10px;
+
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+.class-stats-panel .global-class-stats .stat-element span.todo-ring-label,
+.class-stats-panel .global-class-stats .stat-element span.done-ring-label,
+.class-stats-panel .global-class-stats .stat-element span.average-ring-label {
+    font-weight: 200;
+    font-size: initial;
+    font-style: oblique;
+    text-transform: uppercase;
+    word-wrap: break-word;
+    max-width: 96px;
+}
+
+.class-stats-panel .global-class-stats .stat-element span.todo-ring {
+    border: 2px solid var(--correction-0);
+    color: var(--correction-0);
+}
+
+.class-stats-panel .global-class-stats .stat-element span.done-ring {
+    border: 2px solid var(--correction-3);
+    color: var(--correction-3);
+}
+
+.class-stats-panel .global-class-stats .stat-element .average-ring__circle {
+    transition: stroke-dashoffset 0.35s;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+}
+
+.class-stats-panel #classroom-panel-table-container {
+
+    overflow: auto;
+    padding: 10px;
+    margin: 10px;
+    max-width: 80%;
+    width: 100%;
+    flex-grow: 1;
 }
 
 .class-stats-panel table {
@@ -1322,7 +1593,7 @@ i.line_height34 {
 
     background: var(--bg-0);
     border: 1px solid #cccccc;
-    color: solid(--text-1);
+    color: solid(--classroom-text-1);
     padding: 15px 1em;
 }
 
@@ -1411,7 +1682,7 @@ i.line_height34 {
     font-size: 40px;
     border: var(--bg-5);
 
-    background: var(--bg-1);
+    background: var(--classroom-background);
 }
 
 .help-sign {
