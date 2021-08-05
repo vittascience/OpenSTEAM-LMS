@@ -239,9 +239,16 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
             $('.classroom-link').html(ClassroomSettings.classroom)
             // Block classroom feature
             if (getClassroomInListByLink(link)[0].classroom.isBlocked == false) {
-                $('#classroom-info').addClass('greyscale')
-            } else {
                 $('#classroom-info').removeClass('greyscale')
+                $('#classroom-info > *:not(:first-child)').css('display','unset');
+                $('#classroom-info > button > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
+
+            } else {
+                $('#classroom-info').addClass('greyscale')
+                $('#classroom-info > *:not(:first-child)').css('display','none');
+                $('#classroom-info > button > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
+
+
             }
             // Get the classes from database and refresh the dashboard
             Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {

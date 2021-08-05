@@ -330,6 +330,17 @@
 
 /* FAQ section */
 
+/* Honeypot field css */
+
+.za78e-field {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 0;
+    width: 0;
+}
+
 #classroom-faq h2 {
 
     color: var(--vitta-orange-light);
@@ -354,7 +365,65 @@
 
 }
 
+
+.resource-box,
+.kit-faq-box {
+    width: 100%;
+    padding: 15px 5px 15px 5px;
+    background-color: var(--bg-1);
+    margin: 10px 0px 10px 0px;
+    overflow: hidden;
+    border-radius: 10px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    box-shadow: 0 0 1px #333;
+}
+
+.faq-box-header {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    /* align vertical */
+    cursor: pointer;
+}
+
+.faq-box-dropdown {
+    min-width: 40px;
+    min-height: 40px;
+    max-width: 40px;
+    max-height: 40px;
+    background-color: var(--bg-4);
+    color: var(--vitta-white);
+    text-align: center;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.faq-box-content {
+    margin-top: 20px;
+    text-align: left;
+    display: none;
+    padding: 0 3% 0 3%;
+    line-height: 1.3;
+}
+
+
+
 /* LOGIN PAGE */
+
+.login-form,
+.recovery-form-div,
+#reset-password-form-div {
+    height: 100%;
+    padding: 20px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 #open-login-menu a {
     margin: 1em;
@@ -374,6 +443,11 @@ a.forgot-password {
     font-weight: bolder;
     color: var(--classroom-text-1);
     height: 75px;
+}
+
+#classroom-desc > #blocked-class {
+    font-size: 0.8em;
+    font-weight: normal ;
 }
 
 .inner-login-container {
