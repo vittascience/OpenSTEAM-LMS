@@ -346,10 +346,7 @@
                 $('#classroom-login-account,#classroom-create-account').hide()
             }
             if (classroom[0].isBlocked == true) {
-    
-                console.log(classroom)
-                console.log("blocked")
-    
+  
                 let blockedClassDivElt = document.createElement("div")
                 blockedClassDivElt.id = "blocked-class"
                 blockedClassDivElt.innerHTML = "Cette classe a été bloquée par l'enseignant.e qui l'a crée, tu ne peux donc pas créer de nouveau compte.<br>Si tu as déja un compte, essaye plutot de te connecter.";
