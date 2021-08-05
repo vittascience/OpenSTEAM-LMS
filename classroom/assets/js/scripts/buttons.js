@@ -679,10 +679,15 @@ function toggleBlockClass() {
     let classroom = getClassroomInListByLink($_GET('option'))[0].classroom;
     if (classroom.isBlocked == true) {
         classroom.isBlocked = false;
-        $('#classroom-info').addClass('greyscale');
+        $('#classroom-info').removeClass('greyscale');
+        $('#classroom-info > *:not(:first-child)').css('display','unset');
+        $('#classroom-info > button > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
     } else {
         classroom.isBlocked = true;
-        $('#classroom-info').removeClass('greyscale');
+        $('#classroom-info').addClass('greyscale');
+        $('#classroom-info > *:not(:first-child)').css('display','none');
+        $('#classroom-info > button > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
+
     }
     Main.getClassroomManager().updateClassroom(classroom).then(function (response) {
         console.log(`Classroom locked: ${response.isBlocked}`);

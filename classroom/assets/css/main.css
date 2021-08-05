@@ -1509,7 +1509,7 @@ h3.section-done {
 }
 
 .class-stats-panel .username {
-    border: 1px solid var(--bg-3);
+    border: 1px solid var(--classroom-cell);
     padding: 0.7em;
     width: 11em;
     border-radius: 10px;
@@ -1518,6 +1518,8 @@ h3.section-done {
     width: 243px;
     margin-right: 0px;
 }
+
+
 
 .class-stats-panel .username .dropdown {
 
@@ -1539,6 +1541,8 @@ h3.section-done {
 }
 
 .bilan-legend.fas::before {
+    color: var(--classroom-text-2);
+
     vertical-align: bottom;
 
 }
@@ -1569,7 +1573,8 @@ i.line_height34 {
 
 .bilan-cell.fas {
     display: table-cell;
-    border: solid 1px var(--bg-3);
+    border: solid 1px var(--classroom-cell);
+    color: var(--classroom-text-2);
 }
 
 .bilan-cell.fa-stopwatch {
@@ -1636,7 +1641,7 @@ i.line_height34 {
 
 .no-activity {
 
-    border: solid 1px var(--bg-3);
+    border: solid 1px var(--classroom-cell);
     background-color: transparent;
 }
 
@@ -1777,7 +1782,7 @@ i.line_height34 {
 
 .faq-panel .kit-faq-box {
 
-    background: var(--bg-0);
+    background: var(--classroom-background);
     border: 1px solid #cccccc;
     color: solid(--classroom-text-1);
     padding: 15px 1em;
@@ -1912,7 +1917,7 @@ i.line_height34 {
 
 .form-activity-activate {
     border-color: var(--classroom-secondary);
-    color: var(--bg-0);
+    color: var(--classroom-white);
     background-color: var(--classroom-secondary);
 }
 

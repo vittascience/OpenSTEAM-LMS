@@ -445,6 +445,11 @@ a.forgot-password {
     height: 75px;
 }
 
+#classroom-desc > #blocked-class {
+    font-size: 0.8em;
+    font-weight: normal ;
+}
+
 .inner-login-container {
     display: flex;
     position: relative;
