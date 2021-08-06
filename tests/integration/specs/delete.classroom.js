@@ -6,8 +6,6 @@ const classes = require('../opensteam/classes');
 describe("update of classroom", () => {
     it("Login", async () => {
         await page.open('login.php');
-        await page.defineConfirm(true); // all confirm will be accept
-        browser.pause(20000)
         await login.login(login.email, login.password);
     });
 
@@ -20,6 +18,7 @@ describe("update of classroom", () => {
     });
 
     it("Click on delete button", async () => {
+        await page.defineConfirm(); // stay here to works
         const settingsButtonOnClassCard = await selector.settingsButtonOnClassCard;
         const settingsDropdownDeleteButton = await selector.settingsDropdownDeleteButton;
         await page.waitForExist(settingsButtonOnClassCard);

@@ -14,21 +14,22 @@ class Page {
     }
 
     // important to accept a Alert pop-up
-    async defineAlert(isConfirm) {
+    async defineAlert() {
         await browser.execute(() => {
             window.alert = () => {
-                return isConfirm;
+                return true;
             }
         });
     }
 
     // important to accept a confirm pop-up
-    async defineConfirm(isConfirm) {
+    async defineConfirm() {
         await browser.execute(() => {
            window.confirm = () => {
-               return isConfirm;
+               return true;
            }
         });
+        return true;
     }
 
     clickOnButton (button) {
@@ -38,7 +39,6 @@ class Page {
     }
 
     async waitElementDisplayed (selector) {
-        selector.scrollIntoView();
         return await browser.waitUntil(async () => {
             return await (selector).isDisplayedInViewport();
         },{

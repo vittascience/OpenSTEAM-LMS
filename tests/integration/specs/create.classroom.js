@@ -43,4 +43,8 @@ describe("Creation of classroom", () => {
     it("Class was created", async () => {
         await classes.checkSuccess();
     });
+
+    it("delete class was created", async () => {
+        await classes.deleteClass();
+    });
 });

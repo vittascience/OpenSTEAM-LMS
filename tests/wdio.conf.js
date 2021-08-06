@@ -1,17 +1,18 @@
 exports.config = {
     runner: 'local',
     specs: [
-        './integration/specs/**/update.classroom.js'
+        './integration/specs/**/*.js'
     ],
     exclude: [
     ],
-    maxInstances: 10,
+    maxInstances: 1,
     capabilities: [{
         maxInstances: 5,
         browserName: 'chrome',
-/*        'goog:chromeOptions': {
-            args: ["--headless", "--disable-gpu", '--no-sandbox', "--verbose","--window-size=1440,735"]
-        },*/
+        'goog:chromeOptions': {
+            args: [//"--headless",
+            "--disable-gpu", '--no-sandbox', "--verbose","--window-size=1440,735"]
+        },
         acceptInsecureCerts: true
     }],
     logLevel: 'info',

@@ -55,6 +55,8 @@ class Classes {
     }
 
     async deleteClass () {
+        await page.defineConfirm(true);
+
         const buttonProfile = await selector.buttonProfile;
         const buttonClasses = await selector.buttonClasses;
         const settingsButtonOnClassCard = await selector.settingsButtonOnClassCard;
