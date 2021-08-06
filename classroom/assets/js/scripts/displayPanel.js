@@ -65,9 +65,9 @@ DisplayPanel.prototype.classroom_dashboard_help_panel = function () {
     }
 
     let html = ''
-    let index = [4,4,2,4,4,3,4]
+    let index = [3, 2, 4, 4, 3, 2]
     for (let i = 1; i <= index.length ; i++) {
-        html += "<h4 data-i18n='[html]faqStudent." + i + ".section_title'></h4>";
+        html += "<h4 data-i18n='[html]faqStudentNeutral." + i + ".section_title'></h4>";
         for (let j = 1; j < index[i - 1]; j++) {
             html += `<div class="kit-faq-box">
             <div class="faq-box-header" style="transform: rotate(0deg); transform-origin: 50% 50% 0px;">
@@ -75,11 +75,11 @@ DisplayPanel.prototype.classroom_dashboard_help_panel = function () {
                     <span class="fa fa-chevron-right" style="line-height:40px; font-size:16px;"></span>
                 </div>
                 <p style="font-size:16px; margin:0; padding:0;">
-                    <b data-i18n='[html]faqStudent.` + i + `.question_list.` + j + `.title'></b>
+                    <b data-i18n='[html]faqStudentNeutral.` + i + `.question_list.` + j + `.title'></b>
                 </p>
             </div>
             <div class="faq-box-content">
-            <p data-i18n='[html]faqStudent.` + i + `.question_list.` + j + `.answer'></p>
+            <p data-i18n='[html]faqStudentNeutral.` + i + `.question_list.` + j + `.answer'></p>
             </div>
         </div>`
 
@@ -117,10 +117,10 @@ DisplayPanel.prototype.classroom_dashboard_help_panel = function () {
 }
 
 DisplayPanel.prototype.classroom_dashboard_help_panel_teacher = function () {
-    let html = ''
-    let index = [8, 5, 12, 5,5,3,4,5] // number of questions+1 per category in faq
+    let html = '';
+    let index = [7, 12, 5, 3, 3, 3]; // number of questions+1 per category in faq
     for (let i = 1; i <= index.length; i++) {
-        html += "<h4 data-i18n='[html]faqTeacher." + i + ".section_title'></h4>";
+        html += "<h4 data-i18n='[html]faqTeacherNeutral." + i + ".section_title'></h4>";
         for (let j = 1; j < index[i - 1]; j++) {
             html += `<div class="kit-faq-box">
             <div class="faq-box-header" style="transform: rotate(0deg); transform-origin: 50% 50% 0px;">
@@ -128,17 +128,16 @@ DisplayPanel.prototype.classroom_dashboard_help_panel_teacher = function () {
                     <span class="fa fa-chevron-right" style="line-height:40px; font-size:16px;"></span>
                 </div>
                 <p style="font-size:16px; margin:0; padding:0;">
-                    <b data-i18n='[html]faqTeacher.` + i + `.question_list.` + j + `.title'></b>
+                    <b data-i18n='[html]faqTeacherNeutral.` + i + `.question_list.` + j + `.title'></b>
                 </p>
             </div>
             <div class="faq-box-content">
-            <p data-i18n='[html]faqTeacher.` + i + `.question_list.` + j + `.answer'></p>
+            <p data-i18n='[html]faqTeacherNeutral.` + i + `.question_list.` + j + `.answer'></p>
             </div>
-        </div>`
-
+        </div>`;
         }
     }
-    $('#teacher-faq-container').html(html)
+    $('#teacher-faq-container').html(html);
     $("#teacher-faq-container").localize();
 
     var headers = document.getElementsByClassName("faq-box-header");
@@ -350,7 +349,7 @@ function getIntelFromClasses() {
                     }
                 })
             })
-            $('#list-classes').append('<div><input class="mx-5" type="radio" name="classroom" value="' + element.classroom.link + '">' + element.classroom.name + '</div>')
+            $('#list-classes').append('<div><input class="mx-5" type="radio" name="classroom" id="' + element.classroom.link + '" value="' + element.classroom.link + '"><label for="' + element.classroom.link + '">' + element.classroom.name + '</label></div>')
         });
         $('.no-classes').remove()
         $('#mode-student-check').show()
