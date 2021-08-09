@@ -333,7 +333,7 @@ function modeProf() {
 }
 
 // Hide the switch teacher mode button when irrelevant
-if (window.localStorage.showSwitchTeacherButton == 'true') {
+if (document.getElementById('teacherSwitchButton') && window.localStorage.showSwitchTeacherButton == 'true') {
     document.getElementById('teacherSwitchButton').style.display = 'block';
 }
 
