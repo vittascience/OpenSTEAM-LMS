@@ -245,7 +245,9 @@ function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = fal
  * History navigation
  */
 window.onpopstate = () => {
-    navigatePanel($_GET('panel'), $_GET('nav'), option = $_GET('option'), interface = $_GET('interface'), false, true);
+    if ($_GET('panel') && $_GET('nav')) {
+        navigatePanel($_GET('panel'), $_GET('nav'), option = $_GET('option'), interface = $_GET('interface'), false, true);
+    }
 };
 
 /**
