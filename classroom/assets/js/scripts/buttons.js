@@ -339,6 +339,10 @@ if (document.getElementById('teacherSwitchButton') && window.localStorage.showSw
     document.getElementById('teacherSwitchButton').style.display = 'block';
 }
 
+if(document.getElementById('settings-student') && window.localStorage.showSwitchTeacherButton == 'true'){
+    document.getElementById('settings-student').style.display = 'none';
+}
+
 $('#code-copy').click(function () {
     let self = $(this)
     docopy(self)
