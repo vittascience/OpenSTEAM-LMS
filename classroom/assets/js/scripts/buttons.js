@@ -682,7 +682,8 @@ $('body').on('change', '#action-teach-setting', function () {
  * Toggle the block class mode (to lock/unlock the access to the classroom)
  */
 function toggleBlockClass() {
-    let classroom = getClassroomInListByLink($_GET('option'))[0].classroom;
+    let currentClassroomLink = $_GET('option') ? $_GET('option') : ClassroomSettings.classroom;
+    let classroom = getClassroomInListByLink(currentClassroomLink)[0].classroom;
     if (classroom.isBlocked == true) {
         classroom.isBlocked = false;
         $('#classroom-info').removeClass('greyscale');
