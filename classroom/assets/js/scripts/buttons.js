@@ -245,7 +245,9 @@ function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = fal
  * History navigation
  */
 window.onpopstate = () => {
-    navigatePanel($_GET('panel'), $_GET('nav'), option = $_GET('option'), interface = $_GET('interface'), false, true);
+    if ($_GET('panel') && $_GET('nav')) {
+        navigatePanel($_GET('panel'), $_GET('nav'), option = $_GET('option'), interface = $_GET('interface'), false, true);
+    }
 };
 
 /**
@@ -333,8 +335,12 @@ function modeProf() {
 }
 
 // Hide the switch teacher mode button when irrelevant
-if (window.localStorage.showSwitchTeacherButton == 'true') {
+if (document.getElementById('teacherSwitchButton') && window.localStorage.showSwitchTeacherButton == 'true') {
     document.getElementById('teacherSwitchButton').style.display = 'block';
+}
+
+if(document.getElementById('settings-student') && window.localStorage.showSwitchTeacherButton == 'true'){
+    document.getElementById('settings-student').style.display = 'none';
 }
 
 $('#code-copy').click(function () {
@@ -676,7 +682,8 @@ $('body').on('change', '#action-teach-setting', function () {
  * Toggle the block class mode (to lock/unlock the access to the classroom)
  */
 function toggleBlockClass() {
-    let classroom = getClassroomInListByLink($_GET('option'))[0].classroom;
+    let currentClassroomLink = $_GET('option') ? $_GET('option') : ClassroomSettings.classroom;
+    let classroom = getClassroomInListByLink(currentClassroomLink)[0].classroom;
     if (classroom.isBlocked == true) {
         classroom.isBlocked = false;
         $('#classroom-info').removeClass('greyscale');
