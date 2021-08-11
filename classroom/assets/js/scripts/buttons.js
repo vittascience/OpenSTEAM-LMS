@@ -369,9 +369,15 @@ window.addEventListener('storage', () => {
         } else {
             /* i18next.t("classroom.notif.saveProject") */
             Main.getClassroomManager().addActivity(Activity).then(function (response) {
-                addTeacherActivityInList(response)
-                teacherActivitiesDisplay()
-                displayNotification('#notif-div', "classroom.notif.addActivity", "success")
+                if (response.errors) {
+                    for (let error in response.errors) {
+                        displayNotification('#notif-div', `classroom.notif.${error}`, "error");
+                    }
+                }else{
+                    addTeacherActivityInList(response);
+                    teacherActivitiesDisplay();
+                    displayNotification('#notif-div', "classroom.notif.addActivity", "success");
+                }
             })
         }
     }

@@ -182,7 +182,11 @@
 			"messageMissingLearnerHelpForm": "Tu dois saisir ton message",
 			"invalidUserIdLearnerHelpForm": "Erreur lors de l'envoi du message : ton identifiant est invalide",
 			"unknownUserLearnerHelpForm": "Erreur lors de l'envoi du message : ton identifiant est inconnu",
-			"unknownEmailLearnerHelpForm": "Erreur lors de l'envoi du message : l'adresse e-mail de ton enseignant est inconnue"
+			"unknownEmailLearnerHelpForm": "Erreur lors de l'envoi du message : l'adresse e-mail de ton enseignant est inconnue",
+			"activityTitleInvalid": "L'activité n'a pas pu être créée : titre invalide",
+			"activityContentInvalid": "L'activité n'a pas pu être créée : contenu invalide",
+			"activityIsFromClassroomInvalid": "L'activité n'a pas pu être créée : erreur de contexte",
+			"activityUserIdInvalid": "L'activité n'a pas pu être créée : utilisateur invalide"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",

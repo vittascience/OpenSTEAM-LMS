@@ -182,7 +182,11 @@
 			"messageMissingLearnerHelpForm": "You have to enter your message",
 			"invalidUserIdLearnerHelpForm": "Error sending the message: your username is invalid",
 			"unknownUserLearnerHelpForm": "Error sending the message: your username is unknown",
-			"unknownEmailLearnerHelpForm": "Error sending message: your teacher's email address is unknown"
+			"unknownEmailLearnerHelpForm": "Error sending message: your teacher's email address is unknown",
+			"activityTitleInvalid": "The activity could not be created: invalid title",
+			"activityContentInvalid": "Activity could not be created: invalid content",
+			"activityIsFromClassroomInvalid": "Activity could not be created: context error",
+			"activityUserIdInvalid": "Activity could not be created: invalid user"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
