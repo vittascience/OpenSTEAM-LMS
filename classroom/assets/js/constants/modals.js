@@ -194,6 +194,300 @@ const classroomModals = {
         </button>
     </div>`,
         footer: ``
-    }
+    },
+    'superadmin-create-group': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.modals.addStudentByCsv.title'
+        },
+        content: `  <div class="form-group">
+                        <label for="group_name">Group name</label>
+                        <input type="text" class="form-control" id="group_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Group description</label>
+                        <input type="text" class="form-control" id="group_desc">
+                    </div>
+                    <div class="form-group" id="group_apps_options">
+                    </div>
+                    <button class="btn btn-primary" onclick="createGroupWithModal()">Create</button>`,
+        footer: ``
+    },
+    'superadmin-update-group': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.modals.addStudentByCsv.title'
+        },
+        content: `  <div class="form-group">
+                        <label for="group_name">Group name</label>
+                        <input type="text" class="form-control" id="upd_group_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Group description</label>
+                        <input type="text" class="form-control" id="upd_group_desc">
+                    </div>
+                    <div class="form-group" id="group__upd_apps_options">
+                    </div>
+                    <input type="hidden" class="form-control" id="upd_group_id">
+                    <button class="btn btn-primary" onclick="updateGroupWithModal()">Update</button>`,
+        footer: ``
+    },
+    'superadmin-create-user': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'Création d\'un utilisateur'
+        },
+        content: `<div class="row mt-1">
+        <div class="col">
+            <label for="u_firstname">Prénom <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="u_firstname">
+        </div>
+        <div class="col">
+            <label for="u_surname">Nom <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="u_surname">
+        </div>
+        <div class="col">
+            <label for="u_pseudo">Pseudonyme</label>
+            <input type="text" class="form-control" id="u_pseudo">
+        </div>
+    </div>
+    <div class="form-group">
+        <div id="regular_options">
+            <div class="row mt-2">
+                <div class="col">
+                    <label for="u_mail">Adresse E-mail <span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" id="u_mail">
+                </div>
+                <div class="col">
+                    <label for="u_phone">Numéro de telephone</label>
+                    <input type="text" class="form-control" id="u_phone">
+                </div>
+            </div>
+            <div class="form-group mt-2">
+                <label for="u_bio">Bio <span class="text-danger">*</span></label>
+                <textarea class="form-control" id="u_bio" rows="3"></textarea>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" id="u_is_active">
+                <label class="form-check-label" for="u_is_active">
+                    Compte actif
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" id="u_is_admin">
+                <label class="form-check-label" for="u_is_admin">
+                    Administrateur
+                </label>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="form-group">
+        <div class="form-check">
+            <input type="checkbox" id="u_is_teacher">
+            <label class="form-check-label" for="u_is_teacher">
+                Enseignant
+            </label>
+            <div class="row" id="user_teacher_infos" style="display: none;">
+                <select class="form-control col-5" id="user_teacher_grade">
+                    <option selected value="0">Elementary school</option>
+                    <option value="1">Middle school</option>
+                    <option value="2">High school</option>
+                    <option value="3">Post-high school</option>
+                </select>
+                <select class="form-control col-5" id="user_teacher_subjects">
+                </select>
+                <div class="col-12 my-3">
+                    <label for="u_school">School</label>
+                    <input type="text" class="form-control" id="u_school">
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <input type="checkbox" id="u_is_group_admin">
+                <label class="form-check-label mx-1" for="u_is_group_admin">
+                    Administrateur du groupe
+                </label>
+            </div>
+        </div>
+        <select class="form-control" id="u_group">
+        </select>
+        <button class="btn btn-sm btn-info ml-1" onclick="addGroupSuperAdmin()" id="add_group_superadmin">Ajouter un
+            groupe</button>
+    </div>
+    <div id="group_add_sa">
+    </div>
+    
+    <button class="btn btn-primary" onclick="createUserAndLinkToGroup()">Create user</button>`,
+        footer: ``
+    },
+    'superadmin-update-user': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'superadmin.user.update'
+        },
+        content: `<div class="row mt-1">
+        <input type="hidden" class="form-control" id="update_u_id">
+        <div class="col">
+            <label for="update_u_firstname">Prénom <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="update_u_firstname">
+        </div>
+        <div class="col">
+            <label for="update_u_surname">Nom <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="update_u_surname">
+        </div>
+        <div class="col">
+            <label for="update_u_pseudo">Pseudonyme</label>
+            <input type="text" class="form-control" id="update_u_pseudo">
+        </div>
+    </div>
+    <div class="form-group">
+        <div id="update_regular_options">
+            <div class="row mt-2">
+                <div class="col">
+                    <label for="update_u_mail">Adresse E-mail <span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" id="update_u_mail">
+                </div>
+                <div class="col">
+                    <label for="update_u_phone">Numéro de telephone</label>
+                    <input type="text" class="form-control" id="update_u_phone">
+                </div>
+            </div>
+            <div class="form-group mt-2">
+                <label for="update_u_bio">Bio <span class="text-danger">*</span></label>
+                <textarea class="form-control" id="update_u_bio" rows="3"></textarea>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" id="update_u_is_active">
+                <label class="form-check-label" for="update_u_is_active">
+                    Compte actif
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" id="update_u_is_admin">
+                <label class="form-check-label" for="update_u_is_admin">
+                    Administrateur
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-check">
+            <input type="checkbox" id="update_u_is_teacher">
+            <label class="form-check-label" for="update_u_is_teacher">
+                Enseignant
+            </label>
+            <div class="row" id="update_user_teacher_infos" style="display: none;">
+                <select class="form-control col-5" id="update_user_teacher_grade">
+                    <option selected value="0">Elementary school</option>
+                    <option value="1">Middle school</option>
+                    <option value="2">High school</option>
+                    <option value="3">Post-high school</option>
+                </select>
+                <select class="form-control col-5" id="update_user_teacher_subjects">
+                </select>
+                <div class="col-12 my-3">
+                    <label for="update_u_school">School</label>
+                    <input type="text" class="form-control" id="update_u_school">
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div id="update_actualgroup_sa">
+    </div>
+    
+    <button class="btn btn-sm btn-info" onclick="updateAddGroupSuperAdmin()" id="update_add_group_superadmin">Ajouter un
+        groupe</button>
+    
+    <button class="btn btn-info" onclick="updateUserModal()">Update user</button>`,
+        footer: ``
+    },
+    'groupeadmin-create-user': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'Création d\'un utilisateur'
+        },
+        content: `<div class="row mt-1">
+        <div class="col">
+            <label for="u_firstname_ga">Prénom <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="u_firstname_ga">
+        </div>
+        <div class="col">
+            <label for="u_surname_ga">Nom <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="u_surname_ga">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col">
+            <label for="u_mail_ga">Adresse E-mail <span class="text-danger">*</span></label>
+            <input type="email" class="form-control" id="u_mail_ga">
+        </div>
+        <div class="col">
+            <label for="u_phone_ga">Numéro de telephone</label>
+            <input type="text" class="form-control" id="u_phone_ga">
+        </div>
+        <div class="col">
+            <label for="u_pseudo_ga">Pseudonyme</label>
+            <input type="text" class="form-control" id="u_pseudo_ga">
+        </div>
+    </div>
+    <div class="form-group mt-2">
+        <label for="u_bio_ga">Bio <span class="text-danger">*</span></label>
+        <textarea class="form-control" id="u_bio_ga" rows="3"></textarea>
+    </div>
+    
+    <div class="form-group">
+        <div class="form-check">
+            <input type="checkbox" id="u_is_teacher_ga">
+            <label class="form-check-label" for="u_is_teacher_ga">
+                Enseignant
+            </label>
+            <div class="row" id="user_teacher_infos_ga" style="display: none;">
+                <select class="form-control col-5" id="user_teacher_grade_ga">
+                    <option selected value="0">Elementary school</option>
+                    <option value="1">Middle school</option>
+                    <option value="2">High school</option>
+                    <option value="3">Post-high school</option>
+                </select>
+                <select class="form-control col-5" id="user_teacher_subjects_ga">
+                </select>
+                <div class="col-12 my-3">
+                    <label for="u_school">School</label>
+                    <input type="text" class="form-control" id="u_school_ga">
+                </div>
+            </div> 
+        </div>
+    </div>
+    
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+              <input type="checkbox" id="u_is_group_admin_ga">
+              <label class="form-check-label mx-1" for="u_is_group_admin_ga">
+                    Administrateur du groupe
+                </label>
+            </div>
+        </div>
+          <select class="form-control" id="u_group_ga">
+          </select>
+          <button class="btn btn-sm btn-info ml-1" id="add_group_groupadmin">Ajouter un groupe</button>
+    </div>
+    <div id="group_add_ga">
+    
+    </div>
+    
+    <button class="btn btn-primary" onclick="createUserAndLinkToGroup_groupAdmin()">Create user</button>`,
+        footer: ``
+    },
 
 }

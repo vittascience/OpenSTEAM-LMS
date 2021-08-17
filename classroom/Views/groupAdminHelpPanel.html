@@ -1,0 +1,36 @@
+<div id="classroom-dashboard-help-panel-teacher" style="display:none;" class="dashboard-block help-panel">
+    <div class="teacher-contact-panel">
+
+        <h3 data-i18n="classroom.teacherHelpPanel.contactForm.title">Contacter Vittascience</h3>
+        <div id="about-contact-info"></div>
+        <form id="about-contact-form" class="c-primary-form">
+            <input type="text" name="subject" class="form-control" id="contact-subject-input"
+                data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.objectPlaceholder" placeholder="Objet"
+                style="width: 70%;">
+
+            <textarea name="message" id="contact-message-input" rows="8" cols="25" style="resize: none; width: 100%;"
+                data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder"
+                placeholder="Écrivez votre message ici. (Maximum 800 caractères)"></textarea>
+
+            <input type="submit" data-i18n="[value]classroom.teacherHelpPanel.contactForm.sendButton"
+                disabled="disabled" style="cursor:not-allowed;" class="btn btn-lg login-button c-btn-primary">
+        </form>
+
+        <div id="footer-content" class="row" style="justify-content: space-around;width: 70%;flex-wrap: wrap;">
+            <div class="col">
+                <a class="footer-link text-uppercase d-block" href="/privacy" data-i18n="classroom.footer.privacy"></a>
+            </div>
+            <div class="col">
+                <a class="footer-link text-uppercase d-block" href="/cgu" target="_blank"
+                    data-i18n="[html]classroom.footer.cgu"></a>
+            </div>
+            <div class="col" data-i18n="classroom.footer.copyright">
+            </div>
+        </div>
+    </div>
+    <div class="faq-panel">
+        <h2 class="c-text-secondary font-weight-bold text-center mt-5">FAQ</h2>
+        <div id="teacher-faq-container"></div>
+    </div>
+
+</div>
