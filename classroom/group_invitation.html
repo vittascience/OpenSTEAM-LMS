@@ -222,12 +222,12 @@
     </div>
 </div>
 
-<!-- Ecran de validation de liaison -->
+<!-- Ecran de notification de liaison réussie -->
 <div id="group-joinded-container" style="display:none;">
     <div class="inner-login-container">
         <div class="col-12">
             <h3 class="font-weight-bold green-vitta m-auto text-center">Vous avez rejoint le groupe
-                <span id="gourpName"></span> !</h3>
+                "<span id="gourpName"></span>" !</h3>
             <p class="text-center">Vous allez être redirigé vers la page d'accueil.</p>
         </div>
         <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
@@ -235,23 +235,22 @@
     </div>
 </div>
 
-<!-- Ecran de validation de liaison -->
+<!-- Ecran de réuissite d'inscription -->
 <div id="registration-successful" style="display:none;">
     <div class="inner-login-container">
         <div class="col-12">
             <h3 class="font-weight-bold green-vitta m-auto text-center">Inscription réussie !</h3>
-            <p class="text-center">Vous pouvez maintenant vous connectez pour rejoindre le groupe <span
-                    id="gourpName2"></span></p>
-
-            <p class="text-center">Vous allez être redirigé vers la page de connexion.</p>
+            <p class="text-center">
+                <p class="text-center">Un e-mail vient de vous être envoyé, suivez le lien dans celui-ci pour activer
+                    votre compte et continuez votre liaison au groupe "<span id="gourpName2"></span>"</p>
         </div>
         <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
                 class="fas fa-times"></i></button>
     </div>
 </div>
 
-<!-- Ecran de validation de liaison -->
-<div id="account-activated" style="display:none;">
+<!-- Ecran de lien invalide -->
+<div id="invalid-link" style="display:none;">
     <div class="inner-login-container">
         <div class="col-12">
             <h3 class="font-weight-bold green-vitta m-auto text-center">Lien invalide !</h3>
@@ -262,8 +261,8 @@
     </div>
 </div>
 
-<!-- Ecran de validation de liaison -->
-<div id="invalid-link" style="display:none;">
+<!-- Ecran de confirmation d'activation de compte -->
+<div id="account-activated" style="display:none;">
     <div class="inner-login-container">
         <div class="col-12">
             <h3 class="font-weight-bold green-vitta m-auto text-center">Votre compte à bien été activé !</h3>
@@ -274,12 +273,64 @@
     </div>
 </div>
 
-<!-- Ecran de validation de liaison -->
+<!-- Ecran de groupe introuvable -->
 <div id="group-not-found" style="display:none;">
     <div class="inner-login-container">
         <div class="col-12">
-            <h3 class="font-weight-bold green-vitta m-auto text-center">Lien invalide !</h3>
+            <h3 class="font-weight-bold green-vitta m-auto text-center">Groupe introuvable !</h3>
             <p class="text-center">Nous ne trouvons aucun groupe lié au lien <span id="gourpName3"></span></p>.</p>
+        </div>
+        <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
+                class="fas fa-times"></i></button>
+    </div>
+</div>
+
+<!-- Ecran de confimation de liaison -->
+<div id="confirm-link-to-group" style="display:none;">
+    <div class="inner-login-container">
+        <div class="col-12">
+            <h3 class="font-weight-bold green-vitta m-auto text-center">Vous vous apprêtez à rejoindre le groupe "<span
+                    id="groupNameConfirmLink"></span>"</h3>
+            <p class="text-center">Il ne reste plus qu'une étape ! Cliquez sur le bouton si dessous pour finaliser la
+                liaison.</p>
+        </div>
+        <button class="btn browse-button mx-auto mt-3 btn-lg" onclick="linkTeacherToGroupProcess()">Rejoindre</button>
+        <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
+                class="fas fa-times"></i></button>
+    </div>
+</div>
+
+<!-- Ecran de notification d'utilisateur déjà actif -->
+<div id="already-active" style="display:none;">
+    <div class="inner-login-container">
+        <div class="col-12">
+            <h3 class="font-weight-bold green-vitta m-auto text-center">Votre compte est déjà actif.</h3>
+            <p class="text-center">Vous allez être redirigé vers la page de connexion.</p>
+        </div>
+        <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
+                class="fas fa-times"></i></button>
+    </div>
+</div>
+
+<!-- Ecran de notification d'utilisateur déjà lié au groupe -->
+<div id="already-linked" style="display:none;">
+    <div class="inner-login-container">
+        <div class="col-12">
+            <h3 class="font-weight-bold green-vitta m-auto text-center">Vous faites déjà partie de ce groupe.</h3>
+            <p class="text-center">Vous allez être redirigé vers l'accueil.</p>
+        </div>
+        <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
+                class="fas fa-times"></i></button>
+    </div>
+</div>
+
+<!-- Ecran de notification d'utilisateur introuvable -->
+<div id="no-teacher" style="display:none;">
+    <div class="inner-login-container">
+        <div class="col-12">
+            <h3 class="font-weight-bold green-vitta m-auto text-center">Une erreur est survenue lors de la liaison.</h3>
+            <p class="text-center">L'utilisateur n'a pas été trouvé, vous allez être redirigé vers la page de login.</p>
+            <p class="text-center">Si le problème persiste contactez l'administration.</p>
         </div>
         <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
                 class="fas fa-times"></i></button>
@@ -437,10 +488,39 @@
                 break;
             case 'badlink':
                 $('#group-not-found').toggle();
-                $('#gourpName3').text(groupName);
+                $('#gourpName3').text(linkCode);
                 break;
             case 'invalidlink':
                 $('#invalid-link').toggle();
+                break;
+            case 'confirm':
+                $('#confirm-link-to-group').toggle();
+                $('#groupNameConfirmLink').text(groupName);
+                break;
+            case 'success':
+                $('#group-joinded-container').toggle();
+                $('#gourpName').text(groupName);
+                setTimeout(() => {
+                    document.location = urlHome;
+                }, 2500);
+                break;
+            case 'alreadyactive':
+                $('#already-active').toggle();
+                setTimeout(() => {
+                    document.location = urlWithCode + "&page=login";
+                }, 2500);
+                break;
+            case 'alreadylinked':
+                $('#already-linked').toggle();
+                setTimeout(() => {
+                    document.location = urlHome;
+                }, 2500);
+                break;
+            case 'noteacher':
+                $('#no-teacher').toggle();
+                setTimeout(() => {
+                    document.location = urlWithCode + "&page=login";
+                }, 2500);
                 break;
             default:
                 break;
@@ -485,19 +565,10 @@
 
         loginTeacher(form).then(function (response) {
             if (response.success === true) {
-                $('#group-joinded-container').toggle();
                 $('#classroom-login-container-bis').toggle();
-                $('#gourpName').text(groupName);
                 setTimeout(function () {
-                    var redirect = $_GET("redirect");
-                    if (redirect == null) {
-                        if (/classroom/.test(window.location.pathname)) {
-                            document.location = urlWithCode;
-                        }
-                    } else {
-                        document.location = decodeURIComponent(redirect);
-                    }
-                }, 2000);
+                    document.location = urlWithCode + "&page=confirm";
+                }, 2500);
             } else {
                 var infoBox = document.getElementById("info-box");
                 infoBox = document.createElement("div");
@@ -535,16 +606,6 @@
                     $("#registration-successful").toggle();
                     $("#classroom-register-container").toggle();
                     $('#gourpName2').text(groupName);
-                    setTimeout(function () {
-                        var redirect = $_GET("redirect");
-                        if (redirect == null) {
-                            if (/classroom/.test(window.location.pathname)) {
-                                document.location = urlWithCode;
-                            }
-                        } else {
-                            document.location = decodeURIComponent(redirect);
-                        }
-                    }, 2000);
                 } else {
                     if (response.errorType) {
                         switch (response.errorType) {
@@ -552,7 +613,6 @@
                                 displayNotification('#notif-div', "classroom.notif.unknownUser",
                                     "error");
                                 break;
-
                             default:
                                 break;
                         }
@@ -585,8 +645,8 @@
                     'bio': formData.get('mini-bio'),
                     'phone': formData.get('phone-number'),
                     'school': formData.get('school'),
-                    'grade': formData.get('grade') + 1,
-                    'subject': formData.get('subject') + 1,
+                    'grade': parseInt(formData.get('grade')) + 1,
+                    'subject': parseInt(formData.get('subject')) + 1,
                     'newsletter': $('#cb_newsletter').is(':checked'),
                     'private': $('#cb_name_public').is(':checked'),
                     'mailmessage': $('#cb_alert_mail').is(':checked'),
@@ -601,6 +661,37 @@
                 }
             });
         });
+    }
+
+
+    /**
+     * Link the teacher to the group
+     */
+    function linkTeacherToGroup(user, group) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: 'POST',
+                url: '/routing/Routing.php?controller=groupadmin&action=linkTeacherToGroup',
+                data: {
+                    'user_id': user,
+                    'group_id': group
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        });
+    }
+
+    function linkTeacherToGroupProcess() {
+        linkTeacherToGroup(user_id, group_id).then((response) => {
+            setTimeout(function () {
+                document.location = urlWithCode + `&page=${response.message}`;
+            }, 2500);
+        })
     }
 
 
