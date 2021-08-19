@@ -22,25 +22,63 @@ $dotenv->safeLoad();
 
 // make sure we receive a token from url params else set token to null
 $groupCode = isset($_GET['gc']) ? trim(htmlspecialchars(preg_replace('/<[^>]*>[^<]*<[^>]*>/', '',$_GET['gc']))) : null;
-if (strlen($groupCode) != 5 || !preg_match("/^[a-zA-Z0-9]+$/", $groupCode)) {
-    echo 'code invalide';
-    return false;
+$token = isset($_GET['token']) ? trim(htmlspecialchars(preg_replace('/<[^>]*>[^<]*<[^>]*>/', '',$_GET['token']))) : null;
+$uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
+$url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]". $uri_parts[0];
+$urlgc = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]". $uri_parts[0]."?gc=".$groupCode;
+
+// check if the user exists in db
+if ($token) {
+    $regularUserToActivate = $entityManager->getRepository(Regular::class)->findOneBy(array('confirmToken'=> $confirmToken));
+    // user not found in db, return error
+    if($regularUserToActivate == null){
+        setcookie("invalidUser",true, strtotime("+1 minute"));
+        $redirect = "{$_ENV['VS_HOST']}/classroom";
+    }
+    else{
+        // get user data from users table
+        $userData = $entityManager->getRepository(User::class)->findOneBy(array('id'=> $regularUserToActivate->getUser()));
+    
+        // no $userData found, return an error
+        if(!$userData){
+            setcookie("invalidUserData",true, strtotime("+1 minute"));
+            $redirect = "{$_ENV['VS_HOST']}/classroom";
+        }
+        // update user data in user_regulars and users tables
+        $regularUserToActivate->setConfirmToken(null);
+        $regularUserToActivate->setActive(true);
+        $userData->setUpdateDate(new \DateTime());
+        $entityManager->flush();
+    
+        // set the success cookie and redirect wether the user is logged or not
+        setcookie("accountActivationSucceded",true, strtotime("+1 minute"));
+    }
+    // redirect the user 
+    return header("Location: $urlgc&page=confirmation");
 }
 
+    
 $group = $entityManager->getRepository(Groups::class)->findOneBy(['link' => $groupCode]);
-if (!$group) {
-    echo("Ce groupe n'existe pas.");
-    return false;
+$grouName = "";
+if ($group) {
+    $grouName = $group->getName();
 }
 
-$url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+if (strlen($groupCode) != 5 || !preg_match("/^[a-zA-Z0-9]+$/", $groupCode)) {
+    return header("Location: $url?gc=00000&page=invalidlink");
+}
+
+if (!$group && $groupCode != "00000") {
+    return header("Location: $url?gc=00000&page=badlink");
+}
 
 if (!isset($_SESSION['id'])) {
     require_once(__DIR__ . "/header.html");
+
 ?>
     <script>
-    const urlWithCode = "<?php echo($url);?>";
-    const groupName = "<?php echo($group->getName());?>";
+        const urlWithCode = "<?php echo($url);?>";
+        const groupName = "<?php echo($grouName);?>";
     </script>
 
     <link rel="stylesheet" href="/classroom/assets/css/main.css">
@@ -54,7 +92,9 @@ if (!isset($_SESSION['id'])) {
 
     require_once(__DIR__ . "/group_invitation.html");
     require_once(__DIR__ . "/footer.html");
+
 } else {
+
     $user_id = $_SESSION['id'];
     $userR = $entityManager->getRepository(Regular::class)->findOneBy(['user' => $user_id]);
     $user =  $entityManager->getRepository(User::class)->findOneBy(['id' => $user_id]);
@@ -76,5 +116,8 @@ if (!isset($_SESSION['id'])) {
         }
     }
 }
+
+
+
 
 ?>

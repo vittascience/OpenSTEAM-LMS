@@ -17,6 +17,7 @@ function $_GET(param) {
     }
     return vars;
 }
+
 $(document).ready(function () {
     $(".dropdown-toggle").dropdown();
 });
@@ -1352,6 +1353,9 @@ function checkboxGestion(type) {
             case "3":
                 createSubjectSelect(FourthGradeSubjects, 0);
                 break;
+            case "4":
+                createSubjectSelect(FithGradeSubjects, 0);
+                break;
             default:
                 break;
         }
@@ -1377,6 +1381,9 @@ function checkboxGestion(type) {
                 break;
             case "3":
                 createSubjectSelect(FourthGradeSubjects, 1);
+                break;
+            case "4":
+                createSubjectSelect(FithGradeSubjects, 1);
                 break;
             default:
                 break;
@@ -1516,10 +1523,11 @@ function tempoAndShowUsersTableGroupAdmin() {
  * DATA COMBOBOX CREATE TEACHER
  */
 const Grade = [
-    'Elementary school',
-    'Middle school',
-    'High school',
-    'Post-high school'
+    'Primaire',
+    'Collège',
+    'Lycée',
+    'Lycée Professionel',
+    'POST-BAC'
 ];
 
 const FirstGradeSubjects = [
@@ -1594,6 +1602,11 @@ const FourthGradeSubjects = [
     'Langues vivantes étrangères',
     'Mathématiques Physique-Chimie',
     'Prévention Santé Environnement',
+    'Autre (préciser dans la biographie)'
+];
+
+const FithGradeSubjects = [
+    'Etudes supérieures',
     'Autre (préciser dans la biographie)'
 ];
 

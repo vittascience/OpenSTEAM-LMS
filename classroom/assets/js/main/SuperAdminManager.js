@@ -1,6 +1,6 @@
 /**
  * SuperAdminManager
- * Copyright 2020 Vittascience.
+ * Copyright 2021 Vittascience.
  * https://vittascience.com
  *
  *
@@ -9,7 +9,7 @@
 
 /**
  * @class SuperAdminManager
- * @author: Clemenard (Clément Menard)
+ * @author: COINTE Rémi
  */
 class SuperAdminManager {
     /**

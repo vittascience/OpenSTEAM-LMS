@@ -23,7 +23,8 @@ $config = Setup::createAnnotationMetadataConfiguration(
         __DIR__ . "/shop/Entity",
         __DIR__ . "/tables/Entity",
         __DIR__ . "/api/Entity",
-        __DIR__ . "/learn/Entity"
+        __DIR__ . "/learn/Entity",
+        __DIR__ . "/superadmin/scr/Entity"
     ),
     $isDevMode,
     $proxyDir,

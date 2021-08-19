@@ -26,16 +26,19 @@ use Learn\Controller\ControllerCollection;
 use Interfaces\Controller\ControllerProject;
 use Classroom\Controller\ControllerClassroom;
 use Utils\Exceptions\EntityOperatorException;
-use Learn\Controller\ControllerCourseLinkCourse;
 
-
-use Utils\Exceptions\EntityDataIntegrityException;
-use Classroom\Controller\ControllerActivityLinkUser;
-
-use Interfaces\Controller\ControllerProjectLinkUser;
-use Classroom\Controller\ControllerClassroomLinkUser;
+/**
+ * A modifier pour le namespace superadmin
+ */
 use Classroom\Controller\ControllerGroupAdmin;
 use Classroom\Controller\ControllerSuperAdmin;
+
+use Learn\Controller\ControllerCourseLinkCourse;
+use Utils\Exceptions\EntityDataIntegrityException;
+use Classroom\Controller\ControllerActivityLinkUser;
+use Interfaces\Controller\ControllerProjectLinkUser;
+use Classroom\Controller\ControllerClassroomLinkUser;
+
 
 $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
 $dotenv->safeLoad();

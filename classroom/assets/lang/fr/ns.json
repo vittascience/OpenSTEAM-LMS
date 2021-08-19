@@ -910,7 +910,11 @@
 				"firstVisit": "Première visite ?",
 				"signin": "Se connecter",
 				"signinSubtitle": "Entrez vos identifiants pour accèder à votre compte",
-				"addressMail": "Adresse mail"
+				"addressMail": "Adresse mail",
+				"phone": "Numéro de téléphone",
+				"grade": "Niveau de formation",
+				"subject": "Matière enseignée",
+				"school": "Établissement"
 			}
 		},
 		"button": {
