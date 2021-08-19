@@ -47,6 +47,12 @@ try {
         $user = $entityManager->getRepository('User\Entity\User')
             ->find(intval($_SESSION["id"]))->jsonSerialize();
         try {
+            $isFromGar = $entityManager->getRepository('User\Entity\ClassroomUser')
+            ->find(intval($_SESSION["id"]))->jsonSerialize();
+            if($isFromGar['isTeacher'] === true && $isFromGar['garId'] != null){
+                $user['isFromGar'] = true;
+            }
+            
             $regular = $entityManager->getRepository('User\Entity\Regular')
                 ->find(intval($_SESSION["id"]))->jsonSerialize();
             $user['isRegular']  = $regular['email'];
