@@ -46,13 +46,18 @@ try {
     if (isset($_SESSION["id"])) {
         $user = $entityManager->getRepository('User\Entity\User')
             ->find(intval($_SESSION["id"]))->jsonSerialize();
-        try {
-            $isFromGar = $entityManager->getRepository('User\Entity\ClassroomUser')
-            ->find(intval($_SESSION["id"]))->jsonSerialize();
-            if($isFromGar['isTeacher'] === true && $isFromGar['garId'] != null){
-                $user['isFromGar'] = true;
+        $isFromGar = $entityManager->getRepository('User\Entity\ClassroomUser')
+        ->find(intval($_SESSION["id"]));
+        if($isFromGar){
+            $garTeacher = $isFromGar->jsonSerialize();
+
+            if($garTeacher['isTeacher'] === true && $garTeacher['garId'] != null){
+            $user['isFromGar'] = true;
             }
-            
+        }
+        
+        
+        try {
             $regular = $entityManager->getRepository('User\Entity\Regular')
                 ->find(intval($_SESSION["id"]))->jsonSerialize();
             $user['isRegular']  = $regular['email'];
