@@ -390,6 +390,9 @@ window.addEventListener('storage', () => {
 
 //profil prof-->paramètres
 $('#settings-teacher').click(function () {
+    if (UserManager.getUser().isFromGar){
+        document.getElementById('teacher-account-button').style.display = 'none';
+    }
     pseudoModal.openModal('settings-teacher-modal')
 })
 

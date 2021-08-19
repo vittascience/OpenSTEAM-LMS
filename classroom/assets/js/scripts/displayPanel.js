@@ -36,6 +36,28 @@ DisplayPanel.prototype.classroom_dashboard_ide_panel = function (option) {
     } else {
         $('#classroom-dashboard-ide-panel').html('<iframe width="100%" style="height:85vh;" frameborder="0" allowfullscreen="" style="border:1px #d6d6d6 solid;" src="' + URLServer + '/' + $_GET('interface') + '/?link=' + option + '&embed=1"></iframe>')
     }
+
+
+    // Hiding the share option in the interface saving process
+    function hideShareOptionArea(iframe) {
+        let shareOptAreaElt = iframe.contentWindow.document.getElementById('check_box_div');
+        let shareOptDescElt = iframe.contentWindow.document.getElementById('check_box_hint');
+        if (shareOptAreaElt){
+            shareOptAreaElt.style.position = 'absolute';
+            shareOptAreaElt.style.top = '-9999px';
+            shareOptAreaElt.style.left = '-9999px';
+            shareOptDescElt.style.position = 'absolute';
+            shareOptDescElt.style.top = '-9999px';
+            shareOptDescElt.style.left = '-9999px';
+        } else {
+            setTimeout(() => {hideShareOptionArea(iframe)}, 400);
+        }
+    }
+
+    document.querySelector('iframe').addEventListener('load', (e) => {
+        let iframe = e.target;
+        hideShareOptionArea(iframe);
+    });
 }
 
 DisplayPanel.prototype.classroom_dashboard_activities_panel = function () {
