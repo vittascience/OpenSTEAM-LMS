@@ -19,6 +19,7 @@ class GroupAdminManager {
     constructor() {
         this._allGroups = []
         this._addedCreateUserGroup = 0
+        this._updatedUserGroup = 0
         this._comboGroups = []
         this._paginationUsersInfo = []
         this._paginationGroupsInfo = []
@@ -150,13 +151,13 @@ class GroupAdminManager {
                         <td>${$droits}</td>
                         <td>${div_img}</td>
                         <td>
-                            <button class="btn btn-info btn-sm" onclick="console.log(${element.id})">Send</button>
+                            <button class="btn btn-info btn-sm" onclick="resetUserPasswordga(${element.id})">Send</button>
                         </td>
                         <td>
                             <button class="btn btn-warning btn-sm" onclick="showupdateUserModal_groupadmin(${element.id})">Update</button>
                         </td>
                         <td>
-                            <button class="btn btn-danger btn-sm" onclick="deleteUser_groupadmin(${element.id})">Delete</button>
+                            <button class="btn btn-danger btn-sm" onclick="disableUser_groupadmin(${element.id})">Delete</button>
                         </td>
                     </tr>`;
                 }
@@ -181,6 +182,83 @@ class GroupAdminManager {
         });
     }
 
+    globalSearchUser($name, $page, $usersperpage) {
+        const process = (res) => {
+            MGA.getGroupAdminManager()._allMembersAndTheirGroups = res;
+            let $data_table = "";
+            //$('#group_name_from_table').text('Résultat de la recherche :');
+            res.forEach(element => {
+                if (element.hasOwnProperty('currentPage')) {
+                    MGA.getGroupAdminManager()._paginationUsersInfo = element;
+                    let name = $('#name_user_search_groupadmin').val(),
+                        usersperpage = $('#users_per_page_groupadmin').val(),
+                        htmlButtons = "";
+
+                    if (element.previousPage > 1) {
+                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().globalSearchUser(${name}, 1, ${usersperpage})">First Page</button>`;
+                    }
+                    if (element.currentPage > 1) {
+                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().globalSearchUser(${name}, ${element.previousPage}, ${usersperpage})">${element.previousPage}</button>`;
+                    }
+                    htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
+                    if (element.currentPage < element.totalPagesCount) {
+                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().globalSearchUser(${name}, ${element.nextPage}, ${usersperpage})">${element.nextPage}</button>`;
+                    }
+                    if (element.nextPage < element.totalPagesCount) {
+                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().globalSearchUser(${name}, ${element.totalPagesCount}, ${usersperpage})">Last Page - ${element.totalPagesCount}</button>`;
+                    }
+
+                    $('#paginationButtons_users_groupadmin').html(htmlButtons);
+                } else {
+                    let $droits = " -- ";
+                    if (element.hasOwnProperty('rights')) {
+                        $droits = element.rights === "1" ? "Admin" : "Prof";
+                    }
+
+                    let div_img = ""
+                    if (element.hasOwnProperty('applications')) {
+                        element.applications.forEach(element_2 => {
+                            div_img += `<img src="assets/media/${element_2.image}" alt="Icône App">`;
+                        });
+                    }
+
+                    $data_table +=
+                        `<tr>
+                            <td>${element.surname}</td>
+                            <td>${element.firstname}</td>
+                            <td>${$droits}</td>
+                            <td>${div_img}</td>
+                            <td>
+                                <button class="btn btn-info btn-sm" onclick="resetUserPassword(${element.id})">Send</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-warning btn-sm" onclick="showupdateUserModal_groupadmin(${element.id})">Update</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger btn-sm" onclick="disableUser_groupadmin(${element.id})">Delete</button>
+                            </td>
+                        </tr>`;
+                }
+            });
+            $('#table_info_group_data_groupadmin').html($data_table);
+        }
+        $.ajax({
+            type: "POST",
+            url: "/routing/Routing.php?controller=groupadmin&action=global_search_user_by_name",
+            data: {
+                name: $name,
+                page: $page,
+                userspp: $usersperpage,
+            },
+            success: function (response) {
+                process(JSON.parse(response));
+            },
+            error: function () {
+                reject();
+            }
+        });
+    }
+
 
     // Récupère tous les groupes et les stocks dans le select "select_groups"
     getAllGroups() {
@@ -198,7 +276,7 @@ class GroupAdminManager {
         })
     }
 
-    createUserAndLinkToGroup($firstname, $surname, $user_pseudo, $phone, $mail, $bio, $groups, $is_teacher, $teacher_grade, $teacher_suject, $school) {
+    createUserAndLinkToGroup($firstname, $surname, $user_pseudo, $phone, $mail, $bio, $groups, $teacher_grade, $teacher_suject, $school) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -210,7 +288,6 @@ class GroupAdminManager {
                     pseudo: $user_pseudo,
                     phone: $phone,
                     bio: $bio,
-                    teacher: $is_teacher,
                     grade: parseInt($teacher_grade) + 1,
                     subject: parseInt($teacher_suject) + 1,
                     mail: $mail,
@@ -266,40 +343,6 @@ class GroupAdminManager {
         })
     }
 
-    /*     getAllApplications() {
-            return new Promise(function (resolve, reject) {
-                $.ajax({
-                    type: "POST",
-                    url: "/routing/Routing.php?controller=groupadmin&action=get_all_applications",
-                    success: function (response) {
-                        resolve(JSON.parse(response))
-                    },
-                    error: function () {
-                        reject();
-                    }
-                });
-            })
-        } */
-
-    /*     // Ajout d'un groupe
-        createGroup($group_description, $group_name, $group_app) {
-            $.ajax({
-                type: "POST",
-                url: "/routing/Routing.php?controller=groupadmin&action=create_group",
-                data: {
-                    name: $group_name,
-                    description: $group_description,
-                    applications: $group_app
-                },
-                success: function (response) {
-                    console.log(JSON.parse(response))
-                },
-                error: function () {
-                    reject();
-                }
-            });
-        }; */
-
     // Modifier d'un groupe
     updateGroup($group_id, $group_name, $group_description, $group_app) {
         $.ajax({
@@ -319,29 +362,12 @@ class GroupAdminManager {
             }
         });
     }
-    /*     // Supprime un groupe
-        deleteGroup($group_id) {
-            $.ajax({
-                type: "POST",
-                url: "/routing/Routing.php?controller=groupadmin&action=delete_group",
-                data: {
-                    id: $group_id
-                },
-                success: function (response) {
-                    console.log(JSON.parse(response))
-                },
-                error: function () {
-                    reject();
-                }
-            });
-        } */
-
 
     // Supprime un groupe
-    deleteUser($user_id) {
+    disableUser($user_id) {
         $.ajax({
             type: "POST",
-            url: "/routing/Routing.php?controller=groupadmin&action=delete_user",
+            url: "/routing/Routing.php?controller=groupadmin&action=disable_user",
             data: {
                 id: $user_id
             },
@@ -352,5 +378,70 @@ class GroupAdminManager {
                 reject();
             }
         });
+    }
+
+    // Send a reset password request by mail to the user
+    sendResetPassword($user_id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=groupadmin&action=send_request_reset_user_password",
+                data: {
+                    user_id: $user_id,
+                },
+                success: function (response) {
+                    resolve((JSON.parse(response)));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    getUserInfoWithHisGroups($user_id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=groupadmin&action=get_user_info_with_his_groups",
+                data: {
+                    id: $user_id
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    updateUser($user_id, $firstname, $surname, $user_pseudo, $phone, $mail, $bio, $groups, $teacher_grade, $teacher_suject, $school) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=groupadmin&action=update_user",
+                data: {
+                    user_id: $user_id,
+                    groups: JSON.stringify($groups),
+                    surname: $surname,
+                    firstname: $firstname,
+                    pseudo: $user_pseudo,
+                    phone: $phone,
+                    bio: $bio,
+                    grade: parseInt($teacher_grade) + 1,
+                    subject: parseInt($teacher_suject) + 1,
+                    mail: $mail,
+                    school: $school
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
     }
 }

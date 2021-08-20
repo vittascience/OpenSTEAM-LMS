@@ -829,6 +829,7 @@ function resetStudentPassword(querySelector) {
 
 
 /* DEBUG SuperAdmin */
+/********************/
 
 $('#create_group_superadmin').click(function () {
     pseudoModal.openModal('superadmin-create-group');
@@ -866,6 +867,8 @@ function showupdateGroupModal(id) {
         $('#upd_group_name').val(res[0].name);
         $('#upd_group_desc').val(res[0].description);
         $('#upd_group_id').val(res[0].id);
+        let url = window.location.origin + "/classroom/group_invitation.php?gc=" + res[0].link;
+        $('#upd_group_link').val(url);
     });
 }
 
@@ -920,6 +923,8 @@ $('#search_user').click(() => {
     if (name != "")
         MSA.getSuperAdminManager().globalSearchUser(name, 1, usersperpage);
 })
+
+
 
 $('#name_user_search').on('change', () => {
     let name = $('#name_user_search').val(),
@@ -1253,6 +1258,24 @@ function deleteUser($id) {
     tempoAndShowUsersTable()
 }
 
+function disableUser($id) {
+    MSA.getSuperAdminManager().disableUser($id)
+    $('#table_info_group_data').html("");
+    tempoAndShowUsersTable()
+}
+
+function disableUserGA($id) {
+    MGA.getGroupAdminManager().deleteUser($id)
+    $('#table_info_group_data').html("");
+    //tempoAndShowUsersTable()
+}
+
+function disableUserGA($id) {
+    MGA.getGroupAdminManager().disableUser($id)
+    $('#table_info_group_data_ga').html("");
+    //tempoAndShowUsersTable()
+}
+
 function showGroupMembers($group_id, $page, $userspp, $sort) {
     MSA.getSuperAdminManager()._actualGroup = $group_id;
     MSA.getSuperAdminManager().showGroupMembers($group_id, $page, $userspp, $sort);
@@ -1329,7 +1352,7 @@ function optionsGroupApplications($type) {
     }
 }
 
-function checkboxGestion(type) {
+function checkboxGestion() {
 
     $("#u_is_teacher").change(() => {
         if ($('#u_is_teacher').is(':checked')) {
@@ -1360,36 +1383,6 @@ function checkboxGestion(type) {
                 break;
         }
     })
-
-    $("#u_is_teacher_ga").change(() => {
-        if ($('#u_is_teacher_ga').is(':checked')) {
-            $('#user_teacher_infos_ga').show();
-        } else {
-            $('#user_teacher_infos_ga').hide();
-        }
-    })
-    $('#user_teacher_grade_ga').change(() => {
-        switch ($('#user_teacher_grade_ga').val()) {
-            case "0":
-                createSubjectSelect(FirstGradeSubjects, 1);
-                break;
-            case "1":
-                createSubjectSelect(SecondGradeSubjects, 1);
-                break;
-            case "2":
-                createSubjectSelect(ThirdGradeSubjects, 1);
-                break;
-            case "3":
-                createSubjectSelect(FourthGradeSubjects, 1);
-                break;
-            case "4":
-                createSubjectSelect(FithGradeSubjects, 1);
-                break;
-            default:
-                break;
-        }
-    })
-    createSubjectSelect(FirstGradeSubjects, type);
 }
 
 function createSubjectSelect(array, type) {
@@ -1414,6 +1407,13 @@ function createSubjectSelect(array, type) {
             $(o).html(array[index]);
             $("#update_user_teacher_subjects").append(o);
         }
+    } else if (type === 3) {
+        $("#update_user_teacher_subjects_ga").empty();
+        for (let index = 0; index < array.length; index++) {
+            const o = new Option(array[index], index);
+            $(o).html(array[index]);
+            $("#update_user_teacher_subjects_ga").append(o);
+        }
     }
 }
 
@@ -1426,7 +1426,130 @@ $('#dashboard-groupadmin-users-side').click(() => {
 })
 
 function showupdateUserModal_groupadmin(user_id) {
-    console.log('showupdateUserModal_groupadmin', user_id);
+    let $groups = MGA.getGroupAdminManager()._comboGroups;
+    MGA.getGroupAdminManager()._updatedUserGroup = 0;
+    MGA.getGroupAdminManager().getUserInfoWithHisGroups(user_id).then(function (res) {
+        if (res.message != "not_allowed") {
+            $("#update_actualgroup_ga").html("");
+            pseudoModal.openModal('groupadmin-update-user');
+            $('#update_u_firstname_ga').val(res[0].firstname);
+            $('#update_u_surname_ga').val(res[0].surname);
+            $('#update_u_pseudo_ga').val(res[0].pseudo);
+            $('#update_u_id_ga').val(res[0].id);
+
+            $('#update_u_bio_ga').val(res[0].bio);
+            $('#update_u_mail_ga').val(res[0].email);
+            $('#update_u_phone_ga').val(res[0].telephone);
+
+            // Teacher part
+            $('#update_user_teacher_grade_ga').val(res[0].subject);
+            $('#update_user_teacher_subjects_ga').val(res[0].grade);
+            $('#update_u_school_ga').val(res[0].school);
+
+
+            $('#update_user_teacher_grade_ga').change(() => {
+                switch ($('#update_user_teacher_grade_ga').val()) {
+                    case "0":
+                        createSubjectSelect(FirstGradeSubjects, 2);
+                        break;
+                    case "1":
+                        createSubjectSelect(SecondGradeSubjects, 2);
+                        break;
+                    case "2":
+                        createSubjectSelect(ThirdGradeSubjects, 2);
+                        break;
+                    case "3":
+                        createSubjectSelect(FourthGradeSubjects, 2);
+                        break;
+                    default:
+                        break;
+                }
+            })
+            createSubjectSelect(FirstGradeSubjects, 3);
+
+            if (res[0].hasOwnProperty('groups')) {
+                for (let i = 0; i < res[0].groups.length; i++) {
+                    MGA.getGroupAdminManager()._updatedUserGroup += 1;
+                    let group = `<div class="input-group mb-3" id="update_u_actual_group_ga${i}">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <input type="checkbox" id="update_u_is_group_admin_ga${i}">
+                                            <label class="form-check-label mx-1" for="update_u_is_group_admin_ga${i}">
+                                                Administrateur du groupe
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <select class="form-control" id="update_u_group_ga${i}">
+                                    </select>
+                                    <button class="btn btn-danger ml-1" onclick="deleteGroupFromUpdateGA(${i})">Supprimer</button>
+                                </div>`;
+                    $("#update_actualgroup_ga").append(group);
+                    if (res[0].groups[i].rights == 1) {
+                        $('#update_u_is_group_admin_ga' + i).prop("checked", true);
+                    }
+                    const item_id = 'update_u_group_ga' + i;
+                    appendSelectGroups($groups, item_id);
+                    $('#update_u_group_ga' + i).val(res[0].groups[i].id);
+                }
+            }
+        } else {
+            alert("Vous n'avez pas les droits pour modifier cet utilisateur.")
+        }
+    });
+}
+
+function updateAddGroupSuperAdminGA() {
+    let $groups = MGA.getGroupAdminManager()._comboGroups;
+    let nextGroup = MGA.getGroupAdminManager()._updatedUserGroup;
+    let group = `<div class="input-group mb-3" id="update_u_actual_group_ga${nextGroup}">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input type="checkbox" id="update_u_is_group_admin_ga${nextGroup}">
+                            <label class="form-check-label mx-1" for="update_u_is_group_admin_ga${nextGroup}">
+                            Administrateur du groupe
+                            </label>
+                        </div>
+                    </div>
+                    <select class="form-control" id="update_u_group_ga${nextGroup}">
+                    </select>
+                    <button class="btn btn-danger ml-1" onclick="deleteGroupFromUpdateGA(${nextGroup})">Supprimer</button>
+                </div>`;
+    $("#update_actualgroup_ga").append(group);
+    const item_id = 'update_u_group_ga' + nextGroup;
+    appendSelectGroups($groups, item_id);
+    MGA.getGroupAdminManager()._updatedUserGroup += 1;
+}
+
+function deleteGroupFromUpdateGA(id) {
+    MGA.getGroupAdminManager()._updatedUserGroup -= 1;
+    $('#update_u_actual_group_ga' + id).remove();
+}
+
+function updateUserModalGA() {
+    let $firstname = $('#update_u_firstname_ga').val(),
+        $surname = $('#update_u_surname_ga').val(),
+        $user_id = $('#update_u_id_ga').val(),
+        $bio = $('#update_u_bio_ga').val(),
+        $mail = $('#update_u_mail_ga').val(),
+        $pseudo = $('#update_u_pseudo_ga').val(),
+        $phone = $('#update_u_phone_ga').val(),
+        $school = $('#update_u_school_ga').val(),
+        $teacher_grade = $('#update_user_teacher_grade_ga').val(),
+        $teacher_suject = $('#update_user_teacher_subjects_ga').val(),
+        $groups = [];
+
+    for (let index = 0; index < MGA.getGroupAdminManager()._updatedUserGroup; index++) {
+        $groups.push([$('#update_u_is_group_admin_ga' + index).is(':checked'), $('#update_u_group_ga' + index).val()])
+    }
+
+    MGA.getGroupAdminManager().updateUser($user_id, $firstname, $surname, $pseudo, $phone, $mail, $bio, $groups, $teacher_grade, $teacher_suject, $school);
+    pseudoModal.closeAllModal();
+    //tempoAndShowUsersTable()
+}
+
+function deleteGroupFromUpdateGA(id) {
+    MGA.getGroupAdminManager()._updatedUserGroup -= 1;
+    $('#update_u_actual_group_ga' + id).remove();
 }
 
 function deleteUser_groupadmin() {
@@ -1447,8 +1570,6 @@ $('#create_user_link_to_group_groupadmin').click(function () {
     $('#u_pseudo_ga').val("");
     $('#u_phone_ga').val("");
     $('#u_school_ga').val("");
-    $('#user_teacher_infos_ga').hide();
-    $('#u_is_teacher_ga').prop("checked", false);
     $('#user_teacher_grade_ga').prop('selectedIndex', 0);
     $('#user_teacher_subjects_ga').prop('selectedIndex', 0);
     $('#u_is_group_admin_ga').prop("checked", false);
@@ -1466,6 +1587,29 @@ $('#create_user_link_to_group_groupadmin').click(function () {
             appendSelectGroups(res, 'u_group_ga');
         });
     }
+
+    $('#user_teacher_grade_ga').change(() => {
+        switch ($('#user_teacher_grade_ga').val()) {
+            case "0":
+                createSubjectSelect(FirstGradeSubjects, 1);
+                break;
+            case "1":
+                createSubjectSelect(SecondGradeSubjects, 1);
+                break;
+            case "2":
+                createSubjectSelect(ThirdGradeSubjects, 1);
+                break;
+            case "3":
+                createSubjectSelect(FourthGradeSubjects, 1);
+                break;
+            case "4":
+                createSubjectSelect(FithGradeSubjects, 1);
+                break;
+            default:
+                break;
+        }
+    })
+    createSubjectSelect(FirstGradeSubjects, 1);
 
     $('#add_group_groupadmin').click(() => {
         const numberOfAddedGroup = MGA.getGroupAdminManager()._addedCreateUserGroup + 1;
@@ -1498,7 +1642,6 @@ function createUserAndLinkToGroup_groupAdmin() {
         $pseudo = $('#u_pseudo_ga').val(),
         $phone = $('#u_phone_ga').val(),
         $school = $('#u_school_ga').val(),
-        $is_teacher = $('#u_is_teacher_ga').is(':checked'),
         $teacher_grade = $('#user_teacher_grade_ga').val(),
         $teacher_suject = $('#user_teacher_subjects_ga').val(),
         $groups = [];
@@ -1508,7 +1651,7 @@ function createUserAndLinkToGroup_groupAdmin() {
         $groups.push([$('#u_is_group_admin_ga' + index).is(':checked'), $('#u_group_ga' + index).val()])
     }
 
-    MGA.getGroupAdminManager().createUserAndLinkToGroup($firstname, $surname, $pseudo, $phone, $mail, $bio, $groups, $is_teacher, $teacher_grade, $teacher_suject, $school);
+    MGA.getGroupAdminManager().createUserAndLinkToGroup($firstname, $surname, $pseudo, $phone, $mail, $bio, $groups, $teacher_grade, $teacher_suject, $school);
     pseudoModal.closeAllModal();
     tempoAndShowUsersTableGroupAdmin();
 }
@@ -1518,6 +1661,26 @@ function tempoAndShowUsersTableGroupAdmin() {
         MGA.getGroupAdminManager().getGroupsUserAdmin();
     }, 500);
 }
+
+function resetUserPassword(id) {
+    MSA.getSuperAdminManager().sendResetPassword(id).then((response) => {
+        alert(response.link);
+    })
+}
+
+function resetUserPasswordga(id) {
+    MGA.getGroupAdminManager().sendResetPassword(id).then((response) => {
+        console.log(response)
+    })
+}
+
+$('#search_user_groupadmin').click(() => {
+    let name = $('#name_user_search_groupadmin').val(),
+        usersperpage = $('#users_per_page_groupadmin').val();
+    if (name != "") {
+        MGA.getGroupAdminManager().globalSearchUser(name, 1, usersperpage);
+    }
+})
 
 /**
  * DATA COMBOBOX CREATE TEACHER

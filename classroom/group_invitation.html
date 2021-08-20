@@ -34,7 +34,17 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-4">
+                    <div class="form-row mb-4">
+                        <img src="assets/media/green_user.png" class="icon-label">
+                        <label for="profile-form-pseudo" class="tutorial-label"
+                            data-i18n="classroom.profil.accountSettings.nickname"></label>
+                        <span class="text-danger"> *</span>
+                        <input type="text" name="pseudo" id="profile-form-pseudo" class="form-control form-control-lg">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-email" class="tutorial-label"
@@ -44,7 +54,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-phone" class="tutorial-label"
@@ -565,7 +575,6 @@
 
         loginTeacher(form).then(function (response) {
             if (response.success === true) {
-                $('#classroom-login-container-bis').toggle();
                 setTimeout(function () {
                     document.location = urlWithCode + "&page=confirm";
                 }, 2500);
@@ -643,6 +652,7 @@
                     'password': formData.get('password'),
                     'password_confirm': formData.get('confirm-password'),
                     'bio': formData.get('mini-bio'),
+                    'pseudo': formData.get('pseudo'),
                     'phone': formData.get('phone-number'),
                     'school': formData.get('school'),
                     'grade': parseInt(formData.get('grade')) + 1,

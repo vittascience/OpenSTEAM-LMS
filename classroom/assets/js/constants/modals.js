@@ -228,6 +228,10 @@ const classroomModals = {
                         <label for="exampleInputPassword1">Group description</label>
                         <input type="text" class="form-control" id="upd_group_desc">
                     </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Group link</label>
+                        <input type="text" class="form-control" id="upd_group_link">
+                     </div>
                     <div class="form-group" id="group__upd_apps_options">
                     </div>
                     <input type="hidden" class="form-control" id="upd_group_id">
@@ -293,10 +297,11 @@ const classroomModals = {
             </label>
             <div class="row" id="user_teacher_infos" style="display: none;">
                 <select class="form-control col-5" id="user_teacher_grade">
-                    <option selected value="0">Elementary school</option>
-                    <option value="1">Middle school</option>
-                    <option value="2">High school</option>
-                    <option value="3">Post-high school</option>
+                    <option selected value="0">Primaire</option>
+                    <option value="1">Collège</option>
+                    <option value="2">Lycée</option>
+                    <option value="3">Lycée professionel</option>
+                    <option value="4">POST-BAC</option>
                 </select>
                 <select class="form-control col-5" id="user_teacher_subjects">
                 </select>
@@ -387,10 +392,11 @@ const classroomModals = {
             </label>
             <div class="row" id="update_user_teacher_infos" style="display: none;">
                 <select class="form-control col-5" id="update_user_teacher_grade">
-                    <option selected value="0">Elementary school</option>
-                    <option value="1">Middle school</option>
-                    <option value="2">High school</option>
-                    <option value="3">Post-high school</option>
+                    <option selected value="0">Primaire</option>
+                    <option value="1">Collège</option>
+                    <option value="2">Lycée</option>
+                    <option value="3">Lycée professionel</option>
+                    <option value="4">POST-BAC</option>
                 </select>
                 <select class="form-control col-5" id="update_user_teacher_subjects">
                 </select>
@@ -448,19 +454,22 @@ const classroomModals = {
     
     <div class="form-group">
         <div class="form-check">
-            <input type="checkbox" id="u_is_teacher_ga">
-            <label class="form-check-label" for="u_is_teacher_ga">
-                Enseignant
-            </label>
-            <div class="row" id="user_teacher_infos_ga" style="display: none;">
-                <select class="form-control col-5" id="user_teacher_grade_ga">
-                    <option selected value="0">Elementary school</option>
-                    <option value="1">Middle school</option>
-                    <option value="2">High school</option>
-                    <option value="3">Post-high school</option>
-                </select>
-                <select class="form-control col-5" id="user_teacher_subjects_ga">
-                </select>
+            <div class="row" id="user_teacher_infos_ga">
+                <div class="col">
+                    <label for="user_teacher_grade_ga">Grade <span class="text-danger">*</span></label>
+                    <select class="form-control col-5" id="user_teacher_grade_ga">
+                        <option selected value="0">Primaire</option>
+                        <option value="1">Collège</option>
+                        <option value="2">Lycée</option>
+                        <option value="3">Lycée professionel</option>
+                        <option value="4">POST-BAC</option>
+                    </select>
+                    </div>
+                <div class="col">
+                    <label for="user_teacher_subjects_ga">Subject <span class="text-danger">*</span></label>
+                    <select class="form-control col-5" id="user_teacher_subjects_ga">
+                    </select>
+                </div>
                 <div class="col-12 my-3">
                     <label for="u_school">School</label>
                     <input type="text" class="form-control" id="u_school_ga">
@@ -487,6 +496,74 @@ const classroomModals = {
     </div>
     
     <button class="btn btn-primary" onclick="createUserAndLinkToGroup_groupAdmin()">Create user</button>`,
+        footer: ``
+    },
+    'groupadmin-update-user': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'Modifier un utilisateur'
+        },
+        content: `<div class="row mt-1">
+        <input type="hidden" class="form-control" id="update_u_id_ga">
+        <div class="col">
+            <label for="update_u_firstname_ga">Prénom <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="update_u_firstname_ga">
+        </div>
+        <div class="col">
+            <label for="update_u_surname_ga">Nom <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="update_u_surname_ga">
+        </div>
+        <div class="col">
+            <label for="update_u_pseudo_ga">Pseudonyme</label>
+            <input type="text" class="form-control" id="update_u_pseudo_ga">
+        </div>
+    </div>
+    <div class="form-group">
+        <div id="update_regular_options_ga">
+            <div class="row mt-2">
+                <div class="col">
+                    <label for="update_u_mail_ga">Adresse E-mail <span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" id="update_u_mail_ga">
+                </div>
+                <div class="col">
+                    <label for="update_u_phone_ga">Numéro de telephone</label>
+                    <input type="text" class="form-control" id="update_u_phone_ga">
+                </div>
+            </div>
+            <div class="form-group mt-2">
+                <label for="update_u_bio_ga">Bio <span class="text-danger">*</span></label>
+                <textarea class="form-control" id="update_u_bio_ga" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-check">
+            <div class="row" id="update_user_teacher_infos_ga">
+                <select class="form-control col-5" id="update_user_teacher_grade_ga">
+                    <option selected value="0">Primaire</option>
+                    <option value="1">Collège</option>
+                    <option value="2">Lycée</option>
+                    <option value="3">Lycée professionel</option>
+                    <option value="4">POST-BAC</option>
+                </select>
+                <select class="form-control col-5" id="update_user_teacher_subjects_ga">
+                </select>
+                <div class="col-12 my-3">
+                    <label for="update_u_school">School</label>
+                    <input type="text" class="form-control" id="update_u_school_ga">
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div id="update_actualgroup_ga">
+    </div>
+    
+    <button class="btn btn-sm btn-info" onclick="updateAddGroupSuperAdminGA()" id="update_add_group_superadmin_ga">Ajouter un
+        groupe</button>
+    
+    <button class="btn btn-info" onclick="updateUserModalGA()">Update user</button>`,
         footer: ``
     },
 

@@ -320,6 +320,25 @@ class SuperAdminManager {
         })
     }
 
+    disableUser($user_id) {
+        const process = (data) => {
+            console.log(JSON.parse(response));
+        }
+        $.ajax({
+            type: "POST",
+            url: "/routing/Routing.php?controller=superadmin&action=disable_user",
+            data: {
+                user_id: $user_id,
+            },
+            success: function (response) {
+                process(JSON.parse(response));
+            },
+            error: function () {
+                reject();
+            }
+        });
+    }
+
     deleteUser($user_id) {
         const process = (data) => {
             console.log(JSON.parse(response));
@@ -413,7 +432,7 @@ class SuperAdminManager {
                     <button class="btn btn-warning btn-sm" onclick="showupdateUserModal(${element.id})">Update</button>
                 </td>
                 <td>
-                    <button class="btn btn-danger btn-sm" onclick="deleteUser(${element.id})">Delete</button>
+                    <button class="btn btn-danger btn-sm" onclick="disableUser(${element.id})">Delete</button>
                 </td>
                 </tr>`;
             });
@@ -450,6 +469,8 @@ class SuperAdminManager {
             else
                 $('#group_name_from_table').text(group.name);
 
+
+
             data.forEach(element => {
                 if (element.hasOwnProperty('currentPage')) {
                     MSA.getSuperAdminManager()._paginationUsersInfo = element;
@@ -484,6 +505,12 @@ class SuperAdminManager {
                         });
                     }
 
+                    let rowDelete = "";
+                    if ($group_id == -2)
+                        rowDelete = `<button class = "btn btn-danger btn-sm" onclick = "deleteUser(${element.id})"> Delete </button>`;
+                    else
+                        rowDelete = `<button class = "btn btn-danger btn-sm" onclick = "disableUser(${element.id})"> Disabled </button>`;
+
                     $data_table +=
                         `<tr>
                             <td>${element.surname}</td>
@@ -491,13 +518,13 @@ class SuperAdminManager {
                             <td>${$droits}</td>
                             <td>${div_img}</td>
                             <td>
-                                <button class="btn btn-info btn-sm" onclick="console.log(${element.id})">Send</button>
+                                <button class="btn btn-info btn-sm" onclick="resetUserPassword(${element.id})">Send</button>
                             </td>
                             <td>
                                 <button class="btn btn-warning btn-sm" onclick="showupdateUserModal(${element.id})">Update</button>
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm" onclick="deleteUser(${element.id})">Delete</button>
+                                ${rowDelete}
                             </td>
                         </tr>`;
                 }
@@ -568,13 +595,13 @@ class SuperAdminManager {
                             <td>${$droits}</td>
                             <td>${div_img}</td>
                             <td>
-                                <button class="btn btn-info btn-sm" onclick="console.log(${element.id})">Send</button>
+                                <button class="btn btn-info btn-sm" onclick="resetUserPassword(${element.id})">Send</button>
                             </td>
                             <td>
                                 <button class="btn btn-warning btn-sm" onclick="showupdateUserModal(${element.id})">Update</button>
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm" onclick="deleteUser(${element.id})">Delete</button>
+                                <button class="btn btn-danger btn-sm" onclick="disableUser(${element.id})">Delete</button>
                             </td>
                         </tr>`;
                 }
@@ -646,13 +673,13 @@ class SuperAdminManager {
                             <td>${$droits}</td>
                             <td>${div_img}</td>
                             <td>
-                                <button class="btn btn-info btn-sm" onclick="console.log(${element.id})">Send</button>
+                                <button class="btn btn-info btn-sm" onclick="resetUserPassword(${element.id})">Send</button>
                             </td>
                             <td>
                                 <button class="btn btn-warning btn-sm" onclick="showupdateUserModal(${element.id})">Update</button>
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm" onclick="deleteUser(${element.id})">Delete</button>
+                                <button class="btn btn-danger btn-sm" onclick="disableUser(${element.id})">Delete</button>
                             </td>
                         </tr>`;
                 }
@@ -830,6 +857,25 @@ class SuperAdminManager {
                 reject();
             }
         });
+    }
+
+    // Send a reset password request by mail to the user
+    sendResetPassword($user_id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=send_request_reset_user_password",
+                data: {
+                    user_id: $user_id,
+                },
+                success: function (response) {
+                    resolve((JSON.parse(response)));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
     }
 
 }
