@@ -235,6 +235,12 @@ DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function (
 
 DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
     if (link != 'null') {
+        // hide the non relevant elements in gar context
+        if (UserManager.getUser().isFromGar) {
+            document.getElementById('add-student-container').style.display = 'none';
+            document.getElementById('classroom-info').style.display = 'none';
+        }
+
         // restore the add student div to its default content to remove potential changes from the update classroom modal
         $('#classroom-form-name').val(''),
         $('#classroom-form-school').val('')

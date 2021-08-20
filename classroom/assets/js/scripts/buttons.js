@@ -212,7 +212,7 @@ function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = fal
             endUrl += '&interface=' + interface;
         }
         let link = window.location.origin + window.location.pathname + "?panel=" + id + "&nav=" + endUrl;
-        if (!isOnpopstate){
+        if (!isOnpopstate) {
             history.pushState(state, title, link);
         }
         let formateId = id.replace(/\-/g, '_');
@@ -227,7 +227,7 @@ function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = fal
             // Define the last element of the breadcrumb
             if (i == currentBreadcrumbStructure.length - 2) {
                 innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('${currentBreadcrumbStructure[i]}', '${idNav}')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
-            // Define all the elements of the breadcrumb except the last
+                // Define all the elements of the breadcrumb except the last
             } else {
                 innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary last" onclick="navigatePanel('${currentBreadcrumbStructure[i]}', '${idNav}')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span><i class="fas fa-chevron-right ml-2"></i></button>`;
             }
@@ -339,7 +339,7 @@ if (document.getElementById('teacherSwitchButton') && window.localStorage.showSw
     document.getElementById('teacherSwitchButton').style.display = 'block';
 }
 
-if(document.getElementById('settings-student') && window.localStorage.showSwitchTeacherButton == 'true'){
+if (document.getElementById('settings-student') && window.localStorage.showSwitchTeacherButton == 'true') {
     document.getElementById('settings-student').style.display = 'none';
 }
 
@@ -373,7 +373,7 @@ window.addEventListener('storage', () => {
                     for (let error in response.errors) {
                         displayNotification('#notif-div', `classroom.notif.${error}`, "error");
                     }
-                }else{
+                } else {
                     addTeacherActivityInList(response);
                     teacherActivitiesDisplay();
                     displayNotification('#notif-div', "classroom.notif.addActivity", "success");
@@ -390,11 +390,16 @@ window.addEventListener('storage', () => {
 
 //profil prof-->paramètres
 $('#settings-teacher').click(function () {
-    if (UserManager.getUser().isFromGar){
-        document.getElementById('teacher-account-button').style.display = 'none';
+    if (UserManager.getUser().isFromGar) {
+        if (document.getElementById('teacher-account-button')) {
+            document.getElementById('teacher-account-button').style.display = 'none';
+        }
+        if (document.querySelector('[data-i18n="classroom.modals.settingsTeacher.description"]')) {
+            document.querySelector('[data-i18n="classroom.modals.settingsTeacher.description"]').style.display = 'none';
+        }
     }
-    pseudoModal.openModal('settings-teacher-modal')
-})
+    pseudoModal.openModal('settings-teacher-modal');
+});
 
 //profil élève-->paramètres
 $('#settings-student').click(function () {
@@ -661,6 +666,11 @@ function sandboxDisplay(projects = Main.getClassroomManager()._myProjects) {
 }
 
 function classroomsDisplay() {
+    // Hide the "add a class" button in the gar user context
+    if (UserManager.getUser().isFromGar) {
+        document.querySelector('.buttons-interactions button.teacher-new-classe').style.display = 'none';
+    }
+
     // Display the classes from cached data
     $('.list-classes').html(``);
     let classes = Main.getClassroomManager()._myClasses;
@@ -696,12 +706,12 @@ function toggleBlockClass() {
     if (classroom.isBlocked == true) {
         classroom.isBlocked = false;
         $('#classroom-info').removeClass('greyscale');
-        $('#classroom-info > *:not(:first-child)').css('display','unset');
+        $('#classroom-info > *:not(:first-child)').css('display', 'unset');
         $('#classroom-info > button > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
     } else {
         classroom.isBlocked = true;
         $('#classroom-info').addClass('greyscale');
-        $('#classroom-info > *:not(:first-child)').css('display','none');
+        $('#classroom-info > *:not(:first-child)').css('display', 'none');
         $('#classroom-info > button > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
 
     }
