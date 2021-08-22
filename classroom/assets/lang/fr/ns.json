@@ -888,11 +888,18 @@
 			"superAdmin": "Passer en mode superadmin",
 			"groupAdmin": "Passer en mode admin de groupe"
 		},
-		"user": {
+		"users": {
 			"add": "Ajouter un utilisateur",
 			"create": "Créer un utilisateur",
 			"delete": "Supprimer un utilisateur",
 			"update": "Modifier un utilisateur",
+			"disable": {
+				"message": "Veuillez écrire 'supprimer' dans le champ si dessous pour valider l'action.",
+				"title": "Confirmer la suppression",
+				"intention": "Vous vous apprêtez à supprimer l'utilisateur : <span id=\"md_firstnameGA\"></span>",
+				"validate": "Valider",
+				"cancel": "Annuler"
+			},
 			"mail": {
 				"resetPassword": {
 					"subject": "Réinitialisation de votre mot de passe.",

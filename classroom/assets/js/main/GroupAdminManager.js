@@ -24,6 +24,7 @@ class GroupAdminManager {
         this._paginationUsersInfo = []
         this._paginationGroupsInfo = []
         this._actualGroup = []
+        this._actualUser = []
         this._tasksQueue = [];
         this._isExecutingTaskInQueue = false;
     }
@@ -157,7 +158,7 @@ class GroupAdminManager {
                             <button class="btn btn-warning btn-sm" onclick="showupdateUserModal_groupadmin(${element.id})">Update</button>
                         </td>
                         <td>
-                            <button class="btn btn-danger btn-sm" onclick="disableUser_groupadmin(${element.id})">Delete</button>
+                            <button class="btn btn-danger btn-sm" onclick="disableUserGA(${element.id}, '${element.firstname}')">Delete</button>
                         </td>
                     </tr>`;
                 }
@@ -235,7 +236,7 @@ class GroupAdminManager {
                                 <button class="btn btn-warning btn-sm" onclick="showupdateUserModal_groupadmin(${element.id})">Update</button>
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm" onclick="disableUser_groupadmin(${element.id})">Delete</button>
+                                <button class="btn btn-danger btn-sm" onclick="disableUserGA(${element.id}, '${element.firstname}')">Delete</button>
                             </td>
                         </tr>`;
                 }
@@ -365,19 +366,21 @@ class GroupAdminManager {
 
     // Supprime un groupe
     disableUser($user_id) {
-        $.ajax({
-            type: "POST",
-            url: "/routing/Routing.php?controller=groupadmin&action=disable_user",
-            data: {
-                id: $user_id
-            },
-            success: function (response) {
-                console.log(JSON.parse(response))
-            },
-            error: function () {
-                reject();
-            }
-        });
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=groupadmin&action=disable_user",
+                data: {
+                    user_id: $user_id
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
     }
 
     // Send a reset password request by mail to the user

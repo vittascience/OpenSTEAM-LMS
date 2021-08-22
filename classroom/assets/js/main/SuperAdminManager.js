@@ -27,6 +27,7 @@ class SuperAdminManager {
         this._paginationGroupsInfo = []
         this._allApplications = []
         this._actualGroup = []
+        this._actualUser = 0
         this._tasksQueue = [];
         this._isExecutingTaskInQueue = false;
     }

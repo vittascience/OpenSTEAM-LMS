@@ -1247,33 +1247,159 @@ function switchToProf() {
     $('#classroom-dashboard-sidebar-teacher').show();
 }
 
-function deleteGroup($id) {
+function deleteGroup(id) {
     MSA.getSuperAdminManager().deleteGroup($id)
     tempoAndShowGroupsTable()
 }
 
-function deleteUser($id) {
-    MSA.getSuperAdminManager().deleteUser($id)
-    $('#table_info_group_data').html("");
-    tempoAndShowUsersTable()
-}
-
-function disableUser($id) {
-    MSA.getSuperAdminManager().disableUser($id)
-    $('#table_info_group_data').html("");
-    tempoAndShowUsersTable()
-}
-
-function disableUserGA($id) {
-    MGA.getGroupAdminManager().deleteUser($id)
-    $('#table_info_group_data').html("");
+function deleteUser(id, name) {
+    MSA.getSuperAdminManager()._actualUser = id;
+    $('#validation_delete').val("");
+    pseudoModal.openModal('superadmin-delete-user');
+    $('#mde_firstname').text(name);
     //tempoAndShowUsersTable()
 }
 
-function disableUserGA($id) {
-    MGA.getGroupAdminManager().disableUser($id)
-    $('#table_info_group_data_ga').html("");
-    //tempoAndShowUsersTable()
+function disableUser(id, name) {
+    MSA.getSuperAdminManager()._actualUser = id;
+    $('#validation_disable').val("");
+    pseudoModal.openModal('superadmin-disable-user');
+    $('#mdi_firstname').text(name);
+}
+
+function disableUserGA(id, name) {
+    MGA.getGroupAdminManager()._actualUser = id;
+    $('#validation_deleteGA').val("");
+    pseudoModal.openModal('groupadmin-delete-user');
+    $('#md_firstnameGA').text(name);
+}
+
+function persistDisable() {
+    let validation = $('#validation_delete').val();
+    const user = MSA.getSuperAdminManager()._actualUser;
+    if (validation == "supprimer") {
+        MSA.getSuperAdminManager().disableUser(user).then((response) => {
+            if (response.message == "not_allowed") {
+                $('#alertDisableUser').text("Vous ne disposez pas des droits pour désactiver cet utilisateur.");
+                switchAlertModalDisable(1);
+            } else if (response.message == "allowed") {
+                $('#alertDisableUser').text("Utilisateur désactivé.");
+                switchAlertModalDisable(0);
+                MSA.getSuperAdminManager()._actualUser = 0;
+                setTimeout(() => {
+                    pseudoModal.closeAllModal();
+                }, 4500);
+            }
+        })
+    } else {
+        $('#alertDisableUser').text("Vous devez écrire supprimer pour valider l'action.");
+        switchAlertModalDisable(1);
+    }
+}
+
+
+
+function persistDelete() {
+    let validation = $('#validation_delete').val();
+    const user = MSA.getSuperAdminManager()._actualUser;
+    if (validation == "supprimer") {
+        MSA.getSuperAdminManager().deleteUser(user).then((response) => {
+            if (response.message == "not_allowed") {
+                $('#alertDeleteUser').text("Vous ne disposez pas des droits pour supprimer cet utilisateur.");
+                switchAlertModalDelete(1);
+            } else if (response.message == "allowed") {
+                $('#alertDeleteUser').text("Utilisateur supprimé.");
+                switchAlertModalDelete(0);
+                MSA.getSuperAdminManager()._actualUser = 0;
+                setTimeout(() => {
+                    pseudoModal.closeAllModal();
+                }, 4500);
+            }
+        })
+    } else {
+        $('#alertDeleteUser').text("Vous devez écrire supprimer pour valider l'action.");
+        switchAlertModalDelete(1);
+    }
+}
+
+function switchAlertModalDelete(i) {
+    if (i == 0) {
+        $("#alertDeleteUser").removeClass("alert-danger");
+        $("#alertDeleteUser").addClass("alert-success");
+    } else if (i == 1) {
+        $("#alertDeleteUser").addClass("alert-danger");
+        $("#alertDeleteUser").removeClass("alert-success");
+    }
+    $("#alertDeleteUser").fadeIn(1000);
+    setTimeout(function () {
+        $('#alertDeleteUser').fadeOut(1000);
+    }, 3500);
+}
+
+function switchAlertModalDisable(i) {
+    if (i == 0) {
+        $("#alertDisableUser").removeClass("alert-danger");
+        $("#alertDisableUser").addClass("alert-success");
+    } else if (i == 1) {
+        $("#alertDisableUser").addClass("alert-danger");
+        $("#alertDisableUser").removeClass("alert-success");
+    }
+    $("#alertDisableUser").fadeIn(1000);
+    setTimeout(function () {
+        $('#alertDisableUser').fadeOut(1000);
+    }, 3500);
+}
+
+function cancelDelete() {
+    $('#md_firstnameGA').text("");
+    pseudoModal.closeAllModal();
+}
+
+function cancelDisable() {
+    $('#md_firstnameGA').text("");
+    pseudoModal.closeAllModal();
+}
+
+function cancelDeleteGA() {
+    $('#md_firstnameGA').text("");
+    pseudoModal.closeAllModal();
+}
+
+function persistDeleteGA() {
+    let validation = $('#validation_deleteGA').val();
+    const user = MGA.getGroupAdminManager()._actualUser;
+    if (validation == "supprimer") {
+        MGA.getGroupAdminManager().disableUser(user).then((response) => {
+            if (response.message == "not_allowed") {
+                $('#alertDisableUserGA').text("Vous ne disposez pas des droits pour supprimer cet utilisateur.");
+                switchAlertModalGA(1);
+            } else if (response.message == "allowed") {
+                $('#alertDisableUserGA').text("Utilisateur supprimé.");
+                switchAlertModalGA(0);
+                MGA.getGroupAdminManager()._actualUser = 0;
+                setTimeout(() => {
+                    pseudoModal.closeAllModal();
+                }, 4500);
+            }
+        })
+    } else {
+        $('#alertDisableUserGA').text("Vous devez écrire supprimer pour valider l'action.");
+        switchAlertModalGA(1);
+    }
+}
+
+function switchAlertModalGA(i) {
+    if (i == 0) {
+        $("#alertDisableUserGA").removeClass("alert-danger");
+        $("#alertDisableUserGA").addClass("alert-success");
+    } else if (i == 1) {
+        $("#alertDisableUserGA").addClass("alert-danger");
+        $("#alertDisableUserGA").removeClass("alert-success");
+    }
+    $("#alertDisableUserGA").fadeIn(1000);
+    setTimeout(function () {
+        $('#alertDisableUserGA').fadeOut(1000);
+    }, 3500);
 }
 
 function showGroupMembers($group_id, $page, $userspp, $sort) {
@@ -1550,10 +1676,6 @@ function updateUserModalGA() {
 function deleteGroupFromUpdateGA(id) {
     MGA.getGroupAdminManager()._updatedUserGroup -= 1;
     $('#update_u_actual_group_ga' + id).remove();
-}
-
-function deleteUser_groupadmin() {
-    MGA.getGroupAdminManager().deleteUserGroupAdmin(user_id);
 }
 
 $('#users_per_page_groupadmin, #sort_users_filter_groupadmin').change(() => {

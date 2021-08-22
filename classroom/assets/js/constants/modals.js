@@ -566,5 +566,62 @@ const classroomModals = {
     <button class="btn btn-info" onclick="updateUserModalGA()">Update user</button>`,
         footer: ``
     },
+    'groupadmin-delete-user': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'superadmin.users.delete'
+        },
+        content: `  <div id="delete-user-modal">
+                        <div class="col-12">
+                            <div class="alert" id="alertDisableUserGA" role="alert" style="display:none;"></div>
+                            <h3 class="font-weight-bold text-danger m-auto text-center" data-i18n="superadmin.users.disable.title"></h3>
+                            <p data-i18n="[html]superadmin.users.disable.intention" class="text-center"></p>
+                            <p data-i18n="superadmin.users.disable.message" class="text-center"></p>.
+                            <input type="text" name="validation_deleteGA" id="validation_deleteGA" placeholder="supprimer">
+                            <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="cancelDeleteGA()" data-i18n="superadmin.users.disable.cancel">Annuler</button>
+                            <button class="btn btn-danger mx-auto mt-3 btn-lg" onclick="persistDeleteGA()" data-i18n="superadmin.users.disable.validate">Valider</button>
+                        </div>
+                    </div>`,
+        footer: ``
+    },
+    'superadmin-delete-user': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'superadmin.users.delete'
+        },
+        content: `  <div id="delete-user-modal">
+                        <div class="col-12">
+                            <div class="alert" id="alertDeleteUser" role="alert" style="display:none;"></div>
+                            <h3 class="font-weight-bold text-danger m-auto text-center">Confirmer la suppression</h3>
+                            <p class="text-center">Vous vous apprêtez à supprimer l'utilisateur : <span id="mdi_firstnameSA"></span></p>
+                            <p class="text-center">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>.
+                            <input type="text" name="validation_delete" id="validation_delete" placeholder="supprimer">
+                            <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="cancelDelete()">Annuler</button>
+                            <button class="btn btn-danger mx-auto mt-3 btn-lg" onclick="persistDelete()">Valider</button>
+                        </div>
+                    </div>`,
+        footer: ``
+    },
+    'superadmin-disable-user': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'superadmin.users.delete'
+        },
+        content: `  <div id="delete-user-modal">
+                        <div class="col-12">
+                            <div class="alert" id="alertDisableUser" role="alert" style="display:none;"></div>
+                            <h3 class="font-weight-bold text-danger m-auto text-center">Confirmer la désactivation</h3>
+                            <p class="text-center">Vous vous apprêtez à désactiver l'utilisateur : <span id="mde_firstnameSA"></span></p>
+                            <p>Veuillez écrire "désactiver" dans le champ si dessous pour valider l'action.</p>.
+                            <input type="text" name="validation_disable" id="validation_disable" placeholder="désactiver">
+                            <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="cancelDisable()">Annuler</button>
+                            <button class="btn btn-danger mx-auto mt-3 btn-lg" onclick="persistDisable()">Valider</button>
+                        </div>
+                    </div>`,
+        footer: ``
+    },
 
 }
