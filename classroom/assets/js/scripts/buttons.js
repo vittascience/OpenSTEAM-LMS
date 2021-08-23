@@ -1248,8 +1248,41 @@ function switchToProf() {
 }
 
 function deleteGroup(id) {
-    MSA.getSuperAdminManager().deleteGroup($id)
-    tempoAndShowGroupsTable()
+    MSA.getSuperAdminManager()._actualGroup = id;
+    $('#validation_delete_group').val("");
+    pseudoModal.openModal('superadmin-delete-group');
+    MSA.getSuperAdminManager()._comboGroups.forEach(element => {
+        if (element.id == id) {
+            $('#md_group').text(element.name);
+        }
+    });
+
+}
+
+function persistDeleteGroup() {
+    let validation = $('#validation_delete_group').val();
+    const group = MSA.getSuperAdminManager()._actualGroup;
+    if (validation == "supprimer") {
+        MSA.getSuperAdminManager().deleteGroup(group).then((response) => {
+            if (response.message == "missing data") {
+                switchAlertModal(1, "#alertDeleteGroup", "Vous ne disposez pas des droits pour supprimer ce groupe.");
+            } else if (response.message == "success") {
+                switchAlertModal(0, "#alertDeleteGroup", "Groupe supprimé.");
+                MSA.getSuperAdminManager()._actualUser = 0;
+                setTimeout(() => {
+                    pseudoModal.closeAllModal();
+                }, 4500);
+                tempoAndShowGroupsTable();
+            }
+        })
+    } else {
+        switchAlertModal(1, "#alertDeleteGroup", "Vous devez écrire supprimer pour valider l'action.");
+    }
+}
+
+function cancelDeleteGroup() {
+    $('#md_group').text("");
+    pseudoModal.closeAllModal();
 }
 
 function deleteUser(id, name) {
@@ -1257,7 +1290,7 @@ function deleteUser(id, name) {
     $('#validation_delete').val("");
     pseudoModal.openModal('superadmin-delete-user');
     $('#mde_firstname').text(name);
-    //tempoAndShowUsersTable()
+
 }
 
 function disableUser(id, name) {
@@ -1275,25 +1308,23 @@ function disableUserGA(id, name) {
 }
 
 function persistDisable() {
-    let validation = $('#validation_delete').val();
+    let validation = $('#validation_disable').val();
     const user = MSA.getSuperAdminManager()._actualUser;
-    if (validation == "supprimer") {
+    if (validation == "désactiver") {
         MSA.getSuperAdminManager().disableUser(user).then((response) => {
-            if (response.message == "not_allowed") {
-                $('#alertDisableUser').text("Vous ne disposez pas des droits pour désactiver cet utilisateur.");
-                switchAlertModalDisable(1);
-            } else if (response.message == "allowed") {
-                $('#alertDisableUser').text("Utilisateur désactivé.");
-                switchAlertModalDisable(0);
+            if (response.response == "missing data") {
+                switchAlertModal(1, "#alertDisableUser", "Vous ne disposez pas des droits pour désactiver cet utilisateur.");
+            } else if (response.response == "success") {
+                switchAlertModal(0, "#alertDisableUser", "Utilisateur désactivé.");
                 MSA.getSuperAdminManager()._actualUser = 0;
                 setTimeout(() => {
                     pseudoModal.closeAllModal();
                 }, 4500);
+                tempoAndShowUsersTable()
             }
         })
     } else {
-        $('#alertDisableUser').text("Vous devez écrire supprimer pour valider l'action.");
-        switchAlertModalDisable(1);
+        switchAlertModal(1, "#alertDisableUser", "Vous devez écrire supprimer pour valider l'action.");
     }
 }
 
@@ -1304,49 +1335,55 @@ function persistDelete() {
     const user = MSA.getSuperAdminManager()._actualUser;
     if (validation == "supprimer") {
         MSA.getSuperAdminManager().deleteUser(user).then((response) => {
-            if (response.message == "not_allowed") {
-                $('#alertDeleteUser').text("Vous ne disposez pas des droits pour supprimer cet utilisateur.");
-                switchAlertModalDelete(1);
+            if (response.message == "missing data") {
+                switchAlertModal(1, "#alertDeleteUser", "Vous ne disposez pas des droits pour supprimer cet utilisateur.");
             } else if (response.message == "allowed") {
-                $('#alertDeleteUser').text("Utilisateur supprimé.");
-                switchAlertModalDelete(0);
+                switchAlertModal(0, "#alertDeleteUser", "Utilisateur supprimé.");
                 MSA.getSuperAdminManager()._actualUser = 0;
+                setTimeout(() => {
+                    pseudoModal.closeAllModal();
+                }, 4500);
+                tempoAndShowUsersTable();
+            }
+        })
+    } else {
+        switchAlertModal(1, "#alertDeleteUser", "Vous devez écrire supprimer pour valider l'action.");
+    }
+}
+
+
+function persistDeleteGA() {
+    let validation = $('#validation_deleteGA').val();
+    const user = MGA.getGroupAdminManager()._actualUser;
+    if (validation == "supprimer") {
+        MGA.getGroupAdminManager().disableUser(user).then((response) => {
+            if (response.message == "not_allowed") {
+                switchAlertModal(1, "#alertDisableUserGA", "Vous ne disposez pas des droits pour supprimer cet utilisateur.");
+            } else if (response.message == "allowed") {
+                switchAlertModal(0, "#alertDisableUserGA", "Utilisateur supprimé.");
+                MGA.getGroupAdminManager()._actualUser = 0;
                 setTimeout(() => {
                     pseudoModal.closeAllModal();
                 }, 4500);
             }
         })
     } else {
-        $('#alertDeleteUser').text("Vous devez écrire supprimer pour valider l'action.");
-        switchAlertModalDelete(1);
+        switchAlertModal(1, "#alertDisableUserGA", "Vous devez écrire supprimer pour valider l'action.");
     }
 }
 
-function switchAlertModalDelete(i) {
+function switchAlertModal(i, id, message) {
+    $(id).text(message);
     if (i == 0) {
-        $("#alertDeleteUser").removeClass("alert-danger");
-        $("#alertDeleteUser").addClass("alert-success");
+        $(id).removeClass("alert-danger");
+        $(id).addClass("alert-success");
     } else if (i == 1) {
-        $("#alertDeleteUser").addClass("alert-danger");
-        $("#alertDeleteUser").removeClass("alert-success");
+        $(id).addClass("alert-danger");
+        $(id).removeClass("alert-success");
     }
-    $("#alertDeleteUser").fadeIn(1000);
+    $(id).fadeIn(1000);
     setTimeout(function () {
-        $('#alertDeleteUser').fadeOut(1000);
-    }, 3500);
-}
-
-function switchAlertModalDisable(i) {
-    if (i == 0) {
-        $("#alertDisableUser").removeClass("alert-danger");
-        $("#alertDisableUser").addClass("alert-success");
-    } else if (i == 1) {
-        $("#alertDisableUser").addClass("alert-danger");
-        $("#alertDisableUser").removeClass("alert-success");
-    }
-    $("#alertDisableUser").fadeIn(1000);
-    setTimeout(function () {
-        $('#alertDisableUser').fadeOut(1000);
+        $(id).fadeOut(1000);
     }, 3500);
 }
 
@@ -1365,42 +1402,7 @@ function cancelDeleteGA() {
     pseudoModal.closeAllModal();
 }
 
-function persistDeleteGA() {
-    let validation = $('#validation_deleteGA').val();
-    const user = MGA.getGroupAdminManager()._actualUser;
-    if (validation == "supprimer") {
-        MGA.getGroupAdminManager().disableUser(user).then((response) => {
-            if (response.message == "not_allowed") {
-                $('#alertDisableUserGA').text("Vous ne disposez pas des droits pour supprimer cet utilisateur.");
-                switchAlertModalGA(1);
-            } else if (response.message == "allowed") {
-                $('#alertDisableUserGA').text("Utilisateur supprimé.");
-                switchAlertModalGA(0);
-                MGA.getGroupAdminManager()._actualUser = 0;
-                setTimeout(() => {
-                    pseudoModal.closeAllModal();
-                }, 4500);
-            }
-        })
-    } else {
-        $('#alertDisableUserGA').text("Vous devez écrire supprimer pour valider l'action.");
-        switchAlertModalGA(1);
-    }
-}
 
-function switchAlertModalGA(i) {
-    if (i == 0) {
-        $("#alertDisableUserGA").removeClass("alert-danger");
-        $("#alertDisableUserGA").addClass("alert-success");
-    } else if (i == 1) {
-        $("#alertDisableUserGA").addClass("alert-danger");
-        $("#alertDisableUserGA").removeClass("alert-success");
-    }
-    $("#alertDisableUserGA").fadeIn(1000);
-    setTimeout(function () {
-        $('#alertDisableUserGA').fadeOut(1000);
-    }, 3500);
-}
 
 function showGroupMembers($group_id, $page, $userspp, $sort) {
     MSA.getSuperAdminManager()._actualGroup = $group_id;

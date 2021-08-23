@@ -224,7 +224,7 @@
                 <span class="mt-2 mb-2 alert alert-warning mismatched-login" style="display:none;"
                     data-i18n="classroom.login.error.badInput"></span>
             </div>
-            <button class="btn c-btn-primary" id="connect-teacher"><span
+            <button class="btn c-btn-primary" id="connect-teacher"><span id="span-connect-group"
                     data-i18n="superadmin.group.join.signin"></span> <i class="fas fa-chevron-right"></i></button>
         </div>
         <!-- <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
@@ -238,10 +238,9 @@
         <div class="col-12">
             <h3 class="font-weight-bold green-vitta m-auto text-center">Vous avez rejoint le groupe
                 "<span id="gourpName"></span>" !</h3>
-            <p class="text-center">Vous allez être redirigé vers la page d'accueil.</p>
+            <p class="text-center">Appuyez sur continuer pour être redirigé vers la page d'accueil.</p>
         </div>
-        <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
-                class="fas fa-times"></i></button>
+        <button class="btn browse-button mx-auto mt-3 btn-lg" onclick="goToHome()">Continuer</button>
     </div>
 </div>
 
@@ -254,8 +253,6 @@
                 <p class="text-center">Un e-mail vient de vous être envoyé, suivez le lien dans celui-ci pour activer
                     votre compte et continuez votre liaison au groupe "<span id="gourpName2"></span>"</p>
         </div>
-        <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
-                class="fas fa-times"></i></button>
     </div>
 </div>
 
@@ -266,8 +263,6 @@
             <h3 class="font-weight-bold green-vitta m-auto text-center">Lien invalide !</h3>
             <p class="text-center">Le format du lien que vous avez entré ne correspond pas.</p>
         </div>
-        <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
-                class="fas fa-times"></i></button>
     </div>
 </div>
 
@@ -276,10 +271,9 @@
     <div class="inner-login-container">
         <div class="col-12">
             <h3 class="font-weight-bold green-vitta m-auto text-center">Votre compte à bien été activé !</h3>
-            <p class="text-center">Vous allez être redirigé vers la page d'accueil.</p>
+            <p class="text-center">Cliquez sur continuer pour être redirigé vers la page de connexion.</p>
         </div>
-        <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
-                class="fas fa-times"></i></button>
+        <button class="btn browse-button mx-auto mt-3 btn-lg" onclick="goToLogin()">Continuer</button>
     </div>
 </div>
 
@@ -288,10 +282,8 @@
     <div class="inner-login-container">
         <div class="col-12">
             <h3 class="font-weight-bold green-vitta m-auto text-center">Groupe introuvable !</h3>
-            <p class="text-center">Nous ne trouvons aucun groupe lié au lien <span id="gourpName3"></span></p>.</p>
+            <p class="text-center">Nous ne trouvons aucun groupe lié au lien <span id="gourpName3"></span>.</p>
         </div>
-        <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
-                class="fas fa-times"></i></button>
     </div>
 </div>
 
@@ -304,9 +296,8 @@
             <p class="text-center">Il ne reste plus qu'une étape ! Cliquez sur le bouton si dessous pour finaliser la
                 liaison.</p>
         </div>
-        <button class="btn browse-button mx-auto mt-3 btn-lg" onclick="linkTeacherToGroupProcess()">Rejoindre</button>
-        <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
-                class="fas fa-times"></i></button>
+        <button class="btn browse-button mx-auto mt-3 btn-lg" id="linkTeacherToGroupBtn"
+            onclick="linkTeacherToGroupProcess()">Rejoindre</button>
     </div>
 </div>
 
@@ -315,10 +306,9 @@
     <div class="inner-login-container">
         <div class="col-12">
             <h3 class="font-weight-bold green-vitta m-auto text-center">Votre compte est déjà actif.</h3>
-            <p class="text-center">Vous allez être redirigé vers la page de connexion.</p>
+            <p class="text-center">Cliquez sur continuer pour être redirigé vers la page de connexion.</p>
         </div>
-        <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
-                class="fas fa-times"></i></button>
+        <button class="btn browse-button mx-auto mt-3 btn-lg" onclick="goToLogin()">Continuer</button>
     </div>
 </div>
 
@@ -327,10 +317,9 @@
     <div class="inner-login-container">
         <div class="col-12">
             <h3 class="font-weight-bold green-vitta m-auto text-center">Vous faites déjà partie de ce groupe.</h3>
-            <p class="text-center">Vous allez être redirigé vers l'accueil.</p>
+            <p class="text-center">Cliquez sur continuer pour être redirigé vers l'accueil.</p>
         </div>
-        <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
-                class="fas fa-times"></i></button>
+        <button class="btn browse-button mx-auto mt-3 btn-lg" onclick="goToHome()">Continuer</button>
     </div>
 </div>
 
@@ -342,8 +331,7 @@
             <p class="text-center">L'utilisateur n'a pas été trouvé, vous allez être redirigé vers la page de login.</p>
             <p class="text-center">Si le problème persiste contactez l'administration.</p>
         </div>
-        <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
-                class="fas fa-times"></i></button>
+        <button class="btn browse-button mx-auto mt-3 btn-lg" onclick="goToLogin()">Continuer</button>
     </div>
 </div>
 
@@ -384,7 +372,7 @@
                 <a class="hint" href="/passwordRecovery" data-i18n="login_popup.form.forgot_password"></a>
             </div>
             <button type='button' style="margin-top:10px;" onclick="checkLoginTeacher();" class="btn vitta-button"
-                id="login-button" data-i18n="login_popup.form.btn_connect"></button>
+                id="login-button-group" data-i18n="login_popup.form.btn_connect"></button>
         </form>
     </div>
 </div>
@@ -432,51 +420,7 @@
 <script src="assets/js/scripts/main-login.js"></script>
 <script src="assets/js/scripts/login.js"></script>
 <script src="assets/js/scripts/buttons.js"></script>
-<script>
-    UIManager.init().then((resolve) => {
-        UserManager.init().then((resolve) => {
 
-                Main.init().then((resolve) => {
-                    loginFaqNeutral();
-                    /* FAQ BOXES */
-                    var headers = document.getElementsByClassName("faq-box-header");
-                    $(headers).rotate({
-                        bind: {
-                            click: function () {
-                                var drop = $(this).find(".faq-box-dropdown");
-                                var content = $(this).parent().find(".faq-box-content");
-                                if (drop.hasClass("dropped")) {
-                                    drop.rotate({
-                                        angle: drop.getRotateAngle(),
-                                        animateTo: 0
-                                    });
-                                    content.fadeOut("slow", function () {
-                                        drop.removeClass("dropped");
-                                    });
-                                } else {
-                                    drop.rotate({
-                                        angle: drop.getRotateAngle(),
-                                        animateTo: 90
-                                    });
-                                    content.fadeIn("slow", function () {
-                                        drop.addClass("dropped");
-                                    });
-                                }
-                            }
-                        }
-                    });
-                    if ($_GET('link')) {
-                        findClassroomToConnect($_GET('link'))
-                    }
-                })
-            },
-            (reason) => {
-                console.log("UserManager failed to load: " + reason);
-                failedToLoad();
-            }
-        );
-    })
-</script>
 
 <script>
     if ($_GET('page')) {
@@ -510,34 +454,22 @@
             case 'success':
                 $('#group-joinded-container').toggle();
                 $('#gourpName').text(groupName);
-                setTimeout(() => {
-                    document.location = urlHome;
-                }, 2500);
                 break;
             case 'alreadyactive':
                 $('#already-active').toggle();
-                setTimeout(() => {
-                    document.location = urlWithCode + "&page=login";
-                }, 2500);
                 break;
             case 'alreadylinked':
                 $('#already-linked').toggle();
-                setTimeout(() => {
-                    document.location = urlHome;
-                }, 2500);
                 break;
             case 'noteacher':
                 $('#no-teacher').toggle();
-                setTimeout(() => {
-                    document.location = urlWithCode + "&page=login";
-                }, 2500);
                 break;
             default:
                 break;
         }
     } else {
         $('#classroom-login-container-bis').toggle();
-        $('#classroom-desc').text(groupName);
+        $('#classroom-desc').text("Vous êtes invité dans le groupe : " + groupName);
     }
 
     //$('#group-name').text(groupName);
@@ -564,8 +496,10 @@
     }
 
     $('#connect-teacher').click(function () {
+        $('#connect-teacher').attr('disabled', true);
         checkLoginTeacher();
     })
+
 
     function checkLoginTeacher() {
         let form = {
@@ -575,9 +509,7 @@
 
         loginTeacher(form).then(function (response) {
             if (response.success === true) {
-                setTimeout(function () {
-                    document.location = urlWithCode + "&page=confirm";
-                }, 2500);
+                goToConfirm();
             } else {
                 var infoBox = document.getElementById("info-box");
                 infoBox = document.createElement("div");
@@ -592,6 +524,7 @@
                 document.getElementById("info-div").appendChild(infoBox);
                 $("#info-div").fadeIn("slow");
             }
+            $('#connect-teacher').attr('disabled', false);
         })
     }
 
@@ -697,10 +630,9 @@
     }
 
     function linkTeacherToGroupProcess() {
+        $('#linkTeacherToGroupBtn').attr('disabled', true);
         linkTeacherToGroup(user_id, group_id).then((response) => {
-            setTimeout(function () {
-                document.location = urlWithCode + `&page=${response.message}`;
-            }, 2500);
+            document.location = urlWithCode + `&page=${response.message}`;
         })
     }
 
@@ -842,4 +774,21 @@
         }
     }
     createSubjectSelectTeacherForm(FirstGradeSubjects);
+
+
+    function goToHome() {
+        document.location = urlHome;
+    }
+
+    function goToLogin() {
+        document.location = urlWithCode + "&page=login";
+    }
+
+    function goToSuccess() {
+        document.location = urlWithCode + "&page=success";
+    }
+
+    function goToConfirm() {
+        document.location = urlWithCode + "&page=confirm";
+    }
 </script>

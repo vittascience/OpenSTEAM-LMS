@@ -277,6 +277,20 @@ class GroupAdminManager {
         })
     }
 
+    /**
+     * 
+     * @param {String} $firstname 
+     * @param {String} $surname 
+     * @param {String} $user_pseudo 
+     * @param {String} $phone 
+     * @param {String} $mail 
+     * @param {String} $bio 
+     * @param {Array} $groups 
+     * @param {Int} $teacher_grade 
+     * @param {Int} $teacher_suject 
+     * @param {String} $school 
+     * @returns {Json}
+     */
     createUserAndLinkToGroup($firstname, $surname, $user_pseudo, $phone, $mail, $bio, $groups, $teacher_grade, $teacher_suject, $school) {
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -346,22 +360,24 @@ class GroupAdminManager {
 
     // Modifier d'un groupe
     updateGroup($group_id, $group_name, $group_description, $group_app) {
-        $.ajax({
-            type: "POST",
-            url: "/routing/Routing.php?controller=groupadmin&action=update_group",
-            data: {
-                id: $group_id,
-                name: $group_name,
-                description: $group_description,
-                applications: $group_app
-            },
-            success: function (response) {
-                console.log(JSON.parse(response))
-            },
-            error: function () {
-                reject();
-            }
-        });
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=groupadmin&action=update_group",
+                data: {
+                    id: $group_id,
+                    name: $group_name,
+                    description: $group_description,
+                    applications: $group_app
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
     }
 
     // Supprime un groupe
@@ -383,7 +399,11 @@ class GroupAdminManager {
         })
     }
 
-    // Send a reset password request by mail to the user
+    /**
+     * Send a password request to the user
+     * @param {int} $user_id 
+     * @returns 
+     */
     sendResetPassword($user_id) {
         return new Promise(function (resolve, reject) {
             $.ajax({

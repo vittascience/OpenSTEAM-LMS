@@ -623,5 +623,24 @@ const classroomModals = {
                     </div>`,
         footer: ``
     },
+    'superadmin-delete-group': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'superadmin.users.delete'
+        },
+        content: `  <div id="delete-user-modal">
+                        <div class="col-12">
+                            <div class="alert" id="alertDeleteGroup" role="alert" style="display:none;"></div>
+                            <h3 class="font-weight-bold text-danger m-auto text-center">Confirmer la suppression</h3>
+                            <p class="text-center">Vous vous apprêtez à suppression le groupe : <span id="md_group"></span></p>
+                            <p>Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>.
+                            <input type="text" name="validation_delete_group" id="validation_delete_group" placeholder="supprimer">
+                            <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="cancelDeleteGroup()">Annuler</button>
+                            <button class="btn btn-danger mx-auto mt-3 btn-lg" onclick="persistDeleteGroup()">Valider</button>
+                        </div>
+                    </div>`,
+        footer: ``
+    },
 
 }

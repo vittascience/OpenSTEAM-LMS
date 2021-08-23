@@ -924,7 +924,12 @@
 				"school": "Établissement"
 			}
 		},
-		"button": {
+		"buttons": {
+			"continue": "Continuer",
+			"validate": "Valider",
+			"cancel": "Annuler",
+			"login": "Se connecter",
+			"signup": "S'incrire",
 			"user": {
 				"add": "Ajouter l'utilisateur",
 				"create": "Créer l'utilisateur",

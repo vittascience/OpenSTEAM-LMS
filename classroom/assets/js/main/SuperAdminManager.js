@@ -26,7 +26,7 @@ class SuperAdminManager {
         this._paginationUsersInfo = []
         this._paginationGroupsInfo = []
         this._allApplications = []
-        this._actualGroup = []
+        this._actualGroup = 0
         this._actualUser = 0
         this._tasksQueue = [];
         this._isExecutingTaskInQueue = false;
@@ -185,48 +185,60 @@ class SuperAdminManager {
         });
     };
 
-    // Modifier d'un groupe
+    /**
+     * @param {int} $group_id 
+     * @param {string} $group_name 
+     * @param {string} $group_description 
+     * @param {array} $group_app 
+     * @returns {object} response
+     */
     updateGroup($group_id, $group_name, $group_description, $group_app) {
-        $.ajax({
-            type: "POST",
-            url: "/routing/Routing.php?controller=superadmin&action=update_group",
-            data: {
-                id: $group_id,
-                name: $group_name,
-                description: $group_description,
-                applications: $group_app
-            },
-            success: function (response) {
-                console.log(JSON.parse(response))
-            },
-            error: function () {
-                reject();
-            }
-        });
-    }
-    // Supprime un groupe
-    deleteGroup($group_id) {
-        $.ajax({
-            type: "POST",
-            url: "/routing/Routing.php?controller=superadmin&action=delete_group",
-            data: {
-                id: $group_id
-            },
-            success: function (response) {
-                console.log(JSON.parse(response))
-            },
-            error: function () {
-                reject();
-            }
-        });
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=update_group",
+                data: {
+                    id: $group_id,
+                    name: $group_name,
+                    description: $group_description,
+                    applications: $group_app
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
     }
 
     /**
-     * USERS FUNCTION
+     * @param {int} $group_id 
+     * @returns {object} response
      */
+    deleteGroup($group_id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=delete_group",
+                data: {
+                    id: $group_id
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
 
-
-
+    /**
+     * @param {int} $id 
+     * @returns 
+     */
     getAdminFromGroup($id) {
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -322,41 +334,39 @@ class SuperAdminManager {
     }
 
     disableUser($user_id) {
-        const process = (data) => {
-            console.log(JSON.parse(response));
-        }
-        $.ajax({
-            type: "POST",
-            url: "/routing/Routing.php?controller=superadmin&action=disable_user",
-            data: {
-                user_id: $user_id,
-            },
-            success: function (response) {
-                process(JSON.parse(response));
-            },
-            error: function () {
-                reject();
-            }
-        });
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=disable_user",
+                data: {
+                    user_id: $user_id,
+                },
+                success: function (res) {
+                    resolve(JSON.parse(res));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
     }
 
     deleteUser($user_id) {
-        const process = (data) => {
-            console.log(JSON.parse(response));
-        }
-        $.ajax({
-            type: "POST",
-            url: "/routing/Routing.php?controller=superadmin&action=delete_user",
-            data: {
-                user_id: $user_id,
-            },
-            success: function (response) {
-                process(JSON.parse(response));
-            },
-            error: function () {
-                reject();
-            }
-        });
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=delete_user",
+                data: {
+                    user_id: $user_id,
+                },
+                success: function (res) {
+                    resolve(JSON.parse(res));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
     }
 
     deleteUserFromGroup($group_id, $user_id) {
@@ -852,7 +862,7 @@ class SuperAdminManager {
                 groupspp: $groupspp
             },
             success: function (response) {
-                process((JSON.parse(response)));
+                process(JSON.parse(response));
             },
             error: function () {
                 reject();
@@ -870,7 +880,7 @@ class SuperAdminManager {
                     user_id: $user_id,
                 },
                 success: function (response) {
-                    resolve((JSON.parse(response)));
+                    resolve(JSON.parse(response));
                 },
                 error: function () {
                     reject();
@@ -880,112 +890,3 @@ class SuperAdminManager {
     }
 
 }
-
-/*     getAllUsersAndTheirGroups($sort, $page, $usersperpage) {
-        const process = (res) => {
-            MSA.getSuperAdminManager()._allMembersAndTheirGroups = res;
-            let data_table = "";
-            res.forEach(element => {
-
-                if (element.hasOwnProperty('currentPage')) {
-                    MSA.getSuperAdminManager()._paginationUsersInfo = element;
-                    let sort = $('#sort_users_filter').val(),
-                        usersperpage = $('#users_per_page').val(),
-                        htmlButtons = "";
-
-                    if (element.previousPage > 1) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().getAllUsersAndTheirGroups(${sort}, 1, ${usersperpage})">First Page</button>`;
-                    }
-                    if (element.currentPage > 1) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().getAllUsersAndTheirGroups(${sort}, ${element.previousPage}, ${usersperpage})">${element.previousPage}</button>`;
-                    }
-                    htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
-                    if (element.currentPage < element.totalPagesCount) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().getAllUsersAndTheirGroups(${sort}, ${element.nextPage}, ${usersperpage})">${element.nextPage}</button>`;
-                    }
-                    if (element.nextPage < element.totalPagesCount) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().getAllUsersAndTheirGroups(${sort}, ${element.totalPagesCount}, ${usersperpage})">Last Page - ${element.totalPagesCount}</button>`;
-                    }
-
-                    $('#paginationButtons_users').html(htmlButtons);
-                } else {
-                    let App = "",
-                        $groups = "";
-                    // Affiche simplement l'id des applcatations pour le moment
-                    if (element.hasOwnProperty('groups')) {
-                        element.groups.forEach(element_2 => {
-                            let Roles = element_2.rights == 1 ? "Admin" : "Prof";
-                            $groups += element_2.id + ' : ' + Roles + "; ";
-                        });
-                    }
-
-                    data_table +=
-                        `<tr>
-                    <th scope="row">${element.surname}</i></th>
-                    <td>${element.firstname}</td>
-                    <td>${element.pseudo}</td>
-                    <td>${$groups}</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm" onclick="showupdateUserModal(${element.id})">Modifier</button>
-                    </td>
-                    <td>
-                        <button class="btn btn-danger btn-sm" onclick="deleteUser(${element.id})">Supprimer</button>
-                    </td>
-                    </tr>`;
-                }
-            });
-            $('#users_table_superadmin').html(data_table);
-
-        }
-        $.ajax({
-            type: "POST",
-            url: "/routing/Routing.php?controller=superadmin&action=get_all_users_with_their_groups",
-            data: {
-                sort: $sort,
-                page: $page,
-                userspp: $usersperpage
-            },
-            success: function (response) {
-                process(JSON.parse(response));
-            },
-            error: function () {
-                reject();
-            }
-        });
-    } */
-
-
-/* showGroupsWithAdminsInTable(table) {
-        let data_table = "";
-        groups.forEach(element => {
-            let App = "";
-            let $droits = element.rights === "1" ? "Admin" : "Prof";
-            if (element.hasOwnProperty('applications')) {
-                element.applications.forEach(element_2 => {
-                    if (App.length > 0)
-                        App += ",";
-                    App += element_2.id;
-                });
-            }
-            data_table +=
-                `<tr>
-                <th scope="row" onclick="showGroupMembers(${element.group_id}, '${element.group_name}')">${element.group_name}<i class="fas fa-cog"></i></th>
-                <td>${element.pseudo}</td>
-                <td>${element.firstname}</td>
-                <td>${$droits}</td>
-                <td>
-                    ${App}
-                </td>
-                <td onclick="console.log(${element.id})">
-                    <button class="btn btn-info btn-sm" onclick="console.log(${element.id})">Envoyer</button>
-                </td>
-                <td onclick="console.log(${element.id})">
-                    <button class="btn btn-warning btn-sm" onclick="showupdateUserModal(${element.id})">Modifier</button>
-                </td>
-                <td onclick="console.log(${element.id})">
-                    <button class="btn btn-danger btn-sm" onclick="deleteUser(${element.id})">Supprimer</button>
-                </td>
-                </tr>`;
-        });
-        $('#groups_table_superadmin').html(data_table);
-    } */
