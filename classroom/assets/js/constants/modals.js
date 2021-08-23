@@ -478,22 +478,14 @@ const classroomModals = {
         </div>
     </div>
     
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <div class="input-group-text">
-              <input type="checkbox" id="u_is_group_admin_ga">
-              <label class="form-check-label mx-1" for="u_is_group_admin_ga">
-                    Administrateur du groupe
-                </label>
-            </div>
+    <div class="row">
+        <legend class="col-form-label col-sm-2 pt-0">Groupes</legend>
+        <div class="col-sm-10" id="allGroupsGA">
+            
         </div>
-          <select class="form-control" id="u_group_ga">
-          </select>
-          <button class="btn btn-sm btn-info ml-1" id="add_group_groupadmin">Ajouter un groupe</button>
     </div>
-    <div id="group_add_ga">
-    
-    </div>
+    <label class="form-check-label mx-2" for="checkboxAdmin"> Administateur de groupe </label>
+    <input type="checkbox" id="checkboxAdmin">
     
     <button class="btn btn-primary" onclick="createUserAndLinkToGroup_groupAdmin()">Create user</button>`,
         footer: ``

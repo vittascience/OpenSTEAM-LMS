@@ -1701,16 +1701,18 @@ $('#create_user_link_to_group_groupadmin').click(function () {
     MGA.getGroupAdminManager()._addedCreateUserGroup = 0;
     pseudoModal.openModal('groupeadmin-create-user');
     // Bind les fonctions aux selects qui viennent d'être créés
-    checkboxGestion(1);
+
     $saved_groups = MGA.getGroupAdminManager()._comboGroups;
-    if ($saved_groups.length > 0) {
-        appendSelectGroups($saved_groups, 'u_group_ga');
-    } else {
-        MGA.getGroupAdminManager().getAllGroups().then(function (res) {
-            MGA.getGroupAdminManager()._comboGroups = res;
-            appendSelectGroups(res, 'u_group_ga');
-        });
-    }
+    let radioHTML = "";
+    $saved_groups.forEach(element => {
+        radioHTML += `<div class="form-check">
+                        <input class="form-check-input" type="radio" name="groupsRadio" id="groupRadio${element.id}" value="${element.id}" checked>
+                        <label class="form-check-label" for="groupRadio${element.id}">
+                            ${element.name}
+                        </label>
+                    </div>`;
+    });
+    $('#allGroupsGA').html(radioHTML);
 
     $('#user_teacher_grade_ga').change(() => {
         switch ($('#user_teacher_grade_ga').val()) {
@@ -1734,28 +1736,6 @@ $('#create_user_link_to_group_groupadmin').click(function () {
         }
     })
     createSubjectSelect(FirstGradeSubjects, 1);
-
-    $('#add_group_groupadmin').click(() => {
-        const numberOfAddedGroup = MGA.getGroupAdminManager()._addedCreateUserGroup + 1;
-        let HtmlToAdd = `<div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                            <input type="checkbox" id="u_is_group_admin_ga${numberOfAddedGroup}">
-                            <label class="form-check-label mx-1" for="u_is_group_admin_ga${numberOfAddedGroup}">
-                                    Administrateur du groupe
-                                </label>
-                            </div>
-                        </div>
-                        <select class="form-control" id="u_group_ga${numberOfAddedGroup}">
-                        </select>
-                    </div>`;
-        $('#group_add_ga').append(HtmlToAdd);
-
-        $saved_groups = MGA.getGroupAdminManager()._comboGroups;
-        let item_id = 'u_group_ga' + numberOfAddedGroup;
-        appendSelectGroups($saved_groups, item_id);
-        MGA.getGroupAdminManager()._addedCreateUserGroup += 1;
-    })
 });
 
 function createUserAndLinkToGroup_groupAdmin() {
@@ -1768,12 +1748,10 @@ function createUserAndLinkToGroup_groupAdmin() {
         $school = $('#u_school_ga').val(),
         $teacher_grade = $('#user_teacher_grade_ga').val(),
         $teacher_suject = $('#user_teacher_subjects_ga').val(),
-        $groups = [];
-
-    $groups.push([$('#u_is_group_admin_ga').is(':checked'), $('#u_group_ga').val()])
-    for (let index = 1; index < MGA.getGroupAdminManager()._addedCreateUserGroup + 1; index++) {
-        $groups.push([$('#u_is_group_admin_ga' + index).is(':checked'), $('#u_group_ga' + index).val()])
-    }
+        $groups = [
+            $('#checkboxAdmin').is(':checked'),
+            $(':checked[name="groupsRadio"]').val()
+        ];
 
     MGA.getGroupAdminManager().createUserAndLinkToGroup($firstname, $surname, $pseudo, $phone, $mail, $bio, $groups, $teacher_grade, $teacher_suject, $school);
     pseudoModal.closeAllModal();

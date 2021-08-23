@@ -886,7 +886,38 @@
 	"superadmin": {
 		"profil": {
 			"superAdmin": "Passer en mode superadmin",
-			"groupAdmin": "Passer en mode admin de groupe"
+			"groupAdmin": "Passer en mode admin de groupe",
+			"bio": "Bio <span class=\"text-danger\">*</span>",
+			"email": "E-mail <span class=\"text-danger\">*</span>",
+			"nickname": "Pseudo <span class=\"text-danger\">*</span>",
+			"lastname": "Nom <span class=\"text-danger\">*</span>",
+			"firstname": "Prénom <span class=\"text-danger\">*</span>",
+			"phone": "Numéro de téléphone",
+			"grade": "Niveau de formation <span class=\"text-danger\">*</span>",
+			"subject": "Matière enseignée <span class=\"text-danger\">*</span>",
+			"school": "Établissement <span class=\"text-danger\">*</span>",
+			"password": "Mot de passe <span class=\"text-danger\">*</span>",
+			"confirmPassword": "Confirmer le mot de passe <span class=\"text-danger\">*</span>"
+		},
+		"account": {
+			"activate": {
+				"success": "Votre compte à bien été activé !",
+				"alreadyactive": "Votre compte est déjà actif."
+			},
+			"registration": {
+				"success": "Inscription réussie !",
+				"emailSent": "Un e-mail vient de vous être envoyé, suivez le lien dans celui-ci pour activer votre compte et continuez votre liaison au groupe \"<span id=\"gourpName2\"></span>\"",
+				"accountPublic": "Acceptez-vous que votre nom et prénom soient publics sur le site ?",
+				"newsletter": "Souhaitez-vous recevoir notre newsletter par mail ?",
+				"mailAlert": "Souhaitez-vous recevoir des alertes par mail lors de la réception de nouveaux messages sur le site ?",
+				"allowContact": "Souhaitez-vous pouvoir être contacté par les autres utilisateurs du site ?",
+				"confirmAdult": "Je confirme avoir plus de 18 ans (article 1124 du code civil)*",
+				"disclaimerVittascience": "Vittascience place la sécurité et la confidentialité des données personnelles de ses utilisateurs au coeur de ses préoccupations. Découvrez<a href=\"http://vittascience.com/privacy\"> notre politique de protection des données personnelles</a> ",
+				"mandatory": "Les champs marqués par un <span class=\"text-danger\">*</span> sont obligatoires.",
+				"cguVittascience": "En validant ce formulaire, vous acceptez les <a href=\"http://vittascience.com/\"> conditions générales d'utilisation</a>.",
+				"description": "Merci de compléter les champs suivants pour créer votre compte.",
+				"title": "Inscription"
+			}
 		},
 		"users": {
 			"add": "Ajouter un utilisateur",
@@ -918,10 +949,25 @@
 				"signin": "Se connecter",
 				"signinSubtitle": "Entrez vos identifiants pour accèder à votre compte",
 				"addressMail": "Adresse mail",
-				"phone": "Numéro de téléphone",
-				"grade": "Niveau de formation",
-				"subject": "Matière enseignée",
-				"school": "Établissement"
+				"disclaimer": "En rejoignant ce groupe, vous autorisez l'admin du groupe à mofidier et / ou désactiver votre compte. Vous disposerez aussi des applications que le groupe possède.",
+				"lastStep": "Il ne reste plus qu'une étape ! Cliquez sur le bouton si dessous pour finaliser la liaison.",
+				"joinGroup": "Vous vous apprêtez à rejoindre le groupe \"<span id='groupNameConfirmLink'></span>\"",
+				"notfound": "Groupe introuvable !",
+				"notfoundDetails": "Nous ne trouvons aucun groupe lié au lien <span id='gourpName3'></span>.",
+				"clickToRedirectLogin": "Cliquez sur continuer pour être redirigé vers la page de connexion.",
+				"clickToRedirectHome": "Cliquez sur continuer pour être redirigé vers la page d'accueil.",
+				"invalidLink": "Lien invalide !",
+				"invalidFormatLink": "Le format du lien que vous avez entré ne correspond pas.",
+				"success": "Vous avez rejoint le groupe \"<span id=\"gourpName\"></span>\" !",
+				"alreadyLinked": "Vous faites déjà partie de ce groupe.",
+				"error": "Une erreur est survenue lors de la liaison.",
+				"userNotFound": "L'utilisateur n'a pas été trouvé, vous pouvez cliquer sur continuer afin d'être redirigé vers la page de login.",
+				"contactAdmin": "Si le problème persiste contactez l'administration.",
+				"mail": {
+					"textBeforeName": "L'utilisateur : ",
+					"textAfterName": "a rejoint le groupe : ",
+					"emailSubject": "Un utilisateur à rejoint le groupe"
+				}
 			}
 		},
 		"buttons": {
@@ -930,6 +976,7 @@
 			"cancel": "Annuler",
 			"login": "Se connecter",
 			"signup": "S'incrire",
+			"join": "Rejoindre",
 			"user": {
 				"add": "Ajouter l'utilisateur",
 				"create": "Créer l'utilisateur",

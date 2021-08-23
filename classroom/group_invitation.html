@@ -9,16 +9,15 @@
 
                 <div class="col-md-12">
                     <h3 class="font-weight-bold green-vitta text-center mb-4 text-uppercase"
-                        data-i18n="classroom.login.register.title"></h3>
-                    <p class="text-center" data-i18n="classroom.login.register.description"></p>
+                        data-i18n="superadmin.account.registration.title"></h3>
+                    <p class="text-center" data-i18n="superadmin.account.registration.description"></p>
                 </div>
 
                 <div class="col-md-6">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-first-name" class="tutorial-label"
-                            data-i18n="classroom.profil.accountSettings.firstname"></label>
-                        <span class="text-danger"> *</span>
+                            data-i18n="[html]superadmin.profil.firstname"></label>
                         <input type="text" name="first-name" id="profile-form-first-name"
                             class="form-control form-control-lg">
                     </div>
@@ -27,8 +26,7 @@
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-last-name" class="tutorial-label"
-                            data-i18n="classroom.profil.accountSettings.lastname"></label>
-                        <span class="text-danger"> *</span>
+                            data-i18n="[html]superadmin.profil.lastname"></label>
                         <input type="text" name="last-name" id="profile-form-last-name"
                             class="form-control form-control-lg">
                     </div>
@@ -38,8 +36,7 @@
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-pseudo" class="tutorial-label"
-                            data-i18n="classroom.profil.accountSettings.nickname"></label>
-                        <span class="text-danger"> *</span>
+                            data-i18n="[html]superadmin.profil.nickname"></label>
                         <input type="text" name="pseudo" id="profile-form-pseudo" class="form-control form-control-lg">
                     </div>
                 </div>
@@ -48,8 +45,7 @@
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-email" class="tutorial-label"
-                            data-i18n="classroom.profil.accountSettings.email"></label>
-                        <span class="text-danger"> *</span>
+                            data-i18n="[html]superadmin.profil.email"></label>
                         <input type="email" name="email" id="profile-form-email" class="form-control form-control-lg">
                     </div>
                 </div>
@@ -58,7 +54,7 @@
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-phone" class="tutorial-label"
-                            data-i18n="superadmin.group.join.phone"></label>
+                            data-i18n="superadmin.profil.phone"></label>
                         <input type="text" name="phone-number" class="form-control form-control-lg"
                             id="profile-form-phone" class="form-control form-control-lg">
                     </div>
@@ -67,8 +63,8 @@
                 <div class="col-md-12">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
-                        <label for="profile-form-bio" class="tutorial-label">Bio <span
-                                class="text-danger">*</span></label>
+                        <label for="profile-form-bio" class="tutorial-label"
+                            data-i18n="[html]superadmin.profil.bio"></label>
                         <textarea class="form-control form-control-lg" name="mini-bio" id="profile-form-bio"
                             rows="3"></textarea>
                     </div>
@@ -78,8 +74,7 @@
                     <div class="form-row mb-4">
                         <img src="assets/media/green_lock.png" class="icon-label">
                         <label for="profile-form-school" class="tutorial-label"
-                            data-i18n="superadmin.group.join.school"></label>
-                        <span class="text-danger"> *</span>
+                            data-i18n="[html]superadmin.profil.school"></label>
                         <input type="text" class="form-control form-control-lg" name="school" id="profile-form-school">
                     </div>
                 </div>
@@ -88,8 +83,7 @@
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-grade" class="tutorial-label"
-                            data-i18n="superadmin.group.join.grade"></label>
-                        <span class="text-danger"> *</span>
+                            data-i18n="[html]superadmin.profil.grade"></label>
                         <select class="form-control" id="profile-form-grade" name="grade">
                             <option selected value="0">Primaire</option>
                             <option value="1">Collège</option>
@@ -104,8 +98,7 @@
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-subject" class="tutorial-label"
-                            data-i18n="superadmin.group.join.subject"></label>
-                        <span class="text-danger"> *</span>
+                            data-i18n="[html]superadmin.profil.subject"></label>
                         <select class="form-control" id="profile-form-subject" name="subject">
                         </select>
                     </div>
@@ -114,25 +107,22 @@
                 <div class="col-md-6">
                     <div>
                         <img src="assets/media/green_lock.png" class="icon-label">
-                        <span class="text-danger"> *</span>
                         <label for="profile-form-password" class="tutorial-label"
-                            data-i18n="classroom.profil.accountSettings.password"></label>
+                            data-i18n="[html]superadmin.profil.password"></label>
                     </div>
                     <div class="form-inline">
                         <input type="password" name="password" id="profile-form-password"
                             class="form-control form-control-lg">
                         <i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
-                        <p class="font-italic ml-2" data-i18n="classroom.login.register.passwordConstraints"></p>
+                        <p class="font-italic ml-2" data-i18n="superadmin.profil.passwordConstraints"></p>
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <img src="assets/media/green_lock.png" class="icon-label">
-                    <span class="text-danger"> *</span>
                     <label for="profile-form-confirm-password" class="tutorial-label"
-                        data-i18n="classroom.profil.accountSettings.confirmPassword"></label>
+                        data-i18n="[html]superadmin.profil.confirmPassword"></label>
                     <div class="form-inline">
-
                         <input type="password" name="confirm-password" id="profile-form-confirm-password"
                             class="form-control form-control-lg">
                         <i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
@@ -140,54 +130,45 @@
                 </div>
             </div>
 
-
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="cb_name_public">
-                <label class="form-check-label" for="cb_name_public">
-                    Acceptez-vous que votre nom et prénom soient publics sur le site ?
+                <label class="form-check-label" for="cb_name_public"
+                    data-i18n="superadmin.account.registration.accountPublic">
                 </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="cb_newsletter">
-                <label class="form-check-label" for="cb_newsletter">
-                    Souhaitez-vous recevoir notre newsletter par mail ?
+                <label class="form-check-label" for="cb_newsletter"
+                    data-i18n="superadmin.account.registration.newsletter">
                 </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="cb_alert_mail">
-                <label class="form-check-label" for="cb_alert_mail">
-                    Souhaitez-vous recevoir des alertes par mail lors de la réception de nouveaux messages sur le site ?
+                <label class="form-check-label" for="cb_alert_mail"
+                    data-i18n="superadmin.account.registration.mailAlert">
                 </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="cb_allow_contact">
-                <label class="form-check-label" for="cb_allow_contact">
-                    Souhaitez-vous pouvoir être contacté par les autres utilisateurs du site ?
+                <label class="form-check-label" for="cb_allow_contact"
+                    data-i18n="superadmin.account.registration.allowContact">
                 </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="cb_adult" required>
-                <label class="form-check-label" for="cb_adult">
-                    Je confirme avoir plus de 18 ans (article 1124 du code civil)*
+                <label class="form-check-label" for="cb_adult" data-i18n="superadmin.account.registration.confirmAdult">
                 </label>
             </div>
 
             <div class="col-md-12 d-flex flex-column align-items-center">
-                <input class="btn c-btn-secondary m-3" type="submit" data-i18n="[value]classroom.login.signup">
+                <input class="btn browse-button mx-auto mt-3 btn-lg" type="submit"
+                    data-i18n="[value]classroom.login.signup">
             </div>
 
-            <p>Vittascience place la sécurité et la confidentialité des données personnelles de ses utilisateurs au
-                coeur
-                de ses préoccupations. Découvrez<a href="http://vittascience.com/privacy"> notre politique de protection
-                    des données personnelles</a> </p>
-            <p>Les champs marqués par un <span class="text-danger">*</span> sont obligatoires.</p>
-            <p>En validant ce formulaire, vous acceptez les <a href="http://vittascience.com/"> conditions
-                    générales d'utilisation</a>.</p>
+            <p data-i18n="[html]superadmin.account.registration.disclaimerVittascience"></p>
+            <p data-i18n="[html]superadmin.account.registration.mandatory"></p>
+            <p data-i18n="[html]superadmin.account.registration.cguVittascience"></p>
         </form>
-        <button onclick="returnToConnectionPanel('#classroom-login-container-bis')"
-            class="btn close-login-classroom mt-3 mr-3">
-            <i class="fas fa-times"></i>
-        </button>
     </div>
 </div>
 
@@ -236,11 +217,12 @@
 <div id="group-joinded-container" style="display:none;">
     <div class="inner-login-container">
         <div class="col-12">
-            <h3 class="font-weight-bold green-vitta m-auto text-center">Vous avez rejoint le groupe
-                "<span id="gourpName"></span>" !</h3>
-            <p class="text-center">Appuyez sur continuer pour être redirigé vers la page d'accueil.</p>
+            <h3 class="font-weight-bold green-vitta m-auto text-center" data-i18n="[html]superadmin.group.join.success">
+            </h3>
+            <p class="text-center" data-i18n="superadmin.group.join.clickToRedirectHome"></p>
         </div>
-        <button class="btn browse-button mx-auto mt-3 btn-lg" onclick="goToHome()">Continuer</button>
+        <button class="btn browse-button mx-auto mt-3 btn-lg" onclick="goToHome()"
+            data-i18n="superadmin.buttons.continue"></button>
     </div>
 </div>
 
@@ -248,10 +230,9 @@
 <div id="registration-successful" style="display:none;">
     <div class="inner-login-container">
         <div class="col-12">
-            <h3 class="font-weight-bold green-vitta m-auto text-center">Inscription réussie !</h3>
-            <p class="text-center">
-                <p class="text-center">Un e-mail vient de vous être envoyé, suivez le lien dans celui-ci pour activer
-                    votre compte et continuez votre liaison au groupe "<span id="gourpName2"></span>"</p>
+            <h3 class="font-weight-bold green-vitta m-auto text-center"
+                data-i18n="superadmin.account.registration.success"></h3>
+            <p class="text-center" data-i18n="[html]superadmin.account.registration.emailSent"></p>
         </div>
     </div>
 </div>
@@ -260,8 +241,9 @@
 <div id="invalid-link" style="display:none;">
     <div class="inner-login-container">
         <div class="col-12">
-            <h3 class="font-weight-bold green-vitta m-auto text-center">Lien invalide !</h3>
-            <p class="text-center">Le format du lien que vous avez entré ne correspond pas.</p>
+            <h3 class="font-weight-bold green-vitta m-auto text-center" data-i18n="superadmin.group.join.invalidLink">
+            </h3>
+            <p class="text-center" data-i18n="superadmin.group.join.invalidFormatLink"></p>
         </div>
     </div>
 </div>
@@ -270,10 +252,12 @@
 <div id="account-activated" style="display:none;">
     <div class="inner-login-container">
         <div class="col-12">
-            <h3 class="font-weight-bold green-vitta m-auto text-center">Votre compte à bien été activé !</h3>
-            <p class="text-center">Cliquez sur continuer pour être redirigé vers la page de connexion.</p>
+            <h3 class="font-weight-bold green-vitta m-auto text-center" data-i18n="superadmin.account.activate.success">
+            </h3>
+            <p class="text-center" data-i18n="superadmin.group.join.clickToRedirectLogin"></p>
         </div>
-        <button class="btn browse-button mx-auto mt-3 btn-lg" onclick="goToLogin()">Continuer</button>
+        <button class="btn browse-button mx-auto mt-3 btn-lg" onclick="goToLogin()"
+            data-i18n="superadmin.buttons.continue"></button>
     </div>
 </div>
 
@@ -281,8 +265,9 @@
 <div id="group-not-found" style="display:none;">
     <div class="inner-login-container">
         <div class="col-12">
-            <h3 class="font-weight-bold green-vitta m-auto text-center">Groupe introuvable !</h3>
-            <p class="text-center">Nous ne trouvons aucun groupe lié au lien <span id="gourpName3"></span>.</p>
+            <h3 class="font-weight-bold green-vitta m-auto text-center" data-i18n="superadmin.group.join.notfound">
+            </h3>
+            <p class="text-center" data-i18n="[html]superadmin.group.join.notfoundDetails"></p>
         </div>
     </div>
 </div>
@@ -291,13 +276,18 @@
 <div id="confirm-link-to-group" style="display:none;">
     <div class="inner-login-container">
         <div class="col-12">
-            <h3 class="font-weight-bold green-vitta m-auto text-center">Vous vous apprêtez à rejoindre le groupe "<span
-                    id="groupNameConfirmLink"></span>"</h3>
-            <p class="text-center">Il ne reste plus qu'une étape ! Cliquez sur le bouton si dessous pour finaliser la
-                liaison.</p>
+            <h3 class="font-weight-bold green-vitta m-auto text-center"
+                data-i18n="[html]superadmin.group.join.joinGroup">
+            </h3>
+            <p class="text-center" data-i18n="superadmin.group.join.disclaimer"></p>
+            <p class="text-center" data-i18n="superadmin.group.join.lastStep"></p>
         </div>
-        <button class="btn browse-button mx-auto mt-3 btn-lg" id="linkTeacherToGroupBtn"
-            onclick="linkTeacherToGroupProcess()">Rejoindre</button>
+        <div class="row mx-auto">
+            <button class="btn browse-button mx-3 mt-3 btn-lg" id="linkTeacherToGroupBtn"
+                onclick="linkTeacherToGroupProcess()" data-i18n="superadmin.buttons.join"></button>
+            <button class="btn btn-danger mx-3 mt-3 btn-lg" data-i18n="superadmin.buttons.cancel"
+                onclick="goToHome()"></button>
+        </div>
     </div>
 </div>
 
@@ -305,10 +295,12 @@
 <div id="already-active" style="display:none;">
     <div class="inner-login-container">
         <div class="col-12">
-            <h3 class="font-weight-bold green-vitta m-auto text-center">Votre compte est déjà actif.</h3>
-            <p class="text-center">Cliquez sur continuer pour être redirigé vers la page de connexion.</p>
+            <h3 class="font-weight-bold green-vitta m-auto text-center"
+                data-i18n="superadmin.account.activate.alreadyactive"></h3>
+            <p class="text-center" data-i18n="superadmin.group.join.clickToRedirectLogin"></p>
         </div>
-        <button class="btn browse-button mx-auto mt-3 btn-lg" onclick="goToLogin()">Continuer</button>
+        <button class="btn browse-button mx-auto mt-3 btn-lg" onclick="goToLogin()"
+            data-i18n="superadmin.buttons.continue"></button>
     </div>
 </div>
 
@@ -316,10 +308,12 @@
 <div id="already-linked" style="display:none;">
     <div class="inner-login-container">
         <div class="col-12">
-            <h3 class="font-weight-bold green-vitta m-auto text-center">Vous faites déjà partie de ce groupe.</h3>
-            <p class="text-center">Cliquez sur continuer pour être redirigé vers l'accueil.</p>
+            <h3 class="font-weight-bold green-vitta m-auto text-center" data-i18n="superadmin.group.join.alreadyLinked">
+            </h3>
+            <p class="text-center" data-i18n="superadmin.group.join.clickToRedirectHome"></p>
         </div>
-        <button class="btn browse-button mx-auto mt-3 btn-lg" onclick="goToHome()">Continuer</button>
+        <button class="btn browse-button mx-auto mt-3 btn-lg" onclick="goToHome()"
+            data-i18n="superadmin.buttons.continue"></button>
     </div>
 </div>
 
@@ -327,11 +321,12 @@
 <div id="no-teacher" style="display:none;">
     <div class="inner-login-container">
         <div class="col-12">
-            <h3 class="font-weight-bold green-vitta m-auto text-center">Une erreur est survenue lors de la liaison.</h3>
-            <p class="text-center">L'utilisateur n'a pas été trouvé, vous allez être redirigé vers la page de login.</p>
-            <p class="text-center">Si le problème persiste contactez l'administration.</p>
+            <h3 class="font-weight-bold green-vitta m-auto text-center" data-i18n="superadmin.group.join.error"></h3>
+            <p class="text-center" data-i18n="superadmin.group.join.userNotFound"></p>
+            <p class="text-center" data-i18n="superadmin.group.join.contactAdmin"></p>
         </div>
-        <button class="btn browse-button mx-auto mt-3 btn-lg" onclick="goToLogin()">Continuer</button>
+        <button class="btn browse-button mx-auto mt-3 btn-lg" onclick="goToLogin()"
+            data-i18n="superadmin.buttons.continue"></button>
     </div>
 </div>
 
@@ -449,7 +444,10 @@
                 break;
             case 'confirm':
                 $('#confirm-link-to-group').toggle();
-                $('#groupNameConfirmLink').text(groupName);
+                // if not delayed, the span appear after this line and the group name is not showed
+                setTimeout(() => {
+                    $('#groupNameConfirmLink').text(groupName);
+                }, 150);
                 break;
             case 'success':
                 $('#group-joinded-container').toggle();
