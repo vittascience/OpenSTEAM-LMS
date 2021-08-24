@@ -3,16 +3,16 @@
 namespace Superadmin\Repository;
 
 use User\Entity\User;
-use Superadmin\Entity\Groups;
-use Doctrine\ORM\Query\Expr\Join;
-use Superadmin\Entity\Applications;
-use Superadmin\Entity\GroupsLinkApplications;
-use Doctrine\ORM\EntityRepository;
-use Superadmin\Entity\UsersLinkGroups;
-use Superadmin\Entity\UsersLinkApplications;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use User\Entity\Regular;
 use User\Entity\Teacher;
+use Superadmin\Entity\Groups;
+use Superadmin\Entity\Applications;
+use Superadmin\Entity\GroupsLinkApplications;
+use Superadmin\Entity\UsersLinkGroups;
+use Superadmin\Entity\UsersLinkApplications;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\ORM\Query\Expr\Join;
 
 class UsersLinkGroupsRepository extends EntityRepository
 {
@@ -84,7 +84,7 @@ class UsersLinkGroupsRepository extends EntityRepository
         // Récupère les applications liées à des utilisateurs
         $ApplicationsOfUsers = $this->getEntityManager()
                                 ->createQueryBuilder()
-                                ->select("a.id AS application_id, a.image AS application_image, u.id AS user_id")
+                                ->select("a.id AS application_id, a.image AS application_image, u.id AS user_id, ula.dateBegin as date_begin, ula.dateEnd as date_end")
                                 ->from(Applications::class,'a')
                                 ->innerJoin(UsersLinkApplications::class,'ula', Join::WITH, 'a.id = ula.application')
                                 ->innerJoin(User::class,'u', Join::WITH, 'u.id = ula.user')
@@ -108,7 +108,10 @@ class UsersLinkGroupsRepository extends EntityRepository
         foreach ($records as $key => $value) {
             foreach ($ApplicationsOfUsers as $key2 => $value2) {
                 if ((int)$value['id'] == (int)$value2['user_id']) {
-                    $records[$key]['applications'][] = ['id' => $value2['application_id'], 'image' => $value2['application_image']];
+                    $records[$key]['applications'][] = ['id' => $value2['application_id'], 
+                                                        'image' => $value2['application_image'], 
+                                                        'date_end' => $value2['date_end'], 
+                                                        'date_begin' => $value2['date_begin']];
                 }
             }
         }
@@ -163,6 +166,64 @@ class UsersLinkGroupsRepository extends EntityRepository
                 ->setParameter('id',$user_id)
                 ->getQuery()
                 ->getScalarResult();
+
+        // Récupère les applications liées à l'utilisateur
+        $ApplicationsOfUsers = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select("a.id AS application_id, a.image AS application_image, u.id AS user_id, ula.dateBegin as date_begin, ula.dateEnd as date_end")
+                ->from(Applications::class,'a')
+                ->innerJoin(UsersLinkApplications::class,'ula', Join::WITH, 'a.id = ula.application')
+                ->innerJoin(User::class,'u', Join::WITH, 'u.id = ula.user')
+                ->where('ula.user = :id')
+                ->setParameter('id',$user_id)
+                ->getQuery()
+                ->getScalarResult();
+
+        foreach ($LinkUserAndGroups as $key_2 => $value_2) {
+            if ((int)$User[0]['id'] == (int)$value_2['user']) {
+                $User[0]['groups'][] = ['id' => $value_2['group'], 'rights' => $value_2['rights']];
+            }
+        }
+
+         // Set les applications aux groupes qui les possèdent dans le resultat initial
+        foreach ($ApplicationsOfUsers as $key2 => $value2) {
+            if ((int)$User[0]['id'] == (int)$value2['user_id']) {
+                $User[0]['applications'][] = ['id' => $value2['application_id'], 
+                                                'image' => $value2['application_image'], 
+                                                'date_end' => $value2['date_end'], 
+                                                'date_begin' => $value2['date_begin']];
+            }
+        }
+
+        return $User;
+    }
+
+        /**
+     * @Return User
+     */
+    public function getUsersWithHisGroupsGA(Int $user_id) {
+
+        $User = $this->getEntityManager()
+                        ->createQueryBuilder()
+                        ->select('u.id, u.firstname, u.surname, u.pseudo, r.email, r.telephone, r.bio, t.grade, t.subject, t.school')
+                        ->from(User::class,'u')
+                        ->leftJoin(Regular::class, 'r', 'WITH', 'r.user = u.id')
+                        ->leftJoin(Teacher::class, 't', 'WITH', 't.user = u.id')
+                        ->where('u.id = :id')
+                        ->setParameter('id',$user_id)
+                        ->getQuery()
+                        ->getResult();
+        
+
+        $LinkUserAndGroups = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('IDENTITY(ulg.user) as user, IDENTITY(ulg.group) as group, ulg.rights')
+                ->from(UsersLinkGroups::class,'ulg')
+                ->where('ulg.user = :id')
+                ->setParameter('id',$user_id)
+                ->getQuery()
+                ->getScalarResult();
+
 
         foreach ($LinkUserAndGroups as $key_2 => $value_2) {
             if ((int)$User[0]['id'] == (int)$value_2['user']) {
@@ -252,6 +313,50 @@ class UsersLinkGroupsRepository extends EntityRepository
         ->setParameter('name','%' . $string . '%')
         ->groupBy('u.id')
         ->getQuery();
+
+        // Initialise l'outil de pagination et les variables qui seront envoyées au javascript
+        $paginator = new Paginator($Users);
+        $paginator->setUseOutputWalkers(false);
+        $totalItems = count($paginator);
+        $currentPage = $page;
+        $totalPagesCount = ceil($totalItems/$userspp);
+        $nextPage = (($currentPage < $totalPagesCount) ? $currentPage + 1 : $totalPagesCount);
+        $previousPage = (($currentPage > 1) ? $currentPage - 1 : 1);
+
+        $records = $paginator->getQuery()
+                            ->setFirstResult($userspp*($currentPage-1))
+                            ->setMaxResults($userspp)
+                            ->getScalarResult();
+
+        $records[] = ['totalItems' => $totalItems, 'currentPage' => (int)$currentPage, 'totalPagesCount' => $totalPagesCount, 'nextPage' => $nextPage, 'previousPage' => $previousPage];
+
+        return $records;
+    }
+
+    /**
+     * @Return array of User
+     */
+    public function globalSearchUserGA(String $string, Int $page, Int $userspp, $AdmGrp) {
+
+        
+        $ids_groups = [];
+        foreach ($AdmGrp as $key => $value) {
+            $ids_groups[] = $value->getGroup();
+        }
+        // Get alls members with the property name somewhere where the user is related with a group where the requester is admin
+        $Users = $this->getEntityManager()
+                        ->createQueryBuilder()->select("u.id, u.firstname, u.surname, u.pseudo, r.email")
+                        ->from(User::class,'u')
+                        ->leftJoin(Regular::class, 'r', 'WITH', 'r.user = u.id')
+                        ->innerJoin(UsersLinkGroups::class, 'ulg')
+                        ->where('ulg.user = u.id AND ulg.group IN (:ids)')
+                        ->andwhere('u.firstname LIKE :name OR u.surname LIKE :name OR u.pseudo LIKE :name OR r.email LIKE :name')
+                        ->setParameter('name','%' . $string . '%')
+                        ->setParameter('ids', $ids_groups)
+                        ->groupBy('u.id')
+                        ->getQuery();
+
+                        
 
         // Initialise l'outil de pagination et les variables qui seront envoyées au javascript
         $paginator = new Paginator($Users);

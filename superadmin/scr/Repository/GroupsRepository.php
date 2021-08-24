@@ -3,10 +3,10 @@
 namespace Superadmin\Repository;
 
 use Superadmin\Entity\Groups;
-use Doctrine\ORM\Query\Expr\Join;
 use Superadmin\Entity\Applications;
-use Doctrine\ORM\EntityRepository;
 use Superadmin\Entity\GroupsLinkApplications;
+use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
@@ -71,7 +71,7 @@ class GroupsRepository extends EntityRepository
 
     public function getGroupInfo($group_id) {
         $Group = $this->getEntityManager()
-                        ->createQueryBuilder()->select("g.id, g.name,g.description")
+                        ->createQueryBuilder()->select("g.id, g.name, g.description, g.link")
                         ->from(Groups::class,'g')
                         ->where('g.id = :id ')
                         ->setParameter('id',$group_id)
