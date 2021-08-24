@@ -947,13 +947,14 @@
 			"showResetLink": "Lien de réinitialisation du mot de passe.",
 			"groupAdmin": "Administateur du groupe",
 			"admin": "Administrateur",
-			"teacher": "Enseignant"
+			"teacher": "Enseignant",
+			"usersPerPage": "Utilisateurs par page"
 		},
 		"group": {
 			"add": "Ajouter un groupe",
 			"create": "Créer un groupe",
 			"delete": "Supprimer un groupe",
-			"deleteIntention": "Vous vous apprêtez à suppression le groupe : <span id=\"md_group\"></span>",
+			"deleteIntention": "Vous vous apprêtez à supprimer le groupe : <span id=\"md_group\"></span>",
 			"update": "Modifier un groupe",
 			"join": {
 				"firstVisit": "Première visite ?",
@@ -983,7 +984,8 @@
 			"name": "Nom du groupe",
 			"description": "Description du groupe",
 			"link": "Lien du groupe",
-			"applications": "Application(s) du groupe"
+			"applications": "Application(s) du groupe",
+			"groupsPerPage": "Groupes par page"
 		},
 		"buttons": {
 			"continue": "Continuer",
@@ -994,6 +996,11 @@
 			"join": "Rejoindre",
 			"save": "Enregistrer",
 			"close": "Fermer",
+			"disable": "Désactiver",
+			"delete": "Supprimer",
+			"reset": "Réinitialiser",
+			"update": "Modifier",
+			"search": "Rechercher",
 			"copyLink": "Copier le lien",
 			"user": {
 				"add": "Ajouter l'utilisateur",
@@ -1016,9 +1023,8 @@
 		},
 		"sort": {
 			"user": {
-				"byname": "Trier par nom",
-				"bysurname": "Trier par surnom",
-				"bypseudo": "Trier par pseudo"
+				"bylastname": "Trier par Nom",
+				"byfirstname": "Trier par Prénom"
 			},
 			"group": {
 				"byname": "Trier par nom",
@@ -1029,6 +1035,15 @@
 			"placeholder": {
 				"delete": "supprimer"
 			}
+		},
+		"table": {
+			"lastname": "Nom",
+			"firstname": "Prénom",
+			"applications": "Applications",
+			"group": "Groupe",
+			"description": "Description",
+			"right": "Rôle",
+			"resetPassword": "Réinitialiser le mot de passe" 
 		}
 	}
 }

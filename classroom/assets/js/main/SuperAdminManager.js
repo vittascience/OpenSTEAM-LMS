@@ -451,43 +451,6 @@ class SuperAdminManager {
         })
     }
 
-    /* getAllUsersInAGroup() {
-        const process = (res) => {
-            MSA.getSuperAdminManager()._allMembersInAGroup = res;
-            let data_table = "";
-            res.forEach(element => {
-                let App = "";
-                // Affiche simplement l'id des applcatations pour le moment
-                let $droits = element.rights === "1" ? "Admin" : "Prof";
-                data_table +=
-                    `<tr>
-                <th scope="row">${element.firstname}</i></th>
-                <td>${element.surname}</td>
-                <td>${element.pseudo}</td>
-                <td>${$droits}</td>
-                <td>
-                    <button class="btn btn-warning btn-sm" onclick="showupdateUserModal(${element.id})">Update</button>
-                </td>
-                <td>
-                    <button class="btn btn-danger btn-sm" onclick="disableUser(${element.id})">Delete</button>
-                </td>
-                </tr>`;
-            });
-            $('#users_table_superadmin').html(data_table);
-        }
-        $.ajax({
-            type: "POST",
-            url: "/routing/Routing.php?controller=superadmin&action=get_all_users_in_a_group",
-            success: function (response) {
-                process(JSON.parse(response));
-            },
-            error: function () {
-                reject();
-            }
-        });
-    } */
-
-
     showGroupMembers($group_id, $page, $userspp, $sort) {
         MSA.getSuperAdminManager()._actualGroup = $group_id;
         const process = (data) => {
@@ -549,9 +512,9 @@ class SuperAdminManager {
 
                     let rowDelete = "";
                     if ($group_id == -2)
-                        rowDelete = `<button class = "btn btn-danger btn-sm" onclick = "deleteUser(${element.id})"> Delete </button>`;
+                        rowDelete = `<button class = "btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="deleteUser(${element.id})"> Delete </button>`;
                     else
-                        rowDelete = `<button class = "btn btn-danger btn-sm" onclick = "disableUser(${element.id})"> Disabled </button>`;
+                        rowDelete = `<button class = "btn btn-danger btn-sm" data-i18n="superadmin.buttons.disable" onclick="disableUser(${element.id})"> Disabled </button>`;
 
                     $data_table +=
                         `<tr>
@@ -560,10 +523,10 @@ class SuperAdminManager {
                             <td>${$droits}</td>
                             <td>${div_img}</td>
                             <td>
-                                <button class="btn btn-info btn-sm" onclick="resetUserPassword(${element.id})">Send</button>
+                                <button class="btn btn-info btn-sm" data-i18n="superadmin.buttons.reset" onclick="resetUserPassword(${element.id})">Send</button>
                             </td>
                             <td>
-                                <button class="btn btn-warning btn-sm" onclick="showupdateUserModal(${element.id})">Update</button>
+                                <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateUserModal(${element.id})">Update</button>
                             </td>
                             <td>
                                 ${rowDelete}
@@ -590,83 +553,6 @@ class SuperAdminManager {
             }
         });
     }
-
-    /* searchUser($name, $page, $usersperpage, $group) {
-        const process = (res) => {
-            MSA.getSuperAdminManager()._allMembersAndTheirGroups = res;
-            let $data_table = "";
-            res.forEach(element => {
-                if (element.hasOwnProperty('currentPage')) {
-                    MSA.getSuperAdminManager()._paginationUsersInfo = element;
-                    let name = $('#name_user_search').val(),
-                        usersperpage = $('#users_per_page').val(),
-                        htmlButtons = "";
-
-                    if (element.previousPage > 1) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().searchUser(${name}, 1, ${usersperpage}, ${$group})">First Page</button>`;
-                    }
-                    if (element.currentPage > 1) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().searchUser(${name}, ${element.previousPage}, ${usersperpage}, ${$group})">${element.previousPage}</button>`;
-                    }
-                    htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
-                    if (element.currentPage < element.totalPagesCount) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().searchUser(${name}, ${element.nextPage}, ${usersperpage}, ${$group})">${element.nextPage}</button>`;
-                    }
-                    if (element.nextPage < element.totalPagesCount) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().searchUser(${name}, ${element.totalPagesCount}, ${usersperpage}, ${$group})">Last Page - ${element.totalPagesCount}</button>`;
-                    }
-
-                    $('#paginationButtons_users').html(htmlButtons);
-                } else {
-                    let $droits = " -- ";
-                    if (element.hasOwnProperty('rights')) {
-                        $droits = element.rights === "1" ? "Admin" : "Prof";
-                    }
-
-                    let div_img = ""
-                    if (element.hasOwnProperty('applications')) {
-                        element.applications.forEach(element_2 => {
-                            div_img += `<img src="assets/media/${element_2.image}" alt="Icône App">`;
-                        });
-                    }
-
-                    $data_table +=
-                        `<tr>
-                            <td>${element.surname}</td>
-                            <td>${element.firstname}</td>
-                            <td>${$droits}</td>
-                            <td>${div_img}</td>
-                            <td>
-                                <button class="btn btn-info btn-sm" onclick="resetUserPassword(${element.id})">Send</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-warning btn-sm" onclick="showupdateUserModal(${element.id})">Update</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-danger btn-sm" onclick="disableUser(${element.id})">Delete</button>
-                            </td>
-                        </tr>`;
-                }
-            });
-            $('#table_info_group_data').html($data_table);
-        }
-        $.ajax({
-            type: "POST",
-            url: "/routing/Routing.php?controller=superadmin&action=search_user_by_name",
-            data: {
-                name: $name,
-                page: $page,
-                userspp: $usersperpage,
-                group: $group
-            },
-            success: function (response) {
-                process(JSON.parse(response));
-            },
-            error: function () {
-                reject();
-            }
-        });
-    } */
 
     globalSearchUser($name, $page, $usersperpage) {
         const process = (res) => {
@@ -716,13 +602,13 @@ class SuperAdminManager {
                             <td>${$droits}</td>
                             <td>${div_img}</td>
                             <td>
-                                <button class="btn btn-info btn-sm" onclick="resetUserPassword(${element.id})">Send</button>
+                                <button class="btn btn-info btn-sm" data-i18n="superadmin.buttons.reset" onclick="resetUserPassword(${element.id})">Send</button>
                             </td>
                             <td>
-                                <button class="btn btn-warning btn-sm" onclick="showupdateUserModal(${element.id})">Update</button>
+                                <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateUserModal(${element.id})">Update</button>
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm" onclick="disableUser(${element.id})">Delete</button>
+                                <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUser(${element.id})">Delete</button>
                             </td>
                         </tr>`;
                 }
@@ -818,10 +704,10 @@ class SuperAdminManager {
                     ${div_img}
                 </td>
                 <td>
-                    <button class="btn btn-warning btn-sm" onclick="showupdateGroupModal(${element.id})">Update</button>
+                    <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateGroupModal(${element.id})">Update</button>
                 </td>
                 <td>
-                    <button class="btn btn-danger btn-sm" onclick="deleteGroup(${element.id})">Delete</button>
+                    <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="deleteGroup(${element.id})">Delete</button>
                 </td>
                 </tr>`;
             }
@@ -875,10 +761,10 @@ class SuperAdminManager {
                                 ${div_img}
                             </td>
                             <td>
-                                <button class="btn btn-warning btn-sm" onclick="showupdateGroupModal(${element.id})">Update</button>
+                                <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateGroupModal(${element.id})">Update</button>
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm" onclick="deleteGroup(${element.id})">Delete</button>
+                                <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="deleteGroup(${element.id})">Delete</button>
                             </td>
                         </tr>`;
                 }

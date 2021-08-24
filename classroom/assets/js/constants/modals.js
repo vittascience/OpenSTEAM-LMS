@@ -620,7 +620,7 @@ const classroomModals = {
         selector: '',
         header: {
             icon: '',
-            title: 'superadmin.groups.delete'
+            title: 'superadmin.group.delete'
         },
         content: `  <div id="delete-user-modal">
                         <div class="col-12">

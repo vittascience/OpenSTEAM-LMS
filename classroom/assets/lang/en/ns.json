@@ -592,55 +592,165 @@
 	},
 	"superadmin": {
 		"profil": {
-			"superAdmin": "Switch to superadmin mode",
-			"groupAdmin": "Switch to group admin mode"
+			"superAdmin": "Switch to superadmin",
+			"groupAdmin": "Switch to group admin",
+			"bio": "Bio <span class=\"text-danger\">*</span>",
+			"email": "E-mail <span class=\"text-danger\">*</span>",
+			"nickname": "Username <span class=\"text-danger\">*</span>",
+			"lastname": "Lastname <span class=\"text-danger\">*</span>",
+			"firstname": "Firstname <span class=\"text-danger\">*</span>",
+			"phone": "Phone number",
+			"grade": "Niveau de formation <span class=\"text-danger\">*</span>",
+			"subject": "Taught subject <span class=\"text-danger\">*</span>",
+			"school": "School <span class=\"text-danger\">*</span>",
+			"password": "Password <span class=\"text-danger\">*</span>",
+			"confirmPassword": "Confirm password <span class=\"text-danger\">*</span>"
 		},
-		"user": {
+		"account": {
+			"activate": {
+				"success": "Your account has been activated !",
+				"alreadyactive": "Your account is already active."
+			},
+			"active": "Active account",
+			"registration": {
+				"success": "Successful registration !",
+				"emailSent": "An email has just been sent to you, follow the link in it to activate your account and continue your link to the group \"<span id=\"gourpName2\"></span>\"",
+				"accountPublic": "Do you agree that your first and last name are public on the site ?",
+				"newsletter": "Would you like to receive our newsletter by email ?",
+				"mailAlert": "Would you like to receive email alerts when receiving new messages on the site ?",
+				"allowContact": "Would you like to be able to be contacted by other users of the site ?",
+				"confirmAdult": "I confirm that I am over 18 years old (article 1124 du code civil)*",
+				"disclaimerVittascience": "Vittascience places the security and confidentiality of its users' personal data at the heart of its concerns. Discover<a href=\"http://vittascience.com/privacy\"> our personal data protection policy</a> ",
+				"mandatory": "Fields marked with <span class=\"text-danger\">*</span> are mandatory.",
+				"cguVittascience": "By validating this form, you accept the <a href=\"http://vittascience.com/\"> Terms of Service</a>.",
+				"description": "Please complete the following fields to create your account.",
+				"title": "Registration"
+			}
+		},
+		"users": {
 			"add": "Add user",
-			"create": "Create a user",
-			"delete": "Delete a user",
-			"update": "Update a user",
+			"create": "Create user",
+			"delete": "Delete user",
+			"deleteConfirmation": "Please write \"delete\" in the field below to validate the action.",
+			"deleteIntentionSA": "You are about to delete the user : <span id=\"mdi_firstnameSA\"></span>",
+			"disableIntention": "You are about to disable the user : <span id=\"mde_firstnameSA\"></span>",
+			"deleteConfirmationTitle": "Confirm deletion",
+			"disableConfirmationTitle": "Confirm deactivation",
+			"update": "Update user",
+			"updateAppUser": "Update user apps",
+			"updateApp": "Update apps",
+			"disable": {
+				"message": "Please write \"delete\" in the field below to validate the action.",
+				"intention": "You are about to delete the user : <span id=\"md_firstnameGA\"></span>"
+			},
 			"mail": {
 				"resetPassword": {
-					"subject": "Reset password.",
+					"subject": "Resetting your password.",
 					"bodyTitle": "Reset password.",
-					"textBeforeLink": "If the button above does not work, copy and paste into your browser, the following link :"
+					"textBeforeLink": "If the button above does not work, copy and paste into your browser the following link :"
 				}
-			}
+			},
+			"showResetLinkTitle": "Reset password.",
+			"showResetLink": "Password reset link.",
+			"groupAdmin": "Group administrator",
+			"admin": "Administrator",
+			"teacher": "Teacher",
+			"usersPerPage": "Users per page"
 		},
 		"group": {
 			"add": "Add group",
-			"create": "Create a group",
-			"delete": "Delete a group",
-			"update": "Update a group",
+			"create": "Create group",
+			"delete": "Delete group",
+			"deleteIntention": "You are about to delete the group : <span id=\"md_group\"></span>",
+			"update": "Update group",
 			"join": {
-				"firstVisit": "First visit ?"
-			}
+				"firstVisit": "First visit ?",
+				"signin": "Sign in",
+				"signinSubtitle": "Enter your login details to access your account",
+				"addressMail": "Mail address",
+				"disclaimer": "By joining this group, you authorize the group's admin to modify and / or deactivate your account. You will also have the applications that the group owns.",
+				"lastStep": "There is only one step left! Click on the button below to finalize the link.",
+				"joinGroup": "You are about to join the group : \"<span id='groupNameConfirmLink'></span>\"",
+				"notfound": "Group not found !",
+				"notfoundDetails": "We cannot find any groups linked to the link <span id='gourpName3'></span>.",
+				"clickToRedirectLogin": "Click on continue to be redirected to the login page.",
+				"clickToRedirectHome": "Click on continue to be redirected to the home page.",
+				"invalidLink": "Invalid link !",
+				"invalidFormatLink": "The format of the link you entered does not match.",
+				"success": "You joined the group : \"<span id=\"gourpName\"></span>\" !",
+				"alreadyLinked": "You are already part of this group.",
+				"error": "An error occurred while linking.",
+				"userNotFound": "The user was not found, you can click on continue to be redirected to the login page.",
+				"contactAdmin": "If the problem persists contact the administration.",
+				"mail": {
+					"textBeforeName": "The user : ",
+					"textAfterName": "joined the group : ",
+					"emailSubject": "A user has joined the group"
+				}
+			},
+			"name": "Name of the group",
+			"description": "Description of the group",
+			"link": "Group link",
+			"applications": "Group applications",
+			"groupsPerPage": "Groups per page"
 		},
-		"button": {
+		"buttons": {
+			"continue": "Continue",
+			"validate": "Validate",
+			"cancel": "Cancel",
+			"login": "Sign in",
+			"signup": "Register",
+			"join": "Join",
+			"save": "Save",
+			"close": "Close",
+			"disable": "Disable",
+			"delete": "Delete",
+			"reset": "Reset",
+			"update": "Update",
+			"search": "Search",
+			"copyLink": "Copy link",
 			"user": {
-				"add": "Add the user",
-				"create": "Create the user",
-				"delete": "Delete the user",
-				"update": "Update the user"
+				"add": "Add user",
+				"create": "Create user",
+				"delete": "Delete user",
+				"update": "Update user",
+				"addGroup": "Add group",
+				"createA": "Create user",
+				"updateA": "Update user",
+				"updateApp": "Update applications"
 			},
 			"group": {
-				"add": "Add the group",
-				"create": "Create the group",
-				"delete": "Delete the group",
-				"update": "Update the group"
+				"add": "Add group",
+				"create": "Create group",
+				"delete": "Delete group",
+				"update": "Update group",
+				"createA": "Create group",
+				"updateA": "Update group"
 			}
 		},
 		"sort": {
 			"user": {
-				"byname": "Sort by name",
-				"bysurname": "Sort by surname",
-				"bypseudo": "Sort by pseudo"
+				"bylastname": "Sort by lastname",
+				"byfirstname": "Sort by firstname"
 			},
 			"group": {
 				"byname": "Sort by name",
 				"bydesc": "Sort by description"
 			}
+		},
+		"input": {
+			"placeholder": {
+				"delete": "delete"
+			}
+		},
+		"table": {
+			"lastname": "Lastname",
+			"firstname": "Firstname",
+			"applications": "Applications",
+			"group": "Group",
+			"description": "Description",
+			"right": "Rught",
+			"resetPassword": "Reset password" 
 		}
 	}
 }
