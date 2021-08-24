@@ -426,32 +426,26 @@
                 break;
             case 'confirmation':
                 $("#account-activated").toggle();
-                setTimeout(() => {
-                    document.location = urlWithCode + "&page=login";
-                }, 1500);
                 break;
             case 'login':
+                delayDivUpdate('#classroom-desc', groupName);
                 $('#classroom-login-container-bis').toggle();
-                $('#classroom-desc').text(groupName);
                 $("#classroom-create-account").toggle();
                 break;
             case 'badlink':
+                delayDivUpdate('#gourpName3', linkCode);   
                 $('#group-not-found').toggle();
-                $('#gourpName3').text(linkCode);
                 break;
             case 'invalidlink':
                 $('#invalid-link').toggle();
                 break;
             case 'confirm':
+                delayDivUpdate('#groupNameConfirmLink', groupName);
                 $('#confirm-link-to-group').toggle();
-                // if not delayed, the span appear after this line and the group name is not showed
-                setTimeout(() => {
-                    $('#groupNameConfirmLink').text(groupName);
-                }, 150);
                 break;
             case 'success':
+                delayDivUpdate('#gourpName', groupName);
                 $('#group-joinded-container').toggle();
-                $('#gourpName').text(groupName);
                 break;
             case 'alreadyactive':
                 $('#already-active').toggle();
@@ -470,7 +464,13 @@
         $('#classroom-desc').text("Vous êtes invité dans le groupe : " + groupName);
     }
 
-    //$('#group-name').text(groupName);
+
+    // if not delayed, the span appear after this line and the group name is not showed
+    function delayDivUpdate(div, message) {
+        setTimeout(() => {
+            $(div).text(message);
+        }, 150);
+    }
 
     /**
      * login a user

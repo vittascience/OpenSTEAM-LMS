@@ -915,11 +915,7 @@ $('#sort_users_filter, #users_per_page').on('change', () => {
 
 $('#search_user').click(() => {
     let name = $('#name_user_search').val(),
-        sort = $('#sort_users_filter').val(),
-        usersperpage = $('#users_per_page').val(),
-        group_id = MSA.getSuperAdminManager()._actualGroup;
-    /* if (name != "")
-        MSA.getSuperAdminManager().searchUser(name, 1, usersperpage, group_id); */
+        usersperpage = $('#users_per_page').val();
     if (name != "")
         MSA.getSuperAdminManager().globalSearchUser(name, 1, usersperpage);
 })
@@ -1029,10 +1025,84 @@ function appendSelectGroups(obj, item_id) {
     }
 }
 
+function updateAppForUser() {
+    const process = (data) => {
+        // Get the actual user's information
+        let user = MSA.getSuperAdminManager()._actualUserDetails;
+        $('#user_apps_update').html("");
+
+        let stringhtml = "";
+        data.forEach(element => {
+
+            let infoapp = "";
+
+            if (user[0].hasOwnProperty('applications')) {
+                user[0].applications.some(function (item) {
+                    if (element.id == item.id)
+                        infoapp = item;
+                })
+            }
+
+            if (!infoapp) {
+                stringhtml += `<div class="form-check">
+                <input class="form-check-input appuser" type="checkbox" value="${element.id}" id="application_${element.id}">
+                <label class="form-check-label" for="application_${element.id}">
+                    ${element.name}
+                </label>
+                <input type="date" id="begin_date_${element.id}" name="trip-start" value="${new Date()}" min="${new Date()}"
+                    max="2023-12-31">
+                <input type="date" id="end_date_${element.id}" name="trip-start" min="0"
+                    max="2025-12-31">
+                </div>`;
+            } else {
+                let dateBegin = new Date(infoapp.date_begin).toISOString().split('T')[0],
+                    dateEnd = new Date(infoapp.date_end).toISOString().split('T')[0];
+
+                stringhtml += `<div class="form-check">
+                <input class="form-check-input appuser" type="checkbox" checked value="${element.id}" id="application_${element.id}">
+                <label class="form-check-label" for="application_${element.id}">
+                    ${element.name}
+                </label>
+                <input type="date" id="begin_date_${element.id}" name="trip-start" value="${dateBegin}"
+                    max="2023-12-31">
+                <input type="date" id="end_date_${element.id}" name="trip-start" value="${dateEnd}"
+                    max="2025-12-31">
+                </div>`;
+            }
+
+        });
+        $('#user_apps_update').html(stringhtml);
+        pseudoModal.openModal('superadmin-user-updateApp');
+
+    }
+    if (MSA.getSuperAdminManager()._allApplications == "") {
+        MSA.getSuperAdminManager().getAllApplications().then((res) => {
+            MSA.getSuperAdminManager()._allApplications = res;
+            process(res)
+        })
+    } else {
+        process(MSA.getSuperAdminManager()._allApplications)
+    }
+}
+
+function persistUpdateUserApp() {
+    let user = MSA.getSuperAdminManager()._actualUserDetails[0].id;
+    let ApplicationsData = [];
+    $("input:checkbox.form-check-input.appuser").each(function (element) {
+        const ApplicationTemp = [$(this).val(), $(this).is(':checked'), $('#begin_date_' + $(this).val()).val(), $('#end_date_' + $(this).val()).val()]
+        ApplicationsData.push(ApplicationTemp);
+    });
+    MSA.getSuperAdminManager().updateUserApps(user, JSON.stringify(ApplicationsData)).then((res) => {
+        pseudoModal.closeAllModal();
+        tempoAndShowUsersTable();
+    })
+}
+
 function showupdateUserModal(id) {
     let $groups = MSA.getSuperAdminManager()._comboGroups;
     MSA.getSuperAdminManager()._updatedUserGroup = 0;
     MSA.getSuperAdminManager().getUserInfoWithHisGroups(id).then(function (res) {
+        MSA.getSuperAdminManager()._actualUserDetails = res;
         $("#update_actualgroup_sa").html("");
         pseudoModal.openModal('superadmin-update-user');
         $('#update_u_firstname').val(res[0].firstname);
@@ -1419,7 +1489,7 @@ function showGroupMembers($group_id, $page, $userspp, $sort) {
 function optionsGroupApplications($type) {
     const process = (data) => {
 
-        $('#group__upd_apps_options').html("");
+        $('#group_upd_apps_options').html("");
         $('#group_apps_options').html("");
 
         let stringhtml = "";
@@ -1465,7 +1535,7 @@ function optionsGroupApplications($type) {
         });
 
         if ($type == "update")
-            $('#group__upd_apps_options').html(stringhtml);
+            $('#group_upd_apps_options').html(stringhtml);
         else if ($type == "create")
             $('#group_apps_options').html(stringhtml);
 
@@ -1602,7 +1672,7 @@ function showupdateUserModal_groupadmin(user_id) {
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
                                             <input type="checkbox" id="update_u_is_group_admin_ga${i}">
-                                            <label class="form-check-label mx-1" for="update_u_is_group_admin_ga${i}">
+                                            <label class="form-check mx-1" for="update_u_is_group_admin_ga${i}">
                                                 Administrateur du groupe
                                             </label>
                                         </div>
@@ -1707,7 +1777,7 @@ $('#create_user_link_to_group_groupadmin').click(function () {
     $saved_groups.forEach(element => {
         radioHTML += `<div class="form-check">
                         <input class="form-check-input" type="radio" name="groupsRadio" id="groupRadio${element.id}" value="${element.id}" checked>
-                        <label class="form-check-label" for="groupRadio${element.id}">
+                        <label class="form-check" for="groupRadio${element.id}">
                             ${element.name}
                         </label>
                     </div>`;
@@ -1766,14 +1836,26 @@ function tempoAndShowUsersTableGroupAdmin() {
 
 function resetUserPassword(id) {
     MSA.getSuperAdminManager().sendResetPassword(id).then((response) => {
-        alert(response.link);
+        pseudoModal.openModal('superadmin-show-resetlink');
+        $('#passwordLink').val(response.link);
     })
+}
+
+function dismissModal() {
+    pseudoModal.closeAllModal();
 }
 
 function resetUserPasswordga(id) {
     MGA.getGroupAdminManager().sendResetPassword(id).then((response) => {
-        console.log(response)
+        pseudoModal.openModal('superadmin-show-resetlink');
+        $('#passwordLink').val(response.link);
     })
+}
+
+function copyLink() {
+    const copyText = $('#passwordLink');
+    copyText.select();
+    document.execCommand("copy");
 }
 
 $('#search_user_groupadmin').click(() => {
@@ -1785,7 +1867,7 @@ $('#search_user_groupadmin').click(() => {
 })
 
 /**
- * DATA COMBOBOX CREATE TEACHER
+ * DATA COMBOBOX
  */
 const Grade = [
     'Primaire',

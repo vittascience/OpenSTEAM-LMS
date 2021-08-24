@@ -21,13 +21,14 @@ class SuperAdminManager {
         this._comboGroups = []
         this._addedCreateUserGroup = 0
         this._updatedUserGroup = 0
-        this._allMembersInAGroup = []
+        this._allActualUsers = []
         this._allMembersAndTheirGroups = []
         this._paginationUsersInfo = []
         this._paginationGroupsInfo = []
         this._allApplications = []
         this._actualGroup = 0
         this._actualUser = 0
+        this._actualUserDetails = []
         this._tasksQueue = [];
         this._isExecutingTaskInQueue = false;
     }
@@ -236,6 +237,31 @@ class SuperAdminManager {
     }
 
     /**
+     * Update the user's applications
+     * @param {int} $user_id 
+     * @param {array} $user_app 
+     * @returns 
+     */
+    updateUserApps($user_id, $user_app) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=update_user_app",
+                data: {
+                    user_id: $user_id,
+                    user_app: $user_app
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    /**
      * @param {int} $id 
      * @returns 
      */
@@ -425,7 +451,7 @@ class SuperAdminManager {
         })
     }
 
-    getAllUsersInAGroup() {
+    /* getAllUsersInAGroup() {
         const process = (res) => {
             MSA.getSuperAdminManager()._allMembersInAGroup = res;
             let data_table = "";
@@ -459,7 +485,7 @@ class SuperAdminManager {
                 reject();
             }
         });
-    }
+    } */
 
 
     showGroupMembers($group_id, $page, $userspp, $sort) {
@@ -467,6 +493,8 @@ class SuperAdminManager {
         const process = (data) => {
             let $data_table = "",
                 group = "";
+
+            MSA.getSuperAdminManager()._allActualUsers = [];
 
             MSA.getSuperAdminManager()._allGroups.forEach(element => {
                 if (element.id == $group_id)
@@ -504,6 +532,9 @@ class SuperAdminManager {
                     }
                     $('#paginationButtons_users').html(htmlButtons);
                 } else {
+
+                    MSA.getSuperAdminManager()._allActualUsers.push(element);
+
                     let $droits = " -- ";
                     if (element.hasOwnProperty('rights')) {
                         $droits = element.rights === "1" ? "Admin" : "Prof";
@@ -560,7 +591,7 @@ class SuperAdminManager {
         });
     }
 
-    searchUser($name, $page, $usersperpage, $group) {
+    /* searchUser($name, $page, $usersperpage, $group) {
         const process = (res) => {
             MSA.getSuperAdminManager()._allMembersAndTheirGroups = res;
             let $data_table = "";
@@ -635,11 +666,11 @@ class SuperAdminManager {
                 reject();
             }
         });
-    }
+    } */
 
     globalSearchUser($name, $page, $usersperpage) {
         const process = (res) => {
-            MSA.getSuperAdminManager()._allMembersAndTheirGroups = res;
+            MSA.getSuperAdminManager()._allActualUsers = [];
             let $data_table = "";
             $('#group_name_from_table').text('Résultat de la recherche :');
             res.forEach(element => {
@@ -665,6 +696,7 @@ class SuperAdminManager {
 
                     $('#paginationButtons_users').html(htmlButtons);
                 } else {
+                    MSA.getSuperAdminManager()._allActualUsers.push(element);
                     let $droits = " -- ";
                     if (element.hasOwnProperty('rights')) {
                         $droits = element.rights === "1" ? "Admin" : "Prof";

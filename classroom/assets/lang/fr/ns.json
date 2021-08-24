@@ -904,6 +904,7 @@
 				"success": "Votre compte à bien été activé !",
 				"alreadyactive": "Votre compte est déjà actif."
 			},
+			"active": "Compte actif",
 			"registration": {
 				"success": "Inscription réussie !",
 				"emailSent": "Un e-mail vient de vous être envoyé, suivez le lien dans celui-ci pour activer votre compte et continuez votre liaison au groupe \"<span id=\"gourpName2\"></span>\"",
@@ -923,13 +924,17 @@
 			"add": "Ajouter un utilisateur",
 			"create": "Créer un utilisateur",
 			"delete": "Supprimer un utilisateur",
+			"deleteConfirmation": "Veuillez écrire \"supprimer\" dans le champ si dessous pour valider l'action.",
+			"deleteIntentionSA": "Vous vous apprêtez à supprimer l'utilisateur : <span id=\"mdi_firstnameSA\"></span>",
+			"disableIntention": "Vous vous apprêtez à désactiver l'utilisateur : <span id=\"mde_firstnameSA\"></span>",
+			"deleteConfirmationTitle": "Confirmer la suppression",
+			"disableConfirmationTitle": "Confirmer la désactivation",
 			"update": "Modifier un utilisateur",
+			"updateAppUser": "Modifier les applications de l'utilisateur",
+			"updateApp": "Modifier les applications",
 			"disable": {
 				"message": "Veuillez écrire 'supprimer' dans le champ si dessous pour valider l'action.",
-				"title": "Confirmer la suppression",
-				"intention": "Vous vous apprêtez à supprimer l'utilisateur : <span id=\"md_firstnameGA\"></span>",
-				"validate": "Valider",
-				"cancel": "Annuler"
+				"intention": "Vous vous apprêtez à supprimer l'utilisateur : <span id=\"md_firstnameGA\"></span>"
 			},
 			"mail": {
 				"resetPassword": {
@@ -937,12 +942,18 @@
 					"bodyTitle": "Réinitialisation du mot de passe.",
 					"textBeforeLink": "Si le bouton ci-dessus ne fonctionne pas, copiez et collez dans votre navigateur, le lien suivant :"
 				}
-			}
+			},
+			"showResetLinkTitle": "Réinitialisation de mot de passe.",
+			"showResetLink": "Lien de réinitialisation du mot de passe.",
+			"groupAdmin": "Administateur du groupe",
+			"admin": "Administrateur",
+			"teacher": "Enseignant"
 		},
 		"group": {
 			"add": "Ajouter un groupe",
 			"create": "Créer un groupe",
 			"delete": "Supprimer un groupe",
+			"deleteIntention": "Vous vous apprêtez à suppression le groupe : <span id=\"md_group\"></span>",
 			"update": "Modifier un groupe",
 			"join": {
 				"firstVisit": "Première visite ?",
@@ -968,7 +979,11 @@
 					"textAfterName": "a rejoint le groupe : ",
 					"emailSubject": "Un utilisateur à rejoint le groupe"
 				}
-			}
+			},
+			"name": "Nom du groupe",
+			"description": "Description du groupe",
+			"link": "Lien du groupe",
+			"applications": "Application(s) du groupe"
 		},
 		"buttons": {
 			"continue": "Continuer",
@@ -977,17 +992,26 @@
 			"login": "Se connecter",
 			"signup": "S'incrire",
 			"join": "Rejoindre",
+			"save": "Enregistrer",
+			"close": "Fermer",
+			"copyLink": "Copier le lien",
 			"user": {
 				"add": "Ajouter l'utilisateur",
 				"create": "Créer l'utilisateur",
 				"delete": "Supprimer l'utilisateur",
-				"update": "Modifier l'utilisateur"
+				"update": "Modifier l'utilisateur",
+				"addGroup": "Ajouter un groupe",
+				"createA": "Créer un utilisateur",
+				"updateA": "Modifier un utilisateur",
+				"updateApp": "Modifier les applications"
 			},
 			"group": {
 				"add": "Ajouter le groupe",
 				"create": "Créer le groupe",
 				"delete": "Supprimer le groupe",
-				"update": "Modifier le groupe"
+				"update": "Modifier le groupe",
+				"createA": "Créer un groupe",
+				"updateA": "Modifier un groupe"
 			}
 		},
 		"sort": {
@@ -999,6 +1023,11 @@
 			"group": {
 				"byname": "Trier par nom",
 				"bydesc": "Trier par description"
+			}
+		},
+		"input": {
+			"placeholder": {
+				"delete": "supprimer"
 			}
 		}
 	}
