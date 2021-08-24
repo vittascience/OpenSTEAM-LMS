@@ -604,7 +604,8 @@
 			"subject": "Taught subject <span class=\"text-danger\">*</span>",
 			"school": "School <span class=\"text-danger\">*</span>",
 			"password": "Password <span class=\"text-danger\">*</span>",
-			"confirmPassword": "Confirm password <span class=\"text-danger\">*</span>"
+			"confirmPassword": "Confirm password <span class=\"text-danger\">*</span>",
+			"help":"Help"
 		},
 		"account": {
 			"activate": {
@@ -628,6 +629,7 @@
 			}
 		},
 		"users": {
+			"users": "Users",
 			"add": "Add user",
 			"create": "Create user",
 			"delete": "Delete user",
@@ -698,6 +700,7 @@
 			"continue": "Continue",
 			"validate": "Validate",
 			"cancel": "Cancel",
+			"send": "Send",
 			"login": "Sign in",
 			"signup": "Register",
 			"join": "Join",
@@ -749,7 +752,7 @@
 			"applications": "Applications",
 			"group": "Group",
 			"description": "Description",
-			"right": "Rught",
+			"right": "Right",
 			"resetPassword": "Reset password" 
 		}
 	}

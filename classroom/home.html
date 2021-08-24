@@ -50,7 +50,7 @@
     <div class="classroom-navbar-button" id="dashboard-superadmin-groups"
         onclick="navigatePanel('superadmin-dashboard-main', 'dashboard-superadmin-groups')">
         <img src="assets/media/my_classes.svg" alt="Icône classe">
-        <span>Utilisateurs</span>
+        <span data-i18n="superadmin.users.users">Utilisateurs</span>
     </div>
 
     <div id="dashboard-profil-superadmin" class="classroom-navbar-button"
@@ -68,13 +68,13 @@
     <div class="classroom-navbar-button" id="dashboard-groupadmin-users-side"
         onclick="navigatePanel('groupadmin-dashboard-users', 'dashboard-groupadmin-users-side')">
         <img src="assets/media/my_classes.svg" alt="Icône classe">
-        <span>Utilisateurs</span>
+        <span data-i18n="superadmin.users.users">Utilisateurs</span>
     </div>
 
     <div class="classroom-navbar-button" id="dashboard-groupadmin-help-side"
         onclick="navigatePanel('groupadmin-dashboard-help', 'dashboard-groupadmin-help-side')">
         <img src="assets/media/my_classes.svg" alt="Icône classe">
-        <span>Appel à l'aide</span>
+        <span data-i18n="superadmin.profil.help">Appel à l'aide</span>
     </div>
 
     <div id="dashboard-profil-groupadmin" class="classroom-navbar-button"
@@ -807,7 +807,7 @@
                 <div class="row my-2" id="users_options_groupadmin">
 
                     <input class="mr-sm-2 flex-fill" type="search" id="name_user_search_groupadmin"
-                        placeholder="Rechercher" aria-label="Search">
+                        placeholder="Rechercher" aria-label="Search" data-i18n="[placeholder]superadmin.buttons.search">
                     <button class="btn btn-info btn-sm" id="search_user_groupadmin" data-i18n="superadmin.buttons.search">Rechercher</button>
 
                     <select class="my-1 mr-sm-2 form-select" id="sort_users_filter_groupadmin">
@@ -896,8 +896,8 @@
             <!-- DEBUG SUPERADMIN -->
             <div class="row mb-2" id="groups_options">
                 <input class="mr-sm-2 flex-fill" type="search" id="name_group_search" placeholder="Rechercher"
-                    aria-label="Search">
-                <button class="btn btn-info btn-sm" id="search_group">Rechercher</button>
+                    aria-label="Search" data-i18n="[placeholder]superadmin.buttons.search">
+                <button class="btn btn-info btn-sm" id="search_group" data-i18n="superadmin.buttons.search">Rechercher</button>
                 <select class="my-1 mr-sm-2 form-select" id="sort_groups_filter">
                     <option selected value="0" data-i18n="superadmin.sort.group.byname">Trier par nom</option>
                     <option value="1" data-i18n="superadmin.sort.group.bydesc">Trier par description</option>

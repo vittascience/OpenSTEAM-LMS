@@ -897,7 +897,8 @@
 			"subject": "Matière enseignée <span class=\"text-danger\">*</span>",
 			"school": "Établissement <span class=\"text-danger\">*</span>",
 			"password": "Mot de passe <span class=\"text-danger\">*</span>",
-			"confirmPassword": "Confirmer le mot de passe <span class=\"text-danger\">*</span>"
+			"confirmPassword": "Confirmer le mot de passe <span class=\"text-danger\">*</span>",
+			"help":"Appel à l'aide"
 		},
 		"account": {
 			"activate": {
@@ -921,6 +922,7 @@
 			}
 		},
 		"users": {
+			"users": "Utilisateurs",
 			"add": "Ajouter un utilisateur",
 			"create": "Créer un utilisateur",
 			"delete": "Supprimer un utilisateur",
@@ -991,6 +993,7 @@
 			"continue": "Continuer",
 			"validate": "Valider",
 			"cancel": "Annuler",
+			"send": "Envoyer",
 			"login": "Se connecter",
 			"signup": "S'incrire",
 			"join": "Rejoindre",

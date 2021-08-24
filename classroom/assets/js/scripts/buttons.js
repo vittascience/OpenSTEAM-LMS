@@ -827,7 +827,7 @@ function resetStudentPassword(querySelector) {
     }
 }
 
-
+/********************/
 /* DEBUG SuperAdmin */
 /********************/
 
@@ -919,8 +919,6 @@ $('#search_user').click(() => {
     if (name != "")
         MSA.getSuperAdminManager().globalSearchUser(name, 1, usersperpage);
 })
-
-
 
 $('#name_user_search').on('change', () => {
     let name = $('#name_user_search').val(),
@@ -1120,31 +1118,6 @@ function showupdateUserModal(id) {
         $('#update_u_mail').val(res[0].email);
         $('#update_u_phone').val(res[0].telephone);
 
-        // Teacher part
-        if (res[0].isTeacher != null) {
-            $('#update_u_is_teacher').prop("checked", true);
-            $('#update_user_teacher_grade').val(res[0].subject);
-            $('#update_user_teacher_subjects').val(res[0].grade);
-            $('#update_u_school').val(res[0].school);
-            $('#update_user_teacher_infos').show();
-        } else {
-            $('#update_u_is_teacher').prop("checked", false);
-            $('#update_user_teacher_infos').hide();
-        }
-
-        if (res[0].isAdmin == true) {
-            $('#update_u_is_admin').prop("checked", true);
-        } else {
-            $('#update_u_is_admin').prop("checked", false);
-        }
-
-        $("#update_u_is_teacher").change(() => {
-            if ($('#update_u_is_teacher').is(':checked')) {
-                $('#update_user_teacher_infos').show();
-            } else {
-                $('#update_user_teacher_infos').hide();
-            }
-        })
 
         $('#update_user_teacher_grade').change(() => {
             switch ($('#update_user_teacher_grade').val()) {
@@ -1164,7 +1137,34 @@ function showupdateUserModal(id) {
                     break;
             }
         })
-        createSubjectSelect(FirstGradeSubjects, 2);
+
+        // Teacher part
+        if (res[0].isTeacher != null) {
+            $('#update_u_is_teacher').prop("checked", true);
+            $('#update_u_school').val(res[0].school);
+            $('#update_user_teacher_infos').show();
+            // set the grade then trigger the function to set the good subject
+            $('#update_user_teacher_grade').val(res[0].grade);
+            $("#update_user_teacher_grade").trigger("change");
+            $('#update_user_teacher_subjects').val(res[0].subject);
+        } else {
+            $('#update_u_is_teacher').prop("checked", false);
+            $('#update_user_teacher_infos').hide();
+        }
+
+        if (res[0].isAdmin == true) {
+            $('#update_u_is_admin').prop("checked", true);
+        } else {
+            $('#update_u_is_admin').prop("checked", false);
+        }
+
+        $("#update_u_is_teacher").change(() => {
+            if ($('#update_u_is_teacher').is(':checked')) {
+                $('#update_user_teacher_infos').show();
+            } else {
+                $('#update_user_teacher_infos').hide();
+            }
+        })
 
         if (res[0].hasOwnProperty('groups')) {
             for (let i = 0; i < res[0].groups.length; i++) {
@@ -1293,6 +1293,19 @@ function tempoAndShowUsersTable() {
         group_actuel = MSA.getSuperAdminManager()._actualGroup;
     setTimeout(() => {
         MSA.getSuperAdminManager().showGroupMembers(group_actuel, 1, usersperpage, sort);
+    }, 500);
+}
+
+function tempoAndShowUsersTableGA() {
+    let actualGroup = MGA.getGroupAdminManager()._actualGroup;
+    setTimeout(() => {
+        MGA.getGroupAdminManager().getUsersFromGroup(actualGroup, 1);
+    }, 500);
+}
+
+function tempoAndShowGroupTableGroupAdmin() {
+    setTimeout(() => {
+        MGA.getGroupAdminManager().getGroupsUserAdmin();
     }, 500);
 }
 
@@ -1435,6 +1448,7 @@ function persistDeleteGA() {
                 setTimeout(() => {
                     pseudoModal.closeAllModal();
                 }, 4500);
+                tempoAndShowUsersTableGA()
             }
         })
     } else {
@@ -1442,6 +1456,12 @@ function persistDeleteGA() {
     }
 }
 
+/**
+ * Show an alert message 
+ * @param {int} i : 0 = class success, 1 = class danger
+ * @param {string} id : the id of the div we need to interact with
+ * @param {string} message : the message we need to show
+ */
 function switchAlertModal(i, id, message) {
     $(id).text(message);
     if (i == 0) {
@@ -1639,31 +1659,33 @@ function showupdateUserModal_groupadmin(user_id) {
             $('#update_u_mail_ga').val(res[0].email);
             $('#update_u_phone_ga').val(res[0].telephone);
 
-            // Teacher part
-            $('#update_user_teacher_grade_ga').val(res[0].subject);
-            $('#update_user_teacher_subjects_ga').val(res[0].grade);
-            $('#update_u_school_ga').val(res[0].school);
+           
 
-
+            
             $('#update_user_teacher_grade_ga').change(() => {
                 switch ($('#update_user_teacher_grade_ga').val()) {
                     case "0":
-                        createSubjectSelect(FirstGradeSubjects, 2);
+                        createSubjectSelect(FirstGradeSubjects, 3);
                         break;
                     case "1":
-                        createSubjectSelect(SecondGradeSubjects, 2);
+                        createSubjectSelect(SecondGradeSubjects, 3);
                         break;
                     case "2":
-                        createSubjectSelect(ThirdGradeSubjects, 2);
+                        createSubjectSelect(ThirdGradeSubjects, 3);
                         break;
                     case "3":
-                        createSubjectSelect(FourthGradeSubjects, 2);
+                        createSubjectSelect(FourthGradeSubjects, 3);
                         break;
                     default:
                         break;
                 }
             })
-            createSubjectSelect(FirstGradeSubjects, 3);
+            //createSubjectSelect(FirstGradeSubjects, 3);
+            // Teacher part
+            $('#update_u_school_ga').val(res[0].school);
+            $('#update_user_teacher_grade_ga').val(res[0].grade);
+            $("#update_user_teacher_grade_ga").trigger("change");
+            $('#update_user_teacher_subjects_ga').val(res[0].subject);
 
             if (res[0].hasOwnProperty('groups')) {
                 for (let i = 0; i < res[0].groups.length; i++) {
@@ -1696,28 +1718,6 @@ function showupdateUserModal_groupadmin(user_id) {
     });
 }
 
-function updateAddGroupSuperAdminGA() {
-    let $groups = MGA.getGroupAdminManager()._comboGroups;
-    let nextGroup = MGA.getGroupAdminManager()._updatedUserGroup;
-    let group = `<div class="input-group mb-3" id="update_u_actual_group_ga${nextGroup}">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <input type="checkbox" id="update_u_is_group_admin_ga${nextGroup}">
-                            <label class="form-check-label mx-1" for="update_u_is_group_admin_ga${nextGroup}">
-                            Administrateur du groupe
-                            </label>
-                        </div>
-                    </div>
-                    <select class="form-control" id="update_u_group_ga${nextGroup}">
-                    </select>
-                    <button class="btn btn-danger ml-1" onclick="deleteGroupFromUpdateGA(${nextGroup})">Supprimer</button>
-                </div>`;
-    $("#update_actualgroup_ga").append(group);
-    const item_id = 'update_u_group_ga' + nextGroup;
-    appendSelectGroups($groups, item_id);
-    MGA.getGroupAdminManager()._updatedUserGroup += 1;
-}
-
 function deleteGroupFromUpdateGA(id) {
     MGA.getGroupAdminManager()._updatedUserGroup -= 1;
     $('#update_u_actual_group_ga' + id).remove();
@@ -1742,7 +1742,7 @@ function updateUserModalGA() {
 
     MGA.getGroupAdminManager().updateUser($user_id, $firstname, $surname, $pseudo, $phone, $mail, $bio, $groups, $teacher_grade, $teacher_suject, $school);
     pseudoModal.closeAllModal();
-    //tempoAndShowUsersTable()
+    tempoAndShowUsersTableGA();
 }
 
 function deleteGroupFromUpdateGA(id) {
@@ -1825,13 +1825,7 @@ function createUserAndLinkToGroup_groupAdmin() {
 
     MGA.getGroupAdminManager().createUserAndLinkToGroup($firstname, $surname, $pseudo, $phone, $mail, $bio, $groups, $teacher_grade, $teacher_suject, $school);
     pseudoModal.closeAllModal();
-    tempoAndShowUsersTableGroupAdmin();
-}
-
-function tempoAndShowUsersTableGroupAdmin() {
-    setTimeout(() => {
-        MGA.getGroupAdminManager().getGroupsUserAdmin();
-    }, 500);
+    tempoAndShowGroupTableGroupAdmin();
 }
 
 function resetUserPassword(id) {
@@ -1957,10 +1951,32 @@ const FithGradeSubjects = [
     'Autre (préciser dans la biographie)'
 ];
 
+/* DEBUG SuperAdmin */
+
 /* $('#dashboard-superadmin-users').click(() => {
     let sort = $('#sort_users_filter').val(),
         usersperpage = $('#users_per_page').val();
     if (MSA.getSuperAdminManager()._allMembersInAGroup == "")
         MSA.getSuperAdminManager().getAllUsersAndTheirGroups(sort, 1, usersperpage);
 }) */
-/* DEBUG SuperAdmin */
+/* function updateAddGroupSuperAdminGA() {
+    let $groups = MGA.getGroupAdminManager()._comboGroups;
+    let nextGroup = MGA.getGroupAdminManager()._updatedUserGroup;
+    let group = `<div class="input-group mb-3" id="update_u_actual_group_ga${nextGroup}">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input type="checkbox" id="update_u_is_group_admin_ga${nextGroup}">
+                            <label class="form-check-label mx-1" for="update_u_is_group_admin_ga${nextGroup}">
+                            Administrateur du groupe
+                            </label>
+                        </div>
+                    </div>
+                    <select class="form-control" id="update_u_group_ga${nextGroup}">
+                    </select>
+                    <button class="btn btn-danger ml-1" onclick="deleteGroupFromUpdateGA(${nextGroup})">Supprimer</button>
+                </div>`;
+    $("#update_actualgroup_ga").append(group);
+    const item_id = 'update_u_group_ga' + nextGroup;
+    appendSelectGroups($groups, item_id);
+    MGA.getGroupAdminManager()._updatedUserGroup += 1;
+} */

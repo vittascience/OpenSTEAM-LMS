@@ -152,13 +152,13 @@ class GroupAdminManager {
                         <td>${$droits}</td>
                         <td>${div_img}</td>
                         <td>
-                            <button class="btn btn-info btn-sm" data-i18n="superadmin.buttons.reset" onclick="resetUserPasswordga(${element.id})">Send</button>
+                            <button class="btn btn-info btn-sm" data-i18n="superadmin.buttons.reset" onclick="resetUserPasswordga(${element.id})">${i18next.t('superadmin.buttons.send')}</button>
                         </td>
                         <td>
-                            <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateUserModal_groupadmin(${element.id})">Update</button>
+                            <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateUserModal_groupadmin(${element.id})">${i18next.t('superadmin.buttons.update')}</button>
                         </td>
                         <td>
-                            <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGA(${element.id}, '${element.firstname}')">Delete</button>
+                            <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGA(${element.id}, '${element.firstname}')">${i18next.t('superadmin.buttons.delete')}</button>
                         </td>
                     </tr>`;
                 }
@@ -230,13 +230,13 @@ class GroupAdminManager {
                             <td>${$droits}</td>
                             <td>${div_img}</td>
                             <td>
-                                <button class="btn btn-info btn-sm" data-i18n="superadmin.buttons.reset" onclick="resetUserPassword(${element.id})">Send</button>
+                                <button class="btn btn-info btn-sm" data-i18n="superadmin.buttons.reset" onclick="resetUserPassword(${element.id})">${i18next.t('superadmin.buttons.send')}</button>
                             </td>
                             <td>
-                                <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateUserModal_groupadmin(${element.id})">Update</button>
+                                <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateUserModal_groupadmin(${element.id})">${i18next.t('superadmin.buttons.update')}</button>
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGA(${element.id}, '${element.firstname}')">Delete</button>
+                                <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGA(${element.id}, '${element.firstname}')">${i18next.t('superadmin.buttons.delete')}</button>
                             </td>
                         </tr>`;
                 }
