@@ -521,6 +521,29 @@ class ControllerGroupAdmin extends Controller
                     return ['response' => 'missing data'];
                 }
             },
+            'finalize_registration' => function($data) {
+                if (isset($data['password']) && $data['password'] != null &&
+                isset($data['password_confirm']) && $data['password_confirm'] != null &&
+                isset($data['newsletter']) && $data['newsletter'] != null &&
+                isset($data['private']) && $data['private'] != null &&
+                isset($data['mailmessage']) && $data['mailmessage'] != null &&
+                isset($data['contact']) && $data['contact'] != null) {
+
+                    $password = isset($_POST['password']) ? htmlspecialchars(strip_tags(trim($_POST['password']))) : null;
+                    $password_confirm = isset($_POST['password_confirm']) ? htmlspecialchars(strip_tags(trim($_POST['password_confirm']))) : null;
+                    $newsletter = isset($_POST['newsletter']) ? htmlspecialchars(strip_tags(trim($_POST['newsletter']))) : null;
+                    $private = isset($_POST['private']) ? htmlspecialchars(strip_tags(trim($_POST['private']))) : null;
+                    $mailmessage = isset($_POST['mailmessage']) ? htmlspecialchars(strip_tags(trim($_POST['mailmessage']))) : null;
+                    $contact = isset($_POST['contact']) ? htmlspecialchars(strip_tags(trim($_POST['contact']))) : null;
+    
+                    
+                    $GroupsRequesterAdmin = $this->entityManager->getRepository(UsersLinkGroups::class)->findBy(['user' => $_SESSION['id'], 'rights' => 1]);
+
+                    return ['finalized' => true];
+                } else {
+                    return ['finalized' => false];
+                }
+            },
         );
 
     } 
