@@ -681,7 +681,7 @@
 				"lastStep": "There is only one step left! Click on the button below to finalize the link.",
 				"joinGroup": "You are about to join the group : \"<span id='groupNameConfirmLink'></span>\"",
 				"notfound": "Group not found !",
-				"notfoundDetails": "We cannot find any groups linked to the link <span id='gourpName3'></span>.",
+				"notfoundDetails": "We cannot find any groups linked to the code <span id='gourpName3'></span>.",
 				"clickToRedirectLogin": "Click on continue to be redirected to the login page.",
 				"clickToRedirectHome": "Click on continue to be redirected to the home page.",
 				"invalidLink": "Invalid link !",

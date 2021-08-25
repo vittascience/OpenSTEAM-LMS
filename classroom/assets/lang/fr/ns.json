@@ -974,7 +974,7 @@
 				"lastStep": "Il ne reste plus qu'une étape ! Cliquez sur le bouton si dessous pour finaliser la liaison.",
 				"joinGroup": "Vous vous apprêtez à rejoindre le groupe \"<span id='groupNameConfirmLink'></span>\"",
 				"notfound": "Groupe introuvable !",
-				"notfoundDetails": "Nous ne trouvons aucun groupe lié au lien <span id='gourpName3'></span>.",
+				"notfoundDetails": "Nous ne trouvons aucun groupe lié au code <span id='gourpName3'></span>.",
 				"clickToRedirectLogin": "Cliquez sur continuer pour être redirigé vers la page de connexion.",
 				"clickToRedirectHome": "Cliquez sur continuer pour être redirigé vers la page d'accueil.",
 				"invalidLink": "Lien invalide !",

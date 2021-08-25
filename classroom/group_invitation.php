@@ -1,14 +1,8 @@
 <?php
 session_start();
 
-$openClassroomDir = __DIR__."/../../openClassroom";
-if(is_dir($openClassroomDir)){
-    require __DIR__."/../../vendor/autoload.php";
-    require __DIR__."/../../bootstrap.php";
-} else {
-    require __DIR__."/../vendor/autoload.php";
-    require __DIR__."/../bootstrap.php";
-}
+require __DIR__."/../vendor/autoload.php";
+require __DIR__."/../bootstrap.php";
 
 use Dotenv\Dotenv;
 use User\Entity\Regular;
@@ -29,7 +23,6 @@ $uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
 $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]". $uri_parts[0];
 $urlgc = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]". $uri_parts[0]."?gc=".$groupCode;
 $urlhome = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]"."/classroom/home.php";
-
 
 $group = $entityManager->getRepository(Groups::class)->findOneBy(['link' => $groupCode]);
 
@@ -86,6 +79,19 @@ if ($group) {
     $groupId = $group->getId();
 }
 
+$userId = isset($_SESSION['id']) ? $_SESSION['id'] : '';
+
+
+$informations = ['url' => $url, 
+                'urlWithCode'=> $urlgc, 
+                'urlHome' => $urlhome, 
+                'groupName' => $grouName, 
+                'linkCode' => $groupCode, 
+                'groupId' => $groupId, 
+                'userId' => $userId];
+                
+setcookie('info', json_encode($informations), time()+3600);
+
 if (strlen($groupCode) != 5 || !preg_match("/^[a-zA-Z0-9]+$/", $groupCode)) {
     return header("Location: $url?gc=00000&page=invalidlink");
 }
@@ -94,22 +100,12 @@ if (!$group && $page != "badlink") {
     return header("Location: $url?gc=$groupCode&page=badlink");
 }
 
-
 if (isset($_SESSION['id']) && ($page != "confirm" && $page != "success" && $page != "alreadylinked")) {
     return header("Location: $url?gc=$groupCode&page=confirm");
 }
 
 require_once(__DIR__ . "/header.html");
 ?>
-    <script>
-        const url = "<?php echo($url);?>";
-        const urlWithCode = "<?php echo($urlgc);?>";
-        const urlHome = "<?php echo($urlhome);?>";
-        const groupName = "<?php echo($grouName);?>";
-        const linkCode = "<?php echo($groupCode);?>";
-        const group_id = "<?php echo($groupId);?>";
-        const user_id = "<?php echo(isset($_SESSION['id']) ? $_SESSION['id'] : '');?>";
-    </script>
     <link rel="stylesheet" href="/classroom/assets/css/main.css">
     <script src="./assets/js/lib/rotate.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>

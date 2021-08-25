@@ -375,19 +375,11 @@
 
 <script>
     /* INTERACTIVE BLOCK */
-    $("#fake-blockly-input").on("input", (function () {
+    /* $("#fake-blockly-input").on("input", (function () {
         var text = $("#fake-blockly-input").val().trim();
-
-        /*
-        if (text == null || text == '') {
-            text = 'Bonjour !';
-            $("#fake-blockly-input").val(text)
-        }
-        */
-
         $('#fake-code-text').html('\'' + text + '\'');
         $('#fake-display').html(text);
-    }));
+    })); */
 </script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
@@ -419,6 +411,9 @@
 
 
 <script>
+    const Informations = JSON.parse(getCookie('info'));
+    Informations.groupName = Informations.groupName.split('+').join(' ');
+
     if ($_GET('page')) {
         let page = $_GET('page');
         switch (page) {
@@ -429,23 +424,23 @@
                 $("#account-activated").toggle();
                 break;
             case 'login':
-                delayDivUpdate('#classroom-desc', groupName);
+                delayDivUpdate('#classroom-desc', Informations.groupName);
                 $('#classroom-login-container-bis').toggle();
                 $("#classroom-create-account").toggle();
                 break;
             case 'badlink':
-                delayDivUpdate('#gourpName3', linkCode);
+                delayDivUpdate('#gourpName3', Informations.linkCode);
                 $('#group-not-found').toggle();
                 break;
             case 'invalidlink':
                 $('#invalid-link').toggle();
                 break;
             case 'confirm':
-                delayDivUpdate('#groupNameConfirmLink', groupName);
+                delayDivUpdate('#groupNameConfirmLink', Informations.groupName);
                 $('#confirm-link-to-group').toggle();
                 break;
             case 'success':
-                delayDivUpdate('#gourpName', groupName);
+                delayDivUpdate('#gourpName', Informations.groupName);
                 $('#group-joinded-container').toggle();
                 break;
             case 'alreadyactive':
@@ -462,7 +457,7 @@
         }
     } else {
         $('#classroom-login-container-bis').toggle();
-        $('#classroom-desc').text("Vous êtes invité dans le groupe : " + groupName);
+        $('#classroom-desc').text("Vous êtes invité dans le groupe : " + Informations.groupName);
     }
 
 
@@ -546,7 +541,7 @@
                     displayNotification('#notif-div', "classroom.notif.accountCreated", "success");
                     $("#registration-successful").toggle();
                     $("#classroom-register-container").toggle();
-                    $('#gourpName2').text(groupName);
+                    $('#gourpName2').text(Informations.groupName);
                 } else {
                     if (response.errorType) {
                         switch (response.errorType) {
@@ -630,8 +625,8 @@
 
     function linkTeacherToGroupProcess() {
         $('#linkTeacherToGroupBtn').attr('disabled', true);
-        linkTeacherToGroup(user_id, group_id).then((response) => {
-            document.location = urlWithCode + `&page=${response.message}`;
+        linkTeacherToGroup(Informations.userId, Informations.groupId).then((response) => {
+            document.location = Informations.urlWithCode + `&page=${response.message}`;
         })
     }
 
@@ -776,18 +771,18 @@
 
 
     function goToHome() {
-        document.location = urlHome;
+        document.location = Informations.urlHome;
     }
 
     function goToLogin() {
-        document.location = urlWithCode + "&page=login";
+        document.location = Informations.urlWithCode + "&page=login";
     }
 
     function goToSuccess() {
-        document.location = urlWithCode + "&page=success";
+        document.location = Informations.urlWithCode + "&page=success";
     }
 
     function goToConfirm() {
-        document.location = urlWithCode + "&page=confirm";
+        document.location = Informations.urlWithCode + "&page=confirm";
     }
 </script>
