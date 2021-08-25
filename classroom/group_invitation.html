@@ -130,6 +130,10 @@
                 </div>
             </div>
 
+            <p data-i18n="[html]superadmin.account.registration.disclaimerVittascience"></p>
+            <p data-i18n="[html]superadmin.account.registration.mandatory"></p>
+            <p data-i18n="[html]superadmin.account.registration.cguVittascience"></p>
+
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="cb_name_public">
                 <label class="form-check-label" for="cb_name_public"
@@ -165,9 +169,6 @@
                     data-i18n="[value]classroom.login.signup">
             </div>
 
-            <p data-i18n="[html]superadmin.account.registration.disclaimerVittascience"></p>
-            <p data-i18n="[html]superadmin.account.registration.mandatory"></p>
-            <p data-i18n="[html]superadmin.account.registration.cguVittascience"></p>
         </form>
     </div>
 </div>
@@ -433,7 +434,7 @@
                 $("#classroom-create-account").toggle();
                 break;
             case 'badlink':
-                delayDivUpdate('#gourpName3', linkCode);   
+                delayDivUpdate('#gourpName3', linkCode);
                 $('#group-not-found').toggle();
                 break;
             case 'invalidlink':

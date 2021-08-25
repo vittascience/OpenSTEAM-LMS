@@ -67,6 +67,21 @@ class GroupAdminManager {
      * GROUPS FUNCTION
      */
 
+    isGroupAdmin() {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=groupadmin&action=is_user_groupadmin",
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
     /**
      * Get actual group informations
      * Access with Main.getSuperAdminManager()._actualGroupInfos
@@ -87,7 +102,7 @@ class GroupAdminManager {
                 }
                 data_table +=
                     `<tr>
-                        <th scope="row" onclick="MGA.getGroupAdminManager().getUsersFromGroup(${element.id},1)">${element.name}</i></th>
+                        <th scope="row" onclick="showGroupMembersGroupAdmin(${element.id})">${element.name}</i></th>
                         <td>${element.description}</td>
                         <td>
                             ${div_img}

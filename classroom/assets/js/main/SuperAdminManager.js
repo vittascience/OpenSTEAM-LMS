@@ -71,6 +71,21 @@ class SuperAdminManager {
      * GROUPS FUNCTION
      */
 
+    isAdmin() {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=is_user_admin",
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
     /**
      * Get actual group informations
      * Access with Main.getSuperAdminManager()._actualGroupInfos
@@ -169,21 +184,23 @@ class SuperAdminManager {
 
     // Ajout d'un groupe
     createGroup($group_description, $group_name, $group_app) {
-        $.ajax({
-            type: "POST",
-            url: "/routing/Routing.php?controller=superadmin&action=create_group",
-            data: {
-                name: $group_name,
-                description: $group_description,
-                applications: $group_app
-            },
-            success: function (response) {
-                console.log(JSON.parse(response))
-            },
-            error: function () {
-                reject();
-            }
-        });
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=create_group",
+                data: {
+                    name: $group_name,
+                    description: $group_description,
+                    applications: $group_app
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
     };
 
     /**

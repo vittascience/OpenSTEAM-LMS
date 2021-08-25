@@ -898,7 +898,8 @@
 			"school": "Établissement <span class=\"text-danger\">*</span>",
 			"password": "Mot de passe <span class=\"text-danger\">*</span>",
 			"confirmPassword": "Confirmer le mot de passe <span class=\"text-danger\">*</span>",
-			"help":"Appel à l'aide"
+			"help": "Appel à l'aide",
+			"onlyVisible": "Uniquement visible par vous :"
 		},
 		"account": {
 			"activate": {
@@ -919,7 +920,10 @@
 				"cguVittascience": "En validant ce formulaire, vous acceptez les <a href=\"http://vittascience.com/\"> conditions générales d'utilisation</a>.",
 				"description": "Merci de compléter les champs suivants pour créer votre compte.",
 				"title": "Inscription"
-			}
+			},
+			"notAllowedUpdateUser": "Vous ne disposez pas des droits pour modifier cet utilisateur.",
+			"notAllowedDeleteGroup": "Vous ne disposez pas des droits pour supprimer ce groupe.",
+			"notAllowedDisableUser": "Vous ne disposez pas des droits pour désactiver cet utilisateur."
 		},
 		"users": {
 			"users": "Utilisateurs",
@@ -950,7 +954,10 @@
 			"groupAdmin": "Administateur du groupe",
 			"admin": "Administrateur",
 			"teacher": "Enseignant",
-			"usersPerPage": "Utilisateurs par page"
+			"usersPerPage": "Utilisateurs par page",
+			"userDeleted": "Utilisateur supprimé.",
+			"userDisabled": "Utilisateur désactivé.",
+			"userCreated": "Groupe créé avec succès"
 		},
 		"group": {
 			"add": "Ajouter un groupe",
@@ -987,7 +994,10 @@
 			"description": "Description du groupe",
 			"link": "Lien du groupe",
 			"applications": "Application(s) du groupe",
-			"groupsPerPage": "Groupes par page"
+			"groupsPerPage": "Groupes par page",
+			"groupDeleted": "Groupe supprimé.",
+			"groupCreated": "Groupe créé avec succès",
+			"groupCreateFailed": "Le groupe n'a pas pu être créé"
 		},
 		"buttons": {
 			"continue": "Continuer",
@@ -1037,7 +1047,9 @@
 		"input": {
 			"placeholder": {
 				"delete": "supprimer"
-			}
+			},
+			"writeDelete": "Vous devez écrire supprimer pour valider l'action.",
+			"writeDisable": "Vous devez écrire désactiver pour valider l'action."
 		},
 		"table": {
 			"lastname": "Nom",
@@ -1046,7 +1058,7 @@
 			"group": "Groupe",
 			"description": "Description",
 			"right": "Rôle",
-			"resetPassword": "Réinitialiser le mot de passe" 
+			"resetPassword": "Réinitialiser le mot de passe"
 		}
 	}
 }

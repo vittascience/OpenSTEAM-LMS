@@ -854,7 +854,13 @@ function createGroupWithModal() {
         ApplicationsData.push(ApplicationTemp);
     });
 
-    MSA.getSuperAdminManager().createGroup($description, $name, JSON.stringify(ApplicationsData));
+    MSA.getSuperAdminManager().createGroup($description, $name, JSON.stringify(ApplicationsData)).then((response) => {
+        if (response.response == "success") {
+            displayNotification('#notif-div', "superadmin.group.groupCreated", "success");
+        } else {
+            displayNotification('#notif-div', "superadmin.group.groupCreateFailed", "error");
+        }
+    });
     pseudoModal.closeAllModal();
     tempoAndShowGroupsTable()
 }
@@ -900,6 +906,11 @@ $('#table_back_to_users').click(function () {
     $('#paginationButtons_users').html("");
 })
 
+$('#table_back_to_users_groupadmin').click(function () {
+    $('#groupadmin_groups').show();
+    $('#table_details_users_groupadmin').hide();
+})
+
 $('#dashboard-superadmin-groups').click(() => {
     let sort = $('#sort_groups_filter').val(),
         groupsperpage = $('#groups_per_page').val();
@@ -916,8 +927,9 @@ $('#sort_users_filter, #users_per_page').on('change', () => {
 $('#search_user').click(() => {
     let name = $('#name_user_search').val(),
         usersperpage = $('#users_per_page').val();
-    if (name != "")
+    if (name != "") {
         MSA.getSuperAdminManager().globalSearchUser(name, 1, usersperpage);
+    }
 })
 
 $('#name_user_search').on('change', () => {
@@ -925,16 +937,18 @@ $('#name_user_search').on('change', () => {
         sort = $('#sort_users_filter').val(),
         usersperpage = $('#users_per_page').val(),
         group_id = MSA.getSuperAdminManager()._actualGroup;
-    if (name == "")
+    if (name == "") {
         MSA.getSuperAdminManager().showGroupMembers(group_id, 1, usersperpage, sort);
+    }
 })
 
 $('#name_group_search').on('change', () => {
     let name = $('#name_group_search').val(),
         sort = $('#sort_groups_filter').val(),
         groupsperpage = $('#groups_per_page').val();
-    if (name == "")
+    if (name == "") {
         MSA.getSuperAdminManager().getAllGroupsInfos(sort, 1, groupsperpage);
+    }
 })
 
 $('#sort_groups_filter, #groups_per_page').on('change', () => {
@@ -948,10 +962,11 @@ $('#search_group').click(() => {
     let name = $('#name_group_search').val(),
         sort = $('#sort_groups_filter').val(),
         groupsperpage = $('#groups_per_page').val();
-    if (name == "")
+    if (name == "") {
         MSA.getSuperAdminManager().getAllGroupsInfos(sort, 1, groupsperpage);
-    else
+    } else {
         MSA.getSuperAdminManager().searchGroup(name, 1, groupsperpage, );
+    }
 })
 
 $('#create_user_link_to_group_superadmin').click(function () {
@@ -1314,6 +1329,7 @@ function switchToSuperAdmin() {
     navigatePanel('classroom-dashboard-profil-panel-superadmin', 'dashboard-profil-superadmin');
     $('#classroom-dashboard-sidebar-teacher').hide();
     $('#superadmin-dashboard-sidebar').show();
+    pseudoModal.closeAllModal();
 }
 
 function switchToGroupAdmin() {
@@ -1321,6 +1337,7 @@ function switchToGroupAdmin() {
     navigatePanel('classroom-dashboard-profil-panel-groupadmin', 'dashboard-profil-groupadmin');
     $('#classroom-dashboard-sidebar-teacher').hide();
     $('#groupadmin-dashboard-sidebar').show();
+    pseudoModal.closeAllModal();
 }
 
 function switchToProf() {
@@ -1344,22 +1361,21 @@ function deleteGroup(id) {
 
 function persistDeleteGroup() {
     let validation = $('#validation_delete_group').val();
+    let placeholderWord = $('#validation_delete_group').attr('placeholder');
     const group = MSA.getSuperAdminManager()._actualGroup;
-    if (validation == "supprimer") {
+    if (validation == placeholderWord) {
         MSA.getSuperAdminManager().deleteGroup(group).then((response) => {
             if (response.message == "missing data") {
-                switchAlertModal(1, "#alertDeleteGroup", "Vous ne disposez pas des droits pour supprimer ce groupe.");
+                displayNotification('#notif-div', "superadmin.account.notAllowedDeleteGroup", "error");
             } else if (response.message == "success") {
-                switchAlertModal(0, "#alertDeleteGroup", "Groupe supprimé.");
+                displayNotification('#notif-div', "superadmin.group.groupDeleted", "success");
                 MSA.getSuperAdminManager()._actualUser = 0;
-                setTimeout(() => {
-                    pseudoModal.closeAllModal();
-                }, 4500);
+                pseudoModal.closeAllModal();
                 tempoAndShowGroupsTable();
             }
         })
     } else {
-        switchAlertModal(1, "#alertDeleteGroup", "Vous devez écrire supprimer pour valider l'action.");
+        displayNotification('#notif-div', "superadmin.input.writeDelete", "error");
     }
 }
 
@@ -1392,22 +1408,21 @@ function disableUserGA(id, name) {
 
 function persistDisable() {
     let validation = $('#validation_disable').val();
+    let placeholderWord = $('#validation_disable').attr('placeholder');
     const user = MSA.getSuperAdminManager()._actualUser;
-    if (validation == "désactiver") {
+    if (validation == placeholderWord) {
         MSA.getSuperAdminManager().disableUser(user).then((response) => {
             if (response.response == "missing data") {
-                switchAlertModal(1, "#alertDisableUser", "Vous ne disposez pas des droits pour désactiver cet utilisateur.");
+                displayNotification('#notif-div', "superadmin.account.notAllowedDisableUser", "error");
             } else if (response.response == "success") {
-                switchAlertModal(0, "#alertDisableUser", "Utilisateur désactivé.");
+                displayNotification('#notif-div', "superadmin.users.userDisabled", "success");
                 MSA.getSuperAdminManager()._actualUser = 0;
-                setTimeout(() => {
-                    pseudoModal.closeAllModal();
-                }, 4500);
+                pseudoModal.closeAllModal();
                 tempoAndShowUsersTable()
             }
         })
     } else {
-        switchAlertModal(1, "#alertDisableUser", "Vous devez écrire supprimer pour valider l'action.");
+        displayNotification('#notif-div', "superadmin.input.writeDelete", "error");
     }
 }
 
@@ -1415,44 +1430,42 @@ function persistDisable() {
 
 function persistDelete() {
     let validation = $('#validation_delete').val();
+    let placeholderWord = $('#validation_delete').attr('placeholder');
     const user = MSA.getSuperAdminManager()._actualUser;
-    if (validation == "supprimer") {
+    if (validation == placeholderWord) {
         MSA.getSuperAdminManager().deleteUser(user).then((response) => {
             if (response.message == "missing data") {
-                switchAlertModal(1, "#alertDeleteUser", "Vous ne disposez pas des droits pour supprimer cet utilisateur.");
+                displayNotification('#notif-div', "superadmin.account.notAllowedDeleteUser", "error");
             } else if (response.message == "allowed") {
-                switchAlertModal(0, "#alertDeleteUser", "Utilisateur supprimé.");
+                displayNotification('#notif-div', "superadmin.users.userDeleted", "success");
                 MSA.getSuperAdminManager()._actualUser = 0;
-                setTimeout(() => {
-                    pseudoModal.closeAllModal();
-                }, 4500);
+                pseudoModal.closeAllModal();
                 tempoAndShowUsersTable();
             }
         })
     } else {
-        switchAlertModal(1, "#alertDeleteUser", "Vous devez écrire supprimer pour valider l'action.");
+        displayNotification('#notif-div', "superadmin.input.writeDelete", "error");
     }
 }
 
 
 function persistDeleteGA() {
     let validation = $('#validation_deleteGA').val();
+    let placeholderWord = $('#validation_deleteGA').attr('placeholder');
     const user = MGA.getGroupAdminManager()._actualUser;
-    if (validation == "supprimer") {
+    if (validation == placeholderWord) {
         MGA.getGroupAdminManager().disableUser(user).then((response) => {
             if (response.message == "not_allowed") {
-                switchAlertModal(1, "#alertDisableUserGA", "Vous ne disposez pas des droits pour supprimer cet utilisateur.");
+                displayNotification('#notif-div', "superadmin.account.notAllowedDeleteUser", "error");
             } else if (response.message == "allowed") {
-                switchAlertModal(0, "#alertDisableUserGA", "Utilisateur supprimé.");
+                displayNotification('#notif-div', "superadmin.users.userDeleted", "success");
                 MGA.getGroupAdminManager()._actualUser = 0;
-                setTimeout(() => {
-                    pseudoModal.closeAllModal();
-                }, 4500);
+                pseudoModal.closeAllModal();
                 tempoAndShowUsersTableGA()
             }
         })
     } else {
-        switchAlertModal(1, "#alertDisableUserGA", "Vous devez écrire supprimer pour valider l'action.");
+        displayNotification('#notif-div', "superadmin.input.writeDelete", "error");
     }
 }
 
@@ -1504,6 +1517,12 @@ function showGroupMembers($group_id, $page, $userspp, $sort) {
     $('#users_options').show();
     $('#groups_options').hide();
     $('#btn-create-superadmin').hide();
+}
+
+function showGroupMembersGroupAdmin(id) {
+    MGA.getGroupAdminManager().getUsersFromGroup(id, 1)
+    $('#groupadmin_groups').hide();
+    $('#table_details_users_groupadmin').show();
 }
 
 function optionsGroupApplications($type) {
@@ -1659,9 +1678,9 @@ function showupdateUserModal_groupadmin(user_id) {
             $('#update_u_mail_ga').val(res[0].email);
             $('#update_u_phone_ga').val(res[0].telephone);
 
-           
 
-            
+
+
             $('#update_user_teacher_grade_ga').change(() => {
                 switch ($('#update_user_teacher_grade_ga').val()) {
                     case "0":
@@ -1713,7 +1732,7 @@ function showupdateUserModal_groupadmin(user_id) {
                 }
             }
         } else {
-            alert("Vous n'avez pas les droits pour modifier cet utilisateur.")
+            displayNotification('#notif-div', "superadmin.account.notAllowedUpdateUser", "error");
         }
     });
 }

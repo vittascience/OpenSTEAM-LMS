@@ -200,7 +200,7 @@ class ControllerSuperAdmin extends Controller
                         }
                         $this->entityManager->flush();
     
-                        return ['response' => 'Group created with success!'];
+                        return ['response' => 'success'];
                     } else {
                         return ['response' => 'missing data'];
                     }

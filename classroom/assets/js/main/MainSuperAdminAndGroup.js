@@ -6,14 +6,20 @@ const MSA = (function () {
     const S = {};
     S.superadminManager = null;
     S.init = function () {
-        S.superadminManager = new SuperAdminManager()
-        if (UserManager.getUser()) {
-            S.superadminManager.getAllGroups();
-        } else {
-            return new Promise(function (resolve) {
-                resolve("loaded");
-            })
-        }
+        return new Promise(function (resolve, reject) {
+            S.superadminManager = new SuperAdminManager();
+            if (UserManager.getUser()) {
+                S.superadminManager.isAdmin().then((res) => {
+                    if (res.Admin === true) {
+                        $('#superadmin-switch-button').show();
+                        $('#admin_options').show();
+                        resolve("loaded");
+                    } else {
+                        resolve("loaded");
+                    }
+                })
+            }
+        })
     };
 
     return {
@@ -39,16 +45,20 @@ const MGA = (function () {
     const G = {};
     G.groupadminmanager = null;
     G.init = function () {
-        G.groupadminmanager = new GroupAdminManager()
-        if (UserManager.getUser()) {
-            return new Promise(function () {
-                //
-            })
-        } else {
-            return new Promise(function (resolve) {
-                resolve("loaded");
-            })
-        }
+        return new Promise(function (resolve, reject) {
+            G.groupadminmanager = new GroupAdminManager()
+            if (UserManager.getUser()) {
+                G.groupadminmanager.isGroupAdmin().then((res) => {
+                    if (res.GroupAdmin === true) {
+                        $('#groupadmin-switch-button').show();
+                        $('#admin_options').show();
+                        resolve("loaded");
+                    } else {
+                        resolve("loaded");
+                    }
+                })
+            }
+        })
     };
 
     return {
@@ -62,6 +72,5 @@ const MGA = (function () {
         getGroupAdminManager: function () {
             return G.groupadminmanager;
         },
-
     }
 }());

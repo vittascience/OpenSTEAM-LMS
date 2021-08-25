@@ -33,6 +33,7 @@ $urlhome = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "
 
 $group = $entityManager->getRepository(Groups::class)->findOneBy(['link' => $groupCode]);
 
+
 // check if the user exists in db
 if ($token) {
     $regularUserToActivate = $entityManager->getRepository(Regular::class)->findOneBy(array('confirmToken'=> $token));
@@ -79,8 +80,10 @@ if ($token) {
     
 
 $grouName = "";
+$groupId = "";
 if ($group) {
     $grouName = $group->getName();
+    $groupId = $group->getId();
 }
 
 if (strlen($groupCode) != 5 || !preg_match("/^[a-zA-Z0-9]+$/", $groupCode)) {
@@ -96,7 +99,6 @@ if (isset($_SESSION['id']) && ($page != "confirm" && $page != "success" && $page
     return header("Location: $url?gc=$groupCode&page=confirm");
 }
 
-
 require_once(__DIR__ . "/header.html");
 ?>
     <script>
@@ -105,7 +107,7 @@ require_once(__DIR__ . "/header.html");
         const urlHome = "<?php echo($urlhome);?>";
         const groupName = "<?php echo($grouName);?>";
         const linkCode = "<?php echo($groupCode);?>";
-        const group_id = "<?php echo($group->getId());?>";
+        const group_id = "<?php echo($groupId);?>";
         const user_id = "<?php echo(isset($_SESSION['id']) ? $_SESSION['id'] : '');?>";
     </script>
     <link rel="stylesheet" href="/classroom/assets/css/main.css">

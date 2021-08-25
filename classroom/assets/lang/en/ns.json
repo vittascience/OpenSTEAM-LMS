@@ -605,7 +605,8 @@
 			"school": "School <span class=\"text-danger\">*</span>",
 			"password": "Password <span class=\"text-danger\">*</span>",
 			"confirmPassword": "Confirm password <span class=\"text-danger\">*</span>",
-			"help":"Help"
+			"help": "Help",
+			"onlyVisible": "Only visible to you :"
 		},
 		"account": {
 			"activate": {
@@ -626,7 +627,10 @@
 				"cguVittascience": "By validating this form, you accept the <a href=\"http://vittascience.com/\"> Terms of Service</a>.",
 				"description": "Please complete the following fields to create your account.",
 				"title": "Registration"
-			}
+			},
+			"notAllowedUpdateUser": "You do not have the rights to modify this user.",
+			"notAllowedDeleteGroup": "You do not have the rights to delete this group.",
+			"notAllowedDisableUser": "You do not have the rights to disable this user."
 		},
 		"users": {
 			"users": "Users",
@@ -657,7 +661,10 @@
 			"groupAdmin": "Group administrator",
 			"admin": "Administrator",
 			"teacher": "Teacher",
-			"usersPerPage": "Users per page"
+			"usersPerPage": "Users per page",
+			"userDeleted": "User deleted.",
+			"userDisabled": "User disabled.",
+			"userCreated": "User successfully created"
 		},
 		"group": {
 			"add": "Add group",
@@ -694,7 +701,10 @@
 			"description": "Description of the group",
 			"link": "Group link",
 			"applications": "Group applications",
-			"groupsPerPage": "Groups per page"
+			"groupsPerPage": "Groups per page",
+			"groupDeleted": "Group deleted.",
+			"groupCreated": "Group successfully created",
+			"groupCreateFailed": "The group could not be created"
 		},
 		"buttons": {
 			"continue": "Continue",
@@ -744,7 +754,9 @@
 		"input": {
 			"placeholder": {
 				"delete": "delete"
-			}
+			},
+			"writeDelete": "You must write delete to validate the action.",
+			"writeDisable": "You must write disable to validate the action."
 		},
 		"table": {
 			"lastname": "Lastname",
@@ -752,8 +764,8 @@
 			"applications": "Applications",
 			"group": "Group",
 			"description": "Description",
-			"right": "Right",
-			"resetPassword": "Reset password" 
+			"right": "Rights",
+			"resetPassword": "Reset password"
 		}
 	}
 }

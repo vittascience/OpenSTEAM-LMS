@@ -55,10 +55,8 @@
 <script>
     UIManager.init().then((resolve) => {
         UserManager.init().then((resolve) => {
-
                 Main.init().then((resolve) => {
                     const EVENTS_SCRIPTS = [{
-
                             id: "modals",
                             src: "assets/js/scripts/loadModals.js"
                         },
@@ -114,9 +112,13 @@
                                             $_GET('interface'))
                                     }
                                 })
-
                             }
-
+                            // Init the super and group admin à modifier 
+                            setTimeout(() => {
+                                MGA.init().then((resolve) => {
+                                    MSA.init().then((resolve) => {})
+                                })
+                            }, 1000);
                         },
                         (reason) => {
                             console.log("Loader failed to load: " + reason);

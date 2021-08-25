@@ -97,6 +97,17 @@ const classroomModals = {
                             <span data-i18n="classroom.modals.settingsTeacher.accessButton">Accéder à votre profil</span>
                             <i class="fas fa-external-link-alt"></i>
                         </button>
+                        <div class="border-1" id="admin_options" style="display: none;">
+                            <p data-i18n="superadmin.profil.onlyVisible">Uniquement visible par vous :</p>
+                            <button class="btn mb-2 c-btn-outline-primary" onclick="switchToSuperAdmin()" id="superadmin-switch-button" style="display:none;"><span
+                                    data-i18n="superadmin.profil.superAdmin" class="text-span-initial mr-1"></span><i
+                                    class="fas fa-cog"></i>
+                            </button>
+                            <button class="btn mb-2 c-btn-outline-primary" onclick="switchToGroupAdmin()" id="groupadmin-switch-button" style="display:none;"><span
+                                    data-i18n="superadmin.profil.groupAdmin" class="text-span-initial mr-1"></span><i
+                                    class="fas fa-cog"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>`,
         footer: ``
@@ -571,7 +582,7 @@ const classroomModals = {
                             <h3 class="font-weight-bold text-danger m-auto text-center" data-i18n="superadmin.users.deleteConfirmationTitle"></h3>
                             <p data-i18n="[html]superadmin.users.disable.intention" class="text-center"></p>
                             <p data-i18n="superadmin.users.disable.message" class="text-center"></p>.
-                            <input type="text" name="validation_deleteGA" id="validation_deleteGA" placeholder="supprimer">
+                            <input type="text" name="validation_deleteGA" id="validation_deleteGA" data-i18n="[placeholder]superadmin.input.placeholder.delete" placeholder="supprimer">
                             <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="cancelDeleteGA()" data-i18n="superadmin.buttons.cancel">Annuler</button>
                             <button class="btn btn-danger mx-auto mt-3 btn-lg" onclick="persistDeleteGA()" data-i18n="superadmin.buttons.validate">Valider</button>
                         </div>
