@@ -113,12 +113,18 @@
                                     }
                                 })
                             }
-                            // Init the super and group admin à modifier 
-                            setTimeout(() => {
+
+                            // Init the super and group admin
+                            let currentTask = (onEnd) => {
                                 MGA.init().then((resolve) => {
-                                    MSA.init().then((resolve) => {})
+                                    MSA.init().then((resolve) => {
+                                        onEnd();
+                                    })
                                 })
-                            }, 1000);
+                            }
+                            Main.getClassroomManager()._addTaskToQueue(currentTask);
+
+
                         },
                         (reason) => {
                             console.log("Loader failed to load: " + reason);

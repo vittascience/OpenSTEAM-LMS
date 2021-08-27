@@ -919,7 +919,10 @@
 				"mandatory": "Les champs marqués par un <span class=\"text-danger\">*</span> sont obligatoires.",
 				"cguVittascience": "En validant ce formulaire, vous acceptez les <a href=\"http://vittascience.com/\"> conditions générales d'utilisation</a>.",
 				"description": "Merci de compléter les champs suivants pour créer votre compte.",
-				"title": "Inscription"
+				"title": "Inscription",
+				"registrationFinalizationSuccess": "Votre inscription à bien été finalisé, vous pouvez maintenant vous connectez",
+				"registrationFinalization": "Finaliser votre inscription",
+				"descriptionFinalization": "Merci de compléter les champs suivants pour finaliser votre inscription."
 			},
 			"notAllowedUpdateUser": "Vous ne disposez pas des droits pour modifier cet utilisateur.",
 			"notAllowedDeleteGroup": "Vous ne disposez pas des droits pour supprimer ce groupe.",
@@ -946,6 +949,12 @@
 				"resetPassword": {
 					"subject": "Réinitialisation de votre mot de passe.",
 					"bodyTitle": "Réinitialisation du mot de passe.",
+					"textBeforeLink": "Si le bouton ci-dessus ne fonctionne pas, copiez et collez dans votre navigateur, le lien suivant :"
+				},
+				"finalizeAccount": {
+					"title": "Finalisation d'inscription",
+					"subject": "Finalisation d'inscription",
+					"bodyTitle": "Finaliser votre inscription.",
 					"textBeforeLink": "Si le bouton ci-dessus ne fonctionne pas, copiez et collez dans votre navigateur, le lien suivant :"
 				}
 			},
@@ -997,12 +1006,18 @@
 			"groupsPerPage": "Groupes par page",
 			"groupDeleted": "Groupe supprimé.",
 			"groupCreated": "Groupe créé avec succès",
-			"groupCreateFailed": "Le groupe n'a pas pu être créé"
+			"groupCreateFailed": "Le groupe n'a pas pu être créé",
+			"showLinkTitle": "Lien du groupe",
+			"usersWithoutGroups": "Utilisateurs sans groupe",
+			"usersInactiveOrNoRegular": "Utilisateurs inactifs et non regular",
+			"usersWithoutGroupsDescription": "Groupement d'utilisateurs n'étant liés à aucun groupe",
+			"usersInactiveOrNoRegularDescription": "Groupement d'utilisateurs inactifs et/ou non regular"
 		},
 		"buttons": {
 			"continue": "Continuer",
 			"validate": "Valider",
 			"cancel": "Annuler",
+			"finalize": "Finaliser",
 			"send": "Envoyer",
 			"login": "Se connecter",
 			"signup": "S'incrire",
@@ -1015,6 +1030,7 @@
 			"update": "Modifier",
 			"search": "Rechercher",
 			"copyLink": "Copier le lien",
+			"show": "Afficher",
 			"user": {
 				"add": "Ajouter l'utilisateur",
 				"create": "Créer l'utilisateur",
@@ -1058,7 +1074,8 @@
 			"group": "Groupe",
 			"description": "Description",
 			"right": "Rôle",
-			"resetPassword": "Réinitialiser le mot de passe"
+			"resetPassword": "Réinitialiser le mot de passe",
+			"link": "Lien"
 		}
 	}
 }

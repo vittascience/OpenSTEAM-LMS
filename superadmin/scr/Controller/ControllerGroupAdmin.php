@@ -27,11 +27,13 @@ class ControllerGroupAdmin extends Controller
                     isset($data['page']) &&
                     isset($data['userspp']) &&
                     isset($data['sort'])) {
-                        $groupd_id = $data['group_id'];
-                        $page = $data['page'];
-                        $userspp = $data['userspp'];
-                        $sort = $data['sort'];
-                        return $this->entityManager->getRepository(UsersLinkGroups::class)->getAllMembersFromGroup($groupd_id, $page, $userspp, $sort);
+
+                        $groupd_id = htmlspecialchars($data['group_id']);
+                        $page = htmlspecialchars($data['page']);
+                        $userspp = htmlspecialchars($data['userspp']);
+                        $sort = htmlspecialchars($data['sort']);
+
+                        return $this->entityManager->getRepository(UsersLinkGroups::class)->getAllMembersFromGroup($groupd_id, $page, $userspp, (int)$sort);
                     }
             },
             'create_user' => function($data) {
@@ -49,16 +51,16 @@ class ControllerGroupAdmin extends Controller
                     $admin = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $_SESSION['id']]);
 
                     $groups =  json_decode($data['groups']);
-                    $surname = htmlspecialchars(strip_tags(trim($data['surname'])));
-                    $firstname = htmlspecialchars(strip_tags(trim($data['firstname'])));
-                    $pseudo = htmlspecialchars(strip_tags(trim($data['pseudo'])));
+                    $surname = htmlspecialchars($data['surname']);
+                    $firstname = htmlspecialchars($data['firstname']);
+                    $pseudo = htmlspecialchars($data['pseudo']);
 
-                    $phone = htmlspecialchars(strip_tags(trim($data['phone'])));
-                    $bio = htmlspecialchars(strip_tags(trim($data['bio'])));
-                    $mail = htmlspecialchars(strip_tags(trim($data['mail'])));
-                    $school = htmlspecialchars(strip_tags(trim($data['school'])));
-                    $grade = (int)htmlspecialchars(strip_tags(trim($data['grade'])));
-                    $subject = (int)htmlspecialchars(strip_tags(trim($data['subject'])));
+                    $phone = htmlspecialchars($data['phone']);
+                    $bio = htmlspecialchars($data['bio']);
+                    $mail = htmlspecialchars($data['mail']);
+                    $school = htmlspecialchars($data['school']);
+                    $grade = (int)htmlspecialchars($data['grade']);
+                    $subject = (int)htmlspecialchars($data['subject']);
 
                     //isset($_POST['user_id']) ? htmlspecialchars(strip_tags(trim($_POST['user_id']))) : null;
                     
@@ -104,39 +106,73 @@ class ControllerGroupAdmin extends Controller
                     }
 
                     // Create Regular and Teacher entity on need
+                    $confirmationToken = time()."-".bin2hex($mail);
                     $regular = new Regular($user, $mail, $bio, $phone);
+                    $regular->setConfirmToken($confirmationToken);
                     $this->entityManager->persist($regular);
+
                     $teacher = new Teacher($user, $subject, $school, $grade);
                     $this->entityManager->persist($teacher);
                     $this->entityManager->flush();
 
 
+                    /////////////////////////////////////
+                    // PREPARE EMAIL TO BE SENT
+                    // received lang param
+                    $userLang = isset($_COOKIE['lng']) ? htmlspecialchars(strip_tags(trim($_COOKIE['lng']))) : 'fr';
 
-                    return ['response' => 'User created with success!'];
+                    // create the confirmation account link and set the email template to be used      
+                    $accountConfirmationLink = $_ENV['VS_HOST']."/classroom/registration.php?token=$confirmationToken";
+                    $emailTtemplateBody = $userLang."_confirm_account";
+
+                    // init i18next instance
+                    if(is_dir(__DIR__."/../../../../../openClassroom")){
+                        i18next::init($userLang,__DIR__."/../../../../../openClassroom/classroom/assets/lang/__lng__/ns.json");
+                    }else {
+                        i18next::init($userLang,__DIR__."/../../../../../classroom/assets/lang/__lng__/ns.json");
+                    }
+
+                    $emailSubject = i18next::getTranslation('superadmin.users.mail.finalizeAccount.subject');
+                    $bodyTitle = i18next::getTranslation('superadmin.users.mail.finalizeAccount.bodyTitle');
+                    $textBeforeLink = i18next::getTranslation('superadmin.users.mail.finalizeAccount.textBeforeLink');
+                    
+                    $body = "
+                        <a href='$accountConfirmationLink' style='text-decoration: none;padding: 10px;background: #27b88e;color: white;margin: 1rem auto;width: 50%;display: block;'>
+                            $bodyTitle
+                        </a>
+                        <br>
+                        <br>
+                        <p>$textBeforeLink $accountConfirmationLink
+                    ";
+                    
+                    $emailSent = Mailer::sendMail($mail, $emailSubject, $body, strip_tags($body), $emailTtemplateBody, "remi.cointe@vittascience.com", "Rémi"); 
+                    /////////////////////////////////////
+
+                    return ['response' => 'success', 'mail' => $emailSent];
                 } else {
                     return ['response' => 'missing data'];
                 }
             },
-            'registerTeacher' => function(){
+            'registerTeacher' => function($data){
 
                 // return error if the request is not a POST request
                 if($_SERVER['REQUEST_METHOD'] !== 'POST') return ["error"=> "Method not Allowed"];
 
                 // bind incoming data to the value provided or null
-                $firstname = isset($_POST['firstname']) ? htmlspecialchars(strip_tags(trim($_POST['firstname']))) : null;
-                $surname = isset($_POST['surname']) ? htmlspecialchars(strip_tags(trim($_POST['surname']))) : null;
-                $pseudo = isset($_POST['pseudo']) ? htmlspecialchars(strip_tags(trim($_POST['pseudo']))) : null;
-                $email = isset($_POST['email'])  ? htmlspecialchars(strip_tags(trim($_POST['email']))) : null;
-                $password = isset($_POST['password'])  ? htmlspecialchars(strip_tags(trim($_POST['password']))) : null;
-                $password_confirm = isset($_POST['password_confirm'])  ? htmlspecialchars(strip_tags(trim($_POST['password_confirm']))) : null;
+                $firstname = isset($data['firstname']) ? htmlspecialchars($data['firstname']) : null;
+                $surname = isset($data['surname']) ? htmlspecialchars($data['surname']) : null;
+                $pseudo = isset($data['pseudo']) ? htmlspecialchars($data['pseudo']) : null;
+                $email = isset($data['email'])  ? htmlspecialchars($data['email']) : null;
+                $password = isset($data['password'])  ? htmlspecialchars($data['password']) : null;
+                $password_confirm = isset($data['password_confirm'])  ? htmlspecialchars(strip_tags(trim($data['password_confirm']))) : null;
                 
-                $bio = isset($_POST['bio']) ? htmlspecialchars(strip_tags(trim($_POST['bio']))) : null;
-                $school = isset($_POST['school']) ? htmlspecialchars(strip_tags(trim($_POST['school']))) : null;
-                $phone = isset($_POST['phone']) ? htmlspecialchars(strip_tags(trim($_POST['phone']))) : null;
-                $grade = isset($_POST['grade']) ? htmlspecialchars(strip_tags(trim($_POST['grade']))) : null;
-                $subject = isset($_POST['subject']) ? htmlspecialchars(strip_tags(trim($_POST['subject']))) : null;
+                $bio = isset($data['bio']) ? htmlspecialchars($data['bio']) : null;
+                $school = isset($data['school']) ? htmlspecialchars($data['school']) : null;
+                $phone = isset($data['phone']) ? htmlspecialchars($data['phone']) : null;
+                $grade = isset($data['grade']) ? htmlspecialchars($data['grade']) : null;
+                $subject = isset($data['subject']) ? htmlspecialchars($data['subject']) : null;
 
-                $groupCode = isset($_POST['gcode']) ? htmlspecialchars(strip_tags(trim($_POST['gcode']))) : null;
+                $groupCode = isset($data['gcode']) ? htmlspecialchars($data['gcode']) : null;
 
                 $grade = (int)$grade;
                 $subject = (int)$subject;
@@ -258,15 +294,10 @@ class ControllerGroupAdmin extends Controller
                     "link" => $accountConfirmationLink
                 );   
             },
-            'linkTeacherToGroup' => function() {
-
-                 // return error if the request is not a POST request
-                 // probably unnecessary while we already check it in the routing
-                if($_SERVER['REQUEST_METHOD'] !== 'POST') return ["error"=> "Method not Allowed"];
-
+            'linkTeacherToGroup' => function($data) {
                 // bind incoming data to the value provided or null
-                $user_id = isset($_POST['user_id']) ? htmlspecialchars(strip_tags(trim($_POST['user_id']))) : null;
-                $group_id = isset($_POST['group_id']) ? htmlspecialchars(strip_tags(trim($_POST['group_id']))) : null;
+                $user_id = isset($data['user_id']) ? htmlspecialchars($data['user_id']) : null;
+                $group_id = isset($data['group_id']) ? htmlspecialchars($data['group_id']) : null;
 
                 $group = $this->entityManager->getRepository(Groups::class)->findOneBy(['id' => $group_id]);
                 $userR = $this->entityManager->getRepository(Regular::class)->findOneBy(['user' => $user_id]);
@@ -296,7 +327,7 @@ class ControllerGroupAdmin extends Controller
 
                         // if there is admin in the group, we send a notification 
                         if ($admins) {
-                            $userLang = isset($_COOKIE['lng']) ? htmlspecialchars(strip_tags(trim($_COOKIE['lng']))) : 'fr';
+                            $userLang = isset($_COOKIE['lng']) ? htmlspecialchars($_COOKIE['lng']) : 'fr';
                             // create the confirmation account link and set the email template to be used      
                             $emailTtemplateBody = $userLang."_confirm_account";
 
@@ -326,8 +357,8 @@ class ControllerGroupAdmin extends Controller
             },
             'send_request_reset_user_password' => function($data) {
                 if (isset($data['user_id']) && $data['user_id'] != null) {
-                    $user_id = $data['user_id'];
-
+                    
+                    $user_id = htmlspecialchars($data['user_id']);
                     // Check if the requester is related to the user and if the user is not an admin
                     $Authorization = $this->getAuthorization($this->entityManager, $user_id);
                     if ($Authorization['message'] == "not_allowed")
@@ -341,44 +372,15 @@ class ControllerGroupAdmin extends Controller
                     $this->entityManager->persist($user);
                     
 
-                    /////////////////////////////////////
-                    // PREPARE EMAIL TO BE SENT
-                    // received lang param
-                    $userLang = isset($_COOKIE['lng']) ? htmlspecialchars(strip_tags(trim($_COOKIE['lng']))) : 'fr';
-
-                    // create the confirmation account link and set the email template to be used      
-                    $accountConfirmationLink = $_ENV['VS_HOST']."/classroom/change_password.php?mail=$mail&token=$token";
-                    
-                    $emailTtemplateBody = $userLang."_reset_password";
-
-                    // init i18next instance
-                    if(is_dir(__DIR__."/../../../../../openClassroom")){
-                        i18next::init($userLang,__DIR__."/../../../../../openClassroom/classroom/assets/lang/__lng__/ns.json");
-                    }else {
-                        i18next::init($userLang,__DIR__."/../../../../../classroom/assets/lang/__lng__/ns.json");
-                    }
-
-                    $emailSubject = i18next::getTranslation('superadmin.users.mail.resetPassword.subject');
-                    $bodyTitle = i18next::getTranslation('superadmin.users.mail.resetPassword.bodyTitle');
-                    $textBeforeLink = i18next::getTranslation('superadmin.users.mail.resetPassword.textBeforeLink');
-                    $body = "
-                        <a href='$accountConfirmationLink' style='text-decoration: none;padding: 10px;background: #27b88e;color: white;margin: 1rem auto;width: 50%;display: block;'>
-                            $bodyTitle
-                        </a>
-                        <br>
-                        <br>
-                        <p>$textBeforeLink $accountConfirmationLink
-                    ";
-
-                    // send email
-                    $emailSent = Mailer::sendMail($mail,  $emailSubject, $body, strip_tags($body),$emailTtemplateBody);
+                    $res = $this->sendRecoveryPasswordMail($mail, $token);
+                    $emailSent = $res['emailSend'];
+                    $accountConfirmationLink = $res['link'];
 
                     if ($emailSent) {
                         $this->entityManager->flush();
                     }
-                    /////////////////////////////////////
+
                     return ['mail' => $mail, 'token' => $token, 'isSent' => $emailSent, 'link' => $accountConfirmationLink];
-                    // send him a link to create a new password
                 } else {
                     return ['response' => 'missing data'];
                 }
@@ -386,7 +388,7 @@ class ControllerGroupAdmin extends Controller
             'get_user_info_with_his_groups' => function($data) {
                 if (isset($data['id']) && $data['id'] != null) 
                 {
-                    $user_id = (int)$data['id'];
+                    $user_id = (int)htmlspecialchars($data['id']);
                     $Authorization = $this->getAuthorization($this->entityManager, $user_id);
                     if ($Authorization['message'] == "not_allowed")
                         return ['message' => 'not_allowed'];
@@ -396,7 +398,7 @@ class ControllerGroupAdmin extends Controller
             },
             'disable_user' => function($data) {
                 if (isset($data['user_id']) && $data['user_id'] != null) {
-                    $user_id = $data['user_id'];
+                    $user_id = htmlspecialchars($data['user_id']);
 
                     // Check if the requester is related to the user and if the user is not an admin
                     $Authorization = $this->getAuthorization($this->entityManager, $user_id);
@@ -426,19 +428,19 @@ class ControllerGroupAdmin extends Controller
                     isset($data['grade']) &&
                     isset($data['subject']))
                 {
-                    $user_id = $data['user_id'];
+                    $user_id = htmlspecialchars($data['user_id']);
                     $groups =  json_decode($data['groups']);
-                    $surname = $data['surname'];
-                    $firstname = $data['firstname'];
-                    $pseudo = $data['pseudo'];
+                    $surname = htmlspecialchars($data['surname']);
+                    $firstname = htmlspecialchars($data['firstname']);
+                    $pseudo = htmlspecialchars($data['pseudo']);
 
-                    $phone = $data['phone'];
-                    $bio = strval($data['bio']);
-                    $mail = $data['mail'];
+                    $phone = htmlspecialchars($data['phone']);
+                    $bio = strval(htmlspecialchars($data['bio']));
+                    $mail = htmlspecialchars($data['mail']);
                     
-                    $school = $data['school'];
-                    $grade = (int)$data['grade'];
-                    $subject = (int)$data['subject'];
+                    $school = htmlspecialchars($data['school']);
+                    $grade = (int)htmlspecialchars($data['grade']);
+                    $subject = (int)htmlspecialchars($data['subject']);
 
                     // Check if the requester is related to the user and if the user is not an admin
                     $Authorization = $this->getAuthorization($this->entityManager, $user_id);
@@ -511,49 +513,176 @@ class ControllerGroupAdmin extends Controller
                 if (isset($data['name']) && $data['name'] != null &&
                 isset($data['userspp']) && $data['userspp'] != null &&
                 isset($data['page']) && $data['page'] != null) {
-                    $page = $data['page'];
-                    $userspp = $data['userspp'];
-                    $name = $data['name'];
+                    $page = htmlspecialchars($data['page']);
+                    $userspp = htmlspecialchars($data['userspp']);
+                    $name = htmlspecialchars($data['name']);
                     $GroupsRequesterAdmin = $this->entityManager->getRepository(UsersLinkGroups::class)->findBy(['user' => $_SESSION['id'], 'rights' => 1]);
-
                     return $this->entityManager->getRepository(UsersLinkGroups::class)->globalSearchUserGA($name, $page, $userspp, $GroupsRequesterAdmin);
                 } else {
                     return ['response' => 'missing data'];
                 }
             },
+            'is_user_groupadmin' => function() {
+                $user = $this->entityManager->getRepository(UsersLinkGroups::class)->findBy(['user' => $_SESSION['id'], 'rights' => 1]);
+                if ($user) {
+                    return ['GroupAdmin' => true];
+                }
+                return ['GroupAdmin' => false];
+            },
             'finalize_registration' => function($data) {
                 if (isset($data['password']) && $data['password'] != null &&
-                isset($data['password_confirm']) && $data['password_confirm'] != null &&
                 isset($data['newsletter']) && $data['newsletter'] != null &&
                 isset($data['private']) && $data['private'] != null &&
                 isset($data['mailmessage']) && $data['mailmessage'] != null &&
-                isset($data['contact']) && $data['contact'] != null) {
+                isset($data['contact']) && $data['contact'] != null && 
+                isset($data['token']) && $data['token'] != null) {
 
-                    $password = isset($_POST['password']) ? htmlspecialchars(strip_tags(trim($_POST['password']))) : null;
-                    $password_confirm = isset($_POST['password_confirm']) ? htmlspecialchars(strip_tags(trim($_POST['password_confirm']))) : null;
-                    $newsletter = isset($_POST['newsletter']) ? htmlspecialchars(strip_tags(trim($_POST['newsletter']))) : null;
-                    $private = isset($_POST['private']) ? htmlspecialchars(strip_tags(trim($_POST['private']))) : null;
-                    $mailmessage = isset($_POST['mailmessage']) ? htmlspecialchars(strip_tags(trim($_POST['mailmessage']))) : null;
-                    $contact = isset($_POST['contact']) ? htmlspecialchars(strip_tags(trim($_POST['contact']))) : null;
-    
-                    
-                    $GroupsRequesterAdmin = $this->entityManager->getRepository(UsersLinkGroups::class)->findBy(['user' => $_SESSION['id'], 'rights' => 1]);
+                    $password = htmlspecialchars($data['password']);
+                    $token = htmlspecialchars($data['token']);
+                    $newsletter = htmlspecialchars($data['newsletter']) == "true" ? true : false;
+                    $private = htmlspecialchars($data['private'] == "true") ? true : false;
+                    $mailmessage = htmlspecialchars($data['mailmessage'] == "true") ? true : false;
+                    $contact = htmlspecialchars($data['contact'] == "true") ? true : false;
 
-                    return ['finalized' => true];
+                    $regularUserToActivate = $this->entityManager->getRepository(Regular::class)->findOneBy(array('confirmToken'=> $token));
+                    if ($regularUserToActivate && $regularUserToActivate->isActive() == 0) {
+                        $passwordHash = password_hash($password,PASSWORD_BCRYPT);
+                        $user = $regularUserToActivate->getUser();
+                        $user->setPassword($passwordHash);
+                        $this->entityManager->persist($user);
+                        $regularUserToActivate->setActive(true);
+                        $regularUserToActivate->setContactFlag($contact);
+                        $regularUserToActivate->setNewsletter($newsletter);
+                        $regularUserToActivate->setPrivateFlag(!$private);
+                        $regularUserToActivate->setMailMessages($mailmessage);
+                        $regularUserToActivate->setConfirmToken('');
+                        $this->entityManager->persist($regularUserToActivate);
+                        $this->entityManager->flush();
+                        return ['finalized' => true];
+                    } else {
+                        return ['finalized' => "no user or already active"];
+                    }
                 } else {
-                    return ['finalized' => false];
+                    return ['finalized' => "missing data"];
                 }
             },
+            'password_change' => function($data) {
+                if (isset($data['password']) && $data['password'] != null && isset($data['token']) && $data['token'] != null) {
+
+                    $password = htmlspecialchars($data['password']);
+                    $token = htmlspecialchars($data['token']);
+
+                    $regularUser = $this->entityManager->getRepository(Regular::class)->findOneBy(['recoveryToken'=> $token]);
+                    if ($regularUser) {
+
+                        $passwordHash = password_hash($password,PASSWORD_BCRYPT);
+                        $user = $regularUser->getUser();
+                        $user->setPassword($passwordHash);
+                        $this->entityManager->persist($user);
+                        $regularUser->setRecoveryToken('');
+                        $this->entityManager->persist($regularUser);
+                        $this->entityManager->flush();
+
+                        return ['changed' => true];
+                    } else {
+                        return ['changed' => false, 'message' => "no user"];
+                    }
+                } else {
+                    return ['changed' => false, 'message' => "missing data"];
+                }
+            },
+            'get_recovery_mail' => function($data) {
+                if (isset($data['mail']) && $data['mail'] != null) {
+
+                    $mail = htmlspecialchars($data['mail']);
+
+                    $regularUser = $this->entityManager->getRepository(Regular::class)->findOneBy(['email'=> $mail]);
+                    if ($regularUser) {
+                        $token = bin2hex(random_bytes(16));
+                        $regularUser->setRecoveryToken($token);
+                        $this->entityManager->persist($regularUser);
+
+                        $res = $this->sendRecoveryPasswordMail($mail, $token);
+
+                        if ($res['emailSend']) {
+                            $this->entityManager->flush();
+                            return ['EmailSend' => true];
+                        } else {
+                            return ['EmailSend' => false, 'message' => "mail send error"];
+                        }
+                    } else {
+                        return ['EmailSend' => false, 'message' => "no user"];
+                    }
+                } else {
+                    return ['EmailSend' => false, 'message' => "missing data"];
+                }
+            },
+            'get_group_link' => function($data) {
+                if (isset($data['group_id']) && $data['group_id'] != null) {
+                    $user_id = htmlspecialchars($_SESSION['id']);
+                    $group_id = htmlspecialchars($data['group_id']);
+
+                    $group = $this->entityManager->getRepository(Groups::class)->findOneBy(['id'=> $group_id]);
+                    if ($group) {
+                        $user = $this->entityManager->getRepository(User::class)->findOneBy(['id'=> $user_id]);
+                        $userlinkgroup = $this->entityManager->getRepository(UsersLinkGroups::class)->findOneBy(['group'=> $group, 'user' => $user, 'rights' => 1]);
+                        if ($userlinkgroup) {
+                            $code = $group->getLink();
+                            $link = $_ENV['VS_HOST']."/classroom/group_invitation.php?gc=$code";
+                            return ['success' => true, 'link' => $link];
+                        } else {
+                            return ['success' => false, 'message' => 'not allowed'];
+                        }
+                    } else {
+                        return ['success' => false, 'message' => 'group not found'];
+                    }
+                } else {
+                    return ['success' => false, 'message' => "missing data"];
+                }
+            }
         );
-
-    } 
-
+    }
+    
     /**
-     * @var EntityManger $em
-     * @var Int $user_id
+     * @param String $mail
+     * @param String $token
      * @return Array 
      */
-    protected function getAuthorization(EntityManager $em, Int $user_id) {
+    private function sendRecoveryPasswordMail(String $mail, String $token) {
+        $userLang = isset($_COOKIE['lng']) ? htmlspecialchars($_COOKIE['lng']) : 'fr';
+        // create the confirmation account link and set the email template to be used      
+        $accountConfirmationLink = $_ENV['VS_HOST']."/classroom/password_manager.php?page=update&token=$token";
+        $emailTtemplateBody = $userLang."_reset_password";
+        // init i18next instance
+        if(is_dir(__DIR__."/../../../../../openClassroom")){
+            i18next::init($userLang,__DIR__."/../../../../../openClassroom/classroom/assets/lang/__lng__/ns.json");
+        }else {
+            i18next::init($userLang,__DIR__."/../../../../../classroom/assets/lang/__lng__/ns.json");
+        }
+
+        $emailSubject = i18next::getTranslation('superadmin.users.mail.resetPassword.subject');
+        $bodyTitle = i18next::getTranslation('superadmin.users.mail.resetPassword.bodyTitle');
+        $textBeforeLink = i18next::getTranslation('superadmin.users.mail.resetPassword.textBeforeLink');
+        $body = "
+            <a href='$accountConfirmationLink' style='text-decoration: none;padding: 10px;background: #27b88e;color: white;margin: 1rem auto;width: 50%;display: block;'>
+                $bodyTitle
+            </a>
+            <br>
+            <br>
+            <p>$textBeforeLink $accountConfirmationLink
+        ";
+
+        $emailSend = Mailer::sendMail($mail,  $emailSubject, $body, strip_tags($body),$emailTtemplateBody);
+
+        return ['emailSend' => $emailSend, 'link' => $accountConfirmationLink];
+    }
+
+    /**
+     * @param EntityManger $em
+     * @param Int $user_id
+     * @return Array 
+     */
+    private function getAuthorization(EntityManager $em, Int $user_id) {
         $user = $em->getRepository(Regular::class)->findOneBy(['user' => $user_id]);
         $GroupsRequesterAdmin = $em->getRepository(UsersLinkGroups::class)->findBy(['user' => $_SESSION['id'], 'rights' => 1]);
         $GroupsOfUser = $em->getRepository(UsersLinkGroups::class)->findBy(['user' => $user_id]);

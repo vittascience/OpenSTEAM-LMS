@@ -82,6 +82,25 @@ class GroupAdminManager {
         })
     }
 
+
+    getGroupLink(group_id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=groupadmin&action=get_group_link",
+                data: {
+                    group_id: group_id
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
     /**
      * Get actual group informations
      * Access with Main.getSuperAdminManager()._actualGroupInfos
@@ -106,6 +125,9 @@ class GroupAdminManager {
                         <td>${element.description}</td>
                         <td>
                             ${div_img}
+                        </td>
+                        <td>
+                            <button class="btn btn-info btn-sm" onclick="getGroupLinkGA(${element.id})">${i18next.t('superadmin.buttons.show')}</button>
                         </td>
                     </tr>`;
                 $('#groups_table_groupadmin').html(data_table);

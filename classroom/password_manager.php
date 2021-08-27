@@ -7,6 +7,7 @@ require __DIR__."/../bootstrap.php";
 use Dotenv\Dotenv;
 use User\Entity\Regular;
 
+
 // Load env variables 
 $dotenv = Dotenv::createImmutable(__DIR__."/../");
 $dotenv->safeLoad();
@@ -14,20 +15,15 @@ $dotenv->safeLoad();
 
 $token = isset($_GET['token']) ? trim(htmlspecialchars(preg_replace('/<[^>]*>[^<]*<[^>]*>/', '',$_GET['token']))) : null;
 $urlhome = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]"."/classroom/home.php";
-setcookie("token", $token, time()+3600);
+setcookie("token", $token, time()+300);
 
 if (isset($_SESSION['id'])) {
     return header("Location: $urlhome");
 }
 
-if ($token) {
-    $regularUserToActivate = $entityManager->getRepository(Regular::class)->findOneBy(array('confirmToken'=> $token));
-    if ($regularUserToActivate && $regularUserToActivate->isActive() == 0) {
-        showRegistration();
-    }
-}
+showPasswordPage();
 
-function showRegistration() {
+function showPasswordPage() {
     require_once(__DIR__ . "/header.html");
     ?>
         <link rel="stylesheet" href="/classroom/assets/css/main.css">
@@ -36,6 +32,6 @@ function showRegistration() {
         </head>
         <body>
     <?php
-    require_once(__DIR__ . "/registration.html");
+    require_once(__DIR__ . "/password_manager.html");
     require_once(__DIR__ . "/footer.html");
 }

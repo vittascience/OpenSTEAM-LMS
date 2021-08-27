@@ -141,6 +141,7 @@ class SuperAdminManager {
                 success: function (response) {
                     MSA.getSuperAdminManager()._allGroups = JSON.parse(response);
                     MSA.getSuperAdminManager().showGroupsInTable((JSON.parse(response)));
+                    MSA.getSuperAdminManager()._comboGroups = MSA.getSuperAdminManager().getAllGroups();
                 },
                 error: function () {
                     reject();
@@ -482,13 +483,11 @@ class SuperAdminManager {
             });
 
             if ($group_id == -1)
-                $('#group_name_from_table').text('Utilisateurs sans groupe');
+                $('#group_name_from_table').text(i18next.t('superadmin.group.usersWithoutGroups'));
             else if ($group_id == -2)
-                $('#group_name_from_table').text('Utilisateurs inactifs et non regular');
+                $('#group_name_from_table').text(i18next.t('superadmin.group.usersInactiveOrNoRegular'));
             else
                 $('#group_name_from_table').text(group.name);
-
-
 
             data.forEach(element => {
                 if (element.hasOwnProperty('currentPage')) {
@@ -656,8 +655,8 @@ class SuperAdminManager {
 
         data_table +=
             `<tr>
-                <th scope="row" onclick="showGroupMembers(-2, 1 ,${users_per_page}, ${users_sort})">Utilisateurs inactifs et/ou non regular</i></th>
-                <td>Groupement d'utilisateurs inactifs et/ou non regular</td>
+                <th scope="row" onclick="showGroupMembers(-2, 1 ,${users_per_page}, ${users_sort})">${i18next.t('superadmin.group.usersInactiveOrNoRegular')}</i></th>
+                <td>${i18next.t('superadmin.group.usersInactiveOrNoRegularDescription')}</td>
                 <td>
                     --
                 </td>
@@ -669,8 +668,8 @@ class SuperAdminManager {
                 </td>
             </tr>
             <tr>
-                <th scope="row" onclick="showGroupMembers(-1, 1 ,${users_per_page}, ${users_sort})">Utilisateurs sans groupe</i></th>
-                <td>Groupement d'utilisateurs n'étant liés à aucun groupe</td>
+                <th scope="row" onclick="showGroupMembers(-1, 1 ,${users_per_page}, ${users_sort})">${i18next.t('superadmin.group.usersWithoutGroups')}</th>
+                <td>${i18next.t('superadmin.group.usersWithoutGroupsDescription')}</td>
                 <td>
                     --
                 </td>

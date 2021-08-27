@@ -164,30 +164,38 @@ class ClassroomManager {
      * @returns {Array}
      */
     getTeacherActivities(container) {
-        return new Promise(function (resolve, reject) {
-            var process = function (thisInstance, response) {
-                if (response.error_message && response.error_message !== undefined) {
-                    thisInstance.errors.push(GET_PUBLIC_PROJECTS_ERROR)
-                }
-                thisInstance._myTeacherActivities = response;
-                resolve()
-
-            };
-            var callBack = function (thisInstance, response) {
-                process(thisInstance, response);
-            };
-            $.ajax({
-                type: "POST",
-                url: "/routing/Routing.php?controller=activity&action=get_mine_for_classroom",
-                success: function (response) {
-                    callBack(container, JSON.parse(response));
-                },
-                error: function () {
-                    console.log('error')
-                }
-            });
+        return new Promise((resolve, reject) => {
+            let currentTask = (onEnd) => {
+                var process = function (thisInstance, response) {
+                    if (response.error_message && response.error_message !== undefined) {
+                        thisInstance.errors.push(GET_PUBLIC_PROJECTS_ERROR)
+                    }
+                    thisInstance._myTeacherActivities = response;
+                    resolve()
+                    onEnd();
+                };
+                var callBack = function (thisInstance, response) {
+                    process(thisInstance, response);
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "/routing/Routing.php?controller=activity&action=get_mine_for_classroom",
+                    success: function (response) {
+                        callBack(container, JSON.parse(response));
+                        onEnd();
+                    },
+                    error: function () {
+                        console.log('error')
+                        onEnd();
+                    }
+                });
+            }
+            // Add the current task to the tasks queue
+            this._addTaskToQueue(currentTask);
         })
     };
+
+
 
 
     /**
@@ -403,7 +411,9 @@ class ClassroomManager {
                     }
                 });
             } else {
-                resolve({ "noUser": true });
+                resolve({
+                    "noUser": true
+                });
             }
         })
     }
@@ -497,18 +507,23 @@ class ClassroomManager {
      * @returns {Array}
      */
     getTeacherActivity() {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "POST",
-                url: "/routing/Routing.php?controller=activity_link_user&action=get_teacher_data",
-                success: function (response) {
-                    resolve(JSON.parse(response))
-
-                },
-                error: function () {
-                    reject();
-                }
-            });
+        return new Promise((resolve, reject) => {
+            let currentTask = (onEnd) => {
+                $.ajax({
+                    type: "POST",
+                    url: "/routing/Routing.php?controller=activity_link_user&action=get_teacher_data",
+                    success: function (response) {
+                        resolve(JSON.parse(response))
+                        onEnd();
+                    },
+                    error: function () {
+                        reject();
+                        onEnd();
+                    }
+                });
+            }
+            // Add the current task to the tasks queue
+            this._addTaskToQueue(currentTask);
         })
     }
 
@@ -976,10 +991,10 @@ class ClassroomManager {
     }
 
     /**
-    * Add students to the classroom
-    * @public
-    * @returns {Array}
-    */
+     * Add students to the classroom
+     * @public
+     * @returns {Array}
+     */
     addUsersToGroupByCsv(arrayUsers, classroom) {
         return new Promise(function (resolve, reject) {
             if (arrayUsers.length > 0) {
@@ -1143,7 +1158,7 @@ class ClassroomManager {
                 success: function (response) {
                     try {
                         resolve(JSON.parse(response));
-                    } catch(error) {
+                    } catch (error) {
                         console.warn(error);
                     }
                 },

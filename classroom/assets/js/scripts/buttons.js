@@ -998,8 +998,19 @@ $('#create_user_link_to_group_superadmin').click(function () {
 });
 
 function addGroupSuperAdmin() {
-    const numberOfAddedGroup = MSA.getSuperAdminManager()._addedCreateUserGroup + 1;
-    let $saved_groups = MSA.getSuperAdminManager()._comboGroups;
+    let numberOfAddedGroup = MSA.getSuperAdminManager()._addedCreateUserGroup,
+        $saved_groups = MSA.getSuperAdminManager()._comboGroups;
+
+    // fix
+    if ($('#u_actual_group' + numberOfAddedGroup)[0]) {
+        for (i = 0; i <= numberOfAddedGroup; i++) {
+            if (!$('#u_actual_group' + i)[0]) {
+                numberOfAddedGroup = i;
+                break;
+            }
+        }
+    }
+
     let HtmlToAdd = `<div class="input-group mb-3" id="u_actual_group${numberOfAddedGroup}">
                     <div class="input-group-prepend">
                         <div class="input-group-text">
@@ -1097,6 +1108,14 @@ function updateAppForUser() {
         process(MSA.getSuperAdminManager()._allApplications)
     }
 }
+
+function getAllGroupsIfNotAlreadyLoaded() {
+    if (MSA.getSuperAdminManager()._comboGroups == []) {
+        MSA.getSuperAdminManager().getAllGroups();
+    }
+}
+
+
 
 function persistUpdateUserApp() {
     let user = MSA.getSuperAdminManager()._actualUserDetails[0].id;
@@ -1210,8 +1229,19 @@ function showupdateUserModal(id) {
 }
 
 function updateAddGroupSuperAdmin() {
-    let $groups = MSA.getSuperAdminManager()._comboGroups;
-    let nextGroup = MSA.getSuperAdminManager()._updatedUserGroup;
+    let $groups = MSA.getSuperAdminManager()._comboGroups,
+        nextGroup = MSA.getSuperAdminManager()._updatedUserGroup;
+
+    // fix
+    if ($('#update_u_actual_group' + nextGroup)[0]) {
+        for (i = 0; i <= nextGroup; i++) {
+            if (!$('#update_u_actual_group' + i)[0]) {
+                nextGroup = i;
+                break;
+            }
+        }
+    }
+
     let group = `<div class="input-group mb-3" id="update_u_actual_group${nextGroup}">
                     <div class="input-group-prepend">
                         <div class="input-group-text">
@@ -1278,7 +1308,7 @@ function createUserAndLinkToGroup() {
         $groups = [];
 
     $groups.push([$('#u_is_group_admin').is(':checked'), $('#u_group').val()])
-    for (let index = 1; index < MSA.getSuperAdminManager()._addedCreateUserGroup + 1; index++) {
+    for (let index = 0; index < MSA.getSuperAdminManager()._addedCreateUserGroup; index++) {
         $groups.push([$('#u_is_group_admin' + index).is(':checked'), $('#u_group' + index).val()])
     }
 
@@ -1328,6 +1358,7 @@ function switchToSuperAdmin() {
     MSA.init();
     navigatePanel('classroom-dashboard-profil-panel-superadmin', 'dashboard-profil-superadmin');
     $('#classroom-dashboard-sidebar-teacher').hide();
+    $('#groupadmin-dashboard-sidebar').hide();
     $('#superadmin-dashboard-sidebar').show();
     pseudoModal.closeAllModal();
 }
@@ -1336,6 +1367,7 @@ function switchToGroupAdmin() {
     MGA.init();
     navigatePanel('classroom-dashboard-profil-panel-groupadmin', 'dashboard-profil-groupadmin');
     $('#classroom-dashboard-sidebar-teacher').hide();
+    $('#superadmin-dashboard-sidebar').hide();
     $('#groupadmin-dashboard-sidebar').show();
     pseudoModal.closeAllModal();
 }
@@ -1764,11 +1796,6 @@ function updateUserModalGA() {
     tempoAndShowUsersTableGA();
 }
 
-function deleteGroupFromUpdateGA(id) {
-    MGA.getGroupAdminManager()._updatedUserGroup -= 1;
-    $('#update_u_actual_group_ga' + id).remove();
-}
-
 $('#users_per_page_groupadmin, #sort_users_filter_groupadmin').change(() => {
     let actualGroup = MGA.getGroupAdminManager()._actualGroup;
     MGA.getGroupAdminManager().getUsersFromGroup(actualGroup, 1);
@@ -1860,13 +1887,17 @@ function dismissModal() {
 
 function resetUserPasswordga(id) {
     MGA.getGroupAdminManager().sendResetPassword(id).then((response) => {
-        pseudoModal.openModal('superadmin-show-resetlink');
-        $('#passwordLink').val(response.link);
+        if (response.message != "not_allowed") {
+            pseudoModal.openModal('superadmin-show-resetlink');
+            $('#passwordLink').val(response.link);
+        } else {
+            displayNotification('#notif-div', "superadmin.account.notAllowedUpdateUser", "error");
+        }
     })
 }
 
-function copyLink() {
-    const copyText = $('#passwordLink');
+function copyLink(id) {
+    const copyText = $(id);
     copyText.select();
     document.execCommand("copy");
 }
@@ -1878,6 +1909,16 @@ $('#search_user_groupadmin').click(() => {
         MGA.getGroupAdminManager().globalSearchUser(name, 1, usersperpage);
     }
 })
+
+
+function getGroupLinkGA(id) {
+    MGA.getGroupAdminManager().getGroupLink(id).then((response) => {
+        pseudoModal.openModal('groupadmin-show-grouplink');
+        $('#groupLink').val(response.link);
+    })
+}
+
+
 
 /**
  * DATA COMBOBOX

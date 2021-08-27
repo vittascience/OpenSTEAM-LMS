@@ -20,7 +20,7 @@ class ControllerSuperAdmin extends Controller
         parent::__construct($entityManager, $user);
 
         // Vérifie si l'utilisateur actuel est admin, si il ne l'est pas alors lui refuser toutes actions
-        $Autorisation = $this->entityManager->getRepository('User\Entity\Regular')->findOneBy(['user' => $_SESSION['id']]);
+        $Autorisation = $this->entityManager->getRepository('User\Entity\Regular')->findOneBy(['user' => htmlspecialchars($_SESSION['id'])]);
         if (!$Autorisation || $Autorisation->getIsAdmin() == false || $_SERVER['REQUEST_METHOD'] != 'POST') {
             return false;
         } else if ($Autorisation->getIsAdmin() == true) {
@@ -29,16 +29,18 @@ class ControllerSuperAdmin extends Controller
                     return $this->entityManager->getRepository(Groups::class)->findAll();
                 },
                 'panel_groups_info' => function ($data) {
-                    if (isset($data['sort']) && $data['sort'] != null && isset($data['page']) && $data['page'] != null && isset($data['groupspp']) && $data['groupspp'] != null) {
-                        $sort = $data['sort'];
-                        $page = $data['page'];
-                        $groupspp = $data['groupspp'];
+                    if (isset($data['sort']) && $data['sort'] != null && 
+                    isset($data['page']) && $data['page'] != null && 
+                    isset($data['groupspp']) && $data['groupspp'] != null) {
+                        $sort = htmlspecialchars($data['sort']);
+                        $page = htmlspecialchars($data['page']);
+                        $groupspp = htmlspecialchars($data['groupspp']);
                         return $this->entityManager->getRepository(Groups::class)->getPanelGroupInfos($sort, $page, $groupspp);
                     }  
                 },
                 'get_group_info' => function ($data) {
                     if (isset($data['id']) && $data['id'] != null) {
-                        $group_id = $data['id'];
+                        $group_id = htmlspecialchars($data['id']);
                         return $this->entityManager->getRepository(Groups::class)->getGroupInfo($group_id);
                     }
                 },
@@ -47,22 +49,22 @@ class ControllerSuperAdmin extends Controller
                 },
                 'get_admin_from_group' => function ($data) {
                     if (isset($data['id']) && $data['id'] != null) {
-                        $group_id = $data['id'];
+                        $group_id = htmlspecialchars($data['id']);
                         return $this->entityManager->getRepository(UsersLinkGroups::class)->getAdminFromGroup($group_id);
                     }
                 },
                 'get_all_members_from_group' => function ($data) {
                     if (isset($data['id']) && $data['id'] != null && isset($data['userspp']) && $data['userspp'] != null && isset($data['page']) && $data['page'] != null&& isset($data['sort']) && $data['sort'] != null ) {
-                        $group_id = $data['id'];
-                        $userspp = $data['userspp'];
-                        $page = $data['page'];
-                        $sort = $data['sort'];
+                        $group_id = htmlspecialchars($data['id']);
+                        $userspp = htmlspecialchars($data['userspp']);
+                        $page = htmlspecialchars($data['page']);
+                        $sort = htmlspecialchars($data['sort']);
                         return $this->entityManager->getRepository(UsersLinkGroups::class)->getAllMembersFromGroup($group_id, $page, $userspp, $sort);
                     }
                 },
                 'get_all_groups_from_user' => function ($data) {
                     if (isset($data['id']) && $data['id'] != null) {
-                        $user_id = $data['id'];
+                        $user_id = htmlspecialchars($data['id']);
                         return $this->entityManager->getRepository(UsersLinkGroups::class)->findBy(['user' => $user_id]);
                     }
                 },
@@ -77,56 +79,26 @@ class ControllerSuperAdmin extends Controller
                 },
                 'get_all_applications_from_group' => function ($data) {
                     if (isset($data['id']) && $data['id'] != null) {
-                        $group_id = $data['id'];
+                        $group_id = htmlspecialchars($data['id']);
                         return $this->entityManager->getRepository(GroupsLinkApplications::class)->getAllApplicationsFromGroup($group_id);
                     }
                 },
                 'get_all_groups_from_application' => function ($data) {
                     if (isset($data['id']) && $data['id'] != null) {
-                        $application_id = $data['id'];
+                        $application_id = htmlspecialchars($data['id']);
                         return $this->entityManager->getRepository(GroupsLinkApplications::class)->findBy(['application' => $application_id]);
                     }
                 },
                 'get_all_applications_from_user' => function ($data) {
                     if (isset($data['id']) && $data['id'] != null) {
-                        $user_id = $data['id'];
+                        $user_id = htmlspecialchars($data['id']);
                         return $this->entityManager->getRepository(UsersLinkApplications::class)->findBy(['user' => $user_id]);
                     }
                 },
                 'get_all_users_from_application' => function ($data) {
                     if (isset($data['id']) && $data['id'] != null) {
-                        $application_id = $data['id'];
+                        $application_id = htmlspecialchars($data['id']);
                         return $this->entityManager->getRepository(UsersLinkApplications::class)->getAllMembersFromApplication($application_id);
-                    }
-                },
-                'add_application_to_group' => function ($data) {
-                    if (isset($data['group_id']) && $data['group_id'] != null && 
-                    isset($data['application_id']) && $data['application_id'] != null && 
-                    isset($data['date_begin']) && $data['date_begin'] != null&& 
-                    isset($data['date_end']) && $data['date_end'] != null) {
-                        $group_id = $data['group_id'];
-                        $application_id = $data['application_id'];
-                        $date_begin = \DateTime::createFromFormat('j-M-Y', $data['date_begin']);
-                        $date_end = \DateTime::createFromFormat('j-M-Y', $data['date_end']);
-                        $GroupLinkApplications = new GroupsLinkApplications();
-                        $GroupLinkApplications->setApplication($application_id);
-                        $GroupLinkApplications->setGroup($group_id);
-                        $GroupLinkApplications->setDateBegin($date_begin);
-                        $GroupLinkApplications->setDateEnd($date_end);
-                        $this->entityManager->persist($GroupLinkApplications);
-                        $this->entityManager->flush();
-                        return ['response' => 'Link between group and application created with success!'];
-                    } else {
-                        return ['response' => 'missing data'];
-                    }
-                },
-                'remove_application_to_group' => function () {
-                    if (isset($data['group_id']) && $data['group_id'] != null && isset($data['application_id']) && $data['application_id'] != null) {
-                        $group_id = $data['group_id'];
-                        $application_id = $data['application_id'];
-                        $GroupLinkApplications = $this->entityManager->getRepository(GroupsLinkApplication::class)->findBy(['application' => $application_id, 'group' => $group_id]);
-                        $this->entityManager->remove($GroupLinkApplications);
-                        $this->entityManager->flush();
                     }
                 },
                 'update_application_to_group' => function () {
@@ -134,8 +106,8 @@ class ControllerSuperAdmin extends Controller
                     isset($data['application_id']) && $data['application_id'] != null && 
                     isset($data['date_begin']) && $data['date_begin'] != null  && 
                     isset($data['date_end']) && $data['date_end'] != null) {
-                        $group_id = $data['group_id'];
-                        $application_id = $data['application_id'];
+                        $group_id = htmlspecialchars($data['group_id']);
+                        $application_id = htmlspecialchars($data['application_id']);
                         // TBD : Modifié le format au besoin
                         $date_begin = \DateTime::createFromFormat('j-M-Y', $data['date_begin']);
                         $date_end = \DateTime::createFromFormat('j-M-Y', $data['date_end']);
@@ -152,8 +124,8 @@ class ControllerSuperAdmin extends Controller
                     isset($data['applications']) && $data['applications'] != null) {
     
                         $applications = json_decode($data['applications']);
-                        $group_name = $data['name'];
-                        $group_desc = $data['description'];
+                        $group_name = htmlspecialchars($data['name']);
+                        $group_desc = htmlspecialchars($data['description']);
     
                         $group = new Groups;
                         $group->setName($group_name);
@@ -207,7 +179,7 @@ class ControllerSuperAdmin extends Controller
                 },
                 'delete_group' => function ($data) {
                     if (isset($data['id']) && $data['id'] != null) {
-                        $group_id = $data['id'];
+                        $group_id = htmlspecialchars($data['id']);
                         $group = $this->entityManager->getRepository(Groups::class)->findOneBy(['id' => $group_id]);
                         $this->entityManager->remove($group);
     
@@ -236,9 +208,10 @@ class ControllerSuperAdmin extends Controller
                     isset($data['applications']) && $data['applications'] != null) {
                         $applications = json_decode($data['applications']);
     
-                        $group_id = $data['id'];
-                        $group_name = $data['name'];
-                        $group_description = $data['description'];
+                        $group_id = htmlspecialchars($data['id']);
+                        $group_name = htmlspecialchars($data['name']);
+                        $group_description = htmlspecialchars($data['description']);
+
                         $group = $this->entityManager->getRepository(Groups::class)->findOneBy(['id' => $group_id]);
                         $group->setDescription($group_description);
                         $group->setName($group_name);
@@ -280,7 +253,7 @@ class ControllerSuperAdmin extends Controller
                 'get_user_info' => function($data) {
                     if (isset($data['id']) && $data['id'] != null)               
                     {
-                        $user_id = $data['id'];
+                        $user_id = htmlspecialchars($data['id']);
                         $user = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $user_id]);
                         return $user->jsonSerialize();
                     }
@@ -290,16 +263,16 @@ class ControllerSuperAdmin extends Controller
                 },  
                 'get_all_users_with_their_groups' => function($data) {
                     if (isset($data['sort']) && $data['sort'] != null && isset($data['page']) && $data['page'] != null && isset($data['userspp']) && $data['userspp'] != null) {
-                        $sort = $data['sort'];
-                        $page = $data['page'];
-                        $userspp = $data['userspp'];
+                        $sort = htmlspecialchars($data['sort']);
+                        $page = htmlspecialchars($data['page']);
+                        $userspp = htmlspecialchars($data['userspp']);
                         return $this->entityManager->getRepository(UsersLinkGroups::class)->getAllUsersWithTheirGroups($sort, $page, $userspp);
                     }
                 },
                 'get_user_info_with_his_groups' => function($data) {
                     if (isset($data['id']) && $data['id'] != null)
                     {
-                        $user_id = $data['id'];
+                        $user_id = htmlspecialchars($data['id']);
                         return $this->entityManager->getRepository(UsersLinkGroups::class)->getUsersWithHisGroups($user_id);
                     }
                 },
@@ -320,20 +293,20 @@ class ControllerSuperAdmin extends Controller
                     {
     
                         $groups =  json_decode($data['groups']);
-                        $surname = $data['surname'];
-                        $firstname = $data['firstname'];
-                        $pseudo = $data['pseudo'];
+                        $surname = htmlspecialchars($data['surname']);
+                        $firstname = htmlspecialchars($data['firstname']);
+                        $pseudo = htmlspecialchars($data['pseudo']);
     
-                        $phone = $data['phone'];
-                        $bio = $data['bio'];
-                        $mail = $data['mail'];
-                        $admin = $data['admin']  == "true" ? true : false;
-                        $isTeacher = $data['teacher'] == "true" ? true : false;
-                        $school = $data['school'];
-                        $grade = (int)$data['grade'];
-                        $subject = (int)$data['subject'];
+                        $phone = htmlspecialchars($data['phone']);
+                        $bio = htmlspecialchars($data['bio']);
+                        $mail = htmlspecialchars($data['mail']);
+                        $admin = htmlspecialchars($data['admin'])  == "true" ? true : false;
+                        $isTeacher = htmlspecialchars($data['teacher']) == "true" ? true : false;
+                        $school = htmlspecialchars($data['school']);
+                        $grade = (int)htmlspecialchars($data['grade']);
+                        $subject = (int)htmlspecialchars($data['subject']);
 
-                        $isactive = $data['isactive'] == "true" ? true : false;
+                        $isactive = htmlspecialchars($data['isactive']) == "true" ? true : false;
     
                         
                         $user = new User;
@@ -371,8 +344,9 @@ class ControllerSuperAdmin extends Controller
                             }
                         }
     
-
+                        $confirmationToken = time()."-".bin2hex($mail);
                         $regular = new Regular($user, $mail, $bio, $phone, false, $admin, null , null, $isactive);
+                        $regular->setConfirmToken($confirmationToken);
                         $this->entityManager->persist($regular);
 
 
@@ -382,8 +356,35 @@ class ControllerSuperAdmin extends Controller
                         }
     
                         $this->entityManager->flush();
-    
-                        return ['response' => 'User created with success!'];
+
+
+                        $userLang = isset($_COOKIE['lng']) ? htmlspecialchars(strip_tags(trim($_COOKIE['lng']))) : 'fr'; 
+                        $accountConfirmationLink = $_ENV['VS_HOST']."/classroom/registration.php?token=$confirmationToken";
+                        $emailTtemplateBody = $userLang."_confirm_account";
+
+                        if(is_dir(__DIR__."/../../../../../openClassroom")){
+                            i18next::init($userLang,__DIR__."/../../../../../openClassroom/classroom/assets/lang/__lng__/ns.json");
+                        }else {
+                            i18next::init($userLang,__DIR__."/../../../../../classroom/assets/lang/__lng__/ns.json");
+                        }
+
+                        $emailSubject = i18next::getTranslation('superadmin.users.mail.finalizeAccount.subject');
+                        $bodyTitle = i18next::getTranslation('superadmin.users.mail.finalizeAccount.bodyTitle');
+                        $textBeforeLink = i18next::getTranslation('superadmin.users.mail.finalizeAccount.textBeforeLink');
+                        
+                        $body = "
+                            <a href='$accountConfirmationLink' style='text-decoration: none;padding: 10px;background: #27b88e;color: white;margin: 1rem auto;width: 50%;display: block;'>
+                                $bodyTitle
+                            </a>
+                            <br>
+                            <br>
+                            <p>$textBeforeLink $accountConfirmationLink
+                        ";
+                        
+                        $emailSent = Mailer::sendMail($mail, $emailSubject, $body, strip_tags($body), $emailTtemplateBody, "remi.cointe@vittascience.com", "Rémi"); 
+                        /////////////////////////////////////
+
+                        return ['response' => 'success', 'mail' => $emailSent];
                     } else {
                         return ['response' => 'missing data'];
                     }
@@ -404,21 +405,21 @@ class ControllerSuperAdmin extends Controller
 
                         isset($data['isactive']) && $data['isactive'] != null)
                     {
-                        $user_id = $data['user_id'];
+                        $user_id = htmlspecialchars($data['user_id']);
                         $groups =  json_decode($data['groups']);
-                        $surname = $data['surname'];
-                        $firstname = $data['firstname'];
-                        $pseudo = $data['pseudo'];
+                        $surname = htmlspecialchars($data['surname']);
+                        $firstname = htmlspecialchars($data['firstname']);
+                        $pseudo = htmlspecialchars($data['pseudo']);
     
-                        $phone = $data['phone'];
-                        $bio = strval($data['bio']);
-                        $mail = $data['mail'];
-                        $admin = $data['admin'] == "true" ? true : false;
-                        $isTeacher = $data['teacher'] == "true" ? true : false;
+                        $phone = htmlspecialchars($data['phone']);
+                        $bio = htmlspecialchars($data['bio']);
+                        $mail = htmlspecialchars($data['mail']);
+                        $admin = htmlspecialchars($data['admin']) == "true" ? true : false;
+                        $isTeacher = htmlspecialchars($data['teacher']) == "true" ? true : false;
 
-                        $school = $data['school'];
-                        $grade = (int)$data['grade'];
-                        $subject = (int)$data['subject'];
+                        $school = htmlspecialchars($data['school']);
+                        $grade = (int)htmlspecialchars($data['grade']);
+                        $subject = (int)htmlspecialchars($data['subject']);
 
                         $isactive = $data['isactive'] == "true" ? true : false;
     
@@ -498,7 +499,7 @@ class ControllerSuperAdmin extends Controller
                     }
                 },'delete_user' => function($data) {
                     if (isset($data['user_id']) && $data['user_id'] != null) {
-                        $user_id = $data['user_id'];
+                        $user_id = htmlspecialchars($data['user_id']);
                         $user = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $user_id]);
                         $this->entityManager->remove($user);
 
@@ -532,7 +533,7 @@ class ControllerSuperAdmin extends Controller
                 },
                 'disable_user' => function($data) {
                     if (isset($data['user_id']) && $data['user_id'] != null) {
-                        $user_id = $data['user_id'];
+                        $user_id = htmlspecialchars($data['user_id']);
                         $userR = $this->entityManager->getRepository(Regular::class)->findOneBy(['user' => $user_id]);
                         if ($userR) {
                             $userR->setActive(0);
@@ -541,28 +542,6 @@ class ControllerSuperAdmin extends Controller
                         $this->entityManager->flush();
 
                         return ['response' => 'success'];
-                    } else {
-                        return ['response' => 'missing data'];
-                    }
-                },
-                'add_user_to_froup' => function($data) {
-                    if (isset($data['user_id']) && $data['user_id'] != null && isset($data['group_id']) && $data['group_id'] != null) {
-                        
-                        return ['response' => 'User added to the group successfully!'];
-                    } else {
-                        return ['response' => 'missing data'];
-                    }
-                },
-                'delete_user_from_froup' => function($data) {
-                    if (isset($data['user_id']) && $data['user_id'] != null && isset($data['group_id']) && $data['group_id'] != null) {
-                        $user_id = $data['user_id'];
-                        $group_id = $data['group_id'];
-                        $userlinkgroup = $this->entityManager->getRepository(UsersLinkGroups::class)->findBy(['user' => $user_id, 'group' => $group_id]);
-                        foreach ($userlinkgroup as $key => $value) {
-                            $this->entityManager->remove($value);
-                        }
-                        $this->entityManager->flush();
-                        return ['response' => 'User removed to the group successfully!'];
                     } else {
                         return ['response' => 'missing data'];
                     }
@@ -585,9 +564,9 @@ class ControllerSuperAdmin extends Controller
                     if (isset($data['name']) && $data['name'] != null &&
                     isset($data['userspp']) && $data['userspp'] != null &&
                     isset($data['page']) && $data['page'] != null) {
-                        $page = $data['page'];
-                        $userspp = $data['userspp'];
-                        $name = $data['name'];
+                        $page = htmlspecialchars($data['page']);
+                        $userspp = htmlspecialchars($data['userspp']);
+                        $name = htmlspecialchars($data['name']);
                         return $this->entityManager->getRepository(UsersLinkGroups::class)->globalSearchUser($name, $page, $userspp);
                     } else {
                         return ['response' => 'missing data'];
@@ -597,9 +576,9 @@ class ControllerSuperAdmin extends Controller
                     if (isset($data['name']) && $data['name'] != null &&
                     isset($data['groupspp']) && $data['groupspp'] != null &&
                     isset($data['page']) && $data['page'] != null) {
-                        $name = $data['name'];
-                        $page = $data['page'];
-                        $groupspp = $data['groupspp'];
+                        $name = htmlspecialchars($data['name']);
+                        $page = htmlspecialchars($data['page']);
+                        $groupspp = htmlspecialchars($data['groupspp']);
                         return $this->entityManager->getRepository(Groups::class)->searchGroup($name, $page, $groupspp);
                     } else {
                         return ['response' => 'missing data'];
@@ -607,8 +586,7 @@ class ControllerSuperAdmin extends Controller
                 },
                 'send_request_reset_user_password' => function($data) {
                     if (isset($data['user_id']) && $data['user_id'] != null) {
-                        $user_id = $data['user_id'];
-
+                        $user_id = htmlspecialchars($data['user_id']);
 
                         //$user = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $user_id]);
                         $user = $this->entityManager->getRepository(Regular::class)->findOneBy(['user' => $user_id]);
@@ -619,13 +597,10 @@ class ControllerSuperAdmin extends Controller
                         $this->entityManager->persist($user);
                         
 
-                        /////////////////////////////////////
-                        // PREPARE EMAIL TO BE SENT
-                        // received lang param
                         $userLang = isset($_COOKIE['lng']) ? htmlspecialchars(strip_tags(trim($_COOKIE['lng']))) : 'fr';
 
                         // create the confirmation account link and set the email template to be used      
-                        $accountConfirmationLink = $_ENV['VS_HOST']."/classroom/change_password.php?mail=$mail&token=$token";
+                        $accountConfirmationLink = $_ENV['VS_HOST']."/classroom/password_manager.php?page=update&token=$token";
                         
                         $emailTtemplateBody = $userLang."_reset_password";
 
@@ -662,48 +637,60 @@ class ControllerSuperAdmin extends Controller
                     }
                 },
                 'update_user_app' => function($data) {
-                    $user_id = isset($data['user_id']) ? htmlspecialchars(strip_tags(trim($data['user_id']))) : null;
-                    $user_app = json_decode(strip_tags($data['user_app']));
+                    if (isset($data['user_id']) && $data['user_id'] != null &&
+                    isset($data['user_app']) && $data['user_app'] != null ) {
+                        $user_id = isset($data['user_id']) ? htmlspecialchars($data['user_id']) : null;
+                        $user_app = json_decode($data['user_app']);
 
-                    if ($user_id == null || $user_app == null) {
-                        return ['response' => 'Missing data'];
-                    } else {
-                        $user = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $user_id]);
-
-                        if ($user) {
-                            foreach ($user_app as $key => $value) {
-                                $AppExist = $this->entityManager->getRepository(UsersLinkApplications::class)->findOneBy(['user' => $user, 'application' => $value[0]]);
-                                // Récupère l'entité application liée à l'id de celle-ci (permet de la set ensuite en tant qu'entité dans le lien entre groupe et application)
-                                $application = $this->entityManager->getRepository(Applications::class)->findOneBy(['id' => $value[0]]);
-                                if ($value[1] == true) {
-                                    $date_begin = \DateTime::createFromFormat('Y-m-d', $value[2]);
-                                    $date_end = \DateTime::createFromFormat('Y-m-d', $value[3]);
-                                    if ($AppExist) {
-                                        $AppExist->setApplication($application);
-                                        $AppExist->setUser($user);
-                                        $AppExist->setDateBegin($date_begin);
-                                        $AppExist->setDateEnd($date_end);
-                                        $this->entityManager->persist($AppExist);
-                                    } else {
-                                        $Applications = new UsersLinkApplications();
-                                        $Applications->setApplication($application);
-                                        $Applications->setUser($user);
-                                        $Applications->setDateBegin($date_begin);
-                                        $Applications->setDateEnd($date_end);
-                                        $this->entityManager->persist($Applications);
-                                    }
-                                } else {
-                                    if ($AppExist) {
-                                        $this->entityManager->remove($AppExist);
-                                    } 
-                                }
-                            }
-                            $this->entityManager->flush();
-                            return ['response' => 'Group updated with success!'];
+                        if ($user_id == null || $user_app == null) {
+                            return ['response' => 'Missing data'];
                         } else {
-                            return ['response' => 'User not found'];
+                            $user = $this->entityManager->getRepository(User::class)->findOneBy(['id' => $user_id]);
+                            if ($user) {
+                                foreach ($user_app as $key => $value) {
+                                    $AppExist = $this->entityManager->getRepository(UsersLinkApplications::class)->findOneBy(['user' => $user, 'application' => $value[0]]);
+                                    // Récupère l'entité application liée à l'id de celle-ci (permet de la set ensuite en tant qu'entité dans le lien entre groupe et application)
+                                    $application = $this->entityManager->getRepository(Applications::class)->findOneBy(['id' => $value[0]]);
+                                    if ($value[1] == true) {
+                                        $date_begin = \DateTime::createFromFormat('Y-m-d', $value[2]);
+                                        $date_end = \DateTime::createFromFormat('Y-m-d', $value[3]);
+                                        if ($AppExist) {
+                                            $AppExist->setApplication($application);
+                                            $AppExist->setUser($user);
+                                            $AppExist->setDateBegin($date_begin);
+                                            $AppExist->setDateEnd($date_end);
+                                            $this->entityManager->persist($AppExist);
+                                        } else {
+                                            $Applications = new UsersLinkApplications();
+                                            $Applications->setApplication($application);
+                                            $Applications->setUser($user);
+                                            $Applications->setDateBegin($date_begin);
+                                            $Applications->setDateEnd($date_end);
+                                            $this->entityManager->persist($Applications);
+                                        }
+                                    } else {
+                                        if ($AppExist) {
+                                            $this->entityManager->remove($AppExist);
+                                        } 
+                                    }
+                                }
+                                $this->entityManager->flush();
+                                return ['response' => 'Group updated with success!'];
+                            } else {
+                                return ['response' => 'User not found'];
+                            }
                         }
+                    } else {
+                        return ['response' => 'missing data'];
                     }
+                },
+                'is_user_admin' => function() {
+                    $user = $this->entityManager->getRepository(User::class)->findOneBy(['id' => htmlspecialchars($_SESSION['id'])]);
+                    $userR = $this->entityManager->getRepository(Regular::class)->findOneBy(['user' => $user]);
+                    if ($userR->getIsAdmin()) {
+                        return ['Admin' => true];
+                    }
+                    return ['Admin' => false];
                 }
             );
         }

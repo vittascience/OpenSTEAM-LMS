@@ -626,7 +626,10 @@
 				"mandatory": "Fields marked with <span class=\"text-danger\">*</span> are mandatory.",
 				"cguVittascience": "By validating this form, you accept the <a href=\"http://vittascience.com/\"> Terms of Service</a>.",
 				"description": "Please complete the following fields to create your account.",
-				"title": "Registration"
+				"title": "Registration",
+				"registrationFinalizationSuccess": "Your registration has been finalized, you can now connect",
+				"registrationFinalization": "Finalize your registration",
+				"descriptionFinalization": "Please complete the following fields to complete your registration."
 			},
 			"notAllowedUpdateUser": "You do not have the rights to modify this user.",
 			"notAllowedDeleteGroup": "You do not have the rights to delete this group.",
@@ -653,6 +656,12 @@
 				"resetPassword": {
 					"subject": "Resetting your password.",
 					"bodyTitle": "Reset password.",
+					"textBeforeLink": "If the button above does not work, copy and paste into your browser the following link :"
+				},
+				"finalizeAccount": {
+					"title": "Registration finalization",
+					"subject": "Registration finalization",
+					"bodyTitle": "Finalize your registration.",
 					"textBeforeLink": "If the button above does not work, copy and paste into your browser the following link :"
 				}
 			},
@@ -704,12 +713,18 @@
 			"groupsPerPage": "Groups per page",
 			"groupDeleted": "Group deleted.",
 			"groupCreated": "Group successfully created",
-			"groupCreateFailed": "The group could not be created"
+			"groupCreateFailed": "The group could not be created",
+			"showLinkTitle": "Group's link",
+			"usersWithoutGroups": "Users without groups",
+			"usersInactiveOrNoRegular": "Inactive users or not regular",
+			"usersWithoutGroupsDescription": "User group not linked to any group",
+			"usersInactiveOrNoRegularDescription": "Group of inactive and / or non-regular users"
 		},
 		"buttons": {
 			"continue": "Continue",
 			"validate": "Validate",
 			"cancel": "Cancel",
+			"finalize": "Finalize",
 			"send": "Send",
 			"login": "Sign in",
 			"signup": "Register",
@@ -722,6 +737,7 @@
 			"update": "Update",
 			"search": "Search",
 			"copyLink": "Copy link",
+			"show": "Show",
 			"user": {
 				"add": "Add user",
 				"create": "Create user",
@@ -765,7 +781,8 @@
 			"group": "Group",
 			"description": "Description",
 			"right": "Rights",
-			"resetPassword": "Reset password"
+			"resetPassword": "Reset password",
+			"link": "Link"
 		}
 	}
 }

@@ -657,7 +657,7 @@ const classroomModals = {
                             <h3 class="font-weight-bold text-info m-auto text-center my-3" data-i18n="superadmin.users.showResetLink">Lien de réinitialisation de mot de passe</h3>
                             <div class="row">
                                     <input type="text" class="form-control col-10" id="passwordLink">
-                                    <button class="btn btn-primary mx-1 btn-lg col" onclick="copyLink()" data-i18n="superadmin.buttons.copyLink">Copy the link</button>
+                                    <button class="btn btn-primary mx-1 btn-lg col" onclick="copyLink('#passwordLink')" data-i18n="superadmin.buttons.copyLink">Copy the link</button>
                             </div>
                             <div class="row">
                                 <button class="btn btn-info mx-auto mt-3 btn" onclick="dismissModal()" data-i18n="superadmin.buttons.close">Fermer</button>
@@ -686,6 +686,26 @@ const classroomModals = {
                         </div>
                     </div>`,
         footer: ``
-    }
+    },
+    'groupadmin-show-grouplink': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'superadmin.group.showLinkTitle'
+        },
+        content: `  <div id="delete-user-modal">
+                        <div class="col-12">
+                            <h3 class="font-weight-bold text-info m-auto text-center my-3" data-i18n="superadmin.group.showLinkTitle">Lien du groupe</h3>
+                            <div class="row">
+                                    <input type="text" class="form-control col-10" id="groupLink">
+                                    <button class="btn btn-primary mx-1 btn-lg col" onclick="copyLink('#groupLink')" data-i18n="superadmin.buttons.copyLink">Copy the link</button>
+                            </div>
+                            <div class="row">
+                                <button class="btn btn-info mx-auto mt-3 btn" onclick="dismissModal()" data-i18n="superadmin.buttons.close">Fermer</button>
+                            </div>
+                        </div>
+                    </div>`,
+        footer: ``
+    },
 
 }

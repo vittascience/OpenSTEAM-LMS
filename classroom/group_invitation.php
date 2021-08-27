@@ -90,7 +90,7 @@ $informations = ['url' => $url,
                 'groupId' => $groupId, 
                 'userId' => $userId];
                 
-setcookie('info', json_encode($informations), time()+3600);
+setcookie('info', json_encode($informations), time()+600);
 
 if (strlen($groupCode) != 5 || !preg_match("/^[a-zA-Z0-9]+$/", $groupCode)) {
     return header("Location: $url?gc=00000&page=invalidlink");
@@ -100,7 +100,7 @@ if (!$group && $page != "badlink") {
     return header("Location: $url?gc=$groupCode&page=badlink");
 }
 
-if (isset($_SESSION['id']) && ($page != "confirm" && $page != "success" && $page != "alreadylinked")) {
+if (isset($_SESSION['id']) && ($page != "confirm" && $page != "success" && $page != "alreadylinked" && $page != "badlink")) {
     return header("Location: $url?gc=$groupCode&page=confirm");
 }
 
