@@ -310,11 +310,11 @@ const classroomModals = {
                     </label>
                     <div class="row" id="user_teacher_infos" style="display: none;">
                         <select class="form-control col-5" id="user_teacher_grade">
-                            <option selected value="0">Primaire</option>
-                            <option value="1">Collège</option>
-                            <option value="2">Lycée</option>
-                            <option value="3">Lycée professionel</option>
-                            <option value="4">POST-BAC</option>
+                            <option selected value="0" data-i18n="superadmin.users.teacherGrades.0">Primaire</option>
+                            <option value="1" data-i18n="superadmin.users.teacherGrades.1">Collège</option>
+                            <option value="2" data-i18n="superadmin.users.teacherGrades.2">Lycée</option>
+                            <option value="3" data-i18n="superadmin.users.teacherGrades.3">Lycée professionel</option>
+                            <option value="4" data-i18n="superadmin.users.teacherGrades.4">POST-BAC</option>C</option>
                         </select>
                         <select class="form-control col-5" id="user_teacher_subjects">
                         </select>
@@ -405,11 +405,11 @@ const classroomModals = {
             </label>
             <div class="row" id="update_user_teacher_infos" style="display: none;">
                 <select class="form-control col-5" id="update_user_teacher_grade">
-                    <option selected value="0">Primaire</option>
-                    <option value="1">Collège</option>
-                    <option value="2">Lycée</option>
-                    <option value="3">Lycée professionel</option>
-                    <option value="4">POST-BAC</option>
+                    <option selected value="0" data-i18n="superadmin.users.teacherGrades.0">Primaire</option>
+                    <option value="1" data-i18n="superadmin.users.teacherGrades.1">Collège</option>
+                    <option value="2" data-i18n="superadmin.users.teacherGrades.2">Lycée</option>
+                    <option value="3" data-i18n="superadmin.users.teacherGrades.3">Lycée professionel</option>
+                    <option value="4" data-i18n="superadmin.users.teacherGrades.4">POST-BAC</option>ST-BAC</option>
                 </select>
                 <select class="form-control col-5" id="update_user_teacher_subjects">
                 </select>
@@ -473,11 +473,11 @@ const classroomModals = {
                         <div class="col">
                             <label for="user_teacher_grade_ga" data-i18n="[html]superadmin.profil.grade">Grade <span class="text-danger">*</span></label>
                             <select class="form-control col-5" id="user_teacher_grade_ga">
-                                <option selected value="0">Primaire</option>
-                                <option value="1">Collège</option>
-                                <option value="2">Lycée</option>
-                                <option value="3">Lycée professionel</option>
-                                <option value="4">POST-BAC</option>
+                                <option selected value="0" data-i18n="superadmin.users.teacherGrades.0">Primaire</option>
+                                <option value="1" data-i18n="superadmin.users.teacherGrades.1">Collège</option>
+                                <option value="2" data-i18n="superadmin.users.teacherGrades.2">Lycée</option>
+                                <option value="3" data-i18n="superadmin.users.teacherGrades.3">Lycée professionel</option>
+                                <option value="4" data-i18n="superadmin.users.teacherGrades.4">POST-BAC</option>
                             </select>
                             </div>
                         <div class="col">
@@ -548,11 +548,11 @@ const classroomModals = {
                     <div class="form-check">
                         <div class="row" id="update_user_teacher_infos_ga">
                             <select class="form-control col-5" id="update_user_teacher_grade_ga">
-                                <option selected value="0">Primaire</option>
-                                <option value="1">Collège</option>
-                                <option value="2">Lycée</option>
-                                <option value="3">Lycée professionel</option>
-                                <option value="4">POST-BAC</option>
+                                <option selected value="0" data-i18n="superadmin.users.teacherGrades.0">Primaire</option>
+                                <option value="1" data-i18n="superadmin.users.teacherGrades.1">Collège</option>
+                                <option value="2" data-i18n="superadmin.users.teacherGrades.2">Lycée</option>
+                                <option value="3" data-i18n="superadmin.users.teacherGrades.3">Lycée professionel</option>
+                                <option value="4" data-i18n="superadmin.users.teacherGrades.4">POST-BAC</option>
                             </select>
                             <select class="form-control col-5" id="update_user_teacher_subjects_ga">
                             </select>
