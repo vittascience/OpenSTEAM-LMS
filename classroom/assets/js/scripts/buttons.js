@@ -889,7 +889,14 @@ function updateGroupWithModal() {
         $('#upd_group_id').val(),
         $('#upd_group_name').val(),
         $('#upd_group_desc').val(),
-        JSON.stringify(ApplicationsData))
+        JSON.stringify(ApplicationsData)
+    ).then((response) => {
+        if (response.message == "success") {
+            displayNotification('#notif-div', "superadmin.group.groupUpdated", "success");
+        } else if (response.message == "missing data") {
+            displayNotification('#notif-div', "superadmin.account.missingData", "error");
+        }
+    })
     pseudoModal.closeAllModal()
     tempoAndShowGroupsTable()
 }
@@ -990,11 +997,41 @@ $('#create_user_link_to_group_superadmin').click(function () {
 
     pseudoModal.openModal('superadmin-create-user');
     // Bind les fonctions aux selects qui viennent d'être créés si elles ne le sont pas déjà
+    $("#u_is_teacher").change(() => {
+        if ($('#u_is_teacher').is(':checked')) {
+            $('#user_teacher_infos').show();
+        } else {
+            $('#user_teacher_infos').hide();
+        }
+    })
+
+    $('#user_teacher_grade').change(() => {
+        switch ($('#user_teacher_grade').val()) {
+            case "0":
+                createSubjectSelect(getSubjects(0), 0);
+                break;
+            case "1":
+                createSubjectSelect(getSubjects(1), 0);
+                break;
+            case "2":
+                createSubjectSelect(getSubjects(2), 0);
+                break;
+            case "3":
+                createSubjectSelect(getSubjects(3), 0);
+                break;
+            case "4":
+                createSubjectSelect(getSubjects(4), 0);
+                break;
+            default:
+                break;
+        }
+    })
+    $("#user_teacher_grade").trigger("change");
     if ($("#u_group")[0].length <= 0) {
-        checkboxGestion(0);
         $saved_groups = MSA.getSuperAdminManager()._comboGroups;
         appendSelectGroups($saved_groups, 'u_group');
     }
+
 });
 
 function addGroupSuperAdmin() {
@@ -1125,8 +1162,15 @@ function persistUpdateUserApp() {
         ApplicationsData.push(ApplicationTemp);
     });
     MSA.getSuperAdminManager().updateUserApps(user, JSON.stringify(ApplicationsData)).then((res) => {
-        pseudoModal.closeAllModal();
-        tempoAndShowUsersTable();
+        if (res.message == "success") {
+            displayNotification('#notif-div', "superadmin.users.appsUpdated", "success");
+            pseudoModal.closeAllModal();
+            tempoAndShowUsersTable();
+        } else if (res.message == "User not found") {
+            displayNotification('#notif-div', "superadmin.account.userNotFoundId", "error");
+        } else if (res.message == "missing data") {
+            displayNotification('#notif-div', "superadmin.account.missingData", "error");
+        }
     })
 }
 
@@ -1152,35 +1196,36 @@ function showupdateUserModal(id) {
         $('#update_u_mail').val(res[0].email);
         $('#update_u_phone').val(res[0].telephone);
 
-
         $('#update_user_teacher_grade').change(() => {
             switch ($('#update_user_teacher_grade').val()) {
                 case "0":
-                    createSubjectSelect(FirstGradeSubjects, 2);
+                    createSubjectSelect(getSubjects(0), 2);
                     break;
                 case "1":
-                    createSubjectSelect(SecondGradeSubjects, 2);
+                    createSubjectSelect(getSubjects(1), 2);
                     break;
                 case "2":
-                    createSubjectSelect(ThirdGradeSubjects, 2);
+                    createSubjectSelect(getSubjects(2), 2);
                     break;
                 case "3":
-                    createSubjectSelect(FourthGradeSubjects, 2);
+                    createSubjectSelect(getSubjects(3), 2);
+                    break;
+                case "4":
+                    createSubjectSelect(getSubjects(4), 2);
                     break;
                 default:
                     break;
             }
         })
 
-        // Teacher part
         if (res[0].isTeacher != null) {
             $('#update_u_is_teacher').prop("checked", true);
             $('#update_u_school').val(res[0].school);
             $('#update_user_teacher_infos').show();
             // set the grade then trigger the function to set the good subject
-            $('#update_user_teacher_grade').val(res[0].grade);
+            $('#update_user_teacher_grade').val(res[0].grade - 1);
             $("#update_user_teacher_grade").trigger("change");
-            $('#update_user_teacher_subjects').val(res[0].subject);
+            $('#update_user_teacher_subjects').val(res[0].subject - 1);
         } else {
             $('#update_u_is_teacher').prop("checked", false);
             $('#update_user_teacher_infos').hide();
@@ -1195,6 +1240,7 @@ function showupdateUserModal(id) {
         $("#update_u_is_teacher").change(() => {
             if ($('#update_u_is_teacher').is(':checked')) {
                 $('#update_user_teacher_infos').show();
+                createSubjectSelect(getSubjects(0), 2);
             } else {
                 $('#update_user_teacher_infos').hide();
             }
@@ -1286,9 +1332,28 @@ function updateUserModal() {
         $groups.push([$('#update_u_is_group_admin' + index).is(':checked'), $('#update_u_group' + index).val()])
     }
 
-    MSA.getSuperAdminManager().updateUser($user_id, $firstname, $surname, $pseudo, $phone, $mail, $bio, $groups, $is_admin, $is_teacher, $teacher_grade, $teacher_suject, $school, $is_active);
-    pseudoModal.closeAllModal();
-    tempoAndShowUsersTable()
+    MSA.getSuperAdminManager().updateUser($user_id,
+        $firstname,
+        $surname,
+        $pseudo,
+        $phone,
+        $mail,
+        $bio,
+        $groups,
+        $is_admin,
+        $is_teacher,
+        $teacher_grade,
+        $teacher_suject,
+        $school,
+        $is_active).then((response) => {
+        if (response.message == "success") {
+            displayNotification('#notif-div', "superadmin.users.userUpdated", "success");
+            pseudoModal.closeAllModal();
+            tempoAndShowUsersTable()
+        } else if (response.message == "missing data") {
+            displayNotification('#notif-div', "superadmin.account.missingData", "error");
+        }
+    });
 }
 
 
@@ -1312,17 +1377,42 @@ function createUserAndLinkToGroup() {
         $groups.push([$('#u_is_group_admin' + index).is(':checked'), $('#u_group' + index).val()])
     }
 
-    MSA.getSuperAdminManager().createUserAndLinkToGroup($firstname, $surname, $pseudo, $phone, $mail, $bio, $groups, $is_admin, $is_teacher, $teacher_grade, $teacher_suject, $school, $is_active);
+    MSA.getSuperAdminManager().createUserAndLinkToGroup($firstname,
+        $surname,
+        $pseudo,
+        $phone,
+        $mail,
+        $bio,
+        $groups,
+        $is_admin,
+        $is_teacher,
+        $teacher_grade,
+        $teacher_suject,
+        $school,
+        $is_active).then((response) => {
+        if (response.message == "success") {
+            displayNotification('#notif-div', "superadmin.users.userCreated", "success");
+            if (response.mail == true) {
+                displayNotification('#notif-div', "superadmin.users.mailSentToUser", "success");
+            } else {
+                displayNotification('#notif-div', "superadmin.users.mailSentToUser", "error");
+            }
+            pseudoModal.closeAllModal();
+            tempoAndShowUsersTable()
+        } else if (response.message == "missing data") {
+            displayNotification('#notif-div', "superadmin.account.missingData", "error");
+        }
+    });
     pseudoModal.closeAllModal();
     tempoAndShowUsersTable()
 }
 
 
-function deleteUserFromGroup(group_id, user_id) {
+/* function deleteUserFromGroup(group_id, user_id) {
     MSA.getSuperAdminManager().deleteUserFromGroup(group_id, user_id);
     pseudoModal.closeAllModal();
     tempoAndShowUsersTable()
-}
+} */
 
 function tempoAndShowGroupsTable() {
     let sort = $('#sort_groups_filter').val(),
@@ -1398,7 +1488,7 @@ function persistDeleteGroup() {
     if (validation == placeholderWord) {
         MSA.getSuperAdminManager().deleteGroup(group).then((response) => {
             if (response.message == "missing data") {
-                displayNotification('#notif-div', "superadmin.account.notAllowedDeleteGroup", "error");
+                displayNotification('#notif-div', "superadmin.group.groupDeleteError", "error");
             } else if (response.message == "success") {
                 displayNotification('#notif-div', "superadmin.group.groupDeleted", "success");
                 MSA.getSuperAdminManager()._actualUser = 0;
@@ -1444,9 +1534,9 @@ function persistDisable() {
     const user = MSA.getSuperAdminManager()._actualUser;
     if (validation == placeholderWord) {
         MSA.getSuperAdminManager().disableUser(user).then((response) => {
-            if (response.response == "missing data") {
+            if (response.message == "missing data") {
                 displayNotification('#notif-div', "superadmin.account.notAllowedDisableUser", "error");
-            } else if (response.response == "success") {
+            } else if (response.message == "success") {
                 displayNotification('#notif-div', "superadmin.users.userDisabled", "success");
                 MSA.getSuperAdminManager()._actualUser = 0;
                 pseudoModal.closeAllModal();
@@ -1457,8 +1547,6 @@ function persistDisable() {
         displayNotification('#notif-div', "superadmin.input.writeDelete", "error");
     }
 }
-
-
 
 function persistDelete() {
     let validation = $('#validation_delete').val();
@@ -1480,7 +1568,6 @@ function persistDelete() {
     }
 }
 
-
 function persistDeleteGA() {
     let validation = $('#validation_deleteGA').val();
     let placeholderWord = $('#validation_deleteGA').attr('placeholder');
@@ -1489,11 +1576,13 @@ function persistDeleteGA() {
         MGA.getGroupAdminManager().disableUser(user).then((response) => {
             if (response.message == "not_allowed") {
                 displayNotification('#notif-div', "superadmin.account.notAllowedDeleteUser", "error");
-            } else if (response.message == "allowed") {
+            } else if (response.message == "success") {
                 displayNotification('#notif-div', "superadmin.users.userDeleted", "success");
                 MGA.getGroupAdminManager()._actualUser = 0;
                 pseudoModal.closeAllModal();
                 tempoAndShowUsersTableGA()
+            } else {
+                displayNotification('#notif-div', "superadmin.account.missingData", "error");
             }
         })
     } else {
@@ -1621,39 +1710,6 @@ function optionsGroupApplications($type) {
     }
 }
 
-function checkboxGestion() {
-
-    $("#u_is_teacher").change(() => {
-        if ($('#u_is_teacher').is(':checked')) {
-            $('#user_teacher_infos').show();
-        } else {
-            $('#user_teacher_infos').hide();
-        }
-    })
-
-    $('#user_teacher_grade').change(() => {
-        switch ($('#user_teacher_grade').val()) {
-            case "0":
-                createSubjectSelect(FirstGradeSubjects, 0);
-                break;
-            case "1":
-                createSubjectSelect(SecondGradeSubjects, 0);
-                break;
-            case "2":
-                createSubjectSelect(ThirdGradeSubjects, 0);
-                break;
-            case "3":
-                createSubjectSelect(FourthGradeSubjects, 0);
-                break;
-            case "4":
-                createSubjectSelect(FithGradeSubjects, 0);
-                break;
-            default:
-                break;
-        }
-    })
-}
-
 function createSubjectSelect(array, type) {
     if (type === 0) {
         $("#user_teacher_subjects").empty();
@@ -1710,33 +1766,33 @@ function showupdateUserModal_groupadmin(user_id) {
             $('#update_u_mail_ga').val(res[0].email);
             $('#update_u_phone_ga').val(res[0].telephone);
 
-
-
-
             $('#update_user_teacher_grade_ga').change(() => {
                 switch ($('#update_user_teacher_grade_ga').val()) {
                     case "0":
-                        createSubjectSelect(FirstGradeSubjects, 3);
+                        createSubjectSelect(getSubjects(0), 3);
                         break;
                     case "1":
-                        createSubjectSelect(SecondGradeSubjects, 3);
+                        createSubjectSelect(getSubjects(1), 3);
                         break;
                     case "2":
-                        createSubjectSelect(ThirdGradeSubjects, 3);
+                        createSubjectSelect(getSubjects(2), 3);
                         break;
                     case "3":
-                        createSubjectSelect(FourthGradeSubjects, 3);
+                        createSubjectSelect(getSubjects(3), 3);
+                        break;
+                    case "4":
+                        createSubjectSelect(getSubjects(4), 3);
                         break;
                     default:
                         break;
                 }
             })
-            //createSubjectSelect(FirstGradeSubjects, 3);
+
             // Teacher part
             $('#update_u_school_ga').val(res[0].school);
-            $('#update_user_teacher_grade_ga').val(res[0].grade);
+            $('#update_user_teacher_grade_ga').val(res[0].grade - 1);
             $("#update_user_teacher_grade_ga").trigger("change");
-            $('#update_user_teacher_subjects_ga').val(res[0].subject);
+            $('#update_user_teacher_subjects_ga').val(res[0].subject - 1);
 
             if (res[0].hasOwnProperty('groups')) {
                 for (let i = 0; i < res[0].groups.length; i++) {
@@ -1791,7 +1847,25 @@ function updateUserModalGA() {
         $groups.push([$('#update_u_is_group_admin_ga' + index).is(':checked'), $('#update_u_group_ga' + index).val()])
     }
 
-    MGA.getGroupAdminManager().updateUser($user_id, $firstname, $surname, $pseudo, $phone, $mail, $bio, $groups, $teacher_grade, $teacher_suject, $school);
+    MGA.getGroupAdminManager().updateUser($user_id,
+        $firstname,
+        $surname,
+        $pseudo,
+        $phone,
+        $mail,
+        $bio,
+        $groups,
+        $teacher_grade,
+        $teacher_suject,
+        $school).then((response) => {
+        if (response.message == "success") {
+            displayNotification('#notif-div', "superadmin.users.userUpdated", "success");
+            pseudoModal.closeAllModal();
+            tempoAndShowUsersTable()
+        } else if (response.message == "missing data") {
+            displayNotification('#notif-div', "superadmin.account.missingData", "error");
+        }
+    });
     pseudoModal.closeAllModal();
     tempoAndShowUsersTableGA();
 }
@@ -1833,25 +1907,25 @@ $('#create_user_link_to_group_groupadmin').click(function () {
     $('#user_teacher_grade_ga').change(() => {
         switch ($('#user_teacher_grade_ga').val()) {
             case "0":
-                createSubjectSelect(FirstGradeSubjects, 1);
+                createSubjectSelect(getSubjects(0), 1);
                 break;
             case "1":
-                createSubjectSelect(SecondGradeSubjects, 1);
+                createSubjectSelect(getSubjects(1), 1);
                 break;
             case "2":
-                createSubjectSelect(ThirdGradeSubjects, 1);
+                createSubjectSelect(getSubjects(2), 1);
                 break;
             case "3":
-                createSubjectSelect(FourthGradeSubjects, 1);
+                createSubjectSelect(getSubjects(3), 1);
                 break;
             case "4":
-                createSubjectSelect(FithGradeSubjects, 1);
+                createSubjectSelect(getSubjects(4), 1);
                 break;
             default:
                 break;
         }
     })
-    createSubjectSelect(FirstGradeSubjects, 1);
+    createSubjectSelect(getSubjects(0), 1);
 });
 
 function createUserAndLinkToGroup_groupAdmin() {
@@ -1876,6 +1950,11 @@ function createUserAndLinkToGroup_groupAdmin() {
 
 function resetUserPassword(id) {
     MSA.getSuperAdminManager().sendResetPassword(id).then((response) => {
+        if (response.isSent == true) {
+            displayNotification('#notif-div', "superadmin.users.mailSentToUserReset", "success");
+        } else {
+            displayNotification('#notif-div', "superadmin.users.mailNotSentToUserReset", "error");
+        }
         pseudoModal.openModal('superadmin-show-resetlink');
         $('#passwordLink').val(response.link);
     })
@@ -1888,6 +1967,11 @@ function dismissModal() {
 function resetUserPasswordga(id) {
     MGA.getGroupAdminManager().sendResetPassword(id).then((response) => {
         if (response.message != "not_allowed") {
+            if (response.isSent == true) {
+                displayNotification('#notif-div', "superadmin.users.mailSentToUserReset", "success");
+            } else {
+                displayNotification('#notif-div', "superadmin.users.mailNotSentToUserReset", "error");
+            }
             pseudoModal.openModal('superadmin-show-resetlink');
             $('#passwordLink').val(response.link);
         } else {
@@ -1919,19 +2003,61 @@ function getGroupLinkGA(id) {
 }
 
 
+function getGrades() {
+    let TmpArr = [];
+    for (let i = 0; i < 5; i++) {
+        TmpArr.push(i18next.t(`superadmin.users.teacherGrades.${i}`))
+    }
+    return TmpArr;
+}
+
+function getSubjects(grade) {
+    let subjectsLength = 0;
+    switch (grade) {
+        case 0:
+            subjectsLength = 2;
+            break;
+        case 1:
+            subjectsLength = 11;
+            break;
+        case 2:
+            subjectsLength = 38;
+            break;
+        case 3:
+            subjectsLength = 12;
+            break;
+        case 4:
+            subjectsLength = 2;
+            break;
+        default:
+            break;
+    }
+    let TmpArr = [];
+    for (let i = 0; i < subjectsLength; i++) {
+        TmpArr.push(i18next.t(`superadmin.users.teacherSubjects.${grade}.${i}`))
+    }
+    return TmpArr;
+}
+
 
 /**
- * DATA COMBOBOX
+ * Get the grade and the subject in the user language
  */
-const Grade = [
+const Grade = getGrades();
+/* const FirstGradeSubjects = getSubjects(0);
+const SecondGradeSubjects = getSubjects(1);
+const ThirdGradeSubjects = getSubjects(2);
+const FourthGradeSubjects = getSubjects(3);
+const FithGradeSubjects = getSubjects(4); */
+/* const Grade = [
     'Primaire',
     'Collège',
     'Lycée',
-    'Lycée Professionel',
+    'Lycée Professionnel',
     'POST-BAC'
-];
+]; */
 
-const FirstGradeSubjects = [
+/* const FirstGradeSubjects = [
     'Ecole élémentaire',
     'Autre (préciser dans la biographie)'
 ];
@@ -2009,7 +2135,7 @@ const FourthGradeSubjects = [
 const FithGradeSubjects = [
     'Etudes supérieures',
     'Autre (préciser dans la biographie)'
-];
+]; */
 
 /* DEBUG SuperAdmin */
 

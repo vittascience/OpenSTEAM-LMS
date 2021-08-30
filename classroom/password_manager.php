@@ -1,8 +1,13 @@
 <?php
-session_start();
 
-require __DIR__."/../vendor/autoload.php";
-require __DIR__."/../bootstrap.php";
+$openClassroomDir = __DIR__."/../../openClassroom";
+if(is_dir($openClassroomDir)){
+    require __DIR__."/../../vendor/autoload.php";
+    require __DIR__."/../../bootstrap.php";
+} else {
+    require __DIR__."/../vendor/autoload.php";
+    require __DIR__."/../bootstrap.php";
+}
 
 use Dotenv\Dotenv;
 use User\Entity\Regular;
