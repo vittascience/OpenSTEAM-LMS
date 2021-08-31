@@ -904,7 +904,8 @@
 		"account": {
 			"activate": {
 				"success": "Votre compte à bien été activé !",
-				"alreadyactive": "Votre compte est déjà actif."
+				"alreadyactive": "Votre compte est déjà actif.",
+				"noToken": "Aucun token n'est attaché à ce lien."
 			},
 			"active": "Compte actif",
 			"registration": {
@@ -934,7 +935,8 @@
 			"missingData": "Il manque des informations pour finaliser l'opération.",
 			"errorSending": "Une erreur est survenue lors de l'envoie de l'e-mail",
 			"userNotFound": "Utilisateur introuvable et / ou déjà actif",
-			"userNotFoundId": "Utilisateur introuvable"
+			"userNotFoundId": "Utilisateur introuvable",
+			"errorActivation": "Une erreur est survenue lors de la l'activation."
 		},
 		"users": {
 			"users": "Utilisateurs",

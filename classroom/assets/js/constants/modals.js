@@ -314,7 +314,7 @@ const classroomModals = {
                             <option value="1" data-i18n="superadmin.users.teacherGrades.1">Collège</option>
                             <option value="2" data-i18n="superadmin.users.teacherGrades.2">Lycée</option>
                             <option value="3" data-i18n="superadmin.users.teacherGrades.3">Lycée professionel</option>
-                            <option value="4" data-i18n="superadmin.users.teacherGrades.4">POST-BAC</option>C</option>
+                            <option value="4" data-i18n="superadmin.users.teacherGrades.4">POST-BAC</option>
                         </select>
                         <select class="form-control col-5" id="user_teacher_subjects">
                         </select>
@@ -409,7 +409,7 @@ const classroomModals = {
                     <option value="1" data-i18n="superadmin.users.teacherGrades.1">Collège</option>
                     <option value="2" data-i18n="superadmin.users.teacherGrades.2">Lycée</option>
                     <option value="3" data-i18n="superadmin.users.teacherGrades.3">Lycée professionel</option>
-                    <option value="4" data-i18n="superadmin.users.teacherGrades.4">POST-BAC</option>ST-BAC</option>
+                    <option value="4" data-i18n="superadmin.users.teacherGrades.4">POST-BAC</option>
                 </select>
                 <select class="form-control col-5" id="update_user_teacher_subjects">
                 </select>

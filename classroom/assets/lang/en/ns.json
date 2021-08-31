@@ -611,7 +611,8 @@
 		"account": {
 			"activate": {
 				"success": "Your account has been activated !",
-				"alreadyactive": "Your account is already active."
+				"alreadyactive": "Your account is already active.",
+				"noToken": "No token is attached to this link."
 			},
 			"active": "Active account",
 			"registration": {
@@ -641,7 +642,8 @@
 			"missingData": "Information is missing to finalize the operation.",
 			"errorSending": "An error occurred while sending the email",
 			"userNotFound": "User not found and / or already active",
-			"userNotFoundId": "User not found"
+			"userNotFoundId": "User not found",
+			"errorActivation": "An error occurred during activation."
 		},
 		"users": {
 			"users": "Users",

@@ -338,19 +338,19 @@ function showFormInputError(id) {
 $('#profile-form-grade').change(() => {
     switch ($('#profile-form-grade').val()) {
         case "0":
-            createSubjectSelectTeacherForm(FirstGradeSubjects);
+            createSubjectSelectTeacherForm(getSubjects(0));
             break;
         case "1":
-            createSubjectSelectTeacherForm(SecondGradeSubjects);
+            createSubjectSelectTeacherForm(getSubjects(1));
             break;
         case "2":
-            createSubjectSelectTeacherForm(ThirdGradeSubjects);
+            createSubjectSelectTeacherForm(getSubjects(2));
             break;
         case "3":
-            createSubjectSelectTeacherForm(FourthGradeSubjects);
+            createSubjectSelectTeacherForm(getSubjects(3));
             break;
         case "4":
-            createSubjectSelectTeacherForm(FithGradeSubjects);
+            createSubjectSelectTeacherForm(getSubjects(4));
             break;
         default:
             break;
@@ -365,7 +365,7 @@ function createSubjectSelectTeacherForm(array) {
         $("#profile-form-subject").append(o);
     }
 }
-createSubjectSelectTeacherForm(FirstGradeSubjects);
+createSubjectSelectTeacherForm(getSubjects(0));
 
 
 function goToHome() {

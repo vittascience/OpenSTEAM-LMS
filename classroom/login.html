@@ -1,6 +1,6 @@
 <!-- page de garde -->
 <div id="notif-div"></div>
-<div id="home-container" style="display:none;">
+<div id="home-container">
     <div class="text-center d-flex flex-column justify-content-center jumbotron-neutral">
         <div id="interactive-elements-container" style="flex-grow:1;">
             <div id="fake-blockly">
@@ -87,15 +87,14 @@
             <img src="assets/media/logoGAR.png" alt="Logo GAR">
             <span class="gar-presentation-text my-3" data-i18n="[html]classroom.login.gar"></span>
         </div>
-        <button onclick="returnToConnectionPanel('#home-container')" class="btn close-login-classroom"><i
-                class="fas fa-times"></i></button>
+        <button onclick="navigateLight('', 1)" class="btn close-login-classroom"><i class="fas fa-times"></i></button>
 
     </div>
 </div>
 <!-- Register page -->
 <div id="classroom-register-container" style="display:none;">
     <div class="inner-register-container">
-        <form action="#" id="create-teacher-account-form">
+        <!-- <form action="#" id="create-teacher-account-form">
             <div class="form-group part-content-index part-row c-primary-form row">
 
                 <div class="col-md-12">
@@ -165,14 +164,181 @@
                         data-i18n="[value]classroom.login.register.createButton">
                 </div>
             </div>
+        </form> -->
+        <form action="#" id="create-teacher-account-form">
+            <div class="form-group part-content-index part-row c-primary-form row">
+
+                <div class="col-md-12">
+                    <h3 class="font-weight-bold green-vitta text-center mb-4 text-uppercase"
+                        data-i18n="superadmin.account.registration.title"></h3>
+                    <p class="text-center" data-i18n="superadmin.account.registration.description"></p>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-row mb-4">
+                        <img src="assets/media/green_user.png" class="icon-label">
+                        <label for="profile-form-first-name" class="tutorial-label"
+                            data-i18n="[html]superadmin.profil.firstname"></label>
+                        <input type="text" name="first-name" id="profile-form-first-name"
+                            class="form-control form-control-lg">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-row mb-4">
+                        <img src="assets/media/green_user.png" class="icon-label">
+                        <label for="profile-form-last-name" class="tutorial-label"
+                            data-i18n="[html]superadmin.profil.lastname"></label>
+                        <input type="text" name="last-name" id="profile-form-last-name"
+                            class="form-control form-control-lg">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-row mb-4">
+                        <img src="assets/media/green_user.png" class="icon-label">
+                        <label for="profile-form-pseudo" class="tutorial-label"
+                            data-i18n="[html]superadmin.profil.nickname"></label>
+                        <input type="text" name="pseudo" id="profile-form-pseudo" class="form-control form-control-lg">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-row mb-4">
+                        <img src="assets/media/green_user.png" class="icon-label">
+                        <label for="profile-form-email" class="tutorial-label"
+                            data-i18n="[html]superadmin.profil.email"></label>
+                        <input type="email" name="email" id="profile-form-email" class="form-control form-control-lg">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-row mb-4">
+                        <img src="assets/media/green_user.png" class="icon-label">
+                        <label for="profile-form-phone" class="tutorial-label"
+                            data-i18n="superadmin.profil.phone"></label>
+                        <input type="text" name="phone-number" class="form-control form-control-lg"
+                            id="profile-form-phone" class="form-control form-control-lg">
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-row mb-4">
+                        <img src="assets/media/green_user.png" class="icon-label">
+                        <label for="profile-form-bio" class="tutorial-label"
+                            data-i18n="[html]superadmin.profil.bio"></label>
+                        <textarea class="form-control form-control-lg" name="mini-bio" id="profile-form-bio"
+                            rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-row mb-4">
+                        <img src="assets/media/green_lock.png" class="icon-label">
+                        <label for="profile-form-school" class="tutorial-label"
+                            data-i18n="[html]superadmin.profil.school"></label>
+                        <input type="text" class="form-control form-control-lg" name="school" id="profile-form-school">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-row mb-4">
+                        <img src="assets/media/green_user.png" class="icon-label">
+                        <label for="profile-form-grade" class="tutorial-label"
+                            data-i18n="[html]superadmin.profil.grade"></label>
+                        <select class="form-control" id="profile-form-grade" name="grade">
+                            <option selected value="0" data-i18n="superadmin.users.teacherGrades.0">Primaire</option>
+                            <option value="1" data-i18n="superadmin.users.teacherGrades.1">Collège</option>
+                            <option value="2" data-i18n="superadmin.users.teacherGrades.2">Lycée</option>
+                            <option value="3" data-i18n="superadmin.users.teacherGrades.3">Lycée professionel</option>
+                            <option value="4" data-i18n="superadmin.users.teacherGrades.4">POST-BAC</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-row mb-4">
+                        <img src="assets/media/green_user.png" class="icon-label">
+                        <label for="profile-form-subject" class="tutorial-label"
+                            data-i18n="[html]superadmin.profil.subject"></label>
+                        <select class="form-control" id="profile-form-subject" name="subject">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div>
+                        <img src="assets/media/green_lock.png" class="icon-label">
+                        <label for="profile-form-password" class="tutorial-label"
+                            data-i18n="[html]superadmin.profil.password"></label>
+                    </div>
+                    <div class="form-inline">
+                        <input type="password" name="password" id="profile-form-password"
+                            class="form-control form-control-lg">
+                        <i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
+                        <p class="font-italic ml-2" data-i18n="superadmin.profil.passwordConstraints"></p>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <img src="assets/media/green_lock.png" class="icon-label">
+                    <label for="profile-form-confirm-password" class="tutorial-label"
+                        data-i18n="[html]superadmin.profil.confirmPassword"></label>
+                    <div class="form-inline">
+                        <input type="password" name="confirm-password" id="profile-form-confirm-password"
+                            class="form-control form-control-lg">
+                        <i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
+                    </div>
+                </div>
+            </div>
+
+            <p data-i18n="[html]superadmin.account.registration.disclaimerVittascience"></p>
+            <p data-i18n="[html]superadmin.account.registration.mandatory"></p>
+            <p data-i18n="[html]superadmin.account.registration.cguVittascience"></p>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="cb_name_public">
+                <label class="form-check-label" for="cb_name_public"
+                    data-i18n="superadmin.account.registration.accountPublic">
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="cb_newsletter">
+                <label class="form-check-label" for="cb_newsletter"
+                    data-i18n="superadmin.account.registration.newsletter">
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="cb_alert_mail">
+                <label class="form-check-label" for="cb_alert_mail"
+                    data-i18n="superadmin.account.registration.mailAlert">
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="cb_allow_contact">
+                <label class="form-check-label" for="cb_allow_contact"
+                    data-i18n="superadmin.account.registration.allowContact">
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="cb_adult" required>
+                <label class="form-check-label" for="cb_adult" data-i18n="superadmin.account.registration.confirmAdult">
+                </label>
+            </div>
+
+            <div class="col-md-12 d-flex flex-column align-items-center">
+                <input class="btn browse-button mx-auto mt-3 btn-lg" type="submit"
+                    data-i18n="[value]classroom.login.signup">
+            </div>
+
         </form>
-        <button onclick="returnToConnectionPanel('#home-container')" class="btn close-login-classroom mt-3 mr-3">
+        <button onclick="navigateLight('login-choice')" class="btn close-login-classroom mt-3 mr-3">
             <i class="fas fa-times"></i>
         </button>
     </div>
 </div>
+
 <!-- page de login via un lien -->
-<div id="classroom-login-container-bis" style="display:none;">
+<!-- <div id="classroom-login-container-bis" style="display:none;">
     <div class="inner-login-container">
         <p id="classroom-desc"></p>
         <div id="classroom-create-account" class="container-border-left container-border-left-enable">
@@ -210,11 +376,12 @@
         <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
                 class="fas fa-times"></i></button>
     </div>
-</div>
+</div> -->
+
 <div id="login-container" style="display:none;position:relative;">
     <div class="login-form" id="signupin-div">
         <h1><span class="fa fa-sign-in-alt"></span><span data-i18n="login_popup.title"></span> <button
-                onclick="returnToConnectionPanel('#login-container')" class="btn close-login-classroom"><i
+                onclick="navigateLight('login-choice')" class="btn close-login-classroom"><i
                     class="fas fa-times"></i></button></h1>
 
         <p data-i18n="login_popup.details"></p>
@@ -293,8 +460,8 @@
 <script src="assets/js/main/ClassroomManager.js"></script>
 <script src="assets/js/main/Main.js"></script>
 <script src="assets/js/scripts/main-login.js"></script>
-<script src="assets/js/scripts/login.js"></script>
 <script src="assets/js/scripts/buttons.js"></script>
+<script src="assets/js/scripts/login.js"></script>
 <script>
     UIManager.init().then((resolve) => {
         UserManager.init().then((resolve) => {

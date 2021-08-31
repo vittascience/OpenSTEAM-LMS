@@ -18,7 +18,8 @@ $dotenv = Dotenv::createImmutable(__DIR__."/../");
 $dotenv->safeLoad();
 
 
-$token = isset($_GET['token']) ? trim(htmlspecialchars(preg_replace('/<[^>]*>[^<]*<[^>]*>/', '',$_GET['token']))) : null;
+$token = isset($_GET['token']) ? htmlspecialchars($_GET['token']) : null;
+
 $urlhome = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]"."/classroom/home.php";
 setcookie("token", $token, time()+3600);
 
