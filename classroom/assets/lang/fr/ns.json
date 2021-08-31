@@ -1,13 +1,6 @@
 {
-	"release-announcement-banner": "Retrouvez la vidéo de lancement du module Classe du 12 mai 2021 sur YouTube ! <a href='/classroom/'>En savoir plus</a>",
 	"classroom": {
 		"login": {
-			"announcement": {
-				"discoverButton": "Découvrir la vidéo sur Youtube",
-				"officialRelease": "Sortie officielle",
-				"classroomModule": "Module classe",
-				"releaseDate": "Le 12 mai 2021 sur Youtube"
-			},
 			"noClass": "Le code entré ne correspond à aucune classe.",
 			"countdown1": "Le module de gestion de classe est actuellement en version bêta. Si vous souhaitez l’essayer, veuillez <a href=\"/about?contact=1\">contacter l’équipe Vittascience</a>.",
 			"countdown2": "Sortie officielle dans",
@@ -182,7 +175,11 @@
 			"messageMissingLearnerHelpForm": "Tu dois saisir ton message",
 			"invalidUserIdLearnerHelpForm": "Erreur lors de l'envoi du message : ton identifiant est invalide",
 			"unknownUserLearnerHelpForm": "Erreur lors de l'envoi du message : ton identifiant est inconnu",
-			"unknownEmailLearnerHelpForm": "Erreur lors de l'envoi du message : l'adresse e-mail de ton enseignant est inconnue"
+			"unknownEmailLearnerHelpForm": "Erreur lors de l'envoi du message : l'adresse e-mail de ton enseignant est inconnue",
+			"activityTitleInvalid": "L'activité n'a pas pu être créée : titre invalide",
+			"activityContentInvalid": "L'activité n'a pas pu être créée : contenu invalide",
+			"activityIsFromClassroomInvalid": "L'activité n'a pas pu être créée : erreur de contexte",
+			"activityUserIdInvalid": "L'activité n'a pas pu être créée : utilisateur invalide"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",
@@ -830,7 +827,9 @@
 		"allowNewsletter": "Souhaitez-vous recevoir notre newsletter par mail ?",
 		"allowAlertMessage": "Souhaitez-vous recevoir des alertes par mail lors de la réception de nouveaux messages sur le site ?",
 		"allowMessageReceive": "Souhaitez-vous pouvoir être contacté par les autres utilisateurs du site ?",
+		"eighteenConfirm": "Je confirme avoir plus de 18 ans (article 1124 du code civil)",
 		"confirmCGU": "En validant ce formulaire, vous acceptez les <a target=\"_blank\" href=\"/cgu\">conditions générales d'utilisation</a>.",
+		"concernedAboutPrivacy": "Vittascience place la sécurité et la confidentialité des données personnelles de ses utilisateurs au coeur de ses préoccupations. Découvrez <a target=\"_blank\" href=\"/privacy\">notre politique de protection des données personnelles</a>",
 		"errors": {
 			"mailUsed": "Le mail {{ mail }} est déjà utilisé. Veuillez en choisir un autre.",
 			"mailUsedServer": "L'adresse email fournie existe déjà.",
@@ -862,7 +861,7 @@
 	"words": {
 		"send": "envoyer",
 		"settings": "paramètres",
-		"disconnect": "déconnection",
+		"disconnect": "déconnexion",
 		"help": "aide",
 		"duplicate": "dupliquer",
 		"delete": "supprimer",
@@ -1186,6 +1185,42 @@
 			"right": "Rôle",
 			"resetPassword": "Réinitialiser le mot de passe",
 			"link": "Lien"
+		}
+	},
+	"navbar": {
+		"items": {
+			"kits": "Matériel",
+			"community": {
+				"title": "Communauté",
+				"dropdown": {
+					"vittamap": "Vittamap",
+					"blog": "Blog",
+					"gallery": "Gallerie",
+					"about": "A propos"
+				}
+			},
+			"tooltips": {
+				"backToHome": "Revenir à la page d'accueil",
+				"programming": "Coder avec Vittascience",
+				"resources": "Centre de ressources pédagogiques",
+				"classroom": "Gérez vos classes avec Vittascience",
+				"hardware": "Découvrir nos kits et produits"
+			},
+			"programming": "Programmer",
+			"ressources": "Ressources",
+			"classroom": "Classe",
+			"accessibility": "Changez le thème et la police du site",
+			"lang": "Changer de langue",
+			"user_shortcuts": {
+				"welcome": "Bienvenue !",
+				"signup": "S'inscrire",
+				"login": "Se connecter",
+				"hello": "Bonjour",
+				"account": "Mon compte",
+				"disconnect": "Se déconnecter",
+				"willSignup": "Je m'inscris !",
+				"willSignin": "Je me connecte"
+			}
 		}
 	}
 }

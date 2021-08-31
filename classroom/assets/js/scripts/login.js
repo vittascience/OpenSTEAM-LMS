@@ -71,6 +71,13 @@ $('#login-vittascience').click(function () {
 
 $('#home-connexion').click(function () {
     navigateLight("login-choice")
+    /*     $('#home-container').toggle();
+        $('#classroom-login-container').toggle(); */
+    document.documentElement.style = "scroll-behavior: auto";
+    document.documentElement.scrollTo({
+        top: 0,
+        behavior: 'auto'
+    });
 })
 
 $('.navbar-brand').click(function () {

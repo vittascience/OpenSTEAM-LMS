@@ -246,7 +246,9 @@ function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = fal
  * History navigation
  */
 window.onpopstate = () => {
-    navigatePanel($_GET('panel'), $_GET('nav'), option = $_GET('option'), interface = $_GET('interface'), false, true);
+    if ($_GET('panel') && $_GET('nav')) {
+        navigatePanel($_GET('panel'), $_GET('nav'), option = $_GET('option'), interface = $_GET('interface'), false, true);
+    }
 };
 
 /**
@@ -335,8 +337,12 @@ function modeProf() {
 }
 
 // Hide the switch teacher mode button when irrelevant
-if (window.localStorage.showSwitchTeacherButton == 'true') {
+if (document.getElementById('teacherSwitchButton') && window.localStorage.showSwitchTeacherButton == 'true') {
     document.getElementById('teacherSwitchButton').style.display = 'block';
+}
+
+if (document.getElementById('settings-student') && window.localStorage.showSwitchTeacherButton == 'true') {
+    document.getElementById('settings-student').style.display = 'none';
 }
 
 $('#code-copy').click(function () {
@@ -365,9 +371,15 @@ window.addEventListener('storage', () => {
         } else {
             /* i18next.t("classroom.notif.saveProject") */
             Main.getClassroomManager().addActivity(Activity).then(function (response) {
-                addTeacherActivityInList(response)
-                teacherActivitiesDisplay()
-                displayNotification('#notif-div', "classroom.notif.addActivity", "success")
+                if (response.errors) {
+                    for (let error in response.errors) {
+                        displayNotification('#notif-div', `classroom.notif.${error}`, "error");
+                    }
+                } else {
+                    addTeacherActivityInList(response);
+                    teacherActivitiesDisplay();
+                    displayNotification('#notif-div', "classroom.notif.addActivity", "success");
+                }
             })
         }
     }
@@ -380,8 +392,16 @@ window.addEventListener('storage', () => {
 
 //profil prof-->paramètres
 $('#settings-teacher').click(function () {
-    pseudoModal.openModal('settings-teacher-modal')
-})
+    if (UserManager.getUser().isFromGar) {
+        if (document.getElementById('teacher-account-button')) {
+            document.getElementById('teacher-account-button').style.display = 'none';
+        }
+        if (document.querySelector('[data-i18n="classroom.modals.settingsTeacher.description"]')) {
+            document.querySelector('[data-i18n="classroom.modals.settingsTeacher.description"]').style.display = 'none';
+        }
+    }
+    pseudoModal.openModal('settings-teacher-modal');
+});
 
 //profil élève-->paramètres
 $('#settings-student').click(function () {
@@ -648,6 +668,11 @@ function sandboxDisplay(projects = Main.getClassroomManager()._myProjects) {
 }
 
 function classroomsDisplay() {
+    // Hide the "add a class" button in the gar user context
+    if (UserManager.getUser().isFromGar) {
+        document.querySelector('.buttons-interactions button.teacher-new-classe').style.display = 'none';
+    }
+
     // Display the classes from cached data
     $('.list-classes').html(``);
     let classes = Main.getClassroomManager()._myClasses;
@@ -678,13 +703,19 @@ $('body').on('change', '#action-teach-setting', function () {
  * Toggle the block class mode (to lock/unlock the access to the classroom)
  */
 function toggleBlockClass() {
-    let classroom = getClassroomInListByLink($_GET('option'))[0].classroom;
+    let currentClassroomLink = $_GET('option') ? $_GET('option') : ClassroomSettings.classroom;
+    let classroom = getClassroomInListByLink(currentClassroomLink)[0].classroom;
     if (classroom.isBlocked == true) {
         classroom.isBlocked = false;
-        $('#classroom-info').addClass('greyscale');
+        $('#classroom-info').removeClass('greyscale');
+        $('#classroom-info > *:not(:first-child)').css('display', 'unset');
+        $('#classroom-info > button > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
     } else {
         classroom.isBlocked = true;
-        $('#classroom-info').removeClass('greyscale');
+        $('#classroom-info').addClass('greyscale');
+        $('#classroom-info > *:not(:first-child)').css('display', 'none');
+        $('#classroom-info > button > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
+
     }
     Main.getClassroomManager().updateClassroom(classroom).then(function (response) {
         console.log(`Classroom locked: ${response.isBlocked}`);
