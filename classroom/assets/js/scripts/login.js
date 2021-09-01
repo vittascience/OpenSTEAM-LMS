@@ -60,10 +60,12 @@ $('body').on('click', '.vitta-notif-exit-btn', function () {
 /**
  * Event listener when clicking the Create account link
  */
-document.getElementById('register-link').addEventListener('click', (e) => {
-    e.preventDefault();
-    navigateLight("register")
-});
+if (document.getElementById('register-link')) {
+    document.getElementById('register-link').addEventListener('click', (e) => {
+        e.preventDefault();
+        navigateLight("register")
+    });
+}
 
 $('#login-vittascience').click(function () {
     navigateLight("login-container")
@@ -255,36 +257,39 @@ document.getElementsByTagName('body')[0].addEventListener('click', (e) => {
 /**
  * Create teacher form submit listener
  */
-document.getElementById('create-teacher-account-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    let data = new FormData(e.target);
-    if (teacherAccountCreateFormCheck(data)) {
-        createTeacherAccount(data).then((response) => {
-            if (response.isUserAdded) {
-                document.getElementById('profile-form-password').value = '';
-                document.getElementById('profile-form-confirm-password').value = '';
-                displayNotification('#notif-div', "classroom.notif.accountCreated", "success");
-                returnToConnectionPanel('#login-container');
-            } else {
-                if (response.errorType) {
-                    switch (response.errorType) {
-                        case 'unknownUser':
-                            displayNotification('#notif-div', "classroom.notif.unknownUser", "error");
-                            break;
+if (document.getElementById('create-teacher-account-form')) {
+    document.getElementById('create-teacher-account-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        let data = new FormData(e.target);
+        if (teacherAccountCreateFormCheck(data)) {
+            createTeacherAccount(data).then((response) => {
+                if (response.isUserAdded) {
+                    document.getElementById('profile-form-password').value = '';
+                    document.getElementById('profile-form-confirm-password').value = '';
+                    displayNotification('#notif-div', "classroom.notif.accountCreated", "success");
+                    returnToConnectionPanel('#login-container');
+                } else {
+                    if (response.errorType) {
+                        switch (response.errorType) {
+                            case 'unknownUser':
+                                displayNotification('#notif-div', "classroom.notif.unknownUser", "error");
+                                break;
 
-                        default:
-                            break;
+                            default:
+                                break;
+                        }
+                    }
+                    if (response.errors) {
+                        for (let error in response.errors) {
+                            displayNotification('#notif-div', `classroom.notif.${error}`, "error");
+                        }
                     }
                 }
-                if (response.errors) {
-                    for (let error in response.errors) {
-                        displayNotification('#notif-div', `classroom.notif.${error}`, "error");
-                    }
-                }
-            }
-        });
-    }
-});
+            });
+        }
+    });
+}
+
 
 function createTeacherAccount(formData) {
     return new Promise((resolve, reject) => {

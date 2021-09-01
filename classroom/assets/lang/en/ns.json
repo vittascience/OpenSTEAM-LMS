@@ -629,7 +629,9 @@
 				"title": "Registration",
 				"registrationFinalizationSuccess": "Your registration has been finalized, you can now connect",
 				"registrationFinalization": "Finalize your registration",
-				"descriptionFinalization": "Please complete the following fields to complete your registration."
+				"descriptionFinalization": "Please complete the following fields to complete your registration.",
+				"noTokenOrUserActive": "Invalid token or user already active",
+				"noToken": "Missing token"
 			},
 			"notAllowedUpdateUser": "You do not have the rights to update this user.",
 			"notAllowedDeleteGroup": "You do not have the rights to delete this group.",

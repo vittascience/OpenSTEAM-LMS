@@ -1,3 +1,32 @@
+if ($_GET('page')) {
+    let page = $_GET('page');
+    switch (page) {
+        case 'invalid-token':
+            $("#invalid-token").toggle();
+            $("#registration-finalization-container").hide();
+            break;
+        case 'no-token':
+            $("#no-token").toggle();
+            $("#registration-finalization-container").hide();
+            break;
+        default:
+            break;
+    }
+} else if (!$_GET('token')) {
+    $("#no-token").show();
+    $("#registration-finalization-container").hide();
+}
+
+function displayNotification(div, message, status, options = '{}') {
+    let randId = getRandomInt(10000)
+    let html = `<div id='notif-` + randId + `' class="vitta-notif status-` + status + `" data-i18n="` + message + `" data-i18n-options=` + options + `><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`
+    $(div).append(html)
+    $(div).localize()
+    setTimeout(function () {
+        $('#notif-' + randId).remove()
+    }, 15000);
+}
+
 function finalizeRegistrationFormCheck(formData) {
     let formValues = {
             'password': {
@@ -50,6 +79,7 @@ document.getElementById('finalize-registration-form').addEventListener('submit',
                 $("#profile-form-confirm-password").val("");
                 displayNotification('#notif-div', "classroom.notif.accountCreated", "success");
                 $('#success-registration').toggle();
+                $("#no-token").hide();
                 $('#registration-finalization-container').toggle();
             } else {
                 if (response.message == "no user or already active") {

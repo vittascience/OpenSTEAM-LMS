@@ -400,7 +400,7 @@ class AutoBuildManager {
     async readFolderForList(plugin, folder, list) {
         return new Promise((resolve, reject) => {
             fs.readdir(folder, (err, files) => {
-                if(files){
+                if (files) {
                     try {
                         files.forEach(file => {
                             this.pluginsList[this.pluginsList.indexOf(plugin)][list].push(file);
@@ -409,7 +409,7 @@ class AutoBuildManager {
                     } catch (error) {
                         reject(error);
                     }
-                }else{
+                } else {
                     console.error(`Folder ${folder} doesn't exist! Skipping!`);
                 }
             });
@@ -520,27 +520,27 @@ class AutoBuildManager {
     homeConcat() {
         if (this.pluginsList.length) {
             return gulp.src([
-                    "classroom/Views/header.html",
-                    "classroom/Views/sidebar_student.html",
-                    "classroom/Views/sidebar_teacher.html",
-                    'classroom/Views/sidebar_superadmin.html',
-                    'classroom/Views/sidebar_groupadmin.html',
-                    "classroom/Views/home_topbar.html",
-                    "classroom/Views/studentProfilePanel.html",
-                    "classroom/Views/studentHelpPanel.html",
-                    "classroom/Views/sandboxPanel.html",
-                    "classroom/Views/studentActivitiesPanel.html",
-                    "classroom/Views/teacherProfilePanel.html",
-                    "classroom/Views/teacherClassesPanel.html",
-                    "classroom/Views/teacherActivitiesPanel.html",
-                    "classroom/Views/teacherHelpPanel.html",
-                    'classroom/Views/groupAdminHelpPanel.html',
-                    'classroom/Views/groupAdminProfilePanel.html',
-                    'classroom/Views/groupAdminUsersPanel.html',
-                    'classroom/Views/superAdminProfilePanel.html',
-                    'classroom/Views/superAdminUsersPanel.html',
-                    "classroom/Views/idePanel.html",
-                    "classroom/Views/home_footer.html",
+                    "gulp/temp-views/header.html",
+                    "gulp/temp-views/sidebar_student.html",
+                    "gulp/temp-views/sidebar_teacher.html",
+                    'gulp/temp-views/sidebar_superadmin.html',
+                    'gulp/temp-views/sidebar_groupadmin.html',
+                    "gulp/temp-views/home_topbar.html",
+                    "gulp/temp-views/studentProfilePanel.html",
+                    "gulp/temp-views/studentHelpPanel.html",
+                    "gulp/temp-views/sandboxPanel.html",
+                    "gulp/temp-views/studentActivitiesPanel.html",
+                    "gulp/temp-views/teacherProfilePanel.html",
+                    "gulp/temp-views/teacherClassesPanel.html",
+                    "gulp/temp-views/teacherActivitiesPanel.html",
+                    "gulp/temp-views/teacherHelpPanel.html",
+                    'gulp/temp-views/groupAdminHelpPanel.html',
+                    'gulp/temp-views/groupAdminProfilePanel.html',
+                    'gulp/temp-views/groupAdminUsersPanel.html',
+                    'gulp/temp-views/superAdminProfilePanel.html',
+                    'gulp/temp-views/superAdminUsersPanel.html',
+                    "gulp/temp-views/idePanel.html",
+                    "gulp/temp-views/home_footer.html",
 
 
                 ]).pipe(concat('home.html'))

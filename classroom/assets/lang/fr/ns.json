@@ -922,7 +922,9 @@
 				"title": "Inscription",
 				"registrationFinalizationSuccess": "Votre inscription à bien été finalisé, vous pouvez maintenant vous connectez",
 				"registrationFinalization": "Finaliser votre inscription",
-				"descriptionFinalization": "Merci de compléter les champs suivants pour finaliser votre inscription."
+				"descriptionFinalization": "Merci de compléter les champs suivants pour finaliser votre inscription.",
+				"noTokenOrUserActive": "Token invalide ou utilisateur déjà actif",
+				"noToken": "Token manquant"
 			},
 			"notAllowedUpdateUser": "Vous ne disposez pas des droits pour modifier cet utilisateur.",
 			"notAllowedDeleteGroup": "Vous ne disposez pas des droits pour supprimer ce groupe.",

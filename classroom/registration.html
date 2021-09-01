@@ -1,6 +1,5 @@
 <!-- page de garde -->
 <div id="notif-div"></div>
-
 <!-- Register page -->
 <div id="registration-finalization-container">
     <div class="inner-register-container">
@@ -95,6 +94,35 @@
     </div>
 </div>
 
+<!-- Ecran de notification d'absence de token -->
+<div id="no-token" style="display:none;">
+    <div class="inner-login-container">
+        <div class="col-12">
+            <h3 class="font-weight-bold green-vitta m-auto text-center"
+                data-i18n="superadmin.account.registration.noToken">
+            </h3>
+            <p class="text-center" data-i18n="superadmin.group.join.clickToRedirectLogin"></p>
+        </div>
+        <button class="btn browse-button mx-auto mt-3 btn-lg" onclick="goToLogin()"
+            data-i18n="superadmin.buttons.continue"></button>
+    </div>
+</div>
+
+
+<!-- Ecran de notification de token invalide ou d'utilisateur déjà actif -->
+<div id="invalid-token" style="display:none;">
+    <div class="inner-login-container">
+        <div class="col-12">
+            <h3 class="font-weight-bold green-vitta m-auto text-center"
+                data-i18n="superadmin.account.registration.noTokenOrUserActive">
+            </h3>
+            <p class="text-center" data-i18n="superadmin.group.join.clickToRedirectLogin"></p>
+        </div>
+        <button class="btn browse-button mx-auto mt-3 btn-lg" onclick="goToLogin()"
+            data-i18n="superadmin.buttons.continue"></button>
+    </div>
+</div>
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -122,6 +150,6 @@
 <script src="assets/js/main/ClassroomManager.js"></script>
 <script src="assets/js/main/Main.js"></script>
 <script src="assets/js/scripts/main-login.js"></script>
-<script src="assets/js/scripts/login.js"></script>
+<!-- <script src="assets/js/scripts/login.js"></script> -->
 <script src="assets/js/scripts/buttons.js"></script>
 <script src="assets/js/scripts/registration.js"></script>
