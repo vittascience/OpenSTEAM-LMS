@@ -28,6 +28,14 @@ function displayNotification(div, message, status, options = '{}') {
     }, 15000);
 }
 
+function showFormInputError(id) {
+    document.getElementById(id).classList.add('form-input-error');
+}
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+
 function passwordFormCheck(formData) {
     let formValues = {
             'password': {
