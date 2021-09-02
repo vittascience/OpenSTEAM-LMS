@@ -18,13 +18,20 @@ if ($_GET('page')) {
 }
 
 function displayNotification(div, message, status, options = '{}') {
-    let randId = getRandomInt(10000)
+    let randId = Math.floor(Math.random() * Math.floor(10000))
     let html = `<div id='notif-` + randId + `' class="vitta-notif status-` + status + `" data-i18n="` + message + `" data-i18n-options=` + options + `><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`
     $(div).append(html)
     $(div).localize()
     setTimeout(function () {
         $('#notif-' + randId).remove()
     }, 15000);
+}
+
+function changeTypeInputPassword(input) {
+    if ($('#' + input).attr('type') == "password")
+        $('#' + input).prop('type', 'text');
+    else
+        $('#' + input).prop('type', 'password');
 }
 
 function finalizeRegistrationFormCheck(formData) {

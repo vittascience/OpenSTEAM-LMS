@@ -522,7 +522,11 @@ class SuperAdminManager {
                     let div_img = ""
                     if (element.hasOwnProperty('applications')) {
                         element.applications.forEach(element_2 => {
-                            div_img += `<img src="assets/media/${element_2.image}" alt="Icône App">`;
+                            if (element_2.image != null) {
+                                div_img += `<img src="assets/media/${element_2.image}" alt="Icône App">`;
+                            } else {
+                                div_img += `<img src="assets/media/nologo.jpg" alt="Icône App">`;
+                            }
                         });
                     }
 
@@ -607,7 +611,11 @@ class SuperAdminManager {
                     let div_img = ""
                     if (element.hasOwnProperty('applications')) {
                         element.applications.forEach(element_2 => {
-                            div_img += `<img src="assets/media/${element_2.image}" alt="Icône App">`;
+                            if (element_2.image != null) {
+                                div_img += `<img src="assets/media/${element_2.image}" alt="Icône App">`;
+                            } else {
+                                div_img += `<img src="assets/media/nologo.jpg" alt="Icône App">`;
+                            }
                         });
                     }
 
@@ -709,7 +717,11 @@ class SuperAdminManager {
                 let div_img = ""
                 if (element.hasOwnProperty('applications')) {
                     element.applications.forEach(element_2 => {
-                        div_img += `<img src="assets/media/${element_2.image}" alt="Icône App">`;
+                        if (element_2.image != null) {
+                            div_img += `<img src="assets/media/${element_2.image}" alt="Icône App">`;
+                        } else {
+                            div_img += `<img src="assets/media/nologo.jpg" alt="Icône App">`;
+                        }
                     });
                 }
                 data_table +=
@@ -766,7 +778,11 @@ class SuperAdminManager {
                     let div_img = ""
                     if (element.hasOwnProperty('applications')) {
                         element.applications.forEach(element_2 => {
-                            div_img += `<img src="assets/media/${element_2.image}" alt="Icône App">`;
+                            if (element_2.image != null) {
+                                div_img += `<img src="assets/media/${element_2.image}" alt="Icône App">`;
+                            } else {
+                                div_img += `<img src="assets/media/nologo.jpg" alt="Icône App">`;
+                            }
                         });
                     }
                     data_table +=

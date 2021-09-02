@@ -55,7 +55,7 @@ function changeTypeInputPassword(input) {
 }
 
 function displayNotification(div, message, status, options = '{}') {
-    let randId = getRandomInt(10000)
+    let randId = Math.floor(Math.random() * Math.floor(10000))
     let html = `<div id='notif-` + randId + `' class="vitta-notif status-` + status + `" data-i18n="` + message + `" data-i18n-options=` + options + `><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`
     $(div).append(html)
     $(div).localize()

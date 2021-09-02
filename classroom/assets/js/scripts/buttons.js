@@ -2035,11 +2035,11 @@ function getGroupLinkGA(id) {
 
 
 function getGrades() {
-    let TmpArr = [];
+    let Arr = [];
     for (let i = 0; i < 5; i++) {
-        TmpArr.push(i18next.t(`superadmin.users.teacherGrades.${i}`))
+        Arr.push(i18next.t(`superadmin.users.teacherGrades.${i}`))
     }
-    return TmpArr;
+    return Arr;
 }
 
 function getSubjects(grade) {
