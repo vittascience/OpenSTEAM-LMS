@@ -1895,12 +1895,10 @@ function updateUserModalGA() {
         if (response.message == "success") {
             displayNotification('#notif-div', "superadmin.users.userUpdated", "success");
             pseudoModal.closeAllModal();
-            tempoAndShowUsersTable()
         } else if (response.message == "missing data") {
             displayNotification('#notif-div', "superadmin.account.missingData", "error");
         }
     });
-    pseudoModal.closeAllModal();
     tempoAndShowUsersTableGA();
 }
 

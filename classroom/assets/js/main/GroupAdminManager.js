@@ -158,7 +158,7 @@ class GroupAdminManager {
             let $data_table = "";
             data.forEach(element => {
 
-                if (element.hasOwnProperty('currentPage') && element.totalPagesCount > 1) {
+                if (element.hasOwnProperty('currentPage')) {
                     let htmlButtons = "";
                     if (element.totalPagesCount > 1) {
                         if (element.previousPage > 1) {
