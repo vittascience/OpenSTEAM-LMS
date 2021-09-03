@@ -495,19 +495,20 @@ class SuperAdminManager {
                     let usersperpage = $('#users_per_page').val(),
                         htmlButtons = "",
                         sort = $('#sort_users_filter').val();;
-
-                    if (element.previousPage > 1) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().showGroupMembers(${$group_id}, 1, ${usersperpage}, ${sort})">First Page</button>`;
-                    }
-                    if (element.currentPage > 1) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().showGroupMembers(${$group_id}, ${element.previousPage}, ${usersperpage}, ${sort})">${element.previousPage}</button>`;
-                    }
-                    htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
-                    if (element.currentPage < element.totalPagesCount) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().showGroupMembers(${$group_id}, ${element.nextPage}, ${usersperpage}, ${sort})">${element.nextPage}</button>`;
-                    }
-                    if (element.nextPage < element.totalPagesCount) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().showGroupMembers(${$group_id}, ${element.totalPagesCount}, ${usersperpage}, ${sort})">Last Page - ${element.totalPagesCount}</button>`;
+                    if (element.totalPagesCount > 1) {
+                        if (element.previousPage > 1) {
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().showGroupMembers(${$group_id}, 1, ${usersperpage}, ${sort})">First Page</button>`;
+                        }
+                        if (element.currentPage > 1) {
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().showGroupMembers(${$group_id}, ${element.previousPage}, ${usersperpage}, ${sort})">${element.previousPage}</button>`;
+                        }
+                        htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
+                        if (element.currentPage < element.totalPagesCount) {
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().showGroupMembers(${$group_id}, ${element.nextPage}, ${usersperpage}, ${sort})">${element.nextPage}</button>`;
+                        }
+                        if (element.nextPage < element.totalPagesCount) {
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().showGroupMembers(${$group_id}, ${element.totalPagesCount}, ${usersperpage}, ${sort})">Last Page - ${element.totalPagesCount}</button>`;
+                        }
                     }
                     $('#paginationButtons_users').html(htmlButtons);
                 } else {
@@ -586,18 +587,20 @@ class SuperAdminManager {
                         usersperpage = $('#users_per_page').val(),
                         htmlButtons = "";
 
-                    if (element.previousPage > 1) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().globalSearchUser(${name}, 1, ${usersperpage})">First Page</button>`;
-                    }
-                    if (element.currentPage > 1) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().globalSearchUser(${name}, ${element.previousPage}, ${usersperpage})">${element.previousPage}</button>`;
-                    }
-                    htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
-                    if (element.currentPage < element.totalPagesCount) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().globalSearchUser(${name}, ${element.nextPage}, ${usersperpage})">${element.nextPage}</button>`;
-                    }
-                    if (element.nextPage < element.totalPagesCount) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().globalSearchUser(${name}, ${element.totalPagesCount}, ${usersperpage})">Last Page - ${element.totalPagesCount}</button>`;
+                    if (element.totalPagesCount > 1) {
+                        if (element.previousPage > 1) {
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().globalSearchUser(${name}, 1, ${usersperpage})">First Page</button>`;
+                        }
+                        if (element.currentPage > 1) {
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().globalSearchUser(${name}, ${element.previousPage}, ${usersperpage})">${element.previousPage}</button>`;
+                        }
+                        htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
+                        if (element.currentPage < element.totalPagesCount) {
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().globalSearchUser(${name}, ${element.nextPage}, ${usersperpage})">${element.nextPage}</button>`;
+                        }
+                        if (element.nextPage < element.totalPagesCount) {
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().globalSearchUser(${name}, ${element.totalPagesCount}, ${usersperpage})">Last Page - ${element.totalPagesCount}</button>`;
+                        }
                     }
 
                     $('#paginationButtons_users').html(htmlButtons);
@@ -696,18 +699,20 @@ class SuperAdminManager {
                     groupsperpage = $('#groups_per_page').val(),
                     htmlButtons = "";
 
-                if (element.previousPage > 1) {
-                    htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().getAllGroupsInfos(${sort}, 1, ${groupsperpage})">First Page</button>`;
-                }
-                if (element.currentPage > 1) {
-                    htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().getAllGroupsInfos(${sort}, ${element.previousPage}, ${groupsperpage})">${element.previousPage}</button>`;
-                }
-                htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
-                if (element.currentPage < element.totalPagesCount) {
-                    htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().getAllGroupsInfos(${sort}, ${element.nextPage}, ${groupsperpage})">${element.nextPage}</button>`;
-                }
-                if (element.nextPage < element.totalPagesCount) {
-                    htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().getAllGroupsInfos(${sort}, ${element.totalPagesCount}, ${groupsperpage})">Last Page - ${element.totalPagesCount}</button>`;
+                if (element.totalPagesCount > 1) {
+                    if (element.previousPage > 1) {
+                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().getAllGroupsInfos(${sort}, 1, ${groupsperpage})">First Page</button>`;
+                    }
+                    if (element.currentPage > 1) {
+                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().getAllGroupsInfos(${sort}, ${element.previousPage}, ${groupsperpage})">${element.previousPage}</button>`;
+                    }
+                    htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
+                    if (element.currentPage < element.totalPagesCount) {
+                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().getAllGroupsInfos(${sort}, ${element.nextPage}, ${groupsperpage})">${element.nextPage}</button>`;
+                    }
+                    if (element.nextPage < element.totalPagesCount) {
+                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().getAllGroupsInfos(${sort}, ${element.totalPagesCount}, ${groupsperpage})">Last Page - ${element.totalPagesCount}</button>`;
+                    }
                 }
 
                 $('#paginationButtons_groups').html(htmlButtons);
@@ -757,21 +762,21 @@ class SuperAdminManager {
                         groupperpage = $('#groups_per_page').val(),
                         htmlButtons = "";
 
-
-                    if (element.previousPage > 1) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().searchGroup(${sort}, 1, ${groupperpage})">First Page</button>`;
+                    if (element.totalPagesCount > 1) {
+                        if (element.previousPage > 1) {
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().searchGroup(${sort}, 1, ${groupperpage})">First Page</button>`;
+                        }
+                        if (element.currentPage > 1) {
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().searchGroup(${sort}, ${element.previousPage}, ${groupperpage})">${element.previousPage}</button>`;
+                        }
+                        htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
+                        if (element.currentPage < element.totalPagesCount) {
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().searchGroup(${sort}, ${element.nextPage}, ${groupperpage})">${element.nextPage}</button>`;
+                        }
+                        if (element.nextPage < element.totalPagesCount) {
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().searchGroup(${sort}, ${element.totalPagesCount}, ${groupperpage})">Last Page - ${element.totalPagesCount}</button>`;
+                        }
                     }
-                    if (element.currentPage > 1) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().searchGroup(${sort}, ${element.previousPage}, ${groupperpage})">${element.previousPage}</button>`;
-                    }
-                    htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
-                    if (element.currentPage < element.totalPagesCount) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().searchGroup(${sort}, ${element.nextPage}, ${groupperpage})">${element.nextPage}</button>`;
-                    }
-                    if (element.nextPage < element.totalPagesCount) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MSA.getSuperAdminManager().searchGroup(${sort}, ${element.totalPagesCount}, ${groupperpage})">Last Page - ${element.totalPagesCount}</button>`;
-                    }
-
                     $('#paginationButtons_groups').html(htmlButtons);
                 } else {
                     // Affiche simplement l'id des applcatations pour le moment

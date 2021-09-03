@@ -158,20 +158,22 @@ class GroupAdminManager {
             let $data_table = "";
             data.forEach(element => {
 
-                if (element.hasOwnProperty('currentPage')) {
+                if (element.hasOwnProperty('currentPage') && element.totalPagesCount > 1) {
                     let htmlButtons = "";
-                    if (element.previousPage > 1) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().getUsersFromGroup(${group_id}, 1)">First Page</button>`;
-                    }
-                    if (element.currentPage > 1) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().getUsersFromGroup(${group_id}, ${element.previousPage})">${element.previousPage}</button>`;
-                    }
-                    htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
-                    if (element.currentPage < element.totalPagesCount) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().getUsersFromGroup(${group_id}, ${element.nextPage})">${element.nextPage}</button>`;
-                    }
-                    if (element.nextPage < element.totalPagesCount) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().getUsersFromGroup(${group_id}, ${element.totalPagesCount})">Last Page - ${element.totalPagesCount}</button>`;
+                    if (element.totalPagesCount > 1) {
+                        if (element.previousPage > 1) {
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().getUsersFromGroup(${group_id}, 1)">First Page</button>`;
+                        }
+                        if (element.currentPage > 1) {
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().getUsersFromGroup(${group_id}, ${element.previousPage})">${element.previousPage}</button>`;
+                        }
+                        htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
+                        if (element.currentPage < element.totalPagesCount) {
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().getUsersFromGroup(${group_id}, ${element.nextPage})">${element.nextPage}</button>`;
+                        }
+                        if (element.nextPage < element.totalPagesCount) {
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().getUsersFromGroup(${group_id}, ${element.totalPagesCount})">Last Page - ${element.totalPagesCount}</button>`;
+                        }
                     }
                     $('#paginationButtons_users_groupadmin').html(htmlButtons);
                 } else {
@@ -240,18 +242,20 @@ class GroupAdminManager {
                         usersperpage = $('#users_per_page_groupadmin').val(),
                         htmlButtons = "";
 
-                    if (element.previousPage > 1) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().globalSearchUser(${name}, 1, ${usersperpage})">First Page</button>`;
-                    }
-                    if (element.currentPage > 1) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().globalSearchUser(${name}, ${element.previousPage}, ${usersperpage})">${element.previousPage}</button>`;
-                    }
-                    htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
-                    if (element.currentPage < element.totalPagesCount) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().globalSearchUser(${name}, ${element.nextPage}, ${usersperpage})">${element.nextPage}</button>`;
-                    }
-                    if (element.nextPage < element.totalPagesCount) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().globalSearchUser(${name}, ${element.totalPagesCount}, ${usersperpage})">Last Page - ${element.totalPagesCount}</button>`;
+                    if (element.totalPagesCount > 1) {
+                        if (element.previousPage > 1) {
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().globalSearchUser(${name}, 1, ${usersperpage})">First Page</button>`;
+                        }
+                        if (element.currentPage > 1) {
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().globalSearchUser(${name}, ${element.previousPage}, ${usersperpage})">${element.previousPage}</button>`;
+                        }
+                        htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
+                        if (element.currentPage < element.totalPagesCount) {
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().globalSearchUser(${name}, ${element.nextPage}, ${usersperpage})">${element.nextPage}</button>`;
+                        }
+                        if (element.nextPage < element.totalPagesCount) {
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().globalSearchUser(${name}, ${element.totalPagesCount}, ${usersperpage})">Last Page - ${element.totalPagesCount}</button>`;
+                        }
                     }
 
                     $('#paginationButtons_users_groupadmin').html(htmlButtons);

@@ -864,6 +864,9 @@ function resetStudentPassword(querySelector) {
 
 $('#create_group_superadmin').click(function () {
     pseudoModal.openModal('superadmin-create-group');
+    // Clean input
+    $('#group_name').val("");
+    $('#group_desc').val("");
     optionsGroupApplications("create");
 });
 
