@@ -1,4 +1,4 @@
-const MSA = (function () {
+const mainSuperAdmin = (function () {
     /**
      * This object contains all the superadmin application's functionalities.
      * @private
@@ -12,7 +12,7 @@ const MSA = (function () {
                 S.superadminManager.isAdmin().then((res) => {
                     if (res.Admin === true) {
                         $('#superadmin-switch-button').show();
-                        $('#admin_options').show();
+                        $('#superAdmin_options').show();
                         resolve("loaded");
                     } else {
                         resolve("loaded");
@@ -37,9 +37,9 @@ const MSA = (function () {
     }
 }());
 
-const MGA = (function () {
+const mainGroupAdmin = (function () {
     /**
-     * This object contains all the superadmin application's functionalities.
+     * This object contains all the groupAdmin application's functionalities.
      * @private
      */
     const G = {};
@@ -51,7 +51,7 @@ const MGA = (function () {
                 G.groupadminmanager.isGroupAdmin().then((res) => {
                     if (res.GroupAdmin === true) {
                         $('#groupadmin-switch-button').show();
-                        $('#admin_options').show();
+                        $('#groupAdmin_options').show();
                         resolve("loaded");
                     } else {
                         resolve("loaded");

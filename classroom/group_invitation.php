@@ -43,15 +43,15 @@ if ($token) {
         $linkAlreadyExist = $entityManager->getRepository(UsersLinkGroups::class)->findOneBy(['user' => $user, 'group' => $group]);
     }
     
-    $localtion="";
+    $location="";
 
     if ($linkAlreadyExist) {
-        $localtion = $urlgc."&page=alreadylinked";
+        $location = $urlgc."&page=alreadylinked";
     } else {
-    // user not found in db, return error
+        // user not found in db, return error
         if (!$regularUserToActivate) {
             setcookie("invalidUser",true, strtotime("+1 minute"));
-            $localtion = $urlgc."&page=alreadyactive";
+            $location = $urlgc."&page=alreadyactive";
         } else {
             // get user data from users table
             $userData = $entityManager->getRepository(User::class)->findOneBy(array('id'=> $regularUserToActivate->getUser()));
@@ -68,12 +68,12 @@ if ($token) {
         
             // set the success cookie and redirect wether the user is logged or not
             setcookie("accountActivationSucceded",true, strtotime("+1 minute"));
-            $localtion = $urlgc."&page=confirmation";
+            $location = $urlgc."&page=confirmation";
         
         }
     }
     // redirect the user 
-    return header("Location: $localtion");
+    return header("Location: $location");
 }
 
     
@@ -113,11 +113,10 @@ if (isset($_SESSION['id']) && ($page != "confirm" && $page != "success" && $page
 require_once(__DIR__ . "/header.html");
 ?>
     <link rel="stylesheet" href="/classroom/assets/css/main.css">
-    <script src="./assets/js/lib/rotate.js"></script>
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     </head>
 
     <body>
+
     <?php
 
     require_once(__DIR__ . "/group_invitation.html");

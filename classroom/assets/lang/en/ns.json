@@ -605,7 +605,8 @@
 			"password": "Password <span class=\"text-danger\">*</span>",
 			"confirmPassword": "Confirm password <span class=\"text-danger\">*</span>",
 			"help": "Help",
-			"onlyVisible": "Only visible to you :"
+			"onlyVisibleGroupAdmin": "Only visible to you as a group administrator:",
+			"onlyVisibleSuperAdmin": "Only visible to you as super admin:"
 		},
 		"account": {
 			"activate": {
@@ -825,6 +826,7 @@
 			"groupCreateFailed": "The group could not be created",
 			"showLinkTitle": "Group's link",
 			"usersWithoutGroups": "Users without groups",
+			"searchResult": "Result of the research",
 			"usersInactiveOrNoRegular": "Inactive users or not regular",
 			"usersWithoutGroupsDescription": "User group not linked to any group",
 			"usersInactiveOrNoRegularDescription": "Group of inactive and / or non-regular users",

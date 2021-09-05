@@ -898,7 +898,8 @@
 			"password": "Mot de passe <span class=\"text-danger\">*</span>",
 			"confirmPassword": "Confirmer le mot de passe <span class=\"text-danger\">*</span>",
 			"help": "Appel à l'aide",
-			"onlyVisible": "Uniquement visible par vous :"
+			"onlyVisibleGroupAdmin": "Uniquement visible par vous en tant qu'administrateur de groupe :",
+			"onlyVisibleSuperAdmin": "Uniquement visible par vous en tant que super admin :"
 		},
 		"account": {
 			"activate": {
@@ -1118,6 +1119,7 @@
 			"groupCreateFailed": "Le groupe n'a pas pu être créé",
 			"showLinkTitle": "Lien du groupe",
 			"usersWithoutGroups": "Utilisateurs sans groupe",
+			"searchResult": "Résultat de la recherche",
 			"usersInactiveOrNoRegular": "Utilisateurs inactifs et non regular",
 			"usersWithoutGroupsDescription": "Groupement d'utilisateurs n'étant liés à aucun groupe",
 			"usersInactiveOrNoRegularDescription": "Groupement d'utilisateurs inactifs et/ou non regular",

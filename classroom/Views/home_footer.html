@@ -111,16 +111,17 @@
                                             'dashboard-profil', $_GET('option'),
                                             $_GET('interface'))
                                     }
-                                    if(UserManager.getUser().isFromGar) {
-                                        document.getElementById('settings-student').style.display = 'none';
+                                    if (UserManager.getUser().isFromGar) {
+                                        document.getElementById('settings-student')
+                                            .style.display = 'none';
                                     }
                                 })
                             }
 
                             // Init the super and group admin
                             let currentTask = (onEnd) => {
-                                MGA.init().then((resolve) => {
-                                    MSA.init().then((resolve) => {
+                                mainGroupAdmin.init().then((resolve) => {
+                                    mainSuperAdmin.init().then((resolve) => {
                                         onEnd();
                                     })
                                 })

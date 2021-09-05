@@ -30,40 +30,6 @@ class GroupAdminManager {
     }
 
     /**
-     * Add a task to the queue and execute the queue manager
-     * @param {function} task - Function that perform an xhr
-     */
-    _addTaskToQueue(task) {
-        this._tasksQueue.push(task);
-        this._executeTasksInQueue();
-    }
-
-    /**
-     * Loop in the queue and execute queued taks one after another. If the executing loop is already in progress, doesn't do anything.
-     */
-    async _executeTasksInQueue() {
-        // Return if the loop is already in progress.
-        if (this._isExecutingTaskInQueue)
-            return;
-        // Change the state to currently executing the loop
-        this._isExecutingTaskInQueue = true;
-        // Loop in the queue by shifting tasks and executing them one by one (awaiting for a task to end before looping again)
-        while (this._tasksQueue.length > 0) {
-            let currentTask = this._tasksQueue.shift();
-            await new Promise((resolve, reject) => {
-                try {
-                    currentTask(resolve);
-                } catch (error) {
-                    console.warn(error);
-                    resolve();
-                }
-            });
-        }
-        // When the loop has ended (no more task in the queue), change the state to currently idle
-        this._isExecutingTaskInQueue = false;
-    }
-
-    /**
      * GROUPS FUNCTION
      */
 
@@ -110,9 +76,8 @@ class GroupAdminManager {
     getGroupsUserAdmin() {
         const process = (data) => {
             let data_table = "";
-            MGA.getGroupAdminManager()._comboGroups = data;
+            mainGroupAdmin.getGroupAdminManager()._comboGroups = data;
             data.forEach(element => {
-                // Affiche simplement l'id des applcatations pour le moment
                 let div_img = ""
                 if (element.hasOwnProperty('applications')) {
                     element.applications.forEach(element_2 => {
@@ -150,7 +115,7 @@ class GroupAdminManager {
     }
 
     getUsersFromGroup(group_id, page) {
-        MGA.getGroupAdminManager()._actualGroup = group_id;
+        mainGroupAdmin.getGroupAdminManager()._actualGroup = group_id;
 
         let sort = $('#sort_users_filter_groupadmin').val(),
             usersPerPage = $('#users_per_page_groupadmin').val();
@@ -162,17 +127,17 @@ class GroupAdminManager {
                     let htmlButtons = "";
                     if (element.totalPagesCount > 1) {
                         if (element.previousPage > 1) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().getUsersFromGroup(${group_id}, 1)">First Page</button>`;
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainGroupAdmin.getGroupAdminManager().getUsersFromGroup(${group_id}, 1)">First Page</button>`;
                         }
                         if (element.currentPage > 1) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().getUsersFromGroup(${group_id}, ${element.previousPage})">${element.previousPage}</button>`;
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainGroupAdmin.getGroupAdminManager().getUsersFromGroup(${group_id}, ${element.previousPage})">${element.previousPage}</button>`;
                         }
                         htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
                         if (element.currentPage < element.totalPagesCount) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().getUsersFromGroup(${group_id}, ${element.nextPage})">${element.nextPage}</button>`;
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainGroupAdmin.getGroupAdminManager().getUsersFromGroup(${group_id}, ${element.nextPage})">${element.nextPage}</button>`;
                         }
                         if (element.nextPage < element.totalPagesCount) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().getUsersFromGroup(${group_id}, ${element.totalPagesCount})">Last Page - ${element.totalPagesCount}</button>`;
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainGroupAdmin.getGroupAdminManager().getUsersFromGroup(${group_id}, ${element.totalPagesCount})">Last Page - ${element.totalPagesCount}</button>`;
                         }
                     }
                     $('#paginationButtons_users_groupadmin').html(htmlButtons);
@@ -232,29 +197,28 @@ class GroupAdminManager {
 
     globalSearchUser($name, $page, $usersperpage) {
         const process = (res) => {
-            MGA.getGroupAdminManager()._allMembersAndTheirGroups = res;
+            mainGroupAdmin.getGroupAdminManager()._allMembersAndTheirGroups = res;
             let $data_table = "";
-            //$('#group_name_from_table').text('Résultat de la recherche :');
             res.forEach(element => {
                 if (element.hasOwnProperty('currentPage')) {
-                    MGA.getGroupAdminManager()._paginationUsersInfo = element;
+                    mainGroupAdmin.getGroupAdminManager()._paginationUsersInfo = element;
                     let name = $('#name_user_search_groupadmin').val(),
                         usersperpage = $('#users_per_page_groupadmin').val(),
                         htmlButtons = "";
 
                     if (element.totalPagesCount > 1) {
                         if (element.previousPage > 1) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().globalSearchUser(${name}, 1, ${usersperpage})">First Page</button>`;
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainGroupAdmin.getGroupAdminManager().globalSearchUser(${name}, 1, ${usersperpage})">First Page</button>`;
                         }
                         if (element.currentPage > 1) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().globalSearchUser(${name}, ${element.previousPage}, ${usersperpage})">${element.previousPage}</button>`;
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainGroupAdmin.getGroupAdminManager().globalSearchUser(${name}, ${element.previousPage}, ${usersperpage})">${element.previousPage}</button>`;
                         }
                         htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
                         if (element.currentPage < element.totalPagesCount) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().globalSearchUser(${name}, ${element.nextPage}, ${usersperpage})">${element.nextPage}</button>`;
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainGroupAdmin.getGroupAdminManager().globalSearchUser(${name}, ${element.nextPage}, ${usersperpage})">${element.nextPage}</button>`;
                         }
                         if (element.nextPage < element.totalPagesCount) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="MGA.getGroupAdminManager().globalSearchUser(${name}, ${element.totalPagesCount}, ${usersperpage})">Last Page - ${element.totalPagesCount}</button>`;
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainGroupAdmin.getGroupAdminManager().globalSearchUser(${name}, ${element.totalPagesCount}, ${usersperpage})">Last Page - ${element.totalPagesCount}</button>`;
                         }
                     }
 
@@ -313,23 +277,6 @@ class GroupAdminManager {
         });
     }
 
-
-    // Récupère tous les groupes et les stocks dans le select "select_groups"
-    getAllGroups() {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "POST",
-                url: "/routing/Routing.php?controller=groupadmin&action=get_all_groups_where_user_is_admin",
-                success: function (response) {
-                    resolve(JSON.parse(response))
-                },
-                error: function () {
-                    reject();
-                }
-            });
-        })
-    }
-
     /**
      * 
      * @param {String} $firstname 
@@ -371,7 +318,7 @@ class GroupAdminManager {
         })
     }
 
-    // Récupère tous les groupes et les stocks dans le select "select_groups"
+    // Fetch all groups and store them in "_allGroups", then display them in the table
     getAllGroupsInfos($sort, $page, $groupspp) {
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -411,7 +358,6 @@ class GroupAdminManager {
         })
     }
 
-    // Modifier d'un groupe
     updateGroup($group_id, $group_name, $group_description, $group_app) {
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -433,7 +379,6 @@ class GroupAdminManager {
         })
     }
 
-    // Supprime un groupe
     disableUser($user_id) {
         return new Promise(function (resolve, reject) {
             $.ajax({

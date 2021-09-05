@@ -42,7 +42,6 @@
             class="user-picture" src="assets/media/profile_picture.svg" alt="Photo de profil">
         <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span></div>
 </div>
-<!-- DEBUG SuperAdmin - SIDEBAR -->
 <div id="superadmin-dashboard-sidebar" class="sidebar-classroom" style="display:none;">
     <!-- set your logo here -->
     <div id="classroom-sidebar-logo"></div>
@@ -59,8 +58,6 @@
         <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span>
     </div>
 </div>
-<!-- DEBUG SuperAdmin - SIDEBAR -->
-<!-- DEBUG GroupAdmin - SIDEBAR -->
 <div id="groupadmin-dashboard-sidebar" class="sidebar-classroom" style="display:none;">
     <!-- set your logo here -->
     <div id="classroom-sidebar-logo"></div>
@@ -83,7 +80,6 @@
         <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span>
     </div>
 </div>
-<!-- DEBUG GroupAdmin - SIDEBAR -->
 <div id="classroom-dashboard-content">
     <div id="classroom-dashboard-top-bar">
         <!-- Breadcrumb -->
@@ -730,7 +726,6 @@
     </div>
 
 </div>
-<!-- DEBUG SuperAdmin - Profile block -->
 <div id="classroom-dashboard-profil-panel-groupadmin" class="dashboard-block profile-panel" style="display:none;">
     <div class="row text-center">
         <div class="col-12">
@@ -741,7 +736,6 @@
             </div>
             <div class="col-12">
                 <div class="m-auto">
-                    <!--  <span>CLASSE : <span id="classroom-subject-teacher"> matière enseignée</span></span> -->
                     <button class="btn mt-2 c-btn-outline-primary btn-block" id="settings-groupadmin"><span
                             class="text-capitalize text-span-initial" data-i18n="words.settings"
                             class="text-capitalize"></span> <i class="fas fa-cog"></i>
@@ -761,7 +755,6 @@
         </div>
     </div>
 </div>
-<!-- DEBUG SuperAdmin - Profile block -->
 <div id="groupadmin-dashboard-users" style="display:none;" class="dashboard-block">
     <div class="d-flex justify-content-center c-primary-form activity-search" style="margin: 0 auto;">
         <div class="container">
@@ -844,8 +837,6 @@
         </div>
     </div>
 </div>
-<!-- DEBUG GroupAdmin -->
-<!-- DEBUG SuperAdmin - Profile block -->
 <div id="classroom-dashboard-profil-panel-superadmin" class="dashboard-block profile-panel" style="display:none;">
     <div class="row text-center">
         <div class="col-12">
@@ -856,7 +847,6 @@
             </div>
             <div class="col-12">
                 <div class="m-auto">
-                    <!--  <span>CLASSE : <span id="classroom-subject-teacher"> matière enseignée</span></span> -->
                     <button class="btn mt-2 c-btn-outline-primary btn-block" id="settings-superadmin"><span
                             class="text-capitalize text-span-initial" data-i18n="words.settings"
                             class="text-capitalize"></span> <i class="fas fa-cog"></i>
@@ -876,13 +866,10 @@
         </div>
     </div>
 </div>
-<!-- DEBUG SuperAdmin - Profile block -->
-<!-- DEBUG SuperAdmin -->
 <div id="superadmin-dashboard-main" style="display:none;" class="dashboard-block">
     <div class="d-flex justify-content-center c-primary-form activity-search" style="margin: 0 auto;">
 
         <div class="container">
-            <!-- DEBUG SUPERADMIN -->
             <div class="row mb-2" id="groups_options">
                 <input class="mr-sm-2 flex-fill" type="search" id="name_group_search" placeholder="Rechercher"
                     aria-label="Search" data-i18n="[placeholder]superadmin.buttons.search">
@@ -979,11 +966,9 @@
 
                 </div>
             </div>
-            <!-- DEBUG SUPERADMIN -->
         </div>
     </div>
 </div>
-<!-- DEBUG SuperAdmin -->
 <div id="classroom-dashboard-ide-panel" style="display:none;" class="dashboard-block">
     <iframe width="100%" style="height:85vh;" frameborder="0" allowfullscreen="" style="border:1px #d6d6d6 solid;" src=""></iframe>
 </div>
@@ -1100,16 +1085,17 @@
                                             'dashboard-profil', $_GET('option'),
                                             $_GET('interface'))
                                     }
-                                    if(UserManager.getUser().isFromGar) {
-                                        document.getElementById('settings-student').style.display = 'none';
+                                    if (UserManager.getUser().isFromGar) {
+                                        document.getElementById('settings-student')
+                                            .style.display = 'none';
                                     }
                                 })
                             }
 
                             // Init the super and group admin
                             let currentTask = (onEnd) => {
-                                MGA.init().then((resolve) => {
-                                    MSA.init().then((resolve) => {
+                                mainGroupAdmin.init().then((resolve) => {
+                                    mainSuperAdmin.init().then((resolve) => {
                                         onEnd();
                                     })
                                 })
