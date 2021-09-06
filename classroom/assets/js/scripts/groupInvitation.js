@@ -279,7 +279,6 @@ function teacherAccountCreateFormCheckv2(formData) {
         },
         errors = [];
 
-    console.log(formValues);
     for (let input in formValues) {
         let currentElt = document.getElementById(formValues[input].id);
         if (currentElt.classList.contains('form-input-error')) {
