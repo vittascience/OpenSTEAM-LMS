@@ -122,7 +122,7 @@
 			"usersNotAdded": "The learner could not be added (Your account does not allow you to have {{learnerNumber}} learners)",
 			"cantLoginLimitLearners": "You cannot join the class. Your teacher has reached his maximum number of learners.",
 			"cantLoginClassroomBlocked": "You cannot join the classroom, your teacher has locked access to it.",
-			"classNotCreated": "You cannot have more than one classroom.",
+			"classNotCreated": "You cannot have more than {{classroomNumberLimit}} classroom(s).",
 			"attributeActivityUndone": "The activity has been unassigned",
 			"pseudoUpdated": "The learner's new nickname is {{newPseudo}}",
 			"classroomDeleted": "The classroom {{classroomName}} has been deleted",
