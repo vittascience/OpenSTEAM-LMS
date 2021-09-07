@@ -310,6 +310,47 @@
     </div>
 </div>
 
+<!-- page de login via un lien -->
+<div id="classroom-login-container-bis" style="display:none;">
+    <div class="inner-login-container">
+        <p id="classroom-desc"></p>
+        <div id="classroom-create-account" class="container-border-left container-border-left-enable">
+            <h3 class="font-weight-bold c-text-primary" data-i18n="classroom.login.signup"></h3>
+            <div class="c-primary-form">
+                <p data-i18n="classroom.login.firstVisit"></p>
+                <img src="assets/media/green_user.png" class="icon-label">
+                <label for="username" data-i18n="words.username" class="text-capitalize"></label></br>
+                <input type="text" placeholder="Vitta" name="username" id="new-user-pseudo-form" required>
+            </div>
+            <button class="btn c-btn-primary" id="create-user" type="submit"><span data-i18n="words.confirm"></span> <i
+                    class="fas fa-chevron-right"></i></button>
+            <span id="warning-pseudo-used" style="display:none;" data-i18n="classroom.login.error.used"></span>
+        </div>
+        <div id="classroom-login-account" class="container-border-right">
+            <div class="c-primary-form">
+                <h3 class="font-weight-bold c-text-primary" data-i18n="classroom.login.signin"></h3>
+                <p data-i18n="classroom.login.hasReturned"></p>
+
+                <img src="assets/media/green_user.png" class="icon-label">
+                <label for="username" data-i18n="words.username" class="text-capitalize"></label></br>
+                <input type="text" placeholder="Vitta" id="user-pseudo-form" name="secret_code" required></br>
+
+                <img src="assets/media/green_lock.png" class="icon-label">
+                <label for="username" data-i18n="words.password"></label></br>
+                <input type="password" placeholder="••••••••••" name="secret_code" id="user-password-form"
+                    required></br>
+                <a href="#" data-i18n="classroom.login.forgot"></a></br>
+                <span class="mt-2 mb-2 alert alert-warning mismatched-login" style="display:none;"
+                    data-i18n="classroom.login.error.badInput"></span>
+            </div>
+            <button class="btn c-btn-primary" id="connect-nongar-user"><span data-i18n="words.confirm"
+                    class="text-capitalize"></span> <i class="fas fa-chevron-right"></i></button>
+        </div>
+        <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
+                class="fas fa-times"></i></button>
+    </div>
+</div>
+
 <script>
     /* INTERACTIVE BLOCK */
     $("#fake-blockly-input").on("input", (function () {
@@ -418,14 +459,15 @@
                 $('#classroom-login-account,#classroom-create-account').hide()
             }
             if (classroom[0].isBlocked == true) {
-  
+
                 let blockedClassDivElt = document.createElement("div")
                 blockedClassDivElt.id = "blocked-class"
-                blockedClassDivElt.innerHTML = "Cette classe a été bloquée par l'enseignant.e qui l'a crée, tu ne peux donc pas créer de nouveau compte.<br>Si tu as déja un compte, essaye plutot de te connecter.";
-                
+                blockedClassDivElt.innerHTML =
+                    "Cette classe a été bloquée par l'enseignant.e qui l'a crée, tu ne peux donc pas créer de nouveau compte.<br>Si tu as déja un compte, essaye plutot de te connecter.";
+
                 $('#classroom-create-account').hide()
                 document.getElementById('classroom-desc').append(blockedClassDivElt);
-                
+
                 $('#classroom-create-account .green-form').hide();
                 $('#create-user').hide();
             }
@@ -434,46 +476,7 @@
 </script>
 
 
-<!-- page de login via un lien -->
-<!-- <div id="classroom-login-container-bis" style="display:none;">
-    <div class="inner-login-container">
-        <p id="classroom-desc"></p>
-        <div id="classroom-create-account" class="container-border-left container-border-left-enable">
-            <h3 class="font-weight-bold c-text-primary" data-i18n="classroom.login.signup"></h3>
-            <div class="c-primary-form">
-                <p data-i18n="classroom.login.firstVisit"></p>
-                <img src="assets/media/green_user.png" class="icon-label">
-                <label for="username" data-i18n="words.username" class="text-capitalize"></label></br>
-                <input type="text" placeholder="Vitta" name="username" id="new-user-pseudo-form" required>
-            </div>
-            <button class="btn c-btn-primary" id="create-user" type="submit"><span data-i18n="words.confirm"></span> <i
-                    class="fas fa-chevron-right"></i></button>
-            <span id="warning-pseudo-used" style="display:none;" data-i18n="classroom.login.error.used"></span>
-        </div>
-        <div id="classroom-login-account" class="container-border-right">
-            <div class="c-primary-form">
-                <h3 class="font-weight-bold c-text-primary" data-i18n="classroom.login.signin"></h3>
-                <p data-i18n="classroom.login.hasReturned"></p>
 
-                <img src="assets/media/green_user.png" class="icon-label">
-                <label for="username" data-i18n="words.username" class="text-capitalize"></label></br>
-                <input type="text" placeholder="Vitta" id="user-pseudo-form" name="secret_code" required></br>
-
-                <img src="assets/media/green_lock.png" class="icon-label">
-                <label for="username" data-i18n="words.password"></label></br>
-                <input type="password" placeholder="••••••••••" name="secret_code" id="user-password-form"
-                    required></br>
-                <a href="#" data-i18n="classroom.login.forgot"></a></br>
-                <span class="mt-2 mb-2 alert alert-warning mismatched-login" style="display:none;"
-                    data-i18n="classroom.login.error.badInput"></span>
-            </div>
-            <button class="btn c-btn-primary" id="connect-nongar-user"><span data-i18n="words.confirm"
-                    class="text-capitalize"></span> <i class="fas fa-chevron-right"></i></button>
-        </div>
-        <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
-                class="fas fa-times"></i></button>
-    </div>
-</div> -->
 
 <!-- <form action="#" id="create-teacher-account-form">
             <div class="form-group part-content-index part-row c-primary-form row">
