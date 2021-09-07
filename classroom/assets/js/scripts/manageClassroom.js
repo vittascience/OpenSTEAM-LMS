@@ -316,14 +316,18 @@ function csvJSON(csv) {
     // (you might convert them to &&& or something, then convert them back later)
     // jsfiddle showing the issue https://jsfiddle.net/
     var headers = lines[0].split(/[,;]/);
-
+    
+    for(i=0; i< headers.length; i++){
+        headers[i] = headers[i].replace("\r","")
+    }
+    
     for (var i = 1; i < lines.length; i++) {
 
         var obj = {};
         var currentline = lines[i].split(/[,;]/);
 
         for (var j = 0; j < headers.length; j++) {
-            obj[headers[j]] = currentline[j];
+            obj[headers[j]] = currentline[j].replace("\r","");
         }
 
         result.push(obj);
