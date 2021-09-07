@@ -122,7 +122,7 @@
 			"usersNotAdded": "L'apprenant n'a pas pu être ajouté (Votre compte ne vous permet pas d'avoir {{learnerNumber}} apprenants)",
 			"cantLoginLimitLearners": "Vous ne pouvez pas rejoindre la classe. Votre professeur a atteint son nombre maximum d'apprenants.",
 			"cantLoginClassroomBlocked": "Vous ne pouvez pas rejoindre la classe, votre professeur en a verrouillé l'accès.",
-			"classNotCreated": "Vous ne pouvez pas avoir plus d'une classe.",
+			"classNotCreated": "Vous ne pouvez pas avoir plus de {{classroomNumberLimit}} classe(s).",
 			"attributeActivityUndone": "L'activité a été désattribuée",
 			"pseudoUpdated": "Le nouveau pseudo de l'apprenant est {{newPseudo}}",
 			"classroomDeleted": "La classe {{classroomName}} a été supprimée",

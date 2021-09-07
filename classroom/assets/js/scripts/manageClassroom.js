@@ -135,8 +135,8 @@ $('.new-classroom-form').click(function () {
             'isBlocked': document.querySelector('#classroom-form-is-blocked').checked
         }).then(function (classroom) {
             // If the backend detects that the user is not a premium user and that he already has one classroom
-            if(classroom == false){
-                displayNotification('#notif-div', "classroom.notif.classNotCreated", "error");
+            if(classroom.isClassroomAdded == false){
+                displayNotification('#notif-div', "classroom.notif.classNotCreated", "error", `'{"classroomNumberLimit": "${classroom.classroomNumberLimit}"}'`);
             }else{
                 let students = []
                 let existingStudents = []
