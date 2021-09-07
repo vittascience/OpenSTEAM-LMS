@@ -645,7 +645,8 @@
 			"errorSending": "An error occurred while sending the email",
 			"userNotFound": "User not found and / or already active",
 			"userNotFoundId": "User not found",
-			"errorActivation": "An error occurred during activation."
+			"errorActivation": "An error occurred during activation.",
+			"notAllowedToCreateUserInThisGroup": "You are not authorized to create a user in this group."
 		},
 		"users": {
 			"users": "Users",
@@ -809,6 +810,8 @@
 				"error": "An error occurred while linking.",
 				"userNotFound": "The user was not found, you can click on continue to be redirected to the login page.",
 				"contactAdmin": "If the problem persists contact the administration.",
+				"groupFull": "The group you want to join is full.",
+				"onlyOneGroup": "You are already part of a group, you cannot join another",
 				"mail": {
 					"textBeforeName": "The user : ",
 					"textAfterName": "joined the group : ",
@@ -830,7 +833,8 @@
 			"usersInactiveOrNoRegular": "Inactive users or not regular",
 			"usersWithoutGroupsDescription": "User group not linked to any group",
 			"usersInactiveOrNoRegularDescription": "Group of inactive and / or non-regular users",
-			"groupDeleteError": "The group could not be deleted."
+			"groupDeleteError": "The group could not be deleted.",
+			"groupFull": "The group is full."
 		},
 		"buttons": {
 			"continue": "Continue",

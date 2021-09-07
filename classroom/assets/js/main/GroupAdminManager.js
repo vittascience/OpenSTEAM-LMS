@@ -170,7 +170,7 @@ class GroupAdminManager {
                             <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateUserModal_groupadmin(${element.id})">${i18next.t('superadmin.buttons.update')}</button>
                         </td>
                         <td>
-                            <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGA(${element.id}, '${element.firstname}')">${i18next.t('superadmin.buttons.delete')}</button>
+                            <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('superadmin.buttons.delete')}</button>
                         </td>
                     </tr>`;
                 }
@@ -253,7 +253,7 @@ class GroupAdminManager {
                                 <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateUserModal_groupadmin(${element.id})">${i18next.t('superadmin.buttons.update')}</button>
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGA(${element.id}, '${element.firstname}')">${i18next.t('superadmin.buttons.delete')}</button>
+                                <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('superadmin.buttons.delete')}</button>
                             </td>
                         </tr>`;
                 }

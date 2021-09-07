@@ -1548,9 +1548,9 @@ function disableUser(id, name) {
     $('#mdi_firstname').text(name);
 }
 
-function disableUserGA(id, name) {
+function disableUserGroupAdmin(id, name) {
     mainGroupAdmin.getGroupAdminManager()._actualUser = id;
-    $('#validation_deleteGA').val("");
+    $('#validation_deleteGroupAdmin').val("");
     pseudoModal.openModal('groupadmin-delete-user');
     $('#md_firstnameGA').text(name);
 }
@@ -1596,8 +1596,8 @@ function persistDelete() {
 }
 
 function persistDeleteGroupAdmin() {
-    let validation = $('#validation_deleteGA').val(),
-        placeholderWord = $('#validation_deleteGA').attr('placeholder');
+    let validation = $('#validation_deleteGroupAdmin').val(),
+        placeholderWord = $('#validation_deleteGroupAdmin').attr('placeholder');
     const user = mainGroupAdmin.getGroupAdminManager()._actualUser;
     if (validation == placeholderWord) {
         mainGroupAdmin.getGroupAdminManager().disableUser(user).then((response) => {
@@ -1962,7 +1962,34 @@ function createUserAndLinkToGroup_groupAdmin() {
             $(':checked[name="groupsRadio"]').val()
         ];
 
-    mainGroupAdmin.getGroupAdminManager().createUserAndLinkToGroup($firstname, $surname, $pseudo, $phone, $mail, $bio, $groups, $teacher_grade, $teacher_suject, $school);
+    mainGroupAdmin.getGroupAdminManager().createUserAndLinkToGroup($firstname,
+        $surname,
+        $pseudo,
+        $phone,
+        $mail,
+        $bio,
+        $groups,
+        $teacher_grade,
+        $teacher_suject,
+        $school
+    ).then((response) => {
+        if (response.message == "success") {
+            displayNotification('#notif-div', "superadmin.users.userCreated", "success");
+            if (response.mail == true) {
+                displayNotification('#notif-div', "superadmin.users.mailSentToUser", "success");
+            } else {
+                displayNotification('#notif-div', "superadmin.users.mailSentToUser", "error");
+            }
+            pseudoModal.closeAllModal();
+            tempoAndShowUsersTable()
+        } else if (response.message == "missing data") {
+            displayNotification('#notif-div', "superadmin.account.missingData", "error");
+        } else if (response.message == "limit") {
+            displayNotification('#notif-div', "superadmin.group.groupFull", "error");
+        } else if (response.message == "not-admin") {
+            displayNotification('#notif-div', "superadmin.account.notAllowedToCreateUserInThisGroup", "error");
+        }
+    });
     pseudoModal.closeAllModal();
     tempoAndShowGroupTableGroupAdmin();
 }

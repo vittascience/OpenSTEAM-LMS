@@ -938,7 +938,8 @@
 			"errorSending": "Une erreur est survenue lors de l'envoie de l'e-mail",
 			"userNotFound": "Utilisateur introuvable et / ou déjà actif",
 			"userNotFoundId": "Utilisateur introuvable",
-			"errorActivation": "Une erreur est survenue lors de la l'activation."
+			"errorActivation": "Une erreur est survenue lors de la l'activation.",
+			"notAllowedToCreateUserInThisGroup": "Vous n'êtes pas autorisé à créer un utilisateur dans ce groupe."
 		},
 		"users": {
 			"users": "Utilisateurs",
@@ -1102,6 +1103,8 @@
 				"error": "Une erreur est survenue lors de la liaison.",
 				"userNotFound": "L'utilisateur n'a pas été trouvé, vous pouvez cliquer sur continuer afin d'être redirigé vers la page de login.",
 				"contactAdmin": "Si le problème persiste contactez l'administration.",
+				"groupFull": "Le groupe que vous souhaitez rejoindre est complet.",
+				"onlyOneGroup": "Vous faites déjà partie d'un groupe, vous ne pouvez pas en rejoindre un autre",
 				"mail": {
 					"textBeforeName": "L'utilisateur : ",
 					"textAfterName": "a rejoint le groupe : ",
@@ -1123,7 +1126,8 @@
 			"usersInactiveOrNoRegular": "Utilisateurs inactifs et non regular",
 			"usersWithoutGroupsDescription": "Groupement d'utilisateurs n'étant liés à aucun groupe",
 			"usersInactiveOrNoRegularDescription": "Groupement d'utilisateurs inactifs et/ou non regular",
-			"groupDeleteError": "Le groupe n'a pas pu être supprimé."
+			"groupDeleteError": "Le groupe n'a pas pu être supprimé.",
+			"groupFull": "Le groupe est complet."
 		},
 		"buttons": {
 			"continue": "Continuer",

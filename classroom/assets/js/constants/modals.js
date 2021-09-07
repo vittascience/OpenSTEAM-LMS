@@ -584,7 +584,7 @@ const classroomModals = {
                             <h3 class="font-weight-bold text-danger m-auto text-center" data-i18n="superadmin.users.deleteConfirmationTitle"></h3>
                             <p data-i18n="[html]superadmin.users.disable.intention" class="text-center"></p>
                             <p data-i18n="superadmin.users.disable.message" class="text-center"></p>.
-                            <input type="text" name="validation_deleteGA" id="validation_deleteGA" data-i18n="[placeholder]superadmin.input.placeholder.delete" placeholder="supprimer">
+                            <input type="text" name="validation_deleteGroupAdmin" id="validation_deleteGroupAdmin" data-i18n="[placeholder]superadmin.input.placeholder.delete" placeholder="supprimer">
                             <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="cancelDeleteGroupAdmin()" data-i18n="superadmin.buttons.cancel">Annuler</button>
                             <button class="btn btn-danger mx-auto mt-3 btn-lg" onclick="persistDeleteGroupAdmin()" data-i18n="superadmin.buttons.validate">Valider</button>
                         </div>
