@@ -3,7 +3,7 @@
         "phpunit/phpunit": "8.0.0",
         "vittascience/vtuser": "dev-rewrite-services",
         "vittascience/vtinterfaces": "dev-main",
-        "vittascience/vtclassroom": "dev-superadmin",
+        "vittascience/vtclassroom": "dev-main",
         "vittascience/vtlearn": "dev-main",
         "vittascience/vutils": "dev-main",
         "symfony/var-dumper": "^5.3"
