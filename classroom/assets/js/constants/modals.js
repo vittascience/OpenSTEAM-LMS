@@ -122,7 +122,7 @@ const classroomModals = {
             title: 'classroom.modals.listClass.title'
         },
         content: `
-        <p data-i18n="classroom.modals.listClass.description">Vous pouvez tester en toute simplicité l'interface en tant qu'apprenant, et revenir à tout moment à votre profil d'enseignant. La progression en tant qu'apprenant sera sauvegardée sur le compte Vittademo.</p>
+        <p data-i18n="classroom.modals.listClass.description" data-i18n-options={"demoStudent":"${demoStudentName}"}>Vous pouvez tester en toute simplicité l'interface en tant qu'apprenant, et revenir à tout moment à votre profil d'enseignant. La progression en tant qu'apprenant sera sauvegardée sur le compte {{demoStudent}}.</p>
         <div id="list-classes" class=""></div>
         <button class="btn  mb-2 c-btn-primary" id="mode-student-check" onclick="modeApprenant()" > <span class="mr-1" data-i18n="classroom.modals.listClass.switchButton">Passer en mode apprenant</span> <i class="fas fa-cog"></i></button>
                 `,
