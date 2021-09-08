@@ -226,7 +226,18 @@ $('body').on('click', '.save-student-in-classroom', function () {
         })
         Main.getClassroomManager().addUsersToGroup(students, existingStudents, ClassroomSettings.classroom).then(function (response) {
             if(!response.isUsersAdded){
-                displayNotification('#notif-div', "classroom.notif.usersNotAdded", "error", `'{"learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
+                /**
+                 * Update Rémi : Users limitation by group 
+                 */
+                if (response.hasOwnProperty('function')) {
+                    if (!response.groupStudents) {
+                        // Group limit reached
+                    } else if (!response.teacherStudents) {
+                        // Teacher limit reached
+                    }
+                } else {
+                    displayNotification('#notif-div', "classroom.notif.usersNotAdded", "error", `'{"learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
+                }
             }else{
                 Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
                     addUserAndGetDashboard(ClassroomSettings.classroom);
