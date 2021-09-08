@@ -364,7 +364,7 @@
 			},
 			"listClass": {
 				"title": "Switch in student mode",
-				"description": "You can easily test the interface as a learner, and return to your teacher profile at any time. Progress as a learner will be saved to the Vittademo account.",
+				"description": "You can easily test the interface as a learner, and return to your teacher profile at any time. Progress as a learner will be saved to the \"{{demoStudent}}\" account.",
 				"switchButton": "Switch to learner mode"
 			},
 			"changePseudo": {
