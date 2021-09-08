@@ -301,10 +301,10 @@ function goToCreateActivityPanel() {
     navigatePanel('classroom-dashboard-new-activity-panel', 'dashboard-activities-teacher');
 }
 
-//prof-->vittademo
+//prof-->demoStudent
 function modeApprenant() {
     window.localStorage.showSwitchTeacherButton = 'true';
-    Main.getClassroomManager().getVittaDemo(ClassroomSettings.classroom)
+    Main.getClassroomManager().getDemoStudent(ClassroomSettings.classroom)
 }
 
 $('body').on('change', '#list-classes input', function () {
@@ -329,7 +329,7 @@ function listeModeApprenant() {
     pseudoModal.openModal('list-classes-modal')
 }
 
-//vittademo-->prof
+//demoStudent-->prof
 function modeProf() {
     Main.getClassroomManager().getTeacherAccount(ClassroomSettings.classroom).then(() => {
         window.localStorage.showSwitchTeacherButton = 'false';
