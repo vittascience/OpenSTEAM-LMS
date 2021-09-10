@@ -179,7 +179,8 @@
 			"activityTitleInvalid": "L'activité n'a pas pu être créée : titre invalide",
 			"activityContentInvalid": "L'activité n'a pas pu être créée : contenu invalide",
 			"activityIsFromClassroomInvalid": "L'activité n'a pas pu être créée : erreur de contexte",
-			"activityUserIdInvalid": "L'activité n'a pas pu être créée : utilisateur invalide"
+			"activityUserIdInvalid": "L'activité n'a pas pu être créée : utilisateur invalide",
+			"reservedNickname":"Le nom : \"{{reservedNickname}}\" ne peut être attribué."
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",
