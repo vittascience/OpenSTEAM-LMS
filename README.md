@@ -38,8 +38,8 @@ You can find the LMS tutorial on [a video on Youtube](https://www.youtube.com/wa
 1. [Clone the repository](https://github.com/vittascience/OpenSTEAM-LMS#clone-the-repository)
 2. [.env file creation](https://github.com/vittascience/OpenSTEAM-LMS#env-file-creation)
 3. [VirtualHost Setup](https://github.com/vittascience/OpenSTEAM-LMS#virtualhost-setup)
-4. [Database setup](https://github.com/vittascience/OpenSTEAM-LMS#database-setup)
-5. [Dependencies](https://github.com/vittascience/OpenSTEAM-LMS#dependencies)
+4. [Dependencies](https://github.com/vittascience/OpenSTEAM-LMS#dependencies)
+5. [Database setup](https://github.com/vittascience/OpenSTEAM-LMS#database-setup)
 6. [Build](https://github.com/vittascience/OpenSTEAM-LMS#build)
 7. [Plugins](https://github.com/vittascience/OpenSTEAM-LMS#plugins)
 8. [Email Templates](https://github.com/vittascience/OpenSTEAM-LMS#email-templates)
@@ -96,12 +96,6 @@ Don't forget to fill/change these constants with relevant information (at least 
 
 5. Choose a logs directory. By default, this is `/logs/`. You can change this value using the entry in the `.env` named  `LOG_PATH`, e.g. `LOG_PATH=/tmp/log`.
 
-## Database setup
-
-To setup the database, type this command in your shell: php sql-files/SteamLmsGenerateDb.php
-Make sure you added the necessay informations (below # setup the new admin data) in the .env file
-Then you have to check if the created database name match the VS_DB_NAME in the .env file.
-
 ## Dependencies
 
 Run `composer install` to download all the needed PHP dependencies.
@@ -109,6 +103,12 @@ Then, run `npm install` to download all the needed JavaScript dependencies (for 
 
 Now you should be able to access the lms on your browser in ```http://steamlms/classroom```
 The default account login is ```the email you provide here ADMIN_EMAIL``` and password is ```the password you provided here ADMIN_PASSWORD```
+
+## Database setup
+
+To setup the database, type this command in your shell: php sql-files/SteamLmsGenerateDb.php
+Make sure you added the necessay informations (below # setup the new admin data) in the .env file
+Then you have to check if the created database name match the VS_DB_NAME in the .env file.
 
 ## Build
 
