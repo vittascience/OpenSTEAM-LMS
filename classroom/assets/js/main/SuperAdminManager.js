@@ -106,7 +106,6 @@ class SuperAdminManager {
                     mainSuperAdmin.getSuperAdminManager().showGroupsInTable((JSON.parse(response)));
                     mainSuperAdmin.getSuperAdminManager().getAllGroups().then((data) => {
                         mainSuperAdmin.getSuperAdminManager()._comboGroups = data;
-                        console.log(mainSuperAdmin.getSuperAdminManager()._comboGroups, "_combogroups");
                     });
                 },
                 error: function () {

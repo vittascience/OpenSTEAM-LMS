@@ -1424,6 +1424,9 @@ function updateUserModal() {
         $ApplicationFromGroup = $(':checked[name="group_app"]').val(),
         $groups = [$('#update_u_is_group_admin0').is(':checked'), $('#update_u_group0').val()];
 
+    if (!$ApplicationFromGroup) {
+        $ApplicationFromGroup = -1;
+    }
     mainSuperAdmin.getSuperAdminManager().updateUser($user_id,
         $firstname,
         $surname,
@@ -1773,7 +1776,6 @@ function optionsGroupApplications($type) {
                     <br>
                 </div>`;
             } else {
-                console.log($infoapp);
                 let dateBegin = new Date($infoapp.date_begin).toISOString().split('T')[0],
                     dateEnd = new Date($infoapp.date_end).toISOString().split('T')[0];
 
@@ -1973,7 +1975,10 @@ function updateUserModalGroupAdmin() {
         $teacher_suject = $('#update_user_teacher_subjects_ga').val(),
         $ApplicationFromGroup = $(':checked[name="group_app"]').val(),
         $groups = [$('#update_u_is_group_admin_ga0').is(':checked'), $('#update_u_group_ga0').val()];
-
+        
+    if (!$ApplicationFromGroup) {
+        $ApplicationFromGroup = -1;
+    }
     mainGroupAdmin.getGroupAdminManager().updateUser($user_id,
         $firstname,
         $surname,
