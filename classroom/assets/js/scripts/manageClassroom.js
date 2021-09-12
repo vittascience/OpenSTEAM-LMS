@@ -228,12 +228,21 @@ $('body').on('click', '.save-student-in-classroom', function () {
             if(!response.isUsersAdded){
                 /**
                  * Update Rémi : Users limitation by group 
+                 * possible return : personalLimit, personalLimitAndGroupOutDated, bothLimitReached
                  */
-                if (response.hasOwnProperty('function')) {
-                    if (!response.groupStudents) {
-                        // Group limit reached
-                    } else if (!response.teacherStudents) {
-                        // Teacher limit reached
+                if (response.hasOwnProperty('message')) {
+                    if (response.message == "personalLimit") {
+                        displayNotification('#notif-div', "classroom.notif.groupLimitationsGroup", "error");
+                        console.log(response)
+                        // Afficher une modal d'upgrade
+                    } else if (response.message == "personalLimitAndGroupOutDated") {
+                        displayNotification('#notif-div', "classroom.notif.groupLimitationsTeacher", "error");
+                        console.log(response)
+                        // Afficher une modal d'upgrade
+                    } else if (response.message == "bothLimitReached") {
+                        // Teacher's and Group's limits reached
+                        displayNotification('#notif-div', "classroom.notif.groupLimitationsTeacher", "error");
+                        console.log(response)
                     }
                 } else {
                     displayNotification('#notif-div', "classroom.notif.usersNotAdded", "error", `'{"learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);

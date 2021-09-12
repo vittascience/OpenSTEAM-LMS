@@ -329,7 +329,7 @@ function listeModeApprenant() {
     pseudoModal.openModal('list-classes-modal')
 }
 
-//vittademo-->prof
+//demoStudent-->prof
 function modeProf() {
     Main.getClassroomManager().getTeacherAccount(ClassroomSettings.classroom).then(() => {
         window.localStorage.showSwitchTeacherButton = 'false';
@@ -916,7 +916,14 @@ function updateGroupWithModal() {
     let ApplicationsData = [];
 
     $("input:checkbox.form-check-input.app").each(function (element) {
-        const ApplicationTemp = [$(this).val(), $(this).is(':checked'), $('#begin_date_' + $(this).val()).val(), $('#end_date_' + $(this).val()).val()]
+        const ApplicationTemp = [$(this).val(),
+            $(this).is(':checked'),
+            $('#begin_date_' + $(this).val()).val(),
+            $('#end_date_' + $(this).val()).val(),
+            $('#max_students_per_teachers_' + $(this).val()).val(),
+            $('#max_students_per_groups_' + $(this).val()).val(),
+            $('#max_teachers_per_groups_' + $(this).val()).val()
+        ]
         ApplicationsData.push(ApplicationTemp);
     });
     mainSuperAdmin.getSuperAdminManager().updateGroup(
@@ -1148,6 +1155,7 @@ function updateAppForUser() {
                     max="2023-12-31">
                 <input type="date" id="end_date_${element.id}" name="trip-start" min="0"
                     max="2025-12-31">
+                <input type="number" id="max_teacher_${element.id}" value="0">
                 </div>`;
             } else {
                 let dateBegin = new Date(infoapp.date_begin).toISOString().split('T')[0],
@@ -1162,9 +1170,9 @@ function updateAppForUser() {
                     max="2023-12-31">
                 <input type="date" id="end_date_${element.id}" name="trip-start" value="${dateEnd}"
                     max="2025-12-31">
+                <input type="number" id="max_teacher_${element.id}" value="${infoapp.max_students}">
                 </div>`;
             }
-
         });
         $('#user_apps_update').html(stringhtml);
         pseudoModal.openModal('superadmin-user-updateApp');
@@ -1180,11 +1188,11 @@ function updateAppForUser() {
     }
 }
 
-function getAllGroupsIfNotAlreadyLoaded() {
+/* function getAllGroupsIfNotAlreadyLoaded() {
     if (mainSuperAdmin.getSuperAdminManager()._comboGroups == []) {
-        mainSuperAdmin.getSuperAdminManager().getAllGroups();
+        const groups = mainSuperAdmin.getSuperAdminManager().getAllGroups();
     }
-}
+} */
 
 
 
@@ -1192,13 +1200,20 @@ function persistUpdateUserApp() {
     let user = mainSuperAdmin.getSuperAdminManager()._actualUserDetails[0].id;
     let ApplicationsData = [];
     $("input:checkbox.form-check-input.appuser").each(function (element) {
-        const ApplicationTemp = [$(this).val(), $(this).is(':checked'), $('#begin_date_' + $(this).val()).val(), $('#end_date_' + $(this).val()).val()]
+        const ApplicationTemp = [
+            $(this).val(),
+            $(this).is(':checked'),
+            $('#begin_date_' + $(this).val()).val(),
+            $('#end_date_' + $(this).val()).val(),
+            $('#max_teacher_' + $(this).val()).val()
+        ]
         ApplicationsData.push(ApplicationTemp);
     });
     mainSuperAdmin.getSuperAdminManager().updateUserApps(user, JSON.stringify(ApplicationsData)).then((res) => {
         if (res.message == "success") {
             displayNotification('#notif-div', "superadmin.users.appsUpdated", "success");
             pseudoModal.closeAllModal();
+            $('#user_apps_update').html("");
             tempoAndShowUsersTable();
         } else if (res.message == "User not found") {
             displayNotification('#notif-div', "superadmin.account.userNotFoundId", "error");
@@ -1214,6 +1229,7 @@ function showupdateUserModal(id) {
     mainSuperAdmin.getSuperAdminManager().getUserInfoWithHisGroups(id).then(function (res) {
         mainSuperAdmin.getSuperAdminManager()._actualUserDetails = res;
         $("#update_actualgroup_sa").html("");
+        $('#update_applications_sa').html("");
         pseudoModal.openModal('superadmin-update-user');
         $('#update_u_firstname').val(res[0].firstname);
         $('#update_u_surname').val(res[0].surname);
@@ -1294,7 +1310,6 @@ function showupdateUserModal(id) {
                                 </div>
                                 <select class="form-control" id="update_u_group${i}">
                                 </select>
-                                <button class="btn btn-danger ml-1" onclick="deleteGroupFromUpdate(${i})">Supprimer</button>
                             </div>`;
                 $("#update_actualgroup_sa").append(group);
                 if (res[0].groups[i].rights == 1) {
@@ -1304,6 +1319,46 @@ function showupdateUserModal(id) {
                 appendSelectGroups($groups, item_id);
                 $('#update_u_group' + i).val(res[0].groups[i].id);
             }
+
+            let html = `<div class="form-check">
+                            <input class="form-check-input" type="radio" name="group_app" id="group_app" value="0" checked>
+                            <label class="form-check" for="group_app"> Aucune </label>
+                        </div>`;
+            mainSuperAdmin.getSuperAdminManager()._comboGroups.forEach(element => {
+                if (element.id == mainSuperAdmin.getSuperAdminManager()._actualGroup) {
+                    element.applications.forEach(application => {
+                        let checked = ""
+                        if (res[0].hasOwnProperty("applications_from_groups")) {
+                            checked = application.id == res[0].applications_from_groups[0].application ? "checked" : "";
+                        }
+                        html += `<div class="form-check">
+                            <input class="form-check-input" type="radio" name="group_app" id="group_app_${application.id}" value="${application.id}" ${checked}>
+                            <label class="form-check" for="group_app_${application.id}">
+                                ${application.name}
+                            </label>
+                        </div>`;
+                    })
+                }
+            });
+            $('#update_applications_sa').html(html);
+
+        } else {
+            mainSuperAdmin.getSuperAdminManager()._updatedUserGroup += 1;
+            let group = `<div class="input-group mb-3" id="update_u_actual_group0">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox" id="update_u_is_group_admin0">
+                                    <label class="form-check-label mx-1" for="update_u_is_group_admin0">
+                                        Administrateur du groupe
+                                    </label>
+                                </div>
+                            </div>
+                            <select class="form-control" id="update_u_group0">
+                            </select>
+                        </div>`;
+            $("#update_actualgroup_sa").append(group);
+            const item_id = 'update_u_group0';
+            appendSelectGroups($groups, item_id);
         }
     });
 }
@@ -1360,11 +1415,8 @@ function updateUserModal() {
         $is_teacher = $('#update_u_is_teacher').is(':checked'),
         $teacher_grade = $('#update_user_teacher_grade').val(),
         $teacher_suject = $('#update_user_teacher_subjects').val(),
-        $groups = [];
-
-    for (let index = 0; index < mainSuperAdmin.getSuperAdminManager()._updatedUserGroup; index++) {
-        $groups.push([$('#update_u_is_group_admin' + index).is(':checked'), $('#update_u_group' + index).val()])
-    }
+        $ApplicationFromGroup = $(':checked[name="group_app"]').val(),
+        $groups = [$('#update_u_is_group_admin0').is(':checked'), $('#update_u_group0').val()];
 
     mainSuperAdmin.getSuperAdminManager().updateUser($user_id,
         $firstname,
@@ -1379,7 +1431,8 @@ function updateUserModal() {
         $teacher_grade,
         $teacher_suject,
         $school,
-        $is_active).then((response) => {
+        $is_active,
+        $ApplicationFromGroup).then((response) => {
         if (response.message == "success") {
             displayNotification('#notif-div', "superadmin.users.userUpdated", "success");
             pseudoModal.closeAllModal();
@@ -1583,7 +1636,7 @@ function persistDelete() {
         mainSuperAdmin.getSuperAdminManager().deleteUser(user).then((response) => {
             if (response.message == "missing data") {
                 displayNotification('#notif-div', "superadmin.account.notAllowedDeleteUser", "error");
-            } else if (response.message == "allowed") {
+            } else if (response.message == "success") {
                 displayNotification('#notif-div', "superadmin.users.userDeleted", "success");
                 mainSuperAdmin.getSuperAdminManager()._actualUser = 0;
                 pseudoModal.closeAllModal();
@@ -1601,7 +1654,7 @@ function persistDeleteGroupAdmin() {
     const user = mainGroupAdmin.getGroupAdminManager()._actualUser;
     if (validation == placeholderWord) {
         mainGroupAdmin.getGroupAdminManager().disableUser(user).then((response) => {
-            if (response.message == "not_allowed") {
+            if (response.message == "success") {
                 displayNotification('#notif-div', "superadmin.account.notAllowedDeleteUser", "error");
             } else if (response.message == "success") {
                 displayNotification('#notif-div', "superadmin.users.userDeleted", "success");
@@ -1700,8 +1753,12 @@ function optionsGroupApplications($type) {
                     max="2023-12-31">
                 <input type="date" id="end_date_${element.id}" name="trip-start" min="0"
                     max="2025-12-31">
+                    <input type="number" id="max_students_per_teachers_${element.id}">
+                    <input type="number" id="max_students_per_groups_${element.id}">
+                    <input type="number" id="max_teachers_per_groups_${element.id}">
                 </div>`;
             } else {
+                console.log($infoapp);
                 let dateBegin = new Date($infoapp.date_begin).toISOString().split('T')[0],
                     dateEnd = new Date($infoapp.date_end).toISOString().split('T')[0];
 
@@ -1714,6 +1771,9 @@ function optionsGroupApplications($type) {
                     max="2023-12-31">
                 <input type="date" id="end_date_${element.id}" name="trip-start" value="${dateEnd}"
                     max="2025-12-31">
+                <input type="number" id="max_students_per_teachers_${element.id}" value="${$infoapp.max_students_per_teachers}">
+                <input type="number" id="max_students_per_groups_${element.id}" value="${$infoapp.max_students_per_groups}">
+                <input type="number" id="max_teachers_per_groups_${element.id}" value="${$infoapp.max_teachers_per_groups}">
                 </div>`;
             }
 
@@ -1777,6 +1837,7 @@ function showupdateUserModal_groupadmin(user_id) {
     mainGroupAdmin.getGroupAdminManager().getUserInfoWithHisGroups(user_id).then(function (res) {
         if (res.message != "not_allowed") {
             $("#update_actualgroup_ga").html("");
+            $('#update_applications_ga').html("");
             pseudoModal.openModal('groupadmin-update-user');
             $('#update_u_firstname_ga').val(res[0].firstname);
             $('#update_u_surname_ga').val(res[0].surname);
@@ -1786,6 +1847,29 @@ function showupdateUserModal_groupadmin(user_id) {
             $('#update_u_bio_ga').val(res[0].bio);
             $('#update_u_mail_ga').val(res[0].email);
             $('#update_u_phone_ga').val(res[0].telephone);
+
+            let html = `<div class="form-check">
+                            <input class="form-check-input" type="radio" name="group_app" id="group_app" value="0" checked>
+                            <label class="form-check" for="group_app"> Aucune </label>
+                        </div>`;
+
+            mainGroupAdmin.getGroupAdminManager()._comboGroups.forEach(element => {
+                if (element.id == mainGroupAdmin.getGroupAdminManager()._actualGroup) {
+                    element.applications.forEach(application => {
+                        let checked = ""
+                        if (res[0].hasOwnProperty("applications_from_groups")) {
+                            checked = application.id == res[0].applications_from_groups[0].application ? "checked" : "";
+                        }
+                        html += `<div class="form-check">
+                            <input class="form-check-input" type="radio" name="group_app" id="group_app_${application.id}" value="${application.id}" ${checked}>
+                            <label class="form-check" for="group_app_${application.id}">
+                                ${application.name}
+                            </label>
+                        </div>`;
+                    })
+                }
+            });
+            $('#update_applications_ga').html(html);
 
             $('#update_user_teacher_grade_ga').change(() => {
                 switch ($('#update_user_teacher_grade_ga').val()) {
@@ -1862,11 +1946,8 @@ function updateUserModalGroupAdmin() {
         $school = $('#update_u_school_ga').val(),
         $teacher_grade = $('#update_user_teacher_grade_ga').val(),
         $teacher_suject = $('#update_user_teacher_subjects_ga').val(),
-        $groups = [];
-
-    for (let index = 0; index < mainGroupAdmin.getGroupAdminManager()._updatedUserGroup; index++) {
-        $groups.push([$('#update_u_is_group_admin_ga' + index).is(':checked'), $('#update_u_group_ga' + index).val()])
-    }
+        $ApplicationFromGroup = $(':checked[name="group_app"]').val(),
+        $groups = [$('#update_u_is_group_admin_ga0').is(':checked'), $('#update_u_group_ga0').val()];
 
     mainGroupAdmin.getGroupAdminManager().updateUser($user_id,
         $firstname,
@@ -1878,7 +1959,8 @@ function updateUserModalGroupAdmin() {
         $groups,
         $teacher_grade,
         $teacher_suject,
-        $school).then((response) => {
+        $school,
+        $ApplicationFromGroup).then((response) => {
         if (response.message == "success") {
             displayNotification('#notif-div', "superadmin.users.userUpdated", "success");
             pseudoModal.closeAllModal();
@@ -1908,43 +1990,50 @@ $('#create_user_link_to_group_groupadmin').click(function () {
     $('#u_is_group_admin_ga').prop("checked", false);
 
     mainGroupAdmin.getGroupAdminManager()._addedCreateUserGroup = 0;
-    pseudoModal.openModal('groupeadmin-create-user');
+    const groupId = mainGroupAdmin.getGroupAdminManager()._actualGroup;
+    // If the group is full, we notify the group administrator otherwise open the modal
+    mainGroupAdmin.getGroupAdminManager().isGroupFull(groupId).then((response) => {
+        if (response.message == "limit") {
+            displayNotification('#notif-div', "superadmin.group.groupFullAdminMessage", "error");
+        } else {
+            pseudoModal.openModal('groupeadmin-create-user');
+            // Bind functions to the selects who has been created
+            $saved_groups = mainGroupAdmin.getGroupAdminManager()._comboGroups;
+            let radioHTML = "";
+            $saved_groups.forEach(element => {
+                radioHTML += `<div class="form-check">
+                                <input class="form-check-input" type="radio" name="groupsRadio" id="groupRadio${element.id}" value="${element.id}" checked>
+                                <label class="form-check" for="groupRadio${element.id}">
+                                    ${element.name}
+                                </label>
+                            </div>`;
+            });
+            $('#allGroupsGA').html(radioHTML);
 
-    // Bind functions to the selects who has been created
-    $saved_groups = mainGroupAdmin.getGroupAdminManager()._comboGroups;
-    let radioHTML = "";
-    $saved_groups.forEach(element => {
-        radioHTML += `<div class="form-check">
-                        <input class="form-check-input" type="radio" name="groupsRadio" id="groupRadio${element.id}" value="${element.id}" checked>
-                        <label class="form-check" for="groupRadio${element.id}">
-                            ${element.name}
-                        </label>
-                    </div>`;
-    });
-    $('#allGroupsGA').html(radioHTML);
-
-    $('#user_teacher_grade_ga').change(() => {
-        switch ($('#user_teacher_grade_ga').val()) {
-            case "0":
-                createSubjectSelect(getSubjects(0), 1);
-                break;
-            case "1":
-                createSubjectSelect(getSubjects(1), 1);
-                break;
-            case "2":
-                createSubjectSelect(getSubjects(2), 1);
-                break;
-            case "3":
-                createSubjectSelect(getSubjects(3), 1);
-                break;
-            case "4":
-                createSubjectSelect(getSubjects(4), 1);
-                break;
-            default:
-                break;
+            $('#user_teacher_grade_ga').change(() => {
+                switch ($('#user_teacher_grade_ga').val()) {
+                    case "0":
+                        createSubjectSelect(getSubjects(0), 1);
+                        break;
+                    case "1":
+                        createSubjectSelect(getSubjects(1), 1);
+                        break;
+                    case "2":
+                        createSubjectSelect(getSubjects(2), 1);
+                        break;
+                    case "3":
+                        createSubjectSelect(getSubjects(3), 1);
+                        break;
+                    case "4":
+                        createSubjectSelect(getSubjects(4), 1);
+                        break;
+                    default:
+                        break;
+                }
+            })
+            createSubjectSelect(getSubjects(0), 1);
         }
     })
-    createSubjectSelect(getSubjects(0), 1);
 });
 
 function createUserAndLinkToGroup_groupAdmin() {
@@ -1985,7 +2074,7 @@ function createUserAndLinkToGroup_groupAdmin() {
         } else if (response.message == "missing data") {
             displayNotification('#notif-div', "superadmin.account.missingData", "error");
         } else if (response.message == "limit") {
-            displayNotification('#notif-div', "superadmin.group.groupFull", "error");
+            displayNotification('#notif-div', "superadmin.group.groupFullAdminMessage", "error");
         } else if (response.message == "not-admin") {
             displayNotification('#notif-div', "superadmin.account.notAllowedToCreateUserInThisGroup", "error");
         }

@@ -179,7 +179,9 @@
 			"activityTitleInvalid": "The activity could not be created: invalid title",
 			"activityContentInvalid": "Activity could not be created: invalid content",
 			"activityIsFromClassroomInvalid": "Activity could not be created: context error",
-			"activityUserIdInvalid": "Activity could not be created: invalid user"
+			"activityUserIdInvalid": "Activity could not be created: invalid user",
+			"groupLimitationsGroup": "Your group can no longer accommodate learners",
+			"groupLimitationsTeacher": "You have reached the learner limit that your group grants you"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
@@ -834,7 +836,8 @@
 			"usersWithoutGroupsDescription": "User group not linked to any group",
 			"usersInactiveOrNoRegularDescription": "Group of inactive and / or non-regular users",
 			"groupDeleteError": "The group could not be deleted.",
-			"groupFull": "The group is full."
+			"groupFull": "The group is full.",
+			"groupFullAdminMessage": "The group is full, you cannot add other users."
 		},
 		"buttons": {
 			"continue": "Continue",

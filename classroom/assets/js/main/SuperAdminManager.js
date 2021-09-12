@@ -81,7 +81,6 @@ class SuperAdminManager {
                 type: "POST",
                 url: "/routing/Routing.php?controller=superadmin&action=get_all_groups",
                 success: function (response) {
-                    mainSuperAdmin.getSuperAdminManager()._comboGroups = JSON.parse(response);
                     resolve(JSON.parse(response))
                 },
                 error: function () {
@@ -105,7 +104,10 @@ class SuperAdminManager {
                 success: function (response) {
                     mainSuperAdmin.getSuperAdminManager()._allGroups = JSON.parse(response);
                     mainSuperAdmin.getSuperAdminManager().showGroupsInTable((JSON.parse(response)));
-                    mainSuperAdmin.getSuperAdminManager()._comboGroups = mainSuperAdmin.getSuperAdminManager().getAllGroups();
+                    mainSuperAdmin.getSuperAdminManager().getAllGroups().then((data) => {
+                        mainSuperAdmin.getSuperAdminManager()._comboGroups = data;
+                        console.log(mainSuperAdmin.getSuperAdminManager()._comboGroups, "_combogroups");
+                    });
                 },
                 error: function () {
                     reject();
@@ -311,7 +313,7 @@ class SuperAdminManager {
         })
     }
 
-    updateUser($user_id, $firstname, $surname, $user_pseudo, $phone, $mail, $bio, $groups, $is_admin, $is_teacher, $teacher_grade, $teacher_suject, $school, $is_active) {
+    updateUser($user_id, $firstname, $surname, $user_pseudo, $phone, $mail, $bio, $groups, $is_admin, $is_teacher, $teacher_grade, $teacher_suject, $school, $is_active, $application) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -330,7 +332,8 @@ class SuperAdminManager {
                     subject: parseInt($teacher_suject) + 1,
                     mail: $mail,
                     school: $school,
-                    isactive: $is_active
+                    isactive: $is_active,
+                    application:  $application
                 },
                 success: function (response) {
                     resolve(JSON.parse(response));
@@ -490,9 +493,9 @@ class SuperAdminManager {
                     if (element.hasOwnProperty('applications')) {
                         element.applications.forEach(element_2 => {
                             if (element_2.image != null) {
-                                div_img += `<img src="assets/media/${element_2.image}" alt="Icône App">`;
+                                div_img += `<img src="assets/media/${element_2.image}" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
                             } else {
-                                div_img += `<img src="assets/media/nologo.jpg" alt="Icône App">`;
+                                div_img += `<img src="assets/media/nologo.jpg" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
                             }
                         });
                     }
@@ -582,9 +585,9 @@ class SuperAdminManager {
                     if (element.hasOwnProperty('applications')) {
                         element.applications.forEach(element_2 => {
                             if (element_2.image != null) {
-                                div_img += `<img src="assets/media/${element_2.image}" alt="Icône App">`;
+                                div_img += `<img src="assets/media/${element_2.image}" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
                             } else {
-                                div_img += `<img src="assets/media/nologo.jpg" alt="Icône App">`;
+                                div_img += `<img src="assets/media/nologo.jpg" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
                             }
                         });
                     }
@@ -690,9 +693,9 @@ class SuperAdminManager {
                 if (element.hasOwnProperty('applications')) {
                     element.applications.forEach(element_2 => {
                         if (element_2.image != null) {
-                            div_img += `<img src="assets/media/${element_2.image}" alt="Icône App">`;
+                            div_img += `<img src="assets/media/${element_2.image}" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
                         } else {
-                            div_img += `<img src="assets/media/nologo.jpg" alt="Icône App">`;
+                            div_img += `<img src="assets/media/nologo.jpg" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
                         }
                     });
                 }
@@ -751,9 +754,9 @@ class SuperAdminManager {
                     if (element.hasOwnProperty('applications')) {
                         element.applications.forEach(element_2 => {
                             if (element_2.image != null) {
-                                div_img += `<img src="assets/media/${element_2.image}" alt="Icône App">`;
+                                div_img += `<img src="assets/media/${element_2.image}" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
                             } else {
-                                div_img += `<img src="assets/media/nologo.jpg" alt="Icône App">`;
+                                div_img += `<img src="assets/media/nologo.jpg" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
                             }
                         });
                     }

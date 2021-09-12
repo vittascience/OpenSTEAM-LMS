@@ -425,9 +425,10 @@ const classroomModals = {
     <hr>
     <div id="update_actualgroup_sa">
     </div>
+    <div id="update_applications_sa">
+    </div>
     
-    <button class="btn btn-sm btn-info" onclick="updateAddGroupSuperAdmin()" id="update_add_group_superadmin" data-i18n="superadmin.buttons.user.addGroup">Ajouter un
-        groupe</button>
+    
         
     <button class="btn btn-sm btn-info" onclick="updateAppForUser()" id="update_app_user" data-i18n="superadmin.buttons.user.updateApp">Modifier les applications</button>
     
@@ -567,6 +568,8 @@ const classroomModals = {
                 </div>
                 <hr>
                 <div id="update_actualgroup_ga">
+                </div>
+                <div id="update_applications_ga">
                 </div>
                 
                 <button class="btn btn-info" onclick="updateUserModalGroupAdmin()" data-i18n="superadmin.buttons.user.update">Update user</button>`,

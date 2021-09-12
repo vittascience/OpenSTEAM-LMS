@@ -1,5 +1,4 @@
 const AllViews = ['#classroom-login-container', '#login-container', '#classroom-register-container', '#home-container'];
-navigateLight("", 1);
 
 function onUrlChange() {
     // Close all views
@@ -24,6 +23,7 @@ function onUrlChange() {
                 break;
         }
     } else {
+        navigateLight("", 1);
         $('#home-container').show();
     }
 }

@@ -179,7 +179,9 @@
 			"activityTitleInvalid": "L'activité n'a pas pu être créée : titre invalide",
 			"activityContentInvalid": "L'activité n'a pas pu être créée : contenu invalide",
 			"activityIsFromClassroomInvalid": "L'activité n'a pas pu être créée : erreur de contexte",
-			"activityUserIdInvalid": "L'activité n'a pas pu être créée : utilisateur invalide"
+			"activityUserIdInvalid": "L'activité n'a pas pu être créée : utilisateur invalide",
+			"groupLimitationsGroup": "Votre groupe ne peut plus accueillir d'apprenants",
+			"groupLimitationsTeacher": "Vous avez atteint la limite d'apprenants que votre groupe vous octroie"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",
@@ -1127,7 +1129,8 @@
 			"usersWithoutGroupsDescription": "Groupement d'utilisateurs n'étant liés à aucun groupe",
 			"usersInactiveOrNoRegularDescription": "Groupement d'utilisateurs inactifs et/ou non regular",
 			"groupDeleteError": "Le groupe n'a pas pu être supprimé.",
-			"groupFull": "Le groupe est complet."
+			"groupFull": "Le groupe est complet.",
+			"groupFullAdminMessage": "Le groupe est complet, vous ne pouvez pas ajouter d'autres utilisateurs."
 		},
 		"buttons": {
 			"continue": "Continuer",
