@@ -244,6 +244,8 @@
     </div>
 </div>
 <div id="classroom-dashboard-profil-panel-teacher" class="dashboard-block profile-panel" style="display:none;">
+    <!-- Div alert when application has expired -->
+    <div id="info-applications" class="alert alert-danger text-center" style="display:none;"></div>
     <img src="assets/media/profile_picture.svg" alt="Photo de profil" class="user-picture">
     <span id="user-name-teacher" data-i18n="classroom.profile.identity"></span>
     <!--  <span>CLASSE : <span id="classroom-subject-teacher"> matière enseignée</span></span> -->
@@ -758,6 +760,8 @@
 <div id="groupadmin-dashboard-users" style="display:none;" class="dashboard-block">
     <div class="d-flex justify-content-center c-primary-form activity-search" style="margin: 0 auto;">
         <div class="container">
+            <!-- Div alert when application has expired -->
+            <div id="info-group-applications" class="alert alert-danger text-center" style="display:none;"></div>
             <div class="row">
                 <div class="row mb-2" id="btn-create-superadmin">
                     <button class="btn-warning btn mx-1" id="create_user_link_to_group_groupadmin"
@@ -1096,6 +1100,7 @@
                             let currentTask = (onEnd) => {
                                 mainGroupAdmin.init().then((resolve) => {
                                     mainSuperAdmin.init().then((resolve) => {
+                                        isUserAppsOutDated();
                                         onEnd();
                                     })
                                 })

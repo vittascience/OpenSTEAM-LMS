@@ -75,8 +75,10 @@ class GroupAdminManager {
     getGroupsUserAdmin() {
         const process = (data) => {
             let data_table = "";
+
             mainGroupAdmin.getGroupAdminManager()._comboGroups = data;
             data.forEach(element => {
+                isGroupAppsOutDated(element.id);
                 let div_img = ""
                 if (element.hasOwnProperty('applications')) {
                     element.applications.forEach(element_2 => {
@@ -474,6 +476,39 @@ class GroupAdminManager {
                 data: {
                     group_id: $group_id
                 },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    isGroupsApplicationsOutDated($group_id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=groupadmin&action=is_groups_applications_outdated",
+                data: {
+                    group_id: $group_id
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    isUserApplicationsOutDated() {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=groupadmin&action=is_teachers_applications_outdated",
                 success: function (response) {
                     resolve(JSON.parse(response));
                 },

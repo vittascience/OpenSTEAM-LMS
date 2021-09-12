@@ -2179,3 +2179,35 @@ function getSubjects(grade) {
  * Get the grade and the subject in the user language
  */
 const Grade = getGrades();
+
+
+// Applications management 
+function isUserAppsOutDated() {
+    mainGroupAdmin.getGroupAdminManager().isUserApplicationsOutDated().then((response) => {
+        if (response.message == true) {
+            const Apps = response.applications;
+            let text = "";
+            Apps.forEach(app => {
+                const event = new Date(app.date_end.date);
+                text+=`Votre application ${app.app.name} a expiré le ${event.toLocaleDateString()}. Pour plus d'informations contactez un administrateur. \n`;
+            });
+            $('#info-applications').html(text);
+            $('#info-applications').show();
+        }
+    })
+}
+
+function isGroupAppsOutDated(group_id) {
+    mainGroupAdmin.getGroupAdminManager().isGroupsApplicationsOutDated(group_id).then((response) => {
+        if (response.message == true) {
+            const Apps = response.applications;
+            let text = "";
+            Apps.forEach(app => {
+                const event = new Date(app.date_end.date);
+                text+=`Votre application ${app.app.name} a expiré le ${event.toLocaleDateString()}. Pour plus d'informations contactez un administrateur. \n`;
+            });
+            $('#info-group-applications').html(text);
+            $('#info-group-applications').show();
+        }
+    })
+}

@@ -122,6 +122,7 @@
                             let currentTask = (onEnd) => {
                                 mainGroupAdmin.init().then((resolve) => {
                                     mainSuperAdmin.init().then((resolve) => {
+                                        isUserAppsOutDated();
                                         onEnd();
                                     })
                                 })
