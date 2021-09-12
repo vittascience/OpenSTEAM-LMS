@@ -1151,10 +1151,12 @@ function updateAppForUser() {
                 <label class="form-check-label" for="application_${element.id}">
                     ${element.name}
                 </label>
-                <input type="date" id="begin_date_${element.id}" name="trip-start" value="${new Date()}" min="${new Date()}"
-                    max="2023-12-31">
-                <input type="date" id="end_date_${element.id}" name="trip-start" min="0"
-                    max="2025-12-31">
+                <br>
+                <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
+                <input type="date" id="begin_date_${element.id}" name="trip-start" value="${new Date()}" min="${new Date()}" max="2023-12-31">
+                <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
+                <input type="date" id="end_date_${element.id}" name="trip-start" min="0" max="2025-12-31">
+                <label class="form-check-label" for="max_teacher_${element.id}">${i18next.t('superadmin.group.maxStudents')}</label>
                 <input type="number" id="max_teacher_${element.id}" value="0">
                 </div>`;
             } else {
@@ -1166,10 +1168,14 @@ function updateAppForUser() {
                 <label class="form-check-label" for="application_${element.id}">
                     ${element.name}
                 </label>
+                <br>
+                <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
                 <input type="date" id="begin_date_${element.id}" name="trip-start" value="${dateBegin}"
                     max="2023-12-31">
+                <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
                 <input type="date" id="end_date_${element.id}" name="trip-start" value="${dateEnd}"
                     max="2025-12-31">
+                <label class="form-check-label" for="max_teacher_${element.id}">${i18next.t('superadmin.group.maxStudents')}</label>
                 <input type="number" id="max_teacher_${element.id}" value="${infoapp.max_students}">
                 </div>`;
             }
@@ -1749,13 +1755,22 @@ function optionsGroupApplications($type) {
                 <label class="form-check-label" for="application_${element.id}">
                     ${element.name}
                 </label>
-                <input type="date" id="begin_date_${element.id}" name="trip-start" value="${new Date()}" min="${new Date()}"
-                    max="2023-12-31">
-                <input type="date" id="end_date_${element.id}" name="trip-start" min="0"
-                    max="2025-12-31">
+                <br>
+                <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
+                <input type="date" id="begin_date_${element.id}" name="trip-start" value="${new Date()}" min="${new Date()}" max="2023-12-31">
+                <br>
+                <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
+                <input type="date" id="end_date_${element.id}" name="trip-start" min="0" max="2025-12-31">
+                    <br>
+                    <label class="form-check-label" for="max_students_per_teachers_${element.id}">${i18next.t('superadmin.group.studentsPerTeacher')}</label>
                     <input type="number" id="max_students_per_teachers_${element.id}">
+                    <br>
+                    <label class="form-check-label" for="max_students_per_groups_${element.id}">${i18next.t('superadmin.group.studentsPerGroup')}</label>
                     <input type="number" id="max_students_per_groups_${element.id}">
+                    <br>
+                    <label class="form-check-label" for="max_teachers_per_groups_${element.id}">${i18next.t('superadmin.group.teachersPerGroup')}</label>
                     <input type="number" id="max_teachers_per_groups_${element.id}">
+                    <br>
                 </div>`;
             } else {
                 console.log($infoapp);
@@ -1767,13 +1782,23 @@ function optionsGroupApplications($type) {
                 <label class="form-check-label" for="application_${element.id}">
                     ${element.name}
                 </label>
+                <br>
+                <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
                 <input type="date" id="begin_date_${element.id}" name="trip-start" value="${dateBegin}"
                     max="2023-12-31">
+                <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
                 <input type="date" id="end_date_${element.id}" name="trip-start" value="${dateEnd}"
                     max="2025-12-31">
+                <br>
+                <label class="form-check-label" for="max_students_per_teachers_${element.id}">${i18next.t('superadmin.group.studentsPerTeacher')}</label>
                 <input type="number" id="max_students_per_teachers_${element.id}" value="${$infoapp.max_students_per_teachers}">
+                <br>
+                <label class="form-check-label" for="max_students_per_groups_${element.id}">${i18next.t('superadmin.group.studentsPerGroup')}</label>
                 <input type="number" id="max_students_per_groups_${element.id}" value="${$infoapp.max_students_per_groups}">
+                <br>
+                <label class="form-check-label" for="max_teachers_per_groups_${element.id}">${i18next.t('superadmin.group.teachersPerGroup')}</label>
                 <input type="number" id="max_teachers_per_groups_${element.id}" value="${$infoapp.max_teachers_per_groups}">
+                <br>
                 </div>`;
             }
 
@@ -2189,7 +2214,10 @@ function isUserAppsOutDated() {
             let text = "";
             Apps.forEach(app => {
                 const event = new Date(app.date_end.date);
-                text+=`Votre application ${app.app.name} a expiré le ${event.toLocaleDateString()}. Pour plus d'informations contactez un administrateur. \n`;
+                let stringToShow = i18next.t('superadmin.account.subscriptionOudated');
+                stringToShow = stringToShow.replace("APPNAME", app.app.name);
+                stringToShow = stringToShow.replace("DATE", event.toLocaleDateString());
+                text += stringToShow;
             });
             $('#info-applications').html(text);
             $('#info-applications').show();
@@ -2204,7 +2232,10 @@ function isGroupAppsOutDated(group_id) {
             let text = "";
             Apps.forEach(app => {
                 const event = new Date(app.date_end.date);
-                text+=`Votre application ${app.app.name} a expiré le ${event.toLocaleDateString()}. Pour plus d'informations contactez un administrateur. \n`;
+                let stringToShow = i18next.t('superadmin.account.subscriptionOudated');
+                stringToShow = stringToShow.replace("APPNAME", app.app.name);
+                stringToShow = stringToShow.replace("DATE", event.toLocaleDateString());
+                text += stringToShow;
             });
             $('#info-group-applications').html(text);
             $('#info-group-applications').show();

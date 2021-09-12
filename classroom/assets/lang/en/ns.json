@@ -648,7 +648,8 @@
 			"userNotFound": "User not found and / or already active",
 			"userNotFoundId": "User not found",
 			"errorActivation": "An error occurred during activation.",
-			"notAllowedToCreateUserInThisGroup": "You are not authorized to create a user in this group."
+			"notAllowedToCreateUserInThisGroup": "You are not authorized to create a user in this group.",
+			"subscriptionOudated": "Your APPNAME app has expired on DATE. For more information contact an administrator."
 		},
 		"users": {
 			"users": "Users",
@@ -837,7 +838,11 @@
 			"usersInactiveOrNoRegularDescription": "Group of inactive and / or non-regular users",
 			"groupDeleteError": "The group could not be deleted.",
 			"groupFull": "The group is full.",
-			"groupFullAdminMessage": "The group is full, you cannot add other users."
+			"groupFullAdminMessage": "The group is full, you cannot add other users.",
+			"teachersPerGroup": "Teacher per group",
+			"studentsPerGroup": "Students per group",
+			"studentsPerTeacher": "Students per teacher",
+			"maxStudents": "Maximum students"
 		},
 		"buttons": {
 			"continue": "Continue",

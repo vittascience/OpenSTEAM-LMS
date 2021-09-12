@@ -941,7 +941,8 @@
 			"userNotFound": "Utilisateur introuvable et / ou déjà actif",
 			"userNotFoundId": "Utilisateur introuvable",
 			"errorActivation": "Une erreur est survenue lors de la l'activation.",
-			"notAllowedToCreateUserInThisGroup": "Vous n'êtes pas autorisé à créer un utilisateur dans ce groupe."
+			"notAllowedToCreateUserInThisGroup": "Vous n'êtes pas autorisé à créer un utilisateur dans ce groupe.",
+			"subscriptionOudated": "Votre application APPNAME a expiré le DATE. Pour plus d'informations contactez un administrateur."
 		},
 		"users": {
 			"users": "Utilisateurs",
@@ -1130,7 +1131,11 @@
 			"usersInactiveOrNoRegularDescription": "Groupement d'utilisateurs inactifs et/ou non regular",
 			"groupDeleteError": "Le groupe n'a pas pu être supprimé.",
 			"groupFull": "Le groupe est complet.",
-			"groupFullAdminMessage": "Le groupe est complet, vous ne pouvez pas ajouter d'autres utilisateurs."
+			"groupFullAdminMessage": "Le groupe est complet, vous ne pouvez pas ajouter d'autres utilisateurs.",
+			"teachersPerGroup": "Enseignant par groupe",
+			"studentsPerGroup": "Élèves par groupe",
+			"studentsPerTeacher": "Élèves par enseignant",
+			"maxStudents": "Maximum d'élèves"
 		},
 		"buttons": {
 			"continue": "Continuer",
