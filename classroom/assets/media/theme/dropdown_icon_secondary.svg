@@ -3,7 +3,7 @@
         <style>
             /* Change color here to the value of --classroom-secondary */
             .cls-1 {
-                fill: #FF696B;
+                fill: #F58246;
             }
         </style>
     </defs>

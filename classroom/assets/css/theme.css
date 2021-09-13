@@ -6,6 +6,7 @@
     --classroom-secondary: #F58246;
     --classroom-secondary-dark: #EC684C;
     --classroom-tertiary: #62CAE0;
+    --classroom-tertiary-dark: #50afc2;
 
     --correction-0: #ffc152;
     --correction-1: #ffda97;
@@ -27,7 +28,9 @@
     --classroom-black: #000;
     --classroom-green: #22b573;
     --classroom-red: #dc3545;
+    --classroom-red-dark: #ad242c;
     --classroom-blue: #3fa9f5;
+    --classroom-gold: #f0af39;
 
     /* Default dashboard colors (used for students) */
     --classroom-dashboard: var(--classroom-primary);

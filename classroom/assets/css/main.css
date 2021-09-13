@@ -1,3 +1,5 @@
+@import url("./admin.css"); 
+
 /* FONTS */
 @font-face {
     font-family: 'OpenDyslexic';
@@ -191,15 +193,6 @@ body {
 
 .info-class {
     font-weight: bold;
-}
-
-input[type="search"] {
-    border: 0px;
-    border-bottom: 2px solid var(--classroom-primary);
-    margin: 0.25em;
-    flex-grow: 1;
-    background: var(--classroom-background);
-    color: var(--classroom-text-1);
 }
 
 .classroom-login-container>label {
