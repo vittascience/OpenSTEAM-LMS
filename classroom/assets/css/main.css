@@ -418,7 +418,9 @@ button {
     }
 
     #classroom-dashboard-sidebar,
-    #classroom-dashboard-sidebar-teacher {
+    #classroom-dashboard-sidebar-teacher,
+    #superadmin-dashboard-sidebar,
+    #groupadmin-dashboard-sidebar {
         z-index: 3;
         position: fixed;
         bottom: 0;

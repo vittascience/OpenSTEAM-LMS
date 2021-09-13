@@ -1,9 +1,35 @@
 /* ADMIN PANELS */
-#table_back_to_users {
+#groups_table_superadmin>tr>th:first-child {
+    cursor: pointer;
+}
+
+.group-header {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.group-header h2 {
+    font-weight: 700;
+    margin-left: 0.5em;
+    margin-bottom: 0em;
+}
+
+.group-header button {
     width: 2em;
     height: 2em;
     border-radius: 50%;
     align-self: center;
+    line-height: 0.5em;
+}
+
+.group-header button i {
+    left: -1px;
+    position: relative;
+    vertical-align: middle;
+}
+
+.tooltip-container {
+    position: relative;
 }
 
 /* GROUP ADMIN */
