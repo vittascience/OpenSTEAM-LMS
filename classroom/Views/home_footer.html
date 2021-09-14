@@ -91,6 +91,7 @@
                                 }
                             } else {
                                 $('#classroom-dashboard-sidebar').show()
+                                $('body').addClass('theme-student')
                                 $('.user-picture').attr('src',
                                     '/classroom/assets/media/alphabet/' +
                                     UserManager.getUser().pseudo.slice(0, 1).toUpperCase() +

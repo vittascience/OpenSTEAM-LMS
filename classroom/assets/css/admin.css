@@ -1,4 +1,23 @@
+/* ADMIN MODALS */
+.theme-group-admin .vitta-modal-title,
+.theme-super-admin .vitta-modal-title {
+    color: var(--classroom-secondary) !important;
+}
+
+.theme-group-admin .vitta-modal-exit-btn,
+.theme-super-admin .vitta-modal-exit-btn {
+    background-color: var(--classroom-secondary) !important;
+    color: var(--classroom-white) !important;
+}
+
+.theme-group-admin .vitta-modal-exit-btn:hover,
+.theme-super-admin .vitta-modal-exit-btn:hover {
+    background-color: var(--classroom-secondary-dark) !important;
+}
+
 /* ADMIN PANELS */
+
+
 #groups_table_superadmin>tr>th:first-child {
     cursor: pointer;
 }
