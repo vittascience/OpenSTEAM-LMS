@@ -134,8 +134,15 @@ $('.new-classroom-form').click(function () {
             'school': $('#classroom-form-school').val(),
             'isBlocked': document.querySelector('#classroom-form-is-blocked').checked
         }).then(function (classroom) {
+            // handle specific error
+            if(classroom.errorType){
+                displayNotification('#notif-div', `classroom.notif.${classroom.errorType}`, "error", `'{"ClassroomNameInvalid": "${classroom.errorType}"}'`)
+                $('.new-classroom-form').attr('disabled', false);
+                return
+            } 
             // If the backend detects that the user is not a premium user and that he already has one classroom
-            if(classroom.isClassroomAdded == false){
+            else if(classroom.isClassroomAdded == false){
+                
                 displayNotification('#notif-div', "classroom.notif.classNotCreated", "error", `'{"classroomNumberLimit": "${classroom.classroomNumberLimit}"}'`);
                $('.new-classroom-form').attr('disabled', false);
             }else{
