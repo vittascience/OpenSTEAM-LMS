@@ -339,8 +339,6 @@ const classroomModals = {
                 </div>
                 <select class="form-control" id="u_group">
                 </select>
-                <button class="btn btn-sm btn-info ml-1" onclick="addGroupSuperAdmin()" id="add_group_superadmin" data-i18n="superadmin.buttons.user.addGroup">Ajouter un
-                    groupe</button>
             </div>
             <div id="group_add_sa">
             </div>

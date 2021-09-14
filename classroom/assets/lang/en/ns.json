@@ -595,9 +595,9 @@
 		"profil": {
 			"superAdmin": "Switch to superadmin",
 			"groupAdmin": "Switch to group admin",
-			"bio": "Bio <span class=\"text-danger\">*</span>",
+			"bio": "Bio",
 			"email": "E-mail <span class=\"text-danger\">*</span>",
-			"nickname": "Username <span class=\"text-danger\">*</span>",
+			"nickname": "Username",
 			"lastname": "Lastname <span class=\"text-danger\">*</span>",
 			"firstname": "Firstname <span class=\"text-danger\">*</span>",
 			"phone": "Phone number",

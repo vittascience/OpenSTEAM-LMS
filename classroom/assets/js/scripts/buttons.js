@@ -1823,7 +1823,31 @@ function optionsGroupApplications($type) {
 }
 
 function createSubjectSelect(array, type) {
-    if (type === 0) {
+    let html = "";
+    switch (type) {
+        case 0:
+            html = $("#user_teacher_subjects");
+            break;
+        case 1:
+            html = $("#user_teacher_subjects_ga");
+            break;
+        case 2:
+            html = $("#update_user_teacher_subjects");
+            break;
+        case 3:
+            html = $("#update_user_teacher_subjects_ga");
+            break;
+        default:
+            break;
+    }
+    html.empty();
+    for (let index = 0; index < array.length; index++) {
+        const o = new Option(array[index], index);
+        $(o).html(array[index]);
+        html.append(o);
+    }
+
+/*     if (type === 0) {
         $("#user_teacher_subjects").empty();
         for (let index = 0; index < array.length; index++) {
             const o = new Option(array[index], index);
@@ -1851,7 +1875,7 @@ function createSubjectSelect(array, type) {
             $(o).html(array[index]);
             $("#update_user_teacher_subjects_ga").append(o);
         }
-    }
+    } */
 }
 
 $('#dashboard-groupadmin-users-side').click(() => {
@@ -1975,7 +1999,6 @@ function updateUserModalGroupAdmin() {
         $teacher_suject = $('#update_user_teacher_subjects_ga').val(),
         $ApplicationFromGroup = $(':checked[name="group_app"]').val(),
         $groups = [$('#update_u_is_group_admin_ga0').is(':checked'), $('#update_u_group_ga0').val()];
-        
     if (!$ApplicationFromGroup) {
         $ApplicationFromGroup = -1;
     }

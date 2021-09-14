@@ -325,87 +325,7 @@ function createTeacherAccount(formData) {
     });
 }
 
-/**
- * Check if the teacher's account update form values are correct
- * @returns {boolean} - true if check ok, false otherwise
- */
-/* function teacherAccountCreateFormCheck(formData) {
 
-    let formValues = {
-            'firstname': {
-                value: formData.get('first-name'),
-                id: 'profile-form-first-name'
-            },
-            'surname': {
-                value: formData.get('last-name'),
-                id: 'profile-form-last-name'
-            },
-            'pseudo': {
-                value: formData.get('nickname'),
-                id: 'profile-form-nick-name'
-            },
-            'email': {
-                value: formData.get('email'),
-                id: 'profile-form-email'
-            },
-            'password': {
-                value: formData.get('password'),
-                id: 'profile-form-password'
-            },
-            'confirmPassword': {
-                value: formData.get('confirm-password'),
-                id: 'profile-form-confirm-password'
-            }
-        },
-        errors = [];
-
-    for (let input in formValues) {
-        let currentElt = document.getElementById(formValues[input].id);
-        if (currentElt.classList.contains('form-input-error')) {
-            currentElt.classList.remove('form-input-error');
-        }
-    }
-
-    if (formValues.firstname.value.length < 2) {
-        errors.push('firstNameTooShort');
-        showFormInputError(formValues.firstname.id);
-    }
-
-    if (formValues.surname.value.length < 2) {
-        errors.push('lastNameTooShort');
-        showFormInputError(formValues.surname.id);
-    }
-
-    if (formValues.pseudo.value.length < 2) {
-        errors.push('pseudoTooShort');
-        showFormInputError(formValues.pseudo.id);
-    }
-
-    if (!formValues.email.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
-        errors.push('invalidEmail');
-        showFormInputError(formValues.email.id);
-    }
-
-    if (!formValues.password.value.length > 7) {
-        errors.push('invalidPassword');
-        showFormInputError(formValues.password.id);
-    }
-
-    if (formValues.password.value != formValues.confirmPassword.value) {
-        errors.push('passwordAndConfirmMismatch');
-        showFormInputError(formValues.password.id);
-        showFormInputError(formValues.confirmPassword.id);
-    }
-
-    if (errors.length) {
-        for (let error of errors) {
-            displayNotification('#notif-div', `classroom.notif.${error}`, "error");
-        }
-        return false;
-    } else {
-        return true;
-    }
-} */
 
 /**
  * Check if the teacher's account update form values are correct
@@ -547,3 +467,89 @@ function createSubjectSelectTeacherForm(array) {
 setTimeout(() => {
     createSubjectSelectTeacherForm(getSubjects(0));
 }, 2000);
+
+
+/**
+ * Old functions
+ */
+/**
+ * Check if the teacher's account update form values are correct
+ * @returns {boolean} - true if check ok, false otherwise
+ */
+/* function teacherAccountCreateFormCheck(formData) {
+
+    let formValues = {
+            'firstname': {
+                value: formData.get('first-name'),
+                id: 'profile-form-first-name'
+            },
+            'surname': {
+                value: formData.get('last-name'),
+                id: 'profile-form-last-name'
+            },
+            'pseudo': {
+                value: formData.get('nickname'),
+                id: 'profile-form-nick-name'
+            },
+            'email': {
+                value: formData.get('email'),
+                id: 'profile-form-email'
+            },
+            'password': {
+                value: formData.get('password'),
+                id: 'profile-form-password'
+            },
+            'confirmPassword': {
+                value: formData.get('confirm-password'),
+                id: 'profile-form-confirm-password'
+            }
+        },
+        errors = [];
+
+    for (let input in formValues) {
+        let currentElt = document.getElementById(formValues[input].id);
+        if (currentElt.classList.contains('form-input-error')) {
+            currentElt.classList.remove('form-input-error');
+        }
+    }
+
+    if (formValues.firstname.value.length < 2) {
+        errors.push('firstNameTooShort');
+        showFormInputError(formValues.firstname.id);
+    }
+
+    if (formValues.surname.value.length < 2) {
+        errors.push('lastNameTooShort');
+        showFormInputError(formValues.surname.id);
+    }
+
+    if (formValues.pseudo.value.length < 2) {
+        errors.push('pseudoTooShort');
+        showFormInputError(formValues.pseudo.id);
+    }
+
+    if (!formValues.email.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
+        errors.push('invalidEmail');
+        showFormInputError(formValues.email.id);
+    }
+
+    if (!formValues.password.value.length > 7) {
+        errors.push('invalidPassword');
+        showFormInputError(formValues.password.id);
+    }
+
+    if (formValues.password.value != formValues.confirmPassword.value) {
+        errors.push('passwordAndConfirmMismatch');
+        showFormInputError(formValues.password.id);
+        showFormInputError(formValues.confirmPassword.id);
+    }
+
+    if (errors.length) {
+        for (let error of errors) {
+            displayNotification('#notif-div', `classroom.notif.${error}`, "error");
+        }
+        return false;
+    } else {
+        return true;
+    }
+} */

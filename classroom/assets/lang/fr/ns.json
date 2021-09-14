@@ -888,9 +888,9 @@
 		"profil": {
 			"superAdmin": "Passer en mode superadmin",
 			"groupAdmin": "Passer en mode admin de groupe",
-			"bio": "Bio <span class=\"text-danger\">*</span>",
+			"bio": "Bio",
 			"email": "E-mail <span class=\"text-danger\">*</span>",
-			"nickname": "Pseudo <span class=\"text-danger\">*</span>",
+			"nickname": "Pseudo",
 			"lastname": "Nom <span class=\"text-danger\">*</span>",
 			"firstname": "Prénom <span class=\"text-danger\">*</span>",
 			"phone": "Numéro de téléphone",
