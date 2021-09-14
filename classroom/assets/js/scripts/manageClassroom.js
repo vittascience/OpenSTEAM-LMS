@@ -198,7 +198,6 @@ $('.new-classroom-form').click(function () {
                 }
                 else{
                     Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
-                        ClassroomSettings.classroom = null
                         addUserAndGetDashboard(classroom.link)
                         displayNotification('#notif-div', "classroom.notif.classroomUpdated", "success", `'{"classroomName": "${classroom.name}"}'`)
                     });
