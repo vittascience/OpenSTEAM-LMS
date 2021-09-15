@@ -1,6 +1,8 @@
 # French
 OpenSTEAM LMS est un module de gestion de classe (LMS en anglais) co-développé par Vittascience et Cabrilog, qui vous est proposé sur les plateformes [vittascience.com](https://fr.vittascience.com) et [cabri.com](https://cabri.com/fr/) sous forme de service Cloud.
 
+[![Slack Badge](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)](https://join.slack.com/t/opensteamlms/shared_invite/zt-vte7c70i-ISGyg~OpWqFrodMlSVOkXg)
+
 ![Vittascience-Cabri-FR](https://user-images.githubusercontent.com/36603099/115318825-d7003b80-a17e-11eb-89e6-2884b40bef60.jpg)
 
 OpenSTEAM LMS a bénéficié du soutien du Ministère de l'Éducation Nationale via [le dispositif Édu-up](https://eduscol.education.fr/1603/le-dispositif-edu).
@@ -15,6 +17,8 @@ N’hésitez pas à contacter l’équipe [Vittascience](mailto:contact@vittasci
 
 # English
 OpenSTEAM LMS is a Learning Management System (LMS) co-developed by Vittascience and Cabrilog, which is offered to you on the [vittascience.com](https://en.vittascience.com) and [cabri.com](https://cabri.com/en/) platforms as a Cloud service.
+
+[![Slack Badge](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)](https://join.slack.com/t/opensteamlms/shared_invite/zt-vte7c70i-ISGyg~OpWqFrodMlSVOkXg)
 
 ![Vittascience-Cabri-EN](https://user-images.githubusercontent.com/36603099/115319277-b2589380-a17f-11eb-9f17-2bbfbd4b227c.jpg)
 
