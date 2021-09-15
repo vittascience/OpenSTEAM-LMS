@@ -841,6 +841,8 @@
 			"groupDeleteError": "The group could not be deleted.",
 			"groupFull": "The group is full.",
 			"groupFullAdminMessage": "The group is full, you cannot add other users.",
+			"toManyStudentsFromTheTeacher": "The teacher you want to add to the group has too many students",
+			"toManyStudentsInGroup": "The group cannot accommodate so many students, the teacher has too many students.",
 			"teachersPerGroup": "Teacher per group",
 			"studentsPerGroup": "Students per group",
 			"studentsPerTeacher": "Students per teacher",

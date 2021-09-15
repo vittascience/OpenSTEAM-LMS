@@ -1134,6 +1134,8 @@
 			"groupDeleteError": "Le groupe n'a pas pu être supprimé.",
 			"groupFull": "Le groupe est complet.",
 			"groupFullAdminMessage": "Le groupe est complet, vous ne pouvez pas ajouter d'autres utilisateurs.",
+			"toManyStudentsFromTheTeacher": "Le professeur que vous souhaitez ajouter au groupe possède trop d'élève",
+			"toManyStudentsInGroup": "Le groupe ne peut pas accueillir autant d'élèves, le professeur possède trop d'élèves.",
 			"teachersPerGroup": "Enseignant par groupe",
 			"studentsPerGroup": "Élèves par groupe",
 			"studentsPerTeacher": "Élèves par enseignant",

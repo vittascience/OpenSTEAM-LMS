@@ -1442,12 +1442,17 @@ function updateUserModal() {
         $school,
         $is_active,
         $ApplicationFromGroup).then((response) => {
+        console.log(response)
         if (response.message == "success") {
             displayNotification('#notif-div', "superadmin.users.userUpdated", "success");
             pseudoModal.closeAllModal();
             tempoAndShowUsersTable()
         } else if (response.message == "missing data") {
             displayNotification('#notif-div', "superadmin.account.missingData", "error");
+        } else if (response.message == "maxStudentsFromTeacher") {
+            displayNotification('#notif-div', "superadmin.group.toManyStudentsFromTheTeacher", "error");
+        } else if (response.message = "maxStudentsInGroup") {
+            displayNotification('#notif-div', "superadmin.group.toManyStudentsInGroup", "error");
         }
     });
 }
@@ -2017,6 +2022,10 @@ function updateUserModalGroupAdmin() {
             pseudoModal.closeAllModal();
         } else if (response.message == "missing data") {
             displayNotification('#notif-div', "superadmin.account.missingData", "error");
+        } else if (response.message == "maxStudentsFromTeacher") {
+            displayNotification('#notif-div', "superadmin.group.toManyStudentsFromTheTeacher", "error");
+        } else if (response.message = "maxStudentsInGroup") {
+            displayNotification('#notif-div', "superadmin.group.toManyStudentsInGroup", "error");
         }
     });
     tempoAndShowUsersTableGroupAdmin();
