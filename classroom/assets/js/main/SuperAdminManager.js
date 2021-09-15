@@ -282,7 +282,7 @@ class SuperAdminManager {
         })
     }
 
-    createUserAndLinkToGroup($firstname, $surname, $user_pseudo, $phone, $mail, $bio, $groups, $is_admin, $is_teacher, $teacher_grade, $teacher_suject, $school, $is_active) {
+    createUserAndLinkToGroup($firstname, $surname, $user_pseudo, $phone, $mail, $bio, $groups, $is_admin, $is_teacher, $teacher_grade, $teacher_suject, $school) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
