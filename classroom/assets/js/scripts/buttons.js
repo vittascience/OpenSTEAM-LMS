@@ -1461,7 +1461,6 @@ function createUserAndLinkToGroup() {
         $pseudo = $('#u_pseudo').val(),
         $phone = $('#u_phone').val(),
         $school = $('#u_school').val(),
-        $is_active = $('#u_is_active').is(':checked'),
         $is_admin = $('#u_is_admin').is(':checked'),
         $is_teacher = $('#u_is_teacher').is(':checked'),
         $teacher_grade = $('#user_teacher_grade').val(),
@@ -1484,8 +1483,7 @@ function createUserAndLinkToGroup() {
         $is_teacher,
         $teacher_grade,
         $teacher_suject,
-        $school,
-        $is_active).then((response) => {
+        $school).then((response) => {
         if (response.message == "success") {
             displayNotification('#notif-div', "superadmin.users.userCreated", "success");
             if (response.mail == true) {

@@ -299,8 +299,7 @@ class SuperAdminManager {
                     grade: parseInt($teacher_grade) + 1,
                     subject: parseInt($teacher_suject) + 1,
                     mail: $mail,
-                    school: $school,
-                    isactive: $is_active
+                    school: $school
                 },
                 success: function (response) {
                     resolve(JSON.parse(response));

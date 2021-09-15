@@ -290,12 +290,6 @@ const classroomModals = {
                         <textarea class="form-control" id="u_bio" rows="3"></textarea>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input type="checkbox" id="u_is_active">
-                        <label class="form-check-label" for="u_is_active" data-i18n="superadmin.account.active">
-                            Compte actif
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline">
                         <input type="checkbox" id="u_is_admin">
                         <label class="form-check-label" for="u_is_admin" data-i18n="superadmin.users.admin">
                             Administrateur
