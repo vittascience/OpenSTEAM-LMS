@@ -17,6 +17,7 @@ class GroupAdminManager {
      */
     constructor() {
         this._allGroups = []
+        this._actualGroup = 0
         this._addedCreateUserGroup = 0
         this._updatedUserGroup = 0
         this._comboGroups = []
@@ -78,6 +79,8 @@ class GroupAdminManager {
 
             mainGroupAdmin.getGroupAdminManager()._comboGroups = data;
             data.forEach(element => {
+                // there is only one group possible
+                mainGroupAdmin.getGroupAdminManager()._actualGroup = element.id;
                 isGroupAppsOutDated(element.id);
                 let div_img = ""
                 if (element.hasOwnProperty('applications')) {
