@@ -284,12 +284,11 @@ function openCsvModal(){
 function importLearnerCsv(){
     if(ClassroomSettings.classroom){
         csvToClassroom(ClassroomSettings.classroom).then((response) => {
-            console.log(response)
             /**
              * Updated @Rémi
              * the case where the students was not added was not implemented
              */
-            if (response.isUsersAdded == true) {
+            if (response == true) {
                 pseudoModal.closeModal('import-csv');
                 Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
                     let students = getClassroomInListByLink(ClassroomSettings.classroom)[0].students;
