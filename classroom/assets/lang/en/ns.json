@@ -180,8 +180,10 @@
 			"activityContentInvalid": "Activity could not be created: invalid content",
 			"activityIsFromClassroomInvalid": "Activity could not be created: context error",
 			"activityUserIdInvalid": "Activity could not be created: invalid user",
+			"personalLimitationsReached": "You have reached your maximum number of students.",
 			"groupLimitationsGroup": "Your group can no longer accommodate learners",
-			"groupLimitationsTeacher": "You have reached the learner limit that your group grants you"
+			"groupLimitationsTeacher": "You have reached the learner limit that your group grants you",
+			"bothLimitationsReached": "You have reached the student limitations that you and your group may have."
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",

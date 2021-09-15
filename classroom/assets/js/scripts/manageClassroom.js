@@ -230,23 +230,7 @@ $('body').on('click', '.save-student-in-classroom', function () {
                  * Update Rémi : Users limitation by group 
                  * possible return : personalLimit, personalLimitAndGroupOutDated, bothLimitReached
                  */
-                if (response.hasOwnProperty('message')) {
-                    if (response.message == "personalLimit") {
-                        displayNotification('#notif-div', "classroom.notif.groupLimitationsGroup", "error");
-                        console.log(response)
-                        // Afficher une modal d'upgrade
-                    } else if (response.message == "personalLimitAndGroupOutDated") {
-                        displayNotification('#notif-div', "classroom.notif.groupLimitationsTeacher", "error");
-                        console.log(response)
-                        // Afficher une modal d'upgrade
-                    } else if (response.message == "bothLimitReached") {
-                        // Teacher's and Group's limits reached
-                        displayNotification('#notif-div', "classroom.notif.groupLimitationsTeacher", "error");
-                        console.log(response)
-                    }
-                } else {
-                    displayNotification('#notif-div', "classroom.notif.usersNotAdded", "error", `'{"learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
-                }
+                 manageResponseOfAddUsers(response);
             }else{
                 Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
                     addUserAndGetDashboard(ClassroomSettings.classroom);
@@ -265,6 +249,29 @@ $('body').on('click', '.save-student-in-classroom', function () {
 })
 
 /**
+ * Manage the display notification from the response
+ * @param {*} response 
+ */
+function manageResponseOfAddUsers(response) {
+    if (response.hasOwnProperty('message')) {
+        if (response.message == "personalLimit") {
+            displayNotification('#notif-div', "classroom.notif.personalLimitationsReached", "error", `'{"learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
+            // Show upgrade modal
+        } else if (response.message == "personalLimitAndGroupOutDated") {
+            displayNotification('#notif-div', "classroom.notif.groupLimitationsTeacher", "error", `'{"learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
+           // Show upgrade modal
+        } else if (response.message == "bothLimitReached") {
+            // Teacher's and Group's limits reached
+            displayNotification('#notif-div', "classroom.notif.bothLimitationsReached", "error", `'{"learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
+            
+        }
+        console.log(response)
+    } else {
+        displayNotification('#notif-div', "classroom.notif.usersNotAdded", "error", `'{"learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
+    }
+}
+
+/**
  * Open the modal which allows to add users using a csv file
  */
 function openCsvModal(){
@@ -277,12 +284,21 @@ function openCsvModal(){
 function importLearnerCsv(){
     if(ClassroomSettings.classroom){
         csvToClassroom(ClassroomSettings.classroom).then((response) => {
-            pseudoModal.closeModal('import-csv');
-            Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
-                let students = getClassroomInListByLink(ClassroomSettings.classroom)[0].students;
-                displayStudentsInClassroom(students);
-                displayNotification('#notif-div', "classroom.notif.usersAddedFromCsv", "success");
-            });
+            console.log(response)
+            /**
+             * Updated @Rémi
+             * the case where the students was not added was not implemented
+             */
+            if (response.isUsersAdded == true) {
+                pseudoModal.closeModal('import-csv');
+                Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
+                    let students = getClassroomInListByLink(ClassroomSettings.classroom)[0].students;
+                    displayStudentsInClassroom(students);
+                    displayNotification('#notif-div', "classroom.notif.usersAddedFromCsv", "success");
+                });
+            } else {
+                manageResponseOfAddUsers(response);
+            }
         })
         .catch((response) => {
             console.warn(response);

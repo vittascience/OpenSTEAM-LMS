@@ -180,8 +180,10 @@
 			"activityContentInvalid": "L'activité n'a pas pu être créée : contenu invalide",
 			"activityIsFromClassroomInvalid": "L'activité n'a pas pu être créée : erreur de contexte",
 			"activityUserIdInvalid": "L'activité n'a pas pu être créée : utilisateur invalide",
+			"personalLimitationsReached": "Vous avez atteint votre nombre maximum d'élèves.",
 			"groupLimitationsGroup": "Votre groupe ne peut plus accueillir d'apprenants",
-			"groupLimitationsTeacher": "Vous avez atteint la limite d'apprenants que votre groupe vous octroie"
+			"groupLimitationsTeacher": "Vous avez atteint la limite d'apprenants que votre groupe vous octroie",
+			"bothLimitationsReached": "Vous avez atteint les limitations d'élèves que vous et votre groupe pouvez avoir."
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",
