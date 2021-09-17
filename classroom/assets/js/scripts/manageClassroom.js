@@ -213,7 +213,6 @@ $('.new-classroom-form').click(function () {
                 }
                 else{
                     Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
-                        ClassroomSettings.classroom = null
                         addUserAndGetDashboard(classroom.link)
                         displayNotification('#notif-div', "classroom.notif.classroomUpdated", "success", `'{"classroomName": "${classroom.name}"}'`)
                        $('.new-classroom-form').attr('disabled', false);
@@ -242,6 +241,12 @@ $('body').on('click', '.save-student-in-classroom', function () {
         })
         Main.getClassroomManager().addUsersToGroup(students, existingStudents, ClassroomSettings.classroom).then(function (response) {
             if(!response.isUsersAdded){
+                if(response.errorType){
+                    // a specific error has been returned, display it
+                    displayNotification('#notif-div', `classroom.notif.${response.errorType}`, "error", `'{"reservedNickname": "${demoStudentName}"}'`);
+                    return;
+                }
+
                 displayNotification('#notif-div', "classroom.notif.usersNotAdded", "error", `'{"learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
             }else{
                 Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
@@ -273,6 +278,12 @@ function openCsvModal(){
 function importLearnerCsv(){
     if(ClassroomSettings.classroom){
         csvToClassroom(ClassroomSettings.classroom).then((response) => {
+            if(response.errorType){
+                // a specific error has been returned, display it
+                displayNotification('#notif-div', `classroom.notif.${response.errorType}`, "error", `'{"reservedNickname": "${demoStudentName}"}'`);
+                return;
+            }
+            
             pseudoModal.closeModal('import-csv');
             Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
                 let students = getClassroomInListByLink(ClassroomSettings.classroom)[0].students;
@@ -345,6 +356,10 @@ function csvJSON(csv) {
         result.push(obj);
 
     }
+    
+    // remove the previous filename uploaded on open 
+    let csvInput = document.querySelector('#importcsv-fileinput')
+    csvInput.value = ""
     return JSON.stringify(result); //JSON
 }
 

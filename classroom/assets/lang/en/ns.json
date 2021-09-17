@@ -181,6 +181,7 @@
 			"activityIsFromClassroomInvalid": "Activity could not be created: context error",
 			"activityUserIdInvalid": "Activity could not be created: invalid user",
 			"ClassroomNameInvalid":"The classroom name is required"
+			"reservedNickname":"The name : \"{{reservedNickname}}\" can not be attributed."
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
@@ -294,6 +295,7 @@
 		"footer": {
 			"privacy": "Privacy policy ",
 			"cgu": "Terms of Service",
+			"legal": "Legal Notices",
 			"copyright": ""
 		},
 		"teacherHelpPanel": {
