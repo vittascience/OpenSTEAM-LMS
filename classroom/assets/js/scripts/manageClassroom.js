@@ -317,7 +317,7 @@ function csvJSON(csv) {
     // jsfiddle showing the issue https://jsfiddle.net/
     var headers = lines[0].split(/[,;]/);
     
-    for(i=0; i< headers.length; i++){
+    for(let i=0; i< headers.length; i++){
         headers[i] = headers[i].replace("\r","")
     }
     
