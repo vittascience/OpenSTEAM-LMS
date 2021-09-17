@@ -134,9 +134,17 @@ $('.new-classroom-form').click(function () {
             'school': $('#classroom-form-school').val(),
             'isBlocked': document.querySelector('#classroom-form-is-blocked').checked
         }).then(function (classroom) {
+            // handle specific error
+            if(classroom.errorType){
+                displayNotification('#notif-div', `classroom.notif.${classroom.errorType}`, "error", `'{"ClassroomNameInvalid": "${classroom.errorType}"}'`)
+                $('.new-classroom-form').attr('disabled', false);
+                return
+            } 
             // If the backend detects that the user is not a premium user and that he already has one classroom
-            if(classroom.isClassroomAdded == false){
+            else if(classroom.isClassroomAdded == false){
+                
                 displayNotification('#notif-div', "classroom.notif.classNotCreated", "error", `'{"classroomNumberLimit": "${classroom.classroomNumberLimit}"}'`);
+               $('.new-classroom-form').attr('disabled', false);
             }else{
                 let students = []
                 let existingStudents = []
@@ -149,6 +157,7 @@ $('.new-classroom-form').click(function () {
                     Main.getClassroomManager().addUsersToGroup(students, existingStudents, classroom.link).then(function (response) {
                         if(!response.isUsersAdded){
                             displayNotification('#notif-div', "classroom.notif.classCreatedButNotUsers", "error", `'{"classroomName": "${classroom.name}", "learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
+                           $('.new-classroom-form').attr('disabled', false);
                         }
                         else{
                             Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
@@ -176,6 +185,12 @@ $('.new-classroom-form').click(function () {
             'link': ClassroomSettings.classroom,
             'isBlocked': document.querySelector('#classroom-form-is-blocked').checked
         }).then(function (classroom) {
+
+            if(classroom.errorType){
+                displayNotification('#notif-div', `classroom.notif.${classroom.errorType}`, "error", `'{"ClassroomNameInvalid": "${classroom.errorType}"}'`)
+               $('.new-classroom-form').attr('disabled', false);
+                return
+            }
             let students = []
             let existingStudents = []
             $('.student-form-name').each(function (index) {
@@ -191,15 +206,16 @@ $('.new-classroom-form').click(function () {
                 }
             })
             Main.getClassroomManager().addUsersToGroup(students, existingStudents, classroom.link).then(function (response) {
-                console.log(response);
                 let noAdditionError = response.isUsersAdded ? response.isUsersAdded : response.noUser;
                 if(!noAdditionError){
                     displayNotification('#notif-div', "classroom.notif.classUpdatedButNotUsers", "error", `'{"classroomName": "${classroom.name}", "learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
+                   $('.new-classroom-form').attr('disabled', false);
                 }
                 else{
                     Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
                         addUserAndGetDashboard(classroom.link)
                         displayNotification('#notif-div', "classroom.notif.classroomUpdated", "success", `'{"classroomName": "${classroom.name}"}'`)
+                       $('.new-classroom-form').attr('disabled', false);
                     });
                 }
             })
