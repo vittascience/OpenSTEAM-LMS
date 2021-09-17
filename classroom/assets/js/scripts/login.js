@@ -470,7 +470,7 @@ setTimeout(() => {
 
 
 /**
- * Old functions
+ * Old functions for the old form
  */
 /**
  * Check if the teacher's account update form values are correct
@@ -553,3 +553,37 @@ setTimeout(() => {
         return true;
     }
 } */
+
+/**
+ * Create teacher form submit listener
+ */
+/*  document.getElementById('create-teacher-account-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    let data = new FormData(e.target);
+    if(teacherAccountCreateFormCheck(data)){
+        Main.getClassroomManager().createTeacherAccount(data).then((response) => {
+            if(response.isUserAdded){
+                document.getElementById('profile-form-password').value = '';
+                document.getElementById('profile-form-confirm-password').value = '';
+                displayNotification('#notif-div', "classroom.notif.accountCreated", "success");
+                returnToConnectionPanel('#login-container');
+            }else{
+                if(response.errorType){
+                    switch (response.errorType) {
+                        case 'unknownUser':
+                            displayNotification('#notif-div', "classroom.notif.unknownUser", "error");
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                }
+                if(response.errors){
+                    for(let error in response.errors){
+                        displayNotification('#notif-div', `classroom.notif.${error}`, "error");
+                    }
+                }
+            }
+        });
+    }
+}); */

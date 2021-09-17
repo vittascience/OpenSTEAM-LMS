@@ -521,4 +521,22 @@ class GroupAdminManager {
             });
         })
     }
+
+    getMonitoringGroup($group_id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=groupadmin&action=group_monitoring",
+                data: {
+                    group_id: $group_id
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
 }

@@ -2275,5 +2275,38 @@ function isGroupAppsOutDated(group_id) {
             $('#info-group-applications').html(text);
             $('#info-group-applications').show();
         }
+        getGroupMonitoring();
     })
+}
+
+function getGroupMonitoring() {
+    let actualGroup = mainGroupAdmin.getGroupAdminManager()._actualGroup;
+    mainGroupAdmin.getGroupAdminManager().getMonitoringGroup(actualGroup).then((response) => {
+        showMonitoring(response);
+    })
+}
+
+function showMonitoring(data) {
+    let html = "";
+    $('#group-monitoring-body').html();
+    if (data.hasOwnProperty('applications')) {
+        data.applications.forEach(app => {
+            const dateBegin = new Date(app.dateBegin.date);
+            const dateEnd = new Date(app.dateEnd.date);
+            const outDated = app.outDated ? "oui" : "non";
+            html += `<tr>
+                        <td>${app.name}</td>
+                        <td>${outDated}</td>
+                        <td>${dateBegin.toLocaleDateString()}</td>
+                        <td>${dateEnd.toLocaleDateString()}</td>
+                        <td>${app.maxStudents}</td>
+                        <td>${app.actualStudents}</td>
+                        <td>${app.maxTeachers}</td>
+                        <td>${app.actualTeachers}</td>
+                        <td>${app.maxStudentsPerTeacher}</td>
+                    </tr>`;
+        })
+    }
+    $('#group-monitoring-body').html(html);
+    $('#group-monitoring').show();
 }
