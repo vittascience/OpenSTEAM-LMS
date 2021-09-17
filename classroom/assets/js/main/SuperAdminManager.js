@@ -481,7 +481,7 @@ class SuperAdminManager {
 
                     mainSuperAdmin.getSuperAdminManager()._allActualUsers.push(element);
 
-                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='No rights' ></i> ";
+                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='left' title='No rights' ></i> ";
                     if (element.hasOwnProperty('rights')) {
                         $droits = element.rights === "1" ? " <i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='Admin' ></i> " : " <i class='fas fa-user fa-2x c-text-tertiary' data-toggle='tooltip' data-placement='top' title='Prof'></i> ";
                     }
@@ -490,7 +490,7 @@ class SuperAdminManager {
                     if (element.hasOwnProperty('applications')) {
                         element.applications.forEach(element_2 => {
                             if (element_2.image != null) {
-                                div_img += `<img src="assets/media/${element_2.image}" alt="Icône App">`;
+                                div_img += `<img src="assets/media/${element_2.image}">`;
                             } else {
                                 div_img += `<img src="assets/media/nologo.jpg" alt="Icône App">`;
                             }
@@ -510,13 +510,14 @@ class SuperAdminManager {
                             <td>${$droits}</td>
                             <td>${div_img}</td>
                             <td>
-                                <a class="c-link-tertiary" href="#" onclick="resetUserPassword(${element.id})">
+                                <a class="c-link-tertiary d-inline-block" href="#" onclick="resetUserPassword(${element.id})">
                                     <i class="fas fa-redo-alt fa-2x"></i>
                                 </a>
                             </td>
                             <td>
                                 <a class="c-link-secondary" href="#" onclick="showupdateUserModal(${element.id})">
-                                    <i class="fas fa-pencil-alt fa-2x"></i>
+                                    <i class="fas fa-pencil-alt fa-2x">
+                                    </i>
                                 </a>
                             </td>
                             <td>
@@ -778,7 +779,7 @@ class SuperAdminManager {
                 }
             });
             $('#groups_table_superadmin').html(data_table);
-        }
+            }
         $.ajax({
             type: "POST",
             url: "/routing/Routing.php?controller=superadmin&action=search_group_by_name",

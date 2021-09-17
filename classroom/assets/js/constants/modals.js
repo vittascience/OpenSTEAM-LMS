@@ -215,18 +215,18 @@ const classroomModals = {
             icon: '',
             title: 'superadmin.buttons.group.createA'
         },
-        content: `  <div class="form-group">
+        content: ` <div class="form-group c-secondary-form">
                         <label for="group_name" data-i18n="superadmin.group.name">Group name</label>
-                        <input type="text" class="form-control" id="group_name">
+                        <input type="text" class="form-control m-0" id="group_name">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group c-secondary-form">
                         <label for="group_desc" data-i18n="superadmin.group.description">Group description</label>
-                        <input type="text" class="form-control" id="group_desc">
+                        <input type="text" class="form-control m-0" id="group_desc">
                     </div>
                     <label for="group_apps_options" data-i18n="superadmin.group.applications">Application(s) du groupe</label>
                     <div class="form-group" id="group_apps_options">
                     </div>
-                    <button class="btn btn-primary" onclick="createGroupWithModal()">Create</button>`,
+                    <button class="btn c-btn-secondary" onclick="createGroupWithModal()">Create</button>`,
         footer: ``
     },
     'superadmin-update-group': {
@@ -260,21 +260,22 @@ const classroomModals = {
             icon: '',
             title: 'superadmin.buttons.user.createA'
         },
-        content: `<div class="row mt-1">
-                <div class="col">
+        content: `<div class="container-fluid" >
+            <div class="form-row c-secondary-form">
+                <div class="col-md-4 form-group">
                     <label for="u_firstname" data-i18n="[html]superadmin.profil.firstname">Prénom <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="u_firstname">
                 </div>
-                <div class="col">
+                <div class="col-md-4 form-group">
                     <label for="u_surname" data-i18n="[html]superadmin.profil.lastname">Nom <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="u_surname">
                 </div>
-                <div class="col">
+                <div class="col-md-4 form-group">
                     <label for="u_pseudo" data-i18n="[html]superadmin.profil.nickname">Pseudonyme</label>
                     <input type="text" class="form-control" id="u_pseudo">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group c-secondary-form">
                 <div id="regular_options">
                     <div class="row mt-2">
                         <div class="col">
@@ -304,6 +305,7 @@ const classroomModals = {
                     </div>
                 </div>
             </div>
+            
             <hr>
             <div class="form-group">
                 <div class="form-check">
@@ -346,7 +348,8 @@ const classroomModals = {
             <div id="group_add_sa">
             </div>
             
-            <button class="btn btn-primary" onclick="createUserAndLinkToGroup()" data-i18n="superadmin.buttons.user.create">Create user</button>`,
+            <button class="btn btn-primary" onclick="createUserAndLinkToGroup()" data-i18n="superadmin.buttons.user.create">Create user</button>
+            </div>`,
         footer: ``
     },
     'superadmin-update-user': {

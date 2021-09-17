@@ -176,7 +176,10 @@
 .c-tertiary-form input[type="password"] {
     border: 2px solid var(--classroom-text-1);
     border-radius: 0.5em;
+    /*
     margin: 0.5em;
+    Removed because of conflicts with Bootstrap
+    */
     padding: 0.2em 0.5em;
 }
 
