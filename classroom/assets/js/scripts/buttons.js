@@ -301,10 +301,10 @@ function goToCreateActivityPanel() {
     navigatePanel('classroom-dashboard-new-activity-panel', 'dashboard-activities-teacher');
 }
 
-//prof-->vittademo
+//prof-->demoStudent
 function modeApprenant() {
     window.localStorage.showSwitchTeacherButton = 'true';
-    Main.getClassroomManager().getVittaDemo(ClassroomSettings.classroom)
+    Main.getClassroomManager().getDemoStudent(ClassroomSettings.classroom)
 }
 
 $('body').on('change', '#list-classes input', function () {
@@ -709,12 +709,12 @@ function toggleBlockClass() {
         classroom.isBlocked = false;
         $('#classroom-info').removeClass('greyscale');
         $('#classroom-info > *:not(:first-child)').css('display', 'unset');
-        $('#classroom-info > button > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
+        $('#classroom-info > button:first-child > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
     } else {
         classroom.isBlocked = true;
         $('#classroom-info').addClass('greyscale');
         $('#classroom-info > *:not(:first-child)').css('display', 'none');
-        $('#classroom-info > button > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
+        $('#classroom-info > button:first-child > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
 
     }
     Main.getClassroomManager().updateClassroom(classroom).then(function (response) {
@@ -1539,6 +1539,7 @@ function tempoAndShowGroupTableGroupAdmin() {
 
 function switchToSuperAdmin() {
     //mainSuperAdmin.init();
+    $('body').addClass('theme-super-admin').removeClass( "theme-group-admin theme-teacher" )
     navigatePanel('classroom-dashboard-profil-panel-superadmin', 'dashboard-profil-superadmin');
     $('#classroom-dashboard-sidebar-teacher').hide();
     $('#groupadmin-dashboard-sidebar').hide();
@@ -1548,6 +1549,7 @@ function switchToSuperAdmin() {
 
 function switchToGroupAdmin() {
     //mainGroupAdmin.init();
+    $('body').addClass('theme-group-admin').removeClass( "theme-super-admin theme-teacher" )
     navigatePanel('classroom-dashboard-profil-panel-groupadmin', 'dashboard-profil-groupadmin');
     $('#classroom-dashboard-sidebar-teacher').hide();
     $('#superadmin-dashboard-sidebar').hide();
@@ -1556,6 +1558,7 @@ function switchToGroupAdmin() {
 }
 
 function switchToProf() {
+    $('body').addClass('theme-teacher').removeClass( "theme-group-admin theme-super-admin" )
     navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher');
     $('#superadmin-dashboard-sidebar').hide();
     $('#groupadmin-dashboard-sidebar').hide();

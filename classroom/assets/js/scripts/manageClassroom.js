@@ -134,9 +134,17 @@ $('.new-classroom-form').click(function () {
             'school': $('#classroom-form-school').val(),
             'isBlocked': document.querySelector('#classroom-form-is-blocked').checked
         }).then(function (classroom) {
+            // handle specific error
+            if(classroom.errorType){
+                displayNotification('#notif-div', `classroom.notif.${classroom.errorType}`, "error", `'{"ClassroomNameInvalid": "${classroom.errorType}"}'`)
+                $('.new-classroom-form').attr('disabled', false);
+                return
+            } 
             // If the backend detects that the user is not a premium user and that he already has one classroom
-            if(classroom == false){
-                displayNotification('#notif-div', "classroom.notif.classNotCreated", "error");
+            else if(classroom.isClassroomAdded == false){
+                
+                displayNotification('#notif-div', "classroom.notif.classNotCreated", "error", `'{"classroomNumberLimit": "${classroom.classroomNumberLimit}"}'`);
+               $('.new-classroom-form').attr('disabled', false);
             }else{
                 let students = []
                 let existingStudents = []
@@ -149,6 +157,7 @@ $('.new-classroom-form').click(function () {
                     Main.getClassroomManager().addUsersToGroup(students, existingStudents, classroom.link).then(function (response) {
                         if(!response.isUsersAdded){
                             displayNotification('#notif-div', "classroom.notif.classCreatedButNotUsers", "error", `'{"classroomName": "${classroom.name}", "learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
+                           $('.new-classroom-form').attr('disabled', false);
                         }
                         else{
                             Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
@@ -176,6 +185,12 @@ $('.new-classroom-form').click(function () {
             'link': ClassroomSettings.classroom,
             'isBlocked': document.querySelector('#classroom-form-is-blocked').checked
         }).then(function (classroom) {
+
+            if(classroom.errorType){
+                displayNotification('#notif-div', `classroom.notif.${classroom.errorType}`, "error", `'{"ClassroomNameInvalid": "${classroom.errorType}"}'`)
+               $('.new-classroom-form').attr('disabled', false);
+                return
+            }
             let students = []
             let existingStudents = []
             $('.student-form-name').each(function (index) {
@@ -191,16 +206,16 @@ $('.new-classroom-form').click(function () {
                 }
             })
             Main.getClassroomManager().addUsersToGroup(students, existingStudents, classroom.link).then(function (response) {
-                console.log(response);
                 let noAdditionError = response.isUsersAdded ? response.isUsersAdded : response.noUser;
                 if(!noAdditionError){
                     displayNotification('#notif-div', "classroom.notif.classUpdatedButNotUsers", "error", `'{"classroomName": "${classroom.name}", "learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
+                   $('.new-classroom-form').attr('disabled', false);
                 }
                 else{
                     Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
-                        ClassroomSettings.classroom = null
                         addUserAndGetDashboard(classroom.link)
                         displayNotification('#notif-div', "classroom.notif.classroomUpdated", "success", `'{"classroomName": "${classroom.name}"}'`)
+                       $('.new-classroom-form').attr('disabled', false);
                     });
                 }
             })
@@ -230,7 +245,13 @@ $('body').on('click', '.save-student-in-classroom', function () {
                  * Update Rémi : Users limitation by group 
                  * possible return : personalLimit, personalLimitAndGroupOutDated, bothLimitReached
                  */
-                 manageResponseOfAddUsers(response);
+                if(response.errorType){
+                    // a specific error has been returned, display it
+                    displayNotification('#notif-div', `classroom.notif.${response.errorType}`, "error", `'{"reservedNickname": "${demoStudentName}"}'`);
+                    return;
+                } else {
+                    manageResponseOfAddUsers(response);
+                }
             }else{
                 Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
                     addUserAndGetDashboard(ClassroomSettings.classroom);
@@ -284,6 +305,7 @@ function openCsvModal(){
 function importLearnerCsv(){
     if(ClassroomSettings.classroom){
         csvToClassroom(ClassroomSettings.classroom).then((response) => {
+
             /**
              * Updated @Rémi
              * the case where the students was not added was not implemented
@@ -296,7 +318,13 @@ function importLearnerCsv(){
                     displayNotification('#notif-div', "classroom.notif.usersAddedFromCsv", "success");
                 });
             } else {
-                manageResponseOfAddUsers(response);
+                if(response.errorType){
+                  // a specific error has been returned, display it
+                  displayNotification('#notif-div', `classroom.notif.${response.errorType}`, "error", `'{"reservedNickname": "${demoStudentName}"}'`);
+                  return;
+                } else {
+                  manageResponseOfAddUsers(response);
+                }  
             }
         })
         .catch((response) => {
@@ -351,19 +379,27 @@ function csvJSON(csv) {
     // (you might convert them to &&& or something, then convert them back later)
     // jsfiddle showing the issue https://jsfiddle.net/
     var headers = lines[0].split(/[,;]/);
-
+    
+    for(let i=0; i< headers.length; i++){
+        headers[i] = headers[i].replace("\r","")
+    }
+    
     for (var i = 1; i < lines.length; i++) {
 
         var obj = {};
         var currentline = lines[i].split(/[,;]/);
 
         for (var j = 0; j < headers.length; j++) {
-            obj[headers[j]] = currentline[j];
+            obj[headers[j]] = currentline[j].replace("\r","");
         }
 
         result.push(obj);
 
     }
+    
+    // remove the previous filename uploaded on open 
+    let csvInput = document.querySelector('#importcsv-fileinput')
+    csvInput.value = ""
     return JSON.stringify(result); //JSON
 }
 
@@ -402,7 +438,7 @@ function classroomToCsv(link) {
     let html = "apprenant;mot de passe \n"
     let classroom = getClassroomInListByLink(link)[0]
     for (let i = 0; i < classroom.students.length; i++) {
-        if(classroom.students[i].user.pseudo != 'vittademo'){
+        if(classroom.students[i].user.pseudo != demoStudentName){
             html += classroom.students[i].user.pseudo + ";" + classroom.students[i].pwd + "\n";
         }
     }
@@ -432,7 +468,7 @@ function dashboardToCsv(link) {
     }
     headHtml += "\n"
     for (let i = 0; i < classroom.students.length; i++) {
-        if(classroom.students[i].user.pseudo != 'vittademo'){
+        if(classroom.students[i].user.pseudo != demoStudentName){
             let arrayActivities = reorderActivities(classroom.students[i].activities, index)
             html += classroom.students[i].user.pseudo + ";"
             for (let j = 0; j < arrayActivities.length; j++) {
@@ -680,7 +716,7 @@ function displayStudentsInClassroom(students) {
     }
 
     // sort the students by their name (it doesn't seem to work yet)
-    if (students[0].user.pseudo == "vittademo") {
+    if (students[0].user.pseudo == demoStudentName) {
         students.sort(function (a, b) {
             return (a.pseudo > b.pseudo) ? 1 : -1;
         })
@@ -696,8 +732,8 @@ function displayStudentsInClassroom(students) {
         if (element.user.pseudo.length > 10) {
             pseudo = element.user.pseudo.slice(0, 9) + "&#8230;";
         }
-        // Add vittademo's head table cell if it's the current student
-        if (element.user.pseudo == "vittademo") {
+        // Add demoStudent's head table cell if it's the current student
+        if (element.user.pseudo == demoStudentName) {
             html = `<tr><td class="username row" data-student-id="` + element.user.id + `"><img class="col-2 propic" src="${_PATH}assets/media/alphabet/` + element.user.pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil"><div class="col-7 line_height34" title="` + element.user.pseudo + `">` + pseudo + ` </div> <div class="dropdown col "><i class="classroom-clickable line_height34 fas fa-exchange-alt" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
             <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
         <li id="mode-apprenant" class="dropdown-item classroom-clickable col-12" href="#" onclick="modeApprenant()">Mode apprenant</li>
@@ -719,7 +755,7 @@ function displayStudentsInClassroom(students) {
 
         // Loop in the classroom activities index (with ids) to generate the dashboard table header and body
         for(let i=0; i<activitiesIndexWithId.length; i++){
-            if (element.user.pseudo == "vittademo") {
+            if (element.user.pseudo == demoStudentName) {
                 $('#header-table-teach').append(`
                 <th>
                     <div class="dropdown dropdown-act" style="width:30px;">

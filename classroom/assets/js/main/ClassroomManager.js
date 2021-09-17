@@ -300,8 +300,6 @@ class ClassroomManager {
      * add a non-gar student
      */
     createAccount(pseudo, classroomLink) {
-        console.log(pseudo)
-        console.log(classroomLink)
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -346,13 +344,13 @@ class ClassroomManager {
     }
 
     /**
-     * connect to the vittademo account
+     * connect to the demoStudent account
      */
-    getVittaDemo(link) {
+    getDemoStudent(link) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
-                url: "/routing/Routing.php?controller=classroom&action=get_vittademo_account",
+                url: "/routing/Routing.php?controller=classroom&action=get_demo_student_account",
                 data: {
                     "link": link,
                 },

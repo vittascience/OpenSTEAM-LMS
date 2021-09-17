@@ -171,13 +171,15 @@ $('#create-user').click(function () {
     let link = $_GET('link')
     Main.getClassroomManager().createAccount(pseudo, link).then(function (result) {
         if (result != false) {
-            console.log("ezfused")
+            
             if (!result.isUsersAdded) {
                 switch (result.errorType) {
                     case 'classroomBlocked':
                         displayNotification('#notif-div', "classroom.notif.cantLoginClassroomBlocked", "error");
                         break;
-
+                    case 'reservedNickname':
+                        displayNotification('#notif-div', `classroom.notif.${result.errorType}`, "error", `'{"reservedNickname": "${demoStudentName}"}'`);
+                        break;
                     default:
                         displayNotification('#notif-div', "classroom.notif.cantLoginLimitLearners", "error");
                         break;
