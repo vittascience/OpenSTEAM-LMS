@@ -147,6 +147,10 @@ DisplayPanel.prototype.classroom_dashboard_help_panel = function () {
 DisplayPanel.prototype.classroom_dashboard_help_panel_teacher = function () {
     let html = '';
     let index = [7, 12, 5, 3, 3, 3]; // number of questions+1 per category in faq
+    
+    // capitalize demoStudent name
+    let capitalizedDemoStudentName = `${demoStudentName.charAt(0).toUpperCase()}${demoStudentName.slice(1)}`;
+    
     for (let i = 1; i <= index.length; i++) {
         html += "<h4 data-i18n='[html]faqTeacherNeutral." + i + ".section_title'></h4>";
         for (let j = 1; j < index[i - 1]; j++) {
@@ -160,7 +164,7 @@ DisplayPanel.prototype.classroom_dashboard_help_panel_teacher = function () {
                 </p>
             </div>
             <div class="faq-box-content">
-            <p data-i18n='[html]faqTeacherNeutral.` + i + `.question_list.` + j + `.answer'></p>
+            <p data-i18n='[html]faqTeacherNeutral.` + i + `.question_list.` + j + `.answer' data-i18n-options={"demoStudent":"${capitalizedDemoStudentName}"}></p>
             </div>
         </div>`;
         }
@@ -275,12 +279,12 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
             if (getClassroomInListByLink(link)[0].classroom.isBlocked == false) {
                 $('#classroom-info').removeClass('greyscale')
                 $('#classroom-info > *:not(:first-child)').css('display','unset');
-                $('#classroom-info > button > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
+                $('#classroom-info > button:first-child > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
 
             } else {
                 $('#classroom-info').addClass('greyscale')
                 $('#classroom-info > *:not(:first-child)').css('display','none');
-                $('#classroom-info > button > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
+                $('#classroom-info > button:first-child > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
 
 
             }

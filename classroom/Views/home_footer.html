@@ -70,7 +70,7 @@
                             let user = UserManager.getUser()
 
                             if (user.isRegular) {
-                                $('body').addClass('theme-alt')
+                                $('body').addClass('theme-teacher')
                                 $('.user-picture').attr('src',
                                     '/classroom/assets/media/alphabet/' +
                                     UserManager.getUser().firstname.slice(0, 1)
@@ -89,6 +89,16 @@
                                         'dashboard-profil-teacher', $_GET('option'), $_GET(
                                             'interface'))
                                 }
+
+                                // Init the super and group admin
+                                let currentTask = (onEnd) => {
+                                    mainGroupAdmin.init().then((resolve) => {
+                                        mainSuperAdmin.init().then((resolve) => {
+                                            onEnd();
+                                        })
+                                    })
+                                }
+                                Main.getClassroomManager()._addTaskToQueue(currentTask);
                             } else {
                                 $('#classroom-dashboard-sidebar').show()
                                 $('.user-picture').attr('src',
@@ -117,19 +127,6 @@
                                     }
                                 })
                             }
-
-                            // Init the super and group admin
-                            let currentTask = (onEnd) => {
-                                mainGroupAdmin.init().then((resolve) => {
-                                    mainSuperAdmin.init().then((resolve) => {
-                                        isUserAppsOutDated();
-                                        onEnd();
-                                    })
-                                })
-                            }
-                            Main.getClassroomManager()._addTaskToQueue(currentTask);
-
-
                         },
                         (reason) => {
                             console.log("Loader failed to load: " + reason);
