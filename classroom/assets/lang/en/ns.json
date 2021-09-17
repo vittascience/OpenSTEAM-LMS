@@ -180,8 +180,8 @@
 			"activityContentInvalid": "Activity could not be created: invalid content",
 			"activityIsFromClassroomInvalid": "Activity could not be created: context error",
 			"activityUserIdInvalid": "Activity could not be created: invalid user",
-			"ClassroomNameInvalid":"The classroom name is required"
-			"reservedNickname":"The name : \"{{reservedNickname}}\" can not be attributed."
+			"ClassroomNameInvalid": "The classroom name is required",
+			"reservedNickname": "The name : \"{{reservedNickname}}\" can not be attributed."
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
