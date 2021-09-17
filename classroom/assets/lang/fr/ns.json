@@ -923,6 +923,7 @@
 				"disclaimerVittascience": "Vittascience place la sécurité et la confidentialité des données personnelles de ses utilisateurs au coeur de ses préoccupations. Découvrez<a href=\"http://vittascience.com/privacy\"> notre politique de protection des données personnelles</a> ",
 				"mandatory": "Les champs marqués par un <span class=\"text-danger\">*</span> sont obligatoires.",
 				"cguVittascience": "En validant ce formulaire, vous acceptez les <a href=\"http://vittascience.com/\"> conditions générales d'utilisation</a>.",
+				"cguOpenSteam": "En validant ce formulaire, vous acceptez les <a target=\"_blank\" href=\"/classroom/cgu.php\"> conditions générales d'utilisation</a>.",
 				"description": "Merci de compléter les champs suivants pour créer votre compte.",
 				"title": "Inscription",
 				"registrationFinalizationSuccess": "Votre inscription à bien été finalisé, vous pouvez maintenant vous connectez",
