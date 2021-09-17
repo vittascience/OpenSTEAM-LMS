@@ -379,9 +379,8 @@ class SuperAdminManager {
         })
     }
 
-    deleteUserFromGroup($group_id, $user_id) {
+/*     deleteUserFromGroup($group_id, $user_id) {
         const process = (data) => {
-            console.log(JSON.parse(response));
         }
         $.ajax({
             type: "POST",
@@ -397,7 +396,7 @@ class SuperAdminManager {
                 reject();
             }
         });
-    }
+    } */
 
     getUserInfo($user_id) {
         return new Promise(function (resolve, reject) {

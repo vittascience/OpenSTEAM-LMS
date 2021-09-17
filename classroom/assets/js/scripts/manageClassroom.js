@@ -283,10 +283,8 @@ function manageResponseOfAddUsers(response) {
            // Show upgrade modal
         } else if (response.message == "bothLimitReached") {
             // Teacher's and Group's limits reached
-            displayNotification('#notif-div', "classroom.notif.bothLimitationsReached", "error", `'{"learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
-            
+            displayNotification('#notif-div', "classroom.notif.bothLimitationsReached", "error", `'{"learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);  
         }
-        console.log(response)
     } else {
         displayNotification('#notif-div', "classroom.notif.usersNotAdded", "error", `'{"learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
     }

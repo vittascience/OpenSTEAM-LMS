@@ -147,11 +147,11 @@ document.getElementById('create-teacher-account-and-link-to-group-form').addEven
                 $("#classroom-register-container").toggle();
                 $('#gourpName2').text(Informations.groupName);
             } else {
-                console.log(response.message);
                 if (response.message) {
                     switch (response.message) {
                         case 'Group\'s limit reached':
-                            console.log('grp full');
+                            $("#group-full").toggle();
+                            $("#classroom-register-container").toggle();
                             break;
                         default:
                             break;

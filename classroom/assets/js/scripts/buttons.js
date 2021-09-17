@@ -1442,7 +1442,6 @@ function updateUserModal() {
         $school,
         $is_active,
         $ApplicationFromGroup).then((response) => {
-        console.log(response)
         if (response.message == "success") {
             displayNotification('#notif-div', "superadmin.users.userUpdated", "success");
             pseudoModal.closeAllModal();
