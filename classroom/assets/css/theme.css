@@ -62,8 +62,8 @@
 /* TEACHER THEMING
 Used when the insterface is used by a teacher */
 .theme-teacher {
-    --classroom-dashboard: #4E9DB1;
-    --classroom-dashboard-dark: #53919F;
+    --classroom-dashboard: #1976d2;
+    --classroom-dashboard-dark: #1260ad;
 }
 
 .theme-teacher .sidebar-classroom div img:not(.user-picture) {

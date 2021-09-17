@@ -134,9 +134,17 @@ $('.new-classroom-form').click(function () {
             'school': $('#classroom-form-school').val(),
             'isBlocked': document.querySelector('#classroom-form-is-blocked').checked
         }).then(function (classroom) {
+            // handle specific error
+            if(classroom.errorType){
+                displayNotification('#notif-div', `classroom.notif.${classroom.errorType}`, "error", `'{"ClassroomNameInvalid": "${classroom.errorType}"}'`)
+                $('.new-classroom-form').attr('disabled', false);
+                return
+            } 
             // If the backend detects that the user is not a premium user and that he already has one classroom
-            if(classroom.isClassroomAdded == false){
+            else if(classroom.isClassroomAdded == false){
+                
                 displayNotification('#notif-div', "classroom.notif.classNotCreated", "error", `'{"classroomNumberLimit": "${classroom.classroomNumberLimit}"}'`);
+               $('.new-classroom-form').attr('disabled', false);
             }else{
                 let students = []
                 let existingStudents = []
@@ -149,6 +157,7 @@ $('.new-classroom-form').click(function () {
                     Main.getClassroomManager().addUsersToGroup(students, existingStudents, classroom.link).then(function (response) {
                         if(!response.isUsersAdded){
                             displayNotification('#notif-div', "classroom.notif.classCreatedButNotUsers", "error", `'{"classroomName": "${classroom.name}", "learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
+                           $('.new-classroom-form').attr('disabled', false);
                         }
                         else{
                             Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
@@ -176,6 +185,12 @@ $('.new-classroom-form').click(function () {
             'link': ClassroomSettings.classroom,
             'isBlocked': document.querySelector('#classroom-form-is-blocked').checked
         }).then(function (classroom) {
+
+            if(classroom.errorType){
+                displayNotification('#notif-div', `classroom.notif.${classroom.errorType}`, "error", `'{"ClassroomNameInvalid": "${classroom.errorType}"}'`)
+               $('.new-classroom-form').attr('disabled', false);
+                return
+            }
             let students = []
             let existingStudents = []
             $('.student-form-name').each(function (index) {
@@ -191,16 +206,16 @@ $('.new-classroom-form').click(function () {
                 }
             })
             Main.getClassroomManager().addUsersToGroup(students, existingStudents, classroom.link).then(function (response) {
-                console.log(response);
                 let noAdditionError = response.isUsersAdded ? response.isUsersAdded : response.noUser;
                 if(!noAdditionError){
                     displayNotification('#notif-div', "classroom.notif.classUpdatedButNotUsers", "error", `'{"classroomName": "${classroom.name}", "learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
+                   $('.new-classroom-form').attr('disabled', false);
                 }
                 else{
                     Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
-                        ClassroomSettings.classroom = null
                         addUserAndGetDashboard(classroom.link)
                         displayNotification('#notif-div', "classroom.notif.classroomUpdated", "success", `'{"classroomName": "${classroom.name}"}'`)
+                       $('.new-classroom-form').attr('disabled', false);
                     });
                 }
             })
@@ -226,6 +241,12 @@ $('body').on('click', '.save-student-in-classroom', function () {
         })
         Main.getClassroomManager().addUsersToGroup(students, existingStudents, ClassroomSettings.classroom).then(function (response) {
             if(!response.isUsersAdded){
+                if(response.errorType){
+                    // a specific error has been returned, display it
+                    displayNotification('#notif-div', `classroom.notif.${response.errorType}`, "error", `'{"reservedNickname": "${demoStudentName}"}'`);
+                    return;
+                }
+
                 displayNotification('#notif-div', "classroom.notif.usersNotAdded", "error", `'{"learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
             }else{
                 Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
@@ -257,6 +278,12 @@ function openCsvModal(){
 function importLearnerCsv(){
     if(ClassroomSettings.classroom){
         csvToClassroom(ClassroomSettings.classroom).then((response) => {
+            if(response.errorType){
+                // a specific error has been returned, display it
+                displayNotification('#notif-div', `classroom.notif.${response.errorType}`, "error", `'{"reservedNickname": "${demoStudentName}"}'`);
+                return;
+            }
+            
             pseudoModal.closeModal('import-csv');
             Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
                 let students = getClassroomInListByLink(ClassroomSettings.classroom)[0].students;
@@ -316,19 +343,27 @@ function csvJSON(csv) {
     // (you might convert them to &&& or something, then convert them back later)
     // jsfiddle showing the issue https://jsfiddle.net/
     var headers = lines[0].split(/[,;]/);
-
+    
+    for(let i=0; i< headers.length; i++){
+        headers[i] = headers[i].replace("\r","")
+    }
+    
     for (var i = 1; i < lines.length; i++) {
 
         var obj = {};
         var currentline = lines[i].split(/[,;]/);
 
         for (var j = 0; j < headers.length; j++) {
-            obj[headers[j]] = currentline[j];
+            obj[headers[j]] = currentline[j].replace("\r","");
         }
 
         result.push(obj);
 
     }
+    
+    // remove the previous filename uploaded on open 
+    let csvInput = document.querySelector('#importcsv-fileinput')
+    csvInput.value = ""
     return JSON.stringify(result); //JSON
 }
 
