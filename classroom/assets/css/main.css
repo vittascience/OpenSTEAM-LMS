@@ -437,6 +437,10 @@ button {
         width: 100%;
         background: var(--classroom-dashboard);
         height: 110px;
+        
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
     }
 
     .sidebar-classroom {
