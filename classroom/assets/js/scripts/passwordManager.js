@@ -117,7 +117,7 @@ document.getElementById('password-change-form').addEventListener('submit', (e) =
 function sendMail() {
     if (checkMailValid()) {
         sendRecoveryMail().then((response) => {
-            if (response.EmailSend == true) {
+            if (response.emailSent) {
                 $('#email-send-success').toggle();
                 $('#password-recovery').toggle();
             } else {

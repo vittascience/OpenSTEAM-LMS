@@ -180,6 +180,10 @@
 			"activityContentInvalid": "L'activité n'a pas pu être créée : contenu invalide",
 			"activityIsFromClassroomInvalid": "L'activité n'a pas pu être créée : erreur de contexte",
 			"activityUserIdInvalid": "L'activité n'a pas pu être créée : utilisateur invalide",
+			"personalLimitationsReached": "Vous avez atteint votre nombre maximum d'élèves.",
+			"groupLimitationsGroup": "Votre groupe ne peut plus accueillir d'apprenants",
+			"groupLimitationsTeacher": "Vous avez atteint la limite d'apprenants que votre groupe vous octroie",
+			"bothLimitationsReached": "Vous avez atteint les limitations d'élèves que vous et votre groupe pouvez avoir.",
 			"ClassroomNameInvalid": "Le nom de la classe est requis",
 			"reservedNickname": "Le nom : \"{{reservedNickname}}\" ne peut être attribué."
 		},
@@ -889,9 +893,9 @@
 		"profil": {
 			"superAdmin": "Passer en mode superadmin",
 			"groupAdmin": "Passer en mode admin de groupe",
-			"bio": "Bio <span class=\"text-danger\">*</span>",
+			"bio": "Bio",
 			"email": "E-mail <span class=\"text-danger\">*</span>",
-			"nickname": "Pseudo <span class=\"text-danger\">*</span>",
+			"nickname": "Pseudo",
 			"lastname": "Nom <span class=\"text-danger\">*</span>",
 			"firstname": "Prénom <span class=\"text-danger\">*</span>",
 			"phone": "Numéro de téléphone",
@@ -922,6 +926,7 @@
 				"disclaimerVittascience": "Vittascience place la sécurité et la confidentialité des données personnelles de ses utilisateurs au coeur de ses préoccupations. Découvrez<a href=\"http://vittascience.com/privacy\"> notre politique de protection des données personnelles</a> ",
 				"mandatory": "Les champs marqués par un <span class=\"text-danger\">*</span> sont obligatoires.",
 				"cguVittascience": "En validant ce formulaire, vous acceptez les <a href=\"http://vittascience.com/\"> conditions générales d'utilisation</a>.",
+				"cguOpenSteam": "En validant ce formulaire, vous acceptez les <a target=\"_blank\" href=\"/classroom/cgu.php\"> conditions générales d'utilisation</a>.",
 				"description": "Merci de compléter les champs suivants pour créer votre compte.",
 				"title": "Inscription",
 				"registrationFinalizationSuccess": "Votre inscription à bien été finalisé, vous pouvez maintenant vous connectez",
@@ -941,7 +946,9 @@
 			"errorSending": "Une erreur est survenue lors de l'envoie de l'e-mail",
 			"userNotFound": "Utilisateur introuvable et / ou déjà actif",
 			"userNotFoundId": "Utilisateur introuvable",
-			"errorActivation": "Une erreur est survenue lors de la l'activation."
+			"errorActivation": "Une erreur est survenue lors de la l'activation.",
+			"notAllowedToCreateUserInThisGroup": "Vous n'êtes pas autorisé à créer un utilisateur dans ce groupe.",
+			"subscriptionOudated": "Votre application APPNAME a expiré le DATE. Pour plus d'informations contactez un administrateur."
 		},
 		"users": {
 			"users": "Utilisateurs",
@@ -1105,6 +1112,8 @@
 				"error": "Une erreur est survenue lors de la liaison.",
 				"userNotFound": "L'utilisateur n'a pas été trouvé, vous pouvez cliquer sur continuer afin d'être redirigé vers la page de login.",
 				"contactAdmin": "Si le problème persiste contactez l'administration.",
+				"groupFull": "Le groupe que vous souhaitez rejoindre est complet.",
+				"onlyOneGroup": "Vous faites déjà partie d'un groupe, vous ne pouvez pas en rejoindre un autre",
 				"mail": {
 					"textBeforeName": "L'utilisateur : ",
 					"textAfterName": "a rejoint le groupe : ",
@@ -1126,7 +1135,15 @@
 			"usersInactiveOrNoRegular": "Utilisateurs inactifs et non regular",
 			"usersWithoutGroupsDescription": "Groupement d'utilisateurs n'étant liés à aucun groupe",
 			"usersInactiveOrNoRegularDescription": "Groupement d'utilisateurs inactifs et/ou non regular",
-			"groupDeleteError": "Le groupe n'a pas pu être supprimé."
+			"groupDeleteError": "Le groupe n'a pas pu être supprimé.",
+			"groupFull": "Le groupe est complet.",
+			"groupFullAdminMessage": "Le groupe est complet, vous ne pouvez pas ajouter d'autres utilisateurs.",
+			"toManyStudentsFromTheTeacher": "Le professeur que vous souhaitez ajouter au groupe possède trop d'élève",
+			"toManyStudentsInGroup": "Le groupe ne peut pas accueillir autant d'élèves, le professeur possède trop d'élèves.",
+			"teachersPerGroup": "Enseignant par groupe",
+			"studentsPerGroup": "Élèves par groupe",
+			"studentsPerTeacher": "Élèves par enseignant",
+			"maxStudents": "Maximum d'élèves"
 		},
 		"buttons": {
 			"continue": "Continuer",

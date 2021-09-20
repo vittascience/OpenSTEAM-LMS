@@ -180,8 +180,13 @@
 			"activityContentInvalid": "Activity could not be created: invalid content",
 			"activityIsFromClassroomInvalid": "Activity could not be created: context error",
 			"activityUserIdInvalid": "Activity could not be created: invalid user",
+			"personalLimitationsReached": "You have reached your maximum number of students.",
+			"groupLimitationsGroup": "Your group can no longer accommodate learners",
+			"groupLimitationsTeacher": "You have reached the learner limit that your group grants you",
+			"bothLimitationsReached": "You have reached the student limitations that you and your group may have.",
 			"ClassroomNameInvalid": "The classroom name is required",
 			"reservedNickname": "The name : \"{{reservedNickname}}\" can not be attributed."
+
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
@@ -596,9 +601,9 @@
 		"profil": {
 			"superAdmin": "Switch to superadmin",
 			"groupAdmin": "Switch to group admin",
-			"bio": "Bio <span class=\"text-danger\">*</span>",
+			"bio": "Bio",
 			"email": "E-mail <span class=\"text-danger\">*</span>",
-			"nickname": "Username <span class=\"text-danger\">*</span>",
+			"nickname": "Username",
 			"lastname": "Lastname <span class=\"text-danger\">*</span>",
 			"firstname": "Firstname <span class=\"text-danger\">*</span>",
 			"phone": "Phone number",
@@ -629,6 +634,7 @@
 				"disclaimerVittascience": "Vittascience places the security and confidentiality of its users' personal data at the heart of its concerns. Discover<a href=\"http://vittascience.com/privacy\"> our personal data protection policy</a> ",
 				"mandatory": "Fields marked with <span class=\"text-danger\">*</span> are mandatory.",
 				"cguVittascience": "By validating this form, you accept the <a href=\"http://vittascience.com/\"> Terms of Service</a>.",
+				"cguOpenSteam": "By validating this form, you accept the <a target=\"_blank\" href=\"/classroom/cgu.php\"> Terms of Service</a>.",
 				"description": "Please complete the following fields to create your account.",
 				"title": "Registration",
 				"registrationFinalizationSuccess": "Your registration has been finalized, you can now connect",
@@ -648,7 +654,9 @@
 			"errorSending": "An error occurred while sending the email",
 			"userNotFound": "User not found and / or already active",
 			"userNotFoundId": "User not found",
-			"errorActivation": "An error occurred during activation."
+			"errorActivation": "An error occurred during activation.",
+			"notAllowedToCreateUserInThisGroup": "You are not authorized to create a user in this group.",
+			"subscriptionOudated": "Your APPNAME app has expired on DATE. For more information contact an administrator."
 		},
 		"users": {
 			"users": "Users",
@@ -812,6 +820,8 @@
 				"error": "An error occurred while linking.",
 				"userNotFound": "The user was not found, you can click on continue to be redirected to the login page.",
 				"contactAdmin": "If the problem persists contact the administration.",
+				"groupFull": "The group you want to join is full.",
+				"onlyOneGroup": "You are already part of a group, you cannot join another",
 				"mail": {
 					"textBeforeName": "The user : ",
 					"textAfterName": "joined the group : ",
@@ -833,7 +843,15 @@
 			"usersInactiveOrNoRegular": "Inactive users or not regular",
 			"usersWithoutGroupsDescription": "User group not linked to any group",
 			"usersInactiveOrNoRegularDescription": "Group of inactive and / or non-regular users",
-			"groupDeleteError": "The group could not be deleted."
+			"groupDeleteError": "The group could not be deleted.",
+			"groupFull": "The group is full.",
+			"groupFullAdminMessage": "The group is full, you cannot add other users.",
+			"toManyStudentsFromTheTeacher": "The teacher you want to add to the group has too many students",
+			"toManyStudentsInGroup": "The group cannot accommodate so many students, the teacher has too many students.",
+			"teachersPerGroup": "Teacher per group",
+			"studentsPerGroup": "Students per group",
+			"studentsPerTeacher": "Students per teacher",
+			"maxStudents": "Maximum students"
 		},
 		"buttons": {
 			"continue": "Continue",
