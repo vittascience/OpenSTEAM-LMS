@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : mariadb
--- Généré le : ven. 28 mai 2021 à 07:21
--- Version du serveur :  10.5.10-MariaDB-1:10.5.10+maria~focal
--- Version de PHP : 7.4.16
+-- Généré le : mer. 15 sep. 2021 à 08:11
+-- Version du serveur : 10.6.3-MariaDB-1:10.6.3+maria~focal
+-- Version de PHP : 7.4.20
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -35,7 +35,8 @@ CREATE TABLE `classrooms` (
   `groupe` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `link` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
   `is_changed` tinyint(1) DEFAULT NULL,
-  `is_blocked` int(11) NOT NULL DEFAULT 0
+  `is_blocked` int(11) NOT NULL DEFAULT 0,
+  `uai` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -353,6 +354,90 @@ CREATE TABLE `user_teachers` (
   `school` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `applications`
+--
+
+CREATE TABLE `applications` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `image` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `groups`
+--
+
+CREATE TABLE `groups` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `link` varchar(5) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `groups_link_applications`
+--
+
+CREATE TABLE `groups_link_applications` (
+  `id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  `application_id` int(11) NOT NULL,
+  `date_begin` datetime NOT NULL,
+  `date_end` datetime NOT NULL,
+  `max_students_per_groups` int(11) DEFAULT NULL,
+  `max_teachers_per_groups` int(11) DEFAULT NULL,
+  `max_students_per_teachers` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `users_link_applications`
+--
+
+CREATE TABLE `users_link_applications` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `application_id` int(11) NOT NULL,
+  `date_begin` datetime NOT NULL,
+  `date_end` datetime NOT NULL,
+  `max_students_per_teachers` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `users_link_applications_from_groups`
+--
+
+CREATE TABLE `users_link_applications_from_groups` (
+  `id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `application_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `users_link_groups`
+--
+
+CREATE TABLE `users_link_groups` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  `rights` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Index pour les tables déchargées
 --
@@ -520,6 +605,48 @@ ALTER TABLE `user_teachers`
   ADD KEY `IDX_D8AFBF6AC2FB178` (`user`);
 
 --
+-- Index pour la table `applications`
+--
+ALTER TABLE `applications`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `groups`
+--
+ALTER TABLE `groups`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `groups_link_applications`
+--
+ALTER TABLE `groups_link_applications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `group_id` (`group_id`),
+  ADD KEY `application_id` (`application_id`);
+
+--
+-- Index pour la table `users_link_applications`
+--
+ALTER TABLE `users_link_applications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `application_id` (`application_id`);
+
+--
+-- Index pour la table `users_link_applications_from_groups`
+--
+ALTER TABLE `users_link_applications_from_groups`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `users_link_groups`
+--
+ALTER TABLE `users_link_groups`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `group_id` (`group_id`);
+
+--
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
@@ -594,6 +721,43 @@ ALTER TABLE `users`
 --
 ALTER TABLE `user_teachers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `applications`
+--
+ALTER TABLE `applications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `groups`
+--
+ALTER TABLE `groups`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `groups_link_applications`
+--
+ALTER TABLE `groups_link_applications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `users_link_applications`
+--
+ALTER TABLE `users_link_applications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `users_link_applications_from_groups`
+--
+ALTER TABLE `users_link_applications_from_groups`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `users_link_groups`
+--
+ALTER TABLE `users_link_groups`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
 
 --
 -- Contraintes pour les tables déchargées

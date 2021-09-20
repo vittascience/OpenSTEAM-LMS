@@ -4,7 +4,6 @@
  * https://vittascience.com
  *
  *
- * This class purpose to manage the resources.
  */
 
 /**
@@ -18,12 +17,13 @@ class GroupAdminManager {
      */
     constructor() {
         this._allGroups = []
+        this._actualGroup = 0
         this._addedCreateUserGroup = 0
         this._updatedUserGroup = 0
         this._comboGroups = []
         this._paginationUsersInfo = []
         this._paginationGroupsInfo = []
-        this._actualGroup = []
+        this._acutalGroupDetails = []
         this._actualUser = []
         this._tasksQueue = [];
         this._isExecutingTaskInQueue = false;
@@ -76,15 +76,19 @@ class GroupAdminManager {
     getGroupsUserAdmin() {
         const process = (data) => {
             let data_table = "";
+
             mainGroupAdmin.getGroupAdminManager()._comboGroups = data;
             data.forEach(element => {
+                // there is only one group possible
+                mainGroupAdmin.getGroupAdminManager()._actualGroup = element.id;
+                isGroupAppsOutDated(element.id);
                 let div_img = ""
                 if (element.hasOwnProperty('applications')) {
                     element.applications.forEach(element_2 => {
                         if (element_2.image != null) {
-                            div_img += `<img src="assets/media/${element_2.image}" alt="Icône App">`;
+                            div_img += `<img src="assets/media/${element_2.image}" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
                         } else {
-                            div_img += `<img src="assets/media/nologo.jpg" alt="Icône App">`;
+                            div_img += `<img src="assets/media/nologo.jpg" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
                         }
                     });
                 }
@@ -148,12 +152,12 @@ class GroupAdminManager {
                     }
 
                     let div_img = ""
-                    if (element.hasOwnProperty('applications')) {
-                        element.applications.forEach(element_2 => {
+                    if (element.hasOwnProperty('applicationsFromGroups')) {
+                        element.applicationsFromGroups.forEach(element_2 => {
                             if (element_2.image != null) {
-                                div_img += `<img src="assets/media/${element_2.image}" alt="Icône App">`;
+                                div_img += `<img src="assets/media/${element_2.image}" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
                             } else {
-                                div_img += `<img src="assets/media/nologo.jpg" alt="Icône App">`;
+                                div_img += `<img src="assets/media/nologo.jpg" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
                             }
                         });
                     }
@@ -170,7 +174,7 @@ class GroupAdminManager {
                             <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateUserModal_groupadmin(${element.id})">${i18next.t('superadmin.buttons.update')}</button>
                         </td>
                         <td>
-                            <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGA(${element.id}, '${element.firstname}')">${i18next.t('superadmin.buttons.delete')}</button>
+                            <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('superadmin.buttons.delete')}</button>
                         </td>
                     </tr>`;
                 }
@@ -230,12 +234,12 @@ class GroupAdminManager {
                     }
 
                     let div_img = ""
-                    if (element.hasOwnProperty('applications')) {
-                        element.applications.forEach(element_2 => {
+                    if (element.hasOwnProperty('applicationsFromGroups')) {
+                        element.applicationsFromGroups.forEach(element_2 => {
                             if (element_2.image != null) {
-                                div_img += `<img src="assets/media/${element_2.image}" alt="Icône App">`;
+                                div_img += `<img src="assets/media/${element_2.image}" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
                             } else {
-                                div_img += `<img src="assets/media/nologo.jpg" alt="Icône App">`;
+                                div_img += `<img src="assets/media/nologo.jpg" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
                             }
                         });
                     }
@@ -253,7 +257,7 @@ class GroupAdminManager {
                                 <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateUserModal_groupadmin(${element.id})">${i18next.t('superadmin.buttons.update')}</button>
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGA(${element.id}, '${element.firstname}')">${i18next.t('superadmin.buttons.delete')}</button>
+                                <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('superadmin.buttons.delete')}</button>
                             </td>
                         </tr>`;
                 }
@@ -438,7 +442,7 @@ class GroupAdminManager {
         })
     }
 
-    updateUser($user_id, $firstname, $surname, $user_pseudo, $phone, $mail, $bio, $groups, $teacher_grade, $teacher_suject, $school) {
+    updateUser($user_id, $firstname, $surname, $user_pseudo, $phone, $mail, $bio, $groups, $teacher_grade, $teacher_suject, $school, $application) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -454,7 +458,77 @@ class GroupAdminManager {
                     grade: parseInt($teacher_grade) + 1,
                     subject: parseInt($teacher_suject) + 1,
                     mail: $mail,
-                    school: $school
+                    school: $school,
+                    application:  $application
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    isGroupFull($group_id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=groupadmin&action=is_group_full",
+                data: {
+                    group_id: $group_id
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    isGroupsApplicationsOutDated($group_id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=groupadmin&action=is_groups_applications_outdated",
+                data: {
+                    group_id: $group_id
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    isUserApplicationsOutDated() {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=groupadmin&action=is_teachers_applications_outdated",
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    getMonitoringGroup($group_id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=groupadmin&action=group_monitoring",
+                data: {
+                    group_id: $group_id
                 },
                 success: function (response) {
                     resolve(JSON.parse(response));

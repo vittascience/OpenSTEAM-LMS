@@ -1,6 +1,8 @@
 <div id="groupadmin-dashboard-users" style="display:none;" class="dashboard-block">
     <div class="d-flex justify-content-center c-primary-form activity-search" style="margin: 0 auto;">
         <div class="container">
+            <!-- Div alert when application has expired -->
+            <div id="info-group-applications" class="alert alert-danger text-center" style="display:none;"></div>
             <div class="row">
                 <div class="row mb-2" id="btn-create-superadmin">
                     <button class="btn-warning btn mx-1" id="create_user_link_to_group_groupadmin"
@@ -24,6 +26,29 @@
                     </tbody>
                 </table>
             </div>
+
+            <div class="row" id="group-monitoring" style="display: none;">
+                <p>Group's applications monitoring</p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">outDated</th>
+                            <th scope="col">dateBegin</th>
+                            <th scope="col">dateEnd</th>
+                            <th scope="col">maxStudents</th>
+                            <th scope="col">actualStudents</th>
+                            <th scope="col">maxTeachers</th>
+                            <th scope="col">actualTeachers</th>
+                            <th scope="col">maxStudentsPerTeacher</th>
+                        </tr>
+                    </thead>
+                    <tbody id="group-monitoring-body">
+                    </tbody>
+                </table>
+            </div>
+
+
 
             <div id="table_details_users_groupadmin" style="display: none;">
 

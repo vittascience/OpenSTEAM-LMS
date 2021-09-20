@@ -246,6 +246,8 @@
     </div>
 </div>
 <div id="classroom-dashboard-profil-panel-teacher" class="dashboard-block profile-panel" style="display:none;">
+    <!-- Div alert when application has expired -->
+    <div id="info-applications" class="alert alert-danger text-center" style="display:none;"></div>
     <img src="assets/media/profile_picture.svg" alt="Photo de profil" class="user-picture">
     <span id="user-name-teacher" data-i18n="classroom.profile.identity"></span>
     <!--  <span>CLASSE : <span id="classroom-subject-teacher"> matière enseignée</span></span> -->
@@ -701,7 +703,6 @@
             <input type="text" name="subject" class="form-control" id="groupadmin-contact-subject-input"
                 data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.objectPlaceholder" placeholder="Objet"
                 style="width: 70%;">
-
             <textarea name="message" id="groupadmin-contact-message-input" rows="8" cols="25" style="resize: none; width: 100%;"
                 data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder"
                 placeholder="Écrivez votre message ici. (Maximum 800 caractères)"></textarea>
@@ -709,6 +710,7 @@
             <input type="submit" data-i18n="[value]classroom.teacherHelpPanel.contactForm.sendButton"
                 disabled="disabled" style="cursor:not-allowed;" class="btn btn-lg login-button c-btn-primary">
         </form>
+
 
         <div id="groupadmin-footer-content" class="row" style="justify-content: space-around;width: 70%;flex-wrap: wrap;">
             <div class="col">
@@ -728,7 +730,6 @@
         <h2 class="c-text-secondary font-weight-bold text-center mt-5">FAQ</h2>
         <div id="groupadmin-faq-container"></div>
     </div>
-
 </div>
 <div id="classroom-dashboard-profil-panel-groupadmin" class="dashboard-block profile-panel" style="display:none;">
     <div class="row text-center">
@@ -762,6 +763,8 @@
 <div id="groupadmin-dashboard-users" style="display:none;" class="dashboard-block">
     <div class="d-flex justify-content-center c-primary-form activity-search" style="margin: 0 auto;">
         <div class="container">
+            <!-- Div alert when application has expired -->
+            <div id="info-group-applications" class="alert alert-danger text-center" style="display:none;"></div>
             <div class="row">
                 <div class="row mb-2" id="btn-create-superadmin">
                     <button class="btn-warning btn mx-1" id="create_user_link_to_group_groupadmin"
@@ -785,6 +788,29 @@
                     </tbody>
                 </table>
             </div>
+
+            <div class="row" id="group-monitoring" style="display: none;">
+                <p>Group's applications monitoring</p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">outDated</th>
+                            <th scope="col">dateBegin</th>
+                            <th scope="col">dateEnd</th>
+                            <th scope="col">maxStudents</th>
+                            <th scope="col">actualStudents</th>
+                            <th scope="col">maxTeachers</th>
+                            <th scope="col">actualTeachers</th>
+                            <th scope="col">maxStudentsPerTeacher</th>
+                        </tr>
+                    </thead>
+                    <tbody id="group-monitoring-body">
+                    </tbody>
+                </table>
+            </div>
+
+
 
             <div id="table_details_users_groupadmin" style="display: none;">
 

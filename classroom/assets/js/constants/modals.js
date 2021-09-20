@@ -291,12 +291,6 @@ const classroomModals = {
                         <textarea class="form-control" id="u_bio" rows="3"></textarea>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input type="checkbox" id="u_is_active">
-                        <label class="form-check-label" for="u_is_active" data-i18n="superadmin.account.active">
-                            Compte actif
-                        </label>
-                    </div>
-                    <div class="form-check form-check-inline">
                         <input type="checkbox" id="u_is_admin">
                         <label class="form-check-label" for="u_is_admin" data-i18n="superadmin.users.admin">
                             Administrateur
@@ -340,8 +334,6 @@ const classroomModals = {
                 </div>
                 <select class="form-control" id="u_group">
                 </select>
-                <button class="btn btn-sm btn-info ml-1" onclick="addGroupSuperAdmin()" id="add_group_superadmin" data-i18n="superadmin.buttons.user.addGroup">Ajouter un
-                    groupe</button>
             </div>
             <div id="group_add_sa">
             </div>
@@ -426,9 +418,10 @@ const classroomModals = {
     <hr>
     <div id="update_actualgroup_sa">
     </div>
+    <div id="update_applications_sa">
+    </div>
     
-    <button class="btn btn-sm btn-info" onclick="updateAddGroupSuperAdmin()" id="update_add_group_superadmin" data-i18n="superadmin.buttons.user.addGroup">Ajouter un
-        groupe</button>
+    
         
     <button class="btn btn-sm btn-info" onclick="updateAppForUser()" id="update_app_user" data-i18n="superadmin.buttons.user.updateApp">Modifier les applications</button>
     
@@ -569,6 +562,8 @@ const classroomModals = {
                 <hr>
                 <div id="update_actualgroup_ga">
                 </div>
+                <div id="update_applications_ga">
+                </div>
                 
                 <button class="btn btn-info" onclick="updateUserModalGroupAdmin()" data-i18n="superadmin.buttons.user.update">Update user</button>`,
         footer: ``
@@ -585,7 +580,7 @@ const classroomModals = {
                             <h3 class="font-weight-bold text-danger m-auto text-center" data-i18n="superadmin.users.deleteConfirmationTitle"></h3>
                             <p data-i18n="[html]superadmin.users.disable.intention" class="text-center"></p>
                             <p data-i18n="superadmin.users.disable.message" class="text-center"></p>.
-                            <input type="text" name="validation_deleteGA" id="validation_deleteGA" data-i18n="[placeholder]superadmin.input.placeholder.delete" placeholder="supprimer">
+                            <input type="text" name="validation_deleteGroupAdmin" id="validation_deleteGroupAdmin" data-i18n="[placeholder]superadmin.input.placeholder.delete" placeholder="supprimer">
                             <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="cancelDeleteGroupAdmin()" data-i18n="superadmin.buttons.cancel">Annuler</button>
                             <button class="btn btn-danger mx-auto mt-3 btn-lg" onclick="persistDeleteGroupAdmin()" data-i18n="superadmin.buttons.validate">Valider</button>
                         </div>
