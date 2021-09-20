@@ -1208,7 +1208,17 @@
 			"description": "Description",
 			"right": "Rôle",
 			"resetPassword": "Réinitialiser le mot de passe",
-			"link": "Lien"
+			"link": "Lien",
+			"name": "Name",
+			"dateBegin": "Date début",
+			"dateEnd": "Date de fin",
+			"outDated": "Périmé",
+			"maxStudents": "Maximum d'élèves",
+			"actualStudents": "Éleves actuels",
+			"maxTeachers": "Maximum d'enseignants",
+			"actualTeachers": "Enseignants actuels",
+			"maxStudentsPerTeachers": "Maximum d'élèves par enseignant",
+			"monitoring": "Suveillance des applications"
 		}
 	},
 	"navbar": {

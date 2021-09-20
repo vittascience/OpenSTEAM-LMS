@@ -186,7 +186,6 @@
 			"bothLimitationsReached": "You have reached the student limitations that you and your group may have.",
 			"ClassroomNameInvalid": "The classroom name is required",
 			"reservedNickname": "The name : \"{{reservedNickname}}\" can not be attributed."
-
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
@@ -916,7 +915,17 @@
 			"description": "Description",
 			"right": "Rights",
 			"resetPassword": "Reset password",
-			"link": "Link"
+			"link": "Link",
+			"name": "Name",
+			"dateBegin": "Begin date",
+			"dateEnd": "End date",
+			"outDated": "Out dated",
+			"maxStudents": "Maximum students",
+			"actualStudents": "Current students",
+			"maxTeachers": "Maximum teachers",
+			"actualTeachers": "Current teachers",
+			"maxStudentsPerTeachers": "Maximum students per teacher",
+			"monitoring": "Applications monitoring"
 		}
 	},
 	"navbar": {
