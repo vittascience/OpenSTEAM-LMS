@@ -956,6 +956,7 @@ $('#table_back_to_users').click(function () {
 
 $('#table_back_to_users_groupadmin').click(function () {
     $('#groupadmin_groups').show();
+    $('#group-monitoring').show();
     $('#table_details_users_groupadmin').hide();
 })
 
@@ -1668,7 +1669,7 @@ function persistDeleteGroupAdmin() {
     const user = mainGroupAdmin.getGroupAdminManager()._actualUser;
     if (validation == placeholderWord) {
         mainGroupAdmin.getGroupAdminManager().disableUser(user).then((response) => {
-            if (response.message == "success") {
+            if (response.message == "not_allowed") {
                 displayNotification('#notif-div', "superadmin.account.notAllowedDeleteUser", "error");
             } else if (response.message == "success") {
                 displayNotification('#notif-div', "superadmin.users.userDeleted", "success");
@@ -1733,8 +1734,9 @@ function showGroupMembers($group_id, $page, $userspp, $sort) {
 }
 
 function showGroupMembersGroupAdmin(id) {
-    mainGroupAdmin.getGroupAdminManager().getUsersFromGroup(id, 1)
+    $('#group-monitoring').hide();
     $('#groupadmin_groups').hide();
+    mainGroupAdmin.getGroupAdminManager().getUsersFromGroup(id, 1)
     $('#table_details_users_groupadmin').show();
 }
 
@@ -2311,4 +2313,141 @@ function showMonitoring(data) {
     }
     $('#group-monitoring-body').html(html);
     $('#group-monitoring').show();
+}
+
+/**
+ * Applications crud WIP
+ */
+
+const CRUD_APP_VIEWS = ['#update-app-superadmin','#delete-app-superadmin', '#create-app-superadmin'];
+$('#update_applications_superadmin').click(() => {
+    getAndShowApps();
+    pseudoModal.openModal('update-applications-superadmin');
+})
+
+function closeCrudAppViewsAndShowMain() {
+    // Close all the crud views
+    CRUD_APP_VIEWS.forEach(view => {
+        $(view).hide();
+    });
+    $('#all-applications').show();
+}
+
+function resetInputApplications() {
+    $('#app_update_name').val("");
+    $('#app_update_description').val("");
+    $('#app_update_image').val("");
+    $('#app_update_id').val("");
+    $('#app_create_name').val("");
+    $('#app_create_description').val("");
+    $('#app_create_image').val("");
+    $('#validation_delete_application_id').val("");
+    $('#validation_delete_application').val("");
+}
+
+function getAndShowApps() {
+    resetInputApplications();
+    closeCrudAppViewsAndShowMain();
+    $('#all-applications-crud').html();
+    let htmlApps = "";
+    mainSuperAdmin.getSuperAdminManager().getAllApplications().then((response) => {
+        response.forEach(application => {
+            htmlApps += `<tr>
+                            <td>${application.name}</td>
+                            <td>${application.description}</td>
+                            <td>${application.image}</td>
+                            <td><button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="updateApp(${application.id})">${i18next.t('superadmin.buttons.update')}</button></td>
+                            <td><button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="deleteApp(${application.id}, '${application.name}')">${i18next.t('superadmin.buttons.delete')}</button></td>
+                        </tr>`;
+        });
+        $('#all-applications-crud').html(htmlApps);
+    })
+}
+
+function updateApp(app_id) {
+    mainSuperAdmin.getSuperAdminManager().getApplicationById(app_id).then((response) => {
+        $('#app_update_name').val(response.name);
+        $('#app_update_description').val(response.description);
+        $('#app_update_image').val(response.image);
+        $('#app_update_id').val(response.id);
+        $('#all-applications').hide();
+        $('#update-app-superadmin').show();
+    })
+}
+
+function persistUpdateApp() {
+    $('#update-app-superadmin').hide();
+    let $application_id = $('#app_update_id').val(),
+        $application_name = $('#app_update_name').val(),
+        $application_description = $('#app_update_description').val(),
+        $application_image = $('#app_update_image').val();
+
+    mainSuperAdmin.getSuperAdminManager().updateApplication(
+        $application_id, 
+        $application_name, 
+        $application_description, 
+        $application_image).then((response) => {
+            if (response.message == "success") {
+                displayNotification('#notif-div', "superadmin.apps.updateSuccess", "success");
+                getAndShowApps();
+            } else {
+                displayNotification('#notif-div', "superadmin.account.missingData", "error");
+            }
+    })
+}
+
+function deleteApp(app_id, app_name) {
+    $('#all-applications').hide();
+    $('#delete-app-superadmin').show();
+    $('#application_delete_name').text(app_name);
+    $('#validation_delete_application_id').val(app_id);
+}
+
+function persistDeleteApp() {
+    let validation = $('#validation_delete_application').val(),
+        placeholderWord = $('#validation_delete_application').attr('placeholder'),
+        app_id = $('#validation_delete_application_id').val();
+
+    if (validation == placeholderWord) {
+        mainSuperAdmin.getSuperAdminManager().deleteApplication(app_id).then((response) => {
+            if (response.message == "success") {
+                displayNotification('#notif-div', "superadmin.apps.deleteSuccess", "success");
+                getAndShowApps();
+            } else {
+                displayNotification('#notif-div', "superadmin.account.missingData", "error");
+            }
+        })
+    } else {
+        displayNotification('#notif-div', "superadmin.input.writeDelete", "error");
+    }
+}
+
+function createApp() {
+    $('#all-applications').hide();
+    $('#create-app-superadmin').show();
+}
+
+
+function persistCreateApp() {
+    let $application_name = $('#app_create_name').val(),
+        $application_description = $('#app_create_description').val(),
+        $application_image = $('#app_create_image').val();
+
+    mainSuperAdmin.getSuperAdminManager().createApplication(
+        $application_name, 
+        $application_description, 
+        $application_image).then((response) => {
+            if (response.message == "success") {
+                displayNotification('#notif-div', "superadmin.apps.updateSuccess", "success");
+                getAndShowApps();
+            } else {
+                displayNotification('#notif-div', "superadmin.account.missingData", "error");
+            }
+    })
+}
+
+
+function cancelApp() {
+    closeCrudAppViewsAndShowMain();
+    resetInputApplications();
 }

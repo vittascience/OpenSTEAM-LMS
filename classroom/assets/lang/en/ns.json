@@ -709,6 +709,7 @@
 			"mailSentToUserReset": "An email has been sent to the user to change their password",
 			"mailNotSentToUserReset": "The password change email could not be sent to the user",
 			"appsUpdated": "User apps have been updated",
+			"updateApps": "Update apps",
 			"teacherGrades": {
 				"0": "Elementary School",
 				"1": "Middle School",
@@ -925,7 +926,15 @@
 			"maxTeachers": "Maximum teachers",
 			"actualTeachers": "Current teachers",
 			"maxStudentsPerTeachers": "Maximum students per teacher",
-			"monitoring": "Applications monitoring"
+			"monitoring": "Apps monitoring",
+			"image": "Image"
+		},
+		"apps": {
+			"create": "Create an app",
+			"updateSuccess": "App successfully updated",
+			"createSuccess": "App successfully created",
+			"deleteSuccess": "App successfully deleted",
+			"deleteIntention": "You are about to delete the app : <span id=\"application_delete_name\"></span>"
 		}
 	},
 	"navbar": {

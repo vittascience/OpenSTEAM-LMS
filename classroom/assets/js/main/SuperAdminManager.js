@@ -149,6 +149,83 @@ class SuperAdminManager {
         })
     }
 
+    getApplicationById($application_id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=get_application_by_id",
+                data: {
+                    application_id: $application_id
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    updateApplication($application_id, $application_name, $application_description, $application_image) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=update_application",
+                data: {
+                    application_id: $application_id,
+                    application_name: $application_name,
+                    application_description: $application_description,
+                    application_image: $application_image
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    deleteApplication($application_id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=delete_application",
+                data: {
+                    application_id: $application_id
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    createApplication($application_name, $application_description, $application_image) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=create_application",
+                data: {
+                    application_name: $application_name,
+                    application_description: $application_description,
+                    application_image: $application_image
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
     // Add a group
     createGroup($group_description, $group_name, $group_app) {
         return new Promise(function (resolve, reject) {
@@ -378,25 +455,6 @@ class SuperAdminManager {
             });
         })
     }
-
-/*     deleteUserFromGroup($group_id, $user_id) {
-        const process = (data) => {
-        }
-        $.ajax({
-            type: "POST",
-            url: "/routing/Routing.php?controller=superadmin&action=delete_user_from_froup",
-            data: {
-                user_id: $user_id,
-                group_id: $group_id
-            },
-            success: function (response) {
-                process(JSON.parse(response));
-            },
-            error: function () {
-                reject();
-            }
-        });
-    } */
 
     getUserInfo($user_id) {
         return new Promise(function (resolve, reject) {
@@ -810,5 +868,23 @@ class SuperAdminManager {
             });
         })
     }
-
 }
+
+/*     deleteUserFromGroup($group_id, $user_id) {
+        const process = (data) => {
+        }
+        $.ajax({
+            type: "POST",
+            url: "/routing/Routing.php?controller=superadmin&action=delete_user_from_froup",
+            data: {
+                user_id: $user_id,
+                group_id: $group_id
+            },
+            success: function (response) {
+                process(JSON.parse(response));
+            },
+            error: function () {
+                reject();
+            }
+        });
+    } */

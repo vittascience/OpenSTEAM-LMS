@@ -1002,6 +1002,7 @@
 			"mailSentToUserReset": "Un e-mail a été envoyé à l'utilisateur pour qu'il change de mot de passe",
 			"mailNotSentToUserReset": "l'e-mail de changement de mot de passe n'a pas pu être envoyé à l'utilisateur",
 			"appsUpdated": "Les applications de l'utilisateur ont été mise à jour",
+			"updateApps": "Modifier les applications",
 			"teacherGrades": {
 				"0": "Primaire",
 				"1": "Collège",
@@ -1218,7 +1219,15 @@
 			"maxTeachers": "Maximum d'enseignants",
 			"actualTeachers": "Enseignants actuels",
 			"maxStudentsPerTeachers": "Maximum d'élèves par enseignant",
-			"monitoring": "Suveillance des applications"
+			"monitoring": "Suveillance des applications",
+			"image": "Image"
+		},
+		"apps": {
+			"create": "Créer une application",
+			"updateSuccess": "Application modifiée avec succès",
+			"createSuccess": "Application créée avec succès",
+			"deleteSuccess": "Application supprimée avec succès",
+			"deleteIntention": "Vous vous apprêtez à supprimer l'application : <span id=\"application_delete_name\"></span>"
 		}
 	},
 	"navbar": {

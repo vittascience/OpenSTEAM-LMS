@@ -1,4 +1,4 @@
-const AllViews = ['#classroom-login-container', '#login-container', '#classroom-register-container', '#home-container'];
+const AllViews = ['#classroom-login-container', '#login-container', '#classroom-register-container', '#home-container', '#classroom-login-container-bis'];
 
 function onUrlChange() {
     // Close all views
@@ -17,6 +17,9 @@ function onUrlChange() {
                 break;
             case 'register':
                 $('#classroom-register-container').show();
+                break;
+            case 'link':
+                $('#classroom-login-container-bis').show();
                 break;
             default:
                 $('#home-container').show();
