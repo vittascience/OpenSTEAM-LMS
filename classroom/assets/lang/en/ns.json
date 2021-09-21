@@ -930,6 +930,7 @@
 			"image": "Image"
 		},
 		"apps": {
+			"apps": "Apps",
 			"create": "Create an app",
 			"updateSuccess": "App successfully updated",
 			"createSuccess": "App successfully created",

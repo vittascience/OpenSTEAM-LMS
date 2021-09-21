@@ -1,0 +1,26 @@
+<div id="superadmin-apps-main" class="dashboard-block" style="display: none;">
+    <div class="container">
+        <div class="col-12">
+            <div id="update-applications-modal">
+                <div class="col-12" id="all-applications">
+                    <div class="row">
+                        <button class="btn btn-info my-3 btn" onclick="createApp()" data-i18n="superadmin.apps.create">Créer</button>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-i18n="superadmin.table.name">Name</th>
+                                <th scope="col" data-i18n="superadmin.table.description">Description</th>
+                                <th scope="col" data-i18n="superadmin.table.image">Image</th>
+                                <th scope="col" data-i18n="superadmin.buttons.update">Modifier</th>
+                                <th scope="col" data-i18n="superadmin.buttons.delete">Supprimer</th>
+                            </tr>
+                        </thead>
+                        <tbody id="all-applications-crud">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

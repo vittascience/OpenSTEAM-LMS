@@ -711,25 +711,7 @@ const classroomModals = {
             icon: '',
             title: 'superadmin.users.updateApps'
         },
-        content: `  <div id="delete-user-modal">
-                        <div class="col-12" id="all-applications">
-                            <div class="row">
-                                <button class="btn btn-info my-3 btn" onclick="createApp()" data-i18n="superadmin.apps.create">Créer</button>
-                            </div>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" data-i18n="superadmin.table.name">Name</th>
-                                        <th scope="col" data-i18n="superadmin.table.description">Description</th>
-                                        <th scope="col" data-i18n="superadmin.table.image">Image</th>
-                                        <th scope="col" data-i18n="superadmin.buttons.update">Modifier</th>
-                                        <th scope="col" data-i18n="superadmin.buttons.delete">Supprimer</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="all-applications-crud">
-                                </tbody>
-                            </table>
-                        </div>
+        content: `  <div id="update-applications-modal">
                         <div class="col-12" id="update-app-superadmin" style="display:none;">
                             <div class="row mt-1">
                                 <div class="col">
@@ -747,16 +729,16 @@ const classroomModals = {
                                 <input type="hidden" class="form-control" id="app_update_id">
                             </div>
                             <button class="btn btn-primary my-3 btn" onclick="persistUpdateApp()" data-i18n="superadmin.buttons.update">Modifier</button>
-                            <button class="btn btn-info my-3 btn" onclick="cancelApp()" data-i18n="superadmin.buttons.cancel">Annuler</button>
+                            <button class="btn btn-info my-3 btn" onclick="closeModalAndCleanInput()" data-i18n="superadmin.buttons.cancel">Annuler</button>
                         </div>
                         <div class="col-12" id="delete-app-superadmin" style="display:none;">
                             <h3 class="font-weight-bold text-danger m-auto text-center" data-i18n="superadmin.users.deleteConfirmationTitle">Confirmer la suppression</h3>
-                            <p class="text-center" data-i18n="[html]superadmin.application.deleteIntention"></p>
+                            <p class="text-center" data-i18n="[html]superadmin.apps.deleteIntention"></p>
                             <p class="text-center" data-i18n="superadmin.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>.
                             <input type="hidden" name="validation_delete_application_id" id="validation_delete_application_id">
                             <input type="text" name="validation_delete_application" id="validation_delete_application" data-i18n="[placeholder]superadmin.input.placeholder.delete" placeholder="supprimer">
                             <button class="btn btn-danger mx-auto mt-3 btn-lg" onclick="persistDeleteApp()" data-i18n="superadmin.buttons.validate">Valider</button>
-                            <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="cancelApp()" data-i18n="superadmin.buttons.cancel">Annuler</button>
+                            <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInput()" data-i18n="superadmin.buttons.cancel">Annuler</button>
                         </div>
                         <div class="col-12" id="create-app-superadmin" style="display:none;">
                             <div class="row mt-1">
@@ -775,7 +757,7 @@ const classroomModals = {
                                 <input type="hidden" class="form-control" id="app_create_id">
                             </div>
                             <button class="btn btn-primary mx-auto mt-3 btn-lg" onclick="persistCreateApp()" data-i18n="superadmin.buttons.validate">Valider</button>
-                            <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="cancelApp()" data-i18n="superadmin.buttons.cancel">Annuler</button>
+                            <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInput()" data-i18n="superadmin.buttons.cancel">Annuler</button>
                         </div>
                     </div>`,
         footer: ``

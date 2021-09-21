@@ -1223,6 +1223,7 @@
 			"image": "Image"
 		},
 		"apps": {
+			"apps": "Applications",
 			"create": "Créer une application",
 			"updateSuccess": "Application modifiée avec succès",
 			"createSuccess": "Application créée avec succès",

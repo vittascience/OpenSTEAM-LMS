@@ -2320,17 +2320,33 @@ function showMonitoring(data) {
  */
 
 const CRUD_APP_VIEWS = ['#update-app-superadmin','#delete-app-superadmin', '#create-app-superadmin'];
-$('#update_applications_superadmin').click(() => {
+
+$('#dashboard-superadmin-apps').click(() => {
     getAndShowApps();
-    pseudoModal.openModal('update-applications-superadmin');
 })
 
-function closeCrudAppViewsAndShowMain() {
-    // Close all the crud views
+// Close all the crud views
+function closeCrudAppViews() {
     CRUD_APP_VIEWS.forEach(view => {
         $(view).hide();
     });
-    $('#all-applications').show();
+}
+
+// Open the modal with the div we want
+function openModalInState(state) {
+    closeCrudAppViews()
+    pseudoModal.openModal('update-applications-superadmin');
+    $(state).show();
+}
+
+// Close modal, reset input, close view and if true refresh the table of 
+function closeModalAndCleanInput(refresh = false) {
+    if (refresh) {
+        getAndShowApps();
+    }
+    pseudoModal.closeAllModal();
+    resetInputApplications();
+    closeCrudAppViews();
 }
 
 function resetInputApplications() {
@@ -2346,8 +2362,6 @@ function resetInputApplications() {
 }
 
 function getAndShowApps() {
-    resetInputApplications();
-    closeCrudAppViewsAndShowMain();
     $('#all-applications-crud').html();
     let htmlApps = "";
     mainSuperAdmin.getSuperAdminManager().getAllApplications().then((response) => {
@@ -2364,15 +2378,24 @@ function getAndShowApps() {
     })
 }
 
+function createApp() {
+    openModalInState('#create-app-superadmin');
+}
+
 function updateApp(app_id) {
     mainSuperAdmin.getSuperAdminManager().getApplicationById(app_id).then((response) => {
         $('#app_update_name').val(response.name);
         $('#app_update_description').val(response.description);
         $('#app_update_image').val(response.image);
         $('#app_update_id').val(response.id);
-        $('#all-applications').hide();
-        $('#update-app-superadmin').show();
+        openModalInState('#update-app-superadmin');
     })
+}
+
+function deleteApp(app_id, app_name) {
+    openModalInState('#delete-app-superadmin');
+    $('#application_delete_name').text(app_name);
+    $('#validation_delete_application_id').val(app_id);
 }
 
 function persistUpdateApp() {
@@ -2389,19 +2412,14 @@ function persistUpdateApp() {
         $application_image).then((response) => {
             if (response.message == "success") {
                 displayNotification('#notif-div', "superadmin.apps.updateSuccess", "success");
-                getAndShowApps();
+                closeModalAndCleanInput(true)
             } else {
                 displayNotification('#notif-div', "superadmin.account.missingData", "error");
             }
     })
 }
 
-function deleteApp(app_id, app_name) {
-    $('#all-applications').hide();
-    $('#delete-app-superadmin').show();
-    $('#application_delete_name').text(app_name);
-    $('#validation_delete_application_id').val(app_id);
-}
+
 
 function persistDeleteApp() {
     let validation = $('#validation_delete_application').val(),
@@ -2412,7 +2430,7 @@ function persistDeleteApp() {
         mainSuperAdmin.getSuperAdminManager().deleteApplication(app_id).then((response) => {
             if (response.message == "success") {
                 displayNotification('#notif-div', "superadmin.apps.deleteSuccess", "success");
-                getAndShowApps();
+                closeModalAndCleanInput(true)
             } else {
                 displayNotification('#notif-div', "superadmin.account.missingData", "error");
             }
@@ -2421,12 +2439,6 @@ function persistDeleteApp() {
         displayNotification('#notif-div', "superadmin.input.writeDelete", "error");
     }
 }
-
-function createApp() {
-    $('#all-applications').hide();
-    $('#create-app-superadmin').show();
-}
-
 
 function persistCreateApp() {
     let $application_name = $('#app_create_name').val(),
@@ -2438,8 +2450,8 @@ function persistCreateApp() {
         $application_description, 
         $application_image).then((response) => {
             if (response.message == "success") {
-                displayNotification('#notif-div', "superadmin.apps.updateSuccess", "success");
-                getAndShowApps();
+                displayNotification('#notif-div', "superadmin.apps.createSuccess", "success");
+                closeModalAndCleanInput(true)
             } else {
                 displayNotification('#notif-div', "superadmin.account.missingData", "error");
             }
@@ -2447,7 +2459,3 @@ function persistCreateApp() {
 }
 
 
-function cancelApp() {
-    closeCrudAppViewsAndShowMain();
-    resetInputApplications();
-}
