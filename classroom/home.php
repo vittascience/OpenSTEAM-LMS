@@ -9,9 +9,7 @@ if(is_dir($openClassroomDir)){
     require __DIR__."/../vendor/autoload.php";
     require __DIR__."/../bootstrap.php";
 }
-
 use Dotenv\Dotenv;
-
 // load data from .env file
 $dotenv = Dotenv::createImmutable(__DIR__."/../");
 $dotenv->safeLoad();
