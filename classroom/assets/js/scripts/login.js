@@ -1,4 +1,4 @@
-const AllViews = ['#classroom-login-container', '#login-container', '#classroom-register-container', '#home-container'];
+const AllViews = ['#classroom-login-container', '#login-container', '#classroom-register-container', '#home-container', '#classroom-login-container-bis'];
 
 function onUrlChange() {
     // Close all views
@@ -17,6 +17,9 @@ function onUrlChange() {
                 break;
             case 'register':
                 $('#classroom-register-container').show();
+                break;
+            case 'link':
+                $('#classroom-login-container-bis').show();
                 break;
             default:
                 $('#home-container').show();
@@ -471,120 +474,44 @@ setTimeout(() => {
 
 
 /**
- * Old functions for the old form
- */
-/**
- * Check if the teacher's account update form values are correct
- * @returns {boolean} - true if check ok, false otherwise
- */
-/* function teacherAccountCreateFormCheck(formData) {
-
-    let formValues = {
-            'firstname': {
-                value: formData.get('first-name'),
-                id: 'profile-form-first-name'
-            },
-            'surname': {
-                value: formData.get('last-name'),
-                id: 'profile-form-last-name'
-            },
-            'pseudo': {
-                value: formData.get('nickname'),
-                id: 'profile-form-nick-name'
-            },
-            'email': {
-                value: formData.get('email'),
-                id: 'profile-form-email'
-            },
-            'password': {
-                value: formData.get('password'),
-                id: 'profile-form-password'
-            },
-            'confirmPassword': {
-                value: formData.get('confirm-password'),
-                id: 'profile-form-confirm-password'
-            }
-        },
-        errors = [];
-
-    for (let input in formValues) {
-        let currentElt = document.getElementById(formValues[input].id);
-        if (currentElt.classList.contains('form-input-error')) {
-            currentElt.classList.remove('form-input-error');
-        }
-    }
-
-    if (formValues.firstname.value.length < 2) {
-        errors.push('firstNameTooShort');
-        showFormInputError(formValues.firstname.id);
-    }
-
-    if (formValues.surname.value.length < 2) {
-        errors.push('lastNameTooShort');
-        showFormInputError(formValues.surname.id);
-    }
-
-    if (formValues.pseudo.value.length < 2) {
-        errors.push('pseudoTooShort');
-        showFormInputError(formValues.pseudo.id);
-    }
-
-    if (!formValues.email.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
-        errors.push('invalidEmail');
-        showFormInputError(formValues.email.id);
-    }
-
-    if (!formValues.password.value.length > 7) {
-        errors.push('invalidPassword');
-        showFormInputError(formValues.password.id);
-    }
-
-    if (formValues.password.value != formValues.confirmPassword.value) {
-        errors.push('passwordAndConfirmMismatch');
-        showFormInputError(formValues.password.id);
-        showFormInputError(formValues.confirmPassword.id);
-    }
-
-    if (errors.length) {
-        for (let error of errors) {
-            displayNotification('#notif-div', `classroom.notif.${error}`, "error");
-        }
-        return false;
-    } else {
-        return true;
-    }
-} */
-
-/**
  * Create teacher form submit listener
  */
-/*  document.getElementById('create-teacher-account-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    let data = new FormData(e.target);
-    if(teacherAccountCreateFormCheck(data)){
-        Main.getClassroomManager().createTeacherAccount(data).then((response) => {
-            if(response.isUserAdded){
-                document.getElementById('profile-form-password').value = '';
-                document.getElementById('profile-form-confirm-password').value = '';
-                displayNotification('#notif-div', "classroom.notif.accountCreated", "success");
-                returnToConnectionPanel('#login-container');
-            }else{
-                if(response.errorType){
-                    switch (response.errorType) {
-                        case 'unknownUser':
-                            displayNotification('#notif-div', "classroom.notif.unknownUser", "error");
-                            break;
-                    
-                        default:
-                            break;
-                    }
-                }
-                if(response.errors){
-                    for(let error in response.errors){
-                        displayNotification('#notif-div', `classroom.notif.${error}`, "error");
-                    }
-                }
-            }
-        });
+ function showFormInputError(id) {
+    document.getElementById(id).classList.add('form-input-error');
+}
+
+
+// Grade select gestion
+$('#profile-form-grade').change(() => {
+    switch ($('#profile-form-grade').val()) {
+        case "0":
+            createSubjectSelectTeacherForm(getSubjects(0));
+            break;
+        case "1":
+            createSubjectSelectTeacherForm(getSubjects(1));
+            break;
+        case "2":
+            createSubjectSelectTeacherForm(getSubjects(2));
+            break;
+        case "3":
+            createSubjectSelectTeacherForm(getSubjects(3));
+            break;
+        case "4":
+            createSubjectSelectTeacherForm(getSubjects(4));
+            break;
+        default:
+            break;
     }
-}); */
+})
+
+function createSubjectSelectTeacherForm(array) {
+    $("#profile-form-subject").empty();
+    for (let index = 0; index < array.length; index++) {
+        const o = new Option(array[index], index);
+        $(o).html(array[index]);
+        $("#profile-form-subject").append(o);
+    }
+}
+setTimeout(() => {
+    createSubjectSelectTeacherForm(getSubjects(0));
+}, 2000);
