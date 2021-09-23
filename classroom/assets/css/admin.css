@@ -51,5 +51,32 @@
     position: relative;
 }
 
+.pagination {
+    color: var(--classroom-tertiary);
+}
+
+.pagination .page-link {
+    color: var(--classroom-tertiary);
+    background-color: var(--classroom-background);
+    border-color: var(--classroom-cell);
+    font-weight: bold;
+}
+
+.pagination .page-item.active .page-link {
+    color: var(--classroom-white);
+    background-color: var(--classroom-tertiary);
+    border-color: var(--classroom-tertiary);
+}
+
+.pagination .page-item:last-child .page-link {
+    border-top-right-radius: 3rem;
+    border-bottom-right-radius: 3rem;
+}
+
+.pagination .page-item:first-child .page-link {
+    border-top-left-radius: 3rem;
+    border-bottom-left-radius: 3rem;
+}
+
 /* GROUP ADMIN */
 /* SUPER ADMIN */
