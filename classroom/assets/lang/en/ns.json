@@ -185,7 +185,8 @@
 			"groupLimitationsTeacher": "You have reached the learner limit that your group grants you",
 			"bothLimitationsReached": "You have reached the student limitations that you and your group may have.",
 			"ClassroomNameInvalid": "The classroom name is required",
-			"reservedNickname": "The name : \"{{reservedNickname}}\" can not be attributed."
+			"reservedNickname": "The name : \"{{reservedNickname}}\" can not be attributed.",
+			"invalidLink": "The link you entered is not valid"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
