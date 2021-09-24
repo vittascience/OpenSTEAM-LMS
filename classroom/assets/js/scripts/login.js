@@ -1,14 +1,13 @@
 const AllViews = ['#classroom-login-container', '#login-container', '#classroom-register-container', '#home-container', '#classroom-login-container-bis'];
 
+// Global param who check if it's the first request of class
+let firstRequestClass = true;
 function onUrlChange() {
     // Close all views
-    AllViews.forEach(e => {
-        $(e).hide();
-    });
+    closeAllViews();
     // Show the view needed
     if ($_GET('p')) {
-        let page = $_GET('p');
-        switch (page) {
+        switch ($_GET('p')) {
             case 'login-choice':
                 $('#classroom-login-container').show();
                 break;
@@ -18,23 +17,48 @@ function onUrlChange() {
             case 'register':
                 $('#classroom-register-container').show();
                 break;
-            case 'link':
-                $('#classroom-login-container-bis').show();
-                break;
             default:
                 $('#home-container').show();
                 break;
         }
+    } else if ($_GET('link')) {
+        // We trigger this one only if it's not the first request (the first request is handled by the Main.init())
+        if (firstRequestClass === false) {
+            findClassroomToConnect($_GET('link'));
+        }
     } else {
-        navigateLight("", 1);
         $('#home-container').show();
     }
 }
+// call onUrlChange one time a the initialization of the page for set the views correctly
+onUrlChange();
 
+// the function who manage the history without refreshing the page 
 function navigateLight(page, i = 0) {
-    let link = i == 0 ? window.location.origin + window.location.pathname + "?p=" + page : window.location.origin + window.location.pathname + page;
+    let link;
+    switch (i) {
+        case 0:
+            link = window.location.origin + window.location.pathname + "?p=" + page;
+            break;
+        case 1:
+            link = window.location.origin + window.location.pathname + page;
+            break;
+        case 2:
+            link = window.location.origin + window.location.pathname+ "?link=" + page;
+            break;
+        default:
+            break;
+    }
+
     window.history.pushState({}, '', link);
     onUrlChange();
+}
+
+function closeAllViews() {
+    // Close all views
+    AllViews.forEach(e => {
+        $(e).hide();
+    });
 }
 
 window.onpopstate = function (e) {
@@ -53,6 +77,46 @@ function displayNotification(div, message, status, options = '{}') {
     setTimeout(function () {
         $('#notif-' + randId).remove()
     }, 15000);
+}
+
+function findClassroomToConnect(linkC) {
+
+    $('#class-connexion').attr("disabled", true);
+    $('#create-user').show();
+
+    Main.getClassroomManager().getClassroom(linkC).then((response) => {
+        closeAllViews();
+
+        $('#classroom-login-container-bis').show();
+        //$('#classroom-create-account .green-form').show();
+        $('#blocked-class').remove();
+        $('#class-connexion').attr("disabled", false);
+        
+        if (response.exist) {
+            $('#classroom-login-account, #classroom-create-account').show();
+            $('#classroom-desc').html(response.link.toUpperCase() + ' - CLASSE \"' + response.name + '\"');
+            if (response.isBlocked == true) {
+                let blockedClassDivElt = document.createElement("div");
+                blockedClassDivElt.id = "blocked-class";
+                blockedClassDivElt.innerHTML =
+                    "Cette classe a été bloquée par l'enseignant.e qui l'a crée, tu ne peux donc pas créer de nouveau compte.<br>Si tu as déja un compte, essaye plutot de te connecter.";
+    
+                $('#classroom-create-account').hide();
+                document.getElementById('classroom-desc').append(blockedClassDivElt);
+    
+                $('#classroom-create-account .green-form').hide();
+                $('#create-user').hide();
+            }
+        } else {
+            if (response.hasOwnProperty('errorLinkNotExists')) {
+                $('#classroom-desc').html('Vous devez saisir un code.');
+                $('#classroom-login-account, #classroom-create-account').hide();
+            } else {
+                $('#classroom-desc').html('Le code entré ne correspond à aucune classe.');
+                $('#classroom-login-account, #classroom-create-account').hide();
+            }
+        }
+    })
 }
 
 
@@ -76,8 +140,6 @@ $('#login-vittascience').click(function () {
 
 $('#home-connexion').click(function () {
     navigateLight("login-choice")
-    /*     $('#home-container').toggle();
-        $('#classroom-login-container').toggle(); */
     document.documentElement.style = "scroll-behavior: auto";
     document.documentElement.scrollTo({
         top: 0,
@@ -89,9 +151,13 @@ $('.navbar-brand').click(function () {
     window.location.href = window.location.origin + window.location.pathname
 })
 
-
 $('#class-connexion').click(function () {
-    findClassroomToConnect($('#class-code').val())
+    if ($('#class-code').val().length == 5) {
+        firstRequestClass = false;
+        navigateLight($('#class-code').val(), 2);
+    } else {
+        displayNotification('#notif-div', "classroom.notif.invalidLink", "error");
+    }
 })
 
 if ($_GET('panel') == "login") {
@@ -473,45 +539,3 @@ setTimeout(() => {
 }, 2000);
 
 
-/**
- * Create teacher form submit listener
- */
- function showFormInputError(id) {
-    document.getElementById(id).classList.add('form-input-error');
-}
-
-
-// Grade select gestion
-$('#profile-form-grade').change(() => {
-    switch ($('#profile-form-grade').val()) {
-        case "0":
-            createSubjectSelectTeacherForm(getSubjects(0));
-            break;
-        case "1":
-            createSubjectSelectTeacherForm(getSubjects(1));
-            break;
-        case "2":
-            createSubjectSelectTeacherForm(getSubjects(2));
-            break;
-        case "3":
-            createSubjectSelectTeacherForm(getSubjects(3));
-            break;
-        case "4":
-            createSubjectSelectTeacherForm(getSubjects(4));
-            break;
-        default:
-            break;
-    }
-})
-
-function createSubjectSelectTeacherForm(array) {
-    $("#profile-form-subject").empty();
-    for (let index = 0; index < array.length; index++) {
-        const o = new Option(array[index], index);
-        $(o).html(array[index]);
-        $("#profile-form-subject").append(o);
-    }
-}
-setTimeout(() => {
-    createSubjectSelectTeacherForm(getSubjects(0));
-}, 2000);
