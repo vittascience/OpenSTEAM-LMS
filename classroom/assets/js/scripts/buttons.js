@@ -2316,10 +2316,8 @@ function showMonitoring(data) {
 }
 
 /**
- * Applications crud WIP
+ * Applications crud
  */
-
-const CRUD_APP_VIEWS = ['#update-app-superadmin','#delete-app-superadmin', '#create-app-superadmin'];
 
 $('#dashboard-superadmin-apps').click(() => {
     getAndShowApps();
@@ -2327,6 +2325,7 @@ $('#dashboard-superadmin-apps').click(() => {
 
 // Close all the crud views
 function closeCrudAppViews() {
+    const CRUD_APP_VIEWS = ['#update-app-superadmin','#delete-app-superadmin', '#create-app-superadmin'];
     CRUD_APP_VIEWS.forEach(view => {
         $(view).hide();
     });
@@ -2347,6 +2346,7 @@ function closeModalAndCleanInput(refresh = false) {
     pseudoModal.closeAllModal();
     resetInputApplications();
     closeCrudAppViews();
+    closeRestrictionDetail();
 }
 
 function resetInputApplications() {
@@ -2370,8 +2370,9 @@ function getAndShowApps() {
                             <td>${application.name}</td>
                             <td>${application.description}</td>
                             <td>${application.image}</td>
-                            <td><button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="updateApp(${application.id})">${i18next.t('superadmin.buttons.update')}</button></td>
-                            <td><button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="deleteApp(${application.id}, '${application.name}')">${i18next.t('superadmin.buttons.delete')}</button></td>
+                            <td><button class="btn btn-warning btn-sm" onclick="updateApp(${application.id})">${i18next.t('superadmin.buttons.update')}</button></td>
+                            <td><button class="btn btn-danger btn-sm" onclick="deleteApp(${application.id}, '${application.name}')">${i18next.t('superadmin.buttons.delete')}</button></td>
+                            <td><button class="btn btn-warning btn-sm" onclick="activitiesRestrictionsCrud(${application.id})">${i18next.t('superadmin.buttons.manage')}</button></td>
                         </tr>`;
         });
         $('#all-applications-crud').html(htmlApps);
@@ -2457,5 +2458,140 @@ function persistCreateApp() {
             }
     })
 }
+
+/**
+ * Activities restrictions per applications WIP
+ */
+
+
+function activitiesRestrictionsCrud(application_id) {
+    mainSuperAdmin.getSuperAdminManager().getAllActivitiesRestrictions(application_id).then((response) => {
+        $('#application-id-for-restriction').val(application_id);
+        $('#all-restrictions-from-app').show();
+        let html = "";
+        $('#all-activities-restrictions-crud').html("");
+        response.forEach(restriction => {
+            html += `<tr>
+                        <td>${restriction.activity_type}</td>
+                        <td>${restriction.max_per_teachers}</td>
+                        <td><button class="btn btn-warning btn-sm" onclick="updateRestriction(${restriction.id})">${i18next.t('superadmin.buttons.update')}</button></td>
+                        <td><button class="btn btn-danger btn-sm" onclick="deleteRestriction(${restriction.id}, '${restriction.activity_type}')">${i18next.t('superadmin.buttons.delete')}</button></td>
+                    </tr>`;
+        });
+        $('#all-activities-restrictions-crud').html(html);
+    })
+}
+
+function updateRestriction(id) {
+    crudActivityCloseViews();
+
+    pseudoModal.openModal('update-activities-restrictions-superadmin');
+    $('#update-activity-restrictions-superadmin').show();
+    mainSuperAdmin.getSuperAdminManager().getOneActivityRestriction(id).then((response) => {
+        $('#activity_restrictions_update_type').val(response.activity_type);
+        $('#activity_restrictions_update_maximum').val(response.max_per_teachers);
+        $('#activity_restrictions_id').val(response.id);
+    })
+}
+
+function createRestriction() {
+    crudActivityCloseViews();
+    pseudoModal.openModal('update-activities-restrictions-superadmin');
+    $('#create-activity-restrictions-superadmin').show();
+}
+
+function deleteRestriction(id, type) {
+    crudActivityCloseViews();
+    pseudoModal.openModal('update-activities-restrictions-superadmin');
+    $('#restriction_delete_name').text(type);
+    $('#validation_delete_restriction_id').val(id);
+    $('#delete-activity-restrictions-superadmin').show();
+}
+
+function crudActivityCloseViews() {
+    const ALL_ACTIVITIES_VIEWS = ['#update-activity-restrictions-superadmin', '#delete-activity-restrictions-superadmin', '#create-activity-restrictions-superadmin'];
+    ALL_ACTIVITIES_VIEWS.forEach(view => {
+        $(view).hide();
+    });
+}
+
+
+function persistDeleteRestriction() {
+    let validation = $('#validation_delete_restriction').val(),
+        placeholderWord = $('#validation_delete_restriction').attr('placeholder'),
+        restriction_id = $('#validation_delete_restriction_id').val();
+
+    if (validation == placeholderWord) {
+        mainSuperAdmin.getSuperAdminManager().deleteOneActivityRestriction(restriction_id).then((response) => {
+            if (response.success == true) {
+                displayNotification('#notif-div', "superadmin.activitiesRestrictions.deleteSuccess", "success");
+                closeModalAndCleanInputActivityRestrictions()
+            } else {
+                displayNotification('#notif-div', "superadmin.account.missingData", "error");
+            }
+        })
+    } else {
+        displayNotification('#notif-div', "superadmin.input.writeDelete", "error");
+    }
+}
+
+function persistUpdateRestriction() {
+    let $restriction_id = $('#activity_restrictions_id').val(),
+        $restriction_max = $('#activity_restrictions_update_maximum').val(),
+        $application_id = $('#application-id-for-restriction').val(),
+        $restriction_type = $('#activity_restrictions_update_type').val();
+
+    mainSuperAdmin.getSuperAdminManager().updateOneActivityRestriction(
+        $restriction_id, 
+        $application_id, 
+        $restriction_type, 
+        $restriction_max).then((response) => {
+            if (response.success == true) {
+                displayNotification('#notif-div', "superadmin.activitiesRestrictions.updateSuccess", "success");
+                closeModalAndCleanInputActivityRestrictions()
+            } else {
+                displayNotification('#notif-div', "superadmin.account.missingData", "error");
+            }
+    })
+}
+
+function persistCreateRestriction() {
+    let $restriction_max = $('#activity_restrictions_create_maximum').val(),
+        $application_id = $('#application-id-for-restriction').val(),
+        $restriction_type = $('#activity_restrictions_create_type').val();
+
+    mainSuperAdmin.getSuperAdminManager().createOneActivityRestriction(
+        $application_id, 
+        $restriction_type, 
+        $restriction_max).then((response) => {
+            if (response.success == true) {
+                displayNotification('#notif-div', "superadmin.activitiesRestrictions.createSuccess", "success");
+                closeModalAndCleanInputActivityRestrictions()
+            } else {
+                displayNotification('#notif-div', "superadmin.account.missingData", "error");
+            }
+    })
+}
+
+function closeModalAndCleanInputActivityRestrictions() {
+    activitiesRestrictionsCrud($('#application-id-for-restriction').val());
+    // Update fields
+    $('#activity_restrictions_update_type').val("");
+    $('#activity_restrictions_update_maximum').val("");
+    $('#activity_restrictions_id').val("");
+    // Create fields
+    $('#activity_restrictions_create_type').val("");
+    $('#activity_restrictions_create_maximum').val("");
+    
+    crudActivityCloseViews();
+    pseudoModal.closeAllModal();
+
+}
+
+function closeRestrictionDetail() {
+    $('#application-id-for-restriction').val("");
+    $('#all-restrictions-from-app').hide();
+}
+
 
 

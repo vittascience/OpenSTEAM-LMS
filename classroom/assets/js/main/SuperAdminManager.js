@@ -134,6 +134,117 @@ class SuperAdminManager {
         })
     }
 
+    getAllActivitiesRestrictions($application_id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=get_all_activities_restrictions_applications",
+                data: {
+                    application_id: $application_id
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    /**
+     * @param {*} $restriction_id 
+     * @returns promise
+     */
+    getOneActivityRestriction($restriction_id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=get_one_restriction_activity",
+                data: {
+                    restriction_id: $restriction_id
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    /**
+     * @param {*} $restriction_id 
+     * @returns promise
+     */
+    deleteOneActivityRestriction($restriction_id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=delete_one_restriction_activity",
+                data: {
+                    restriction_id: $restriction_id
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    /**
+     * @param {*} $restriction_id 
+     * @param {*} $application_id 
+     * @param {*} $restriction_type 
+     * @param {*} $restriction_max 
+     * @returns promise
+     */
+    updateOneActivityRestriction($restriction_id, $application_id, $restriction_type, $restriction_max) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=update_one_restriction_activity",
+                data: {
+                    restriction_id: $restriction_id,
+                    application_id: $application_id,
+                    restriction_type: $restriction_type,
+                    restriction_max: $restriction_max
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    createOneActivityRestriction($application_id, $restriction_type, $restriction_max) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=create_one_restriction_activity",
+                data: {
+                    application_id: $application_id,
+                    restriction_type: $restriction_type,
+                    restriction_max: $restriction_max
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+    
+
     getAllApplications() {
         return new Promise(function (resolve, reject) {
             $.ajax({

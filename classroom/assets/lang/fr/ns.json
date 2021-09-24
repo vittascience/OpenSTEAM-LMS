@@ -1166,6 +1166,7 @@
 			"restart": "Recommencer",
 			"copyLink": "Copier le lien",
 			"show": "Afficher",
+			"manage": "Gérer",
 			"user": {
 				"add": "Ajouter l'utilisateur",
 				"create": "Créer l'utilisateur",
@@ -1230,6 +1231,20 @@
 			"createSuccess": "Application créée avec succès",
 			"deleteSuccess": "Application supprimée avec succès",
 			"deleteIntention": "Vous vous apprêtez à supprimer l'application : <span id=\"application_delete_name\"></span>"
+		},
+		"activitiesRestrictions": {
+			"updateAll": "Modifier les restrictions",
+			"update": "Modifier une restriction",
+			"create": "Créer une restriction",
+			"delete": "Supprime une restriction",
+			"updateSuccess": "Restriction modifiée avec succès",
+			"createSuccess": "Restriction créée avec succès",
+			"deleteSuccess": "Restriction supprimée avec succès",
+			"deleteIntention": "Vous vous apprêtez à supprimer la restriction : <span id=\"restriction_delete_name\"></span>",
+			"restrictionType": "Type d'activité",
+			"maxActivity": "Maximum d'activité",
+			"closeDetail": "Fermer le détail",
+			"restrictions": "Restrictions d'activité"
 		}
 	},
 	"navbar": {

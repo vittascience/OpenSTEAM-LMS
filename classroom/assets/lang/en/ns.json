@@ -873,6 +873,7 @@
 			"restart": "Restart",
 			"copyLink": "Copy link",
 			"show": "Show",
+			"manage": "Manage",
 			"user": {
 				"add": "Add user",
 				"create": "Create user",
@@ -937,6 +938,20 @@
 			"createSuccess": "App successfully created",
 			"deleteSuccess": "App successfully deleted",
 			"deleteIntention": "You are about to delete the app : <span id=\"application_delete_name\"></span>"
+		},
+		"activitiesRestrictions": {
+			"updateAll": "Update restrictions",
+			"update": "Update restriction",
+			"create": "Create restriction",
+			"delete": "Delete restriction",
+			"updateSuccess": "Restriction successfully updated",
+			"createSuccess": "Restriction successfully created",
+			"deleteSuccess": "Restriction successfully deleted",
+			"deleteIntention": "You are about to delete the restriction : <span id=\"restriction_delete_name\"></span>",
+			"restrictionType": "Activity type",
+			"maxActivity": "Activity maximum",
+			"closeDetail": "Close the detail",
+			"restrictions": "Activity restrictions"
 		}
 	},
 	"navbar": {

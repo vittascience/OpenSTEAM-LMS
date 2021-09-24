@@ -762,5 +762,53 @@ const classroomModals = {
                     </div>`,
         footer: ``
     },
+    'update-activities-restrictions-superadmin': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'superadmin.activitiesRestrictions.updateAll'
+        },
+        content: `  <div id="update-activities-restrictions-modal">
+                        <div class="col-12" id="update-activity-restrictions-superadmin" style="display:none;">
+                            <div class="row mt-1">
+                                <div class="col">
+                                    <label for="activity_restrictions_update_type">Type activity</label>
+                                    <input type="text" class="form-control" id="activity_restrictions_update_type">
+                                </div>
+                                <div class="col">
+                                    <label for="activity_restrictions_update_maximum">Maximum</label>
+                                    <input type="text" class="form-control" id="activity_restrictions_update_maximum">
+                                </div>
+                                <input type="hidden" class="form-control" id="activity_restrictions_id">
+                            </div>
+                            <button class="btn btn-primary my-3 btn" onclick="persistUpdateRestriction()" data-i18n="superadmin.buttons.update">Modifier</button>
+                            <button class="btn btn-info my-3 btn" onclick="closeModalAndCleanInputActivityRestrictions()" data-i18n="superadmin.buttons.cancel">Annuler</button>
+                        </div>
+                        <div class="col-12" id="delete-activity-restrictions-superadmin" style="display:none;">
+                            <h3 class="font-weight-bold text-danger m-auto text-center" data-i18n="superadmin.users.deleteConfirmationTitle">Confirmer la suppression</h3>
+                            <p class="text-center" data-i18n="[html]superadmin.activitiesRestrictions.deleteIntention"></p>
+                            <p class="text-center" data-i18n="superadmin.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>.
+                            <input type="hidden" name="validation_delete_restriction_id" id="validation_delete_restriction_id">
+                            <input type="text" name="validation_delete_restriction" id="validation_delete_restriction" data-i18n="[placeholder]superadmin.input.placeholder.delete" placeholder="supprimer">
+                            <button class="btn btn-danger mx-auto mt-3 btn-lg" onclick="persistDeleteRestriction()" data-i18n="superadmin.buttons.validate">Valider</button>
+                            <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInputActivityRestrictions()" data-i18n="superadmin.buttons.cancel">Annuler</button>
+                        </div>
+                        <div class="col-12" id="create-activity-restrictions-superadmin" style="display:none;">
+                            <div class="row mt-1">
+                                <div class="col">
+                                    <label for="activity_restrictions_create_type">Type activity</label>
+                                    <input type="text" class="form-control" id="activity_restrictions_create_type">
+                                </div>
+                                <div class="col">
+                                    <label for="activity_restrictions_create_maximum">Maximum</label>
+                                    <input type="text" class="form-control" id="activity_restrictions_create_maximum">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary mx-auto mt-3 btn-lg" onclick="persistCreateRestriction()" data-i18n="superadmin.buttons.validate">Valider</button>
+                            <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInputActivityRestrictions()" data-i18n="superadmin.buttons.cancel">Annuler</button>
+                        </div>
+                    </div>`,
+        footer: ``
+    },
 
 }

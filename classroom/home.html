@@ -909,7 +909,7 @@
             <div id="update-applications-modal">
                 <div class="col-12" id="all-applications">
                     <div class="row">
-                        <button class="btn btn-info my-3 btn" onclick="createApp()" data-i18n="superadmin.apps.create">Créer</button>
+                        <button class="btn btn-info my-3 btn-sm mx-1" onclick="createApp()" data-i18n="superadmin.apps.create">Créer</button>
                     </div>
                     <table class="table">
                         <thead>
@@ -919,9 +919,30 @@
                                 <th scope="col" data-i18n="superadmin.table.image">Image</th>
                                 <th scope="col" data-i18n="superadmin.buttons.update">Modifier</th>
                                 <th scope="col" data-i18n="superadmin.buttons.delete">Supprimer</th>
+                                <th scope="col">Activities Restrictions</th>
                             </tr>
                         </thead>
                         <tbody id="all-applications-crud">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-12" id="all-restrictions-from-app" style="display: none;">
+                    <input type="hidden" id="application-id-for-restriction">
+                    <div class="row">
+                        <button class="btn btn-info my-3 btn-sm mx-1" onclick="createRestriction()" data-i18n="superadmin.activitiesRestrictions.create">Créer un restrictions</button>
+                        <button class="btn btn-warning my-3 btn-sm mx-1" onclick="closeRestrictionDetail()" data-i18n="superadmin.activitiesRestrictions.closeDetail">Fermer le détail</button>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-i18n="superadmin.activitiesRestrictions.restrictionType">Activity Type</th>
+                                <th scope="col" data-i18n="superadmin.activitiesRestrictions.maxActivity">Maximum Activity</th>
+                                <th scope="col" data-i18n="superadmin.buttons.update">Modifier</th>
+                                <th scope="col" data-i18n="superadmin.buttons.delete">Supprimer</th>
+                            </tr>
+                        </thead>
+                        <tbody id="all-activities-restrictions-crud">
                         </tbody>
                     </table>
                 </div>
@@ -959,10 +980,6 @@
                 <button class="btn-warning btn mx-1" id="create_user_link_to_group_superadmin"
                     data-i18n="superadmin.users.create">
                     Créer un utilisateur
-                </button>
-                <button class="btn-warning btn mx-1" id="update_applications_superadmin"
-                    data-i18n="superadmin.users.updateApps">
-                    Modifier les applications
                 </button>
             </div>
 
