@@ -135,7 +135,7 @@
 .c-btn-outline-grey:focus,
 .c-btn-grey:focus {
     outline: 0;
-    box-shadow: 0 0 0 .2rem rgba(0, 0, 0, .25);
+    box-shadow: 0 0 0 .2rem rgba(126, 126, 126, 0.25);
 }
 
 .c-btn-outline-primary:hover,
@@ -181,6 +181,31 @@
     Removed because of conflicts with Bootstrap
     */
     padding: 0.2em 0.5em;
+}
+
+.c-primary-form input[type="text"]:focus,
+.c-primary-form textarea:focus,
+.c-primary-form input[type="datetime-local"]:focus,
+.c-primary-form input[type="color"]:focus,
+.c-primary-form input[type="email"]:focus,
+.c-primary-form select:focus,
+.c-primary-form input[type="password"]:focus,
+.c-secondary-form input[type="text"]:focus,
+.c-secondary-form textarea:focus,
+.c-secondary-form input[type="datetime-local"]:focus,
+.c-secondary-form input[type="color"]:focus,
+.c-secondary-form input[type="email"]:focus,
+.c-secondary-form select:focus,
+.c-secondary-form input[type="password"]:focus,
+.c-tertiary-form input[type="text"]:focus,
+.c-tertiary-form textarea:focus,
+.c-tertiary-form input[type="datetime-local"]:focus,
+.c-tertiary-form input[type="color"]:focus,
+.c-tertiary-form input[type="email"]:focus,
+.c-tertiary-form select:focus,
+.c-tertiary-form input[type="password"]:focus {
+    outline: 0;
+    box-shadow: 0 0 0 .2rem rgba(126, 126, 126, 0.25);
 }
 
 
@@ -253,16 +278,32 @@
     color: var(--classroom-text-1);
 }
 
+.c-primary-form input[type="search"]:focus,
+.c-secondary-form input[type="search"]:focus,
+.c-tertiary-form input[type="search"]:focus {
+    outline: 0;
+    border-color: var(--classroom-text-2);
+}
+
 .c-primary-form input[type="search"] {
     border-color: var(--classroom-primary);
+}
+.c-primary-form input[type="search"]:focus {
+    border-color: var(--classroom-primary-dark);
 }
 
 .c-secondary-form input[type="search"] {
     border-color: var(--classroom-secondary);
 }
+.c-secondary-form input[type="search"]:focus {
+    border-color: var(--classroom-secondary-dark);
+}
 
 .c-tertiary-form input[type="search"] {
     border-color: var(--classroom-tertiary);
+}
+.c-tertiary-form input[type="search"]:focus {
+    border-color: var(--classroom-tertiary-dark);
 }
 
 /* Table */

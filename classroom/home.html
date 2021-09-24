@@ -1,8 +1,9 @@
     <link rel="stylesheet" href="assets/css/checkboxes.css">
     <link rel="stylesheet" href="assets/css/modal.css">
-    <!-- PLUGIN CSS-->
+    <link rel="stylesheet" href="assets/plugins/css/aren.theme.css">
+<link rel="stylesheet" href="assets/plugins/css/aren.theme.main.css">
+<link rel="stylesheet" href="assets/plugins/css/aren.wysibb.css">
 
-    <!-- END PLUGIN CSS -->
     <script src="assets/js/scripts/classroom-lang.js"></script>
 </head>
 
@@ -29,18 +30,27 @@
         </div>
 <div id="classroom-dashboard-sidebar-teacher" class="sidebar-classroom" style="display:none;">
     <div id="classroom-sidebar-logo"></div>
-    <div class="classroom-navbar-button" id="dashboard-activities-teacher"
-        onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')">
+
+    <div class="classroom-navbar-button" id="dashboard-activities-teacher" onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')">
         <img src="assets/media/my_activities.svg" alt="Icône activités">
-        <span data-i18n="classroom.ids.classroom-dashboard-activities-panel-teacher"></span> </div>
-    <div class=" classroom-navbar-button" id="dashboard-classes-teacher"
-        onclick="navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher')">
+        <span data-i18n="classroom.ids.classroom-dashboard-activities-panel-teacher"></span>
+    </div>
+
+    <div class=" classroom-navbar-button" id="dashboard-proactivities-teacher" onclick="navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-proactivities-teacher')">
+        <img src="assets/media/my_activities.svg" alt="Icône Formation profesionnelle" style="transform: scaleX(-1);">
+        <span data-i18n="aren.ids.classroom-dashboard-proactivities-panel-teacher"></span>
+    </div>
+
+    <div class=" classroom-navbar-button" id="dashboard-classes-teacher" onclick="navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher')">
         <img src="assets/media/my_classes.svg" alt="Icône classe">
-        <span data-i18n="classroom.ids.classroom-dashboard-classes-panel-teacher"></span> </div>
-    <div id="dashboard-profil-teacher" class="active classroom-navbar-button"
-        onclick="navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher')"><img
-            class="user-picture" src="assets/media/profile_picture.svg" alt="Photo de profil">
-        <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span></div>
+        <span data-i18n="classroom.ids.classroom-dashboard-classes-panel-teacher"></span>
+    </div>
+
+    <div id="dashboard-profil-teacher" class="active classroom-navbar-button" onclick="navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher')">
+        <img class="user-picture" src="assets/media/profile_picture.svg" alt="Photo de profil">
+        <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span>
+    </div>
+
 </div>
 <div id="superadmin-dashboard-sidebar" class="sidebar-classroom" style="display:none;">
     <!-- set your logo here -->
@@ -186,8 +196,10 @@
     <div id="student-faq-container"></div>
 </div>
 </div>
-<div id="classroom-dashboard-sandbox-panel" style="display:none;" class="dashboard-block ">
-    
+<div id="classroom-dashboard-proactivities-panel-teacher" style="display:none;" class="dashboard-block ">
+    <div style="display: flex;">
+        <iframe src="https://www.cadre21.org/inscription/" frameborder="0" style="width: 90%;height: 85vh;margin: 0 auto;"></iframe>
+    </div>
 </div>
 <div id="classroom-dashboard-activities-panel" style="display:none;" class="dashboard-block">
     <h3 class="section-title section-new" onclick="sectionToggle('new')" data-i18n="classroom.activities.new"><i
@@ -904,11 +916,11 @@
     <div class="d-flex justify-content-center" style="margin: 0 auto;">
 
         <div class="container-fluid px-5">
-            <div class="row mb-2 c-tertiary-form" id="groups_options">
+            <div class="row mb-2 c-primary-form" id="groups_options">
 
                 <!-- Search bar -->
                 <input class="flex-fill" type="search" id="name_group_search" placeholder="Rechercher" aria-label="Search" data-i18n="[placeholder]superadmin.buttons.search">
-                <button class="btn c-btn-tertiary" id="search_group" style="width: 3em; height: 3em;">
+                <button class="btn c-btn-primary" id="search_group" style="width: 3em; height: 3em;">
                     <i class="fas fa-search"></i>
                 </button>
 
@@ -928,7 +940,7 @@
             </div>
 
             <div class="row mb-2" id="btn-create-superadmin">
-                <button class="btn c-btn-outline-tertiary mx-1" id="create_group_superadmin">
+                <button class="btn c-btn-outline-primary mx-1" id="create_group_superadmin">
                     <span data-i18n="superadmin.group.create">Créer un groupe</span> <i class="fas fa-chevron-right"></i>
                 </button>
                 <button class="btn c-btn-outline-secondary mx-1" id="create_user_link_to_group_superadmin">
@@ -952,12 +964,12 @@
                 </table>
             </div>
 
-            <div id="table_details_users" class="c-tertiary-form" style="display: none;">
+            <div id="table_details_users" class="c-primary-form" style="display: none;">
                 <div class="row my-2" id="users_options">
 
                     <!-- Search bar -->
                     <input class="flex-fill" type="search" id="name_user_search" data-i18n="[placeholder]superadmin.buttons.search" placeholder="Rechercher" aria-label="Search">
-                    <button class="btn c-btn-tertiary" id="search_user" style="width: 3em; height: 3em;">
+                    <button class="btn c-btn-primary" id="search_user" style="width: 3em; height: 3em;">
                         <i class="fas fa-search"></i>
                     </button>
 
@@ -1160,9 +1172,9 @@
     })
 </script>
 <script src="assets/js/utils/translate.js"></script>
-<!-- PLUGIN SCRIPTS-->
+<script src="assets/plugins/js/aren.wysibb.js"></script>
+<script src="assets/plugins/js/display-proactivities-panel.js"></script>
 
-<!-- END PLUGIN SCRIPTS -->
 </body>
 
 </html>

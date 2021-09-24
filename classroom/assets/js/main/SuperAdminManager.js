@@ -501,9 +501,9 @@ class SuperAdminManager {
 
                     let rowDelete = "";
                     if ($group_id == -2)
-                        rowDelete = `<button class = "btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="deleteUser(${element.id})">${i18next.t('superadmin.buttons.delete')}</button>`;
+                        rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="superadmin.buttons.delete" onclick="deleteUser(${element.id})">${i18next.t('superadmin.buttons.delete')} <i class="fas fa-user-minus"></i></button>`;
                     else
-                        rowDelete = `<button class = "btn btn-danger btn-sm" data-i18n="superadmin.buttons.disable" onclick="disableUser(${element.id})">${i18next.t('superadmin.buttons.disable')}</button>`;
+                        rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="superadmin.buttons.disable" onclick="disableUser(${element.id})">${i18next.t('superadmin.buttons.disable')} <i class="fas fa-user-lock"></i></button>`;
 
                     $data_table +=
                         `<tr>
@@ -512,7 +512,7 @@ class SuperAdminManager {
                             <td>${$droits}</td>
                             <td>${div_img}</td>
                             <td>
-                                <a class="c-link-tertiary d-inline-block" href="#" onclick="resetUserPassword(${element.id})">
+                                <a class="c-link-primary d-inline-block" href="#" onclick="resetUserPassword(${element.id})">
                                     <i class="fas fa-redo-alt fa-2x"></i>
                                 </a>
                             </td>
@@ -613,7 +613,7 @@ class SuperAdminManager {
                                 <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateUserModal(${element.id})">${i18next.t('superadmin.buttons.update')}</button>
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUser(${element.id})">${i18next.t('superadmin.buttons.delete')}</button>
+                                <button class="btn c-btn-red btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUser(${element.id})">${i18next.t('superadmin.buttons.delete')}</button>
                             </td>
                         </tr>`;
                 }
@@ -782,7 +782,7 @@ class SuperAdminManager {
                                 <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateGroupModal(${element.id})">${i18next.t('superadmin.buttons.update')}</button>
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="deleteGroup(${element.id})">${i18next.t('superadmin.buttons.delete')}</button>
+                                <button class="btn c-btn-red btn-sm" data-i18n="superadmin.buttons.delete" onclick="deleteGroup(${element.id})">${i18next.t('superadmin.buttons.delete')}</button>
                             </td>
                         </tr>`;
                 }
