@@ -15,6 +15,27 @@
     background-color: var(--classroom-secondary-dark) !important;
 }
 
+/* SWITCH TO ADMIN MODE */
+
+fieldset.switch-to-admin {
+    padding: revert;
+    border: 1px solid var(--classroom-text-2);
+    border-radius: 10px;
+    text-align: center;
+}
+
+fieldset.switch-to-admin legend {
+    color: var(--classroom-text-2);
+    width: auto;
+    font-size: 0.75em;
+
+}
+
+fieldset.switch-to-admin legend::after {
+    content: "     ";
+
+}
+
 /* ADMIN PANELS */
 
 

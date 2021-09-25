@@ -97,19 +97,32 @@ const classroomModals = {
                             <span data-i18n="classroom.modals.settingsTeacher.accessButton">Accéder à votre profil</span>
                             <i class="fas fa-external-link-alt"></i>
                         </button>
+
                         <div class="border-1" id="groupAdmin_options" style="display: none;">
-                            <p data-i18n="superadmin.profil.onlyVisibleGroupAdmin">Uniquement visible par vous en tant qu'administrateur de groupe :</p>
+                        <fieldset class="switch-to-admin">
+                            <legend>
+                                <i class="fas fa-eye"></i> 
+                                <span data-i18n="superadmin.profil.onlyVisibleGroupAdmin">Uniquement visible par vous en tant qu'administrateur de groupe :</span>
+                            </legend>
                             <button class="btn mb-2 c-btn-outline-primary" onclick="switchToGroupAdmin()" id="groupadmin-switch-button" style="display:none;"><span
                                     data-i18n="superadmin.profil.groupAdmin" class="text-span-initial mr-1"></span><i
                                     class="fas fa-cog"></i>
                             </button>
+                            </fieldset>
+
                         </div>
+                        
                         <div class="border-1" id="superAdmin_options" style="display: none;">
-                            <p data-i18n="superadmin.profil.onlyVisibleSuperAdmin">Uniquement visible par vous en tant que super admin :</p>
-                            <button class="btn mb-2 c-btn-outline-primary" onclick="switchToSuperAdmin()" id="superadmin-switch-button" style="display:none;"><span
-                                    data-i18n="superadmin.profil.superAdmin" class="text-span-initial mr-1"></span><i
-                                    class="fas fa-cog"></i>
-                            </button>
+                            <fieldset class="switch-to-admin ">
+                                    <legend>
+                                        <i class="fas fa-eye"></i> 
+                                        <span data-i18n="superadmin.profil.onlyVisibleSuperAdmin">Uniquement visible par vous en tant que super admin :</span>
+                                    </legend>
+                                    <button class="btn mb-2 c-btn-outline-primary" onclick="switchToSuperAdmin()" id="superadmin-switch-button" style="display:none;">
+                                        <span data-i18n="superadmin.profil.superAdmin" class="text-span-initial mr-1"></span>
+                                        <i class="fas fa-cog"></i>
+                                </button>
+                            </fieldset>
                         </div>
                     </div>
                 </div>`,
