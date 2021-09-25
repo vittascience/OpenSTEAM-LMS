@@ -31,11 +31,6 @@ fieldset.switch-to-admin legend {
 
 }
 
-fieldset.switch-to-admin legend::after {
-    content: "     ";
-
-}
-
 /* ADMIN PANELS */
 
 
@@ -101,3 +96,10 @@ fieldset.switch-to-admin legend::after {
 
 /* GROUP ADMIN */
 /* SUPER ADMIN */
+
+.activity-add-form {
+    display: grid;
+    grid-template-columns: auto 1fr ;
+    column-gap: 1em;
+    row-gap: 0.5em;
+}

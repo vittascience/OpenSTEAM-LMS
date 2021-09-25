@@ -248,15 +248,15 @@ const classroomModals = {
             icon: '',
             title: 'superadmin.buttons.group.updateA'
         },
-        content: `  <div class="form-group">
+        content: `  <div class="form-group c-secondary-form">
                         <label for="group_name" data-i18n="superadmin.group.name">Group name</label>
                         <input type="text" class="form-control" id="upd_group_name">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group c-secondary-form">
                         <label for="upd_group_desc" data-i18n="superadmin.group.description">Group description</label>
                         <input type="text" class="form-control" id="upd_group_desc">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group c-secondary-form">
                         <label for="upd_group_link" data-i18n="superadmin.group.link">Group link</label>
                         <input type="text" class="form-control" id="upd_group_link">
                      </div>

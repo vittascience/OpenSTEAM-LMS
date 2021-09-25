@@ -160,6 +160,8 @@
 .c-primary-form input[type="email"],
 .c-primary-form select,
 .c-primary-form input[type="password"],
+.c-primary-form input[type="number"],
+.c-primary-form input[type="date"],
 .c-secondary-form input[type="text"],
 .c-secondary-form textarea,
 .c-secondary-form input[type="datetime-local"],
@@ -167,13 +169,17 @@
 .c-secondary-form input[type="email"],
 .c-secondary-form select,
 .c-secondary-form input[type="password"],
+.c-secondary-form input[type="number"],
+.c-secondary-form input[type="date"],
 .c-tertiary-form input[type="text"],
 .c-tertiary-form textarea,
 .c-tertiary-form input[type="datetime-local"],
 .c-tertiary-form input[type="color"],
 .c-tertiary-form input[type="email"],
 .c-tertiary-form select,
-.c-tertiary-form input[type="password"] {
+.c-tertiary-form input[type="password"],
+.c-tertiary-form input[type="number"],
+.c-tertiary-form input[type="date"] {
     border: 2px solid var(--classroom-text-1);
     border-radius: 0.5em;
     /*
@@ -190,6 +196,8 @@
 .c-primary-form input[type="email"]:focus,
 .c-primary-form select:focus,
 .c-primary-form input[type="password"]:focus,
+.c-primary-form input[type="number"]:focus,
+.c-primary-form input[type="date"]:focus,
 .c-secondary-form input[type="text"]:focus,
 .c-secondary-form textarea:focus,
 .c-secondary-form input[type="datetime-local"]:focus,
@@ -197,13 +205,17 @@
 .c-secondary-form input[type="email"]:focus,
 .c-secondary-form select:focus,
 .c-secondary-form input[type="password"]:focus,
+.c-secondary-form input[type="number"]:focus,
+.c-secondary-form input[type="date"]:focus,
 .c-tertiary-form input[type="text"]:focus,
 .c-tertiary-form textarea:focus,
 .c-tertiary-form input[type="datetime-local"]:focus,
 .c-tertiary-form input[type="color"]:focus,
 .c-tertiary-form input[type="email"]:focus,
 .c-tertiary-form select:focus,
-.c-tertiary-form input[type="password"]:focus {
+.c-tertiary-form input[type="password"]:focus,
+.c-tertiary-form input[type="number"]:focus,
+.c-tertiary-form input[type="date"]:focus {
     outline: 0;
     box-shadow: 0 0 0 .2rem rgba(126, 126, 126, 0.25);
 }
@@ -215,7 +227,9 @@
 .c-primary-form input[type="color"],
 .c-primary-form input[type="email"],
 .c-primary-form select,
-.c-primary-form input[type="password"] {
+.c-primary-form input[type="password"],
+.c-primary-form input[type="number"],
+.c-primary-form input[type="date"] {
     border-color: var(--classroom-primary);
 }
 
@@ -225,7 +239,9 @@
 .c-secondary-form input[type="color"],
 .c-secondary-form input[type="email"],
 .c-secondary-form select,
-.c-secondary-form input[type="password"] {
+.c-secondary-form input[type="password"],
+.c-secondary-form input[type="number"],
+.c-secondary-form input[type="date"] {
     border-color: var(--classroom-secondary);
 }
 
@@ -235,7 +251,9 @@
 .c-tertiary-form input[type="color"],
 .c-tertiary-form input[type="email"],
 .c-tertiary-form select,
-.c-tertiary-form input[type="password"] {
+.c-tertiary-form input[type="password"],
+.c-tertiary-form input[type="number"],
+.c-tertiary-form input[type="date"] {
     border-color: var(--classroom-tertiary);
 }
 
@@ -288,6 +306,7 @@
 .c-primary-form input[type="search"] {
     border-color: var(--classroom-primary);
 }
+
 .c-primary-form input[type="search"]:focus {
     border-color: var(--classroom-primary-dark);
 }
@@ -295,6 +314,7 @@
 .c-secondary-form input[type="search"] {
     border-color: var(--classroom-secondary);
 }
+
 .c-secondary-form input[type="search"]:focus {
     border-color: var(--classroom-secondary-dark);
 }
@@ -302,6 +322,7 @@
 .c-tertiary-form input[type="search"] {
     border-color: var(--classroom-tertiary);
 }
+
 .c-tertiary-form input[type="search"]:focus {
     border-color: var(--classroom-tertiary-dark);
 }
@@ -352,4 +373,10 @@
 .c-table tbody tr:last-child th,
 .c-table tbody tr:last-child td {
     border-bottom: 0px solid transparent;
+}
+
+/* Line separator */
+
+hr {
+    border-color: var(--classroom-cell);
 }

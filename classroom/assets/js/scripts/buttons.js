@@ -1538,7 +1538,7 @@ function tempoAndShowGroupTableGroupAdmin() {
 
 function switchToSuperAdmin() {
     //mainSuperAdmin.init();
-    $('body').addClass('theme-super-admin').removeClass( "theme-group-admin theme-teacher" )
+    $('body').addClass('theme-super-admin').removeClass("theme-group-admin theme-teacher")
     navigatePanel('classroom-dashboard-profil-panel-superadmin', 'dashboard-profil-superadmin');
     $('#classroom-dashboard-sidebar-teacher').hide();
     $('#groupadmin-dashboard-sidebar').hide();
@@ -1548,7 +1548,7 @@ function switchToSuperAdmin() {
 
 function switchToGroupAdmin() {
     //mainGroupAdmin.init();
-    $('body').addClass('theme-group-admin').removeClass( "theme-super-admin theme-teacher" )
+    $('body').addClass('theme-group-admin').removeClass("theme-super-admin theme-teacher")
     navigatePanel('classroom-dashboard-profil-panel-groupadmin', 'dashboard-profil-groupadmin');
     $('#classroom-dashboard-sidebar-teacher').hide();
     $('#superadmin-dashboard-sidebar').hide();
@@ -1557,7 +1557,7 @@ function switchToGroupAdmin() {
 }
 
 function switchToProf() {
-    $('body').addClass('theme-teacher').removeClass( "theme-group-admin theme-super-admin" )
+    $('body').addClass('theme-teacher').removeClass("theme-group-admin theme-super-admin")
     navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher');
     $('#superadmin-dashboard-sidebar').hide();
     $('#groupadmin-dashboard-sidebar').hide();
@@ -1760,53 +1760,56 @@ function optionsGroupApplications($type) {
             if (!$infoapp) {
                 stringhtml += `<div class="form-check">
                 <input class="form-check-input app" type="checkbox" value="${element.id}" id="application_${element.id}">
-                <label class="form-check-label" for="application_${element.id}">
+                <label class="form-check-label font-weight-bold mb-2" for="application_${element.id}">
                     ${element.name}
                 </label>
                 <br>
-                <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
-                <input type="date" id="begin_date_${element.id}" name="trip-start" value="${new Date()}" min="${new Date()}" max="2023-12-31">
-                <br>
-                <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
-                <input type="date" id="end_date_${element.id}" name="trip-start" min="0" max="2025-12-31">
-                    <br>
+                <div class="activity-add-form c-secondary-form">
+                    <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
+                    <input type="date" id="begin_date_${element.id}" name="trip-start" value="${new Date()}" min="${new Date()}" max="2023-12-31">
+                    
+                    <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
+                    <input type="date" id="end_date_${element.id}" name="trip-start" min="0" max="2025-12-31">
+
                     <label class="form-check-label" for="max_students_per_teachers_${element.id}">${i18next.t('superadmin.group.studentsPerTeacher')}</label>
                     <input type="number" id="max_students_per_teachers_${element.id}">
-                    <br>
+
                     <label class="form-check-label" for="max_students_per_groups_${element.id}">${i18next.t('superadmin.group.studentsPerGroup')}</label>
                     <input type="number" id="max_students_per_groups_${element.id}">
-                    <br>
+
                     <label class="form-check-label" for="max_teachers_per_groups_${element.id}">${i18next.t('superadmin.group.teachersPerGroup')}</label>
                     <input type="number" id="max_teachers_per_groups_${element.id}">
-                    <br>
-                </div>`;
+                </div>
+                </div><hr>`;
             } else {
                 let dateBegin = new Date($infoapp.date_begin).toISOString().split('T')[0],
                     dateEnd = new Date($infoapp.date_end).toISOString().split('T')[0];
 
                 stringhtml += `<div class="form-check">
                 <input class="form-check-input app" type="checkbox" checked value="${element.id}" id="application_${element.id}">
-                <label class="form-check-label" for="application_${element.id}">
+                <label class="form-check-label font-weight-bold mb-2" for="application_${element.id}">
                     ${element.name}
                 </label>
                 <br>
-                <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
-                <input type="date" id="begin_date_${element.id}" name="trip-start" value="${dateBegin}"
-                    max="2023-12-31">
-                <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
-                <input type="date" id="end_date_${element.id}" name="trip-start" value="${dateEnd}"
-                    max="2025-12-31">
-                <br>
-                <label class="form-check-label" for="max_students_per_teachers_${element.id}">${i18next.t('superadmin.group.studentsPerTeacher')}</label>
-                <input type="number" id="max_students_per_teachers_${element.id}" value="${$infoapp.max_students_per_teachers}">
-                <br>
-                <label class="form-check-label" for="max_students_per_groups_${element.id}">${i18next.t('superadmin.group.studentsPerGroup')}</label>
-                <input type="number" id="max_students_per_groups_${element.id}" value="${$infoapp.max_students_per_groups}">
-                <br>
-                <label class="form-check-label" for="max_teachers_per_groups_${element.id}">${i18next.t('superadmin.group.teachersPerGroup')}</label>
-                <input type="number" id="max_teachers_per_groups_${element.id}" value="${$infoapp.max_teachers_per_groups}">
-                <br>
-                </div>`;
+                <div class="activity-add-form c-secondary-form">
+                    <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
+                    <input type="date" id="begin_date_${element.id}" name="trip-start" value="${dateBegin}"
+                        max="2023-12-31">
+
+                    <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
+                    <input type="date" id="end_date_${element.id}" name="trip-start" value="${dateEnd}"
+                        max="2025-12-31">
+
+                    <label class="form-check-label" for="max_students_per_teachers_${element.id}">${i18next.t('superadmin.group.studentsPerTeacher')}</label>
+                    <input type="number" id="max_students_per_teachers_${element.id}" value="${$infoapp.max_students_per_teachers}">
+
+                    <label class="form-check-label" for="max_students_per_groups_${element.id}">${i18next.t('superadmin.group.studentsPerGroup')}</label>
+                    <input type="number" id="max_students_per_groups_${element.id}" value="${$infoapp.max_students_per_groups}">
+
+                    <label class="form-check-label" for="max_teachers_per_groups_${element.id}">${i18next.t('superadmin.group.teachersPerGroup')}</label>
+                    <input type="number" id="max_teachers_per_groups_${element.id}" value="${$infoapp.max_teachers_per_groups}">
+                </div>
+                </div><hr>`;
             }
 
         });
@@ -1852,35 +1855,35 @@ function createSubjectSelect(array, type) {
         html.append(o);
     }
 
-/*     if (type === 0) {
-        $("#user_teacher_subjects").empty();
-        for (let index = 0; index < array.length; index++) {
-            const o = new Option(array[index], index);
-            $(o).html(array[index]);
-            $("#user_teacher_subjects").append(o);
-        }
-    } else if (type === 1) {
-        $("#user_teacher_subjects_ga").empty();
-        for (let index = 0; index < array.length; index++) {
-            const o = new Option(array[index], index);
-            $(o).html(array[index]);
-            $("#user_teacher_subjects_ga").append(o);
-        }
-    } else if (type === 2) {
-        $("#update_user_teacher_subjects").empty();
-        for (let index = 0; index < array.length; index++) {
-            const o = new Option(array[index], index);
-            $(o).html(array[index]);
-            $("#update_user_teacher_subjects").append(o);
-        }
-    } else if (type === 3) {
-        $("#update_user_teacher_subjects_ga").empty();
-        for (let index = 0; index < array.length; index++) {
-            const o = new Option(array[index], index);
-            $(o).html(array[index]);
-            $("#update_user_teacher_subjects_ga").append(o);
-        }
-    } */
+    /*     if (type === 0) {
+            $("#user_teacher_subjects").empty();
+            for (let index = 0; index < array.length; index++) {
+                const o = new Option(array[index], index);
+                $(o).html(array[index]);
+                $("#user_teacher_subjects").append(o);
+            }
+        } else if (type === 1) {
+            $("#user_teacher_subjects_ga").empty();
+            for (let index = 0; index < array.length; index++) {
+                const o = new Option(array[index], index);
+                $(o).html(array[index]);
+                $("#user_teacher_subjects_ga").append(o);
+            }
+        } else if (type === 2) {
+            $("#update_user_teacher_subjects").empty();
+            for (let index = 0; index < array.length; index++) {
+                const o = new Option(array[index], index);
+                $(o).html(array[index]);
+                $("#update_user_teacher_subjects").append(o);
+            }
+        } else if (type === 3) {
+            $("#update_user_teacher_subjects_ga").empty();
+            for (let index = 0; index < array.length; index++) {
+                const o = new Option(array[index], index);
+                $(o).html(array[index]);
+                $("#update_user_teacher_subjects_ga").append(o);
+            }
+        } */
 }
 
 $('#dashboard-groupadmin-users-side').click(() => {
