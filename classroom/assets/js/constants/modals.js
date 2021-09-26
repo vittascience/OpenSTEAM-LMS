@@ -273,7 +273,7 @@ const classroomModals = {
             icon: '',
             title: 'superadmin.buttons.user.createA'
         },
-        content: `<div class="container-fluid" >
+        content: `<div class="container-fluid">
             <div class="form-row c-secondary-form">
                 <div class="col-md-4 form-group">
                     <label for="u_firstname" data-i18n="[html]superadmin.profil.firstname">Prénom <span class="c-text-red">*</span></label>
@@ -353,7 +353,7 @@ const classroomModals = {
             <div id="group_add_sa">
             </div>
             
-            <button class="btn btn-primary" onclick="createUserAndLinkToGroup()" data-i18n="superadmin.buttons.user.create">Create user</button>
+            <button class="btn c-btn-secondary" onclick="createUserAndLinkToGroup()" data-i18n="superadmin.buttons.user.create">Create user</button>
             </div>`,
         footer: ``
     },
@@ -363,85 +363,85 @@ const classroomModals = {
             icon: '',
             title: 'superadmin.buttons.user.updateA'
         },
-        content: `<div class="row mt-1">
-        <input type="hidden" class="form-control" id="update_u_id">
-        <div class="col">
-            <label for="update_u_firstname" data-i18n="[html]superadmin.profil.firstname">Prénom <span class="c-text-red">*</span></label>
-            <input type="text" class="form-control" id="update_u_firstname">
+        content: `<div class="container-fluid">
+        <div class="form-row c-secondary-form">
+            <input type="hidden" class="form-control" id="update_u_id">
+            <div class="col-md-4 form-group">
+                <label for="update_u_firstname" data-i18n="[html]superadmin.profil.firstname">Prénom <span class="c-text-red">*</span></label>
+                <input type="text" class="form-control" id="update_u_firstname">
+            </div>
+            <div class="col-md-4 form-group">
+                <label for="update_u_surname" data-i18n="[html]superadmin.profil.lastname">Nom <span class="c-text-red">*</span></label>
+                <input type="text" class="form-control" id="update_u_surname">
+            </div>
+            <div class="col-md-4 form-group">
+                <label for="update_u_pseudo" data-i18n="[html]superadmin.profil.nickname">Pseudonyme</label>
+                <input type="text" class="form-control" id="update_u_pseudo">
+            </div>
         </div>
-        <div class="col">
-            <label for="update_u_surname" data-i18n="[html]superadmin.profil.lastname">Nom <span class="c-text-red">*</span></label>
-            <input type="text" class="form-control" id="update_u_surname">
-        </div>
-        <div class="col">
-            <label for="update_u_pseudo" data-i18n="[html]superadmin.profil.nickname">Pseudonyme</label>
-            <input type="text" class="form-control" id="update_u_pseudo">
-        </div>
-    </div>
-    <div class="form-group">
-        <div id="update_regular_options">
-            <div class="row mt-2">
-                <div class="col">
-                    <label for="update_u_mail" data-i18n="[html]superadmin.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
-                    <input type="email" class="form-control" id="update_u_mail">
+        <div class="form-group c-secondary-form">
+            <div id="update_regular_options">
+                <div class="row mt-2">
+                    <div class="col">
+                        <label for="update_u_mail" data-i18n="[html]superadmin.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
+                        <input type="email" class="form-control" id="update_u_mail">
+                    </div>
+                    <div class="col">
+                        <label for="update_u_phone" data-i18n="superadmin.profil.phone">Numéro de telephone</label>
+                        <input type="text" class="form-control" id="update_u_phone">
+                    </div>
                 </div>
-                <div class="col">
-                    <label for="update_u_phone" data-i18n="superadmin.profil.phone">Numéro de telephone</label>
-                    <input type="text" class="form-control" id="update_u_phone">
+                <div class="form-group mt-2">
+                    <label for="update_u_bio" data-i18n="[html]superadmin.profil.bio">Bio <span class="c-text-red">*</span></label>
+                    <textarea class="form-control" id="update_u_bio" rows="3"></textarea>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" id="update_u_is_active">
+                    <label class="form-check-label" for="update_u_is_active" data-i18n="superadmin.account.active">
+                        Compte actif
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" id="update_u_is_admin">
+                    <label class="form-check-label" for="update_u_is_admin" data-i18n="superadmin.users.admin">
+                        Administrateur
+                    </label>
                 </div>
             </div>
-            <div class="form-group mt-2">
-                <label for="update_u_bio" data-i18n="[html]superadmin.profil.bio">Bio <span class="c-text-red">*</span></label>
-                <textarea class="form-control" id="update_u_bio" rows="3"></textarea>
-            </div>
-            <div class="form-check form-check-inline">
-                <input type="checkbox" id="update_u_is_active">
-                <label class="form-check-label" for="update_u_is_active" data-i18n="superadmin.account.active">
-                    Compte actif
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input type="checkbox" id="update_u_is_teacher">
+                <label class="form-check-label" for="update_u_is_teacher">
+                    Enseignant
                 </label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input type="checkbox" id="update_u_is_admin">
-                <label class="form-check-label" for="update_u_is_admin" data-i18n="superadmin.users.admin">
-                    Administrateur
-                </label>
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="form-check">
-            <input type="checkbox" id="update_u_is_teacher">
-            <label class="form-check-label" for="update_u_is_teacher">
-                Enseignant
-            </label>
-            <div class="row" id="update_user_teacher_infos" style="display: none;">
-                <select class="form-control col-5" id="update_user_teacher_grade">
-                    <option selected value="0" data-i18n="superadmin.users.teacherGrades.0">Primaire</option>
-                    <option value="1" data-i18n="superadmin.users.teacherGrades.1">Collège</option>
-                    <option value="2" data-i18n="superadmin.users.teacherGrades.2">Lycée</option>
-                    <option value="3" data-i18n="superadmin.users.teacherGrades.3">Lycée professionel</option>
-                    <option value="4" data-i18n="superadmin.users.teacherGrades.4">POST-BAC</option>
-                </select>
-                <select class="form-control col-5" id="update_user_teacher_subjects">
-                </select>
-                <div class="col-12 my-3">
-                    <label for="update_u_school" data-i18n="[html]superadmin.profil.school">School</label>
-                    <input type="text" class="form-control" id="update_u_school">
+                <div class="row" id="update_user_teacher_infos" style="display: none;">
+                    <select class="form-control col-5" id="update_user_teacher_grade">
+                        <option selected value="0" data-i18n="superadmin.users.teacherGrades.0">Primaire</option>
+                        <option value="1" data-i18n="superadmin.users.teacherGrades.1">Collège</option>
+                        <option value="2" data-i18n="superadmin.users.teacherGrades.2">Lycée</option>
+                        <option value="3" data-i18n="superadmin.users.teacherGrades.3">Lycée professionel</option>
+                        <option value="4" data-i18n="superadmin.users.teacherGrades.4">POST-BAC</option>
+                    </select>
+                    <select class="form-control col-5" id="update_user_teacher_subjects">
+                    </select>
+                    <div class="col-12 my-3">
+                        <label for="update_u_school" data-i18n="[html]superadmin.profil.school">School</label>
+                        <input type="text" class="form-control" id="update_u_school">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <hr>
-    <div id="update_actualgroup_sa">
-    </div>
-    <div id="update_applications_sa">
+        <hr>
+        <div id="update_actualgroup_sa">
+        </div>
+        <div id="update_applications_sa">
+        </div>
     </div>
     
     
-        
-    <button class="btn btn-sm btn-info" onclick="updateAppForUser()" id="update_app_user" data-i18n="superadmin.buttons.user.updateApp">Modifier les applications</button>
-    
-    <button class="btn btn-info" onclick="updateUserModal()" data-i18n="superadmin.buttons.user.update">Update user</button>`,
+    <button class="btn btn-sm c-btn-outline-secondary" onclick="updateAppForUser()" id="update_app_user" data-i18n="superadmin.buttons.user.updateApp">Modifier les applications</button>
+    <button class="btn c-btn-secondary" onclick="updateUserModal()" data-i18n="superadmin.buttons.user.update">Update user</button>`,
         footer: ``
     },
     'groupeadmin-create-user': {
@@ -514,7 +514,7 @@ const classroomModals = {
             <label class="form-check-label mx-2" for="checkboxAdmin" data-i18n="superadmin.users.groupAdmin"> Administateur du groupe </label>
             <input type="checkbox" id="checkboxAdmin">
     
-    <button class="btn btn-primary" onclick="createUserAndLinkToGroup_groupAdmin()" data-i18n="superadmin.buttons.user.create">Create user</button>`,
+    <button class="btn c-btn-secondary" onclick="createUserAndLinkToGroup_groupAdmin()" data-i18n="superadmin.buttons.user.create">Create user</button>`,
         footer: ``
     },
     'groupadmin-update-user': {
@@ -581,7 +581,7 @@ const classroomModals = {
                 <div id="update_applications_ga">
                 </div>
                 
-                <button class="btn btn-info" onclick="updateUserModalGroupAdmin()" data-i18n="superadmin.buttons.user.update">Update user</button>`,
+                <button class="btn c-btn-secondary" onclick="updateUserModalGroupAdmin()" data-i18n="superadmin.buttons.user.update">Update user</button>`,
         footer: ``
     },
     'groupadmin-delete-user': {
