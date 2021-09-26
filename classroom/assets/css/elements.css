@@ -15,6 +15,11 @@
     color: var(--classroom-gold)
 }
 
+.c-text-red {
+    color: var(--classroom-red)
+}
+
+
 /* Links */
 
 .c-link-primary {
@@ -110,6 +115,18 @@
     background: transparent;
 }
 
+.c-btn-light {
+    background: var(--classroom-cell);
+    color: var(--classroom-white);
+    border-radius: 256px;
+}
+
+.c-btn-outline-light {
+    border: 2px solid var(--classroom-cell);
+    color: var(--classroom-cell);
+    background: transparent;
+}
+
 .c-btn-outline-primary,
 .c-btn-primary,
 .c-btn-outline-secondary,
@@ -119,7 +136,9 @@
 .c-btn-outline-red,
 .c-btn-red,
 .c-btn-outline-grey,
-.c-btn-grey {
+.c-btn-grey,
+.c-btn-outline-light,
+.c-btn-light {
     font-weight: 700;
     border-radius: 256px;
 }
@@ -133,7 +152,9 @@
 .c-btn-outline-red:focus,
 .c-btn-red:focus,
 .c-btn-outline-grey:focus,
-.c-btn-grey:focus {
+.c-btn-grey:focus,
+.c-btn-outline-light:focus,
+.c-btn-light:focus {
     outline: 0;
     box-shadow: 0 0 0 .2rem rgba(126, 126, 126, 0.25);
 }
@@ -147,7 +168,9 @@
 .c-btn-outline-red:hover,
 .c-btn-red:hover,
 .c-btn-outline-grey:hover,
-.c-btn-grey:hover {
+.c-btn-grey:hover,
+.c-btn-outline-light:hover,
+.c-btn-light:hover {
     filter: brightness(0.9);
 }
 

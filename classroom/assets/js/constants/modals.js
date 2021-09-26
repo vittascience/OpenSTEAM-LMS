@@ -264,7 +264,7 @@ const classroomModals = {
                     <div class="form-group" id="group_upd_apps_options">
                     </div>
                     <input type="hidden" class="form-control" id="upd_group_id">
-                    <button class="btn btn-primary" onclick="updateGroupWithModal()" data-i18n="superadmin.buttons.group.update">Update</button>`,
+                    <button class="btn c-btn-secondary" onclick="updateGroupWithModal()" data-i18n="superadmin.buttons.group.update">Update</button>`,
         footer: ``
     },
     'superadmin-create-user': {
@@ -276,11 +276,11 @@ const classroomModals = {
         content: `<div class="container-fluid" >
             <div class="form-row c-secondary-form">
                 <div class="col-md-4 form-group">
-                    <label for="u_firstname" data-i18n="[html]superadmin.profil.firstname">Prénom <span class="text-danger">*</span></label>
+                    <label for="u_firstname" data-i18n="[html]superadmin.profil.firstname">Prénom <span class="c-text-red">*</span></label>
                     <input type="text" class="form-control" id="u_firstname">
                 </div>
                 <div class="col-md-4 form-group">
-                    <label for="u_surname" data-i18n="[html]superadmin.profil.lastname">Nom <span class="text-danger">*</span></label>
+                    <label for="u_surname" data-i18n="[html]superadmin.profil.lastname">Nom <span class="c-text-red">*</span></label>
                     <input type="text" class="form-control" id="u_surname">
                 </div>
                 <div class="col-md-4 form-group">
@@ -292,7 +292,7 @@ const classroomModals = {
                 <div id="regular_options">
                     <div class="row mt-2">
                         <div class="col">
-                            <label for="u_mail" data-i18n="[html]superadmin.profil.email">Adresse E-mail <span class="text-danger">*</span></label>
+                            <label for="u_mail" data-i18n="[html]superadmin.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
                             <input type="email" class="form-control" id="u_mail">
                         </div>
                         <div class="col">
@@ -301,7 +301,7 @@ const classroomModals = {
                         </div>
                     </div>
                     <div class="form-group mt-2">
-                        <label for="u_bio" data-i18n="[html]superadmin.profil.bio">Bio <span class="text-danger">*</span></label>
+                        <label for="u_bio" data-i18n="[html]superadmin.profil.bio">Bio <span class="c-text-red">*</span></label>
                         <textarea class="form-control" id="u_bio" rows="3"></textarea>
                     </div>
                     <div class="form-check form-check-inline">
@@ -366,11 +366,11 @@ const classroomModals = {
         content: `<div class="row mt-1">
         <input type="hidden" class="form-control" id="update_u_id">
         <div class="col">
-            <label for="update_u_firstname" data-i18n="[html]superadmin.profil.firstname">Prénom <span class="text-danger">*</span></label>
+            <label for="update_u_firstname" data-i18n="[html]superadmin.profil.firstname">Prénom <span class="c-text-red">*</span></label>
             <input type="text" class="form-control" id="update_u_firstname">
         </div>
         <div class="col">
-            <label for="update_u_surname" data-i18n="[html]superadmin.profil.lastname">Nom <span class="text-danger">*</span></label>
+            <label for="update_u_surname" data-i18n="[html]superadmin.profil.lastname">Nom <span class="c-text-red">*</span></label>
             <input type="text" class="form-control" id="update_u_surname">
         </div>
         <div class="col">
@@ -382,7 +382,7 @@ const classroomModals = {
         <div id="update_regular_options">
             <div class="row mt-2">
                 <div class="col">
-                    <label for="update_u_mail" data-i18n="[html]superadmin.profil.email">Adresse E-mail <span class="text-danger">*</span></label>
+                    <label for="update_u_mail" data-i18n="[html]superadmin.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
                     <input type="email" class="form-control" id="update_u_mail">
                 </div>
                 <div class="col">
@@ -391,7 +391,7 @@ const classroomModals = {
                 </div>
             </div>
             <div class="form-group mt-2">
-                <label for="update_u_bio" data-i18n="[html]superadmin.profil.bio">Bio <span class="text-danger">*</span></label>
+                <label for="update_u_bio" data-i18n="[html]superadmin.profil.bio">Bio <span class="c-text-red">*</span></label>
                 <textarea class="form-control" id="update_u_bio" rows="3"></textarea>
             </div>
             <div class="form-check form-check-inline">
@@ -452,17 +452,17 @@ const classroomModals = {
         },
         content: `<div class="row mt-1">
                 <div class="col">
-                    <label for="u_firstname_ga" data-i18n="[html]superadmin.profil.firstname">Prénom <span class="text-danger">*</span></label>
+                    <label for="u_firstname_ga" data-i18n="[html]superadmin.profil.firstname">Prénom <span class="c-text-red">*</span></label>
                     <input type="text" class="form-control" id="u_firstname_ga">
                 </div>
                 <div class="col">
-                    <label for="u_surname_ga" data-i18n="[html]superadmin.profil.lastname">Nom <span class="text-danger">*</span></label>
+                    <label for="u_surname_ga" data-i18n="[html]superadmin.profil.lastname">Nom <span class="c-text-red">*</span></label>
                     <input type="text" class="form-control" id="u_surname_ga">
                 </div>
             </div>
             <div class="row mt-2">
                 <div class="col">
-                    <label for="u_mail_ga" data-i18n="[html]superadmin.profil.email">Adresse E-mail <span class="text-danger">*</span></label>
+                    <label for="u_mail_ga" data-i18n="[html]superadmin.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
                     <input type="email" class="form-control" id="u_mail_ga">
                 </div>
                 <div class="col">
@@ -475,7 +475,7 @@ const classroomModals = {
                 </div>
             </div>
             <div class="form-group mt-2">
-                <label for="u_bio_ga" data-i18n="[html]superadmin.profil.bio">Bio <span class="text-danger">*</span></label>
+                <label for="u_bio_ga" data-i18n="[html]superadmin.profil.bio">Bio <span class="c-text-red">*</span></label>
                 <textarea class="form-control" id="u_bio_ga" rows="3"></textarea>
             </div>
             
@@ -483,7 +483,7 @@ const classroomModals = {
                 <div class="form-check">
                     <div class="row" id="user_teacher_infos_ga">
                         <div class="col">
-                            <label for="user_teacher_grade_ga" data-i18n="[html]superadmin.profil.grade">Grade <span class="text-danger">*</span></label>
+                            <label for="user_teacher_grade_ga" data-i18n="[html]superadmin.profil.grade">Grade <span class="c-text-red">*</span></label>
                             <select class="form-control col-5" id="user_teacher_grade_ga">
                                 <option selected value="0" data-i18n="superadmin.users.teacherGrades.0">Primaire</option>
                                 <option value="1" data-i18n="superadmin.users.teacherGrades.1">Collège</option>
@@ -493,7 +493,7 @@ const classroomModals = {
                             </select>
                             </div>
                         <div class="col">
-                            <label for="user_teacher_subjects_ga" data-i18n="[html]superadmin.profil.subject">Subject <span class="text-danger">*</span></label>
+                            <label for="user_teacher_subjects_ga" data-i18n="[html]superadmin.profil.subject">Subject <span class="c-text-red">*</span></label>
                             <select class="form-control col-5" id="user_teacher_subjects_ga">
                             </select>
                         </div>
@@ -526,11 +526,11 @@ const classroomModals = {
         content: `<div class="row mt-1">
                     <input type="hidden" class="form-control" id="update_u_id_ga">
                     <div class="col">
-                        <label for="update_u_firstname_ga" data-i18n="[html]superadmin.profil.firstname">Prénom <span class="text-danger">*</span></label>
+                        <label for="update_u_firstname_ga" data-i18n="[html]superadmin.profil.firstname">Prénom <span class="c-text-red">*</span></label>
                         <input type="text" class="form-control" id="update_u_firstname_ga">
                     </div>
                     <div class="col">
-                        <label for="update_u_surname_ga" data-i18n="[html]superadmin.profil.lastname">Nom <span class="text-danger">*</span></label>
+                        <label for="update_u_surname_ga" data-i18n="[html]superadmin.profil.lastname">Nom <span class="c-text-red">*</span></label>
                         <input type="text" class="form-control" id="update_u_surname_ga">
                     </div>
                     <div class="col">
@@ -542,7 +542,7 @@ const classroomModals = {
                     <div id="update_regular_options_ga">
                         <div class="row mt-2">
                             <div class="col">
-                                <label for="update_u_mail_ga" data-i18n="[html]superadmin.profil.email">Adresse E-mail <span class="text-danger">*</span></label>
+                                <label for="update_u_mail_ga" data-i18n="[html]superadmin.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
                                 <input type="email" class="form-control" id="update_u_mail_ga">
                             </div>
                             <div class="col">
@@ -551,7 +551,7 @@ const classroomModals = {
                             </div>
                         </div>
                         <div class="form-group mt-2">
-                            <label for="update_u_bio_ga" data-i18n="[html]superadmin.profil.bio">Bio <span class="text-danger">*</span></label>
+                            <label for="update_u_bio_ga" data-i18n="[html]superadmin.profil.bio">Bio <span class="c-text-red">*</span></label>
                             <textarea class="form-control" id="update_u_bio_ga" rows="3"></textarea>
                         </div>
                     </div>
@@ -593,12 +593,17 @@ const classroomModals = {
         content: `  <div id="delete-user-modal">
                         <div class="col-12">
                             <div class="alert" id="alertDisableUserGA" role="alert" style="display:none;"></div>
-                            <h3 class="font-weight-bold text-danger m-auto text-center" data-i18n="superadmin.users.deleteConfirmationTitle"></h3>
+                            <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="superadmin.users.deleteConfirmationTitle"></h3>
                             <p data-i18n="[html]superadmin.users.disable.intention" class="text-center"></p>
-                            <p data-i18n="superadmin.users.disable.message" class="text-center"></p>.
-                            <input type="text" name="validation_deleteGroupAdmin" id="validation_deleteGroupAdmin" data-i18n="[placeholder]superadmin.input.placeholder.delete" placeholder="supprimer">
-                            <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="cancelDeleteGroupAdmin()" data-i18n="superadmin.buttons.cancel">Annuler</button>
-                            <button class="btn btn-danger mx-auto mt-3 btn-lg" onclick="persistDeleteGroupAdmin()" data-i18n="superadmin.buttons.validate">Valider</button>
+                            <div class="text-center c-secondary-form">
+
+                                <p data-i18n="superadmin.users.disable.message" class="text-center"></p>
+                                <input type="text" name="validation_deleteGroupAdmin" id="validation_deleteGroupAdmin" data-i18n="[placeholder]superadmin.input.placeholder.delete" placeholder="supprimer">
+                            </div>
+                            <div class="text-center">
+                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelDeleteGroupAdmin()" data-i18n="superadmin.buttons.cancel">Annuler</button>
+                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteGroupAdmin()" data-i18n="superadmin.buttons.validate">Valider</button>
+                            </div>
                         </div>
                     </div>`,
         footer: ``
@@ -612,12 +617,16 @@ const classroomModals = {
         content: `  <div id="delete-user-modal">
                         <div class="col-12">
                             <div class="alert" id="alertDeleteUser" role="alert" style="display:none;"></div>
-                            <h3 class="font-weight-bold text-danger m-auto text-center" data-i18n="superadmin.users.deleteConfirmationTitle">Confirmer la suppression</h3>
+                            <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="superadmin.users.deleteConfirmationTitle">Confirmer la suppression</h3>
                             <p class="text-center" data-i18n="[html]superadmin.users.deleteIntentionSA">Vous vous apprêtez à supprimer l'utilisateur : <span id="mdi_firstnameSA"></span></p>
-                            <p class="text-center" data-i18n="superadmin.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>.
-                            <input type="text" name="validation_delete" id="validation_delete" data-i18n="[placeholder]superadmin.input.placeholder.delete" placeholder="supprimer">
-                            <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="cancelDelete()" data-i18n="superadmin.buttons.cancel">Annuler</button>
-                            <button class="btn btn-danger mx-auto mt-3 btn-lg" onclick="persistDelete()" data-i18n="superadmin.buttons.validate">Valider</button>
+                            <div class="text-center c-secondary-form">
+                                <p class="text-center" data-i18n="superadmin.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>
+                                <input type="text" name="validation_delete" id="validation_delete" data-i18n="[placeholder]superadmin.input.placeholder.delete" placeholder="supprimer">
+                            </div>
+                            <div class="text-center">
+                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelDelete()" data-i18n="superadmin.buttons.cancel">Annuler</button>
+                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDelete()" data-i18n="superadmin.buttons.validate">Valider</button>
+                            </div>
                         </div>
                     </div>`,
         footer: ``
@@ -631,12 +640,16 @@ const classroomModals = {
         content: `  <div id="delete-user-modal">
                         <div class="col-12">
                             <div class="alert" id="alertDisableUser" role="alert" style="display:none;"></div>
-                            <h3 class="font-weight-bold text-danger m-auto text-center" data-i18n="superadmin.users.disableConfirmationTitle">Confirmer la désactivation</h3>
+                            <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="superadmin.users.disableConfirmationTitle">Confirmer la désactivation</h3>
                             <p class="text-center" data-i18n="[html]superadmin.users.disableIntention">Vous vous apprêtez à désactiver l'utilisateur : <span id="mde_firstnameSA"></span></p>
-                            <p class="text-center" data-i18n="superadmin.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>.
-                            <input type="text" name="validation_disable" id="validation_disable" data-i18n="[placeholder]superadmin.input.placeholder.delete" placeholder="supprimer">
-                            <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="cancelDisable()" data-i18n="superadmin.buttons.cancel">Annuler</button>
-                            <button class="btn btn-danger mx-auto mt-3 btn-lg" onclick="persistDisable()" data-i18n="superadmin.buttons.validate">Valider</button>
+                            <div class="text-center c-secondary-form">
+                                <p class="text-center" data-i18n="superadmin.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>
+                                <input type="text" name="validation_disable" id="validation_disable" data-i18n="[placeholder]superadmin.input.placeholder.delete" placeholder="supprimer">
+                            </div>
+                            <div class="text-center">
+                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelDisable()" data-i18n="superadmin.buttons.cancel">Annuler</button>
+                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDisable()" data-i18n="superadmin.buttons.validate">Valider</button>
+                            </div>
                         </div>
                     </div>`,
         footer: ``
@@ -650,12 +663,16 @@ const classroomModals = {
         content: `  <div id="delete-user-modal">
                         <div class="col-12">
                             <div class="alert" id="alertDeleteGroup" role="alert" style="display:none;"></div>
-                            <h3 class="font-weight-bold text-danger m-auto text-center" data-i18n="superadmin.users.deleteConfirmationTitle">Confirmer la suppression</h3>
+                            <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="superadmin.users.deleteConfirmationTitle">Confirmer la suppression</h3>
                             <p class="text-center" data-i18n="[html]superadmin.group.deleteIntention">Vous vous apprêtez à suppression le groupe : <span id="md_group"></span></p>
-                            <p class="text-center" data-i18n="superadmin.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>.
-                            <input type="text" name="validation_delete_group" id="validation_delete_group" data-i18n="[placeholder]superadmin.input.placeholder.delete" placeholder="supprimer">
-                            <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="cancelDeleteGroup()" data-i18n="superadmin.buttons.cancel">Annuler</button>
-                            <button class="btn btn-danger mx-auto mt-3 btn-lg" onclick="persistDeleteGroup()" data-i18n="superadmin.buttons.validate">Valider</button>
+                            <div class="text-center c-secondary-form">
+                                <p class="text-center" data-i18n="superadmin.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>
+                                <input type="text" name="validation_delete_group" id="validation_delete_group" data-i18n="[placeholder]superadmin.input.placeholder.delete" placeholder="supprimer">
+                            </div>
+                            <div class="text-center">
+                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelDeleteGroup()" data-i18n="superadmin.buttons.cancel">Annuler</button>
+                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteGroup()" data-i18n="superadmin.buttons.validate">Valider</button>
+                            </div>
                         </div>
                     </div>`,
         footer: ``
