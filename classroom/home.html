@@ -130,10 +130,13 @@
         </div>
     </div>
 <div id="classroom-dashboard-profil-panel" style="display:none;" class="dashboard-block profile-panel">
-        <img src="assets/media/profile_picture.svg" alt="Photo de profil" class="user-picture">
-        <span id="user-name" data-i18n="classroom.profile.identity"></span>
-        <span><span data-i18n="classroom.profil.class"></span><span id="classroom-name"></span></span>
-        <!-- <span id="establishment-name"></span> -->
+        
+        <div class="d-flex flex-column text-center align-items-center">
+                <img src="assets/media/profile_picture.svg" alt="Photo de profil" class="user-picture">
+                <span id="user-name" class="mt-4" data-i18n="classroom.profile.identity"></span>
+                <span><span data-i18n="classroom.profil.class"></span><span id="classroom-name"></span></span>
+                <!-- <span id="establishment-name"></span> -->
+        </div>
 
         <div id="classroom-dashboard-profile-stats">
                 <div style="grid-column: 1; grid-row: 1;" class="activity-panel-link"><span
@@ -145,11 +148,13 @@
         </div>
         <!-- <div id="space-return-button"></div> -->
 
-        <button class="btn mb-2 c-btn-outline-primary" id="settings-student"><span data-i18n="words.settings" class="text-capitalize mr-1 text-span-initial"></span><i class="fas fa-cog"></i></button>
-        <button id="teacherSwitchButton" class="btn  mb-2 c-btn-outline-primary" onclick="modeProf()"><span class="text-span-initial mr-1" data-i18n="[html]classroom.profil.switchModeTeacher"></span><i class="fas fa-cog"></i></button>
-        <button class="btn mb-2 c-btn-red" onclick="goToDisconnect('classroom');"><span
-                        data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
-                <i class="fas fa-power-off"></i></button>
+        <div class="d-flex flex-column" style="gap: 1.5em;">
+                <button class="btn mb-2 c-btn-outline-primary" id="settings-student"><span data-i18n="words.settings" class="text-capitalize mr-1 text-span-initial"></span><i class="fas fa-cog"></i></button>
+                <button id="teacherSwitchButton" class="btn  mb-2 c-btn-outline-primary" onclick="modeProf()"><span class="text-span-initial mr-1" data-i18n="[html]classroom.profil.switchModeTeacher"></span><i class="fas fa-cog"></i></button>
+                <button class="btn mb-2 c-btn-red" onclick="goToDisconnect('classroom');"><span
+                                data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
+                        <i class="fas fa-power-off"></i></button>
+        </div>
 </div>
 <div id="classroom-dashboard-help-panel" style="display:none;" class="dashboard-block help-panel-student">
     <div class="teacher-contact-panel">
@@ -248,9 +253,12 @@
 <div id="classroom-dashboard-profil-panel-teacher" class="dashboard-block profile-panel" style="display:none;">
     <!-- Div alert when application has expired -->
     <div id="info-applications" class="alert alert-danger text-center" style="display:none;"></div>
-    <img src="assets/media/profile_picture.svg" alt="Photo de profil" class="user-picture">
-    <span id="user-name-teacher" data-i18n="classroom.profile.identity"></span>
-    <!--  <span>CLASSE : <span id="classroom-subject-teacher"> matière enseignée</span></span> -->
+    
+    <div class="d-flex flex-column text-center">
+        <img src="assets/media/profile_picture.svg" alt="Photo de profil" class="user-picture">
+        <span id="user-name-teacher" class="mt-4" data-i18n="classroom.profile.identity"></span>
+        <!--  <span>CLASSE : <span id="classroom-subject-teacher"> matière enseignée</span></span> -->
+    </div>
 
     <div id="classroom-dashboard-profile-stats-teacher">
         <div style="grid-column: 2; grid-row: 1;" class="activity-panel-link-t classroom-clickable"
@@ -264,18 +272,26 @@
                 data-i18n="[html]classroom.profil.correctionToDo"></span></div>
     </div>
 
-    <button class="btn mt-2 c-btn-outline-primary" id="settings-teacher"><span class="text-capitalize text-span-initial"
-            data-i18n="words.settings" class="text-capitalize"></span> <i class="fas fa-cog"></i></button>
-    <button class="btn mt-2 c-btn-outline-secondary" id="help-teacher"><span data-i18n="words.help"
-            class="text-capitalize text-span-initial"></span>
-        <i class="fas fa-question-circle"></i></button>
-    <button class="btn mb-2 c-btn-outline-primary" onclick="listeModeApprenant()"><span
-            data-i18n="classroom.profil.switchMode" class="text-span-initial mr-1"></span><i
-            class="fas fa-cog"></i></button>
+    <div class="d-flex flex-column" style="gap: 1.5em;">
+        <button class="btn c-btn-outline-primary" id="settings-teacher">
+            <span class="text-capitalize text-span-initial" data-i18n="words.settings" class="text-capitalize"></span>
+            <i class="fas fa-cog"></i>
+        </button>
 
-    <button class="btn mt-2 c-btn-red" onclick="goToDisconnect('classroom');"><span data-i18n="words.disconnect"
-            class="text-capitalize text-span-initial"></span>
-        <i class="fas fa-power-off"></i></button>
+        <button class="btn c-btn-outline-secondary" id="help-teacher">
+            <span data-i18n="words.help" class="text-capitalize text-span-initial"></span>
+            <i class="fas fa-question-circle"></i>
+        </button>
+
+        <button class="btn c-btn-outline-primary" onclick="listeModeApprenant()">
+            <span data-i18n="classroom.profil.switchMode" class="text-span-initial mr-1"></span>
+            <i class="fas fa-cog"></i></button>
+
+        <button class="btn c-btn-red" onclick="goToDisconnect('classroom');">
+            <span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
+            <i class="fas fa-power-off"></i>
+        </button>
+    </div>
 </div>
 
 <div id="classroom-dashboard-account-panel-teacher" class="mx-3 dashboard-block classes-panel class-creation-form"
@@ -736,32 +752,22 @@
     </div>
 </div>
 <div id="classroom-dashboard-profil-panel-groupadmin" class="dashboard-block profile-panel" style="display:none;">
-    <div class="row text-center">
-        <div class="col-12">
-            <div class="col-12">
-                <img src="assets/media/profile_picture.svg" alt="Photo de profil"
-                    class="user-picture rounded mx-auto d-block">
-                <span id="user-name-groupadmin" data-i18n="classroom.profil.identity">PLACEHOLDER</span>
-            </div>
-            <div class="col-12">
-                <div class="m-auto">
-                    <button class="btn mt-2 c-btn-outline-primary btn-block" id="settings-groupadmin"><span
-                            class="text-capitalize text-span-initial" data-i18n="words.settings"
-                            class="text-capitalize"></span> <i class="fas fa-cog"></i>
-                    </button>
 
-                    <button class="btn mb-2 c-btn-outline-primary btn-block" onclick="switchToProf()"><span
-                            data-i18n="classroom.profil.switchModeTeacher" class="text-span-initial mr-1"></span><i
-                            class="fas fa-cog"></i>
-                    </button>
+    <div class="d-flex flex-column text-center">
+        <img src="assets/media/profile_picture.svg" alt="Photo de profil" class="user-picture">
+        <span id="user-name-groupadmin" class="mt-4" data-i18n="classroom.profil.identity">PLACEHOLDER</span>
+    </div>
 
-                    <button class="btn mt-2 c-btn-red btn-block" onclick="goToDisconnect('classroom');"><span
-                            data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
-                        <i class="fas fa-power-off"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+    <div class="d-flex flex-column" style="gap: 1.5em;">
+        <button class="btn c-btn-outline-primary" id="settings-groupadmin"><span class="text-capitalize text-span-initial" data-i18n="words.settings" class="text-capitalize"></span> <i class="fas fa-cog"></i>
+        </button>
+
+        <button class="btn c-btn-outline-primary" onclick="switchToProf()"><span data-i18n="classroom.profil.switchModeTeacher" class="text-span-initial mr-1"></span><i class="fas fa-cog"></i>
+        </button>
+
+        <button class="btn c-btn-red" onclick="goToDisconnect('classroom');"><span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
+            <i class="fas fa-power-off"></i>
+        </button>
     </div>
 </div>
 <div id="groupadmin-dashboard-users" style="display:none;" class="dashboard-block">
@@ -820,11 +826,13 @@
 
                 <div class="row my-2" id="users_options_groupadmin">
 
-                    <input class="mr-sm-2 flex-fill" type="search" id="name_user_search_groupadmin"
-                        placeholder="Rechercher" aria-label="Search" data-i18n="[placeholder]superadmin.buttons.search">
-                    <button class="btn btn-info btn-sm" id="search_user_groupadmin"
-                        data-i18n="superadmin.buttons.search">Rechercher</button>
+                    <!-- Search bar -->
+                    <input class="flex-fill" type="search" id="name_user_search_groupadmin" placeholder="Rechercher" aria-label="Search" data-i18n="[placeholder]superadmin.buttons.search">
+                    <button class="btn c-btn-primary" id="search_user_groupadmin" style="width: 3em; height: 3em;">
+                        <i class="fas fa-search"></i>
+                    </button>
 
+                    <!-- View filter -->
                     <select class="my-1 mr-sm-2 form-select" id="sort_users_filter_groupadmin">
                         <option selected value="0" data-i18n="superadmin.sort.user.bylastname">Trier par nom</option>
                         <option value="1" data-i18n="superadmin.sort.user.byfirstname">Trier par prénom</option>
@@ -873,32 +881,22 @@
     </div>
 </div>
 <div id="classroom-dashboard-profil-panel-superadmin" class="dashboard-block profile-panel" style="display:none;">
-    <div class="row text-center">
-        <div class="col-12">
-            <div class="col-12">
-                <img src="assets/media/profile_picture.svg" alt="Photo de profil"
-                    class="user-picture rounded mx-auto d-block">
-                <span id="user-name-superadmin" data-i18n="classroom.profil.identity">PLACEHOLDER</span>
-            </div>
-            <div class="col-12">
-                <div class="m-auto">
-                    <button class="btn mt-2 c-btn-outline-primary btn-block" id="settings-superadmin"><span
-                            class="text-capitalize text-span-initial" data-i18n="words.settings"
-                            class="text-capitalize"></span> <i class="fas fa-cog"></i>
-                    </button>
 
-                    <button class="btn mb-2 c-btn-outline-primary btn-block" onclick="switchToProf()"><span
-                            data-i18n="classroom.profil.switchModeTeacher" class="text-span-initial mr-1"></span><i
-                            class="fas fa-cog"></i>
-                    </button>
+    <div class="d-flex flex-column text-center">
+        <img src="assets/media/profile_picture.svg" alt="Photo de profil" class="user-picture">
+        <span id="user-name-superadmin" class="mt-4" data-i18n="classroom.profil.identity">PLACEHOLDER</span>
+    </div>
 
-                    <button class="btn mt-2 c-btn-red btn-block" onclick="goToDisconnect('classroom');"><span
-                            data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
-                        <i class="fas fa-power-off"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+    <div class="d-flex flex-column" style="gap: 1.5em;">
+        <button class="btn c-btn-outline-primary" id="settings-superadmin"><span class="text-capitalize text-span-initial" data-i18n="words.settings" class="text-capitalize"></span> <i class="fas fa-cog"></i>
+        </button>
+
+        <button class="btn c-btn-outline-primary" onclick="switchToProf()"><span data-i18n="classroom.profil.switchModeTeacher" class="text-span-initial mr-1"></span><i class="fas fa-cog"></i>
+        </button>
+
+        <button class="btn c-btn-red" onclick="goToDisconnect('classroom');"><span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
+            <i class="fas fa-power-off"></i>
+        </button>
     </div>
 </div>
 <div id="superadmin-dashboard-main" style="display:none;" class="dashboard-block">
