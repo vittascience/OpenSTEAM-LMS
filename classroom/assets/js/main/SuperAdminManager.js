@@ -518,8 +518,7 @@ class SuperAdminManager {
                             </td>
                             <td>
                                 <a class="c-link-secondary" href="#" onclick="showupdateUserModal(${element.id})">
-                                    <i class="fas fa-pencil-alt fa-2x">
-                                    </i>
+                                    <i class="fas fa-pencil-alt fa-2x"></i>
                                 </a>
                             </td>
                             <td>

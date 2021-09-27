@@ -17,6 +17,7 @@ fieldset.switch-to-admin legend {
 /* ADMIN PANELS */
 
 
+#groups_table_groupadmin>tr>th:first-child,
 #groups_table_superadmin>tr>th:first-child {
     cursor: pointer;
 }

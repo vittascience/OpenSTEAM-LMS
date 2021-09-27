@@ -5,9 +5,9 @@
             <div id="info-group-applications" class="alert alert-danger text-center" style="display:none;"></div>
             <div class="row">
                 <div class="row mb-2" id="btn-create-superadmin">
-                    <button class="btn c-btn-outline-secondary mx-1" id="create_user_link_to_group_groupadmin"
-                        data-i18n="superadmin.buttons.user.createA">
-                        Créer un utilisateur
+                    <button class="btn c-btn-outline-secondary mx-1" id="create_user_link_to_group_groupadmin">
+                        <span data-i18n="superadmin.buttons.user.createA">Créer un utilisateur</span>
+                        <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
             </div>
@@ -76,13 +76,14 @@
 
                 </div>
 
-                <div class="row my-2">
-                    <button class="btn btn-secondary btn-sm mx-2" id="table_back_to_users_groupadmin"> -
+                <div class="group-header row my-2">
+                    <button class="btn btn-sm c-btn-grey " id="table_back_to_users_groupadmin">
+                        <i class="fas fa-arrow-left"></i>
                     </button>
                     <h2 id="group_name_from_table_groupadmin"></h2>
                 </div>
 
-                <table class="table">
+                <table class="table c-table">
                     <thead>
                         <tr>
                             <th scope="col" data-i18n="superadmin.table.lastname">Nom</th>

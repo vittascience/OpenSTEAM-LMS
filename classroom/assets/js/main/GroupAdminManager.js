@@ -100,7 +100,9 @@ class GroupAdminManager {
                             ${div_img}
                         </td>
                         <td>
-                            <button class="btn btn-info btn-sm" onclick="getGroupLinkGA(${element.id})">${i18next.t('superadmin.buttons.show')}</button>
+                            <a class="c-link-tertiary" href="#" onclick="getGroupLinkGA(${element.id})" alt="${i18next.t('superadmin.buttons.show')}">
+                                <i class="fas fa-link fa-2x"></i>
+                            </a>
                         </td>
                     </tr>`;
                 $('#groups_table_groupadmin').html(data_table);
@@ -168,13 +170,17 @@ class GroupAdminManager {
                         <td>${$droits}</td>
                         <td>${div_img}</td>
                         <td>
-                            <button class="btn btn-info btn-sm" data-i18n="superadmin.buttons.reset" onclick="resetUserPasswordga(${element.id})">${i18next.t('superadmin.buttons.send')}</button>
+                            <a class="c-link-primary d-inline-block" href="#" onclick="resetUserPasswordga(${element.id})">
+                                <i class="fas fa-redo-alt fa-2x"></i>
+                            </a>
                         </td>
                         <td>
-                            <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateUserModal_groupadmin(${element.id})">${i18next.t('superadmin.buttons.update')}</button>
+                            <a class="c-link-secondary" href="#" onclick="showupdateUserModal_groupadmin(${element.id})">
+                                <i class="fas fa-pencil-alt fa-2x"></i>
+                            </a>
                         </td>
                         <td>
-                            <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('superadmin.buttons.delete')}</button>
+                            <button class="btn c-btn-red btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('superadmin.buttons.delete')} <i class="fas fa-user-minus"></i></button>
                         </td>
                     </tr>`;
                 }
