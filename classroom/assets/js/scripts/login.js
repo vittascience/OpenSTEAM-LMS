@@ -1,14 +1,13 @@
-const AllViews = ['#classroom-login-container', '#login-container', '#classroom-register-container', '#home-container'];
+const AllViews = ['#classroom-login-container', '#login-container', '#classroom-register-container', '#home-container', '#classroom-login-container-bis'];
 
+// Global param who check if it's the first request of class
+let firstRequestClass = true;
 function onUrlChange() {
     // Close all views
-    AllViews.forEach(e => {
-        $(e).hide();
-    });
+    closeAllViews();
     // Show the view needed
     if ($_GET('p')) {
-        let page = $_GET('p');
-        switch (page) {
+        switch ($_GET('p')) {
             case 'login-choice':
                 $('#classroom-login-container').show();
                 break;
@@ -22,16 +21,44 @@ function onUrlChange() {
                 $('#home-container').show();
                 break;
         }
+    } else if ($_GET('link')) {
+        // We trigger this one only if it's not the first request (the first request is handled by the Main.init())
+        if (firstRequestClass === false) {
+            findClassroomToConnect($_GET('link'));
+        }
     } else {
-        navigateLight("", 1);
         $('#home-container').show();
     }
 }
+// call onUrlChange one time a the initialization of the page for set the views correctly
+onUrlChange();
 
+// the function who manage the history without refreshing the page 
 function navigateLight(page, i = 0) {
-    let link = i == 0 ? window.location.origin + window.location.pathname + "?p=" + page : window.location.origin + window.location.pathname + page;
+    let link;
+    switch (i) {
+        case 0:
+            link = window.location.origin + window.location.pathname + "?p=" + page;
+            break;
+        case 1:
+            link = window.location.origin + window.location.pathname + page;
+            break;
+        case 2:
+            link = window.location.origin + window.location.pathname+ "?link=" + page;
+            break;
+        default:
+            break;
+    }
+
     window.history.pushState({}, '', link);
     onUrlChange();
+}
+
+function closeAllViews() {
+    // Close all views
+    AllViews.forEach(e => {
+        $(e).hide();
+    });
 }
 
 window.onpopstate = function (e) {
@@ -50,6 +77,46 @@ function displayNotification(div, message, status, options = '{}') {
     setTimeout(function () {
         $('#notif-' + randId).remove()
     }, 15000);
+}
+
+function findClassroomToConnect(linkC) {
+
+    $('#class-connexion').attr("disabled", true);
+    $('#create-user').show();
+
+    Main.getClassroomManager().getClassroom(linkC).then((response) => {
+        closeAllViews();
+
+        $('#classroom-login-container-bis').show();
+        //$('#classroom-create-account .green-form').show();
+        $('#blocked-class').remove();
+        $('#class-connexion').attr("disabled", false);
+        
+        if (response.exist) {
+            $('#classroom-login-account, #classroom-create-account').show();
+            $('#classroom-desc').html(response.link.toUpperCase() + ' - CLASSE \"' + response.name + '\"');
+            if (response.isBlocked == true) {
+                let blockedClassDivElt = document.createElement("div");
+                blockedClassDivElt.id = "blocked-class";
+                blockedClassDivElt.innerHTML =
+                    "Cette classe a été bloquée par l'enseignant.e qui l'a crée, tu ne peux donc pas créer de nouveau compte.<br>Si tu as déja un compte, essaye plutot de te connecter.";
+    
+                $('#classroom-create-account').hide();
+                document.getElementById('classroom-desc').append(blockedClassDivElt);
+    
+                $('#classroom-create-account .green-form').hide();
+                $('#create-user').hide();
+            }
+        } else {
+            if (response.hasOwnProperty('errorLinkNotExists')) {
+                $('#classroom-desc').html('Vous devez saisir un code.');
+                $('#classroom-login-account, #classroom-create-account').hide();
+            } else {
+                $('#classroom-desc').html('Le code entré ne correspond à aucune classe.');
+                $('#classroom-login-account, #classroom-create-account').hide();
+            }
+        }
+    })
 }
 
 
@@ -73,8 +140,6 @@ $('#login-vittascience').click(function () {
 
 $('#home-connexion').click(function () {
     navigateLight("login-choice")
-    /*     $('#home-container').toggle();
-        $('#classroom-login-container').toggle(); */
     document.documentElement.style = "scroll-behavior: auto";
     document.documentElement.scrollTo({
         top: 0,
@@ -86,9 +151,13 @@ $('.navbar-brand').click(function () {
     window.location.href = window.location.origin + window.location.pathname
 })
 
-
 $('#class-connexion').click(function () {
-    findClassroomToConnect($('#class-code').val())
+    if ($('#class-code').val().length == 5) {
+        firstRequestClass = false;
+        navigateLight($('#class-code').val(), 2);
+    } else {
+        displayNotification('#notif-div', "classroom.notif.invalidLink", "error");
+    }
 })
 
 if ($_GET('panel') == "login") {
@@ -470,121 +539,3 @@ setTimeout(() => {
 }, 2000);
 
 
-/**
- * Old functions for the old form
- */
-/**
- * Check if the teacher's account update form values are correct
- * @returns {boolean} - true if check ok, false otherwise
- */
-/* function teacherAccountCreateFormCheck(formData) {
-
-    let formValues = {
-            'firstname': {
-                value: formData.get('first-name'),
-                id: 'profile-form-first-name'
-            },
-            'surname': {
-                value: formData.get('last-name'),
-                id: 'profile-form-last-name'
-            },
-            'pseudo': {
-                value: formData.get('nickname'),
-                id: 'profile-form-nick-name'
-            },
-            'email': {
-                value: formData.get('email'),
-                id: 'profile-form-email'
-            },
-            'password': {
-                value: formData.get('password'),
-                id: 'profile-form-password'
-            },
-            'confirmPassword': {
-                value: formData.get('confirm-password'),
-                id: 'profile-form-confirm-password'
-            }
-        },
-        errors = [];
-
-    for (let input in formValues) {
-        let currentElt = document.getElementById(formValues[input].id);
-        if (currentElt.classList.contains('form-input-error')) {
-            currentElt.classList.remove('form-input-error');
-        }
-    }
-
-    if (formValues.firstname.value.length < 2) {
-        errors.push('firstNameTooShort');
-        showFormInputError(formValues.firstname.id);
-    }
-
-    if (formValues.surname.value.length < 2) {
-        errors.push('lastNameTooShort');
-        showFormInputError(formValues.surname.id);
-    }
-
-    if (formValues.pseudo.value.length < 2) {
-        errors.push('pseudoTooShort');
-        showFormInputError(formValues.pseudo.id);
-    }
-
-    if (!formValues.email.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
-        errors.push('invalidEmail');
-        showFormInputError(formValues.email.id);
-    }
-
-    if (!formValues.password.value.length > 7) {
-        errors.push('invalidPassword');
-        showFormInputError(formValues.password.id);
-    }
-
-    if (formValues.password.value != formValues.confirmPassword.value) {
-        errors.push('passwordAndConfirmMismatch');
-        showFormInputError(formValues.password.id);
-        showFormInputError(formValues.confirmPassword.id);
-    }
-
-    if (errors.length) {
-        for (let error of errors) {
-            displayNotification('#notif-div', `classroom.notif.${error}`, "error");
-        }
-        return false;
-    } else {
-        return true;
-    }
-} */
-
-/**
- * Create teacher form submit listener
- */
-/*  document.getElementById('create-teacher-account-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    let data = new FormData(e.target);
-    if(teacherAccountCreateFormCheck(data)){
-        Main.getClassroomManager().createTeacherAccount(data).then((response) => {
-            if(response.isUserAdded){
-                document.getElementById('profile-form-password').value = '';
-                document.getElementById('profile-form-confirm-password').value = '';
-                displayNotification('#notif-div', "classroom.notif.accountCreated", "success");
-                returnToConnectionPanel('#login-container');
-            }else{
-                if(response.errorType){
-                    switch (response.errorType) {
-                        case 'unknownUser':
-                            displayNotification('#notif-div', "classroom.notif.unknownUser", "error");
-                            break;
-                    
-                        default:
-                            break;
-                    }
-                }
-                if(response.errors){
-                    for(let error in response.errors){
-                        displayNotification('#notif-div', `classroom.notif.${error}`, "error");
-                    }
-                }
-            }
-        });
-    }
-}); */

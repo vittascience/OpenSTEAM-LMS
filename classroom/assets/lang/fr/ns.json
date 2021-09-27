@@ -185,7 +185,8 @@
 			"groupLimitationsTeacher": "Vous avez atteint la limite d'apprenants que votre groupe vous octroie",
 			"bothLimitationsReached": "Vous avez atteint les limitations d'élèves que vous et votre groupe pouvez avoir.",
 			"ClassroomNameInvalid": "Le nom de la classe est requis",
-			"reservedNickname": "Le nom : \"{{reservedNickname}}\" ne peut être attribué."
+			"reservedNickname": "Le nom : \"{{reservedNickname}}\" ne peut être attribué.",
+			"invalidLink": "Le lien que vous avez entrer n'est pas valide"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",
@@ -1002,6 +1003,7 @@
 			"mailSentToUserReset": "Un e-mail a été envoyé à l'utilisateur pour qu'il change de mot de passe",
 			"mailNotSentToUserReset": "l'e-mail de changement de mot de passe n'a pas pu être envoyé à l'utilisateur",
 			"appsUpdated": "Les applications de l'utilisateur ont été mise à jour",
+			"updateApps": "Modifier les applications",
 			"teacherGrades": {
 				"0": "Primaire",
 				"1": "Collège",
@@ -1208,7 +1210,26 @@
 			"description": "Description",
 			"right": "Rôle",
 			"resetPassword": "Réinitialiser le mot de passe",
-			"link": "Lien"
+			"link": "Lien",
+			"name": "Name",
+			"dateBegin": "Date début",
+			"dateEnd": "Date de fin",
+			"outDated": "Périmé",
+			"maxStudents": "Maximum d'élèves",
+			"actualStudents": "Éleves actuels",
+			"maxTeachers": "Maximum d'enseignants",
+			"actualTeachers": "Enseignants actuels",
+			"maxStudentsPerTeachers": "Maximum d'élèves par enseignant",
+			"monitoring": "Suveillance des applications",
+			"image": "Image"
+		},
+		"apps": {
+			"apps": "Applications",
+			"create": "Créer une application",
+			"updateSuccess": "Application modifiée avec succès",
+			"createSuccess": "Application créée avec succès",
+			"deleteSuccess": "Application supprimée avec succès",
+			"deleteIntention": "Vous vous apprêtez à supprimer l'application : <span id=\"application_delete_name\"></span>"
 		}
 	},
 	"navbar": {
