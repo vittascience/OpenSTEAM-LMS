@@ -23,10 +23,10 @@ $('body').on('click', '.modal-student-password', function () {
     let self = $(this)
     ClassroomSettings.student = parseInt(self.parent().parent().parent().attr('data-student-id'))
     Main.getClassroomManager().generatePassword(ClassroomSettings.student).then(function (response) {
-        displayNotification('#notif-div', "classroom.notif.newPwd", "success", {
-            "pseudo": response.pseudo,
-            "pwd": response.mdp
-        })
+        displayNotification('#notif-div', "classroom.notif.newPwd", "success", `'{
+            "pseudo": "${response.pseudo}",
+            "pwd": "${response.mdp}"
+        }'`)
         self.parent().find('.pwd-display-stud .masked').html(response.mdp)
 
     })
