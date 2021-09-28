@@ -1305,17 +1305,19 @@ function showupdateUserModal(id) {
         if (res[0].hasOwnProperty('groups')) {
             for (let i = 0; i < res[0].groups.length; i++) {
                 mainSuperAdmin.getSuperAdminManager()._updatedUserGroup += 1;
-                let group = `<div class="input-group mb-3" id="update_u_actual_group${i}">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <input type="checkbox" id="update_u_is_group_admin${i}">
-                                        <label class="form-check-label mx-1" for="update_u_is_group_admin${i}">
-                                            Administrateur du groupe
-                                        </label>
+                let group = `<div class="form-group c-secondary-form">
+                                <div class="input-group mb-3" id="update_u_actual_group${i}">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text pl-5">
+                                            <input class="form-check-input" type="checkbox" id="update_u_is_group_admin${i}">
+                                            <label class="form-check-label mx-1" for="update_u_is_group_admin${i}" data-i18n="superadmin.users.groupAdmin">
+                                                Administrateur du groupe
+                                            </label>
+                                        </div>
                                     </div>
+                                    <select class="form-control" id="update_u_group${i}">
+                                    </select>
                                 </div>
-                                <select class="form-control" id="update_u_group${i}">
-                                </select>
                             </div>`;
                 $("#update_actualgroup_sa").append(group);
                 if (res[0].groups[i].rights == 1) {

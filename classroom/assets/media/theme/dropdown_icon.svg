@@ -1,9 +1,8 @@
 <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 19.85 12.35'>
     <defs>
         <style>
-            /* Change color here to the value of --classroom-secondary */
             .cls-1 {
-                fill: #F58246;
+                fill: #cccccc;
             }
         </style>
     </defs>

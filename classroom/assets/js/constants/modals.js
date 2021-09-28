@@ -350,7 +350,7 @@ const classroomModals = {
     <div class="form-group c-secondary-form">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-                <div class="input-group-text">
+                <div class="input-group-text pl-5">
                     <input class="form-check-input" type="checkbox" id="u_is_group_admin">
                     <label class="form-check-label" for="u_is_group_admin" data-i18n="superadmin.users.groupAdmin">
                         Administrateur du groupe
@@ -378,77 +378,89 @@ const classroomModals = {
             title: 'superadmin.buttons.user.updateA'
         },
         content: `<div class="container-fluid">
+        <input type="hidden" class="form-control" id="update_u_id">
         <div class="form-row c-secondary-form">
-            <input type="hidden" class="form-control" id="update_u_id">
-            <div class="col-md-4 form-group">
+            <div class="form-group col-md-4">
                 <label for="update_u_firstname" data-i18n="[html]superadmin.profil.firstname">Prénom <span class="c-text-red">*</span></label>
                 <input type="text" class="form-control" id="update_u_firstname">
             </div>
-            <div class="col-md-4 form-group">
+            <div class="form-group col-md-4">
                 <label for="update_u_surname" data-i18n="[html]superadmin.profil.lastname">Nom <span class="c-text-red">*</span></label>
                 <input type="text" class="form-control" id="update_u_surname">
             </div>
-            <div class="col-md-4 form-group">
+            <div class="form-group col-md-4">
                 <label for="update_u_pseudo" data-i18n="[html]superadmin.profil.nickname">Pseudonyme</label>
                 <input type="text" class="form-control" id="update_u_pseudo">
             </div>
         </div>
-        <div class="form-group c-secondary-form">
-            <div id="update_regular_options">
-                <div class="row mt-2">
-                    <div class="col">
-                        <label for="update_u_mail" data-i18n="[html]superadmin.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
-                        <input type="email" class="form-control" id="update_u_mail">
-                    </div>
-                    <div class="col">
-                        <label for="update_u_phone" data-i18n="superadmin.profil.phone">Numéro de telephone</label>
-                        <input type="text" class="form-control" id="update_u_phone">
-                    </div>
-                </div>
-                <div class="form-group mt-2">
-                    <label for="update_u_bio" data-i18n="[html]superadmin.profil.bio">Bio <span class="c-text-red">*</span></label>
-                    <textarea class="form-control" id="update_u_bio" rows="3"></textarea>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input type="checkbox" id="update_u_is_active">
-                    <label class="form-check-label" for="update_u_is_active" data-i18n="superadmin.account.active">
-                        Compte actif
-                    </label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input type="checkbox" id="update_u_is_admin">
-                    <label class="form-check-label" for="update_u_is_admin" data-i18n="superadmin.users.admin">
-                        Administrateur
-                    </label>
-                </div>
+    
+        <div class="form-row c-secondary-form">
+            <div class="form-group col-md-6">
+                <label for="update_u_mail" data-i18n="[html]superadmin.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
+                <input type="email" class="form-control" id="update_u_mail">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="update_u_phone" data-i18n="superadmin.profil.phone">Numéro de telephone</label>
+                <input type="text" class="form-control" id="update_u_phone">
             </div>
         </div>
-        <div class="form-group">
+    
+        <div class="form-row c-secondary-form mb-2">
+            <label for="update_u_bio" data-i18n="[html]superadmin.profil.bio">Bio <span class="c-text-red">*</span></label>
+            <textarea class="form-control" id="update_u_bio" rows="3"></textarea>
+        </div>
+    
+        <div class="form-row c-secondary-form">
+            <div class="form-check form-check-inline">
+                <input type="checkbox" id="update_u_is_active">
+                <label class="form-check-label" for="update_u_is_active" data-i18n="superadmin.account.active">
+                    Compte actif
+                </label>
+            </div>
+    
+            <div class="form-check form-check-inline ml-3">
+                <input type="checkbox" id="update_u_is_admin">
+                <label class="form-check-label" for="update_u_is_admin" data-i18n="superadmin.users.admin">
+                    Administrateur
+                </label>
+            </div>
+        </div>
+    
+        <div class="form-row form-group c-secondary-form">
             <div class="form-check">
-                <input type="checkbox" id="update_u_is_teacher">
-                <label class="form-check-label" for="update_u_is_teacher">
+                <input class="form-check-input" type="checkbox" id="update_u_is_teacher">
+                <label class="form-check-label" for="update_u_is_teacher" data-i18n="superadmin.users.teacher">
                     Enseignant
                 </label>
-                <div class="row" id="update_user_teacher_infos" style="display: none;">
-                    <select class="form-control col-5" id="update_user_teacher_grade">
-                        <option selected value="0" data-i18n="superadmin.users.teacherGrades.0">Primaire</option>
-                        <option value="1" data-i18n="superadmin.users.teacherGrades.1">Collège</option>
-                        <option value="2" data-i18n="superadmin.users.teacherGrades.2">Lycée</option>
-                        <option value="3" data-i18n="superadmin.users.teacherGrades.3">Lycée professionel</option>
-                        <option value="4" data-i18n="superadmin.users.teacherGrades.4">POST-BAC</option>
-                    </select>
-                    <select class="form-control col-5" id="update_user_teacher_subjects">
-                    </select>
-                    <div class="col-12 my-3">
-                        <label for="update_u_school" data-i18n="[html]superadmin.profil.school">School</label>
-                        <input type="text" class="form-control" id="update_u_school">
-                    </div>
-                </div>
             </div>
         </div>
+    
+        <div class="form-row c-secondary-form" id="update_user_teacher_infos" style="display: none;">
+            <div class="form-group col-md-6">
+                <select class="form-control" id="update_user_teacher_grade">
+                    <option selected value="0" data-i18n="superadmin.users.teacherGrades.0">Primaire</option>
+                    <option value="1" data-i18n="superadmin.users.teacherGrades.1">Collège</option>
+                    <option value="2" data-i18n="superadmin.users.teacherGrades.2">Lycée</option>
+                    <option value="3" data-i18n="superadmin.users.teacherGrades.3">Lycée professionel</option>
+                    <option value="4" data-i18n="superadmin.users.teacherGrades.4">POST-BAC</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <select class="form-control" id="update_user_teacher_subjects">
+                </select>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="update_u_school" data-i18n="[html]superadmin.profil.school">School</label>
+                <input type="text" class="form-control" id="update_u_school">
+            </div>
+        </div>
+    
+    
         <hr>
+    
         <div id="update_actualgroup_sa">
         </div>
+    
         <div id="update_applications_sa">
         </div>
     </div>
