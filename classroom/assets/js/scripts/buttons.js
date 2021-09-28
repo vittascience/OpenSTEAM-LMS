@@ -1352,17 +1352,19 @@ function showupdateUserModal(id) {
 
         } else {
             mainSuperAdmin.getSuperAdminManager()._updatedUserGroup += 1;
-            let group = `<div class="input-group mb-3" id="update_u_actual_group0">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <input type="checkbox" id="update_u_is_group_admin0">
-                                    <label class="form-check-label mx-1" for="update_u_is_group_admin0">
-                                        Administrateur du groupe
-                                    </label>
+            let group = `<div class="form-group c-secondary-form">
+                            <div class="input-group mb-3" id="update_u_actual_group0">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text pl-5">
+                                        <input class="form-check-input" type="checkbox" id="update_u_is_group_admin0">
+                                        <label class="form-check-label mx-1" for="update_u_is_group_admin0" data-i18n="superadmin.users.groupAdmin">
+                                            Administrateur du groupe
+                                        </label>
+                                    </div>
                                 </div>
+                                <select class="form-control" id="update_u_group0">
+                                </select>
                             </div>
-                            <select class="form-control" id="update_u_group0">
-                            </select>
                         </div>`;
             $("#update_actualgroup_sa").append(group);
             const item_id = 'update_u_group0';
