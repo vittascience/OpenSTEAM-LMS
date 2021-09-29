@@ -1965,18 +1965,22 @@ function showupdateUserModal_groupadmin(user_id) {
             if (res[0].hasOwnProperty('groups')) {
                 for (let i = 0; i < res[0].groups.length; i++) {
                     mainGroupAdmin.getGroupAdminManager()._updatedUserGroup += 1;
-                    let group = `<div class="input-group mb-3" id="update_u_actual_group_ga${i}">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <input type="checkbox" id="update_u_is_group_admin_ga${i}">
-                                            <label class="form-check mx-1" for="update_u_is_group_admin_ga${i}">
-                                                Administrateur du groupe
-                                            </label>
+                    let group = `<div class="form-group c-secondary-form">
+                                    <div class="input-group mb-3" id="update_u_actual_group_ga${i}">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="checkbox" id="update_u_is_group_admin_ga${i}">
+                                                <label class="form-check mx-1" for="update_u_is_group_admin_ga${i}">
+                                                    Administrateur du groupe
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <select class="form-control" id="update_u_group_ga${i}">
+                                        </select>
+                                        <div class="input-group-append">
+                                            <button class="btn c-btn-red" onclick="deleteGroupFromUpdateGroupAdmin(${i})">Supprimer</button>
                                         </div>
                                     </div>
-                                    <select class="form-control" id="update_u_group_ga${i}">
-                                    </select>
-                                    <button class="btn btn-danger ml-1" onclick="deleteGroupFromUpdateGroupAdmin(${i})">Supprimer</button>
                                 </div>`;
                     $("#update_actualgroup_ga").append(group);
                     if (res[0].groups[i].rights == 1) {
