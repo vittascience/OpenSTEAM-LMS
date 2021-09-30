@@ -483,7 +483,7 @@ class SuperAdminManager {
 
                     mainSuperAdmin.getSuperAdminManager()._allActualUsers.push(element);
 
-                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userNoRights') + "' ></i> ";
+                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userNoRights') + "'></i>";
                     if (element.hasOwnProperty('rights')) {
                         $droits = element.rights === "1" ?
                             "<i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userAdmin') + "' ></i>" :
@@ -585,9 +585,10 @@ class SuperAdminManager {
                     $('#paginationButtons_users').html(htmlButtons);
                 } else {
                     mainSuperAdmin.getSuperAdminManager()._allActualUsers.push(element);
-                    let $droits = " -- ";
+                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userNoRights') + "' ></i> ";
                     if (element.hasOwnProperty('rights')) {
-                        $droits = element.rights === "1" ? "Admin" : "Prof";
+                        $droits = element.rights === "1" ? "<i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userAdmin') + "' ></i>" :
+                        "<i class='fas fa-user fa-2x c-text-primary' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userTeacher') + "'></i>";
                     }
 
                     let div_img = ""
@@ -608,13 +609,17 @@ class SuperAdminManager {
                             <td>${$droits}</td>
                             <td>${div_img}</td>
                             <td>
-                                <button class="btn btn-info btn-sm" data-i18n="superadmin.buttons.reset" onclick="resetUserPassword(${element.id})">${i18next.t('superadmin.buttons.send')}</button>
+                                <a class="c-link-primary d-inline-block" href="#" onclick="resetUserPassword(${element.id})">
+                                    <i class="fas fa-redo-alt fa-2x"></i>
+                                </a>
                             </td>
                             <td>
-                                <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateUserModal(${element.id})">${i18next.t('superadmin.buttons.update')}</button>
+                                <a class="c-link-secondary" href="#" onclick="showupdateUserModal(${element.id})">
+                                    <i class="fas fa-pencil-alt fa-2x"></i>
+                                </a>
                             </td>
                             <td>
-                                <button class="btn c-btn-red btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUser(${element.id})">${i18next.t('superadmin.buttons.delete')}</button>
+                            <button class = "btn c-btn-red btn-sm" data-i18n="superadmin.buttons.delete" onclick="deleteUser(${element.id})">${i18next.t('superadmin.buttons.delete')} <i class="fas fa-user-minus"></i></button>
                             </td>
                         </tr>`;
                 }
@@ -780,10 +785,10 @@ class SuperAdminManager {
                                 ${div_img}
                             </td>
                             <td>
-                                <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateGroupModal(${element.id})">${i18next.t('superadmin.buttons.update')}</button>
+                                <a class="c-link-secondary" href="#" onclick="showupdateGroupModal(${element.id})"><i class="fas fa-pencil-alt fa-2x"></i></a>
                             </td>
                             <td>
-                                <button class="btn c-btn-red btn-sm" data-i18n="superadmin.buttons.delete" onclick="deleteGroup(${element.id})">${i18next.t('superadmin.buttons.delete')}</button>
+                                <a class="c-link-red" href="#" onclick="deleteGroup(${element.id})"><i class="fas fa-trash-alt fa-2x"></i></a>
                             </td>
                         </tr>`;
                 }
