@@ -331,7 +331,7 @@ class SuperAdminManager {
                     mail: $mail,
                     school: $school,
                     isactive: $is_active,
-                    application:  $application
+                    application: $application
                 },
                 success: function (response) {
                     resolve(JSON.parse(response));
@@ -379,24 +379,24 @@ class SuperAdminManager {
         })
     }
 
-/*     deleteUserFromGroup($group_id, $user_id) {
-        const process = (data) => {
-        }
-        $.ajax({
-            type: "POST",
-            url: "/routing/Routing.php?controller=superadmin&action=delete_user_from_froup",
-            data: {
-                user_id: $user_id,
-                group_id: $group_id
-            },
-            success: function (response) {
-                process(JSON.parse(response));
-            },
-            error: function () {
-                reject();
+    /*     deleteUserFromGroup($group_id, $user_id) {
+            const process = (data) => {
             }
-        });
-    } */
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=delete_user_from_froup",
+                data: {
+                    user_id: $user_id,
+                    group_id: $group_id
+                },
+                success: function (response) {
+                    process(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        } */
 
     getUserInfo($user_id) {
         return new Promise(function (resolve, reject) {
@@ -483,9 +483,11 @@ class SuperAdminManager {
 
                     mainSuperAdmin.getSuperAdminManager()._allActualUsers.push(element);
 
-                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='left' title='No rights' ></i> ";
+                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userNoRights') + "' ></i> ";
                     if (element.hasOwnProperty('rights')) {
-                        $droits = element.rights === "1" ? " <i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='Admin' ></i> " : " <i class='fas fa-user fa-2x c-text-tertiary' data-toggle='tooltip' data-placement='top' title='Prof'></i> ";
+                        $droits = element.rights === "1" ?
+                            "<i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userAdmin') + "' ></i>" :
+                            "<i class='fas fa-user fa-2x c-text-primary' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userTeacher') + "'></i>";
                     }
 
                     let div_img = ""
@@ -789,7 +791,7 @@ class SuperAdminManager {
             $('#groups_table_superadmin').html(data_table);
             $('[data-toggle="tooltip"]').tooltip()
 
-            }
+        }
         $.ajax({
             type: "POST",
             url: "/routing/Routing.php?controller=superadmin&action=search_group_by_name",

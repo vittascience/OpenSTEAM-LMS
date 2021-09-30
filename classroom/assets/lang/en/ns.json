@@ -928,7 +928,10 @@
 			"actualTeachers": "Current teachers",
 			"maxStudentsPerTeachers": "Maximum students per teacher",
 			"monitoring": "Apps monitoring",
-			"image": "Image"
+			"image": "Image",
+			"userNoRights": "No rights assigned",
+			"userAdmin": "Administrator",
+			"userTeacher": "Teacher"
 		},
 		"apps": {
 			"apps": "Apps",

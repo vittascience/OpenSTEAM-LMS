@@ -412,3 +412,10 @@
 hr {
     border-color: var(--classroom-cell);
 }
+
+/* Tooltip theming */
+
+.tooltip-inner {
+    font-family: var(--main-font);
+    font-size: 0.75rem;
+}
