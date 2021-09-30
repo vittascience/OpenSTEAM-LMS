@@ -187,6 +187,7 @@ class GroupAdminManager {
                 }
             });
             $('#table_info_group_data_groupadmin').html($data_table);
+            $('[data-toggle="tooltip"]').tooltip()
         }
         $.ajax({
             type: "POST",
@@ -275,6 +276,7 @@ class GroupAdminManager {
                 }
             });
             $('#table_info_group_data_groupadmin').html($data_table);
+            $('[data-toggle="tooltip"]').tooltip()
         }
         $.ajax({
             type: "POST",
