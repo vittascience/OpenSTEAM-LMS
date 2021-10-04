@@ -93,9 +93,8 @@ const classroomModals = {
                     </div>
                     <h4 data-i18n="classroom.modals.settingsTeacher.description">Pour modifier votre mot de passe ou d'autres paramètres de votre compte</h4>
                     <div class="d-flex flex-column align-items-center" style="gap: 0.5rem;">
-                        <button class="btn c-btn-primary" id="teacher-account-button" onclick="openTeacherAccountPanel()">
-                            <span data-i18n="classroom.modals.settingsTeacher.accessButton">Accéder à votre profil</span>
-                            <i class="fas fa-external-link-alt"></i>
+                        <button class="btn c-btn-primary" id="teacher-account-button" onclick="openTeacherAccountPanel()" data-i18n="classroom.modals.settingsTeacher.accessButton">
+                            Accéder à votre profil
                         </button>
 
                         <div class="border-1" id="groupAdmin_options" style="display: none;">
