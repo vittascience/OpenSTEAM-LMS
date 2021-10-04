@@ -1869,7 +1869,7 @@ function createSubjectSelect(array, type) {
     }
 }
 
-$('#dashboard-groupadmin-users-side').click(() => {
+$('#dashboard-groupadmin-users-side, #dashboard-groupadmin-apps').click(() => {
     mainGroupAdmin.getGroupAdminManager().getGroupsUserAdmin();
 })
 
@@ -2130,7 +2130,7 @@ function createUserAndLinkToGroup_groupAdmin() {
                 displayNotification('#notif-div', "manager.users.mailSentToUser", "error");
             }
             pseudoModal.closeAllModal();
-            tempoAndShowUsersTable()
+            tempoAndShowGroupTableGroupAdmin()
         } else if (response.message == "missing data") {
             displayNotification('#notif-div', "manager.account.missingData", "error");
         } else if (response.message == "limit") {
@@ -2139,8 +2139,8 @@ function createUserAndLinkToGroup_groupAdmin() {
             displayNotification('#notif-div', "manager.account.notAllowedToCreateUserInThisGroup", "error");
         }
     });
-    pseudoModal.closeAllModal();
-    tempoAndShowGroupTableGroupAdmin();
+/*     pseudoModal.closeAllModal();
+    tempoAndShowGroupTableGroupAdmin(); */
 }
 
 function resetUserPassword(id) {
