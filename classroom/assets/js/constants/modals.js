@@ -92,10 +92,9 @@ const classroomModals = {
                     <img class="flags-item" alt="flag" src="assets/media/flags/en.png" onclick="changeLang('en')">
                     </div>
                     <h4 data-i18n="classroom.modals.settingsTeacher.description">Pour modifier votre mot de passe ou d'autres paramètres de votre compte</h4>
-                    <div class="d-flex flex-column align-items-center">
-                        <button class="btn c-btn-primary" id="teacher-account-button" onclick="openTeacherAccountPanel()">
-                            <span data-i18n="classroom.modals.settingsTeacher.accessButton">Accéder à votre profil</span>
-                            <i class="fas fa-external-link-alt"></i>
+                    <div class="d-flex flex-column align-items-center" style="gap: 0.5rem;">
+                        <button class="btn c-btn-primary" id="teacher-account-button" onclick="openTeacherAccountPanel()" data-i18n="classroom.modals.settingsTeacher.accessButton">
+                            Accéder à votre profil
                         </button>
 
                         <div class="border-1" id="groupAdmin_options" style="display: none;">
@@ -104,7 +103,7 @@ const classroomModals = {
                                 <i class="fas fa-eye"></i> 
                                 <span data-i18n="manager.profil.onlyVisibleGroupAdmin">Uniquement visible par vous en tant qu'administrateur de groupe :</span>
                             </legend>
-                            <button class="btn mb-2 c-btn-outline-primary" onclick="switchToGroupAdmin()" id="groupadmin-switch-button" style="display:none;"><span
+                            <button class="theme-group-admin btn mb-2 c-btn-outline-primary c-btn-dashboard" onclick="switchToGroupAdmin()" id="groupadmin-switch-button" style="display:none;"><span
                                     data-i18n="manager.profil.groupAdmin" class="text-span-initial mr-1"></span><i
                                     class="fas fa-cog"></i>
                             </button>
@@ -118,7 +117,7 @@ const classroomModals = {
                                         <i class="fas fa-eye"></i> 
                                         <span data-i18n="manager.profil.onlyVisiblemanager">Uniquement visible par vous en tant que super admin :</span>
                                     </legend>
-                                    <button class="btn mb-2 c-btn-outline-primary" onclick="switchTomanager()" id="manager-switch-button" style="display:none;">
+                                    <button class="theme-super-admin btn mb-2 c-btn-outline-primary c-btn-dashboard" onclick="switchTomanager()" id="manager-switch-button" style="display:none;">
                                         <span data-i18n="manager.profil.manager" class="text-span-initial mr-1"></span>
                                         <i class="fas fa-cog"></i>
                                 </button>

@@ -2363,12 +2363,18 @@ function getAndShowApps() {
     mainManager.getmanagerManager().getAllApplications().then((response) => {
         response.forEach(application => {
             htmlApps += `<tr>
-                            <td>${application.name}</td>
+                            <td class="font-weight-bold">${application.name}</td>
                             <td>${application.description}</td>
                             <td>${application.image}</td>
-                            <td><button class="btn btn-warning btn-sm" onclick="updateApp(${application.id})">${i18next.t('manager.buttons.update')}</button></td>
-                            <td><button class="btn btn-danger btn-sm" onclick="deleteApp(${application.id}, '${application.name}')">${i18next.t('manager.buttons.delete')}</button></td>
-                            <td><button class="btn btn-warning btn-sm" onclick="activitiesRestrictionsCrud(${application.id})">${i18next.t('manager.buttons.manage')}</button></td>
+                            <td>
+                                <a class="c-link-secondary" href="#" onclick="updateApp(${application.id})"><i class="fas fa-pencil-alt fa-2x"></i></a>
+                            </td>
+                            <td>
+                                <a class="c-link-red" href="#" onclick="deleteApp(${application.id}, '${application.name}')"><i class="fas fa-trash-alt fa-2x"></i></a>
+                            </td>
+                            <td>
+                                <a class="c-link-tertiary" href="#" onclick="activitiesRestrictionsCrud(${application.id})"><i class="fas fa-key fa-2x"></i></a>
+                            </td>
                         </tr>`;
         });
         $('#all-applications-crud').html(htmlApps);
