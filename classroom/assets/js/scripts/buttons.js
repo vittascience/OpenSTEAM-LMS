@@ -859,18 +859,18 @@ function resetStudentPassword(querySelector) {
 }
 
 /***************************/
-/* superAdmin & groupAdmin */
+/* manager & groupAdmin */
 /***************************/
 
-$('#create_group_superadmin').click(function () {
-    pseudoModal.openModal('superadmin-create-group');
+$('#create_group_manager').click(function () {
+    pseudoModal.openModal('manager-create-group');
     // Clean input
     $('#group_name').val("");
     $('#group_desc').val("");
     optionsGroupApplications("create");
 });
 
-$('#settings-superadmin').click(function () {
+$('#settings-manager').click(function () {
     pseudoModal.openModal('settings-teacher-modal')
 })
 
@@ -888,11 +888,11 @@ function createGroupWithModal() {
         ApplicationsData.push(ApplicationTemp);
     });
 
-    mainSuperAdmin.getSuperAdminManager().createGroup($description, $name, JSON.stringify(ApplicationsData)).then((response) => {
+    mainManager.getmanagerManager().createGroup($description, $name, JSON.stringify(ApplicationsData)).then((response) => {
         if (response.response == "success") {
-            displayNotification('#notif-div', "superadmin.group.groupCreated", "success");
+            displayNotification('#notif-div', "manager.group.groupCreated", "success");
         } else {
-            displayNotification('#notif-div', "superadmin.group.groupCreateFailed", "error");
+            displayNotification('#notif-div', "manager.group.groupCreateFailed", "error");
         }
     });
     pseudoModal.closeAllModal();
@@ -900,9 +900,9 @@ function createGroupWithModal() {
 }
 
 function showupdateGroupModal(id) {
-    mainSuperAdmin.getSuperAdminManager().getGroupInfos(id).then(function (res) {
-        mainSuperAdmin.getSuperAdminManager()._actualGroup = res;
-        pseudoModal.openModal('superadmin-update-group');
+    mainManager.getmanagerManager().getGroupInfos(id).then(function (res) {
+        mainManager.getmanagerManager()._actualGroup = res;
+        pseudoModal.openModal('manager-update-group');
         optionsGroupApplications("update");
         $('#upd_group_name').val(res[0].name);
         $('#upd_group_desc').val(res[0].description);
@@ -926,16 +926,16 @@ function updateGroupWithModal() {
         ]
         ApplicationsData.push(ApplicationTemp);
     });
-    mainSuperAdmin.getSuperAdminManager().updateGroup(
+    mainManager.getmanagerManager().updateGroup(
         $('#upd_group_id').val(),
         $('#upd_group_name').val(),
         $('#upd_group_desc').val(),
         JSON.stringify(ApplicationsData)
     ).then((response) => {
         if (response.message == "success") {
-            displayNotification('#notif-div', "superadmin.group.groupUpdated", "success");
+            displayNotification('#notif-div', "manager.group.groupUpdated", "success");
         } else if (response.message == "missing data") {
-            displayNotification('#notif-div', "superadmin.account.missingData", "error");
+            displayNotification('#notif-div', "manager.account.missingData", "error");
         }
     })
     pseudoModal.closeAllModal()
@@ -949,7 +949,7 @@ $('#table_back_to_users').click(function () {
     $('#paginationButtons_groups').show();
     $('#users_options').hide();
     $('#groups_options').show();
-    $('#btn-create-superadmin').show();
+    $('#btn-create-manager').show();
     $('#table_info_group_data').html("");
     $('#paginationButtons_users').html("");
 })
@@ -960,24 +960,24 @@ $('#table_back_to_users_groupadmin').click(function () {
     $('#table_details_users_groupadmin').hide();
 })
 
-$('#dashboard-superadmin-groups').click(() => {
+$('#dashboard-manager-groups').click(() => {
     let sort = $('#sort_groups_filter').val(),
         groupsperpage = $('#groups_per_page').val();
-    mainSuperAdmin.getSuperAdminManager().getAllGroupsInfos(sort, 1, groupsperpage);
+    mainManager.getmanagerManager().getAllGroupsInfos(sort, 1, groupsperpage);
 })
 
 $('#sort_users_filter, #users_per_page').on('change', () => {
     let $sort = $('#sort_users_filter').val(),
         $userspp = $('#users_per_page').val(),
-        $group_id = mainSuperAdmin.getSuperAdminManager()._actualGroup;
-    mainSuperAdmin.getSuperAdminManager().showGroupMembers($group_id, 1, $userspp, $sort);
+        $group_id = mainManager.getmanagerManager()._actualGroup;
+    mainManager.getmanagerManager().showGroupMembers($group_id, 1, $userspp, $sort);
 })
 
 $('#search_user').click(() => {
     let name = $('#name_user_search').val(),
         usersperpage = $('#users_per_page').val();
     if (name != "") {
-        mainSuperAdmin.getSuperAdminManager().globalSearchUser(name, 1, usersperpage);
+        mainManager.getmanagerManager().globalSearchUser(name, 1, usersperpage);
     }
 })
 
@@ -985,9 +985,9 @@ $('#name_user_search').on('change', () => {
     let name = $('#name_user_search').val(),
         sort = $('#sort_users_filter').val(),
         usersperpage = $('#users_per_page').val(),
-        group_id = mainSuperAdmin.getSuperAdminManager()._actualGroup;
+        group_id = mainManager.getmanagerManager()._actualGroup;
     if (name == "") {
-        mainSuperAdmin.getSuperAdminManager().showGroupMembers(group_id, 1, usersperpage, sort);
+        mainManager.getmanagerManager().showGroupMembers(group_id, 1, usersperpage, sort);
     }
 })
 
@@ -996,14 +996,14 @@ $('#name_group_search').on('change', () => {
         sort = $('#sort_groups_filter').val(),
         groupsperpage = $('#groups_per_page').val();
     if (name == "") {
-        mainSuperAdmin.getSuperAdminManager().getAllGroupsInfos(sort, 1, groupsperpage);
+        mainManager.getmanagerManager().getAllGroupsInfos(sort, 1, groupsperpage);
     }
 })
 
 $('#sort_groups_filter, #groups_per_page').on('change', () => {
     let sort = $('#sort_groups_filter').val(),
         groupsperpage = $('#groups_per_page').val();
-    mainSuperAdmin.getSuperAdminManager().getAllGroupsInfos(sort, 1, groupsperpage);
+    mainManager.getmanagerManager().getAllGroupsInfos(sort, 1, groupsperpage);
 })
 
 
@@ -1012,14 +1012,14 @@ $('#search_group').click(() => {
         sort = $('#sort_groups_filter').val(),
         groupsperpage = $('#groups_per_page').val();
     if (name == "") {
-        mainSuperAdmin.getSuperAdminManager().getAllGroupsInfos(sort, 1, groupsperpage);
+        mainManager.getmanagerManager().getAllGroupsInfos(sort, 1, groupsperpage);
     } else {
-        mainSuperAdmin.getSuperAdminManager().searchGroup(name, 1, groupsperpage, );
+        mainManager.getmanagerManager().searchGroup(name, 1, groupsperpage, );
     }
 })
 
-$('#create_user_link_to_group_superadmin').click(function () {
-    mainSuperAdmin.getSuperAdminManager()._addedCreateUserGroup = 0;
+$('#create_user_link_to_group_manager').click(function () {
+    mainManager.getmanagerManager()._addedCreateUserGroup = 0;
     $('#group_add_sa').html("");
     $('#u_firstname').val("");
     $('#u_surname').val("");
@@ -1037,7 +1037,7 @@ $('#create_user_link_to_group_superadmin').click(function () {
     $('#u_is_group_admin').prop("checked", false);
 
 
-    pseudoModal.openModal('superadmin-create-user');
+    pseudoModal.openModal('manager-create-user');
     // Bind function to select
     $("#u_is_teacher").change(() => {
         if ($('#u_is_teacher').is(':checked')) {
@@ -1070,15 +1070,15 @@ $('#create_user_link_to_group_superadmin').click(function () {
     })
     $("#user_teacher_grade").trigger("change");
     if ($("#u_group")[0].length <= 0) {
-        $saved_groups = mainSuperAdmin.getSuperAdminManager()._comboGroups;
+        $saved_groups = mainManager.getmanagerManager()._comboGroups;
         appendSelectGroups($saved_groups, 'u_group');
     }
 
 });
 
-function addGroupSuperAdmin() {
-    let numberOfAddedGroup = mainSuperAdmin.getSuperAdminManager()._addedCreateUserGroup,
-        $saved_groups = mainSuperAdmin.getSuperAdminManager()._comboGroups;
+function addGroupmanager() {
+    let numberOfAddedGroup = mainManager.getmanagerManager()._addedCreateUserGroup,
+        $saved_groups = mainManager.getmanagerManager()._comboGroups;
 
     // fix
     if ($('#u_actual_group' + numberOfAddedGroup)[0]) {
@@ -1107,11 +1107,11 @@ function addGroupSuperAdmin() {
 
     let item_id = 'u_group' + numberOfAddedGroup;
     appendSelectGroups($saved_groups, item_id);
-    mainSuperAdmin.getSuperAdminManager()._addedCreateUserGroup += 1;
+    mainManager.getmanagerManager()._addedCreateUserGroup += 1;
 }
 
 function deleteGroupFromCreate(id) {
-    mainSuperAdmin.getSuperAdminManager()._addedCreateUserGroup -= 1;
+    mainManager.getmanagerManager()._addedCreateUserGroup -= 1;
     $('#u_actual_group' + id).remove();
 }
 
@@ -1131,7 +1131,7 @@ function appendSelectGroups(obj, item_id) {
 function updateAppForUser() {
     const process = (data) => {
         // Get the actual user's information
-        let user = mainSuperAdmin.getSuperAdminManager()._actualUserDetails;
+        let user = mainManager.getmanagerManager()._actualUserDetails;
         $('#user_apps_update').html("");
 
         let stringhtml = "";
@@ -1157,7 +1157,7 @@ function updateAppForUser() {
                 <input type="date" id="begin_date_${element.id}" name="trip-start" value="${new Date()}" min="${new Date()}" max="2023-12-31">
                 <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
                 <input type="date" id="end_date_${element.id}" name="trip-start" min="0" max="2025-12-31">
-                <label class="form-check-label" for="max_teacher_${element.id}">${i18next.t('superadmin.group.maxStudents')}</label>
+                <label class="form-check-label" for="max_teacher_${element.id}">${i18next.t('manager.group.maxStudents')}</label>
                 <input type="number" id="max_teacher_${element.id}" value="0">
                 </div>`;
             } else {
@@ -1176,35 +1176,35 @@ function updateAppForUser() {
                 <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
                 <input type="date" id="end_date_${element.id}" name="trip-start" value="${dateEnd}"
                     max="2025-12-31">
-                <label class="form-check-label" for="max_teacher_${element.id}">${i18next.t('superadmin.group.maxStudents')}</label>
+                <label class="form-check-label" for="max_teacher_${element.id}">${i18next.t('manager.group.maxStudents')}</label>
                 <input type="number" id="max_teacher_${element.id}" value="${infoapp.max_students}">
                 </div>`;
             }
         });
         $('#user_apps_update').html(stringhtml);
-        pseudoModal.openModal('superadmin-user-updateApp');
+        pseudoModal.openModal('manager-user-updateApp');
 
     }
-    if (mainSuperAdmin.getSuperAdminManager()._allApplications == "") {
-        mainSuperAdmin.getSuperAdminManager().getAllApplications().then((res) => {
-            mainSuperAdmin.getSuperAdminManager()._allApplications = res;
+    if (mainManager.getmanagerManager()._allApplications == "") {
+        mainManager.getmanagerManager().getAllApplications().then((res) => {
+            mainManager.getmanagerManager()._allApplications = res;
             process(res)
         })
     } else {
-        process(mainSuperAdmin.getSuperAdminManager()._allApplications)
+        process(mainManager.getmanagerManager()._allApplications)
     }
 }
 
 /* function getAllGroupsIfNotAlreadyLoaded() {
-    if (mainSuperAdmin.getSuperAdminManager()._comboGroups == []) {
-        const groups = mainSuperAdmin.getSuperAdminManager().getAllGroups();
+    if (mainManager.getmanagerManager()._comboGroups == []) {
+        const groups = mainManager.getmanagerManager().getAllGroups();
     }
 } */
 
 
 
 function persistUpdateUserApp() {
-    let user = mainSuperAdmin.getSuperAdminManager()._actualUserDetails[0].id;
+    let user = mainManager.getmanagerManager()._actualUserDetails[0].id;
     let ApplicationsData = [];
     $("input:checkbox.form-check-input.appuser").each(function (element) {
         const ApplicationTemp = [
@@ -1216,28 +1216,28 @@ function persistUpdateUserApp() {
         ]
         ApplicationsData.push(ApplicationTemp);
     });
-    mainSuperAdmin.getSuperAdminManager().updateUserApps(user, JSON.stringify(ApplicationsData)).then((res) => {
+    mainManager.getmanagerManager().updateUserApps(user, JSON.stringify(ApplicationsData)).then((res) => {
         if (res.message == "success") {
-            displayNotification('#notif-div', "superadmin.users.appsUpdated", "success");
+            displayNotification('#notif-div', "manager.users.appsUpdated", "success");
             pseudoModal.closeAllModal();
             $('#user_apps_update').html("");
             tempoAndShowUsersTable();
         } else if (res.message == "User not found") {
-            displayNotification('#notif-div', "superadmin.account.userNotFoundId", "error");
+            displayNotification('#notif-div', "manager.account.userNotFoundId", "error");
         } else if (res.message == "missing data") {
-            displayNotification('#notif-div', "superadmin.account.missingData", "error");
+            displayNotification('#notif-div', "manager.account.missingData", "error");
         }
     })
 }
 
 function showupdateUserModal(id) {
-    let $groups = mainSuperAdmin.getSuperAdminManager()._comboGroups;
-    mainSuperAdmin.getSuperAdminManager()._updatedUserGroup = 0;
-    mainSuperAdmin.getSuperAdminManager().getUserInfoWithHisGroups(id).then(function (res) {
-        mainSuperAdmin.getSuperAdminManager()._actualUserDetails = res;
+    let $groups = mainManager.getmanagerManager()._comboGroups;
+    mainManager.getmanagerManager()._updatedUserGroup = 0;
+    mainManager.getmanagerManager().getUserInfoWithHisGroups(id).then(function (res) {
+        mainManager.getmanagerManager()._actualUserDetails = res;
         $("#update_actualgroup_sa").html("");
         $('#update_applications_sa').html("");
-        pseudoModal.openModal('superadmin-update-user');
+        pseudoModal.openModal('manager-update-user');
         $('#update_u_firstname').val(res[0].firstname);
         $('#update_u_surname').val(res[0].surname);
         $('#update_u_pseudo').val(res[0].pseudo);
@@ -1305,13 +1305,13 @@ function showupdateUserModal(id) {
 
         if (res[0].hasOwnProperty('groups')) {
             for (let i = 0; i < res[0].groups.length; i++) {
-                mainSuperAdmin.getSuperAdminManager()._updatedUserGroup += 1;
+                mainManager.getmanagerManager()._updatedUserGroup += 1;
                 let group = `<div class="form-group c-secondary-form">
                                 <div class="input-group mb-3" id="update_u_actual_group${i}">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text pl-5">
                                             <input class="form-check-input" type="checkbox" id="update_u_is_group_admin${i}">
-                                            <label class="form-check-label mx-1" for="update_u_is_group_admin${i}" data-i18n="superadmin.users.groupAdmin">
+                                            <label class="form-check-label mx-1" for="update_u_is_group_admin${i}" data-i18n="manager.users.groupAdmin">
                                                 Administrateur du groupe
                                             </label>
                                         </div>
@@ -1330,8 +1330,8 @@ function showupdateUserModal(id) {
             }
 
             let html = "";
-            mainSuperAdmin.getSuperAdminManager()._comboGroups.forEach(element => {
-                if (element.id == mainSuperAdmin.getSuperAdminManager()._actualGroup) {
+            mainManager.getmanagerManager()._comboGroups.forEach(element => {
+                if (element.id == mainManager.getmanagerManager()._actualGroup) {
                     element.applications.forEach(application => {
                         let checked = ""
                         if (res[0].hasOwnProperty("applications_from_groups")) {
@@ -1353,13 +1353,13 @@ function showupdateUserModal(id) {
             $('#update_applications_sa').html(html);
 
         } else {
-            mainSuperAdmin.getSuperAdminManager()._updatedUserGroup += 1;
+            mainManager.getmanagerManager()._updatedUserGroup += 1;
             let group = `<div class="form-group c-secondary-form">
                             <div class="input-group mb-3" id="update_u_actual_group0">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text pl-5">
                                         <input class="form-check-input" type="checkbox" id="update_u_is_group_admin0">
-                                        <label class="form-check-label mx-1" for="update_u_is_group_admin0" data-i18n="superadmin.users.groupAdmin">
+                                        <label class="form-check-label mx-1" for="update_u_is_group_admin0" data-i18n="manager.users.groupAdmin">
                                             Administrateur du groupe
                                         </label>
                                     </div>
@@ -1375,9 +1375,9 @@ function showupdateUserModal(id) {
     });
 }
 
-function updateAddGroupSuperAdmin() {
-    let $groups = mainSuperAdmin.getSuperAdminManager()._comboGroups,
-        nextGroup = mainSuperAdmin.getSuperAdminManager()._updatedUserGroup;
+function updateAddGroupmanager() {
+    let $groups = mainManager.getmanagerManager()._comboGroups,
+        nextGroup = mainManager.getmanagerManager()._updatedUserGroup;
 
     // fix
     if ($('#update_u_actual_group' + nextGroup)[0]) {
@@ -1405,11 +1405,11 @@ function updateAddGroupSuperAdmin() {
     $("#update_actualgroup_sa").append(group);
     const item_id = 'update_u_group' + nextGroup;
     appendSelectGroups($groups, item_id);
-    mainSuperAdmin.getSuperAdminManager()._updatedUserGroup += 1;
+    mainManager.getmanagerManager()._updatedUserGroup += 1;
 }
 
 function deleteGroupFromUpdate(id) {
-    mainSuperAdmin.getSuperAdminManager()._updatedUserGroup -= 1;
+    mainManager.getmanagerManager()._updatedUserGroup -= 1;
     $('#update_u_actual_group' + id).remove();
 }
 
@@ -1439,7 +1439,7 @@ function updateUserModal() {
     });
 
 
-    mainSuperAdmin.getSuperAdminManager().updateUser($user_id,
+    mainManager.getmanagerManager().updateUser($user_id,
         $firstname,
         $surname,
         $pseudo,
@@ -1455,15 +1455,15 @@ function updateUserModal() {
         $is_active,
         JSON.stringify($ApplicationFromGroup)).then((response) => {
         if (response.message == "success") {
-            displayNotification('#notif-div', "superadmin.users.userUpdated", "success");
+            displayNotification('#notif-div', "manager.users.userUpdated", "success");
             pseudoModal.closeAllModal();
             tempoAndShowUsersTable()
         } else if (response.message == "missing data") {
-            displayNotification('#notif-div', "superadmin.account.missingData", "error");
+            displayNotification('#notif-div', "manager.account.missingData", "error");
         } else if (response.message == "maxStudentsFromTeacher") {
-            displayNotification('#notif-div', "superadmin.group.toManyStudentsFromTheTeacher", "error");
+            displayNotification('#notif-div', "manager.group.toManyStudentsFromTheTeacher", "error");
         } else if (response.message = "maxStudentsInGroup") {
-            displayNotification('#notif-div', "superadmin.group.toManyStudentsInGroup", "error");
+            displayNotification('#notif-div', "manager.group.toManyStudentsInGroup", "error");
         }
     });
 }
@@ -1484,11 +1484,11 @@ function createUserAndLinkToGroup() {
         $groups = [];
 
     $groups.push([$('#u_is_group_admin').is(':checked'), $('#u_group').val()])
-    for (let index = 0; index < mainSuperAdmin.getSuperAdminManager()._addedCreateUserGroup; index++) {
+    for (let index = 0; index < mainManager.getmanagerManager()._addedCreateUserGroup; index++) {
         $groups.push([$('#u_is_group_admin' + index).is(':checked'), $('#u_group' + index).val()])
     }
 
-    mainSuperAdmin.getSuperAdminManager().createUserAndLinkToGroup($firstname,
+    mainManager.getmanagerManager().createUserAndLinkToGroup($firstname,
         $surname,
         $pseudo,
         $phone,
@@ -1501,16 +1501,16 @@ function createUserAndLinkToGroup() {
         $teacher_suject,
         $school).then((response) => {
         if (response.message == "success") {
-            displayNotification('#notif-div', "superadmin.users.userCreated", "success");
+            displayNotification('#notif-div', "manager.users.userCreated", "success");
             if (response.mail == true) {
-                displayNotification('#notif-div', "superadmin.users.mailSentToUser", "success");
+                displayNotification('#notif-div', "manager.users.mailSentToUser", "success");
             } else {
-                displayNotification('#notif-div', "superadmin.users.mailSentToUser", "error");
+                displayNotification('#notif-div', "manager.users.mailSentToUser", "error");
             }
             pseudoModal.closeAllModal();
             tempoAndShowUsersTable()
         } else if (response.message == "missing data") {
-            displayNotification('#notif-div', "superadmin.account.missingData", "error");
+            displayNotification('#notif-div', "manager.account.missingData", "error");
         }
     });
     pseudoModal.closeAllModal();
@@ -1522,16 +1522,16 @@ function tempoAndShowGroupsTable() {
     let sort = $('#sort_groups_filter').val(),
         groupsperpage = $('#groups_per_page').val();
     setTimeout(() => {
-        mainSuperAdmin.getSuperAdminManager().getAllGroupsInfos(sort, 1, groupsperpage);
+        mainManager.getmanagerManager().getAllGroupsInfos(sort, 1, groupsperpage);
     }, 500);
 }
 
 function tempoAndShowUsersTable() {
     let sort = $('#sort_users_filter').val(),
         usersperpage = $('#users_per_page').val(),
-        group_actuel = mainSuperAdmin.getSuperAdminManager()._actualGroup;
+        group_actuel = mainManager.getmanagerManager()._actualGroup;
     setTimeout(() => {
-        mainSuperAdmin.getSuperAdminManager().showGroupMembers(group_actuel, 1, usersperpage, sort);
+        mainManager.getmanagerManager().showGroupMembers(group_actuel, 1, usersperpage, sort);
     }, 500);
 }
 
@@ -1548,13 +1548,13 @@ function tempoAndShowGroupTableGroupAdmin() {
     }, 500);
 }
 
-function switchToSuperAdmin() {
-    //mainSuperAdmin.init();
+function switchTomanager() {
+    //mainManager.init();
     $('body').addClass('theme-super-admin').removeClass("theme-group-admin theme-teacher")
-    navigatePanel('classroom-dashboard-profil-panel-superadmin', 'dashboard-profil-superadmin');
+    navigatePanel('classroom-dashboard-profil-panel-manager', 'dashboard-profil-manager');
     $('#classroom-dashboard-sidebar-teacher').hide();
     $('#groupadmin-dashboard-sidebar').hide();
-    $('#superadmin-dashboard-sidebar').show();
+    $('#manager-dashboard-sidebar').show();
     pseudoModal.closeAllModal();
 }
 
@@ -1563,7 +1563,7 @@ function switchToGroupAdmin() {
     $('body').addClass('theme-group-admin').removeClass("theme-super-admin theme-teacher")
     navigatePanel('classroom-dashboard-profil-panel-groupadmin', 'dashboard-profil-groupadmin');
     $('#classroom-dashboard-sidebar-teacher').hide();
-    $('#superadmin-dashboard-sidebar').hide();
+    $('#manager-dashboard-sidebar').hide();
     $('#groupadmin-dashboard-sidebar').show();
     pseudoModal.closeAllModal();
 }
@@ -1571,16 +1571,16 @@ function switchToGroupAdmin() {
 function switchToProf() {
     $('body').addClass('theme-teacher').removeClass("theme-group-admin theme-super-admin")
     navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher');
-    $('#superadmin-dashboard-sidebar').hide();
+    $('#manager-dashboard-sidebar').hide();
     $('#groupadmin-dashboard-sidebar').hide();
     $('#classroom-dashboard-sidebar-teacher').show();
 }
 
 function deleteGroup(id) {
-    mainSuperAdmin.getSuperAdminManager()._actualGroup = id;
+    mainManager.getmanagerManager()._actualGroup = id;
     $('#validation_delete_group').val("");
-    pseudoModal.openModal('superadmin-delete-group');
-    mainSuperAdmin.getSuperAdminManager()._comboGroups.forEach(element => {
+    pseudoModal.openModal('manager-delete-group');
+    mainManager.getmanagerManager()._comboGroups.forEach(element => {
         if (element.id == id) {
             $('#md_group').text(element.name);
         }
@@ -1590,20 +1590,20 @@ function deleteGroup(id) {
 function persistDeleteGroup() {
     let validation = $('#validation_delete_group').val();
     let placeholderWord = $('#validation_delete_group').attr('placeholder');
-    const group = mainSuperAdmin.getSuperAdminManager()._actualGroup;
+    const group = mainManager.getmanagerManager()._actualGroup;
     if (validation == placeholderWord) {
-        mainSuperAdmin.getSuperAdminManager().deleteGroup(group).then((response) => {
+        mainManager.getmanagerManager().deleteGroup(group).then((response) => {
             if (response.message == "missing data") {
-                displayNotification('#notif-div', "superadmin.group.groupDeleteError", "error");
+                displayNotification('#notif-div', "manager.group.groupDeleteError", "error");
             } else if (response.message == "success") {
-                displayNotification('#notif-div', "superadmin.group.groupDeleted", "success");
-                mainSuperAdmin.getSuperAdminManager()._actualUser = 0;
+                displayNotification('#notif-div', "manager.group.groupDeleted", "success");
+                mainManager.getmanagerManager()._actualUser = 0;
                 pseudoModal.closeAllModal();
                 tempoAndShowGroupsTable();
             }
         })
     } else {
-        displayNotification('#notif-div', "superadmin.input.writeDelete", "error");
+        displayNotification('#notif-div', "manager.input.writeDelete", "error");
     }
 }
 
@@ -1613,17 +1613,17 @@ function cancelDeleteGroup() {
 }
 
 function deleteUser(id, name) {
-    mainSuperAdmin.getSuperAdminManager()._actualUser = id;
+    mainManager.getmanagerManager()._actualUser = id;
     $('#validation_delete').val("");
-    pseudoModal.openModal('superadmin-delete-user');
+    pseudoModal.openModal('manager-delete-user');
     $('#mde_firstname').text(name);
 
 }
 
 function disableUser(id, name) {
-    mainSuperAdmin.getSuperAdminManager()._actualUser = id;
+    mainManager.getmanagerManager()._actualUser = id;
     $('#validation_disable').val("");
-    pseudoModal.openModal('superadmin-disable-user');
+    pseudoModal.openModal('manager-disable-user');
     $('#mdi_firstname').text(name);
 }
 
@@ -1637,40 +1637,40 @@ function disableUserGroupAdmin(id, name) {
 function persistDisable() {
     let validation = $('#validation_disable').val();
     let placeholderWord = $('#validation_disable').attr('placeholder');
-    const user = mainSuperAdmin.getSuperAdminManager()._actualUser;
+    const user = mainManager.getmanagerManager()._actualUser;
     if (validation == placeholderWord) {
-        mainSuperAdmin.getSuperAdminManager().disableUser(user).then((response) => {
+        mainManager.getmanagerManager().disableUser(user).then((response) => {
             if (response.message == "missing data") {
-                displayNotification('#notif-div', "superadmin.account.notAllowedDisableUser", "error");
+                displayNotification('#notif-div', "manager.account.notAllowedDisableUser", "error");
             } else if (response.message == "success") {
-                displayNotification('#notif-div', "superadmin.users.userDisabled", "success");
-                mainSuperAdmin.getSuperAdminManager()._actualUser = 0;
+                displayNotification('#notif-div', "manager.users.userDisabled", "success");
+                mainManager.getmanagerManager()._actualUser = 0;
                 pseudoModal.closeAllModal();
                 tempoAndShowUsersTable()
             }
         })
     } else {
-        displayNotification('#notif-div', "superadmin.input.writeDelete", "error");
+        displayNotification('#notif-div', "manager.input.writeDelete", "error");
     }
 }
 
 function persistDelete() {
     let validation = $('#validation_delete').val(),
         placeholderWord = $('#validation_delete').attr('placeholder');
-    const user = mainSuperAdmin.getSuperAdminManager()._actualUser;
+    const user = mainManager.getmanagerManager()._actualUser;
     if (validation == placeholderWord) {
-        mainSuperAdmin.getSuperAdminManager().deleteUser(user).then((response) => {
+        mainManager.getmanagerManager().deleteUser(user).then((response) => {
             if (response.message == "missing data") {
-                displayNotification('#notif-div', "superadmin.account.notAllowedDeleteUser", "error");
+                displayNotification('#notif-div', "manager.account.notAllowedDeleteUser", "error");
             } else if (response.message == "success") {
-                displayNotification('#notif-div', "superadmin.users.userDeleted", "success");
-                mainSuperAdmin.getSuperAdminManager()._actualUser = 0;
+                displayNotification('#notif-div', "manager.users.userDeleted", "success");
+                mainManager.getmanagerManager()._actualUser = 0;
                 pseudoModal.closeAllModal();
                 tempoAndShowUsersTable();
             }
         })
     } else {
-        displayNotification('#notif-div', "superadmin.input.writeDelete", "error");
+        displayNotification('#notif-div', "manager.input.writeDelete", "error");
     }
 }
 
@@ -1681,18 +1681,18 @@ function persistDeleteGroupAdmin() {
     if (validation == placeholderWord) {
         mainGroupAdmin.getGroupAdminManager().disableUser(user).then((response) => {
             if (response.message == "not_allowed") {
-                displayNotification('#notif-div', "superadmin.account.notAllowedDeleteUser", "error");
+                displayNotification('#notif-div', "manager.account.notAllowedDeleteUser", "error");
             } else if (response.message == "success") {
-                displayNotification('#notif-div', "superadmin.users.userDeleted", "success");
+                displayNotification('#notif-div', "manager.users.userDeleted", "success");
                 mainGroupAdmin.getGroupAdminManager()._actualUser = 0;
                 pseudoModal.closeAllModal();
                 tempoAndShowUsersTableGroupAdmin()
             } else {
-                displayNotification('#notif-div', "superadmin.account.missingData", "error");
+                displayNotification('#notif-div', "manager.account.missingData", "error");
             }
         })
     } else {
-        displayNotification('#notif-div', "superadmin.input.writeDelete", "error");
+        displayNotification('#notif-div', "manager.input.writeDelete", "error");
     }
 }
 
@@ -1733,15 +1733,15 @@ function cancelDeleteGroupAdmin() {
 }
 
 function showGroupMembers($group_id, $page, $userspp, $sort) {
-    mainSuperAdmin.getSuperAdminManager()._actualGroup = $group_id;
-    mainSuperAdmin.getSuperAdminManager().showGroupMembers($group_id, $page, $userspp, $sort);
+    mainManager.getmanagerManager()._actualGroup = $group_id;
+    mainManager.getmanagerManager().showGroupMembers($group_id, $page, $userspp, $sort);
     $('#table_details_users').show();
     $('#table_details_admins').hide();
     $('#paginationButtons_users').show();
     $('#paginationButtons_groups').hide();
     $('#users_options').show();
     $('#groups_options').hide();
-    $('#btn-create-superadmin').hide();
+    $('#btn-create-manager').hide();
 }
 
 function showGroupMembersGroupAdmin(id) {
@@ -1758,7 +1758,7 @@ function optionsGroupApplications($type) {
         $('#group_apps_options').html("");
 
         let stringhtml = "",
-            actualGroup = mainSuperAdmin.getSuperAdminManager()._actualGroup;
+            actualGroup = mainManager.getmanagerManager()._actualGroup;
 
         data.forEach(element => {
             let $infoapp = "";
@@ -1784,13 +1784,13 @@ function optionsGroupApplications($type) {
                     <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
                     <input type="date" id="end_date_${element.id}" name="trip-start" min="0" max="2025-12-31">
 
-                    <label class="form-check-label" for="max_students_per_teachers_${element.id}">${i18next.t('superadmin.group.studentsPerTeacher')}</label>
+                    <label class="form-check-label" for="max_students_per_teachers_${element.id}">${i18next.t('manager.group.studentsPerTeacher')}</label>
                     <input type="number" id="max_students_per_teachers_${element.id}">
 
-                    <label class="form-check-label" for="max_students_per_groups_${element.id}">${i18next.t('superadmin.group.studentsPerGroup')}</label>
+                    <label class="form-check-label" for="max_students_per_groups_${element.id}">${i18next.t('manager.group.studentsPerGroup')}</label>
                     <input type="number" id="max_students_per_groups_${element.id}">
 
-                    <label class="form-check-label" for="max_teachers_per_groups_${element.id}">${i18next.t('superadmin.group.teachersPerGroup')}</label>
+                    <label class="form-check-label" for="max_teachers_per_groups_${element.id}">${i18next.t('manager.group.teachersPerGroup')}</label>
                     <input type="number" id="max_teachers_per_groups_${element.id}">
                 </div>
                 </div><hr>`;
@@ -1813,13 +1813,13 @@ function optionsGroupApplications($type) {
                     <input type="date" id="end_date_${element.id}" name="trip-start" value="${dateEnd}"
                         max="2025-12-31">
 
-                    <label class="form-check-label" for="max_students_per_teachers_${element.id}">${i18next.t('superadmin.group.studentsPerTeacher')}</label>
+                    <label class="form-check-label" for="max_students_per_teachers_${element.id}">${i18next.t('manager.group.studentsPerTeacher')}</label>
                     <input type="number" id="max_students_per_teachers_${element.id}" value="${$infoapp.max_students_per_teachers}">
 
-                    <label class="form-check-label" for="max_students_per_groups_${element.id}">${i18next.t('superadmin.group.studentsPerGroup')}</label>
+                    <label class="form-check-label" for="max_students_per_groups_${element.id}">${i18next.t('manager.group.studentsPerGroup')}</label>
                     <input type="number" id="max_students_per_groups_${element.id}" value="${$infoapp.max_students_per_groups}">
 
-                    <label class="form-check-label" for="max_teachers_per_groups_${element.id}">${i18next.t('superadmin.group.teachersPerGroup')}</label>
+                    <label class="form-check-label" for="max_teachers_per_groups_${element.id}">${i18next.t('manager.group.teachersPerGroup')}</label>
                     <input type="number" id="max_teachers_per_groups_${element.id}" value="${$infoapp.max_teachers_per_groups}">
                 </div>
                 </div><hr>`;
@@ -1833,13 +1833,13 @@ function optionsGroupApplications($type) {
             $('#group_apps_options').html(stringhtml);
 
     }
-    if (mainSuperAdmin.getSuperAdminManager()._allApplications == "") {
-        mainSuperAdmin.getSuperAdminManager().getAllApplications().then((res) => {
-            mainSuperAdmin.getSuperAdminManager()._allApplications = res;
+    if (mainManager.getmanagerManager()._allApplications == "") {
+        mainManager.getmanagerManager().getAllApplications().then((res) => {
+            mainManager.getmanagerManager()._allApplications = res;
             process(res)
         })
     } else {
-        process(mainSuperAdmin.getSuperAdminManager()._allApplications)
+        process(mainManager.getmanagerManager()._allApplications)
     }
 }
 
@@ -1971,7 +1971,7 @@ function showupdateUserModal_groupadmin(user_id) {
                 }
             }
         } else {
-            displayNotification('#notif-div', "superadmin.account.notAllowedUpdateUser", "error");
+            displayNotification('#notif-div', "manager.account.notAllowedUpdateUser", "error");
         }
     });
 }
@@ -2018,14 +2018,14 @@ function updateUserModalGroupAdmin() {
         $school,
         JSON.stringify($ApplicationFromGroup)).then((response) => {
         if (response.message == "success") {
-            displayNotification('#notif-div', "superadmin.users.userUpdated", "success");
+            displayNotification('#notif-div', "manager.users.userUpdated", "success");
             pseudoModal.closeAllModal();
         } else if (response.message == "missing data") {
-            displayNotification('#notif-div', "superadmin.account.missingData", "error");
+            displayNotification('#notif-div', "manager.account.missingData", "error");
         } else if (response.message == "maxStudentsFromTeacher") {
-            displayNotification('#notif-div', "superadmin.group.toManyStudentsFromTheTeacher", "error");
+            displayNotification('#notif-div', "manager.group.toManyStudentsFromTheTeacher", "error");
         } else if (response.message = "maxStudentsInGroup") {
-            displayNotification('#notif-div', "superadmin.group.toManyStudentsInGroup", "error");
+            displayNotification('#notif-div', "manager.group.toManyStudentsInGroup", "error");
         }
     });
     tempoAndShowUsersTableGroupAdmin();
@@ -2054,7 +2054,7 @@ $('#create_user_link_to_group_groupadmin').click(function () {
     // If the group is full, we notify the group administrator otherwise open the modal
     mainGroupAdmin.getGroupAdminManager().isGroupFull(groupId).then((response) => {
         if (response.message == "limit") {
-            displayNotification('#notif-div', "superadmin.group.groupFullAdminMessage", "error");
+            displayNotification('#notif-div', "manager.group.groupFullAdminMessage", "error");
         } else {
             pseudoModal.openModal('groupeadmin-create-user');
             // Bind functions to the selects who has been created
@@ -2123,20 +2123,20 @@ function createUserAndLinkToGroup_groupAdmin() {
         $school
     ).then((response) => {
         if (response.message == "success") {
-            displayNotification('#notif-div', "superadmin.users.userCreated", "success");
+            displayNotification('#notif-div', "manager.users.userCreated", "success");
             if (response.mail == true) {
-                displayNotification('#notif-div', "superadmin.users.mailSentToUser", "success");
+                displayNotification('#notif-div', "manager.users.mailSentToUser", "success");
             } else {
-                displayNotification('#notif-div', "superadmin.users.mailSentToUser", "error");
+                displayNotification('#notif-div', "manager.users.mailSentToUser", "error");
             }
             pseudoModal.closeAllModal();
             tempoAndShowUsersTable()
         } else if (response.message == "missing data") {
-            displayNotification('#notif-div', "superadmin.account.missingData", "error");
+            displayNotification('#notif-div', "manager.account.missingData", "error");
         } else if (response.message == "limit") {
-            displayNotification('#notif-div', "superadmin.group.groupFullAdminMessage", "error");
+            displayNotification('#notif-div', "manager.group.groupFullAdminMessage", "error");
         } else if (response.message == "not-admin") {
-            displayNotification('#notif-div', "superadmin.account.notAllowedToCreateUserInThisGroup", "error");
+            displayNotification('#notif-div', "manager.account.notAllowedToCreateUserInThisGroup", "error");
         }
     });
     pseudoModal.closeAllModal();
@@ -2144,13 +2144,13 @@ function createUserAndLinkToGroup_groupAdmin() {
 }
 
 function resetUserPassword(id) {
-    mainSuperAdmin.getSuperAdminManager().sendResetPassword(id).then((response) => {
+    mainManager.getmanagerManager().sendResetPassword(id).then((response) => {
         if (response.isSent == true) {
-            displayNotification('#notif-div', "superadmin.users.mailSentToUserReset", "success");
+            displayNotification('#notif-div', "manager.users.mailSentToUserReset", "success");
         } else {
-            displayNotification('#notif-div', "superadmin.users.mailNotSentToUserReset", "error");
+            displayNotification('#notif-div', "manager.users.mailNotSentToUserReset", "error");
         }
-        pseudoModal.openModal('superadmin-show-resetlink');
+        pseudoModal.openModal('manager-show-resetlink');
         $('#passwordLink').val(response.link);
     })
 }
@@ -2163,14 +2163,14 @@ function resetUserPasswordga(id) {
     mainGroupAdmin.getGroupAdminManager().sendResetPassword(id).then((response) => {
         if (response.message != "not_allowed") {
             if (response.isSent == true) {
-                displayNotification('#notif-div', "superadmin.users.mailSentToUserReset", "success");
+                displayNotification('#notif-div', "manager.users.mailSentToUserReset", "success");
             } else {
-                displayNotification('#notif-div', "superadmin.users.mailNotSentToUserReset", "error");
+                displayNotification('#notif-div', "manager.users.mailNotSentToUserReset", "error");
             }
-            pseudoModal.openModal('superadmin-show-resetlink');
+            pseudoModal.openModal('manager-show-resetlink');
             $('#passwordLink').val(response.link);
         } else {
-            displayNotification('#notif-div', "superadmin.account.notAllowedUpdateUser", "error");
+            displayNotification('#notif-div', "manager.account.notAllowedUpdateUser", "error");
         }
     })
 }
@@ -2201,7 +2201,7 @@ function getGroupLinkGA(id) {
 function getGrades() {
     let Arr = [];
     for (let i = 0; i < 5; i++) {
-        Arr.push(i18next.t(`superadmin.users.teacherGrades.${i}`))
+        Arr.push(i18next.t(`manager.users.teacherGrades.${i}`))
     }
     return Arr;
 }
@@ -2229,7 +2229,7 @@ function getSubjects(grade) {
     }
     let TmpArr = [];
     for (let i = 0; i < subjectsLength; i++) {
-        TmpArr.push(i18next.t(`superadmin.users.teacherSubjects.${grade}.${i}`))
+        TmpArr.push(i18next.t(`manager.users.teacherSubjects.${grade}.${i}`))
     }
     return TmpArr;
 }
@@ -2249,7 +2249,7 @@ function isUserAppsOutDated() {
             let text = "";
             Apps.forEach(app => {
                 const event = new Date(app.date_end.date);
-                let stringToShow = i18next.t('superadmin.account.subscriptionOudated');
+                let stringToShow = i18next.t('manager.account.subscriptionOudated');
                 stringToShow = stringToShow.replace("APPNAME", app.app.name);
                 stringToShow = stringToShow.replace("DATE", event.toLocaleDateString());
                 text += stringToShow;
@@ -2267,7 +2267,7 @@ function isGroupAppsOutDated(group_id) {
             let text = "";
             Apps.forEach(app => {
                 const event = new Date(app.date_end.date);
-                let stringToShow = i18next.t('superadmin.account.subscriptionOudated');
+                let stringToShow = i18next.t('manager.account.subscriptionOudated');
                 stringToShow = stringToShow.replace("APPNAME", app.app.name);
                 stringToShow = stringToShow.replace("DATE", event.toLocaleDateString());
                 text += stringToShow;
@@ -2315,13 +2315,13 @@ function showMonitoring(data) {
  * Applications crud
  */
 
-$('#dashboard-superadmin-apps').click(() => {
+$('#dashboard-manager-apps').click(() => {
     getAndShowApps();
 })
 
 // Close all the crud views
 function closeCrudAppViews() {
-    const CRUD_APP_VIEWS = ['#update-app-superadmin','#delete-app-superadmin', '#create-app-superadmin'];
+    const CRUD_APP_VIEWS = ['#update-app-manager','#delete-app-manager', '#create-app-manager'];
     CRUD_APP_VIEWS.forEach(view => {
         $(view).hide();
     });
@@ -2330,7 +2330,7 @@ function closeCrudAppViews() {
 // Open the modal with the div we want
 function openModalInState(state) {
     closeCrudAppViews()
-    pseudoModal.openModal('update-applications-superadmin');
+    pseudoModal.openModal('update-applications-manager');
     $(state).show();
 }
 
@@ -2360,15 +2360,15 @@ function resetInputApplications() {
 function getAndShowApps() {
     $('#all-applications-crud').html();
     let htmlApps = "";
-    mainSuperAdmin.getSuperAdminManager().getAllApplications().then((response) => {
+    mainManager.getmanagerManager().getAllApplications().then((response) => {
         response.forEach(application => {
             htmlApps += `<tr>
                             <td>${application.name}</td>
                             <td>${application.description}</td>
                             <td>${application.image}</td>
-                            <td><button class="btn btn-warning btn-sm" onclick="updateApp(${application.id})">${i18next.t('superadmin.buttons.update')}</button></td>
-                            <td><button class="btn btn-danger btn-sm" onclick="deleteApp(${application.id}, '${application.name}')">${i18next.t('superadmin.buttons.delete')}</button></td>
-                            <td><button class="btn btn-warning btn-sm" onclick="activitiesRestrictionsCrud(${application.id})">${i18next.t('superadmin.buttons.manage')}</button></td>
+                            <td><button class="btn btn-warning btn-sm" onclick="updateApp(${application.id})">${i18next.t('manager.buttons.update')}</button></td>
+                            <td><button class="btn btn-danger btn-sm" onclick="deleteApp(${application.id}, '${application.name}')">${i18next.t('manager.buttons.delete')}</button></td>
+                            <td><button class="btn btn-warning btn-sm" onclick="activitiesRestrictionsCrud(${application.id})">${i18next.t('manager.buttons.manage')}</button></td>
                         </tr>`;
         });
         $('#all-applications-crud').html(htmlApps);
@@ -2376,42 +2376,42 @@ function getAndShowApps() {
 }
 
 function createApp() {
-    openModalInState('#create-app-superadmin');
+    openModalInState('#create-app-manager');
 }
 
 function updateApp(app_id) {
-    mainSuperAdmin.getSuperAdminManager().getApplicationById(app_id).then((response) => {
+    mainManager.getmanagerManager().getApplicationById(app_id).then((response) => {
         $('#app_update_name').val(response.name);
         $('#app_update_description').val(response.description);
         $('#app_update_image').val(response.image);
         $('#app_update_id').val(response.id);
-        openModalInState('#update-app-superadmin');
+        openModalInState('#update-app-manager');
     })
 }
 
 function deleteApp(app_id, app_name) {
-    openModalInState('#delete-app-superadmin');
+    openModalInState('#delete-app-manager');
     $('#application_delete_name').text(app_name);
     $('#validation_delete_application_id').val(app_id);
 }
 
 function persistUpdateApp() {
-    $('#update-app-superadmin').hide();
+    $('#update-app-manager').hide();
     let $application_id = $('#app_update_id').val(),
         $application_name = $('#app_update_name').val(),
         $application_description = $('#app_update_description').val(),
         $application_image = $('#app_update_image').val();
 
-    mainSuperAdmin.getSuperAdminManager().updateApplication(
+    mainManager.getmanagerManager().updateApplication(
         $application_id, 
         $application_name, 
         $application_description, 
         $application_image).then((response) => {
             if (response.message == "success") {
-                displayNotification('#notif-div', "superadmin.apps.updateSuccess", "success");
+                displayNotification('#notif-div', "manager.apps.updateSuccess", "success");
                 closeModalAndCleanInput(true)
             } else {
-                displayNotification('#notif-div', "superadmin.account.missingData", "error");
+                displayNotification('#notif-div', "manager.account.missingData", "error");
             }
     })
 }
@@ -2424,16 +2424,16 @@ function persistDeleteApp() {
         app_id = $('#validation_delete_application_id').val();
 
     if (validation == placeholderWord) {
-        mainSuperAdmin.getSuperAdminManager().deleteApplication(app_id).then((response) => {
+        mainManager.getmanagerManager().deleteApplication(app_id).then((response) => {
             if (response.message == "success") {
-                displayNotification('#notif-div', "superadmin.apps.deleteSuccess", "success");
+                displayNotification('#notif-div', "manager.apps.deleteSuccess", "success");
                 closeModalAndCleanInput(true)
             } else {
-                displayNotification('#notif-div', "superadmin.account.missingData", "error");
+                displayNotification('#notif-div', "manager.account.missingData", "error");
             }
         })
     } else {
-        displayNotification('#notif-div', "superadmin.input.writeDelete", "error");
+        displayNotification('#notif-div', "manager.input.writeDelete", "error");
     }
 }
 
@@ -2442,15 +2442,15 @@ function persistCreateApp() {
         $application_description = $('#app_create_description').val(),
         $application_image = $('#app_create_image').val();
 
-    mainSuperAdmin.getSuperAdminManager().createApplication(
+    mainManager.getmanagerManager().createApplication(
         $application_name, 
         $application_description, 
         $application_image).then((response) => {
             if (response.message == "success") {
-                displayNotification('#notif-div', "superadmin.apps.createSuccess", "success");
+                displayNotification('#notif-div', "manager.apps.createSuccess", "success");
                 closeModalAndCleanInput(true)
             } else {
-                displayNotification('#notif-div', "superadmin.account.missingData", "error");
+                displayNotification('#notif-div', "manager.account.missingData", "error");
             }
     })
 }
@@ -2461,7 +2461,7 @@ function persistCreateApp() {
 
 
 function activitiesRestrictionsCrud(application_id) {
-    mainSuperAdmin.getSuperAdminManager().getAllActivitiesRestrictions(application_id).then((response) => {
+    mainManager.getmanagerManager().getAllActivitiesRestrictions(application_id).then((response) => {
         $('#application-id-for-restriction').val(application_id);
         $('#all-restrictions-from-app').show();
         let html = "";
@@ -2470,8 +2470,8 @@ function activitiesRestrictionsCrud(application_id) {
             html += `<tr>
                         <td>${restriction.activity_type}</td>
                         <td>${restriction.max_per_teachers}</td>
-                        <td><button class="btn btn-warning btn-sm" onclick="updateRestriction(${restriction.id})">${i18next.t('superadmin.buttons.update')}</button></td>
-                        <td><button class="btn btn-danger btn-sm" onclick="deleteRestriction(${restriction.id}, '${restriction.activity_type}')">${i18next.t('superadmin.buttons.delete')}</button></td>
+                        <td><button class="btn btn-warning btn-sm" onclick="updateRestriction(${restriction.id})">${i18next.t('manager.buttons.update')}</button></td>
+                        <td><button class="btn btn-danger btn-sm" onclick="deleteRestriction(${restriction.id}, '${restriction.activity_type}')">${i18next.t('manager.buttons.delete')}</button></td>
                     </tr>`;
         });
         $('#all-activities-restrictions-crud').html(html);
@@ -2481,9 +2481,9 @@ function activitiesRestrictionsCrud(application_id) {
 function updateRestriction(id) {
     crudActivityCloseViews();
 
-    pseudoModal.openModal('update-activities-restrictions-superadmin');
-    $('#update-activity-restrictions-superadmin').show();
-    mainSuperAdmin.getSuperAdminManager().getOneActivityRestriction(id).then((response) => {
+    pseudoModal.openModal('update-activities-restrictions-manager');
+    $('#update-activity-restrictions-manager').show();
+    mainManager.getmanagerManager().getOneActivityRestriction(id).then((response) => {
         $('#activity_restrictions_update_type').val(response.activity_type);
         $('#activity_restrictions_update_maximum').val(response.max_per_teachers);
         $('#activity_restrictions_id').val(response.id);
@@ -2492,20 +2492,20 @@ function updateRestriction(id) {
 
 function createRestriction() {
     crudActivityCloseViews();
-    pseudoModal.openModal('update-activities-restrictions-superadmin');
-    $('#create-activity-restrictions-superadmin').show();
+    pseudoModal.openModal('update-activities-restrictions-manager');
+    $('#create-activity-restrictions-manager').show();
 }
 
 function deleteRestriction(id, type) {
     crudActivityCloseViews();
-    pseudoModal.openModal('update-activities-restrictions-superadmin');
+    pseudoModal.openModal('update-activities-restrictions-manager');
     $('#restriction_delete_name').text(type);
     $('#validation_delete_restriction_id').val(id);
-    $('#delete-activity-restrictions-superadmin').show();
+    $('#delete-activity-restrictions-manager').show();
 }
 
 function crudActivityCloseViews() {
-    const ALL_ACTIVITIES_VIEWS = ['#update-activity-restrictions-superadmin', '#delete-activity-restrictions-superadmin', '#create-activity-restrictions-superadmin'];
+    const ALL_ACTIVITIES_VIEWS = ['#update-activity-restrictions-manager', '#delete-activity-restrictions-manager', '#create-activity-restrictions-manager'];
     ALL_ACTIVITIES_VIEWS.forEach(view => {
         $(view).hide();
     });
@@ -2518,16 +2518,16 @@ function persistDeleteRestriction() {
         restriction_id = $('#validation_delete_restriction_id').val();
 
     if (validation == placeholderWord) {
-        mainSuperAdmin.getSuperAdminManager().deleteOneActivityRestriction(restriction_id).then((response) => {
+        mainManager.getmanagerManager().deleteOneActivityRestriction(restriction_id).then((response) => {
             if (response.success == true) {
-                displayNotification('#notif-div', "superadmin.activitiesRestrictions.deleteSuccess", "success");
+                displayNotification('#notif-div', "manager.activitiesRestrictions.deleteSuccess", "success");
                 closeModalAndCleanInputActivityRestrictions()
             } else {
-                displayNotification('#notif-div', "superadmin.account.missingData", "error");
+                displayNotification('#notif-div', "manager.account.missingData", "error");
             }
         })
     } else {
-        displayNotification('#notif-div', "superadmin.input.writeDelete", "error");
+        displayNotification('#notif-div', "manager.input.writeDelete", "error");
     }
 }
 
@@ -2537,16 +2537,16 @@ function persistUpdateRestriction() {
         $application_id = $('#application-id-for-restriction').val(),
         $restriction_type = $('#activity_restrictions_update_type').val();
 
-    mainSuperAdmin.getSuperAdminManager().updateOneActivityRestriction(
+    mainManager.getmanagerManager().updateOneActivityRestriction(
         $restriction_id, 
         $application_id, 
         $restriction_type, 
         $restriction_max).then((response) => {
             if (response.success == true) {
-                displayNotification('#notif-div', "superadmin.activitiesRestrictions.updateSuccess", "success");
+                displayNotification('#notif-div', "manager.activitiesRestrictions.updateSuccess", "success");
                 closeModalAndCleanInputActivityRestrictions()
             } else {
-                displayNotification('#notif-div', "superadmin.account.missingData", "error");
+                displayNotification('#notif-div', "manager.account.missingData", "error");
             }
     })
 }
@@ -2556,15 +2556,15 @@ function persistCreateRestriction() {
         $application_id = $('#application-id-for-restriction').val(),
         $restriction_type = $('#activity_restrictions_create_type').val();
 
-    mainSuperAdmin.getSuperAdminManager().createOneActivityRestriction(
+    mainManager.getmanagerManager().createOneActivityRestriction(
         $application_id, 
         $restriction_type, 
         $restriction_max).then((response) => {
             if (response.success == true) {
-                displayNotification('#notif-div', "superadmin.activitiesRestrictions.createSuccess", "success");
+                displayNotification('#notif-div', "manager.activitiesRestrictions.createSuccess", "success");
                 closeModalAndCleanInputActivityRestrictions()
             } else {
-                displayNotification('#notif-div', "superadmin.account.missingData", "error");
+                displayNotification('#notif-div', "manager.account.missingData", "error");
             }
     })
 }

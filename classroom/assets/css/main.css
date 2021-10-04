@@ -346,7 +346,7 @@ button {
 #dashboard-profil img,
 #dashboard-profil-teacher img,
 #dashboard-profil-groupadmin img,
-#dashboard-profil-superadmin img {
+#dashboard-profil-manager img {
     border: 0px solid transparent;
 }
 
@@ -429,7 +429,7 @@ button {
 
     #classroom-dashboard-sidebar,
     #classroom-dashboard-sidebar-teacher,
-    #superadmin-dashboard-sidebar,
+    #manager-dashboard-sidebar,
     #groupadmin-dashboard-sidebar {
         z-index: 3;
         position: fixed;

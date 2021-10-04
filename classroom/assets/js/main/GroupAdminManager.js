@@ -1,5 +1,5 @@
 /**
- * SuperAdminManager
+ * managerManager
  * Copyright 2021 Vittascience.
  * https://vittascience.com
  *
@@ -69,7 +69,7 @@ class GroupAdminManager {
 
     /**
      * Get actual group informations
-     * Access with Main.getSuperAdminManager()._actualGroupInfos
+     * Access with Main.getmanagerManager()._actualGroupInfos
      * @public
      * @returns {Array}
      */
@@ -100,7 +100,7 @@ class GroupAdminManager {
                             ${div_img}
                         </td>
                         <td>
-                            <a class="c-link-tertiary" href="#" onclick="getGroupLinkGA(${element.id})" alt="${i18next.t('superadmin.buttons.show')}">
+                            <a class="c-link-tertiary" href="#" onclick="getGroupLinkGA(${element.id})" alt="${i18next.t('manager.buttons.show')}">
                                 <i class="fas fa-link fa-2x"></i>
                             </a>
                         </td>
@@ -148,10 +148,10 @@ class GroupAdminManager {
                     }
                     $('#paginationButtons_users_groupadmin').html(htmlButtons);
                 } else {
-                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userNoRights') + "'></i>";
+                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userNoRights') + "'></i>";
                     if (element.hasOwnProperty('rights')) {
-                        $droits = element.rights === "1" ? "<i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userAdmin') + "' ></i>" :
-                        "<i class='fas fa-user fa-2x c-text-primary' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userTeacher') + "'></i>";
+                        $droits = element.rights === "1" ? "<i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userAdmin') + "' ></i>" :
+                        "<i class='fas fa-user fa-2x c-text-primary' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userTeacher') + "'></i>";
                     }
 
                     let div_img = ""
@@ -181,7 +181,7 @@ class GroupAdminManager {
                             </a>
                         </td>
                         <td>
-                            <button class="btn c-btn-red btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('superadmin.buttons.delete')} <i class="fas fa-user-minus"></i></button>
+                            <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
                         </td>
                     </tr>`;
                 }
@@ -236,10 +236,10 @@ class GroupAdminManager {
 
                     $('#paginationButtons_users_groupadmin').html(htmlButtons);
                 } else {
-                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userNoRights') + "'></i>";
+                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userNoRights') + "'></i>";
                     if (element.hasOwnProperty('rights')) {
-                        $droits = element.rights === "1" ? "<i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userAdmin') + "' ></i>" :
-                        "<i class='fas fa-user fa-2x c-text-primary' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userTeacher') + "'></i>";
+                        $droits = element.rights === "1" ? "<i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userAdmin') + "' ></i>" :
+                        "<i class='fas fa-user fa-2x c-text-primary' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userTeacher') + "'></i>";
                     }
 
                     let div_img = ""
@@ -270,7 +270,7 @@ class GroupAdminManager {
                                 </a>
                             </td>
                             <td>
-                                <button class="btn c-btn-red btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('superadmin.buttons.delete')} <i class="fas fa-user-minus"></i></button>
+                                <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
                             </td>
                         </tr>`;
                 }
@@ -348,8 +348,8 @@ class GroupAdminManager {
                     groupspp: $groupspp
                 },
                 success: function (response) {
-                    MainSuperAdmin.getSuperAdminManager()._allGroups = JSON.parse(response);
-                    MainSuperAdmin.getSuperAdminManager().showGroupsInTable((JSON.parse(response)));
+                    Mainmanager.getmanagerManager()._allGroups = JSON.parse(response);
+                    Mainmanager.getmanagerManager().showGroupsInTable((JSON.parse(response)));
                 },
                 error: function () {
                     reject();

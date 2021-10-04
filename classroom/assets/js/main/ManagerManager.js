@@ -1,17 +1,17 @@
 /**
- * SuperAdminManager
+ * managerManager
  * Copyright 2021 Vittascience.
  * https://vittascience.com
  *
  */
 
 /**
- * @class SuperAdminManager
+ * @class managerManager
  * @author: COINTE Rémi
  */
-class SuperAdminManager {
+class managerManager {
     /**
-     * Creates an instance of SuperAdminManager.
+     * Creates an instance of managerManager.
      * @public
      */
     constructor() {
@@ -52,7 +52,7 @@ class SuperAdminManager {
 
     /**
      * Get actual group informations
-     * Access with Main.getSuperAdminManager()._actualGroupInfos
+     * Access with Main.getmanagerManager()._actualGroupInfos
      * @public
      * @returns {Array}
      */
@@ -102,10 +102,10 @@ class SuperAdminManager {
                     groupspp: $groupspp
                 },
                 success: function (response) {
-                    mainSuperAdmin.getSuperAdminManager()._allGroups = JSON.parse(response);
-                    mainSuperAdmin.getSuperAdminManager().showGroupsInTable((JSON.parse(response)));
-                    mainSuperAdmin.getSuperAdminManager().getAllGroups().then((data) => {
-                        mainSuperAdmin.getSuperAdminManager()._comboGroups = data;
+                    mainManager.getmanagerManager()._allGroups = JSON.parse(response);
+                    mainManager.getmanagerManager().showGroupsInTable((JSON.parse(response)));
+                    mainManager.getmanagerManager().getAllGroups().then((data) => {
+                        mainManager.getmanagerManager()._comboGroups = data;
                     });
                 },
                 error: function () {
@@ -604,28 +604,28 @@ class SuperAdminManager {
     }
 
     showGroupMembers($group_id, $page, $userspp, $sort) {
-        mainSuperAdmin.getSuperAdminManager()._actualGroup = $group_id;
+        mainManager.getmanagerManager()._actualGroup = $group_id;
         const process = (data) => {
             let $data_table = "",
                 group = "";
 
-            mainSuperAdmin.getSuperAdminManager()._allActualUsers = [];
+            mainManager.getmanagerManager()._allActualUsers = [];
 
-            mainSuperAdmin.getSuperAdminManager()._allGroups.forEach(element => {
+            mainManager.getmanagerManager()._allGroups.forEach(element => {
                 if (element.id == $group_id)
                     group = element;
             });
 
             if ($group_id == -1)
-                $('#group_name_from_table').text(i18next.t('superadmin.group.usersWithoutGroups'));
+                $('#group_name_from_table').text(i18next.t('manager.group.usersWithoutGroups'));
             else if ($group_id == -2)
-                $('#group_name_from_table').text(i18next.t('superadmin.group.usersInactiveOrNoRegular'));
+                $('#group_name_from_table').text(i18next.t('manager.group.usersInactiveOrNoRegular'));
             else
                 $('#group_name_from_table').text(group.name);
 
             data.forEach(element => {
                 if (element.hasOwnProperty('currentPage')) {
-                    mainSuperAdmin.getSuperAdminManager()._paginationUsersInfo = element;
+                    mainManager.getmanagerManager()._paginationUsersInfo = element;
                     let usersperpage = $('#users_per_page').val(),
                         htmlButtons = "",
                         sort = $('#sort_users_filter').val();
@@ -633,30 +633,30 @@ class SuperAdminManager {
                     if (element.totalPagesCount > 1) {
                         htmlButtons += `<ul class="pagination justify-content-center">`;
                         if (element.previousPage > 1) {
-                            htmlButtons += `<li class="page-item" onclick="mainSuperAdmin.getSuperAdminManager().showGroupMembers(${$group_id}, 1, ${usersperpage}, ${sort})"><a class="page-link" href="#">First Page</a></li>`;
+                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().showGroupMembers(${$group_id}, 1, ${usersperpage}, ${sort})"><a class="page-link" href="#">First Page</a></li>`;
                         }
                         if (element.currentPage > 1) {
-                            htmlButtons += `<li class="page-item" onclick="mainSuperAdmin.getSuperAdminManager().showGroupMembers(${$group_id}, ${element.previousPage}, ${usersperpage}, ${sort})"><a class="page-link" href="#">${element.previousPage}</a></li>`;
+                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().showGroupMembers(${$group_id}, ${element.previousPage}, ${usersperpage}, ${sort})"><a class="page-link" href="#">${element.previousPage}</a></li>`;
                         }
                         htmlButtons += `<li class="page-item active"><a class="page-link" href="#">${element.currentPage}<a/></li>`;
                         if (element.currentPage < element.totalPagesCount) {
-                            htmlButtons += `<li class="page-item" onclick="mainSuperAdmin.getSuperAdminManager().showGroupMembers(${$group_id}, ${element.nextPage}, ${usersperpage}, ${sort})"><a class="page-link" href="#">${element.nextPage}</a></li>`;
+                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().showGroupMembers(${$group_id}, ${element.nextPage}, ${usersperpage}, ${sort})"><a class="page-link" href="#">${element.nextPage}</a></li>`;
                         }
                         if (element.nextPage < element.totalPagesCount) {
-                            htmlButtons += `<li class="page-item" onclick="mainSuperAdmin.getSuperAdminManager().showGroupMembers(${$group_id}, ${element.totalPagesCount}, ${usersperpage}, ${sort})"><a class="page-link" href="#">Last Page - ${element.totalPagesCount}</a></li>`;
+                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().showGroupMembers(${$group_id}, ${element.totalPagesCount}, ${usersperpage}, ${sort})"><a class="page-link" href="#">Last Page - ${element.totalPagesCount}</a></li>`;
                         }
                         htmlButtons += `</ul>`;
                     }
                     $('#paginationButtons_users').html(htmlButtons);
                 } else {
 
-                    mainSuperAdmin.getSuperAdminManager()._allActualUsers.push(element);
+                    mainManager.getmanagerManager()._allActualUsers.push(element);
 
-                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userNoRights') + "'></i>";
+                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userNoRights') + "'></i>";
                     if (element.hasOwnProperty('rights')) {
                         $droits = element.rights === "1" ?
-                            "<i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userAdmin') + "' ></i>" :
-                            "<i class='fas fa-user fa-2x c-text-primary' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userTeacher') + "'></i>";
+                            "<i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userAdmin') + "' ></i>" :
+                            "<i class='fas fa-user fa-2x c-text-primary' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userTeacher') + "'></i>";
                     }
 
                     let div_img = ""
@@ -672,9 +672,9 @@ class SuperAdminManager {
 
                     let rowDelete = "";
                     if ($group_id == -2)
-                        rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="superadmin.buttons.delete" onclick="deleteUser(${element.id})">${i18next.t('superadmin.buttons.delete')} <i class="fas fa-user-minus"></i></button>`;
+                        rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="deleteUser(${element.id})">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>`;
                     else
-                        rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="superadmin.buttons.disable" onclick="disableUser(${element.id})">${i18next.t('superadmin.buttons.disable')} <i class="fas fa-user-lock"></i></button>`;
+                        rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="manager.buttons.disable" onclick="disableUser(${element.id})">${i18next.t('manager.buttons.disable')} <i class="fas fa-user-lock"></i></button>`;
 
                     $data_table +=
                         `<tr>
@@ -722,13 +722,13 @@ class SuperAdminManager {
 
     globalSearchUser($name, $page, $usersperpage) {
         const process = (res) => {
-            mainSuperAdmin.getSuperAdminManager()._allActualUsers = [];
+            mainManager.getmanagerManager()._allActualUsers = [];
             let $data_table = "";
 
-            $('#group_name_from_table').text(i18next.t('superadmin.group.searchResult'));
+            $('#group_name_from_table').text(i18next.t('manager.group.searchResult'));
             res.forEach(element => {
                 if (element.hasOwnProperty('currentPage')) {
-                    mainSuperAdmin.getSuperAdminManager()._paginationUsersInfo = element;
+                    mainManager.getmanagerManager()._paginationUsersInfo = element;
                     let name = $('#name_user_search').val(),
                         usersperpage = $('#users_per_page').val(),
                         htmlButtons = "";
@@ -736,28 +736,28 @@ class SuperAdminManager {
                     if (element.totalPagesCount > 1) {
                         htmlButtons += `<ul class="pagination justify-content-center">`;
                         if (element.previousPage > 1) {
-                            htmlButtons += `<li class="page-item" onclick="mainSuperAdmin.getSuperAdminManager().globalSearchUser(${name}, 1, ${usersperpage})"><a class="page-link" href="#">First Page</a></li>`;
+                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().globalSearchUser(${name}, 1, ${usersperpage})"><a class="page-link" href="#">First Page</a></li>`;
                         }
                         if (element.currentPage > 1) {
-                            htmlButtons += `<li class="page-item" onclick="mainSuperAdmin.getSuperAdminManager().globalSearchUser(${name}, ${element.previousPage}, ${usersperpage})"><a class="page-link" href="#">${element.previousPage}</a></li>`;
+                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().globalSearchUser(${name}, ${element.previousPage}, ${usersperpage})"><a class="page-link" href="#">${element.previousPage}</a></li>`;
                         }
                         htmlButtons += `<li class="page-item active"><a class="page-link" href="#">${element.currentPage}</a></li>`;
                         if (element.currentPage < element.totalPagesCount) {
-                            htmlButtons += `<li class="page-item" onclick="mainSuperAdmin.getSuperAdminManager().globalSearchUser(${name}, ${element.nextPage}, ${usersperpage})"><a class="page-link" href="#">${element.nextPage}</a></li>`;
+                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().globalSearchUser(${name}, ${element.nextPage}, ${usersperpage})"><a class="page-link" href="#">${element.nextPage}</a></li>`;
                         }
                         if (element.nextPage < element.totalPagesCount) {
-                            htmlButtons += `<li class="page-item" onclick="mainSuperAdmin.getSuperAdminManager().globalSearchUser(${name}, ${element.totalPagesCount}, ${usersperpage})"><a class="page-link" href="#">Last Page - ${element.totalPagesCount}</a></li>`;
+                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().globalSearchUser(${name}, ${element.totalPagesCount}, ${usersperpage})"><a class="page-link" href="#">Last Page - ${element.totalPagesCount}</a></li>`;
                         }
                         htmlButtons += `</ul>`;
                     }
 
                     $('#paginationButtons_users').html(htmlButtons);
                 } else {
-                    mainSuperAdmin.getSuperAdminManager()._allActualUsers.push(element);
-                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userNoRights') + "' ></i> ";
+                    mainManager.getmanagerManager()._allActualUsers.push(element);
+                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userNoRights') + "' ></i> ";
                     if (element.hasOwnProperty('rights')) {
-                        $droits = element.rights === "1" ? "<i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userAdmin') + "' ></i>" :
-                        "<i class='fas fa-user fa-2x c-text-primary' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userTeacher') + "'></i>";
+                        $droits = element.rights === "1" ? "<i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userAdmin') + "' ></i>" :
+                        "<i class='fas fa-user fa-2x c-text-primary' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userTeacher') + "'></i>";
                     }
 
                     let div_img = ""
@@ -788,7 +788,7 @@ class SuperAdminManager {
                                 </a>
                             </td>
                             <td>
-                            <button class = "btn c-btn-red btn-sm" data-i18n="superadmin.buttons.delete" onclick="deleteUser(${element.id})">${i18next.t('superadmin.buttons.delete')} <i class="fas fa-user-minus"></i></button>
+                            <button class = "btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="deleteUser(${element.id})">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
                             </td>
                         </tr>`;
                 }
@@ -821,8 +821,8 @@ class SuperAdminManager {
 
         data_table +=
             `<tr>
-                <th scope="row" onclick="showGroupMembers(-2, 1 ,${users_per_page}, ${users_sort})">${i18next.t('superadmin.group.usersInactiveOrNoRegular')}</i></th>
-                <td>${i18next.t('superadmin.group.usersInactiveOrNoRegularDescription')}</td>
+                <th scope="row" onclick="showGroupMembers(-2, 1 ,${users_per_page}, ${users_sort})">${i18next.t('manager.group.usersInactiveOrNoRegular')}</i></th>
+                <td>${i18next.t('manager.group.usersInactiveOrNoRegularDescription')}</td>
                 <td>
                     --
                 </td>
@@ -834,8 +834,8 @@ class SuperAdminManager {
                 </td>
             </tr>
             <tr>
-                <th scope="row" onclick="showGroupMembers(-1, 1 ,${users_per_page}, ${users_sort})">${i18next.t('superadmin.group.usersWithoutGroups')}</th>
-                <td>${i18next.t('superadmin.group.usersWithoutGroupsDescription')}</td>
+                <th scope="row" onclick="showGroupMembers(-1, 1 ,${users_per_page}, ${users_sort})">${i18next.t('manager.group.usersWithoutGroups')}</th>
+                <td>${i18next.t('manager.group.usersWithoutGroupsDescription')}</td>
                 <td>
                     --
                 </td>
@@ -849,24 +849,24 @@ class SuperAdminManager {
 
         table.forEach(element => {
             if (element.hasOwnProperty('currentPage')) {
-                mainSuperAdmin.getSuperAdminManager()._paginationGroupsInfo = element;
+                mainManager.getmanagerManager()._paginationGroupsInfo = element;
                 let sort = $('#sort_groups_filter').val(),
                     groupsperpage = $('#groups_per_page').val(),
                     htmlButtons = "";
 
                 if (element.totalPagesCount > 1) {
                     if (element.previousPage > 1) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainSuperAdmin.getSuperAdminManager().getAllGroupsInfos(${sort}, 1, ${groupsperpage})">First Page</button>`;
+                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainManager.getmanagerManager().getAllGroupsInfos(${sort}, 1, ${groupsperpage})">First Page</button>`;
                     }
                     if (element.currentPage > 1) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainSuperAdmin.getSuperAdminManager().getAllGroupsInfos(${sort}, ${element.previousPage}, ${groupsperpage})">${element.previousPage}</button>`;
+                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainManager.getmanagerManager().getAllGroupsInfos(${sort}, ${element.previousPage}, ${groupsperpage})">${element.previousPage}</button>`;
                     }
                     htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
                     if (element.currentPage < element.totalPagesCount) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainSuperAdmin.getSuperAdminManager().getAllGroupsInfos(${sort}, ${element.nextPage}, ${groupsperpage})">${element.nextPage}</button>`;
+                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainManager.getmanagerManager().getAllGroupsInfos(${sort}, ${element.nextPage}, ${groupsperpage})">${element.nextPage}</button>`;
                     }
                     if (element.nextPage < element.totalPagesCount) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainSuperAdmin.getSuperAdminManager().getAllGroupsInfos(${sort}, ${element.totalPagesCount}, ${groupsperpage})">Last Page - ${element.totalPagesCount}</button>`;
+                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainManager.getmanagerManager().getAllGroupsInfos(${sort}, ${element.totalPagesCount}, ${groupsperpage})">Last Page - ${element.totalPagesCount}</button>`;
                     }
                 }
 
@@ -900,7 +900,7 @@ class SuperAdminManager {
                 </tr>`;
             }
         });
-        $('#groups_table_superadmin').html(data_table);
+        $('#groups_table_manager').html(data_table);
         $('[data-toggle="tooltip"]').tooltip()
     }
 
@@ -913,24 +913,24 @@ class SuperAdminManager {
                 let App = "";
 
                 if (element.hasOwnProperty('currentPage')) {
-                    mainSuperAdmin.getSuperAdminManager()._paginationGroupsInfo = element;
+                    mainManager.getmanagerManager()._paginationGroupsInfo = element;
                     let sort = $('#sort_groups_filter').val(),
                         groupperpage = $('#groups_per_page').val(),
                         htmlButtons = "";
 
                     if (element.totalPagesCount > 1) {
                         if (element.previousPage > 1) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainSuperAdmin.getSuperAdminManager().searchGroup(${sort}, 1, ${groupperpage})">First Page</button>`;
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainManager.getmanagerManager().searchGroup(${sort}, 1, ${groupperpage})">First Page</button>`;
                         }
                         if (element.currentPage > 1) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainSuperAdmin.getSuperAdminManager().searchGroup(${sort}, ${element.previousPage}, ${groupperpage})">${element.previousPage}</button>`;
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainManager.getmanagerManager().searchGroup(${sort}, ${element.previousPage}, ${groupperpage})">${element.previousPage}</button>`;
                         }
                         htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
                         if (element.currentPage < element.totalPagesCount) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainSuperAdmin.getSuperAdminManager().searchGroup(${sort}, ${element.nextPage}, ${groupperpage})">${element.nextPage}</button>`;
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainManager.getmanagerManager().searchGroup(${sort}, ${element.nextPage}, ${groupperpage})">${element.nextPage}</button>`;
                         }
                         if (element.nextPage < element.totalPagesCount) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainSuperAdmin.getSuperAdminManager().searchGroup(${sort}, ${element.totalPagesCount}, ${groupperpage})">Last Page - ${element.totalPagesCount}</button>`;
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainManager.getmanagerManager().searchGroup(${sort}, ${element.totalPagesCount}, ${groupperpage})">Last Page - ${element.totalPagesCount}</button>`;
                         }
                     }
                     $('#paginationButtons_groups').html(htmlButtons);
@@ -962,7 +962,7 @@ class SuperAdminManager {
                         </tr>`;
                 }
             });
-            $('#groups_table_superadmin').html(data_table);
+            $('#groups_table_manager').html(data_table);
             $('[data-toggle="tooltip"]').tooltip()
 
         }
