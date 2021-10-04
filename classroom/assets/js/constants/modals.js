@@ -229,11 +229,11 @@ const classroomModals = {
         },
         content: ` <div class="form-group c-secondary-form">
                         <label for="group_name" data-i18n="manager.group.name">Group name</label>
-                        <input type="text" class="form-control m-0" id="group_name">
+                        <input type="text" class="form-control m-0" id="group_name" data-i18n="[placeholder]manager.group.academy">
                     </div>
                     <div class="form-group c-secondary-form">
                         <label for="group_desc" data-i18n="manager.group.description">Group description</label>
-                        <input type="text" class="form-control m-0" id="group_desc">
+                        <textarea rows="2" class="form-control m-0" id="group_desc"></textarea>
                     </div>
                     <label for="group_apps_options" data-i18n="manager.group.applications">Application(s) du groupe</label>
                     <div class="form-group" id="group_apps_options">
@@ -249,11 +249,11 @@ const classroomModals = {
         },
         content: `  <div class="form-group c-secondary-form">
                         <label for="group_name" data-i18n="manager.group.name">Group name</label>
-                        <input type="text" class="form-control" id="upd_group_name">
+                        <input type="text" class="form-control" id="upd_group_name" data-i18n="[placeholder]manager.group.academy">
                     </div>
                     <div class="form-group c-secondary-form">
                         <label for="upd_group_desc" data-i18n="manager.group.description">Group description</label>
-                        <input type="text" class="form-control" id="upd_group_desc">
+                        <textarea rows="2" class="form-control" id="upd_group_desc"></textarea>
                     </div>
                     <div class="form-group c-secondary-form">
                         <label for="upd_group_link" data-i18n="manager.group.link">Group link</label>

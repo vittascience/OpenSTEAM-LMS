@@ -1773,7 +1773,7 @@ function optionsGroupApplications($type) {
             if (!$infoapp) {
                 stringhtml += `<div class="form-check">
                 <input class="form-check-input app" type="checkbox" value="${element.id}" id="application_${element.id}">
-                <label class="form-check-label font-weight-bold mb-2" for="application_${element.id}">
+                <label class="form-check-label font-weight-bold mb-2" for="application_${element.id}" style="color: var(--classroom-primary)">
                     ${element.name}
                 </label>
                 <br>
@@ -1800,7 +1800,7 @@ function optionsGroupApplications($type) {
 
                 stringhtml += `<div class="form-check">
                 <input class="form-check-input app" type="checkbox" checked value="${element.id}" id="application_${element.id}">
-                <label class="form-check-label font-weight-bold mb-2" for="application_${element.id}">
+                <label class="form-check-label font-weight-bold mb-2" for="application_${element.id}" style="color: var(--classroom-primary)">
                     ${element.name}
                 </label>
                 <br>

@@ -802,6 +802,7 @@
 			"delete": "Delete group",
 			"deleteIntention": "You are about to delete the group : <span id=\"md_group\"></span>",
 			"update": "Update group",
+			"academy":"Academy",
 			"join": {
 				"firstVisit": "First visit ?",
 				"signin": "Sign in",
