@@ -1327,19 +1327,20 @@ function showupdateUserModal(id) {
                 $('#update_u_group' + i).val(res[0].groups[i].id);
             }
 
-            let html = `<div class="form-check">
-                            <input class="form-check-input" type="radio" name="group_app" id="group_app" value="0" checked>
-                            <label class="form-check" for="group_app"> Aucune </label>
-                        </div>`;
+            let html = "";
             mainSuperAdmin.getSuperAdminManager()._comboGroups.forEach(element => {
                 if (element.id == mainSuperAdmin.getSuperAdminManager()._actualGroup) {
                     element.applications.forEach(application => {
                         let checked = ""
                         if (res[0].hasOwnProperty("applications_from_groups")) {
-                            checked = application.id == res[0].applications_from_groups[0].application ? "checked" : "";
+                            res[0].applications_from_groups.forEach(element => {
+                                if (application.id == element.application) {
+                                    checked = "checked";
+                                }
+                            });
                         }
                         html += `<div class="form-check">
-                            <input class="form-check-input" type="radio" name="group_app" id="group_app_${application.id}" value="${application.id}" ${checked}>
+                            <input class="form-check-input" type="checkbox" name="group_app" id="group_app_${application.id}" value="${application.id}" ${checked}>
                             <label class="form-check" for="group_app_${application.id}">
                                 ${application.name}
                             </label>
@@ -1422,12 +1423,18 @@ function updateUserModal() {
         $is_teacher = $('#update_u_is_teacher').is(':checked'),
         $teacher_grade = $('#update_user_teacher_grade').val(),
         $teacher_suject = $('#update_user_teacher_subjects').val(),
-        $ApplicationFromGroup = $(':checked[name="group_app"]').val(),
         $groups = [$('#update_u_is_group_admin0').is(':checked'), $('#update_u_group0').val()];
 
-    if (!$ApplicationFromGroup) {
-        $ApplicationFromGroup = -1;
-    }
+    $ApplicationFromGroup = [];
+    $('[name="group_app"]').each(function () {
+        const ApplicationTemp = [
+            $(this).val(),
+            $(this).is(':checked')
+        ]
+        $ApplicationFromGroup.push(ApplicationTemp);
+    });
+
+
     mainSuperAdmin.getSuperAdminManager().updateUser($user_id,
         $firstname,
         $surname,
@@ -1442,7 +1449,7 @@ function updateUserModal() {
         $teacher_suject,
         $school,
         $is_active,
-        $ApplicationFromGroup).then((response) => {
+        JSON.stringify($ApplicationFromGroup)).then((response) => {
         if (response.message == "success") {
             displayNotification('#notif-div', "superadmin.users.userUpdated", "success");
             pseudoModal.closeAllModal();
@@ -1853,36 +1860,6 @@ function createSubjectSelect(array, type) {
         $(o).html(array[index]);
         html.append(o);
     }
-
-/*     if (type === 0) {
-        $("#user_teacher_subjects").empty();
-        for (let index = 0; index < array.length; index++) {
-            const o = new Option(array[index], index);
-            $(o).html(array[index]);
-            $("#user_teacher_subjects").append(o);
-        }
-    } else if (type === 1) {
-        $("#user_teacher_subjects_ga").empty();
-        for (let index = 0; index < array.length; index++) {
-            const o = new Option(array[index], index);
-            $(o).html(array[index]);
-            $("#user_teacher_subjects_ga").append(o);
-        }
-    } else if (type === 2) {
-        $("#update_user_teacher_subjects").empty();
-        for (let index = 0; index < array.length; index++) {
-            const o = new Option(array[index], index);
-            $(o).html(array[index]);
-            $("#update_user_teacher_subjects").append(o);
-        }
-    } else if (type === 3) {
-        $("#update_user_teacher_subjects_ga").empty();
-        for (let index = 0; index < array.length; index++) {
-            const o = new Option(array[index], index);
-            $(o).html(array[index]);
-            $("#update_user_teacher_subjects_ga").append(o);
-        }
-    } */
 }
 
 $('#dashboard-groupadmin-users-side').click(() => {
@@ -1906,20 +1883,20 @@ function showupdateUserModal_groupadmin(user_id) {
             $('#update_u_mail_ga').val(res[0].email);
             $('#update_u_phone_ga').val(res[0].telephone);
 
-            let html = `<div class="form-check">
-                            <input class="form-check-input" type="radio" name="group_app" id="group_app" value="0" checked>
-                            <label class="form-check" for="group_app"> Aucune </label>
-                        </div>`;
-
+            let html = "";
             mainGroupAdmin.getGroupAdminManager()._comboGroups.forEach(element => {
                 if (element.id == mainGroupAdmin.getGroupAdminManager()._actualGroup) {
                     element.applications.forEach(application => {
                         let checked = ""
                         if (res[0].hasOwnProperty("applications_from_groups")) {
-                            checked = application.id == res[0].applications_from_groups[0].application ? "checked" : "";
+                            res[0].applications_from_groups.forEach(element => {
+                                if (application.id == element.application) {
+                                    checked = "checked";
+                                }
+                            });
                         }
                         html += `<div class="form-check">
-                            <input class="form-check-input" type="radio" name="group_app" id="group_app_${application.id}" value="${application.id}" ${checked}>
+                            <input class="form-check-input" type="checkbox" name="group_app" id="group_app_${application.id}" value="${application.id}" ${checked}>
                             <label class="form-check" for="group_app_${application.id}">
                                 ${application.name}
                             </label>
@@ -2004,11 +1981,19 @@ function updateUserModalGroupAdmin() {
         $school = $('#update_u_school_ga').val(),
         $teacher_grade = $('#update_user_teacher_grade_ga').val(),
         $teacher_suject = $('#update_user_teacher_subjects_ga').val(),
-        $ApplicationFromGroup = $(':checked[name="group_app"]').val(),
         $groups = [$('#update_u_is_group_admin_ga0').is(':checked'), $('#update_u_group_ga0').val()];
-    if (!$ApplicationFromGroup) {
-        $ApplicationFromGroup = -1;
-    }
+
+
+    $ApplicationFromGroup = [];
+    $('[name="group_app"]').each(function () {
+        const ApplicationTemp = [
+            $(this).val(),
+            $(this).is(':checked')
+        ]
+        $ApplicationFromGroup.push(ApplicationTemp);
+    });
+
+
     mainGroupAdmin.getGroupAdminManager().updateUser($user_id,
         $firstname,
         $surname,
@@ -2020,7 +2005,7 @@ function updateUserModalGroupAdmin() {
         $teacher_grade,
         $teacher_suject,
         $school,
-        $ApplicationFromGroup).then((response) => {
+        JSON.stringify($ApplicationFromGroup)).then((response) => {
         if (response.message == "success") {
             displayNotification('#notif-div', "superadmin.users.userUpdated", "success");
             pseudoModal.closeAllModal();
