@@ -1,12 +1,15 @@
 <div id="manager-apps-main" class="dashboard-block" style="display: none;">
-    <div class="container">
+    <div class="container-fluid px-5">
         <div class="col-12">
             <div id="update-applications-modal">
                 <div class="col-12" id="all-applications">
                     <div class="row">
-                        <button class="btn btn-info my-3 btn-sm mx-1" onclick="createApp()" data-i18n="manager.apps.create">Créer</button>
+                        <button class="btn c-btn-outline-primary mx-1" onclick="createApp()">
+                            <span data-i18n="manager.apps.create"></span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                     </div>
-                    <table class="table">
+                    <table class="table c-table">
                         <thead>
                             <tr>
                                 <th scope="col" data-i18n="manager.table.name">Name</th>
@@ -25,10 +28,17 @@
                 <div class="col-12" id="all-restrictions-from-app" style="display: none;">
                     <input type="hidden" id="application-id-for-restriction">
                     <div class="row">
-                        <button class="btn btn-info my-3 btn-sm mx-1" onclick="createRestriction()" data-i18n="manager.activitiesRestrictions.create">Créer un restrictions</button>
-                        <button class="btn btn-warning my-3 btn-sm mx-1" onclick="closeRestrictionDetail()" data-i18n="manager.activitiesRestrictions.closeDetail">Fermer le détail</button>
+                        <button class="btn c-btn-outline-tertiary mx-1" onclick="createRestriction()">
+                            <span data-i18n="manager.activitiesRestrictions.create">Créer une restriction</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+
+                        <button class="btn c-btn-outline-grey mx-1" onclick="closeRestrictionDetail()">
+                            <span data-i18n="manager.activitiesRestrictions.closeDetail">Fermer le détail</span>
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
-                    <table class="table">
+                    <table class="table c-table">
                         <thead>
                             <tr>
                                 <th scope="col" data-i18n="manager.activitiesRestrictions.restrictionType">Activity Type</th>
