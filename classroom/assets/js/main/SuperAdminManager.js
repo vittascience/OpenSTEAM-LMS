@@ -519,7 +519,7 @@ class SuperAdminManager {
                     mail: $mail,
                     school: $school,
                     isactive: $is_active,
-                    application:  $application
+                    application: $application
                 },
                 success: function (response) {
                     resolve(JSON.parse(response));
@@ -631,28 +631,32 @@ class SuperAdminManager {
                         sort = $('#sort_users_filter').val();
 
                     if (element.totalPagesCount > 1) {
+                        htmlButtons += `<ul class="pagination justify-content-center">`;
                         if (element.previousPage > 1) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainSuperAdmin.getSuperAdminManager().showGroupMembers(${$group_id}, 1, ${usersperpage}, ${sort})">First Page</button>`;
+                            htmlButtons += `<li class="page-item" onclick="mainSuperAdmin.getSuperAdminManager().showGroupMembers(${$group_id}, 1, ${usersperpage}, ${sort})"><a class="page-link" href="#">First Page</a></li>`;
                         }
                         if (element.currentPage > 1) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainSuperAdmin.getSuperAdminManager().showGroupMembers(${$group_id}, ${element.previousPage}, ${usersperpage}, ${sort})">${element.previousPage}</button>`;
+                            htmlButtons += `<li class="page-item" onclick="mainSuperAdmin.getSuperAdminManager().showGroupMembers(${$group_id}, ${element.previousPage}, ${usersperpage}, ${sort})"><a class="page-link" href="#">${element.previousPage}</a></li>`;
                         }
-                        htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
+                        htmlButtons += `<li class="page-item active"><a class="page-link" href="#">${element.currentPage}<a/></li>`;
                         if (element.currentPage < element.totalPagesCount) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainSuperAdmin.getSuperAdminManager().showGroupMembers(${$group_id}, ${element.nextPage}, ${usersperpage}, ${sort})">${element.nextPage}</button>`;
+                            htmlButtons += `<li class="page-item" onclick="mainSuperAdmin.getSuperAdminManager().showGroupMembers(${$group_id}, ${element.nextPage}, ${usersperpage}, ${sort})"><a class="page-link" href="#">${element.nextPage}</a></li>`;
                         }
                         if (element.nextPage < element.totalPagesCount) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainSuperAdmin.getSuperAdminManager().showGroupMembers(${$group_id}, ${element.totalPagesCount}, ${usersperpage}, ${sort})">Last Page - ${element.totalPagesCount}</button>`;
+                            htmlButtons += `<li class="page-item" onclick="mainSuperAdmin.getSuperAdminManager().showGroupMembers(${$group_id}, ${element.totalPagesCount}, ${usersperpage}, ${sort})"><a class="page-link" href="#">Last Page - ${element.totalPagesCount}</a></li>`;
                         }
+                        htmlButtons += `</ul>`;
                     }
                     $('#paginationButtons_users').html(htmlButtons);
                 } else {
 
                     mainSuperAdmin.getSuperAdminManager()._allActualUsers.push(element);
 
-                    let $droits = " -- ";
+                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userNoRights') + "'></i>";
                     if (element.hasOwnProperty('rights')) {
-                        $droits = element.rights === "1" ? "Admin" : "Prof";
+                        $droits = element.rights === "1" ?
+                            "<i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userAdmin') + "' ></i>" :
+                            "<i class='fas fa-user fa-2x c-text-primary' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userTeacher') + "'></i>";
                     }
 
                     let div_img = ""
@@ -668,9 +672,9 @@ class SuperAdminManager {
 
                     let rowDelete = "";
                     if ($group_id == -2)
-                        rowDelete = `<button class = "btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="deleteUser(${element.id})">${i18next.t('superadmin.buttons.delete')}</button>`;
+                        rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="superadmin.buttons.delete" onclick="deleteUser(${element.id})">${i18next.t('superadmin.buttons.delete')} <i class="fas fa-user-minus"></i></button>`;
                     else
-                        rowDelete = `<button class = "btn btn-danger btn-sm" data-i18n="superadmin.buttons.disable" onclick="disableUser(${element.id})">${i18next.t('superadmin.buttons.disable')}</button>`;
+                        rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="superadmin.buttons.disable" onclick="disableUser(${element.id})">${i18next.t('superadmin.buttons.disable')} <i class="fas fa-user-lock"></i></button>`;
 
                     $data_table +=
                         `<tr>
@@ -679,10 +683,14 @@ class SuperAdminManager {
                             <td>${$droits}</td>
                             <td>${div_img}</td>
                             <td>
-                                <button class="btn btn-info btn-sm" data-i18n="superadmin.buttons.reset" onclick="resetUserPassword(${element.id})">${i18next.t('superadmin.buttons.send')}</button>
+                                <a class="c-link-primary d-inline-block" href="#" onclick="resetUserPassword(${element.id})">
+                                    <i class="fas fa-redo-alt fa-2x"></i>
+                                </a>
                             </td>
                             <td>
-                                <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateUserModal(${element.id})">${i18next.t('superadmin.buttons.update')}</button>
+                                <a class="c-link-secondary" href="#" onclick="showupdateUserModal(${element.id})">
+                                    <i class="fas fa-pencil-alt fa-2x"></i>
+                                </a>
                             </td>
                             <td>
                                 ${rowDelete}
@@ -691,6 +699,8 @@ class SuperAdminManager {
                 }
             });
             $('#table_info_group_data').html($data_table);
+            $('[data-toggle="tooltip"]').tooltip()
+
         }
         $.ajax({
             type: "POST",
@@ -724,27 +734,30 @@ class SuperAdminManager {
                         htmlButtons = "";
 
                     if (element.totalPagesCount > 1) {
+                        htmlButtons += `<ul class="pagination justify-content-center">`;
                         if (element.previousPage > 1) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainSuperAdmin.getSuperAdminManager().globalSearchUser(${name}, 1, ${usersperpage})">First Page</button>`;
+                            htmlButtons += `<li class="page-item" onclick="mainSuperAdmin.getSuperAdminManager().globalSearchUser(${name}, 1, ${usersperpage})"><a class="page-link" href="#">First Page</a></li>`;
                         }
                         if (element.currentPage > 1) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainSuperAdmin.getSuperAdminManager().globalSearchUser(${name}, ${element.previousPage}, ${usersperpage})">${element.previousPage}</button>`;
+                            htmlButtons += `<li class="page-item" onclick="mainSuperAdmin.getSuperAdminManager().globalSearchUser(${name}, ${element.previousPage}, ${usersperpage})"><a class="page-link" href="#">${element.previousPage}</a></li>`;
                         }
-                        htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
+                        htmlButtons += `<li class="page-item active"><a class="page-link" href="#">${element.currentPage}</a></li>`;
                         if (element.currentPage < element.totalPagesCount) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainSuperAdmin.getSuperAdminManager().globalSearchUser(${name}, ${element.nextPage}, ${usersperpage})">${element.nextPage}</button>`;
+                            htmlButtons += `<li class="page-item" onclick="mainSuperAdmin.getSuperAdminManager().globalSearchUser(${name}, ${element.nextPage}, ${usersperpage})"><a class="page-link" href="#">${element.nextPage}</a></li>`;
                         }
                         if (element.nextPage < element.totalPagesCount) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainSuperAdmin.getSuperAdminManager().globalSearchUser(${name}, ${element.totalPagesCount}, ${usersperpage})">Last Page - ${element.totalPagesCount}</button>`;
+                            htmlButtons += `<li class="page-item" onclick="mainSuperAdmin.getSuperAdminManager().globalSearchUser(${name}, ${element.totalPagesCount}, ${usersperpage})"><a class="page-link" href="#">Last Page - ${element.totalPagesCount}</a></li>`;
                         }
+                        htmlButtons += `</ul>`;
                     }
 
                     $('#paginationButtons_users').html(htmlButtons);
                 } else {
                     mainSuperAdmin.getSuperAdminManager()._allActualUsers.push(element);
-                    let $droits = " -- ";
+                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userNoRights') + "' ></i> ";
                     if (element.hasOwnProperty('rights')) {
-                        $droits = element.rights === "1" ? "Admin" : "Prof";
+                        $droits = element.rights === "1" ? "<i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userAdmin') + "' ></i>" :
+                        "<i class='fas fa-user fa-2x c-text-primary' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userTeacher') + "'></i>";
                     }
 
                     let div_img = ""
@@ -765,18 +778,24 @@ class SuperAdminManager {
                             <td>${$droits}</td>
                             <td>${div_img}</td>
                             <td>
-                                <button class="btn btn-info btn-sm" data-i18n="superadmin.buttons.reset" onclick="resetUserPassword(${element.id})">${i18next.t('superadmin.buttons.send')}</button>
+                                <a class="c-link-primary d-inline-block" href="#" onclick="resetUserPassword(${element.id})">
+                                    <i class="fas fa-redo-alt fa-2x"></i>
+                                </a>
                             </td>
                             <td>
-                                <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateUserModal(${element.id})">${i18next.t('superadmin.buttons.update')}</button>
+                                <a class="c-link-secondary" href="#" onclick="showupdateUserModal(${element.id})">
+                                    <i class="fas fa-pencil-alt fa-2x"></i>
+                                </a>
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUser(${element.id})">${i18next.t('superadmin.buttons.delete')}</button>
+                            <button class = "btn c-btn-red btn-sm" data-i18n="superadmin.buttons.delete" onclick="deleteUser(${element.id})">${i18next.t('superadmin.buttons.delete')} <i class="fas fa-user-minus"></i></button>
                             </td>
                         </tr>`;
                 }
             });
             $('#table_info_group_data').html($data_table);
+            $('[data-toggle="tooltip"]').tooltip()
+
         }
         $.ajax({
             type: "POST",
@@ -873,15 +892,16 @@ class SuperAdminManager {
                     ${div_img}
                 </td>
                 <td>
-                    <button class="btn btn-warning btn-sm" onclick="showupdateGroupModal(${element.id})">${i18next.t('superadmin.buttons.update')}</button>
+                    <a class="c-link-secondary" href="#" onclick="showupdateGroupModal(${element.id})"><i class="fas fa-pencil-alt fa-2x"></i></a>
                 </td>
                 <td>
-                    <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="deleteGroup(${element.id})">${i18next.t('superadmin.buttons.delete')}</button>
+                    <a class="c-link-red" href="#" onclick="deleteGroup(${element.id})"><i class="fas fa-trash-alt fa-2x"></i></a>
                 </td>
                 </tr>`;
             }
         });
         $('#groups_table_superadmin').html(data_table);
+        $('[data-toggle="tooltip"]').tooltip()
     }
 
     searchGroup($name, $page, $groupspp) {
@@ -934,15 +954,17 @@ class SuperAdminManager {
                                 ${div_img}
                             </td>
                             <td>
-                                <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateGroupModal(${element.id})">${i18next.t('superadmin.buttons.update')}</button>
+                                <a class="c-link-secondary" href="#" onclick="showupdateGroupModal(${element.id})"><i class="fas fa-pencil-alt fa-2x"></i></a>
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="deleteGroup(${element.id})">${i18next.t('superadmin.buttons.delete')}</button>
+                                <a class="c-link-red" href="#" onclick="deleteGroup(${element.id})"><i class="fas fa-trash-alt fa-2x"></i></a>
                             </td>
                         </tr>`;
                 }
             });
             $('#groups_table_superadmin').html(data_table);
+            $('[data-toggle="tooltip"]').tooltip()
+
         }
         $.ajax({
             type: "POST",

@@ -1306,17 +1306,19 @@ function showupdateUserModal(id) {
         if (res[0].hasOwnProperty('groups')) {
             for (let i = 0; i < res[0].groups.length; i++) {
                 mainSuperAdmin.getSuperAdminManager()._updatedUserGroup += 1;
-                let group = `<div class="input-group mb-3" id="update_u_actual_group${i}">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <input type="checkbox" id="update_u_is_group_admin${i}">
-                                        <label class="form-check-label mx-1" for="update_u_is_group_admin${i}">
-                                            Administrateur du groupe
-                                        </label>
+                let group = `<div class="form-group c-secondary-form">
+                                <div class="input-group mb-3" id="update_u_actual_group${i}">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text pl-5">
+                                            <input class="form-check-input" type="checkbox" id="update_u_is_group_admin${i}">
+                                            <label class="form-check-label mx-1" for="update_u_is_group_admin${i}" data-i18n="superadmin.users.groupAdmin">
+                                                Administrateur du groupe
+                                            </label>
+                                        </div>
                                     </div>
+                                    <select class="form-control" id="update_u_group${i}">
+                                    </select>
                                 </div>
-                                <select class="form-control" id="update_u_group${i}">
-                                </select>
                             </div>`;
                 $("#update_actualgroup_sa").append(group);
                 if (res[0].groups[i].rights == 1) {
@@ -1352,17 +1354,19 @@ function showupdateUserModal(id) {
 
         } else {
             mainSuperAdmin.getSuperAdminManager()._updatedUserGroup += 1;
-            let group = `<div class="input-group mb-3" id="update_u_actual_group0">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <input type="checkbox" id="update_u_is_group_admin0">
-                                    <label class="form-check-label mx-1" for="update_u_is_group_admin0">
-                                        Administrateur du groupe
-                                    </label>
+            let group = `<div class="form-group c-secondary-form">
+                            <div class="input-group mb-3" id="update_u_actual_group0">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text pl-5">
+                                        <input class="form-check-input" type="checkbox" id="update_u_is_group_admin0">
+                                        <label class="form-check-label mx-1" for="update_u_is_group_admin0" data-i18n="superadmin.users.groupAdmin">
+                                            Administrateur du groupe
+                                        </label>
+                                    </div>
                                 </div>
+                                <select class="form-control" id="update_u_group0">
+                                </select>
                             </div>
-                            <select class="form-control" id="update_u_group0">
-                            </select>
                         </div>`;
             $("#update_actualgroup_sa").append(group);
             const item_id = 'update_u_group0';
@@ -1546,7 +1550,7 @@ function tempoAndShowGroupTableGroupAdmin() {
 
 function switchToSuperAdmin() {
     //mainSuperAdmin.init();
-    $('body').addClass('theme-super-admin').removeClass( "theme-group-admin theme-teacher" )
+    $('body').addClass('theme-super-admin').removeClass("theme-group-admin theme-teacher")
     navigatePanel('classroom-dashboard-profil-panel-superadmin', 'dashboard-profil-superadmin');
     $('#classroom-dashboard-sidebar-teacher').hide();
     $('#groupadmin-dashboard-sidebar').hide();
@@ -1556,7 +1560,7 @@ function switchToSuperAdmin() {
 
 function switchToGroupAdmin() {
     //mainGroupAdmin.init();
-    $('body').addClass('theme-group-admin').removeClass( "theme-super-admin theme-teacher" )
+    $('body').addClass('theme-group-admin').removeClass("theme-super-admin theme-teacher")
     navigatePanel('classroom-dashboard-profil-panel-groupadmin', 'dashboard-profil-groupadmin');
     $('#classroom-dashboard-sidebar-teacher').hide();
     $('#superadmin-dashboard-sidebar').hide();
@@ -1565,7 +1569,7 @@ function switchToGroupAdmin() {
 }
 
 function switchToProf() {
-    $('body').addClass('theme-teacher').removeClass( "theme-group-admin theme-super-admin" )
+    $('body').addClass('theme-teacher').removeClass("theme-group-admin theme-super-admin")
     navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher');
     $('#superadmin-dashboard-sidebar').hide();
     $('#groupadmin-dashboard-sidebar').hide();
@@ -1769,53 +1773,56 @@ function optionsGroupApplications($type) {
             if (!$infoapp) {
                 stringhtml += `<div class="form-check">
                 <input class="form-check-input app" type="checkbox" value="${element.id}" id="application_${element.id}">
-                <label class="form-check-label" for="application_${element.id}">
+                <label class="form-check-label font-weight-bold mb-2" for="application_${element.id}">
                     ${element.name}
                 </label>
                 <br>
-                <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
-                <input type="date" id="begin_date_${element.id}" name="trip-start" value="${new Date()}" min="${new Date()}" max="2023-12-31">
-                <br>
-                <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
-                <input type="date" id="end_date_${element.id}" name="trip-start" min="0" max="2025-12-31">
-                    <br>
+                <div class="activity-add-form c-secondary-form">
+                    <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
+                    <input type="date" id="begin_date_${element.id}" name="trip-start" value="${new Date()}" min="${new Date()}" max="2023-12-31">
+                    
+                    <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
+                    <input type="date" id="end_date_${element.id}" name="trip-start" min="0" max="2025-12-31">
+
                     <label class="form-check-label" for="max_students_per_teachers_${element.id}">${i18next.t('superadmin.group.studentsPerTeacher')}</label>
                     <input type="number" id="max_students_per_teachers_${element.id}">
-                    <br>
+
                     <label class="form-check-label" for="max_students_per_groups_${element.id}">${i18next.t('superadmin.group.studentsPerGroup')}</label>
                     <input type="number" id="max_students_per_groups_${element.id}">
-                    <br>
+
                     <label class="form-check-label" for="max_teachers_per_groups_${element.id}">${i18next.t('superadmin.group.teachersPerGroup')}</label>
                     <input type="number" id="max_teachers_per_groups_${element.id}">
-                    <br>
-                </div>`;
+                </div>
+                </div><hr>`;
             } else {
                 let dateBegin = new Date($infoapp.date_begin).toISOString().split('T')[0],
                     dateEnd = new Date($infoapp.date_end).toISOString().split('T')[0];
 
                 stringhtml += `<div class="form-check">
                 <input class="form-check-input app" type="checkbox" checked value="${element.id}" id="application_${element.id}">
-                <label class="form-check-label" for="application_${element.id}">
+                <label class="form-check-label font-weight-bold mb-2" for="application_${element.id}">
                     ${element.name}
                 </label>
                 <br>
-                <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
-                <input type="date" id="begin_date_${element.id}" name="trip-start" value="${dateBegin}"
-                    max="2023-12-31">
-                <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
-                <input type="date" id="end_date_${element.id}" name="trip-start" value="${dateEnd}"
-                    max="2025-12-31">
-                <br>
-                <label class="form-check-label" for="max_students_per_teachers_${element.id}">${i18next.t('superadmin.group.studentsPerTeacher')}</label>
-                <input type="number" id="max_students_per_teachers_${element.id}" value="${$infoapp.max_students_per_teachers}">
-                <br>
-                <label class="form-check-label" for="max_students_per_groups_${element.id}">${i18next.t('superadmin.group.studentsPerGroup')}</label>
-                <input type="number" id="max_students_per_groups_${element.id}" value="${$infoapp.max_students_per_groups}">
-                <br>
-                <label class="form-check-label" for="max_teachers_per_groups_${element.id}">${i18next.t('superadmin.group.teachersPerGroup')}</label>
-                <input type="number" id="max_teachers_per_groups_${element.id}" value="${$infoapp.max_teachers_per_groups}">
-                <br>
-                </div>`;
+                <div class="activity-add-form c-secondary-form">
+                    <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
+                    <input type="date" id="begin_date_${element.id}" name="trip-start" value="${dateBegin}"
+                        max="2023-12-31">
+
+                    <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
+                    <input type="date" id="end_date_${element.id}" name="trip-start" value="${dateEnd}"
+                        max="2025-12-31">
+
+                    <label class="form-check-label" for="max_students_per_teachers_${element.id}">${i18next.t('superadmin.group.studentsPerTeacher')}</label>
+                    <input type="number" id="max_students_per_teachers_${element.id}" value="${$infoapp.max_students_per_teachers}">
+
+                    <label class="form-check-label" for="max_students_per_groups_${element.id}">${i18next.t('superadmin.group.studentsPerGroup')}</label>
+                    <input type="number" id="max_students_per_groups_${element.id}" value="${$infoapp.max_students_per_groups}">
+
+                    <label class="form-check-label" for="max_teachers_per_groups_${element.id}">${i18next.t('superadmin.group.teachersPerGroup')}</label>
+                    <input type="number" id="max_teachers_per_groups_${element.id}" value="${$infoapp.max_teachers_per_groups}">
+                </div>
+                </div><hr>`;
             }
 
         });
@@ -1937,18 +1944,22 @@ function showupdateUserModal_groupadmin(user_id) {
             if (res[0].hasOwnProperty('groups')) {
                 for (let i = 0; i < res[0].groups.length; i++) {
                     mainGroupAdmin.getGroupAdminManager()._updatedUserGroup += 1;
-                    let group = `<div class="input-group mb-3" id="update_u_actual_group_ga${i}">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <input type="checkbox" id="update_u_is_group_admin_ga${i}">
-                                            <label class="form-check mx-1" for="update_u_is_group_admin_ga${i}">
-                                                Administrateur du groupe
-                                            </label>
+                    let group = `<div class="form-group c-secondary-form">
+                                    <div class="input-group mb-3" id="update_u_actual_group_ga${i}">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="checkbox" id="update_u_is_group_admin_ga${i}">
+                                                <label class="form-check mx-1" for="update_u_is_group_admin_ga${i}">
+                                                    Administrateur du groupe
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <select class="form-control" id="update_u_group_ga${i}">
+                                        </select>
+                                        <div class="input-group-append">
+                                            <button class="btn c-btn-red" onclick="deleteGroupFromUpdateGroupAdmin(${i})">Supprimer</button>
                                         </div>
                                     </div>
-                                    <select class="form-control" id="update_u_group_ga${i}">
-                                    </select>
-                                    <button class="btn btn-danger ml-1" onclick="deleteGroupFromUpdateGroupAdmin(${i})">Supprimer</button>
                                 </div>`;
                     $("#update_actualgroup_ga").append(group);
                     if (res[0].groups[i].rights == 1) {

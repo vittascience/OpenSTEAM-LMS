@@ -100,7 +100,9 @@ class GroupAdminManager {
                             ${div_img}
                         </td>
                         <td>
-                            <button class="btn btn-info btn-sm" onclick="getGroupLinkGA(${element.id})">${i18next.t('superadmin.buttons.show')}</button>
+                            <a class="c-link-tertiary" href="#" onclick="getGroupLinkGA(${element.id})" alt="${i18next.t('superadmin.buttons.show')}">
+                                <i class="fas fa-link fa-2x"></i>
+                            </a>
                         </td>
                     </tr>`;
                 $('#groups_table_groupadmin').html(data_table);
@@ -146,9 +148,10 @@ class GroupAdminManager {
                     }
                     $('#paginationButtons_users_groupadmin').html(htmlButtons);
                 } else {
-                    let $droits = " -- ";
+                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userNoRights') + "'></i>";
                     if (element.hasOwnProperty('rights')) {
-                        $droits = element.rights === "1" ? "Admin" : "Prof";
+                        $droits = element.rights === "1" ? "<i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userAdmin') + "' ></i>" :
+                        "<i class='fas fa-user fa-2x c-text-primary' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userTeacher') + "'></i>";
                     }
 
                     let div_img = ""
@@ -168,18 +171,23 @@ class GroupAdminManager {
                         <td>${$droits}</td>
                         <td>${div_img}</td>
                         <td>
-                            <button class="btn btn-info btn-sm" data-i18n="superadmin.buttons.reset" onclick="resetUserPasswordga(${element.id})">${i18next.t('superadmin.buttons.send')}</button>
+                            <a class="c-link-primary d-inline-block" href="#" onclick="resetUserPasswordga(${element.id})">
+                                <i class="fas fa-redo-alt fa-2x"></i>
+                            </a>
                         </td>
                         <td>
-                            <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateUserModal_groupadmin(${element.id})">${i18next.t('superadmin.buttons.update')}</button>
+                            <a class="c-link-secondary" href="#" onclick="showupdateUserModal_groupadmin(${element.id})">
+                                <i class="fas fa-pencil-alt fa-2x"></i>
+                            </a>
                         </td>
                         <td>
-                            <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('superadmin.buttons.delete')}</button>
+                            <button class="btn c-btn-red btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('superadmin.buttons.delete')} <i class="fas fa-user-minus"></i></button>
                         </td>
                     </tr>`;
                 }
             });
             $('#table_info_group_data_groupadmin').html($data_table);
+            $('[data-toggle="tooltip"]').tooltip()
         }
         $.ajax({
             type: "POST",
@@ -228,9 +236,10 @@ class GroupAdminManager {
 
                     $('#paginationButtons_users_groupadmin').html(htmlButtons);
                 } else {
-                    let $droits = " -- ";
+                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userNoRights') + "'></i>";
                     if (element.hasOwnProperty('rights')) {
-                        $droits = element.rights === "1" ? "Admin" : "Prof";
+                        $droits = element.rights === "1" ? "<i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userAdmin') + "' ></i>" :
+                        "<i class='fas fa-user fa-2x c-text-primary' data-toggle='tooltip' data-placement='top' title='" + i18next.t('superadmin.table.userTeacher') + "'></i>";
                     }
 
                     let div_img = ""
@@ -251,18 +260,23 @@ class GroupAdminManager {
                             <td>${$droits}</td>
                             <td>${div_img}</td>
                             <td>
-                                <button class="btn btn-info btn-sm" data-i18n="superadmin.buttons.reset" onclick="resetUserPassword(${element.id})">${i18next.t('superadmin.buttons.send')}</button>
+                                <a class="c-link-primary d-inline-block" href="#" onclick="resetUserPasswordga(${element.id})">
+                                <i class="fas fa-redo-alt fa-2x"></i>
+                                </a>
                             </td>
                             <td>
-                                <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateUserModal_groupadmin(${element.id})">${i18next.t('superadmin.buttons.update')}</button>
+                                <a class="c-link-secondary" href="#" onclick="showupdateUserModal_groupadmin(${element.id})">
+                                <i class="fas fa-pencil-alt fa-2x"></i>
+                                </a>
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('superadmin.buttons.delete')}</button>
+                                <button class="btn c-btn-red btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('superadmin.buttons.delete')} <i class="fas fa-user-minus"></i></button>
                             </td>
                         </tr>`;
                 }
             });
             $('#table_info_group_data_groupadmin').html($data_table);
+            $('[data-toggle="tooltip"]').tooltip()
         }
         $.ajax({
             type: "POST",
