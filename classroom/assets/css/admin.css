@@ -14,6 +14,11 @@ fieldset.switch-to-admin legend {
 
 }
 
+.c-btn-dashboard {
+    color: var(--classroom-dashboard) !important;
+    border-color: var(--classroom-dashboard) !important;
+}
+
 /* ADMIN PANELS */
 
 
@@ -79,7 +84,7 @@ fieldset.switch-to-admin legend {
 }
 
 /* GROUP ADMIN */
-/* SUPER ADMIN */
+/* MANAGER */
 
 .activity-add-form {
     display: grid;

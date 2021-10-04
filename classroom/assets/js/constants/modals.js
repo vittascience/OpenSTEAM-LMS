@@ -104,7 +104,7 @@ const classroomModals = {
                                 <i class="fas fa-eye"></i> 
                                 <span data-i18n="manager.profil.onlyVisibleGroupAdmin">Uniquement visible par vous en tant qu'administrateur de groupe :</span>
                             </legend>
-                            <button class="btn mb-2 c-btn-outline-primary" onclick="switchToGroupAdmin()" id="groupadmin-switch-button" style="display:none;"><span
+                            <button class="theme-group-admin btn mb-2 c-btn-outline-primary c-btn-dashboard" onclick="switchToGroupAdmin()" id="groupadmin-switch-button" style="display:none;"><span
                                     data-i18n="manager.profil.groupAdmin" class="text-span-initial mr-1"></span><i
                                     class="fas fa-cog"></i>
                             </button>
@@ -118,7 +118,7 @@ const classroomModals = {
                                         <i class="fas fa-eye"></i> 
                                         <span data-i18n="manager.profil.onlyVisiblemanager">Uniquement visible par vous en tant que super admin :</span>
                                     </legend>
-                                    <button class="btn mb-2 c-btn-outline-primary" onclick="switchTomanager()" id="manager-switch-button" style="display:none;">
+                                    <button class="theme-super-admin btn mb-2 c-btn-outline-primary c-btn-dashboard" onclick="switchTomanager()" id="manager-switch-button" style="display:none;">
                                         <span data-i18n="manager.profil.manager" class="text-span-initial mr-1"></span>
                                         <i class="fas fa-cog"></i>
                                 </button>
