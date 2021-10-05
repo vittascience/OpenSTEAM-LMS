@@ -347,8 +347,11 @@ const classroomModals = {
     <hr>
     
     <div class="form-group c-secondary-form">
+        <label for="u_group" data-i18n="manager.profil.group">Groupe</label>
         <div class="input-group mb-3">
-            <div class="input-group-prepend">
+            <select class="form-control" id="u_group">
+            </select>
+            <div class="input-group-append">
                 <div class="input-group-text pl-5">
                     <input class="form-check-input" type="checkbox" id="u_is_group_admin">
                     <label class="form-check-label" for="u_is_group_admin" data-i18n="manager.users.groupAdmin">
@@ -357,8 +360,6 @@ const classroomModals = {
                 </div>
             </div>
     
-            <select class="form-control" id="u_group">
-            </select>
         </div>
     
     </div>

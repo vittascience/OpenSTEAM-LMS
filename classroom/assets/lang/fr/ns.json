@@ -895,6 +895,8 @@
 			"manager": "Passer en mode manager",
 			"groupAdmin": "Passer en mode administrateur de groupe",
 			"bio": "Bio",
+			"group": "Groupe",
+			"apps": "Applications",
 			"email": "E-mail <span class=\"c-text-red\">*</span>",
 			"nickname": "Pseudo",
 			"lastname": "Nom <span class=\"c-text-red\">*</span>",
