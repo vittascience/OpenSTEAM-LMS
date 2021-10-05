@@ -461,6 +461,8 @@ const classroomModals = {
         <div id="update_actualgroup_sa">
         </div>
     
+        <hr>
+
         <div id="update_applications_sa">
         </div>
     </div>
@@ -609,6 +611,8 @@ const classroomModals = {
         <div id="update_actualgroup_ga">
         </div>
     
+        <hr>
+
         <div id="update_applications_ga">
         </div>
     </div>

@@ -1331,6 +1331,7 @@ function showupdateUserModal(id) {
             }
 
             let html = "";
+            html += "<label data-i18n='manager.profil.apps'>Applications</label>";
             mainManager.getmanagerManager()._comboGroups.forEach(element => {
                 if (element.id == mainManager.getmanagerManager()._actualGroup) {
                     element.applications.forEach(application => {
@@ -1894,6 +1895,7 @@ function showupdateUserModal_groupadmin(user_id) {
             $('#update_u_phone_ga').val(res[0].telephone);
 
             let html = "";
+            html += "<label data-i18n='manager.profil.apps'>Applications</label>";
             mainGroupAdmin.getGroupAdminManager()._comboGroups.forEach(element => {
                 if (element.id == mainGroupAdmin.getGroupAdminManager()._actualGroup) {
                     element.applications.forEach(application => {
