@@ -771,6 +771,13 @@ class managerManager {
                         });
                     }
 
+                    let rowDelete = "";
+                    if (element.active != "1") {
+                        rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="deleteUser(${element.id})">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>`;
+                    } else {
+                        rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="manager.buttons.disable" onclick="disableUser(${element.id})">${i18next.t('manager.buttons.disable')} <i class="fas fa-user-lock"></i></button>`;
+                    }
+
                     $data_table +=
                         `<tr>
                             <td>${element.surname}</td>
@@ -788,7 +795,7 @@ class managerManager {
                                 </a>
                             </td>
                             <td>
-                            <button class = "btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="deleteUser(${element.id})">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
+                                ${rowDelete}
                             </td>
                         </tr>`;
                 }
