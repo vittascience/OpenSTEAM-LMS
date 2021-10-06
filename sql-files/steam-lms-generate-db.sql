@@ -161,7 +161,8 @@ CREATE TABLE `learn_activities` (
   `id_user` int(11) DEFAULT NULL,
   `is_from_classroom` tinyint(1) NOT NULL DEFAULT 0,
   `title` varchar(1000) COLLATE utf8_unicode_ci DEFAULT 'No title',
-  `content` varchar(10000) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'No content'
+  `content` varchar(10000) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'No content',
+  `type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
