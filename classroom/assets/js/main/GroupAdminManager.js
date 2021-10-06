@@ -72,9 +72,6 @@ class GroupAdminManager {
             $.ajax({
                 type: "POST",
                 url: "/routing/Routing.php?controller=groupadmin&action=get_group_id",
-                data: {
-                    group_id: group_id
-                },
                 success: function (response) {
                     resolve(JSON.parse(response));
                 },
@@ -94,10 +91,10 @@ class GroupAdminManager {
     getGroupsUserAdmin() {
         const process = (data) => {
             let data_table = "";
-            mainGroupAdmin.getGroupAdminManager()._comboGroups = data;
+            this._comboGroups = data;
             data.forEach(element => {
                 // there is only one group possible
-                mainGroupAdmin.getGroupAdminManager()._actualGroup = element.id;
+                this._actualGroup = element.id;
                 let div_img = ""
                 if (element.hasOwnProperty('applications')) {
                     element.applications.forEach(element_2 => {
@@ -123,11 +120,11 @@ class GroupAdminManager {
                     </tr>`;
                 $('#groups_table_groupadmin').html(data_table);
             });
-
+            this.getUsersFromGroup(this._actualGroup, 1);
         }
         $.ajax({
             type: "POST",
-            url: "/routing/Routing.php?controller=groupadmin&action=get_all_group_where_user_is_admin",
+            url: "/routing/Routing.php?controller=groupadmin&action=get_all_groups_where_user_is_admin",
             success: function (response) {
                 process(JSON.parse(response));
             },

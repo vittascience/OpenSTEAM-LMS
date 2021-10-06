@@ -1132,9 +1132,8 @@ function updateAppForUser() {
     const process = (data) => {
         // Get the actual user's information
         let user = mainManager.getmanagerManager()._actualUserDetails;
-        $('#user_apps_update').html("");
-
-        let stringhtml = "";
+        $('#update_personal_apps_sa').html("");
+        let stringhtml = `<label>${i18next.t('manager.profil.personalApps')}</label>`;
         data.forEach(element => {
 
             let infoapp = "";
@@ -1181,18 +1180,13 @@ function updateAppForUser() {
                 </div>`;
             }
         });
-        $('#user_apps_update').html(stringhtml);
-        pseudoModal.openModal('manager-user-updateApp');
+        $('#update_personal_apps_sa').html(stringhtml);
+    }
 
-    }
-    if (mainManager.getmanagerManager()._allApplications == "") {
-        mainManager.getmanagerManager().getAllApplications().then((res) => {
-            mainManager.getmanagerManager()._allApplications = res;
-            process(res)
-        })
-    } else {
-        process(mainManager.getmanagerManager()._allApplications)
-    }
+    mainManager.getmanagerManager().getAllApplications().then((res) => {
+        mainManager.getmanagerManager()._allApplications = res;
+        process(res)
+    })
 }
 
 /* function getAllGroupsIfNotAlreadyLoaded() {
@@ -1234,6 +1228,8 @@ function showupdateUserModal(id) {
     let $groups = mainManager.getmanagerManager()._comboGroups;
     mainManager.getmanagerManager()._updatedUserGroup = 0;
     mainManager.getmanagerManager().getUserInfoWithHisGroups(id).then(function (res) {
+        //get the personal apps 
+        updateAppForUser();
         mainManager.getmanagerManager()._actualUserDetails = res;
         $("#update_actualgroup_sa").html("");
         $('#update_applications_sa').html("");
@@ -1460,8 +1456,7 @@ function updateUserModal() {
         JSON.stringify($ApplicationFromGroup)).then((response) => {
         if (response.message == "success") {
             displayNotification('#notif-div', "manager.users.userUpdated", "success");
-            pseudoModal.closeAllModal();
-            tempoAndShowUsersTable()
+            persistUpdateUserApp();
         } else if (response.message == "missing data") {
             displayNotification('#notif-div', "manager.account.missingData", "error");
         } else if (response.message == "maxStudentsFromTeacher") {
@@ -1571,7 +1566,8 @@ function switchToGroupAdmin() {
     $('#groupadmin-dashboard-sidebar').show();
 
     mainGroupAdmin.getGroupAdminManager().getGroupUserAdminId().then((response) => {
-        mainGroupAdmin.getGroupAdminManager()._actualGroup = response;
+        mainGroupAdmin.getGroupAdminManager()._actualGroup = response[0].id;
+        mainGroupAdmin.getGroupAdminManager().isGroupsApplicationsOutDated(response[0].id);
     })
     pseudoModal.closeAllModal();
 }
@@ -1877,15 +1873,13 @@ function createSubjectSelect(array, type) {
     }
 }
 
-$('#dashboard-groupadmin-users-side, #dashboard-groupadmin-apps').click(() => {
+$('#dashboard-groupadmin-users-side').click(() => {
+    //let actualGroup = mainGroupAdmin.getGroupAdminManager()._actualGroup;
     mainGroupAdmin.getGroupAdminManager().getGroupsUserAdmin();
 })
-$('#dashboard-groupadmin-users-side, #dashboard-groupadmin-apps').click(() => {
-    let actualGroup = mainGroupAdmin.getGroupAdminManager()._actualGroup;
-    mainGroupAdmin.getGroupAdminManager().getUsersFromGroup(actualGroup, 1);
-})
+
 $('#dashboard-groupadmin-apps').click(() => {
-    mainGroupAdmin.getGroupAdminManager().getGroupsUserAdmin();
+    getGroupMonitoring();
 })
 
 function showupdateUserModal_groupadmin(user_id) {
@@ -1963,7 +1957,7 @@ function showupdateUserModal_groupadmin(user_id) {
                     let group = `<div class="form-group c-secondary-form">
                                     <label for="update_u_group_ga${i}" data-i18n="manager.profil.group">Groupe</label>
                                     <div class="input-group mb-3" id="update_u_actual_group_ga${i}">
-                                        <select class="form-control" id="update_u_group_ga${i}">
+                                        <select class="form-control" id="update_u_group_ga${i}" disabled>
                                         </select>
                                         <div class="input-group-append">
                                             <div class="input-group-text">
@@ -1973,11 +1967,9 @@ function showupdateUserModal_groupadmin(user_id) {
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="input-group-append">
-                                            <button class="btn c-btn-red" onclick="deleteGroupFromUpdateGroupAdmin(${i})">Supprimer</button>
-                                        </div>
                                     </div>
                                 </div>`;
+                                //flag
                     $("#update_actualgroup_ga").append(group);
                     if (res[0].groups[i].rights == 1) {
                         $('#update_u_is_group_admin_ga' + i).prop("checked", true);
@@ -1992,6 +1984,8 @@ function showupdateUserModal_groupadmin(user_id) {
         }
     });
 }
+
+
 
 function deleteGroupFromUpdateGroupAdmin(id) {
     mainGroupAdmin.getGroupAdminManager()._updatedUserGroup -= 1;
@@ -2077,14 +2071,26 @@ $('#create_user_link_to_group_groupadmin').click(function () {
         } else {
             pseudoModal.openModal('groupeadmin-create-user');
             // Bind functions to the selects who has been created
+
             $saved_groups = mainGroupAdmin.getGroupAdminManager()._comboGroups;
             let radioHTML = "";
+
+            
             $saved_groups.forEach(element => {
-                radioHTML += `<div class="form-check">
-                                <input class="form-check-input" type="radio" name="groupsRadio" id="groupRadio${element.id}" value="${element.id}" checked>
-                                <label class="form-check" for="groupRadio${element.id}">
-                                    ${element.name}
-                                </label>
+                radioHTML += `<div class="form-group c-secondary-form">
+                                <label for="create_u_group_ga" data-i18n="manager.profil.group">Groupe</label>
+                                <div class="input-group mb-3" id="create_u_actual_group_ga">
+                                    <select class="form-control" id="create_u_group_ga" disabled>
+                                        <option value="${element.id}">${element.name}</option></select>
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <input type="checkbox" id="checkboxAdmin">
+                                            <label class="form-check mx-1" for="checkboxAdmin">
+                                                Administrateur du groupe
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>`;
             });
             $('#allGroupsGA').html(radioHTML);
@@ -2127,7 +2133,7 @@ function createUserAndLinkToGroup_groupAdmin() {
         $teacher_suject = $('#user_teacher_subjects_ga').val(),
         $groups = [
             $('#checkboxAdmin').is(':checked'),
-            $(':checked[name="groupsRadio"]').val()
+            $('#create_u_group_ga').val()
         ];
 
     mainGroupAdmin.getGroupAdminManager().createUserAndLinkToGroup($firstname,
@@ -2386,13 +2392,13 @@ function getAndShowApps() {
                             <td>${application.description}</td>
                             <td>${application.image}</td>
                             <td>
-                                <a class="c-link-secondary" href="#" onclick="updateApp(${application.id})"><i class="fas fa-pencil-alt fa-2x"></i></a>
+                                <a class="c-link-secondary" onclick="updateApp(${application.id})"><i class="fas fa-pencil-alt fa-2x"></i></a>
                             </td>
                             <td>
-                                <a class="c-link-red" href="#" onclick="deleteApp(${application.id}, '${application.name}')"><i class="fas fa-trash-alt fa-2x"></i></a>
+                                <a class="c-link-red" onclick="deleteApp(${application.id}, '${application.name}')"><i class="fas fa-trash-alt fa-2x"></i></a>
                             </td>
                             <td>
-                                <a class="c-link-tertiary" href="#" onclick="activitiesRestrictionsCrud(${application.id})"><i class="fas fa-key fa-2x"></i></a>
+                                <a class="c-link-tertiary" onclick="activitiesRestrictionsCrud(${application.id})"><i class="fas fa-key fa-2x"></i></a>
                             </td>
                         </tr>`;
         });

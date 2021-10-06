@@ -465,10 +465,14 @@ const classroomModals = {
 
         <div id="update_applications_sa">
         </div>
+
+        <hr>
+
+        <div id="update_personal_apps_sa">
+        
+        </div>
     </div>
     
-    
-    <button class="btn btn-sm c-btn-outline-secondary" onclick="updateAppForUser()" id="update_app_user" data-i18n="manager.buttons.user.updateApp">Modifier les applications</button>
     <button class="btn c-btn-secondary" onclick="updateUserModal()" data-i18n="manager.buttons.user.update">Update user</button>`,
         footer: ``
     },
@@ -531,16 +535,8 @@ const classroomModals = {
                 <input type="text" class="form-control" id="u_school_ga">
             </div>
     
-    
-    
-            <div class="form-group ">
-                <legend class="col-form-label col-sm-2 pt-0">Groupes</legend>
-                <div class="col-sm-10" id="allGroupsGA">
-    
-                </div>
+            <div class="form-group col-md-12" id="allGroupsGA">
             </div>
-            <label class="form-check-label mx-2" for="checkboxAdmin" data-i18n="manager.users.groupAdmin"> Administateur du groupe </label>
-            <input type="checkbox" id="checkboxAdmin">
         </div>
     </div>
     
@@ -728,27 +724,6 @@ const classroomModals = {
                             </div>
                             <div class="row">
                                 <button class="btn btn-info mx-auto mt-3 btn" onclick="dismissModal()" data-i18n="manager.buttons.close">Fermer</button>
-                            </div>
-                        </div>
-                    </div>`,
-        footer: ``
-    },
-    'manager-user-updateApp': {
-        selector: '',
-        header: {
-            icon: '',
-            title: 'manager.users.updateApp'
-        },
-        content: `  <div id="delete-user-modal">
-                        <div class="col-12">
-                            <h3 class="font-weight-bold text-info m-auto text-center my-3" data-i18n="manager.users.updateAppUser">Modifier les applications de l'utilisateur</h3>
-                            <div class="row">
-                                <div class="form-group" id="user_apps_update">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <button class="btn btn-info mx-auto mt-3 btn" onclick="dismissModal()" data-i18n="manager.buttons.cancel">Annuler</button>
-                                <button class="btn btn-info mx-auto mt-3 btn" onclick="persistUpdateUserApp()" data-i18n="manager.buttons.save">Enregistrer</button>
                             </div>
                         </div>
                     </div>`,
