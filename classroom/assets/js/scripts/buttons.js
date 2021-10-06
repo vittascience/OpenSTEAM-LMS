@@ -2024,8 +2024,10 @@ function updateUserModalGroupAdmin() {
             displayNotification('#notif-div', "manager.account.missingData", "error");
         } else if (response.message == "maxStudentsFromTeacher") {
             displayNotification('#notif-div', "manager.group.toManyStudentsFromTheTeacher", "error");
-        } else if (response.message = "maxStudentsInGroup") {
+        } else if (response.message == "maxStudentsInGroup") {
             displayNotification('#notif-div', "manager.group.toManyStudentsInGroup", "error");
+        } else if (response.message == "outDated") {
+            displayNotification('#notif-div', "manager.apps.outDatedApp", "error");
         }
     });
     tempoAndShowUsersTableGroupAdmin();

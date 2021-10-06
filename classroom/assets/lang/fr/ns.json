@@ -1233,7 +1233,8 @@
 			"updateSuccess": "Application modifiée avec succès",
 			"createSuccess": "Application créée avec succès",
 			"deleteSuccess": "Application supprimée avec succès",
-			"deleteIntention": "Vous vous apprêtez à supprimer l'application : <span id=\"application_delete_name\"></span>"
+			"deleteIntention": "Vous vous apprêtez à supprimer l'application : <span id=\"application_delete_name\"></span>",
+			"outDatedApp": "L'application que vous souhaitez attribuer est périmé."
 		},
 		"activitiesRestrictions": {
 			"updateAll": "Modifier les restrictions",

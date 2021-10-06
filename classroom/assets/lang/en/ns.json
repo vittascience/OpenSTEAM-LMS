@@ -940,7 +940,8 @@
 			"updateSuccess": "App successfully updated",
 			"createSuccess": "App successfully created",
 			"deleteSuccess": "App successfully deleted",
-			"deleteIntention": "You are about to delete the app : <span id=\"application_delete_name\"></span>"
+			"deleteIntention": "You are about to delete the app : <span id=\"application_delete_name\"></span>",
+			"outDatedApp": "The app you want to assign is outdated."
 		},
 		"activitiesRestrictions": {
 			"updateAll": "Update restrictions",
