@@ -1569,6 +1569,10 @@ function switchToGroupAdmin() {
     $('#classroom-dashboard-sidebar-teacher').hide();
     $('#manager-dashboard-sidebar').hide();
     $('#groupadmin-dashboard-sidebar').show();
+
+    mainGroupAdmin.getGroupAdminManager().getGroupUserAdminId().then((response) => {
+        mainGroupAdmin.getGroupAdminManager()._actualGroup = response;
+    })
     pseudoModal.closeAllModal();
 }
 
@@ -1874,6 +1878,13 @@ function createSubjectSelect(array, type) {
 }
 
 $('#dashboard-groupadmin-users-side, #dashboard-groupadmin-apps').click(() => {
+    mainGroupAdmin.getGroupAdminManager().getGroupsUserAdmin();
+})
+$('#dashboard-groupadmin-users-side, #dashboard-groupadmin-apps').click(() => {
+    let actualGroup = mainGroupAdmin.getGroupAdminManager()._actualGroup;
+    mainGroupAdmin.getGroupAdminManager().getUsersFromGroup(actualGroup, 1);
+})
+$('#dashboard-groupadmin-apps').click(() => {
     mainGroupAdmin.getGroupAdminManager().getGroupsUserAdmin();
 })
 
