@@ -67,14 +67,19 @@ DisplayPanel.prototype.classroom_dashboard_ide_panel = function (option) {
 }
 
 DisplayPanel.prototype.classroom_dashboard_activities_panel = function () {
-    $('#header-table-bilan').html('<th style="max-width:200px" data-i18="classroom.navbar.activities"></th>')
-    $('#body-table-bilan').html('<td style="max-width:200px">')
-    $('table').localize()
-    $('#new-activities').html('')
-    $('#saved-activities').html('')
-    $('#current-activities').html('')
-    $('#done-activities-list').html('')
-    studentActivitiesDisplay()
+    $('#header-table-bilan').html('<th style="max-width:200px" data-i18="classroom.navbar.activities"></th>');
+    $('#body-table-bilan').html('<td style="max-width:200px">');
+    $('table').localize();
+    $('#new-activities').html('');
+    $('#saved-activities').html('');
+    $('#current-activities').html('');
+    $('#done-activities-list').html('');
+    // Refresh the activities
+    Main.getClassroomManager().getStudentActivities(Main.getClassroomManager())
+    .then(() => {
+        studentActivitiesDisplay();
+    });
+
 
 }
 DisplayPanel.prototype.classroom_dashboard_activities_panel_library_teacher = function () {
@@ -238,9 +243,12 @@ DisplayPanel.prototype.classroom_dashboard_form_classe_panel = function () {
 }
 
 DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function () {
-    ClassroomSettings.activity = false
-    teacherActivitiesDisplay()
-
+    ClassroomSettings.activity = false;
+    // Refresh the activities
+    Main.getClassroomManager().getTeacherActivities(Main.getClassroomManager())
+    .then(() => {
+        teacherActivitiesDisplay();
+    });
 }
 
 DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
