@@ -99,9 +99,9 @@ class GroupAdminManager {
                 if (element.hasOwnProperty('applications')) {
                     element.applications.forEach(element_2 => {
                         if (element_2.image != null) {
-                            div_img += `<img src="assets/media/${element_2.image}" alt="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                            div_img += `<img src="assets/media/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                         } else {
-                            div_img += `<img src="assets/media/nologo.jpg" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
+                            div_img += `<img src="assets/media/nologo.jpg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                         }
                     });
                 }
@@ -172,9 +172,9 @@ class GroupAdminManager {
                     if (element.hasOwnProperty('applicationsFromGroups')) {
                         element.applicationsFromGroups.forEach(element_2 => {
                             if (element_2.image != null) {
-                                div_img += `<img src="assets/media/${element_2.image}" alt="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="assets/media/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             } else {
-                                div_img += `<img src="assets/media/nologo.jpg" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="assets/media/nologo.jpg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             }
                         });
                     }
@@ -260,9 +260,9 @@ class GroupAdminManager {
                     if (element.hasOwnProperty('applicationsFromGroups')) {
                         element.applicationsFromGroups.forEach(element_2 => {
                             if (element_2.image != null) {
-                                div_img += `<img src="assets/media/${element_2.image}" alt="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="assets/media/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             } else {
-                                div_img += `<img src="assets/media/nologo.jpg" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="assets/media/nologo.jpg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             }
                         });
                     }
