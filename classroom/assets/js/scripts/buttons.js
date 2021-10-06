@@ -1148,16 +1148,18 @@ function updateAppForUser() {
             if (!infoapp) {
                 stringhtml += `<div class="form-check">
                 <input class="form-check-input appuser" type="checkbox" value="${element.id}" id="application_${element.id}">
-                <label class="form-check-label" for="application_${element.id}">
+                <label class="form-check-label font-weight-bold mb-2" style="color: var(--classroom-primary)" for="application_${element.id}" >
                     ${element.name}
                 </label>
                 <br>
-                <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
-                <input type="date" id="begin_date_${element.id}" name="trip-start" value="${new Date()}" min="${new Date()}" max="2023-12-31">
-                <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
-                <input type="date" id="end_date_${element.id}" name="trip-start" min="0" max="2025-12-31">
-                <label class="form-check-label" for="max_teacher_${element.id}">${i18next.t('manager.group.maxStudents')}</label>
-                <input type="number" id="max_teacher_${element.id}" value="0">
+                <div class="activity-add-form c-secondary-form">
+                    <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
+                    <input type="date" id="begin_date_${element.id}" name="trip-start" value="${new Date()}" min="${new Date()}" max="2023-12-31">
+                    <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
+                    <input type="date" id="end_date_${element.id}" name="trip-start" min="0" max="2025-12-31">
+                    <label class="form-check-label" for="max_teacher_${element.id}">${i18next.t('manager.group.maxStudents')}</label>
+                    <input type="number" id="max_teacher_${element.id}" value="0">
+                </div>
                 </div>`;
             } else {
                 let dateBegin = new Date(infoapp.date_begin).toISOString().split('T')[0],
@@ -1165,18 +1167,18 @@ function updateAppForUser() {
 
                 stringhtml += `<div class="form-check">
                 <input class="form-check-input appuser" type="checkbox" checked value="${element.id}" id="application_${element.id}">
-                <label class="form-check-label" for="application_${element.id}">
+                <label class="form-check-label font-weight-bold mb-2" style="color: var(--classroom-primary)" for="application_${element.id}">
                     ${element.name}
                 </label>
                 <br>
-                <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
-                <input type="date" id="begin_date_${element.id}" name="trip-start" value="${dateBegin}"
-                    max="2023-12-31">
-                <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
-                <input type="date" id="end_date_${element.id}" name="trip-start" value="${dateEnd}"
-                    max="2025-12-31">
-                <label class="form-check-label" for="max_teacher_${element.id}">${i18next.t('manager.group.maxStudents')}</label>
-                <input type="number" id="max_teacher_${element.id}" value="${infoapp.max_students}">
+                <div class="activity-add-form c-secondary-form">
+                    <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
+                    <input type="date" id="begin_date_${element.id}" name="trip-start" value="${dateBegin}" max="2023-12-31">
+                    <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
+                    <input type="date" id="end_date_${element.id}" name="trip-start" value="${dateEnd}" max="2025-12-31">
+                    <label class="form-check-label" for="max_teacher_${element.id}">${i18next.t('manager.group.maxStudents')}</label>
+                    <input type="number" id="max_teacher_${element.id}" value="${infoapp.max_students}">
+                </div>
                 </div>`;
             }
         });
@@ -2392,13 +2394,13 @@ function getAndShowApps() {
                             <td>${application.description}</td>
                             <td>${application.image}</td>
                             <td>
-                                <a class="c-link-secondary" onclick="updateApp(${application.id})"><i class="fas fa-pencil-alt fa-2x"></i></a>
+                                <a class="c-link-secondary" href="#" onclick="updateApp(${application.id})"><i class="fas fa-pencil-alt fa-2x"></i></a>
                             </td>
                             <td>
-                                <a class="c-link-red" onclick="deleteApp(${application.id}, '${application.name}')"><i class="fas fa-trash-alt fa-2x"></i></a>
+                                <a class="c-link-red" href="#" onclick="deleteApp(${application.id}, '${application.name}')"><i class="fas fa-trash-alt fa-2x"></i></a>
                             </td>
                             <td>
-                                <a class="c-link-tertiary" onclick="activitiesRestrictionsCrud(${application.id})"><i class="fas fa-key fa-2x"></i></a>
+                                <a class="c-link-tertiary" href="#" onclick="activitiesRestrictionsCrud(${application.id})"><i class="fas fa-key fa-2x"></i></a>
                             </td>
                         </tr>`;
         });

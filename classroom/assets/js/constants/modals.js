@@ -756,52 +756,56 @@ const classroomModals = {
             title: 'manager.users.updateApps'
         },
         content: `  <div id="update-applications-modal">
-                        <div class="col-12" id="update-app-manager" style="display:none;">
-                            <div class="row mt-1">
-                                <div class="col">
+                        <div class="container-fluid" id="update-app-manager" style="display:none;">
+                            <div class="form-row mt-1 c-secondary-form">
+                                <div class="col-md">
                                     <label for="app_update_name" data-i18n="manager.table.name">Name</label>
                                     <input type="text" class="form-control" id="app_update_name">
                                 </div>
-                                <div class="col">
+                                <div class="col-md">
                                     <label for="app_update_description" data-i18n="manager.table.description">Description</label>
                                     <input type="text" class="form-control" id="app_update_description">
                                 </div>
-                                <div class="col">
+                                <div class="col-md">
                                     <label for="app_update_image" data-i18n="manager.table.image">Image</label>
                                     <input type="text" class="form-control" id="app_update_image">
                                 </div>
                                 <input type="hidden" class="form-control" id="app_update_id">
                             </div>
-                            <button class="btn btn-primary my-3 btn" onclick="persistUpdateApp()" data-i18n="manager.buttons.update">Modifier</button>
-                            <button class="btn btn-info my-3 btn" onclick="closeModalAndCleanInput()" data-i18n="manager.buttons.cancel">Annuler</button>
+                            <button class="btn c-btn-secondary my-3 btn" onclick="persistUpdateApp()" data-i18n="manager.buttons.update">Modifier</button>
+                            <button class="btn c-btn-light my-3 btn" onclick="closeModalAndCleanInput()" data-i18n="manager.buttons.cancel">Annuler</button>
                         </div>
                         <div class="col-12" id="delete-app-manager" style="display:none;">
                             <h3 class="font-weight-bold text-danger m-auto text-center" data-i18n="manager.users.deleteConfirmationTitle">Confirmer la suppression</h3>
                             <p class="text-center" data-i18n="[html]manager.apps.deleteIntention"></p>
-                            <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>.
-                            <input type="hidden" name="validation_delete_application_id" id="validation_delete_application_id">
-                            <input type="text" name="validation_delete_application" id="validation_delete_application" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
-                            <button class="btn btn-danger mx-auto mt-3 btn-lg" onclick="persistDeleteApp()" data-i18n="manager.buttons.validate">Valider</button>
-                            <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInput()" data-i18n="manager.buttons.cancel">Annuler</button>
+                            <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>
+                            <div class="text-center c-secondary-form">
+                                <input type="hidden" name="validation_delete_application_id" id="validation_delete_application_id">
+                                <input type="text" name="validation_delete_application" id="validation_delete_application" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                            </div>
+                            <div class="text-center">
+                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInput()" data-i18n="manager.buttons.cancel">Annuler</button>
+                                <button class="btn c-btn-red mx-auto mt-3 btn-lg" onclick="persistDeleteApp()" data-i18n="manager.buttons.validate">Valider</button>
+                            </div>
                         </div>
-                        <div class="col-12" id="create-app-manager" style="display:none;">
-                            <div class="row mt-1">
-                                <div class="col">
+                        <div class="container-fluid" id="create-app-manager" style="display:none;">
+                            <div class="form-row mt-1 c-secondary-form">
+                                <div class="col-md">
                                     <label for="app_create_name" data-i18n="manager.table.name">Name</label>
                                     <input type="text" class="form-control" id="app_create_name">
                                 </div>
-                                <div class="col">
+                                <div class="col-md">
                                     <label for="app_create_description" data-i18n="manager.table.description">Description</label>
                                     <input type="text" class="form-control" id="app_create_description">
                                 </div>
-                                <div class="col">
+                                <div class="col-md">
                                     <label for="app_create_image" data-i18n="manager.table.image">Image</label>
                                     <input type="text" class="form-control" id="app_create_image">
                                 </div>
                                 <input type="hidden" class="form-control" id="app_create_id">
                             </div>
-                            <button class="btn btn-primary mx-auto mt-3 btn-lg" onclick="persistCreateApp()" data-i18n="manager.buttons.validate">Valider</button>
-                            <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInput()" data-i18n="manager.buttons.cancel">Annuler</button>
+                            <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistCreateApp()" data-i18n="manager.buttons.validate">Valider</button>
+                            <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInput()" data-i18n="manager.buttons.cancel">Annuler</button>
                         </div>
                     </div>`,
         footer: ``
@@ -813,43 +817,49 @@ const classroomModals = {
             title: 'manager.activitiesRestrictions.updateAll'
         },
         content: `  <div id="update-activities-restrictions-modal">
-                        <div class="col-12" id="update-activity-restrictions-manager" style="display:none;">
-                            <div class="row mt-1">
-                                <div class="col">
+                        <div class="container-fluid" id="update-activity-restrictions-manager" style="display:none;">
+                            <div class="form-row mt-1 c-secondary-form">
+                                <div class="col-md">
                                     <label for="activity_restrictions_update_type">Type activity</label>
                                     <input type="text" class="form-control" id="activity_restrictions_update_type">
                                 </div>
-                                <div class="col">
+                                <div class="col-md">
                                     <label for="activity_restrictions_update_maximum">Maximum</label>
                                     <input type="text" class="form-control" id="activity_restrictions_update_maximum">
                                 </div>
                                 <input type="hidden" class="form-control" id="activity_restrictions_id">
                             </div>
-                            <button class="btn btn-primary my-3 btn" onclick="persistUpdateRestriction()" data-i18n="manager.buttons.update">Modifier</button>
-                            <button class="btn btn-info my-3 btn" onclick="closeModalAndCleanInputActivityRestrictions()" data-i18n="manager.buttons.cancel">Annuler</button>
+                            <button class="btn c-btn-secondary my-3 btn" onclick="persistUpdateRestriction()" data-i18n="manager.buttons.update">Modifier</button>
+                            <button class="btn c-btn-light my-3 btn" onclick="closeModalAndCleanInputActivityRestrictions()" data-i18n="manager.buttons.cancel">Annuler</button>
                         </div>
+
                         <div class="col-12" id="delete-activity-restrictions-manager" style="display:none;">
                             <h3 class="font-weight-bold text-danger m-auto text-center" data-i18n="manager.users.deleteConfirmationTitle">Confirmer la suppression</h3>
                             <p class="text-center" data-i18n="[html]manager.activitiesRestrictions.deleteIntention"></p>
-                            <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>.
-                            <input type="hidden" name="validation_delete_restriction_id" id="validation_delete_restriction_id">
-                            <input type="text" name="validation_delete_restriction" id="validation_delete_restriction" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
-                            <button class="btn btn-danger mx-auto mt-3 btn-lg" onclick="persistDeleteRestriction()" data-i18n="manager.buttons.validate">Valider</button>
-                            <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInputActivityRestrictions()" data-i18n="manager.buttons.cancel">Annuler</button>
+                            <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>
+                            <div class="text-center c-secondary-form">
+                                <input type="hidden" name="validation_delete_restriction_id" id="validation_delete_restriction_id">
+                                <input type="text" name="validation_delete_restriction" id="validation_delete_restriction" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                            </div>
+                            <div class="text-center">
+                                <button class="btn c-btn-red mx-auto mt-3 btn-lg" onclick="persistDeleteRestriction()" data-i18n="manager.buttons.validate">Valider</button>
+                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInputActivityRestrictions()" data-i18n="manager.buttons.cancel">Annuler</button>
+                            </div>
                         </div>
-                        <div class="col-12" id="create-activity-restrictions-manager" style="display:none;">
-                            <div class="row mt-1">
-                                <div class="col">
+
+                        <div class="container-fluid" id="create-activity-restrictions-manager" style="display:none;">
+                            <div class="form-row mt-1 c-secondary-form">
+                                <div class="col-md">
                                     <label for="activity_restrictions_create_type">Type activity</label>
                                     <input type="text" class="form-control" id="activity_restrictions_create_type">
                                 </div>
-                                <div class="col">
+                                <div class="col-md">
                                     <label for="activity_restrictions_create_maximum">Maximum</label>
                                     <input type="text" class="form-control" id="activity_restrictions_create_maximum">
                                 </div>
                             </div>
-                            <button class="btn btn-primary mx-auto mt-3 btn-lg" onclick="persistCreateRestriction()" data-i18n="manager.buttons.validate">Valider</button>
-                            <button class="btn btn-info mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInputActivityRestrictions()" data-i18n="manager.buttons.cancel">Annuler</button>
+                            <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistCreateRestriction()" data-i18n="manager.buttons.validate">Valider</button>
+                            <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInputActivityRestrictions()" data-i18n="manager.buttons.cancel">Annuler</button>
                         </div>
                     </div>`,
         footer: ``
