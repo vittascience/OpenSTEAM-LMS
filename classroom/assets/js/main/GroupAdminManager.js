@@ -113,7 +113,7 @@ class GroupAdminManager {
                             ${div_img}
                         </td>
                         <td>
-                            <a class="c-link-tertiary" href="#" onclick="getGroupLinkGA(${element.id})" alt="${i18next.t('manager.buttons.show')}">
+                            <a class="c-link-tertiary" href="javascript:void(0)" onclick="getGroupLinkGA(${element.id})" alt="${i18next.t('manager.buttons.show')}">
                                 <i class="fas fa-link fa-2x"></i>
                             </a>
                         </td>
@@ -185,12 +185,12 @@ class GroupAdminManager {
                         <td>${$droits}</td>
                         <td>${div_img}</td>
                         <td>
-                            <a class="c-link-primary d-inline-block" href="#" onclick="resetUserPasswordga(${element.id})">
+                            <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPasswordga(${element.id})">
                                 <i class="fas fa-redo-alt fa-2x"></i>
                             </a>
                         </td>
                         <td>
-                            <a class="c-link-secondary" href="#" onclick="showupdateUserModal_groupadmin(${element.id})">
+                            <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal_groupadmin(${element.id})">
                                 <i class="fas fa-pencil-alt fa-2x"></i>
                             </a>
                         </td>
@@ -274,12 +274,12 @@ class GroupAdminManager {
                             <td>${$droits}</td>
                             <td>${div_img}</td>
                             <td>
-                                <a class="c-link-primary d-inline-block" href="#" onclick="resetUserPasswordga(${element.id})">
+                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPasswordga(${element.id})">
                                 <i class="fas fa-redo-alt fa-2x"></i>
                                 </a>
                             </td>
                             <td>
-                                <a class="c-link-secondary" href="#" onclick="showupdateUserModal_groupadmin(${element.id})">
+                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal_groupadmin(${element.id})">
                                 <i class="fas fa-pencil-alt fa-2x"></i>
                                 </a>
                             </td>
