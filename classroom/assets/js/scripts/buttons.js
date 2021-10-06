@@ -1307,8 +1307,11 @@ function showupdateUserModal(id) {
             for (let i = 0; i < res[0].groups.length; i++) {
                 mainManager.getmanagerManager()._updatedUserGroup += 1;
                 let group = `<div class="form-group c-secondary-form">
+                                <label for="update_u_group${i}" data-i18n="manager.profil.group">Groupe</label>
                                 <div class="input-group mb-3" id="update_u_actual_group${i}">
-                                    <div class="input-group-prepend">
+                                    <select class="form-control" id="update_u_group${i}">
+                                    </select>
+                                    <div class="input-group-append">
                                         <div class="input-group-text pl-5">
                                             <input class="form-check-input" type="checkbox" id="update_u_is_group_admin${i}">
                                             <label class="form-check-label mx-1" for="update_u_is_group_admin${i}" data-i18n="manager.users.groupAdmin">
@@ -1316,8 +1319,6 @@ function showupdateUserModal(id) {
                                             </label>
                                         </div>
                                     </div>
-                                    <select class="form-control" id="update_u_group${i}">
-                                    </select>
                                 </div>
                             </div>`;
                 $("#update_actualgroup_sa").append(group);
@@ -1330,6 +1331,7 @@ function showupdateUserModal(id) {
             }
 
             let html = "";
+            html += "<label data-i18n='manager.profil.apps'>Applications</label>";
             mainManager.getmanagerManager()._comboGroups.forEach(element => {
                 if (element.id == mainManager.getmanagerManager()._actualGroup) {
                     element.applications.forEach(application => {
@@ -1355,8 +1357,11 @@ function showupdateUserModal(id) {
         } else {
             mainManager.getmanagerManager()._updatedUserGroup += 1;
             let group = `<div class="form-group c-secondary-form">
+                            <label for="update_u_group0" data-i18n="manager.profil.group">Groupe</label>
                             <div class="input-group mb-3" id="update_u_actual_group0">
-                                <div class="input-group-prepend">
+                                <select class="form-control" id="update_u_group0">
+                                </select>
+                                <div class="input-group-append">
                                     <div class="input-group-text pl-5">
                                         <input class="form-check-input" type="checkbox" id="update_u_is_group_admin0">
                                         <label class="form-check-label mx-1" for="update_u_is_group_admin0" data-i18n="manager.users.groupAdmin">
@@ -1364,8 +1369,7 @@ function showupdateUserModal(id) {
                                         </label>
                                     </div>
                                 </div>
-                                <select class="form-control" id="update_u_group0">
-                                </select>
+                                
                             </div>
                         </div>`;
             $("#update_actualgroup_sa").append(group);
@@ -1773,7 +1777,7 @@ function optionsGroupApplications($type) {
             if (!$infoapp) {
                 stringhtml += `<div class="form-check">
                 <input class="form-check-input app" type="checkbox" value="${element.id}" id="application_${element.id}">
-                <label class="form-check-label font-weight-bold mb-2" for="application_${element.id}">
+                <label class="form-check-label font-weight-bold mb-2" for="application_${element.id}" style="color: var(--classroom-primary)">
                     ${element.name}
                 </label>
                 <br>
@@ -1800,7 +1804,7 @@ function optionsGroupApplications($type) {
 
                 stringhtml += `<div class="form-check">
                 <input class="form-check-input app" type="checkbox" checked value="${element.id}" id="application_${element.id}">
-                <label class="form-check-label font-weight-bold mb-2" for="application_${element.id}">
+                <label class="form-check-label font-weight-bold mb-2" for="application_${element.id}" style="color: var(--classroom-primary)">
                     ${element.name}
                 </label>
                 <br>
@@ -1891,6 +1895,7 @@ function showupdateUserModal_groupadmin(user_id) {
             $('#update_u_phone_ga').val(res[0].telephone);
 
             let html = "";
+            html += "<label data-i18n='manager.profil.apps'>Applications</label>";
             mainGroupAdmin.getGroupAdminManager()._comboGroups.forEach(element => {
                 if (element.id == mainGroupAdmin.getGroupAdminManager()._actualGroup) {
                     element.applications.forEach(application => {
@@ -1945,8 +1950,11 @@ function showupdateUserModal_groupadmin(user_id) {
                 for (let i = 0; i < res[0].groups.length; i++) {
                     mainGroupAdmin.getGroupAdminManager()._updatedUserGroup += 1;
                     let group = `<div class="form-group c-secondary-form">
+                                    <label for="update_u_group_ga${i}" data-i18n="manager.profil.group">Groupe</label>
                                     <div class="input-group mb-3" id="update_u_actual_group_ga${i}">
-                                        <div class="input-group-prepend">
+                                        <select class="form-control" id="update_u_group_ga${i}">
+                                        </select>
+                                        <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <input type="checkbox" id="update_u_is_group_admin_ga${i}">
                                                 <label class="form-check mx-1" for="update_u_is_group_admin_ga${i}">
@@ -1954,8 +1962,6 @@ function showupdateUserModal_groupadmin(user_id) {
                                                 </label>
                                             </div>
                                         </div>
-                                        <select class="form-control" id="update_u_group_ga${i}">
-                                        </select>
                                         <div class="input-group-append">
                                             <button class="btn c-btn-red" onclick="deleteGroupFromUpdateGroupAdmin(${i})">Supprimer</button>
                                         </div>

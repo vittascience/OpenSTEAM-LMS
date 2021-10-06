@@ -229,11 +229,11 @@ const classroomModals = {
         },
         content: ` <div class="form-group c-secondary-form">
                         <label for="group_name" data-i18n="manager.group.name">Group name</label>
-                        <input type="text" class="form-control m-0" id="group_name">
+                        <input type="text" class="form-control m-0" id="group_name" data-i18n="[placeholder]manager.group.academy">
                     </div>
                     <div class="form-group c-secondary-form">
                         <label for="group_desc" data-i18n="manager.group.description">Group description</label>
-                        <input type="text" class="form-control m-0" id="group_desc">
+                        <textarea rows="2" class="form-control m-0" id="group_desc"></textarea>
                     </div>
                     <label for="group_apps_options" data-i18n="manager.group.applications">Application(s) du groupe</label>
                     <div class="form-group" id="group_apps_options">
@@ -249,11 +249,11 @@ const classroomModals = {
         },
         content: `  <div class="form-group c-secondary-form">
                         <label for="group_name" data-i18n="manager.group.name">Group name</label>
-                        <input type="text" class="form-control" id="upd_group_name">
+                        <input type="text" class="form-control" id="upd_group_name" data-i18n="[placeholder]manager.group.academy">
                     </div>
                     <div class="form-group c-secondary-form">
                         <label for="upd_group_desc" data-i18n="manager.group.description">Group description</label>
-                        <input type="text" class="form-control" id="upd_group_desc">
+                        <textarea rows="2" class="form-control" id="upd_group_desc"></textarea>
                     </div>
                     <div class="form-group c-secondary-form">
                         <label for="upd_group_link" data-i18n="manager.group.link">Group link</label>
@@ -347,8 +347,11 @@ const classroomModals = {
     <hr>
     
     <div class="form-group c-secondary-form">
+        <label for="u_group" data-i18n="manager.profil.group">Groupe</label>
         <div class="input-group mb-3">
-            <div class="input-group-prepend">
+            <select class="form-control" id="u_group">
+            </select>
+            <div class="input-group-append">
                 <div class="input-group-text pl-5">
                     <input class="form-check-input" type="checkbox" id="u_is_group_admin">
                     <label class="form-check-label" for="u_is_group_admin" data-i18n="manager.users.groupAdmin">
@@ -357,8 +360,6 @@ const classroomModals = {
                 </div>
             </div>
     
-            <select class="form-control" id="u_group">
-            </select>
         </div>
     
     </div>
@@ -460,6 +461,8 @@ const classroomModals = {
         <div id="update_actualgroup_sa">
         </div>
     
+        <hr>
+
         <div id="update_applications_sa">
         </div>
     </div>
@@ -608,6 +611,8 @@ const classroomModals = {
         <div id="update_actualgroup_ga">
         </div>
     
+        <hr>
+
         <div id="update_applications_ga">
         </div>
     </div>
