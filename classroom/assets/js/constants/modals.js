@@ -742,12 +742,15 @@ const classroomModals = {
         content: `  <div id="delete-user-modal">
                         <div class="col-12">
                             <h3 class="font-weight-bold text-info m-auto text-center my-3" data-i18n="manager.group.showLinkTitle">Lien du groupe</h3>
-                            <div class="row">
-                                    <input type="text" class="form-control col-10" id="groupLink">
-                                    <button class="btn btn-primary mx-1 btn-lg col" onclick="copyLink('#groupLink')" data-i18n="manager.buttons.copyLink">Copy the link</button>
+                            <div class="input-group c-secondary-form">
+                                <input type="text" class="form-control" id="groupLink">
+                                <div class="input-group-append">
+                                    <button class="btn c-btn-secondary" onclick="copyLink('#groupLink')" data-i18n="manager.buttons.copyLink">Copy the link</button>
+                                </div>
                             </div>
+
                             <div class="row">
-                                <button class="btn btn-info mx-auto mt-3 btn" onclick="dismissModal()" data-i18n="manager.buttons.close">Fermer</button>
+                                <button class="btn c-btn-light mx-auto mt-3 btn" onclick="dismissModal()" data-i18n="manager.buttons.close">Fermer</button>
                             </div>
                         </div>
                     </div>`,
