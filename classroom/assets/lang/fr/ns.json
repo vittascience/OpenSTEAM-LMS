@@ -1238,7 +1238,10 @@
 			"createSuccess": "Application créée avec succès",
 			"deleteSuccess": "Application supprimée avec succès",
 			"deleteIntention": "Vous vous apprêtez à supprimer l'application : <span id=\"application_delete_name\"></span>",
-			"outDatedApp": "L'application que vous souhaitez attribuer est périmé."
+			"outDatedApp": "L'application que vous souhaitez attribuer est périmé.",
+			"infoMaxStudentsPerTeachers": "Détermine le nombre d'élèves qu'un enseignant faisant partie du groupe pourra avoir au maximum.",
+			"infoMaxStudentsPerGroups": "Détermine le nombre d'élèves que le groupe pourra avoir au maximum (En additionnant le total d'élèves des professeurs disposant de cette application)",
+			"infoMaxTeachers": "Détermine le nombre maximum de professeurs pouvant disposer de l'application dans ce groupe"
 		},
 		"activitiesRestrictions": {
 			"updateAll": "Modifier les restrictions",

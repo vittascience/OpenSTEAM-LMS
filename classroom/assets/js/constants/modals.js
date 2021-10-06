@@ -366,6 +366,10 @@ const classroomModals = {
     
     <div id="group_add_sa">
     </div>
+
+    <div id="create_update_personal_apps_sa">
+        
+    </div>
     
     <button class="btn c-btn-secondary" onclick="createUserAndLinkToGroup()" data-i18n="manager.buttons.user.create">Create user</button>
     </div>`,

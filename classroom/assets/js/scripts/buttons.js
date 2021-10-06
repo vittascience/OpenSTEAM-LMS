@@ -1036,7 +1036,7 @@ $('#create_user_link_to_group_manager').click(function () {
     $('#user_teacher_subjects').prop('selectedIndex', 0);
     $('#u_is_group_admin').prop("checked", false);
 
-
+    updateAppForUser(0);
     pseudoModal.openModal('manager-create-user');
     // Bind function to select
     $("#u_is_teacher").change(() => {
@@ -1128,11 +1128,15 @@ function appendSelectGroups(obj, item_id) {
     }
 }
 
-function updateAppForUser() {
+function updateAppForUser(methodName = "update") {
     const process = (data) => {
         // Get the actual user's information
         let user = mainManager.getmanagerManager()._actualUserDetails;
-        $('#update_personal_apps_sa').html("");
+        if (methodName == "update") {
+            $('#update_personal_apps_sa').html("");
+        } else {
+            $('#create_update_personal_apps_sa').html("");
+        }
         let stringhtml = `<label>${i18next.t('manager.profil.personalApps')}</label>`;
         data.forEach(element => {
 
@@ -1182,7 +1186,12 @@ function updateAppForUser() {
                 </div>`;
             }
         });
-        $('#update_personal_apps_sa').html(stringhtml);
+
+        if (methodName == "update") {
+            $('#update_personal_apps_sa').html(stringhtml);
+        } else {
+            $('#create_update_personal_apps_sa').html(stringhtml);
+        }
     }
 
     mainManager.getmanagerManager().getAllApplications().then((res) => {
@@ -1199,8 +1208,11 @@ function updateAppForUser() {
 
 
 
-function persistUpdateUserApp() {
-    let user = mainManager.getmanagerManager()._actualUserDetails[0].id;
+function persistUpdateUserApp(user = 0) {
+    if (user == 0) {
+        user = mainManager.getmanagerManager()._actualUserDetails[0].id;
+
+    }
     let ApplicationsData = [];
     $("input:checkbox.form-check-input.appuser").each(function (element) {
         const ApplicationTemp = [
@@ -1790,13 +1802,13 @@ function optionsGroupApplications($type) {
                     <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
                     <input type="date" id="end_date_${element.id}" name="trip-start" min="0" max="2025-12-31">
 
-                    <label class="form-check-label" for="max_students_per_teachers_${element.id}">${i18next.t('manager.group.studentsPerTeacher')}</label>
+                    <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerTeachers')}" for="max_students_per_teachers_${element.id}"><i class="fas fa-info mx-1"></i>${i18next.t('manager.group.studentsPerTeacher')}</label>
                     <input type="number" id="max_students_per_teachers_${element.id}">
 
-                    <label class="form-check-label" for="max_students_per_groups_${element.id}">${i18next.t('manager.group.studentsPerGroup')}</label>
+                    <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerGroups')}" for="max_students_per_groups_${element.id}"><i class="fas fa-info mx-1"></i>${i18next.t('manager.group.studentsPerGroup')}</label>
                     <input type="number" id="max_students_per_groups_${element.id}">
 
-                    <label class="form-check-label" for="max_teachers_per_groups_${element.id}">${i18next.t('manager.group.teachersPerGroup')}</label>
+                    <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxTeachers')}" for="max_teachers_per_groups_${element.id}"><i class="fas fa-info mx-1"></i>${i18next.t('manager.group.teachersPerGroup')}</label>
                     <input type="number" id="max_teachers_per_groups_${element.id}">
                 </div>
                 </div><hr>`;
