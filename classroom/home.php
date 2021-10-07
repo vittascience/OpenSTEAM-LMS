@@ -15,8 +15,8 @@ $dotenv = Dotenv::createImmutable(__DIR__."/../");
 $dotenv->safeLoad();
 
 // load demoStudent name from .env file or set it to default demoStudent
-$demoStudent = !empty($_ENV['demoStudent'])
-                ? htmlspecialchars(strip_tags(trim($_ENV['demoStudent'])))
+$demoStudent = !empty($_ENV['VS_DEMOSTUDENT'])
+                ? htmlspecialchars(strip_tags(trim($_ENV['VS_DEMOSTUDENT'])))
                 : 'demostudent';
 
 if (isset($_SESSION['idProf'])) {

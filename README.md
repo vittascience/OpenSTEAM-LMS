@@ -78,7 +78,7 @@ VS_REPLY_TO_NAME=Support # it can be Support,Contact or something else
 VS_SET_FROM=your_website.com
 
 # path to use for the activity logger(ie: routing/Routing.php)
-LOG_PATH=/logs/log.log
+VS_LOG_PATHH=/logs/log.log
 
 # setup the new admin data
 ADMIN_PSEUDO=PSEUDO
@@ -98,7 +98,7 @@ Don't forget to fill/change these constants with relevant information (at least 
 
 4. Make sure that PHP is running a version 7.x (with x above 2) and that NodeJS at least 14 is there.
 
-5. Choose a logs directory. By default, this is `/logs/`. You can change this value using the entry in the `.env` named  `LOG_PATH`, e.g. `LOG_PATH=/tmp/log`.
+5. Choose a logs directory. By default, this is `/logs/`. You can change this value using the entry in the `.env` named  `VS_LOG_PATH`, e.g. `VS_LOG_PATH=/tmp/log`.
 
 ## Dependencies
 
