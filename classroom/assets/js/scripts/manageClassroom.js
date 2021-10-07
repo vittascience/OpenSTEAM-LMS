@@ -57,9 +57,14 @@ $('body').on('click', '.modal-classroom-delete', function (e) {
     if (confirm) {
         ClassroomSettings.classroom = $(this).parent().parent().parent().attr('data-link')
         Main.getClassroomManager().deleteClassroom(ClassroomSettings.classroom).then(function (classroom) {
+            // concatenate classroom name + group in GAR context, else set only classroom name
+            const classroomFullName = classroom.group != null 
+                                        ? `${classroom.name}-${classroom.group}`
+                                        : `${classroom.name}`
+
             deleteClassroomInList(classroom.link);
             classroomsDisplay();
-            displayNotification('#notif-div', "classroom.notif.classroomDeleted", "success", `'{"classroomName": "${classroom.name}"}'`);
+            displayNotification('#notif-div', "classroom.notif.classroomDeleted", "success", `'{"classroomName": "${classroomFullName}"}'`);
         })
         ClassroomSettings.classroom = null
     }
