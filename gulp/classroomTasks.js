@@ -35,6 +35,7 @@ class AutoBuildManager {
             'teacherClassesPanel.html',
             'teacherActivitiesPanel.html',
             'teacherHelpPanel.html',
+            'groupAdminAppsPanel.html',
             'groupAdminHelpPanel.html',
             'groupAdminProfilePanel.html',
             'groupAdminUsersPanel.html',
