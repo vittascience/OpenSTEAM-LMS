@@ -180,10 +180,10 @@
 			"activityContentInvalid": "L'activité n'a pas pu être créée : contenu invalide",
 			"activityIsFromClassroomInvalid": "L'activité n'a pas pu être créée : erreur de contexte",
 			"activityUserIdInvalid": "L'activité n'a pas pu être créée : utilisateur invalide",
-			"personalLimitationsReached": "Vous avez atteint votre nombre maximum d'élèves.",
+			"personalLimitationsReached": "Vous avez atteint votre nombre maximum d'apprenants.",
 			"groupLimitationsGroup": "Votre groupe ne peut plus accueillir d'apprenants",
 			"groupLimitationsTeacher": "Vous avez atteint la limite d'apprenants que votre groupe vous octroie",
-			"bothLimitationsReached": "Vous avez atteint les limitations d'élèves que vous et votre groupe pouvez avoir.",
+			"bothLimitationsReached": "Vous avez atteint les limitations d'apprenants que vous et votre groupe pouvez avoir.",
 			"ClassroomNameInvalid": "Le nom de la classe est requis",
 			"reservedNickname": "Le nom : \"{{reservedNickname}}\" ne peut être attribué.",
 			"invalidLink": "Le lien que vous avez entrer n'est pas valide"
@@ -1145,11 +1145,11 @@
 			"groupFull": "Le groupe est complet.",
 			"groupFullAdminMessage": "Le groupe est complet, vous ne pouvez pas ajouter d'autres utilisateurs.",
 			"toManyStudentsFromTheTeacher": "Le professeur que vous souhaitez ajouter au groupe possède trop d'élève",
-			"toManyStudentsInGroup": "Le groupe ne peut pas accueillir autant d'élèves, le professeur possède trop d'élèves.",
+			"toManyStudentsInGroup": "Le groupe ne peut pas accueillir autant d'apprenants, le professeur possède trop d'apprenants.",
 			"teachersPerGroup": "Enseignant par groupe",
-			"studentsPerGroup": "Élèves par groupe",
-			"studentsPerTeacher": "Élèves par enseignant",
-			"maxStudents": "Maximum d'élèves"
+			"studentsPerGroup": "Apprenants par groupe",
+			"studentsPerTeacher": "Apprenants par enseignant",
+			"maxStudents": "Maximum d'apprenants"
 		},
 		"buttons": {
 			"continue": "Continuer",
@@ -1220,16 +1220,18 @@
 			"dateBegin": "Date début",
 			"dateEnd": "Date de fin",
 			"outDated": "Périmé",
-			"maxStudents": "Maximum d'élèves",
+			"maxStudents": "Maximum d'apprenants",
 			"actualStudents": "Éleves actuels",
 			"maxTeachers": "Maximum d'enseignants",
 			"actualTeachers": "Enseignants actuels",
-			"maxStudentsPerTeachers": "Maximum d'élèves par enseignant",
+			"maxStudentsPerTeachers": "Maximum d'apprenants par enseignant",
+			"maxStudentsPerTeacher": "Maximum d'apprenants par enseignant",
 			"monitoring": "Suveillance des applications",
 			"image": "Image",
 			"userNoRights": "Pas de droits assignés",
 			"userAdmin": "Administrateur",
-			"userTeacher": "Enseignant"
+			"userTeacher": "Enseignant",
+			"restrictions": "Restrictions"
 		},
 		"apps": {
 			"apps": "Applications",
@@ -1239,9 +1241,13 @@
 			"deleteSuccess": "Application supprimée avec succès",
 			"deleteIntention": "Vous vous apprêtez à supprimer l'application : <span id=\"application_delete_name\"></span>",
 			"outDatedApp": "L'application que vous souhaitez attribuer est périmé.",
-			"infoMaxStudentsPerTeachers": "Détermine le nombre d'élèves qu'un enseignant faisant partie du groupe pourra avoir au maximum.",
-			"infoMaxStudentsPerGroups": "Détermine le nombre d'élèves que le groupe pourra avoir au maximum (En additionnant le total d'élèves des professeurs disposant de cette application)",
-			"infoMaxTeachers": "Détermine le nombre maximum de professeurs pouvant disposer de l'application dans ce groupe"
+			"infoMaxStudentsPerTeachers": "Détermine le nombre d'apprenants qu'un enseignant faisant partie du groupe pourra avoir au maximum.",
+			"infoMaxStudentsPerGroups": "Détermine le nombre d'apprenants que le groupe pourra avoir au maximum (En additionnant le total d'apprenants des professeurs disposant de cette application)",
+			"infoMaxTeachers": "Détermine le nombre maximum de professeurs pouvant disposer de l'application dans ce groupe",
+			"usersLimitation": "Limitation d'apprenants par utilisateur",
+			"groupsLimitation": "Limitations de groupe",
+			"activitiesLimitation": "Limitations d'activité",
+			"defaultRestrictions": "Restrictions par défaut"
 		},
 		"activitiesRestrictions": {
 			"updateAll": "Modifier les restrictions",
@@ -1256,6 +1262,18 @@
 			"maxActivity": "Maximum d'activité",
 			"closeDetail": "Fermer le détail",
 			"restrictions": "Restrictions d'activité"
+		},
+		"defaultRestrictions": {
+			"update": "Modifier les restrictions par défaut",
+			"type": "Type d'activité",
+			"max": "Maximum",
+			"add": "Ajouter une restiction",
+			"updateUsersRestrictionsSuccess": "Restrictions utilisateur modifiées avec succès",
+			"updateGroupsRestrictionsSuccess": "Restrictions de groupe modifiées avec succès",
+			"updateActivitiesRestrictionsSuccess": "Restrictions d'activités modifiées avec succès",
+			"deleteActivitiesRestrictionsSuccess": "Restriction d'activité supprimée avec succès",
+			"getDefaultRestrictions": "Voir les restrictions par défaut",
+			"restrictionAlreadyExist": "La restriction existe déjà"
 		}
 	},
 	"navbar": {

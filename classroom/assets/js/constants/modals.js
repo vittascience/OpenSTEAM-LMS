@@ -871,5 +871,18 @@ const classroomModals = {
                     </div>`,
         footer: ``
     },
+    'update-default-restrictions-manager': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'manager.defaultRestrictions.update'
+        },
+        content: `  <div id="update-activities-restrictions-modal">
+                        <div class="container-fluid" id="update-default-restrictions">
+                            
+                        </div>
+                    </div>`,
+        footer: ``
+    },
 
 }

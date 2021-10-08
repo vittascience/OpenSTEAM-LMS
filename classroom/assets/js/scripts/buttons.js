@@ -2400,6 +2400,7 @@ function getAndShowApps() {
     $('#all-applications-crud').html();
     let htmlApps = "";
     mainManager.getmanagerManager().getAllApplications().then((response) => {
+        getAllrestrictions();
         response.forEach(application => {
             htmlApps += `<tr>
                             <td class="font-weight-bold">${application.name}</td>
@@ -2634,5 +2635,218 @@ function closeRestrictionDetail() {
     $('#all-restrictions-from-app').hide();
 }
 
+function getAllrestrictions() {
+    mainManager.getmanagerManager().getDefaultRestrictions().then((response) => {
+        //console.log(res);
+        let html = "";
+        $('#all-default-restrictions').html("");
+        response.forEach(restriction => {
+            let name = "", limitation = "", update = "";
+            switch(restriction.name) {
+                case 'userDefaultRestrictions':
+                    name = i18next.t(`manager.apps.usersLimitation`);
+                    //limitation = restriction.restrictions.maxStudents;
+                    limitation = `<ul class="m-0">`;
+                    Object.keys(restriction.restrictions).forEach(function(key){   
+                        limitation += `<li> <span class="font-weight-bold">${i18next.t(`manager.table.${key}`)}</span> : ${restriction.restrictions[key]}</li>`;
+                    });
+                    limitation += `</ul>`;
+                    update = `<button class="btn btn-warning btn-sm" onclick="updateDefaultUsersLimitation()">${i18next.t('manager.buttons.update')}</button>`;
+                    break;
+                case 'groupDefaultRestrictions':
+                    name = i18next.t(`manager.apps.groupsLimitation`);
+                    limitation = `<ul class="m-0">`;
+                    Object.keys(restriction.restrictions).forEach(function(key){   
+                        limitation += `<li> <span class="font-weight-bold">${i18next.t(`manager.table.${key}`)}</span> : ${restriction.restrictions[key]}</li>`;
+                    });
+                    limitation += `</ul>`;
+                    update = `<button class="btn btn-warning btn-sm" onclick="updateDefaultGroupsLimitation()">${i18next.t('manager.buttons.update')}</button>`;
+                    break;
+                case 'activitiesDefaultRestrictions':
+                    name = i18next.t(`manager.apps.activitiesLimitation`);
+                    limitation = `<ul class="m-0">`;
+                    Object.keys(restriction.restrictions).forEach(function(key){   
+                        limitation += `<li><span class="font-weight-bold">${key}</span> : ${restriction.restrictions[key]}</li>`;
+                    });
+                    limitation += `</ul>`;
+                    update = `<button class="btn btn-warning btn-sm" onclick="updateDefaultActivitiesLimitation()">${i18next.t('manager.buttons.update')}</button>`;
+                    break;
+                default:
+                    break;
+            }
+
+            html += `<tr>
+                        <td>${name}</td>
+                        <td>${limitation}</td>
+                        <td>${update}</td>
+                    </tr>`;
+        });
+        $('#all-default-restrictions').html(html);
+    })
+}
+
+function updateDefaultUsersLimitation() {
+    let html = "";
+    $('#update-default-restrictions').html("");
+    mainManager.getmanagerManager().getDefaultUsersRestrictions().then((response) => {
+        pseudoModal.openModal('update-default-restrictions-manager');
+        Object.keys(response.restrictions).forEach(function(key){ 
+            html += `<div class="form-row mt-1 c-secondary-form">`
+            html += `<div class="col-md">`
+            html += `<label for="default-users-restrictions-value">${i18next.t(`manager.table.${key}`)}</label>`;
+            html += `<input type="number" class="form-control" id="default-users-restrictions-value" value="${response.restrictions[key]}">`;
+            html += `</div>`;
+            html += `</div>`;
+        });
+        html += `<button class="btn c-btn-secondary my-3 btn" onclick="persistUpdateDefaultUsersRestriction()">${i18next.t(`manager.buttons.update`)}</button>`;
+        html += `<button class="btn c-btn-light my-3 btn" onclick="closeDefault()">${i18next.t(`manager.buttons.cancel`)}</button>`;
+        $('#update-default-restrictions').html(html);
+    }) 
+}
+
+function updateDefaultGroupsLimitation() {
+    let html = "";
+    $('#update-default-restrictions').html("");
+    mainManager.getmanagerManager().getDefaultGroupsRestrictions().then((response) => {
+        pseudoModal.openModal('update-default-restrictions-manager');
+        Object.keys(response.restrictions).forEach(function(key){ 
+            html += `<div class="form-row mt-1 c-secondary-form">`
+            html += `<div class="col-md">`
+            html += `<label for="default-groups-restrictions-value-${key}">${i18next.t(`manager.table.${key}`)}</label>`;
+            html += `<input type="number" class="form-control" id="default-groups-restrictions-value-${key}" value="${response.restrictions[key]}">`;
+            html += `</div>`;
+            html += `</div>`;
+        });
+        html += `<button class="btn c-btn-secondary my-3 btn" onclick="persistUpdateDefaultGroupsRestriction()">${i18next.t(`manager.buttons.update`)}</button>`;
+        html += `<button class="btn c-btn-light my-3 btn" onclick="closeDefault()">${i18next.t(`manager.buttons.cancel`)}</button>`;
+        $('#update-default-restrictions').html(html);
+    }) 
+}
+
+let allActualType = [];
+function updateDefaultActivitiesLimitation() {
+    let html = "";
+    allActualType= [];
+    $('#update-default-restrictions').html("");
+    mainManager.getmanagerManager().getDefaultActivitiesRestrictions().then((response) => {
+        pseudoModal.openModal('update-default-restrictions-manager');
+        html += `<button class="btn c-btn-primary my-3 btn" onclick="addDefaultActivitiesRestriction()">${i18next.t(`manager.defaultRestrictions.add`)}</button>`;
+        Object.keys(response.restrictions).forEach(function(key){ 
+            allActualType.push(key);
+            html += `<div class="form-row mt-1 c-secondary-form">`
+            html += `<div class="col-md">`
+            html += `<label for="default-activity-restriction-type-${key}">${i18next.t('manager.defaultRestrictions.type')}</label>`;
+            html += `<input type="text" class="form-control" id="default-activity-restriction-type-${key}" value="${key}">`;
+            html += `</div>`;
+            html += `<div class="col-md">`
+            html += `<label for="default-activity-restriction-value-${key}">${i18next.t('manager.defaultRestrictions.max')}</label>`;
+            html += `<input type="number" class="form-control" id="default-activity-restriction-value-${key}" value="${response.restrictions[key]}">`;
+            html += `</div>`;
+            html += `<button class="btn c-btn-red my-3 btn" onclick="persistdeleteDefaultActivitiesRestriction('${key}')">${i18next.t(`manager.buttons.delete`)}</button>`;
+            html += `</div>`;
+        });
+        html += `<button class="btn c-btn-secondary my-3 btn" onclick="persistUpdateDefaultActivitiesRestriction()">${i18next.t(`manager.buttons.update`)}</button>`;
+        html += `<button class="btn c-btn-light my-3 btn" onclick="closeDefault()">${i18next.t(`manager.buttons.cancel`)}</button>`;
+        $('#update-default-restrictions').html(html);
+    }) 
+}
+
+function persistUpdateDefaultUsersRestriction() {
+    let maxStudentsValue = $('#default-users-restrictions-value').val();
+    mainManager.getmanagerManager().updateDefaultUsersRestrictions(maxStudentsValue).then((response) => {
+        if (response.message == "success") {
+            displayNotification('#notif-div', "manager.defaultRestrictions.updateUsersRestrictionsSuccess", "success");
+            pseudoModal.closeAllModal();
+            getAllrestrictions();
+        }
+    })
+}
+
+function persistUpdateDefaultGroupsRestriction() {
+    let maxStudentsValue = $('#default-groups-restrictions-value-maxStudents').val(),
+    maxTeachersValue = $('#default-groups-restrictions-value-maxTeachers').val(),
+        maxStudentsPerTeacherValue = $('#default-groups-restrictions-value-maxStudentsPerTeacher').val();
+    mainManager.getmanagerManager().updateDefaultGroupsRestrictions(maxStudentsValue, maxTeachersValue, maxStudentsPerTeacherValue).then((response) => {
+        if (response.message == "success") {
+            displayNotification('#notif-div', "manager.defaultRestrictions.updateGroupsRestrictionsSuccess", "success");
+            pseudoModal.closeAllModal();
+            getAllrestrictions();
+        }
+    })
+}
+
+function persistUpdateDefaultActivitiesRestriction() {
+    const restrictionsData = [];
+    allActualType.forEach((type) => {
+        restrictionsData.push([$('#default-activity-restriction-type-'+type).val(),$('#default-activity-restriction-value-'+type).val()])
+    })
+    mainManager.getmanagerManager().updateDefaultActivitiesRestrictions(JSON.stringify(restrictionsData)).then((response) => {
+        if (response.message == "success") {
+            displayNotification('#notif-div', "manager.defaultRestrictions.updateActivitiesRestrictionsSuccess", "success");
+            pseudoModal.closeAllModal();
+            getAllrestrictions();
+        }
+    })
+}
+
+function addDefaultActivitiesRestriction() {
+    let html = "";
+    html += `<div class="form-row mt-1 c-secondary-form">`
+    html += `<div class="col-md">`
+    html += `<label for="default-activity-restriction-type">${i18next.t('manager.defaultRestrictions.type')}</label>`;
+    html += `<input type="text" class="form-control" id="default-activity-restriction-type">`;
+    html += `</div>`;
+    html += `<div class="col-md">`
+    html += `<label for="default-activity-restriction-value">${i18next.t('manager.defaultRestrictions.max')}</label>`;
+    html += `<input type="number" class="form-control" id="default-activity-restriction-value">`;
+    html += `</div>`;
+    html += `</div>`;
+    html += `<button class="btn c-btn-secondary my-3 btn" onclick="persistAddDefaultActivitiesRestriction()">${i18next.t(`manager.buttons.validate`)}</button>`;
+    html += `<button class="btn c-btn-light my-3 btn" onclick="closeDefault()">${i18next.t(`manager.buttons.cancel`)}</button>`;
+    $('#update-default-restrictions').html(html);
+}
 
 
+function persistAddDefaultActivitiesRestriction() {
+    let restrictions = [$('#default-activity-restriction-type').val(),$('#default-activity-restriction-value').val()];
+    mainManager.getmanagerManager().addDefaultActivitiesRestrictions(JSON.stringify(restrictions)).then((response) => {
+        if (response.message == "success") {
+            displayNotification('#notif-div', "manager.defaultRestrictions.updateActivitiesRestrictionsSuccess", "success");
+            pseudoModal.closeAllModal();
+            getAllrestrictions();
+        } else if (response.message == "alreadyexist") {
+            displayNotification('#notif-div', "manager.defaultRestrictions.restrictionAlreadyExist", "error");
+            pseudoModal.closeAllModal();
+            getAllrestrictions();
+        }
+    })
+}
+
+function persistdeleteDefaultActivitiesRestriction(type) {
+    mainManager.getmanagerManager().deleteDefaultActivitiesRestrictions(type).then((response) => {
+        if (response.message == "success") {
+            displayNotification('#notif-div', "manager.defaultRestrictions.deleteActivitiesRestrictionsSuccess", "success");
+            pseudoModal.closeAllModal();
+            getAllrestrictions();
+        }
+    })
+}
+
+function closeDefault() {
+    pseudoModal.closeAllModal();
+}
+
+/* <div class="form-row mt-1 c-secondary-form">
+<div class="col-md">
+<label for="activity_restrictions_update_type">Type activity</label>
+<input type="text" class="form-control" id="activity_restrictions_update_type">
+</div>
+<div class="col-md">
+<label for="activity_restrictions_update_maximum">Maximum</label>
+<input type="text" class="form-control" id="activity_restrictions_update_maximum">
+</div>
+<input type="hidden" class="form-control" id="activity_restrictions_id">
+</div>
+<button class="btn c-btn-secondary my-3 btn" onclick="persistUpdateRestriction()" data-i18n="manager.buttons.update">Modifier</button>
+<button class="btn c-btn-light my-3 btn" onclick="closeModalAndCleanInputActivityRestrictions()" data-i18n="manager.buttons.cancel">Annuler</button>
+ */

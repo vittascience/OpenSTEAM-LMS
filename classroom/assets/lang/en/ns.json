@@ -932,11 +932,13 @@
 			"maxTeachers": "Maximum teachers",
 			"actualTeachers": "Current teachers",
 			"maxStudentsPerTeachers": "Maximum students per teacher",
+			"maxStudentsPerTeacher": "Maximum students per teacher",
 			"monitoring": "Apps monitoring",
 			"image": "Image",
 			"userNoRights": "No rights assigned",
 			"userAdmin": "Administrator",
-			"userTeacher": "Teacher"
+			"userTeacher": "Teacher",
+			"restrictions": "Restrictions"
 		},
 		"apps": {
 			"apps": "Apps",
@@ -948,7 +950,11 @@
 			"outDatedApp": "The app you want to assign is outdated.",
 			"infoMaxStudentsPerTeachers": "Determine the maximum number of students that a teacher in the group can have.",
 			"infoMaxStudentsPerGroups": "Determines the maximum number of students that the group can have (By adding the total of students of teachers who have this application)",
-			"infoMaxTeachers": "Determines the maximum number of teachers who can have the application in this group"
+			"infoMaxTeachers": "Determines the maximum number of teachers who can have the application in this group",
+			"usersLimitation": "Users students limitation",
+			"groupsLimitation": "Groups limitations",
+			"activitiesLimitation": "Activities limitations",
+			"defaultRestrictions": "Default restrictions"
 		},
 		"activitiesRestrictions": {
 			"updateAll": "Update restrictions",
@@ -963,6 +969,18 @@
 			"maxActivity": "Activity maximum",
 			"closeDetail": "Close the detail",
 			"restrictions": "Activity restrictions"
+		},
+		"defaultRestrictions": {
+			"update": "Update default restrictions",
+			"type": "Activity type",
+			"max": "Maximum",
+			"add": "Add a restriction",
+			"updateUsersRestrictionsSuccess": "Default users restrictions updated successfuly",
+			"updateGroupsRestrictionsSuccess": "Default groups restrictions updated successfuly",
+			"updateActivitiesRestrictionsSuccess": "Default activities restrictions updated successfuly",
+			"deleteActivitiesRestrictionsSuccess": "Default activity restriction deleted successfuly",
+			"getDefaultRestrictions": "Show the default restrictions",
+			"restrictionAlreadyExist": "The restriction already exist"
 		}
 	},
 	"navbar": {

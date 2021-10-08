@@ -178,6 +178,186 @@ class managerManager {
      * @param {*} $restriction_id 
      * @returns promise
      */
+     getDefaultRestrictions() {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=get_default_restrictions",
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    /**
+     * @returns promise
+     */
+     getDefaultActivitiesRestrictions() {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=get_default_activities_restrictions",
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    /**
+     * @returns promise
+     */
+     getDefaultGroupsRestrictions() {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=get_default_groups_restrictions",
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    /**
+     * @returns promise
+     */
+     getDefaultUsersRestrictions() {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=get_default_users_restrictions",
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    /**
+     * @returns promise
+     */
+    updateDefaultUsersRestrictions($maxStudents) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=update_default_users_restrictions",
+                data: {
+                    maxStudents: $maxStudents,
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    /**
+     * @returns promise
+     */
+    updateDefaultGroupsRestrictions($maxStudents, $maxTeachers, $maxPerTeachers) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=update_default_groups_restrictions",
+                data: {
+                    maxStudents: $maxStudents,
+                    maxTeachers: $maxTeachers,
+                    maxPerTeachers: $maxPerTeachers,
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    /**
+     * @returns promise
+     */
+     updateDefaultActivitiesRestrictions($typeRestrictionsArray) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=update_default_activities_restrictions",
+                data: {
+                    restrictions: $typeRestrictionsArray
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    /**
+     * @returns promise
+     */
+     addDefaultActivitiesRestrictions($restriction) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=add_default_activities_restrictions",
+                data: {
+                    restrictions: $restriction
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    /**
+     * @returns promise
+     */
+    deleteDefaultActivitiesRestrictions($restriction_type) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=superadmin&action=delete_default_activities_restrictions",
+                data: {
+                    restrictions: $restriction_type
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    /**
+     * @param {*} $restriction_id 
+     * @returns promise
+     */
     deleteOneActivityRestriction($restriction_id) {
         return new Promise(function (resolve, reject) {
             $.ajax({
