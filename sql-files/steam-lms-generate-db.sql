@@ -84,7 +84,8 @@ CREATE TABLE `classroom_activities_link_classroom_users` (
   `commentary` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL,
   `introduction` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL,
   `is_autocorrected` tinyint(1) NOT NULL DEFAULT 0,
-  `is_evaluation` tinyint(1) NOT NULL DEFAULT 0
+  `is_evaluation` tinyint(1) NOT NULL DEFAULT 0,
+  `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
