@@ -2645,13 +2645,12 @@ function getAllrestrictions() {
             switch(restriction.name) {
                 case 'userDefaultRestrictions':
                     name = i18next.t(`manager.apps.usersLimitation`);
-                    //limitation = restriction.restrictions.maxStudents;
                     limitation = `<ul class="m-0">`;
                     Object.keys(restriction.restrictions).forEach(function(key){   
                         limitation += `<li> <span class="font-weight-bold">${i18next.t(`manager.table.${key}`)}</span> : ${restriction.restrictions[key]}</li>`;
                     });
                     limitation += `</ul>`;
-                    update = `<button class="btn btn-warning btn-sm" onclick="updateDefaultUsersLimitation()">${i18next.t('manager.buttons.update')}</button>`;
+                    update = `<a class="c-link-secondary d-inline-block" href="javascript:void(0)" onclick="updateDefaultUsersLimitation()"><i class="fas fa-pencil-alt fa-2x"></i></a>`;
                     break;
                 case 'groupDefaultRestrictions':
                     name = i18next.t(`manager.apps.groupsLimitation`);
@@ -2660,7 +2659,7 @@ function getAllrestrictions() {
                         limitation += `<li> <span class="font-weight-bold">${i18next.t(`manager.table.${key}`)}</span> : ${restriction.restrictions[key]}</li>`;
                     });
                     limitation += `</ul>`;
-                    update = `<button class="btn btn-warning btn-sm" onclick="updateDefaultGroupsLimitation()">${i18next.t('manager.buttons.update')}</button>`;
+                    update = `<a class="c-link-secondary d-inline-block" href="javascript:void(0)" onclick="updateDefaultGroupsLimitation()"><i class="fas fa-pencil-alt fa-2x"></i></a>`;
                     break;
                 case 'activitiesDefaultRestrictions':
                     name = i18next.t(`manager.apps.activitiesLimitation`);
@@ -2669,7 +2668,7 @@ function getAllrestrictions() {
                         limitation += `<li><span class="font-weight-bold">${key}</span> : ${restriction.restrictions[key]}</li>`;
                     });
                     limitation += `</ul>`;
-                    update = `<button class="btn btn-warning btn-sm" onclick="updateDefaultActivitiesLimitation()">${i18next.t('manager.buttons.update')}</button>`;
+                    update = `<a class="c-link-secondary d-inline-block" href="javascript:void(0)" onclick="updateDefaultActivitiesLimitation()"><i class="fas fa-pencil-alt fa-2x"></i></a>`;
                     break;
                 default:
                     break;
@@ -2805,6 +2804,7 @@ function addDefaultActivitiesRestriction() {
     html += `<button class="btn c-btn-light my-3 btn" onclick="closeDefault()">${i18next.t(`manager.buttons.cancel`)}</button>`;
     $('#update-default-restrictions').html(html);
 }
+
 
 
 function persistAddDefaultActivitiesRestriction() {
