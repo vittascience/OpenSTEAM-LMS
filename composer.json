@@ -4,7 +4,7 @@
         "vittascience/vtuser": "dev-rewrite-services",
         "vittascience/vtinterfaces": "dev-main",
         "vittascience/vtclassroom": "dev-applications-crud",
-        "vittascience/vtlearn": "dev-remi-activities-restrictions",
+        "vittascience/vtlearn": "dev-main",
         "vittascience/vutils": "dev-main",
         "symfony/var-dumper": "^5.3"
     },

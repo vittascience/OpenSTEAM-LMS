@@ -1522,6 +1522,8 @@ function createUserAndLinkToGroup() {
             }
             pseudoModal.closeAllModal();
             tempoAndShowUsersTable()
+        } else if (response.message == "mailAlreadyExist") {
+            displayNotification('#notif-div', "classroom.notif.emailExists", "error");
         } else if (response.message == "missing data") {
             displayNotification('#notif-div', "manager.account.missingData", "error");
         }
@@ -2172,6 +2174,8 @@ function createUserAndLinkToGroup_groupAdmin() {
             tempoAndShowGroupTableGroupAdmin()
         } else if (response.message == "missing data") {
             displayNotification('#notif-div', "manager.account.missingData", "error");
+        } else if (response.message == "mailAlreadyExist") {
+            displayNotification('#notif-div', "classroom.notif.emailExists", "error");
         } else if (response.message == "limit") {
             displayNotification('#notif-div', "manager.group.groupFullAdminMessage", "error");
         } else if (response.message == "not-admin") {

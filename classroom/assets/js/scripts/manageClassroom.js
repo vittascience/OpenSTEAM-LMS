@@ -2,6 +2,7 @@
 $('body').on('click', '.teacher-new-classe', function (event) {
     ClassroomSettings.classroom = null
     navigatePanel('classroom-dashboard-form-classe-panel', 'dashboard-classes-teacher')
+    $('#table-students ul').html("");
 })
 
 
@@ -297,13 +298,13 @@ function openCsvModal(){
     pseudoModal.openModal('import-csv');
 }
 
+
 /**
  * Add students to a classroom using a csv file
  */
 function importLearnerCsv(){
     if(ClassroomSettings.classroom){
         csvToClassroom(ClassroomSettings.classroom).then((response) => {
-
             /**
              * Updated @Rémi
              * the case where the students was not added was not implemented
@@ -328,8 +329,47 @@ function importLearnerCsv(){
         .catch((response) => {
             console.warn(response);
         });
+    } else {
+
+        // import the students before the class creation
+        const csvFile = document.getElementById('importcsv-fileinput').files[0];
+        if (csvFile){
+            const reader = new FileReader();
+            try {
+                reader.readAsText(csvFile);
+                reader.onload = function (event) {
+                    let csv = event.target.result;
+                    let lines = csv.split("\n");
+                    let headers = lines[0].split(/[,;]/);
+                    for(let i = 0; i < headers.length; i++) {
+                        headers[i] = headers[i].replace("\r","");
+                    }
+                    
+                    for (let i = 1; i < lines.length; i++) {
+                        let currentline = lines[i].split(/[,;]/);
+                        $('#table-students ul').append(addStudentRow(currentline[0]));
+                    }
+
+                    if ($('#table-students ul li .col').length > 1) {
+                        $('#no-student-label').remove();
+                    }
+                    // remove the previous filename uploaded on open 
+                    $('#importcsv-fileinput').val("");
+                    pseudoModal.closeModal('import-csv');
+                }
+            } catch (error) {
+                reject(`Error while opening the csv file! Reason: ${error}`);
+                displayNotification('#notif-div', "classroom.notif.errorWithCsv", "error", `'{"error": "${error}"}'`);
+            }
+        } else {
+            reject('No csv file given!');
+            displayNotification('#notif-div', "classroom.notif.CsvFileMissing", "error");
+        }
+        $('#table-students ul').html("");
     }
 }
+
+
 
 /**
  * Process and send data from csv to the server
@@ -339,11 +379,11 @@ function csvToClassroom(link) {
     return new Promise((resolve, reject) => {
         let csvFile = document.getElementById('importcsv-fileinput').files[0];
         if(csvFile){
-            var reader = new FileReader();
+            const reader = new FileReader();
             try {
                 reader.readAsText(csvFile);
                 reader.onload = function (event) {
-                    var csv = event.target.result;
+                    const csv = event.target.result;
                     let json = csvJSON(csv);
                     Main.getClassroomManager().addUsersToGroupByCsv(JSON.parse(json), link, "csv")
                     .then((response) => {
@@ -368,36 +408,31 @@ function csvToClassroom(link) {
  */
 function csvJSON(csv) {
 
-    var lines = csv.split("\n");
-
-    var result = [];
+    let lines = csv.split("\n");
+    const result = [];
 
     // NOTE: If your columns contain commas in their values, you'll need
     // to deal with those before doing the next step 
     // (you might convert them to &&& or something, then convert them back later)
     // jsfiddle showing the issue https://jsfiddle.net/
-    var headers = lines[0].split(/[,;]/);
+    let headers = lines[0].split(/[,;]/);
     
     for(let i=0; i< headers.length; i++){
         headers[i] = headers[i].replace("\r","")
     }
     
-    for (var i = 1; i < lines.length; i++) {
+    for (let i = 1; i < lines.length; i++) {
+        let obj = {};
+        let currentline = lines[i].split(/[,;]/);
 
-        var obj = {};
-        var currentline = lines[i].split(/[,;]/);
-
-        for (var j = 0; j < headers.length; j++) {
+        for (let j = 0; j < headers.length; j++) {
             obj[headers[j]] = currentline[j].replace("\r","");
         }
-
         result.push(obj);
-
     }
     
     // remove the previous filename uploaded on open 
-    let csvInput = document.querySelector('#importcsv-fileinput')
-    csvInput.value = ""
+    $('#importcsv-fileinput').val("");
     return JSON.stringify(result); //JSON
 }
 
