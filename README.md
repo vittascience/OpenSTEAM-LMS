@@ -77,6 +77,9 @@ VS_REPLY_TO_MAIL=support@your_company_name.com
 VS_REPLY_TO_NAME=Support # it can be Support,Contact or something else
 VS_SET_FROM=your_website.com
 
+# set the default student name to every classroom to be created
+VS_DEMOSTUDENT=vittademo
+
 # path to use for the activity logger(ie: routing/Routing.php)
 VS_LOG_PATHH=/logs/log.log
 
