@@ -1,5 +1,5 @@
 /**
- * SuperAdminManager
+ * managerManager
  * Copyright 2021 Vittascience.
  * https://vittascience.com
  *
@@ -67,44 +67,60 @@ class GroupAdminManager {
         })
     }
 
+    getGroupUserAdminId() {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=groupadmin&action=get_group_id",
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
     /**
      * Get actual group informations
-     * Access with Main.getSuperAdminManager()._actualGroupInfos
+     * Access with Main.getmanagerManager()._actualGroupInfos
      * @public
      * @returns {Array}
      */
     getGroupsUserAdmin() {
         const process = (data) => {
             let data_table = "";
-
-            mainGroupAdmin.getGroupAdminManager()._comboGroups = data;
+            this._comboGroups = data;
             data.forEach(element => {
                 // there is only one group possible
-                mainGroupAdmin.getGroupAdminManager()._actualGroup = element.id;
-                isGroupAppsOutDated(element.id);
+                this._actualGroup = element.id;
                 let div_img = ""
                 if (element.hasOwnProperty('applications')) {
                     element.applications.forEach(element_2 => {
                         if (element_2.image != null) {
-                            div_img += `<img src="assets/media/${element_2.image}" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
+                            div_img += `<img src="assets/media/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                         } else {
-                            div_img += `<img src="assets/media/nologo.jpg" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
+                            div_img += `<img src="assets/media/nologo.jpg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                         }
                     });
                 }
                 data_table +=
                     `<tr>
-                        <th scope="row" onclick="showGroupMembersGroupAdmin(${element.id})">${element.name}</i></th>
+                        <th scope="row">${element.name}</i></th>
                         <td>${element.description}</td>
                         <td>
                             ${div_img}
                         </td>
                         <td>
-                            <button class="btn btn-info btn-sm" onclick="getGroupLinkGA(${element.id})">${i18next.t('superadmin.buttons.show')}</button>
+                            <a class="c-link-tertiary" href="javascript:void(0)" onclick="getGroupLinkGA(${element.id})" alt="${i18next.t('manager.buttons.show')}">
+                                <i class="fas fa-link fa-2x"></i>
+                            </a>
                         </td>
                     </tr>`;
                 $('#groups_table_groupadmin').html(data_table);
             });
+            this.getUsersFromGroup(this._actualGroup, 1);
         }
         $.ajax({
             type: "POST",
@@ -146,18 +162,19 @@ class GroupAdminManager {
                     }
                     $('#paginationButtons_users_groupadmin').html(htmlButtons);
                 } else {
-                    let $droits = " -- ";
+                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userNoRights') + "'></i>";
                     if (element.hasOwnProperty('rights')) {
-                        $droits = element.rights === "1" ? "Admin" : "Prof";
+                        $droits = element.rights === "1" ? "<i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userAdmin') + "' ></i>" :
+                        "<i class='fas fa-user fa-2x c-text-primary' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userTeacher') + "'></i>";
                     }
 
                     let div_img = ""
                     if (element.hasOwnProperty('applicationsFromGroups')) {
                         element.applicationsFromGroups.forEach(element_2 => {
                             if (element_2.image != null) {
-                                div_img += `<img src="assets/media/${element_2.image}" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="assets/media/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             } else {
-                                div_img += `<img src="assets/media/nologo.jpg" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="assets/media/nologo.jpg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             }
                         });
                     }
@@ -168,18 +185,23 @@ class GroupAdminManager {
                         <td>${$droits}</td>
                         <td>${div_img}</td>
                         <td>
-                            <button class="btn btn-info btn-sm" data-i18n="superadmin.buttons.reset" onclick="resetUserPasswordga(${element.id})">${i18next.t('superadmin.buttons.send')}</button>
+                            <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPasswordga(${element.id})">
+                                <i class="fas fa-redo-alt fa-2x"></i>
+                            </a>
                         </td>
                         <td>
-                            <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateUserModal_groupadmin(${element.id})">${i18next.t('superadmin.buttons.update')}</button>
+                            <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal_groupadmin(${element.id})">
+                                <i class="fas fa-pencil-alt fa-2x"></i>
+                            </a>
                         </td>
                         <td>
-                            <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('superadmin.buttons.delete')}</button>
+                            <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
                         </td>
                     </tr>`;
                 }
             });
             $('#table_info_group_data_groupadmin').html($data_table);
+            $('[data-toggle="tooltip"]').tooltip()
         }
         $.ajax({
             type: "POST",
@@ -228,18 +250,19 @@ class GroupAdminManager {
 
                     $('#paginationButtons_users_groupadmin').html(htmlButtons);
                 } else {
-                    let $droits = " -- ";
+                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userNoRights') + "'></i>";
                     if (element.hasOwnProperty('rights')) {
-                        $droits = element.rights === "1" ? "Admin" : "Prof";
+                        $droits = element.rights === "1" ? "<i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userAdmin') + "' ></i>" :
+                        "<i class='fas fa-user fa-2x c-text-primary' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userTeacher') + "'></i>";
                     }
 
                     let div_img = ""
                     if (element.hasOwnProperty('applicationsFromGroups')) {
                         element.applicationsFromGroups.forEach(element_2 => {
                             if (element_2.image != null) {
-                                div_img += `<img src="assets/media/${element_2.image}" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="assets/media/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             } else {
-                                div_img += `<img src="assets/media/nologo.jpg" alt="Icône App" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="assets/media/nologo.jpg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             }
                         });
                     }
@@ -251,18 +274,23 @@ class GroupAdminManager {
                             <td>${$droits}</td>
                             <td>${div_img}</td>
                             <td>
-                                <button class="btn btn-info btn-sm" data-i18n="superadmin.buttons.reset" onclick="resetUserPassword(${element.id})">${i18next.t('superadmin.buttons.send')}</button>
+                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPasswordga(${element.id})">
+                                <i class="fas fa-redo-alt fa-2x"></i>
+                                </a>
                             </td>
                             <td>
-                                <button class="btn btn-warning btn-sm" data-i18n="superadmin.buttons.update" onclick="showupdateUserModal_groupadmin(${element.id})">${i18next.t('superadmin.buttons.update')}</button>
+                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal_groupadmin(${element.id})">
+                                <i class="fas fa-pencil-alt fa-2x"></i>
+                                </a>
                             </td>
                             <td>
-                                <button class="btn btn-danger btn-sm" data-i18n="superadmin.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('superadmin.buttons.delete')}</button>
+                                <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
                             </td>
                         </tr>`;
                 }
             });
             $('#table_info_group_data_groupadmin').html($data_table);
+            $('[data-toggle="tooltip"]').tooltip()
         }
         $.ajax({
             type: "POST",
@@ -334,8 +362,8 @@ class GroupAdminManager {
                     groupspp: $groupspp
                 },
                 success: function (response) {
-                    MainSuperAdmin.getSuperAdminManager()._allGroups = JSON.parse(response);
-                    MainSuperAdmin.getSuperAdminManager().showGroupsInTable((JSON.parse(response)));
+                    Mainmanager.getmanagerManager()._allGroups = JSON.parse(response);
+                    Mainmanager.getmanagerManager().showGroupsInTable((JSON.parse(response)));
                 },
                 error: function () {
                     reject();

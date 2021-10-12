@@ -30,6 +30,7 @@ use Utils\Exceptions\EntityOperatorException;
 /**
  * A modifier pour le namespace superadmin
  */
+
 use Classroom\Controller\ControllerGroupAdmin;
 use Classroom\Controller\ControllerSuperAdmin;
 
@@ -63,18 +64,18 @@ try {
         }
 
         $isFromGar = $entityManager->getRepository('User\Entity\ClassroomUser')
-        ->find(intval($_SESSION["id"]));
-        if($isFromGar){
-            $garUser = $isFromGar->jsonSerialize(); 
+            ->find(intval($_SESSION["id"]));
+        if ($isFromGar) {
+            $garUser = $isFromGar->jsonSerialize();
 
-            if($garUser['garId'] != null){
+            if ($garUser['garId'] != null) {
                 $user['isFromGar'] = true;
 
-                if($garUser['isTeacher'] == true && $garUser['mailTeacher'] == ''){
+                if ($garUser['isTeacher'] == true && $garUser['mailTeacher'] == '') {
                     $user['isRegular'] = 'no email provided';
                 }
-                if($garUser['isTeacher'] == true && $garUser['mailTeacher'] != ''){
-                    $user['isRegular'] = $garUser['mailTeacher'];  
+                if ($garUser['isTeacher'] == true && $garUser['mailTeacher'] != '') {
+                    $user['isRegular'] = $garUser['mailTeacher'];
                 }
             }
         }

@@ -92,7 +92,7 @@ document.getElementById('password-change-form').addEventListener('submit', (e) =
             if (response.changed == true) {
                 $("#profile-form-password").val("");
                 $("#profile-form-confirm-password").val("");
-                displayNotification('#notif-div', "superadmin.account.passwordUpdatedMessage",
+                displayNotification('#notif-div', "manager.account.passwordUpdatedMessage",
                     "success");
                 $('#password-change-container').toggle();
                 $('#password-updated-success').toggle();
@@ -100,11 +100,11 @@ document.getElementById('password-change-form').addEventListener('submit', (e) =
                 if (response.message) {
                     if (response.message == "no user") {
                         displayNotification('#notif-div',
-                            "superadmin.account.noUserFoundToken",
+                            "manager.account.noUserFoundToken",
                             "error");
                     } else if (response.message == "missing data") {
                         displayNotification('#notif-div',
-                            "superadmin.account.missingData",
+                            "manager.account.missingData",
                             "error");
                     }
                 }
@@ -124,15 +124,15 @@ function sendMail() {
                 if (response.message) {
                     if (response.message == "sending error") {
                         displayNotification('#notif-div',
-                            "superadmin.account.errorSending",
+                            "manager.account.errorSending",
                             "error");
                     } else if (response.message == "no user") {
                         displayNotification('#notif-div',
-                            "superadmin.account.noUserFound",
+                            "manager.account.noUserFound",
                             "error");
                     } else if (response.message == "missing data") {
                         displayNotification('#notif-div',
-                            "superadmin.account.missingData",
+                            "manager.account.missingData",
                             "error");
                     }
                 }

@@ -21,8 +21,8 @@ DisplayPanel.prototype.classroom_dashboard_profil_panel_groupadmin = function ()
     $('#user-name-groupadmin').html(UserManager.getUser().firstname + " " + UserManager.getUser().surname)
 }
 
-DisplayPanel.prototype.classroom_dashboard_profil_panel_superadmin = function () {
-    $('#user-name-superadmin').html(UserManager.getUser().firstname + " " + UserManager.getUser().surname)
+DisplayPanel.prototype.classroom_dashboard_profil_panel_manager = function () {
+    $('#user-name-manager').html(UserManager.getUser().firstname + " " + UserManager.getUser().surname)
 }
 
 DisplayPanel.prototype.classroom_dashboard_profil_panel = function () {
