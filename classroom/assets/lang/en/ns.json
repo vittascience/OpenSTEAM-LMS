@@ -186,7 +186,8 @@
 			"bothLimitationsReached": "You have reached the student limitations that you and your group may have.",
 			"ClassroomNameInvalid": "The classroom name is required",
 			"reservedNickname": "The name : \"{{reservedNickname}}\" can not be attributed.",
-			"invalidLink": "The link you entered is not valid"
+			"invalidLink": "The link you entered is not valid",
+			"noUser" : "You have to add a student"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
