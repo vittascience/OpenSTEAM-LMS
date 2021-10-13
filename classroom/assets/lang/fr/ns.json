@@ -159,7 +159,7 @@
 			"accountCreated": "Le compte a été créé. Veuillez vous rendre sur le lien de confirmation qui vient de vous être communiqué par e-mail pour finaliser l'inscription et pouvoir vous connecter.",
 			"firstnameMissing": "Vous devez renseigner votre prénom",
 			"surnameMissing": "Vous devez renseigner votre nom",
-			"pseudoMissing": "Vous devez rensigner votre pseudo",
+			"pseudoMissing": "Vous devez renseigner votre pseudo",
 			"emailMissing": "Vous devez renseigner votre adresse e-mail",
 			"passwordMissing": "Vous devez renseigner votre mot de passe",
 			"passwordConfirmMissing": "Vous devez renseigner la confirmation du mot de passe",

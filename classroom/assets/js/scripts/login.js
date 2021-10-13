@@ -240,9 +240,11 @@ $('#create-user').click(function () {
     let link = $_GET('link')
     Main.getClassroomManager().createAccount(pseudo, link).then(function (result) {
         if (result != false) {
-            
             if (!result.isUsersAdded) {
                 switch (result.errorType) {
+                    case 'pseudoIsMissing':
+                        displayNotification('#notif-div', "classroom.notif.pseudoMissing", "error");
+                        break;
                     case 'classroomBlocked':
                         displayNotification('#notif-div', "classroom.notif.cantLoginClassroomBlocked", "error");
                         break;
