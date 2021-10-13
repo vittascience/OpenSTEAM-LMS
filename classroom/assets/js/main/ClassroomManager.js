@@ -461,28 +461,31 @@ class ClassroomManager {
         })
     }
     /**
+     * @ToBeRemoved
+     * Last check October 2021
+     * 
      * Get students list in the classroom
      * @public
      * @returns {Array}
      */
-    getUsersInClassroom(link) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "POST",
-                url: "/routing/Routing.php?controller=classroom_link_user&action=get_by_classroom",
-                data: {
-                    "classroom": link
-                },
-                success: function (response) {
-                    resolve(JSON.parse(response))
+    // getUsersInClassroom(link) {
+    //     return new Promise(function (resolve, reject) {
+    //         $.ajax({
+    //             type: "POST",
+    //             url: "/routing/Routing.php?controller=classroom_link_user&action=get_by_classroom",
+    //             data: {
+    //                 "classroom": link
+    //             },
+    //             success: function (response) {
+    //                 resolve(JSON.parse(response))
 
-                },
-                error: function () {
-                    reject();
-                }
-            });
-        })
-    }
+    //             },
+    //             error: function () {
+    //                 reject();
+    //             }
+    //         });
+    //     })
+    // }
 
     /**
      * Get general data about the user (activities to do, activities done, courses todo, courses done)
