@@ -247,6 +247,10 @@ $('body').on('click', '.save-student-in-classroom', function () {
         })
         Main.getClassroomManager().addUsersToGroup(students, existingStudents, ClassroomSettings.classroom).then(function (response) {
             if(!response.isUsersAdded){
+                if(response.noUser){
+                    displayNotification('#notif-div', "classroom.notif.noUser", "error");
+                    return;
+                }
                 /**
                  * Update Rémi : Users limitation by group 
                  * possible return : personalLimit, personalLimitAndGroupOutDated, bothLimitReached
@@ -268,9 +272,13 @@ $('body').on('click', '.save-student-in-classroom', function () {
             }
         })
     } else {
-        $('#no-student-label').remove()
-        $('#table-students ul').append(addStudentRow($('.student-form-name').val()))
-        pseudoModal.closeModal('add-student-modal')
+        if ($('.student-form-name').val() != ''){
+            $('#no-student-label').remove()
+            $('#table-students ul').append(addStudentRow($('.student-form-name').val()))
+            pseudoModal.closeModal('add-student-modal')
+        } else {
+            displayNotification('#notif-div', "classroom.notif.noUser", "error");
+        }
     }
 
 })

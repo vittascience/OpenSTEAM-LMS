@@ -186,7 +186,8 @@
 			"bothLimitationsReached": "Vous avez atteint les limitations d'apprenants que vous et votre groupe pouvez avoir.",
 			"ClassroomNameInvalid": "Le nom de la classe est requis",
 			"reservedNickname": "Le nom : \"{{reservedNickname}}\" ne peut être attribué.",
-			"invalidLink": "Le lien que vous avez entrer n'est pas valide"
+			"invalidLink": "Le lien que vous avez entrer n'est pas valide",
+			"noUser" : "Vous devez renseigner un élève"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",
