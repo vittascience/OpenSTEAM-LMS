@@ -222,7 +222,19 @@
 				"isBlockedButton": "Limit to these learners, no one else will be able to join the classroom.",
 				"save": "Save the classroom",
 				"return": "Return to the classroom"
-			}
+			},
+			"panel": {
+				"seeActivity":"Open the activity",
+				"editActivity":"Edit the activity",
+				"editAttribution":"Edit the attribution",
+				"removeAttribution":"Remove the attribution",
+				"password": "Your password :",
+				"resetPassword" : "Reset password",
+				"editNickname": "Edit your nickname",
+				"delete": "Delete",
+				"copyLink": "Copy the direct link",
+				"learnerMode": "Learner mode"
+			}	
 		},
 		"activities": {
 			"title": "Activities",
@@ -283,6 +295,8 @@
 			"weakProficiency": "Weak proficiency",
 			"insufficientProficiency": "Insufficient proficiency",
 			"addLearner": "Add a learner",
+			"addLearners": "Add learners",
+			"addActivity": "Add an activity",
 			"exportCsv": "Export csv"
 		},
 		"filter": {
@@ -587,7 +601,7 @@
 		"evaluation": "evaluation",
 		"exercise": "exercice",
 		"return": "return",
-		"anonymize": "anonymiser",
+		"anonymize": "anonymize",
 		"days": "days",
 		"hours": "hours",
 		"minutes": "minutes",
