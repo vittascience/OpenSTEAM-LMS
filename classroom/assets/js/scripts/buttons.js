@@ -316,6 +316,8 @@ $('body').on('change', '#is-anonymised', function () {
     if ($(this).is(':checked')) {
         $('.username').each(function (el) {
             $('.username')[el].children[0].setAttribute('src', '/public/content/img/alphabet/A.png')
+            $('.username')[el].children[0].setAttribute('alt', '')
+            $('.username')[el].children[0].setAttribute('anonymized', 'true')
             $('.username')[el].children[1].innerHTML = "Elève n° " + index
             $('.username')[el].children[1].setAttribute('title', '')
             index++

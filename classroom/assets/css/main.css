@@ -614,16 +614,28 @@ button {
 #body-table-teach .propic {
     width: 36px;
     height: 36px;
+    background: var(--classroom-white);
+    clip-path: circle();
 }
 
-#body-table-teach .propic:before {
-    content: ' ';
-    display: block;
+#body-table-teach .propic[anonymized=true]::before {
+    content: '?';
+    font-size: 1.5em;
+    font-weight: 900;
+
+    display: flex;
     position: absolute;
     width: 36px;
     height: 36px;
-    background: var(--classroom-text-1);
+
+    color: var(--classroom-primary);
+    background: var(--classroom-white);
+    box-shadow:inset 0px 0px 0px 10px var(--classroom-primary);
+
     clip-path: circle();
+    align-items: center;
+    justify-content: center;
+
 }
 
 #classroom-dashboard-profile-stats,
