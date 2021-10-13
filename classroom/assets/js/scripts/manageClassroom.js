@@ -272,9 +272,13 @@ $('body').on('click', '.save-student-in-classroom', function () {
             }
         })
     } else {
-        $('#no-student-label').remove()
-        $('#table-students ul').append(addStudentRow($('.student-form-name').val()))
-        pseudoModal.closeModal('add-student-modal')
+        if ($('.student-form-name').val() != ''){
+            $('#no-student-label').remove()
+            $('#table-students ul').append(addStudentRow($('.student-form-name').val()))
+            pseudoModal.closeModal('add-student-modal')
+        } else {
+            displayNotification('#notif-div', "classroom.notif.noUser", "error");
+        }
     }
 
 })
