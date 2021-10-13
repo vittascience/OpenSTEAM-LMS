@@ -627,10 +627,12 @@ button {
     position: absolute;
     width: 36px;
     height: 36px;
+    border-radius: 50%;
 
+
+    border: 1px solid var(--classroom-primary);
     color: var(--classroom-primary);
     background: var(--classroom-white);
-    box-shadow:inset 0px 0px 0px 10px var(--classroom-primary);
 
     clip-path: circle();
     align-items: center;
