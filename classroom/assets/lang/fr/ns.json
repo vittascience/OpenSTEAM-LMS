@@ -1236,7 +1236,7 @@
 		},
 		"apps": {
 			"apps": "Applications",
-			"create": "Créer une application",
+			"create": "Ajouter une application",
 			"updateSuccess": "Application modifiée avec succès",
 			"createSuccess": "Application créée avec succès",
 			"deleteSuccess": "Application supprimée avec succès",

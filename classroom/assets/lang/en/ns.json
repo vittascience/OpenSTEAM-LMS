@@ -943,7 +943,7 @@
 		},
 		"apps": {
 			"apps": "Apps",
-			"create": "Create an app",
+			"create": "Add an app",
 			"updateSuccess": "App successfully updated",
 			"createSuccess": "App successfully created",
 			"deleteSuccess": "App successfully deleted",
