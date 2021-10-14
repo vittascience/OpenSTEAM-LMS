@@ -377,7 +377,7 @@ button {
     overflow-y: scroll;
 
     scrollbar-width: thin;
-    scrollbar-color: var(--bg-3) transparent;
+    scrollbar-color: var(--classroom-cell) transparent;
 }
 
 #classroom-dashboard-content::-webkit-scrollbar,
@@ -392,7 +392,7 @@ button {
 
 #classroom-dashboard-content::-webkit-scrollbar-thumb,
 #classroom-panel-table-container::-webkit-scrollbar-thumb {
-    background-color: var(--bg-3);
+    background-color: var(--classroom-cell);
     border-radius: 6px;
     border: 3px solid transparent;
 }
@@ -1680,6 +1680,8 @@ i.line_height34 {
     overflow-x: auto;
     overflow-y: hidden;
     min-height: 5em;
+    max-width: 100%;
+
 }
 
 #classroom-panel-legend ul {
