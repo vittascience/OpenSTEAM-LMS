@@ -1088,6 +1088,9 @@ function dashboardAutoRefresh(){
             if (getClassroomInListByLink($_GET('option'))[0]) {
                 let students = getClassroomInListByLink($_GET('option'))[0].students;
                 displayStudentsInClassroom(students);
+                if (document.getElementById('is-anonymised').checked) {
+                    anonymizeStudents();
+                }
             }
         });
         setTimeout(dashboardAutoRefresh, 15000);
