@@ -311,9 +311,11 @@ $('body').on('change', '#list-classes input', function () {
     ClassroomSettings.classroom = $(this).val()
 })
 
-$('body').on('change', '#is-anonymised', function () {
-    let index = 1
-    if ($(this).is(':checked')) {
+$('body').on('change', '#is-anonymised', anonymizeStudents);
+
+function anonymizeStudents() {
+    let index = 1;
+    if ($('#is-anonymised').is(':checked')) {
         $('.username').each(function (el) {
             $('.username')[el].children[0].setAttribute('src', '/public/content/img/alphabet/A.png')
             $('.username')[el].children[0].setAttribute('alt', '')
@@ -323,9 +325,10 @@ $('body').on('change', '#is-anonymised', function () {
             index++
         })
     } else {
-        navigatePanel('classroom-table-panel-teacher', 'dashboard-classes-teacher', ClassroomSettings.classroom)
+        let students = getClassroomInListByLink(ClassroomSettings.classroom)[0].students;
+        displayStudentsInClassroom(students);
     }
-})
+}
 
 function listeModeApprenant() {
     pseudoModal.openModal('list-classes-modal')

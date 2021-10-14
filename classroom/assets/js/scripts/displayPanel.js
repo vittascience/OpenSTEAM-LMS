@@ -297,9 +297,15 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
 
             }
             // Get the classes from database and refresh the dashboard
+            if (document.getElementById('is-anonymised').checked) {
+                anonymizeStudents();
+            }
             Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
                 let students = getClassroomInListByLink(link)[0].students
                 displayStudentsInClassroom(students)
+                if (document.getElementById('is-anonymised').checked) {
+                    anonymizeStudents();
+                }
             });
         }
 
