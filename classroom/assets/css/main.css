@@ -1756,7 +1756,9 @@ i.line_height34 {
         width: 100%;
         max-width: 100%;
     }
+}
 
+@media (max-width: 900px) {
     #classroom-info {
         flex-wrap: wrap;
         width: 100%;
