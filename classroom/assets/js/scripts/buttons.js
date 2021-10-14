@@ -311,19 +311,24 @@ $('body').on('change', '#list-classes input', function () {
     ClassroomSettings.classroom = $(this).val()
 })
 
-$('body').on('change', '#is-anonymised', function () {
-    let index = 1
-    if ($(this).is(':checked')) {
+$('body').on('change', '#is-anonymised', anonymizeStudents);
+
+function anonymizeStudents() {
+    let index = 1;
+    if ($('#is-anonymised').is(':checked')) {
         $('.username').each(function (el) {
-            $('.username')[el].children[0].setAttribute('src', '/public/content/img/alphabet/A.png')
-            $('.username')[el].children[1].innerHTML = "Elève n° " + index
-            $('.username')[el].children[1].setAttribute('title', '')
-            index++
-        })
+            $('.username')[el].children[0].setAttribute('src', `${_PATH}assets/media/alphabet/A.png`);
+            $('.username')[el].children[1].innerHTML = "Elève n° " + index;
+            $('.username')[el].children[1].setAttribute('title', '');
+            index++;
+        });
     } else {
-        navigatePanel('classroom-table-panel-teacher', 'dashboard-classes-teacher', ClassroomSettings.classroom)
+        let students = getClassroomInListByLink(ClassroomSettings.classroom)[0].students;
+        displayStudentsInClassroom(students);
+
+        // navigatePanel('classroom-table-panel-teacher', 'dashboard-classes-teacher', ClassroomSettings.classroom);
     }
-})
+}
 
 function listeModeApprenant() {
     pseudoModal.openModal('list-classes-modal')
