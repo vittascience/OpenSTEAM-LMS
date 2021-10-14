@@ -1679,6 +1679,7 @@ i.line_height34 {
     flex-wrap: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
+    min-height: 5em;
 }
 
 #classroom-panel-legend ul {
