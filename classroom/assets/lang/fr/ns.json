@@ -188,7 +188,8 @@
 			"reservedNickname": "Le nom : \"{{reservedNickname}}\" ne peut être attribué.",
 			"invalidLink": "Le lien que vous avez entrer n'est pas valide",
 			"noUser" : "Vous devez renseigner un élève",
-			"pseudoMissingInCsvFile" : "Certains élèves n'ont pu être ajouter car leur pseudo était manquant"
+			"pseudoMissingInCsvFile" : "Certains élèves n'ont pu être ajouter car leur pseudo était manquant",
+			"backendReplyPseudoMissingInCsv" : "Vérifier le fichier CSV : ligne vide ou pseudo manquant"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",
