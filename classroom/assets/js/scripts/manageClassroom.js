@@ -448,7 +448,9 @@ function csvJSON(csv) {
         let currentline = lines[i].split(/[,;]/);
 
         for (let j = 0; j < headers.length; j++) {
-            obj[headers[j]] = currentline[j].replace("\r","");
+            if(typeof currentline[j] != 'undefined' ){
+                obj[headers[j]] = currentline[j].replace("\r","");
+            }
         }
         result.push(obj);
     }
