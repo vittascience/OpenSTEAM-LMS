@@ -490,7 +490,7 @@ function exportDashboardCsv(){
  * @param {string} link - link of the classroom
  */
 function classroomToCsv(link) {
-    let html = "apprenant;mot de passe \n"
+    let html = "apprenant;mot_de_passe \n"
     let classroom = getClassroomInListByLink(link)[0]
     for (let i = 0; i < classroom.students.length; i++) {
         if(classroom.students[i].user.pseudo != demoStudentName){
