@@ -187,7 +187,8 @@
 			"ClassroomNameInvalid": "The classroom name is required",
 			"reservedNickname": "The name : \"{{reservedNickname}}\" can not be attributed.",
 			"invalidLink": "The link you entered is not valid",
-			"noUser" : "You have to add a student"
+			"noUser" : "You have to add a student",
+			"pseudoMissingInCsvFile" : "Some students couldn't be added as their pseudo was missing"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",

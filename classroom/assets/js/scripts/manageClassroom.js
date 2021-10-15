@@ -358,10 +358,19 @@ function importLearnerCsv(){
                         headers[i] = headers[i].replace("\r","");
                     }
                     
+                    let missingPseudoError = false
                     for (let i = 1; i < lines.length; i++) {
                         let currentline = lines[i].split(/[,;]/);
-                        $('#table-students ul').append(addStudentRow(currentline[0]));
+                        
+                        // set the error flag to true if the pseudo is missing in the csv
+                        if(currentline[0] == '') missingPseudoError = true;
+
+                        // add the student into the students table
+                        else $('#table-students ul').append(addStudentRow(currentline[0]));
                     }
+
+                    // display the missing pseudo error
+                    if(missingPseudoError == true) displayNotification('#notif-div', "classroom.notif.pseudoMissingInCsvFile", "error");
 
                     if ($('#table-students ul li .col').length > 1) {
                         $('#no-student-label').remove();
