@@ -377,7 +377,7 @@ button {
     overflow-y: scroll;
 
     scrollbar-width: thin;
-    scrollbar-color: var(--bg-3) transparent;
+    scrollbar-color: var(--classroom-cell) transparent;
 }
 
 #classroom-dashboard-content::-webkit-scrollbar,
@@ -392,7 +392,7 @@ button {
 
 #classroom-dashboard-content::-webkit-scrollbar-thumb,
 #classroom-panel-table-container::-webkit-scrollbar-thumb {
-    background-color: var(--bg-3);
+    background-color: var(--classroom-cell);
     border-radius: 6px;
     border: 3px solid transparent;
 }
@@ -614,16 +614,30 @@ button {
 #body-table-teach .propic {
     width: 36px;
     height: 36px;
+    background: var(--classroom-white);
+    clip-path: circle();
 }
 
-#body-table-teach .propic:before {
-    content: ' ';
-    display: block;
+#body-table-teach .propic[anonymized=true]::before {
+    content: '?';
+    font-size: 1.5em;
+    font-weight: 900;
+
+    display: flex;
     position: absolute;
     width: 36px;
     height: 36px;
-    background: var(--classroom-text-1);
+    border-radius: 50%;
+
+
+    border: 1px solid var(--classroom-primary);
+    color: var(--classroom-primary);
+    background: var(--classroom-white);
+
     clip-path: circle();
+    align-items: center;
+    justify-content: center;
+
 }
 
 #classroom-dashboard-profile-stats,
@@ -1665,6 +1679,9 @@ i.line_height34 {
     flex-wrap: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
+    min-height: 5em;
+    max-width: 100%;
+
 }
 
 #classroom-panel-legend ul {
@@ -1743,8 +1760,14 @@ i.line_height34 {
     }
 
     #classroom-info {
-        flex-wrap: wrap;
         width: 100%;
+    }
+}
+
+@media (max-width: 900px) {
+    #classroom-info {
+        flex-wrap: wrap;
+        width: 95%;
     }
 
     #classroom-info>* {

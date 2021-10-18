@@ -747,7 +747,7 @@ function displayStudentsInClassroom(students) {
     $('#body-table-teach').html(''); //clean the display
     $('#add-student-container').html(''); //clean the display
     $('#export-class-container').html(''); //clean the display
-    $('#header-table-teach').html('<th class="table-title" style="max-width: 250px; font-size: 19pt; text-align: left; height: 3em;" data-i18n="classroom.activities.title">Activités</th>');
+    $('#header-table-teach').html('<th class="table-title" style="max-width: 250px; font-size: 19pt; text-align: left; height: 3em;" data-i18n="classroom.activities.title"></th>').localize();
     // get the current classroom index of activities
     let arrayIndexesActivities = listIndexesActivities(students);
 
@@ -793,17 +793,17 @@ function displayStudentsInClassroom(students) {
         if (element.user.pseudo == demoStudentName) {
             html = `<tr><td class="username row" data-student-id="` + element.user.id + `"><img class="col-2 propic" src="${_PATH}assets/media/alphabet/` + element.user.pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil"><div class="col-7 line_height34" title="` + element.user.pseudo + `">` + pseudo + ` </div> <div class="dropdown col "><i class="classroom-clickable line_height34 fas fa-exchange-alt" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
             <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
-        <li id="mode-apprenant" class="dropdown-item classroom-clickable col-12" href="#" onclick="modeApprenant()">Mode apprenant</li>
+        <li id="mode-apprenant" class="dropdown-item classroom-clickable col-12" href="#" onclick="modeApprenant()" data-i18n="classroom.classes.panel.learnerMode">Mode apprenant</li>
         </div>
         </div></td>`;
         // Add the current student head table cell
         } else {
             html = `<tr><td class="username row" data-student-id="` + element.user.id + `"><img class="col-2 propic" src="${_PATH}assets/media/alphabet/` + element.user.pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil"><div class="col-7 line_height34" title="` + element.user.pseudo + `">` + pseudo + ` </div><div class="dropdown col"><i class="classroom-clickable line_height34 fas fa-cog" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
             <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
-            <li class="col-12 pwd-display-stud" href="#">Votre mot de passe : <span class="masked">${element.pwd}  </span><i class="classroom-clickable fas fa-low-vision switch-pwd ml-2"></i></li>
-            <li class="modal-student-password classroom-clickable col-12 dropdown-item" href="#">Régenérer le mot de passe</li>
-        <li class="classroom-clickable col-12 dropdown-item" href="#"><span class="classroom-clickable" onclick="changePseudoModal('${element.user.pseudo}',${element.user.id})">Modifier le pseudo</span></li>
-        <li class="dropdown-item modal-student-delete classroom-clickable col-12" href="#">Supprimer</li>
+            <li class="col-12 pwd-display-stud" href="#"><div data-i18n="classroom.classes.panel.password">Votre mot de passe :</div> <span class="masked">${element.pwd}</span><i class="classroom-clickable fas fa-low-vision switch-pwd ml-2"></i></li>
+            <li class="modal-student-password classroom-clickable col-12 dropdown-item" href="#" data-i18n="classroom.classes.panel.resetPassword">Régenérer le mot de passe</li>
+        <li class="classroom-clickable col-12 dropdown-item" href="#"><span class="classroom-clickable" data-i18n="classroom.classes.panel.editNickname" onclick="changePseudoModal('${element.user.pseudo}',${element.user.id})">Modifier le pseudo</span></li>
+        <li class="dropdown-item modal-student-delete classroom-clickable col-12" href="#" data-i18n="classroom.classes.panel.delete">Supprimer</li>
         </div>
         </div></td>`;
         }
@@ -820,10 +820,10 @@ function displayStudentsInClassroom(students) {
                             <span class="span-act">Act.</br>n°${ activityNumber }</span>
                             <i style="display:none;font-size:2em;" class="fa fa-cog i-act" aria-hidden="true"></i><div class="dropdown-menu" aria-labelledby="dropdown-act-${activityNumber}"  data-id="${activitiesIndexWithId[i].id}" style="text-transform: none;">
                             <li class="ml-5" style="border-bottom:solid 2px black;"><b>${ activitiesIndexWithId[i].title }</b></li>
-                            <li class="classroom-clickable col-12 dropdown-item " onclick="activityWatch(${activitiesIndexWithId[i].id})" ><i class="fas fa-eye"></i> Voir l'activité</li>
-                            <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activitiesIndexWithId[i].id})"><i class="fas fa-pen"></i> Modifier l'activité</li>
-                            <li class="classroom-clickable col-12 dropdown-item" onclick="attributeActivity(${activitiesIndexWithId[i].id},${activitiesIndexWithId[i].reference})"><i class="fas fa-user-alt"></i> Modifier l'attribution</li>
-                            <li class="dropdown-item classroom-clickable col-12" onclick="undoAttributeActivity(${activitiesIndexWithId[i].reference},'${activitiesIndexWithId[i].title}')"><i class="fas fa-trash-alt"></i> Retirer l'attribution</li>
+                            <li class="classroom-clickable col-12 dropdown-item " onclick="activityWatch(${activitiesIndexWithId[i].id})" ><i class="fas fa-eye"></i> <span data-i18n="classroom.classes.panel.seeActivity">Voir l'activité</span></li>
+                            <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activitiesIndexWithId[i].id})"><i class="fas fa-pen"></i> <span data-i18n="classroom.classes.panel.editActivity">Modifier l'activité</span></li>
+                            <li class="classroom-clickable col-12 dropdown-item" onclick="attributeActivity(${activitiesIndexWithId[i].id},${activitiesIndexWithId[i].reference})"><i class="fas fa-user-alt"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span></li>
+                            <li class="dropdown-item classroom-clickable col-12" onclick="undoAttributeActivity(${activitiesIndexWithId[i].reference},'${activitiesIndexWithId[i].title}')"><i class="fas fa-trash-alt"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span></li>
                         </div>
                     </div>
                 </th>`);
@@ -843,14 +843,14 @@ function displayStudentsInClassroom(students) {
         }
         // end of the current table row
         html += '</tr>';
-        $('#body-table-teach').append(html);
+        $('#body-table-teach').append(html).localize();
     });
     
-    $('#add-student-container').append(`<button id="add-student-dashboard-panel" class="btn c-btn-primary"><span data-i18n="classroom.activities.addLearner">Ajouter des apprenants <i class="fas fa-plus"></i></span></button>`);
+    $('#add-student-container').append(`<button id="add-student-dashboard-panel" class="btn c-btn-primary"><span data-i18n="classroom.activities.addLearners">Ajouter des apprenants</span> <i class="fas fa-plus"></i></button>`).localize();
 
-    $('#export-class-container').append(`<button id="download-csv" class="btn c-btn-tertiary ml-2" onclick="openDownloadCsvModal()"><i class="fa fa-download" aria-hidden="true"></i><span class="ml-1" data-i18n="classroom.activities.exportCsv">Exporter CSV</span></button>`);
+    $('#export-class-container').append(`<button id="download-csv" class="btn c-btn-tertiary ml-2" onclick="openDownloadCsvModal()"><i class="fa fa-download" aria-hidden="true"></i><span class="ml-1" data-i18n="classroom.activities.exportCsv">Exporter CSV</span></button>`).localize();
 
-    $('#header-table-teach').append(`<th class="add-activity-th" colspan="7"> <button class="btn c-btn-primary dashboard-activities-teacher" onclick="pseudoModal.openModal('add-activity-modal')">Ajouter une activité</button></th>`)
+    $('#header-table-teach').append(`<th class="add-activity-th" colspan="7"> <button class="btn c-btn-primary dashboard-activities-teacher" onclick="pseudoModal.openModal('add-activity-modal')" data-i18n="classroom.activities.addActivity">Ajouter une activité</button></th>`).localize();
 }
 
 $('body').on('click', '.switch-pwd', function (event) {
