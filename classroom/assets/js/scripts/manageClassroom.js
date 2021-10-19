@@ -773,11 +773,11 @@ function displayStudentsInClassroom(students) {
     }
 
     // sort the students by their name (it doesn't seem to work yet)
-    if (students[0].user.pseudo == demoStudentName) {
-        students.sort(function (a, b) {
-            return (a.pseudo > b.pseudo) ? 1 : -1;
-        })
-    }
+    // if (students[0].user.pseudo == demoStudentName) {
+    //     students.sort(function (a, b) {
+    //         return (a.pseudo > b.pseudo) ? 1 : -1;
+    //     })
+    // }
 
 
     students.forEach(element => {
@@ -1093,14 +1093,27 @@ function showFormInputError(id){
     document.getElementById(id).classList.add('form-input-error');
 }
 
+/**
+ * Refresh the current classroom every 15 seconds if we are in the classroom dashboard
+ */
 function dashboardAutoRefresh(){
     if($_GET('panel') == 'classroom-table-panel-teacher' && $_GET('option')){
+        let previousClassroomState, newClassroomState;
+        if (getClassroomInListByLink($_GET('option'))[0]) {
+            previousClassroomState = JSON.stringify(getClassroomInListByLink($_GET('option'))[0].students);
+        }
         Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
             if (getClassroomInListByLink($_GET('option'))[0]) {
-                let students = getClassroomInListByLink($_GET('option'))[0].students;
-                displayStudentsInClassroom(students);
-                if (document.getElementById('is-anonymised').checked) {
-                    anonymizeStudents();
+                newClassroomState = JSON.stringify(getClassroomInListByLink($_GET('option'))[0].students);
+            }
+            // Only refresh the classroom if it has changed
+            if (previousClassroomState != newClassroomState){
+                if (getClassroomInListByLink($_GET('option'))[0]) {
+                    let students = getClassroomInListByLink($_GET('option'))[0].students;
+                    displayStudentsInClassroom(students);
+                    if (document.getElementById('is-anonymised').checked) {
+                        anonymizeStudents();
+                    }
                 }
             }
         });
