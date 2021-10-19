@@ -852,23 +852,30 @@ class ClassroomManager {
      * @public
      * @returns {Array}
      */
-    attributeActivity(data) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "POST",
-                url: "/routing/Routing.php?controller=activity_link_user&action=add_users",
-                data: data,
-                success: function (response) {
-                    resolve(JSON.parse(response))
-
-                },
-                error: function () {
-                    reject();
-                }
-            });
+    attributeActivity(data,container) {
+        return new Promise((resolve, reject) =>{
+            // Wrap the current action into a task function
+            let currentTask = onEnd => {  
+                $.ajax({
+                    type: "POST",
+                    url: "/routing/Routing.php?controller=activity_link_user&action=add_users",
+                    data: data,
+                    success: function (response) {                        
+                        if (JSON.parse(response).error_message && JSON.parse(response).error_message !== undefined) {
+                            container.errors.push(GET_PUBLIC_PROJECTS_ERROR);
+                        }
+                        onEnd()
+                        resolve(JSON.parse(response));
+                    },
+                    error: function () {
+                        onEnd()
+                    }
+                });
+            }
+            // Add the current task to the tasks queue
+            this._addTaskToQueue(currentTask);
         })
     }
-
     /**
      * Update a student's exercise with his project
      * */
