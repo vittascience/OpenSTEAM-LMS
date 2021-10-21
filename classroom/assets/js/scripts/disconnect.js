@@ -14,7 +14,7 @@ function goToDisconnect() {
         });
     }).then(()=>{
         if (UserManager.getUser().isFromGar){
-            window.location = 'https://simulent.partenaire.test-gar.education.fr/mediacentre';
+            window.location = '/classroom/gar_user_disconnected.php';
         } else {
             window.location = '/classroom/';
         }
