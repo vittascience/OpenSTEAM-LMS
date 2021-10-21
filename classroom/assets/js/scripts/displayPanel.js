@@ -302,14 +302,13 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
             }
             Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
                 let students = getClassroomInListByLink(link)[0].students
-                displayStudentsInClassroom(students)
+                displayStudentsInClassroom(students, link);
                 if (document.getElementById('is-anonymised').checked) {
                     anonymizeStudents();
                 }
             });
         }
-
-        setTimeout(dashboardAutoRefresh, 15000);
+        dashboardAutoRefresh.refreshLater();
     } else {
         navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher', 'WK' + id, '')
         displayNotification('#notif-div', "classroom.login.noClass", "warning")
