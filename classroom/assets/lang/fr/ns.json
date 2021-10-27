@@ -286,7 +286,8 @@
 				"autocorrect": "Cette activité dispose de correction automatique, souhaitez-vous l'activer ?",
 				"nature": "L’élève peut-il soumettre plusieurs fois l’activité ?",
 				"dateBegin": "Date de début :",
-				"dateEnd": "Date de fin :"
+				"dateEnd": "Date de fin :",
+				"retroAttribution" : "Cette activité sera attribuée aux nouveaux apprenants"
 			},
 			"toCopy": "Ce code permet de rejoindre en toute simplicité votre classe",
 			"copyLink": "Le lien vers votre classe a été ajouté au presse-papier",
