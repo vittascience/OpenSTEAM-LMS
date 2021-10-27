@@ -612,13 +612,14 @@ class ClassroomManager {
      * @public
      * @returns {Array}
      */
-    undoAttributeActivity(ref) {
+    undoAttributeActivity(ref,classroomId) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
                 url: "/routing/Routing.php?controller=activity_link_user&action=remove_by_reference",
                 data: {
-                    "reference": ref
+                    "reference": ref,
+                    "classroomId" : classroomId
                 },
                 success: function (response) {
                     resolve(JSON.parse(response));
@@ -1181,5 +1182,11 @@ class ClassroomManager {
                 }
             });
         });
+    }
+
+    getClassroomIdByLink(link){
+        for(let classroom of this._myClasses){
+            if(classroom.classroom.link == link) return classroom.classroom.id
+        }
     }
 }

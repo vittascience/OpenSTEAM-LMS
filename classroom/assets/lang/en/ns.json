@@ -286,7 +286,8 @@
 				"autocorrect": "This activity has automated correction, do you like to activate it ?",
 				"nature": "Can the student submit the activity multiple times?",
 				"dateBegin": "Begin date :",
-				"dateEnd": "End date :"
+				"dateEnd": "End date :",
+				"retroAttribution" : "This activity will be added for every new students"
 			},
 			"toCopy": "This code allow you to join the classroom at ease :",
 			"copyLink": "The link to your class has been added to the clipboard",
