@@ -397,6 +397,9 @@
 				"title": "Modifier le pseudo",
 				"description": "Modifier le pseudo",
 				"validateButton": "Valider"
+			},
+			"attributeActivity": {
+				"title": "Attribuer l'activité"
 			}
 		}
 	},

@@ -88,7 +88,6 @@ function activityModify(id) {
 
 //création activité vers attribution
 function attributeActivity(id, ref = null) {
-    console.log("attribute")
     ClassroomSettings.activity = id
     ClassroomSettings.ref = ref
     $('#list-student-attribute-modal').html('')
