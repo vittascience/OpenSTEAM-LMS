@@ -1674,15 +1674,27 @@ i.line_height34 {
 }
 
 #classroom-panel-legend {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
+    display: grid;
     overflow-x: auto;
     overflow-y: hidden;
     min-height: 5em;
     max-width: 100%;
-
 }
+
+#classroom-panel-legend #add-student-container,
+#classroom-panel-legend #export-class-container {
+    text-align: center;
+}
+#classroom-panel-legend #export-class-container {
+    grid-column-start: 1;
+    grid-row-start: 2;
+}
+#classroom-panel-legend #legend-container {
+    grid-column-start: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
 
 #classroom-panel-legend ul {
     margin-bottom: 5px;
