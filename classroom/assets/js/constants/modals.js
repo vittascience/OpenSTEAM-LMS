@@ -238,7 +238,7 @@ const classroomModals = {
                     <label for="group_apps_options" data-i18n="manager.group.applications">Application(s) du groupe</label>
                     <div class="form-group" id="group_apps_options">
                     </div>
-                    <button class="btn c-btn-secondary" data-i18n="manager.buttons.create" onclick="createGroupWithModal()">Create</button>`,
+                    <button class="btn c-btn-secondary" data-i18n="manager.buttons.group.create" onclick="createGroupWithModal()">Create</button>`,
         footer: ``
     },
     'manager-update-group': {
