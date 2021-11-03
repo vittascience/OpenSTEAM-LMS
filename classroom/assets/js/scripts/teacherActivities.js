@@ -144,9 +144,12 @@ $('body').on('click', '#attribute-activity-to-students', function () {
         Main.getClassroomManager().getActivity(ClassroomSettings.activity).then(function (activity) {
             navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')
             $('.student-number').html(0)
-            if (ClassroomSettings.ref != null) {
+
+            /** @ToBeDeleted last check Novembre 2021 */
+            /* if (ClassroomSettings.ref != null) {
                 Main.getClassroomManager().undoAttributeActivity(ClassroomSettings.ref)
-            }
+            } */
+            
             // get the checkbox value then set it by default for the next time
             retroAttribution = $('#retro-attribution').prop('checked')
             $('#retro-attribution').prop('checked',false)
