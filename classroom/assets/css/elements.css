@@ -98,8 +98,8 @@
 }
 
 .c-btn-outline-red {
-    border: 2px solid var(--classroom-tertiary);
-    color: var(--classroom-tertiary);
+    border: 2px solid var(--classroom-red);
+    color: var(--classroom-red);
     background: transparent;
 }
 
