@@ -760,7 +760,7 @@ const classroomModals = {
         selector: '',
         header: {
             icon: '',
-            title: 'manager.users.updateApps'
+            title: 'manager.users.updateAppModalTitle'
         },
         content: `  <div id="update-applications-modal">
                         <div class="container-fluid" id="update-app-manager" style="display:none;">
