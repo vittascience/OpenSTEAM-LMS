@@ -189,7 +189,8 @@
 			"invalidLink": "The link you entered is not valid",
 			"noUser" : "You have to add a student",
 			"pseudoMissingInCsvFile" : "Some students couldn't be added as their pseudo was missing",
-			"backendReplyPseudoMissingInCsv" : "Check the CSV file : empty line or pseudo missing"
+			"backendReplyPseudoMissingInCsv" : "Check the CSV file : empty line or pseudo missing",
+			"backendReplyPseudoMissingInUsersArray" : "There is one or more error(s) in the student(s) name(s)"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
