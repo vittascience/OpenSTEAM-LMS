@@ -162,8 +162,17 @@ $('.new-classroom-form').click(function () {
                 if(students.length){
                     Main.getClassroomManager().addUsersToGroup(students, existingStudents, classroom.link).then(function (response) {
                         if(!response.isUsersAdded){
-                            displayNotification('#notif-div', "classroom.notif.classCreatedButNotUsers", "error", `'{"classroomName": "${classroom.name}", "learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
-                           $('.new-classroom-form').attr('disabled', false);
+                            if(response.errorType){
+                                 displayNotification('#notif-div', `classroom.notif.${response.errorType}`, "error");
+                            }
+                            else{
+                                 displayNotification('#notif-div', "classroom.notif.classCreatedButNotUsers", "error", `'{"classroomName": "${classroom.name}", "learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
+                            }
+                           
+                            Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
+                                $('.new-classroom-form').attr('disabled', false);
+                                navigatePanel('classroom-table-panel-teacher', 'dashboard-classes-teacher', classroom.link)
+                           })
                         }
                         else{
                             Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
@@ -454,7 +463,6 @@ function csvJSON(csv) {
         }
         result.push(obj);
     }
-    
     // remove the previous filename uploaded on open 
     $('#importcsv-fileinput').val("");
     return JSON.stringify(result); //JSON
