@@ -15,7 +15,7 @@ function onUrlChange() {
                 $('#login-container').show();
                 break;
             case 'register':
-                $('#classroom-register-container').show();
+                createRegistrationTemplateForLogin();
                 break;
             default:
                 $('#home-container').show();
@@ -518,7 +518,6 @@ function createSubjectSelectTeacherForm(array) {
     }
 }
 
-
 function createRegistrationTemplateForLogin() {
     getRegistrationTemplate().then((res) => {
         if (res.USER_USERNAME == "false") {
@@ -538,11 +537,14 @@ function createRegistrationTemplateForLogin() {
             $('#registration_grade').remove();
             $('#registration_school').remove();
         }
+        setTimeout(() => {
+            if ($_GET('p') == "register") {
+                $('#classroom-register-container').show();
+            }
+        }, 500);
     })
 }
-setTimeout(() => {
-    createRegistrationTemplateForLogin();
-}, 500);
+
 setTimeout(() => {
     createSubjectSelectTeacherForm(getSubjects(0));
 }, 2000);
