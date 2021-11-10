@@ -104,8 +104,8 @@ const classroomModals = {
                                 <span data-i18n="manager.profil.onlyVisibleGroupAdmin">Uniquement visible par vous en tant qu'administrateur de groupe :</span>
                             </legend>
                             <button class="theme-group-admin btn mb-2 c-btn-outline-primary c-btn-dashboard" onclick="switchToGroupAdmin()" id="groupadmin-switch-button" style="display:none;"><span
-                                    data-i18n="manager.profil.groupAdmin" class="text-span-initial mr-1"></span><i
-                                    class="fas fa-cog"></i>
+                                    data-i18n="manager.profil.groupAdmin" class="text-span-initial mr-1"></span>
+                                    <i class="fas fa-chevron-right"></i>
                             </button>
                             </fieldset>
 
@@ -119,7 +119,7 @@ const classroomModals = {
                                     </legend>
                                     <button class="theme-super-admin btn mb-2 c-btn-outline-primary c-btn-dashboard" onclick="switchTomanager()" id="manager-switch-button" style="display:none;">
                                         <span data-i18n="manager.profil.manager" class="text-span-initial mr-1"></span>
-                                        <i class="fas fa-cog"></i>
+                                        <i class="fas fa-chevron-right"></i>
                                 </button>
                             </fieldset>
                         </div>
@@ -238,7 +238,7 @@ const classroomModals = {
                     <label for="group_apps_options" data-i18n="manager.group.applications">Application(s) du groupe</label>
                     <div class="form-group" id="group_apps_options">
                     </div>
-                    <button class="btn c-btn-secondary" data-i18n="manager.buttons.create" onclick="createGroupWithModal()">Create</button>`,
+                    <button class="btn c-btn-secondary" data-i18n="manager.buttons.group.create" onclick="createGroupWithModal()">Create</button>`,
         footer: ``
     },
     'manager-update-group': {
@@ -760,7 +760,7 @@ const classroomModals = {
         selector: '',
         header: {
             icon: '',
-            title: 'manager.users.updateApps'
+            title: 'manager.users.updateAppModalTitle'
         },
         content: `  <div id="update-applications-modal">
                         <div class="container-fluid" id="update-app-manager" style="display:none;">

@@ -250,7 +250,7 @@ button {
 
 .sidebar-classroom #classroom-sidebar-logo {
     background: var(--classroom-logo);
-    
+
     max-height: 150px;
     height: 100%;
     width: 100%;
@@ -438,7 +438,7 @@ button {
         width: 100%;
         background: var(--classroom-dashboard);
         height: 110px;
-        
+
         display: flex;
         flex-direction: row;
         justify-content: space-around;
@@ -1239,6 +1239,17 @@ h3.section-done {
     align-content: center;
 }
 
+.assign-activity-container {
+    max-width: 760px;
+}
+
+
+@media (max-width: 768px) {
+    .assign-activity-calendar {
+        text-align: center !important;
+    }
+}
+
 /* ACTIVITY RESULTS */
 
 .results-panel {
@@ -1674,15 +1685,30 @@ i.line_height34 {
 }
 
 #classroom-panel-legend {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
+    display: grid;
     overflow-x: auto;
     overflow-y: hidden;
     min-height: 5em;
     max-width: 100%;
-
+    grid-template-columns: auto max-content;
 }
+
+#classroom-panel-legend #add-student-container,
+#classroom-panel-legend #export-class-container {
+    text-align: center;
+}
+
+#classroom-panel-legend #export-class-container {
+    grid-column-start: 1;
+    grid-row-start: 2;
+}
+
+#classroom-panel-legend #legend-container {
+    grid-column-start: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
 
 #classroom-panel-legend ul {
     margin-bottom: 5px;

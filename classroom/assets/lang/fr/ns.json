@@ -1025,7 +1025,7 @@
 			"mailSentToUserReset": "Un e-mail a été envoyé à l'utilisateur pour qu'il change de mot de passe",
 			"mailNotSentToUserReset": "l'e-mail de changement de mot de passe n'a pas pu être envoyé à l'utilisateur",
 			"appsUpdated": "Les applications de l'utilisateur ont été mise à jour",
-			"updateApps": "Modifier les applications",
+			"updateAppModalTitle": "Application",
 			"teacherGrades": {
 				"0": "Primaire",
 				"1": "Collège",
