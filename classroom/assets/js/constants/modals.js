@@ -283,7 +283,7 @@ const classroomModals = {
                 <label for="u_surname" data-i18n="[html]manager.profil.lastname">Nom <span class="c-text-red">*</span></label>
                 <input type="text" class="form-control" id="u_surname">
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4" id="manager_username">
                 <label for="u_pseudo" data-i18n="[html]manager.profil.nickname">Pseudonyme</label>
                 <input type="text" class="form-control" id="u_pseudo">
             </div>
@@ -294,13 +294,13 @@ const classroomModals = {
                 <label for="u_mail" data-i18n="[html]manager.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
                 <input type="email" class="form-control" id="u_mail">
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6" id="manager_phone">
                 <label for="u_phone" data-i18n="manager.profil.phone">Numéro de telephone</label>
                 <input type="text" class="form-control" id="u_phone">
             </div>
         </div>
     
-        <div class="form-row c-secondary-form mb-2">
+        <div class="form-row c-secondary-form mb-2" id="manager_bio">
             <label for="u_bio" data-i18n="[html]manager.profil.bio">Bio <span class="c-text-red">*</span></label>
             <textarea class="form-control" id="u_bio" rows="3"></textarea>
         </div>
@@ -323,7 +323,7 @@ const classroomModals = {
             </div>
         </div>
     
-        <div class="form-row c-secondary-form" id="user_teacher_infos" style="display: none;">
+        <div class="form-row c-secondary-form" id="user_teacher_infos" style="display: none;" >
             <div class="form-group col-md-6">
                 <select class="form-control" id="user_teacher_grade">
                     <option selected value="0" data-i18n="manager.users.teacherGrades.0">Primaire</option>
@@ -342,6 +342,7 @@ const classroomModals = {
                 <input type="text" class="form-control" id="u_school">
             </div>
         </div>
+    
     </div>
     
     <hr>
@@ -366,7 +367,7 @@ const classroomModals = {
     
     <div id="group_add_sa">
     </div>
-
+    
     <div id="create_update_personal_apps_sa">
         
     </div>
@@ -392,7 +393,7 @@ const classroomModals = {
                 <label for="update_u_surname" data-i18n="[html]manager.profil.lastname">Nom <span class="c-text-red">*</span></label>
                 <input type="text" class="form-control" id="update_u_surname">
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4" id="manager_update_username">
                 <label for="update_u_pseudo" data-i18n="[html]manager.profil.nickname">Pseudonyme</label>
                 <input type="text" class="form-control" id="update_u_pseudo">
             </div>
@@ -403,13 +404,13 @@ const classroomModals = {
                 <label for="update_u_mail" data-i18n="[html]manager.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
                 <input type="email" class="form-control" id="update_u_mail">
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6" id="manager_update_phone">
                 <label for="update_u_phone" data-i18n="manager.profil.phone">Numéro de telephone</label>
                 <input type="text" class="form-control" id="update_u_phone">
             </div>
         </div>
     
-        <div class="form-row c-secondary-form mb-2">
+        <div class="form-row c-secondary-form mb-2" id="manager_update_bio">
             <label for="update_u_bio" data-i18n="[html]manager.profil.bio">Bio <span class="c-text-red">*</span></label>
             <textarea class="form-control" id="update_u_bio" rows="3"></textarea>
         </div>
@@ -503,17 +504,17 @@ const classroomModals = {
                 <label for="u_mail_ga" data-i18n="[html]manager.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
                 <input type="email" class="form-control" id="u_mail_ga">
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4" id="group_admin_phone">
                 <label for="u_phone_ga" data-i18n="manager.profil.phone">Numéro de telephone</label>
                 <input type="text" class="form-control" id="u_phone_ga">
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4" id="group_admin_username">
                 <label for="u_pseudo_ga" data-i18n="[html]manager.profil.nickname">Pseudonyme</label>
                 <input type="text" class="form-control" id="u_pseudo_ga">
             </div>
         </div>
     
-        <div class="form-group c-secondary-form">
+        <div class="form-group c-secondary-form" id="group_admin_bio">
             <label for="u_bio_ga" data-i18n="[html]manager.profil.bio">Bio <span class="c-text-red">*</span></label>
             <textarea class="form-control" id="u_bio_ga" rows="3"></textarea>
         </div>
@@ -539,8 +540,8 @@ const classroomModals = {
                 <input type="text" class="form-control" id="u_school_ga">
             </div>
     
-            <div class="form-group col-md-12" id="allGroupsGA">
-            </div>
+        </div>
+        <div class="form-group col-md-12" id="allGroupsGA">
         </div>
     </div>
     
@@ -564,8 +565,8 @@ const classroomModals = {
                 <label for="update_u_surname_ga" data-i18n="[html]manager.profil.lastname">Nom <span class="c-text-red">*</span></label>
                 <input type="text" class="form-control" id="update_u_surname_ga">
             </div>
-            <div class="form-group col-md-4">
-                <label for="update_u_pseudo_ga" data-i18n="[html]manager.profil.nickname">Pseudonyme</label>
+            <div class="form-group col-md-4" id="group_admin_username_update">
+                <label for="update_u_pseudo_ga" data-i18n="[html]manager.profil.nickname" >Pseudonyme</label>
                 <input type="text" class="form-control" id="update_u_pseudo_ga">
             </div>
         </div>
@@ -575,13 +576,13 @@ const classroomModals = {
                 <label for="update_u_mail_ga" data-i18n="[html]manager.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
                 <input type="email" class="form-control" id="update_u_mail_ga">
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6" id="group_admin_phone_update">
                 <label for="update_u_phone_ga" data-i18n="manager.profil.phone">Numéro de telephone</label>
                 <input type="text" class="form-control" id="update_u_phone_ga">
             </div>
         </div>
     
-        <div class="form-group c-secondary-form mb-2">
+        <div class="form-group c-secondary-form mb-2" id="group_admin_bio_update">
             <label for="update_u_bio_ga" data-i18n="[html]manager.profil.bio">Bio <span class="c-text-red">*</span></label>
             <textarea class="form-control" id="update_u_bio_ga" rows="3"></textarea>
         </div>
@@ -612,7 +613,7 @@ const classroomModals = {
         </div>
     
         <hr>
-
+    
         <div id="update_applications_ga">
         </div>
     </div>

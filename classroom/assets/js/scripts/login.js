@@ -536,8 +536,33 @@ function createSubjectSelectTeacherForm(array) {
         $("#profile-form-subject").append(o);
     }
 }
+
+
+function createRegistrationTemplateForLogin() {
+    getRegistrationTemplate().then((res) => {
+        console.log(res);
+        if (res.USER_USERNAME == "false") {
+            $('#registration_pseudo').remove();
+        }
+        
+        if (res.USER_PHONE == "false") {
+            $('#registration_phone').remove();
+        }
+        
+        if (res.USER_BIO == "false") {
+            $('#registration_bio').remove();
+        }
+        
+        if (res.USER_TEACHER_SECTION == "false") {
+            $('#registration_subject').remove();
+            $('#registration_grade').remove();
+            $('#registration_school').remove();
+        }
+    })
+}
+
 setTimeout(() => {
     createSubjectSelectTeacherForm(getSubjects(0));
+    createRegistrationTemplateForLogin();
 }, 2000);
-
 

@@ -335,8 +335,8 @@ class GroupAdminManager {
                     pseudo: $user_pseudo,
                     phone: $phone,
                     bio: $bio,
-                    grade: parseInt($teacher_grade) + 1,
-                    subject: parseInt($teacher_suject) + 1,
+                    grade: $teacher_grade,
+                    subject: $teacher_suject,
                     mail: $mail,
                     school: $school
                 },
@@ -483,8 +483,8 @@ class GroupAdminManager {
                     pseudo: $user_pseudo,
                     phone: $phone,
                     bio: $bio,
-                    grade: parseInt($teacher_grade) + 1,
-                    subject: parseInt($teacher_suject) + 1,
+                    grade: $teacher_grade,
+                    subject: $teacher_suject,
                     mail: $mail,
                     school: $school,
                     application:  $application

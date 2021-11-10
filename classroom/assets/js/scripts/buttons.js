@@ -1038,6 +1038,8 @@ $('#create_user_link_to_group_manager').click(function () {
 
     updateAppForUser(0);
     pseudoModal.openModal('manager-create-user');
+    createRegistrationTemplate();
+
     // Bind function to select
     $("#u_is_teacher").change(() => {
         if ($('#u_is_teacher').is(':checked')) {
@@ -1142,11 +1144,13 @@ function updateAppForUser(methodName = "update") {
 
             let infoapp = "";
 
-            if (user[0].hasOwnProperty('applications')) {
-                user[0].applications.some(function (item) {
-                    if (element.id == item.id)
-                        infoapp = item;
-                })
+            if (user[0]) {
+                if (user[0].hasOwnProperty('applications')) {
+                    user[0].applications.some(function (item) {
+                        if (element.id == item.id)
+                            infoapp = item;
+                    })
+                }
             }
 
             if (!infoapp) {
@@ -1248,6 +1252,10 @@ function showupdateUserModal(id) {
         $("#update_actualgroup_sa").html("");
         $('#update_applications_sa').html("");
         pseudoModal.openModal('manager-update-user');
+
+        // TO UPDATE
+        createRegistrationTemplate();
+
         $('#update_u_firstname').val(res[0].firstname);
         $('#update_u_surname').val(res[0].surname);
         $('#update_u_pseudo').val(res[0].pseudo);
@@ -1439,8 +1447,8 @@ function updateUserModal() {
         $is_active = $('#update_u_is_active').is(':checked'),
         $is_admin = $('#update_u_is_admin').is(':checked'),
         $is_teacher = $('#update_u_is_teacher').is(':checked'),
-        $teacher_grade = $('#update_user_teacher_grade').val(),
-        $teacher_suject = $('#update_user_teacher_subjects').val(),
+        $teacher_grade = $('#update_user_teacher_grade').length ? $('#update_user_teacher_grade').val() + 1 : null,
+        $teacher_suject = $('#update_user_teacher_subjects').length ? $('#update_user_teacher_subjects').val() + 1 : null,
         $groups = [$('#update_u_is_group_admin0').is(':checked'), $('#update_u_group0').val()];
 
     $ApplicationFromGroup = [];
@@ -1492,8 +1500,8 @@ function createUserAndLinkToGroup() {
         $school = $('#u_school').val(),
         $is_admin = $('#u_is_admin').is(':checked'),
         $is_teacher = $('#u_is_teacher').is(':checked'),
-        $teacher_grade = $('#user_teacher_grade').val(),
-        $teacher_suject = $('#user_teacher_subjects').val(),
+        $teacher_grade = $('#user_teacher_grade').length ? $('#user_teacher_grade').val() : null,
+        $teacher_suject = $('#user_teacher_subjects').length ? $('#user_teacher_subjects').val() : null,
         $groups = [];
 
     $groups.push([$('#u_is_group_admin').is(':checked'), $('#u_group').val()])
@@ -1906,6 +1914,7 @@ function showupdateUserModal_groupadmin(user_id) {
             $("#update_actualgroup_ga").html("");
             $('#update_applications_ga').html("");
             pseudoModal.openModal('groupadmin-update-user');
+            createRegistrationTemplate();
             $('#update_u_firstname_ga').val(res[0].firstname);
             $('#update_u_surname_ga').val(res[0].surname);
             $('#update_u_pseudo_ga').val(res[0].pseudo);
@@ -2017,8 +2026,8 @@ function updateUserModalGroupAdmin() {
         $pseudo = $('#update_u_pseudo_ga').val(),
         $phone = $('#update_u_phone_ga').val(),
         $school = $('#update_u_school_ga').val(),
-        $teacher_grade = $('#update_user_teacher_grade_ga').val(),
-        $teacher_suject = $('#update_user_teacher_subjects_ga').val(),
+        $teacher_grade = $('#update_user_teacher_grade_ga').lenght ? $('#update_user_teacher_grade_ga').val() : null,
+        $teacher_suject = $('#update_user_teacher_subjects_ga').length ? $('#update_user_teacher_subjects_ga').val() : null,
         $groups = [$('#update_u_is_group_admin_ga0').is(':checked'), $('#update_u_group_ga0').val()];
 
 
@@ -2086,8 +2095,8 @@ $('#create_user_link_to_group_groupadmin').click(function () {
             displayNotification('#notif-div', "manager.group.groupFullAdminMessage", "error");
         } else {
             pseudoModal.openModal('groupeadmin-create-user');
+            createRegistrationTemplate();
             // Bind functions to the selects who has been created
-
             $saved_groups = mainGroupAdmin.getGroupAdminManager()._comboGroups;
             let radioHTML = "";
 
@@ -2145,12 +2154,13 @@ function createUserAndLinkToGroup_groupAdmin() {
         $pseudo = $('#u_pseudo_ga').val(),
         $phone = $('#u_phone_ga').val(),
         $school = $('#u_school_ga').val(),
-        $teacher_grade = $('#user_teacher_grade_ga').val(),
-        $teacher_suject = $('#user_teacher_subjects_ga').val(),
         $groups = [
             $('#checkboxAdmin').is(':checked'),
             $('#create_u_group_ga').val()
-        ];
+        ],
+        $teacher_grade = $('#user_teacher_grade_ga').length ? $('#user_teacher_grade_ga').val() + 1 : null,
+        $teacher_suject = $('#user_teacher_subjects_ga').length ? $('#user_teacher_subjects_ga').val() + 1 : null;
+        
 
     mainGroupAdmin.getGroupAdminManager().createUserAndLinkToGroup($firstname,
         $surname,
@@ -2840,17 +2850,85 @@ function closeDefault() {
     pseudoModal.closeAllModal();
 }
 
-/* <div class="form-row mt-1 c-secondary-form">
-<div class="col-md">
-<label for="activity_restrictions_update_type">Type activity</label>
-<input type="text" class="form-control" id="activity_restrictions_update_type">
-</div>
-<div class="col-md">
-<label for="activity_restrictions_update_maximum">Maximum</label>
-<input type="text" class="form-control" id="activity_restrictions_update_maximum">
-</div>
-<input type="hidden" class="form-control" id="activity_restrictions_id">
-</div>
-<button class="btn c-btn-secondary my-3 btn" onclick="persistUpdateRestriction()" data-i18n="manager.buttons.update">Modifier</button>
-<button class="btn c-btn-light my-3 btn" onclick="closeModalAndCleanInputActivityRestrictions()" data-i18n="manager.buttons.cancel">Annuler</button>
- */
+function createRegistrationTemplate() {
+    setTimeout(() => {
+        getRegistrationTemplate().then((res) => {
+            console.log(res);
+            if (res.USER_USERNAME == "false") {
+                let manager_user_pseudo = $('#manager_username');
+                if (manager_user_pseudo.length) {
+                    manager_user_pseudo.hide();
+                } 
+                let manager_user_pseudo_update = $('#manager_update_username');
+                if (manager_user_pseudo_update.length) {
+                    manager_user_pseudo_update.hide();
+                }
+                let group_admin_user_pseudo = $('#group_admin_username');
+                if (group_admin_user_pseudo.length) {
+                    group_admin_user_pseudo.hide();
+                }
+                let group_admin_user_pseudo_update = $('#group_admin_username_update');
+                if (group_admin_user_pseudo_update.length) {
+                    group_admin_user_pseudo_update.hide();
+                }
+            }
+
+            if (res.USER_PHONE == "false") {
+                let manager_user_phone = $('#manager_phone');
+                if (manager_user_phone.length) {
+                    manager_user_phone.hide();
+                }
+                let manager_user_phone_update = $('#manager_update_phone');
+                if (manager_user_phone_update.length) {
+                    manager_user_phone_update.hide();
+                }
+                let group_admin_phone = $('#group_admin_phone');
+                if (group_admin_phone.length) {
+                    group_admin_phone.hide();
+                }
+                let group_admin_phone_update = $('#group_admin_phone_update');
+                if (group_admin_phone_update.length) {
+                    group_admin_phone_update.hide();
+                }
+            }
+
+            if (res.USER_BIO == "false") {
+                let manager_user_bio = $('#manager_bio');
+                if (manager_user_bio.length) {
+                    manager_user_bio.hide();
+                }
+                let manager_user_bio_update = $('#manager_update_bio');
+                if (manager_user_bio_update.length) {
+                    manager_user_bio_update.hide();
+                }
+                let group_admin_bio = $('#group_admin_bio');
+                if (group_admin_bio.length) {
+                    group_admin_bio.hide();
+                }
+                let group_admin_bio_update = $('#group_admin_bio_update');
+                if (group_admin_bio_update.length) {
+                    group_admin_bio_update.remove();
+                }
+            }
+
+            if (res.USER_TEACHER_SECTION == "false") {
+                let manager_user_teacher_infos = $('#user_teacher_infos');
+                if (manager_user_teacher_infos.length) {
+                    manager_user_teacher_infos.remove();
+                }
+                let manager_update_user_teacher_infos = $('#update_user_teacher_infos');
+                if (manager_update_user_teacher_infos.length) {
+                    manager_update_user_teacher_infos.remove();
+                }
+                let group_admin_teacher_infos = $('#user_teacher_infos_ga');
+                if (group_admin_teacher_infos.length) {
+                    group_admin_teacher_infos.remove();
+                }
+                let group_admin_update_teacher_infos = $('#update_user_teacher_infos_ga');
+                if (group_admin_update_teacher_infos.length) {
+                    group_admin_update_teacher_infos.remove();
+                }
+            }
+        })
+    }, 750);
+}
