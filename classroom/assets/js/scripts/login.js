@@ -334,6 +334,7 @@ if (document.getElementById('create-teacher-account-form')) {
     document.getElementById('create-teacher-account-form').addEventListener('submit', (e) => {
         e.preventDefault();
         let data = new FormData(e.target);
+        console.log(e.target);
         if (teacherAccountCreateFormCheck(data)) {
             createTeacherAccount(data).then((response) => {
                 if (response.isUserAdded) {
@@ -376,12 +377,12 @@ function createTeacherAccount(formData) {
                 'email': formData.get('email'),
                 'password': formData.get('password'),
                 'password_confirm': formData.get('confirm-password'),
-                'bio': formData.get('mini-bio'),
-                'pseudo': formData.get('pseudo'),
-                'phone': formData.get('phone-number'),
-                'school': formData.get('school'),
-                'grade': parseInt(formData.get('grade')) + 1,
-                'subject': parseInt(formData.get('subject')) + 1,
+                'bio': $('#profile-form-bio').length ? $('#profile-form-bio').val() : null,
+                'pseudo': $('#profile-form-pseudo').length ? $('#profile-form-pseudo').val() : null,
+                'phone': $('#profile-form-phone').length ? $('#profile-form-phone').val() : null,
+                'school': $('#profile-form-grade').length ? $('#profile-form-school').val() : null,
+                'grade': $('#profile-form-grade').length ? $('#profile-form-grade').val() + 1 : null,
+                'subject': $('#profile-form-subject').length ? $('#profile-form-subject').val() + 1 : null,
                 'newsletter': $('#cb_newsletter').is(':checked'),
                 'private': $('#cb_name_public').is(':checked'),
                 'mailmessage': $('#cb_alert_mail').is(':checked'),
@@ -426,26 +427,6 @@ function teacherAccountCreateFormCheck(formData) {
             'confirmPassword': {
                 value: formData.get('confirm-password'),
                 id: 'profile-form-confirm-password'
-            },
-            'bio': {
-                value: formData.get('mini-bio'),
-                id: 'profile-form-bio'
-            },
-            'phone': {
-                value: formData.get('phone-number'),
-                id: 'profile-form-phone'
-            },
-            'school': {
-                value: formData.get('school'),
-                id: 'profile-form-school'
-            },
-            'grade': {
-                value: formData.get('grade'),
-                id: 'profile-form-grade'
-            },
-            'subject': {
-                value: formData.get('subject'),
-                id: 'profile-form-subject'
             }
         },
         errors = [];
@@ -560,9 +541,10 @@ function createRegistrationTemplateForLogin() {
         }
     })
 }
-
+setTimeout(() => {
+    createRegistrationTemplateForLogin();
+}, 500);
 setTimeout(() => {
     createSubjectSelectTeacherForm(getSubjects(0));
-    createRegistrationTemplateForLogin();
 }, 2000);
 
