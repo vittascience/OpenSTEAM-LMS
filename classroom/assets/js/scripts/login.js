@@ -521,7 +521,6 @@ function createSubjectSelectTeacherForm(array) {
 
 function createRegistrationTemplateForLogin() {
     getRegistrationTemplate().then((res) => {
-        console.log(res);
         if (res.USER_USERNAME == "false") {
             $('#registration_pseudo').remove();
         }
