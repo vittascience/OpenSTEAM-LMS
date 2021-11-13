@@ -2850,45 +2850,40 @@ function closeDefault() {
     pseudoModal.closeAllModal();
 }
 
+// Adjust the registrations forms from the configuration in the .env file
 function createRegistrationTemplate() {
+    // Get the registration template configuration from the .env file
     getRegistrationTemplate().then((res) => {
-
+        // List all the views who are adjustable
         const   usernameViews = ['#manager_username', '#manager_update_username', '#group_admin_username', '#group_admin_username_update'],
                 phoneViews = ['#manager_phone', '#manager_update_phone', '#group_admin_phone', '#group_admin_phone_update'],
                 userBioViews = ['#manager_bio', '#manager_update_bio', '#group_admin_bio', '#group_admin_bio_update'],
                 userTeacherSectionViews = ['#user_teacher_infos', '#update_user_teacher_infos', '#user_teacher_infos_ga', '#update_user_teacher_infos_ga'];
         
-        
-        if (res.USER_USERNAME == "false") {
-            usernameViews.forEach(element => {
+        // If the registration template does not need an element to be displayed, we remove it
+        const   deleteInputs = (array) => {
+            array.forEach(element => {
                 if ($(element).length) {
                     $(element).remove();
                 }
             });
+        }       
+
+        // Check for every configuration if it is needed to display the element
+        if (res.USER_USERNAME == "false") {
+            deleteInputs(usernameViews);
         }
 
         if (res.USER_PHONE == "false") {
-            phoneViews.forEach(element => {
-                if ($(element).length) {
-                    $(element).remove();
-                }
-            });
+            deleteInputs(phoneViews);
         }
 
         if (res.USER_BIO == "false") {
-            userBioViews.forEach(element => {
-                if ($(element).length) {
-                    $(element).remove();
-                }
-            });
+            deleteInputs(userBioViews);
         }
 
         if (res.USER_TEACHER_SECTION == "false") {
-            userTeacherSectionViews.forEach(element => {
-                if ($(element).length) {
-                    $(element).remove();
-                }
-            });
+            deleteInputs(userTeacherSectionViews);
         }
 
     })
