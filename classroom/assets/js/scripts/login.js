@@ -520,6 +520,7 @@ function createSubjectSelectTeacherForm(array) {
 
 function createRegistrationTemplateForLogin() {
     getRegistrationTemplate().then((res) => {
+
         if (res.USER_USERNAME == "false") {
             $('#registration_pseudo').remove();
         }
@@ -541,7 +542,7 @@ function createRegistrationTemplateForLogin() {
             if ($_GET('p') == "register") {
                 $('#classroom-register-container').show();
             }
-        }, 500);
+        }, 1500);
     })
 }
 

@@ -1037,7 +1037,7 @@ $('#create_user_link_to_group_manager').click(function () {
     $('#u_is_group_admin').prop("checked", false);
 
     updateAppForUser(0);
-    createRegistrationTemplate();
+    //createRegistrationTemplate();
     pseudoModal.openModal('manager-create-user');
 
     // Bind function to select
@@ -1249,7 +1249,7 @@ function showupdateUserModal(id) {
         //get the personal apps 
         updateAppForUser();
         // TO UPDATE
-        createRegistrationTemplate();
+        //createRegistrationTemplate();
         mainManager.getmanagerManager()._actualUserDetails = res;
         $("#update_actualgroup_sa").html("");
         $('#update_applications_sa').html("");
@@ -1911,7 +1911,7 @@ function showupdateUserModal_groupadmin(user_id) {
     mainGroupAdmin.getGroupAdminManager()._updatedUserGroup = 0;
     mainGroupAdmin.getGroupAdminManager().getUserInfoWithHisGroups(user_id).then(function (res) {
         if (res.message != "not_allowed") {
-            createRegistrationTemplate();
+            //createRegistrationTemplate();
             $("#update_actualgroup_ga").html("");
             $('#update_applications_ga').html("");
             pseudoModal.openModal('groupadmin-update-user');
@@ -2094,7 +2094,7 @@ $('#create_user_link_to_group_groupadmin').click(function () {
         if (response.message == "limit") {
             displayNotification('#notif-div', "manager.group.groupFullAdminMessage", "error");
         } else {
-            createRegistrationTemplate();
+            //createRegistrationTemplate();
             pseudoModal.openModal('groupeadmin-create-user');
             // Bind functions to the selects who has been created
             $saved_groups = mainGroupAdmin.getGroupAdminManager()._comboGroups;
@@ -2851,56 +2851,45 @@ function closeDefault() {
 }
 
 function createRegistrationTemplate() {
-    setTimeout(() => {
-        getRegistrationTemplate().then((res) => {
+    getRegistrationTemplate().then((res) => {
 
-            const   settingsViews = ['USER_USERNAME','USER_PHONE', 'USER_BIO', 'USER_TEACHER_SECTION'],
-                    usernameViews = ['#manager_username', '#manager_update_username', '#group_admin_username', '#group_admin_username_update'],
-                    phoneViews = ['#manager_phone', '#manager_update_phone', '#group_admin_phone', '#group_admin_phone_update'],
-                    userBioViews = ['#manager_bio', '#manager_update_bio', '#group_admin_bio', '#group_admin_bio_update'],
-                    userTeacherSectionViews = ['#manager_teacher_section', '#manager_update_teacher_section', '#group_admin_teacher_section', '#group_admin_teacher_section_update'];
-            
-            
-/*             settingsViews.forEach(userSetting => {
-                if (res.userSetting == "false") {
-                    usernameViews.forEach(element => {
-                        if ($(element).length) {
-                            $(element).hide();
-                        }
-                    });
+        const   usernameViews = ['#manager_username', '#manager_update_username', '#group_admin_username', '#group_admin_username_update'],
+                phoneViews = ['#manager_phone', '#manager_update_phone', '#group_admin_phone', '#group_admin_phone_update'],
+                userBioViews = ['#manager_bio', '#manager_update_bio', '#group_admin_bio', '#group_admin_bio_update'],
+                userTeacherSectionViews = ['#user_teacher_infos', '#update_user_teacher_infos', '#user_teacher_infos_ga', '#update_user_teacher_infos_ga'];
+        
+        
+        if (res.USER_USERNAME == "false") {
+            usernameViews.forEach(element => {
+                if ($(element).length) {
+                    $(element).remove();
                 }
-            }); */
-            if (res.USER_USERNAME == "false") {
-                usernameViews.forEach(element => {
-                    if ($(element).length) {
-                        $(element).hide();
-                    }
-                });
-            }
+            });
+        }
 
-            if (res.USER_PHONE == "false") {
-                phoneViews.forEach(element => {
-                    if ($(element).length) {
-                        $(element).hide();
-                    }
-                });
-            }
+        if (res.USER_PHONE == "false") {
+            phoneViews.forEach(element => {
+                if ($(element).length) {
+                    $(element).remove();
+                }
+            });
+        }
 
-            if (res.USER_BIO == "false") {
-                userBioViews.forEach(element => {
-                    if ($(element).length) {
-                        $(element).remove();
-                    }
-                });
-            }
+        if (res.USER_BIO == "false") {
+            userBioViews.forEach(element => {
+                if ($(element).length) {
+                    $(element).remove();
+                }
+            });
+        }
 
-            if (res.USER_TEACHER_SECTION == "false") {
-                userTeacherSectionViews.forEach(element => {
-                    if ($(element).length) {
-                        $(element).remove();
-                    }
-                });
-            }
-        })
-    }, 750);
+        if (res.USER_TEACHER_SECTION == "false") {
+            userTeacherSectionViews.forEach(element => {
+                if ($(element).length) {
+                    $(element).remove();
+                }
+            });
+        }
+
+    })
 }

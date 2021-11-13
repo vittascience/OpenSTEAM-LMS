@@ -94,6 +94,7 @@
                                 let currentTask = (onEnd) => {
                                     mainGroupAdmin.init().then((resolve) => {
                                         mainManager.init().then((resolve) => {
+                                            createRegistrationTemplate();
                                             onEnd();
                                         })
                                     })
