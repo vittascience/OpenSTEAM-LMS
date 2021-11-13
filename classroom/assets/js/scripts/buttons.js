@@ -1037,8 +1037,8 @@ $('#create_user_link_to_group_manager').click(function () {
     $('#u_is_group_admin').prop("checked", false);
 
     updateAppForUser(0);
-    pseudoModal.openModal('manager-create-user');
     createRegistrationTemplate();
+    pseudoModal.openModal('manager-create-user');
 
     // Bind function to select
     $("#u_is_teacher").change(() => {
@@ -1248,13 +1248,13 @@ function showupdateUserModal(id) {
     mainManager.getmanagerManager().getUserInfoWithHisGroups(id).then(function (res) {
         //get the personal apps 
         updateAppForUser();
+        // TO UPDATE
+        createRegistrationTemplate();
         mainManager.getmanagerManager()._actualUserDetails = res;
         $("#update_actualgroup_sa").html("");
         $('#update_applications_sa').html("");
         pseudoModal.openModal('manager-update-user');
 
-        // TO UPDATE
-        createRegistrationTemplate();
 
         $('#update_u_firstname').val(res[0].firstname);
         $('#update_u_surname').val(res[0].surname);
@@ -1911,10 +1911,10 @@ function showupdateUserModal_groupadmin(user_id) {
     mainGroupAdmin.getGroupAdminManager()._updatedUserGroup = 0;
     mainGroupAdmin.getGroupAdminManager().getUserInfoWithHisGroups(user_id).then(function (res) {
         if (res.message != "not_allowed") {
+            createRegistrationTemplate();
             $("#update_actualgroup_ga").html("");
             $('#update_applications_ga').html("");
             pseudoModal.openModal('groupadmin-update-user');
-            createRegistrationTemplate();
             $('#update_u_firstname_ga').val(res[0].firstname);
             $('#update_u_surname_ga').val(res[0].surname);
             $('#update_u_pseudo_ga').val(res[0].pseudo);
@@ -2094,8 +2094,8 @@ $('#create_user_link_to_group_groupadmin').click(function () {
         if (response.message == "limit") {
             displayNotification('#notif-div', "manager.group.groupFullAdminMessage", "error");
         } else {
-            pseudoModal.openModal('groupeadmin-create-user');
             createRegistrationTemplate();
+            pseudoModal.openModal('groupeadmin-create-user');
             // Bind functions to the selects who has been created
             $saved_groups = mainGroupAdmin.getGroupAdminManager()._comboGroups;
             let radioHTML = "";
@@ -2853,81 +2853,53 @@ function closeDefault() {
 function createRegistrationTemplate() {
     setTimeout(() => {
         getRegistrationTemplate().then((res) => {
-            console.log(res);
+
+            const   settingsViews = ['USER_USERNAME','USER_PHONE', 'USER_BIO', 'USER_TEACHER_SECTION'],
+                    usernameViews = ['#manager_username', '#manager_update_username', '#group_admin_username', '#group_admin_username_update'],
+                    phoneViews = ['#manager_phone', '#manager_update_phone', '#group_admin_phone', '#group_admin_phone_update'],
+                    userBioViews = ['#manager_bio', '#manager_update_bio', '#group_admin_bio', '#group_admin_bio_update'],
+                    userTeacherSectionViews = ['#manager_teacher_section', '#manager_update_teacher_section', '#group_admin_teacher_section', '#group_admin_teacher_section_update'];
+            
+            
+/*             settingsViews.forEach(userSetting => {
+                if (res.userSetting == "false") {
+                    usernameViews.forEach(element => {
+                        if ($(element).length) {
+                            $(element).hide();
+                        }
+                    });
+                }
+            }); */
             if (res.USER_USERNAME == "false") {
-                let manager_user_pseudo = $('#manager_username');
-                if (manager_user_pseudo.length) {
-                    manager_user_pseudo.hide();
-                } 
-                let manager_user_pseudo_update = $('#manager_update_username');
-                if (manager_user_pseudo_update.length) {
-                    manager_user_pseudo_update.hide();
-                }
-                let group_admin_user_pseudo = $('#group_admin_username');
-                if (group_admin_user_pseudo.length) {
-                    group_admin_user_pseudo.hide();
-                }
-                let group_admin_user_pseudo_update = $('#group_admin_username_update');
-                if (group_admin_user_pseudo_update.length) {
-                    group_admin_user_pseudo_update.hide();
-                }
+                usernameViews.forEach(element => {
+                    if ($(element).length) {
+                        $(element).hide();
+                    }
+                });
             }
 
             if (res.USER_PHONE == "false") {
-                let manager_user_phone = $('#manager_phone');
-                if (manager_user_phone.length) {
-                    manager_user_phone.hide();
-                }
-                let manager_user_phone_update = $('#manager_update_phone');
-                if (manager_user_phone_update.length) {
-                    manager_user_phone_update.hide();
-                }
-                let group_admin_phone = $('#group_admin_phone');
-                if (group_admin_phone.length) {
-                    group_admin_phone.hide();
-                }
-                let group_admin_phone_update = $('#group_admin_phone_update');
-                if (group_admin_phone_update.length) {
-                    group_admin_phone_update.hide();
-                }
+                phoneViews.forEach(element => {
+                    if ($(element).length) {
+                        $(element).hide();
+                    }
+                });
             }
 
             if (res.USER_BIO == "false") {
-                let manager_user_bio = $('#manager_bio');
-                if (manager_user_bio.length) {
-                    manager_user_bio.hide();
-                }
-                let manager_user_bio_update = $('#manager_update_bio');
-                if (manager_user_bio_update.length) {
-                    manager_user_bio_update.hide();
-                }
-                let group_admin_bio = $('#group_admin_bio');
-                if (group_admin_bio.length) {
-                    group_admin_bio.hide();
-                }
-                let group_admin_bio_update = $('#group_admin_bio_update');
-                if (group_admin_bio_update.length) {
-                    group_admin_bio_update.remove();
-                }
+                userBioViews.forEach(element => {
+                    if ($(element).length) {
+                        $(element).remove();
+                    }
+                });
             }
 
             if (res.USER_TEACHER_SECTION == "false") {
-                let manager_user_teacher_infos = $('#user_teacher_infos');
-                if (manager_user_teacher_infos.length) {
-                    manager_user_teacher_infos.remove();
-                }
-                let manager_update_user_teacher_infos = $('#update_user_teacher_infos');
-                if (manager_update_user_teacher_infos.length) {
-                    manager_update_user_teacher_infos.remove();
-                }
-                let group_admin_teacher_infos = $('#user_teacher_infos_ga');
-                if (group_admin_teacher_infos.length) {
-                    group_admin_teacher_infos.remove();
-                }
-                let group_admin_update_teacher_infos = $('#update_user_teacher_infos_ga');
-                if (group_admin_update_teacher_infos.length) {
-                    group_admin_update_teacher_infos.remove();
-                }
+                userTeacherSectionViews.forEach(element => {
+                    if ($(element).length) {
+                        $(element).remove();
+                    }
+                });
             }
         })
     }, 750);
