@@ -422,6 +422,11 @@
                         firstRequestClass = false;
                         navigateLight($_GET('link'), 2)
                     }
+                    // Setup the registration form before displaying it
+                    if ($_GET('p') == 'register') {
+                        firstRegisterLoad = false;
+                        createRegistrationTemplateForLogin();
+                    }
                 })
             },
             (reason) => {

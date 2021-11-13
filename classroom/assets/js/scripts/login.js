@@ -2,6 +2,7 @@ const AllViews = ['#classroom-login-container', '#login-container', '#classroom-
 
 // Global param who check if it's the first request of class
 let firstRequestClass = true;
+let firstRegisterLoad = true;
 function onUrlChange() {
     // Close all views
     closeAllViews();
@@ -15,7 +16,10 @@ function onUrlChange() {
                 $('#login-container').show();
                 break;
             case 'register':
-                createRegistrationTemplateForLogin();
+                // if the register form is already setup, we don't need to do it again and we can show it already
+                if (!firstRegisterLoad) {
+                    $('#classroom-register-container').show();
+                }
                 break;
             default:
                 $('#home-container').show();
@@ -538,11 +542,11 @@ function createRegistrationTemplateForLogin() {
             $('#registration_grade').remove();
             $('#registration_school').remove();
         }
-        setTimeout(() => {
-            if ($_GET('p') == "register") {
-                $('#classroom-register-container').show();
-            }
-        }, 1500);
+        
+        if ($_GET('p') == "register") {
+            $('#classroom-register-container').show();
+        }
+    
     })
 }
 
