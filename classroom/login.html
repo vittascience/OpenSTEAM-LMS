@@ -422,8 +422,9 @@
                         firstRequestClass = false;
                         navigateLight($_GET('link'), 2)
                     }
-                    // Setup the registration form before displaying it
+                    // Set the variable to false to indicate that the registration template is already set up
                     firstRegisterLoad = false;
+                    // Setup the registration form before displaying it (trigger only on loading page)
                     createRegistrationTemplateForLogin();
                     // little delay to let the constant file load
                     setTimeout(() => {
