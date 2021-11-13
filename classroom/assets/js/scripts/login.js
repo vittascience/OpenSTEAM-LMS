@@ -523,6 +523,7 @@ function createSubjectSelectTeacherForm(array) {
 }
 
 function createRegistrationTemplateForLogin() {
+    console.log('setup registration proc')
     getRegistrationTemplate().then((res) => {
 
         if (res.USER_USERNAME == "false") {
@@ -549,8 +550,4 @@ function createRegistrationTemplateForLogin() {
     
     })
 }
-
-setTimeout(() => {
-    createSubjectSelectTeacherForm(getSubjects(0));
-}, 2000);
 
