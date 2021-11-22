@@ -65,8 +65,115 @@
 }
 
 
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 100;
+    src: local(''),
+        url('../fonts/montserrat-v18-latin-100.woff2') format('woff2'),
+        url('../fonts/montserrat-v18-latin-100.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 200;
+    src: local(''),
+        url('../fonts/montserrat-v18-latin-200.woff2') format('woff2'),
+        url('../fonts/montserrat-v18-latin-200.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 300;
+    src: local(''),
+        url('../fonts/montserrat-v18-latin-300.woff2') format('woff2'),
+        url('../fonts/montserrat-v18-latin-300.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    src: local(''),
+        url('../fonts/montserrat-v18-latin-regular.woff2') format('woff2'),
+        url('../fonts/montserrat-v18-latin-regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    src: local(''),
+        url('../fonts/montserrat-v18-latin-500.woff2') format('woff2'),
+        url('../fonts/montserrat-v18-latin-500.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    src: local(''),
+        url('../fonts/montserrat-v18-latin-600.woff2') format('woff2'),
+        url('../fonts/montserrat-v18-latin-600.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    src: local(''),
+        url('../fonts/montserrat-v18-latin-700.woff2') format('woff2'),
+        url('../fonts/montserrat-v18-latin-700.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 800;
+    src: local(''),
+        url('../fonts/montserrat-v18-latin-800.woff2') format('woff2'),
+        url('../fonts/montserrat-v18-latin-800.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 900;
+    src: local(''),
+        url('../fonts/montserrat-v18-latin-900.woff2') format('woff2'),
+        url('../fonts/montserrat-v18-latin-900.woff') format('woff');
+}
+
+
+@font-face {
+    font-family: 'Ubuntu Mono';
+    font-style: normal;
+    font-weight: 400;
+    src: local(''),
+        url('../fonts/ubuntu-mono-v10-latin-regular.woff2') format('woff2'),
+        url('../fonts/ubuntu-mono-v10-latin-regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Ubuntu Mono';
+    font-style: normal;
+    font-weight: 700;
+    src: local(''),
+        url('../fonts/ubuntu-mono-v10-latin-700.woff2') format('woff2'),
+        url('../fonts/ubuntu-mono-v10-latin-700.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Varela Round';
+    font-style: normal;
+    font-weight: 400;
+    src: local(''),
+        url('../fonts/varela-round-v13-latin-regular.woff2') format('woff2'),
+        url('../fonts/varela-round-v13-latin-regular.woff') format('woff');
+}
+
 
 /* FONT MANAGEMENT */
 
