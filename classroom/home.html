@@ -162,7 +162,7 @@
 
         <div class="d-flex flex-column" style="gap: 1.5em;">
                 <button class="btn mb-2 c-btn-outline-primary" id="settings-student"><span data-i18n="words.settings" class="text-capitalize mr-1 text-span-initial"></span><i class="fas fa-cog"></i></button>
-                <button id="teacherSwitchButton" class="btn  mb-2 c-btn-outline-primary" onclick="modeProf()"><span class="text-span-initial mr-1" data-i18n="[html]classroom.profil.switchModeTeacher"></span><i class="fas fa-cog"></i></button>
+                <button id="teacherSwitchButton" class="btn  mb-2 c-btn-outline-primary" onclick="modeProf()"><span class="text-span-initial mr-1" data-i18n="[html]classroom.profil.switchModeTeacher"></span><i class="fas fa-exchange-alt"></i></button>
                 <button class="btn mb-2 c-btn-red" onclick="goToDisconnect('classroom');"><span
                                 data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
                         <i class="fas fa-power-off"></i></button>
@@ -297,7 +297,7 @@
 
         <button class="btn c-btn-outline-primary" onclick="listeModeApprenant()">
             <span data-i18n="classroom.profil.switchMode" class="text-span-initial mr-1"></span>
-            <i class="fas fa-cog"></i></button>
+            <i class="fas fa-exchange-alt"></i></button>
 
         <button class="btn c-btn-red" onclick="goToDisconnect('classroom');">
             <span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
@@ -423,24 +423,27 @@
 
             </div>
         </div>
-        <div id="export-class-container"></div>
+        
 
     </div>
 
     <div id="classroom-panel-table-container">
         <table>
-            <tr id="header-table-teach">
-            </tr>
+            <thead>
+                <tr id="header-table-teach">
+                </tr>
+            </thead>
             <tbody id="body-table-teach">
 
             </tbody>
         </table>
     </div>
 
-    <div id="classroom-panel-legend" class="row">
-        <div id="add-student-container" class="col ml-3">
-        </div>
-        <div class="col-auto">
+    <div id="classroom-panel-legend">
+        <div id="add-student-container" class="ml-3"></div>
+        <div id="export-class-container" class="ml-3"></div>
+
+        <div id="legend-container">
             <ul class="row legend" style="list-style:none;">
                 <li class="ml-3">
                     <div class="bilan-legend bilan-3"></div>
@@ -483,7 +486,7 @@
         <div>
             <span data-i18n="classroom.activities.toCopy"></span> <span id="classroom-link-tocopy"><span style="display:none;" id="hidden-link-prefix"></span><span class="classroom-link"></span></span>
         </div>
-        <button id="code-copy" class="btn c-btn-secondary" title="Copier le lien direct" class="js-copy" data-target="#classroom-link-tocopy">Copier le lien direct</button>
+        <button id="code-copy" class="btn c-btn-secondary" title="Copier le lien direct" class="js-copy" data-target="#classroom-link-tocopy" data-i18n="classroom.classes.panel.copyLink">Copier le lien direct</button>
 
         <button class="btn c-btn-secondary" class="blocking-class" onclick="navigatePanel('classroom-table-panel-teacher-code', 'dashboard-classroom-teacher')" data-toggle="tooltip" title="Afficher en plein écran">
             <i class="fa fa-expand"></i>
@@ -540,8 +543,7 @@
 <div id="classroom-dashboard-activities-panel-library-teacher" style="display:none;" class="dashboard-block">
 </div>
 
-<div id="classroom-dashboard-new-activity-panel" style="display:none;"
-    class="activity-creation-form row dashboard-block">
+<div id="classroom-dashboard-new-activity-panel" style="display:none;" class="activity-creation-form row dashboard-block">
     <nav class="row" style="margin: 0 auto;">
         <div class="col-4 text-center">
             <span class="form-activity form-activity-activate"><b>1</b></span>
@@ -560,8 +562,7 @@
             <label for="part-content-input" class="tutorial-label">
                 <span data-i18n="classroom.activities.form.title.label"></span>
             </label>
-            <input data-i18n="[placeholder]classroom.activities.form.title.placeholder" type="text"
-                id="activity-form-title" class="form-control part-title-input">
+            <input data-i18n="[placeholder]classroom.activities.form.title.placeholder" type="text" id="activity-form-title" class="form-control part-title-input">
         </div>
         <div class="form-row mt-1">
             <label for="part-content-input" class="tutorial-label">
@@ -572,11 +573,9 @@
         <div class="form-row mt-1">
         </div>
     </div>
-    <button class="new-activity-panel2 c-btn-primary"><span data-i18n="classroom.activities.form.button"></span> <i
-            class="fas fa-check"></i></button>
+    <button class="new-activity-panel2 c-btn-primary"><span data-i18n="classroom.activities.form.button"></span> <i class="fas fa-check"></i></button>
 </div>
-<div id="classroom-dashboard-new-activity-panel2" style="display:none;"
-    class="row flex-column dashboard-block class-creation-form-step2">
+<div id="classroom-dashboard-new-activity-panel2" style="display:none;" class="row flex-column dashboard-block class-creation-form-step2">
     <nav class="row" style="margin: 0 auto;">
         <div class="col-4 text-center">
             <span class="form-activity form-activity-activate"><b>1</b></span>
@@ -593,11 +592,8 @@
 
     <h1 data-i18n="classroom.activities.form.success"></h1>
     <div class="buttons">
-        <button id="new-activity-panel3" class="new-activity-panel3 c-btn-primary"><span
-                data-i18n="classroom.activities.form.attribute"></span> <i class="fas fa-chevron-right"></i></button>
-        <button onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')"
-            class="c-btn-primary"><span data-i18n="classroom.activities.form.return"></span><i
-                class="fas fa-chevron-right"></i></button>
+        <button id="new-activity-panel3" class="new-activity-panel3 c-btn-primary"><span data-i18n="classroom.activities.form.attribute"></span> <i class="fas fa-chevron-right"></i></button>
+        <button onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')" class="c-btn-primary"><span data-i18n="classroom.activities.form.return"></span><i class="fas fa-chevron-right"></i></button>
     </div>
     <p data-i18n="classroom.activities.form.hint"></p>
     <button class="c-btn-primary" onclick="createActivity()" data-i18n="classroom.activities.form.modify"></button>
@@ -620,43 +616,40 @@
             <span data-i18n="classroom.activities.form.2"></span>
         </div>
     </nav>
-    <div class="row w-50" style="margin: 0 auto;">
+    <div class="row assign-activity-container" style="margin: 0 auto;">
 
         <div class="col-12 mb-5 text-center">
-            <button id="new-activity-attribute" class="btn btn-lg login-button c-btn-primary">
-                <span data-i18n="classroom.activities.form.select1"></span> (<span class="student-number">0</span> <span
-                    data-i18n="classroom.activities.form.select2"></span>)
+            <button id="new-activity-attribute" class="btn c-btn-primary">
+                <span data-i18n="classroom.activities.form.select1"></span> <i class="fas fa-plus"></i>
             </button>
+            <div class="mt-2">
+                (<span class="student-number">0</span> <span data-i18n="classroom.activities.form.select2"></span>)
+            </div>
         </div>
 
         <div class="col-12 mb-5 text-center c-primary-form">
-            <label for="introduction-activity-form"><span data-i18n="classroom.activities.form.instructions"></span>
-                <i data-i18n="words.optional"></i></label></br>
+            <label for="introduction-activity-form">
+                <b data-i18n="classroom.activities.form.instructions"></b>
+                <i data-i18n="words.optional"></i>
+            </label></br>
             <textarea rows="3" class="col-12" id="introduction-activity-form"></textarea>
         </div>
 
         <div class="col-12 mb-5 text-center c-primary-form">
             <div id="form-autocorrect">
-                <label for="isAutocorrection-activity-form"
-                    data-i18n="classroom.activities.form.autocorrect"></label></br>
-                <label class="switch-mini"><input type="checkbox" id="isAutocorrection-activity-form"
-                        onclick="autocorrectSwitch()">
+                <label for="isAutocorrection-activity-form" data-i18n="classroom.activities.form.autocorrect"></label></br>
+                <label class="switch-mini"><input type="checkbox" id="isAutocorrection-activity-form" onclick="autocorrectSwitch()">
                     <span class="slider-mini round"></span>
-
                 </label>
             </div>
-            <div class="d-flex">
+            <div class="d-flex justify-content-around">
                 <label for="isEval-activity-form" data-i18n="classroom.activities.form.nature"></label></br>
                 <div class="switcher">
-                    <input type="radio" name="isEval-activity-form" value="true" id="isEval-activity-form"
-                        class="switcher__input switcher__input--yin" checked="">
-                    <label for="isEval-activity-form" class="switcher__label text-capitalize"
-                        data-i18n="words.no"></label>
+                    <input type="radio" name="isEval-activity-form" value="true" id="isEval-activity-form" class="switcher__input switcher__input--yin" checked="">
+                    <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no"></label>
 
-                    <input type="radio" name="isEval-activity-form" value="false" id="isExo-activity-form"
-                        class="switcher__input switcher__input--right">
-                    <label for="isExo-activity-form" class="switcher__label text-capitalize"
-                        data-i18n="words.yes"></label>
+                    <input type="radio" name="isEval-activity-form" value="false" id="isExo-activity-form" class="switcher__input switcher__input--right">
+                    <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes"></label>
 
                     <span class="switcher__toggle"></span>
                 </div>
@@ -664,26 +657,22 @@
         </div>
 
 
-        <div class="col-6 c-primary-form">
+        <div class="col-12 col-md-6 c-primary-form assign-activity-calendar">
             <label for="date-begin-activity-form" data-i18n="classroom.activities.form.dateBegin"></label>
             <input type="date" id="date-begin-activity-form">
         </div>
 
-        <div class="col-6 text-right">
+        <div class="col-12 col-md-6 c-primary-form text-right assign-activity-calendar">
             <label for="date-end-activity-form" data-i18n="classroom.activities.form.dateEnd"></label>
             <input type="date" id="date-end-activity-form">
         </div>
 
         <div class="col-6 d-flex justify-content-start mt-5">
-            <button class="btn login-button c-btn-grey"
-                onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')"><i
-                    class="fas fa-angle-left"></i> <span class="text-capitalize"
-                    data-i18n="words.return"></span></button>
+            <button class="btn login-button c-btn-grey" onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')"><i class="fas fa-angle-left"></i> <span class="text-capitalize" data-i18n="words.return"></span></button>
         </div>
 
         <div class="col-6 d-flex justify-content-end mt-5">
-            <button id="attribute-activity-to-students" class="btn login-button c-btn-primary"><span
-                    data-i18n="classroom.activities.form.attribute2"></span><i class="fas fa-angle-right"></i></button>
+            <button id="attribute-activity-to-students" class="btn login-button c-btn-primary"><span data-i18n="classroom.activities.form.attribute2"></span><i class="fas fa-angle-right"></i></button>
         </div>
     </div>
 </div>
@@ -774,8 +763,7 @@
         <button class="btn c-btn-outline-primary" id="settings-groupadmin"><span class="text-capitalize text-span-initial" data-i18n="words.settings" class="text-capitalize"></span> <i class="fas fa-cog"></i>
         </button>
 
-        <button class="btn c-btn-outline-primary" onclick="switchToProf()"><span data-i18n="classroom.profil.switchModeTeacher" class="text-span-initial mr-1"></span><i class="fas fa-cog"></i>
-        </button>
+        <button class="btn c-btn-outline-primary" onclick="switchToProf()"><span data-i18n="classroom.profil.switchModeTeacher" class="text-span-initial mr-1"></span><i class="fas fa-exchange-alt"></i></button>
 
         <button class="btn c-btn-red" onclick="goToDisconnect('classroom');"><span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
             <i class="fas fa-power-off"></i>
@@ -906,8 +894,7 @@
         <button class="btn c-btn-outline-primary" id="settings-manager"><span class="text-capitalize text-span-initial" data-i18n="words.settings" class="text-capitalize"></span> <i class="fas fa-cog"></i>
         </button>
 
-        <button class="btn c-btn-outline-primary" onclick="switchToProf()"><span data-i18n="classroom.profil.switchModeTeacher" class="text-span-initial mr-1"></span><i class="fas fa-cog"></i>
-        </button>
+        <button class="btn c-btn-outline-primary" onclick="switchToProf()"><span data-i18n="classroom.profil.switchModeTeacher" class="text-span-initial mr-1"></span><i class="fas fa-exchange-alt"></i></button>
 
         <button class="btn c-btn-red" onclick="goToDisconnect('classroom');"><span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
             <i class="fas fa-power-off"></i>

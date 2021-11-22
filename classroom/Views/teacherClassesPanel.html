@@ -67,24 +67,27 @@
 
             </div>
         </div>
-        <div id="export-class-container"></div>
+        
 
     </div>
 
     <div id="classroom-panel-table-container">
         <table>
-            <tr id="header-table-teach">
-            </tr>
+            <thead>
+                <tr id="header-table-teach">
+                </tr>
+            </thead>
             <tbody id="body-table-teach">
 
             </tbody>
         </table>
     </div>
 
-    <div id="classroom-panel-legend" class="row">
-        <div id="add-student-container" class="col ml-3">
-        </div>
-        <div class="col-auto">
+    <div id="classroom-panel-legend">
+        <div id="add-student-container" class="ml-3"></div>
+        <div id="export-class-container" class="ml-3"></div>
+
+        <div id="legend-container">
             <ul class="row legend" style="list-style:none;">
                 <li class="ml-3">
                     <div class="bilan-legend bilan-3"></div>
@@ -127,7 +130,7 @@
         <div>
             <span data-i18n="classroom.activities.toCopy"></span> <span id="classroom-link-tocopy"><span style="display:none;" id="hidden-link-prefix"></span><span class="classroom-link"></span></span>
         </div>
-        <button id="code-copy" class="btn c-btn-secondary" title="Copier le lien direct" class="js-copy" data-target="#classroom-link-tocopy">Copier le lien direct</button>
+        <button id="code-copy" class="btn c-btn-secondary" title="Copier le lien direct" class="js-copy" data-target="#classroom-link-tocopy" data-i18n="classroom.classes.panel.copyLink">Copier le lien direct</button>
 
         <button class="btn c-btn-secondary" class="blocking-class" onclick="navigatePanel('classroom-table-panel-teacher-code', 'dashboard-classroom-teacher')" data-toggle="tooltip" title="Afficher en plein écran">
             <i class="fa fa-expand"></i>

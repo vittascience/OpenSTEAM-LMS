@@ -103,8 +103,8 @@ function attributeActivity(id, ref = null) {
     })
 }
 
-function undoAttributeActivity(ref) {
-    Main.getClassroomManager().undoAttributeActivity(ref).then(function (result) {
+function undoAttributeActivity(ref,title,classroomId) {
+    Main.getClassroomManager().undoAttributeActivity(ref,classroomId).then(function (result) {
         Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(()=>{
             displayNotification('#notif-div', "classroom.notif.attributeActivityUndone", "success");
             navigatePanel('classroom-table-panel-teacher', 'dashboard-classes-teacher', ClassroomSettings.classroom);
@@ -144,9 +144,16 @@ $('body').on('click', '#attribute-activity-to-students', function () {
         Main.getClassroomManager().getActivity(ClassroomSettings.activity).then(function (activity) {
             navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')
             $('.student-number').html(0)
-            if (ClassroomSettings.ref != null) {
+
+            /** @ToBeDeleted last check Novembre 2021 */
+            /* if (ClassroomSettings.ref != null) {
                 Main.getClassroomManager().undoAttributeActivity(ClassroomSettings.ref)
-            }
+            } */
+            
+            // get the checkbox value then set it by default for the next time
+            retroAttribution = $('#retro-attribution').prop('checked')
+            $('#retro-attribution').prop('checked',false)
+
             Main.getClassroomManager().attributeActivity({
                 'activity': activity,
                 'students': students,
@@ -156,7 +163,9 @@ $('body').on('click', '#attribute-activity-to-students', function () {
                 "evaluation": ClassroomSettings.isEvaluation,
                 "autocorrection": ClassroomSettings.willAutocorrect,
                 "introduction": $("#introduction-activity-form").val(),
-                "isFromClassroom": true
+                "isFromClassroom": true,
+                "retroAttribution" : retroAttribution,
+                "ref" : ClassroomSettings.ref
             }).then(function () {
                 Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
                     if (ClassroomSettings.ref == null) {
