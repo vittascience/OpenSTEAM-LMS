@@ -131,7 +131,7 @@ const classroomModals = {
         selector: '',
         header: {
             icon: '',
-            title: 'modals.classroom.attributeActivity.title'
+            title: 'classroom.modals.attributeActivity.title'
         },
         content: `
     <h4>Sélectionner des apprenants</h4>
