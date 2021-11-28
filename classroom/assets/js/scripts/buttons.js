@@ -311,19 +311,24 @@ $('body').on('change', '#list-classes input', function () {
     ClassroomSettings.classroom = $(this).val()
 })
 
-$('body').on('change', '#is-anonymised', function () {
-    let index = 1
-    if ($(this).is(':checked')) {
+$('body').on('change', '#is-anonymised', anonymizeStudents);
+
+function anonymizeStudents() {
+    let index = 1;
+    if ($('#is-anonymised').is(':checked')) {
         $('.username').each(function (el) {
-            $('.username')[el].children[0].setAttribute('src', '/public/content/img/alphabet/A.png')
+            $('.username')[el].children[0].setAttribute('src', _PATH + 'assets/media/alphabet/A.png')
+            $('.username')[el].children[0].setAttribute('alt', '')
+            $('.username')[el].children[0].setAttribute('anonymized', 'true')
             $('.username')[el].children[1].innerHTML = "Elève n° " + index
             $('.username')[el].children[1].setAttribute('title', '')
             index++
         })
     } else {
-        navigatePanel('classroom-table-panel-teacher', 'dashboard-classes-teacher', ClassroomSettings.classroom)
+        let students = getClassroomInListByLink(ClassroomSettings.classroom)[0].students;
+        displayStudentsInClassroom(students);
     }
-})
+}
 
 function listeModeApprenant() {
     pseudoModal.openModal('list-classes-modal')
@@ -1037,7 +1042,6 @@ $('#create_user_link_to_group_manager').click(function () {
     $('#u_is_group_admin').prop("checked", false);
 
     updateAppForUser(0);
-    //createRegistrationTemplate();
     pseudoModal.openModal('manager-create-user');
 
     // Bind function to select
@@ -1248,8 +1252,6 @@ function showupdateUserModal(id) {
     mainManager.getmanagerManager().getUserInfoWithHisGroups(id).then(function (res) {
         //get the personal apps 
         updateAppForUser();
-        // TO UPDATE
-        //createRegistrationTemplate();
         mainManager.getmanagerManager()._actualUserDetails = res;
         $("#update_actualgroup_sa").html("");
         $('#update_applications_sa').html("");
@@ -1911,7 +1913,6 @@ function showupdateUserModal_groupadmin(user_id) {
     mainGroupAdmin.getGroupAdminManager()._updatedUserGroup = 0;
     mainGroupAdmin.getGroupAdminManager().getUserInfoWithHisGroups(user_id).then(function (res) {
         if (res.message != "not_allowed") {
-            //createRegistrationTemplate();
             $("#update_actualgroup_ga").html("");
             $('#update_applications_ga').html("");
             pseudoModal.openModal('groupadmin-update-user');
@@ -2094,7 +2095,6 @@ $('#create_user_link_to_group_groupadmin').click(function () {
         if (response.message == "limit") {
             displayNotification('#notif-div', "manager.group.groupFullAdminMessage", "error");
         } else {
-            //createRegistrationTemplate();
             pseudoModal.openModal('groupeadmin-create-user');
             // Bind functions to the selects who has been created
             $saved_groups = mainGroupAdmin.getGroupAdminManager()._comboGroups;
@@ -2860,6 +2860,7 @@ function createRegistrationTemplate() {
                 userBioViews = ['#manager_bio', '#manager_update_bio', '#group_admin_bio', '#group_admin_bio_update'],
                 userTeacherSectionViews = ['#user_teacher_infos', '#update_user_teacher_infos', '#user_teacher_infos_ga', '#update_user_teacher_infos_ga'];
         
+
         // If the registration template does not need an element to be displayed, we remove it
         const   deleteInputs = (array) => {
             array.forEach(element => {
@@ -2867,7 +2868,7 @@ function createRegistrationTemplate() {
                     $(element).remove();
                 }
             });
-        }       
+        }      
 
         // Check for every configuration if it is needed to display the element
         if (res.USER_USERNAME == "false") {

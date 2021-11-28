@@ -289,7 +289,6 @@ $('#connect-nongar-user').click(function () {
         if (response == true) {
             window.open('/classroom/login.php', "_self")
         } else {
-            console.log("error")
             $('.mismatched-login').show()
         }
     }).catch(error => {});
@@ -305,7 +304,6 @@ $(document).on('keydown', function (e) {
             if (response == true) {
                 window.open('/classroom/login.php', "_self")
             } else {
-                console.log("error")
                 $('.mismatched-login').show()
             }
         }).catch(error => {});
@@ -338,7 +336,6 @@ if (document.getElementById('create-teacher-account-form')) {
     document.getElementById('create-teacher-account-form').addEventListener('submit', (e) => {
         e.preventDefault();
         let data = new FormData(e.target);
-        console.log(e.target);
         if (teacherAccountCreateFormCheck(data)) {
             createTeacherAccount(data).then((response) => {
                 if (response.isUserAdded) {
@@ -523,7 +520,6 @@ function createSubjectSelectTeacherForm(array) {
 }
 
 function createRegistrationTemplateForLogin() {
-    console.log('setup registration proc')
     getRegistrationTemplate().then((res) => {
 
         if (res.USER_USERNAME == "false") {

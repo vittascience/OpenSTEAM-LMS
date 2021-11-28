@@ -98,8 +98,8 @@
 }
 
 .c-btn-outline-red {
-    border: 2px solid var(--classroom-tertiary);
-    color: var(--classroom-tertiary);
+    border: 2px solid var(--classroom-red);
+    color: var(--classroom-red);
     background: transparent;
 }
 
@@ -418,4 +418,18 @@ hr {
 .tooltip-inner {
     font-family: var(--main-font);
     font-size: 0.75rem;
+}
+
+/* Wysibb Theming  */ 
+.wysibb {
+    border: 2px solid var(--classroom-primary) !important;
+    border-radius: 0.5em;
+}
+
+.wysibb .wysibb-toolbar {
+    border-bottom: 2px solid var(--classroom-primary) !important;
+}
+
+.wysibb .wysibb-toolbar .wysibb-toolbar-container {
+    border-color: var(--classroom-primary) !important;
 }

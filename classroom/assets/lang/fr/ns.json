@@ -186,7 +186,11 @@
 			"bothLimitationsReached": "Vous avez atteint les limitations d'apprenants que vous et votre groupe pouvez avoir.",
 			"ClassroomNameInvalid": "Le nom de la classe est requis",
 			"reservedNickname": "Le nom : \"{{reservedNickname}}\" ne peut être attribué.",
-			"invalidLink": "Le lien que vous avez entrer n'est pas valide"
+			"invalidLink": "Le lien que vous avez entrer n'est pas valide",
+			"noUser" : "Vous devez renseigner un élève",
+			"pseudoMissingInCsvFile" : "Certains élèves n'ont pu être ajouter car leur pseudo était manquant",
+			"backendReplyPseudoMissingInCsv" : "Vérifier le fichier CSV : ligne vide ou pseudo manquant",
+			"backendReplyPseudoMissingInUsersArray" : "Il y a une erreur dans un ou plusieurs nom d'apprenant(s)"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",
@@ -221,7 +225,19 @@
 				"isBlockedButton": "Limiter à ces apprenants, personne d'autre ne pourra rejoindre la classe.",
 				"save": "Sauvegarder la classe",
 				"return": "Retour à la classe"
-			}
+			},
+			"panel": {
+				"seeActivity":"Voir l'activité",
+				"editActivity":"Modifier l'activité",
+				"editAttribution":"Modifier l'attribution",
+				"removeAttribution":"Retirer l'attribution",
+				"password": "Votre mot de passe :",
+				"resetPassword" : "Regénérer le mot de passe",
+				"editNickname": "Modifier le pseudonyme",
+				"delete": "Supprimer",
+				"copyLink": "Copier le lien direct",
+				"learnerMode": "Mode apprenant"
+			}	
 		},
 		"activities": {
 			"title": "Activités",
@@ -271,7 +287,8 @@
 				"autocorrect": "Cette activité dispose de correction automatique, souhaitez-vous l'activer ?",
 				"nature": "L’élève peut-il soumettre plusieurs fois l’activité ?",
 				"dateBegin": "Date de début :",
-				"dateEnd": "Date de fin :"
+				"dateEnd": "Date de fin :",
+				"retroAttribution" : "Cette activité sera attribuée aux nouveaux apprenants"
 			},
 			"toCopy": "Ce code permet de rejoindre en toute simplicité votre classe",
 			"copyLink": "Le lien vers votre classe a été ajouté au presse-papier",
@@ -282,6 +299,8 @@
 			"weakProficiency": "Maîtrise fragile",
 			"insufficientProficiency": "Maîtrise insuffisante",
 			"addLearner": "Ajouter un apprenant",
+			"addLearners": "Ajouter des apprenants",
+			"addActivity": "Ajouter une activité",
 			"exportCsv": "Exporter csv"
 		},
 		"filter": {
@@ -1006,7 +1025,7 @@
 			"mailSentToUserReset": "Un e-mail a été envoyé à l'utilisateur pour qu'il change de mot de passe",
 			"mailNotSentToUserReset": "l'e-mail de changement de mot de passe n'a pas pu être envoyé à l'utilisateur",
 			"appsUpdated": "Les applications de l'utilisateur ont été mise à jour",
-			"updateApps": "Modifier les applications",
+			"updateAppModalTitle": "Application",
 			"teacherGrades": {
 				"0": "Primaire",
 				"1": "Collège",
@@ -1235,7 +1254,7 @@
 		},
 		"apps": {
 			"apps": "Applications",
-			"create": "Créer une application",
+			"create": "Ajouter une application",
 			"updateSuccess": "Application modifiée avec succès",
 			"createSuccess": "Application créée avec succès",
 			"deleteSuccess": "Application supprimée avec succès",
