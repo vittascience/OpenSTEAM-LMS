@@ -4,7 +4,7 @@
         "vittascience/vtuser": "dev-teacher-regular-fix",
         "vittascience/vtinterfaces": "1.2.1",
         "vittascience/vtclassroom": "dev-teacher-regular-fix",
-        "vittascience/vtlearn": "1.2.1",
+        "vittascience/vtlearn": "1.2.3",
         "vittascience/vutils": "1.2.1",
         "symfony/var-dumper": "^5.3"
     },
