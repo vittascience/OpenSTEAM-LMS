@@ -207,8 +207,8 @@ This $body variable will be injected inside your html emails before sending each
 
 The current repository only contains front elements of the LMS. The back end is mainly located in the dependencies (in the vendor folder) :
 
-- [vuser](https://github.com/vittascience/vuser) : current version (1.2.1)
-- [vclassroom](https://github.com/vittascience/vclassroom) : current version (1.2.1)
-- [vutils](https://github.com/vittascience/vutils) : current version (1.2.1)
+- [vuser](https://github.com/vittascience/vuser) : current version (1.2.2)
+- [vclassroom](https://github.com/vittascience/vclassroom) : current version (1.2.2)
+- [vutils](https://github.com/vittascience/vutils) : current version (1.2.2)
 - vinterfaces (not public yet) : current version (1.2.1)
-- vlearn (not public yet) : current version (1.2.3)
+- vlearn (not public yet) : current version (1.2.4)
