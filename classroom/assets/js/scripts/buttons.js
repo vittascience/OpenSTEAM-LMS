@@ -1043,6 +1043,7 @@ $('#create_user_link_to_group_manager').click(function () {
 
     updateAppForUser(0);
     pseudoModal.openModal('manager-create-user');
+
     // Bind function to select
     $("#u_is_teacher").change(() => {
         if ($('#u_is_teacher').is(':checked')) {
@@ -1147,11 +1148,13 @@ function updateAppForUser(methodName = "update") {
 
             let infoapp = "";
 
-            if (user[0].hasOwnProperty('applications')) {
-                user[0].applications.some(function (item) {
-                    if (element.id == item.id)
-                        infoapp = item;
-                })
+            if (user[0]) {
+                if (user[0].hasOwnProperty('applications')) {
+                    user[0].applications.some(function (item) {
+                        if (element.id == item.id)
+                            infoapp = item;
+                    })
+                }
             }
 
             if (!infoapp) {
@@ -1253,6 +1256,8 @@ function showupdateUserModal(id) {
         $("#update_actualgroup_sa").html("");
         $('#update_applications_sa').html("");
         pseudoModal.openModal('manager-update-user');
+
+
         $('#update_u_firstname').val(res[0].firstname);
         $('#update_u_surname').val(res[0].surname);
         $('#update_u_pseudo').val(res[0].pseudo);
@@ -1444,8 +1449,8 @@ function updateUserModal() {
         $is_active = $('#update_u_is_active').is(':checked'),
         $is_admin = $('#update_u_is_admin').is(':checked'),
         $is_teacher = $('#update_u_is_teacher').is(':checked'),
-        $teacher_grade = $('#update_user_teacher_grade').val(),
-        $teacher_suject = $('#update_user_teacher_subjects').val(),
+        $teacher_grade = $('#update_user_teacher_grade').length ? $('#update_user_teacher_grade').val() + 1 : null,
+        $teacher_suject = $('#update_user_teacher_subjects').length ? $('#update_user_teacher_subjects').val() + 1 : null,
         $groups = [$('#update_u_is_group_admin0').is(':checked'), $('#update_u_group0').val()];
 
     $ApplicationFromGroup = [];
@@ -1497,8 +1502,8 @@ function createUserAndLinkToGroup() {
         $school = $('#u_school').val(),
         $is_admin = $('#u_is_admin').is(':checked'),
         $is_teacher = $('#u_is_teacher').is(':checked'),
-        $teacher_grade = $('#user_teacher_grade').val(),
-        $teacher_suject = $('#user_teacher_subjects').val(),
+        $teacher_grade = $('#user_teacher_grade').length ? $('#user_teacher_grade').val() : null,
+        $teacher_suject = $('#user_teacher_subjects').length ? $('#user_teacher_subjects').val() : null,
         $groups = [];
 
     $groups.push([$('#u_is_group_admin').is(':checked'), $('#u_group').val()])
@@ -2022,8 +2027,8 @@ function updateUserModalGroupAdmin() {
         $pseudo = $('#update_u_pseudo_ga').val(),
         $phone = $('#update_u_phone_ga').val(),
         $school = $('#update_u_school_ga').val(),
-        $teacher_grade = $('#update_user_teacher_grade_ga').val(),
-        $teacher_suject = $('#update_user_teacher_subjects_ga').val(),
+        $teacher_grade = $('#update_user_teacher_grade_ga').lenght ? $('#update_user_teacher_grade_ga').val() : null,
+        $teacher_suject = $('#update_user_teacher_subjects_ga').length ? $('#update_user_teacher_subjects_ga').val() : null,
         $groups = [$('#update_u_is_group_admin_ga0').is(':checked'), $('#update_u_group_ga0').val()];
 
 
@@ -2092,7 +2097,6 @@ $('#create_user_link_to_group_groupadmin').click(function () {
         } else {
             pseudoModal.openModal('groupeadmin-create-user');
             // Bind functions to the selects who has been created
-
             $saved_groups = mainGroupAdmin.getGroupAdminManager()._comboGroups;
             let radioHTML = "";
 
@@ -2150,12 +2154,13 @@ function createUserAndLinkToGroup_groupAdmin() {
         $pseudo = $('#u_pseudo_ga').val(),
         $phone = $('#u_phone_ga').val(),
         $school = $('#u_school_ga').val(),
-        $teacher_grade = $('#user_teacher_grade_ga').val(),
-        $teacher_suject = $('#user_teacher_subjects_ga').val(),
         $groups = [
             $('#checkboxAdmin').is(':checked'),
             $('#create_u_group_ga').val()
-        ];
+        ],
+        $teacher_grade = $('#user_teacher_grade_ga').length ? $('#user_teacher_grade_ga').val() + 1 : null,
+        $teacher_suject = $('#user_teacher_subjects_ga').length ? $('#user_teacher_subjects_ga').val() + 1 : null;
+        
 
     mainGroupAdmin.getGroupAdminManager().createUserAndLinkToGroup($firstname,
         $surname,
@@ -2845,17 +2850,42 @@ function closeDefault() {
     pseudoModal.closeAllModal();
 }
 
-/* <div class="form-row mt-1 c-secondary-form">
-<div class="col-md">
-<label for="activity_restrictions_update_type">Type activity</label>
-<input type="text" class="form-control" id="activity_restrictions_update_type">
-</div>
-<div class="col-md">
-<label for="activity_restrictions_update_maximum">Maximum</label>
-<input type="text" class="form-control" id="activity_restrictions_update_maximum">
-</div>
-<input type="hidden" class="form-control" id="activity_restrictions_id">
-</div>
-<button class="btn c-btn-secondary my-3 btn" onclick="persistUpdateRestriction()" data-i18n="manager.buttons.update">Modifier</button>
-<button class="btn c-btn-light my-3 btn" onclick="closeModalAndCleanInputActivityRestrictions()" data-i18n="manager.buttons.cancel">Annuler</button>
- */
+// Adjust the registrations forms from the configuration in the .env file
+function createRegistrationTemplate() {
+    // Get the registration template configuration from the .env file
+    getRegistrationTemplate().then((res) => {
+        // List all the views who are adjustable
+        const   usernameViews = ['#manager_username', '#manager_update_username', '#group_admin_username', '#group_admin_username_update'],
+                phoneViews = ['#manager_phone', '#manager_update_phone', '#group_admin_phone', '#group_admin_phone_update'],
+                userBioViews = ['#manager_bio', '#manager_update_bio', '#group_admin_bio', '#group_admin_bio_update'],
+                userTeacherSectionViews = ['#user_teacher_infos', '#update_user_teacher_infos', '#user_teacher_infos_ga', '#update_user_teacher_infos_ga'];
+        
+
+        // If the registration template does not need an element to be displayed, we remove it
+        const   deleteInputs = (array) => {
+            array.forEach(element => {
+                if ($(element).length) {
+                    $(element).remove();
+                }
+            });
+        }      
+
+        // Check for every configuration if it is needed to display the element
+        if (res.USER_USERNAME == "false") {
+            deleteInputs(usernameViews);
+        }
+
+        if (res.USER_PHONE == "false") {
+            deleteInputs(phoneViews);
+        }
+
+        if (res.USER_BIO == "false") {
+            deleteInputs(userBioViews);
+        }
+
+        if (res.USER_TEACHER_SECTION == "false") {
+            deleteInputs(userTeacherSectionViews);
+        }
+
+    })
+}

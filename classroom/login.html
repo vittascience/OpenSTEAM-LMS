@@ -126,7 +126,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4" id="registration_pseudo">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-pseudo" class="tutorial-label"
@@ -144,7 +144,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4" id="registration_phone">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-phone" class="tutorial-label"
@@ -154,7 +154,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-12">
+                <div class="col-md-12" id="registration_bio">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-bio" class="tutorial-label"
@@ -164,7 +164,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-12">
+                <div class="col-md-12" id="registration_school">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_lock.png" class="icon-label">
                         <label for="profile-form-school" class="tutorial-label"
@@ -173,7 +173,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-6" id="registration_grade">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-grade" class="tutorial-label"
@@ -188,7 +188,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-6" id="registration_subject">
                     <div class="form-row mb-4">
                         <img src="assets/media/green_user.png" class="icon-label">
                         <label for="profile-form-subject" class="tutorial-label"
@@ -377,13 +377,13 @@
 <script src="assets/js/scripts/dashboardActivities.js"></script>
 <script src="assets/js/scripts/displayPanel.js"></script>
 <script src="assets/js/lib/EasyAutocomplete-1.3.5/jquery.easy-autocomplete.min.js"></script>
-<script src="assets/js/scripts/signup.js"></script>
 <script src="assets/js/main/Loader.js"></script>
 <script src="assets/js/main/UIManager.js"></script>
 <script src="assets/js/main/User.js"></script>
 <script src="assets/js/main/ClassroomManager.js"></script>
 <script src="assets/js/main/Main.js"></script>
 <script src="assets/js/scripts/main-login.js"></script>
+<script src="assets/js/utils/registrationTemplate.js"></script>
 <script src="assets/js/scripts/buttons.js"></script>
 <script src="assets/js/scripts/login.js"></script>
 <script>
@@ -422,6 +422,14 @@
                         firstRequestClass = false;
                         navigateLight($_GET('link'), 2)
                     }
+                    // Set the variable to false to indicate that the registration template is already set up
+                    firstRegisterLoad = false;
+                    // Setup the registration form before displaying it (trigger only on loading page)
+                    createRegistrationTemplateForLogin();
+                    // little delay to let the constant file load
+                    setTimeout(() => {
+                        createSubjectSelectTeacherForm(getSubjects(0));
+                    }, 500);
                 })
             },
             (reason) => {
