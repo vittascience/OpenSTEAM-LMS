@@ -842,10 +842,10 @@ class managerManager {
                     let div_img = ""
                     if (element.hasOwnProperty('applications')) {
                         element.applications.forEach(element_2 => {
-                            if (element_2.image != null) {
-                                div_img += `<img src="assets/media/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                            if (element_2.image != null && element_2.image != "") {
+                                div_img += `<img src="assets/plugins/images/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             } else {
-                                div_img += `<img src="assets/media/nologo.jpg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             }
                         });
                     }
@@ -943,10 +943,10 @@ class managerManager {
                     let div_img = ""
                     if (element.hasOwnProperty('applications')) {
                         element.applications.forEach(element_2 => {
-                            if (element_2.image != null) {
-                                div_img += `<img src="assets/media/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                            if (element_2.image != null && element_2.image != "") {
+                                div_img += `<img src="assets/plugins/images/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             } else {
-                                div_img += `<img src="assets/media/nologo.jpg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             }
                         });
                     }
@@ -1064,10 +1064,10 @@ class managerManager {
                 let div_img = ""
                 if (element.hasOwnProperty('applications')) {
                     element.applications.forEach(element_2 => {
-                        if (element_2.image != null) {
-                            div_img += `<img src="assets/media/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                        if (element_2.image != null && element_2.image != "") {
+                            div_img += `<img src="assets/plugins/images/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                         } else {
-                            div_img += `<img src="assets/media/nologo.jpg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                            div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                         }
                     });
                 }
@@ -1126,10 +1126,10 @@ class managerManager {
                     let div_img = ""
                     if (element.hasOwnProperty('applications')) {
                         element.applications.forEach(element_2 => {
-                            if (element_2.image != null) {
-                                div_img += `<img src="assets/media/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                            if (element_2.image != null && element_2.image != "") {
+                                div_img += `<img src="assets/plugins/images/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             } else {
-                                div_img += `<img src="assets/media/nologo.jpg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             }
                         });
                     }
