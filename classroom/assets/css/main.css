@@ -566,11 +566,7 @@ button {
         width: 100px;
         height: 100px;
         background: transparent;
-        grid-template-rows: auto 0px;
-    }
-
-    .sidebar-classroom div span {
-        display: none;
+        grid-template-rows: auto 25px;
     }
 
     .sidebar-classroom div img {
@@ -1939,7 +1935,7 @@ i.line_height34 {
 }
 
 .faq-panel {
-    background: #f8f8f8;
+    background: var(--classroom-cell);
     border-left: 2px solid var(--classroom-secondary);
     flex: 1;
     overflow-y: scroll;
@@ -1985,6 +1981,22 @@ i.line_height34 {
 #classroom-dashboard-content .footer-link:hover {
 
     text-decoration: underline;
+}
+
+@media (max-width: 1000px) {
+    .help-panel,
+    .help-panel-student {
+        display: flex;
+        flex-direction: column;
+        margin-top: 2.5em;
+        height: auto;
+        overflow: auto;
+    }
+
+    .faq-panel {
+        border-left: none;
+        border-top: 2px solid var(--classroom-secondary);
+    }
 }
 
 .table-students {
