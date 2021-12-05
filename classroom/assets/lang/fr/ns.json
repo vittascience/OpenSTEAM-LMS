@@ -10,9 +10,9 @@
 			"neutralTitle": "Open STEAM LMS",
 			"subtitle": "Découvrir - Apprendre - Partager",
 			"login": "Se connecter",
-			"activities": "créez facilement </br> vos activités",
-			"attribute": "attribuez les </br> à vos apprenants",
-			"visualize": "visualisez </br> leurs résultats",
+			"activities": "Créez facilement </br> vos activités",
+			"attribute": "Attribuez les </br> à vos apprenants",
+			"visualize": "Visualisez </br> leurs résultats",
 			"helpers": " A nos côtés pour vous <span>accompagner.</span>",
 			"student": "APPRENANT",
 			"codeInput": " Rentrez ici votre code classe",
@@ -36,15 +36,15 @@
 			},
 			"carousel": {
 				"activities": {
-					"title": "créez facilementvos activités",
+					"title": "Créez facilementvos activités",
 					"content": "L'éditeur d'activité permet de créer du contenu pédagogique en toute simplicité, en incluant du texte, des images, des vidéos, des interfaces de programmation Vittascience, des présentations Genially et bien d'autres outils.</br></br>Parcourez la banque de ressources collaboratives Vittascience, qui regroupe plusieurs centaines d'activités libres et réutilisables. Si l'auteur de la ressourcel'autorise, vous pouvez même apporter des modifications pour adapter le contenu à vos apprenants !"
 				},
 				"attribute": {
-					"title": "attribuez les à vos apprenants",
+					"title": "Attribuez les à vos apprenants",
 					"content": "Une fois vos activités créées, vous pouvez les attribuer à vos apprenants. Il est possible d'attribuer individuellement ou bien à des groupes entiers, par exemple une classe ou un club scientifique.</br></br>Les apprenants peuvent se connecter en toute sécurité à l'aide d'un code classe, d'un lien, d'un QRcode ou du GAR, et réaliser les activités qui leurs ont été attribuées."
 				},
 				"visualize": {
-					"title": "visualisez leurs résultats",
+					"title": "Visualisez leurs résultats",
 					"content": "Le tableau de bord permet de suivre la progression des apprenants à mesure qu'ils avancent dans les activités et parcours. Retrouvez le travail de vos apprenants en un clic avec possibilité de commenter le rendu.</br></br>Grâce au système de correction automatique pour blocs et Python, le tableau de bord se remplit directement avec les résultats des élèves. Identifiez rapidement les apprenants en difficulté et gagnez un temps précieux pour les accompagner."
 				}
 			},
@@ -505,7 +505,7 @@
 				}
 			}
 		},
-		"title": "Foire Aux Questions",
+		"title": "FAQ",
 		"hint": "Vous ne trouvez pas la réponse à votre question ? <a href=\"/about?contact=1\">Contactez-nous via ce formulaire</a>."
 	},
 	"faqInfoNeutral": {
@@ -576,7 +576,7 @@
 				}
 			}
 		},
-		"title": "Foire Aux Questions",
+		"title": "FAQ",
 		"hint": "Vous ne trouvez pas la réponse à votre question ? <a href=\"/about?contact=1\">Contactez-nous via ce formulaire</a>."
 	},
 	"faqTeacherNeutral": {

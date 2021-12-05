@@ -1984,6 +1984,7 @@ i.line_height34 {
 }
 
 @media (max-width: 1000px) {
+
     .help-panel,
     .help-panel-student {
         display: flex;
@@ -2062,6 +2063,10 @@ i.line_height34 {
 @media (max-width: 800px) {
     #interactive-elements-container {
         display: none;
+    }
+
+    #heading-container {
+        margin-top: 30vh;
     }
 
     #home-jumbotron {
