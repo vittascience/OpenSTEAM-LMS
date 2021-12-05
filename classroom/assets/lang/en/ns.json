@@ -304,8 +304,8 @@
 			"exportCsv": "Export csv"
 		},
 		"filter": {
-			"desc": "From oldest to newest",
-			"asc": "From newest to oldest",
+			"desc": "Oldest to newest",
+			"asc": "Newest to oldest",
 			"placeholder": "Search..."
 		},
 		"sandbox": {
