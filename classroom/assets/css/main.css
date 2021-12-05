@@ -1926,7 +1926,7 @@ i.line_height34 {
     align-items: center;
 }
 
-.teacher-contact-panel {
+.contact-panel {
     padding: 20px;
     flex: 1;
     display: flex;
@@ -1984,18 +1984,18 @@ i.line_height34 {
 }
 
 #classroom-dashboard-content #footer-content {
-    background-color: transparent;
+    margin-top: 2em;
+    text-align: center;
 }
 
 #classroom-dashboard-content .footer-link,
 #classroom-dashboard-content #footer-content div {
-
-    color: var(--bg-5);
+    color: var(--classroom-text-1);
+    opacity: 0.7;
     font-weight: 600;
 }
 
 #classroom-dashboard-content .footer-link:hover {
-
     text-decoration: underline;
 }
 
