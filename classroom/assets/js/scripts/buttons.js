@@ -479,6 +479,11 @@ $('body').on('change', '.student-id', function () {
         ClassroomSettings.studentCount--
     }
     $('.student-number').html(ClassroomSettings.studentCount)
+    if(document.querySelector('.student-number').textContent != '0') {
+        document.getElementById('attribute-activity-to-students').removeAttribute('disabled');
+    } else {
+        document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');
+    }
 })
 
 $('body').on('change', '.list-students-classroom', function () {
@@ -490,6 +495,11 @@ $('body').on('change', '.list-students-classroom', function () {
         ClassroomSettings.studentCount -= nbStudent
     }
     $('.student-number').html(ClassroomSettings.studentCount)
+    if(document.querySelector('.student-number').textContent != '0') {
+        document.getElementById('attribute-activity-to-students').removeAttribute('disabled');
+    } else {
+        document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');
+    }
 })
 
 
