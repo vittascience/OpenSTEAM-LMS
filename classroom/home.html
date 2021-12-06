@@ -555,7 +555,7 @@
 <div id="classroom-dashboard-activities-panel-library-teacher" style="display:none;" class="dashboard-block">
 </div>
 
-<div id="classroom-dashboard-new-activity-panel" style="display:none;" class="activity-creation-form row dashboard-block">
+<div id="classroom-dashboard-new-activity-panel" style="display:none;" class="activity-creation-form dashboard-block">
     <nav class="row" style="margin: 0 auto;">
         <div class="col-4 text-center">
             <span class="form-activity form-activity-activate"><b>1</b></span>
@@ -587,7 +587,8 @@
     </div>
     <button class="new-activity-panel2 c-btn-primary"><span data-i18n="classroom.activities.form.button"></span> <i class="fas fa-check"></i></button>
 </div>
-<div id="classroom-dashboard-new-activity-panel2" style="display:none;" class="row flex-column dashboard-block class-creation-form-step2">
+<div id="classroom-dashboard-new-activity-panel2" style="display:none;" class="dashboard-block class-creation-form-step2">
+
     <nav class="row" style="margin: 0 auto;">
         <div class="col-4 text-center">
             <span class="form-activity form-activity-activate"><b>1</b></span>
@@ -602,13 +603,27 @@
         </div>
     </nav>
 
-    <h1 data-i18n="classroom.activities.form.success"></h1>
-    <div class="buttons">
-        <button id="new-activity-panel3" class="new-activity-panel3 c-btn-primary"><span data-i18n="classroom.activities.form.attribute"></span> <i class="fas fa-chevron-right"></i></button>
-        <button onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')" class="c-btn-primary"><span data-i18n="classroom.activities.form.return"></span><i class="fas fa-chevron-right"></i></button>
+    <div class="text-center px-1">
+        <h3 class="c-text-primary text-capitalize" data-i18n="classroom.activities.form.success"></h3>
     </div>
-    <p data-i18n="classroom.activities.form.hint"></p>
-    <button class="c-btn-primary" onclick="createActivity()" data-i18n="classroom.activities.form.modify"></button>
+
+    <div class="container text-center">
+        <div class="row my-2">
+            <div class="col-sm mb-2">
+                <button id="new-activity-panel3" class="new-activity-panel3 btn c-btn-primary">
+                    <span data-i18n="classroom.activities.form.attribute"></span> <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="col-sm mb-2">
+                <button onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')" class="btn c-btn-primary">
+                    <span data-i18n="classroom.activities.form.return"></span> <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
+        </div>
+        <p data-i18n="classroom.activities.form.hint"></p>
+        <button class="btn c-btn-outline-primary" onclick="createActivity()" data-i18n="classroom.activities.form.modify"></button>
+    </div>
 </div>
 <!-- <div id="classroom-dashboard-new-course-panel2" style="display:none;" class=" row dashboard-block">
     <h1>Bravo, vous avez crée un parcours</h1>
