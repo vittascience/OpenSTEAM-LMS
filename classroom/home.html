@@ -557,14 +557,14 @@
 
 <div id="classroom-dashboard-new-activity-panel" style="display:none;" class="activity-creation-form dashboard-block">
     <nav class="row" style="margin: 0 auto;">
-        <div class="col-4 text-center">
+        <div class="col text-center">
             <span class="form-activity form-activity-activate"><b>1</b></span>
             <span data-i18n="classroom.activities.form.1"></span>
         </div>
 
         <div class="col-4"></div>
 
-        <div class=" col-4 text-center">
+        <div class=" col text-center">
             <span class="form-activity form-activity-desactivate"><b>2</b></span>
             <span data-i18n="classroom.activities.form.2"></span>
         </div>
@@ -590,14 +590,14 @@
 <div id="classroom-dashboard-new-activity-panel2" style="display:none;" class="dashboard-block class-creation-form-step2">
 
     <nav class="row" style="margin: 0 auto;">
-        <div class="col-4 text-center">
+        <div class="col text-center">
             <span class="form-activity form-activity-activate"><b>1</b></span>
             <span data-i18n="classroom.activities.form.1"></span>
         </div>
 
         <div class="col-4"></div>
 
-        <div class=" col-4 text-center">
+        <div class=" col text-center">
             <span class="form-activity form-activity-desactivate"><b>2</b></span>
             <span data-i18n="classroom.activities.form.2"></span>
         </div>
@@ -631,75 +631,94 @@
     <button id="new-course-check2">Sauvegarder et fermer le parcours </button>
     <p>Vous pourrez toujours plus tard attribuer ce parcours depuis le tableau de bord</p>
 </div> -->
-<div id="classroom-dashboard-new-activity-panel3" style="display:none;" class="dashboard-block">
+<div id="classroom-dashboard-new-activity-panel3" style="display:none;" class="dashboard-block container">
     <nav class="row mb-3" style="margin: 0 auto;">
-        <div class="col-4 text-center">
+        <div class="col text-center">
             <span class="form-activity form-activity-activate"><b>1</b></span>
             <span data-i18n="classroom.activities.form.1"></span>
         </div>
         <div class="col-4"></div>
-        <div class=" col-4 text-center">
+        <div class=" col text-center">
             <span class="form-activity form-activity-desactivate"><b>2</b></span>
             <span data-i18n="classroom.activities.form.2"></span>
         </div>
     </nav>
-    <div class="row assign-activity-container" style="margin: 0 auto;">
+    <div class="assign-activity-container" style="margin: 0 auto;">
 
-        <div class="col-12 mb-5 text-center">
-            <button id="new-activity-attribute" class="btn c-btn-primary">
-                <span data-i18n="classroom.activities.form.select1"></span> <i class="fas fa-plus"></i>
-            </button>
-            <div class="mt-2">
-                (<span class="student-number">0</span> <span data-i18n="classroom.activities.form.select2"></span>)
+        <div class="row">
+            <div class="col-12 mb-5 text-center">
+                <button id="new-activity-attribute" class="btn c-btn-primary">
+                    <span data-i18n="classroom.activities.form.select1"></span> <i class="fas fa-plus"></i>
+                </button>
+                <div class="mt-2">
+                    (<span class="student-number">0</span> <span data-i18n="classroom.activities.form.select2"></span>)
+                </div>
             </div>
         </div>
 
-        <div class="col-12 mb-5 text-center c-primary-form">
-            <label for="introduction-activity-form">
-                <b data-i18n="classroom.activities.form.instructions"></b>
-                <i data-i18n="words.optional"></i>
-            </label></br>
-            <textarea rows="3" class="col-12" id="introduction-activity-form"></textarea>
+        <div class="row">
+            <div class="col-12 mb-5 text-center c-primary-form">
+                <label for="introduction-activity-form">
+                    <b data-i18n="classroom.activities.form.instructions"></b>
+                    <i data-i18n="words.optional"></i>
+                </label></br>
+                <textarea rows="3" class="col-12" id="introduction-activity-form"></textarea>
+            </div>
         </div>
 
-        <div class="col-12 mb-5 text-center c-primary-form">
-            <div id="form-autocorrect">
-                <label for="isAutocorrection-activity-form" data-i18n="classroom.activities.form.autocorrect"></label></br>
-                <label class="switch-mini"><input type="checkbox" id="isAutocorrection-activity-form" onclick="autocorrectSwitch()">
-                    <span class="slider-mini round"></span>
-                </label>
+        <div class="row" id="form-autocorrect">
+            <div class="col mb-5 text-center c-primary-form">
+                    <label for="isAutocorrection-activity-form" data-i18n="classroom.activities.form.autocorrect"></label></br>
+                    <label class="switch-mini"><input type="checkbox" id="isAutocorrection-activity-form" onclick="autocorrectSwitch()">
+                        <span class="slider-mini round"></span>
+                    </label>
             </div>
-            <div class="d-flex justify-content-around">
-                <label for="isEval-activity-form" data-i18n="classroom.activities.form.nature"></label></br>
-                <div class="switcher">
-                    <input type="radio" name="isEval-activity-form" value="true" id="isEval-activity-form" class="switcher__input switcher__input--yin" checked="">
-                    <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no"></label>
+        </div>
 
-                    <input type="radio" name="isEval-activity-form" value="false" id="isExo-activity-form" class="switcher__input switcher__input--right">
-                    <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes"></label>
+        <div class="row">
+            <div class="col mb-5 text-center c-primary-form">
+                <div class="d-flex justify-content-around">
+                    <label for="isEval-activity-form" data-i18n="classroom.activities.form.nature"></label></br>
+                    <div class="switcher">
+                        <input type="radio" name="isEval-activity-form" value="true" id="isEval-activity-form" class="switcher__input switcher__input--yin" checked="">
+                        <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no"></label>
 
-                    <span class="switcher__toggle"></span>
+                        <input type="radio" name="isEval-activity-form" value="false" id="isExo-activity-form" class="switcher__input switcher__input--right">
+                        <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes"></label>
+
+                        <span class="switcher__toggle"></span>
+                    </div>
                 </div>
             </div>
         </div>
 
 
-        <div class="col-12 col-md-6 c-primary-form assign-activity-calendar">
-            <label for="date-begin-activity-form" data-i18n="classroom.activities.form.dateBegin"></label>
-            <input type="date" id="date-begin-activity-form">
+        <div class="row">
+            <div class="col col-md-6 c-primary-form assign-activity-calendar">
+                <label for="date-begin-activity-form" data-i18n="classroom.activities.form.dateBegin"></label>
+                <input type="date" id="date-begin-activity-form">
+            </div>
+
+            <div class="col col-md-6 c-primary-form text-right assign-activity-calendar">
+                <label for="date-end-activity-form" data-i18n="classroom.activities.form.dateEnd"></label>
+                <input type="date" id="date-end-activity-form">
+            </div>
         </div>
 
-        <div class="col-12 col-md-6 c-primary-form text-right assign-activity-calendar">
-            <label for="date-end-activity-form" data-i18n="classroom.activities.form.dateEnd"></label>
-            <input type="date" id="date-end-activity-form">
-        </div>
 
-        <div class="col-6 d-flex justify-content-start mt-5">
-            <button class="btn login-button c-btn-grey" onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')"><i class="fas fa-angle-left"></i> <span class="text-capitalize" data-i18n="words.return"></span></button>
-        </div>
 
-        <div class="col-6 d-flex justify-content-end mt-5">
-            <button id="attribute-activity-to-students" class="btn login-button c-btn-primary"><span data-i18n="classroom.activities.form.attribute2"></span><i class="fas fa-angle-right"></i></button>
+        <div class="row text-center my-2">
+            <div class="col-sm mb-2">
+                <button class="btn c-btn-grey" onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')">
+                    <i class="fas fa-angle-left"></i> <span class="text-capitalize" data-i18n="words.return"></span>
+                </button>
+            </div>
+
+            <div class="col-sm order-sm-1 mb-2">
+                <button id="attribute-activity-to-students" class="btn c-btn-primary">
+                    <span data-i18n="classroom.activities.form.attribute2"></span><i class="fas fa-angle-right"></i>
+                </button>
+            </div>
         </div>
     </div>
 </div>

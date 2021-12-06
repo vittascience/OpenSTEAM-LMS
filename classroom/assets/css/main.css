@@ -1321,10 +1321,12 @@ h3.section-done {
     }
 
     .dashboard-block>nav>div:nth-child(1) {
-        display: flex;
-        flex-direction: row;
+        display: grid;
+        grid-auto-flow: column;
         align-items: center;
         width: 100%;
+        justify-content: center;
+        gap: 1em;
     }
 
 
@@ -1343,19 +1345,10 @@ h3.section-done {
 /* ACTIVITY ASSIGN FORM */
 
 #classroom-dashboard-new-activity-panel3 {
+    /*
     display: grid;
     align-content: center;
-}
-
-.assign-activity-container {
-    max-width: 760px;
-}
-
-
-@media (max-width: 768px) {
-    .assign-activity-calendar {
-        text-align: center !important;
-    }
+    */
 }
 
 /* ACTIVITY RESULTS */
