@@ -315,6 +315,7 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
     }
 }
 DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) {
+    document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');
     if (ref != null && ref != 'null') {
         let attribution = getAttributionByRef(ref)
         $('#introduction-activity-form').val(attribution.introduction)
