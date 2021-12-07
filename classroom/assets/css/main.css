@@ -572,6 +572,7 @@ button {
     .sidebar-classroom div span {
         display: none;
     }
+
     .sidebar-classroom div img {
         width: 60px;
         height: 60px;
@@ -1349,6 +1350,12 @@ h3.section-done {
     display: grid;
     align-content: center;
     */
+}
+
+
+#introduction-activity-form {
+    width: 100%;
+    max-width: 80%;
 }
 
 /* ACTIVITY RESULTS */

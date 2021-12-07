@@ -656,65 +656,81 @@
             </div>
         </div>
 
+        <!-- Instructions -->
         <div class="row">
             <div class="col-12 mb-5 text-center c-primary-form">
                 <label for="introduction-activity-form">
                     <b data-i18n="classroom.activities.form.instructions"></b>
                     <i data-i18n="words.optional"></i>
                 </label></br>
-                <textarea rows="3" class="col-12" id="introduction-activity-form"></textarea>
+                <textarea rows="4" id="introduction-activity-form"></textarea>
             </div>
         </div>
 
+        <!-- Autocorrect activation -->
         <div class="row" id="form-autocorrect">
             <div class="col mb-5 text-center c-primary-form">
-                    <label for="isAutocorrection-activity-form" data-i18n="classroom.activities.form.autocorrect"></label></br>
-                    <label class="switch-mini"><input type="checkbox" id="isAutocorrection-activity-form" onclick="autocorrectSwitch()">
-                        <span class="slider-mini round"></span>
-                    </label>
+                <label for="isAutocorrection-activity-form" data-i18n="classroom.activities.form.autocorrect"></label></br>
+                <label class="switch-mini"><input type="checkbox" id="isAutocorrection-activity-form" onclick="autocorrectSwitch()">
+                    <span class="slider-mini round"></span>
+                </label>
             </div>
         </div>
 
+        <!-- Submit multiple times -->
         <div class="row">
             <div class="col mb-5 text-center c-primary-form">
-                <div class="d-flex justify-content-around">
-                    <label for="isEval-activity-form" data-i18n="classroom.activities.form.nature"></label></br>
-                    <div class="switcher">
-                        <input type="radio" name="isEval-activity-form" value="true" id="isEval-activity-form" class="switcher__input switcher__input--yin" checked="">
-                        <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no"></label>
+                <label for="isEval-activity-form" data-i18n="classroom.activities.form.nature"></label></br>
+                <div class="switcher">
+                    <input type="radio" name="isEval-activity-form" value="true" id="isEval-activity-form" checked="">
+                    <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no"></label>
 
-                        <input type="radio" name="isEval-activity-form" value="false" id="isExo-activity-form" class="switcher__input switcher__input--right">
-                        <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes"></label>
+                    <input type="radio" name="isEval-activity-form" value="false" id="isExo-activity-form">
+                    <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes"></label>
 
-                        <span class="switcher__toggle"></span>
-                    </div>
+                    <span class="switcher__toggle"></span>
                 </div>
             </div>
         </div>
 
 
-        <div class="row">
-            <div class="col col-md-6 c-primary-form assign-activity-calendar">
-                <label for="date-begin-activity-form" data-i18n="classroom.activities.form.dateBegin"></label>
-                <input type="date" id="date-begin-activity-form">
-            </div>
-
-            <div class="col col-md-6 c-primary-form text-right assign-activity-calendar">
-                <label for="date-end-activity-form" data-i18n="classroom.activities.form.dateEnd"></label>
-                <input type="date" id="date-end-activity-form">
+        <!-- Form time span -->
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-xl-6 c-primary-form assign-activity-calendar">
+                    <div class="row">
+                        <div class="col-6 text-right align-middle">
+                            <label for="date-begin-activity-form" data-i18n="classroom.activities.form.dateBegin"></label>
+                        </div>
+                        <div class="col-6 text-left">
+                            <input type="date" id="date-begin-activity-form">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-12 col-xl-6 c-primary-form assign-activity-calendar">
+                    <div class="row">
+                        <div class="col-6 text-right align-middle">
+                            <label for="date-end-activity-form" data-i18n="classroom.activities.form.dateEnd"></label>
+                        </div>
+                        <div class="col-6 text-left">
+                            <input type="date" id="date-end-activity-form">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+            
 
 
-
-        <div class="row text-center my-2">
+        <div class="row text-center my-2 mt-5">
             <div class="col-sm mb-2">
                 <button class="btn c-btn-grey" onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')">
                     <i class="fas fa-angle-left"></i> <span class="text-capitalize" data-i18n="words.return"></span>
                 </button>
             </div>
 
-            <div class="col-sm order-sm-1 mb-2">
+            <div class="col-sm order-first order-sm-last mb-2">
                 <button id="attribute-activity-to-students" class="btn c-btn-primary">
                     <span data-i18n="classroom.activities.form.attribute2"></span><i class="fas fa-angle-right"></i>
                 </button>
