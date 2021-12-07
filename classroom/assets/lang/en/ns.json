@@ -257,7 +257,7 @@
 			"refuse": "Insufficient proficiency",
 			"instruction": "Instructions",
 			"commentary": "Comment",
-			"sendResults": "Send the comment to the learner ",
+			"sendResults": "Send the comment ",
 			"noSend": "This activity hasn't been returned",
 			"comments": "Write your comments there",
 			"bilan": {

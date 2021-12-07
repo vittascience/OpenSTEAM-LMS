@@ -1345,18 +1345,54 @@ h3.section-done {
 
 /* ACTIVITY ASSIGN FORM */
 
-#classroom-dashboard-new-activity-panel3 {
-    /*
-    display: grid;
-    align-content: center;
-    */
-}
-
-
 #introduction-activity-form {
     width: 100%;
     max-width: 80%;
 }
+
+/* ACTIVITY CORRECTION FORM */ 
+
+#activity-title {
+    font-weight: 700;
+    text-align: center;
+}
+#activity-details {
+    text-align: center;
+    font-style: italic;
+    
+}
+
+.note-choice {
+    border-radius: 25px;
+    width: 100%;
+    cursor: pointer;
+    margin: 10px 0px;
+}
+
+.note-choice i {
+    color: var(--classroom-background);
+    margin: 0px 5px;
+}
+
+.selectNote {
+    background-color: var(--classroom-primary);
+    color: white;
+}
+
+#activity-correction {
+    padding: 0.5em;
+    border-radius: 1em;
+    box-shadow: 1px 1px 6px #00000029;
+    margin: .5em;
+    overflow: auto;
+    position: sticky;
+    top: 3.5em;
+}
+
+.activity-correction-header {
+    color: var(--classroom-primary);
+}
+
 
 /* ACTIVITY RESULTS */
 
@@ -1746,27 +1782,6 @@ i.line_height34 {
 .status-0 {
     border-color: transparent;
     background-color: var(--correction-0);
-}
-
-.note-choice {
-    border-radius: 25px;
-    width: 100%;
-    cursor: pointer;
-    margin: 10px 0px;
-}
-
-.note-choice i {
-    color: var(--classroom-background);
-    margin: 0px 5px;
-}
-
-.selectNote {
-    background-color: var(--classroom-primary);
-    color: white;
-}
-
-.activity-correction-header {
-    color: var(--classroom-primary);
 }
 
 .open-ide:hover {

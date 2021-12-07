@@ -445,7 +445,7 @@ function loadActivity(isDoable) {
 
     }
     if (UserManager.getUser().isRegular && Activity.correction > 0) {
-        correction += '<div id="commentary-panel" class="c-primary-form"><label>' + i18next.t("classroom.activities.comments") + '</label><textarea id="commentary-textarea" style="width:90%" rows="8">' + Activity.commentary + '</textarea></div>'
+        correction += '<div id="commentary-panel" class="c-primary-form"><label>' + i18next.t("classroom.activities.comments") + '</label><textarea id="commentary-textarea" style="width:100%" rows="8">' + Activity.commentary + '</textarea></div>'
     }
     if (!UserManager.getUser().isRegular && Activity.correction > 0) {
         correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
@@ -453,10 +453,11 @@ function loadActivity(isDoable) {
 
     if (UserManager.getUser().isRegular && Activity.correction > 0) {
 
-        correction += '<button onclick="giveNote()" class="btn c-btn-primary">' + i18next.t('classroom.activities.sendResults') + '<i class="fas fa-chevron-right"> </i></button>'
+        correction += '<button onclick="giveNote()" class="btn c-btn-primary btn-sm text-wrap w-100"><span class="text-wrap">' + i18next.t('classroom.activities.sendResults') + '<i class="fas fa-chevron-right"> </i></span></button>'
     }
     $('#activity-content').html(bbcodeToHtml(content))
-    $('#activity-correction').html(bbcodeToHtml(correction)).show()
+    $('#activity-correction').html(bbcodeToHtml(correction))
+    $('#activity-correction-container').show()
     if (isDoable == false) {
         $('#activity-validate').hide()
         $('#activity-save').hide()
