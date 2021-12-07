@@ -173,29 +173,29 @@
 
         <h3 data-i18n="classroom.help.student.label"></h3>
 
-        <div id="about-contact-info-student"></div>
-
-        <form class="c-primary-form" id="about-contact-form-student">
-            <div class="form-row">
-                <div class="form-group col-md-9">
-                    <select id="help-student-select" class="form-control form-control-lg">
-                    </select>
+        <div id="about-contact-info-student">
+            <form class="c-primary-form" id="about-contact-form-student">
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                        <select id="help-student-select" class="form-control form-control-lg">
+                        </select>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-row">
-                <div class="form-group col-md-9">
-                    <input type="text" name="subject" class="form-control" id="learner-contact-subject-input" data-i18n="[placeholder]classroom.help.student.title" placeholder="Objet">
+                <div class="form-row">
+                    <div class="form-group col-md-9">
+                        <input type="text" name="subject" class="form-control" id="learner-contact-subject-input" data-i18n="[placeholder]classroom.help.student.title" placeholder="Objet">
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <textarea name="message" class="form-control" id="learner-contact-message-input" rows="15" cols="25" style="resize: none; width: 100%;" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder" placeholder="Écrivez votre message ici. (Maximum 800 caractères)"></textarea>
-            </div>
+                <div class="form-group">
+                    <textarea name="message" class="form-control" id="learner-contact-message-input" rows="15" cols="25" style="resize: none; width: 100%;" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder" placeholder="Écrivez votre message ici. (Maximum 800 caractères)"></textarea>
+                </div>
 
-            <input type="submit" class="btn c-btn-primary" data-i18n="[value]classroom.teacherHelpPanel.contactForm.sendButton" disabled="disabled" style="cursor:not-allowed;float: right;">
-        </form>
-
+                <input type="submit" class="btn c-btn-primary" data-i18n="[value]classroom.teacherHelpPanel.contactForm.sendButton" disabled="disabled" style="cursor:not-allowed;float: right;">
+            </form>
+        </div>
+        <br>
         <div id="footer-content">
             <p>
                 <a class="footer-link text-uppercase" href="/classroom/privacy.php" target="_blank" data-i18n="[html]classroom.footer.privacy"></a>
@@ -743,20 +743,21 @@
 
         <h3 data-i18n="classroom.teacherHelpPanel.contactForm.title">Contacter Vittascience</h3>
 
-        <div id="about-contact-info"></div>
+        <div id="about-contact-info">
 
-        <form id="about-contact-form" class="c-primary-form">
-            <div class="form-group">
-                <input type="text" name="subject" class="form-control" id="contact-subject-input" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.objectPlaceholder" placeholder="Objet">
-            </div>
+            <form id="about-contact-form" class="c-primary-form">
+                <div class="form-group">
+                    <input type="text" name="subject" class="form-control" id="contact-subject-input" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.objectPlaceholder" placeholder="Objet">
+                </div>
 
-            <div class="form-group">
-                <textarea name="message" id="contact-message-input" class="form-control" rows="8" cols="25" style="resize: none;" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder" placeholder="Écrivez votre message ici. (Maximum 800 caractères)"></textarea>
-            </div>
+                <div class="form-group">
+                    <textarea name="message" id="contact-message-input" class="form-control" rows="8" cols="25" style="resize: none;" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder" placeholder="Écrivez votre message ici. (Maximum 800 caractères)"></textarea>
+                </div>
 
-            <input type="submit" class="btn c-btn-primary" data-i18n="[value]classroom.teacherHelpPanel.contactForm.sendButton" disabled="disabled" style="cursor:not-allowed;float: right;" >
-        </form>
-
+                <input type="submit" class="btn c-btn-primary" data-i18n="[value]classroom.teacherHelpPanel.contactForm.sendButton" disabled="disabled" style="cursor:not-allowed;float: right;">
+            </form>
+        </div>
+        <br>
         <div id="footer-content">
             <p>
                 <a class="footer-link text-uppercase" href="/classroom/privacy.php" target="_blank" data-i18n="[html]classroom.footer.privacy"></a>
@@ -771,7 +772,7 @@
             </p>
         </div>
     </div>
-
+    
     <div class="faq-panel">
         <h2 class="c-text-secondary font-weight-bold text-center mt-3">FAQ</h2>
         <div id="teacher-faq-container"></div>
@@ -783,22 +784,21 @@
     <div class="contact-panel">
         <h3 data-i18n="classroom.teacherHelpPanel.contactForm.title"></h3>
 
-        <div id="groupadmin-about-contact-info"></div>
+        <div id="groupadmin-about-contact-info">
+            <form id="groupadmin-about-contact-form" class="c-primary-form">
+                <div class="form-group">
 
-        <form id="groupadmin-about-contact-form" class="c-primary-form">
-            <div class="form-group">
+                    <input type="text" name="subject" class="form-control" id="groupadmin-contact-subject-input" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.objectPlaceholder" placeholder="Objet">
+                </div>
+                <div class="form-group">
 
-            <input type="text" name="subject" class="form-control" id="groupadmin-contact-subject-input" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.objectPlaceholder" placeholder="Objet" >
+                    <textarea name="message" class="form-control" id="groupadmin-contact-message-input" rows="8" cols="25" style="resize: none; width: 100%;" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder" placeholder="Écrivez votre message ici. (Maximum 800 caractères)"></textarea>
+                </div>
+
+                <input type="submit" class="btn c-btn-primary" data-i18n="[value]classroom.teacherHelpPanel.contactForm.sendButton" disabled="disabled" style="cursor:not-allowed;float: right;">
+            </form>
         </div>
-        <div class="form-group">
-
-            <textarea name="message" class="form-control" id="groupadmin-contact-message-input" rows="8" cols="25" style="resize: none; width: 100%;" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder" placeholder="Écrivez votre message ici. (Maximum 800 caractères)"></textarea>
-        </div>
-
-            <input type="submit" class="btn c-btn-primary" data-i18n="[value]classroom.teacherHelpPanel.contactForm.sendButton" disabled="disabled" style="cursor:not-allowed;float: right;">
-        </form>
-
-
+        <br>
         <div id="footer-content">
             <p>
                 <a class="footer-link text-uppercase" href="/classroom/privacy.php" target="_blank" data-i18n="[html]classroom.footer.privacy"></a>

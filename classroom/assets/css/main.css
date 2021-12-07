@@ -1932,12 +1932,10 @@ i.line_height34 {
 }
 
 .contact-panel {
-    padding: 20px;
+    padding: 0px 20px;
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
+    overflow-y: auto;
+    max-height: 100%;
 }
 
 .faq-panel {
