@@ -814,6 +814,11 @@
 		},
 		"success": "L'authentification a réussi. Redirection...",
 		"error": "Erreur. Veuillez vérifier vos identifiants.",
+		"mailSuccess": "Un mail d'activation a été envoyé à votre adresse mail.",
+		"mailError": "Une erreur est survenue. Veuillez vérifier votre adresse mail.",
+		"userNotFound": "Aucun utilisateur trouvé avec ces identifiants.",
+		"accountDeactivated": "Votre compte a été désactivé, contactez un administrateur si le problème persiste.",
+		"inactiveAccount": "Votre compte n'est pas encore actif, cliquez sur le bouton ci dessous pour envoyer l'email de validation.",
 		"errorBeta": "Vous devez être bêta testeur pour accéder à cette fonctionalité. <a href='https://fr.vittascience.com/about#contact'>Contacter l'équipe Vittascience</a> pour en savoir plus."
 	},
 	"signup-popup": {

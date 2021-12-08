@@ -98,7 +98,7 @@ function setUpInfoDivNav(type, messageID) {
     $("#info-div").fadeIn("slow");
 }
 
-function sendNewActivationMail() {
+function getNewValidationMail() {
     let mail = $('#login-mail-input').val();
     // Disable the button for 45s 
     $('#btn-activate-account-classroom').attr("disabled", true);
@@ -107,33 +107,24 @@ function sendNewActivationMail() {
     }, 45000);
     $.ajax({
     type: "POST",
-        url: "/services/post/postNewValidationMail.php",
+        url: "/routing/Routing.php?controller=groupadmin&action=get_new_validation_mail",
         data: {
             email: mail,
         },
-        success: function () {
-            setUpInfoDivNav("success", "login_popup.mailSuccess");
+        success: function (res) {
+            let response = JSON.parse(res);
+            if (response.success === true) {
+                setUpInfoDivNav("success", "login_popup.mailSuccess");
+            } else if (response.message === "mail_not_sent") {
+                setUpInfoDivNav("danger", "login_popup.mailError");
+            } else if (response.message === "no_token") {
+                setUpInfoDivNav("danger", "login_popup.accountDeactivated");
+            } else if (response.message === "user_not_found") {
+                setUpInfoDivNav("danger", "login_popup.userNotFound");
+            }
         },
         error: function () {
             setUpInfoDivNav("danger", "login_popup.mailError");
         }
     });
 }
-
-/* if(response.success == false && response.error == 'badInput'){
-    infoBox.innerHTML = i18next.t('login_popup.error');
-}
-if(response.success == false) {
-    infoBox.innerHTML = i18next.t('login_popup.error');
-}
-else {
-    infoBox.innerHTML = i18next.t('login_popup.errorBeta');
-} */
-
-/*             document.getElementById("info-div").innerHTML = "";
-            document.getElementById("info-div").style.display = "none";
-            document.getElementById("info-div").appendChild(infoBox);
-            $("#info-div").fadeIn("slow");
-            setTimeout(() => {
-                $("#info-div").fadeOut("slow");
-            }, 5000); */
