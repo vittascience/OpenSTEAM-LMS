@@ -2889,3 +2889,27 @@ function createRegistrationTemplate() {
 
     })
 }
+
+
+// Check if the actual activity type is limited for the user
+/**
+ * WORK IN PROGRESS
+ * @param {*} type 
+ */
+function isActivitiesRestriction(type) {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            type: "POST",
+            url: "/routing/Routing.php?controller=activity&action=isActivitiesLimited",
+            data: {
+                activityId: type
+            },
+            success: function (response) {
+                console.log(JSON.parse(response));
+            },
+            error: function () {
+                reject();
+            }
+        });
+    })
+}
