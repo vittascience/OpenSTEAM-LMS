@@ -889,7 +889,14 @@ function createGroupWithModal() {
         ApplicationsData = [];
 
     $("input:checkbox.form-check-input.app").each(function (element) {
-        const ApplicationTemp = [$(this).val(), $(this).is(':checked'), $('#begin_date_' + $(this).val()).val(), $('#end_date_' + $(this).val()).val()]
+        const ApplicationTemp = [$(this).val(),
+            $(this).is(':checked'),
+            $('#begin_date_' + $(this).val()).val(),
+            $('#end_date_' + $(this).val()).val(),
+            $('#max_students_per_teachers_' + $(this).val()).val(),
+            $('#max_students_per_groups_' + $(this).val()).val(),
+            $('#max_teachers_per_groups_' + $(this).val()).val()
+        ]
         ApplicationsData.push(ApplicationTemp);
     });
 
@@ -1143,6 +1150,7 @@ function updateAppForUser(methodName = "update") {
         } else {
             $('#create_update_personal_apps_sa').html("");
         }
+
         let stringhtml = `<label>${i18next.t('manager.profil.personalApps')}</label>`;
         data.forEach(element => {
 
@@ -1164,7 +1172,7 @@ function updateAppForUser(methodName = "update") {
                     ${element.name}
                 </label>
                 <br>
-                <div class="activity-add-form c-secondary-form">
+                <div class="activity-add-form c-secondary-form" id="personal_apps_${element.id}" style="display:none;">
                     <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
                     <input type="date" id="begin_date_${element.id}" name="trip-start" value="${new Date()}" min="${new Date()}" max="2023-12-31">
                     <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
@@ -1183,7 +1191,7 @@ function updateAppForUser(methodName = "update") {
                     ${element.name}
                 </label>
                 <br>
-                <div class="activity-add-form c-secondary-form">
+                <div class="activity-add-form c-secondary-form" id="personal_apps_${element.id}">
                     <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
                     <input type="date" id="begin_date_${element.id}" name="trip-start" value="${dateBegin}" max="2023-12-31">
                     <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
@@ -1200,6 +1208,12 @@ function updateAppForUser(methodName = "update") {
         } else {
             $('#create_update_personal_apps_sa').html(stringhtml);
         }
+
+        data.forEach(element => {
+            $(`#application_${element.id}`).change(function () {
+                $(`#personal_apps_${element.id}`).toggle();
+            })
+        });
     }
 
     mainManager.getmanagerManager().getAllApplications().then((res) => {
@@ -1807,7 +1821,7 @@ function optionsGroupApplications($type) {
                     ${element.name}
                 </label>
                 <br>
-                <div class="activity-add-form c-secondary-form">
+                <div class="activity-add-form c-secondary-form" id="apps_restriction_${element.id}" style="display:none;">
                     <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
                     <input type="date" id="begin_date_${element.id}" name="trip-start" value="${new Date()}" min="${new Date()}" max="2023-12-31">
                     
@@ -1834,7 +1848,7 @@ function optionsGroupApplications($type) {
                     ${element.name}
                 </label>
                 <br>
-                <div class="activity-add-form c-secondary-form">
+                <div class="activity-add-form c-secondary-form" id="apps_restriction_${element.id}">
                     <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
                     <input type="date" id="begin_date_${element.id}" name="trip-start" value="${dateBegin}"
                         max="2023-12-31">
@@ -1861,6 +1875,13 @@ function optionsGroupApplications($type) {
             $('#group_upd_apps_options').html(stringhtml);
         else if ($type == "create")
             $('#group_apps_options').html(stringhtml);
+
+        // toggle the description if the checkbox is checked
+        data.forEach(element => {
+            $(`#application_${element.id}`).change(function () {
+                $(`#apps_restriction_${element.id}`).toggle();
+            })
+        });
 
     }
     if (mainManager.getmanagerManager()._allApplications == "") {
@@ -2502,16 +2523,20 @@ function persistCreateApp() {
         $application_description = $('#app_create_description').val(),
         $application_image = $('#app_create_image').val();
 
-    mainManager.getmanagerManager().createApplication(
-        $application_name, 
-        $application_description, 
-        $application_image).then((response) => {
-            if (response.message == "success") {
-                displayNotification('#notif-div', "manager.apps.createSuccess", "success");
-                closeModalAndCleanInput(true)
-            } else {
-                displayNotification('#notif-div', "manager.account.missingData", "error");
-            }
+    mainManager.getmanagerManager().createApplication($application_name, $application_description, $application_image).then((response) => {
+        if (response.message == "success") {
+            displayNotification('#notif-div', "manager.apps.createSuccess", "success");
+            closeModalAndCleanInput(true)
+        } else {
+            displayNotification('#notif-div', "manager.account.missingData", "error");
+        }
+        updateStoredApps();
+    })
+}
+
+function updateStoredApps() {
+    mainManager.getmanagerManager().getAllApplications().then((res) => {
+        mainManager.getmanagerManager()._allApplications = res;
     })
 }
 

@@ -228,11 +228,11 @@ const classroomModals = {
             title: 'manager.buttons.group.createA'
         },
         content: ` <div class="form-group c-secondary-form">
-                        <label for="group_name" data-i18n="manager.group.name">Group name</label>
+                        <label for="group_name" data-i18n="[html]manager.group.name">Group name</label>
                         <input type="text" class="form-control m-0" id="group_name" data-i18n="[placeholder]manager.group.academy">
                     </div>
                     <div class="form-group c-secondary-form">
-                        <label for="group_desc" data-i18n="manager.group.description">Group description</label>
+                        <label for="group_desc" data-i18n="[html]manager.group.description">Group description</label>
                         <textarea rows="2" class="form-control m-0" id="group_desc"></textarea>
                     </div>
                     <label for="group_apps_options" data-i18n="manager.group.applications">Application(s) du groupe</label>
@@ -248,11 +248,11 @@ const classroomModals = {
             title: 'manager.buttons.group.updateA'
         },
         content: `  <div class="form-group c-secondary-form">
-                        <label for="group_name" data-i18n="manager.group.name">Group name</label>
+                        <label for="group_name" data-i18n="[html]manager.group.name">Group name</label>
                         <input type="text" class="form-control" id="upd_group_name" data-i18n="[placeholder]manager.group.academy">
                     </div>
                     <div class="form-group c-secondary-form">
-                        <label for="upd_group_desc" data-i18n="manager.group.description">Group description</label>
+                        <label for="upd_group_desc" data-i18n="[html]manager.group.description">Group description<span class="c-text-red">*</span></label>
                         <textarea rows="2" class="form-control" id="upd_group_desc"></textarea>
                     </div>
                     <div class="form-group c-secondary-form">

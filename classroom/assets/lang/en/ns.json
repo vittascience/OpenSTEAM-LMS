@@ -855,15 +855,15 @@
 					"emailSubject": "A user has joined the group"
 				}
 			},
-			"name": "Name of the group",
-			"description": "Description of the group",
+			"name": "Name of the group <span class=\"c-text-red\">*</span>",
+			"description": "Description of the group <span class=\"c-text-red\">*</span>",
 			"link": "Group link",
 			"applications": "Group applications",
 			"groupsPerPage": "Groups per page",
 			"groupDeleted": "Group deleted.",
 			"groupCreated": "Group successfully created",
 			"groupUpdated": "Group successfully updated",
-			"groupCreateFailed": "The group could not be created",
+			"groupCreateFailed": "The group could not be created, missing data.",
 			"showLinkTitle": "Group's link",
 			"usersWithoutGroups": "Users without groups",
 			"searchResult": "Result of the research",

@@ -1148,15 +1148,15 @@
 					"emailSubject": "Un utilisateur à rejoint le groupe"
 				}
 			},
-			"name": "Nom du groupe",
-			"description": "Description du groupe",
+			"name": "Nom du groupe <span class=\"c-text-red\">*</span>",
+			"description": "Description du groupe <span class=\"c-text-red\">*</span>",
 			"link": "Lien du groupe",
 			"applications": "Application(s) du groupe",
 			"groupsPerPage": "Groupes par page",
 			"groupDeleted": "Groupe supprimé.",
 			"groupCreated": "Groupe créé avec succès",
 			"groupUpdated": "Groupe modifié avec succès",
-			"groupCreateFailed": "Le groupe n'a pas pu être créé",
+			"groupCreateFailed": "Le groupe n'a pas pu être créé, il manque des informations",
 			"showLinkTitle": "Lien du groupe",
 			"usersWithoutGroups": "Utilisateurs sans groupe",
 			"searchResult": "Résultat de la recherche",
