@@ -245,10 +245,7 @@ $('body').on('click', '.save-student-in-classroom', function () {
         $('.student-form-name').each(function (index) {
             if ($(this).val() != "") {
                 if (parseInt($(this).attr('data-id')) > 0) {
-                    existingStudents.push({
-                        'pseudo': $(this).val(),
-                        'id': $(this).attr('data-id')
-                    })
+                    existingStudents.push({'pseudo': $(this).val(), 'id': $(this).attr('data-id')})
                 } else {
                     students.push($(this).val())
                 }
@@ -285,6 +282,8 @@ $('body').on('click', '.save-student-in-classroom', function () {
             $('#no-student-label').remove()
             $('#table-students ul').append(addStudentRow($('.student-form-name').val()))
             pseudoModal.closeModal('add-student-modal')
+            // Reset the input field
+            $('.student-form-name').val('');
         } else {
             displayNotification('#notif-div', "classroom.notif.noUser", "error");
         }

@@ -72,34 +72,22 @@
 
                             if (user.isRegular) {
                                 $('body').addClass('theme-teacher')
-                                $('.user-picture').attr('src',
-                                    '/classroom/assets/media/alphabet/' +
-                                    UserManager.getUser().firstname.slice(0, 1)
-                                    .toUpperCase() + '.png')
+                                $('.user-picture').attr('src',`/classroom/assets/media/alphabet/${UserManager.getUser().firstname.slice(0, 1).toUpperCase()}.png`)
 
-                                if ($_GET('panel') &&
-                                    (ClassroomSettings.mixPanels.includes($_GET('panel')) ||
-                                        ClassroomSettings.teacherPanels.includes($_GET('panel'))
-                                    )) {
-                                    $('#classroom-dashboard-sidebar-teacher').show()
-                                    navigatePanel($_GET('panel'), $_GET('nav'), $_GET('option'),
-                                        $_GET('interface'))
-                                } else {
-                                    $('#classroom-dashboard-sidebar-teacher').show()
-                                    navigatePanel('classroom-dashboard-profil-panel-teacher',
-                                        'dashboard-profil-teacher', $_GET('option'), $_GET(
-                                            'interface'))
-                                }
-
+                                let administration = [];
                                 // Init the super and group admin
                                 let currentTask = (onEnd) => {
                                     mainGroupAdmin.init().then((resolve) => {
+                                        administration[1] = resolve;
                                         mainManager.init().then((resolve) => {
+                                            administration[0] = resolve;
                                             createRegistrationTemplate();
+                                            goBackToThePreviousView(administration);
                                             onEnd();
                                         })
                                     })
                                 }
+
                                 Main.getClassroomManager()._addTaskToQueue(currentTask);
                             } else {
                                 $('#classroom-dashboard-sidebar').show()
@@ -144,6 +132,21 @@
             }
         );
     })
+
+    // Update Rémi, allow to return in the manager or groupadmin mode after a refresh
+    function goBackToThePreviousView(administration = []) {
+        if (administration[0] === true && $_GET('panel') == 'classroom-dashboard-profil-panel-manager' && $_GET('nav') == 'dashboard-profil-manager') {
+            switchTomanager();
+        } else if (administration[1] === true && $_GET('panel') == 'classroom-dashboard-profil-panel-groupadmin' && $_GET('nav') == 'dashboard-profil-groupadmin') {
+            switchToGroupAdmin();
+        } else if ($_GET('panel') && (ClassroomSettings.mixPanels.includes($_GET('panel')) || ClassroomSettings.teacherPanels.includes($_GET('panel')))) {
+            $('#classroom-dashboard-sidebar-teacher').show()
+            navigatePanel($_GET('panel'), $_GET('nav'), $_GET('option'), $_GET('interface'));
+        } else {
+            $('#classroom-dashboard-sidebar-teacher').show()
+            navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher', $_GET('option'), $_GET('interface'));
+        }
+    }
 </script>
 <script src="assets/js/utils/translate.js"></script>
 <!-- PLUGIN SCRIPTS-->
