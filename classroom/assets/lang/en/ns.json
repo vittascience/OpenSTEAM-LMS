@@ -874,7 +874,7 @@
 			"searchResult": "Result of the research",
 			"usersInactiveOrNoRegular": "Inactive users or not regular",
 			"usersWithoutGroupsDescription": "User group not linked to any group",
-			"usersInactiveOrNoRegularDescription": "Group of inactive and / or non-regular users",
+			"usersInactiveOrNoRegularDescription": "Group of non-regular users",
 			"groupDeleteError": "The group could not be deleted.",
 			"groupFull": "The group is full.",
 			"groupFullAdminMessage": "The group is full, you cannot add other users.",

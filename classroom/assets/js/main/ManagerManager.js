@@ -804,6 +804,13 @@ class managerManager {
                 $('#group_name_from_table').text(group.name);
 
             data.forEach(element => {
+                let activeNotif = "";
+                if (element.hasOwnProperty('active')) {
+                    if (element.active != "1" && $group_id != -2) {
+                        activeNotif = "(inactive) ";
+                    }
+                }
+
                 if (element.hasOwnProperty('currentPage')) {
                     mainManager.getmanagerManager()._paginationUsersInfo = element;
                     let usersperpage = $('#users_per_page').val(),
@@ -851,14 +858,19 @@ class managerManager {
                     }
 
                     let rowDelete = "";
-                    if ($group_id == -2)
+                    if (element.hasOwnProperty('active')) {
+                        if (element.active == "1" ) {
+                            rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="manager.buttons.disable" onclick="disableUser(${element.id})">${i18next.t('manager.buttons.disable')} <i class="fas fa-user-lock"></i></button>`;
+                        } else {
+                            rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="deleteUser(${element.id})">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>`;
+                        }
+                    } else {
                         rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="deleteUser(${element.id})">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>`;
-                    else
-                        rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="manager.buttons.disable" onclick="disableUser(${element.id})">${i18next.t('manager.buttons.disable')} <i class="fas fa-user-lock"></i></button>`;
-
+                    }                      
+                                    
                     $data_table +=
                         `<tr>
-                            <td>${element.surname}</td>
+                            <td>${activeNotif} ${element.surname}</td>
                             <td>${element.firstname}</td>
                             <td>${$droits}</td>
                             <td>${div_img}</td>
