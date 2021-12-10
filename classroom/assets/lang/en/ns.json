@@ -681,6 +681,7 @@
 			"noUserFound": "No user using this address was found.",
 			"noUserFoundToken": "This token does not correspond to any user.",
 			"missingData": "Information is missing to finalize the operation.",
+			"missingDataDate": "Date information is missing to finalize the operation.",
 			"errorSending": "An error occurred while sending the email",
 			"userNotFound": "User not found and / or already active",
 			"userNotFoundId": "User not found",

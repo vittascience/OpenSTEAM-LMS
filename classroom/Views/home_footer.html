@@ -135,10 +135,24 @@
 
     // Update Rémi, allow to return in the manager or groupadmin mode after a refresh
     function goBackToThePreviousView(administration = []) {
-        if (administration[0] === true && $_GET('panel') == 'classroom-dashboard-profil-panel-manager' && $_GET('nav') == 'dashboard-profil-manager') {
+        if (administration[0] === true && $_GET('panel').includes("manager") && $_GET('nav').includes("manager")) {
             switchTomanager();
-        } else if (administration[1] === true && $_GET('panel') == 'classroom-dashboard-profil-panel-groupadmin' && $_GET('nav') == 'dashboard-profil-groupadmin') {
+            navigatePanel($_GET('panel'), $_GET('nav'), $_GET('option'), $_GET('interface'));
+            if ($_GET('panel') === "manager-dashboard-main") {
+                getGroupsManagerInfo();
+            } else if ($_GET('panel') === "manager-apps-main") {
+                getAndShowApps();
+            }
+        } else if (administration[1] === true && $_GET('panel').includes("groupadmin") && $_GET('nav').includes("groupadmin")) {
             switchToGroupAdmin();
+            navigatePanel($_GET('panel'), $_GET('nav'), $_GET('option'), $_GET('interface'));
+            if ($_GET('panel') === "groupadmin-dashboard-users") {
+                getTheGroupOftheAdmin();
+            } else if ($_GET('panel') === "groupadmin-apps-main") {
+                setTimeout(() => {
+                    getGroupMonitoring();
+                }, 500);
+            }
         } else if ($_GET('panel') && (ClassroomSettings.mixPanels.includes($_GET('panel')) || ClassroomSettings.teacherPanels.includes($_GET('panel')))) {
             $('#classroom-dashboard-sidebar-teacher').show()
             navigatePanel($_GET('panel'), $_GET('nav'), $_GET('option'), $_GET('interface'));

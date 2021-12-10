@@ -974,6 +974,7 @@
 			"noUserFound": "Aucun utilisateur utilisant cette adresse n'a été trouvé.",
 			"noUserFoundToken": "Ce token ne correspond à aucun utilisateur.",
 			"missingData": "Il manque des informations pour finaliser l'opération.",
+			"missingDataDate": "Il manque des informations de date pour finaliser l'opération.",
 			"errorSending": "Une erreur est survenue lors de l'envoie de l'e-mail",
 			"userNotFound": "Utilisateur introuvable et / ou déjà actif",
 			"userNotFoundId": "Utilisateur introuvable",

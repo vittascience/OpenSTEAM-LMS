@@ -948,6 +948,8 @@ function updateGroupWithModal() {
             displayNotification('#notif-div', "manager.group.groupUpdated", "success");
         } else if (response.message == "missing data") {
             displayNotification('#notif-div', "manager.account.missingData", "error");
+        } else if (response.message == "missing data date") {
+            displayNotification('#notif-div', "manager.account.missingDataDate", "error");
         }
     })
     pseudoModal.closeAllModal()
@@ -973,10 +975,14 @@ $('#table_back_to_users_groupadmin').click(function () {
 })
 
 $('#dashboard-manager-groups').click(() => {
-    let sort = $('#sort_groups_filter').val(),
-        groupsperpage = $('#groups_per_page').val();
-    mainManager.getmanagerManager().getAllGroupsInfos(sort, 1, groupsperpage);
+    getGroupsManagerInfo();
 })
+
+function getGroupsManagerInfo() {
+    let sort = $('#sort_groups_filter').val(),
+    groupsperpage = $('#groups_per_page').val();
+mainManager.getmanagerManager().getAllGroupsInfos(sort, 1, groupsperpage);
+}
 
 $('#sort_users_filter, #users_per_page').on('change', () => {
     let $sort = $('#sort_users_filter').val(),
@@ -1048,7 +1054,7 @@ $('#create_user_link_to_group_manager').click(function () {
     $('#user_teacher_subjects').prop('selectedIndex', 0);
     $('#u_is_group_admin').prop("checked", false);
 
-    updateAppForUser(0);
+    updateAppForUser("create");
     pseudoModal.openModal('manager-create-user');
 
     // Bind function to select
@@ -1145,11 +1151,8 @@ function updateAppForUser(methodName = "update") {
     const process = (data) => {
         // Get the actual user's information
         let user = mainManager.getmanagerManager()._actualUserDetails;
-        if (methodName == "update") {
-            $('#update_personal_apps_sa').html("");
-        } else {
-            $('#create_update_personal_apps_sa').html("");
-        }
+        $('#update_personal_apps_sa').html("");
+        $('#create_update_personal_apps_sa').html("");
 
         let stringhtml = `<label>${i18next.t('manager.profil.personalApps')}</label>`;
         data.forEach(element => {
@@ -1167,18 +1170,18 @@ function updateAppForUser(methodName = "update") {
 
             if (!infoapp) {
                 stringhtml += `<div class="form-check">
-                <input class="form-check-input appuser" type="checkbox" value="${element.id}" id="application_${element.id}">
-                <label class="form-check-label font-weight-bold mb-2" style="color: var(--classroom-primary)" for="application_${element.id}" >
+                <input class="form-check-input appuser" type="checkbox" value="${element.id}" id="${methodName}_application_${element.id}">
+                <label class="form-check-label font-weight-bold mb-2" style="color: var(--classroom-primary)" for="${methodName}_application_${element.id}" >
                     ${element.name}
                 </label>
                 <br>
-                <div class="activity-add-form c-secondary-form" id="personal_apps_${element.id}" style="display:none;">
-                    <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
-                    <input type="date" id="begin_date_${element.id}" name="trip-start" value="${new Date()}" min="${new Date()}" max="2023-12-31">
-                    <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
-                    <input type="date" id="end_date_${element.id}" name="trip-start" min="0" max="2025-12-31">
-                    <label class="form-check-label" for="max_teacher_${element.id}">${i18next.t('manager.group.maxStudents')}</label>
-                    <input type="number" id="max_teacher_${element.id}" value="0">
+                <div class="activity-add-form c-secondary-form" id="${methodName}_personal_apps_${element.id}" style="display:none;">
+                    <label class="form-check-label" for="${methodName}_begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
+                    <input type="date" id="${methodName}_begin_date_${element.id}" name="trip-start" value="${new Date()}" min="${new Date()}" max="2023-12-31">
+                    <label class="form-check-label" for="${methodName}_end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
+                    <input type="date" id="${methodName}_end_date_${element.id}" name="trip-start" min="0" max="2025-12-31">
+                    <label class="form-check-label" for="${methodName}_max_teacher_${element.id}">${i18next.t('manager.group.maxStudents')}</label>
+                    <input type="number" id="${methodName}_max_teacher_${element.id}" value="0">
                 </div>
                 </div>`;
             } else {
@@ -1186,18 +1189,18 @@ function updateAppForUser(methodName = "update") {
                     dateEnd = new Date(infoapp.date_end).toISOString().split('T')[0];
 
                 stringhtml += `<div class="form-check">
-                <input class="form-check-input appuser" type="checkbox" checked value="${element.id}" id="application_${element.id}">
-                <label class="form-check-label font-weight-bold mb-2" style="color: var(--classroom-primary)" for="application_${element.id}">
+                <input class="form-check-input appuser" type="checkbox" checked value="${element.id}" id="${methodName}_application_${element.id}">
+                <label class="form-check-label font-weight-bold mb-2" style="color: var(--classroom-primary)" for="${methodName}_application_${element.id}">
                     ${element.name}
                 </label>
                 <br>
-                <div class="activity-add-form c-secondary-form" id="personal_apps_${element.id}">
-                    <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
-                    <input type="date" id="begin_date_${element.id}" name="trip-start" value="${dateBegin}" max="2023-12-31">
-                    <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
-                    <input type="date" id="end_date_${element.id}" name="trip-start" value="${dateEnd}" max="2025-12-31">
-                    <label class="form-check-label" for="max_teacher_${element.id}">${i18next.t('manager.group.maxStudents')}</label>
-                    <input type="number" id="max_teacher_${element.id}" value="${infoapp.max_students}">
+                <div class="activity-add-form c-secondary-form" id="${methodName}_personal_apps_${element.id}">
+                    <label class="form-check-label" for="${methodName}_begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
+                    <input type="date" id="${methodName}_begin_date_${element.id}" name="trip-start" value="${dateBegin}" max="2023-12-31">
+                    <label class="form-check-label" for="${methodName}_end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
+                    <input type="date" id="${methodName}_end_date_${element.id}" name="trip-start" value="${dateEnd}" max="2025-12-31">
+                    <label class="form-check-label" for="${methodName}_max_teacher_${element.id}">${i18next.t('manager.group.maxStudents')}</label>
+                    <input type="number" id="${methodName}_max_teacher_${element.id}" value="${infoapp.max_students}">
                 </div>
                 </div>`;
             }
@@ -1210,8 +1213,8 @@ function updateAppForUser(methodName = "update") {
         }
 
         data.forEach(element => {
-            $(`#application_${element.id}`).change(function () {
-                $(`#personal_apps_${element.id}`).toggle();
+            $(`#${methodName}_application_${element.id}`).change(function () {
+                $(`#${methodName}_personal_apps_${element.id}`).toggle();
             })
         });
     }
@@ -1229,23 +1232,26 @@ function updateAppForUser(methodName = "update") {
 } */
 
 
-
+// ICI
 function persistUpdateUserApp(user = 0) {
     if (user == 0) {
         user = mainManager.getmanagerManager()._actualUserDetails[0].id;
-
     }
+
     let ApplicationsData = [];
     $("input:checkbox.form-check-input.appuser").each(function (element) {
         const ApplicationTemp = [
             $(this).val(),
             $(this).is(':checked'),
-            $('#begin_date_' + $(this).val()).val(),
-            $('#end_date_' + $(this).val()).val(),
-            $('#max_teacher_' + $(this).val()).val()
+            $('#update_begin_date_' + $(this).val()).val(),
+            $('#update_end_date_' + $(this).val()).val(),
+            $('#update_max_teacher_' + $(this).val()).val()
         ]
         ApplicationsData.push(ApplicationTemp);
     });
+
+    console.log(ApplicationsData);
+
     mainManager.getmanagerManager().updateUserApps(user, JSON.stringify(ApplicationsData)).then((res) => {
         if (res.message == "success") {
             displayNotification('#notif-div', "manager.users.appsUpdated", "success");
@@ -1269,8 +1275,8 @@ function showupdateUserModal(id) {
         mainManager.getmanagerManager()._actualUserDetails = res;
         $("#update_actualgroup_sa").html("");
         $('#update_applications_sa').html("");
+        $('#update_personal_apps_sa').html('');
         pseudoModal.openModal('manager-update-user');
-
 
         $('#update_u_firstname').val(res[0].firstname);
         $('#update_u_surname').val(res[0].surname);
@@ -1590,7 +1596,7 @@ function tempoAndShowGroupTableGroupAdmin() {
 function switchTomanager() {
     //mainManager.init();
     $('body').addClass('theme-super-admin').removeClass("theme-group-admin theme-teacher")
-    navigatePanel('classroom-dashboard-profil-panel-manager', 'dashboard-profil-manager');
+    //navigatePanel('classroom-dashboard-profil-panel-manager', 'dashboard-profil-manager');
     $('#classroom-dashboard-sidebar-teacher').hide();
     $('#groupadmin-dashboard-sidebar').hide();
     $('#manager-dashboard-sidebar').show();
@@ -1600,7 +1606,7 @@ function switchTomanager() {
 function switchToGroupAdmin() {
     //mainGroupAdmin.init();
     $('body').addClass('theme-group-admin').removeClass("theme-super-admin theme-teacher")
-    navigatePanel('classroom-dashboard-profil-panel-groupadmin', 'dashboard-profil-groupadmin');
+    //navigatePanel('classroom-dashboard-profil-panel-groupadmin', 'dashboard-profil-groupadmin');
     $('#classroom-dashboard-sidebar-teacher').hide();
     $('#manager-dashboard-sidebar').hide();
     $('#groupadmin-dashboard-sidebar').show();
@@ -1922,8 +1928,12 @@ function createSubjectSelect(array, type) {
 
 $('#dashboard-groupadmin-users-side').click(() => {
     //let actualGroup = mainGroupAdmin.getGroupAdminManager()._actualGroup;
-    mainGroupAdmin.getGroupAdminManager().getGroupsUserAdmin();
+    getTheGroupOftheAdmin();
 })
+
+function getTheGroupOftheAdmin() {
+    mainGroupAdmin.getGroupAdminManager().getGroupsUserAdmin();
+}
 
 $('#dashboard-groupadmin-apps').click(() => {
     getGroupMonitoring();

@@ -13,6 +13,9 @@ class CheckMail {
         this._learnerFormElt = document.getElementById('about-contact-form-student');
         this._learnerMessageInputElt = document.getElementById('learner-contact-message-input');
         this._learnerSubjectInputElt = document.getElementById('learner-contact-subject-input');
+        this._groupAdminFormElt = document.getElementById('groupadmin-about-contact-form');
+        this._groupAdminSubjectInputElt = document.getElementById('groupadmin-contact-subject-input');
+        this._groupAdminMessageInputElt = document.getElementById('groupadmin-contact-message-input');
         this._init();
     }
 
@@ -20,6 +23,7 @@ class CheckMail {
      * Setup the listeners
      */
     _init() {
+        console.log("CheckMail init");
         // Teacher help form listeners
         this._teacherMessageInputElt.addEventListener('input', (e) => {
             this._checkText(e.target, this._MIN_MESSAGE_SIZE, this._MAX_MESSAGE_SIZE);
@@ -45,6 +49,21 @@ class CheckMail {
         });
 
         this._learnerFormElt.addEventListener('submit', (e) => { this._submitForm(e) });
+
+
+        // Group admin help form listeners
+
+        this._groupAdminMessageInputElt.addEventListener('input', (e) => {
+            this._checkText(e.target, this._MIN_MESSAGE_SIZE, this._MAX_MESSAGE_SIZE);
+            this._checkContactForm(this._groupAdminFormElt);
+        });
+
+        this._groupAdminSubjectInputElt.addEventListener('input', (e) => {
+            this._checkText(e.target, this._MIN_SUBJECT_SIZE, this._MAX_SUBJECT_SIZE);
+            this._checkContactForm(this._groupAdminFormElt);
+        });
+
+        this._groupAdminFormElt.addEventListener('submit', (e) => { this._submitForm(e) });
     }
 
     /**
