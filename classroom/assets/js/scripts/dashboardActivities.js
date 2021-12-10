@@ -461,7 +461,7 @@ function loadActivity(isDoable) {
         $('#activity-validate').hide()
         $('#activity-save').hide()
     } else {
-        let interface = /\[iframe\].*?vittascience(|.com)\/([a-z]{5,12})\/?/gm.exec(Activity.activity.content)
+        let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)
         $('#activity-validate').show()
         if (interface != undefined && interface != null) {
             $('#activity-save').show()

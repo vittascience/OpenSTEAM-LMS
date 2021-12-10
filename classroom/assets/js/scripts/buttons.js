@@ -540,7 +540,7 @@ $('#dashboard-activities, .activity-panel-link').click(function () {
 //activity-->validate
 function validateActivity() {
     $("#activity-validate").attr("disabled", "disabled");
-    let interface = /\[iframe\].*?vittascience(|.com)\/([a-z]{5,12})\/?/gm.exec(Activity.activity.content)
+    let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)
     if (interface == undefined || interface == null) {
         correction = 2
         Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, correction, 3).then(function (activity) {
@@ -551,7 +551,7 @@ function validateActivity() {
         window.localStorage.classroomActivity = null
     } else if (Activity.autocorrection == false) {
         correction = 1
-        let interface = /\[iframe\].*?vittascience(|.com)\/([a-z]{5,12})\/?/gm.exec(Activity.activity.content)[2]
+        let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)[2]
         let project = window.localStorage[interface + 'CurrentProject']
         Main.getClassroomManager().saveStudentActivity(JSON.parse(project), interface, Activity.id).then(function (activity) {
             actualizeStudentActivities(activity, correction)
@@ -569,7 +569,7 @@ function validateActivity() {
 function saveActivity() {
     $("#activity-save").attr("disabled", true);
     correction = 0
-    let interface = /\[iframe\].*?vittascience(|.com)\/([a-z]{5,12})\/?/gm.exec(Activity.activity.content)[2]
+    let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)[2]
     let project = window.localStorage[interface + 'CurrentProject']
     Main.getClassroomManager().saveStudentActivity(JSON.parse(project), interface, Activity.id, correction).then(function (activity) {
         actualizeStudentActivities(activity, correction)
