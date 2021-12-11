@@ -567,4 +567,23 @@ class GroupAdminManager {
             });
         })
     }
+
+    helpRequestGroupAdmin(subject, message) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: 'POST',
+                url: '/routing/Routing.php?controller=groupadmin&action=help_request_from_groupadmin',
+                data: {
+                    'subject': subject,
+                    'message': message
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        });
+    }
 }
