@@ -4,7 +4,7 @@
         "vittascience/vtuser": "dev-handle-login-errors",
         "vittascience/vtinterfaces": "1.2.1",
         "vittascience/vtclassroom": "dev-cabri_bugs_fixes",
-        "vittascience/vtlearn": "1.2.4",
+        "vittascience/vtlearn": "dev-restrictions-update",
         "vittascience/vutils": "dev-main",
         "symfony/var-dumper": "^5.3"
     },

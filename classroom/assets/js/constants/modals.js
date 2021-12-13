@@ -767,11 +767,11 @@ const classroomModals = {
                         <div class="container-fluid" id="update-app-manager" style="display:none;">
                             <div class="form-row mt-1 c-secondary-form">
                                 <div class="col-md">
-                                    <label for="app_update_name" data-i18n="manager.table.name">Name</label>
+                                    <label for="app_update_name" data-i18n="[html]manager.table.nameMandatory">Name</label>
                                     <input type="text" class="form-control" id="app_update_name">
                                 </div>
                                 <div class="col-md">
-                                    <label for="app_update_description" data-i18n="manager.table.description">Description</label>
+                                    <label for="app_update_description" data-i18n="[html]manager.table.descriptionMandatory">Description</label>
                                     <input type="text" class="form-control" id="app_update_description">
                                 </div>
                                 <div class="col-md">
@@ -799,11 +799,11 @@ const classroomModals = {
                         <div class="container-fluid" id="create-app-manager" style="display:none;">
                             <div class="form-row mt-1 c-secondary-form">
                                 <div class="col-md">
-                                    <label for="app_create_name" data-i18n="manager.table.name">Name</label>
+                                    <label for="app_create_name" data-i18n="[html]manager.table.nameMandatory">Name</label>
                                     <input type="text" class="form-control" id="app_create_name">
                                 </div>
                                 <div class="col-md">
-                                    <label for="app_create_description" data-i18n="manager.table.description">Description</label>
+                                    <label for="app_create_description" data-i18n="[html]manager.table.descriptionMandatory">Description</label>
                                     <input type="text" class="form-control" id="app_create_description">
                                 </div>
                                 <div class="col-md">

@@ -2928,18 +2928,20 @@ function createRegistrationTemplate() {
 }
 
 
-// Check if the actual activity type is limited for the user
+// Check if the actual activity type is limited for the user by id or type
 /**
  * WORK IN PROGRESS
  * @param {*} type 
+ * @param {*} id
  */
-function isActivitiesRestriction(type) {
+function isActivitiesRestricted(id = null, type = null) {
     return new Promise(function (resolve, reject) {
         $.ajax({
             type: "POST",
             url: "/routing/Routing.php?controller=activity&action=isActivitiesLimited",
             data: {
-                activityId: type
+                activityId: id,
+                activityType: type
             },
             success: function (response) {
                 console.log(JSON.parse(response));

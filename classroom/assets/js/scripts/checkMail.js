@@ -23,7 +23,6 @@ class CheckMail {
      * Setup the listeners
      */
     _init() {
-        console.log("CheckMail init");
         // Teacher help form listeners
         this._teacherMessageInputElt.addEventListener('input', (e) => {
             this._checkText(e.target, this._MIN_MESSAGE_SIZE, this._MAX_MESSAGE_SIZE);
@@ -51,8 +50,7 @@ class CheckMail {
         this._learnerFormElt.addEventListener('submit', (e) => { this._submitForm(e) });
 
 
-        // Group admin help form listeners
-
+        // Group admin help
         this._groupAdminMessageInputElt.addEventListener('input', (e) => {
             this._checkText(e.target, this._MIN_MESSAGE_SIZE, this._MAX_MESSAGE_SIZE);
             this._checkContactForm(this._groupAdminFormElt);
