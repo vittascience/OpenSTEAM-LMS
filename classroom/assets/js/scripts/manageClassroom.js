@@ -363,16 +363,23 @@ function importLearnerCsv(){
                     let csv = event.target.result;
                     let lines = csv.split("\n");
                     let headers = lines[0].split(/[,;]/);
+
                     for(let i = 0; i < headers.length; i++) {
                         headers[i] = headers[i].replace("\r","");
                     }
                     
                     let missingPseudoError = false
                     for (let i = 1; i < lines.length; i++) {
+                        // sanitize the current line
+                        lines[i] = lines[i].replace(/(\r\n|\n|\r)/gm, "")
+                        // ignore current empty line
+                        // NOTE : EXCEL return a single character for an empty line when we use the "pseudo;password" example file
+                         if(lines[i] == '' || lines[i] ==';') continue 
+
                         let currentline = lines[i].split(/[,;]/);
                         
                         // set the error flag to true if the pseudo is missing in the csv
-                        if(currentline[0] == '') missingPseudoError = true;
+                        if(currentline[0].trim() == '') missingPseudoError = true;
 
                         // add the student into the students table
                         else $('#table-students ul').append(addStudentRow(currentline[0]));
@@ -453,12 +460,20 @@ function csvJSON(csv) {
     }
     
     for (let i = 1; i < lines.length; i++) {
+        // sanitize the current line
+        lines[i] = lines[i].replace(/(\r\n|\n|\r)/gm, "")
+        // ignore current empty line
+        // NOTE : EXCEL return a single character for an empty line when we use the "pseudo;password" example file
+        if(lines[i] == '' || lines[i] ==';') continue 
+
+        // create empty object to fill and split line data
         let obj = {};
         let currentline = lines[i].split(/[,;]/);
 
         for (let j = 0; j < headers.length; j++) {
             if(typeof currentline[j] != 'undefined' ){
-                obj[headers[j]] = currentline[j].replace("\r","");
+                // fill the object with data 
+                obj[headers[j]] = currentline[j].replace("\r","").trim();
             }
         }
         result.push(obj);
