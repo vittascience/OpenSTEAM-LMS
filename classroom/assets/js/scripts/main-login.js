@@ -106,7 +106,7 @@ function getNewValidationMail() {
         $('#btn-activate-account-classroom').attr("disabled", false);
     }, 45000);
     $.ajax({
-    type: "POST",
+        type: "POST",
         url: "/routing/Routing.php?controller=groupadmin&action=get_new_validation_mail",
         data: {
             email: mail,
