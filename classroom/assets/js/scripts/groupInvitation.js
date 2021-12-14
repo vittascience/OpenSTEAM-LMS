@@ -231,7 +231,6 @@ function linkTeacherToGroup(user, group) {
 function linkTeacherToGroupProcess() {
     $('#linkTeacherToGroupBtn').attr('disabled', true);
     linkTeacherToGroup(Informations.userId, Informations.groupId).then((response) => {
-        console.log((response));
         document.location = Informations.urlWithCode + `&page=${response.message}`;
     })
 }
