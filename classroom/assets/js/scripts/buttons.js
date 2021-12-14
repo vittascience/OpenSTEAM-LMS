@@ -2935,6 +2935,10 @@ function createRegistrationTemplate() {
  * @param {*} id
  */
 function isActivitiesRestricted(id = null, type = null) {
+    // Only one check can be done at the same time
+    if (id != null && type != null) {
+        return false;
+    }
     return new Promise(function (resolve, reject) {
         $.ajax({
             type: "POST",
@@ -2944,7 +2948,7 @@ function isActivitiesRestricted(id = null, type = null) {
                 activityType: type
             },
             success: function (response) {
-                console.log(JSON.parse(response));
+                resolve(JSON.parse(response));
             },
             error: function () {
                 reject();
