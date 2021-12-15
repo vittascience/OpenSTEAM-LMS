@@ -90,9 +90,11 @@ ADMIN_EMAIL=EMAIL
 
 # registration's fields options
 USER_USERNAME=false
-USER_TEACHER_SECTION=false
 USER_BIO=false
 USER_PHONE=false
+USER_TEACHER_GRADE=false
+USER_TEACHER_SUBJECT=false
+USER_TEACHER_SCHOOL=false
 ```
 
 

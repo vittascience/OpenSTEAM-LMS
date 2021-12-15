@@ -324,7 +324,7 @@ const classroomModals = {
         </div>
     
         <div class="form-row c-secondary-form" id="user_teacher_infos" style="display: none;" >
-            <div class="form-group col-md">
+            <div class="form-group col-md" id="section_teacher_grade">
                 <select class="form-control" id="user_teacher_grade">
                     <option selected value="0" data-i18n="manager.users.teacherGrades.0">Primaire</option>
                     <option value="1" data-i18n="manager.users.teacherGrades.1">Collège</option>
@@ -333,11 +333,11 @@ const classroomModals = {
                     <option value="4" data-i18n="manager.users.teacherGrades.4">POST-BAC</option>
                 </select>
             </div>
-            <div class="form-group col-md">
+            <div class="form-group col-md" id="section_teacher_subjects">
                 <select class="form-control" id="user_teacher_subjects">
                 </select>
             </div>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-12" id="section_teacher_school">
                 <label for="u_school" data-i18n="[html]manager.profil.school">School</label>
                 <input type="text" class="form-control" id="u_school">
             </div>
@@ -441,7 +441,7 @@ const classroomModals = {
         </div>
     
         <div class="form-row c-secondary-form" id="update_user_teacher_infos" style="display: none;">
-            <div class="form-group col-md">
+            <div class="form-group col-md" id="section_teacher_update_grade">
                 <select class="form-control" id="update_user_teacher_grade">
                     <option selected value="0" data-i18n="manager.users.teacherGrades.0">Primaire</option>
                     <option value="1" data-i18n="manager.users.teacherGrades.1">Collège</option>
@@ -450,11 +450,11 @@ const classroomModals = {
                     <option value="4" data-i18n="manager.users.teacherGrades.4">POST-BAC</option>
                 </select>
             </div>
-            <div class="form-group col-md">
+            <div class="form-group col-md" id="section_teacher_update_subjects">
                 <select class="form-control" id="update_user_teacher_subjects">
                 </select>
             </div>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-12" id="section_teacher_update_school">
                 <label for="update_u_school" data-i18n="[html]manager.profil.school">School</label>
                 <input type="text" class="form-control" id="update_u_school">
             </div>
@@ -520,7 +520,7 @@ const classroomModals = {
         </div>
     
         <div class="form-row c-secondary-form" id="user_teacher_infos_ga">
-            <div class="form-group col-md">
+            <div class="form-group col-md" id="section_teacher_grade_ga">
                 <label for="user_teacher_grade_ga" data-i18n="[html]manager.profil.grade">Grade <span class="c-text-red">*</span></label>
                 <select class="form-control" id="user_teacher_grade_ga">
                     <option selected value="0" data-i18n="manager.users.teacherGrades.0">Primaire</option>
@@ -530,12 +530,12 @@ const classroomModals = {
                     <option value="4" data-i18n="manager.users.teacherGrades.4">POST-BAC</option>
                 </select>
             </div>
-            <div class="form-group col-md">
+            <div class="form-group col-md" id="section_teacher_subjects_ga">
                 <label for="user_teacher_subjects_ga" data-i18n="[html]manager.profil.subject">Subject <span class="c-text-red">*</span></label>
                 <select class="form-control" id="user_teacher_subjects_ga">
                 </select>
             </div>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-12" id="section_teacher_school_ga">
                 <label for="u_school" data-i18n="[html]manager.profil.school">School</label>
                 <input type="text" class="form-control" id="u_school_ga">
             </div>
@@ -588,7 +588,7 @@ const classroomModals = {
         </div>
     
         <div class="form-row c-secondary-form" id="update_user_teacher_infos_ga">
-            <div class="form-group col-md">
+            <div class="form-group col-md" id="section_teacher_grade_update_ga">
                 <select class="form-control" id="update_user_teacher_grade_ga">
                     <option selected value="0" data-i18n="manager.users.teacherGrades.0">Primaire</option>
                     <option value="1" data-i18n="manager.users.teacherGrades.1">Collège</option>
@@ -597,11 +597,11 @@ const classroomModals = {
                     <option value="4" data-i18n="manager.users.teacherGrades.4">POST-BAC</option>
                 </select>
             </div>
-            <div class="form-group col-md">
+            <div class="form-group col-md" id="section_teacher_subjects_update_ga">
                 <select class="form-control" id="update_user_teacher_subjects_ga">
                 </select>
             </div>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-12" id="section_teacher_school_update_ga">
                 <label for="update_u_school" data-i18n="[html]manager.profil.school">School</label>
                 <input type="text" class="form-control" id="update_u_school_ga">
             </div>

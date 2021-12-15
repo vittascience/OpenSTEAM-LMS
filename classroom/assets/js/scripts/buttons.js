@@ -2889,14 +2889,18 @@ function closeDefault() {
 
 // Adjust the registrations forms from the configuration in the .env file
 function createRegistrationTemplate() {
+
     // Get the registration template configuration from the .env file
     getRegistrationTemplate().then((res) => {
+
         // List all the views who are adjustable
         const   usernameViews = ['#manager_username', '#manager_update_username', '#group_admin_username', '#group_admin_username_update'],
                 phoneViews = ['#manager_phone', '#manager_update_phone', '#group_admin_phone', '#group_admin_phone_update'],
                 userBioViews = ['#manager_bio', '#manager_update_bio', '#group_admin_bio', '#group_admin_bio_update'],
-                userTeacherSectionViews = ['#user_teacher_infos', '#update_user_teacher_infos', '#user_teacher_infos_ga', '#update_user_teacher_infos_ga'];
-        
+                userTeacherSectionViews = ['#user_teacher_infos', '#update_user_teacher_infos', '#user_teacher_infos_ga', '#update_user_teacher_infos_ga'],
+                userTeacherSchoolViews = ['#section_teacher_school', '#section_teacher_school_ga', '#section_teacher_school_update_ga', '#section_teacher_update_school'],
+                userTeacherGradeViews = ['#section_teacher_grade', '#section_teacher_grade_ga', '#section_teacher_grade_update_ga', '#section_teacher_update_grade'],
+                userTeacherSubjectsViews = ['#section_teacher_subjects', '#section_teacher_subjects_ga', '#section_teacher_subjects_update_ga', '#section_teacher_update_subjects'];
 
         // If the registration template does not need an element to be displayed, we remove it
         const   deleteInputs = (array) => {
@@ -2906,6 +2910,21 @@ function createRegistrationTemplate() {
                 }
             });
         }      
+
+
+        if (res.USER_TEACHER_GRADE == "false" && res.USER_TEACHER_SUBJECTS == "false" && res.USER_TEACHER_SCHOOL == "false") {
+            deleteInputs(userTeacherSectionViews);
+        } else {
+            if (res.USER_TEACHER_GRADE == "false") {
+                deleteInputs(userTeacherGradeViews);
+            }
+            if (res.USER_TEACHER_SUBJECT == "false") {
+                deleteInputs(userTeacherSubjectsViews);
+            }
+            if (res.USER_TEACHER_SCHOOL == "false") {
+                deleteInputs(userTeacherSchoolViews);
+            }
+        }
 
         // Check for every configuration if it is needed to display the element
         if (res.USER_USERNAME == "false") {
@@ -2919,11 +2938,7 @@ function createRegistrationTemplate() {
         if (res.USER_BIO == "false") {
             deleteInputs(userBioViews);
         }
-
-        if (res.USER_TEACHER_SECTION == "false") {
-            deleteInputs(userTeacherSectionViews);
-        }
-
+        
     })
 }
 
@@ -2969,3 +2984,4 @@ $('#btn-help-for-groupAdmin').click(function () {
         }
     })
 })
+
