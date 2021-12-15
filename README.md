@@ -92,6 +92,7 @@ ADMIN_EMAIL=EMAIL
 USER_USERNAME=false
 USER_BIO=false
 USER_PHONE=false
+# Subject can not be true if grade is not true 
 USER_TEACHER_GRADE=false
 USER_TEACHER_SUBJECT=false
 USER_TEACHER_SCHOOL=false
