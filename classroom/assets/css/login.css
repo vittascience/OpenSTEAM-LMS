@@ -550,3 +550,7 @@ a.forgot-password {
 
     }
 }
+
+.filter-color-green {
+    filter: invert(49%) sepia(89%) saturate(366%) hue-rotate(101deg) brightness(98%) contrast(92%);
+}

@@ -218,7 +218,6 @@ function linkTeacherToGroup(user, group) {
                 'group_id': group
             },
             success: function (response) {
-                console.log(response);
                 resolve(response);
             },
             error: function () {
