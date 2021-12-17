@@ -70,13 +70,12 @@ function checkLogin() {
             button.removeAttribute("disabled");
             button.style.cursor = "pointer";
 
-            // handle differents errors
             if (response.error === "wrong_credentials") {
-                setUpInfoDivNav("danger", "login_popup.error");
+                displayNotification('#notif-div', "login_popup.error", "error");
             } else if (response.error === "user_not_found") {
-                setUpInfoDivNav("danger", "login_popup.userNotFound");
+                displayNotification('#notif-div', "login_popup.userNotFound", "error");
             } else if (response.error === "user_not_active") {
-                setUpInfoDivNav("danger", "login_popup.inactiveAccount");
+                displayNotification('#notif-div', "login_popup.inactiveAccount", "error");
                 $('#btn-activate-account-classroom').show();
             }
 
@@ -84,7 +83,7 @@ function checkLogin() {
     })
 }
 
-function setUpInfoDivNav(type, messageID) {
+/* function setUpInfoDivNav(type, messageID) {
     let infoBox = "";
     if (document.getElementById("info-div") === undefined || document.getElementById("info-div") === null) {
         infoBox = document.createElement("div");
@@ -96,7 +95,7 @@ function setUpInfoDivNav(type, messageID) {
     infoBox.innerHTML = i18next.t(messageID);
     // Fade in the info div
     $("#info-div").fadeIn("slow");
-}
+} */
 
 function getNewValidationMail() {
     let mail = $('#login-mail-input').val();
@@ -114,17 +113,17 @@ function getNewValidationMail() {
         success: function (res) {
             let response = JSON.parse(res);
             if (response.success === true) {
-                setUpInfoDivNav("success", "login_popup.mailSuccess");
+                displayNotification('#notif-div', "login_popup.mailSuccess", "success");
             } else if (response.message === "mail_not_sent") {
-                setUpInfoDivNav("danger", "login_popup.mailError");
+                displayNotification('#notif-div', "login_popup.mailError", "error");
             } else if (response.message === "no_token") {
-                setUpInfoDivNav("danger", "login_popup.accountDeactivated");
+                displayNotification('#notif-div', "login_popup.accountDeactivated", "error");
             } else if (response.message === "user_not_found") {
-                setUpInfoDivNav("danger", "login_popup.userNotFound");
+                displayNotification('#notif-div', "login_popup.userNotFound", "error");
             }
         },
         error: function () {
-            setUpInfoDivNav("danger", "login_popup.mailError");
+            displayNotification('#notif-div', "login_popup.mailError", "error");
         }
     });
 }
