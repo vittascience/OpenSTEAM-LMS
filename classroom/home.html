@@ -1,8 +1,8 @@
     <link rel="stylesheet" href="assets/css/checkboxes.css">
     <link rel="stylesheet" href="assets/css/modal.css">
-    <link rel="stylesheet" href="assets/plugins/css/vittascience.main.css">
-<link rel="stylesheet" href="assets/plugins/css/vittascience.theme.css">
+    <!-- PLUGIN CSS-->
 
+    <!-- END PLUGIN CSS -->
     <script src="assets/js/scripts/classroom-lang.js"></script>
 </head>
 
@@ -14,11 +14,6 @@
             <div class="classroom-navbar-button" id="dashboard-activities"><img src="assets/media/my_activities.svg"
                     alt="Icône activités">
                 <span data-i18n="classroom.ids.classroom-dashboard-activities-panel-teacher"></span>
-            </div>
-            <div class=" classroom-navbar-button" id="dashboard-sandbox"
-                onclick="navigatePanel('classroom-dashboard-sandbox-panel', 'dashboard-sandbox')"><img
-                    src="assets/media/sandbox.svg" alt="Icône Bac à sable">
-                <span data-i18n="classroom.ids.classroom-dashboard-sandbox-panel"></span>
             </div>
             <div class=" classroom-navbar-button" id="dashboard-help"
                 onclick="navigatePanel('classroom-dashboard-help-panel', 'dashboard-help')"><img
@@ -38,11 +33,6 @@
         onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')">
         <img src="assets/media/my_activities.svg" alt="Icône activités">
         <span data-i18n="classroom.ids.classroom-dashboard-activities-panel-teacher"></span> </div>
-        <div class=" classroom-navbar-button" id="dashboard-sandbox-teacher"
-            onclick="navigatePanel('classroom-dashboard-sandbox-panel', 'dashboard-sandbox-teacher')"><img
-                src="assets/media/sandbox.svg" alt="Icône Appel à l'aide">
-            <span data-i18n="classroom.ids.classroom-dashboard-sandbox-panel"></span>
-        </div>
     <div class=" classroom-navbar-button" id="dashboard-classes-teacher"
         onclick="navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher')">
         <img src="assets/media/my_classes.svg" alt="Icône classe">
@@ -51,7 +41,6 @@
         onclick="navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher')"><img
             class="user-picture" src="assets/media/profile_picture.svg" alt="Photo de profil">
         <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span></div>
-
 </div>
 <div id="manager-dashboard-sidebar" class="sidebar-classroom" style="display:none;">
     <!-- set your logo here -->
@@ -215,113 +204,9 @@
 </div>
 </div>
 <div id="classroom-dashboard-sandbox-panel" style="display:none;" class="dashboard-block ">
-    <div class="d-flex w-75 c-primary-form" style="margin: 0 auto;">
-        <input type="search" id="filter-sandbox-input" data-i18n="[placeholder]classroom.filter.placeholder"
-            class="flex-fill">
-
-        <button id="filter-sandbox" class="c-btn-primary" style="width: 3em;height: 3em;">
-            <i class="fas fa-search"></i>
-        </button>
-
-        <select name="filter-sandbox-select" id="filter-sandbox-select" class="c-primary-form">
-            <option value="desc" data-i18n="classroom.filter.desc"></option>
-            <option value="asc" data-i18n="classroom.filter.asc"></option>
-        </select>
-
-    </div></br>
-
-    <div class="buttons-interactions">
-        <button class="btn c-btn-outline-secondary sandbox-action-add"><span class="mr-1" data-i18n="classroom.sandbox.add"></span><i class="fas fa-chevron-right"></i>
-        </button>
-    </div>
-
-
-    <div id="sandbox-container-list">
-    </div>
-</div>
-
-<div id="classroom-dashboard-sandbox-creation" style="display:none;" class="dashboard-block">
-    <div id="classroom-dashboard-sandbox-creation-container" class="row">
-    </div>
-
-    <script>
-        let interfacesListHtml, interfaces = [
-            {
-                "name": "arduino",
-                "displayedName": "Arduino",
-                "img": "/public/content/img/programming/arduino-logo.png",
-                "description": "Interface de programmation pour la carte Arduino"
-            }, {
-                "name": "microbit",
-                "displayedName": "Micro:bit",
-                "img": "/public/content/img/programming/microbit-logo.png",
-                "description": "Interface de programmation pour la carte Micro:bit"
-            },
-            {
-                "name": "python",
-                "displayedName": "Python",
-                "img": "/public/content/img/programming/python-logo.svg",
-                "description": "Interface de programmation pour Python 3 pensée pour l’éducation."
-            },
-            {
-                "name": "texas-instruments",
-                "displayedName": "Texas Instruments",
-                "img": "/public/content/img/programming/texas.png",
-                "description": "Interface de programmation pour la calculatrice avec la carte micro:bit"
-            },
-            {
-                "name": "esp32",
-                "displayedName": "ESP32",
-                "img": "/public/content/img/programming/esp32-logo.jpg",
-                "description": "Interface de programmation pour les cartes ESP32 (Wemos D1R32, NodeMCU, Huzzah32, …)"
-            }
-            // {
-            //     "name": "quickpi",
-            //     "displayedName": "QuickPi",
-            //     "img": "/public/content/img/programming/quickpi-logo.jpg",
-            //     "description": "Interface de programmation pour la carte Quick-Pi"
-            // }
-        ];
-
-        interfacesListHtml = `
-        <div class='card'>
-            <div class='card-body'>
-                <h4 class='instructions-title' data-i18n="classroom.sandBoxCreationPanel.title">Sélectionnez l'interface sur laquelle vous souhaitez créer un programme</h4>
-                <!-- <button class="btn c-btn-outline-primary btn-know-more">
-                    <span class="mr-1" data-i18n="classroom.sandBoxCreationPanel.knowMoreButton">En savoir plus sur les interfaces</span> <i class="fas fa-chevron-right"></i>
-                </button> -->
-            </div>
-        </div>
-        `;
-
-        for(interface of interfaces){
-            interfacesListHtml += `
-            <div class='card open-ide' data-interface=${interface['name']}>
-                <img class='card-img-top interface-img' src='${interface['img']}' alt='${interface['name']}'>
-                <div class='card-body'>
-                    <h5 class='card-title'>${interface['displayedName']}</h5>
-                    <p class='interface-description' data-i18n='classroom.sandBoxCreationPanel.interfacesDescription.${interface['name']}'>${interface['description']}</p>
-                </div>
-            </div>
-            `;
-        }
-
-        document.getElementById('classroom-dashboard-sandbox-creation-container').innerHTML = interfacesListHtml;
-        if($('#classroom-dashboard-sandbox-creation-container').localize){
-            $('#classroom-dashboard-sandbox-creation-container').localize();
-        }
-    </script>
+    
 </div>
 <div id="classroom-dashboard-activities-panel" style="display:none;" class="dashboard-block">
-    <div class="buttons-interactions">
-        <button class="btn c-btn-outline-tertiary"
-            onclick="navigatePanel('classroom-dashboard-activities-panel-library-teacher', 'dashboard-activity-teacher')"><span
-                data-i18n="classroom-dashboard-activities-panel-library-teacher">Banque de ressources </span>
-            <i class="fas fa-chevron-right"></i>
-        </button> <span data-toggle="tooltip" data-i18n="[title]classroom.bank.helpTooltip" class="help-sign"><i
-                class="far fa-question-circle" aria-hidden="true"></i></span>
-    </div>
-
     <h3 class="section-title section-new" onclick="sectionToggle('new')" data-i18n="classroom.activities.new"><i
             id="i-new" class="ml-2 fas fa-chevron-down"></i></h3>
     <div id="new-activities"></div>
@@ -625,30 +510,27 @@
     </div>
 </div>
 <div id="classroom-dashboard-activities-panel-teacher" style="display:none;" class="dashboard-block">
-    <div class="d-flex justify-content-center c-primary-form activity-search" style="margin: 0 auto;">
-        <div class="d-flex flex-fill">
-            <input type="search" id="filter-activity-input" placeholder="Recherche..." class="flex-fill">
+    <div class="d-flex justify-content-center c-primary-form row" style="margin: 0 auto;">
+        <div class="col-12 col-md-7">
+            <div class="d-flex flex-fill">
+                <input type="search" id="filter-activity-input" placeholder="Recherche..." class="flex-fill">
 
-            <button id="filter-activity" class="c-btn-primary" style="width: 3em;height: 3em;">
-                <i class="fas fa-search"></i>
-            </button>
+                <button id="filter-activity" class="c-btn-primary" style="width: 3em;height: 3em;">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
         </div>
 
-        <select name="filter-activity-select" id="filter-activity-select" class="c-primary-form">
-            <option value="desc" data-i18n="classroom.filter.desc"></option>
-            <option value="asc" data-i18n="classroom.filter.asc"></option>
-        </select>
-
+        <div class="col-auto">
+            <select name="filter-activity-select" id="filter-activity-select" class="c-primary-form">
+                <option value="desc" data-i18n="classroom.filter.desc"></option>
+                <option value="asc" data-i18n="classroom.filter.asc"></option>
+            </select>
+        </div>
     </div>
     </br>
 
     <div class="buttons-interactions flex-wrap">
-        <button class="btn c-btn-outline-tertiary"
-            onclick="navigatePanel('classroom-dashboard-activities-panel-library-teacher', 'dashboard-activity-teacher')">
-            <span class="mr-1" data-i18n="classroom.ids.classroom-dashboard-activities-panel-library-teacher"></span><i
-                class="fas fa-chevron-right"></i>
-        </button>
-
         <button id="new-activity-panel1" onclick="createActivity()" class=" btn c-btn-outline-secondary"><span class="mr-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
         </button>
     </div>
@@ -661,8 +543,7 @@
 <div id="classroom-dashboard-activities-panel-library-teacher" style="display:none;" class="dashboard-block">
 </div>
 
-<div id="classroom-dashboard-new-activity-panel" style="display:none;"
-    class="activity-creation-form row dashboard-block">
+<div id="classroom-dashboard-new-activity-panel" style="display:none;" class="activity-creation-form row dashboard-block">
     <nav class="row" style="margin: 0 auto;">
         <div class="col-4 text-center">
             <span class="form-activity form-activity-activate"><b>1</b></span>
@@ -681,8 +562,7 @@
             <label for="part-content-input" class="tutorial-label">
                 <span data-i18n="classroom.activities.form.title.label"></span>
             </label>
-            <input data-i18n="[placeholder]classroom.activities.form.title.placeholder" type="text"
-                id="activity-form-title" class="form-control part-title-input">
+            <input data-i18n="[placeholder]classroom.activities.form.title.placeholder" type="text" id="activity-form-title" class="form-control part-title-input">
         </div>
         <div class="form-row mt-1">
             <label for="part-content-input" class="tutorial-label">
@@ -693,11 +573,9 @@
         <div class="form-row mt-1">
         </div>
     </div>
-    <button class="new-activity-panel2 c-btn-primary"><span data-i18n="classroom.activities.form.button"></span> <i
-            class="fas fa-check"></i></button>
+    <button class="new-activity-panel2 c-btn-primary"><span data-i18n="classroom.activities.form.button"></span> <i class="fas fa-check"></i></button>
 </div>
-<div id="classroom-dashboard-new-activity-panel2" style="display:none;"
-    class="row flex-column dashboard-block class-creation-form-step2">
+<div id="classroom-dashboard-new-activity-panel2" style="display:none;" class="row flex-column dashboard-block class-creation-form-step2">
     <nav class="row" style="margin: 0 auto;">
         <div class="col-4 text-center">
             <span class="form-activity form-activity-activate"><b>1</b></span>
@@ -714,11 +592,8 @@
 
     <h1 data-i18n="classroom.activities.form.success"></h1>
     <div class="buttons">
-        <button id="new-activity-panel3" class="new-activity-panel3 c-btn-primary"><span
-                data-i18n="classroom.activities.form.attribute"></span> <i class="fas fa-chevron-right"></i></button>
-        <button onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')"
-            class="c-btn-primary"><span data-i18n="classroom.activities.form.return"></span><i
-                class="fas fa-chevron-right"></i></button>
+        <button id="new-activity-panel3" class="new-activity-panel3 c-btn-primary"><span data-i18n="classroom.activities.form.attribute"></span> <i class="fas fa-chevron-right"></i></button>
+        <button onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')" class="c-btn-primary"><span data-i18n="classroom.activities.form.return"></span><i class="fas fa-chevron-right"></i></button>
     </div>
     <p data-i18n="classroom.activities.form.hint"></p>
     <button class="c-btn-primary" onclick="createActivity()" data-i18n="classroom.activities.form.modify"></button>
@@ -741,43 +616,40 @@
             <span data-i18n="classroom.activities.form.2"></span>
         </div>
     </nav>
-    <div class="row w-50" style="margin: 0 auto;">
+    <div class="row assign-activity-container" style="margin: 0 auto;">
 
         <div class="col-12 mb-5 text-center">
-            <button id="new-activity-attribute" class="btn btn-lg login-button c-btn-primary">
-                <span data-i18n="classroom.activities.form.select1"></span> (<span class="student-number">0</span> <span
-                    data-i18n="classroom.activities.form.select2"></span>)
+            <button id="new-activity-attribute" class="btn c-btn-primary">
+                <span data-i18n="classroom.activities.form.select1"></span> <i class="fas fa-plus"></i>
             </button>
+            <div class="mt-2">
+                (<span class="student-number">0</span> <span data-i18n="classroom.activities.form.select2"></span>)
+            </div>
         </div>
 
         <div class="col-12 mb-5 text-center c-primary-form">
-            <label for="introduction-activity-form"><span data-i18n="classroom.activities.form.instructions"></span>
-                <i data-i18n="words.optional"></i></label></br>
+            <label for="introduction-activity-form">
+                <b data-i18n="classroom.activities.form.instructions"></b>
+                <i data-i18n="words.optional"></i>
+            </label></br>
             <textarea rows="3" class="col-12" id="introduction-activity-form"></textarea>
         </div>
 
         <div class="col-12 mb-5 text-center c-primary-form">
             <div id="form-autocorrect">
-                <label for="isAutocorrection-activity-form"
-                    data-i18n="classroom.activities.form.autocorrect"></label></br>
-                <label class="switch-mini"><input type="checkbox" id="isAutocorrection-activity-form"
-                        onclick="autocorrectSwitch()">
+                <label for="isAutocorrection-activity-form" data-i18n="classroom.activities.form.autocorrect"></label></br>
+                <label class="switch-mini"><input type="checkbox" id="isAutocorrection-activity-form" onclick="autocorrectSwitch()">
                     <span class="slider-mini round"></span>
-
                 </label>
             </div>
-            <div class="d-flex">
+            <div class="d-flex justify-content-around">
                 <label for="isEval-activity-form" data-i18n="classroom.activities.form.nature"></label></br>
                 <div class="switcher">
-                    <input type="radio" name="isEval-activity-form" value="true" id="isEval-activity-form"
-                        class="switcher__input switcher__input--yin" checked="">
-                    <label for="isEval-activity-form" class="switcher__label text-capitalize"
-                        data-i18n="words.no"></label>
+                    <input type="radio" name="isEval-activity-form" value="true" id="isEval-activity-form" class="switcher__input switcher__input--yin" checked="">
+                    <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no"></label>
 
-                    <input type="radio" name="isEval-activity-form" value="false" id="isExo-activity-form"
-                        class="switcher__input switcher__input--right">
-                    <label for="isExo-activity-form" class="switcher__label text-capitalize"
-                        data-i18n="words.yes"></label>
+                    <input type="radio" name="isEval-activity-form" value="false" id="isExo-activity-form" class="switcher__input switcher__input--right">
+                    <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes"></label>
 
                     <span class="switcher__toggle"></span>
                 </div>
@@ -785,26 +657,22 @@
         </div>
 
 
-        <div class="col-6 c-primary-form">
+        <div class="col-12 col-md-6 c-primary-form assign-activity-calendar">
             <label for="date-begin-activity-form" data-i18n="classroom.activities.form.dateBegin"></label>
             <input type="date" id="date-begin-activity-form">
         </div>
 
-        <div class="col-6 text-right">
+        <div class="col-12 col-md-6 c-primary-form text-right assign-activity-calendar">
             <label for="date-end-activity-form" data-i18n="classroom.activities.form.dateEnd"></label>
             <input type="date" id="date-end-activity-form">
         </div>
 
         <div class="col-6 d-flex justify-content-start mt-5">
-            <button class="btn login-button grey-button"
-                onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')"><i
-                    class="fas fa-angle-left"></i> <span class="text-capitalize"
-                    data-i18n="words.return"></span></button>
+            <button class="btn login-button c-btn-grey" onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')"><i class="fas fa-angle-left"></i> <span class="text-capitalize" data-i18n="words.return"></span></button>
         </div>
 
         <div class="col-6 d-flex justify-content-end mt-5">
-            <button id="attribute-activity-to-students" class="btn login-button c-btn-primary"><span
-                    data-i18n="classroom.activities.form.attribute2"></span><i class="fas fa-angle-right"></i></button>
+            <button id="attribute-activity-to-students" class="btn login-button c-btn-primary" disabled><span data-i18n="classroom.activities.form.attribute2" disabled></span><i class="fas fa-angle-right"></i></button>
         </div>
     </div>
 </div>
@@ -1388,10 +1256,9 @@
     })
 </script>
 <script src="assets/js/utils/translate.js"></script>
-<script src="assets/plugins/js/display-panel-teacher-and-learner-help-panel.js"></script>
-<script src="assets/plugins/js/modals-attribute-activity.js"></script>
-<script src="assets/plugins/js/get-sandbox-project.js"></script>
+<!-- PLUGIN SCRIPTS-->
 
+<!-- END PLUGIN SCRIPTS -->
 </body>
 
 </html>
