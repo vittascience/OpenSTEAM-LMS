@@ -254,7 +254,7 @@ $('body').on('click', '.save-student-in-classroom', function () {
         Main.getClassroomManager().addUsersToGroup(students, existingStudents, ClassroomSettings.classroom).then(function (response) {
             if(!response.isUsersAdded){
                 if(response.noUser){
-                    displayNotification('#notif-div', "classroom.notif.noUser", "error");
+                    displayNotification('#notif-div', "classroom.notif.noUserUsername", "error");
                     return;
                 }
                 /**
@@ -285,7 +285,7 @@ $('body').on('click', '.save-student-in-classroom', function () {
             // Reset the input field
             $('.student-form-name').val('');
         } else {
-            displayNotification('#notif-div', "classroom.notif.noUser", "error");
+            displayNotification('#notif-div', "classroom.notif.noUserUsername", "error");
         }
     }
 
