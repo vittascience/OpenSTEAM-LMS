@@ -236,7 +236,9 @@
 				"editNickname": "Edit your nickname",
 				"delete": "Delete",
 				"copyLink": "Copy the direct link",
-				"learnerMode": "Learner mode"
+				"learnerMode": "Learner mode",
+				"dueBy":"Due by"
+
 			}	
 		},
 		"activities": {

@@ -818,10 +818,11 @@ function displayStudentsInClassroom(students, link=false) {
             }
             // Display the current student activities in the dashboard
             let currentActivity = arrayActivities[i];
+            console.log(currentActivity);
             if (currentActivity) {
-                html += '<td class="' + statusActivity(currentActivity) + ' bilan-cell classroom-clickable" data-state="' + statusActivity(currentActivity, false) + '" data-id="' + currentActivity.id + '" title="A rendre avant le ' + formatDay(currentActivity.dateEnd) + '"></td>';
+                html += `<td class=" ${statusActivity(currentActivity)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>"></td>`;
             } else {
-                html += '<td class="no-activity bilan-cell" "></td>';
+                html += `<td class="no-activity bilan-cell" "></td>`;
             }
         }
         // addition of 6 "empty" cells at the end of the current table row
@@ -831,6 +832,7 @@ function displayStudentsInClassroom(students, link=false) {
         // end of the current table row
         html += '</tr>';
         $('#body-table-teach').append(html).localize();
+        $('[data-toggle="tooltip"]').tooltip()
     });
     
     $('#add-student-container').append(`<button id="add-student-dashboard-panel" class="btn c-btn-primary"><span data-i18n="classroom.activities.addLearners">Ajouter des apprenants</span> <i class="fas fa-plus"></i></button>`).localize();

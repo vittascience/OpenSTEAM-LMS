@@ -236,7 +236,8 @@
 				"editNickname": "Modifier le pseudonyme",
 				"delete": "Supprimer",
 				"copyLink": "Copier le lien direct",
-				"learnerMode": "Mode apprenant"
+				"learnerMode": "Mode apprenant",
+				"dueBy":"À rendre avant le"
 			}	
 		},
 		"activities": {
