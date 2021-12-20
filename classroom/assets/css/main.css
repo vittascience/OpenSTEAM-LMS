@@ -1170,7 +1170,7 @@ h3.section-done {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 170px auto;
-    width: 302px;
+    width: 300px;
     padding: 0.25em;
     justify-items: stretch;
     margin-top: 1em;
@@ -1185,6 +1185,26 @@ h3.section-done {
     text-transform: uppercase;
     margin-top: 0.5em;
     text-align: center;
+}
+
+@media (max-width: 768px) {
+
+    .sandbox-item,
+    .activity-item {
+        grid-template-rows: 90px auto;
+        width: 160px;
+        padding: 0.1em;
+
+    }
+
+    .sandbox-card,
+    .activity-card {
+        border-radius: 0.6em;
+        aspect-ratio: 16/9;
+
+    }
+
+
 }
 
 .sandbox-card,
@@ -1351,16 +1371,17 @@ h3.section-done {
     max-width: 80%;
 }
 
-/* ACTIVITY CORRECTION FORM */ 
+/* ACTIVITY CORRECTION FORM */
 
 #activity-title {
     font-weight: 700;
     text-align: center;
 }
+
 #activity-details {
     text-align: center;
     font-style: italic;
-    
+
 }
 
 .note-choice {
