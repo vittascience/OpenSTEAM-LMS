@@ -2272,6 +2272,8 @@ $('#search_user_groupadmin').click(() => {
         usersperpage = $('#users_per_page_groupadmin').val();
     if (name != "") {
         mainGroupAdmin.getGroupAdminManager().globalSearchUser(name, 1, usersperpage);
+    } else {
+        tempoAndShowGroupTableGroupAdmin();
     }
 })
 
