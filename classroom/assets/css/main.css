@@ -1187,6 +1187,23 @@ h3.section-done {
     text-align: center;
 }
 
+
+
+.sandbox-card,
+.activity-card {
+    height: 100%;
+    width: 100%;
+    background-color: var(--classroom-primary);
+    background: url("../media/cards/card-vittascience.jpg");
+    border-radius: 1.2em;
+    background-clip: content-box;
+    background-size: cover;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+}
+
 @media (max-width: 768px) {
 
     .sandbox-item,
@@ -1205,21 +1222,6 @@ h3.section-done {
     }
 
 
-}
-
-.sandbox-card,
-.activity-card {
-    height: 100%;
-    width: 100%;
-    background-color: var(--classroom-primary);
-    background: url("../media/cards/card-vittascience.jpg");
-    border-radius: 1.2em;
-    background-clip: content-box;
-    background-size: cover;
-    color: white;
-
-    display: flex;
-    flex-direction: column;
 }
 
 .sandbox-card.sandbox-card-arduino,
