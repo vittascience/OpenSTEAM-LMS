@@ -643,6 +643,9 @@ function studentActivitiesDisplay() {
         $('#bilan-student').show()
     }
 
+    $('[data-toggle="tooltip"]').tooltip()
+
+
 }
 
 function sandboxDisplay(projects = Main.getClassroomManager()._myProjects) {
@@ -699,6 +702,8 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
     list.forEach(element => {
         $('#list-activities-teacher').append(teacherActivityItem(element))
     });
+    $('[data-toggle="tooltip"]').tooltip()
+
 }
 $('body').on('change', '#action-teach-setting', function () {
     console.log('check')

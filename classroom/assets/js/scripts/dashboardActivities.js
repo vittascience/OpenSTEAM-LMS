@@ -38,7 +38,7 @@ function activityItem(activity, state) {
     }
 
     html += `</div></div></div>`
-    html += `<h3 class="activity-item-title">${activity.activity.title}</h3>`
+    html += `<h3 data-toggle="tooltip" title="${activity.activity.title}" class="activity-item-title">${activity.activity.title}</h3>`
     html += `</div>`
 
     return html;
@@ -97,7 +97,7 @@ function teacherActivityItem(activity) {
                         <div class="info-tutorials" data-id="${activity.id}">
                     </div>
                 </div></div>`
-    html += `<h3 class="activity-item-title">${activity.title}</h3></div>`
+    html += `<h3 data-toggle="tooltip" title="${activity.title}" class="activity-item-title">${activity.title}</h3></div>`
 
     return html;
 }
