@@ -2977,10 +2977,10 @@ $('#btn-help-for-groupAdmin').click(function () {
     let message = $('#groupadmin-contact-message-input').val(),
         subject = $('#groupadmin-contact-subject-input').val();
     mainGroupAdmin.getGroupAdminManager().helpRequestGroupAdmin(subject, message).then((response) => {
-        if (response.emailSent == "true") {
-            displayNotification('#notif-div', "manager.helpRequest.success", "success");
-        } else if (response.emailSent == "false") {
-            displayNotification('#notif-div', "manager.helpRequest.alreadyExist", "error");
+        if (response.emailSent == true) {
+            displayNotification('#notif-div', "classroom.notif.helpRequestFromTeacherSent", "success");
+        } else if (response.emailSent == false) {
+            displayNotification('#notif-div', "manager.account.errorSending", "error");
         }
     })
 })
