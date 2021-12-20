@@ -490,6 +490,7 @@ button {
 #classroom-dashboard-content::-webkit-scrollbar,
 #classroom-panel-table-container::-webkit-scrollbar {
     width: 11px;
+    height: 11px;
 }
 
 #classroom-dashboard-content::-webkit-scrollbar-track,
@@ -1812,6 +1813,7 @@ i.line_height34 {
     overflow-x: auto;
     overflow-y: hidden;
     min-height: 5em;
+    padding-bottom: 3em;
     max-width: 100%;
     grid-template-columns: auto max-content;
 }
@@ -1899,7 +1901,8 @@ i.line_height34 {
 
 @media (max-width: 768px) {
     .class-stats-panel {
-        min-height: 720px;
+        height: calc(100vh - 110px - 2.5em);
+        max-height: unset;
         width: unset;
     }
 
@@ -1964,6 +1967,7 @@ i.line_height34 {
 
 .faq-panel::-webkit-scrollbar {
     width: 11px;
+    height: 11px;
 }
 
 .faq-panel::-webkit-scrollbar-track {
