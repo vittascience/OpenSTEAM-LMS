@@ -1686,6 +1686,13 @@ function disableUserGroupAdmin(id, name) {
     $('#md_firstnameGA').text(name);
 }
 
+function activeUserGroupAdmin(id, name) {
+    mainGroupAdmin.getGroupAdminManager()._actualUser = id;
+    $('#validation_activeGroupAdmin').val("");
+    pseudoModal.openModal('groupadmin-active-user');
+    $('#md_firstnameGA').text(name);
+}
+
 function persistDisable() {
     let validation = $('#validation_disable').val();
     let placeholderWord = $('#validation_disable').attr('placeholder');

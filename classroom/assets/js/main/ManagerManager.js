@@ -787,6 +787,7 @@ class managerManager {
         mainManager.getmanagerManager()._actualGroup = $group_id;
         const process = (data) => {
             let $data_table = "",
+                $data_table_inactive ="",
                 group = "";
 
             mainManager.getmanagerManager()._allActualUsers = [];
@@ -804,13 +805,6 @@ class managerManager {
                 $('#group_name_from_table').text(group.name);
 
             data.forEach(element => {
-                let activeNotif = "";
-                if (element.hasOwnProperty('active')) {
-                    if (element.active != "1" && $group_id != -2) {
-                        activeNotif = "(inactive) ";
-                    }
-                }
-
                 if (element.hasOwnProperty('currentPage')) {
                     mainManager.getmanagerManager()._paginationUsersInfo = element;
                     let usersperpage = $('#users_per_page').val(),
@@ -866,11 +860,18 @@ class managerManager {
                         }
                     } else {
                         rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="deleteUser(${element.id})">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>`;
-                    }                      
-                                    
-                    $data_table +=
+                    }
+
+                    let activeFlag = true;
+                    if (element.hasOwnProperty('active')) {
+                        if (element.active != "1" && $group_id != -2) {
+                            activeFlag = false;
+                        }
+                    } 
+                    if (activeFlag) {
+                        $data_table +=
                         `<tr>
-                            <td>${activeNotif} ${element.surname}</td>
+                            <td>${element.surname}</td>
                             <td>${element.firstname}</td>
                             <td>${$droits}</td>
                             <td>${div_img}</td>
@@ -888,9 +889,32 @@ class managerManager {
                                 ${rowDelete}
                             </td>
                         </tr>`;
+                    } else {
+                        $data_table_inactive += 
+                        `<tr>
+                            <td>${element.surname}</td>
+                            <td>${element.firstname}</td>
+                            <td>${$droits}</td>
+                            <td>${div_img}</td>
+                            <td>
+                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPassword(${element.id})">
+                                    <i class="fas fa-redo-alt fa-2x"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal(${element.id})">
+                                    <i class="fas fa-pencil-alt fa-2x"></i>
+                                </a>
+                            </td>
+                            <td>
+                                ${rowDelete}
+                            </td>
+                        </tr>`;
+                    }
                 }
             });
             $('#table_info_group_data').html($data_table);
+            $('#table_info_group_data_inactive').html($data_table_inactive);
             $('[data-toggle="tooltip"]').tooltip()
 
         }
@@ -915,7 +939,8 @@ class managerManager {
     globalSearchUser($name, $page, $usersperpage) {
         const process = (res) => {
             mainManager.getmanagerManager()._allActualUsers = [];
-            let $data_table = "";
+            let $data_table = "", 
+                $data_table_inactive = "";
 
             $('#group_name_from_table').text(i18next.t('manager.group.searchResult'));
             res.forEach(element => {
@@ -970,7 +995,14 @@ class managerManager {
                         rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="manager.buttons.disable" onclick="disableUser(${element.id})">${i18next.t('manager.buttons.disable')} <i class="fas fa-user-lock"></i></button>`;
                     }
 
-                    $data_table +=
+                    let activeFlag = true;
+                    if (element.hasOwnProperty('active')) {
+                        if (element.active != "1" && $group_id != -2) {
+                            activeFlag = false;
+                        }
+                    } 
+                    if (activeFlag) {
+                        $data_table +=
                         `<tr>
                             <td>${element.surname}</td>
                             <td>${element.firstname}</td>
@@ -990,9 +1022,32 @@ class managerManager {
                                 ${rowDelete}
                             </td>
                         </tr>`;
+                    } else {
+                        $data_table_inactive += 
+                        `<tr>
+                            <td>${element.surname}</td>
+                            <td>${element.firstname}</td>
+                            <td>${$droits}</td>
+                            <td>${div_img}</td>
+                            <td>
+                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPassword(${element.id})">
+                                    <i class="fas fa-redo-alt fa-2x"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal(${element.id})">
+                                    <i class="fas fa-pencil-alt fa-2x"></i>
+                                </a>
+                            </td>
+                            <td>
+                                ${rowDelete}
+                            </td>
+                        </tr>`;
+                    }
                 }
             });
             $('#table_info_group_data').html($data_table);
+            $('#table_info_group_data_inactive').html($data_table_inactive);
             $('[data-toggle="tooltip"]').tooltip()
 
         }

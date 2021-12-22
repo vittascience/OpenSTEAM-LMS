@@ -887,9 +887,14 @@
 			"studentsPerTeacher": "Students per teacher",
 			"maxStudents": "Maximum students"
 		},
+		"title": {
+			"activeUsers": "Active users",
+			"inaactiveUsers": "Inactive users"
+		},
 		"buttons": {
 			"continue": "Continue",
 			"validate": "Validate",
+			"activate": "Activate",
 			"cancel": "Cancel",
 			"finalize": "Finalize",
 			"send": "Send",

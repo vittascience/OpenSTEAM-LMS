@@ -1180,10 +1180,15 @@
 			"studentsPerTeacher": "Apprenants par enseignant",
 			"maxStudents": "Maximum d'apprenants"
 		},
+		"title": {
+			"activeUsers": "Utilisateurs actifs",
+			"inactiveUsers": "Utilisateurs inactifs"
+		},
 		"buttons": {
 			"continue": "Continuer",
 			"validate": "Valider",
 			"cancel": "Annuler",
+			"activate": "Activer",
 			"finalize": "Finaliser",
 			"send": "Envoyer",
 			"login": "Se connecter",
