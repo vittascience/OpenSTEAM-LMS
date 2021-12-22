@@ -237,9 +237,10 @@ function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = fal
         $('#breadcrumb').localize();
     }
 
-    $(function () {
+    
+        $('.leader-line').remove()
         $('[data-toggle="tooltip"]').tooltip()
-    })
+    
 }
 
 /**
@@ -676,24 +677,64 @@ function sandboxDisplay(projects = Main.getClassroomManager()._myProjects) {
 }
 
 function classroomsDisplay() {
+    let noContentDiv = `
+    <p class="no-content-div">
+        <img src="assets/media/my_classes.svg" alt="Icône classe" class="hue-rotate-teacher"> 
+        <b data-i18n="classroom.classes.noClasses">Vous n'avez pas encore de classe</b>
+        <span id="no-content-div__bottom-text"  data-i18n="classroom.classes.createClassNow">Commencez par créer une classe dès maintenant !</span>
+    </p>`
+
     // Hide the "add a class" button in the gar user context
     if (UserManager.getUser().isFromGar) {
         document.querySelector('.buttons-interactions button.teacher-new-classe').style.display = 'none';
+        noContentDiv = `
+        <p class="no-content-div">
+            <img src="assets/media/my_classes.svg" alt="Icône classe" class="hue-rotate-teacher"> 
+            <b data-i18n="classroom.classes.noClasses">Vous n'avez pas encore de classe</b>
+        </p>`
     }
 
     // Display the classes from cached data
     $('.list-classes').html(``);
     let classes = Main.getClassroomManager()._myClasses;
-    classes.forEach(classroom => {
-        $('.list-classes').append(classeItem(classroom.classroom, classroom.students.length, classroom.students));
-    });
+    if (classes.length) {
+        classes.forEach(classroom => {
+            $('.list-classes').append(classeItem(classroom.classroom, classroom.students.length, classroom.students));
+        });
+    } else {
+        $('.list-classes').append(noContentDiv).localize();
+    }
     // Get the classes from the database and refresh the panel it there are differences
     Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
         $('.list-classes').html(``);
         let classes = Main.getClassroomManager()._myClasses;
-        classes.forEach(classroom => {
-            $('.list-classes').append(classeItem(classroom.classroom, classroom.students.length, classroom.students));
-        });
+        if (classes.length) {
+            classes.forEach(classroom => {
+                $('.list-classes').append(classeItem(classroom.classroom, classroom.students.length, classroom.students));
+            });
+        } else {
+            $('.list-classes').append(noContentDiv).localize();
+
+            startAttachment = LeaderLine.pointAnchor({
+                element: document.getElementById('no-content-div__bottom-text'),
+                x: -10,
+            })
+            endAttachment = LeaderLine.pointAnchor({
+                element: document.getElementById('teacher-new-classroom-btn'),
+                y: "110%"
+            })
+
+            new LeaderLine(
+                startAttachment,
+                endAttachment, {
+                color: 'var(--classroom-primary)',
+                path: "arc",
+                startSocket: "left",
+                endSocket: "bottom",
+                endPlug: "arrow2",
+                startSocketGravity: [50, -100]
+            });
+        }
     });
 }
 
@@ -717,13 +758,11 @@ function toggleBlockClass() {
     let classroom = getClassroomInListByLink(currentClassroomLink)[0].classroom;
     if (classroom.isBlocked == true) {
         classroom.isBlocked = false;
-        $('#classroom-info').removeClass('greyscale');
-        $('#classroom-info > *:not(:first-child)').css('display', 'unset');
+        $('#classroom-info > button:first-child').removeClass('greyscale');
         $('#classroom-info > button:first-child > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
     } else {
         classroom.isBlocked = true;
-        $('#classroom-info').addClass('greyscale');
-        $('#classroom-info > *:not(:first-child)').css('display', 'none');
+        $('#classroom-info > button:first-child').addClass('greyscale');
         $('#classroom-info > button:first-child > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
 
     }
@@ -2000,7 +2039,7 @@ function showupdateUserModal_groupadmin(user_id) {
                                         </div>
                                     </div>
                                 </div>`;
-                                //flag
+                    //flag
                     $("#update_actualgroup_ga").append(group);
                     if (res[0].groups[i].rights == 1) {
                         $('#update_u_is_group_admin_ga' + i).prop("checked", true);
@@ -2105,7 +2144,7 @@ $('#create_user_link_to_group_groupadmin').click(function () {
             $saved_groups = mainGroupAdmin.getGroupAdminManager()._comboGroups;
             let radioHTML = "";
 
-            
+
             $saved_groups.forEach(element => {
                 radioHTML += `<div class="form-group c-secondary-form">
                                 <label for="create_u_group_ga" data-i18n="manager.profil.group">Groupe</label>
@@ -2165,7 +2204,7 @@ function createUserAndLinkToGroup_groupAdmin() {
         ],
         $teacher_grade = $('#user_teacher_grade_ga').length ? $('#user_teacher_grade_ga').val() + 1 : null,
         $teacher_suject = $('#user_teacher_subjects_ga').length ? $('#user_teacher_subjects_ga').val() + 1 : null;
-        
+
 
     mainGroupAdmin.getGroupAdminManager().createUserAndLinkToGroup($firstname,
         $surname,
@@ -2197,8 +2236,8 @@ function createUserAndLinkToGroup_groupAdmin() {
             displayNotification('#notif-div', "manager.account.notAllowedToCreateUserInThisGroup", "error");
         }
     });
-/*     pseudoModal.closeAllModal();
-    tempoAndShowGroupTableGroupAdmin(); */
+    /*     pseudoModal.closeAllModal();
+        tempoAndShowGroupTableGroupAdmin(); */
 }
 
 function resetUserPassword(id) {
@@ -2379,7 +2418,7 @@ $('#dashboard-manager-apps').click(() => {
 
 // Close all the crud views
 function closeCrudAppViews() {
-    const CRUD_APP_VIEWS = ['#update-app-manager','#delete-app-manager', '#create-app-manager'];
+    const CRUD_APP_VIEWS = ['#update-app-manager', '#delete-app-manager', '#create-app-manager'];
     CRUD_APP_VIEWS.forEach(view => {
         $(view).hide();
     });
@@ -2468,16 +2507,16 @@ function persistUpdateApp() {
         $application_image = $('#app_update_image').val();
 
     mainManager.getmanagerManager().updateApplication(
-        $application_id, 
-        $application_name, 
-        $application_description, 
+        $application_id,
+        $application_name,
+        $application_description,
         $application_image).then((response) => {
-            if (response.message == "success") {
-                displayNotification('#notif-div', "manager.apps.updateSuccess", "success");
-                closeModalAndCleanInput(true)
-            } else {
-                displayNotification('#notif-div', "manager.account.missingData", "error");
-            }
+        if (response.message == "success") {
+            displayNotification('#notif-div', "manager.apps.updateSuccess", "success");
+            closeModalAndCleanInput(true)
+        } else {
+            displayNotification('#notif-div', "manager.account.missingData", "error");
+        }
     })
 }
 
@@ -2508,15 +2547,15 @@ function persistCreateApp() {
         $application_image = $('#app_create_image').val();
 
     mainManager.getmanagerManager().createApplication(
-        $application_name, 
-        $application_description, 
+        $application_name,
+        $application_description,
         $application_image).then((response) => {
-            if (response.message == "success") {
-                displayNotification('#notif-div', "manager.apps.createSuccess", "success");
-                closeModalAndCleanInput(true)
-            } else {
-                displayNotification('#notif-div', "manager.account.missingData", "error");
-            }
+        if (response.message == "success") {
+            displayNotification('#notif-div', "manager.apps.createSuccess", "success");
+            closeModalAndCleanInput(true)
+        } else {
+            displayNotification('#notif-div', "manager.account.missingData", "error");
+        }
     })
 }
 
@@ -2603,16 +2642,16 @@ function persistUpdateRestriction() {
         $restriction_type = $('#activity_restrictions_update_type').val();
 
     mainManager.getmanagerManager().updateOneActivityRestriction(
-        $restriction_id, 
-        $application_id, 
-        $restriction_type, 
+        $restriction_id,
+        $application_id,
+        $restriction_type,
         $restriction_max).then((response) => {
-            if (response.success == true) {
-                displayNotification('#notif-div', "manager.activitiesRestrictions.updateSuccess", "success");
-                closeModalAndCleanInputActivityRestrictions()
-            } else {
-                displayNotification('#notif-div', "manager.account.missingData", "error");
-            }
+        if (response.success == true) {
+            displayNotification('#notif-div', "manager.activitiesRestrictions.updateSuccess", "success");
+            closeModalAndCleanInputActivityRestrictions()
+        } else {
+            displayNotification('#notif-div', "manager.account.missingData", "error");
+        }
     })
 }
 
@@ -2622,15 +2661,15 @@ function persistCreateRestriction() {
         $restriction_type = $('#activity_restrictions_create_type').val();
 
     mainManager.getmanagerManager().createOneActivityRestriction(
-        $application_id, 
-        $restriction_type, 
+        $application_id,
+        $restriction_type,
         $restriction_max).then((response) => {
-            if (response.success == true) {
-                displayNotification('#notif-div', "manager.activitiesRestrictions.createSuccess", "success");
-                closeModalAndCleanInputActivityRestrictions()
-            } else {
-                displayNotification('#notif-div', "manager.account.missingData", "error");
-            }
+        if (response.success == true) {
+            displayNotification('#notif-div', "manager.activitiesRestrictions.createSuccess", "success");
+            closeModalAndCleanInputActivityRestrictions()
+        } else {
+            displayNotification('#notif-div', "manager.account.missingData", "error");
+        }
     })
 }
 
@@ -2643,7 +2682,7 @@ function closeModalAndCleanInputActivityRestrictions() {
     // Create fields
     $('#activity_restrictions_create_type').val("");
     $('#activity_restrictions_create_maximum').val("");
-    
+
     crudActivityCloseViews();
     pseudoModal.closeAllModal();
 
@@ -2660,12 +2699,14 @@ function getAllrestrictions() {
         let html = "";
         $('#all-default-restrictions').html("");
         response.forEach(restriction => {
-            let name = "", limitation = "", update = "";
-            switch(restriction.name) {
+            let name = "",
+                limitation = "",
+                update = "";
+            switch (restriction.name) {
                 case 'userDefaultRestrictions':
                     name = i18next.t(`manager.apps.usersLimitation`);
                     limitation = `<ul class="m-0">`;
-                    Object.keys(restriction.restrictions).forEach(function(key){   
+                    Object.keys(restriction.restrictions).forEach(function (key) {
                         limitation += `<li> <span class="font-weight-bold">${i18next.t(`manager.table.${key}`)}</span> : ${restriction.restrictions[key]}</li>`;
                     });
                     limitation += `</ul>`;
@@ -2674,7 +2715,7 @@ function getAllrestrictions() {
                 case 'groupDefaultRestrictions':
                     name = i18next.t(`manager.apps.groupsLimitation`);
                     limitation = `<ul class="m-0">`;
-                    Object.keys(restriction.restrictions).forEach(function(key){   
+                    Object.keys(restriction.restrictions).forEach(function (key) {
                         limitation += `<li> <span class="font-weight-bold">${i18next.t(`manager.table.${key}`)}</span> : ${restriction.restrictions[key]}</li>`;
                     });
                     limitation += `</ul>`;
@@ -2683,7 +2724,7 @@ function getAllrestrictions() {
                 case 'activitiesDefaultRestrictions':
                     name = i18next.t(`manager.apps.activitiesLimitation`);
                     limitation = `<ul class="m-0">`;
-                    Object.keys(restriction.restrictions).forEach(function(key){   
+                    Object.keys(restriction.restrictions).forEach(function (key) {
                         limitation += `<li><span class="font-weight-bold">${key}</span> : ${restriction.restrictions[key]}</li>`;
                     });
                     limitation += `</ul>`;
@@ -2708,7 +2749,7 @@ function updateDefaultUsersLimitation() {
     $('#update-default-restrictions').html("");
     mainManager.getmanagerManager().getDefaultUsersRestrictions().then((response) => {
         pseudoModal.openModal('update-default-restrictions-manager');
-        Object.keys(response.restrictions).forEach(function(key){ 
+        Object.keys(response.restrictions).forEach(function (key) {
             html += `<div class="form-row mt-1 c-secondary-form">`
             html += `<div class="col-md">`
             html += `<label for="default-users-restrictions-value">${i18next.t(`manager.table.${key}`)}</label>`;
@@ -2719,7 +2760,7 @@ function updateDefaultUsersLimitation() {
         html += `<button class="btn c-btn-secondary my-3 btn" onclick="persistUpdateDefaultUsersRestriction()">${i18next.t(`manager.buttons.update`)}</button>`;
         html += `<button class="btn c-btn-light my-3 btn" onclick="closeDefault()">${i18next.t(`manager.buttons.cancel`)}</button>`;
         $('#update-default-restrictions').html(html);
-    }) 
+    })
 }
 
 function updateDefaultGroupsLimitation() {
@@ -2727,7 +2768,7 @@ function updateDefaultGroupsLimitation() {
     $('#update-default-restrictions').html("");
     mainManager.getmanagerManager().getDefaultGroupsRestrictions().then((response) => {
         pseudoModal.openModal('update-default-restrictions-manager');
-        Object.keys(response.restrictions).forEach(function(key){ 
+        Object.keys(response.restrictions).forEach(function (key) {
             html += `<div class="form-row mt-1 c-secondary-form">`
             html += `<div class="col-md">`
             html += `<label for="default-groups-restrictions-value-${key}">${i18next.t(`manager.table.${key}`)}</label>`;
@@ -2738,18 +2779,19 @@ function updateDefaultGroupsLimitation() {
         html += `<button class="btn c-btn-secondary my-3 btn" onclick="persistUpdateDefaultGroupsRestriction()">${i18next.t(`manager.buttons.update`)}</button>`;
         html += `<button class="btn c-btn-light my-3 btn" onclick="closeDefault()">${i18next.t(`manager.buttons.cancel`)}</button>`;
         $('#update-default-restrictions').html(html);
-    }) 
+    })
 }
 
 let allActualType = [];
+
 function updateDefaultActivitiesLimitation() {
     let html = "";
-    allActualType= [];
+    allActualType = [];
     $('#update-default-restrictions').html("");
     mainManager.getmanagerManager().getDefaultActivitiesRestrictions().then((response) => {
         pseudoModal.openModal('update-default-restrictions-manager');
         html += `<button class="btn c-btn-primary my-3 btn" onclick="addDefaultActivitiesRestriction()">${i18next.t(`manager.defaultRestrictions.add`)}</button>`;
-        Object.keys(response.restrictions).forEach(function(key){ 
+        Object.keys(response.restrictions).forEach(function (key) {
             allActualType.push(key);
             html += `<div class="form-row mt-1 c-secondary-form">`
             html += `<div class="col-md">`
@@ -2766,7 +2808,7 @@ function updateDefaultActivitiesLimitation() {
         html += `<button class="btn c-btn-secondary my-3 btn" onclick="persistUpdateDefaultActivitiesRestriction()">${i18next.t(`manager.buttons.update`)}</button>`;
         html += `<button class="btn c-btn-light my-3 btn" onclick="closeDefault()">${i18next.t(`manager.buttons.cancel`)}</button>`;
         $('#update-default-restrictions').html(html);
-    }) 
+    })
 }
 
 function persistUpdateDefaultUsersRestriction() {
@@ -2782,7 +2824,7 @@ function persistUpdateDefaultUsersRestriction() {
 
 function persistUpdateDefaultGroupsRestriction() {
     let maxStudentsValue = $('#default-groups-restrictions-value-maxStudents').val(),
-    maxTeachersValue = $('#default-groups-restrictions-value-maxTeachers').val(),
+        maxTeachersValue = $('#default-groups-restrictions-value-maxTeachers').val(),
         maxStudentsPerTeacherValue = $('#default-groups-restrictions-value-maxStudentsPerTeacher').val();
     mainManager.getmanagerManager().updateDefaultGroupsRestrictions(maxStudentsValue, maxTeachersValue, maxStudentsPerTeacherValue).then((response) => {
         if (response.message == "success") {
@@ -2796,7 +2838,7 @@ function persistUpdateDefaultGroupsRestriction() {
 function persistUpdateDefaultActivitiesRestriction() {
     const restrictionsData = [];
     allActualType.forEach((type) => {
-        restrictionsData.push([$('#default-activity-restriction-type-'+type).val(),$('#default-activity-restriction-value-'+type).val()])
+        restrictionsData.push([$('#default-activity-restriction-type-' + type).val(), $('#default-activity-restriction-value-' + type).val()])
     })
     mainManager.getmanagerManager().updateDefaultActivitiesRestrictions(JSON.stringify(restrictionsData)).then((response) => {
         if (response.message == "success") {
@@ -2827,7 +2869,7 @@ function addDefaultActivitiesRestriction() {
 
 
 function persistAddDefaultActivitiesRestriction() {
-    let restrictions = [$('#default-activity-restriction-type').val(),$('#default-activity-restriction-value').val()];
+    let restrictions = [$('#default-activity-restriction-type').val(), $('#default-activity-restriction-value').val()];
     mainManager.getmanagerManager().addDefaultActivitiesRestrictions(JSON.stringify(restrictions)).then((response) => {
         if (response.message == "success") {
             displayNotification('#notif-div', "manager.defaultRestrictions.updateActivitiesRestrictionsSuccess", "success");
@@ -2860,20 +2902,20 @@ function createRegistrationTemplate() {
     // Get the registration template configuration from the .env file
     getRegistrationTemplate().then((res) => {
         // List all the views who are adjustable
-        const   usernameViews = ['#manager_username', '#manager_update_username', '#group_admin_username', '#group_admin_username_update'],
-                phoneViews = ['#manager_phone', '#manager_update_phone', '#group_admin_phone', '#group_admin_phone_update'],
-                userBioViews = ['#manager_bio', '#manager_update_bio', '#group_admin_bio', '#group_admin_bio_update'],
-                userTeacherSectionViews = ['#user_teacher_infos', '#update_user_teacher_infos', '#user_teacher_infos_ga', '#update_user_teacher_infos_ga'];
-        
+        const usernameViews = ['#manager_username', '#manager_update_username', '#group_admin_username', '#group_admin_username_update'],
+            phoneViews = ['#manager_phone', '#manager_update_phone', '#group_admin_phone', '#group_admin_phone_update'],
+            userBioViews = ['#manager_bio', '#manager_update_bio', '#group_admin_bio', '#group_admin_bio_update'],
+            userTeacherSectionViews = ['#user_teacher_infos', '#update_user_teacher_infos', '#user_teacher_infos_ga', '#update_user_teacher_infos_ga'];
+
 
         // If the registration template does not need an element to be displayed, we remove it
-        const   deleteInputs = (array) => {
+        const deleteInputs = (array) => {
             array.forEach(element => {
                 if ($(element).length) {
                     $(element).remove();
                 }
             });
-        }      
+        }
 
         // Check for every configuration if it is needed to display the element
         if (res.USER_USERNAME == "false") {

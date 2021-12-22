@@ -370,7 +370,7 @@
     </select>
 
     <div class="buttons-interactions">
-        <button class="btn c-btn-outline-primary teacher-new-classe">
+        <button id="teacher-new-classroom-btn" class="btn c-btn-outline-primary teacher-new-classe">
             <span data-i18n="classroom.classes.add"></span> <i class="fas fa-chevron-right"></i>
         </button>
     </div>
@@ -555,16 +555,16 @@
 </div>
 
 <div id="classroom-dashboard-new-activity-panel" style="display:none;" class="activity-creation-form dashboard-block">
-    <nav class="row" style="margin: 0 auto;">
+    <nav class="row form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
-            <span class="form-activity form-activity-activate"><b>1</b></span>
+            <span class="form-activity form-activity-activate">1</span>
             <span data-i18n="classroom.activities.form.1"></span>
         </div>
 
         <div class="col-4"></div>
 
         <div class=" col text-center">
-            <span class="form-activity form-activity-desactivate"><b>2</b></span>
+            <span class="form-activity form-activity-desactivate">2</span>
             <span data-i18n="classroom.activities.form.2"></span>
         </div>
     </nav>
@@ -588,16 +588,16 @@
 </div>
 <div id="classroom-dashboard-new-activity-panel2" style="display:none;" class="dashboard-block class-creation-form-step2">
 
-    <nav class="row" style="margin: 0 auto;">
+    <nav class="row form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
-            <span class="form-activity form-activity-activate"><b>1</b></span>
+            <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1"></span>
         </div>
 
         <div class="col-4"></div>
 
-        <div class=" col text-center">
-            <span class="form-activity form-activity-desactivate"><b>2</b></span>
+        <div class="col text-center">
+            <span class="form-activity form-activity-activate">2</span>
             <span data-i18n="classroom.activities.form.2"></span>
         </div>
     </nav>
@@ -631,14 +631,16 @@
     <p>Vous pourrez toujours plus tard attribuer ce parcours depuis le tableau de bord</p>
 </div> -->
 <div id="classroom-dashboard-new-activity-panel3" style="display:none;" class="dashboard-block container">
-    <nav class="row mb-3" style="margin: 0 auto;">
+    <nav class="row form-activity-container mb-3" style="margin: 0 auto;">
         <div class="col text-center">
-            <span class="form-activity form-activity-activate"><b>1</b></span>
+            <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1"></span>
         </div>
+
         <div class="col-4"></div>
-        <div class=" col text-center">
-            <span class="form-activity form-activity-desactivate"><b>2</b></span>
+
+        <div class="col text-center">
+            <span class="form-activity form-activity-activate">2</span>
             <span data-i18n="classroom.activities.form.2"></span>
         </div>
     </nav>

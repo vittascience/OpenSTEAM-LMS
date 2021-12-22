@@ -314,6 +314,18 @@
     background: var(--classroom-tertiary);
 }
 
+/* Accent colors where supported */
+
+.c-primary-form {
+    accent-color: var(--classroom-primary);
+}
+.c-secondary-form {
+    accent-color: var(--classroom-secondary);
+}
+.c-tertiary-form {
+    accent-color: var(--classroom-tertiary);
+}
+
 /* Search */
 
 .c-primary-form input[type="search"],

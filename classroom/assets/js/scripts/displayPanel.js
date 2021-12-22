@@ -285,13 +285,11 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
             $('.classroom-link').html(ClassroomSettings.classroom)
             // Block classroom feature
             if (getClassroomInListByLink(link)[0].classroom.isBlocked == false) {
-                $('#classroom-info').removeClass('greyscale')
-                $('#classroom-info > *:not(:first-child)').css('display','unset');
+                $('#classroom-info > button:first-child').removeClass('greyscale')
                 $('#classroom-info > button:first-child > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
 
             } else {
-                $('#classroom-info').addClass('greyscale')
-                $('#classroom-info > *:not(:first-child)').css('display','none');
+                $('#classroom-info > button:first-child').addClass('greyscale')
                 $('#classroom-info > button:first-child > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
 
 

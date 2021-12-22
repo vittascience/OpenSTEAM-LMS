@@ -216,6 +216,8 @@
 		},
 		"classes": {
 			"add": "Add a new classroom",
+			"noClasses": "You don't have a class yet.",
+			"createClassNow": "Start by creating a class now!",
 			"form": {
 				"title": "Add a classroom",
 				"name": "Classroom name",

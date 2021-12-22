@@ -634,6 +634,29 @@ button {
 
 }
 
+/* NO CONTENT DIV */
+
+.no-content-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    text-align: center;
+}
+
+.no-content-div img {
+    width: 200px;
+    height: 200px;
+    margin-top: 5em;
+    margin-bottom: 3em;
+    border: 3px solid;
+    border-color: #1e8956;
+    border-radius: 50%;
+}
+.no-content-div #no-content-div__bottom-text {
+    margin:0 1em ;
+}
 /* DASHBOARD ELEMENTS */
 
 /* NOTIFICATIONS */
@@ -784,7 +807,8 @@ button {
 .stats-secondary,
 .stats-primary,
 .form-activity {
-    display: block;
+    display: grid;
+    place-items: center;
     margin: 0.2em auto;
     width: 3em;
     height: 3em;
@@ -795,17 +819,45 @@ button {
     border-radius: 50%;
     font-style: normal;
     cursor: pointer;
-
+    font-size: larger;
+    font-weight: 700;
 }
 
+.form-activity-primary,
 .stats-primary {
     border-color: var(--classroom-primary);
     color: var(--classroom-primary);
 }
 
+.form-activity-secondary,
 .stats-secondary {
     border-color: var(--classroom-secondary);
     color: var(--classroom-secondary);
+}
+
+.form-activity-container {
+    width: 50%;
+    user-select: none;  
+}
+
+.form-activity {
+    width: 2em;
+    height: 2em;
+    line-height: unset;
+    cursor: unset;
+
+}
+
+.form-activity-activate {
+    border-color: var(--classroom-secondary);
+    color: var(--classroom-white);
+    background-color: var(--classroom-secondary);
+}
+
+.form-activity-desactivate {
+    border-color: var(--classroom-text-2);
+    color: var(--classroom-text-2);
+    background-color: var(--classroom-background);
 }
 
 .stats-description {
@@ -1181,7 +1233,6 @@ h3.section-done {
     color: var(--classroom-text-1);
     font-size: 1em;
     font-weight: 700;
-    text-transform: uppercase;
     margin-top: 0.5em;
     text-align: center;
 
@@ -1329,9 +1380,6 @@ h3.section-done {
     align-items: center;
 }
 
-.activity-creation-form>nav {
-    width: 50%;
-}
 
 .dashboard-block>nav>div:nth-child(2) {
     border-bottom: 1px solid var(--classroom-text-1);
@@ -2098,7 +2146,7 @@ i.line_height34 {
 }
 
 .greyscale {
-    filter: grayscale(1);
+    filter: grayscale(1) !important;
 }
 
 .close-login-classroom {
@@ -2160,33 +2208,18 @@ i.line_height34 {
     background-color: #008447;
 }
 
-.form-activity {
-    line-height: 44px;
-}
 
 .wysibb {
     color: #333;
-
 }
 
-.form-activity-activate {
-    border-color: var(--classroom-secondary);
-    color: var(--classroom-white);
-    background-color: var(--classroom-secondary);
-}
-
-.form-activity-desactivate {
-    border-color: var(--txt-2);
-    color: var(--txt-2);
-    background-color: var(--classroom-background);
-}
 
 .dropdown-act.ml-5 {
     cursor: auto;
 }
 
 .switch-pwd {
-    color: var(--txt-2);
+    color: var(--classroom-text-1);
     font-size: 1.5em;
 }
 

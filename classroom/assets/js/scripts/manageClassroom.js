@@ -801,12 +801,15 @@ function displayStudentsInClassroom(students, link=false) {
         for(let i=0; i<arrayIndexesActivities.length; i++){
             if (element.user.pseudo == demoStudentName) {
                 $('#header-table-teach').append(`
-                <th>
+                <th data-toggle="tooltip" data-placement="top" title="${ arrayIndexesActivities[i].title }">
                     <div class="dropdown dropdown-act" style="width:30px;">
                         <div id="dropdown-act-${activityNumber}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="span-act">Act.</br>n°${ activityNumber }</span>
-                            <i style="display:none;font-size:2em;" class="fa fa-cog i-act" aria-hidden="true"></i><div class="dropdown-menu" aria-labelledby="dropdown-act-${activityNumber}"  data-id="${arrayIndexesActivities[i].id}" style="text-transform: none;">
-                            <li class="ml-5" style="border-bottom:solid 2px black;"><b>${ arrayIndexesActivities[i].title }</b></li>
+                            <i style="display:none;font-size:2em;" class="fa fa-cog i-act" aria-hidden="true"></i>
+                            <div class="dropdown-menu" aria-labelledby="dropdown-act-${activityNumber}" data-id="${arrayIndexesActivities[i].id}" style="text-transform: none;">
+                            <li class="ml-5" style="border-bottom:solid 2px black;">
+                                <b>${ arrayIndexesActivities[i].title }</b>
+                            </li>
                             <li class="classroom-clickable col-12 dropdown-item " onclick="activityWatch(${arrayIndexesActivities[i].id})" ><i class="fas fa-eye"></i> <span data-i18n="classroom.classes.panel.seeActivity">Voir l'activité</span></li>
                             <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${arrayIndexesActivities[i].id})"><i class="fas fa-pen"></i> <span data-i18n="classroom.classes.panel.editActivity">Modifier l'activité</span></li>
                             <li class="classroom-clickable col-12 dropdown-item" onclick="attributeActivity(${arrayIndexesActivities[i].id},${arrayIndexesActivities[i].reference})"><i class="fas fa-user-alt"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span></li>
@@ -818,7 +821,6 @@ function displayStudentsInClassroom(students, link=false) {
             }
             // Display the current student activities in the dashboard
             let currentActivity = arrayActivities[i];
-            console.log(currentActivity);
             if (currentActivity) {
                 html += `<td class=" ${statusActivity(currentActivity)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>"></td>`;
             } else {
