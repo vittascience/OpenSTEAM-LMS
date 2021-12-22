@@ -654,9 +654,11 @@ button {
     border-color: #1e8956;
     border-radius: 50%;
 }
+
 .no-content-div #no-content-div__bottom-text {
-    margin:0 1em ;
+    margin: 0 1em;
 }
+
 /* DASHBOARD ELEMENTS */
 
 /* NOTIFICATIONS */
@@ -837,7 +839,7 @@ button {
 
 .form-activity-container {
     width: 50%;
-    user-select: none;  
+    user-select: none;
 }
 
 .form-activity {
@@ -1257,8 +1259,10 @@ h3.section-done {
     background-size: cover;
     color: white;
 
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-rows: auto 1fr auto;
+    position: relative;
 }
 
 @media (max-width: 768px) {
@@ -1334,19 +1338,42 @@ h3.section-done {
     flex-grow: 1;
 }
 
-.green-border {
-    box-shadow: 0px 0px 5px 0px var(--classroom-green);
+.activity-card .ribbon {
+    grid-row-end: 3;
+    height: 60%;
+    width: 15%;
+    position: absolute;
+    top: -5px;
+    right: 20px;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.2));
 }
 
-.red-border {
-    box-shadow: 0px 0px 5px 0px var(--classroom-red);
+.activity-card .ribbon .ribbon__content {
+    width: 100%;
+    height: 100%;
+    background: var(--classroom-cell);
+    clip-path: polygon(-5% -5%, 105% -5%, 105% 105%, 50% 77%, -5% 105%);
+    cursor: help;
+    border-radius: 0.3em;
 
 }
 
-.blue-border {
-    box-shadow: 0px 0px 5px 0px var(--classroom-blue);
-
+.ribbon.ribbon_accept .ribbon__content {
+    background: var(--correction-3);
 }
+
+.ribbon.ribbon_vgood .ribbon__content {
+    background: var(--correction-2);
+}
+
+.ribbon.ribbon_good .ribbon__content {
+    background: var(--correction-1);
+}
+
+.ribbon.ribbon_refuse .ribbon__content {
+    background: var(--correction-0);
+}
+
 
 @media (max-width: 768px) {
     .activity-search {
@@ -1462,6 +1489,7 @@ h3.section-done {
 .giveNote-container label:not(:last-child) {
     margin-bottom: 0.5em;
 }
+
 .giveNote-container label:last-child {
     margin-bottom: 0em !important;
 }

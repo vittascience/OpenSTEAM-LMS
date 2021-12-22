@@ -15,18 +15,29 @@ function activityItem(activity, state) {
         ide = "arduino"
     }
 
-
-    if (activity.correction == 2) {
-        var status = "green-border"
-    } else if (activity.correction == 3) {
-        var status = "red-border"
-    } else if (activity.correction == 1) {
-        var status = "blue-border"
-    } else {
-        var status = "new-exercise"
+    console.log(state)
+    if (state == "doneActivities") {
+        if (activity.note == 3) {
+            var activityStatus = "ribbon ribbon_accept"
+            var activityStatusTitle = i18next.t('classroom.activities.veryGoodProficiency')
+        } else if (activity.note == 2) {
+            var activityStatus = "ribbon ribbon_vgood"
+            var activityStatusTitle = i18next.t('classroom.activities.goodProficiency')
+        } else if (activity.note == 1) {
+            var activityStatus = "ribbon ribbon_good"
+            var activityStatusTitle = i18next.t('classroom.activities.weakProficiency')
+        } else if (activity.note == 0) {
+            var activityStatus = "ribbon ribbon_refuse"
+            var activityStatusTitle = i18next.t('classroom.activities.insufficientProficiency')
+        } else {
+            var activityStatus = ""
+            var activityStatusTitle = "?"
+        }
     }
+
     let html = `<div class="activity-item">
-                    <div class="activity-card activity-card-` + ide + ` ` + status + `">
+                    <div class="activity-card activity-card-` + ide + `">
+                        <div class="${activityStatus}" data-toggle="tooltip" title="${activityStatusTitle}"><div class="ribbon__content"></div></div>
                         <div class="activity-card-top">
                         </div>
                         <div class="activity-card-mid"></div>
@@ -440,8 +451,8 @@ function loadActivity(isDoable) {
         content = content
     }
     let correction = ''
-    
-    correction += `<h4 class="c-text-primary text-center font-weight-bold">${Activity.user.pseudo}</h4>`
+
+    correction += `<h4 class="c-text-primary text-center font-weight-bold">${i18next.t('classroom.activities.bilan.results')}</h4>`
     if (Activity.correction == 1) {
         correction += `<div class="giveNote-container c-primary-form"><label for="givenote-3" onclick="setNote(3)"><input type="radio" id="givenote-3" name="giveNote" value="3">${" " + i18next.t('classroom.activities.accept')}</label><label for="givenote-2" onclick="setNote(2)"><input type="radio" id="givenote-2" name="giveNote" value="2">${" " + i18next.t('classroom.activities.vgood')}</label><label for="givenote-1" onclick="setNote(1)"><input type="radio" id="givenote-1" name="giveNote" value="1">${" " + i18next.t('classroom.activities.good')}</label><label for="givenote-0" onclick="setNote(0)"><input type="radio" id="givenote-0" name="giveNote" value="0">${" " + i18next.t('classroom.activities.refuse')}</label></div>`
 
