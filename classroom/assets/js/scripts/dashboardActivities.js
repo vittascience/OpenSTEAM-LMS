@@ -142,7 +142,7 @@ function getRemainingCorrections(students) {
     let remainingCorrectionCount = 0;
     for (let student of students) {
         for (let activity of student.activities) {
-            if (activity.correction == 1){
+            if (activity.correction == 1) {
                 remainingCorrectionCount++;
             }
         }
@@ -326,12 +326,12 @@ function statusActivity(activity, state = true) {
     if (activity.correction == 0 || activity.correction == null) {
         if (state == true)
             return "fas fa-stopwatch"
-        if (state == "csv"){
+        if (state == "csv") {
             switch (activity.correction) {
                 case 0:
                     return "Pas encore réalisé"
                     break;
-            
+
                 case null:
                     return "Pas encore réalisé"
                     break;
@@ -440,8 +440,10 @@ function loadActivity(isDoable) {
         content = content
     }
     let correction = ''
+    
+    correction += `<h4 class="c-text-primary text-center font-weight-bold">${Activity.user.pseudo}</h4>`
     if (Activity.correction == 1) {
-        correction += `<div class="activity-correction-header d-flex justify-content-between"><h3>` + i18next.t('classroom.activities.bilan.results') + `</h3><i class="fas fa-chevron-right fa-2x" ></i></div><div id='giveNote' ><div onclick="setNote(3,'givenote-3')" id="givenote-3" class="note-choice"><i class="fas fa-check"></i>` + i18next.t('classroom.activities.accept') + ` </div><div onclick="setNote(2,'givenote-2')" id="givenote-2" class="note-choice" ><i class="fas fa-check"></i>` + i18next.t('classroom.activities.vgood') + ` </div><div onclick="setNote(1,'givenote-1')" id="givenote-1" class="note-choice" ><i class="fas fa-check"></i>` + i18next.t('classroom.activities.good') + ` </div><div onclick="setNote(0,'givenote-0')" id="givenote-0" class="note-choice" ><i class="fas fa-check"></i>` + i18next.t('classroom.activities.refuse') + ` </div></div>`
+        correction += `<div class="giveNote-container c-primary-form"><label for="givenote-3" onclick="setNote(3)"><input type="radio" id="givenote-3" name="giveNote" value="3">${" " + i18next.t('classroom.activities.accept')}</label><label for="givenote-2" onclick="setNote(2)"><input type="radio" id="givenote-2" name="giveNote" value="2">${" " + i18next.t('classroom.activities.vgood')}</label><label for="givenote-1" onclick="setNote(1)"><input type="radio" id="givenote-1" name="giveNote" value="1">${" " + i18next.t('classroom.activities.good')}</label><label for="givenote-0" onclick="setNote(0)"><input type="radio" id="givenote-0" name="giveNote" value="0">${" " + i18next.t('classroom.activities.refuse')}</label></div>`
 
     }
     if (UserManager.getUser().isRegular && Activity.correction > 0) {

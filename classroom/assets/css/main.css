@@ -1440,23 +1440,6 @@ h3.section-done {
 
 }
 
-.note-choice {
-    border-radius: 25px;
-    width: 100%;
-    cursor: pointer;
-    margin: 10px 0px;
-}
-
-.note-choice i {
-    color: var(--classroom-background);
-    margin: 0px 5px;
-}
-
-.selectNote {
-    background-color: var(--classroom-primary);
-    color: white;
-}
-
 #activity-correction {
     padding: 0.5em;
     border-radius: 1em;
@@ -1467,10 +1450,21 @@ h3.section-done {
     top: 3.5em;
 }
 
-.activity-correction-header {
-    color: var(--classroom-primary);
+.giveNote-container {
+    padding: 0.5em;
+    border-radius: 1em;
+    box-shadow: 1px 1px 6px #00000029;
+    margin: 0em 0.5em 1em;
+    display: flex;
+    flex-direction: column;
 }
 
+.giveNote-container label:not(:last-child) {
+    margin-bottom: 0.5em;
+}
+.giveNote-container label:last-child {
+    margin-bottom: 0em !important;
+}
 
 /* ACTIVITY RESULTS */
 
