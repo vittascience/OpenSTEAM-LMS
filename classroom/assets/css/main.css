@@ -2123,3 +2123,8 @@ i.line_height34 {
     border-color: var(--classroom-red) !important;
     color: var(--classroom-red) !important;
 }
+
+#new-activity-attribute {
+    z-index: 11;
+    position: relative;
+}

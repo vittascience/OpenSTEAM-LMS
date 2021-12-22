@@ -711,7 +711,7 @@ function filterTeacherActivityInList(keywords = [], orderBy = 'id', asc = true) 
 
     }
     regExp = new RegExp(expression)
-    let list = Main.getClassroomManager()._myTeacherActivities.filter(x => regExp.test(x.title.toUpperCase()) || regExp.test(x.content.toUpperCase()))
+    let list = Main.getClassroomManager()._myTeacherActivities.filter(x => regExp.test(x.title.toUpperCase()))
     if (asc) {
         return list.sort(function (a, b) {
             return a[orderBy] - b[orderBy];
