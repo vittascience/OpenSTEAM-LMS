@@ -267,12 +267,12 @@ $(document).on('keyup', function (e) {
 });
 $('body').on('click', '.list-students-classroom', function () {
     let isChecked = $(this).is(':checked')
-    let studentCheckbox = $(this).parent().find('.student-list input')
+    let studentCheckbox = $(this).parent().parent().find('.student-list input')
     studentCheckbox.each(function () {
         if (isChecked) {
-            $(this).prop('checked', true);
+            $(this).prop('checked', true).change();;
         } else {
-            $(this).prop('checked', false);
+            $(this).prop('checked', false).change();;
         }
     });
 })
