@@ -245,10 +245,7 @@ $('body').on('click', '.save-student-in-classroom', function () {
         $('.student-form-name').each(function (index) {
             if ($(this).val() != "") {
                 if (parseInt($(this).attr('data-id')) > 0) {
-                    existingStudents.push({
-                        'pseudo': $(this).val(),
-                        'id': $(this).attr('data-id')
-                    })
+                    existingStudents.push({'pseudo': $(this).val(), 'id': $(this).attr('data-id')})
                 } else {
                     students.push($(this).val())
                 }
@@ -257,7 +254,7 @@ $('body').on('click', '.save-student-in-classroom', function () {
         Main.getClassroomManager().addUsersToGroup(students, existingStudents, ClassroomSettings.classroom).then(function (response) {
             if(!response.isUsersAdded){
                 if(response.noUser){
-                    displayNotification('#notif-div', "classroom.notif.noUser", "error");
+                    displayNotification('#notif-div', "classroom.notif.noUserUsername", "error");
                     return;
                 }
                 /**
@@ -285,8 +282,10 @@ $('body').on('click', '.save-student-in-classroom', function () {
             $('#no-student-label').remove()
             $('#table-students ul').append(addStudentRow($('.student-form-name').val()))
             pseudoModal.closeModal('add-student-modal')
+            // Reset the input field
+            $('.student-form-name').val('');
         } else {
-            displayNotification('#notif-div', "classroom.notif.noUser", "error");
+            displayNotification('#notif-div', "classroom.notif.noUserUsername", "error");
         }
     }
 
@@ -727,7 +726,7 @@ function filterTeacherActivityInList(keywords = [], orderBy = 'id', asc = true) 
 
     }
     regExp = new RegExp(expression)
-    let list = Main.getClassroomManager()._myTeacherActivities.filter(x => regExp.test(x.title.toUpperCase()) || regExp.test(x.content.toUpperCase()))
+    let list = Main.getClassroomManager()._myTeacherActivities.filter(x => regExp.test(x.title.toUpperCase()))
     if (asc) {
         return list.sort(function (a, b) {
             return a[orderBy] - b[orderBy];

@@ -533,10 +533,16 @@ function createRegistrationTemplateForLogin() {
         if (res.USER_BIO == "false") {
             $('#registration_bio').remove();
         }
-        
-        if (res.USER_TEACHER_SECTION == "false") {
-            $('#registration_subject').remove();
+
+        if (res.USER_TEACHER_GRADE == "false") {
             $('#registration_grade').remove();
+        }
+        
+        if (res.USER_TEACHER_SUBJECT == "false") {
+            $('#registration_subject').remove();
+        }
+
+        if (res.USER_TEACHER_SCHOOL == "false") {
             $('#registration_school').remove();
         }
         

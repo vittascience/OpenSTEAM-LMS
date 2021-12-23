@@ -638,8 +638,13 @@ button {
 /* NOTIFICATIONS */
 
 #notif-div {
-    display: flex;
-    flex-direction: row-reverse;
+/*     display: flex;
+    flex-direction: row-reverse; */
+    /* Update Rémi, need review */
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 10;
 }
 
 .vitta-notif {
@@ -670,10 +675,12 @@ button {
 
 .status-success {
     background-color: var(--classroom-green);
+    margin: 5px;
 }
 
 .status-error {
     background-color: var(--classroom-red);
+    margin: 5px;
 }
 
 /* START PROFILE PANEL */
@@ -2115,4 +2122,9 @@ i.line_height34 {
 .form-input-error {
     border-color: var(--classroom-red) !important;
     color: var(--classroom-red) !important;
+}
+
+#new-activity-attribute {
+    z-index: 11;
+    position: relative;
 }
