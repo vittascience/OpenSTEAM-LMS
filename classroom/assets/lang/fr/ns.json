@@ -1122,6 +1122,7 @@
 			}
 		},
 		"group": {
+			"generalInfo": "Informations générales",
 			"add": "Ajouter un groupe",
 			"create": "Créer un groupe",
 			"delete": "Supprimer un groupe",
@@ -1176,9 +1177,12 @@
 			"toManyStudentsFromTheTeacher": "Le professeur que vous souhaitez ajouter au groupe possède trop d'élève",
 			"toManyStudentsInGroup": "Le groupe ne peut pas accueillir autant d'apprenants, le professeur possède trop d'apprenants.",
 			"teachersPerGroup": "Enseignant par groupe",
+			"activitiesPerGroup": "Activité(s) par groupe",
+			"activitiesPerTeacher": "Activité(s) par enseignant",
 			"studentsPerGroup": "Apprenants par groupe",
 			"studentsPerTeacher": "Apprenants par enseignant",
-			"maxStudents": "Maximum d'apprenants"
+			"maxStudents": "Maximum d'apprenants",
+			"maxActivities": "Maximum d'activités"
 		},
 		"title": {
 			"activeUsers": "Utilisateurs actifs",

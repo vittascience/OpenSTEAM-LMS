@@ -156,13 +156,13 @@ class managerManager {
      * @param {*} $restriction_id 
      * @returns promise
      */
-    getOneActivityRestriction($restriction_id) {
+    getActivityRestrictionFromApp($application_id) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
-                url: "/routing/Routing.php?controller=superadmin&action=get_one_restriction_activity",
+                url: "/routing/Routing.php?controller=superadmin&action=get_restriction_activity_applications",
                 data: {
-                    restriction_id: $restriction_id
+                    application_id: $application_id
                 },
                 success: function (response) {
                     resolve(JSON.parse(response))
@@ -292,69 +292,6 @@ class managerManager {
     }
 
     /**
-     * @returns promise
-     */
-     updateDefaultActivitiesRestrictions($typeRestrictionsArray) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "POST",
-                url: "/routing/Routing.php?controller=superadmin&action=update_default_activities_restrictions",
-                data: {
-                    restrictions: $typeRestrictionsArray
-                },
-                success: function (response) {
-                    resolve(JSON.parse(response))
-                },
-                error: function () {
-                    reject();
-                }
-            });
-        })
-    }
-
-    /**
-     * @returns promise
-     */
-     addDefaultActivitiesRestrictions($restriction) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "POST",
-                url: "/routing/Routing.php?controller=superadmin&action=add_default_activities_restrictions",
-                data: {
-                    restrictions: $restriction
-                },
-                success: function (response) {
-                    resolve(JSON.parse(response))
-                },
-                error: function () {
-                    reject();
-                }
-            });
-        })
-    }
-
-    /**
-     * @returns promise
-     */
-    deleteDefaultActivitiesRestrictions($restriction_type) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "POST",
-                url: "/routing/Routing.php?controller=superadmin&action=delete_default_activities_restrictions",
-                data: {
-                    restrictions: $restriction_type
-                },
-                success: function (response) {
-                    resolve(JSON.parse(response))
-                },
-                error: function () {
-                    reject();
-                }
-            });
-        })
-    }
-
-    /**
      * @param {*} $restriction_id 
      * @returns promise
      */
@@ -383,13 +320,12 @@ class managerManager {
      * @param {*} $restriction_max 
      * @returns promise
      */
-    updateOneActivityRestriction($restriction_id, $application_id, $restriction_type, $restriction_max) {
+    updateOneActivityRestriction($application_id, $restriction_type, $restriction_max) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
                 url: "/routing/Routing.php?controller=superadmin&action=update_one_restriction_activity",
                 data: {
-                    restriction_id: $restriction_id,
                     application_id: $application_id,
                     restriction_type: $restriction_type,
                     restriction_max: $restriction_max

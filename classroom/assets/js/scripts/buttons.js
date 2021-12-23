@@ -936,7 +936,9 @@ function updateGroupWithModal() {
             $('#end_date_' + $(this).val()).val(),
             $('#max_students_per_teachers_' + $(this).val()).val(),
             $('#max_students_per_groups_' + $(this).val()).val(),
-            $('#max_teachers_per_groups_' + $(this).val()).val()
+            $('#max_teachers_per_groups_' + $(this).val()).val(),
+            $('#max_activities_per_groups_' + $(this).val()).val(),
+            $('#max_activities_per_teachers_' + $(this).val()).val()
         ]
         ApplicationsData.push(ApplicationTemp);
     });
@@ -1184,6 +1186,9 @@ function updateAppForUser(methodName = "update") {
                     <input type="date" id="${methodName}_end_date_${element.id}" name="trip-start" min="0" max="2025-12-31">
                     <label class="form-check-label" for="${methodName}_max_teacher_${element.id}">${i18next.t('manager.group.maxStudents')}</label>
                     <input type="number" id="${methodName}_max_teacher_${element.id}" value="0">
+
+                    <label class="form-check-label" for="${methodName}_max_activities_${element.id}">${i18next.t('manager.group.maxActivities')}</label>
+                    <input type="number" id="${methodName}_max_activities_${element.id}" value="0">
                 </div>
                 </div>`;
             } else {
@@ -1203,6 +1208,9 @@ function updateAppForUser(methodName = "update") {
                     <input type="date" id="${methodName}_end_date_${element.id}" name="trip-start" value="${dateEnd}" max="2025-12-31">
                     <label class="form-check-label" for="${methodName}_max_teacher_${element.id}">${i18next.t('manager.group.maxStudents')}</label>
                     <input type="number" id="${methodName}_max_teacher_${element.id}" value="${infoapp.max_students}">
+
+                    <label class="form-check-label" for="${methodName}_max_activities_${element.id}">${i18next.t('manager.group.maxActivities')}</label>
+                    <input type="number" id="${methodName}_max_activities_${element.id}" value="${infoapp.max_activities}">
                 </div>
                 </div>`;
             }
@@ -1247,12 +1255,11 @@ function persistUpdateUserApp(user = 0) {
             $(this).is(':checked'),
             $('#update_begin_date_' + $(this).val()).val(),
             $('#update_end_date_' + $(this).val()).val(),
-            $('#update_max_teacher_' + $(this).val()).val()
+            $('#update_max_teacher_' + $(this).val()).val(),
+            $('#update_max_activities_' + $(this).val()).val()
         ]
         ApplicationsData.push(ApplicationTemp);
     });
-
-    console.log(ApplicationsData);
 
     mainManager.getmanagerManager().updateUserApps(user, JSON.stringify(ApplicationsData)).then((res) => {
         if (res.message == "success") {
@@ -1851,6 +1858,13 @@ function optionsGroupApplications($type) {
 
                     <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxTeachers')}" for="max_teachers_per_groups_${element.id}"><i class="fas fa-info mx-1"></i>${i18next.t('manager.group.teachersPerGroup')}</label>
                     <input type="number" id="max_teachers_per_groups_${element.id}">
+
+                    <label class="form-check-label" for="max_activities_per_groups_${element.id}">${i18next.t('manager.group.activitiesPerGroup')}</label>
+                    <input type="number" id="max_activities_per_groups_${element.id}">
+
+                    <label class="form-check-label" for="max_activities_per_teachers_${element.id}">${i18next.t('manager.group.activitiesPerTeacher')}</label>
+                    <input type="number" id="max_activities_per_teachers_${element.id}">
+
                 </div>
                 </div><hr>`;
             } else {
@@ -1880,6 +1894,12 @@ function optionsGroupApplications($type) {
 
                     <label class="form-check-label" for="max_teachers_per_groups_${element.id}">${i18next.t('manager.group.teachersPerGroup')}</label>
                     <input type="number" id="max_teachers_per_groups_${element.id}" value="${$infoapp.max_teachers_per_groups}">
+
+                    <label class="form-check-label" for="max_activities_per_groups_${element.id}">${i18next.t('manager.group.activitiesPerGroup')}</label>
+                    <input type="number" id="max_activities_per_groups_${element.id}" value="${$infoapp.max_activities_per_groups}">
+
+                    <label class="form-check-label" for="max_activities_per_teachers_${element.id}">${i18next.t('manager.group.activitiesPerTeacher')}</label>
+                    <input type="number" id="max_activities_per_teachers_${element.id}" value="${$infoapp.max_activities_per_teachers}">
                 </div>
                 </div><hr>`;
             }
@@ -2450,6 +2470,8 @@ function resetInputApplications() {
     $('#app_create_image').val("");
     $('#validation_delete_application_id').val("");
     $('#validation_delete_application').val("");
+    $('#app_update_activity_restriction_value').val("");
+    $('#app_update_activity_restriction_type').val("");
 }
 
 function getAndShowApps() {
@@ -2468,21 +2490,29 @@ function getAndShowApps() {
                             <td>
                                 <a class="c-link-red" href="javascript:void(0)" onclick="deleteApp(${application.id}, '${application.name}')"><i class="fas fa-trash-alt fa-2x"></i></a>
                             </td>
-                            <td>
-                                <a class="c-link-tertiary" href="javascript:void(0)" onclick="activitiesRestrictionsCrud(${application.id})"><i class="fas fa-key fa-2x"></i></a>
-                            </td>
                         </tr>`;
         });
         $('#all-applications-crud').html(htmlApps);
     })
 }
 
+/*                             
+<td>
+    <a class="c-link-tertiary" href="javascript:void(0)" onclick="activitiesRestrictionsCrud(${application.id})"><i class="fas fa-key fa-2x"></i></a>
+</td> 
+*/
+
 function createApp() {
     openModalInState('#create-app-manager');
 }
 
 function updateApp(app_id) {
+    resetInputApplications();
     mainManager.getmanagerManager().getApplicationById(app_id).then((response) => {
+        mainManager.getmanagerManager().getActivityRestrictionFromApp(app_id).then((restriction) => {
+            $('#app_update_activity_restriction_value').val(restriction.max_per_teachers);
+            $('#app_update_activity_restriction_type').val(restriction.activity_type);
+        })
         $('#app_update_name').val(response.name);
         $('#app_update_description').val(response.description);
         $('#app_update_image').val(response.image);
@@ -2502,7 +2532,16 @@ function persistUpdateApp() {
     let $application_id = $('#app_update_id').val(),
         $application_name = $('#app_update_name').val(),
         $application_description = $('#app_update_description').val(),
-        $application_image = $('#app_update_image').val();
+        $application_image = $('#app_update_image').val(),
+        $application_restrictions_type = $('#app_update_activity_restriction_type').val(),
+        $application_restrictions_value = $('#app_update_activity_restriction_value').val();
+
+
+    mainManager.getmanagerManager().updateOneActivityRestriction($application_id, $application_restrictions_type, $application_restrictions_value).then((response) => {
+
+    })
+
+    //console.log($application_restrictions_type , $application_restrictions_value);
 
     mainManager.getmanagerManager().updateApplication(
         $application_id, 
@@ -2517,7 +2556,6 @@ function persistUpdateApp() {
             }
     })
 }
-
 
 
 function persistDeleteApp() {
@@ -2562,27 +2600,9 @@ function updateStoredApps() {
 }
 
 /**
- * Activities restrictions per applications WIP
+ * Activities restrictions per applications
  */
 
-
-function activitiesRestrictionsCrud(application_id) {
-    mainManager.getmanagerManager().getAllActivitiesRestrictions(application_id).then((response) => {
-        $('#application-id-for-restriction').val(application_id);
-        $('#all-restrictions-from-app').show();
-        let html = "";
-        $('#all-activities-restrictions-crud').html("");
-        response.forEach(restriction => {
-            html += `<tr>
-                        <td>${restriction.activity_type}</td>
-                        <td>${restriction.max_per_teachers}</td>
-                        <td><button class="btn btn-warning btn-sm" onclick="updateRestriction(${restriction.id})">${i18next.t('manager.buttons.update')}</button></td>
-                        <td><button class="btn btn-danger btn-sm" onclick="deleteRestriction(${restriction.id}, '${restriction.activity_type}')">${i18next.t('manager.buttons.delete')}</button></td>
-                    </tr>`;
-        });
-        $('#all-activities-restrictions-crud').html(html);
-    })
-}
 
 function updateRestriction(id) {
     crudActivityCloseViews();
@@ -2697,11 +2717,13 @@ function closeRestrictionDetail() {
 
 function getAllrestrictions() {
     mainManager.getmanagerManager().getDefaultRestrictions().then((response) => {
-        //console.log(res);
+
         let html = "";
         $('#all-default-restrictions').html("");
         response.forEach(restriction => {
-            let name = "", limitation = "", update = "";
+            let name = "", 
+                limitation = "", 
+                update = "";
             switch(restriction.name) {
                 case 'userDefaultRestrictions':
                     name = i18next.t(`manager.apps.usersLimitation`);
@@ -2720,15 +2742,6 @@ function getAllrestrictions() {
                     });
                     limitation += `</ul>`;
                     update = `<a class="c-link-secondary d-inline-block" href="javascript:void(0)" onclick="updateDefaultGroupsLimitation()"><i class="fas fa-pencil-alt fa-2x"></i></a>`;
-                    break;
-                case 'activitiesDefaultRestrictions':
-                    name = i18next.t(`manager.apps.activitiesLimitation`);
-                    limitation = `<ul class="m-0">`;
-                    Object.keys(restriction.restrictions).forEach(function(key){   
-                        limitation += `<li><span class="font-weight-bold">${key}</span> : ${restriction.restrictions[key]}</li>`;
-                    });
-                    limitation += `</ul>`;
-                    update = `<a class="c-link-secondary d-inline-block" href="javascript:void(0)" onclick="updateDefaultActivitiesLimitation()"><i class="fas fa-pencil-alt fa-2x"></i></a>`;
                     break;
                 default:
                     break;
@@ -2828,64 +2841,6 @@ function persistUpdateDefaultGroupsRestriction() {
     mainManager.getmanagerManager().updateDefaultGroupsRestrictions(maxStudentsValue, maxTeachersValue, maxStudentsPerTeacherValue).then((response) => {
         if (response.message == "success") {
             displayNotification('#notif-div', "manager.defaultRestrictions.updateGroupsRestrictionsSuccess", "success");
-            pseudoModal.closeAllModal();
-            getAllrestrictions();
-        }
-    })
-}
-
-function persistUpdateDefaultActivitiesRestriction() {
-    const restrictionsData = [];
-    allActualType.forEach((type) => {
-        restrictionsData.push([$('#default-activity-restriction-type-'+type).val(),$('#default-activity-restriction-value-'+type).val()])
-    })
-    mainManager.getmanagerManager().updateDefaultActivitiesRestrictions(JSON.stringify(restrictionsData)).then((response) => {
-        if (response.message == "success") {
-            displayNotification('#notif-div', "manager.defaultRestrictions.updateActivitiesRestrictionsSuccess", "success");
-            pseudoModal.closeAllModal();
-            getAllrestrictions();
-        }
-    })
-}
-
-function addDefaultActivitiesRestriction() {
-    let html = "";
-    html += `<div class="form-row mt-1 c-secondary-form">`
-    html += `<div class="col-md">`
-    html += `<label for="default-activity-restriction-type">${i18next.t('manager.defaultRestrictions.type')}</label>`;
-    html += `<input type="text" class="form-control" id="default-activity-restriction-type">`;
-    html += `</div>`;
-    html += `<div class="col-md">`
-    html += `<label for="default-activity-restriction-value">${i18next.t('manager.defaultRestrictions.max')}</label>`;
-    html += `<input type="number" class="form-control" id="default-activity-restriction-value">`;
-    html += `</div>`;
-    html += `</div>`;
-    html += `<button class="btn c-btn-secondary my-3 btn" onclick="persistAddDefaultActivitiesRestriction()">${i18next.t(`manager.buttons.validate`)}</button>`;
-    html += `<button class="btn c-btn-light my-3 btn" onclick="closeDefault()">${i18next.t(`manager.buttons.cancel`)}</button>`;
-    $('#update-default-restrictions').html(html);
-}
-
-
-
-function persistAddDefaultActivitiesRestriction() {
-    let restrictions = [$('#default-activity-restriction-type').val(),$('#default-activity-restriction-value').val()];
-    mainManager.getmanagerManager().addDefaultActivitiesRestrictions(JSON.stringify(restrictions)).then((response) => {
-        if (response.message == "success") {
-            displayNotification('#notif-div', "manager.defaultRestrictions.updateActivitiesRestrictionsSuccess", "success");
-            pseudoModal.closeAllModal();
-            getAllrestrictions();
-        } else if (response.message == "alreadyexist") {
-            displayNotification('#notif-div', "manager.defaultRestrictions.restrictionAlreadyExist", "error");
-            pseudoModal.closeAllModal();
-            getAllrestrictions();
-        }
-    })
-}
-
-function persistdeleteDefaultActivitiesRestriction(type) {
-    mainManager.getmanagerManager().deleteDefaultActivitiesRestrictions(type).then((response) => {
-        if (response.message == "success") {
-            displayNotification('#notif-div', "manager.defaultRestrictions.deleteActivitiesRestrictionsSuccess", "success");
             pseudoModal.closeAllModal();
             getAllrestrictions();
         }

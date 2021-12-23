@@ -829,6 +829,7 @@
 			}
 		},
 		"group": {
+			"generalInfo": "General information",
 			"add": "Add group",
 			"create": "Create group",
 			"delete": "Delete group",
@@ -884,8 +885,11 @@
 			"toManyStudentsInGroup": "The group cannot accommodate so many students, the teacher has too many students.",
 			"teachersPerGroup": "Teacher per group",
 			"studentsPerGroup": "Students per group",
+			"activitiesPerGroup": "Activities per group",
+			"activitiesPerTeacher": "Activities per teacher",
 			"studentsPerTeacher": "Students per teacher",
-			"maxStudents": "Maximum students"
+			"maxStudents": "Maximum students",
+			"maxActivities": "Maximum activities"
 		},
 		"title": {
 			"activeUsers": "Active users",
