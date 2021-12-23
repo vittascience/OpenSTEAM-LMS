@@ -267,7 +267,8 @@
 			"comments": "Write your comments there",
 			"bilan": {
 				"title": "Bilan",
-				"results": "Results"
+				"results": "Results",
+				"noComment": "No comment yet"
 			},
 			"form": {
 				"1": "Activity creation",

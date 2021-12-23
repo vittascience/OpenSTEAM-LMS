@@ -421,12 +421,19 @@ function statusActivity(activity, state = true) {
 // }
 
 function loadActivity(isDoable) {
+    
     ClassroomSettings.chrono = Date.now()
     $('#activity-introduction').hide()
     if (Activity.introduction != null && Activity.introduction != "") {
         $('#text-introduction').html(bbcodeToHtml(Activity.introduction))
         $('#activity-introduction').show()
     }
+
+    $('#activity-correction-container').hide()
+    if (Activity.correction != null) {
+        $('#activity-correction-container').show()
+    }
+
     $('#activity-title').html(Activity.activity.title)
     if (UserManager.getUser().isRegular) {
         if (Activity.correction >= 1) {
@@ -461,8 +468,13 @@ function loadActivity(isDoable) {
     if (UserManager.getUser().isRegular && Activity.correction > 0) {
         correction += '<div id="commentary-panel" class="c-primary-form"><label>' + i18next.t("classroom.activities.comments") + '</label><textarea id="commentary-textarea" style="width:100%" rows="8">' + Activity.commentary + '</textarea></div>'
     }
+
     if (!UserManager.getUser().isRegular && Activity.correction > 0) {
-        correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
+        if (Activity.commentary != null && Activity.commentary != "") {
+            correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
+        } else {
+            correction += '<div id="commentary-panel">' + i18next.t("classroom.activities.bilan.noComment") + '</div>'
+        }
     }
 
     if (UserManager.getUser().isRegular && Activity.correction > 0) {
@@ -471,7 +483,7 @@ function loadActivity(isDoable) {
     }
     $('#activity-content').html(bbcodeToHtml(content))
     $('#activity-correction').html(bbcodeToHtml(correction))
-    $('#activity-correction-container').show()
+
     if (isDoable == false) {
         $('#activity-validate').hide()
         $('#activity-save').hide()
