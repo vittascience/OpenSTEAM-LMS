@@ -15,7 +15,6 @@ function activityItem(activity, state) {
         ide = "arduino"
     }
 
-    console.log(state)
     if (state == "doneActivities") {
         if (activity.note == 3) {
             var activityStatus = "ribbon ribbon_accept"
