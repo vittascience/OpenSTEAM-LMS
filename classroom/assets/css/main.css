@@ -288,7 +288,6 @@ input:checked+.slider-mini {
 .theme-teacher,
 .theme-group-admin,
 .theme-super-admin {
-
     overflow: hidden;
 }
 
@@ -1534,6 +1533,46 @@ h3.section-done {
 
 /* ACTIVITY END */
 
+/* ACTIVITY ATTRIBUTION START */
+
+#list-student-attribute-modal>div {
+    border-bottom: solid 1px var(--classroom-cell);
+    font-weight: bolder;
+    margin: 0.5em;
+}
+
+#list-student-attribute-modal .student-list-button {
+    float: right;
+    width: 2em;
+    height: 2em;
+}
+
+#list-student-attribute-modal .student-list {
+    display: flex;
+    flex-direction: column;
+    border-top: solid 1px var(--classroom-cell);
+
+}
+
+#list-student-attribute-modal .student-list>.student-attribute-form-row {
+    padding: 0.5em 0;
+    display: flex;
+    align-items: center;
+}
+
+#list-student-attribute-modal .student-list>.student-attribute-form-row:not(:last-child) {
+    border-bottom: solid 1px var(--classroom-cell);
+}
+
+#list-student-attribute-modal .student-list>.student-attribute-form-row img {
+    height: 2.5em;
+    width: auto;
+    margin-right: 0.5em;
+}
+
+/* ACTIVITY ATTRIBUTION END */
+
+
 /* CLASSROOM START */
 
 .class-item {
@@ -2150,6 +2189,8 @@ i.line_height34 {
 
 
 }
+
+/* OTHERS */
 
 .table-students {
     border: solid 2px var(--classroom-primary);

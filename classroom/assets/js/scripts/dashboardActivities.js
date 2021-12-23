@@ -185,9 +185,9 @@ function classeList(classe, ref = null) {
     if (fullClassHasAttribution(classe, ref) == true) {
         checkedClass = "checked"
     }
-    let html = `<div class="col-12"><input type="checkbox" value="` + classe.classroom.id + `" ` + checkedClass + ` class ="list-students-classroom" >` + classe.classroom.name
-    html += `<button class="student-list-button" data-id="` + classe.classroom.id + `"><i class="fas fa-arrow-right"></i></button>`
-    html += `<div class="student-list" id="student-list-` + classe.classroom.id + `" style="display:none;">
+    let html = `<div class="col-10"><label><input type="checkbox" value="${classe.classroom.id}"${checkedClass} class ="list-students-classroom">${classe.classroom.name}</label>`
+    html += `<button class="student-list-button" data-id="${classe.classroom.id}"><i class="fas fa-chevron-right"></i></button>`
+    html += `<div class="student-list" id="student-list-${classe.classroom.id}" style="display:none;">
     `
     classe.students.forEach(student => {
         let checked = ""
@@ -196,7 +196,9 @@ function classeList(classe, ref = null) {
             ClassroomSettings.studentCount++
         }
 
-        html += '<p class="ml-3 student-attribute-form-row"><input type="checkbox" value="' + student.user.id + '" class="student-id" ' + checked + ' >' + student.user.pseudo + '</p>'
+        html += '<label class="ml-3 student-attribute-form-row"><input type="checkbox" value="' + student.user.id + '" class="student-id" ' + checked + ' >'
+        html += `<img src="${_PATH}assets/media/alphabet/${student.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil"></img>`
+        html += student.user.pseudo + '</label>'
     });
     html += `</div></div>`
     $('.student-number').html(ClassroomSettings.studentCount)
