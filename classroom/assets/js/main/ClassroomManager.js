@@ -941,7 +941,6 @@ class ClassroomManager {
                         'timePassed': chrono,
                         'classroomLink': ClassroomSettings.classroom,
                         'note': note
-
                     },
                     success: function (r) {
                         resolve(JSON.parse(r))
