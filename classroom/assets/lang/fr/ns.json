@@ -266,7 +266,8 @@
 			"comments": "Entrez ici vos remarques",
 			"bilan": {
 				"title": "Bilan",
-				"results": "Résultats"
+				"results": "Résultats",
+				"noComment": "Aucun commentaire"
 			},
 			"form": {
 				"1": "Création de l'activité",
