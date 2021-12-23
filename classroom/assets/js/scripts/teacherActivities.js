@@ -188,8 +188,8 @@ $('body').on('click', '#attribute-activity-to-students', function () {
 //déplie/replie la liste des étudiants
 $('body').on('click', '.student-list-button', function () {
     $(this).next().toggle()
-    $(this).find('i').toggleClass('fa-arrow-right')
-    $(this).find('i').toggleClass('fa-arrow-down')
+    $(this).find('i').toggleClass('fa-chevron-right')
+    $(this).find('i').toggleClass('fa-chevron-down')
 })
 
 //création/modification de l'activité

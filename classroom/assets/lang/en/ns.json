@@ -10,9 +10,9 @@
 			"neutralTitle": "Open STEAM LMS",
 			"subtitle": "Discover - Learn - Share",
 			"login": "Log in",
-			"activities": "easily create </br> your activities",
-			"attribute": "assign them </br> to your students",
-			"visualize": "visualize </br> their results",
+			"activities": "Easily create </br> your activities",
+			"attribute": "Assign them </br> to your students",
+			"visualize": "Visualize </br> their results",
 			"helpers": " By our side to <span>accompany you.</span>",
 			"student": "STUDENT",
 			"codeInput": " Enter your Classroom code",
@@ -36,15 +36,15 @@
 			},
 			"carousel": {
 				"activities": {
-					"title": "easily create your activities",
+					"title": "Easily create your activities",
 					"content": "The activity editor makes it easy to create instructional content by including text, images, videos, Vittascience APIs, Genially presentations, and more.</br></br>Browse the Vittascience collaborative resource bank, which includes several hundred free and reusable activities. If the author of a resource allows it, you can even make changes to adapt the content to your students."
 				},
 				"attribute": {
-					"title": "assign them to your students",
+					"title": "Assign them to your students",
 					"content": "Once your activities have been created, you can assign them to your students. They can be assigned individually or to entire groups, such as a class or science club.</br></br>Students can securely log in using a Classroom code, link, QR code, or GAR, and complete their assigned activities."
 				},
 				"visualize": {
-					"title": "visualize their results",
+					"title": "Visualize their results",
 					"content": "The dashboard allows you to track students' progress as they move through the activities and courses. Find your students' work in one click and leave comments.</br></br>Thanks to the automatic validation/correction system for blocks and Python, the dashboard fills up automatically with your students' results. Rapidly identify struggling students, gaining valuable time to accompany them."
 				}
 			},
@@ -217,6 +217,8 @@
 		},
 		"classes": {
 			"add": "Add a new classroom",
+			"noClasses": "You don't have a class yet.",
+			"createClassNow": "Start by creating a class now!",
 			"form": {
 				"title": "Add a classroom",
 				"name": "Classroom name",
@@ -237,7 +239,9 @@
 				"editNickname": "Edit your nickname",
 				"delete": "Delete",
 				"copyLink": "Copy the direct link",
-				"learnerMode": "Learner mode"
+				"learnerMode": "Learner mode",
+				"dueBy":"Due by"
+
 			}	
 		},
 		"activities": {
@@ -258,7 +262,7 @@
 			"refuse": "Insufficient proficiency",
 			"instruction": "Instructions",
 			"commentary": "Comment",
-			"sendResults": "Send the comment to the learner ",
+			"sendResults": "Send the comment ",
 			"noSend": "This activity hasn't been returned",
 			"comments": "Write your comments there",
 			"bilan": {
@@ -305,8 +309,8 @@
 			"exportCsv": "Export csv"
 		},
 		"filter": {
-			"desc": "From oldest to newest",
-			"asc": "From newest to oldest",
+			"desc": "Oldest to newest",
+			"asc": "Newest to oldest",
 			"placeholder": "Search..."
 		},
 		"sandbox": {

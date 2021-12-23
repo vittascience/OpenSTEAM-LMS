@@ -290,7 +290,6 @@
     background-repeat: no-repeat, repeat;
     background-position: right .7em top 50%, 0 0;
     background-size: 1em auto, 100%;
-    text-transform: uppercase;
     padding-right: 2em;
 }
 
@@ -313,6 +312,18 @@
 .c-tertiary-form .input-group-text {
     border-color: var(--classroom-tertiary);
     background: var(--classroom-tertiary);
+}
+
+/* Accent colors where supported */
+
+.c-primary-form {
+    accent-color: var(--classroom-primary);
+}
+.c-secondary-form {
+    accent-color: var(--classroom-secondary);
+}
+.c-tertiary-form {
+    accent-color: var(--classroom-tertiary);
 }
 
 /* Search */
@@ -432,4 +443,23 @@ hr {
 
 .wysibb .wysibb-toolbar .wysibb-toolbar-container {
     border-color: var(--classroom-primary) !important;
+}
+
+/* Vertical align center utility */
+
+.vertical-align-center {
+   display: flex;
+   align-items: center;
+}
+
+/* Masked class to hide text */
+@font-face {
+    font-family: 'password';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://jsbin-user-assets.s3.amazonaws.com/rafaelcastrocouto/password.ttf);
+}
+
+.masked {
+    font-family: 'password';
 }
