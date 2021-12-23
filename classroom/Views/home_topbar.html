@@ -1,49 +1,50 @@
-<div id="classroom-dashboard-content">
-    <div id="classroom-dashboard-top-bar">
-        <!-- Breadcrumb -->
-        <div id="breadcrumb" class="row ml-2 mr-auto"></div>
+<div id="classroom-dashboard-top-bar">
+    <!-- Breadcrumb -->
+    <div id="breadcrumb" class="row ml-2 mr-auto"></div>
 
-        <div id="notif-div"></div>
-        <button class="btn c-btn-secondary" type="button" id="questionMenuButton" style="display: none;">
-            <i class="fas fa-question"></i>
+    <div id="notif-div"></div>
+    <button class="btn c-btn-secondary" type="button" id="questionMenuButton" style="display: none;">
+        <i class="fas fa-question"></i>
+    </button>
+    <div class="dropdown" style="align-self: flex-end;">
+        <button class="btn dropdown-toggle c-btn-primary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-low-vision"></i>
         </button>
-        <div class="dropdown" style="align-self: flex-end;">
-            <button class="btn dropdown-toggle c-btn-primary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-low-vision"></i>
-            </button>
-            <div class="dropdown-menu a11y-dropdown" aria-labelledby="dropdownMenuButton">
-                <form action="javascript:void(0);" id="access-form">
-                    <h5 class="c-text-primary text-center"><i class="fas fa-low-vision"></i> <span data-i18n='switchAccessibility.title'></span></h5>
+        <div class="dropdown-menu a11y-dropdown" aria-labelledby="dropdownMenuButton">
+            <form action="javascript:void(0);" id="access-form">
+                <h5 class="c-text-primary text-center"><i class="fas fa-low-vision"></i> <span data-i18n='switchAccessibility.title'></span></h5>
 
-                    <h5 data-i18n='switchAccessibility.theme'>Thème</h5>
-                    <div style="margin: 0 auto; width: 196px">
-                        <input type="radio" id="radio-light-theme" name="theme" value="light">
-                        <label for="radio-light-theme" data-i18n='switchAccessibility.light_theme'>Thème
-                            clair</label><br>
+                <h5 data-i18n='switchAccessibility.theme'>Thème</h5>
+                <div style="margin: 0 auto; width: 196px">
+                    <input type="radio" id="radio-light-theme" name="theme" value="light">
+                    <label for="radio-light-theme" data-i18n='switchAccessibility.light_theme'>Thème
+                        clair</label><br>
 
-                        <input type="radio" id="radio-dark-theme" name="theme" value="dark">
-                        <label for="radio-dark-theme" data-i18n='switchAccessibility.dark_theme'>Thème
-                            sombre</label><br>
-                    </div>
+                    <input type="radio" id="radio-dark-theme" name="theme" value="dark">
+                    <label for="radio-dark-theme" data-i18n='switchAccessibility.dark_theme'>Thème
+                        sombre</label><br>
+                </div>
 
-                    <h5 data-i18n='switchAccessibility.font'>Polices</h5>
-                    <div style="margin: 0 auto; width: 196px">
-                        <input type="radio" id="radio-basic-font" name="font" value="basic">
-                        <label for="radio-basic-font" style="font-family: 'Montserrat'!important" data-i18n='switchAccessibility.basic_font'>Basique</label><br>
+                <h5 data-i18n='switchAccessibility.font'>Polices</h5>
+                <div style="margin: 0 auto; width: 196px">
+                    <input type="radio" id="radio-basic-font" name="font" value="basic">
+                    <label for="radio-basic-font" style="font-family: 'Montserrat'!important" data-i18n='switchAccessibility.basic_font'>Basique</label><br>
 
-                        <input type="radio" id="radio-luciole-font" name="font" value="luciole">
-                        <label for="radio-luciole-font" style="font-family: 'Luciole'!important">Luciole</label><br>
+                    <input type="radio" id="radio-luciole-font" name="font" value="luciole">
+                    <label for="radio-luciole-font" style="font-family: 'Luciole'!important">Luciole</label><br>
 
-                        <input type="radio" id="radio-dys-font" name="font" value="dys">
-                        <label for="radio-dys-font" style="font-family: 'OpenDyslexic'!important">OpenDyslexic</label><br>
+                    <input type="radio" id="radio-dys-font" name="font" value="dys">
+                    <label for="radio-dys-font" style="font-family: 'OpenDyslexic'!important">OpenDyslexic</label><br>
 
-                        <input type="radio" id="radio-arial-font" name="font" value="arial">
-                        <label for="radio-arial-font" style="font-family: 'Arial'!important">Arial</label><br>
+                    <input type="radio" id="radio-arial-font" name="font" value="arial">
+                    <label for="radio-arial-font" style="font-family: 'Arial'!important">Arial</label><br>
 
-                        <input type="radio" id="radio-verdana-font" name="font" value="verdana">
-                        <label for="radio-verdana-font" style="font-family: 'Verdana'!important">Verdana</label><br>
-                    </div>
-                </form>
-            </div>
+                    <input type="radio" id="radio-verdana-font" name="font" value="verdana">
+                    <label for="radio-verdana-font" style="font-family: 'Verdana'!important">Verdana</label><br>
+                </div>
+            </form>
         </div>
     </div>
+</div>
+<div id="classroom-dashboard-content">
+    
