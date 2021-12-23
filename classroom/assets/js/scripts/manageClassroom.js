@@ -244,10 +244,7 @@ $('body').on('click', '.save-student-in-classroom', function () {
         $('.student-form-name').each(function (index) {
             if ($(this).val() != "") {
                 if (parseInt($(this).attr('data-id')) > 0) {
-                    existingStudents.push({
-                        'pseudo': $(this).val(),
-                        'id': $(this).attr('data-id')
-                    })
+                    existingStudents.push({'pseudo': $(this).val(), 'id': $(this).attr('data-id')})
                 } else {
                     students.push($(this).val())
                 }
@@ -256,7 +253,7 @@ $('body').on('click', '.save-student-in-classroom', function () {
         Main.getClassroomManager().addUsersToGroup(students, existingStudents, ClassroomSettings.classroom).then(function (response) {
             if(!response.isUsersAdded){
                 if(response.noUser){
-                    displayNotification('#notif-div', "classroom.notif.noUser", "error");
+                    displayNotification('#notif-div', "classroom.notif.noUserUsername", "error");
                     return;
                 }
                 /**
@@ -284,8 +281,10 @@ $('body').on('click', '.save-student-in-classroom', function () {
             $('#no-student-label').remove()
             $('#table-students ul').append(addStudentRow($('.student-form-name').val()))
             pseudoModal.closeModal('add-student-modal')
+            // Reset the input field
+            $('.student-form-name').val('');
         } else {
-            displayNotification('#notif-div', "classroom.notif.noUser", "error");
+            displayNotification('#notif-div', "classroom.notif.noUserUsername", "error");
         }
     }
 
@@ -362,16 +361,23 @@ function importLearnerCsv(){
                     let csv = event.target.result;
                     let lines = csv.split("\n");
                     let headers = lines[0].split(/[,;]/);
+
                     for(let i = 0; i < headers.length; i++) {
                         headers[i] = headers[i].replace("\r","");
                     }
                     
                     let missingPseudoError = false
                     for (let i = 1; i < lines.length; i++) {
+                        // sanitize the current line
+                        lines[i] = lines[i].replace(/(\r\n|\n|\r)/gm, "")
+                        // ignore current empty line
+                        // NOTE : EXCEL return a single character for an empty line when we use the "pseudo;password" example file
+                         if(lines[i] == '' || lines[i] ==';') continue 
+
                         let currentline = lines[i].split(/[,;]/);
                         
                         // set the error flag to true if the pseudo is missing in the csv
-                        if(currentline[0] == '') missingPseudoError = true;
+                        if(currentline[0].trim() == '') missingPseudoError = true;
 
                         // add the student into the students table
                         else $('#table-students ul').append(addStudentRow(currentline[0]));
@@ -452,12 +458,20 @@ function csvJSON(csv) {
     }
     
     for (let i = 1; i < lines.length; i++) {
+        // sanitize the current line
+        lines[i] = lines[i].replace(/(\r\n|\n|\r)/gm, "")
+        // ignore current empty line
+        // NOTE : EXCEL return a single character for an empty line when we use the "pseudo;password" example file
+        if(lines[i] == '' || lines[i] ==';') continue 
+
+        // create empty object to fill and split line data
         let obj = {};
         let currentline = lines[i].split(/[,;]/);
 
         for (let j = 0; j < headers.length; j++) {
             if(typeof currentline[j] != 'undefined' ){
-                obj[headers[j]] = currentline[j].replace("\r","");
+                // fill the object with data 
+                obj[headers[j]] = currentline[j].replace("\r","").trim();
             }
         }
         result.push(obj);
@@ -711,7 +725,7 @@ function filterTeacherActivityInList(keywords = [], orderBy = 'id', asc = true) 
 
     }
     regExp = new RegExp(expression)
-    let list = Main.getClassroomManager()._myTeacherActivities.filter(x => regExp.test(x.title.toUpperCase()) || regExp.test(x.content.toUpperCase()))
+    let list = Main.getClassroomManager()._myTeacherActivities.filter(x => regExp.test(x.title.toUpperCase()))
     if (asc) {
         return list.sort(function (a, b) {
             return a[orderBy] - b[orderBy];

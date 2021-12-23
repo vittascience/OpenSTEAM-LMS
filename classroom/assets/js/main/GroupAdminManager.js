@@ -140,7 +140,8 @@ class GroupAdminManager {
         let sort = $('#sort_users_filter_groupadmin').val(),
             usersPerPage = $('#users_per_page_groupadmin').val();
         const process = (data) => {
-            let $data_table = "";
+            let $data_table = "", 
+                $data_table_inactive = "";;
             data.forEach(element => {
 
                 if (element.hasOwnProperty('currentPage')) {
@@ -178,29 +179,59 @@ class GroupAdminManager {
                             }
                         });
                     }
-                    $data_table +=
-                        `<tr>
-                        <td>${element.surname}</td>
-                        <td>${element.firstname}</td>
-                        <td>${$droits}</td>
-                        <td>${div_img}</td>
-                        <td>
-                            <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPasswordga(${element.id})">
-                                <i class="fas fa-redo-alt fa-2x"></i>
-                            </a>
-                        </td>
-                        <td>
-                            <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal_groupadmin(${element.id})">
-                                <i class="fas fa-pencil-alt fa-2x"></i>
-                            </a>
-                        </td>
-                        <td>
-                            <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
-                        </td>
-                    </tr>`;
+                    let activeFlag = true;
+                    if (element.hasOwnProperty('active')) {
+                        if (element.active != "1") {
+                            activeFlag = false;
+                        }
+                    }
+
+                    if (activeFlag) {
+                        $data_table += `<tr>
+                            <td>${element.surname}</td>
+                            <td>${element.firstname}</td>
+                            <td>${$droits}</td>
+                            <td>${div_img}</td>
+                            <td>
+                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPasswordga(${element.id})">
+                                    <i class="fas fa-redo-alt fa-2x"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal_groupadmin(${element.id})">
+                                    <i class="fas fa-pencil-alt fa-2x"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.disable" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
+                            </td>
+                        </tr>`;
+                    } else {
+                        $data_table_inactive +=`<tr>
+                            <td>${element.surname}</td>
+                            <td>${element.firstname}</td>
+                            <td>${$droits}</td>
+                            <td>${div_img}</td>
+                            <td>
+                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPasswordga(${element.id})">
+                                    <i class="fas fa-redo-alt fa-2x"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal_groupadmin(${element.id})">
+                                    <i class="fas fa-pencil-alt fa-2x"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <button class="btn c-btn-primary btn-sm" data-i18n="manager.buttons.activate" onclick="activateUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.activate')} <i class="fas fa-user-minus"></i></button>
+                                <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="deleteUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
+                            </td>
+                        </tr>`;
+                    }
                 }
             });
             $('#table_info_group_data_groupadmin').html($data_table);
+            $('#table_info_group_data_groupadmin_inactive').html($data_table_inactive);
             $('[data-toggle="tooltip"]').tooltip()
         }
         $.ajax({
@@ -224,7 +255,9 @@ class GroupAdminManager {
     globalSearchUser($name, $page, $usersperpage) {
         const process = (res) => {
             mainGroupAdmin.getGroupAdminManager()._allMembersAndTheirGroups = res;
-            let $data_table = "";
+            let $data_table = "",
+                $data_table_inactive = "";
+
             res.forEach(element => {
                 if (element.hasOwnProperty('currentPage')) {
                     mainGroupAdmin.getGroupAdminManager()._paginationUsersInfo = element;
@@ -266,32 +299,66 @@ class GroupAdminManager {
                             }
                         });
                     }
+                    
+                    let activeFlag = true;
+                    if (element.hasOwnProperty('active')) {
+                        if (element.active != "1") {
+                            activeFlag = false;
+                        }
+                    }
 
-                    $data_table +=
-                        `<tr>
+                    if (activeFlag) {
+                        $data_table += `<tr>
                             <td>${element.surname}</td>
                             <td>${element.firstname}</td>
                             <td>${$droits}</td>
                             <td>${div_img}</td>
                             <td>
                                 <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPasswordga(${element.id})">
-                                <i class="fas fa-redo-alt fa-2x"></i>
+                                    <i class="fas fa-redo-alt fa-2x"></i>
                                 </a>
                             </td>
                             <td>
                                 <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal_groupadmin(${element.id})">
-                                <i class="fas fa-pencil-alt fa-2x"></i>
+                                    <i class="fas fa-pencil-alt fa-2x"></i>
                                 </a>
                             </td>
                             <td>
-                                <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
+                                <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.disable" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
                             </td>
                         </tr>`;
+                    } else {
+                        $data_table_inactive +=`<tr>
+                            <td>${element.surname}</td>
+                            <td>${element.firstname}</td>
+                            <td>${$droits}</td>
+                            <td>${div_img}</td>
+                            <td>
+                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPasswordga(${element.id})">
+                                    <i class="fas fa-redo-alt fa-2x"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal_groupadmin(${element.id})">
+                                    <i class="fas fa-pencil-alt fa-2x"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <button class="btn c-btn-primary btn-sm" data-i18n="manager.buttons.activate" onclick="activateUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.activate')} <i class="fas fa-user-minus"></i></button>
+                                <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="deleteUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
+                            </td>
+                        </tr>`;
+                    }
+
                 }
             });
+            // For active users
             $('#table_info_group_data_groupadmin').html($data_table);
+            // For inactive users
+            $('#table_info_group_data_groupadmin_inactive').html($data_table_inactive);
             $('[data-toggle="tooltip"]').tooltip()
         }
+
         $.ajax({
             type: "POST",
             url: "/routing/Routing.php?controller=groupadmin&action=global_search_user_by_name",
@@ -416,6 +483,44 @@ class GroupAdminManager {
             $.ajax({
                 type: "POST",
                 url: "/routing/Routing.php?controller=groupadmin&action=disable_user",
+                data: {
+                    user_id: $user_id
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+
+    activateUser($user_id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=groupadmin&action=activate_user",
+                data: {
+                    user_id: $user_id
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+
+    deleteUser($user_id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=groupadmin&action=delete_user",
                 data: {
                     user_id: $user_id
                 },
@@ -566,5 +671,24 @@ class GroupAdminManager {
                 }
             });
         })
+    }
+
+    helpRequestGroupAdmin(subject, message) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: 'POST',
+                url: '/routing/Routing.php?controller=groupadmin&action=help_request_from_groupadmin',
+                data: {
+                    'subject': subject,
+                    'message': message
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        });
     }
 }
