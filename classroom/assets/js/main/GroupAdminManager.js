@@ -203,7 +203,7 @@ class GroupAdminManager {
                                 </a>
                             </td>
                             <td>
-                                <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
+                                <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.disable" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
                             </td>
                         </tr>`;
                     } else {
@@ -223,7 +223,8 @@ class GroupAdminManager {
                                 </a>
                             </td>
                             <td>
-                                <button class="btn c-btn-primary btn-sm" data-i18n="manager.buttons.activate" onclick="activeUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.activate')} <i class="fas fa-user-minus"></i></button>
+                                <button class="btn c-btn-primary btn-sm" data-i18n="manager.buttons.activate" onclick="activateUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.activate')} <i class="fas fa-user-minus"></i></button>
+                                <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="deleteUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
                             </td>
                         </tr>`;
                     }
@@ -323,7 +324,7 @@ class GroupAdminManager {
                                 </a>
                             </td>
                             <td>
-                                <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
+                                <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.disable" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
                             </td>
                         </tr>`;
                     } else {
@@ -343,7 +344,8 @@ class GroupAdminManager {
                                 </a>
                             </td>
                             <td>
-                                <button class="btn c-btn-primary btn-sm" data-i18n="manager.buttons.activate" onclick="activeUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.activate')} <i class="fas fa-user-minus"></i></button>
+                                <button class="btn c-btn-primary btn-sm" data-i18n="manager.buttons.activate" onclick="activateUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.activate')} <i class="fas fa-user-minus"></i></button>
+                                <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="deleteUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
                             </td>
                         </tr>`;
                     }
@@ -481,6 +483,44 @@ class GroupAdminManager {
             $.ajax({
                 type: "POST",
                 url: "/routing/Routing.php?controller=groupadmin&action=disable_user",
+                data: {
+                    user_id: $user_id
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+
+    activateUser($user_id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=groupadmin&action=activate_user",
+                data: {
+                    user_id: $user_id
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response))
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+
+    deleteUser($user_id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=groupadmin&action=delete_user",
                 data: {
                     user_id: $user_id
                 },

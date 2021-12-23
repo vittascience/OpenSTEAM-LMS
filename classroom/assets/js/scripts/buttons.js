@@ -1679,6 +1679,29 @@ function deleteUser(id, name) {
 
 }
 
+/**
+ * 
+ * @param {*} id 
+ * @param {*} name 
+ */
+function deleteUserGroupAdmin(id, name) {
+    mainGroupAdmin.getGroupAdminManager()._actualUser = id;
+    $('#validation_deleteGroupAdmin').val("");
+    pseudoModal.openModal('groupadmin-delete-user');
+    $('#md_firstnameGA').text(name);
+}
+
+function activateUserGroupAdmin(id) {
+    mainGroupAdmin.getGroupAdminManager().activateUser(id).then((response) => {
+        if (response.message == "success") {
+            displayNotification('#notif-div', "manager.users.activated", "success");
+            mainGroupAdmin.getGroupAdminManager().getUsersFromGroup(mainGroupAdmin.getGroupAdminManager()._actualGroup, 1);
+        } else if (response.message == "missing data") {
+            displayNotification('#notif-div', "manager.users.errorActivation", "error");
+        }
+    })
+}
+
 function disableUser(id, name) {
     mainManager.getmanagerManager()._actualUser = id;
     $('#validation_disable').val("");
@@ -1689,7 +1712,7 @@ function disableUser(id, name) {
 function disableUserGroupAdmin(id, name) {
     mainGroupAdmin.getGroupAdminManager()._actualUser = id;
     $('#validation_deleteGroupAdmin').val("");
-    pseudoModal.openModal('groupadmin-delete-user');
+    pseudoModal.openModal('groupadmin-disable-user');
     $('#md_firstnameGA').text(name);
 }
 
@@ -1740,12 +1763,34 @@ function persistDelete() {
     }
 }
 
+function persistDisableGroupAdmin() {
+    let validation = $('#validation_disableGroupAdmin').val(),
+        placeholderWord = $('#validation_disableGroupAdmin').attr('placeholder');
+    const user = mainGroupAdmin.getGroupAdminManager()._actualUser;
+    if (validation == placeholderWord) {
+        mainGroupAdmin.getGroupAdminManager().disableUser(user).then((response) => {
+            if (response.message == "not_allowed") {
+                displayNotification('#notif-div', "manager.account.notAllowedDeleteUser", "error");
+            } else if (response.message == "success") {
+                displayNotification('#notif-div', "manager.users.userDeleted", "success");
+                mainGroupAdmin.getGroupAdminManager()._actualUser = 0;
+                pseudoModal.closeAllModal();
+                tempoAndShowUsersTableGroupAdmin()
+            } else {
+                displayNotification('#notif-div', "manager.account.missingData", "error");
+            }
+        })
+    } else {
+        displayNotification('#notif-div', "manager.input.writeDelete", "error");
+    }
+}
+
 function persistDeleteGroupAdmin() {
     let validation = $('#validation_deleteGroupAdmin').val(),
         placeholderWord = $('#validation_deleteGroupAdmin').attr('placeholder');
     const user = mainGroupAdmin.getGroupAdminManager()._actualUser;
     if (validation == placeholderWord) {
-        mainGroupAdmin.getGroupAdminManager().disableUser(user).then((response) => {
+        mainGroupAdmin.getGroupAdminManager().deleteUser(user).then((response) => {
             if (response.message == "not_allowed") {
                 displayNotification('#notif-div', "manager.account.notAllowedDeleteUser", "error");
             } else if (response.message == "success") {

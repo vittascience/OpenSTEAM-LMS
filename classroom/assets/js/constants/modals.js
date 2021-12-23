@@ -621,6 +621,29 @@ const classroomModals = {
     <button class="btn c-btn-secondary" onclick="updateUserModalGroupAdmin()" data-i18n="manager.buttons.user.update">Update user</button>`,
         footer: ``
     },
+    'groupadmin-disable-user': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'manager.users.delete'
+        },
+        content: `  <div id="delete-user-modal">
+                        <div class="col-12">
+                            <div class="alert" id="alertDisableUserGA" role="alert" style="display:none;"></div>
+                            <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="manager.users.disableConfirmationTitle">Confirmer la désactivation</h3>
+                            <p class="text-center" data-i18n="[html]manager.users.disableIntention">Vous vous apprêtez à désactiver l'utilisateur : <span id="mde_firstnameSA"></span></p>
+                            <div class="text-center c-secondary-form">
+                                <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>
+                                <input type="text" name="validation_disableGroupAdmin" id="validation_disableGroupAdmin" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                            </div>
+                            <div class="text-center">
+                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelDisableGroupAdmin()" data-i18n="manager.buttons.cancel">Annuler</button>
+                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDisableGroupAdmin()" data-i18n="manager.buttons.validate">Valider</button>
+                            </div>
+                        </div>
+                    </div>`,
+        footer: ``
+    },
     'groupadmin-delete-user': {
         selector: '',
         header: {

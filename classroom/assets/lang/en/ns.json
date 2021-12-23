@@ -693,6 +693,8 @@
 		"users": {
 			"users": "Users",
 			"add": "Add user",
+			"activated": "The account has been activated.",
+			"errorActivation": "An error occurred during activation.",
 			"create": "Create user",
 			"delete": "Delete user",
 			"deleteConfirmation": "Please write \"delete\" in the field below to validate the action.",

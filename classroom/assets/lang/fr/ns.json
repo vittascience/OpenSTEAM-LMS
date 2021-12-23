@@ -986,6 +986,8 @@
 		"users": {
 			"users": "Utilisateurs",
 			"add": "Ajouter un utilisateur",
+			"activated": "Le compte a été activé avec succès.",
+			"errorActivation": "Une erreur est survenue lors de l'activation du compte.",
 			"create": "Créer un utilisateur",
 			"delete": "Supprimer un utilisateur",
 			"deleteConfirmation": "Veuillez écrire \"supprimer\" dans le champ si dessous pour valider l'action.",
