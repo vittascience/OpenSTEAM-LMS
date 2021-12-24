@@ -333,6 +333,7 @@ button {
 
 #classroom-dashboard-background {
     padding: 2em;
+    padding-top: 1em;
     padding-left: 1em;
     background: var(--classroom-dashboard);
     height: 100vh;
@@ -464,6 +465,9 @@ button {
     display: grid;
     grid-auto-flow: row;
     height: 100%;
+
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 150px 1fr;
 }
 
 #classroom-dashboard-top-bar {
