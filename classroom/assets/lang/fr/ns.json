@@ -17,16 +17,16 @@
 			"student": "APPRENANT",
 			"codeInput": " Rentrez ici votre code classe",
 			"teacher": "ENSEIGNANT",
-			"hasAccount": "Vous avez déja un compte ?",
+			"hasAccount": "Vous avez déjà un compte ?",
 			"gar": "Profitez du module classe en toute simplicité à l'aide du GAR.</br><i class=\"fas fa-exclamation-triangle\" style=\"color:var(--vitta-orange-light)\"></i> Le raccordement au GAR n’est pas encore finalisé, il sera prêt prochainement.",
 			"signup": "S'INSCRIRE",
-			"firstVisit": "Première viste ? Veuillez choisir un identifiant.",
+			"firstVisit": "Première visite ? Veuillez choisir un identifiant.",
 			"signin": "SE CONNECTER",
 			"registerLink": "S'inscrire",
 			"hasReturned": "De retour dans cette classe ?",
 			"forgot": "J'ai oublié mon mot de passe",
 			"error": {
-				"used": "Ce pseudo est déja utilisé, veuillez en choisir un autre",
+				"used": "Ce pseudo est déjà utilisé, veuillez en choisir un autre",
 				"badInput": "Votre pseudo ou mot de passe est erroné."
 			},
 			"suscribe": {
@@ -36,8 +36,8 @@
 			},
 			"carousel": {
 				"activities": {
-					"title": "créez facilementvos activités",
-					"content": "L'éditeur d'activité permet de créer du contenu pédagogique en toute simplicité, en incluant du texte, des images, des vidéos, des interfaces de programmation Vittascience, des présentations Genially et bien d'autres outils.</br></br>Parcourez la banque de ressources collaboratives Vittascience, qui regroupe plusieurs centaines d'activités libres et réutilisables. Si l'auteur de la ressourcel'autorise, vous pouvez même apporter des modifications pour adapter le contenu à vos apprenants !"
+					"title": "créez facilement vos activités",
+					"content": "L'éditeur d'activité permet de créer du contenu pédagogique en toute simplicité, en incluant du texte, des images, des vidéos, des interfaces de programmation Vittascience, des présentations Genially et bien d'autres outils.</br></br>Parcourez la banque de ressources collaboratives Vittascience, qui regroupe plusieurs centaines d'activités libres et réutilisables. Si l'auteur de la ressource l'autorise, vous pouvez même apporter des modifications pour adapter le contenu à vos apprenants !"
 				},
 				"attribute": {
 					"title": "attribuez les à vos apprenants",
@@ -186,9 +186,9 @@
 			"bothLimitationsReached": "Vous avez atteint les limitations d'apprenants que vous et votre groupe pouvez avoir.",
 			"ClassroomNameInvalid": "Le nom de la classe est requis",
 			"reservedNickname": "Le nom : \"{{reservedNickname}}\" ne peut être attribué.",
-			"invalidLink": "Le lien que vous avez entrer n'est pas valide",
+			"invalidLink": "Le lien que vous avez entré n'est pas valide",
 			"noUser" : "Vous devez renseigner un élève",
-			"pseudoMissingInCsvFile" : "Certains élèves n'ont pu être ajouter car leur pseudo était manquant",
+			"pseudoMissingInCsvFile" : "Certains élèves n'ont pu être ajouté car leur pseudo était manquant",
 			"backendReplyPseudoMissingInCsv" : "Vérifier le fichier CSV : ligne vide ou pseudo manquant",
 			"backendReplyPseudoMissingInUsersArray" : "Il y a une erreur dans un ou plusieurs nom d'apprenant(s)"
 		},
