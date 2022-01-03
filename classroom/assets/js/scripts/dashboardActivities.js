@@ -15,18 +15,28 @@ function activityItem(activity, state) {
         ide = "arduino"
     }
 
-
-    if (activity.correction == 2) {
-        var status = "green-border"
-    } else if (activity.correction == 3) {
-        var status = "red-border"
-    } else if (activity.correction == 1) {
-        var status = "blue-border"
-    } else {
-        var status = "new-exercise"
+    if (state == "doneActivities") {
+        if (activity.note == 3) {
+            var activityStatus = "ribbon ribbon_accept"
+            var activityStatusTitle = i18next.t('classroom.activities.veryGoodProficiency')
+        } else if (activity.note == 2) {
+            var activityStatus = "ribbon ribbon_vgood"
+            var activityStatusTitle = i18next.t('classroom.activities.goodProficiency')
+        } else if (activity.note == 1) {
+            var activityStatus = "ribbon ribbon_good"
+            var activityStatusTitle = i18next.t('classroom.activities.weakProficiency')
+        } else if (activity.note == 0) {
+            var activityStatus = "ribbon ribbon_refuse"
+            var activityStatusTitle = i18next.t('classroom.activities.insufficientProficiency')
+        } else {
+            var activityStatus = ""
+            var activityStatusTitle = "?"
+        }
     }
+
     let html = `<div class="activity-item">
-                    <div class="activity-card activity-card-` + ide + ` ` + status + `">
+                    <div class="activity-card activity-card-` + ide + `">
+                        <div class="${activityStatus}" data-toggle="tooltip" title="${activityStatusTitle}"><div class="ribbon__content"></div></div>
                         <div class="activity-card-top">
                         </div>
                         <div class="activity-card-mid"></div>
@@ -38,7 +48,7 @@ function activityItem(activity, state) {
     }
 
     html += `</div></div></div>`
-    html += `<h3 class="activity-item-title">${activity.activity.title}</h3>`
+    html += `<h3 data-toggle="tooltip" title="${activity.activity.title}" class="activity-item-title">${activity.activity.title}</h3>`
     html += `</div>`
 
     return html;
@@ -97,7 +107,7 @@ function teacherActivityItem(activity) {
                         <div class="info-tutorials" data-id="${activity.id}">
                     </div>
                 </div></div>`
-    html += `<h3 class="activity-item-title">${activity.title}</h3></div>`
+    html += `<h3 data-toggle="tooltip" title="${activity.title}" class="activity-item-title">${activity.title}</h3></div>`
 
     return html;
 }
@@ -142,7 +152,7 @@ function getRemainingCorrections(students) {
     let remainingCorrectionCount = 0;
     for (let student of students) {
         for (let activity of student.activities) {
-            if (activity.correction == 1){
+            if (activity.correction == 1) {
                 remainingCorrectionCount++;
             }
         }
@@ -174,9 +184,9 @@ function classeList(classe, ref = null) {
     if (fullClassHasAttribution(classe, ref) == true) {
         checkedClass = "checked"
     }
-    let html = `<div class="col-12"><input type="checkbox" value="` + classe.classroom.id + `" ` + checkedClass + ` class ="list-students-classroom" >` + classe.classroom.name
-    html += `<button class="student-list-button" data-id="` + classe.classroom.id + `"><i class="fas fa-arrow-right"></i></button>`
-    html += `<div class="student-list" id="student-list-` + classe.classroom.id + `" style="display:none;">
+    let html = `<div class="col-10"><label><input type="checkbox" value="${classe.classroom.id}"${checkedClass} class ="list-students-classroom">${classe.classroom.name}</label>`
+    html += `<button class="student-list-button" data-id="${classe.classroom.id}"><i class="fas fa-chevron-right"></i></button>`
+    html += `<div class="student-list" id="student-list-${classe.classroom.id}" style="display:none;">
     `
     classe.students.forEach(student => {
         let checked = ""
@@ -185,7 +195,9 @@ function classeList(classe, ref = null) {
             ClassroomSettings.studentCount++
         }
 
-        html += '<p class="ml-3 student-attribute-form-row"><input type="checkbox" value="' + student.user.id + '" class="student-id" ' + checked + ' >' + student.user.pseudo + '</p>'
+        html += '<label class="ml-3 student-attribute-form-row"><input type="checkbox" value="' + student.user.id + '" class="student-id" ' + checked + ' >'
+        html += `<img src="${_PATH}assets/media/alphabet/${student.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil"></img>`
+        html += student.user.pseudo + '</label>'
     });
     html += `</div></div>`
     $('.student-number').html(ClassroomSettings.studentCount)
@@ -255,12 +267,12 @@ $(document).on('keyup', function (e) {
 });
 $('body').on('click', '.list-students-classroom', function () {
     let isChecked = $(this).is(':checked')
-    let studentCheckbox = $(this).parent().find('.student-list input')
+    let studentCheckbox = $(this).parent().parent().find('.student-list input')
     studentCheckbox.each(function () {
         if (isChecked) {
-            $(this).prop('checked', true);
+            $(this).prop('checked', true).change();;
         } else {
-            $(this).prop('checked', false);
+            $(this).prop('checked', false).change();;
         }
     });
 })
@@ -326,12 +338,12 @@ function statusActivity(activity, state = true) {
     if (activity.correction == 0 || activity.correction == null) {
         if (state == true)
             return "fas fa-stopwatch"
-        if (state == "csv"){
+        if (state == "csv") {
             switch (activity.correction) {
                 case 0:
                     return "Pas encore réalisé"
                     break;
-            
+
                 case null:
                     return "Pas encore réalisé"
                     break;
@@ -409,12 +421,19 @@ function statusActivity(activity, state = true) {
 // }
 
 function loadActivity(isDoable) {
+    
     ClassroomSettings.chrono = Date.now()
     $('#activity-introduction').hide()
     if (Activity.introduction != null && Activity.introduction != "") {
         $('#text-introduction').html(bbcodeToHtml(Activity.introduction))
         $('#activity-introduction').show()
     }
+
+    $('#activity-correction-container').hide()
+    if (Activity.correction != null) {
+        $('#activity-correction-container').show()
+    }
+
     $('#activity-title').html(Activity.activity.title)
     if (UserManager.getUser().isRegular) {
         if (Activity.correction >= 1) {
@@ -440,23 +459,31 @@ function loadActivity(isDoable) {
         content = content
     }
     let correction = ''
+
+    correction += `<h4 class="c-text-primary text-center font-weight-bold">${i18next.t('classroom.activities.bilan.results')}</h4>`
     if (Activity.correction == 1) {
-        correction += `<div class="activity-correction-header d-flex justify-content-between"><h3>` + i18next.t('classroom.activities.bilan.results') + `</h3><i class="fas fa-chevron-right fa-2x" ></i></div><div id='giveNote' ><div onclick="setNote(3,'givenote-3')" id="givenote-3" class="note-choice"><i class="fas fa-check"></i>` + i18next.t('classroom.activities.accept') + ` </div><div onclick="setNote(2,'givenote-2')" id="givenote-2" class="note-choice" ><i class="fas fa-check"></i>` + i18next.t('classroom.activities.vgood') + ` </div><div onclick="setNote(1,'givenote-1')" id="givenote-1" class="note-choice" ><i class="fas fa-check"></i>` + i18next.t('classroom.activities.good') + ` </div><div onclick="setNote(0,'givenote-0')" id="givenote-0" class="note-choice" ><i class="fas fa-check"></i>` + i18next.t('classroom.activities.refuse') + ` </div></div>`
+        correction += `<div class="giveNote-container c-primary-form"><label for="givenote-3" onclick="setNote(3)"><input type="radio" id="givenote-3" name="giveNote" value="3">${" " + i18next.t('classroom.activities.accept')}</label><label for="givenote-2" onclick="setNote(2)"><input type="radio" id="givenote-2" name="giveNote" value="2">${" " + i18next.t('classroom.activities.vgood')}</label><label for="givenote-1" onclick="setNote(1)"><input type="radio" id="givenote-1" name="giveNote" value="1">${" " + i18next.t('classroom.activities.good')}</label><label for="givenote-0" onclick="setNote(0)"><input type="radio" id="givenote-0" name="giveNote" value="0">${" " + i18next.t('classroom.activities.refuse')}</label></div>`
 
     }
     if (UserManager.getUser().isRegular && Activity.correction > 0) {
-        correction += '<div id="commentary-panel" class="c-primary-form"><label>' + i18next.t("classroom.activities.comments") + '</label><textarea id="commentary-textarea" style="width:90%" rows="8">' + Activity.commentary + '</textarea></div>'
+        correction += '<div id="commentary-panel" class="c-primary-form"><label>' + i18next.t("classroom.activities.comments") + '</label><textarea id="commentary-textarea" style="width:100%" rows="8">' + Activity.commentary + '</textarea></div>'
     }
+
     if (!UserManager.getUser().isRegular && Activity.correction > 0) {
-        correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
+        if (Activity.commentary != null && Activity.commentary != "") {
+            correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
+        } else {
+            correction += '<div id="commentary-panel">' + i18next.t("classroom.activities.bilan.noComment") + '</div>'
+        }
     }
 
     if (UserManager.getUser().isRegular && Activity.correction > 0) {
 
-        correction += '<button onclick="giveNote()" class="btn c-btn-primary">' + i18next.t('classroom.activities.sendResults') + '<i class="fas fa-chevron-right"> </i></button>'
+        correction += '<button onclick="giveNote()" class="btn c-btn-primary btn-sm text-wrap w-100"><span class="text-wrap">' + i18next.t('classroom.activities.sendResults') + '<i class="fas fa-chevron-right"> </i></span></button>'
     }
     $('#activity-content').html(bbcodeToHtml(content))
-    $('#activity-correction').html(bbcodeToHtml(correction)).show()
+    $('#activity-correction').html(bbcodeToHtml(correction))
+
     if (isDoable == false) {
         $('#activity-validate').hide()
         $('#activity-save').hide()

@@ -86,15 +86,14 @@ $('body').on('click', '.class-card', function () {
     }
 })
 
-function setNote(note, el) {
+function setNote(note) {
+    alert(note)
     Activity.note = note
     if (note > 1) {
         Activity.correction = 2
     } else {
         Activity.correction = 3
     }
-    $('.note-choice').removeClass('selectNote')
-    $('#' + el).addClass('selectNote')
 }
 
 function giveNote() {
@@ -245,10 +244,7 @@ $('body').on('click', '.save-student-in-classroom', function () {
         $('.student-form-name').each(function (index) {
             if ($(this).val() != "") {
                 if (parseInt($(this).attr('data-id')) > 0) {
-                    existingStudents.push({
-                        'pseudo': $(this).val(),
-                        'id': $(this).attr('data-id')
-                    })
+                    existingStudents.push({'pseudo': $(this).val(), 'id': $(this).attr('data-id')})
                 } else {
                     students.push($(this).val())
                 }
@@ -257,7 +253,7 @@ $('body').on('click', '.save-student-in-classroom', function () {
         Main.getClassroomManager().addUsersToGroup(students, existingStudents, ClassroomSettings.classroom).then(function (response) {
             if(!response.isUsersAdded){
                 if(response.noUser){
-                    displayNotification('#notif-div', "classroom.notif.noUser", "error");
+                    displayNotification('#notif-div', "classroom.notif.noUserUsername", "error");
                     return;
                 }
                 /**
@@ -285,8 +281,10 @@ $('body').on('click', '.save-student-in-classroom', function () {
             $('#no-student-label').remove()
             $('#table-students ul').append(addStudentRow($('.student-form-name').val()))
             pseudoModal.closeModal('add-student-modal')
+            // Reset the input field
+            $('.student-form-name').val('');
         } else {
-            displayNotification('#notif-div', "classroom.notif.noUser", "error");
+            displayNotification('#notif-div', "classroom.notif.noUserUsername", "error");
         }
     }
 
@@ -727,7 +725,7 @@ function filterTeacherActivityInList(keywords = [], orderBy = 'id', asc = true) 
 
     }
     regExp = new RegExp(expression)
-    let list = Main.getClassroomManager()._myTeacherActivities.filter(x => regExp.test(x.title.toUpperCase()) || regExp.test(x.content.toUpperCase()))
+    let list = Main.getClassroomManager()._myTeacherActivities.filter(x => regExp.test(x.title.toUpperCase()))
     if (asc) {
         return list.sort(function (a, b) {
             return a[orderBy] - b[orderBy];
@@ -816,12 +814,15 @@ function displayStudentsInClassroom(students, link=false) {
         for(let i=0; i<arrayIndexesActivities.length; i++){
             if (element.user.pseudo == demoStudentName) {
                 $('#header-table-teach').append(`
-                <th>
+                <th data-toggle="tooltip" data-placement="top" title="${ arrayIndexesActivities[i].title }">
                     <div class="dropdown dropdown-act" style="width:30px;">
                         <div id="dropdown-act-${activityNumber}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="span-act">Act.</br>n°${ activityNumber }</span>
-                            <i style="display:none;font-size:2em;" class="fa fa-cog i-act" aria-hidden="true"></i><div class="dropdown-menu" aria-labelledby="dropdown-act-${activityNumber}"  data-id="${arrayIndexesActivities[i].id}" style="text-transform: none;">
-                            <li class="ml-5" style="border-bottom:solid 2px black;"><b>${ arrayIndexesActivities[i].title }</b></li>
+                            <i style="display:none;font-size:2em;" class="fa fa-cog i-act" aria-hidden="true"></i>
+                            <div class="dropdown-menu" aria-labelledby="dropdown-act-${activityNumber}" data-id="${arrayIndexesActivities[i].id}" style="text-transform: none;">
+                            <li class="ml-5" style="border-bottom:solid 2px black;">
+                                <b>${ arrayIndexesActivities[i].title }</b>
+                            </li>
                             <li class="classroom-clickable col-12 dropdown-item " onclick="activityWatch(${arrayIndexesActivities[i].id})" ><i class="fas fa-eye"></i> <span data-i18n="classroom.classes.panel.seeActivity">Voir l'activité</span></li>
                             <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${arrayIndexesActivities[i].id})"><i class="fas fa-pen"></i> <span data-i18n="classroom.classes.panel.editActivity">Modifier l'activité</span></li>
                             <li class="classroom-clickable col-12 dropdown-item" onclick="attributeActivity(${arrayIndexesActivities[i].id},${arrayIndexesActivities[i].reference})"><i class="fas fa-user-alt"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span></li>
@@ -834,9 +835,9 @@ function displayStudentsInClassroom(students, link=false) {
             // Display the current student activities in the dashboard
             let currentActivity = arrayActivities[i];
             if (currentActivity) {
-                html += '<td class="' + statusActivity(currentActivity) + ' bilan-cell classroom-clickable" data-state="' + statusActivity(currentActivity, false) + '" data-id="' + currentActivity.id + '" title="A rendre avant le ' + formatDay(currentActivity.dateEnd) + '"></td>';
+                html += `<td class=" ${statusActivity(currentActivity)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>"></td>`;
             } else {
-                html += '<td class="no-activity bilan-cell" "></td>';
+                html += `<td class="no-activity bilan-cell" "></td>`;
             }
         }
         // addition of 6 "empty" cells at the end of the current table row
@@ -846,6 +847,7 @@ function displayStudentsInClassroom(students, link=false) {
         // end of the current table row
         html += '</tr>';
         $('#body-table-teach').append(html).localize();
+        $('[data-toggle="tooltip"]').tooltip()
     });
     
     $('#add-student-container').append(`<button id="add-student-dashboard-panel" class="btn c-btn-primary"><span data-i18n="classroom.activities.addLearners">Ajouter des apprenants</span> <i class="fas fa-plus"></i></button>`).localize();

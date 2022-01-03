@@ -10,9 +10,9 @@
 			"neutralTitle": "Open STEAM LMS",
 			"subtitle": "Découvrir - Apprendre - Partager",
 			"login": "Se connecter",
-			"activities": "créez facilement </br> vos activités",
-			"attribute": "attribuez les </br> à vos apprenants",
-			"visualize": "visualisez </br> leurs résultats",
+			"activities": "Créez facilement </br> vos activités",
+			"attribute": "Attribuez les </br> à vos apprenants",
+			"visualize": "Visualisez </br> leurs résultats",
 			"helpers": " A nos côtés pour vous <span>accompagner.</span>",
 			"student": "APPRENANT",
 			"codeInput": " Rentrez ici votre code classe",
@@ -36,15 +36,15 @@
 			},
 			"carousel": {
 				"activities": {
-					"title": "créez facilement vos activités",
+					"title": "Créez facilement vos activités",
 					"content": "L'éditeur d'activité permet de créer du contenu pédagogique en toute simplicité, en incluant du texte, des images, des vidéos, des interfaces de programmation Vittascience, des présentations Genially et bien d'autres outils.</br></br>Parcourez la banque de ressources collaboratives Vittascience, qui regroupe plusieurs centaines d'activités libres et réutilisables. Si l'auteur de la ressource l'autorise, vous pouvez même apporter des modifications pour adapter le contenu à vos apprenants !"
 				},
 				"attribute": {
-					"title": "attribuez les à vos apprenants",
+					"title": "Attribuez les à vos apprenants",
 					"content": "Une fois vos activités créées, vous pouvez les attribuer à vos apprenants. Il est possible d'attribuer individuellement ou bien à des groupes entiers, par exemple une classe ou un club scientifique.</br></br>Les apprenants peuvent se connecter en toute sécurité à l'aide d'un code classe, d'un lien, d'un QRcode ou du GAR, et réaliser les activités qui leurs ont été attribuées."
 				},
 				"visualize": {
-					"title": "visualisez leurs résultats",
+					"title": "Visualisez leurs résultats",
 					"content": "Le tableau de bord permet de suivre la progression des apprenants à mesure qu'ils avancent dans les activités et parcours. Retrouvez le travail de vos apprenants en un clic avec possibilité de commenter le rendu.</br></br>Grâce au système de correction automatique pour blocs et Python, le tableau de bord se remplit directement avec les résultats des élèves. Identifiez rapidement les apprenants en difficulté et gagnez un temps précieux pour les accompagner."
 				}
 			},
@@ -188,6 +188,7 @@
 			"reservedNickname": "Le nom : \"{{reservedNickname}}\" ne peut être attribué.",
 			"invalidLink": "Le lien que vous avez entré n'est pas valide",
 			"noUser" : "Vous devez renseigner un élève",
+			"noUserUsername" : "Vous devez rentrer un nom d'utilisateur",
 			"pseudoMissingInCsvFile" : "Certains élèves n'ont pu être ajouté car leur pseudo était manquant",
 			"backendReplyPseudoMissingInCsv" : "Vérifier le fichier CSV : ligne vide ou pseudo manquant",
 			"backendReplyPseudoMissingInUsersArray" : "Il y a une erreur dans un ou plusieurs nom d'apprenant(s)"
@@ -216,6 +217,8 @@
 		},
 		"classes": {
 			"add": "Ajouter une classe",
+			"noClasses": "Vous n'avez pas encore de classe.",
+			"createClassNow": "Commencez par créer une classe dès maintenant !",
 			"form": {
 				"title": "Créer une classe",
 				"name": "Nom de la classe",
@@ -236,7 +239,8 @@
 				"editNickname": "Modifier le pseudonyme",
 				"delete": "Supprimer",
 				"copyLink": "Copier le lien direct",
-				"learnerMode": "Mode apprenant"
+				"learnerMode": "Mode apprenant",
+				"dueBy":"À rendre avant le"
 			}	
 		},
 		"activities": {
@@ -257,12 +261,13 @@
 			"refuse": "Maîtrise insuffisante",
 			"instruction": "Consigne",
 			"commentary": "Commentaire",
-			"sendResults": "Envoyer le commentaire à l'apprenant ",
+			"sendResults": "Envoyer le commentaire ",
 			"noSend": "Cette activité n'a pas été rendue",
 			"comments": "Entrez ici vos remarques",
 			"bilan": {
 				"title": "Bilan",
-				"results": "Résultats"
+				"results": "Résultats",
+				"noComment": "Aucun commentaire"
 			},
 			"form": {
 				"1": "Création de l'activité",
@@ -304,8 +309,8 @@
 			"exportCsv": "Exporter csv"
 		},
 		"filter": {
-			"desc": "Du moins récent au plus récent",
-			"asc": "Du plus récent au moins récent",
+			"desc": "Date croissante",
+			"asc": "Date décroissante",
 			"placeholder": "Recherche..."
 		},
 		"sandbox": {
@@ -319,7 +324,7 @@
 		"footer": {
 			"privacy": "Politique de confidentialité ",
 			"legal": "Mentions Légales",
-			"cgu": "Conditions<br>générales d'utilisation",
+			"cgu": "Conditions générales d'utilisation",
 			"copyright": ""
 		},
 		"teacherHelpPanel": {
@@ -505,7 +510,7 @@
 				}
 			}
 		},
-		"title": "Foire Aux Questions",
+		"title": "FAQ",
 		"hint": "Vous ne trouvez pas la réponse à votre question ? <a href=\"/about?contact=1\">Contactez-nous via ce formulaire</a>."
 	},
 	"faqInfoNeutral": {
@@ -576,7 +581,7 @@
 				}
 			}
 		},
-		"title": "Foire Aux Questions",
+		"title": "FAQ",
 		"hint": "Vous ne trouvez pas la réponse à votre question ? <a href=\"/about?contact=1\">Contactez-nous via ce formulaire</a>."
 	},
 	"faqTeacherNeutral": {
@@ -814,6 +819,11 @@
 		},
 		"success": "L'authentification a réussi. Redirection...",
 		"error": "Erreur. Veuillez vérifier vos identifiants.",
+		"mailSuccess": "Un mail d'activation a été envoyé à votre adresse mail.",
+		"mailError": "Une erreur est survenue. Veuillez vérifier votre adresse mail.",
+		"userNotFound": "Aucun utilisateur trouvé avec ces identifiants.",
+		"accountDeactivated": "Votre compte a été désactivé, contactez un administrateur si le problème persiste.",
+		"inactiveAccount": "Votre compte n'est pas encore actif, cliquez sur le bouton ci dessous pour envoyer l'email de validation.",
 		"errorBeta": "Vous devez être bêta testeur pour accéder à cette fonctionalité. <a href='https://fr.vittascience.com/about#contact'>Contacter l'équipe Vittascience</a> pour en savoir plus."
 	},
 	"signup-popup": {
@@ -969,6 +979,7 @@
 			"noUserFound": "Aucun utilisateur utilisant cette adresse n'a été trouvé.",
 			"noUserFoundToken": "Ce token ne correspond à aucun utilisateur.",
 			"missingData": "Il manque des informations pour finaliser l'opération.",
+			"missingDataDate": "Il manque des informations de date pour finaliser l'opération.",
 			"errorSending": "Une erreur est survenue lors de l'envoie de l'e-mail",
 			"userNotFound": "Utilisateur introuvable et / ou déjà actif",
 			"userNotFoundId": "Utilisateur introuvable",
@@ -979,6 +990,8 @@
 		"users": {
 			"users": "Utilisateurs",
 			"add": "Ajouter un utilisateur",
+			"activated": "Le compte a été activé avec succès.",
+			"errorActivation": "Une erreur est survenue lors de l'activation du compte.",
 			"create": "Créer un utilisateur",
 			"delete": "Supprimer un utilisateur",
 			"deleteConfirmation": "Veuillez écrire \"supprimer\" dans le champ si dessous pour valider l'action.",
@@ -1115,6 +1128,7 @@
 			}
 		},
 		"group": {
+			"generalInfo": "Informations générales",
 			"add": "Ajouter un groupe",
 			"create": "Créer un groupe",
 			"delete": "Supprimer un groupe",
@@ -1148,35 +1162,43 @@
 					"emailSubject": "Un utilisateur à rejoint le groupe"
 				}
 			},
-			"name": "Nom du groupe",
-			"description": "Description du groupe",
+			"name": "Nom du groupe <span class=\"c-text-red\">*</span>",
+			"description": "Description du groupe <span class=\"c-text-red\">*</span>",
 			"link": "Lien du groupe",
 			"applications": "Application(s) du groupe",
 			"groupsPerPage": "Groupes par page",
 			"groupDeleted": "Groupe supprimé.",
 			"groupCreated": "Groupe créé avec succès",
 			"groupUpdated": "Groupe modifié avec succès",
-			"groupCreateFailed": "Le groupe n'a pas pu être créé",
+			"groupCreateFailed": "Le groupe n'a pas pu être créé, il manque des informations",
 			"showLinkTitle": "Lien du groupe",
 			"usersWithoutGroups": "Utilisateurs sans groupe",
 			"searchResult": "Résultat de la recherche",
-			"usersInactiveOrNoRegular": "Utilisateurs inactifs et non regular",
+			"usersInactiveOrNoRegular": "Utilisateurs non regular",
 			"usersWithoutGroupsDescription": "Groupement d'utilisateurs n'étant liés à aucun groupe",
-			"usersInactiveOrNoRegularDescription": "Groupement d'utilisateurs inactifs et/ou non regular",
+			"usersInactiveOrNoRegularDescription": "Groupement non regular",
 			"groupDeleteError": "Le groupe n'a pas pu être supprimé.",
 			"groupFull": "Le groupe est complet.",
 			"groupFullAdminMessage": "Le groupe est complet, vous ne pouvez pas ajouter d'autres utilisateurs.",
 			"toManyStudentsFromTheTeacher": "Le professeur que vous souhaitez ajouter au groupe possède trop d'élève",
 			"toManyStudentsInGroup": "Le groupe ne peut pas accueillir autant d'apprenants, le professeur possède trop d'apprenants.",
 			"teachersPerGroup": "Enseignant par groupe",
+			"activitiesPerGroup": "Activité(s) par groupe",
+			"activitiesPerTeacher": "Activité(s) par enseignant",
 			"studentsPerGroup": "Apprenants par groupe",
 			"studentsPerTeacher": "Apprenants par enseignant",
-			"maxStudents": "Maximum d'apprenants"
+			"maxStudents": "Maximum d'apprenants",
+			"maxActivities": "Maximum d'activités"
+		},
+		"title": {
+			"activeUsers": "Utilisateurs actifs",
+			"inactiveUsers": "Utilisateurs inactifs"
 		},
 		"buttons": {
 			"continue": "Continuer",
 			"validate": "Valider",
 			"cancel": "Annuler",
+			"activate": "Activer",
 			"finalize": "Finaliser",
 			"send": "Envoyer",
 			"login": "Se connecter",
@@ -1235,10 +1257,12 @@
 			"applications": "Applications",
 			"group": "Groupe",
 			"description": "Description",
+			"descriptionMandatory": "Description <span class=\"c-text-red\">*</span>",
 			"right": "Rôle",
 			"resetPassword": "Réinitialiser le mot de passe",
 			"link": "Lien",
 			"name": "Nom",
+			"nameMandatory": "Nom <span class=\"c-text-red\">*</span>",
 			"dateBegin": "Date début",
 			"dateEnd": "Date de fin",
 			"outDated": "Périmé",

@@ -67,6 +67,7 @@ $('body').on('click', '.modal-activity-delete', function () {
             displayNotification('#notif-div', "classroom.notif.activityDeleted", "success", `'{"activityName": "${activity.name}"}'`);
             deleteTeacherActivityInList(activity.id);
             teacherActivitiesDisplay();
+            DisplayActivities();
         })
         ClassroomSettings.activity = null;
     }
@@ -187,8 +188,8 @@ $('body').on('click', '#attribute-activity-to-students', function () {
 //déplie/replie la liste des étudiants
 $('body').on('click', '.student-list-button', function () {
     $(this).next().toggle()
-    $(this).find('i').toggleClass('fa-arrow-right')
-    $(this).find('i').toggleClass('fa-arrow-down')
+    $(this).find('i').toggleClass('fa-chevron-right')
+    $(this).find('i').toggleClass('fa-chevron-down')
 })
 
 //création/modification de l'activité
@@ -231,14 +232,18 @@ $('.new-activity-panel2').click(function () {
             displayNotification('#notif-div', "classroom.notif.activityChanged", "success", `'{"activityTitle": "${activity.title}"}'`);
             $('.new-activity-panel2').attr('disabled', false)
             navigatePanel('classroom-dashboard-new-activity-panel2', 'dashboard-activities-teacher', ClassroomSettings.activity)
-            Main.getClassroomManager().getTeacherActivities(Main.getClassroomManager()).then(function () {
-                teacherActivitiesDisplay()
-                ClassroomSettings.activityInWriting = false
-            })
+            DisplayActivities();
         })
 
     }
 })
+
+function DisplayActivities() {
+    Main.getClassroomManager().getTeacherActivities(Main.getClassroomManager()).then(function () {
+        teacherActivitiesDisplay()
+        ClassroomSettings.activityInWriting = false
+    })
+}
 
 function listStudentsToAttribute(ref = null) {
     let classes = Main.getClassroomManager()._myClasses

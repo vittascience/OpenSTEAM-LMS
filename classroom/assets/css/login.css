@@ -91,7 +91,6 @@
     font-weight: 800;
     color: var(--text-0);
     font-size: 1.2em;
-    text-transform: uppercase;
     width: 50%;
 }
 
@@ -549,4 +548,8 @@ a.forgot-password {
         line-height: 0px;
 
     }
+}
+
+.filter-color-green {
+    filter: invert(49%) sepia(89%) saturate(366%) hue-rotate(101deg) brightness(98%) contrast(92%);
 }

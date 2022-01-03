@@ -10,9 +10,9 @@
 			"neutralTitle": "Open STEAM LMS",
 			"subtitle": "Discover - Learn - Share",
 			"login": "Log in",
-			"activities": "easily create </br> your activities",
-			"attribute": "assign them </br> to your students",
-			"visualize": "visualize </br> their results",
+			"activities": "Easily create </br> your activities",
+			"attribute": "Assign them </br> to your students",
+			"visualize": "Visualize </br> their results",
 			"helpers": " By our side to <span>accompany you.</span>",
 			"student": "STUDENT",
 			"codeInput": " Enter your Classroom code",
@@ -36,15 +36,15 @@
 			},
 			"carousel": {
 				"activities": {
-					"title": "easily create your activities",
+					"title": "Easily create your activities",
 					"content": "The activity editor makes it easy to create instructional content by including text, images, videos, Vittascience APIs, Genially presentations, and more.</br></br>Browse the Vittascience collaborative resource bank, which includes several hundred free and reusable activities. If the author of a resource allows it, you can even make changes to adapt the content to your students."
 				},
 				"attribute": {
-					"title": "assign them to your students",
+					"title": "Assign them to your students",
 					"content": "Once your activities have been created, you can assign them to your students. They can be assigned individually or to entire groups, such as a class or science club.</br></br>Students can securely log in using a Classroom code, link, QR code, or GAR, and complete their assigned activities."
 				},
 				"visualize": {
-					"title": "visualize their results",
+					"title": "Visualize their results",
 					"content": "The dashboard allows you to track students' progress as they move through the activities and courses. Find your students' work in one click and leave comments.</br></br>Thanks to the automatic validation/correction system for blocks and Python, the dashboard fills up automatically with your students' results. Rapidly identify struggling students, gaining valuable time to accompany them."
 				}
 			},
@@ -188,6 +188,7 @@
 			"reservedNickname": "The name : \"{{reservedNickname}}\" can not be attributed.",
 			"invalidLink": "The link you entered is not valid",
 			"noUser" : "You have to add a student",
+			"noUserUsername" : "You have to enter a username",
 			"pseudoMissingInCsvFile" : "Some students couldn't be added as their pseudo was missing",
 			"backendReplyPseudoMissingInCsv" : "Check the CSV file : empty line or pseudo missing",
 			"backendReplyPseudoMissingInUsersArray" : "There is one or more error(s) in the student(s) name(s)"
@@ -216,6 +217,8 @@
 		},
 		"classes": {
 			"add": "Add a new classroom",
+			"noClasses": "You don't have a class yet.",
+			"createClassNow": "Start by creating a class now!",
 			"form": {
 				"title": "Add a classroom",
 				"name": "Classroom name",
@@ -236,7 +239,9 @@
 				"editNickname": "Edit your nickname",
 				"delete": "Delete",
 				"copyLink": "Copy the direct link",
-				"learnerMode": "Learner mode"
+				"learnerMode": "Learner mode",
+				"dueBy":"Due by"
+
 			}	
 		},
 		"activities": {
@@ -257,12 +262,13 @@
 			"refuse": "Insufficient proficiency",
 			"instruction": "Instructions",
 			"commentary": "Comment",
-			"sendResults": "Send the comment to the learner ",
+			"sendResults": "Send the comment ",
 			"noSend": "This activity hasn't been returned",
 			"comments": "Write your comments there",
 			"bilan": {
 				"title": "Bilan",
-				"results": "Results"
+				"results": "Results",
+				"noComment": "No comment yet"
 			},
 			"form": {
 				"1": "Activity creation",
@@ -304,8 +310,8 @@
 			"exportCsv": "Export csv"
 		},
 		"filter": {
-			"desc": "From oldest to newest",
-			"asc": "From newest to oldest",
+			"desc": "Oldest to newest",
+			"asc": "Newest to oldest",
 			"placeholder": "Search..."
 		},
 		"sandbox": {
@@ -521,6 +527,11 @@
 		},
 		"success": "Authentication was successful. Redirection...",
 		"error": "Error. Please verify your login details.",
+		"mailSuccess": "An activation email has been sent to your email address.",
+		"mailError": "An error has occurred. Please verify your email address.",
+		"userNotFound": "No linked user found with this mail.",
+		"inactiveAccount": "Your account is not active, click on the button just below to send a new validation mail.",
+		"accountDeactivated": "Your account has been deactivated, contact an administrator if the problem persists.",
 		"errorBeta": "You must be a beta tester to access this functionality.<a href='https://fr.vittascience.com/about#contact'>Contact the Vittascience team</a> to find out more."
 	},
 	"signup-popup": {
@@ -676,6 +687,7 @@
 			"noUserFound": "No user using this address was found.",
 			"noUserFoundToken": "This token does not correspond to any user.",
 			"missingData": "Information is missing to finalize the operation.",
+			"missingDataDate": "Date information is missing to finalize the operation.",
 			"errorSending": "An error occurred while sending the email",
 			"userNotFound": "User not found and / or already active",
 			"userNotFoundId": "User not found",
@@ -686,6 +698,8 @@
 		"users": {
 			"users": "Users",
 			"add": "Add user",
+			"activated": "The account has been activated.",
+			"errorActivation": "An error occurred during activation.",
 			"create": "Create user",
 			"delete": "Delete user",
 			"deleteConfirmation": "Please write \"delete\" in the field below to validate the action.",
@@ -822,6 +836,7 @@
 			}
 		},
 		"group": {
+			"generalInfo": "General information",
 			"add": "Add group",
 			"create": "Create group",
 			"delete": "Delete group",
@@ -855,21 +870,21 @@
 					"emailSubject": "A user has joined the group"
 				}
 			},
-			"name": "Name of the group",
-			"description": "Description of the group",
+			"name": "Name of the group <span class=\"c-text-red\">*</span>",
+			"description": "Description of the group <span class=\"c-text-red\">*</span>",
 			"link": "Group link",
 			"applications": "Group applications",
 			"groupsPerPage": "Groups per page",
 			"groupDeleted": "Group deleted.",
 			"groupCreated": "Group successfully created",
 			"groupUpdated": "Group successfully updated",
-			"groupCreateFailed": "The group could not be created",
+			"groupCreateFailed": "The group could not be created, missing data.",
 			"showLinkTitle": "Group's link",
 			"usersWithoutGroups": "Users without groups",
 			"searchResult": "Result of the research",
 			"usersInactiveOrNoRegular": "Inactive users or not regular",
 			"usersWithoutGroupsDescription": "User group not linked to any group",
-			"usersInactiveOrNoRegularDescription": "Group of inactive and / or non-regular users",
+			"usersInactiveOrNoRegularDescription": "Group of non-regular users",
 			"groupDeleteError": "The group could not be deleted.",
 			"groupFull": "The group is full.",
 			"groupFullAdminMessage": "The group is full, you cannot add other users.",
@@ -877,12 +892,20 @@
 			"toManyStudentsInGroup": "The group cannot accommodate so many students, the teacher has too many students.",
 			"teachersPerGroup": "Teacher per group",
 			"studentsPerGroup": "Students per group",
+			"activitiesPerGroup": "Activities per group",
+			"activitiesPerTeacher": "Activities per teacher",
 			"studentsPerTeacher": "Students per teacher",
-			"maxStudents": "Maximum students"
+			"maxStudents": "Maximum students",
+			"maxActivities": "Maximum activities"
+		},
+		"title": {
+			"activeUsers": "Active users",
+			"inaactiveUsers": "Inactive users"
 		},
 		"buttons": {
 			"continue": "Continue",
 			"validate": "Validate",
+			"activate": "Activate",
 			"cancel": "Cancel",
 			"finalize": "Finalize",
 			"send": "Send",
@@ -942,10 +965,12 @@
 			"applications": "Applications",
 			"group": "Group",
 			"description": "Description",
+			"descriptionMandatory": "Description <span class=\"c-text-red\">*</span>",
 			"right": "Rights",
 			"resetPassword": "Reset password",
 			"link": "Link",
 			"name": "Name",
+			"nameMandatory": "Name <span class=\"c-text-red\">*</span>",
 			"dateBegin": "Begin date",
 			"dateEnd": "End date",
 			"outDated": "Out dated",
