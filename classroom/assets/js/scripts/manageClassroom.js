@@ -40,10 +40,25 @@ function changePseudoModal(pseudo, id) {
     $('.change-pseudo-modal').val(pseudo)
     pseudoModal.openModal('update-pseudo-modal')
 }
+
 $('body').on('click', '#update-pseudo-close', function () {
     Main.getClassroomManager().changePseudo(ClassroomSettings.student, $('.change-pseudo-modal').val()).then(function (formerPseudo) {
         pseudoModal.closeModal('update-pseudo-modal');
-        $("#body-table-teach").find(`[data-student-id='${ClassroomSettings.student}']`).html($('.change-pseudo-modal').val() + '  <i class="fas fa-cog"></i>');
+        
+        //Rémi update
+        let html2 =  `<img class="col-2 propic" src="/classroom/assets/media/alphabet/${$('.change-pseudo-modal').val().substring(0,1).toUpperCase()}.png" alt="Photo de profil">`;
+        html2 += `<div class="col-7 line_height34" title="${$('.change-pseudo-modal').val()}">${$('.change-pseudo-modal').val()}</div>`;
+        html2 += `<div class="dropdown col"><i class="classroom-clickable line_height34 fas fa-cog" type="button" id="dropdown-studentItem-${ClassroomSettings.student}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+        <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${ClassroomSettings.student}"><li class="col-12 pwd-display-stud" href="#"><div data-i18n="classroom.classes.panel.password">Votre mot de passe :</div> <span class="masked">${element.pwd}</span><i class="classroom-clickable fas fa-low-vision switch-pwd ml-2"></i></li>
+        <li class="modal-student-password classroom-clickable col-12 dropdown-item" href="#" data-i18n="classroom.classes.panel.resetPassword">Régenérer le mot de passe</li>
+        <li class="classroom-clickable col-12 dropdown-item" href="#"><span class="classroom-clickable" data-i18n="classroom.classes.panel.editNickname" onclick="changePseudoModal('${$('.change-pseudo-modal').val()}',${ClassroomSettings.student})">Modifier le pseudo</span></li>
+        <li class="dropdown-item modal-student-delete classroom-clickable col-12" href="#" data-i18n="classroom.classes.panel.delete">Supprimer</li>
+        </div>
+        </div>`;
+        
+        //let html = $('.change-pseudo-modal').val() + '  <i class="fas fa-cog"></i>';
+        $("#body-table-teach").find(`[data-student-id='${ClassroomSettings.student}']`).html(html2);
+
         changePseudoStudentInList(ClassroomSettings.student, ClassroomSettings.classroom, $('.change-pseudo-modal').val());
         displayNotification('#notif-div', "classroom.notif.pseudoUpdated", "success", `'{"newPseudo": "${$('.change-pseudo-modal').val()}"}'`);
         $('.change-pseudo-modal').val('');

@@ -227,13 +227,16 @@ DisplayPanel.prototype.classroom_dashboard_form_classe_panel = function () {
         } else {
             document.querySelector('#classroom-form-is-blocked').checked = false;
         }
+        // ask thomas about that
+        /*      
         classroom.students.forEach(function (student) {
             let html = `<div class="c-primary-form row col-12">
-            <label class="col-5" data-i18n="classroom.modals.addStudent.pseudo">Pseudonyme</label>
-            <input class="col-5 student-form-name" type="text" value="` + student.user.pseudo + `" data-id="` + student.user.id + `">
-        </div>`
+                            <label class="col-5" data-i18n="classroom.modals.addStudent.pseudo">Pseudonyme</label>
+                            <input class="col-5 student-form-name" type="text" value="` + student.user.pseudo + `" data-id="` + student.user.id + `">
+                        </div>`
             $('#add-student-div').append(html)
-        })
+        }) 
+        */
     } else {
         document.querySelector('#classroom-form-is-blocked').checked = false;
         $('#classroom-form-name').val(''),
