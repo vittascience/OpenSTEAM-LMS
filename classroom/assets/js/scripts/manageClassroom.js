@@ -1,8 +1,10 @@
 //formulaire de création de classe
 $('body').on('click', '.teacher-new-classe', function (event) {
     ClassroomSettings.classroom = null
+    $('#classroom-classes-title').text(`${i18next.t('classroom.classes.form.title')}`)
     navigatePanel('classroom-dashboard-form-classe-panel', 'dashboard-classes-teacher')
     $('#table-students ul').html("");
+
 })
 
 
@@ -75,6 +77,7 @@ $('body').on('click', '.modal-classroom-delete', function (e) {
 
 //classroom modal-->modifier
 $('body').on('click', '.modal-classroom-modify', function (e) {
+    $('#classroom-classes-title').text(`${i18next.t('classroom.classes.form.updateTitle')}`);
     e.stopPropagation();
     ClassroomSettings.classroom = $(this).parent().parent().parent().attr('data-link')
     navigatePanel('classroom-dashboard-form-classe-panel', 'dashboard-classes-teacher')

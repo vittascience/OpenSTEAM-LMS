@@ -239,7 +239,7 @@ function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = fal
         $('#breadcrumb').localize();
     }
 
-    
+        $('[data-toggle="tooltip"]').tooltip('hide');
         $('.leader-line').remove()
         $('[data-toggle="tooltip"]').tooltip()
     
@@ -643,6 +643,7 @@ function studentActivitiesDisplay() {
         $('#body-table-bilan').append('<td class="' + statusActivity(element) + ' bilan-cell classroom-clickable" ></td>')
         index++
     });
+    
     if (activities.doneActivities.length < 1) {
         $('#average-score').hide()
     } else {
@@ -650,6 +651,7 @@ function studentActivitiesDisplay() {
         $('#score-student').html($('#body-table-bilan .bilan-success').length)
         $('#average-score').show()
     }
+
     if (index == 1) {
         $('#bilan-student').hide()
     } else {
@@ -657,7 +659,6 @@ function studentActivitiesDisplay() {
     }
 
     $('[data-toggle="tooltip"]').tooltip()
-
 
 }
 
