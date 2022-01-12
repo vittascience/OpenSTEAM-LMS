@@ -469,8 +469,31 @@ function loadActivity(isDoable) {
         correction += '<div id="commentary-panel" class="c-primary-form"><label>' + i18next.t("classroom.activities.comments") + '</label><textarea id="commentary-textarea" style="width:100%" rows="8">' + Activity.commentary + '</textarea></div>'
     }
 
+
+
+
     if (!UserManager.getUser().isRegular && Activity.correction > 0) {
         if (Activity.commentary != null && Activity.commentary != "") {
+
+            let result = '';
+            switch (Activity.note) {
+                case 3:
+                    result = i18next.t('classroom.activities.veryGoodProficiency')
+                    break;
+                case 2:
+                    result = i18next.t('classroom.activities.goodProficiency')
+                    break;
+                case 1:
+                    result = i18next.t('classroom.activities.weakProficiency')
+                    break;
+                case 0: 
+                    result = i18next.t('classroom.activities.insufficientProficiency')
+                    break;
+                default:
+                    break;
+            }
+
+            correction += `<h6 class="text-center font-weight-bold">[${result}]</h6>`;
             correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
         } else {
             correction += '<div id="commentary-panel">' + i18next.t("classroom.activities.bilan.noComment") + '</div>'
