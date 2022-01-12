@@ -422,6 +422,7 @@ function statusActivity(activity, state = true) {
 
 function loadActivity(isDoable) {
     
+    console.log(Activity)
     ClassroomSettings.chrono = Date.now()
     $('#activity-introduction').hide()
     if (Activity.introduction != null && Activity.introduction != "") {
@@ -470,6 +471,18 @@ function loadActivity(isDoable) {
     }
 
     if (!UserManager.getUser().isRegular && Activity.correction > 0) {
+        if (Activity.note == 3) {
+            var activityResultString = i18next.t('classroom.activities.veryGoodProficiency')
+        } else if (Activity.note == 2) {
+            var activityResultString = i18next.t('classroom.activities.goodProficiency')
+        } else if (Activity.note == 1) {
+            var activityResultString = i18next.t('classroom.activities.weakProficiency')
+        } else if (Activity.note == 0) {
+            var activityResultString = i18next.t('classroom.activities.insufficientProficiency')
+        } 
+        correction += `<div class="results-string" style="background-color:var(--correction-${Activity.note})"">${activityResultString}</div>`
+
+        
         if (Activity.commentary != null && Activity.commentary != "") {
             correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
         } else {
