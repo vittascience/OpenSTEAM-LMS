@@ -847,6 +847,19 @@ const classroomModals = {
                                 </div>
                                 <input type="hidden" class="form-control" id="app_create_id">
                             </div>
+
+                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.restrictions"> Restriction d'activité </p>
+                            <div class="form-row mt-1 c-secondary-form">
+                                <div class="col-md">
+                                    <label for="app_create_activity_restriction_type" data-i18n="manager.activitiesRestrictions.type">Type</label>
+                                    <input type="text" class="form-control" id="app_create_activity_restriction_type">
+                                </div>
+                                <div class="col-md">
+                                    <label for="app_create_activity_restriction_value" data-i18n="manager.activitiesRestrictions.max">Nombre</label>
+                                    <input type="number" class="form-control" id="app_create_activity_restriction_value">
+                                </div>
+                            </div>
+
                             <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistCreateApp()" data-i18n="manager.buttons.validate">Valider</button>
                             <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInput()" data-i18n="manager.buttons.cancel">Annuler</button>
                         </div>

@@ -944,14 +944,16 @@ function createGroupWithModal() {
         $description = $('#group_desc').val(),
         ApplicationsData = [];
 
-    $("input:checkbox.form-check-input.app").each(function (element) {
+    $("input:checkbox.form-check-input.app").each(function () {
         const ApplicationTemp = [$(this).val(),
             $(this).is(':checked'),
             $('#begin_date_' + $(this).val()).val(),
             $('#end_date_' + $(this).val()).val(),
             $('#max_students_per_teachers_' + $(this).val()).val(),
             $('#max_students_per_groups_' + $(this).val()).val(),
-            $('#max_teachers_per_groups_' + $(this).val()).val()
+            $('#max_teachers_per_groups_' + $(this).val()).val(),
+            $('#max_activities_per_groups_' + $(this).val()).val(),
+            $('#max_activities_per_teachers_' + $(this).val()).val()
         ]
         ApplicationsData.push(ApplicationTemp);
     });
@@ -963,6 +965,7 @@ function createGroupWithModal() {
             displayNotification('#notif-div', "manager.group.groupCreateFailed", "error");
         }
     });
+    
     pseudoModal.closeAllModal();
     tempoAndShowGroupsTable()
 }
@@ -2636,9 +2639,7 @@ function persistUpdateApp() {
         $application_restrictions_value = $('#app_update_activity_restriction_value').val();
 
 
-    mainManager.getmanagerManager().updateOneActivityRestriction($application_id, $application_restrictions_type, $application_restrictions_value).then((response) => {
-
-    })
+    mainManager.getmanagerManager().updateOneActivityRestriction($application_id, $application_restrictions_type, $application_restrictions_value);
 
     //console.log($application_restrictions_type , $application_restrictions_value);
 
@@ -2679,17 +2680,22 @@ function persistDeleteApp() {
 function persistCreateApp() {
     let $application_name = $('#app_create_name').val(),
         $application_description = $('#app_create_description').val(),
-        $application_image = $('#app_create_image').val();
+        $application_image = $('#app_create_image').val(),
+        $application_restrictions_type = $('#app_create_activity_restriction_type').val(),
+        $application_restrictions_value = $('#app_create_activity_restriction_value').val();
 
     mainManager.getmanagerManager().createApplication($application_name, $application_description, $application_image).then((response) => {
         if (response.message == "success") {
             displayNotification('#notif-div', "manager.apps.createSuccess", "success");
             closeModalAndCleanInput(true)
+            mainManager.getmanagerManager().updateOneActivityRestriction(response.application_id, $application_restrictions_type, $application_restrictions_value);
         } else {
             displayNotification('#notif-div', "manager.account.missingData", "error");
         }
         updateStoredApps();
     })
+
+    
 }
 
 function updateStoredApps() {
@@ -3046,6 +3052,9 @@ $('#btn-help-for-groupAdmin').click(function () {
         } else if (response.emailSent == false) {
             displayNotification('#notif-div', "manager.account.errorSending", "error");
         }
+        // Add reset
+        $('#groupadmin-contact-message-input').val("");
+        $('#groupadmin-contact-subject-input').val("");
     })
 })
 
