@@ -3,7 +3,7 @@
         "phpunit/phpunit": "8.0.0",
         "vittascience/vtuser": "1.2.3",
         "vittascience/vtinterfaces": "1.2.1",
-        "vittascience/vtclassroom": "dev-bugs-fixes-10/01/22",
+        "vittascience/vtclassroom": "1.2.5",
         "vittascience/vtlearn": "1.2.6",
         "vittascience/vutils": "1.2.3",
         "symfony/var-dumper": "^5.3"
