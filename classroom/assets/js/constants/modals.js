@@ -1,4 +1,4 @@
-const BASE_STUDENT_FORM = `<div class="green-form row col-12">
+const BASE_STUDENT_FORM = `<div class="c-primary-form row col-12">
         
 <label class="col-5" data-i18n="classroom.modals.addStudent.pseudo">Pseudonyme</label>
 <input class="col-5 student-form-name" type="text">
