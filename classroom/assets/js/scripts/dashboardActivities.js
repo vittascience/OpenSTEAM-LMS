@@ -487,26 +487,6 @@ function loadActivity(isDoable) {
 
         
         if (Activity.commentary != null && Activity.commentary != "") {
-
-            let result = '';
-            switch (Activity.note) {
-                case 3:
-                    result = i18next.t('classroom.activities.veryGoodProficiency')
-                    break;
-                case 2:
-                    result = i18next.t('classroom.activities.goodProficiency')
-                    break;
-                case 1:
-                    result = i18next.t('classroom.activities.weakProficiency')
-                    break;
-                case 0: 
-                    result = i18next.t('classroom.activities.insufficientProficiency')
-                    break;
-                default:
-                    break;
-            }
-
-            correction += `<h6 class="text-center font-weight-bold">[${result}]</h6>`;
             correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
         } else {
             correction += '<div id="commentary-panel">' + i18next.t("classroom.activities.bilan.noComment") + '</div>'
