@@ -92,7 +92,6 @@ $('body').on('click', '.class-card', function () {
 })
 
 function setNote(note) {
-    alert(note)
     Activity.note = note
     if (note > 1) {
         Activity.correction = 2
