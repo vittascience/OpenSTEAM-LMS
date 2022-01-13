@@ -239,7 +239,7 @@ function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = fal
         $('#breadcrumb').localize();
     }
 
-        $('[data-toggle="tooltip"]').tooltip('hide');
+        $('.tooltip').remove()
         $('.leader-line').remove()
         $('[data-toggle="tooltip"]').tooltip()
     
