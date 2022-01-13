@@ -1,8 +1,10 @@
 //formulaire de création de classe
 $('body').on('click', '.teacher-new-classe', function (event) {
     ClassroomSettings.classroom = null
+    $('#classroom-classes-title').text(`${i18next.t('classroom.classes.form.title')}`)
     navigatePanel('classroom-dashboard-form-classe-panel', 'dashboard-classes-teacher')
     $('#table-students ul').html("");
+
 })
 
 
@@ -40,10 +42,12 @@ function changePseudoModal(pseudo, id) {
     $('.change-pseudo-modal').val(pseudo)
     pseudoModal.openModal('update-pseudo-modal')
 }
+
 $('body').on('click', '#update-pseudo-close', function () {
     Main.getClassroomManager().changePseudo(ClassroomSettings.student, $('.change-pseudo-modal').val()).then(function (formerPseudo) {
         pseudoModal.closeModal('update-pseudo-modal');
-        $("#body-table-teach").find(`[data-student-id='${ClassroomSettings.student}']`).html($('.change-pseudo-modal').val() + '  <i class="fas fa-cog"></i>');
+        // Refresh instant
+        dashboardAutoRefresh.refresh();
         changePseudoStudentInList(ClassroomSettings.student, ClassroomSettings.classroom, $('.change-pseudo-modal').val());
         displayNotification('#notif-div', "classroom.notif.pseudoUpdated", "success", `'{"newPseudo": "${$('.change-pseudo-modal').val()}"}'`);
         $('.change-pseudo-modal').val('');
@@ -73,6 +77,7 @@ $('body').on('click', '.modal-classroom-delete', function (e) {
 
 //classroom modal-->modifier
 $('body').on('click', '.modal-classroom-modify', function (e) {
+    $('#classroom-classes-title').text(`${i18next.t('classroom.classes.form.updateTitle')}`);
     e.stopPropagation();
     ClassroomSettings.classroom = $(this).parent().parent().parent().attr('data-link')
     navigatePanel('classroom-dashboard-form-classe-panel', 'dashboard-classes-teacher')
@@ -87,7 +92,6 @@ $('body').on('click', '.class-card', function () {
 })
 
 function setNote(note) {
-    alert(note)
     Activity.note = note
     if (note > 1) {
         Activity.correction = 2

@@ -221,6 +221,7 @@
 			"createClassNow": "Start by creating a class now!",
 			"form": {
 				"title": "Add a classroom",
+				"updateTitle": "Update classroom",
 				"name": "Classroom name",
 				"school": "School name",
 				"addStudent": "Add a learner",
