@@ -136,7 +136,9 @@ const classroomModals = {
         content: `
     <h4 class="c-text-primary font-weight-bold text-uppercase">Sélectionner des apprenants</h4>
     <p class='text-center'><span class="student-number">0</span> apprenants sélectionnés</p>
-    <div id="list-student-attribute-modal" class="row justify-content-center c-primary-form"></div>
+    <div class="container-fluid">
+        <div id="list-student-attribute-modal" class="row justify-content-center c-primary-form"></div>
+    </div>
     <button id="attribute-activity-to-students-close" class="btn btn-lg c-btn-primary">Valider</button>
                 `,
         footer: ``
