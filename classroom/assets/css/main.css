@@ -1112,21 +1112,6 @@ img.btn-cabri {
 
 /* END SANDBOX CREATION */
 
-
-/* DASHBOARD RESULTS START */
-
-[type="checkbox"]:not(:checked),
-[type="checkbox"]:checked {
-    left: -10px;
-}
-
-.form-check [type="checkbox"]:not(:checked),
-[type="checkbox"]:checked {
-    left: -10000px;
-}
-
-/* DASHBOARD RESULTS END */
-
 /* ACTIVITY START */
 
 #activity-introduction {
