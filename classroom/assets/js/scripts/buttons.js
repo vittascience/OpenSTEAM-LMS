@@ -1419,7 +1419,7 @@ function showupdateUserModal(id) {
                                     <select class="form-control" id="update_u_group${i}">
                                     </select>
                                     <div class="input-group-append">
-                                        <div class="input-group-text pl-5">
+                                        <div class="input-group-text c-checkbox c-checkbox-grey">
                                             <input class="form-check-input" type="checkbox" id="update_u_is_group_admin${i}">
                                             <label class="form-check-label mx-1" for="update_u_is_group_admin${i}" data-i18n="manager.users.groupAdmin">
                                                 Administrateur du groupe
@@ -1452,7 +1452,7 @@ function showupdateUserModal(id) {
                         }
                         html += `<div class="c-checkbox">
                             <input class="form-check-input" type="checkbox" name="group_app" id="group_app_${application.id}" value="${application.id}" ${checked}>
-                            <label class="form-check" for="group_app_${application.id}">
+                            <label class="form-check-label" for="group_app_${application.id}">
                                 ${application.name}
                             </label>
                         </div>`;
@@ -1469,7 +1469,7 @@ function showupdateUserModal(id) {
                                 <select class="form-control" id="update_u_group0">
                                 </select>
                                 <div class="input-group-append">
-                                    <div class="input-group-text pl-5">
+                                    <div class="input-group-text c-checkbox c-checkbox-grey">
                                         <input class="form-check-input" type="checkbox" id="update_u_is_group_admin0">
                                         <label class="form-check-label mx-1" for="update_u_is_group_admin0" data-i18n="manager.users.groupAdmin">
                                             Administrateur du groupe
@@ -2103,7 +2103,7 @@ function showupdateUserModal_groupadmin(user_id) {
                         }
                         html += `<div class="c-checkbox">
                             <input class="form-check-input" type="checkbox" name="group_app" id="group_app_${application.id}" value="${application.id}" ${checked}>
-                            <label class="form-check" for="group_app_${application.id}">
+                            <label class="form-check-label" for="group_app_${application.id}">
                                 ${application.name}
                             </label>
                         </div>`;
@@ -2149,7 +2149,7 @@ function showupdateUserModal_groupadmin(user_id) {
                                         <select class="form-control" id="update_u_group_ga${i}" disabled>
                                         </select>
                                         <div class="input-group-append">
-                                            <div class="input-group-text">
+                                            <div class="input-group-text c-checkbox c-checkbox-grey">
                                                 <input type="checkbox" id="update_u_is_group_admin_ga${i}">
                                                 <label class="form-check mx-1" for="update_u_is_group_admin_ga${i}">
                                                     Administrateur du groupe
@@ -2271,7 +2271,7 @@ $('#create_user_link_to_group_groupadmin').click(function () {
                                     <select class="form-control" id="create_u_group_ga" disabled>
                                         <option value="${element.id}">${element.name}</option></select>
                                     <div class="input-group-append">
-                                        <div class="input-group-text">
+                                        <div class="input-group-text c-checkbox c-checkbox-grey">
                                             <input type="checkbox" id="checkboxAdmin">
                                             <label class="form-check mx-1" for="checkboxAdmin">
                                                 Administrateur du groupe

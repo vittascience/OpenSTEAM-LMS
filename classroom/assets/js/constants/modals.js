@@ -355,7 +355,7 @@ const classroomModals = {
             <select class="form-control" id="u_group">
             </select>
             <div class="input-group-append">
-                <div class="input-group-text pl-5">
+                <div class="input-group-text c-checkbox c-checkbox-grey">
                     <input class="form-check-input" type="checkbox" id="u_is_group_admin">
                     <label class="form-check-label" for="u_is_group_admin" data-i18n="manager.users.groupAdmin">
                         Administrateur du groupe
