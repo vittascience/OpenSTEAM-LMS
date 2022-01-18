@@ -1231,7 +1231,7 @@ function updateAppForUser(methodName = "update") {
             }
 
             if (!infoapp) {
-                stringhtml += `<div class="form-check">
+                stringhtml += `<div class="c-checkbox">
                 <input class="form-check-input appuser" type="checkbox" value="${element.id}" id="${methodName}_application_${element.id}">
                 <label class="form-check-label font-weight-bold mb-2" style="color: var(--classroom-primary)" for="${methodName}_application_${element.id}" >
                     ${element.name}
@@ -1253,7 +1253,7 @@ function updateAppForUser(methodName = "update") {
                 let dateBegin = new Date(infoapp.date_begin).toISOString().split('T')[0],
                     dateEnd = new Date(infoapp.date_end).toISOString().split('T')[0];
 
-                stringhtml += `<div class="form-check">
+                stringhtml += `<div class="c-checkbox">
                 <input class="form-check-input appuser" type="checkbox" checked value="${element.id}" id="${methodName}_application_${element.id}">
                 <label class="form-check-label font-weight-bold mb-2" style="color: var(--classroom-primary)" for="${methodName}_application_${element.id}">
                     ${element.name}
@@ -1450,7 +1450,7 @@ function showupdateUserModal(id) {
                                 }
                             });
                         }
-                        html += `<div class="form-check">
+                        html += `<div class="c-checkbox">
                             <input class="form-check-input" type="checkbox" name="group_app" id="group_app_${application.id}" value="${application.id}" ${checked}>
                             <label class="form-check" for="group_app_${application.id}">
                                 ${application.name}
@@ -1940,7 +1940,7 @@ function optionsGroupApplications($type) {
             }
 
             if (!$infoapp) {
-                stringhtml += `<div class="form-check">
+                stringhtml += `<div class="c-checkbox">
                 <input class="form-check-input app" type="checkbox" value="${element.id}" id="application_${element.id}">
                 <label class="form-check-label font-weight-bold mb-2" for="application_${element.id}" style="color: var(--classroom-primary)">
                     ${element.name}
@@ -1974,7 +1974,7 @@ function optionsGroupApplications($type) {
                 let dateBegin = new Date($infoapp.date_begin).toISOString().split('T')[0],
                     dateEnd = new Date($infoapp.date_end).toISOString().split('T')[0];
 
-                stringhtml += `<div class="form-check">
+                stringhtml += `<div class="c-checkbox">
                 <input class="form-check-input app" type="checkbox" checked value="${element.id}" id="application_${element.id}">
                 <label class="form-check-label font-weight-bold mb-2" for="application_${element.id}" style="color: var(--classroom-primary)">
                     ${element.name}
@@ -2101,7 +2101,7 @@ function showupdateUserModal_groupadmin(user_id) {
                                 }
                             });
                         }
-                        html += `<div class="form-check">
+                        html += `<div class="c-checkbox">
                             <input class="form-check-input" type="checkbox" name="group_app" id="group_app_${application.id}" value="${application.id}" ${checked}>
                             <label class="form-check" for="group_app_${application.id}">
                                 ${application.name}

@@ -418,14 +418,14 @@ const classroomModals = {
         </div>
     
         <div class="form-row c-secondary-form">
-            <div class="form-check form-check-inline">
+            <div class="form-check form-check-inline c-checkbox">
                 <input type="checkbox" id="update_u_is_active">
                 <label class="form-check-label" for="update_u_is_active" data-i18n="manager.account.active">
                     Compte actif
                 </label>
             </div>
     
-            <div class="form-check form-check-inline ml-3">
+            <div class="form-check form-check-inline c-checkbox ml-3">
                 <input type="checkbox" id="update_u_is_admin">
                 <label class="form-check-label" for="update_u_is_admin" data-i18n="manager.users.admin">
                     Administrateur
@@ -434,7 +434,7 @@ const classroomModals = {
         </div>
     
         <div class="form-row form-group c-secondary-form">
-            <div class="form-check">
+            <div class="c-checkbox">
                 <input class="form-check-input" type="checkbox" id="update_u_is_teacher">
                 <label class="form-check-label" for="update_u_is_teacher" data-i18n="manager.users.teacher">
                     Enseignant
