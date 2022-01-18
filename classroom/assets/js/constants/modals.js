@@ -499,6 +499,10 @@ const classroomModals = {
                 <label for="u_surname_ga" data-i18n="[html]manager.profil.lastname">Nom <span class="c-text-red">*</span></label>
                 <input type="text" class="form-control" id="u_surname_ga">
             </div>
+            <div class="form-group col-md" id="group_admin_username">
+                <label for="u_pseudo_ga" data-i18n="[html]manager.profil.nickname">Pseudonyme</label>
+                <input type="text" class="form-control" id="u_pseudo_ga">
+            </div>
         </div>
     
         <div class="form-row c-secondary-form">
@@ -509,10 +513,6 @@ const classroomModals = {
             <div class="form-group col-md" id="group_admin_phone">
                 <label for="u_phone_ga" data-i18n="manager.profil.phone">Numéro de telephone</label>
                 <input type="text" class="form-control" id="u_phone_ga">
-            </div>
-            <div class="form-group col-md" id="group_admin_username">
-                <label for="u_pseudo_ga" data-i18n="[html]manager.profil.nickname">Pseudonyme</label>
-                <input type="text" class="form-control" id="u_pseudo_ga">
             </div>
         </div>
     
