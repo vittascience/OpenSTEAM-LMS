@@ -191,7 +191,9 @@
 			"noUserUsername" : "Vous devez rentrer un nom d'utilisateur",
 			"pseudoMissingInCsvFile" : "Certains élèves n'ont pu être ajouter car leur pseudo était manquant",
 			"backendReplyPseudoMissingInCsv" : "Vérifier le fichier CSV : ligne vide ou pseudo manquant",
-			"backendReplyPseudoMissingInUsersArray" : "Il y a une erreur dans un ou plusieurs nom d'apprenant(s)"
+			"backendReplyPseudoMissingInUsersArray" : "Il y a une erreur dans un ou plusieurs nom d'apprenant(s)",
+			"invalidActivityId": "Erreur lors de la soumission du travail : identifiant d'activité non valide !",
+			"invalidCorrection": "Erreur lors de la soumission du travail : statut d'activité non valide !"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",
