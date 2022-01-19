@@ -191,7 +191,9 @@
 			"noUserUsername" : "You have to enter a username",
 			"pseudoMissingInCsvFile" : "Some students couldn't be added as their pseudo was missing",
 			"backendReplyPseudoMissingInCsv" : "Check the CSV file : empty line or pseudo missing",
-			"backendReplyPseudoMissingInUsersArray" : "There is one or more error(s) in the student(s) name(s)"
+			"backendReplyPseudoMissingInUsersArray" : "There is one or more error(s) in the student(s) name(s)",
+			"invalidActivityId": "Error submitting job: Invalid activity ID!",
+			"invalidCorrection": "Erreur submitting job: Invalid activity status!"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
