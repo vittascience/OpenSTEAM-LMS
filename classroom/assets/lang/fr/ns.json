@@ -273,7 +273,7 @@
 			"applist":{
 				"selectApp":"Sélectionnez l'application avec laquelle vous souhaitez créer une activité",
 				"apps":{
-					"multimedia":{
+					"reading":{
 						"title": "Multimédia",
 						"desc": "Cette activité permet de visualiser des textes, images, vidéos, PDF, ainsi que des outils externes."
 					},
