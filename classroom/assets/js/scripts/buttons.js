@@ -2522,6 +2522,9 @@ function showMonitoring(data) {
                         <td>${app.maxTeachers}</td>
                         <td>${app.actualTeachers}</td>
                         <td>${app.maxStudentsPerTeacher}</td>
+                        <td>${app.activityType}</td>
+                        <td>${app.activityLimit}</td>
+                        <td>${app.activityMaxPerTeacher}</td>
                     </tr>`;
         })
     }
