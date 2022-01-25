@@ -1213,6 +1213,7 @@ function updateAppForUser(methodName = "update") {
     const process = (data) => {
         // Get the actual user's information
         let user = mainManager.getmanagerManager()._actualUserDetails;
+        let defaultRestrictions = mainManager.getmanagerManager()._defaultRestrictions;
         $('#update_personal_apps_sa').html("");
         $('#create_update_personal_apps_sa').html("");
 
@@ -1242,11 +1243,12 @@ function updateAppForUser(methodName = "update") {
                     <input type="date" id="${methodName}_begin_date_${element.id}" name="trip-start" value="${new Date()}" min="${new Date()}" max="2023-12-31">
                     <label class="form-check-label" for="${methodName}_end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
                     <input type="date" id="${methodName}_end_date_${element.id}" name="trip-start" min="0" max="2025-12-31">
+
                     <label class="form-check-label" for="${methodName}_max_teacher_${element.id}">${i18next.t('manager.group.maxStudents')}</label>
-                    <input type="number" id="${methodName}_max_teacher_${element.id}" value="0">
+                    <input type="number" id="${methodName}_max_teacher_${element.id}" value="${defaultRestrictions[0].restrictions.maxStudents}">
 
                     <label class="form-check-label" for="${methodName}_max_activities_${element.id}">${i18next.t('manager.group.maxActivities')}</label>
-                    <input type="number" id="${methodName}_max_activities_${element.id}" value="0">
+                    <input type="number" id="${methodName}_max_activities_${element.id}">
                 </div>
                 </div>`;
             } else {
@@ -1283,6 +1285,11 @@ function updateAppForUser(methodName = "update") {
         data.forEach(element => {
             $(`#${methodName}_application_${element.id}`).change(function () {
                 $(`#${methodName}_personal_apps_${element.id}`).toggle();
+                mainManager.getmanagerManager().getActivityRestrictionFromApp(element.id).then((res) => {
+                    if ($(`#${methodName}_max_activities_${element.id}`).val() == "") {
+                        $(`#${methodName}_max_activities_${element.id}`).val(res.max_per_teachers)
+                    }
+                });
             })
         });
     }
@@ -1661,13 +1668,14 @@ function tempoAndShowGroupTableGroupAdmin() {
 }
 
 function switchTomanager() {
-    //mainManager.init();
     $('body').addClass('theme-super-admin').removeClass("theme-group-admin theme-teacher")
-    //navigatePanel('classroom-dashboard-profil-panel-manager', 'dashboard-profil-manager');
     $('#classroom-dashboard-sidebar-teacher').hide();
     $('#groupadmin-dashboard-sidebar').hide();
     $('#manager-dashboard-sidebar').show();
     pseudoModal.closeAllModal();
+    mainManager.getmanagerManager().getDefaultRestrictions().then(function (res2) {
+        mainManager.getmanagerManager()._defaultRestrictions = res2;
+    });
 }
 
 function switchToGroupAdmin() {
@@ -1921,6 +1929,8 @@ function showGroupMembersGroupAdmin(id) {
 }
 
 function optionsGroupApplications($type) {
+
+    let defaultRestrictions = mainManager.getmanagerManager()._defaultRestrictions;
     const process = (data) => {
 
         $('#group_upd_apps_options').html("");
@@ -1954,13 +1964,13 @@ function optionsGroupApplications($type) {
                     <input type="date" id="end_date_${element.id}" name="trip-start" min="0" max="2025-12-31">
 
                     <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerTeachers')}" for="max_students_per_teachers_${element.id}"><i class="fas fa-info mx-1"></i>${i18next.t('manager.group.studentsPerTeacher')}</label>
-                    <input type="number" id="max_students_per_teachers_${element.id}">
+                    <input type="number" id="max_students_per_teachers_${element.id}" value="${defaultRestrictions[1].restrictions.maxStudentsPerTeacher}">
 
                     <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerGroups')}" for="max_students_per_groups_${element.id}"><i class="fas fa-info mx-1"></i>${i18next.t('manager.group.studentsPerGroup')}</label>
-                    <input type="number" id="max_students_per_groups_${element.id}">
+                    <input type="number" id="max_students_per_groups_${element.id}" value="${defaultRestrictions[1].restrictions.maxStudents}">
 
                     <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxTeachers')}" for="max_teachers_per_groups_${element.id}"><i class="fas fa-info mx-1"></i>${i18next.t('manager.group.teachersPerGroup')}</label>
-                    <input type="number" id="max_teachers_per_groups_${element.id}">
+                    <input type="number" id="max_teachers_per_groups_${element.id}" value="${defaultRestrictions[1].restrictions.maxTeachers}">
 
                     <label class="form-check-label" for="max_activities_per_groups_${element.id}">${i18next.t('manager.group.activitiesPerGroup')}</label>
                     <input type="number" id="max_activities_per_groups_${element.id}">
@@ -2018,6 +2028,15 @@ function optionsGroupApplications($type) {
         data.forEach(element => {
             $(`#application_${element.id}`).change(function () {
                 $(`#apps_restriction_${element.id}`).toggle();
+
+                mainManager.getmanagerManager().getActivityRestrictionFromApp(element.id).then((response) => {
+                    if ($(`#max_activities_per_groups_${element.id}`).val() == "" && response != null) {
+                        $(`#max_activities_per_groups_${element.id}`).val(response.max_per_teachers)
+                    }
+                    if ($(`#max_activities_per_teachers_${element.id}`).val() == "" && response != null) {
+                        $(`#max_activities_per_teachers_${element.id}`).val(response.max_per_teachers)
+                    }
+                });
             })
         });
 
