@@ -360,6 +360,7 @@ $('#code-copy').click(function () {
 
 $('body').on('click', '#add-student-dashboard-panel, .new-student-modal', function () {
     pseudoModal.openModal('add-student-modal')
+    $('#add-student-div input').focus();
 })
 
 //banque de ressources-->copier une activité

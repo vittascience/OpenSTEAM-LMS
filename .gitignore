@@ -5,3 +5,9 @@ composer.lock
 /plugins
 classroom/assets/plugins
 /EmailTemplates
+.settings/org.eclipse.wst.common.project.facet.core.xml
+.gitignore
+.project
+.gitignore
+.settings/org.eclipse.php.core.prefs
+.buildpath
