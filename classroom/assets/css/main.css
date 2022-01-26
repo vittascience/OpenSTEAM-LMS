@@ -1201,7 +1201,6 @@ img.btn-cabri {
 }
 
 #classroom-dashboard-sandbox-panel h3.section-title::after,
-#classroom-dashboard-activities-panel h3.section-title::after,
 #classroom-dashboard-activities-panel-teacher h3.section-title::after {
 
     content: '';
@@ -1212,6 +1211,30 @@ img.btn-cabri {
     border-top: 3px #000 dotted;
     border-color: inherit;
 
+}
+
+#classroom-dashboard-activities-panel .section-container {
+    background: var(--classroom-background-1);
+    border-radius: 1em;
+    padding: 0.1em 0;
+    margin: 1em;   
+}
+
+#classroom-dashboard-activities-panel .section-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin: 0.5em;
+}
+
+#classroom-dashboard-activities-panel .section-header h3.section-title {
+    padding: 0px;
+    margin: 0px;
+}
+
+#classroom-dashboard-activities-panel .section-header i{
+    margin-right: 0.5em;
 }
 
 h3.section-new {
@@ -1228,7 +1251,6 @@ h3.section-current {
 h3.section-done {
     color: var(--classroom-primary);
     border-color: var(--classroom-primary);
-
 }
 
 .sandbox-item,

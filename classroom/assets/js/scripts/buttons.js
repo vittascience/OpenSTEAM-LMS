@@ -678,11 +678,11 @@ function studentActivitiesDisplay() {
 
 function sandboxDisplay(projects = Main.getClassroomManager()._myProjects) {
     $('#sandbox-container-list').html(`
-<h3 class="section-title section-new">` + i18next.t('classroom.sandbox.mine') + ` </h3>
-<div id="mine-sandbox">
-</div>
-<h3 class="section-title section-current">` + i18next.t('classroom.sandbox.shared') + `</h3>
-<div id="shared-sandbox"></div>`)
+    <h3 class="section-title section-new">` + i18next.t('classroom.sandbox.mine') + ` </h3>
+    <div id="mine-sandbox">
+    </div>
+    <h3 class="section-title section-current">` + i18next.t('classroom.sandbox.shared') + `</h3>
+    <div id="shared-sandbox"></div>`)
     projects.forEach(element => {
         $('#mine-sandbox').append(teacherSandboxItem(element))
     });
