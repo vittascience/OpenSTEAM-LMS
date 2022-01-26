@@ -351,9 +351,7 @@ class AutoBuildManager {
                                 views: [],
                                 css: [],
                                 js: [],
-                                images: [],
-                                controllers: [],
-                                entities: []
+                                images: []
                             };
                             this.pluginsList.push(currentPlugin);
                         });
@@ -370,8 +368,6 @@ class AutoBuildManager {
     async loadFilesList() {
         return new Promise(async (resolve, reject) => {
             await this.loadPluginsFilesList('Views', 'views');
-            await this.loadPluginsFilesList('Controller', 'controllers');
-            await this.loadPluginsFilesList('Entities', 'entities');
             await this.loadPluginsFilesList('public/css', 'css');
             await this.loadPluginsFilesList('public/js', 'js');
             await this.loadPluginsFilesList('public/images', 'images');
@@ -405,7 +401,9 @@ class AutoBuildManager {
                 if (files) {
                     try {
                         files.forEach(file => {
-                            this.pluginsList[this.pluginsList.indexOf(plugin)][list].push(file);
+                            if (file != '.gitkeep') {
+                                this.pluginsList[this.pluginsList.indexOf(plugin)][list].push(file);
+                            }
                         });
                         resolve();
                     } catch (error) {
