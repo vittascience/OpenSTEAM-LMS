@@ -1149,6 +1149,7 @@ $('#create_user_link_to_group_manager').click(function () {
                 break;
         }
     })
+
     $("#user_teacher_grade").trigger("change");
     if ($("#u_group")[0].length <= 0) {
         $saved_groups = mainManager.getmanagerManager()._comboGroups;
@@ -2269,6 +2270,7 @@ $('#create_user_link_to_group_groupadmin').click(function () {
     $('#user_teacher_grade_ga').prop('selectedIndex', 0);
     $('#user_teacher_subjects_ga').prop('selectedIndex', 0);
     $('#u_is_group_admin_ga').prop("checked", false);
+    $('#create_applications_ga').html("");
 
     mainGroupAdmin.getGroupAdminManager()._addedCreateUserGroup = 0;
     const groupId = mainGroupAdmin.getGroupAdminManager()._actualGroup;
@@ -2324,6 +2326,22 @@ $('#create_user_link_to_group_groupadmin').click(function () {
                 }
             })
             createSubjectSelect(getSubjects(0), 1);
+
+            let html = "";
+            html += "<label data-i18n='manager.profil.apps'>Applications</label>";
+            mainGroupAdmin.getGroupAdminManager()._comboGroups.forEach(element => {
+                if (element.id == mainGroupAdmin.getGroupAdminManager()._actualGroup) {
+                    element.applications.forEach(application => {
+                        html += `<div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="create_group_app" id="group_app_${application.id}" value="${application.id}">
+                            <label class="form-check" for="group_app_${application.id}">
+                                ${application.name}
+                            </label>
+                        </div>`;
+                    })
+                }
+            });
+            $('#create_applications_ga').html(html);
         }
     })
 });
@@ -2343,6 +2361,15 @@ function createUserAndLinkToGroup_groupAdmin() {
         $teacher_grade = $('#user_teacher_grade_ga').length ? $('#user_teacher_grade_ga').val() + 1 : null,
         $teacher_suject = $('#user_teacher_subjects_ga').length ? $('#user_teacher_subjects_ga').val() + 1 : null;
 
+        $ApplicationFromGroup = [];
+        $('[name="create_group_app"]').each(function () {
+            const ApplicationTemp = [
+                $(this).val(),
+                $(this).is(':checked')
+            ]
+            $ApplicationFromGroup.push(ApplicationTemp);
+        });
+
 
     mainGroupAdmin.getGroupAdminManager().createUserAndLinkToGroup($firstname,
         $surname,
@@ -2353,7 +2380,8 @@ function createUserAndLinkToGroup_groupAdmin() {
         $groups,
         $teacher_grade,
         $teacher_suject,
-        $school
+        $school,
+        $ApplicationFromGroup
     ).then((response) => {
         if (response.message == "success") {
             displayNotification('#notif-div', "manager.users.userCreated", "success");
@@ -2374,8 +2402,6 @@ function createUserAndLinkToGroup_groupAdmin() {
             displayNotification('#notif-div', "manager.account.notAllowedToCreateUserInThisGroup", "error");
         }
     });
-    /*     pseudoModal.closeAllModal();
-        tempoAndShowGroupTableGroupAdmin(); */
 }
 
 function resetUserPassword(id) {

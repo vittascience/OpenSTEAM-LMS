@@ -543,6 +543,9 @@ const classroomModals = {
         </div>
         <div class="form-group col-md-12" id="allGroupsGA">
         </div>
+
+        <div id="create_applications_ga">
+        </div>
     </div>
     
     <button class="btn c-btn-secondary" onclick="createUserAndLinkToGroup_groupAdmin()" data-i18n="manager.buttons.user.create">Create user</button>`,
