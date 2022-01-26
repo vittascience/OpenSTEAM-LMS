@@ -623,7 +623,7 @@ function studentActivitiesDisplay() {
         } else {
             var dateEnd = "aucune"
         }
-        $('#new-activities').append(activityItem(element, "newActivities"))
+        $('#new-activities-list').append(activityItem(element, "newActivities"))
         $('#header-table-bilan').append('<th data-toggle="tooltip" data-placement="top" title="' + element.activity.title + '"> Act.</br>n°' + index + '</th>')
         $('#body-table-bilan').append('<td class="' + statusActivity(element) + ' classroom-clickable bilan-cell " title="' + i18next.t('classroom.activities.dateBefore') + ' ' + formatDay(dateEnd) + '"></td>')
         index++
@@ -634,7 +634,7 @@ function studentActivitiesDisplay() {
         } else {
             var dateEnd = "aucune"
         }
-        $('#saved-activities').append(activityItem(element, "savedActivities"))
+        $('#saved-activities-list').append(activityItem(element, "savedActivities"))
         $('#header-table-bilan').append('<th data-toggle="tooltip" data-placement="top" title="' + element.activity.title + '"> Act.</br>n°' + index + '</th>')
         $('#body-table-bilan').append('<td class="' + statusActivity(element) + ' classroom-clickable bilan-cell " title="' + i18next.t('classroom.activities.dateBefore') + ' ' + formatDay(dateEnd) + '"></td>')
         index++
@@ -646,7 +646,7 @@ function studentActivitiesDisplay() {
         } else {
             var dateEnd = "aucune"
         }
-        $('#current-activities').append(activityItem(element, "currentActivities"))
+        $('#current-activities-list').append(activityItem(element, "currentActivities"))
         $('#header-table-bilan').append('<th data-toggle="tooltip" data-placement="top" title="' + element.activity.title + '"> Act.</br>n°' + index + '</th>')
         $('#body-table-bilan').append('<td class="' + statusActivity(element) + ' classroom-clickable bilan-cell" title="' + i18next.t('classroom.activities.dateBefore') + ' ' + formatDay(dateEnd) + '"></td>')
         index++
@@ -877,7 +877,7 @@ function findClassroomToConnect(linkC) {
 
 function sectionToggle(id) {
 
-    $('#' + id + '-activities').toggle()
+    $('#' + id + '-activities-list').toggle()
     $('#i-' + id).toggleClass('fa-chevron-down')
     $('#i-' + id).toggleClass('fa-chevron-up')
 

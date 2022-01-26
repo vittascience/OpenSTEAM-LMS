@@ -219,34 +219,34 @@
 </div>
 <div id="classroom-dashboard-activities-panel" style="display:none;" class="dashboard-block">
     <div class="section-container section-new">
-        <div class="section-header" onclick="sectionToggle('new')">
+        <div class="section-header">
             <i id="i-new" class="ml-2 fas fa-lg fa-chevron-down"></i>
-            <h3 class="section-title" data-i18n="classroom.activities.new"></h3>
+            <h3 class="section-title" onclick="sectionToggle('new')" data-i18n="classroom.activities.new"></h3>
 
         </div>
-        <div id="new-activities"></div>
+        <div id="new-activities-list"></div>
     </div>
 
     <div class="section-container section-saved">
-        <div class="section-header" onclick="sectionToggle('saved')">
+        <div class="section-header">
             <i id="i-saved" class="ml-2 fas fa-lg fa-chevron-down"></i>
-            <h3 class="section-title">Brouillons</h3>
+            <h3 class="section-title " onclick="sectionToggle('saved')">Brouillons</h3>
         </div>
-        <div id="saved-activities"></div>
+        <div id="saved-activities-list"></div>
     </div>
 
     <div class="section-container section-current">
-        <div class="section-header" onclick="sectionToggle('current')">
+        <div class="section-header">
             <i id="i-current" class="ml-2 fas fa-lg fa-chevron-down"></i>
-            <h3 class="section-title" data-i18n="classroom.activities.current"></h3>
+            <h3 class="section-title" onclick="sectionToggle('current')" data-i18n="classroom.activities.current"></h3>
         </div>
-        <div id="current-activities"></div>
+        <div id="current-activities-list"></div>
     </div>
 
     <div class="section-container section-done">
-        <div class="section-header" onclick="sectionToggle('done')">
+        <div class="section-header">
             <i id="i-done" class="ml-2 fas fa-lg fa-chevron-down"></i>
-            <h3 class="section-title" data-i18n="classroom.activities.done"></h3>
+            <h3 class="section-title" onclick="sectionToggle('done')" data-i18n="classroom.activities.done"></h3>
         </div>
         <div id="done-activities-list"></div>
     </div>
