@@ -1426,8 +1426,61 @@ h3.section-done {
     max-height: 65vh;
 }
 
-/* ACTIVITY CREATE FORM */
+/* ACTIVITY CREATE SECTION  */
 
+#activity-creation-grid {
+    margin: 20px 5%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px 10px;
+
+}
+
+#activity-creation-grid .app-head {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    margin: 1em 0.5em;
+}
+
+
+#activity-creation-grid .app-card {
+    --border-color: var(--classroom-text-2);
+    border-radius: 2em;
+    text-align: center;
+
+    display: grid;
+    grid-template-rows: 128px auto 1fr;
+    justify-items: center;
+
+    box-shadow: 0px 0px 10px 0px var(--classroom-shadow-1);
+    overflow: overlay;
+
+    padding: 1em;
+    cursor: pointer;   
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+
+}
+
+#activity-creation-grid .app-card:hover {
+    border-color: var(--border-color);
+}
+
+#activity-creation-grid .app-card .app-card-title {
+    font-weight: 600;
+    font-size: 1.1em;
+    overflow-wrap: anywhere;
+}
+#activity-creation-grid .app-card .app-card-img {
+    height: 128px;
+    width: auto;
+
+
+/* ACTIVITY CREATE FORM */ 
 
 .activity-creation-form {
     display: flex;
