@@ -421,8 +421,6 @@ function statusActivity(activity, state = true) {
 // }
 
 function loadActivity(isDoable) {
-    
-    console.log(Activity)
     ClassroomSettings.chrono = Date.now()
     $('#activity-introduction').hide()
     if (Activity.introduction != null && Activity.introduction != "") {

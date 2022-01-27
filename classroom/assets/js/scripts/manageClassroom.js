@@ -102,7 +102,6 @@ function setNote(note) {
 
 function giveNote() {
     let comment = $('#commentary-textarea').val()
-    console.log(comment)
     Main.getClassroomManager().setActivityCorrection(Activity, Activity.correction, Activity.note, comment).then(function (exercise) {
         Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
             Activity = exercise
