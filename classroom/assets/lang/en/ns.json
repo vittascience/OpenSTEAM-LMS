@@ -18,7 +18,7 @@
 			"codeInput": " Enter your Classroom code",
 			"teacher": "TEACHER",
 			"hasAccount": "Already have an account?",
-			"gar": "Enjoy the Classroom module with ease using GAR.</br><i class=\"fas fa-exclamation-triangle\" style=\"color:var(--vitta-orange-light)\"></i> The connection to GAR is not yet finalized, but will be ready soon.",
+			"gar": "Enjoy the Classroom module with ease using GAR.",
 			"signup": "SIGN UP",
 			"firstVisit": "First time? Please choose a username.",
 			"signin": "SIGN IN",

@@ -18,7 +18,7 @@
 			"codeInput": " Rentrez ici votre code classe",
 			"teacher": "ENSEIGNANT",
 			"hasAccount": "Vous avez déja un compte ?",
-			"gar": "Profitez du module classe en toute simplicité à l'aide du GAR.</br><i class=\"fas fa-exclamation-triangle\" style=\"color:var(--vitta-orange-light)\"></i> Le raccordement au GAR n’est pas encore finalisé, il sera prêt prochainement.",
+			"gar": "Profitez du module classe en toute simplicité à l'aide du GAR.",
 			"signup": "S'INSCRIRE",
 			"firstVisit": "Première viste ? Veuillez choisir un identifiant.",
 			"signin": "SE CONNECTER",
