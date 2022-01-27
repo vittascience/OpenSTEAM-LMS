@@ -623,7 +623,7 @@ function studentActivitiesDisplay() {
         } else {
             var dateEnd = "aucune"
         }
-        $('#new-activities').append(activityItem(element, "newActivities"))
+        $('#new-activities-list').append(activityItem(element, "newActivities"))
         $('#header-table-bilan').append('<th data-toggle="tooltip" data-placement="top" title="' + element.activity.title + '"> Act.</br>n°' + index + '</th>')
         $('#body-table-bilan').append('<td class="' + statusActivity(element) + ' classroom-clickable bilan-cell " title="' + i18next.t('classroom.activities.dateBefore') + ' ' + formatDay(dateEnd) + '"></td>')
         index++
@@ -634,7 +634,7 @@ function studentActivitiesDisplay() {
         } else {
             var dateEnd = "aucune"
         }
-        $('#saved-activities').append(activityItem(element, "savedActivities"))
+        $('#saved-activities-list').append(activityItem(element, "savedActivities"))
         $('#header-table-bilan').append('<th data-toggle="tooltip" data-placement="top" title="' + element.activity.title + '"> Act.</br>n°' + index + '</th>')
         $('#body-table-bilan').append('<td class="' + statusActivity(element) + ' classroom-clickable bilan-cell " title="' + i18next.t('classroom.activities.dateBefore') + ' ' + formatDay(dateEnd) + '"></td>')
         index++
@@ -646,7 +646,7 @@ function studentActivitiesDisplay() {
         } else {
             var dateEnd = "aucune"
         }
-        $('#current-activities').append(activityItem(element, "currentActivities"))
+        $('#current-activities-list').append(activityItem(element, "currentActivities"))
         $('#header-table-bilan').append('<th data-toggle="tooltip" data-placement="top" title="' + element.activity.title + '"> Act.</br>n°' + index + '</th>')
         $('#body-table-bilan').append('<td class="' + statusActivity(element) + ' classroom-clickable bilan-cell" title="' + i18next.t('classroom.activities.dateBefore') + ' ' + formatDay(dateEnd) + '"></td>')
         index++
@@ -678,11 +678,11 @@ function studentActivitiesDisplay() {
 
 function sandboxDisplay(projects = Main.getClassroomManager()._myProjects) {
     $('#sandbox-container-list').html(`
-<h3 class="section-title section-new">` + i18next.t('classroom.sandbox.mine') + ` </h3>
-<div id="mine-sandbox">
-</div>
-<h3 class="section-title section-current">` + i18next.t('classroom.sandbox.shared') + `</h3>
-<div id="shared-sandbox"></div>`)
+    <h3 class="section-title section-new">` + i18next.t('classroom.sandbox.mine') + ` </h3>
+    <div id="mine-sandbox">
+    </div>
+    <h3 class="section-title section-current">` + i18next.t('classroom.sandbox.shared') + `</h3>
+    <div id="shared-sandbox"></div>`)
     projects.forEach(element => {
         $('#mine-sandbox').append(teacherSandboxItem(element))
     });
@@ -877,7 +877,7 @@ function findClassroomToConnect(linkC) {
 
 function sectionToggle(id) {
 
-    $('#' + id + '-activities').toggle()
+    $('#' + id + '-activities-list').toggle()
     $('#i-' + id).toggleClass('fa-chevron-down')
     $('#i-' + id).toggleClass('fa-chevron-up')
 
@@ -1247,7 +1247,7 @@ function updateAppForUser(methodName = "update") {
             }
 
             if (!infoapp) {
-                stringhtml += `<div class="form-check">
+                stringhtml += `<div class="c-checkbox">
                 <input class="form-check-input appuser" type="checkbox" value="${element.id}" id="${methodName}_application_${element.id}">
                 <label class="form-check-label font-weight-bold mb-2" style="color: var(--classroom-primary)" for="${methodName}_application_${element.id}" >
                     ${element.name}
@@ -1270,7 +1270,7 @@ function updateAppForUser(methodName = "update") {
                 let dateBegin = new Date(infoapp.date_begin).toISOString().split('T')[0],
                     dateEnd = new Date(infoapp.date_end).toISOString().split('T')[0];
 
-                stringhtml += `<div class="form-check">
+                stringhtml += `<div class="c-checkbox">
                 <input class="form-check-input appuser" type="checkbox" checked value="${element.id}" id="${methodName}_application_${element.id}">
                 <label class="form-check-label font-weight-bold mb-2" style="color: var(--classroom-primary)" for="${methodName}_application_${element.id}">
                     ${element.name}
@@ -1441,7 +1441,7 @@ function showupdateUserModal(id) {
                                     <select class="form-control" id="update_u_group${i}">
                                     </select>
                                     <div class="input-group-append">
-                                        <div class="input-group-text pl-5">
+                                        <div class="input-group-text c-checkbox c-checkbox-grey">
                                             <input class="form-check-input" type="checkbox" id="update_u_is_group_admin${i}">
                                             <label class="form-check-label mx-1" for="update_u_is_group_admin${i}" data-i18n="manager.users.groupAdmin">
                                                 Administrateur du groupe
@@ -1472,9 +1472,9 @@ function showupdateUserModal(id) {
                                 }
                             });
                         }
-                        html += `<div class="form-check">
+                        html += `<div class="c-checkbox">
                             <input class="form-check-input" type="checkbox" name="group_app" id="group_app_${application.id}" value="${application.id}" ${checked}>
-                            <label class="form-check" for="group_app_${application.id}">
+                            <label class="form-check-label" for="group_app_${application.id}">
                                 ${application.name}
                             </label>
                         </div>`;
@@ -1491,7 +1491,7 @@ function showupdateUserModal(id) {
                                 <select class="form-control" id="update_u_group0">
                                 </select>
                                 <div class="input-group-append">
-                                    <div class="input-group-text pl-5">
+                                    <div class="input-group-text c-checkbox c-checkbox-grey">
                                         <input class="form-check-input" type="checkbox" id="update_u_is_group_admin0">
                                         <label class="form-check-label mx-1" for="update_u_is_group_admin0" data-i18n="manager.users.groupAdmin">
                                             Administrateur du groupe
@@ -1965,7 +1965,7 @@ function optionsGroupApplications($type) {
             }
 
             if (!$infoapp) {
-                stringhtml += `<div class="form-check">
+                stringhtml += `<div class="c-checkbox">
                 <input class="form-check-input app" type="checkbox" value="${element.id}" id="application_${element.id}">
                 <label class="form-check-label font-weight-bold mb-2" for="application_${element.id}" style="color: var(--classroom-primary)">
                     ${element.name}
@@ -1999,7 +1999,7 @@ function optionsGroupApplications($type) {
                 let dateBegin = new Date($infoapp.date_begin).toISOString().split('T')[0],
                     dateEnd = new Date($infoapp.date_end).toISOString().split('T')[0];
 
-                stringhtml += `<div class="form-check">
+                stringhtml += `<div class="c-checkbox">
                 <input class="form-check-input app" type="checkbox" checked value="${element.id}" id="application_${element.id}">
                 <label class="form-check-label font-weight-bold mb-2" for="application_${element.id}" style="color: var(--classroom-primary)">
                     ${element.name}
@@ -2135,9 +2135,9 @@ function showupdateUserModal_groupadmin(user_id) {
                                 }
                             });
                         }
-                        html += `<div class="form-check">
+                        html += `<div class="c-checkbox">
                             <input class="form-check-input" type="checkbox" name="group_app" id="group_app_${application.id}" value="${application.id}" ${checked}>
-                            <label class="form-check" for="group_app_${application.id}">
+                            <label class="form-check-label" for="group_app_${application.id}">
                                 ${application.name}
                             </label>
                         </div>`;
@@ -2183,7 +2183,7 @@ function showupdateUserModal_groupadmin(user_id) {
                                         <select class="form-control" id="update_u_group_ga${i}" disabled>
                                         </select>
                                         <div class="input-group-append">
-                                            <div class="input-group-text">
+                                            <div class="input-group-text c-checkbox c-checkbox-grey">
                                                 <input type="checkbox" id="update_u_is_group_admin_ga${i}">
                                                 <label class="form-check mx-1" for="update_u_is_group_admin_ga${i}">
                                                     Administrateur du groupe
@@ -2306,7 +2306,7 @@ $('#create_user_link_to_group_groupadmin').click(function () {
                                     <select class="form-control" id="create_u_group_ga" disabled>
                                         <option value="${element.id}">${element.name}</option></select>
                                     <div class="input-group-append">
-                                        <div class="input-group-text">
+                                        <div class="input-group-text c-checkbox c-checkbox-grey">
                                             <input type="checkbox" id="checkboxAdmin">
                                             <label class="form-check mx-1" for="checkboxAdmin">
                                                 Administrateur du groupe
