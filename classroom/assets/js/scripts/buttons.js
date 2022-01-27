@@ -547,9 +547,16 @@ function validateActivity() {
     if (interface == undefined || interface == null) {
         correction = 2
         Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, correction, 3).then(function (activity) {
-            navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities', '', '', true)
-            actualizeStudentActivities(activity, correction)
-            $("#activity-validate").attr("disabled", false);
+            if (typeof activity.errors != 'undefined') {
+                for (let error in activity.errors) {
+                    displayNotification('#notif-div', `classroom.notif.${error}`, "error");
+                    $("#activity-validate").attr("disabled", false);
+                }
+            } else  {
+                navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities', '', '', true)
+                actualizeStudentActivities(activity, correction)
+                $("#activity-validate").attr("disabled", false);
+            }
         })
         window.localStorage.classroomActivity = null
     } else if (Activity.autocorrection == false) {
@@ -557,9 +564,16 @@ function validateActivity() {
         let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)[2]
         let project = window.localStorage[interface + 'CurrentProject']
         Main.getClassroomManager().saveStudentActivity(JSON.parse(project), interface, Activity.id).then(function (activity) {
-            actualizeStudentActivities(activity, correction)
-            $("#activity-validate").attr("disabled", false);
-            navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher', '', '', true)
+            if (typeof activity.errors != 'undefined') {
+                for (let error in activity.errors) {
+                    displayNotification('#notif-div', `classroom.notif.${error}`, "error");
+                    $("#activity-validate").attr("disabled", false);
+                }
+            } else  {
+                actualizeStudentActivities(activity, correction)
+                $("#activity-validate").attr("disabled", false);
+                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher', '', '', true)
+            }
         })
     } else {
 
@@ -692,7 +706,7 @@ function sandboxDisplay(projects = Main.getClassroomManager()._myProjects) {
 function classroomsDisplay() {
     let noContentDiv = `
     <p class="no-content-div">
-        <img src="assets/media/my_classes.svg" alt="Icône classe" class="hue-rotate-teacher"> 
+        <img src="${_PATH}assets/media/my_classes.svg" alt="Icône classe" class="hue-rotate-teacher"> 
         <b data-i18n="classroom.classes.noClasses">Vous n'avez pas encore de classe</b>
         <span id="no-content-div__bottom-text"  data-i18n="classroom.classes.createClassNow">Commencez par créer une classe dès maintenant !</span>
     </p>`
@@ -702,7 +716,7 @@ function classroomsDisplay() {
         document.querySelector('.buttons-interactions button.teacher-new-classe').style.display = 'none';
         noContentDiv = `
         <p class="no-content-div">
-            <img src="assets/media/my_classes.svg" alt="Icône classe" class="hue-rotate-teacher"> 
+            <img src="${_PATH}assets/media/my_classes.svg" alt="Icône classe" class="hue-rotate-teacher"> 
             <b data-i18n="classroom.classes.noClasses">Vous n'avez pas encore de classe</b>
         </p>`
     }

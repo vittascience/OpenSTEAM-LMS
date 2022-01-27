@@ -18,7 +18,7 @@
 			"codeInput": " Rentrez ici votre code classe",
 			"teacher": "ENSEIGNANT",
 			"hasAccount": "Vous avez déja un compte ?",
-			"gar": "Profitez du module classe en toute simplicité à l'aide du GAR.</br><i class=\"fas fa-exclamation-triangle\" style=\"color:var(--vitta-orange-light)\"></i> Le raccordement au GAR n’est pas encore finalisé, il sera prêt prochainement.",
+			"gar": "Profitez du module classe en toute simplicité à l'aide du GAR.",
 			"signup": "S'INSCRIRE",
 			"firstVisit": "Première viste ? Veuillez choisir un identifiant.",
 			"signin": "SE CONNECTER",
@@ -191,7 +191,9 @@
 			"noUserUsername" : "Vous devez rentrer un nom d'utilisateur",
 			"pseudoMissingInCsvFile" : "Certains élèves n'ont pu être ajouter car leur pseudo était manquant",
 			"backendReplyPseudoMissingInCsv" : "Vérifier le fichier CSV : ligne vide ou pseudo manquant",
-			"backendReplyPseudoMissingInUsersArray" : "Il y a une erreur dans un ou plusieurs nom d'apprenant(s)"
+			"backendReplyPseudoMissingInUsersArray" : "Il y a une erreur dans un ou plusieurs nom d'apprenant(s)",
+			"invalidActivityId": "Erreur lors de la soumission du travail : identifiant d'activité non valide !",
+			"invalidCorrection": "Erreur lors de la soumission du travail : statut d'activité non valide !"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",

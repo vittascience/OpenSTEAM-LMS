@@ -18,7 +18,7 @@
 			"codeInput": " Enter your Classroom code",
 			"teacher": "TEACHER",
 			"hasAccount": "Already have an account?",
-			"gar": "Enjoy the Classroom module with ease using GAR.</br><i class=\"fas fa-exclamation-triangle\" style=\"color:var(--vitta-orange-light)\"></i> The connection to GAR is not yet finalized, but will be ready soon.",
+			"gar": "Enjoy the Classroom module with ease using GAR.",
 			"signup": "SIGN UP",
 			"firstVisit": "First time? Please choose a username.",
 			"signin": "SIGN IN",
@@ -191,7 +191,9 @@
 			"noUserUsername" : "You have to enter a username",
 			"pseudoMissingInCsvFile" : "Some students couldn't be added as their pseudo was missing",
 			"backendReplyPseudoMissingInCsv" : "Check the CSV file : empty line or pseudo missing",
-			"backendReplyPseudoMissingInUsersArray" : "There is one or more error(s) in the student(s) name(s)"
+			"backendReplyPseudoMissingInUsersArray" : "There is one or more error(s) in the student(s) name(s)",
+			"invalidActivityId": "Error submitting job: Invalid activity ID!",
+			"invalidCorrection": "Erreur submitting job: Invalid activity status!"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
