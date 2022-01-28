@@ -410,6 +410,9 @@
 			},
 			"attributeActivity": {
 				"title": "Assign activity"
+			},
+			"shareProject": {
+				"title": "Share project"
 			}
 		}
 	},

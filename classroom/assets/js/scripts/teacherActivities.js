@@ -128,7 +128,7 @@ $('body').on('click', '#attribute-activity-to-students', function () {
     $(this).attr('disabled', 'disabled')
     let students = []
     let classrooms = []
-    let studentId = $('.student-attribute-form-row')
+    let studentId = $('#attribute-activity-modal .student-attribute-form-row')
     for (let i = 0; i < studentId.length; i++) {
         if ($(studentId[i]).find(".student-id").is(':checked')) {
             students.push($(studentId[i]).find(".student-id").val())
