@@ -411,6 +411,7 @@ class AutoBuildManager {
                     }
                 } else {
                     console.error(`Folder ${folder} doesn't exist! Skipping!`);
+                    resolve();
                 }
             });
         }).catch((error) => {
