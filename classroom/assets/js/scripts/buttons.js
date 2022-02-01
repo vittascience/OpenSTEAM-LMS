@@ -3076,36 +3076,6 @@ function createRegistrationTemplate() {
 }
 
 
-// Check if the actual activity type is limited for the user by id or type
-/**
- * WORK IN PROGRESS
- * @param {*} type 
- * @param {*} id
- */
-function isActivitiesRestricted(id = null, type = null) {
-    // Only one check can be done at the same time
-    if (id != null && type != null) {
-        return false;
-    }
-    return new Promise(function (resolve, reject) {
-        $.ajax({
-            type: "POST",
-            url: "/routing/Routing.php?controller=activity&action=isActivitiesLimited",
-            data: {
-                activityId: id,
-                activityType: type
-            },
-            success: function (response) {
-                resolve(JSON.parse(response));
-            },
-            error: function () {
-                reject();
-            }
-        });
-    })
-}
-
-
 $('#btn-help-for-groupAdmin').click(function () {
     let message = $('#groupadmin-contact-message-input').val(),
         subject = $('#groupadmin-contact-subject-input').val();
@@ -3121,3 +3091,16 @@ $('#btn-help-for-groupAdmin').click(function () {
     })
 })
 
+function testDebug() {
+    navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-profil-teacher');
+}
+
+function setTextArea() {
+    let wbbOpt = {
+        buttons: ",bold,italic,underline,|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe",
+        resize_maxheight: "300",
+    }
+    $('#TA_enonce').wysibb(wbbOpt);
+    $('#TA_content').wysibb(wbbOpt);
+}
+setTextArea();

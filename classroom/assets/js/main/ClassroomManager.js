@@ -22,6 +22,8 @@ class ClassroomManager {
         this._myTeacherActivities = []
         this._tasksQueue = [];
         this._isExecutingTaskInQueue = false;
+        this._allActivities = []
+        this._allApps = []
     }
 
     /**
@@ -1188,4 +1190,170 @@ class ClassroomManager {
             if(classroom.classroom.link == link) return classroom.classroom.id
         }
     }
+
+
+    // New exercices management
+
+    /**
+     * @public
+     * @param {string} activityId
+     * @returns {Activity}
+     * @memberof ActiviiesManager
+     * @description Get an activity by its id
+     * @example
+     * const activity = activitiesManager.getActivityById('activityId')
+     */
+    getActivityById(activityId) {
+        return this._allActivities.find(activity => activity.id === activityId)
+    }
+
+
+    /**
+     * Get all the apps
+     * Access with Main.getClassroomManager().getAllApps()
+     * @public
+     * @returns {Array}
+     */
+    getAllApps() {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=newActivities&action=get_all_apps",
+                success: function (response) {
+                    resolve(response);
+                },
+                error: function () {
+                    reject('error')
+                }
+            });
+        })
+    };
+
+    //get one app by id
+    // write the commentaries
+
+    /**
+     * @public
+     * @param {string} activityId
+     * @returns {Activity}
+     * @description Get an activity by its id
+     * @example
+     * const activity = main.getClassroomManager.getActivityById('activityId')
+     */
+    getAppById(id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=newActivities&action=get_one_activity",
+                data: {
+                    'id': id
+                },
+                success: function (response) {
+                    resolve(response);
+                },
+                error: function () {
+                    reject('error')
+                }
+            });
+        })
+    }
+
+    // create a new activity
+    createNewActivity($title, $type, $content, $solution, $tolerance) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=newActivities&action=create_activity",
+                data: {
+                    'title' : $title,
+                    'type' : $type,
+                    'content' : $content,
+                    'solution' : $solution,
+                    'tolerance' : $tolerance
+                },
+                success: function (response) {
+                    resolve(response);
+                },
+                error: function () {
+                    reject('error')
+                }
+            });
+        })
+    }
+
+    // update an activity
+    updateActivity($id, $title, $type, $content, $solution, $tolerance) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=newActivities&action=update_activity",
+                data: {
+                    'id' : $id,
+                    'title' : $title,
+                    'type' : $type,
+                    'content' : $content,
+                    'solution' : $solution,
+                    'tolerance' : $tolerance
+                },
+                success: function (response) {
+                    resolve(response);
+                },
+                error: function () {
+                    reject('error')
+                }
+            });
+        })
+    }
+
+
+    // delete an activity
+
+    deleteActivity($id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=newActivities&action=delete_activity",
+                data: {
+                    'id' : $id
+                },
+                success: function (response) {
+                    resolve(response);
+                },
+                error: function () {
+                    reject('error')
+                }
+            });
+        })
+    }
+
+
+    /**
+     * Return if the activity is limited or not
+     * @param {*} type 
+     * @param {*} id
+     */
+    isActivitiesRestricted(id = null, type = null) {
+        // Only one check can be done at the same time
+        if (id != null && type != null) {
+            return false;
+        }
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=activity&action=isActivitiesLimited",
+                data: {
+                    activityId: id,
+                    activityType: type
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        });
+    }
+
 }
+

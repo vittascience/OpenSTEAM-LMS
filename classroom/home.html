@@ -342,6 +342,13 @@
             <span data-i18n="classroom.profil.switchMode" class="text-span-initial mr-1"></span>
             <i class="fas fa-exchange-alt"></i></button>
 
+        <!-- TEMP -->
+        <button class="btn c-btn-outline-primary" onclick="testDebug()">
+                <span class="text-span-initial mr-1">DEBUG MODE</span>
+                <i class="fas fa-exchange-alt"></i>
+        </button>
+        <!-- TEMP -->
+
         <button class="btn c-btn-red" onclick="goToDisconnect('classroom');">
             <span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
             <i class="fas fa-power-off"></i>
@@ -1213,6 +1220,56 @@
             </div>
         </div>
     </div>
+</div>
+<div id="classroom-dashboard-classes-new-activity" style="display:none;" class="dashboard-block classes-panel">
+    
+
+    <nav class="row form-activity-container" style="margin: 0 auto;">
+        <div class="col text-center">
+            <span class="form-activity form-activity-desactivate">1</span>
+            <span data-i18n="classroom.activities.form.1">Application</span>
+        </div>
+
+        <div class="col"></div>
+
+        <div class=" col text-center">
+            <span class="form-activity form-activity-activate">2</span>
+            <span data-i18n="classroom.activities.form.2">Contenu</span>
+        </div>
+
+        <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
+
+        <div class=" col text-center">
+            <span class="form-activity form-activity-desactivate">3</span>
+            <span>Titre</span>
+        </div>
+
+        <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
+
+        <div class="col text-center">
+            <span class="form-activity form-activity-desactivate">4</span>
+            <span>Attribution</span>
+        </div>
+    </nav>
+
+    <div class="form-group mb-2 part-content-index part-row c-primary-form">
+        <div class="states m-3" style="height: 350px; max-height: 400px">
+            <h3>Énoncé</h3>
+            <textarea name="TA_enonce" id="TA_enonce" cols="20" rows="5" style="height: 250px; max-height: 300px"></textarea>
+        </div>
+        <div class="content m-3" style="height: 350px; max-height: 400px">
+            <h3>Contenu</h3>
+            <textarea name="TA_content" id="TA_content" cols="20" rows="5" style="height: 250px; max-height: 300px"></textarea>
+        </div>
+        <div class="tolerance m-3">
+            <p>Ajouter une tolérance d'erreurs de <span></span> caractère(s) sur l'ensemble de la réponse de l'élève.</p>
+        </div>
+        <div class="help m-3">
+            <p><span class="font-weight-bold">Indice *</span> s'affiche si la réponse est fausse</p>
+            <input type="text" name="indice" id="indice" placeholder="Indice">
+        </div>
+    </div>
+    
 </div>
 <div id="classroom-dashboard-ide-panel" style="display:none;" class="dashboard-block">
     <iframe width="100%" style="height:85vh;" frameborder="0" allowfullscreen="" style="border:1px #d6d6d6 solid;" src=""></iframe>
