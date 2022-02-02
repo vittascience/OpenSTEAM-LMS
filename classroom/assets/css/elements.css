@@ -1,57 +1,56 @@
 /* Text */
 .c-text-primary {
-    color: var(--classroom-primary)
+    color: var(--classroom-primary);
 }
 
 .c-text-secondary {
-    color: var(--classroom-secondary)
+    color: var(--classroom-secondary);
 }
 
 .c-text-tertiary {
-    color: var(--classroom-tertiary)
+    color: var(--classroom-tertiary);
 }
 
 .c-text-gold {
-    color: var(--classroom-gold)
+    color: var(--classroom-gold);
 }
 
 .c-text-red {
-    color: var(--classroom-red)
+    color: var(--classroom-red);
 }
-
 
 /* Links */
 
 .c-link-primary {
-    color: var(--classroom-primary)
+    color: var(--classroom-primary);
 }
 
 .c-link-primary:hover {
-    color: var(--classroom-primary-dark)
+    color: var(--classroom-primary-dark);
 }
 
 .c-link-secondary {
-    color: var(--classroom-secondary)
+    color: var(--classroom-secondary);
 }
 
 .c-link-secondary:hover {
-    color: var(--classroom-secondary-dark)
+    color: var(--classroom-secondary-dark);
 }
 
 .c-link-tertiary {
-    color: var(--classroom-tertiary)
+    color: var(--classroom-tertiary);
 }
 
 .c-link-tertiary:hover {
-    color: var(--classroom-tertiary-dark)
+    color: var(--classroom-tertiary-dark);
 }
 
 .c-link-red {
-    color: var(--classroom-red)
+    color: var(--classroom-red);
 }
 
 .c-link-red:hover {
-    color: var(--classroom-red-dark)
+    color: var(--classroom-red-dark);
 }
 
 /* Buttons */
@@ -156,7 +155,7 @@
 .c-btn-outline-light:focus,
 .c-btn-light:focus {
     outline: 0;
-    box-shadow: 0 0 0 .2rem rgba(126, 126, 126, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba(126, 126, 126, 0.25);
 }
 
 .c-btn-outline-primary:hover,
@@ -240,9 +239,8 @@
 .c-tertiary-form input[type="number"]:focus,
 .c-tertiary-form input[type="date"]:focus {
     outline: 0;
-    box-shadow: 0 0 0 .2rem rgba(126, 126, 126, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba(126, 126, 126, 0.25);
 }
-
 
 .c-primary-form input[type="text"],
 .c-primary-form textarea,
@@ -287,9 +285,9 @@
     -webkit-appearance: none;
     appearance: none;
     background-color: var(--classroom-white);
-    background-image: url('../media/theme/dropdown_icon.svg');
+    background-image: url("../media/theme/dropdown_icon.svg");
     background-repeat: no-repeat, repeat;
-    background-position: right .7em top 50%, 0 0;
+    background-position: right 0.7em top 50%, 0 0;
     background-size: 1em auto, 100%;
     padding-right: 2em;
 }
@@ -385,7 +383,7 @@
 }
 
 .c-table thead th:not(:last-child):after {
-    content: '';
+    content: "";
     height: 50%;
     width: 2px;
 
@@ -459,14 +457,14 @@ hr {
 
 /* Masked class to hide text */
 @font-face {
-    font-family: 'password';
+    font-family: "password";
     font-style: normal;
     font-weight: 400;
     src: url(https://jsbin-user-assets.s3.amazonaws.com/rafaelcastrocouto/password.ttf);
 }
 
 .masked {
-    font-family: 'password';
+    font-family: "password";
 }
 
 /* CHECKBOXES */
@@ -490,25 +488,26 @@ hr {
 /* checkbox aspect */
 .c-checkbox [type="checkbox"]:not(:checked)+label:before,
 .c-checkbox [type="checkbox"]:checked+label:before {
-    content: '';
+    content: "";
     position: absolute;
     left: 0;
     top: calc(50% - 0.6em);
     width: 1.2em;
     height: 1.2em;
     border: 2px solid var(--classroom-text-1);
-    border-radius: .2em;
-    transition: all .1s;
+    border-radius: 0.2em;
+    transition: all 0.1s;
 }
-.c-checkbox.c-checkbox-grey  [type="checkbox"]:not(:checked)+label:before,
-.c-checkbox.c-checkbox-grey  [type="checkbox"]:checked+label:before {
+
+.c-checkbox.c-checkbox-grey [type="checkbox"]:not(:checked)+label:before,
+.c-checkbox.c-checkbox-grey [type="checkbox"]:checked+label:before {
     border: 2px solid var(--classroom-text-0);
 }
 
 /* checked mark aspect */
 .c-checkbox [type="checkbox"]:not(:checked)+label:after,
 .c-checkbox [type="checkbox"]:checked+label:after {
-    content: '✓';
+    content: "✓";
     position: absolute;
     top: 35%;
     left: 2px;
@@ -517,7 +516,7 @@ hr {
     font-weight: 900;
     line-height: 0;
     font-style: initial;
-    transition: all .2s;
+    transition: all 0.2s;
 }
 
 .c-secondary-form .c-checkbox [type="checkbox"]:not(:checked)+label:after,
@@ -564,17 +563,88 @@ hr {
 /* Accessibility */
 .c-checkbox [type="checkbox"]:checked:focus+label:before,
 .c-checkbox [type="checkbox"]:not(:checked):focus+label:before {
-    box-shadow: 0 0 0 .2rem rgba(126, 126, 126, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba(126, 126, 126, 0.25);
 }
 
 /* LOADER/NANOBAR */
 
-.nanobar .bar {
+/* Make clicks pass-through */
+#nprogress {
+    pointer-events: none;
+}
+
+#nprogress .bar {
     background: var(--classroom-white);
+
+    position: fixed;
+    z-index: 1031;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 5px;
+    border-radius: 10px;
+}
+
+/* Remove these to get rid of the spinner */
+#nprogress .spinner {
+    display: block;
+    position: fixed;
+    z-index: 1031;
+    top: 10px;
+    right: 10px;
+}
+
+#nprogress .spinner-icon {
+    width: 15px;
+    height: 15px;
+    box-sizing: border-box;
+
+    border: solid 2px transparent;
+    border-top-color: var(--classroom-white);
+    border-left-color: var(--classroom-white);
+    border-radius: 50%;
+
+    -webkit-animation: nprogress-spinner 400ms linear infinite;
+    animation: nprogress-spinner 400ms linear infinite;
+}
+
+.nprogress-custom-parent {
+    overflow: hidden;
+    position: relative;
+}
+
+.nprogress-custom-parent #nprogress .spinner,
+.nprogress-custom-parent #nprogress .bar {
+    position: absolute;
+}
+
+@-webkit-keyframes nprogress-spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes nprogress-spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @media (max-width: 768px) {
-    .nanobar .bar {
+    #nprogress .bar {
         background: var(--classroom-dashboard);
+    }
+
+    #nprogress .spinner-icon {
+        display: none;
     }
 }
