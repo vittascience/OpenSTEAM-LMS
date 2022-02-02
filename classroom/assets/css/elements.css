@@ -566,3 +566,15 @@ hr {
 .c-checkbox [type="checkbox"]:not(:checked):focus+label:before {
     box-shadow: 0 0 0 .2rem rgba(126, 126, 126, 0.25);
 }
+
+/* LOADER/NANOBAR */
+
+.nanobar .bar {
+    background: var(--classroom-white);
+}
+
+@media (max-width: 768px) {
+    .nanobar .bar {
+        background: var(--classroom-dashboard);
+    }
+}
