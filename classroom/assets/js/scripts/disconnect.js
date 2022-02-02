@@ -16,7 +16,8 @@ function goToDisconnect() {
         if (UserManager.getUser().isFromGar){
             window.location = '/classroom/gar_user_disconnected.php';
         } else {
-            window.location = '/classroom/';
+            // TODO updated by CABRI
+            window.location = '/classroom/login.php';
         }
     }).catch((e)=>{
         console.log(e);

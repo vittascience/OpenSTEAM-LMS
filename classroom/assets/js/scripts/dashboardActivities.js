@@ -35,7 +35,7 @@ function activityItem(activity, state) {
     }
 
     let html = `<div class="activity-item">
-                    <div class="activity-card activity-card-` + ide + `">
+                    <div class="${activity.activity.type === 'GENIUS' ? 'activity-card-cabri-genius': activity.activity.type === 'EXPRESS' ? '' : 'activity-card-cabri-iframe'}  activity-card activity-card-` + ide + `">
                         <div class="${activityStatus}" data-toggle="tooltip" title="${activityStatusTitle}"><div class="ribbon__content"></div></div>
                         <div class="activity-card-top">
                         </div>
@@ -59,7 +59,7 @@ function teacherSandboxItem(json) {
     let html = `<div class="sandbox-item sandbox-teacher">
                     <div class="sandbox-card sandbox-card-` + json.interface + `" data-id="${json.id}" data-href="/` + json.interface + `/?link=` + json.link + `&embed=1">
                         <div class="sandbox-card-top">
-                        <i class="fas fa-share fa-2x" style="grid-column-start: 1; grid-column-end: 1;" data-link="${json.link}" ></i>      
+                        <i class="fas fa-share fa-2x" style="grid-column-start: 1; grid-column-end: 1;" data-link="${json.link}" ></i>
                             <div class="dropdown"><i class="fas fa-cog fa-2x" style="grid-column-start: 3; grid-column-end: 3;" type="button" id="dropdown-teacherSandboxItem-${json.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                     <div class="dropdown-menu" aria-labelledby="dropdown-teacherSandboxItem-${json.id}">`
     if (UserManager.getUser().isRegular) {
@@ -90,14 +90,16 @@ function teacherActivityItem(activity) {
         ide = "arduino"
     }
 
-    let html = `<div class="activity-item activity-teacher " >
-                <div class="activity-card activity-card-` + ide + `">
+    let html = `<div class="activity-item activity-teacher">
+                <div class="${activity.type === 'GENIUS' ? 'activity-card-cabri-genius': activity.type === 'EXPRESS' ? '' : 'activity-card-cabri-iframe'} activity-card activity-card-` + ide + `">
                     <div class="activity-card-top">
                     <div class="dropdown"><i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                     <div class="dropdown-menu" aria-labelledby="dropdown-activityItem-${activity.id}" data-id="${activity.id}">
-    <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">` + capitalizeFirstLetter(i18next.t('words.attribute')) + `</li>
-                <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">` + capitalizeFirstLetter(i18next.t('words.duplicate')) + `</li>
-                <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">` + capitalizeFirstLetter(i18next.t('words.modify')) + `</li>
+                <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">` + capitalizeFirstLetter(i18next.t('words.attribute')) + `</li>
+
+                <li style="display: ${activity.type==='GENIUS' || activity.type==='EXPRESS' ? 'none' : 'none'}" class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">` + capitalizeFirstLetter(i18next.t('words.duplicate')) + `</li>
+
+                <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id}, '${activity.type}')" href="#">` + capitalizeFirstLetter(i18next.t('words.modify')) + `</li>
                 <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">` + capitalizeFirstLetter(i18next.t('words.delete')) + `</li>
               </div>
               </div>
@@ -141,7 +143,7 @@ function classeItem(classe, nbStudents, students) {
                 <h3 class="activity-item-title">${classe.name}</h3>
             </div>`
     html += `<div class="class-card-bot">
-                <span class="nb-activities">${maxAct}</span> Activité` + setPluriel(maxAct) + `</p>
+                <span class="nb-activities">${maxAct}</span> ` + setActivityPlural(maxAct) + `</p>
             </div>`
     html += `</div></div>`
 
@@ -207,30 +209,68 @@ function classeList(classe, ref = null) {
 //filter activity
 $('body').on('click', '#filter-activity', function () {
     let arrayKeywords = $('#filter-activity-input').val().split(' ')
-    if ($('#filter-activity-select').val() == 'asc') {
+    let filterValue = $('#filter-activity-select').val();
+
+    if (filterValue === 'asc') {
         teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false))
-    } else {
+    }
+    else if(filterValue === 'desc') {
         teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true))
+    }
+    /* TODO cabri: move to separate plugin */
+    else if(filterValue === 'typeGenius') {
+      teacherActivitiesDisplay(filterTeacherActivityInListByType(arrayKeywords, 'GENIUS'));
+    }
+    else if(filterValue === 'typeExpress') {
+      teacherActivitiesDisplay(filterTeacherActivityInListByType(arrayKeywords, 'EXPRESS'));
+    }
+    else if(filterValue === 'typeIframe') {
+      teacherActivitiesDisplay(filterTeacherActivityInListByType(arrayKeywords, 'IFRAME'));
     }
 })
 
 $('body').on('change', '#filter-activity-select', function () {
     let arrayKeywords = $('#filter-activity-input').val().split(' ')
-    if ($('#filter-activity-select').val() == 'asc') {
+    let filterValue = $('#filter-activity-select').val();
+
+    if (filterValue === 'asc') {
         teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false))
-    } else {
+    }
+    else if(filterValue === 'desc') {
         teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true))
     }
-
+    /* TODO cabri: TODO cabri: move to separate plugin*/
+    else if(filterValue === 'typeGenius') {
+        teacherActivitiesDisplay(filterTeacherActivityInListByType(arrayKeywords, 'GENIUS'));
+    }
+    else if(filterValue === 'typeExpress') {
+        teacherActivitiesDisplay(filterTeacherActivityInListByType(arrayKeywords, 'EXPRESS'));
+    }
+    else if(filterValue === 'typeIframe') {
+      teacherActivitiesDisplay(filterTeacherActivityInListByType(arrayKeywords, 'IFRAME'));
+    }
 })
 
 $(document).on('keyup', function (e) {
     if ($("#filter-activity-input").is(":focus") || $("#filter-activity").is(":focus") || $("#filter-activity-select").is(":focus")) {
         let arrayKeywords = $('#filter-activity-input').val().split(' ')
-        if ($('#filter-activity-select').val() == 'asc') {
+        let filterValue = $('#filter-activity-select').val();
+
+        if (filterValue === 'asc') {
             teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false))
-        } else {
+        }
+        else if(filterValue === 'desc') {
             teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true))
+        }
+        /*TODO cabri: move to separate plugin*/
+        else if(filterValue === 'typeGenius') {
+          teacherActivitiesDisplay(filterTeacherActivityInListByType(arrayKeywords, 'GENIUS'));
+        }
+        else if(filterValue === 'typeExpress') {
+          teacherActivitiesDisplay(filterTeacherActivityInListByType(arrayKeywords, 'EXPRESS'));
+        }
+        else if(filterValue === 'typeIframe') {
+          teacherActivitiesDisplay(filterTeacherActivityInListByType(arrayKeywords, 'IFRAME'));
         }
     }
 });
@@ -422,68 +462,78 @@ function statusActivity(activity, state = true) {
 
 function loadActivity(isDoable) {
     ClassroomSettings.chrono = Date.now()
-    $('#activity-introduction').hide()
-    if (Activity.introduction != null && Activity.introduction != "") {
-        $('#text-introduction').html(bbcodeToHtml(Activity.introduction))
-        $('#activity-introduction').show()
-    }
+    const activityIntroduction = $('#activity-introduction')
+    const activityContent = $('#activity-content')
+    const activityTitle = $('#activity-title')
+    const activityDetails = $('#activity-details')
 
-    $('#activity-correction-container').hide()
-    if (Activity.correction != null) {
-        $('#activity-correction-container').show()
-    }
-
-    $('#activity-title').html(Activity.activity.title)
-    if (UserManager.getUser().isRegular) {
-        if (Activity.correction >= 1) {
-            $('#activity-details').html("Activité de " + Activity.user.pseudo + " rendue le " + formatHour(Activity.dateSend))
+    activityDetails.html('')
+    activityTitle.html('')
+    activityContent.html('')
+    activityIntroduction.html('')
+    let baseToolUrl, deploymentId;
+        if (Activity.introduction != null && Activity.introduction !== "") {
+            $('#text-introduction').html(bbcodeToHtml(Activity.introduction))
+            $('#activity-introduction').show()
+        }
+        activityTitle.html(Activity.activity.title)
+        if (UserManager.getUser().isRegular) {
+            if (Activity.correction >= 1) {
+                activityDetails.html(i18next.t('classroom.activities.activitySubmited')
+                    .replace('$1', Activity.user.pseudo)
+                    .replace('$2',formatHour(Activity.dateSend)))
+            } else {
+                activityDetails.html(i18next.t("classroom.activities.noSend"))
+            }
         } else {
-            $('#activity-details').html(i18next.t("classroom.activities.noSend"))
+            if (Activity.correction >= 1) {
+                activityDetails.html("Cette activité a été rendue le " + formatHour(Activity.dateSend))
+            } else {
+                // do not show the message in case of cabri iframe activities (because we student has nothing to submit)
+                if(Activity.activity.type!=='IFRAME')
+                  activityDetails.html("Activité à rendre pour le " + formatDay(Activity.dateEnd))
+            }
         }
-    } else {
-        if (Activity.correction >= 1) {
-            $('#activity-details').html("Cette activité a été rendue le " + formatHour(Activity.dateSend))
+
+        var content = Activity.activity.content.replace(/(\[iframe\].*?link=[a-f0-9]{13})/gm, '$1&use=classroom')
+        if (Activity.project != null) {
+            if (LINK_REGEX.test(Activity.activity.content)) {
+                content = content.replace(LINK_REGEX, '$1' + Activity.project.link)
+            }
         } else {
-            $('#activity-details').html("Activité à rendre pour le " + formatDay(Activity.dateEnd))
+            content = content
         }
-    }
 
-
-    var content = Activity.activity.content.replace(/(\[iframe\].*?link=[a-f0-9]{13})/gm, '$1&use=classroom')
-    if (Activity.project != null) {
-        if (LINK_REGEX.test(Activity.activity.content)) {
-            content = content.replace(LINK_REGEX, '$1' + Activity.project.link)
-        }
-    } else {
-        content = content
-    }
     let correction = ''
-
-    correction += `<h4 class="c-text-primary text-center font-weight-bold">${i18next.t('classroom.activities.bilan.results')}</h4>`
-    if (Activity.correction == 1) {
-        correction += `<div class="giveNote-container c-primary-form"><label for="givenote-3" onclick="setNote(3)"><input type="radio" id="givenote-3" name="giveNote" value="3">${" " + i18next.t('classroom.activities.accept')}</label><label for="givenote-2" onclick="setNote(2)"><input type="radio" id="givenote-2" name="giveNote" value="2">${" " + i18next.t('classroom.activities.vgood')}</label><label for="givenote-1" onclick="setNote(1)"><input type="radio" id="givenote-1" name="giveNote" value="1">${" " + i18next.t('classroom.activities.good')}</label><label for="givenote-0" onclick="setNote(0)"><input type="radio" id="givenote-0" name="giveNote" value="0">${" " + i18next.t('classroom.activities.refuse')}</label></div>`
-
+    if (UserManager.getUser().isRegular && (Activity.correction === 1)) {
+        correction += `<div class="activity-correction-header d-flex justify-content-between"><h3>` + i18next.t('classroom.activities.bilan.results') + `</h3><i class="fas fa-chevron-right fa-2x" ></i></div><div id='giveNote' ><div onclick="setNote(3,'givenote-3')" id="givenote-3" class="note-choice"><i class="fas fa-check"></i>` + i18next.t('classroom.activities.accept') + ` </div><div onclick="setNote(2,'givenote-2')" id="givenote-2" class="note-choice" ><i class="fas fa-check"></i>` + i18next.t('classroom.activities.vgood') + ` </div><div onclick="setNote(1,'givenote-1')" id="givenote-1" class="note-choice" ><i class="fas fa-check"></i>` + i18next.t('classroom.activities.good') + ` </div><div onclick="setNote(0,'givenote-0')" id="givenote-0" class="note-choice" ><i class="fas fa-check"></i>` + i18next.t('classroom.activities.refuse') + ` </div></div>`
     }
+    else if(UserManager.getUser().isRegular && (Activity.correction === 2 || Activity.correction === 3)) {
+      correction += `<div class="activity-correction-header d-flex justify-content-between"><h3>` + i18next.t('classroom.activities.bilan.results') + `</h3><i class="fas fa-chevron-right fa-2x" ></i></div><div id='giveNote' ><div onclick="setNote(3,'givenote-3')" id="givenote-3" class="note-choice ${Activity.note===3 ? 'selectNote' : ''}"><i class="fas fa-check"></i>` + i18next.t('classroom.activities.accept') + ` </div><div onclick="setNote(2,'givenote-2')" id="givenote-2" class="note-choice  ${Activity.note===2 ? 'selectNote' : ''}" ><i class="fas fa-check"></i>` + i18next.t('classroom.activities.vgood') + ` </div><div onclick="setNote(1,'givenote-1')" id="givenote-1" class="note-choice  ${Activity.note===1 ? 'selectNote' : ''}" ><i class="fas fa-check"></i>` + i18next.t('classroom.activities.good') + ` </div><div onclick="setNote(0,'givenote-0')" id="givenote-0" class="note-choice ${Activity.note===0 ? 'selectNote' : ''}" ><i class="fas fa-check"></i>` + i18next.t('classroom.activities.refuse') + ` </div></div>`
+    }
+
+    // Display given note (score) to student and teacher
+    else if (!UserManager.getUser().isRegular && (Activity.correction === 2 || Activity.correction === 3)) {
+          correction += `<div class="activity-correction-header d-flex justify-content-between"><h5>${ i18next.t('classroom.activities.bilan.grade')}</h5></div>`
+          if(Activity.note===3)
+            correction += `<div id='giveNote' ><div id="givenote-3" class="note-choice"><i class="fas fa-check"></i>${i18next.t('classroom.activities.accept')}</div></div>`
+          else if(Activity.note===2)
+            correction += `<div id='giveNote' ><div id="givenote-2" class="note-choice"><i class="fas fa-check"></i>${i18next.t('classroom.activities.vgood')}</div></div>`
+          else if(Activity.note===1)
+            correction += `<div id='giveNote' ><div id="givenote-1" class="note-choice"><i class="fas fa-check"></i>${i18next.t('classroom.activities.good')}</div></div>`
+          else if(Activity.note===0)
+            correction += `<div id='giveNote' ><div id="givenote-0" class="note-choice"><i class="fas fa-check"></i>${i18next.t('classroom.activities.refuse')}</div></div>`
+    }
+
+    //const formatedCommentary = Activity.commentary.replace(/<\/br>/g, 'XX');
     if (UserManager.getUser().isRegular && Activity.correction > 0) {
-        correction += '<div id="commentary-panel" class="c-primary-form"><label>' + i18next.t("classroom.activities.comments") + '</label><textarea id="commentary-textarea" style="width:100%" rows="8">' + Activity.commentary + '</textarea></div>'
+        correction += '<div id="commentary-panel" class="c-primary-form" style="margin-top: 50px;"><h5>' + i18next.t("classroom.activities.comments") + '</h5><textarea id="commentary-textarea" style="width:90%" rows="8">' + Activity.commentary + '</textarea></div>'
     }
 
 
 
 
     if (!UserManager.getUser().isRegular && Activity.correction > 0) {
-        if (Activity.note == 3) {
-            var activityResultString = i18next.t('classroom.activities.veryGoodProficiency')
-        } else if (Activity.note == 2) {
-            var activityResultString = i18next.t('classroom.activities.goodProficiency')
-        } else if (Activity.note == 1) {
-            var activityResultString = i18next.t('classroom.activities.weakProficiency')
-        } else if (Activity.note == 0) {
-            var activityResultString = i18next.t('classroom.activities.insufficientProficiency')
-        } 
-        correction += `<div class="results-string" style="background-color:var(--correction-${Activity.note})"">${activityResultString}</div>`
-
-        
         if (Activity.commentary != null && Activity.commentary != "") {
             correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
         } else {
@@ -492,26 +542,96 @@ function loadActivity(isDoable) {
     }
 
     if (UserManager.getUser().isRegular && Activity.correction > 0) {
-
-        correction += '<button onclick="giveNote()" class="btn c-btn-primary btn-sm text-wrap w-100"><span class="text-wrap">' + i18next.t('classroom.activities.sendResults') + '<i class="fas fa-chevron-right"> </i></span></button>'
+        correction += '<button onclick="giveNote()" class="btn c-btn-primary">' + i18next.t('classroom.activities.sendResults') + '<i class="fas fa-chevron-right"> </i></button>'
     }
-    $('#activity-content').html(bbcodeToHtml(content))
-    $('#activity-correction').html(bbcodeToHtml(correction))
 
-    if (isDoable == false) {
-        $('#activity-validate').hide()
-        $('#activity-save').hide()
-    } else {
-        let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)
-        $('#activity-validate').show()
-        if (interface != undefined && interface != null) {
-            $('#activity-save').show()
+      // TODO : define global tabs with tabs["name_app"] = "url_app" (to use also in teacher code)
+      switch (Activity.activity.type) {
+        case "standard":
+            baseToolUrl = "https://lti1p3-player.cabricloud.com";
+            //baseToolUrl = 'https://d52b-82-216-88-13.eu.ngrok.io';
+            deploymentId = 'opensteam-lms_cabri-player';
+            break;
+        case "imuscica":
+          baseToolUrl = "https://workbench-imuscica.cabricloud.com";
+          deploymentId = 'opensteam-lms_imuscica';
+          break;
+        default:
+          baseToolUrl = "https://lti1p3.cabricloud.com";
+          deploymentId = 'opensteam-lms_cabri-express';
+          break;
+      }
+
+
+        let activityType = Activity.activity.type ? Activity.activity.type.toLowerCase() : Activity.activity.type;
+        // Review student submission by teacher (and by student)
+        if(activityType !== "iframe") {  // TODO replace with "if content is LTI"
+            if (!isDoable && Activity.correction > 0) {
+                if (activityType=== "imuscica")
+                    activityContent.html('<iframe style="width: 100%; height: 100%;" allowfullscreen="true" frameborder="0" src="https://workbench-imuscica.cabricloud.com/?lesson=' + Activity.url + '" allowfullscreen></iframe>');
+                else
+                    activityContent.html('<iframe style="width: 100%; height: 100%;" allowfullscreen="true" frameborder="0" src="https://cabricloud.com/ed/opensteam/player?isMobile&calculator=false&clmc=' + Activity.url + '" allowfullscreen></iframe>');
+                // TODO cabri: for review, better use the same player version as the one used to create the activity and used by student
+            } else if (isDoable) {
+                const loginHint = {
+                    lineitemId: content,
+                    userId: UserManager.getUser().id,
+                    isStudentLaunch: true,
+                    isDoable: isDoable,
+                    activitiesLinkUser: Activity.id,
+                    deploymentId
+                };
+
+                const ltiStudentLaunch = `
+          <input id="activity-score" type="text" hidden/>
+          <form name="lti_student_login_form" action="${baseToolUrl}/login" method="post" target="lti_student_iframe">
+            <input id="lti_student_iss" type="hidden" name="iss" value="${location.origin}" />
+            <input id="lti_student_login_hint" type="hidden" name="login_hint"/>
+            <input id="lti_student_client_id" type="hidden" name="client_id" value="${deploymentId}" />
+            <input id="lti_student_target_link_uri" type="hidden" name="target_link_uri" value="${baseToolUrl}/lti" />
+          </form>
+
+          <iframe src="about:blank" name="lti_student_iframe" title="Tool Content" width="100%" height="100%" allowfullscreen></iframe>`;
+
+
+                activityContent.html(ltiStudentLaunch);
+                $('#lti_student_login_hint').val(JSON.stringify(loginHint));
+
+                document.forms["lti_student_login_form"].submit();
+            }
         }
-    }
+        else {
+            activityContent.html('<iframe style="width: 100%; height: 100%;" allowfullscreen="true" frameborder="0" src="' + Activity.activity.content + '" allowfullscreen></iframe>');
+        }
+/*        else if(content.startsWith('[iframe]') && isDoable) {
+            activityContent.html(bbcodeToHtml(content))
+        }
+        else if(isDoable) {
+            activityContent.html(bbcodeToHtml(content))
+        }*/
+
+        if(correction && correction!=='')
+          $('#activity-correction').html(bbcodeToHtml(correction)).show()
+
+        if (isDoable == false) {
+            $('#activity-validate').hide()
+            $('#activity-save').hide()
+        } else {
+            let interface = /\[iframe\].*?vittascience(|.com)\/([a-z]{5,12})\/?/gm.exec(Activity.activity.content)
+            $('#activity-validate').show()
+            if (interface != undefined && interface != null) {
+                $('#activity-save').show()
+            }
+        }
 }
 
-function setPluriel(number) {
-    if (number > 1) {
-        return 's'
-    } else return ''
+function setActivityPlural(number) {
+    switch (i18next.language) {
+      case 'fr': return number>1 ? 'activités' : 'activité';
+      case 'en': return number===1 ? 'activity' : 'activities';
+      case 'es': return number>1 ? 'actividades' : 'actividad';
+      default: { // english fallback
+        return number===1 ? 'activity' : 'activities';
+      }
+    }
 }

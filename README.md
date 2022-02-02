@@ -224,3 +224,7 @@ The current repository only contains front elements of the LMS. The back end is 
 - [vutils](https://github.com/vittascience/vutils) : current version (1.2.3)
 - vinterfaces (not public yet) : current version (1.2.1)
 - vlearn (not public yet) : current version (1.2.6)
+
+## Build integration tests
+
+[Redirect here](tests/README.md)

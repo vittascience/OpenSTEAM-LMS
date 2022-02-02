@@ -75,7 +75,8 @@ let ClassroomSettings = {
         },
         "classroom-dashboard-profil-panel": {},
         "classroom-dashboard-help-panel": {}
-    }
+    },
+
 }
 let Breadcrumb = {
     "dashboard-activities": "classroom-dashboard-activities-panel",
@@ -179,6 +180,7 @@ function backToClassroomFromCode() {
     }
 }
 
+
 /**
  * Navigate trough panels
  * @param {string} id - The destination panel
@@ -189,8 +191,9 @@ function backToClassroomFromCode() {
  * @param {boolean} isOnpopstate - If set to true, the current navigation won't be saved in history (dedicated to onpopstate events)
  */
 function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = false, isOnpopstate = false) {
+    const previousPanel = ClassroomSettings.lastPage[0] ? ClassroomSettings.lastPage[0].history : undefined;
     let confirmExit = true;
-    if ($_GET('interface') == "newActivities" && !Activity.project && !skipConfirm) {
+    if ($_GET('interface') == "newActivities" && !Activity.project && !skipConfirm && Activity.activity && Activity.activity.type!=='IFRAME') {
         confirmExit = confirm(i18next.t("classroom.notif.saveProject"));
     }
     if (confirmExit) {
@@ -242,7 +245,14 @@ function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = fal
         $('.tooltip').remove()
         $('.leader-line').remove()
         $('[data-toggle="tooltip"]').tooltip()
-    
+
+        const navigate = new CustomEvent("Navigate", {
+          detail: {
+            previousPanel,
+            nextPanel: id
+          },
+        });
+        window.dispatchEvent(navigate);
 }
 
 /**
@@ -657,7 +667,7 @@ function studentActivitiesDisplay() {
         $('#body-table-bilan').append('<td class="' + statusActivity(element) + ' bilan-cell classroom-clickable" ></td>')
         index++
     });
-    
+
     if (activities.doneActivities.length < 1) {
         $('#average-score').hide()
     } else {
@@ -980,7 +990,7 @@ function createGroupWithModal() {
             displayNotification('#notif-div', "manager.group.groupCreateFailed", "error");
         }
     });
-    
+
     pseudoModal.closeAllModal();
     tempoAndShowGroupsTable()
 }
@@ -1359,7 +1369,7 @@ function showupdateUserModal(id) {
     let $groups = mainManager.getmanagerManager()._comboGroups;
     mainManager.getmanagerManager()._updatedUserGroup = 0;
     mainManager.getmanagerManager().getUserInfoWithHisGroups(id).then(function (res) {
-        //get the personal apps 
+        //get the personal apps
         updateAppForUser();
         mainManager.getmanagerManager()._actualUserDetails = res;
         $("#update_actualgroup_sa").html("");
@@ -1498,7 +1508,7 @@ function showupdateUserModal(id) {
                                         </label>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>`;
             $("#update_actualgroup_sa").append(group);
@@ -1761,9 +1771,9 @@ function deleteUser(id, name) {
 }
 
 /**
- * 
- * @param {*} id 
- * @param {*} name 
+ *
+ * @param {*} id
+ * @param {*} name
  */
 function deleteUserGroupAdmin(id, name) {
     mainGroupAdmin.getGroupAdminManager()._actualUser = id;
@@ -1889,7 +1899,7 @@ function persistDeleteGroupAdmin() {
 }
 
 /**
- * Show an alert message 
+ * Show an alert message
  * @param {int} i : 0 = class success, 1 = class danger
  * @param {string} id : the id of the div we need to interact with
  * @param {string} message : the message we need to show
@@ -1974,7 +1984,7 @@ function optionsGroupApplications($type) {
                 <div class="activity-add-form c-secondary-form" id="apps_restriction_${element.id}" style="display:none;">
                     <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
                     <input type="date" id="begin_date_${element.id}" name="trip-start" value="${new Date()}" min="${new Date()}" max="2023-12-31">
-                    
+
                     <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
                     <input type="date" id="end_date_${element.id}" name="trip-start" min="0" max="2025-12-31">
 
@@ -2511,6 +2521,22 @@ function getSubjects(grade) {
     return TmpArr;
 }
 
+/* todo CABRI must move to a seperate plugin */
+function startActivityCreation() {
+  // check if all modal elements are given
+  const title = $('#activity-lti-form-title').val();
+
+  if(!title || title.trim()==='') {
+    // display form errors
+    //alert('Veuillez remplir tous les champs obligatoires !')
+    displayNotification('#notif-div', `classroom.notif.activityTitleInvalid`, "error")
+  }
+  else {
+    // hide modal and show cabri activity creation
+    pseudoModal.closeModal('add-lti-activity-name');
+    $('#lti_teacher_iframe').css({'filter': '', 'pointer-events': 'all'});
+  }
+}
 
 /**
  * Get the grade and the subject in the user language
@@ -2518,7 +2544,7 @@ function getSubjects(grade) {
 const Grade = getGrades();
 
 
-// Applications management 
+// Applications management
 function isUserAppsOutDated() {
     mainGroupAdmin.getGroupAdminManager().isUserApplicationsOutDated().then((response) => {
         if (response.message == true) {
@@ -2614,7 +2640,7 @@ function openModalInState(state) {
     $(state).show();
 }
 
-// Close modal, reset input, close view and if true refresh the table of 
+// Close modal, reset input, close view and if true refresh the table of
 function closeModalAndCleanInput(refresh = false) {
     if (refresh) {
         getAndShowApps();
@@ -2661,10 +2687,10 @@ function getAndShowApps() {
     })
 }
 
-/*                             
+/*
 <td>
     <a class="c-link-tertiary" href="javascript:void(0)" onclick="activitiesRestrictionsCrud(${application.id})"><i class="fas fa-key fa-2x"></i></a>
-</td> 
+</td>
 */
 
 function createApp() {
@@ -2758,7 +2784,7 @@ function persistCreateApp() {
         updateStoredApps();
     })
 
-    
+
 }
 
 function updateStoredApps() {
@@ -2889,8 +2915,8 @@ function getAllrestrictions() {
         let html = "";
         $('#all-default-restrictions').html("");
         response.forEach(restriction => {
-            let name = "", 
-                limitation = "", 
+            let name = "",
+                limitation = "",
                 update = "";
             switch(restriction.name) {
                 case 'userDefaultRestrictions':
@@ -3071,7 +3097,7 @@ function createRegistrationTemplate() {
         if (res.USER_BIO == "false") {
             deleteInputs(userBioViews);
         }
-        
+
     })
 }
 
@@ -3079,7 +3105,7 @@ function createRegistrationTemplate() {
 // Check if the actual activity type is limited for the user by id or type
 /**
  * WORK IN PROGRESS
- * @param {*} type 
+ * @param {*} type
  * @param {*} id
  */
 function isActivitiesRestricted(id = null, type = null) {
@@ -3121,3 +3147,13 @@ $('#btn-help-for-groupAdmin').click(function () {
     })
 })
 
+
+function deleteActivity() {
+  Main.getClassroomManager().deleteActivity(ClassroomSettings.activity).then(function (activity) {
+    displayNotification('#notif-div', "classroom.notif.activityDeleted", "success", `'{"activityName": "${activity.name}"}'`);
+    deleteTeacherActivityInList(activity.id);
+    teacherActivitiesDisplay();
+    pseudoModal.closeModal('activity-delete-confirm');
+  })
+  ClassroomSettings.activity = null;
+}

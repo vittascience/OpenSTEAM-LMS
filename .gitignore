@@ -5,3 +5,11 @@ composer.lock
 /plugins
 classroom/assets/plugins
 /EmailTemplates
+tests/node_modules/**
+tests/node_modules/
+
+.idea/
+.vscode/
+*.iml
+*.ipr
+.DS_Store

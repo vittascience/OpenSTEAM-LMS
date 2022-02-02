@@ -1,3 +1,30 @@
+// Used to make direct communications between parent and child (iframe)
+window.addEventListener("message", (event) => {
+  const msg = event.data.type ? event.data.type : JSON.parse(event.data);
+  switch(msg.type) {
+    case 'end-lti-score':
+        console.log('ENDING LTI SCORE');
+        navigatePanel('classroom-dashboard-activities-panel','dashboard-activities', '', '', true);
+        location.reload();
+        break;
+    case 'end-lti-deeplink':
+        console.log('ENDING LTI DEEPLINK');
+        console.log("msg : ", msg.content);
+        $('#activity-form-content-lti').val(msg.content);
+        $('.new-activity-panel-lti').click();
+        break;
+    default:
+      console.log('Other Action !');
+      console.log(event.data);
+  }
+}, false);
+
+// Used to detect user clicking on browser's previous page button
+window.addEventListener('popstate', function (event) {
+  console.log('popstate');
+  pseudoModal.closeAllModal();
+});
+
 //formulaire de création de classe
 $('body').on('click', '.teacher-new-classe', function (event) {
     ClassroomSettings.classroom = null
@@ -91,13 +118,16 @@ $('body').on('click', '.class-card', function () {
     }
 })
 
-function setNote(note) {
+function setNote(note, el) {
     Activity.note = note
     if (note > 1) {
         Activity.correction = 2
     } else {
         Activity.correction = 3
     }
+
+    $('.note-choice').removeClass('selectNote')
+    $('#' + el).addClass('selectNote')
 }
 
 function giveNote() {
@@ -741,6 +771,23 @@ function filterTeacherActivityInList(keywords = [], orderBy = 'id', asc = true) 
 
 }
 
+function filterTeacherActivityInListByType(keywords = [], type) {
+  let expression = ''
+  for (let i = 0; i < keywords.length; i++) {
+    expression += '(?=.*'
+    expression += keywords[i].toUpperCase()
+    expression += ')'
+
+  }
+  let regExp = new RegExp(expression)
+  // filter by keywords
+  let list = Main.getClassroomManager()._myTeacherActivities
+    .filter(x => regExp.test(x.title.toUpperCase()) || regExp.test(x.content.toUpperCase()))
+
+  // filter by type
+  return list.filter(x => x.type.toUpperCase() === type.toUpperCase());
+}
+
 function filterSandboxInList(keywords = [], orderBy = 'id', asc = true) {
 
     let expression = ''
@@ -838,7 +885,7 @@ function displayStudentsInClassroom(students, link=false) {
             // Display the current student activities in the dashboard
             let currentActivity = arrayActivities[i];
             if (currentActivity) {
-                html += `<td class=" ${statusActivity(currentActivity)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>"></td>`;
+                html += `<td class=" ${statusActivity(currentActivity)} bilan-cell  ${currentActivity.correction ? 'classroom-clickable' : 'no-activity'}" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>"></td>`;
             } else {
                 html += `<td class="no-activity bilan-cell" "></td>`;
             }
@@ -857,7 +904,8 @@ function displayStudentsInClassroom(students, link=false) {
 
     $('#export-class-container').append(`<button id="download-csv" class="btn c-btn-tertiary ml-2" onclick="openDownloadCsvModal()"><i class="fa fa-download" aria-hidden="true"></i><span class="ml-1" data-i18n="classroom.activities.exportCsv">Exporter CSV</span></button>`).localize();
 
-    $('#header-table-teach').append(`<th class="add-activity-th" colspan="7"> <button class="btn c-btn-primary dashboard-activities-teacher" onclick="pseudoModal.openModal('add-activity-modal')" data-i18n="classroom.activities.addActivity">Ajouter une activité</button></th>`).localize();
+    // todo replace by plugin, disabled by cabri for lti release purposes
+    //$('#header-table-teach').append(`<th class="add-activity-th" colspan="7"> <button class="btn c-btn-primary dashboard-activities-teacher" onclick="pseudoModal.openModal('add-activity-modal')" data-i18n="classroom.activities.addActivity">Ajouter une activité</button></th>`).localize();
 }
 
 $('body').on('click', '.switch-pwd', function (event) {

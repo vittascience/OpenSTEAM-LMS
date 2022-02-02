@@ -17,7 +17,7 @@ const classroomModals = {
                     <p><span data-i18n="classroom.modals.addStudentByCsv.description"></span><a data-i18n="classroom.modals.addStudentByCsv.csvTemplate" href="${_PATH}assets/media/csv_template.csv"></a> - <a data-i18n="classroom.modals.addStudentByCsv.csvTemplateNoPassword" href="${_PATH}assets/media/csv_template_nopw.csv"></a>.</p>
                     <input type="file" id="importcsv-fileinput" name="importcsvfileinput"/><br>
                     <button class="btn c-btn-secondary mt-2" onclick="importLearnerCsv()">
-                        <i class="fas fa-file-csv"></i> 
+                        <i class="fas fa-file-csv"></i>
                         <span data-i18n="classroom.modals.addStudentByCsv.importStudentByCsvButton">Importer les apprenants</span>
                     </button>
                 </div>`,
@@ -34,7 +34,7 @@ const classroomModals = {
                 <div class="d-flex flex-column justify-content-center align-items-center">
                     <p data-i18n="classroom.modals.exportCsv.exportLearnersDescription"></p>
                     <button class="btn c-btn-secondary mt-2" onclick="exportLearnerCsv()">
-                        <i class="fa fa-download" aria-hidden="true"></i> 
+                        <i class="fa fa-download" aria-hidden="true"></i>
                         <span data-i18n="classroom.modals.exportCsv.exportLearners">Exporter la liste des apprenants</span>
                     </button>
                     <div class="d-flex justify-content-center modal-separator mt-4 mb-4">
@@ -42,7 +42,7 @@ const classroomModals = {
                     </div>
                     <p data-i18n="classroom.modals.exportCsv.exportDashboardDescription"></p>
                     <button class="btn c-btn-secondary mt-2" onclick="exportDashboardCsv()">
-                        <i class="fa fa-download" aria-hidden="true"></i> 
+                        <i class="fa fa-download" aria-hidden="true"></i>
                         <span data-i18n="classroom.modals.exportCsv.exportDashboard">Exporter le tableau de bord</span>
                     </button>
                 </div>
@@ -58,7 +58,9 @@ const classroomModals = {
         content: `<h4 data-i18n="classroom.modals.settingsTeacher.lang">Langue</h4>
         <div id="switch-lang-list" class="d-flex justify-content-center">
             <img class="flags-item mr-2" alt="flag" src="assets/media/flags/fr.png" onclick="changeLang('fr')">
-            <img class="flags-item" alt="flag" src="assets/media/flags/en.png" onclick="changeLang('en')">
+            <img class="flags-item mr-2" alt="flag" src="assets/media/flags/en.png" onclick="changeLang('en')">
+            <img class="flags-item mr-2" alt="flag" src="assets/media/flags/es.png" onclick="changeLang('es')">
+            <img class="flags-item mr-2" alt="flag" src="assets/media/flags/it.png" onclick="changeLang('it')">
         </div>
         <h4 data-i18n="classroom.modals.settingsTeacher.password">Mot de passe</h4>
         <p class="text-center" data-i18n="classroom.modals.settingsTeacher.passwordDescription"></p>
@@ -66,7 +68,7 @@ const classroomModals = {
             <div class="pwd-display-stud pwd-display-stud-modal" href="#">
                 <input type="password" readonly class="modal-pwd" id="password-display-area"><i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
             </div>
-            
+
             <button class="btn c-btn-secondary" id="pwd-change-modal">Réinitialiser <i class="fas fa-chevron-right"></i></button>`,
         footer: ``
     },
@@ -79,7 +81,7 @@ const classroomModals = {
         /*  <h4>Choisir une image de profil</h4>
                     <input type="checkbox" id="firstletter-teach-setting"><label>Première lettre de mon nom</label></br>
                     <input type="file" id="avatar" name="avatar"accept="image/png, image/jpeg"><label style="margin-left: 1em;font-size: 1em;">Importer une image de profil</label></br>
-                          
+
                     <h4>Notifications mail</h4>
                     <input type="checkbox" id="action-teach-setting" ><label>Je souhaite être informé de toute action dans mes classes</label></br>
                     <input type="checkbox" id="abstract-teach-setting" ><label>Je souhaite recevoir un résumé quotidien</label></br>
@@ -88,8 +90,10 @@ const classroomModals = {
         content: `<div>
                     <h4 data-i18n="classroom.modals.settingsTeacher.lang">Langue</h4>
                     <div id="switch-lang-list" class="d-flex justify-content-center">
-                    <img class="flags-item  mr-2" alt="flag" src="assets/media/flags/fr.png" onclick="changeLang('fr')">
-                    <img class="flags-item" alt="flag" src="assets/media/flags/en.png" onclick="changeLang('en')">
+                    <img class="flags-item mr-2" alt="flag" src="assets/media/flags/fr.png" onclick="changeLang('fr')">
+                    <img class="flags-item mr-2" alt="flag" src="assets/media/flags/en.png" onclick="changeLang('en')">
+                    <img class="flags-item mr-2" alt="flag" src="assets/media/flags/es.png" onclick="changeLang('es')">
+                    <img class="flags-item mr-2" alt="flag" src="assets/media/flags/it.png" onclick="changeLang('it')">
                     </div>
                     <h4 data-i18n="classroom.modals.settingsTeacher.description">Pour modifier votre mot de passe ou d'autres paramètres de votre compte</h4>
                     <div class="d-flex flex-column align-items-center" style="gap: 0.5rem;">
@@ -100,7 +104,7 @@ const classroomModals = {
                         <div class="border-1" id="groupAdmin_options" style="display: none;">
                         <fieldset class="switch-to-admin">
                             <legend>
-                                <i class="fas fa-eye"></i> 
+                                <i class="fas fa-eye"></i>
                                 <span data-i18n="manager.profil.onlyVisibleGroupAdmin">Uniquement visible par vous en tant qu'administrateur de groupe :</span>
                             </legend>
                             <button class="theme-group-admin btn mb-2 c-btn-outline-primary c-btn-dashboard" onclick="switchToGroupAdmin()" id="groupadmin-switch-button" style="display:none;"><span
@@ -110,11 +114,11 @@ const classroomModals = {
                             </fieldset>
 
                         </div>
-                        
+
                         <div class="border-1" id="manager_options" style="display: none;">
                             <fieldset class="switch-to-admin ">
                                     <legend>
-                                        <i class="fas fa-eye"></i> 
+                                        <i class="fas fa-eye"></i>
                                         <span data-i18n="manager.profil.onlyVisiblemanager">Uniquement visible par vous en tant que super admin :</span>
                                     </legend>
                                     <button class="theme-super-admin btn mb-2 c-btn-outline-primary c-btn-dashboard" onclick="switchTomanager()" id="manager-switch-button" style="display:none;">
@@ -290,7 +294,7 @@ const classroomModals = {
                 <input type="text" class="form-control" id="u_pseudo">
             </div>
         </div>
-    
+
         <div class="form-row c-secondary-form">
             <div class="form-group col-md">
                 <label for="u_mail" data-i18n="[html]manager.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
@@ -306,7 +310,7 @@ const classroomModals = {
             <label for="u_bio" data-i18n="[html]manager.profil.bio">Bio <span class="c-text-red">*</span></label>
             <textarea class="form-control" id="u_bio" rows="3"></textarea>
         </div>
-    
+
         <div class="form-row c-secondary-form">
             <div class="form-check form-check-inline c-checkbox">
                 <input class="form-check-input" type="checkbox" id="u_is_admin">
@@ -315,7 +319,7 @@ const classroomModals = {
                 </label>
             </div>
         </div>
-    
+
         <div class="form-row form-group c-secondary-form">
             <div class="form-check form-check-inline c-checkbox">
                 <input class="form-check-input" type="checkbox" id="u_is_teacher">
@@ -346,9 +350,9 @@ const classroomModals = {
         </div>
     
     </div>
-    
+
     <hr>
-    
+
     <div class="form-group c-secondary-form">
         <label for="u_group" data-i18n="manager.profil.group">Groupe</label>
         <div class="input-group mb-3">
@@ -362,18 +366,18 @@ const classroomModals = {
                     </label>
                 </div>
             </div>
-    
+
         </div>
-    
+
     </div>
-    
+
     <div id="group_add_sa">
     </div>
     
     <div id="create_update_personal_apps_sa">
-        
+
     </div>
-    
+
     <button class="btn c-btn-secondary" onclick="createUserAndLinkToGroup()" data-i18n="manager.buttons.user.create">Create user</button>
     </div>`,
         footer: ``
@@ -400,7 +404,7 @@ const classroomModals = {
                 <input type="text" class="form-control" id="update_u_pseudo">
             </div>
         </div>
-    
+
         <div class="form-row c-secondary-form">
             <div class="form-group col-md">
                 <label for="update_u_mail" data-i18n="[html]manager.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
@@ -416,7 +420,7 @@ const classroomModals = {
             <label for="update_u_bio" data-i18n="[html]manager.profil.bio">Bio <span class="c-text-red">*</span></label>
             <textarea class="form-control" id="update_u_bio" rows="3"></textarea>
         </div>
-    
+
         <div class="form-row c-secondary-form">
             <div class="form-check form-check-inline c-checkbox">
                 <input type="checkbox" id="update_u_is_active">
@@ -432,7 +436,7 @@ const classroomModals = {
                 </label>
             </div>
         </div>
-    
+
         <div class="form-row form-group c-secondary-form">
             <div class="c-checkbox">
                 <input class="form-check-input" type="checkbox" id="update_u_is_teacher">
@@ -441,7 +445,7 @@ const classroomModals = {
                 </label>
             </div>
         </div>
-    
+
         <div class="form-row c-secondary-form" id="update_user_teacher_infos" style="display: none;">
             <div class="form-group col-md" id="section_teacher_update_grade">
                 <select class="form-control" id="update_user_teacher_grade">
@@ -461,13 +465,13 @@ const classroomModals = {
                 <input type="text" class="form-control" id="update_u_school">
             </div>
         </div>
-    
-    
+
+
         <hr>
-    
+
         <div id="update_actualgroup_sa">
         </div>
-    
+
         <hr>
 
         <div id="update_applications_sa">
@@ -476,10 +480,10 @@ const classroomModals = {
         <hr>
 
         <div id="update_personal_apps_sa">
-        
+
         </div>
     </div>
-    
+
     <button class="btn c-btn-secondary" onclick="updateUserModal()" data-i18n="manager.buttons.user.update">Update user</button>`,
         footer: ``
     },
@@ -504,7 +508,7 @@ const classroomModals = {
                 <input type="text" class="form-control" id="u_pseudo_ga">
             </div>
         </div>
-    
+
         <div class="form-row c-secondary-form">
             <div class="form-group col-md">
                 <label for="u_mail_ga" data-i18n="[html]manager.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
@@ -520,7 +524,7 @@ const classroomModals = {
             <label for="u_bio_ga" data-i18n="[html]manager.profil.bio">Bio <span class="c-text-red">*</span></label>
             <textarea class="form-control" id="u_bio_ga" rows="3"></textarea>
         </div>
-    
+
         <div class="form-row c-secondary-form" id="user_teacher_infos_ga">
             <div class="form-group col-md" id="section_teacher_grade_ga">
                 <label for="user_teacher_grade_ga" data-i18n="[html]manager.profil.grade">Grade <span class="c-text-red">*</span></label>
@@ -549,7 +553,7 @@ const classroomModals = {
         <div id="create_applications_ga">
         </div>
     </div>
-    
+
     <button class="btn c-btn-secondary" onclick="createUserAndLinkToGroup_groupAdmin()" data-i18n="manager.buttons.user.create">Create user</button>`,
         footer: ``
     },
@@ -575,7 +579,7 @@ const classroomModals = {
                 <input type="text" class="form-control" id="update_u_pseudo_ga">
             </div>
         </div>
-    
+
         <div class="form-row c-secondary-form">
             <div class="form-group col-md">
                 <label for="update_u_mail_ga" data-i18n="[html]manager.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
@@ -591,7 +595,7 @@ const classroomModals = {
             <label for="update_u_bio_ga" data-i18n="[html]manager.profil.bio">Bio <span class="c-text-red">*</span></label>
             <textarea class="form-control" id="update_u_bio_ga" rows="3"></textarea>
         </div>
-    
+
         <div class="form-row c-secondary-form" id="update_user_teacher_infos_ga">
             <div class="form-group col-md" id="section_teacher_grade_update_ga">
                 <select class="form-control" id="update_user_teacher_grade_ga">
@@ -611,18 +615,18 @@ const classroomModals = {
                 <input type="text" class="form-control" id="update_u_school_ga">
             </div>
         </div>
-    
+
         <hr>
-    
+
         <div id="update_actualgroup_ga">
         </div>
-    
+
         <hr>
     
         <div id="update_applications_ga">
         </div>
     </div>
-    
+
     <button class="btn c-btn-secondary" onclick="updateUserModalGroupAdmin()" data-i18n="manager.buttons.user.update">Update user</button>`,
         footer: ``
     },
@@ -879,12 +883,75 @@ const classroomModals = {
         },
         content: `  <div id="update-activities-restrictions-modal">
                         <div class="container-fluid" id="update-default-restrictions">
-                            
+
                         </div>
                     </div>`,
         footer: ``
     },
+    'add-lti-activity-name': {
+      selector: '',
+      header: {
+        icon: '',
+        title: 'classroom.modals.addLtiActivityName'
+      },
+      content: `
+          <div class="col-12">
+            <div class="row">
+               <input data-i18n="[placeholder]classroom.activities.form.title.label" type="text" id="activity-lti-form-title"
+               class="form-control part-title-input">
+            </div>
 
+            <div class="row  justify-content-md-center"">
+                  <button class="c-btn-primary m-3" onclick="startActivityCreation()"><i class="fas fa-save"></i> <span class="ml-1" data-i18n="classroom.modals.addActivity.next"></span></button>
+            </div>
+          </div>
+      `,
+      footer: ``
+    },
+  'add-activity-limitation': {
+    selector: '',
+    header: {
+      icon: '',
+      title: 'classroom.modals.addActivity.limitTitle'
+    },
+    content: `
+          <div class="col-12">
+              <div class="row">
+                  <p class="text-center" data-i18n="classroom.modals.addActivity.limitDescription"></p>
+              </div>
+
+              <div class="row  justify-content-md-center"">
+                    <button class="c-btn-primary m-3" onclick="window.pseudoModal.closeModal('add-activity-limitation')"> <i class="fas fa-angle-left"></i> <span data-i18n="words.return" class="ml-1 mr-1"  style="text-transform:capitalize;"></span></button>
+                    <button class="c-btn-primary m-3" onclick="window.open('https://cabri.com/fr/la-plateforme/','_blank')"> <span data-i18n="classroom.modals.addActivity.upgradePlan"></span></button>
+              </div>
+          </div>
+      `,
+    footer: ``
+  },
+  'activity-delete-confirm': {
+    selector: '',
+    header: {
+      icon: '',
+      title: 'classroom.modals.deleteActivity.title'
+    },
+    content: `
+          <div class="col-12">
+            <div class="row justify-content-md-center">
+                <p class="text-center" data-i18n="classroom.modals.deleteActivity.description"></p>
+            </div>
+
+            <div class="row justify-content-md-center"">
+                  <button class="c-btn-primary m-3" onclick="deleteActivity()">
+                      <i class="fas fa-check"></i> <span class="ml-1" data-i18n="classroom.modals.deleteActivity.confirm"></span>
+                  </button>
+                  <button class="c-btn-primary m-3" onclick="window.pseudoModal.closeModal('activity-delete-confirm')">
+                      <i class="fa fa-times"></i> <span class="ml-1" data-i18n="classroom.modals.deleteActivity.cancel"></span>
+                  </button>
+            </div>
+          </div>
+      `,
+    footer: ``
+  },
 }
 
 /* 
