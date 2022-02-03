@@ -1198,6 +1198,8 @@ img.btn-cabri {
 
 }
 
+/* STUDENT ACTIVITY LIST */
+
 #classroom-dashboard-activities-panel .section-container {
     background: var(--classroom-background-1);
     box-shadow: 0px 0px 7px 0px var(--classroom-shadow-1);
@@ -1218,15 +1220,32 @@ img.btn-cabri {
 
 }
 
-#classroom-dashboard-activities-panel .section-header h3.section-title {
-    padding: 0px;
-    margin: 0px;
-}
-
 #classroom-dashboard-activities-panel .section-header i{
     margin-right: 0.5em;
     font-size: 1.5em;
 }
+
+#classroom-dashboard-activities-panel .section-header h3.section-title {
+    padding: 0px;
+    margin: 0px;
+    width: auto;
+}
+
+#classroom-dashboard-activities-panel .section-header span.resource-number {
+    margin-left: 0.75em;
+    border-radius: 256em;
+    
+    height: 1.5em;
+    min-width: 1.5em;
+
+    font-weight: 600;
+    text-align: center;
+    
+    background-color: var(--classroom-white);
+    color: var(--classroom-black);
+    box-shadow: 0px 1px 3px var(--classroom-shadow-1) inset;
+}
+
 
 .section-new,
 h3.section-new {

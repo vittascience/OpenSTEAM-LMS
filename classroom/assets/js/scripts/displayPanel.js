@@ -298,16 +298,14 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
 
 
             }
-            // Get the classes from database and refresh the dashboard
-            if (document.getElementById('is-anonymised').checked) {
-                anonymizeStudents();
-            }
+            // Uncheck the anonymous checkbox
+            document.getElementById('is-anonymised').checked = false; 
+
             Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
                 let students = getClassroomInListByLink(link)[0].students
                 displayStudentsInClassroom(students, link);
-                if (document.getElementById('is-anonymised').checked) {
-                    anonymizeStudents();
-                }
+                // Uncheck the anonymous checkbox
+                document.getElementById('is-anonymised').checked = false;
             });
         }
         dashboardAutoRefresh.refreshLater();

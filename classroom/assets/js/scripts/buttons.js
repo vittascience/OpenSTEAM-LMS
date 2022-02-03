@@ -617,6 +617,8 @@ function studentActivitiesDisplay() {
 
     let activities = Main.getClassroomManager()._myActivities;
     let index = 1;
+
+    $('.section-new .resource-number').html(activities.newActivities.length)
     activities.newActivities.forEach(element => {
         if (element.dateEnd) {
             var dateEnd = element.dateEnd.date
@@ -628,6 +630,8 @@ function studentActivitiesDisplay() {
         $('#body-table-bilan').append('<td class="' + statusActivity(element) + ' classroom-clickable bilan-cell " title="' + i18next.t('classroom.activities.dateBefore') + ' ' + formatDay(dateEnd) + '"></td>')
         index++
     });
+    
+    $('.section-saved .resource-number').html(activities.savedActivities.length)
     activities.savedActivities.forEach(element => {
         if (element.dateEnd) {
             var dateEnd = element.dateEnd.date
@@ -640,6 +644,7 @@ function studentActivitiesDisplay() {
         index++
     });
 
+    $('.section-current .resource-number').html(activities.currentActivities.length)
     activities.currentActivities.forEach(element => {
         if (element.dateEnd) {
             var dateEnd = element.dateEnd.date
@@ -651,6 +656,8 @@ function studentActivitiesDisplay() {
         $('#body-table-bilan').append('<td class="' + statusActivity(element) + ' classroom-clickable bilan-cell" title="' + i18next.t('classroom.activities.dateBefore') + ' ' + formatDay(dateEnd) + '"></td>')
         index++
     });
+    
+    $('.section-done .resource-number').html(activities.doneActivities.length)
     activities.doneActivities.forEach(element => {
         $('#done-activities-list').append(activityItem(element, "doneActivities"))
         $('#header-table-bilan').append('<th data-toggle="tooltip" data-placement="top" title="' + element.activity.title + '"> Act.</br>n°' + index + '</th>')
