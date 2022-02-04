@@ -3091,6 +3091,8 @@ $('#btn-help-for-groupAdmin').click(function () {
     })
 })
 
+// LMS Exercices DEBUG WiP
+
 function testDebug() {
     navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-profil-teacher');
 }
@@ -3100,7 +3102,77 @@ function setTextArea() {
         buttons: ",bold,italic,underline,|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe",
         resize_maxheight: "300",
     }
-    $('#TA_enonce').wysibb(wbbOpt);
-    $('#TA_content').wysibb(wbbOpt);
+    $('#free_enonce').wysibb(wbbOpt);
+    $('#free_content').wysibb(wbbOpt);
 }
 setTextArea();
+
+
+function launchCustomActivity(activityType) {
+    Main.getClassroomManager()._createActivity.id = activityType;
+    switch(activityType) {
+        case 'free':
+            navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-profil-teacher');
+            break;
+        case 'quiz':
+            //navigatePanel('', '');
+            break;
+        case 'fillIn':
+            //navigatePanel('', '');
+            break;
+        case 'reading':
+            //navigatePanel('', '');
+            break;
+        case 'dragAndDrop':
+            //navigatePanel('', '');
+            break;
+        case 'custom':
+            //navigatePanel('', '');
+            break;
+        default:
+            break;
+    }
+}
+
+function contentBackward() {
+    navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-proactivities-teacher')
+}
+
+function contentForward() {
+    if (Main.getClassroomManager()._createActivity.id == 'free') {
+        Main.getClassroomManager()._createActivity.content.description = $('#free_content').bbcode();
+        Main.getClassroomManager()._createActivity.content.enonce = $('#free_enonce').bbcode();
+        if ($('#free_indice').val() != '') {
+            Main.getClassroomManager()._createActivity.content.indice = $('#free_indice').val();
+        }
+        if ($('#free_tolerance').val() != '') {
+            Main.getClassroomManager()._createActivity.tolerance = $('#free_tolerance').val();
+        }
+    }
+    navigatePanel('classroom-dashboard-classes-new-activity-title', 'dashboard-proactivities-teacher');
+}
+
+function titleBackward() {
+    if (Main.getClassroomManager()._createActivity.id != "") {
+        launchCustomActivity(Main.getClassroomManager()._createActivity.id);
+    }
+}
+
+function titleForward() {
+    Main.getClassroomManager()._createActivity.title = $('#ActivityTitle').val();
+    
+    let titre = Main.getClassroomManager()._createActivity.title,
+        type = Main.getClassroomManager()._createActivity.id,
+        content = JSON.stringify(Main.getClassroomManager()._createActivity.content),
+        solution = Main.getClassroomManager()._createActivity.solution,
+        tolerance = Main.getClassroomManager()._createActivity.tolerance;
+
+    Main.getClassroomManager().createNewActivity(titre, type, content, solution, tolerance).then((response) => {
+        if (response.success == true) {
+            displayNotification('#notif-div', "classroom.notif.activityCreated", "success");
+            navigatePanel('classroom-dashboard-classes-new-activity-attribution', 'dashboard-proactivities-teacher');
+        } else {
+            displayNotification('#notif-div', "manager.account.errorSending", "error");
+        }
+    });
+}

@@ -24,6 +24,18 @@ class ClassroomManager {
         this._isExecutingTaskInQueue = false;
         this._allActivities = []
         this._allApps = []
+        this._createActivity = {
+            id: '',
+            title: '', 
+            content: {
+                enonce: '',
+                description: '',
+                indice: ''
+            }, 
+            type: '', 
+            solution: '',
+            tolerance: ''
+        }
     }
 
     /**
@@ -1210,7 +1222,6 @@ class ClassroomManager {
 
     /**
      * Get all the apps
-     * Access with Main.getClassroomManager().getAllApps()
      * @public
      * @returns {Array}
      */
@@ -1263,7 +1274,7 @@ class ClassroomManager {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
-                url: "/routing/Routing.php?controller=newActivities&action=create_activity",
+                url: "/routing/Routing.php?controller=newActivities&action=create_exercice",
                 data: {
                     'title' : $title,
                     'type' : $type,
@@ -1272,7 +1283,7 @@ class ClassroomManager {
                     'tolerance' : $tolerance
                 },
                 success: function (response) {
-                    resolve(response);
+                    resolve(JSON.parse(response));
                 },
                 error: function () {
                     reject('error')

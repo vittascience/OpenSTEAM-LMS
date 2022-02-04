@@ -222,6 +222,33 @@
     </div>
 </div>
 <div id="classroom-dashboard-proactivities-panel-teacher" style="display:none;" class="dashboard-block ">
+    <nav class="row form-activity-container" style="margin: 0 auto;">
+        <div class="col text-center">
+            <span class="form-activity form-activity-activate">1</span>
+            <span data-i18n="classroom.activities.form.1">Application</span>
+        </div>
+
+        <div class="col"></div>
+
+        <div class=" col text-center">
+            <span class="form-activity form-activity-desactivate">2</span>
+            <span data-i18n="classroom.activities.form.2">Contenu</span>
+        </div>
+
+        <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
+
+        <div class=" col text-center">
+            <span class="form-activity form-activity-desactivate">3</span>
+            <span>Titre</span>
+        </div>
+
+        <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
+
+        <div class="col text-center">
+            <span class="form-activity form-activity-desactivate">4</span>
+            <span>Attribution</span>
+        </div>
+    </nav>
     <div id="activity-creation-grid"></div>
 
 </div>
@@ -341,13 +368,6 @@
         <button class="btn c-btn-outline-primary" onclick="listeModeApprenant()">
             <span data-i18n="classroom.profil.switchMode" class="text-span-initial mr-1"></span>
             <i class="fas fa-exchange-alt"></i></button>
-
-        <!-- TEMP -->
-        <button class="btn c-btn-outline-primary" onclick="testDebug()">
-                <span class="text-span-initial mr-1">DEBUG MODE</span>
-                <i class="fas fa-exchange-alt"></i>
-        </button>
-        <!-- TEMP -->
 
         <button class="btn c-btn-red" onclick="goToDisconnect('classroom');">
             <span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
@@ -1221,9 +1241,9 @@
         </div>
     </div>
 </div>
-<div id="classroom-dashboard-classes-new-activity" style="display:none;" class="dashboard-block classes-panel">
-    
 
+<!-- content part -->
+<div id="classroom-dashboard-classes-new-activity" style="display:none;" class="dashboard-block classes-panel">
     <nav class="row form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-desactivate">1</span>
@@ -1255,21 +1275,121 @@
     <div class="form-group mb-2 part-content-index part-row c-primary-form w-75 m-auto">
         <div class="states m-3">
             <h3>Énoncé</h3>
-            <textarea id="TA_enonce" ></textarea>
+            <textarea id="free_enonce" ></textarea>
         </div>
         <div class="content m-3">
             <h3>Contenu</h3>
-            <textarea id="TA_content"></textarea>
+            <textarea id="free_content"></textarea>
         </div>
         <div class="tolerance m-3">
-            <p>Ajouter une tolérance d'erreurs de <span></span> caractère(s) sur l'ensemble de la réponse de l'élève.</p>
+            <p>Ajouter une tolérance d'erreurs de <span> <input type="number" id="free_tolerance" value="0"> </span> caractère(s) sur l'ensemble de la réponse de l'élève.</p>
         </div>
         <div class="help m-3">
             <p><span class="font-weight-bold">Indice *</span> s'affiche si la réponse est fausse</p>
-            <input type="text" name="indice" id="indice" placeholder="Indice">
+            <input type="text" id="free_indice" placeholder="Indice">
         </div>
     </div>
 
+    <div>
+        <button class="btn c-btn-outline-danger" onclick="contentBackward()"> Retour </button>
+        <button class="btn c-btn-outline-primary" onclick="contentForward()"> Sauvegarder et continuer </button>
+    </div>
+</div>
+
+
+<!-- title part -->
+<div id="classroom-dashboard-classes-new-activity-title" style="display:none;" class="dashboard-block ">
+    <nav class="row form-activity-container" style="margin: 0 auto;">
+        <div class="col text-center">
+            <span class="form-activity form-activity-desactivate">1</span>
+            <span data-i18n="classroom.activities.form.1">Application</span>
+        </div>
+
+        <div class="col"></div>
+
+        <div class=" col text-center">
+            <span class="form-activity form-activity-desactivate">2</span>
+            <span data-i18n="classroom.activities.form.2">Contenu</span>
+        </div>
+
+        <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
+
+        <div class=" col text-center">
+            <span class="form-activity form-activity-activate">3</span>
+            <span>Titre</span>
+        </div>
+
+        <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
+
+        <div class="col text-center">
+            <span class="form-activity form-activity-desactivate">4</span>
+            <span>Attribution</span>
+        </div>
+    </nav>
+
+    <div class="form-group mb-2 part-content-index part-row c-primary-form w-75 m-auto">
+        <p>Titre : </p>
+        <input type="text" id="ActivityTitle">
+    </div>
+
+    <div>
+        <button class="btn c-btn-outline-danger" onclick="titleBackward()"> Retour </button>
+        <button class="btn c-btn-outline-primary" onclick="titleForward()"> Sauvegarder et attribuer </button>
+    </div>
+</div>
+
+<!-- title part -->
+<div id="classroom-dashboard-classes-new-activity-attribution" style="display:none;" class="dashboard-block class-creation-form-step2">
+
+    <nav class="row form-activity-container" style="margin: 0 auto;">
+        <div class="col text-center">
+            <span class="form-activity form-activity-desactivate">1</span>
+            <span data-i18n="classroom.activities.form.1">Application</span>
+        </div>
+
+        <div class="col"></div>
+
+        <div class=" col text-center">
+            <span class="form-activity form-activity-desactivate">2</span>
+            <span data-i18n="classroom.activities.form.2">Contenu</span>
+        </div>
+
+        <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
+
+        <div class=" col text-center">
+            <span class="form-activity form-activity-desactivate">3</span>
+            <span>Titre</span>
+        </div>
+
+        <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
+
+        <div class="col text-center">
+            <span class="form-activity form-activity-activate">4</span>
+            <span>Attribution</span>
+        </div>
+    </nav>
+
+    <div class="text-center px-1">
+        <h3 class="c-text-primary text-uppercase font-weight-bold" data-i18n="classroom.activities.form.success"></h3>
+    </div>
+
+    <div class="container text-center">
+        <div class="row my-2">
+            <div class="col-sm mb-2">
+                <button id="new-activity-panel3" class="new-activity-panel3 btn c-btn-primary">
+                    <span data-i18n="classroom.activities.form.attribute"></span> <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="col-sm mb-2">
+                <button onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')" class="btn c-btn-primary">
+                    <span data-i18n="classroom.activities.form.return"></span> <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
+        </div>
+        <p data-i18n="classroom.activities.form.hint"></p>
+        <button class="btn c-btn-outline-primary" onclick="createActivity()" data-i18n="classroom.activities.form.modify"></button>
+    </div>
 </div>
 <div id="classroom-dashboard-ide-panel" style="display:none;" class="dashboard-block">
     <iframe width="100%" style="height:85vh;" frameborder="0" allowfullscreen="" style="border:1px #d6d6d6 solid;" src=""></iframe>
