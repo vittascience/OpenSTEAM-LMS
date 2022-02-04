@@ -776,6 +776,26 @@ function displayStudentsInClassroom(students, link=false) {
     $('#add-student-container').html(''); //clean the display
     $('#export-class-container').html(''); //clean the display
     $('#header-table-teach').html('<th class="table-title" style="max-width: 250px; font-size: 19pt; text-align: left; height: 3em;" data-i18n="classroom.activities.title"></th>').localize();
+
+    // getting classroom display settings
+    if (JSON.parse(localStorage.getItem('classroomDisplaySettings'))) {
+        console.log('classroomDisplaySettings present in localStorage')
+        let settings = JSON.parse(localStorage.getItem('classroomDisplaySettings'))
+        if (!settings[link]) {
+            settings[link] = {
+                monochrome: false,
+                anonymised: false
+            }
+            localStorage.setItem('classroomDisplaySettings', JSON.stringify(settings))
+        } 
+        console.log(settings[link])
+    }  else {
+        console.log('creating classroomDisplaySettings for classroom with link ' + $_GET('option'))
+        localStorage.setItem('classroomDisplaySettings', JSON.stringify({}))
+    }
+    $('#is-monochrome').attr('data-link', link)
+    $('#is-anonymised').attr('data-link', link)
+    
     // get the current classroom index of activities
     let arrayIndexesActivities = listIndexesActivities(students);
 
@@ -1132,8 +1152,6 @@ class DashboardAutoRefresh {
                         if (getClassroomInListByLink($_GET('option'))[0]) {
                             let students = getClassroomInListByLink($_GET('option'))[0].students;
                             displayStudentsInClassroom(students);
-                            // uncheck anonymize checkbox
-                            document.getElementById('is-anonymised').checked = false; 
                         }
                     }
                 }
