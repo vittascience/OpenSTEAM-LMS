@@ -840,7 +840,7 @@ function displayStudentsInClassroom(students, link=false) {
             if (currentActivity) {
                 html += `<td class=" ${statusActivity(currentActivity)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>"></td>`;
             } else {
-                html += `<td class="no-activity bilan-cell" "></td>`;
+                html += `<td class="no-activity bilan-cell"></td>`;
             }
         }
         // addition of 6 "empty" cells at the end of the current table row
@@ -858,6 +858,9 @@ function displayStudentsInClassroom(students, link=false) {
     $('#export-class-container').append(`<button id="download-csv" class="btn c-btn-tertiary ml-2" onclick="openDownloadCsvModal()"><i class="fa fa-download" aria-hidden="true"></i><span class="ml-1" data-i18n="classroom.activities.exportCsv">Exporter CSV</span></button>`).localize();
 
     $('#header-table-teach').append(`<th class="add-activity-th" colspan="7"> <button class="btn c-btn-primary dashboard-activities-teacher" onclick="pseudoModal.openModal('add-activity-modal')" data-i18n="classroom.activities.addActivity">Ajouter une activité</button></th>`).localize();
+
+    // add four empty divs for monochrome styling
+    $('#body-table-teach .bilan-cell').html(`<div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div>`);
 }
 
 $('body').on('click', '.switch-pwd', function (event) {

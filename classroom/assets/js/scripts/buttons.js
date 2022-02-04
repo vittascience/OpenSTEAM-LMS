@@ -333,6 +333,16 @@ function anonymizeStudents() {
     }
 }
 
+$('body').on('change', '#is-monochrome', switchToMonochromeMode);
+
+function switchToMonochromeMode() {
+    if ($('#is-monochrome').is(':checked')) {
+        $('#body-table-teach').addClass('is-monochrome')
+    } else {
+        $('#body-table-teach').removeClass('is-monochrome')
+    }
+}
+
 function listeModeApprenant() {
     pseudoModal.openModal('list-classes-modal')
 }
