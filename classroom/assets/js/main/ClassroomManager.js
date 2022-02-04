@@ -1251,7 +1251,7 @@ class ClassroomManager {
      * @example
      * const activity = main.getClassroomManager.getActivityById('activityId')
      */
-    getAppById(id) {
+    getActivityById(id) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -1260,7 +1260,7 @@ class ClassroomManager {
                     'id': id
                 },
                 success: function (response) {
-                    resolve(response);
+                    resolve(JSON.parse(response));
                 },
                 error: function () {
                     reject('error')

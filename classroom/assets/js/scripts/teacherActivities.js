@@ -79,8 +79,23 @@ function activityModify(id) {
     $('#activity-form-title').val('')
     $('.wysibb-text-editor').html('')
     Main.getClassroomManager().getActivity(ClassroomSettings.activity).then(function (activity) {
-        $('#activity-form-title').val(activity.title)
-        $('.wysibb-text-editor').html(activity.content)
+        let content = JSON.parse(activity.content);
+        /* console.log(activity)
+        console.log(content) */
+        if (activity.type == "free") {
+            $('#free_content').val(content.content);
+            $('#free_title').val(activity.title);
+            $('#free_enonce').val(content.enonce);
+            $('#free_tolerance').val(activity.tolerance);
+            $('#free_indice').val(content.indice);
+
+            //$('#activity-form-title')
+            
+            navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-profil-teacher');
+        } else {
+            $('#activity-form-title').val(activity.title)
+            $('.wysibb-text-editor').html(activity.content)
+        }
     })
     ClassroomSettings.status = 'edit';
     navigatePanel('classroom-dashboard-new-activity-panel', 'dashboard-activities-teacher')
