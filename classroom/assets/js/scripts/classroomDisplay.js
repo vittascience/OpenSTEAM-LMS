@@ -43,16 +43,16 @@ function setClassroomDisplaySetting(link, setting, value) {
         switch (setting) {
             case 'monochrome':
                 if (value) {
-                    $('#monochrome-button').prop('checked', true);
+                    $('#is-monochrome').prop('checked', true);
                 } else {
-                    $('#monochrome-button').prop('checked', false);
+                    $('#is-monochrome').prop('checked', false);
                 }
                 break;
             case 'anonymised':
                 if (value) {
-                    $('#anonymised-button').prop('checked', true);
+                    $('#is-anonymised').prop('checked', true);
                 } else {
-                    $('#anonymised-button').prop('checked', false);
+                    $('#is-anonymised').prop('checked', false);
                 }
                 break;
         }
@@ -68,8 +68,6 @@ function setClassroomDisplaySetting(link, setting, value) {
 $('body').on('change', '#is-anonymised', function () {
     let classLink = $(this).data("link");
     let status = $(this).is(':checked');
-
-    console.log(classLink, status);
     setClassroomDisplaySetting(classLink, 'anonymised', status);
 
     if (status) {
@@ -83,10 +81,10 @@ $('body').on('change', '#is-anonymised', function () {
 function anonymizeStudents() {
     let index = 1;
     $('.username').each(function (el) {
-        $('.username')[el].children[0].setAttribute('src', _PATH + 'assets/media/alphabet/A.png')
+        $('.username')[el].children[0].setAttribute('src', _PATH + 'assets/media/alphabet/E.png')
         $('.username')[el].children[0].setAttribute('alt', '')
         $('.username')[el].children[0].setAttribute('anonymized', 'true')
-        $('.username')[el].children[1].innerHTML = "Elève n° " + index
+        $('.username')[el].children[1].innerHTML = i18next.t('classroom.activities.anoStudent') + " " + index
         $('.username')[el].children[1].setAttribute('title', '')
         index++
     })
@@ -95,7 +93,11 @@ function anonymizeStudents() {
 $('body').on('change', '#is-monochrome', monochromeStudents);
 
 function monochromeStudents() {
-    if ($('#is-monochrome').is(':checked')) {
+    let classLink = $(this).data("link");
+    let status = $(this).is(':checked');
+    setClassroomDisplaySetting(classLink, 'monochrome', status);
+
+    if (status) {
         $('#body-table-teach').addClass('is-monochrome')
     } else {
         $('#body-table-teach').removeClass('is-monochrome')

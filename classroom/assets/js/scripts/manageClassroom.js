@@ -857,17 +857,22 @@ function displayStudentsInClassroom(students, link=false) {
         $('[data-toggle="tooltip"]').tooltip()
     });
     
+    // get classroom settings from localstorage
     let settings = getClassroomDisplaySettings(link);
-    console.log("class " + link, settings);
+
     if (settings['monochrome']) {
         $('#body-table-teach').addClass('is-monochrome')
-    }
-    else {
+        $('#is-monochrome').prop('checked', true);          
+    } else {
         $('#body-table-teach').removeClass('is-monochrome')
+        $('#is-monochrome').prop('checked', false);
     }
     
     if (settings['anonymised']) {
         anonymizeStudents()
+        $('#is-anonymised').prop('checked', true);
+    } else {
+        $('#is-anonymised').prop('checked', false);
     }
 
     
