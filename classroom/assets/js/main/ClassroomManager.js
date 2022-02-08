@@ -25,6 +25,7 @@ class ClassroomManager {
         this._allActivities = []
         this._allApps = []
         this._createActivity = {
+            function: 'create',
             id: '',
             title: '', 
             content: {
@@ -1307,7 +1308,7 @@ class ClassroomManager {
                     'tolerance' : $tolerance
                 },
                 success: function (response) {
-                    resolve(response);
+                    resolve(JSON.parse(response));
                 },
                 error: function () {
                     reject('error')

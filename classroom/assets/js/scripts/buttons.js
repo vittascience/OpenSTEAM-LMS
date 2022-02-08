@@ -3100,7 +3100,6 @@ function testDebug() {
 function setTextArea() {
     let wbbOpt = {
         buttons: ",bold,italic,underline,|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe",
-        resize_maxheight: "300",
     }
     $('#free_enonce').wysibb(wbbOpt);
     $('#free_content').wysibb(wbbOpt);
@@ -3110,6 +3109,7 @@ setTextArea();
 
 function launchCustomActivity(activityType) {
     Main.getClassroomManager()._createActivity.id = activityType;
+    Main.getClassroomManager()._createActivity.function = "create";
     switch(activityType) {
         case 'free':
             navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-profil-teacher');
@@ -3159,7 +3159,7 @@ function titleBackward() {
 }
 
 function titleForward() {
-    Main.getClassroomManager()._createActivity.title = $('#ActivityTitle').val();
+    Main.getClassroomManager()._createActivity.title = $('#free_title').val();
     
     let titre = Main.getClassroomManager()._createActivity.title,
         type = Main.getClassroomManager()._createActivity.id,
@@ -3167,12 +3167,130 @@ function titleForward() {
         solution = Main.getClassroomManager()._createActivity.solution,
         tolerance = Main.getClassroomManager()._createActivity.tolerance;
 
-    Main.getClassroomManager().createNewActivity(titre, type, content, solution, tolerance).then((response) => {
-        if (response.success == true) {
-            displayNotification('#notif-div', "classroom.notif.activityCreated", "success");
-            navigatePanel('classroom-dashboard-classes-new-activity-attribution', 'dashboard-proactivities-teacher');
-        } else {
-            displayNotification('#notif-div', "manager.account.errorSending", "error");
-        }
-    });
+    if (Main.getClassroomManager()._createActivity.function == "create") {  
+        Main.getClassroomManager().createNewActivity(titre, type, content, solution, tolerance).then((response) => {
+            if (response.success == true) {
+                displayNotification('#notif-div', "classroom.notif.activityCreated", "success");
+                navigatePanel('classroom-dashboard-classes-new-activity-attribution', 'dashboard-proactivities-teacher');
+            } else {
+                displayNotification('#notif-div', "manager.account.errorSending", "error");
+            }
+        });
+    } else if (Main.getClassroomManager()._createActivity.function == "update") {
+        Main.getClassroomManager().updateActivity(ClassroomSettings.activity, titre, type, content, solution, tolerance).then((response) => {
+            if (response.success == true) {
+                displayNotification('#notif-div', "classroom.notif.activityCreated", "success");
+                navigatePanel('classroom-dashboard-classes-new-activity-attribution', 'dashboard-proactivities-teacher');
+            } else {
+                displayNotification('#notif-div', "manager.account.errorSending", "error");
+            }
+        });
+    }
 }
+
+
+
+function loadCustomProPanelTexts() {
+    if (i18next && i18next.isInitialized) {
+        let currentLang = getCookie('lng');
+        if (!currentLang) {
+            currentLang = 'fr';
+        }
+        switch (currentLang) {
+            case 'fr':
+                i18next.addResourceBundle('fr', 'translation', {
+                    "aren": {
+                        "ids": {
+                            "classroom-dashboard-proactivities-panel-teacher": "Mes formations",
+                            "create-activity-text": "Sélectionnez l’application sur laquelle vous souhaitez créer une activité"
+                        }
+                    }
+                });
+                i18next.customLoaded = true;
+                break;
+
+            case 'en':
+                i18next.addResourceBundle('en', 'translation', {
+                    "aren": {
+                        "ids": {
+                            "classroom-dashboard-proactivities-panel-teacher": "My courses",
+                            "create-activity-text": "Select the application on which you want to create an activity"
+
+                        }
+                    }
+                });
+                i18next.customLoaded = true;
+                break;
+
+            default:
+                i18next.customLoaded = true;
+                break;
+        }
+
+        // Sections to format
+        $('#classroom-dashboard-sidebar-teacher').localize();
+        loadCustomProActivitiesPanel(proActivities);
+
+    } else {
+        setTimeout(loadCustomProPanelTexts, 100);
+    }
+}
+
+
+function loadCustomProActivitiesPanel(apps) {
+    $('#activity-creation-grid').append(`<div class="app-head" data-i18n="aren.ids.create-activity-text">
+    </div>`);
+    apps.forEach(app => {
+        //console.log(app);
+        let appElt = $( /*html*/
+            `<div class="app-card" style="--border-color:${app.color};" onclick="launchCustomActivity('${app.id}')">
+                <img class="app-card-img" src="${app.image}" alt="${app.name}">
+                <h3 class="app-card-title mt-2" data-i18n="${app.name}">[APP NAME]</h3>
+                <p class="mt-2" data-i18n="${app.desc}">[APP DESC]</p>
+            </div>`);
+
+        $('#activity-creation-grid').append(appElt);
+
+    });
+    $('#activity-creation-grid').localize();
+
+}
+
+let proActivities = [{
+        "name": "classroom.activities.applist.apps.reading.title",
+        "desc": "classroom.activities.applist.apps.reading.desc",
+        "image": "./assets/plugins/images/reading.png",
+        "color": "#12ACB1",
+        "id": "reading"
+    },
+    {
+        "name": "classroom.activities.applist.apps.quiz.title",
+        "desc": "classroom.activities.applist.apps.quiz.desc",
+        "image": "./assets/plugins/images/quiz.png",
+        "color": "#FF931E",
+        "id": "quiz"
+    },
+    {
+        "name": "classroom.activities.applist.apps.dragAndDrop.title",
+        "desc": "classroom.activities.applist.apps.dragAndDrop.desc",
+        "image": "./assets/plugins/images/dragAndDrop.png",
+        "color": "#24A069",
+        "id": "dragAndDrop"
+    },
+    {
+        "name": "classroom.activities.applist.apps.fillIn.title",
+        "desc": "classroom.activities.applist.apps.fillIn.desc",
+        "image": "./assets/plugins/images/fillIn.png",
+        "color": "#60987E",
+        "id": "fillIn"
+    },
+    {
+        "name": "classroom.activities.applist.apps.free.title",
+        "desc": "classroom.activities.applist.apps.free.desc",
+        "image": "./assets/plugins/images/free.png",
+        "color": "#3FA9F5",
+        "id": "free"
+    }
+];
+
+loadCustomProPanelTexts();

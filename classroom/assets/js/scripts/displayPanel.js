@@ -385,11 +385,28 @@ function formatDateInput(date) {
 
 function getTeacherActivity() {
     $('#activity-title').html(Activity.title + `<button class="btn btn-link" onclick="attributeActivity(` + Activity.id + `)">
-    <i class="fas fa-arrow-down"></i> ` + capitalizeFirstLetter(i18next.t('words.attribute')) + `
-</button>`)
-    $('#activity-content').html(bbcodeToHtml(Activity.content))
+    <i class="fas fa-arrow-down"></i> ` + capitalizeFirstLetter(i18next.t('words.attribute')) + `</button>`);
+
+    if (IsJsonString(Activity.content)) {
+        const contentParsed = JSON.parse(Activity.content);
+        if (contentParsed.hasOwnProperty('description')) {
+            $('#activity-content').html(bbcodeToHtml(contentParsed.description))
+        } 
+    } else {
+        $('#activity-content').html(bbcodeToHtml(Activity.content))
+    }
+
     $('#activity-introduction').hide()
     $('#activity-validate').hide()
+}
+
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
 }
 
 function getIntelFromClasses() {

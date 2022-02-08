@@ -22,6 +22,10 @@ function createActivity(link = null, id = null) {
     ClassroomSettings.activityInWriting = true
 }
 
+function showExercicePanel() {
+    navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-activities-teacher');
+}
+
 
 // Lorsque le stockage local change, regarder l'état de la correction.
 window.addEventListener('storage', () => {
@@ -79,19 +83,8 @@ function activityModify(id) {
     $('#activity-form-title').val('')
     $('.wysibb-text-editor').html('')
     Main.getClassroomManager().getActivity(ClassroomSettings.activity).then(function (activity) {
-        let content = JSON.parse(activity.content);
-        /* console.log(activity)
-        console.log(content) */
-        if (activity.type == "free") {
-            $('#free_content').val(content.content);
-            $('#free_title').val(activity.title);
-            $('#free_enonce').val(content.enonce);
-            $('#free_tolerance').val(activity.tolerance);
-            $('#free_indice').val(content.indice);
-
-            //$('#activity-form-title')
-            
-            navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-profil-teacher');
+        if (activity.type != "") {
+            manageUpdateByType(activity);
         } else {
             $('#activity-form-title').val(activity.title)
             $('.wysibb-text-editor').html(activity.content)
@@ -99,7 +92,23 @@ function activityModify(id) {
     })
     ClassroomSettings.status = 'edit';
     navigatePanel('classroom-dashboard-new-activity-panel', 'dashboard-activities-teacher')
+}
 
+function manageUpdateByType(activity) {
+    if (activity.type == "free") {  
+        Main.getClassroomManager()._createActivity.id = activity.type;
+        Main.getClassroomManager()._createActivity.function = "update";
+        let content = JSON.parse(activity.content);
+        $('#free_content').htmlcode(bbcodeToHtml(content.description));
+        $('#free_enonce').htmlcode(bbcodeToHtml(content.enonce));
+        $('#free_title').val(activity.title);
+        $('#free_tolerance').val(activity.tolerance);
+        $('#free_indice').val(content.indice);
+        
+        navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-profil-teacher');
+    } else if (activity.type == "quiz") {
+        console.log('TBC')
+    }
 }
 
 //création activité vers attribution
