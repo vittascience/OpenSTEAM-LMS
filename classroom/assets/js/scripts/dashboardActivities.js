@@ -420,8 +420,148 @@ function statusActivity(activity, state = true) {
 //     })
 // }
 
-function loadActivity(isDoable) {
+function loadActivityForStudents(isDoable) {
+    // Reset the inputs
+    resetInputsForActivity()
+    // Start a timer 
     ClassroomSettings.chrono = Date.now()
+
+    // Check if the activity has an introduction
+    if (Activity.introduction != null && Activity.introduction != "") {
+        $('#text-introduction').html(bbcodeToHtml(Activity.introduction))
+        $('#activity-introduction').show()
+    }
+
+    // Check if the correction if available
+    if (Activity.correction >= 1) {
+        $('#activity-details').html("Cette activité a été rendue le " + formatHour(Activity.dateSend))
+    } else {
+        $('#activity-details').html("Activité à rendre pour le " + formatDay(Activity.dateEnd))
+    }
+
+    // Content management
+    let content = manageContentForActivity();
+
+
+    let correction = ''
+    correction += `<h4 class="c-text-primary text-center font-weight-bold">${i18next.t('classroom.activities.bilan.results')}</h4>`
+    if (Activity.correction == 1) {
+        correction += `<div class="giveNote-container c-primary-form"><label for="givenote-3" onclick="setNote(3)"><input type="radio" id="givenote-3" name="giveNote" value="3">${" " + i18next.t('classroom.activities.accept')}</label><label for="givenote-2" onclick="setNote(2)"><input type="radio" id="givenote-2" name="giveNote" value="2">${" " + i18next.t('classroom.activities.vgood')}</label><label for="givenote-1" onclick="setNote(1)"><input type="radio" id="givenote-1" name="giveNote" value="1">${" " + i18next.t('classroom.activities.good')}</label><label for="givenote-0" onclick="setNote(0)"><input type="radio" id="givenote-0" name="giveNote" value="0">${" " + i18next.t('classroom.activities.refuse')}</label></div>`
+
+    }
+
+    if (!UserManager.getUser().isRegular && Activity.correction > 0) {
+        if (Activity.note == 3) {
+            var activityResultString = i18next.t('classroom.activities.veryGoodProficiency')
+        } else if (Activity.note == 2) {
+            var activityResultString = i18next.t('classroom.activities.goodProficiency')
+        } else if (Activity.note == 1) {
+            var activityResultString = i18next.t('classroom.activities.weakProficiency')
+        } else if (Activity.note == 0) {
+            var activityResultString = i18next.t('classroom.activities.insufficientProficiency')
+        } 
+        correction += `<div class="results-string" style="background-color:var(--correction-${Activity.note})"">${activityResultString}</div>`
+
+        
+        if (Activity.commentary != null && Activity.commentary != "") {
+            correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
+        } else {
+            correction += '<div id="commentary-panel">' + i18next.t("classroom.activities.bilan.noComment") + '</div>'
+        }
+    }
+
+    injectContentForActivity(content, correction);
+    isTheActivityIsDoable(isDoable);
+}
+
+function loadActivityForTeacher(isDoable) {
+    // Reset the inputs
+    resetInputsForActivity()
+
+    // If the user is a teacher, we display the correction button
+    if (UserManager.getUser().isRegular) {
+        if (Activity.correction >= 1) {
+            $('#activity-details').html("Activité de " + Activity.user.pseudo + " rendue le " + formatHour(Activity.dateSend))
+        } else {
+            $('#activity-details').html(i18next.t("classroom.activities.noSend"))
+        }
+    }
+
+    let content = manageContentForActivity();
+
+    let correction = ''
+    correction += `<h4 class="c-text-primary text-center font-weight-bold">${i18next.t('classroom.activities.bilan.results')}</h4>`
+    if (Activity.correction == 1) {
+        correction += `<div class="giveNote-container c-primary-form"><label for="givenote-3" onclick="setNote(3)"><input type="radio" id="givenote-3" name="giveNote" value="3">${" " + i18next.t('classroom.activities.accept')}</label><label for="givenote-2" onclick="setNote(2)"><input type="radio" id="givenote-2" name="giveNote" value="2">${" " + i18next.t('classroom.activities.vgood')}</label><label for="givenote-1" onclick="setNote(1)"><input type="radio" id="givenote-1" name="giveNote" value="1">${" " + i18next.t('classroom.activities.good')}</label><label for="givenote-0" onclick="setNote(0)"><input type="radio" id="givenote-0" name="giveNote" value="0">${" " + i18next.t('classroom.activities.refuse')}</label></div>`
+
+    }
+    if (UserManager.getUser().isRegular && Activity.correction > 0) {
+        correction += '<div id="commentary-panel" class="c-primary-form"><label>' + i18next.t("classroom.activities.comments") + '</label><textarea id="commentary-textarea" style="width:100%" rows="8">' + Activity.commentary + '</textarea></div>'
+        correction += '<button onclick="giveNote()" class="btn c-btn-primary btn-sm text-wrap w-100"><span class="text-wrap">' + i18next.t('classroom.activities.sendResults') + '<i class="fas fa-chevron-right"> </i></span></button>'
+    }
+
+    injectContentForActivity(content, correction);
+    isTheActivityIsDoable(isDoable);
+}
+
+function injectContentForActivity(content, correction)
+{
+    // Inject the content to the target div
+    $('#activity-content').html(bbcodeToHtml(content))
+    $('#activity-correction').html(bbcodeToHtml(correction))
+}
+
+function resetInputsForActivity() {
+    // Hide all the divs
+    $('#activity-introduction').hide()
+    $('#activity-correction-container').hide()
+}
+
+function isTheActivityIsDoable(doable) {
+    if (doable == false) {
+        $('#activity-validate').hide();
+        $('#activity-save').hide();
+    } else {
+        let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)
+        $('#activity-validate').show()
+        if (interface != undefined && interface != null) {
+            $('#activity-save').show()
+        }
+    }
+}
+
+
+function manageContentForActivity() {
+    let content = "";
+    if (IsJsonString(Activity.activity.content)) {
+        const contentParsed = JSON.parse(Activity.activity.content);
+        if (contentParsed.hasOwnProperty('description')) {
+            content = contentParsed.description;
+        }
+    } else {
+        content = Activity.activity.content.replace(/(\[iframe\].*?link=[a-f0-9]{13})/gm, '$1&use=classroom')
+        if (Activity.project != null) {
+            if (LINK_REGEX.test(Activity.activity.content)) {
+                content = content.replace(LINK_REGEX, '$1' + Activity.project.link)
+            }
+        } else {
+            content = content
+        }
+    }
+    return content;
+}
+
+
+
+
+function loadActivity(isDoable) {
+
+    /**
+     * Debug @Rémi
+     */
+    console.log(Activity)
+
+/*     ClassroomSettings.chrono = Date.now()
     $('#activity-introduction').hide()
     if (Activity.introduction != null && Activity.introduction != "") {
         $('#text-introduction').html(bbcodeToHtml(Activity.introduction))
@@ -449,16 +589,25 @@ function loadActivity(isDoable) {
     }
 
 
-    var content = Activity.activity.content.replace(/(\[iframe\].*?link=[a-f0-9]{13})/gm, '$1&use=classroom')
-    if (Activity.project != null) {
-        if (LINK_REGEX.test(Activity.activity.content)) {
-            content = content.replace(LINK_REGEX, '$1' + Activity.project.link)
+    let content = "";
+    if (IsJsonString(Activity.activity.content)) {
+        const contentParsed = JSON.parse(Activity.activity.content);
+        if (contentParsed.hasOwnProperty('description')) {
+            content = contentParsed.description;
         }
     } else {
-        content = content
-    }
-    let correction = ''
+        content = Activity.activity.content.replace(/(\[iframe\].*?link=[a-f0-9]{13})/gm, '$1&use=classroom')
+        if (Activity.project != null) {
+            if (LINK_REGEX.test(Activity.activity.content)) {
+                content = content.replace(LINK_REGEX, '$1' + Activity.project.link)
+            }
+        } else {
+            content = content
+        }
+    } */
 
+
+/*     let correction = ''
     correction += `<h4 class="c-text-primary text-center font-weight-bold">${i18next.t('classroom.activities.bilan.results')}</h4>`
     if (Activity.correction == 1) {
         correction += `<div class="giveNote-container c-primary-form"><label for="givenote-3" onclick="setNote(3)"><input type="radio" id="givenote-3" name="giveNote" value="3">${" " + i18next.t('classroom.activities.accept')}</label><label for="givenote-2" onclick="setNote(2)"><input type="radio" id="givenote-2" name="giveNote" value="2">${" " + i18next.t('classroom.activities.vgood')}</label><label for="givenote-1" onclick="setNote(1)"><input type="radio" id="givenote-1" name="giveNote" value="1">${" " + i18next.t('classroom.activities.good')}</label><label for="givenote-0" onclick="setNote(0)"><input type="radio" id="givenote-0" name="giveNote" value="0">${" " + i18next.t('classroom.activities.refuse')}</label></div>`
@@ -466,12 +615,12 @@ function loadActivity(isDoable) {
     }
     if (UserManager.getUser().isRegular && Activity.correction > 0) {
         correction += '<div id="commentary-panel" class="c-primary-form"><label>' + i18next.t("classroom.activities.comments") + '</label><textarea id="commentary-textarea" style="width:100%" rows="8">' + Activity.commentary + '</textarea></div>'
-    }
+    } */
 
 
 
-
-    if (!UserManager.getUser().isRegular && Activity.correction > 0) {
+    
+/*     if (!UserManager.getUser().isRegular && Activity.correction > 0) {
         if (Activity.note == 3) {
             var activityResultString = i18next.t('classroom.activities.veryGoodProficiency')
         } else if (Activity.note == 2) {
@@ -489,12 +638,13 @@ function loadActivity(isDoable) {
         } else {
             correction += '<div id="commentary-panel">' + i18next.t("classroom.activities.bilan.noComment") + '</div>'
         }
-    }
+    } */
 
-    if (UserManager.getUser().isRegular && Activity.correction > 0) {
+/*     if (UserManager.getUser().isRegular && Activity.correction > 0) {
 
         correction += '<button onclick="giveNote()" class="btn c-btn-primary btn-sm text-wrap w-100"><span class="text-wrap">' + i18next.t('classroom.activities.sendResults') + '<i class="fas fa-chevron-right"> </i></span></button>'
-    }
+    } */
+
     $('#activity-content').html(bbcodeToHtml(content))
     $('#activity-correction').html(bbcodeToHtml(correction))
 

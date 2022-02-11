@@ -1238,21 +1238,34 @@
     </nav>
 
     <div class="form-group mb-2 part-content-index part-row c-primary-form w-75 m-auto">
+        <!-- 
         <div class="states m-3">
             <h3>Énoncé</h3>
             <textarea id="free_enonce" ></textarea>
-        </div>
+        </div> 
+        -->
         <div class="content m-3">
-            <h3>Contenu</h3>
+            <label for="free_content">Contenu de l'activité</label>
             <textarea id="free_content"></textarea>
         </div>
-        <div class="tolerance m-3">
-            <p>Ajouter une tolérance d'erreurs de <span> <input type="number" id="free_tolerance" value="0"> </span> caractère(s) sur l'ensemble de la réponse de l'élève.</p>
+
+        <label for="free_autocorrect">Autocorrection</label>
+        <input type="checkbox" name="free_autocorrect" id="free_autocorrect">
+
+        <div class="content m-3" id="free_correction_content" style="display: none;">
+            <label for="free_correction">Correction de l'activité</label>
+            <textarea id="free_correction"></textarea>
         </div>
-        <div class="help m-3">
+
+
+        <!-- ajouter reponse autocorrect --> 
+        <!-- <div class="tolerance m-3">
+            <p>Ajouter une tolérance d'erreurs de <span> <input type="number" id="free_tolerance" value="0"> </span> caractère(s) sur l'ensemble de la réponse de l'élève.</p>
+        </div> -->
+        <!-- <div class="help m-3">
             <p><span class="font-weight-bold">Indice *</span> s'affiche si la réponse est fausse</p>
             <input type="text" id="free_indice" placeholder="Indice">
-        </div>
+        </div> -->
     </div>
 
     <div>
@@ -1388,6 +1401,37 @@
     </nav>
     <div id="activity-creation-grid"></div>
 
+</div>
+
+
+<div id="classroom-dashboard-classes-new-activity-title" style="display:none;" class="dashboard-block ">
+    <nav class="row form-activity-container" style="margin: 0 auto;">
+        <div class="col text-center">
+            <span class="form-activity form-activity-desactivate">1</span>
+            <span data-i18n="classroom.activities.form.1">Application</span>
+        </div>
+
+        <div class="col"></div>
+
+        <div class=" col text-center">
+            <span class="form-activity form-activity-desactivate">2</span>
+            <span data-i18n="classroom.activities.form.2">Contenu</span>
+        </div>
+
+        <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
+
+        <div class=" col text-center">
+            <span class="form-activity form-activity-activate">3</span>
+            <span>Titre</span>
+        </div>
+
+        <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
+
+        <div class="col text-center">
+            <span class="form-activity form-activity-desactivate">4</span>
+            <span>Attribution</span>
+        </div>
+    </nav>
 </div>
 <div id="classroom-dashboard-ide-panel" style="display:none;" class="dashboard-block">
     <iframe width="100%" style="height:85vh;" frameborder="0" allowfullscreen="" style="border:1px #d6d6d6 solid;" src=""></iframe>

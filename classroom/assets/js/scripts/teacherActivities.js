@@ -88,10 +88,10 @@ function activityModify(id) {
         } else {
             $('#activity-form-title').val(activity.title)
             $('.wysibb-text-editor').html(activity.content)
+            navigatePanel('classroom-dashboard-new-activity-panel', 'dashboard-activities-teacher')
         }
     })
     ClassroomSettings.status = 'edit';
-    navigatePanel('classroom-dashboard-new-activity-panel', 'dashboard-activities-teacher')
 }
 
 function manageUpdateByType(activity) {
@@ -100,11 +100,12 @@ function manageUpdateByType(activity) {
         Main.getClassroomManager()._createActivity.function = "update";
         let content = JSON.parse(activity.content);
         $('#free_content').htmlcode(bbcodeToHtml(content.description));
-        $('#free_enonce').htmlcode(bbcodeToHtml(content.enonce));
-        $('#free_title').val(activity.title);
-        $('#free_tolerance').val(activity.tolerance);
-        $('#free_indice').val(content.indice);
-        
+        if (activity.solution != "") {
+            $("#free_autocorrect").prop("checked", true)
+            $("#free_correction_content").show();
+            $('#free_correction').htmlcode(bbcodeToHtml(activity.solution));
+        }
+        $('#free_title').val(activity.title);   
         navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-profil-teacher');
     } else if (activity.type == "quiz") {
         console.log('TBC')

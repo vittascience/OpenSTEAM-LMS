@@ -352,7 +352,7 @@ DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
                 ClassroomSettings.activity = id = Number(id.slice(2))
                 Main.getClassroomManager().getOneUserLinkActivity(id).then(function (result) {
                     Activity = result
-                    loadActivity(false)
+                    loadActivityForTeacher(false)
                 })
             }
         } else {
@@ -363,7 +363,7 @@ DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
             }
             ClassroomSettings.activity = id = Number(id.slice(2))
             Activity = getActivity(id, $_GET('interface'))
-            loadActivity(isDoable)
+            loadActivityForStudents(isDoable)
 
         }
     }
@@ -400,14 +400,6 @@ function getTeacherActivity() {
     $('#activity-validate').hide()
 }
 
-function IsJsonString(str) {
-    try {
-        JSON.parse(str);
-    } catch (e) {
-        return false;
-    }
-    return true;
-}
 
 function getIntelFromClasses() {
     $('#list-classes').html('')

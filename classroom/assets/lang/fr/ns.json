@@ -106,6 +106,9 @@
 			}
 		},
 		"notif": {
+			"emptyContent": "Le contenu ne peut pas être vide.",
+			"emptyTitle": "Le titre ne peut pas être vide.",
+			"activityRestricted": "Vous ne pouvez pas créer plus d'activité de ce type.",
 			"shareProjectTeacher": "Le projet a été partagé avec votre enseignant",
 			"addActivities": "Les activités sélectionnées ont été ajoutées à votre liste",
 			"addActivity": "L'activité a été ajoutée à votre liste",

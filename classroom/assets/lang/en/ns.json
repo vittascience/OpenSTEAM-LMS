@@ -106,6 +106,9 @@
 			}
 		},
 		"notif": {
+			"emptyContent": "The content can not be empty",
+			"emptyTitle": "The title can not be empty",
+			"activityRestricted": "You can not create more activities from this type",
 			"shareProjectTeacher": "The project has been shared with your teacher",
 			"addActivities": "The selected activities have been added to your list",
 			"addActivity": "The activity has beed added to your list",
