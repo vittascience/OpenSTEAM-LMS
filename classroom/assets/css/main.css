@@ -593,10 +593,9 @@ button {
         place-items: center;
         
         width: 100%;
-        min-height: 3.2em;
+        min-height: 3.5em;
         padding: 0;
-        font-size: 1.2em;
-        line-height: 1.2em;
+
         
         line-height: unset;
         cursor: auto;
@@ -791,6 +790,8 @@ button {
         height: 7.5em;
     }
 }
+
+
 
 #body-table-teach .propic {
     width: 36px;
@@ -1880,29 +1881,41 @@ h3.section-done {
 }
 
 .class-stats-panel #classroom-panel-table-container {
-
     overflow: auto;
-    padding: 10px;
     margin: 10px;
     max-width: 80%;
     width: 100%;
     flex-grow: 1;
 }
 
-.class-stats-panel table {
+.class-stats-panel #classroom-panel-table-container table {
     border-spacing: 5px;
     border-collapse: separate;
-
+    table-layout: fixed;
 }
 
-.table-title {
+.class-stats-panel table thead {
+    position: sticky;
+    top: 5px;
+    z-index: 10;
+    background-color: var(--classroom-background);
+    box-shadow: 0 -5px 0 var(--classroom-background);
+}
+
+.class-stats-panel table #body-table-teach tr td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+}
+
+.class-stats-panel #classroom-panel-table-container .table-title {
     font-size: 2em;
     font-weight: 800;
     text-align: center;
 }
 
 
-.class-stats-panel th {
+.class-stats-panel #classroom-panel-table-container th {
     /*width: 7em;*/
     text-transform: uppercase;
     font-size: 0.9em;
@@ -1918,16 +1931,14 @@ h3.section-done {
 
 .class-stats-panel .username {
     border: 1px solid var(--classroom-cell);
+
     padding: 0.7em;
-    width: 11em;
-    border-radius: 10px;
-    /* margin: 0.25em 1em; */
-    color: var(--classroom-text-0);
+    margin: 0;
     width: 243px;
-    margin-right: 0px;
+
+    border-radius: 10px;
+    color: var(--classroom-text-0);
 }
-
-
 
 .class-stats-panel .username .dropdown {
 
