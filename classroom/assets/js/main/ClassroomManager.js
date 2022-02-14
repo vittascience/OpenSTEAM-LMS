@@ -1232,7 +1232,7 @@ class ClassroomManager {
                 type: "POST",
                 url: "/routing/Routing.php?controller=newActivities&action=get_all_apps",
                 success: function (response) {
-                    resolve(response);
+                    resolve(JSON.parse(response));
                 },
                 error: function () {
                     reject('error')

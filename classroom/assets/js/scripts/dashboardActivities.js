@@ -511,6 +511,8 @@ function injectContentForActivity(content, correction)
     $('#activity-correction').html(bbcodeToHtml(correction))
 }
 
+
+// Set all the inputs we need to reset
 function resetInputsForActivity() {
     // Hide all the divs
     $('#activity-introduction').hide()

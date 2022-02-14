@@ -3134,6 +3134,7 @@ function launchCustomActivity(activityType) {
                     //navigatePanel('', '');
                     break;
                 case 'custom':
+                    // Check if it's an lti apps and get the data needed if it's the case
                     //navigatePanel('', '');
                     break;
                 default:
@@ -3268,7 +3269,10 @@ function loadCustomProPanelTexts() {
 
         // Sections to format
         $('#classroom-dashboard-sidebar-teacher').localize();
-        loadCustomProActivitiesPanel(proActivities);
+
+        Main.getClassroomManager().getAllApps().then((apps) => {
+            loadCustomProActivitiesPanel(apps);
+        })
 
     } else {
         setTimeout(loadCustomProPanelTexts, 100);
@@ -3280,22 +3284,22 @@ function loadCustomProActivitiesPanel(apps) {
     $('#activity-creation-grid').append(`<div class="app-head" data-i18n="aren.ids.create-activity-text">
     </div>`);
     apps.forEach(app => {
-        //console.log(app);
-        let appElt = $( /*html*/
-            `<div class="app-card" style="--border-color:${app.color};" onclick="launchCustomActivity('${app.id}')">
+        let restrict = app.hasOwnProperty("type") ? `launchCustomActivity('${app.type}')` : `launchCustomActivity('custom')`;
+        let appElt = $(
+            `<div class="app-card" style="--border-color:${app.color};" onclick="${restrict}">
                 <img class="app-card-img" src="${app.image}" alt="${app.name}">
-                <h3 class="app-card-title mt-2" data-i18n="${app.name}">[APP NAME]</h3>
-                <p class="mt-2" data-i18n="${app.desc}">[APP DESC]</p>
+                <h3 class="app-card-title mt-2" data-i18n="">${app.name}</h3>
+                <p class="mt-2" data-i18n="">${app.description}</p>
             </div>`);
 
         $('#activity-creation-grid').append(appElt);
 
     });
     $('#activity-creation-grid').localize();
-
 }
 
-let proActivities = [{
+
+/* let proActivities = [{
         "name": "classroom.activities.applist.apps.reading.title",
         "desc": "classroom.activities.applist.apps.reading.desc",
         "image": "./assets/plugins/images/reading.png",
@@ -3330,6 +3334,6 @@ let proActivities = [{
         "color": "#3FA9F5",
         "id": "free"
     }
-];
+]; */
 
 loadCustomProPanelTexts();
