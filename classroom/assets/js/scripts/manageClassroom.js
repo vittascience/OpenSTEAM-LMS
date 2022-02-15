@@ -862,9 +862,11 @@ function displayStudentsInClassroom(students, link=false) {
 
     if (settings['monochrome']) {
         $('#body-table-teach').addClass('is-monochrome')
+        $('#legend-container').addClass('is-monochrome')
         $('#is-monochrome').prop('checked', true);          
     } else {
         $('#body-table-teach').removeClass('is-monochrome')
+        $('#legend-container').removeClass('is-monochrome')
         $('#is-monochrome').prop('checked', false);
     }
     

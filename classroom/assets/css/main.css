@@ -1916,6 +1916,7 @@ h3.section-done {
     border-radius: 5px;
     vertical-align: bottom;
     margin: 0 3px;
+    margin-top: 2px;
     display: inline-block;
     line-height: 32px;
 }
@@ -1993,14 +1994,14 @@ i.line_height34 {
     height: 100%;
 }
 
-#body-table-teach.is-monochrome .bilan-3,
-#body-table-teach.is-monochrome .status-3,
-#body-table-teach.is-monochrome .bilan-2,
-#body-table-teach.is-monochrome .status-2,
-#body-table-teach.is-monochrome .bilan-1,
-#body-table-teach.is-monochrome .status-1,
-#body-table-teach.is-monochrome .bilan-0,
-#body-table-teach.is-monochrome .status-0 {
+.is-monochrome .bilan-3,
+.is-monochrome .status-3,
+.is-monochrome .bilan-2,
+.is-monochrome .status-2,
+.is-monochrome .bilan-1,
+.is-monochrome .status-1,
+.is-monochrome .bilan-0,
+.is-monochrome .status-0 {
     border-color: var(--classroom-primary);
     background-color: var(--classroom-white);
     border-width: 2px;
@@ -2010,14 +2011,28 @@ i.line_height34 {
 
 }
 
-#body-table-teach.is-monochrome .bilan-3 .monochrome-grade-div,
-#body-table-teach.is-monochrome .status-3 .monochrome-grade-div,
-#body-table-teach.is-monochrome .bilan-2 .monochrome-grade-div,
-#body-table-teach.is-monochrome .status-2 .monochrome-grade-div,
-#body-table-teach.is-monochrome .bilan-1 .monochrome-grade-div,
-#body-table-teach.is-monochrome .status-1 .monochrome-grade-div,
-#body-table-teach.is-monochrome .bilan-0 .monochrome-grade-div,
-#body-table-teach.is-monochrome .status-0 .monochrome-grade-div {
+#legend-container.is-monochrome .bilan-3,
+#legend-container.is-monochrome .status-3,
+#legend-container.is-monochrome .bilan-2,
+#legend-container.is-monochrome .status-2,
+#legend-container.is-monochrome .bilan-1,
+#legend-container.is-monochrome .status-1,
+#legend-container.is-monochrome .bilan-0,
+#legend-container.is-monochrome .status-0 {
+    background-color: var(--classroom-white);
+    outline: solid 1px var(--classroom-primary);
+    height: 30px;
+    border-radius: 2px;
+}
+
+.is-monochrome .bilan-3 .monochrome-grade-div,
+.is-monochrome .status-3 .monochrome-grade-div,
+.is-monochrome .bilan-2 .monochrome-grade-div,
+.is-monochrome .status-2 .monochrome-grade-div,
+.is-monochrome .bilan-1 .monochrome-grade-div,
+.is-monochrome .status-1 .monochrome-grade-div,
+.is-monochrome .bilan-0 .monochrome-grade-div,
+.is-monochrome .status-0 .monochrome-grade-div {
     background: var(--classroom-primary);
     height: 13%;
     margin: 20% auto;
@@ -2025,31 +2040,35 @@ i.line_height34 {
     min-height: 7px;
 }
 
-#body-table-teach.is-monochrome .bilan-0,
-#body-table-teach.is-monochrome .status-0 {
+#legend-container.is-monochrome .monochrome-grade-div {
+    min-height: unset;
+}
+
+.is-monochrome .bilan-0,
+.is-monochrome .status-0 {
     border-color: var(--classroom-primary);
     background-color: var(--classroom-white);
     border-width: 2px;
 }
 
-#body-table-teach.is-monochrome .bilan-2 .monochrome-grade-div:nth-child(1),
-#body-table-teach.is-monochrome .status-2 .monochrome-grade-div:nth-child(1) {
+.is-monochrome .bilan-2 .monochrome-grade-div:nth-child(1),
+.is-monochrome .status-2 .monochrome-grade-div:nth-child(1) {
     background-color: transparent;
 }
 
-#body-table-teach.is-monochrome .bilan-1 .monochrome-grade-div:nth-child(1),
-#body-table-teach.is-monochrome .status-1 .monochrome-grade-div:nth-child(1),
-#body-table-teach.is-monochrome .bilan-1 .monochrome-grade-div:nth-child(2),
-#body-table-teach.is-monochrome .status-1 .monochrome-grade-div:nth-child(2) {
+.is-monochrome .bilan-1 .monochrome-grade-div:nth-child(1),
+.is-monochrome .status-1 .monochrome-grade-div:nth-child(1),
+.is-monochrome .bilan-1 .monochrome-grade-div:nth-child(2),
+.is-monochrome .status-1 .monochrome-grade-div:nth-child(2) {
     background-color: transparent;
 }
 
-#body-table-teach.is-monochrome .bilan-0 .monochrome-grade-div:nth-child(1),
-#body-table-teach.is-monochrome .status-0 .monochrome-grade-div:nth-child(1),
-#body-table-teach.is-monochrome .bilan-0 .monochrome-grade-div:nth-child(2),
-#body-table-teach.is-monochrome .status-0 .monochrome-grade-div:nth-child(2),
-#body-table-teach.is-monochrome .bilan-0 .monochrome-grade-div:nth-child(3),
-#body-table-teach.is-monochrome .status-0 .monochrome-grade-div:nth-child(3) {
+.is-monochrome .bilan-0 .monochrome-grade-div:nth-child(1),
+.is-monochrome .status-0 .monochrome-grade-div:nth-child(1),
+.is-monochrome .bilan-0 .monochrome-grade-div:nth-child(2),
+.is-monochrome .status-0 .monochrome-grade-div:nth-child(2),
+.is-monochrome .bilan-0 .monochrome-grade-div:nth-child(3),
+.is-monochrome .status-0 .monochrome-grade-div:nth-child(3) {
     background-color: transparent;
 }
 

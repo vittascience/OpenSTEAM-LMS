@@ -99,7 +99,9 @@ function monochromeStudents() {
 
     if (status) {
         $('#body-table-teach').addClass('is-monochrome')
+        $('#legend-container').addClass('is-monochrome')
     } else {
         $('#body-table-teach').removeClass('is-monochrome')
+        $('#legend-container').removeClass('is-monochrome')
     }
 }
