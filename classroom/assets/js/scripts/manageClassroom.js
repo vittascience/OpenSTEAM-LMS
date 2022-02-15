@@ -790,25 +790,38 @@ function displayStudentsInClassroom(students, link=false) {
         }
         // Add demoStudent's head table cell if it's the current student
         if (element.user.pseudo == demoStudentName) {
-            html = `<tr><td class="username row" data-student-id="` + element.user.id + `"><img class="col-2 propic" src="${_PATH}assets/media/alphabet/` + element.user.pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil"><div class="col-7 line_height34" title="` + element.user.pseudo + `">` + pseudo + ` </div> <div class="dropdown col "><i class="classroom-clickable line_height34 fas fa-exchange-alt" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-            <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
-        <li id="mode-apprenant" class="dropdown-item classroom-clickable col-12" href="#" onclick="modeApprenant()" data-i18n="classroom.classes.panel.learnerMode">Mode apprenant</li>
-        </div>
-        </div></td>`;
+            html = /* html */`<tr>
+                <th class="username" data-student-id="${element.user.id}">
+                    <div class="user-cell-container">
+                        <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil">
+                        <div class="user-cell-username" title="${element.user.pseudo}">${pseudo}</div>
+                        <div class="dropdown">
+                            <i class="classroom-clickable line_height34 fas fa-exchange-alt" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                            <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
+                                <li id="mode-apprenant" class="dropdown-item classroom-clickable col-12" href="#" onclick="modeApprenant()" data-i18n="classroom.classes.panel.learnerMode">Mode apprenant</li>
+                            </div>
+                        </div>
+                    </div>
+                </th>`;
         // Add the current student head table cell
         } else {
-            html = `<tr><td class="username row" data-student-id="` + element.user.id + `"><img class="col-2 propic" src="${_PATH}assets/media/alphabet/` + element.user.pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil"><div class="col-7 line_height34" title="` + element.user.pseudo + `">` + pseudo + ` </div>`
+            html = /*html*/`<tr>
+                <th class="username" data-student-id="${element.user.id}">
+                    <div class="user-cell-container">
+                        <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil">
+                        <div class="user-cell-username" title="${element.user.pseudo}">${pseudo}</div>`
             if (!UserManager.getUser().isFromGar) {
-                html += `<div class="dropdown col"><i class="classroom-clickable line_height34 fas fa-cog" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                html += /**/`<div class="dropdown"><i class="classroom-clickable line_height34 fas fa-cog" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                 <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
                 <li class="col-12 pwd-display-stud" href="#"><div data-i18n="classroom.classes.panel.password">Votre mot de passe :</div> <span class="masked">${element.pwd}</span><i class="classroom-clickable fas fa-low-vision switch-pwd ml-2"></i></li>
                 <li class="modal-student-password classroom-clickable col-12 dropdown-item" href="#" data-i18n="classroom.classes.panel.resetPassword">Régenérer le mot de passe</li>
                 <li class="classroom-clickable col-12 dropdown-item" href="#"><span class="classroom-clickable" data-i18n="classroom.classes.panel.editNickname" onclick="changePseudoModal('${element.user.pseudo}',${element.user.id})">Modifier le pseudo</span></li>
                 <li class="dropdown-item modal-student-delete classroom-clickable col-12" href="#" data-i18n="classroom.classes.panel.delete">Supprimer</li>
                 </div>
+                </div>
                 </div>`;
             }
-            html += `</td>`;
+            html += `</th>`;
         }
         let activityNumber = 1;
         // Display the current student activities in the dashboard
@@ -845,7 +858,7 @@ function displayStudentsInClassroom(students, link=false) {
         }
         // addition of 6 "empty" cells at the end of the current table row
         for (let i = 0; i < 6; i++) {
-            // html += '<td class="no-activity bilan-cell"></td>';
+            html += '<td class="no-activity bilan-cell"></td>';
         }
         // end of the current table row
         html += '</tr>';

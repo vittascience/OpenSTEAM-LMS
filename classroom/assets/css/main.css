@@ -1894,7 +1894,7 @@ h3.section-done {
     table-layout: fixed;
 }
 
-.class-stats-panel table thead {
+.class-stats-panel table thead th {
     position: sticky;
     top: 5px;
     z-index: 10;
@@ -1902,10 +1902,10 @@ h3.section-done {
     box-shadow: 0 -5px 0 var(--classroom-background);
 }
 
-.class-stats-panel table #body-table-teach tr td:first-child {
+.class-stats-panel table tr th:first-child {
     position: sticky;
     left: 0;
-    z-index: 2;
+    z-index: 20; 
 }
 
 .class-stats-panel #classroom-panel-table-container .table-title {
@@ -1915,7 +1915,7 @@ h3.section-done {
 }
 
 
-.class-stats-panel #classroom-panel-table-container th {
+.class-stats-panel #classroom-panel-table-container #header-table-teach th:not(.user-cell-container) {
     /*width: 7em;*/
     text-transform: uppercase;
     font-size: 0.9em;
@@ -1924,24 +1924,32 @@ h3.section-done {
 
 }
 
-.class-stats-panel th.add-activity-th {
-    text-align: center;
-
-}
-
-.class-stats-panel .username {
-    border: 1px solid var(--classroom-cell);
-
+.class-stats-panel .user-cell-container {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    
     padding: 0.7em;
     margin: 0;
     width: 243px;
-
+    
+    border: 1px solid var(--classroom-cell);
     border-radius: 10px;
     color: var(--classroom-text-0);
+    background: var(--classroom-background);
+    font-weight: 400;
+    
 }
 
-.class-stats-panel .username .dropdown {
+.class-stats-panel .user-cell-container .user-cell-username{
+    margin-left: 0.5em;
+}
 
+.class-stats-panel .user-cell-container i {
+    font-size: 1.5em;
+}
+
+.class-stats-panel .user-cell-container .dropdown {
     color: var(--classroom-text-2);
 }
 
@@ -1972,13 +1980,7 @@ h3.section-done {
     text-align: center;
 }
 
-.line_height34 {
-    line-height: 34px;
-}
 
-i.line_height34 {
-    font-size: 1.5em;
-}
 
 .bilan-cell {
     min-height: 30px;
