@@ -541,7 +541,50 @@ $('#dashboard-activities, .activity-panel-link').click(function () {
     navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')
 })
 //activity-->validate
+// Add more validate options for the activities 
 function validateActivity() {
+
+    switch(Activity.activity.type) {
+        case 'free':
+            freeValidateActivity()
+            break;
+        case 'quiz':
+            
+            break;
+        case 'fillIn':
+            
+            break;
+        case 'reading':
+            defaultProcessValidateActivity();
+            break;
+        case 'dragAndDrop':
+            
+            break;
+        case 'custom':
+            
+            break;
+        default:
+            defaultProcessValidateActivity();
+            break;
+    }
+
+}
+
+function freeValidateActivity() {
+    let solution = Activity.activity.solution,
+        is_autocorrected = Activity.activity.isAutocorrect;
+
+    if (is_autocorrected == true) {
+        if ($('#activity-input').bbcode() == solution) {
+            console.log("true");
+        } else {
+            console.log("false");
+        }
+    }
+
+}
+
+function defaultProcessValidateActivity() {
     $("#activity-validate").attr("disabled", "disabled");
     let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)
     if (interface == undefined || interface == null) {
@@ -549,6 +592,7 @@ function validateActivity() {
         Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, correction, 3).then(function (activity) {
             if (typeof activity.errors != 'undefined') {
                 for (let error in activity.errors) {
+
                     displayNotification('#notif-div', `classroom.notif.${error}`, "error");
                     $("#activity-validate").attr("disabled", false);
                 }
@@ -580,7 +624,6 @@ function validateActivity() {
         $("#activity-validate").attr("disabled", false);
         window.localStorage.autocorrect = true
     }
-
 }
 
 function saveActivity() {
@@ -3101,16 +3144,27 @@ function setTextArea() {
     let wbbOpt = {
         buttons: ",bold,italic,underline,|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe",
     }
+    // Free 
     $('#free_enonce').wysibb(wbbOpt);
     $('#free_content').wysibb(wbbOpt);
     $('#free_correction').wysibb(wbbOpt);
+
+    // Reading
+    $("#reading_content").wysibb(wbbOpt);
 }
 setTextArea();
+
+function hideAllActivities() {
+    $("#activity_free").hide();
+    $("#activity_reading").hide();
+}
 
 
 function launchCustomActivity(activityType) {
 
+    // Reset and hide all activities input and fields
     resetActivityInputs(activityType);
+    hideAllActivities();
 
     Main.getClassroomManager()._createActivity.id = activityType;
     Main.getClassroomManager()._createActivity.function = "create";
@@ -3119,7 +3173,7 @@ function launchCustomActivity(activityType) {
         if (response.Limited == false) {
             switch(activityType) {
                 case 'free':
-                    navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-profil-teacher');
+                    $("#activity_free").show();
                     break;
                 case 'quiz':
                     //navigatePanel('', '');
@@ -3128,7 +3182,7 @@ function launchCustomActivity(activityType) {
                     //navigatePanel('', '');
                     break;
                 case 'reading':
-                    //navigatePanel('', '');
+                    $("#activity_reading").show();
                     break;
                 case 'dragAndDrop':
                     //navigatePanel('', '');
@@ -3140,6 +3194,7 @@ function launchCustomActivity(activityType) {
                 default:
                     break;
             }
+            navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-profil-teacher');
         } else {
             displayNotification('#notif-div', "classroom.notif.activityRestricted", "error");
         }
@@ -3174,10 +3229,14 @@ function contentBackward() {
     navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-proactivities-teacher')
 }
 
+// Get the content
 function contentForward() {
     if (Main.getClassroomManager()._createActivity.id == 'free') {
         Main.getClassroomManager()._createActivity.content.description = $('#free_content').bbcode();
         Main.getClassroomManager()._createActivity.solution = $('#free_correction').bbcode();
+        Main.getClassroomManager()._createActivity.autocorrect = $('#free_autocorrect').is(":checked");
+    } else if (Main.getClassroomManager()._createActivity.id == 'reading'){
+        Main.getClassroomManager()._createActivity.content.description = $('#reading_content').bbcode();
     }
     // Check if the content if empty
     if (Main.getClassroomManager()._createActivity.content.description == '') { 
@@ -3194,7 +3253,7 @@ function titleBackward() {
 }
 
 function titleForward() {
-    Main.getClassroomManager()._createActivity.title = $('#free_title').val();
+    Main.getClassroomManager()._createActivity.title = $('#global_title').val();
     
     // Check if the title is empty
     if (Main.getClassroomManager()._createActivity.title == '') {
@@ -3204,10 +3263,11 @@ function titleForward() {
             type = Main.getClassroomManager()._createActivity.id,
             content = JSON.stringify(Main.getClassroomManager()._createActivity.content),
             solution = Main.getClassroomManager()._createActivity.solution,
-            tolerance = Main.getClassroomManager()._createActivity.tolerance;
+            tolerance = Main.getClassroomManager()._createActivity.tolerance,
+            autocorrect = Main.getClassroomManager()._createActivity.autocorrect;
 
         if (Main.getClassroomManager()._createActivity.function == "create") {  
-            Main.getClassroomManager().createNewActivity(titre, type, content, solution, tolerance).then((response) => {
+            Main.getClassroomManager().createNewActivity(titre, type, content, solution, tolerance, autocorrect).then((response) => {
                 if (response.success == true) {
                     displayNotification('#notif-div', "classroom.notif.activityCreated", "success");
                     navigatePanel('classroom-dashboard-classes-new-activity-attribution', 'dashboard-proactivities-teacher');
@@ -3216,7 +3276,7 @@ function titleForward() {
                 }
             });
         } else if (Main.getClassroomManager()._createActivity.function == "update") {
-            Main.getClassroomManager().updateActivity(ClassroomSettings.activity, titre, type, content, solution, tolerance).then((response) => {
+            Main.getClassroomManager().updateActivity(ClassroomSettings.activity, titre, type, content, solution, tolerance, autocorrect).then((response) => {
                 if (response.success == true) {
                     displayNotification('#notif-div', "classroom.notif.activityCreated", "success");
                     navigatePanel('classroom-dashboard-classes-new-activity-attribution', 'dashboard-proactivities-teacher');

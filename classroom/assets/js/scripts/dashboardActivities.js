@@ -470,7 +470,7 @@ function loadActivityForStudents(isDoable) {
         }
     }
 
-    injectContentForActivity(content, correction);
+    injectContentForActivity(content, correction, Activity.activity.type);
     isTheActivityIsDoable(isDoable);
 }
 
@@ -500,15 +500,54 @@ function loadActivityForTeacher(isDoable) {
         correction += '<button onclick="giveNote()" class="btn c-btn-primary btn-sm text-wrap w-100"><span class="text-wrap">' + i18next.t('classroom.activities.sendResults') + '<i class="fas fa-chevron-right"> </i></span></button>'
     }
 
-    injectContentForActivity(content, correction);
+    injectContentForActivity(content, correction, Activity.activity.type);
     isTheActivityIsDoable(isDoable);
 }
 
-function injectContentForActivity(content, correction)
+function injectContentForActivity(content, correction, type = null)
 {
+    console.log(type)
+
+
+    let wbbOpt = {
+        buttons: ",bold,italic,underline,|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe",
+    }
+    
+
+    setTextArea();
     // Inject the content to the target div
-    $('#activity-content').html(bbcodeToHtml(content))
-    $('#activity-correction').html(bbcodeToHtml(correction))
+    if (type == null) {
+        $('#activity-content').html(bbcodeToHtml(content))
+        $('#activity-correction').html(bbcodeToHtml(correction))
+    }
+
+    switch(type) {
+        case 'free':
+            $('#activity-content').html(bbcodeToHtml(content));
+            $('#activity-input').wysibb(wbbOpt);
+            $('#activity-input-container').show();
+            break;
+        case 'quiz':
+            
+            break;
+        case 'fillIn':
+            
+            break;
+        case 'reading':
+            
+            break;
+        case 'dragAndDrop':
+            
+            break;
+        case 'custom':
+            // Check if it's an lti apps and get the data needed if it's the case
+            
+            break;
+        default:
+            $('#activity-content').html(bbcodeToHtml(content));
+            $('#activity-correction').html(bbcodeToHtml(correction));
+            break;
+    }
 }
 
 
@@ -517,6 +556,9 @@ function resetInputsForActivity() {
     // Hide all the divs
     $('#activity-introduction').hide()
     $('#activity-correction-container').hide()
+
+    // Field for free activity
+    $('#activity-input-container').hide();
 }
 
 function isTheActivityIsDoable(doable) {
