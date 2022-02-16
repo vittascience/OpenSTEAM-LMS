@@ -1396,5 +1396,20 @@
 				"willSignin": "Je me connecte"
 			}
 		}
+	},	
+	"newActivities": {
+		"create": "Créer une nouvelle activité",
+		"delete": "Supprimer",
+		"addQuiz": "Ajouter une proposition",
+		"states": "Énoncé de l'activité <span class=\"c-text-red\">*</span>",
+		"cancel": "Annuler",
+		"autocorrect": "Correction automatique",
+		"correction": "Correction de l'activité",
+		"tolerance1": "Ajouter une tolérance d'erreus de",
+		"tolerance2": "caractère(s) sur l'ensemble de la réponse de l'élève.",
+		"hint": "Indice * : s'affiche si la réponse est fausse",
+		"title": "Titre de l'activité <span class=\"c-text-red\">*</span>",
+		"description": "Description de l'activité <span class=\"c-text-red\">*</span>",
+		"content": "Contenu de l'activité <span class=\"c-text-red\">*</span>"
 	}
 }

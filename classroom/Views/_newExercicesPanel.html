@@ -30,24 +30,19 @@
     </nav>
 
     <div class="form-group mb-2 part-content-index part-row c-primary-form w-75 m-auto">
-        <!-- 
-        <div class="states m-3">
-            <h3>Énoncé</h3>
-            <textarea id="free_enonce" ></textarea>
-        </div> 
-        -->
+       
         <!-- Free activity part -->
         <div id="activity_free" style="display:none;">
             <div class="content m-3">
-                <label for="free_content">Contenu de l'activité</label>
+                <label for="free_content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
                 <textarea id="free_content"></textarea>
             </div>
     
-            <label for="free_autocorrect">Autocorrection</label>
+            <label for="free_autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
             <input type="checkbox" name="free_autocorrect" id="free_autocorrect">
     
             <div class="content m-3" id="free_correction_content" style="display: none;">
-                <label for="free_correction">Correction de l'activité</label>
+                <label for="free_correction" data-i18n="newActivities.correction">Correction de l'activité</label>
                 <textarea id="free_correction"></textarea>
             </div>
         </div>
@@ -56,28 +51,85 @@
         <div id="activity_reading" style="display:none;">
             <div class="form-row mt-1">
                 <label for="reading_content" class="tutorial-label">
-                    <span data-i18n='classroom.activities.form.content.label'></span>
+                    <span data-i18n="[html]newActivities.content"></span>
                 </label>
                 <textarea id="reading_content" class='part-content' width='100%' style='min-height: 60vh;'></textarea>
             </div>
         </div>
 
+        <!-- Quiz activity part -->
+        <div id="activity_quiz" style="display:none;">
+
+            <div class="content m-3">
+                <label for="quiz_states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
+                <textarea id="quiz_states"></textarea>
+            </div>
+
+            <div class="content m-3">
+                <div class="quiz_propositions">
+                    <label for="quiz_proposition_1">Proposition 1</label><button data-i18n="newActivities.delete">Delete</button>
+                    <input type="text" id="quiz_proposition_1">
+
+                    <label for="quiz_hint" data-i18n="newActivities.hint">Indice</label>
+                    <input type="text" id="quiz_hint">
+                </div>
+                <button data-i18n="newActivities.addQuiz">Ajouter une proposition</button>
+            </div>
+
+        </div>
+
+        <!-- FillIn activity part -->
+        <div id="activity_fillIn" style="display:none;">
+
+            <div class="content m-3">
+                <label for="fillIn_states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
+                <textarea id="fillIn_states"></textarea>
+            </div>
+            
+            <div class="content m-3">
+                <label for="fillIn_content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
+                <textarea id="fillIn_content"></textarea>
+            </div>
+
+            <div class="content m-3">
+                <p><span data-i18n="newActivities.tolerance1"></span> <input type="number" id="fillIn_tolerance"> <span data-i18n="newActivities.tolerance2"></span></p>
+            </div>
+
+            <div class="content m-3">
+                <label for="fillIn_hint" data-i18n="newActivities.hint">Indice</label>
+                <input type="text" id="fillIn_hint">
+            </div>
+
+        </div>
+
+        <!-- DragAndDrop activity part -->
+        <div id="activity_dragAndDrop" style="display:none;">
+            
+            <div class="content m-3">
+                <label for="dragAndDrop_states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
+                <textarea id="dragAndDrop_states"></textarea>
+            </div>
+            
+            <div class="content m-3">
+                <label for="dragAndDrop_content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
+                <textarea id="dragAndDrop_content"></textarea>
+            </div>
+
+            <div class="content m-3">
+                <label for="dragAndDrop_hint" data-i18n="newActivities.hint">Indice</label>
+                <input type="text" id="dragAndDrop_hint">
+            </div>
+
+        </div>
 
 
+        <!-- Custom & probably Lti -->
+        <div id="activity_custom" style="display:none;">
+        </div>
+
+
+<!-- 
         <div id="classroom-dashboard-new-activity-panel" style="display:none;" class="activity-creation-form dashboard-block">
-<!--             <nav class="row form-activity-container" style="margin: 0 auto;">
-                <div class="col text-center">
-                    <span class="form-activity form-activity-activate">1</span>
-                    <span data-i18n="classroom.activities.form.1"></span>
-                </div>
-        
-                <div class="col-4"></div>
-        
-                <div class=" col text-center">
-                    <span class="form-activity form-activity-desactivate">2</span>
-                    <span data-i18n="classroom.activities.form.2"></span>
-                </div>
-            </nav> -->
             <div class="form-group mb-2 part-content-index part-row c-primary-form">
                 <div class="form-row mt-1">
                     <label for="part-content-input" class="tutorial-label">
@@ -95,7 +147,7 @@
                 </div>
             </div>
             <button class="new-activity-panel2 c-btn-primary"><span data-i18n="classroom.activities.form.button"></span> <i class="fas fa-check"></i></button>
-        </div>
+        </div> -->
 
 
         <!-- ajouter reponse autocorrect --> 

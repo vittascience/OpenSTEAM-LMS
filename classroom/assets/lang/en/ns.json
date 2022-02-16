@@ -1080,5 +1080,20 @@
 				"willSignin": "Log in"
 			}
 		}
+	},
+	"newActivities": {
+		"create": "Create a new activity",
+		"delete": "Delete",
+		"addQuiz": "Add a suggestion",
+		"states": "Activity statement <span class=\"c-text-red\">*</span>",
+		"cancel": "Cancel",
+		"autocorrect": "Autocorrect",
+		"correction": "Activity correction",
+		"tolerance1": "Add an error tolerance of",
+		"tolerance2": "character(s) on the entire student response.",
+		"hint": "Hint *: displayed if the answer is wrong",
+		"title": "Activity title <span class=\"c-text-red\">*</span>",
+		"description": "Activity description <span class=\"c-text-red\">*</span>",
+		"content": "Activity content <span class=\"c-text-red\">*</span>"
 	}
 }

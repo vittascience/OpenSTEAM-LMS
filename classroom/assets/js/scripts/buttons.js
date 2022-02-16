@@ -542,47 +542,7 @@ $('#dashboard-activities, .activity-panel-link').click(function () {
 })
 //activity-->validate
 // Add more validate options for the activities 
-function validateActivity() {
 
-    switch(Activity.activity.type) {
-        case 'free':
-            freeValidateActivity()
-            break;
-        case 'quiz':
-            
-            break;
-        case 'fillIn':
-            
-            break;
-        case 'reading':
-            defaultProcessValidateActivity();
-            break;
-        case 'dragAndDrop':
-            
-            break;
-        case 'custom':
-            
-            break;
-        default:
-            defaultProcessValidateActivity();
-            break;
-    }
-
-}
-
-function freeValidateActivity() {
-    let solution = Activity.activity.solution,
-        is_autocorrected = Activity.activity.isAutocorrect;
-
-    if (is_autocorrected == true) {
-        if ($('#activity-input').bbcode() == solution) {
-            console.log("true");
-        } else {
-            console.log("false");
-        }
-    }
-
-}
 
 function defaultProcessValidateActivity() {
     $("#activity-validate").attr("disabled", "disabled");
@@ -3140,6 +3100,9 @@ function testDebug() {
     navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-profil-teacher');
 }
 
+/**
+ * Setup the rich text editor for the activities
+ */
 function setTextArea() {
     let wbbOpt = {
         buttons: ",bold,italic,underline,|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe",
@@ -3151,12 +3114,31 @@ function setTextArea() {
 
     // Reading
     $("#reading_content").wysibb(wbbOpt);
+
+    // FillIn
+    $("#fillIn_states").wysibb(wbbOpt);
+    $("#fillIn_content").wysibb(wbbOpt);
+
+    // DragAndDrop
+    $("#dragAndDrop_states").wysibb(wbbOpt);
+    $("#dragAndDrop_content").wysibb(wbbOpt);
+
+     // Quiz
+     $("#quiz_states").wysibb(wbbOpt);
 }
 setTextArea();
 
+
+/**
+ * Hide all the activities section
+ */
 function hideAllActivities() {
     $("#activity_free").hide();
     $("#activity_reading").hide();
+    $("#activity_fillIn").hide();
+    $("#activity_dragAndDrop").hide();
+    $("#activity_custom").hide();
+    $("#activity_quiz").hide();
 }
 
 
@@ -3176,22 +3158,24 @@ function launchCustomActivity(activityType) {
                     $("#activity_free").show();
                     break;
                 case 'quiz':
-                    //navigatePanel('', '');
+                    $("#activity_quiz").show();
                     break;
                 case 'fillIn':
-                    //navigatePanel('', '');
+                    $("#activity_fillIn").show();
                     break;
                 case 'reading':
                     $("#activity_reading").show();
                     break;
                 case 'dragAndDrop':
-                    //navigatePanel('', '');
+                    $("#activity_dragAndDrop").show();
                     break;
                 case 'custom':
                     // Check if it's an lti apps and get the data needed if it's the case
-                    //navigatePanel('', '');
+                    $("#activity_custom").show();
                     break;
                 default:
+                    // Use the previous method for the activity without title
+                    $("#activity_reading").show();
                     break;
             }
             navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-profil-teacher');
@@ -3252,6 +3236,9 @@ function titleBackward() {
     }
 }
 
+/**
+ * Title part
+ */
 function titleForward() {
     Main.getClassroomManager()._createActivity.title = $('#global_title').val();
     
@@ -3286,6 +3273,55 @@ function titleForward() {
             });
         }
     }
+}
+
+
+/**
+ * Validation pipeline for the new activity
+ */
+function validateActivity() {
+
+    switch(Activity.activity.type) {
+        case 'free':
+            freeValidateActivity()
+            break;
+        case 'quiz':
+            
+            break;
+        case 'fillIn':
+            
+            break;
+        case 'reading':
+            defaultProcessValidateActivity();
+            break;
+        case 'dragAndDrop':
+            
+            break;
+        case 'custom':
+            
+            break;
+        default:
+            defaultProcessValidateActivity();
+            break;
+    }
+
+}
+
+/**
+ * Default process for the validation of the free activity
+ */
+function freeValidateActivity() {
+    let solution = Activity.activity.solution,
+        is_autocorrected = Activity.activity.isAutocorrect;
+
+    if (is_autocorrected == true) {
+        if ($('#activity-input').bbcode() == solution) {
+            console.log("true");
+        } else {
+            console.log("false");
+        }
+    }
+
 }
 
 

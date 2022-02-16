@@ -1368,5 +1368,27 @@ class ClassroomManager {
         });
     }
 
+
+    saveNewStudentActivity(activity, correction = 1, note = 0) {
+        let chrono = parseInt((Date.now() - ClassroomSettings.chrono) / 1000)
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=newActivities&action=save_new_activity",
+                data: {
+                    'id': activity,
+                    'correction': correction,
+                    'timePassed': chrono,
+                    'classroomLink': ClassroomSettings.classroom,
+                    'note': note
+                },
+                success: function (r) {
+                    resolve(JSON.parse(r))
+                    ClassroomSettings.chrono = Date.now()
+                }
+            });
+        });
+    }
+
 }
 
