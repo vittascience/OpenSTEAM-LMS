@@ -1406,7 +1406,10 @@ h3.section-done {
 
 .activity-card .activity-card-bot span {
     font-style: italic;
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 0.9em;
+    text-shadow: 1px 1px 0px var(--classroom-shadow-1);
+
 }
 
 
@@ -1453,6 +1456,13 @@ h3.section-done {
 
 
 @media (max-width: 768px) {
+
+    .activity-card .activity-card-bot span {
+        display: block;
+        font-size: 0.7em;
+        line-height: 1.2em;
+    }
+
     .activity-search {
         width: 90%;
     }
@@ -1462,6 +1472,8 @@ h3.section-done {
     }
 
 }
+
+
 
 /* ACTIVITY RESOURCES BANK */
 
