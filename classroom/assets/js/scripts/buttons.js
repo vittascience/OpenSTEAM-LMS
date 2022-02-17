@@ -3170,15 +3170,17 @@ function launchCustomActivity(activityType) {
                     $("#activity_dragAndDrop").show();
                     break;
                 case 'custom':
-                    // Check if it's an lti apps and get the data needed if it's the case
-                    $("#activity_custom").show();
-                    break;
-                default:
                     // Use the previous method for the activity without title
                     $("#activity_reading").show();
                     break;
+                default:
+                    // Check if it's an lti apps and get the data needed if it's the case
+                    $("#activity_custom").show();
+                    launchLtiDeepLinkCreate(activityType);
+                    
+                    break;
             }
-            navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-profil-teacher');
+            navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
         } else {
             displayNotification('#notif-div', "classroom.notif.activityRestricted", "error");
         }
@@ -3433,3 +3435,16 @@ function loadCustomProActivitiesPanel(apps) {
 ]; */
 
 loadCustomProPanelTexts();
+
+function launchLtiDeepLinkCreate(type) {
+    document.querySelector('#lti-loader-container').innerHTML = 
+    `<input id="activity-form-content-lti" type="text" hidden/>
+    <form name="contentitem_request_form" action="${_PATH}lti/contentitem.php" method="post" target="lti_teacher_iframe">
+        <input type="hidden" id="application_type" name="application_type" value="${type}">
+    </form>
+    <div style="width: 100%; height: 100%;" class="lti-iframe-holder">
+        <iframe id="lti_teacher_iframe" src="about:blank" name="lti_teacher_iframe" title="Tool Content" width="100%"  height="100%" allowfullscreen></iframe>
+    </div>`;
+
+    document.forms["contentitem_request_form"].submit();
+}
