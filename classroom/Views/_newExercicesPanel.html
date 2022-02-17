@@ -165,10 +165,10 @@
     <div class="container">
         <div class="row text-center w-100">
             <div class="col-sm mb-2">
-                <button class="btn c-btn-grey" onclick="contentBackward()"> Retour </button>
+                <button class="btn c-btn-grey" onclick="contentBackward()"><i class="fas fa-chevron-left"></i> Retour</button>
             </div>
             <div class="col-sm order-first order-sm-last mb-2">
-                <button class="btn c-btn-secondary" onclick="contentForward()"> Sauvegarder et continuer </button>
+                <button class="btn c-btn-secondary" onclick="contentForward()">Sauvegarder et continuer <i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </div>
@@ -205,14 +205,21 @@
         </div>
     </nav>
 
-    <div class="form-group mb-2 part-content-index part-row c-primary-form w-75 m-auto">
-        <p>Titre : </p>
-        <input type="text" id="global_title">
+    <div class="form-group mx-auto my-2 c-primary-form w-75">
+        <label>Titre : </label>
+        <input class="w-100" type="text" id="global_title">
     </div>
 
-    <div>
-        <button class="btn c-btn-outline-danger" onclick="titleBackward()"> Retour </button>
-        <button class="btn c-btn-outline-primary" onclick="titleForward()"> Sauvegarder et attribuer </button>
+
+    <div class="container">
+        <div class="row text-center w-100">
+            <div class="col-sm mb-2">
+                <button class="btn c-btn-grey" onclick="titleBackward()">Retour <i class="fas fa-chevron-left"></i></button>
+            </div>
+            <div class="col-sm order-first order-sm-last mb-2">
+                <button class="btn c-btn-secondary" onclick="titleForward()">Valider <i class="fas fa-check"></i></button>
+            </div>
+        </div>
     </div>
 </div>
 
