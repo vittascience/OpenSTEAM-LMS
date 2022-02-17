@@ -1247,7 +1247,7 @@
         </div>
     </nav>
 
-    <div class="form-group mb-2 part-content-index part-row c-primary-form w-75 m-auto">
+    <div class="container mb-2 part-content-index c-primary-form">
        
         <!-- Free activity part -->
         <div id="activity_free" style="display:none;">
@@ -1256,8 +1256,10 @@
                 <textarea id="free_content"></textarea>
             </div>
     
-            <label for="free_autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
-            <input type="checkbox" name="free_autocorrect" id="free_autocorrect">
+            <div class="c-checkbox">
+                <input type="checkbox" name="free_autocorrect" id="free_autocorrect">
+                <label for="free_autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
+            </div>
     
             <div class="content m-3" id="free_correction_content" style="display: none;">
                 <label for="free_correction" data-i18n="newActivities.correction">Correction de l'activité</label>
@@ -1378,9 +1380,15 @@
         </div> -->
     </div>
 
-    <div>
-        <button class="btn c-btn-outline-danger" onclick="contentBackward()"> Retour </button>
-        <button class="btn c-btn-outline-primary" onclick="contentForward()"> Sauvegarder et continuer </button>
+    <div class="container">
+        <div class="row text-center w-100">
+            <div class="col-sm mb-2">
+                <button class="btn c-btn-grey" onclick="contentBackward()"> Retour </button>
+            </div>
+            <div class="col-sm order-first order-sm-last mb-2">
+                <button class="btn c-btn-secondary" onclick="contentForward()"> Sauvegarder et continuer </button>
+            </div>
+        </div>
     </div>
 </div>
 
