@@ -3355,6 +3355,10 @@ function activitiesCreation(apps) {
     $('#activity-creation-grid').localize();
 }
 
+function goBackToActivities() {
+    navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
+}
+
 
 /* let proActivities = [{
         "name": "classroom.activities.applist.apps.reading.title",
