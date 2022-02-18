@@ -79,9 +79,8 @@ DisplayPanel.prototype.classroom_dashboard_activities_panel = function () {
     .then(() => {
         studentActivitiesDisplay();
     });
-
-
 }
+
 DisplayPanel.prototype.classroom_dashboard_activities_panel_library_teacher = function () {
     if (!$("#resource-center-classroom").length) {
         $('#classroom-dashboard-activities-panel-library-teacher').html('<iframe id="resource-center-classroom" src="/learn/?use=classroom" frameborder="0" style="height:80vh;width:80vw"></iframe>')
