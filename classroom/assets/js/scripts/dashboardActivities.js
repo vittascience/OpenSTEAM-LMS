@@ -562,11 +562,14 @@ function injectContentForActivity(content, correction, type = null, correction_d
             
             break;
         case 'reading':
+            $('#activity-title').html(Activity.activity.title);
+            $('#activity-content').html(bbcodeToHtml(content));
             if (correction == 0) {
-                $('#activity-content').html(bbcodeToHtml(content));
                 $('#activity-input').wysibb(wbbOpt);
                 $('#activity-input-container').show();
             } else if (correction == 1) {
+                $('#activity-correction').html(correction_div);
+                $('#activity-correction-container').show(); 
                 if (UserManager.getUser().isRegular) {
 
                 } else {
@@ -574,6 +577,8 @@ function injectContentForActivity(content, correction, type = null, correction_d
                 }
 
             } else if (correction == 2) {
+                $('#activity-correction').html(correction_div);
+                $('#activity-correction-container').show();
                 if (UserManager.getUser().isRegular) {
 
                 } else {
