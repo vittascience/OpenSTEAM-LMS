@@ -71,7 +71,7 @@
 		},
 		"successPanel": "Congratulation, you succeed this activity !",
 		"failPanel": "The answer is wrong",
-		"toCorrectPanel": "The activity was send to your teacher,</br>who will correct it soon ! <i class=\"fas fa-pen\"></i>",
+		"toCorrectPanel": "The activity was send to your teacher,</br>who will correct it soon !",
 		"bank": {
 			"helpTooltip": "The resource center contains numerous activities that you can use freely! Your teacher won't have access to your activities results"
 		},

@@ -99,7 +99,7 @@ function activityModify(id) {
 
 function manageUpdateByType(activity) {
     const contentForwardButtonElt = document.getElementById('content-forward-button');
-    contentForwardButtonElt.style.display = 'block';
+    contentForwardButtonElt.style.display = 'inline-block';
     if (activity.type == "free") {  
         console.log(activity)
         $('#activity_free').show();

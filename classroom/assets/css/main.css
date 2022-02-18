@@ -1636,10 +1636,7 @@ h3.section-done {
 .results-panel img {
     height: 30em;
     object-fit: scale-down;
-}
-
-.results-panel i {
-    margin: 0.5em;
+    margin: 2em;
 }
 
 .results-panel p {
@@ -1650,17 +1647,19 @@ h3.section-done {
     font-weight: 600;
 }
 
+.results-panel p i {
+    margin: 0.5em;
+}
 
-
-.results-fail i {
+.results-fail p i {
     color: var(--correction-fail);
 }
 
-.results-success i {
+.results-success p i {
     color: var(--correction-success);
 }
 
-.results-correcting i {
+.results-correcting p i {
     color: var(--classroom-secondary);
 }
 
