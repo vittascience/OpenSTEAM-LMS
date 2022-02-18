@@ -1480,6 +1480,16 @@ h3.section-done {
     width: auto;
 }
 
+#activity_custom {
+    width: 100%;
+    height: 60vh;
+}
+
+#lti-loader-container {
+    width: 100%;
+    height: 100%;
+}
+
 /* ACTIVITY CREATE FORM */ 
 
 .activity-creation-form {

@@ -18,10 +18,6 @@ foreach($ltiTools as $ltiTool){
     $privateKeysArr[$ltiTool->getKid()] = $ltiTool->getPrivateKey();
 }
 
-// JWK::parseKeySet($privateKeysArr);
-// JWKS_Endpoint::new($privateKeysArr)->output_jwks();
-
-
 function create_public_jwks($privateKeysArr) {
 	$jwks = [];
 

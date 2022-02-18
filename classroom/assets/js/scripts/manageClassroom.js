@@ -1,3 +1,29 @@
+// Used to make direct communications between parent and child (iframe)
+window.addEventListener(
+    "message", 
+    (event) => {
+        if(event.data.type === "" || event.data.type === "loaded") return; // ignore msg
+        const msg = event.data.type ? event.data.type : JSON.parse(event.data);
+        switch(msg.type) {
+        case 'end-lti-score':
+            console.log('ENDING LTI SCORE');
+            navigatePanel('classroom-dashboard-activities-panel','dashboard-activities', '', '', true);
+            location.reload();
+            break;
+        case 'end-lti-deeplink':
+            console.log('ENDING LTI DEEPLINK');
+            console.log("msg : ", msg.content);
+            Main.getClassroomManager()._createActivity.content.description = msg.content;
+            contentForward();
+            break;
+        default:
+            console.log('Other Action !');
+            console.log(event.data);
+        }
+    }, 
+    false
+);
+
 //formulaire de création de classe
 $('body').on('click', '.teacher-new-classe', function (event) {
     ClassroomSettings.classroom = null
