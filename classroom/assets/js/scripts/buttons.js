@@ -3143,7 +3143,8 @@ function hideAllActivities() {
 
 
 function launchCustomActivity(activityType, isUpdate = false) {
-
+    const contentForwardButtonElt = document.getElementById('content-forward-button');
+    contentForwardButtonElt.style.display = 'block';
     // Reset and hide all activities input and fields
     resetActivityInputs(activityType);
     hideAllActivities();
@@ -3175,6 +3176,7 @@ function launchCustomActivity(activityType, isUpdate = false) {
                     break;
                 default:
                     // Check if it's an lti apps and get the data needed if it's the case
+                    contentForwardButtonElt.style.display = 'none';
                     $("#activity_custom").show();
                     if (isUpdate) {
                         launchLtiDeepLinkCreate(activityType, isUpdate);
@@ -3209,7 +3211,7 @@ function resetActivityInputs(activityType) {
         $('#activity-input').val('');
         // reset input eleve
     } else {
-        Main.getClassroomManager().clearCreateActivityData();
+        Main.getClassroomManager().setDefaultActivityData();
     }
 }
 
