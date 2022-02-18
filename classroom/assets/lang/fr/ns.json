@@ -313,6 +313,9 @@
 				"content": {
 					"label": "Contenu de l'activité"
 				},
+				"back": "Retour",
+				"validate": "Valider",
+				"buttonContinue": "Sauvegarder et continuer",
 				"button": "Sauvegarder et Valider",
 				"success": "Bravo, vous avez créé une activité !",
 				"attribute": "Attribuer l'activité dès maintenant",
@@ -1406,7 +1409,7 @@
 		"cancel": "Annuler",
 		"autocorrect": "Correction automatique",
 		"correction": "Correction de l'activité",
-		"tolerance1": "Ajouter une tolérance d'erreus de",
+		"tolerance1": "Ajouter une tolérance d'erreur de",
 		"tolerance2": "caractère(s) sur l'ensemble de la réponse de l'élève.",
 		"hint": "Indice * : s'affiche si la réponse est fausse",
 		"title": "Titre de l'activité <span class=\"c-text-red\">*</span>",

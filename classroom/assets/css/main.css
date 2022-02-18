@@ -617,7 +617,7 @@ button {
     #classroom-dashboard-content {
         border-radius: 0px;
         height: calc(100% - 110px);
-        padding-bottom: 50px; 
+        padding-bottom: 50px;
     }
 
 }
@@ -1204,7 +1204,7 @@ img.btn-cabri {
 
     border-radius: 1em;
     padding: 0.1em 0;
-    margin: 1em;   
+    margin: 1em;
 }
 
 #classroom-dashboard-activities-panel .section-header {
@@ -1223,7 +1223,7 @@ img.btn-cabri {
     margin: 0px;
 }
 
-#classroom-dashboard-activities-panel .section-header i{
+#classroom-dashboard-activities-panel .section-header i {
     margin-right: 0.5em;
     font-size: 1.5em;
 }
@@ -1347,6 +1347,16 @@ h3.section-done {
     text-align: right;
 }
 
+.activity-card .activity-card-top {
+    display: inline-flex;
+    justify-content: flex-end;
+}
+
+.activity-card .activity-card-top img {
+    height: 25px;
+    margin: 0 5px;
+}
+
 .sandbox-card .sandbox-card-top .dropdown i,
 .activity-card .activity-card-top .dropdown i,
 .class-card .class-card-top .dropdown i,
@@ -1460,7 +1470,7 @@ h3.section-done {
     overflow: overlay;
 
     padding: 1em;
-    cursor: pointer;   
+    cursor: pointer;
     border: 2px solid transparent;
     transition: all 0.3s ease;
 
@@ -1475,6 +1485,7 @@ h3.section-done {
     font-size: 1.1em;
     overflow-wrap: anywhere;
 }
+
 #activity-creation-grid .app-card .app-card-img {
     height: 128px;
     width: auto;
@@ -1551,6 +1562,23 @@ h3.section-done {
 #activity-title {
     font-weight: 700;
     text-align: center;
+}
+
+#activity-auto-disclaimer {
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--classroom-secondary);
+}
+
+#activity-auto-disclaimer img {
+    background-color: var(--classroom-secondary);
+    border-radius: 256px;
+    border: 2px solid var(--classroom-secondary);
+    height: 1.5em;
+    margin: 5px 10px;
+    
 }
 
 #activity-details {

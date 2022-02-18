@@ -38,6 +38,7 @@ function activityItem(activity, state) {
                     <div class="activity-card activity-card-` + ide + `">
                         <div class="${activityStatus}" data-toggle="tooltip" title="${activityStatusTitle}"><div class="ribbon__content"></div></div>
                         <div class="activity-card-top">
+                        ${activity.activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
                         </div>
                         <div class="activity-card-mid"></div>
                         <div class="activity-card-bot">
@@ -93,6 +94,7 @@ function teacherActivityItem(activity) {
     let html = `<div class="activity-item activity-teacher " >
                 <div class="activity-card activity-card-` + ide + `">
                     <div class="activity-card-top">
+                    ${activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
                     <div class="dropdown"><i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                     <div class="dropdown-menu" aria-labelledby="dropdown-activityItem-${activity.id}" data-id="${activity.id}">
     <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">` + capitalizeFirstLetter(i18next.t('words.attribute')) + `</li>
