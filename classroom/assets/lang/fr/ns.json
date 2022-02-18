@@ -269,6 +269,12 @@
 			"commentary": "Commentaire",
 			"sendResults": "Envoyer le commentaire ",
 			"noSend": "Cette activité n'a pas été rendue",
+			"toSend": "Activité à rendre pour le ",
+			"sentOn": "Cette activité a été rendue le ",
+			"activityOfUser": "Activité de ",
+			"userSentOn" : " rendue le ",
+			"yourAnswer": "Votre réponse",
+			"studentAnswer": "Réponse de l'apprenant",
 			"comments": "Entrez ici vos remarques",
 			"return": "Retour aux activités",
 			"bilan": {

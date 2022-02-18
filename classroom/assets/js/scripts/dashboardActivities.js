@@ -436,9 +436,9 @@ function loadActivityForStudents(isDoable) {
 
     // Check if the correction if available
     if (Activity.correction >= 1) {
-        $('#activity-details').html("Cette activité a été rendue le " + formatHour(Activity.dateSend))
+        $('#activity-details').html(i18next.t("classroom.activities.sentOn") + formatHour(Activity.dateSend))
     } else {
-        $('#activity-details').html("Activité à rendre pour le " + formatDay(Activity.dateEnd))
+        $('#activity-details').html(i18next.t("classroom.activities.toSend") + formatDay(Activity.dateEnd))
     }
 
     // Content management
@@ -482,7 +482,7 @@ function loadActivityForTeacher() {
     // If the user is a teacher, we display the correction button
     if (UserManager.getUser().isRegular) {
         if (Activity.correction >= 1) {
-            $('#activity-details').html("Activité de " + Activity.user.pseudo + " rendue le " + formatHour(Activity.dateSend))
+            $('#activity-details').html(i18next.t("classroom.activities.activityOfUser") + Activity.user.pseudo + i18next.t("classroom.activities.userSentOn") + formatHour(Activity.dateSend))
         } else {
             $('#activity-details').html(i18next.t("classroom.activities.noSend"))
         }
@@ -578,9 +578,9 @@ function manageDisplayFree(correction, content, correction_div) {
         $('#activity-correction-container').show(); 
         $('#activity-correction').html(correction_div);
         if (UserManager.getUser().isRegular) {
-            $('#label-activity-student-response').text("Réponse de l'étudiant");
+            $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
         } else {
-            $('#label-activity-student-response').text("Votre réponse");
+            $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
         }
     }
 }
