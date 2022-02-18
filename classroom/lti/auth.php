@@ -50,7 +50,7 @@ if($loginHint['deepLink']) {
   $jwt_payload["https://purl.imsglobal.org/spec/lti/claim/message_type"] = "LtiDeepLinkingRequest";
   $jwt_payload["https://purl.imsglobal.org/spec/lti-dl/claim/deep_linking_settings"] =
     [
-      "deep_link_return_url" => $platform_url . "/openClassroom/classroom/lti/deeplink.php",
+      "deep_link_return_url" => $platform_url . "/classroom/lti/deeplink.php",
       "accept_types" => ["ltiResourceLink"],
       "accept_presentation_document_targets"=> [
         "frame",
@@ -78,7 +78,7 @@ else  {
   $jwt_payload["https://purl.imsglobal.org/spec/lti/claim/launch_presentation"] = [
     "locale" => "en",
     "document_target" => "iframe",
-    "return_url" => $platform_url . "/openClassroom/classroom/lti/redirection.html"
+    "return_url" => $platform_url . "/classroom/lti/redirection.html"
   ];
   $jwt_payload["https://purl.imsglobal.org/spec/lti/claim/target_link_uri"] = $loginHint['lineitemId'];
   $jwt_payload["https://purl.imsglobal.org/spec/lti-ags/claim/endpoint"] = [
@@ -88,8 +88,8 @@ else  {
 			"https://purl.imsglobal.org/spec/lti-ags/scope/result.readonly",
 			"https://purl.imsglobal.org/spec/lti-ags/scope/score"
 		],
-		"lineitems" => $platform_url . "/openClassroom/classroom/lti/score.php",
-		"lineitem" => $platform_url . "/openClassroom/classroom/lti/score.php?activity_id=" . urlencode($loginHint['activitiesLinkUser'])
+		"lineitems" => $platform_url . "/classroom/lti/score.php",
+		"lineitem" => $platform_url . "/classroom/lti/score.php?activity_id=" . urlencode($loginHint['activitiesLinkUser'])
   ];
 }
 

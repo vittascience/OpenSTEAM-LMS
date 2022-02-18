@@ -3142,7 +3142,7 @@ function hideAllActivities() {
 }
 
 
-function launchCustomActivity(activityType) {
+function launchCustomActivity(activityType, isUpdate = false) {
 
     // Reset and hide all activities input and fields
     resetActivityInputs(activityType);
@@ -3176,7 +3176,11 @@ function launchCustomActivity(activityType) {
                 default:
                     // Check if it's an lti apps and get the data needed if it's the case
                     $("#activity_custom").show();
-                    launchLtiDeepLinkCreate(activityType);
+                    if (isUpdate) {
+                        launchLtiDeepLinkCreate(activityType, isUpdate);
+                    } else {
+                        launchLtiDeepLinkCreate(activityType);
+                    }
                     
                     break;
             }
@@ -3222,6 +3226,8 @@ function contentForward() {
         Main.getClassroomManager()._createActivity.autocorrect = $('#free_autocorrect').is(":checked");
     } else if (Main.getClassroomManager()._createActivity.id == 'reading'){
         Main.getClassroomManager()._createActivity.content.description = $('#reading_content').bbcode();
+    } else {
+        // By default using LTI, the button doesn't do anything specific
     }
     // Check if the content if empty
     if (Main.getClassroomManager()._createActivity.content.description == '') { 
@@ -3233,7 +3239,7 @@ function contentForward() {
 
 function titleBackward() {
     if (Main.getClassroomManager()._createActivity.id != "") {
-        launchCustomActivity(Main.getClassroomManager()._createActivity.id);
+        launchCustomActivity(Main.getClassroomManager()._createActivity.id, true);
     }
 }
 
@@ -3383,11 +3389,18 @@ function activitiesCreation(apps) {
     }
 ]; */
 
-function launchLtiDeepLinkCreate(type) {
+function launchLtiDeepLinkCreate(type, isUpdate) {
+    let updateInput = '';
+    if (isUpdate) {
+        updateInput = `<input type="hidden" id="is_update" name="is_update" value="true">
+        <input type="hidden" id="update_url" name="update_url" value="${Main.getClassroomManager()._createActivity.content.description}">`;
+    }
+    
     document.querySelector('#lti-loader-container').innerHTML = 
     `<input id="activity-form-content-lti" type="text" hidden/>
     <form name="contentitem_request_form" action="${_PATH}lti/contentitem.php" method="post" target="lti_teacher_iframe">
         <input type="hidden" id="application_type" name="application_type" value="${type}">
+        ${updateInput}
     </form>
     <div style="width: 100%; height: 100%;" class="lti-iframe-holder">
         <iframe id="lti_teacher_iframe" src="about:blank" name="lti_teacher_iframe" title="Tool Content" width="100%"  height="100%" allowfullscreen></iframe>
