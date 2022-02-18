@@ -509,6 +509,8 @@ function loadActivityForTeacher() {
 
 function injectContentForActivity(content, correction, type = null, correction_div)
 {
+    const activityValidationButtonElt = document.getElementById('activity-validate');
+    activityValidationButtonElt.style.display = 'block';
     // Inject the content to the target div
     if (type == null) {
         $('#activity-content').html(bbcodeToHtml(content))
@@ -535,7 +537,8 @@ function injectContentForActivity(content, correction, type = null, correction_d
             manageDisplayCustomAndReading(correction ,content, correction_div);
             break;
         default:
-
+            activityValidationButtonElt.style.display = 'none';
+            launchLtiResource(Activity.id, Activity.activity.type, content, true);
             break;
     }
 }

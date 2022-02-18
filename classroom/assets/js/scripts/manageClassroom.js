@@ -7,8 +7,8 @@ window.addEventListener(
         switch(msg.type) {
         case 'end-lti-score':
             console.log('ENDING LTI SCORE');
-            navigatePanel('classroom-dashboard-activities-panel','dashboard-activities', '', '', true);
-            location.reload();
+            // navigatePanel('classroom-dashboard-activities-panel','dashboard-activities', '', '', true);
+            // location.reload();
             break;
         case 'end-lti-deeplink':
             console.log('ENDING LTI DEEPLINK');
