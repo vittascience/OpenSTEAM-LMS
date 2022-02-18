@@ -1369,7 +1369,7 @@ class ClassroomManager {
     }
 
 
-    saveNewStudentActivity(activity, correction = 1, note = 0) {
+    saveNewStudentActivity(activity, correction = 1, note = 0, response) {
         let chrono = parseInt((Date.now() - ClassroomSettings.chrono) / 1000)
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -1380,7 +1380,8 @@ class ClassroomManager {
                     'correction': correction,
                     'timePassed': chrono,
                     'classroomLink': ClassroomSettings.classroom,
-                    'note': note
+                    'note': note,
+                    'response': response
                 },
                 success: function (r) {
                     resolve(JSON.parse(r))

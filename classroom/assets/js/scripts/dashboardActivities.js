@@ -447,7 +447,6 @@ function loadActivityForStudents(isDoable) {
     correction += `<h4 class="c-text-primary text-center font-weight-bold">${i18next.t('classroom.activities.bilan.results')}</h4>`
     if (Activity.correction == 1) {
         correction += `<div class="giveNote-container c-primary-form"><label for="givenote-3" onclick="setNote(3)"><input type="radio" id="givenote-3" name="giveNote" value="3">${" " + i18next.t('classroom.activities.accept')}</label><label for="givenote-2" onclick="setNote(2)"><input type="radio" id="givenote-2" name="giveNote" value="2">${" " + i18next.t('classroom.activities.vgood')}</label><label for="givenote-1" onclick="setNote(1)"><input type="radio" id="givenote-1" name="giveNote" value="1">${" " + i18next.t('classroom.activities.good')}</label><label for="givenote-0" onclick="setNote(0)"><input type="radio" id="givenote-0" name="giveNote" value="0">${" " + i18next.t('classroom.activities.refuse')}</label></div>`
-
     }
 
     if (!UserManager.getUser().isRegular && Activity.correction > 0) {
@@ -470,7 +469,7 @@ function loadActivityForStudents(isDoable) {
         }
     }
 
-    injectContentForActivity(content, correction, Activity.activity.type);
+    injectContentForActivity(content, Activity.correction, Activity.activity.type);
     isTheActivityIsDoable(isDoable);
 }
 
@@ -500,20 +499,18 @@ function loadActivityForTeacher(isDoable) {
         correction += '<button onclick="giveNote()" class="btn c-btn-primary btn-sm text-wrap w-100"><span class="text-wrap">' + i18next.t('classroom.activities.sendResults') + '<i class="fas fa-chevron-right"> </i></span></button>'
     }
 
-    injectContentForActivity(content, correction, Activity.activity.type);
+    injectContentForActivity(content, Activity.correction, Activity.activity.type);
     isTheActivityIsDoable(isDoable);
 }
 
 function injectContentForActivity(content, correction, type = null)
 {
-    console.log(type)
-
+    //console.log(type, correction)
 
     let wbbOpt = {
         buttons: ",bold,italic,underline,|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe",
     }
     
-
     setTextArea();
     // Inject the content to the target div
     if (type == null) {
@@ -523,9 +520,23 @@ function injectContentForActivity(content, correction, type = null)
 
     switch(type) {
         case 'free':
-            $('#activity-content').html(bbcodeToHtml(content));
-            $('#activity-input').wysibb(wbbOpt);
-            $('#activity-input-container').show();
+            if (correction == 0) {
+                $('#activity-content').html(bbcodeToHtml(content));
+                $('#activity-input').wysibb(wbbOpt);
+                $('#activity-input-container').show();
+            } else if (correction == 1) {
+                if (UserManager.getUser().isRegular) {
+                    
+                } else {
+                    
+                }
+            } else if (correction == 2) {
+                if (UserManager.getUser().isRegular) {
+                    
+                } else {
+                    
+                }
+            }
             break;
         case 'quiz':
             
@@ -534,7 +545,24 @@ function injectContentForActivity(content, correction, type = null)
             
             break;
         case 'reading':
-            
+            if (correction == 0) {
+                $('#activity-content').html(bbcodeToHtml(content));
+                $('#activity-input').wysibb(wbbOpt);
+                $('#activity-input-container').show();
+            } else if (correction == 1) {
+                if (UserManager.getUser().isRegular) {
+
+                } else {
+
+                }
+
+            } else if (correction == 2) {
+                if (UserManager.getUser().isRegular) {
+
+                } else {
+
+                }
+            }
             break;
         case 'dragAndDrop':
             
