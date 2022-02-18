@@ -23,7 +23,10 @@ function createActivity(link = null, id = null) {
 }
 
 function showExercicePanel() {
-    navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-activities-teacher');
+    Main.getClassroomManager().getAllApps().then((apps) => {
+        loadCustomProActivitiesPanel(apps);
+        navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-activities-teacher');
+    })
 }
 
 

@@ -3334,57 +3334,6 @@ function freeValidateActivity() {
 }
 
 
-
-function loadCustomProPanelTexts() {
-    if (i18next && i18next.isInitialized) {
-        let currentLang = getCookie('lng');
-        if (!currentLang) {
-            currentLang = 'fr';
-        }
-        switch (currentLang) {
-            case 'fr':
-                i18next.addResourceBundle('fr', 'translation', {
-                    "aren": {
-                        "ids": {
-                            "classroom-dashboard-proactivities-panel-teacher": "Mes formations",
-                            "create-activity-text": "Sélectionnez l’application sur laquelle vous souhaitez créer une activité"
-                        }
-                    }
-                });
-                i18next.customLoaded = true;
-                break;
-
-            case 'en':
-                i18next.addResourceBundle('en', 'translation', {
-                    "aren": {
-                        "ids": {
-                            "classroom-dashboard-proactivities-panel-teacher": "My courses",
-                            "create-activity-text": "Select the application on which you want to create an activity"
-
-                        }
-                    }
-                });
-                i18next.customLoaded = true;
-                break;
-
-            default:
-                i18next.customLoaded = true;
-                break;
-        }
-
-        // Sections to format
-        $('#classroom-dashboard-sidebar-teacher').localize();
-
-        Main.getClassroomManager().getAllApps().then((apps) => {
-            loadCustomProActivitiesPanel(apps);
-        })
-
-    } else {
-        setTimeout(loadCustomProPanelTexts, 100);
-    }
-}
-
-
 function loadCustomProActivitiesPanel(apps) {
     $('#activity-creation-grid').append(`<div class="app-head" data-i18n="aren.ids.create-activity-text">
     </div>`);
@@ -3440,8 +3389,6 @@ function loadCustomProActivitiesPanel(apps) {
         "id": "free"
     }
 ]; */
-
-loadCustomProPanelTexts();
 
 function launchLtiDeepLinkCreate(type) {
     document.querySelector('#lti-loader-container').innerHTML = 
