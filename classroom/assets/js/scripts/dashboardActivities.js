@@ -473,7 +473,7 @@ function loadActivityForStudents(isDoable) {
     isTheActivityIsDoable(isDoable);
 }
 
-function loadActivityForTeacher(isDoable) {
+function loadActivityForTeacher() {
     // Reset the inputs
     resetInputsForActivity()
 
@@ -504,7 +504,7 @@ function loadActivityForTeacher(isDoable) {
     }
 
     injectContentForActivity(content, Activity.correction, Activity.activity.type, correction);
-    isTheActivityIsDoable(isDoable);
+    isTheActivityIsDoable(false);
 }
 
 function injectContentForActivity(content, correction, type = null, correction_div)
@@ -523,37 +523,7 @@ function injectContentForActivity(content, correction, type = null, correction_d
     }
     switch(type) {
         case 'free':
-            $('#activity-title').html(Activity.activity.title);
-            $('#activity-content').html(bbcodeToHtml(content));
-            if (correction == 0 || correction == null) {
-                if (!UserManager.getUser().isRegular) {
-                    $('#activity-input').wysibb(wbbOpt);
-                    $('#activity-input-container').show();
-                }
-            } else if (correction == 1) {
-                $('#activity-student-response').show();
-                $('#activity-student-response-content').html(bbcodeToHtml(Activity.response));
-                $('#activity-correction').html(correction_div);
-                $('#activity-correction-container').show(); 
-                if (UserManager.getUser().isRegular) {
-                    $('#label-activity-student-response').text("Réponse de l'étudiant");
-                } else {
-                    $('#label-activity-student-response').text("Votre réponse");
-                }
-            } else if (correction == 2) {
-
-                $('#activity-student-response').show();
-                $('#activity-student-response-content').html(bbcodeToHtml(Activity.response));
-
-                $('#activity-correction').html(correction_div);
-                $('#activity-correction-container').show(); 
-
-                if (UserManager.getUser().isRegular) {
-                    $('#label-activity-student-response').text("Réponse de l'étudiant");
-                } else {
-                    $('#label-activity-student-response').text("Votre réponse");
-                }
-            }
+            manageDisplayFree(correction, content, correction_div)
             break;
         case 'quiz':
             
@@ -562,41 +532,51 @@ function injectContentForActivity(content, correction, type = null, correction_d
             
             break;
         case 'reading':
-            $('#activity-title').html(Activity.activity.title);
-            $('#activity-content').html(bbcodeToHtml(content));
-            if (correction == 0) {
-                $('#activity-input').wysibb(wbbOpt);
-                $('#activity-input-container').show();
-            } else if (correction == 1) {
-                $('#activity-correction').html(correction_div);
-                $('#activity-correction-container').show(); 
-                if (UserManager.getUser().isRegular) {
-
-                } else {
-
-                }
-
-            } else if (correction == 2) {
-                $('#activity-correction').html(correction_div);
-                $('#activity-correction-container').show();
-                if (UserManager.getUser().isRegular) {
-
-                } else {
-
-                }
-            }
+            manageDisplayCustomAndReading(correction ,content, correction_div);
             break;
         case 'dragAndDrop':
             
             break;
         case 'custom':
-            // Check if it's an lti apps and get the data needed if it's the case
-            $('#activity-content').html(bbcodeToHtml(content));
-            $('#activity-correction').html(bbcodeToHtml(correction));
+            manageDisplayCustomAndReading(correction ,content, correction_div);
             break;
         default:
 
             break;
+    }
+}
+
+function manageDisplayCustomAndReading(correction, content, correction_div) {
+    $('#activity-title').html(Activity.activity.title);
+    $('#activity-content').html(bbcodeToHtml(content));
+    if (correction == 0) {
+        $('#activity-input').wysibb(wbbOpt);
+        $('#activity-input-container').show();
+    } else if (correction == 1 || correction == 2) {
+        $('#activity-correction').html(correction_div);
+        $('#activity-correction-container').show(); 
+    }
+}
+
+function manageDisplayFree(correction, content, correction_div) {
+    $('#activity-title').html(Activity.activity.title);
+    $('#activity-content').html(bbcodeToHtml(content));
+    if (correction == 0 || correction == null) {
+        if (!UserManager.getUser().isRegular) {
+            $('#activity-input').wysibb(wbbOpt);
+            $('#activity-input-container').show();
+        }
+    } else if (correction == 1 || correction == 2) {
+        $('#activity-student-response').show();
+        $('#activity-student-response-content').html(bbcodeToHtml(Activity.response));
+
+        $('#activity-correction-container').show(); 
+        $('#activity-correction').html(correction_div);
+        if (UserManager.getUser().isRegular) {
+            $('#label-activity-student-response').text("Réponse de l'étudiant");
+        } else {
+            $('#label-activity-student-response').text("Votre réponse");
+        }
     }
 }
 
