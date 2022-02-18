@@ -3144,7 +3144,7 @@ function hideAllActivities() {
 
 function launchCustomActivity(activityType, isUpdate = false) {
     const contentForwardButtonElt = document.getElementById('content-forward-button');
-    contentForwardButtonElt.style.display = 'block';
+    contentForwardButtonElt.style.display = 'inline-block';
     // Reset and hide all activities input and fields
     resetActivityInputs(activityType);
     hideAllActivities();
@@ -3267,6 +3267,7 @@ function titleForward() {
         if (Main.getClassroomManager()._createActivity.function == "create") {  
             Main.getClassroomManager().createNewActivity(titre, type, content, solution, tolerance, autocorrect).then((response) => {
                 if (response.success == true) {
+                    Main.getClassroomManager()._lastCreatedActivity = response.id;
                     displayNotification('#notif-div', "classroom.notif.activityCreated", "success");
                     navigatePanel('classroom-dashboard-classes-new-activity-attribution', 'dashboard-proactivities-teacher');
                 } else {
@@ -3276,6 +3277,7 @@ function titleForward() {
         } else if (Main.getClassroomManager()._createActivity.function == "update") {
             Main.getClassroomManager().updateActivity(ClassroomSettings.activity, titre, type, content, solution, tolerance, autocorrect).then((response) => {
                 if (response.success == true) {
+                    Main.getClassroomManager()._lastCreatedActivity = response.id;
                     displayNotification('#notif-div', "classroom.notif.activityCreated", "success");
                     navigatePanel('classroom-dashboard-classes-new-activity-attribution', 'dashboard-proactivities-teacher');
                 } else {
@@ -3341,7 +3343,7 @@ function freeValidateActivity() {
 
 
 function activitiesCreation(apps) {
-    let htmlContent = `<div class="app-head" data-i18n="aren.ids.create-activity-text"></div>`;
+    let htmlContent = `<div class="app-head" data-i18n="classroom.activities.applist.selectApp"></div>`;
     apps.forEach(app => {
         let restrict = app.hasOwnProperty("type") ? `launchCustomActivity('${app.type}')` : `launchCustomActivity('custom')`;
         htmlContent+= `<div class="app-card" style="--border-color:${app.color};" onclick="${restrict}">
@@ -3353,6 +3355,10 @@ function activitiesCreation(apps) {
     });
     $('#activity-creation-grid').html(htmlContent);
     $('#activity-creation-grid').localize();
+}
+
+function goBackToActivities() {
+    navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
 }
 
 

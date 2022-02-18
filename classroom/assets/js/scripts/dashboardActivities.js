@@ -38,6 +38,7 @@ function activityItem(activity, state) {
                     <div class="activity-card activity-card-` + ide + `">
                         <div class="${activityStatus}" data-toggle="tooltip" title="${activityStatusTitle}"><div class="ribbon__content"></div></div>
                         <div class="activity-card-top">
+                        ${activity.activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
                         </div>
                         <div class="activity-card-mid"></div>
                         <div class="activity-card-bot">
@@ -93,6 +94,7 @@ function teacherActivityItem(activity) {
     let html = `<div class="activity-item activity-teacher " >
                 <div class="activity-card activity-card-` + ide + `">
                     <div class="activity-card-top">
+                    ${activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
                     <div class="dropdown"><i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                     <div class="dropdown-menu" aria-labelledby="dropdown-activityItem-${activity.id}" data-id="${activity.id}">
     <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">` + capitalizeFirstLetter(i18next.t('words.attribute')) + `</li>
@@ -434,9 +436,9 @@ function loadActivityForStudents(isDoable) {
 
     // Check if the correction if available
     if (Activity.correction >= 1) {
-        $('#activity-details').html("Cette activité a été rendue le " + formatHour(Activity.dateSend))
+        $('#activity-details').html(i18next.t("classroom.activities.sentOn") + formatHour(Activity.dateSend))
     } else {
-        $('#activity-details').html("Activité à rendre pour le " + formatDay(Activity.dateEnd))
+        $('#activity-details').html(i18next.t("classroom.activities.toSend") + formatDay(Activity.dateEnd))
     }
 
     // Content management
@@ -480,7 +482,7 @@ function loadActivityForTeacher() {
     // If the user is a teacher, we display the correction button
     if (UserManager.getUser().isRegular) {
         if (Activity.correction >= 1) {
-            $('#activity-details').html("Activité de " + Activity.user.pseudo + " rendue le " + formatHour(Activity.dateSend))
+            $('#activity-details').html(i18next.t("classroom.activities.activityOfUser") + Activity.user.pseudo + i18next.t("classroom.activities.userSentOn") + formatHour(Activity.dateSend))
         } else {
             $('#activity-details').html(i18next.t("classroom.activities.noSend"))
         }
@@ -579,9 +581,9 @@ function manageDisplayFree(correction, content, correction_div) {
         $('#activity-correction-container').show(); 
         $('#activity-correction').html(correction_div);
         if (UserManager.getUser().isRegular) {
-            $('#label-activity-student-response').text("Réponse de l'étudiant");
+            $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
         } else {
-            $('#label-activity-student-response').text("Votre réponse");
+            $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
         }
     }
 }

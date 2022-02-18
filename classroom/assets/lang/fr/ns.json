@@ -71,7 +71,7 @@
 		},
 		"successPanel": "Bravo, tu as réussi cette activité !",
 		"failPanel": "La réponse n'est pas correcte",
-		"toCorrectPanel": "L'activité à été transmise à ton enseignant,</br>qui reviendra vers toi bientôt ! <i class=\"fas fa-pen\"></i>",
+		"toCorrectPanel": "L'activité à été transmise à ton enseignant,</br>qui reviendra vers toi bientôt !",
 		"bank": {
 			"helpTooltip": "La banque de ressource contient de nombreuses activités sur lesquelles tu peux t'entraîner en autonomie ! Ton enseignant n'aura pas accès aux résultats de ces activités."
 		},
@@ -269,7 +269,14 @@
 			"commentary": "Commentaire",
 			"sendResults": "Envoyer le commentaire ",
 			"noSend": "Cette activité n'a pas été rendue",
+			"toSend": "Activité à rendre pour le ",
+			"sentOn": "Cette activité a été rendue le ",
+			"activityOfUser": "Activité de ",
+			"userSentOn" : " rendue le ",
+			"yourAnswer": "Votre réponse",
+			"studentAnswer": "Réponse de l'apprenant",
 			"comments": "Entrez ici vos remarques",
+			"return": "Retour aux activités",
 			"bilan": {
 				"title": "Bilan",
 				"results": "Résultats",
@@ -312,6 +319,9 @@
 				"content": {
 					"label": "Contenu de l'activité"
 				},
+				"back": "Retour",
+				"validate": "Valider",
+				"buttonContinue": "Sauvegarder et continuer",
 				"button": "Sauvegarder et Valider",
 				"success": "Bravo, vous avez créé une activité !",
 				"attribute": "Attribuer l'activité dès maintenant",
@@ -1405,7 +1415,7 @@
 		"cancel": "Annuler",
 		"autocorrect": "Correction automatique",
 		"correction": "Correction de l'activité",
-		"tolerance1": "Ajouter une tolérance d'erreus de",
+		"tolerance1": "Ajouter une tolérance d'erreur de",
 		"tolerance2": "caractère(s) sur l'ensemble de la réponse de l'élève.",
 		"hint": "Indice * : s'affiche si la réponse est fausse",
 		"title": "Titre de l'activité <span class=\"c-text-red\">*</span>",

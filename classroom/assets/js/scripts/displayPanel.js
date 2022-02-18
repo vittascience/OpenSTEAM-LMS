@@ -79,9 +79,8 @@ DisplayPanel.prototype.classroom_dashboard_activities_panel = function () {
     .then(() => {
         studentActivitiesDisplay();
     });
-
-
 }
+
 DisplayPanel.prototype.classroom_dashboard_activities_panel_library_teacher = function () {
     if (!$("#resource-center-classroom").length) {
         $('#classroom-dashboard-activities-panel-library-teacher').html('<iframe id="resource-center-classroom" src="/learn/?use=classroom" frameborder="0" style="height:80vh;width:80vw"></iframe>')
@@ -392,6 +391,8 @@ function getTeacherActivity() {
 
     $('#activity-title').html(Activity.title + `<button class="btn btn-link" onclick="attributeActivity(` + Activity.id + `)">
     <i class="fas fa-arrow-down"></i> ` + capitalizeFirstLetter(i18next.t('words.attribute')) + `</button>`);
+
+    Activity.isAutocorrect ? $('#activity-auto-disclaimer').show() :  $('#activity-auto-disclaimer').hide();
 
     if (IsJsonString(Activity.content)) {
         if (Activity.type == 'free' || Activity.type == 'reading') {

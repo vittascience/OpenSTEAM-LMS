@@ -71,7 +71,7 @@
 		},
 		"successPanel": "Congratulation, you succeed this activity !",
 		"failPanel": "The answer is wrong",
-		"toCorrectPanel": "The activity was send to your teacher,</br>who will correct it soon ! <i class=\"fas fa-pen\"></i>",
+		"toCorrectPanel": "The activity was send to your teacher,</br>who will correct it soon !",
 		"bank": {
 			"helpTooltip": "The resource center contains numerous activities that you can use freely! Your teacher won't have access to your activities results"
 		},
@@ -270,15 +270,27 @@
 			"commentary": "Comment",
 			"sendResults": "Send the comment ",
 			"noSend": "This activity hasn't been returned",
+			"toSend": "Activity due by ",
+			"sentOn": "This activity was returned on ",
+			"activityOfUser": "Activity of ",
+			"userSentOn" : " sent on ",
+			"yourAnswer": "Your answer",
+			"studentAnswer": "Learner's answer",
 			"comments": "Write your comments there",
+			"return": "Return to the activities",
 			"bilan": {
 				"title": "Bilan",
 				"results": "Results",
 				"noComment": "No comment yet"
 			},
+			"applist":{
+				"selectApp":"Select the application that you wish to create an activity with"
+			},
 			"form": {
-				"1": "Activity creation",
-				"2": "Attribution",
+				"1": "Application",
+				"2": "Content",
+				"3": "Title",
+				"4": "Attribution",
 				"title": {
 					"label": "Activity title",
 					"placeholder": "Part title"
@@ -286,8 +298,11 @@
 				"content": {
 					"label": "Activity content"
 				},
+				"back": "Back",
+				"validate": "Validate",
+				"buttonContinue": "Save and continue",
 				"button": "Save and approve",
-				"success": "Congratulations, you create an activity !",
+				"success": "Congratulations, you created an activity!",
 				"attribute": "Attribute the activity right now",
 				"attribute2": "Attribute the activity ",
 				"return": "Return to My activities",

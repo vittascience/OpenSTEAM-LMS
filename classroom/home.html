@@ -259,6 +259,10 @@
         <div class="row">
             <div id="main-div" class="col-12 col-lg-8" style="margin: 0 auto;overflow-wrap: break-word;">
                 <h3 id="activity-title"></h3>
+                <div id="activity-auto-disclaimer" style="display:none;">
+                    <img src="assets/media/auto-icon.svg" title="Auto">
+                    <span>Cette activité sera corrigée automatiquement.</span>
+                </div>
                 <p id="activity-details"></p>
                 <p id="activity-introduction">
                     <span id="text-introduction"></span>
@@ -266,7 +270,7 @@
                 <p id="activity-content"> </p>
                 <!-- @Update Rémi -->
                 <div id="activity-student-response" style="display:none;">
-                    <h5 id="label-activity-student-response">Réponse de l'élève</h5>
+                    <h5 id="label-activity-student-response" class="c-text-primary">Réponse de l'élève</h5>
                     <p id="activity-student-response-content"> </p>
                 </div>
                 <div id="activity-input-container" style="display:none;">
@@ -290,22 +294,39 @@
 <div id="classroom-dashboard-activity-panel-success" class="dashboard-block" style="display:none;">
     <div class="results-panel results-success">
         <img src="assets/media/activity_results/success.png" alt="Image de succès">
-        <p data-i18n="[html]classroom.successPanel"><i class="fas fa-check"></i></p>
+        <p>
+            <span data-i18n="[html]classroom.successPanel"></span>
+            <i class="fas fa-check"></i>
+        </p>
+        <button class="btn c-btn-primary mx-auto" onclick="goBackToActivities()">
+            <span data-i18n="classroom.activities.return"></span> <i class="fas fa-chevron-right"></i>
+        </button>
     </div>
 </div>
 
 <div id="classroom-dashboard-activity-panel-fail" class="dashboard-block" style="display:none;">
     <div class="results-panel results-fail">
         <img src="assets/media/activity_results/fail.png" alt="Image d'erreur">
-        <p data-i18n="[html]classroom.failPanel"><i class="fas fa-times"></i></p>
+        <p>
+            <span data-i18n="[html]classroom.failPanel"></span>
+            <i class="fas fa-times"></i>
+        </p>
+        <button class="btn c-btn-primary mx-auto" onclick="goBackToActivities()">
+            <span data-i18n="classroom.activities.return"></span> <i class="fas fa-chevron-right"></i>
+        </button>
     </div>
 </div>
 
 <div id="classroom-dashboard-activity-panel-correcting" class="dashboard-block" style="display:none;">
     <div class="results-panel results-correcting">
         <img src="assets/media/activity_results/correcting.png" alt="Image d'erreur">
-        <p data-i18n="[html]classroom.toCorrectPanel"><i class="fas fa-pen"></i>
+        <p>
+            <span data-i18n="[html]classroom.toCorrectPanel"></span>
+            <i class="fas fa-pen"></i>
         </p>
+        <button class="btn c-btn-primary mx-auto" onclick="goBackToActivities()">
+            <span data-i18n="classroom.activities.return"></span> <i class="fas fa-chevron-right"></i>
+        </button>
     </div>
 </div>
 <div id="classroom-dashboard-profil-panel-teacher" class="dashboard-block profile-panel" style="display:none;">
@@ -1239,14 +1260,14 @@
 
         <div class=" col text-center">
             <span class="form-activity form-activity-desactivate">3</span>
-            <span>Titre</span>
+            <span data-i18n="classroom.activities.form.3">Titre</span>
         </div>
 
         <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
 
         <div class="col text-center">
             <span class="form-activity form-activity-desactivate">4</span>
-            <span>Attribution</span>
+            <span data-i18n="classroom.activities.form.4">Attribution</span>
         </div>
     </nav>
 
@@ -1387,10 +1408,14 @@
     <div class="container">
         <div class="row text-center w-100">
             <div class="col-sm mb-2">
-                <button class="btn c-btn-grey" onclick="contentBackward()"><i class="fas fa-chevron-left"></i> Retour</button>
+                <button class="btn c-btn-grey" onclick="contentBackward()">
+                    <i class="fas fa-chevron-left"></i> <span data-i18n="classroom.activities.form.back"></span>
+                </button>
             </div>
             <div class="col-sm order-first order-sm-last mb-2">
-                <button id="content-forward-button" class="btn c-btn-secondary" onclick="contentForward()">Sauvegarder et continuer <i class="fas fa-chevron-right"></i></button>
+                <button id="content-forward-button" class="btn c-btn-secondary" onclick="contentForward()">
+                    <span data-i18n="classroom.activities.form.buttonContinue"></span> <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -1416,19 +1441,19 @@
 
         <div class=" col text-center">
             <span class="form-activity form-activity-activate">3</span>
-            <span>Titre</span>
+            <span data-i18n="classroom.activities.form.3">Titre</span>
         </div>
 
         <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
 
         <div class="col text-center">
             <span class="form-activity form-activity-desactivate">4</span>
-            <span>Attribution</span>
+            <span data-i18n="classroom.activities.form.4">Attribution</span>
         </div>
     </nav>
 
     <div class="form-group mx-auto my-2 c-primary-form w-75">
-        <label>Titre : </label>
+        <label data-i18n="classroom.activities.form.title.label">Titre : </label>
         <input class="w-100" type="text" id="global_title">
     </div>
 
@@ -1436,10 +1461,14 @@
     <div class="container">
         <div class="row text-center w-100">
             <div class="col-sm mb-2">
-                <button class="btn c-btn-grey" onclick="titleBackward()">Retour <i class="fas fa-chevron-left"></i></button>
+                <button class="btn c-btn-grey" onclick="titleBackward()">
+                    <i class="fas fa-chevron-left"></i> <span data-i18n="classroom.activities.form.back"></span>
+                </button>
             </div>
             <div class="col-sm order-first order-sm-last mb-2">
-                <button class="btn c-btn-secondary" onclick="titleForward()">Valider <i class="fas fa-check"></i></button>
+                <button class="btn c-btn-secondary" onclick="titleForward()">
+                    <span data-i18n="classroom.activities.form.validate"></span> <i class="fas fa-check"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -1465,7 +1494,7 @@
 
         <div class=" col text-center">
             <span class="form-activity form-activity-desactivate">3</span>
-            <span>Titre</span>
+            <span data-i18n="classroom.activities.form.3">Titre</span>
         </div>
 
         <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
@@ -1483,7 +1512,7 @@
     <div class="container text-center">
         <div class="row my-2">
             <div class="col-sm mb-2">
-                <button id="new-activity-panel3" class="new-activity-panel3 btn c-btn-primary">
+                <button id="attribute-activity" onclick="attributeActivity(0)" class="new-activity-panel3 btn c-btn-primary">
                     <span data-i18n="classroom.activities.form.attribute"></span> <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
@@ -1495,7 +1524,7 @@
 
         </div>
         <p data-i18n="classroom.activities.form.hint"></p>
-        <button class="btn c-btn-outline-primary" onclick="createActivity()" data-i18n="classroom.activities.form.modify"></button>
+        <button class="btn c-btn-outline-primary" onclick="activityModify(0)" data-i18n="classroom.activities.form.modify"></button>
     </div>
 </div>
 
@@ -1518,14 +1547,14 @@
 
         <div class=" col text-center">
             <span class="form-activity form-activity-desactivate">3</span>
-            <span>Titre</span>
+            <span data-i18n="classroom.activities.form.3">Titre</span>
         </div>
 
         <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
 
         <div class="col text-center">
             <span class="form-activity form-activity-desactivate">4</span>
-            <span>Attribution</span>
+            <span data-i18n="classroom.activities.form.4">Attribution</span>
         </div>
     </nav>
     <div id="activity-creation-grid"></div>
@@ -1551,14 +1580,14 @@
 
         <div class=" col text-center">
             <span class="form-activity form-activity-activate">3</span>
-            <span>Titre</span>
+            <span data-i18n="classroom.activities.form.3">Titre</span>
         </div>
 
         <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
 
         <div class="col text-center">
             <span class="form-activity form-activity-desactivate">4</span>
-            <span>Attribution</span>
+            <span data-i18n="classroom.activities.form.4">Attribution</span>
         </div>
     </nav>
 </div>
