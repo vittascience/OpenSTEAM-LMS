@@ -24,7 +24,7 @@ function createActivity(link = null, id = null) {
 
 function showExercicePanel() {
     Main.getClassroomManager().getAllApps().then((apps) => {
-        loadCustomProActivitiesPanel(apps);
+        activitiesCreation(apps);
         navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-activities-teacher');
     })
 }
@@ -106,8 +106,13 @@ function manageUpdateByType(activity) {
         let content = JSON.parse(activity.content);
         $('#free_content').htmlcode(bbcodeToHtml(content.description));
         if (activity.solution != "") {
-            $("#free_autocorrect").prop("checked", true)
-            $("#free_correction_content").show();
+            if (activity.isAutocorrect) {
+                $("#free_autocorrect").prop("checked", true)
+                $("#free_correction_content").show();
+            } else {
+                $("#free_autocorrect").prop("checked", false)
+                $("#free_correction_content").show();
+            }
             if (activity.solution != null) {
                 $('#free_correction').htmlcode(bbcodeToHtml(activity.solution));
             }
