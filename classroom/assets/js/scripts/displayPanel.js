@@ -389,11 +389,17 @@ function getTeacherActivity() {
     <i class="fas fa-arrow-down"></i> ` + capitalizeFirstLetter(i18next.t('words.attribute')) + `</button>`);
 
     if (IsJsonString(Activity.content)) {
-        const contentParsed = JSON.parse(Activity.content);
-        if (contentParsed.hasOwnProperty('description')) {
-            $('#activity-content').html(bbcodeToHtml(contentParsed.description))
-        } 
-    } else {
+        if (Activity.type == 'free' || Activity.type == 'reading') {
+            const contentParsed = JSON.parse(Activity.content);
+            if (contentParsed.hasOwnProperty('description')) {
+                $('#activity-content').html(bbcodeToHtml(contentParsed.description))
+            } 
+        } else {
+            // activityId, activityType, activityContent
+            launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description);
+        }
+        
+    } else{
         $('#activity-content').html(bbcodeToHtml(Activity.content))
     }
 

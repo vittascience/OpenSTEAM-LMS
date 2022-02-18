@@ -4,6 +4,17 @@ session_start();
  * Handle sending a user to a tool provider to initiate a LTI resource launch.
  */
 
+require_once __DIR__ . "/findrelativeroute.php";
+
+$rootPath = findRelativeRoute();
+
+require_once $rootPath . 'vendor/autoload.php';
+
+require_once $rootPath . 'bootstrap.php';
+
+use Classroom\Entity\ActivityRestrictions;
+use Classroom\Entity\LtiTool;
+
 if (empty($_SESSION["id"])) {
 	echo "You must be logged in to use this file";
 	exit;
@@ -48,17 +59,13 @@ if ($activitiesLinkUser == null) {
 
 $platform_url = "https://{$_SERVER["HTTP_HOST"]}";
 
-// TO BE CHANGED WHEN THE LTI_TOOLS TABLE WILL BE CREATED
-include "tools-credentials.php";
-switch ($applicationType) {
-	case "GENIUS":
-		$currentTool = $lti1p3Tools["opensteam-lms_vittasciences"];
-		// var_dump($currentTool["client_id"]);
-		break;
-	
-	default:
-		echo "The requested application doesn't exists";
-		exit;
+$activityRestriction = $entityManager->getRepository(ActivityRestrictions::class)->findOneByActivityType($applicationType);
+
+$ltiTool = $entityManager->getRepository(LtiTool::class)->findOneByApplicationId($activityRestriction->getApplication()->getId());
+
+if (!$ltiTool) {
+	echo 'Tool not found!';
+	exit;
 }
 
 $loginHint = json_encode([
@@ -67,15 +74,15 @@ $loginHint = json_encode([
 	"isStudentLaunch" => $studentLaunch, 
 	"activityType" => $applicationType,
 	"activitiesLinkUser" => $activitiesLinkUser,
-	"deploymentId" => $currentTool["deployment_id"],
+	"deploymentId" => $ltiTool->getDeploymentId(),
 	"deepLink" => false
 ]);
 
 echo "
-<form name='lti_student_login_form' action='{$currentTool['login_url']}' method='post'>
+<form name='lti_student_login_form' action='{$ltiTool->getLoginUrl()}' method='post'>
 	<input id='lti_student_iss' type='hidden' name='iss' value='{$platform_url}' />
 	<input id='lti_student_login_hint' type='hidden' name='login_hint' value='{$loginHint}' />
-	<input id='lti_student_client_id' type='hidden' name='client_id' value='{$currentTool['client_id']}' />
+	<input id='lti_student_client_id' type='hidden' name='client_id' value='{$ltiTool->getClientId()}' />
 	<input id='lti_student_target_link_uri' type='hidden' name='target_link_uri' value='{$targetLinkUri}' />
 </form>";
 
