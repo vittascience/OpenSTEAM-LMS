@@ -3187,14 +3187,6 @@ function launchCustomActivity(activityType) {
     });
 }
 
-//Main.getClassroomManager()._createActivity.content.enonce = $('#free_enonce').bbcode();
-/* if ($('#free_indice').val() != '') {
-    Main.getClassroomManager()._createActivity.content.indice = $('#free_indice').val();
-}
-if ($('#free_tolerance').val() != '') {
-    Main.getClassroomManager()._createActivity.tolerance = $('#free_tolerance').val();
-} */
-
 $("#free_autocorrect").change(function () {
     if ($(this).is(":checked")) {
         $("#free_correction_content").show();
@@ -3210,12 +3202,16 @@ function resetActivityInputs(activityType) {
         $('#global_title').val('');
         $('#free_autocorrect').prop('checked', false);
         $("#free_correction_content").hide();
+        $('#activity-input').val('');
         // reset input eleve
     }
 }
 
 function contentBackward() {
-    navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-proactivities-teacher')
+    Main.getClassroomManager().getAllApps().then((apps) => {
+        activitiesCreation(apps);
+        navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-activities-teacher');
+    })
 }
 
 // Get the content
@@ -3334,21 +3330,18 @@ function freeValidateActivity() {
 }
 
 
-function loadCustomProActivitiesPanel(apps) {
-    $('#activity-creation-grid').append(`<div class="app-head" data-i18n="aren.ids.create-activity-text">
-    </div>`);
+function activitiesCreation(apps) {
+    let htmlContent = `<div class="app-head" data-i18n="aren.ids.create-activity-text"></div>`;
     apps.forEach(app => {
         let restrict = app.hasOwnProperty("type") ? `launchCustomActivity('${app.type}')` : `launchCustomActivity('custom')`;
-        let appElt = $(
-            `<div class="app-card" style="--border-color:${app.color};" onclick="${restrict}">
-                <img class="app-card-img" src="${app.image}" alt="${app.name}">
-                <h3 class="app-card-title mt-2" data-i18n="">${app.name}</h3>
-                <p class="mt-2" data-i18n="">${app.description}</p>
-            </div>`);
-
-        $('#activity-creation-grid').append(appElt);
-
+        htmlContent+= `<div class="app-card" style="--border-color:${app.color};" onclick="${restrict}">
+            <img class="app-card-img" src="${app.image}" alt="${app.name}">
+            <h3 class="app-card-title mt-2" data-i18n="">${app.name}</h3>
+            <p class="mt-2" data-i18n="">${app.description}</p>
+        </div>`
+        
     });
+    $('#activity-creation-grid').html(htmlContent);
     $('#activity-creation-grid').localize();
 }
 
