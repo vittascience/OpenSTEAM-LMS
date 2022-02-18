@@ -3341,7 +3341,7 @@ function freeValidateActivity() {
 
 
 function activitiesCreation(apps) {
-    let htmlContent = `<div class="app-head" data-i18n="aren.ids.create-activity-text"></div>`;
+    let htmlContent = `<div class="app-head" data-i18n="classroom.activities.applist.selectApp"></div>`;
     apps.forEach(app => {
         let restrict = app.hasOwnProperty("type") ? `launchCustomActivity('${app.type}')` : `launchCustomActivity('custom')`;
         htmlContent+= `<div class="app-card" style="--border-color:${app.color};" onclick="${restrict}">

@@ -276,9 +276,14 @@
 				"results": "Results",
 				"noComment": "No comment yet"
 			},
+			"applist":{
+				"selectApp":"Select the application that you wish to create an activity with"
+			},
 			"form": {
-				"1": "Activity creation",
-				"2": "Attribution",
+				"1": "Application",
+				"2": "Content",
+				"3": "Title",
+				"4": "Attribution",
 				"title": {
 					"label": "Activity title",
 					"placeholder": "Part title"
@@ -286,8 +291,11 @@
 				"content": {
 					"label": "Activity content"
 				},
+				"back": "Back",
+				"validate": "Validate",
+				"buttonContinue": "Save and continue",
 				"button": "Save and approve",
-				"success": "Congratulations, you create an activity !",
+				"success": "Congratulations, you created an activity!",
 				"attribute": "Attribute the activity right now",
 				"attribute2": "Attribute the activity ",
 				"return": "Return to My activities",
