@@ -340,6 +340,7 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) 
         $('#introduction-activity-form').val('')
     }
 }
+
 DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
     if (id != 'null') {
         if (UserManager.getUser().isRegular) {

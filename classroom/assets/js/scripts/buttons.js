@@ -3207,7 +3207,10 @@ function resetActivityInputs(activityType) {
     if (activityType == 'free') {
         $('#free_content').htmlcode("");
         $('#free_correction').htmlcode("");
-        $('#free_title').val('');
+        $('#global_title').val('');
+        $('#free_autocorrect').prop('checked', false);
+        $("#free_correction_content").hide();
+        // reset input eleve
     }
 }
 
@@ -3313,15 +3316,19 @@ function validateActivity() {
 function freeValidateActivity() {
     let studentResponse = $('#activity-input').bbcode();
     Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, null, null, studentResponse).then((response) => {
-        console.log(response)
-        if (response.success == true) {
+        if (response) {
+            $("#activity-validate").attr("disabled", false);
             if (response.note != null) {
-                // show the page sucess or fail 
+                if (response.note == 3) {
+                    navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities', '', '', true)
+                } else {
+                    navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities', '', '', true)
+                }
             } else {
-                // return to activity hub
+                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher', '', '', true)
             }
         } else {
-            // Display errors
+            displayNotification('#notif-div', "classroom.notif.errorSending", "error");
         }
     });
 }

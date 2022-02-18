@@ -1391,5 +1391,21 @@ class ClassroomManager {
         });
     }
 
+    getStudentLinkActivity(studentId, activityId) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=newActivities&action=get_student_link_activity",
+                data: {
+                    'studentId': studentId,
+                    'activityId': activityId
+                },
+                success: function (r) {
+                    resolve(JSON.parse(r))
+                }
+            });
+        });
+    }
+
 }
 

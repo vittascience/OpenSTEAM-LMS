@@ -469,7 +469,7 @@ function loadActivityForStudents(isDoable) {
         }
     }
 
-    injectContentForActivity(content, Activity.correction, Activity.activity.type);
+    injectContentForActivity(content, Activity.correction, Activity.activity.type, correction);
     isTheActivityIsDoable(isDoable);
 }
 
@@ -499,11 +499,11 @@ function loadActivityForTeacher(isDoable) {
         correction += '<button onclick="giveNote()" class="btn c-btn-primary btn-sm text-wrap w-100"><span class="text-wrap">' + i18next.t('classroom.activities.sendResults') + '<i class="fas fa-chevron-right"> </i></span></button>'
     }
 
-    injectContentForActivity(content, Activity.correction, Activity.activity.type);
+    injectContentForActivity(content, Activity.correction, Activity.activity.type, correction);
     isTheActivityIsDoable(isDoable);
 }
 
-function injectContentForActivity(content, correction, type = null)
+function injectContentForActivity(content, correction, type = null, correction_div)
 {
     //console.log(type, correction)
 
@@ -517,24 +517,37 @@ function injectContentForActivity(content, correction, type = null)
         $('#activity-content').html(bbcodeToHtml(content))
         $('#activity-correction').html(bbcodeToHtml(correction))
     }
-
     switch(type) {
         case 'free':
-            if (correction == 0) {
-                $('#activity-content').html(bbcodeToHtml(content));
-                $('#activity-input').wysibb(wbbOpt);
-                $('#activity-input-container').show();
+            $('#activity-title').html(Activity.activity.title);
+            $('#activity-content').html(bbcodeToHtml(content));
+            if (correction == 0 || correction == null) {
+                if (!UserManager.getUser().isRegular) {
+                    $('#activity-input').wysibb(wbbOpt);
+                    $('#activity-input-container').show();
+                }
             } else if (correction == 1) {
+                $('#activity-student-response').show();
+                $('#activity-student-response-content').html(bbcodeToHtml(Activity.response));
+                $('#activity-correction').html(correction_div);
+                $('#activity-correction-container').show(); 
                 if (UserManager.getUser().isRegular) {
-                    
+                    $('#label-activity-student-response').text("Réponse de l'étudiant");
                 } else {
-                    
+                    $('#label-activity-student-response').text("Votre réponse");
                 }
             } else if (correction == 2) {
+
+                $('#activity-student-response').show();
+                $('#activity-student-response-content').html(bbcodeToHtml(Activity.response));
+
+                $('#activity-correction').html(correction_div);
+                $('#activity-correction-container').show(); 
+
                 if (UserManager.getUser().isRegular) {
-                    
+                    $('#label-activity-student-response').text("Réponse de l'étudiant");
                 } else {
-                    
+                    $('#label-activity-student-response').text("Votre réponse");
                 }
             }
             break;
@@ -569,11 +582,11 @@ function injectContentForActivity(content, correction, type = null)
             break;
         case 'custom':
             // Check if it's an lti apps and get the data needed if it's the case
-            
-            break;
-        default:
             $('#activity-content').html(bbcodeToHtml(content));
             $('#activity-correction').html(bbcodeToHtml(correction));
+            break;
+        default:
+
             break;
     }
 }
@@ -587,6 +600,8 @@ function resetInputsForActivity() {
 
     // Field for free activity
     $('#activity-input-container').hide();
+
+    $('#activity-student-response').hide();
 }
 
 function isTheActivityIsDoable(doable) {
