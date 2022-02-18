@@ -346,14 +346,14 @@ DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
         if (UserManager.getUser().isRegular) {
             if (id.slice(0, 2) == "WK") {
                 ClassroomSettings.activity = id = Number(id.slice(2))
-                Activity = getActivity(id)
-                getTeacherActivity()
+                Activity = getActivity(id);
+                getTeacherActivity();
 
             } else {
                 ClassroomSettings.activity = id = Number(id.slice(2))
                 Main.getClassroomManager().getOneUserLinkActivity(id).then(function (result) {
-                    Activity = result
-                    loadActivityForTeacher(false)
+                    Activity = result;
+                    loadActivityForTeacher();
                 })
             }
         } else {
