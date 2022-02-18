@@ -118,6 +118,7 @@ function manageUpdateByType(activity) {
         console.log('TBC')
     } else {
         // TODO: CHANGE THIS DEFAULT FALLBACK BY SOMETHING CHECKING IF THE CURRENT ACTIVITY USES LTI
+        Main.getClassroomManager()._createActivity.function = "update";
         Main.getClassroomManager()._createActivity.id = activity.type;
         Main.getClassroomManager()._createActivity.content.description = JSON.parse(activity.content).description;
         launchLtiDeepLinkCreate(activity.type, true);
