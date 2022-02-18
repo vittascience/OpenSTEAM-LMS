@@ -23,7 +23,10 @@ function createActivity(link = null, id = null) {
 }
 
 function showExercicePanel() {
-    navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-activities-teacher');
+    Main.getClassroomManager().getAllApps().then((apps) => {
+        loadCustomProActivitiesPanel(apps);
+        navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-activities-teacher');
+    })
 }
 
 
@@ -96,6 +99,8 @@ function activityModify(id) {
 
 function manageUpdateByType(activity) {
     if (activity.type == "free") {  
+        console.log(activity)
+        $('#activity_free').show();
         Main.getClassroomManager()._createActivity.id = activity.type;
         Main.getClassroomManager()._createActivity.function = "update";
         let content = JSON.parse(activity.content);
@@ -103,9 +108,11 @@ function manageUpdateByType(activity) {
         if (activity.solution != "") {
             $("#free_autocorrect").prop("checked", true)
             $("#free_correction_content").show();
-            $('#free_correction').htmlcode(bbcodeToHtml(activity.solution));
+            if (activity.solution != null) {
+                $('#free_correction').htmlcode(bbcodeToHtml(activity.solution));
+            }
         }
-        $('#free_title').val(activity.title);   
+        $('#global_title').val(activity.title);   
         navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-profil-teacher');
     } else if (activity.type == "quiz") {
         console.log('TBC')

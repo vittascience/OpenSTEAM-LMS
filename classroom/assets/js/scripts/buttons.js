@@ -3211,7 +3211,10 @@ function resetActivityInputs(activityType) {
     if (activityType == 'free') {
         $('#free_content').htmlcode("");
         $('#free_correction').htmlcode("");
-        $('#free_title').val('');
+        $('#global_title').val('');
+        $('#free_autocorrect').prop('checked', false);
+        $("#free_correction_content").hide();
+        // reset input eleve
     }
 }
 
@@ -3288,7 +3291,6 @@ function titleForward() {
  * Validation pipeline for the new activity
  */
 function validateActivity() {
-
     switch(Activity.activity.type) {
         case 'free':
             freeValidateActivity()
@@ -3306,81 +3308,35 @@ function validateActivity() {
             
             break;
         case 'custom':
-            
-            break;
-        default:
             defaultProcessValidateActivity();
             break;
+        default:
+            
+            break;
     }
-
 }
 
 /**
  * Default process for the validation of the free activity
  */
 function freeValidateActivity() {
-    let solution = Activity.activity.solution,
-        is_autocorrected = Activity.activity.isAutocorrect;
-
-    if (is_autocorrected == true) {
-        if ($('#activity-input').bbcode() == solution) {
-            console.log("true");
+    let studentResponse = $('#activity-input').bbcode();
+    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, null, null, studentResponse).then((response) => {
+        if (response) {
+            $("#activity-validate").attr("disabled", false);
+            if (response.note != null) {
+                if (response.note == 3) {
+                    navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities', '', '', true)
+                } else {
+                    navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities', '', '', true)
+                }
+            } else {
+                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher', '', '', true)
+            }
         } else {
-            console.log("false");
+            displayNotification('#notif-div', "classroom.notif.errorSending", "error");
         }
-    }
-
-}
-
-
-
-function loadCustomProPanelTexts() {
-    if (i18next && i18next.isInitialized) {
-        let currentLang = getCookie('lng');
-        if (!currentLang) {
-            currentLang = 'fr';
-        }
-        switch (currentLang) {
-            case 'fr':
-                i18next.addResourceBundle('fr', 'translation', {
-                    "aren": {
-                        "ids": {
-                            "classroom-dashboard-proactivities-panel-teacher": "Mes formations",
-                            "create-activity-text": "Sélectionnez l’application sur laquelle vous souhaitez créer une activité"
-                        }
-                    }
-                });
-                i18next.customLoaded = true;
-                break;
-
-            case 'en':
-                i18next.addResourceBundle('en', 'translation', {
-                    "aren": {
-                        "ids": {
-                            "classroom-dashboard-proactivities-panel-teacher": "My courses",
-                            "create-activity-text": "Select the application on which you want to create an activity"
-
-                        }
-                    }
-                });
-                i18next.customLoaded = true;
-                break;
-
-            default:
-                i18next.customLoaded = true;
-                break;
-        }
-
-        // Sections to format
-        $('#classroom-dashboard-sidebar-teacher').localize();
-
-        Main.getClassroomManager().getAllApps().then((apps) => {
-            loadCustomProActivitiesPanel(apps);
-        })
-
-    } else {
-        setTimeout(loadCustomProPanelTexts, 100);
-    }
+    });
 }
 
 

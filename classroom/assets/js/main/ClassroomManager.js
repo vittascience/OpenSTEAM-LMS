@@ -1369,7 +1369,7 @@ class ClassroomManager {
     }
 
 
-    saveNewStudentActivity(activity, correction = 1, note = 0) {
+    saveNewStudentActivity(activity, correction = 1, note = 0, response) {
         let chrono = parseInt((Date.now() - ClassroomSettings.chrono) / 1000)
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -1380,11 +1380,28 @@ class ClassroomManager {
                     'correction': correction,
                     'timePassed': chrono,
                     'classroomLink': ClassroomSettings.classroom,
-                    'note': note
+                    'note': note,
+                    'response': response
                 },
                 success: function (r) {
                     resolve(JSON.parse(r))
                     ClassroomSettings.chrono = Date.now()
+                }
+            });
+        });
+    }
+
+    getStudentLinkActivity(studentId, activityId) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=newActivities&action=get_student_link_activity",
+                data: {
+                    'studentId': studentId,
+                    'activityId': activityId
+                },
+                success: function (r) {
+                    resolve(JSON.parse(r))
                 }
             });
         });
