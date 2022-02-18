@@ -345,6 +345,7 @@ DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
     if (id != 'null') {
         if (UserManager.getUser().isRegular) {
             if (id.slice(0, 2) == "WK") {
+
                 ClassroomSettings.activity = id = Number(id.slice(2))
                 Activity = getActivity(id);
                 getTeacherActivity();
@@ -365,7 +366,6 @@ DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
             ClassroomSettings.activity = id = Number(id.slice(2))
             Activity = getActivity(id, $_GET('interface'))
             loadActivityForStudents(isDoable)
-
         }
     }
 }
@@ -385,6 +385,11 @@ function formatDateInput(date) {
 }
 
 function getTeacherActivity() {
+    //
+    $('#activity-correction-container').hide();
+    $('#activity-details').html('');
+    //
+
     $('#activity-title').html(Activity.title + `<button class="btn btn-link" onclick="attributeActivity(` + Activity.id + `)">
     <i class="fas fa-arrow-down"></i> ` + capitalizeFirstLetter(i18next.t('words.attribute')) + `</button>`);
 
