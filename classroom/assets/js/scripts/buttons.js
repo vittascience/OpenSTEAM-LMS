@@ -3267,6 +3267,7 @@ function titleForward() {
         if (Main.getClassroomManager()._createActivity.function == "create") {  
             Main.getClassroomManager().createNewActivity(titre, type, content, solution, tolerance, autocorrect).then((response) => {
                 if (response.success == true) {
+                    Main.getClassroomManager()._lastCreatedActivity = response.id;
                     displayNotification('#notif-div', "classroom.notif.activityCreated", "success");
                     navigatePanel('classroom-dashboard-classes-new-activity-attribution', 'dashboard-proactivities-teacher');
                 } else {
@@ -3276,6 +3277,7 @@ function titleForward() {
         } else if (Main.getClassroomManager()._createActivity.function == "update") {
             Main.getClassroomManager().updateActivity(ClassroomSettings.activity, titre, type, content, solution, tolerance, autocorrect).then((response) => {
                 if (response.success == true) {
+                    Main.getClassroomManager()._lastCreatedActivity = response.id;
                     displayNotification('#notif-div', "classroom.notif.activityCreated", "success");
                     navigatePanel('classroom-dashboard-classes-new-activity-attribution', 'dashboard-proactivities-teacher');
                 } else {

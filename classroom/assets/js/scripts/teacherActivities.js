@@ -2,7 +2,6 @@ function createActivity(link = null, id = null) {
     ClassroomSettings.status = "attribute"
     ClassroomSettings.isNew = true;
     if (id == null) {
-
         if (link) {
             $('.wysibb-text-editor').html('[iframe]' + URLServer + '' + link + '[/iframe]')
         } else {
@@ -82,6 +81,9 @@ $('body').on('click', '.modal-activity-delete', function () {
 
 //activité modal-->modifier
 function activityModify(id) {
+    if (id == 0) {
+        id = Main.getClassroomManager()._lastCreatedActivity;
+    }
     ClassroomSettings.activity = id
     $('#activity-form-title').val('')
     $('.wysibb-text-editor').html('')
@@ -91,6 +93,7 @@ function activityModify(id) {
         } else {
             $('#activity-form-title').val(activity.title)
             $('.wysibb-text-editor').html(activity.content)
+
             navigatePanel('classroom-dashboard-new-activity-panel', 'dashboard-activities-teacher')
         }
     })
@@ -101,20 +104,19 @@ function manageUpdateByType(activity) {
     const contentForwardButtonElt = document.getElementById('content-forward-button');
     contentForwardButtonElt.style.display = 'block';
     if (activity.type == "free") {  
-        console.log(activity)
         $('#activity_free').show();
         Main.getClassroomManager()._createActivity.id = activity.type;
         Main.getClassroomManager()._createActivity.function = "update";
         let content = JSON.parse(activity.content);
         $('#free_content').htmlcode(bbcodeToHtml(content.description));
+        if (activity.isAutocorrect) {
+            $("#free_autocorrect").prop("checked", true)
+            $("#free_correction_content").show();
+        } else {
+            $("#free_autocorrect").prop("checked", false)
+            $("#free_correction_content").hide();
+        }
         if (activity.solution != "") {
-            if (activity.isAutocorrect) {
-                $("#free_autocorrect").prop("checked", true)
-                $("#free_correction_content").show();
-            } else {
-                $("#free_autocorrect").prop("checked", false)
-                $("#free_correction_content").show();
-            }
             if (activity.solution != null) {
                 $('#free_correction').htmlcode(bbcodeToHtml(activity.solution));
             }
@@ -138,6 +140,9 @@ function manageUpdateByType(activity) {
 
 //création activité vers attribution
 function attributeActivity(id, ref = null) {
+    if (id == 0) {
+        id = Main.getClassroomManager()._lastCreatedActivity;
+    }
     ClassroomSettings.activity = id
     ClassroomSettings.ref = ref
     document.getElementsByClassName('student-number')[0].textContent = '0';

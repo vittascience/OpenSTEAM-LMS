@@ -25,6 +25,7 @@ class ClassroomManager {
         this._allActivities = []
         this._allApps = []
         this._createActivity = {}
+        this._lastCreatedActivity = 0;
         this.setDefaultActivityData();
     }
 

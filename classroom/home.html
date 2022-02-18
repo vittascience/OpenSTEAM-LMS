@@ -292,7 +292,7 @@
         <img src="assets/media/activity_results/success.png" alt="Image de succès">
         <p data-i18n="[html]classroom.successPanel"><i class="fas fa-check"></i></p>
     </div>
-    <button class="btn c-btn-primary" onclick="goBackToActivities()" data-i18n="classroom.activities.validate"> <i class="fas fa-chevron-right"></i></button>
+    <button class="btn c-btn-primary" onclick="goBackToActivities()" data-i18n="classroom.activities.return"> <i class="fas fa-chevron-right"></i></button>
 </div>
 
 <div id="classroom-dashboard-activity-panel-fail" class="dashboard-block" style="display:none;">
@@ -300,7 +300,7 @@
         <img src="assets/media/activity_results/fail.png" alt="Image d'erreur">
         <p data-i18n="[html]classroom.failPanel"><i class="fas fa-times"></i></p>
     </div>
-    <button class="btn c-btn-primary" onclick="goBackToActivities()" data-i18n="classroom.activities.validate"> <i class="fas fa-chevron-right"></i></button>
+    <button class="btn c-btn-primary" onclick="goBackToActivities()" data-i18n="classroom.activities.return"> <i class="fas fa-chevron-right"></i></button>
 </div>
 
 <div id="classroom-dashboard-activity-panel-correcting" class="dashboard-block" style="display:none;">
@@ -309,7 +309,7 @@
         <p data-i18n="[html]classroom.toCorrectPanel"><i class="fas fa-pen"></i>
         </p>
     </div>
-    <button class="btn c-btn-primary" onclick="goBackToActivities()" data-i18n="classroom.activities.validate"> <i class="fas fa-chevron-right"></i></button>
+    <button class="btn c-btn-primary" onclick="goBackToActivities()" data-i18n="classroom.activities.return"> <i class="fas fa-chevron-right"></i></button>
 </div>
 <div id="classroom-dashboard-profil-panel-teacher" class="dashboard-block profile-panel" style="display:none;">
     <!-- Div alert when application has expired -->
@@ -1486,7 +1486,7 @@
     <div class="container text-center">
         <div class="row my-2">
             <div class="col-sm mb-2">
-                <button id="new-activity-panel3" class="new-activity-panel3 btn c-btn-primary">
+                <button id="attribute-activity" onclick="attributeActivity(0)" class="new-activity-panel3 btn c-btn-primary">
                     <span data-i18n="classroom.activities.form.attribute"></span> <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
@@ -1498,7 +1498,7 @@
 
         </div>
         <p data-i18n="classroom.activities.form.hint"></p>
-        <button class="btn c-btn-outline-primary" onclick="createActivity()" data-i18n="classroom.activities.form.modify"></button>
+        <button class="btn c-btn-outline-primary" onclick="activityModify(0)" data-i18n="classroom.activities.form.modify"></button>
     </div>
 </div>
 
