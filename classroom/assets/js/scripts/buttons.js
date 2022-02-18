@@ -3142,8 +3142,9 @@ function hideAllActivities() {
 }
 
 
-function launchCustomActivity(activityType) {
-
+function launchCustomActivity(activityType, isUpdate = false) {
+    const contentForwardButtonElt = document.getElementById('content-forward-button');
+    contentForwardButtonElt.style.display = 'block';
     // Reset and hide all activities input and fields
     resetActivityInputs(activityType);
     hideAllActivities();
@@ -3175,8 +3176,13 @@ function launchCustomActivity(activityType) {
                     break;
                 default:
                     // Check if it's an lti apps and get the data needed if it's the case
+                    contentForwardButtonElt.style.display = 'none';
                     $("#activity_custom").show();
-                    launchLtiDeepLinkCreate(activityType);
+                    if (isUpdate) {
+                        launchLtiDeepLinkCreate(activityType, isUpdate);
+                    } else {
+                        launchLtiDeepLinkCreate(activityType);
+                    }
                     
                     break;
             }
@@ -3186,14 +3192,6 @@ function launchCustomActivity(activityType) {
         }
     });
 }
-
-//Main.getClassroomManager()._createActivity.content.enonce = $('#free_enonce').bbcode();
-/* if ($('#free_indice').val() != '') {
-    Main.getClassroomManager()._createActivity.content.indice = $('#free_indice').val();
-}
-if ($('#free_tolerance').val() != '') {
-    Main.getClassroomManager()._createActivity.tolerance = $('#free_tolerance').val();
-} */
 
 $("#free_autocorrect").change(function () {
     if ($(this).is(":checked")) {
@@ -3210,12 +3208,18 @@ function resetActivityInputs(activityType) {
         $('#global_title').val('');
         $('#free_autocorrect').prop('checked', false);
         $("#free_correction_content").hide();
+        $('#activity-input').val('');
         // reset input eleve
+    } else {
+        Main.getClassroomManager().setDefaultActivityData();
     }
 }
 
 function contentBackward() {
-    navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-proactivities-teacher')
+    Main.getClassroomManager().getAllApps().then((apps) => {
+        activitiesCreation(apps);
+        navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-activities-teacher');
+    })
 }
 
 // Get the content
@@ -3226,6 +3230,8 @@ function contentForward() {
         Main.getClassroomManager()._createActivity.autocorrect = $('#free_autocorrect').is(":checked");
     } else if (Main.getClassroomManager()._createActivity.id == 'reading'){
         Main.getClassroomManager()._createActivity.content.description = $('#reading_content').bbcode();
+    } else {
+        // By default using LTI, the button doesn't do anything specific
     }
     // Check if the content if empty
     if (Main.getClassroomManager()._createActivity.content.description == '') { 
@@ -3237,7 +3243,7 @@ function contentForward() {
 
 function titleBackward() {
     if (Main.getClassroomManager()._createActivity.id != "") {
-        launchCustomActivity(Main.getClassroomManager()._createActivity.id);
+        launchCustomActivity(Main.getClassroomManager()._createActivity.id, true);
     }
 }
 
@@ -3334,21 +3340,18 @@ function freeValidateActivity() {
 }
 
 
-function loadCustomProActivitiesPanel(apps) {
-    $('#activity-creation-grid').append(`<div class="app-head" data-i18n="aren.ids.create-activity-text">
-    </div>`);
+function activitiesCreation(apps) {
+    let htmlContent = `<div class="app-head" data-i18n="aren.ids.create-activity-text"></div>`;
     apps.forEach(app => {
         let restrict = app.hasOwnProperty("type") ? `launchCustomActivity('${app.type}')` : `launchCustomActivity('custom')`;
-        let appElt = $(
-            `<div class="app-card" style="--border-color:${app.color};" onclick="${restrict}">
-                <img class="app-card-img" src="${app.image}" alt="${app.name}">
-                <h3 class="app-card-title mt-2" data-i18n="">${app.name}</h3>
-                <p class="mt-2" data-i18n="">${app.description}</p>
-            </div>`);
-
-        $('#activity-creation-grid').append(appElt);
-
+        htmlContent+= `<div class="app-card" style="--border-color:${app.color};" onclick="${restrict}">
+            <img class="app-card-img" src="${app.image}" alt="${app.name}">
+            <h3 class="app-card-title mt-2" data-i18n="">${app.name}</h3>
+            <p class="mt-2" data-i18n="">${app.description}</p>
+        </div>`
+        
     });
+    $('#activity-creation-grid').html(htmlContent);
     $('#activity-creation-grid').localize();
 }
 
@@ -3390,11 +3393,18 @@ function loadCustomProActivitiesPanel(apps) {
     }
 ]; */
 
-function launchLtiDeepLinkCreate(type) {
+function launchLtiDeepLinkCreate(type, isUpdate) {
+    let updateInput = '';
+    if (isUpdate) {
+        updateInput = `<input type="hidden" id="is_update" name="is_update" value="true">
+        <input type="hidden" id="update_url" name="update_url" value="${Main.getClassroomManager()._createActivity.content.description}">`;
+    }
+    
     document.querySelector('#lti-loader-container').innerHTML = 
     `<input id="activity-form-content-lti" type="text" hidden/>
     <form name="contentitem_request_form" action="${_PATH}lti/contentitem.php" method="post" target="lti_teacher_iframe">
         <input type="hidden" id="application_type" name="application_type" value="${type}">
+        ${updateInput}
     </form>
     <div style="width: 100%; height: 100%;" class="lti-iframe-holder">
         <iframe id="lti_teacher_iframe" src="about:blank" name="lti_teacher_iframe" title="Tool Content" width="100%"  height="100%" allowfullscreen></iframe>

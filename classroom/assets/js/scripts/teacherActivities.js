@@ -24,7 +24,7 @@ function createActivity(link = null, id = null) {
 
 function showExercicePanel() {
     Main.getClassroomManager().getAllApps().then((apps) => {
-        loadCustomProActivitiesPanel(apps);
+        activitiesCreation(apps);
         navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-activities-teacher');
     })
 }
@@ -106,8 +106,13 @@ function manageUpdateByType(activity) {
         let content = JSON.parse(activity.content);
         $('#free_content').htmlcode(bbcodeToHtml(content.description));
         if (activity.solution != "") {
-            $("#free_autocorrect").prop("checked", true)
-            $("#free_correction_content").show();
+            if (activity.isAutocorrect) {
+                $("#free_autocorrect").prop("checked", true)
+                $("#free_correction_content").show();
+            } else {
+                $("#free_autocorrect").prop("checked", false)
+                $("#free_correction_content").show();
+            }
             if (activity.solution != null) {
                 $('#free_correction').htmlcode(bbcodeToHtml(activity.solution));
             }
@@ -116,6 +121,14 @@ function manageUpdateByType(activity) {
         navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-profil-teacher');
     } else if (activity.type == "quiz") {
         console.log('TBC')
+    } else {
+        // TODO: CHANGE THIS DEFAULT FALLBACK BY SOMETHING CHECKING IF THE CURRENT ACTIVITY USES LTI
+        Main.getClassroomManager()._createActivity.function = "update";
+        Main.getClassroomManager()._createActivity.id = activity.type;
+        Main.getClassroomManager()._createActivity.content.description = JSON.parse(activity.content).description;
+        launchLtiDeepLinkCreate(activity.type, true);
+        $("#activity_custom").show();
+        navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
     }
 }
 

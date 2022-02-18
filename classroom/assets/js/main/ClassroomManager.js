@@ -24,19 +24,8 @@ class ClassroomManager {
         this._isExecutingTaskInQueue = false;
         this._allActivities = []
         this._allApps = []
-        this._createActivity = {
-            function: 'create',
-            id: '',
-            title: '', 
-            content: {
-                enonce: '',
-                description: '',
-                indice: ''
-            }, 
-            type: '', 
-            solution: '',
-            tolerance: ''
-        }
+        this._createActivity = {}
+        this.setDefaultActivityData();
     }
 
     /**
@@ -1405,6 +1394,22 @@ class ClassroomManager {
                 }
             });
         });
+    }
+
+    setDefaultActivityData() {
+        this._createActivity = {
+            function: 'create',
+            id: '',
+            title: '', 
+            content: {
+                enonce: '',
+                description: '',
+                indice: ''
+            }, 
+            type: '', 
+            solution: '',
+            tolerance: ''
+        }
     }
 
 }
