@@ -3208,6 +3208,8 @@ function resetActivityInputs(activityType) {
         $("#free_correction_content").hide();
         $('#activity-input').val('');
         // reset input eleve
+    } else {
+        Main.getClassroomManager().clearCreateActivityData();
     }
 }
 
