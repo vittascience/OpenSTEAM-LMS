@@ -3396,8 +3396,6 @@ function loadCustomProActivitiesPanel(apps) {
     }
 ]; */
 
-loadCustomProPanelTexts();
-
 function launchLtiDeepLinkCreate(type, isUpdate) {
     let updateInput = '';
     if (isUpdate) {
