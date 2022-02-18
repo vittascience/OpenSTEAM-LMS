@@ -259,6 +259,10 @@
         <div class="row">
             <div id="main-div" class="col-12 col-lg-8" style="margin: 0 auto;overflow-wrap: break-word;">
                 <h3 id="activity-title"></h3>
+                <div id="activity-auto-disclaimer" style="display:none;">
+                    <img src="assets/media/auto-icon.svg" title="Auto">
+                    <span>Cette activité sera corrigée automatiquement.</span>
+                </div>
                 <p id="activity-details"></p>
                 <p id="activity-introduction">
                     <span id="text-introduction"></span>
@@ -1436,7 +1440,7 @@
     <div class="container">
         <div class="row text-center w-100">
             <div class="col-sm mb-2">
-                <button class="btn c-btn-grey" onclick="titleBackward()">Retour <i class="fas fa-chevron-left"></i></button>
+                <button class="btn c-btn-grey" onclick="titleBackward()"><i class="fas fa-chevron-left"></i> Retour</button>
             </div>
             <div class="col-sm order-first order-sm-last mb-2">
                 <button class="btn c-btn-secondary" onclick="titleForward()">Valider <i class="fas fa-check"></i></button>

@@ -4,7 +4,6 @@ $(document).ready(function () {
 });
 
 function activityItem(activity, state) {
-    console.log(activity)
     let ide = 'vittascience'
     if (activity.activity.content.match(/vittascience\.com\/microbit/)) {
         ide = "microbit"

@@ -1554,6 +1554,23 @@ h3.section-done {
     text-align: center;
 }
 
+#activity-auto-disclaimer {
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--classroom-secondary);
+}
+
+#activity-auto-disclaimer img {
+    background-color: var(--classroom-secondary);
+    border-radius: 256px;
+    border: 2px solid var(--classroom-secondary);
+    height: 1.5em;
+    margin: 5px 10px;
+    
+}
+
 #activity-details {
     text-align: center;
     font-style: italic;
