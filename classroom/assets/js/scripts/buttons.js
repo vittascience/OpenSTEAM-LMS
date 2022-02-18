@@ -3170,12 +3170,12 @@ function launchCustomActivity(activityType) {
                     $("#activity_dragAndDrop").show();
                     break;
                 case 'custom':
-                    // Check if it's an lti apps and get the data needed if it's the case
-                    $("#activity_custom").show();
-                    break;
-                default:
                     // Use the previous method for the activity without title
                     $("#activity_reading").show();
+                    break;
+                default:
+                    // Check if it's an lti apps and get the data needed if it's the case
+                    $("#activity_custom").show();
                     break;
             }
             navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-profil-teacher');
@@ -3280,7 +3280,6 @@ function titleForward() {
  * Validation pipeline for the new activity
  */
 function validateActivity() {
-
     switch(Activity.activity.type) {
         case 'free':
             freeValidateActivity()
@@ -3298,30 +3297,31 @@ function validateActivity() {
             
             break;
         case 'custom':
-            
-            break;
-        default:
             defaultProcessValidateActivity();
             break;
+        default:
+            
+            break;
     }
-
 }
 
 /**
  * Default process for the validation of the free activity
  */
 function freeValidateActivity() {
-    let solution = Activity.activity.solution,
-        is_autocorrected = Activity.activity.isAutocorrect;
-
-    if (is_autocorrected == true) {
-        if ($('#activity-input').bbcode() == solution) {
-            console.log("true");
+    let studentResponse = $('#activity-input').bbcode();
+    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, null, null, studentResponse).then((response) => {
+        console.log(response)
+        if (response.success == true) {
+            if (response.note != null) {
+                // show the page sucess or fail 
+            } else {
+                // return to activity hub
+            }
         } else {
-            console.log("false");
+            // Display errors
         }
-    }
-
+    });
 }
 
 
