@@ -475,7 +475,7 @@ function loadActivityForStudents(isDoable) {
     isTheActivityIsDoable(isDoable);
 }
 
-function loadActivityForTeacher(isDoable) {
+function loadActivityForTeacher() {
     // Reset the inputs
     resetInputsForActivity()
 
@@ -506,56 +506,20 @@ function loadActivityForTeacher(isDoable) {
     }
 
     injectContentForActivity(content, Activity.correction, Activity.activity.type, correction);
-    isTheActivityIsDoable(isDoable);
+    isTheActivityIsDoable(false);
 }
 
 function injectContentForActivity(content, correction, type = null, correction_div)
 {
-    //console.log(type, correction)
-
-    let wbbOpt = {
-        buttons: ",bold,italic,underline,|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe",
-    }
-    
-    setTextArea();
     // Inject the content to the target div
     if (type == null) {
         $('#activity-content').html(bbcodeToHtml(content))
         $('#activity-correction').html(bbcodeToHtml(correction))
     }
+
     switch(type) {
         case 'free':
-            $('#activity-title').html(Activity.activity.title);
-            $('#activity-content').html(bbcodeToHtml(content));
-            if (correction == 0 || correction == null) {
-                if (!UserManager.getUser().isRegular) {
-                    $('#activity-input').wysibb(wbbOpt);
-                    $('#activity-input-container').show();
-                }
-            } else if (correction == 1) {
-                $('#activity-student-response').show();
-                $('#activity-student-response-content').html(bbcodeToHtml(Activity.response));
-                $('#activity-correction').html(correction_div);
-                $('#activity-correction-container').show(); 
-                if (UserManager.getUser().isRegular) {
-                    $('#label-activity-student-response').text("Réponse de l'étudiant");
-                } else {
-                    $('#label-activity-student-response').text("Votre réponse");
-                }
-            } else if (correction == 2) {
-
-                $('#activity-student-response').show();
-                $('#activity-student-response-content').html(bbcodeToHtml(Activity.response));
-
-                $('#activity-correction').html(correction_div);
-                $('#activity-correction-container').show(); 
-
-                if (UserManager.getUser().isRegular) {
-                    $('#label-activity-student-response').text("Réponse de l'étudiant");
-                } else {
-                    $('#label-activity-student-response').text("Votre réponse");
-                }
-            }
+            manageDisplayFree(correction, content, correction_div)
             break;
         case 'quiz':
             
@@ -564,37 +528,13 @@ function injectContentForActivity(content, correction, type = null, correction_d
             
             break;
         case 'reading':
-            $('#activity-title').html(Activity.activity.title);
-            $('#activity-content').html(bbcodeToHtml(content));
-            if (correction == 0) {
-                $('#activity-input').wysibb(wbbOpt);
-                $('#activity-input-container').show();
-            } else if (correction == 1) {
-                $('#activity-correction').html(correction_div);
-                $('#activity-correction-container').show(); 
-                if (UserManager.getUser().isRegular) {
-
-                } else {
-
-                }
-
-            } else if (correction == 2) {
-                $('#activity-correction').html(correction_div);
-                $('#activity-correction-container').show();
-                if (UserManager.getUser().isRegular) {
-
-                } else {
-
-                }
-            }
+            manageDisplayCustomAndReading(correction ,content, correction_div);
             break;
         case 'dragAndDrop':
             
             break;
         case 'custom':
-            // Check if it's an lti apps and get the data needed if it's the case
-            $('#activity-content').html(bbcodeToHtml(content));
-            $('#activity-correction').html(bbcodeToHtml(correction));
+            manageDisplayCustomAndReading(correction ,content, correction_div);
             break;
         default:
 
@@ -602,17 +542,66 @@ function injectContentForActivity(content, correction, type = null, correction_d
     }
 }
 
+let wbbOpt = {
+    buttons: ",bold,italic,underline,|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe",
+}
+
+function manageDisplayCustomAndReading(correction, content, correction_div) {
+
+    setTextArea();
+    $('#activity-title').html(Activity.activity.title);
+    $('#activity-content').html(bbcodeToHtml(content));
+    if (correction == 0) {
+        $('#activity-input').wysibb(wbbOpt);
+        $('#activity-input-container').show();
+    } else if (correction > 0) {
+        $('#activity-correction').html(correction_div);
+        $('#activity-correction-container').show(); 
+    }
+}
+
+function manageDisplayFree(correction, content, correction_div) {
+
+
+    setTextArea();
+    $('#activity-title').html(Activity.activity.title);
+    $('#activity-content').html(bbcodeToHtml(content));
+    if (correction == 0 || correction == null) {
+        if (!UserManager.getUser().isRegular) {
+            $('#activity-input').wysibb(wbbOpt);
+            $('#activity-input-container').show();
+        }
+    } else if (correction > 0) {
+        $('#activity-student-response').show();
+        $('#activity-student-response-content').html(bbcodeToHtml(Activity.response));
+
+        $('#activity-correction-container').show(); 
+        $('#activity-correction').html(correction_div);
+        if (UserManager.getUser().isRegular) {
+            $('#label-activity-student-response').text("Réponse de l'étudiant");
+        } else {
+            $('#label-activity-student-response').text("Votre réponse");
+        }
+    }
+}
+
 
 // Set all the inputs we need to reset
 function resetInputsForActivity() {
     // Hide all the divs
-    $('#activity-introduction').hide()
-    $('#activity-correction-container').hide()
-
+    $('#activity-introduction').hide();
+    $('#activity-correction-container').hide();
+    
     // Field for free activity
     $('#activity-input-container').hide();
-
     $('#activity-student-response').hide();
+    
+    // Fields
+    $('#activity-title').html(" ");
+    $('#activity-content').html(" ");
+    $('#activity-correction').html(" ");
+
+
 }
 
 function isTheActivityIsDoable(doable) {
@@ -649,114 +638,6 @@ function manageContentForActivity() {
     return content;
 }
 
-
-
-
-function loadActivity(isDoable) {
-
-    /**
-     * Debug @Rémi
-     */
-    console.log(Activity)
-
-/*     ClassroomSettings.chrono = Date.now()
-    $('#activity-introduction').hide()
-    if (Activity.introduction != null && Activity.introduction != "") {
-        $('#text-introduction').html(bbcodeToHtml(Activity.introduction))
-        $('#activity-introduction').show()
-    }
-
-    $('#activity-correction-container').hide()
-    if (Activity.correction != null) {
-        $('#activity-correction-container').show()
-    }
-
-    $('#activity-title').html(Activity.activity.title)
-    if (UserManager.getUser().isRegular) {
-        if (Activity.correction >= 1) {
-            $('#activity-details').html("Activité de " + Activity.user.pseudo + " rendue le " + formatHour(Activity.dateSend))
-        } else {
-            $('#activity-details').html(i18next.t("classroom.activities.noSend"))
-        }
-    } else {
-        if (Activity.correction >= 1) {
-            $('#activity-details').html("Cette activité a été rendue le " + formatHour(Activity.dateSend))
-        } else {
-            $('#activity-details').html("Activité à rendre pour le " + formatDay(Activity.dateEnd))
-        }
-    }
-
-
-    let content = "";
-    if (IsJsonString(Activity.activity.content)) {
-        const contentParsed = JSON.parse(Activity.activity.content);
-        if (contentParsed.hasOwnProperty('description')) {
-            content = contentParsed.description;
-        }
-    } else {
-        content = Activity.activity.content.replace(/(\[iframe\].*?link=[a-f0-9]{13})/gm, '$1&use=classroom')
-        if (Activity.project != null) {
-            if (LINK_REGEX.test(Activity.activity.content)) {
-                content = content.replace(LINK_REGEX, '$1' + Activity.project.link)
-            }
-        } else {
-            content = content
-        }
-    } */
-
-
-/*     let correction = ''
-    correction += `<h4 class="c-text-primary text-center font-weight-bold">${i18next.t('classroom.activities.bilan.results')}</h4>`
-    if (Activity.correction == 1) {
-        correction += `<div class="giveNote-container c-primary-form"><label for="givenote-3" onclick="setNote(3)"><input type="radio" id="givenote-3" name="giveNote" value="3">${" " + i18next.t('classroom.activities.accept')}</label><label for="givenote-2" onclick="setNote(2)"><input type="radio" id="givenote-2" name="giveNote" value="2">${" " + i18next.t('classroom.activities.vgood')}</label><label for="givenote-1" onclick="setNote(1)"><input type="radio" id="givenote-1" name="giveNote" value="1">${" " + i18next.t('classroom.activities.good')}</label><label for="givenote-0" onclick="setNote(0)"><input type="radio" id="givenote-0" name="giveNote" value="0">${" " + i18next.t('classroom.activities.refuse')}</label></div>`
-
-    }
-    if (UserManager.getUser().isRegular && Activity.correction > 0) {
-        correction += '<div id="commentary-panel" class="c-primary-form"><label>' + i18next.t("classroom.activities.comments") + '</label><textarea id="commentary-textarea" style="width:100%" rows="8">' + Activity.commentary + '</textarea></div>'
-    } */
-
-
-
-    
-/*     if (!UserManager.getUser().isRegular && Activity.correction > 0) {
-        if (Activity.note == 3) {
-            var activityResultString = i18next.t('classroom.activities.veryGoodProficiency')
-        } else if (Activity.note == 2) {
-            var activityResultString = i18next.t('classroom.activities.goodProficiency')
-        } else if (Activity.note == 1) {
-            var activityResultString = i18next.t('classroom.activities.weakProficiency')
-        } else if (Activity.note == 0) {
-            var activityResultString = i18next.t('classroom.activities.insufficientProficiency')
-        } 
-        correction += `<div class="results-string" style="background-color:var(--correction-${Activity.note})"">${activityResultString}</div>`
-
-        
-        if (Activity.commentary != null && Activity.commentary != "") {
-            correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
-        } else {
-            correction += '<div id="commentary-panel">' + i18next.t("classroom.activities.bilan.noComment") + '</div>'
-        }
-    } */
-
-/*     if (UserManager.getUser().isRegular && Activity.correction > 0) {
-
-        correction += '<button onclick="giveNote()" class="btn c-btn-primary btn-sm text-wrap w-100"><span class="text-wrap">' + i18next.t('classroom.activities.sendResults') + '<i class="fas fa-chevron-right"> </i></span></button>'
-    } */
-
-    $('#activity-content').html(bbcodeToHtml(content))
-    $('#activity-correction').html(bbcodeToHtml(correction))
-
-    if (isDoable == false) {
-        $('#activity-validate').hide()
-        $('#activity-save').hide()
-    } else {
-        let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)
-        $('#activity-validate').show()
-        if (interface != undefined && interface != null) {
-            $('#activity-save').show()
-        }
-    }
-}
 
 function setPluriel(number) {
     if (number > 1) {

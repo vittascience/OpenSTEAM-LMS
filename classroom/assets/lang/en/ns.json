@@ -271,6 +271,7 @@
 			"sendResults": "Send the comment ",
 			"noSend": "This activity hasn't been returned",
 			"comments": "Write your comments there",
+			"return": "Return to the activities",
 			"bilan": {
 				"title": "Bilan",
 				"results": "Results",
