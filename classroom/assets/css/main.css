@@ -617,7 +617,7 @@ button {
     #classroom-dashboard-content {
         border-radius: 0px;
         height: calc(100% - 110px);
-        padding-bottom: 50px; 
+        padding-bottom: 50px;
     }
 
 }
@@ -1206,7 +1206,7 @@ img.btn-cabri {
 
     border-radius: 1em;
     padding: 0.1em 0;
-    margin: 1em;   
+    margin: 1em;
 }
 
 #classroom-dashboard-activities-panel .section-header {
@@ -1220,7 +1220,7 @@ img.btn-cabri {
 
 }
 
-#classroom-dashboard-activities-panel .section-header i{
+#classroom-dashboard-activities-panel .section-header i {
     margin-right: 0.5em;
     font-size: 1.5em;
 }
@@ -1234,13 +1234,13 @@ img.btn-cabri {
 #classroom-dashboard-activities-panel .section-header span.resource-number {
     margin-left: 0.75em;
     border-radius: 256em;
-    
+
     height: 1.5em;
     min-width: 1.5em;
 
     font-weight: 600;
     text-align: center;
-    
+
     background-color: var(--classroom-white);
     color: var(--classroom-black);
     box-shadow: 0px 1px 3px var(--classroom-shadow-1) inset;
@@ -1916,6 +1916,7 @@ h3.section-done {
     border-radius: 5px;
     vertical-align: bottom;
     margin: 0 3px;
+    margin-top: 2px;
     display: inline-block;
     line-height: 32px;
 }
@@ -1947,6 +1948,7 @@ i.line_height34 {
     border: solid 1px transparent;
     border-radius: 10px;
     text-align: center;
+    transition: all 0.1s ease-in-out;
 }
 
 /* Classroom result with only an icon */
@@ -1984,6 +1986,90 @@ i.line_height34 {
 .status-0 {
     border-color: transparent;
     background-color: var(--correction-0);
+}
+
+/* Monochrome classroom results */
+
+#body-table-teach.is-monochrome tr {
+    height: 100%;
+}
+
+.is-monochrome .bilan-3,
+.is-monochrome .status-3,
+.is-monochrome .bilan-2,
+.is-monochrome .status-2,
+.is-monochrome .bilan-1,
+.is-monochrome .status-1,
+.is-monochrome .bilan-0,
+.is-monochrome .status-0 {
+    border-color: var(--classroom-primary);
+    background-color: var(--classroom-white);
+    border-width: 2px;
+    height: 100%;
+    position: relative;
+    border-radius: 5px;
+
+}
+
+#legend-container.is-monochrome .bilan-3,
+#legend-container.is-monochrome .status-3,
+#legend-container.is-monochrome .bilan-2,
+#legend-container.is-monochrome .status-2,
+#legend-container.is-monochrome .bilan-1,
+#legend-container.is-monochrome .status-1,
+#legend-container.is-monochrome .bilan-0,
+#legend-container.is-monochrome .status-0 {
+    background-color: var(--classroom-white);
+    outline: solid 1px var(--classroom-primary);
+    height: 30px;
+    border-radius: 2px;
+}
+
+.is-monochrome .bilan-3 .monochrome-grade-div,
+.is-monochrome .status-3 .monochrome-grade-div,
+.is-monochrome .bilan-2 .monochrome-grade-div,
+.is-monochrome .status-2 .monochrome-grade-div,
+.is-monochrome .bilan-1 .monochrome-grade-div,
+.is-monochrome .status-1 .monochrome-grade-div,
+.is-monochrome .bilan-0 .monochrome-grade-div,
+.is-monochrome .status-0 .monochrome-grade-div {
+    background: var(--classroom-primary);
+    height: 13%;
+    margin: 20% auto;
+    width: 85%;
+    min-height: 7px;
+}
+
+#legend-container.is-monochrome .monochrome-grade-div {
+    min-height: unset;
+}
+
+.is-monochrome .bilan-0,
+.is-monochrome .status-0 {
+    border-color: var(--classroom-primary);
+    background-color: var(--classroom-white);
+    border-width: 2px;
+}
+
+.is-monochrome .bilan-2 .monochrome-grade-div:nth-child(1),
+.is-monochrome .status-2 .monochrome-grade-div:nth-child(1) {
+    background-color: transparent;
+}
+
+.is-monochrome .bilan-1 .monochrome-grade-div:nth-child(1),
+.is-monochrome .status-1 .monochrome-grade-div:nth-child(1),
+.is-monochrome .bilan-1 .monochrome-grade-div:nth-child(2),
+.is-monochrome .status-1 .monochrome-grade-div:nth-child(2) {
+    background-color: transparent;
+}
+
+.is-monochrome .bilan-0 .monochrome-grade-div:nth-child(1),
+.is-monochrome .status-0 .monochrome-grade-div:nth-child(1),
+.is-monochrome .bilan-0 .monochrome-grade-div:nth-child(2),
+.is-monochrome .status-0 .monochrome-grade-div:nth-child(2),
+.is-monochrome .bilan-0 .monochrome-grade-div:nth-child(3),
+.is-monochrome .status-0 .monochrome-grade-div:nth-child(3) {
+    background-color: transparent;
 }
 
 .open-ide:hover {

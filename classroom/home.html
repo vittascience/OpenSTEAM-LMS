@@ -484,19 +484,39 @@
         <div id="legend-container">
             <ul class="row legend" style="list-style:none;">
                 <li class="ml-3">
-                    <div class="bilan-legend bilan-3"></div>
+                    <div class="bilan-legend bilan-3">
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                    </div>
                     <span data-i18n="classroom.activities.veryGoodProficiency"></span>
                 </li>
                 <li class="ml-3">
-                    <div class="bilan-legend bilan-2"></div>
+                    <div class="bilan-legend bilan-2">
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                    </div>
                     <span data-i18n="classroom.activities.goodProficiency"></span>
                 </li>
                 <li class="ml-3">
-                    <div class="bilan-legend bilan-1"></div>
+                    <div class="bilan-legend bilan-1">
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                    </div>
                     <span data-i18n="classroom.activities.weakProficiency"></span>
                 </li>
                 <li class="ml-3">
-                    <div class="bilan-legend bilan-0"></div>
+                    <div class="bilan-legend bilan-0">
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                    </div>
                     <span data-i18n="classroom.activities.insufficientProficiency"></span>
                 </li>
             </ul>
@@ -508,6 +528,13 @@
                 <li class="ml-3">
                     <div class="bilan-legend fas fa-stopwatch"></div>
                     <span data-i18n="classroom.activities.waiting"></span>
+                </li>
+
+                <li class="ml-3 c-checkbox" style="height: 1.6em;">
+                    <input type="checkbox" id="is-monochrome" title="" class="mr-2">
+                    <label for="is-monochrome">
+                        <span class="mr-2">Mode monochrome</span>
+                    </label>
                 </li>
 
                 <li class="ml-3 c-checkbox" style="height: 1.6em;">
@@ -1257,6 +1284,7 @@
 <script src="assets/js/main/modal.js"></script>
 <script src="assets/js/constants/modals.js"></script>
 <script src="assets/js/scripts/buttons.js"></script>
+<script src="assets/js/scripts/classroomDisplay.js"></script>
 <!-- end build -->
 <script src="assets/js/main/Loader.js"></script>
 <script src="assets/js/main/UIManager.js"></script>

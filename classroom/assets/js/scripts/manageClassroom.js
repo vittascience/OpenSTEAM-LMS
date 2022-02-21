@@ -776,9 +776,13 @@ function displayStudentsInClassroom(students, link=false) {
     $('#add-student-container').html(''); //clean the display
     $('#export-class-container').html(''); //clean the display
     $('#header-table-teach').html('<th class="table-title" style="max-width: 250px; font-size: 19pt; text-align: left; height: 3em;" data-i18n="classroom.activities.title"></th>').localize();
+    
+    $('#is-monochrome').attr('data-link', link)
+    $('#is-anonymised').attr('data-link', link)
+    
     // get the current classroom index of activities
     let arrayIndexesActivities = listIndexesActivities(students);
-
+    
     students.forEach(element => {
         // reorder the current student activities to fit to the classroom index of activities
         let arrayActivities = reorderActivities(element.activities, arrayIndexesActivities);
@@ -840,7 +844,7 @@ function displayStudentsInClassroom(students, link=false) {
             if (currentActivity) {
                 html += `<td class=" ${statusActivity(currentActivity)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>"></td>`;
             } else {
-                html += `<td class="no-activity bilan-cell" "></td>`;
+                html += `<td class="no-activity bilan-cell"></td>`;
             }
         }
         // addition of 6 "empty" cells at the end of the current table row
@@ -853,11 +857,38 @@ function displayStudentsInClassroom(students, link=false) {
         $('[data-toggle="tooltip"]').tooltip()
     });
     
+    // get classroom settings from localstorage
+    let settings = getClassroomDisplaySettings(link);
+
+    if (settings['monochrome']) {
+        $('#body-table-teach').addClass('is-monochrome')
+        $('#legend-container').addClass('is-monochrome')
+        $('#is-monochrome').prop('checked', true);          
+    } else {
+        $('#body-table-teach').removeClass('is-monochrome')
+        $('#legend-container').removeClass('is-monochrome')
+        $('#is-monochrome').prop('checked', false);
+    }
+    
+    if (settings['anonymised']) {
+        anonymizeStudents()
+        $('#is-anonymised').prop('checked', true);
+    } else {
+        $('#is-anonymised').prop('checked', false);
+    }
+
+    
     $('#add-student-container').append(`<button id="add-student-dashboard-panel" class="btn c-btn-primary"><span data-i18n="classroom.activities.addLearners">Ajouter des apprenants</span> <i class="fas fa-plus"></i></button>`).localize();
 
     $('#export-class-container').append(`<button id="download-csv" class="btn c-btn-tertiary ml-2" onclick="openDownloadCsvModal()"><i class="fa fa-download" aria-hidden="true"></i><span class="ml-1" data-i18n="classroom.activities.exportCsv">Exporter CSV</span></button>`).localize();
 
     $('#header-table-teach').append(`<th class="add-activity-th" colspan="7"> <button class="btn c-btn-primary dashboard-activities-teacher" onclick="pseudoModal.openModal('add-activity-modal')" data-i18n="classroom.activities.addActivity">Ajouter une activité</button></th>`).localize();
+
+    // add four empty divs for monochrome styling
+    $('#body-table-teach .bilan-cell').html(`<div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div>`);
+
+ 
+
 }
 
 $('body').on('click', '.switch-pwd', function (event) {
@@ -1129,8 +1160,6 @@ class DashboardAutoRefresh {
                         if (getClassroomInListByLink($_GET('option'))[0]) {
                             let students = getClassroomInListByLink($_GET('option'))[0].students;
                             displayStudentsInClassroom(students);
-                            // uncheck anonymize checkbox
-                            document.getElementById('is-anonymised').checked = false; 
                         }
                     }
                 }
