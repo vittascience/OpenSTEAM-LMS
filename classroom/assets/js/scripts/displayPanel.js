@@ -270,7 +270,7 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
         if (!Main.getClassroomManager()._myClasses) {
             Main.getClassroomManager().getClasses().then(function () {
                 let students = getClassroomInListByLink(link)[0].students
-                displayStudentsInClassroom(students)
+                displayStudentsInClassroom(students, link)
                 $('.classroom-link').html(ClassroomSettings.classroom)
             })
 
@@ -285,7 +285,7 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
             }
             // Load the classroom with the current cache data
             let students = getClassroomInListByLink(link)[0].students
-            displayStudentsInClassroom(students)
+            displayStudentsInClassroom(students, link)
             $('.classroom-link').html(ClassroomSettings.classroom)
             // Block classroom feature
             if (getClassroomInListByLink(link)[0].classroom.isBlocked == false) {
@@ -298,14 +298,10 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
 
 
             }
-            // Uncheck the anonymous checkbox
-            document.getElementById('is-anonymised').checked = false; 
 
             Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
                 let students = getClassroomInListByLink(link)[0].students
                 displayStudentsInClassroom(students, link);
-                // Uncheck the anonymous checkbox
-                document.getElementById('is-anonymised').checked = false;
             });
         }
         dashboardAutoRefresh.refreshLater();
