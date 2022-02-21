@@ -3145,8 +3145,10 @@ function hideAllActivities() {
 function launchCustomActivity(activityType, isUpdate = false) {
     const contentForwardButtonElt = document.getElementById('content-forward-button');
     contentForwardButtonElt.style.display = 'inline-block';
-    // Reset and hide all activities input and fields
-    resetActivityInputs(activityType);
+    if(!isUpdate) {
+        // Reset and hide all activities input and fields
+        resetActivityInputs(activityType);
+    }
     hideAllActivities();
 
     Main.getClassroomManager()._createActivity.id = activityType;
