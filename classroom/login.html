@@ -17,12 +17,11 @@
                             d="M76.9 23a1.9 1.9 0 01.8 1.5 2.27 2.27 0 01-.6 1.6 2.17 2.17 0 01-3 0 1.82 1.82 0 01-.6-1.4 2.72 2.72 0 01.6-1.7l1.8-2.6H78L76.9 23zm6 0a1.9 1.9 0 01.8 1.5 2.27 2.27 0 01-.6 1.6 2.17 2.17 0 01-3 0 1.82 1.82 0 01-.6-1.4 2.72 2.72 0 01.6-1.7l1.8-2.6H84L82.9 23zM173.9 24.1a1.9 1.9 0 01-.8-1.5 2.11 2.11 0 01.6-1.6 2.17 2.17 0 013 0 1.82 1.82 0 01.6 1.4 2.72 2.72 0 01-.6 1.7l-1.8 2.6h-2.1zm-6 0a1.9 1.9 0 01-.8-1.5 2.11 2.11 0 01.6-1.6 2.17 2.17 0 013 0 1.82 1.82 0 01.6 1.4 2.72 2.72 0 01-.6 1.7l-1.8 2.6h-2.1z" />
                     </g>
                 </svg>
-                <input type="text" id="fake-blockly-input" name="name" maxlength="20" placeholder="Bonjour !"
-                    value="Bonjour !" autocomplete="off" data-lpignore="true">
+                <input type="text" id="fake-blockly-input" name="name" maxlength="20" data-i18n="[value]classroom.login.hello" autocomplete="off" data-lpignore="true">
             </div>
             <span id="fake-code"><span style="color: #AC00B1;">print</span><span>(</span><span id="fake-code-text"
-                    style="color:#009651;" data-i18n="classroom.login.hello1"></span><span>)</span></span>
-            <span id="fake-display" data-i18n="classroom.login.hello2"></span>
+                    style="color:#009651;" data-i18n="classroom.login.hello"></span><span>)</span></span>
+            <span id="fake-display" data-i18n="classroom.login.hello"></span>
         </div>
         <div id="heading-container" style="flex-grow:1;">
             <h1 data-i18n="[html]classroom.login.neutralTitle"></h1>
@@ -357,14 +356,14 @@
     </div>
 </div>
 
-<!-- <script>
+<script>
     /* INTERACTIVE BLOCK */
     $("#fake-blockly-input").on("input", (function () {
         var text = $("#fake-blockly-input").val().trim();
-        $('#fake-code-text').html('\'' + text + '\'');
-        $('#fake-display').html(text);
+        $('#fake-code-text').text(text);
+        $('#fake-display').text(text);
     }));
-</script> -->
+</script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
 </script>
