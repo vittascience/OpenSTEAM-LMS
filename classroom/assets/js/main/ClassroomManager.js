@@ -1411,6 +1411,7 @@ class ClassroomManager {
             solution: '',
             tolerance: ''
         }
+        document.querySelector('#global_title').value = '';
     }
 
 }

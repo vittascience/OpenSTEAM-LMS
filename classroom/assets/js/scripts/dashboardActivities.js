@@ -550,6 +550,8 @@ function injectContentForActivity(content, correction, type = null, correction_d
             } else {
                 document.querySelector('#activity-content').innerHTML = `
                 <iframe src="${Activity.url}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`;
+                document.querySelector('#activity-correction-container').style.display = 'block';
+                document.querySelector('#activity-correction').innerHTML = correction_div;
             }
             break;
     }
