@@ -626,7 +626,9 @@ function isTheActivityIsDoable(doable, hideValidationButton = false) {
     } else {
         let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)
         if (!hideValidationButton) {
-            $('#activity-validate').show();
+            if (!Activity.activity.isLti) {
+                $('#activity-validate').show();
+            }
         }
         
         if (interface != undefined && interface != null) {
