@@ -2734,7 +2734,7 @@ function checkLtiFields(type) {
             {
                 return {isLti : false};
             } else {
-                let lti = {
+                return {
                     isLti : true,
                     clientId: $('#clientId').val(),
                     deploymentId: $('#deploymentId').val(),
@@ -2744,10 +2744,9 @@ function checkLtiFields(type) {
                     redirectionUrl: $('#redirectionUrl').val(),
                     deepLinkUrl: $('#deepLinkUrl').val(),
                     privateKey: $('#privateKey').val()
-                }
-                return lti;
+                };
             }
-        } 
+        }
     } else if (type == 'update') {
         if ($('#update_isLti').is(":checked")) {
             if (
@@ -2777,6 +2776,7 @@ function checkLtiFields(type) {
             }
         }
     }
+    return {isLti : false};
 }
 
 function updateApp(app_id) {
@@ -2822,6 +2822,7 @@ function persistUpdateApp() {
         $application_restrictions_value = $('#app_update_activity_restriction_value').val(),
         lti = checkLtiFields('update');
 
+    console.log(lti);
     if (!lti.isLti && $('#update_isLti').is(":checked")) {
         displayNotification('#notif-div', "manager.account.missingData", "error");
     } else {
@@ -3313,12 +3314,14 @@ function launchCustomActivity(activityType, isUpdate = false) {
             }
             navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
         } else {
+            console.log(response.Restrictions);
             if (UserManager.getUser().isFromGar) {
+                $('#app-restricted-number').attr('data-i18n-options', `{"activities": "${response.Restrictions[Object.keys(response.Restrictions)[0]]}"}`);
                 pseudoModal.openModal('activity-restricted-gar');
+                $('#app-restricted-number').localize();
             } else {
                 pseudoModal.openModal('activity-restricted');
             }
-            //displayNotification('#notif-div', "classroom.notif.activityRestricted", "error");
         }
     });
 }

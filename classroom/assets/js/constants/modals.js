@@ -940,14 +940,14 @@ const classroomModals = {
                     </div>`,
         footer: ``
     },
-    'activity-restricted-gar': {
+    'activity-restricted': {
         selector: '',
         header: {
             icon: '',
             title: 'manager.activitiesRestrictions.appRestricted'
         },
-        content: `  <div id="activity-restricted-gar">
-                        <div class="container-fluid" id="activity-restricted-gar-content">
+        content: `  <div id="activity-restricted">
+                        <div class="container-fluid" id="activity-restricted-content">
                             <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedSubtitle"> </p>
 
                             <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedUL1"> </p>
@@ -964,15 +964,15 @@ const classroomModals = {
                     </div>`,
         footer: ``
     },
-    'activity-restricted': {
+    'activity-restricted-gar': {
         selector: '',
         header: {
             icon: '',
             title: 'manager.activitiesRestrictions.appRestricted'
         },
-        content: `  <div id="activity-restricted">
-                        <div class="container-fluid" id="update-default-restrictions">
-                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedGarContent1" data-i18n-options=""> </p>
+        content: `  <div id="activity-restricted-gar">
+                        <div class="container-fluid" id="activity-restricted-gar-content">
+                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedGarContent1" id="app-restricted-number" data-i18n-options=""> </p>
                             <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedGarContent2"> </p>
                             <hr>
                             <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedSubtitle2"> </p>
@@ -980,7 +980,7 @@ const classroomModals = {
                         </div>
                     </div>`,
         footer: ``
-    },
+    }
 }
 
 /* 
