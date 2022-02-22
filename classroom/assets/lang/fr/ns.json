@@ -1365,7 +1365,19 @@
 			"restrictionType": "Type d'activité",
 			"maxActivity": "Maximum d'activité",
 			"closeDetail": "Fermer le détail",
-			"restrictions": "Restrictions d'activité"
+			"restrictions": "Restrictions d'activité",
+			"appRestricted" : "Créez plus d'activités !",
+			"appRestrictedSubtitle": "Bénéficiez de plus de fonctionnalités avec votre abonnement premium :",
+			"appRestrictedUL1": "projects sauvegardés dans le cloud illimités",
+			"appRestrictedUL2": "groupe d'apprenants illimités",
+			"appRestrictedUL3": "Accès sécurisé via le GAR <a href=\"https://www.eduvidual.com/gar\" target=\"_blank\">en savoir +</a>",
+			"appRestrictedUL4": "support premium - réponse en 24h ouvrées",
+			"appRestrictedUL5": "Accompagnement offert",
+			"appRestrictedButton": "Découvrir nos abonnements",
+			"appRestrictedSubtitle2": "Un probléme avec votre abonnement ?",
+			"appRestrictedSubtitle3": "Contacter le support",
+			"appRestrictedGarContent1": "Vous avez atteint la limite de {{activities}} activités associés à votre compte.",
+			"appRestrictedGarContent2": "Pour ajouter des activités sumpplémentaires, veuillez prendre contact avec le.la responsable d'affectation GAR de votre établissement."
 		},
 		"defaultRestrictions": {
 			"update": "Modifier les restrictions par défaut",

@@ -2732,9 +2732,9 @@ function checkLtiFields(type) {
                 $('#deepLinkUrl').val() == "" || 
                 $('#privateKey').val() == "") 
             {
-                return false;
+                return {isLti : false};
             } else {
-                let lti = {
+                return {
                     isLti : true,
                     clientId: $('#clientId').val(),
                     deploymentId: $('#deploymentId').val(),
@@ -2744,10 +2744,9 @@ function checkLtiFields(type) {
                     redirectionUrl: $('#redirectionUrl').val(),
                     deepLinkUrl: $('#deepLinkUrl').val(),
                     privateKey: $('#privateKey').val()
-                }
-                return lti;
+                };
             }
-        } 
+        }
     } else if (type == 'update') {
         if ($('#update_isLti').is(":checked")) {
             if (
@@ -2760,7 +2759,7 @@ function checkLtiFields(type) {
                 $('#update_deepLinkUrl').val() == "" || 
                 $('#update_privateKey').val() == ""
             ) {
-                return false;
+                return {isLti : false};
             } else {
                 let lti = {
                     isLti : true,
@@ -2777,6 +2776,7 @@ function checkLtiFields(type) {
             }
         }
     }
+    return {isLti : false};
 }
 
 function updateApp(app_id) {
@@ -2819,14 +2819,14 @@ function persistUpdateApp() {
         $application_description = $('#app_update_description').val(),
         $application_image = $('#app_update_image').val(),
         $application_restrictions_type = $('#app_update_activity_restriction_type').val(),
-        $application_restrictions_value = $('#app_update_activity_restriction_value').val();
+        $application_restrictions_value = $('#app_update_activity_restriction_value').val(),
+        lti = checkLtiFields('update');
 
-    //console.log($application_restrictions_type , $application_restrictions_value);
-    if (!checkLtiFields('update') && $('#update_isLti').is(":checked")) {
+    console.log(lti);
+    if (!lti.isLti && $('#update_isLti').is(":checked")) {
         displayNotification('#notif-div', "manager.account.missingData", "error");
     } else {
         mainManager.getmanagerManager().updateOneActivityRestriction($application_id, $application_restrictions_type, $application_restrictions_value);
-        let lti = checkLtiFields('update') ? checkLtiFields('update') : { isLti : false };
         mainManager.getmanagerManager().updateApplication(
             $application_id,
             $application_name,
@@ -2835,7 +2835,6 @@ function persistUpdateApp() {
             lti).then((response) => {
             if (response.message == "success") {
                 displayNotification('#notif-div', "manager.apps.updateSuccess", "success");
-                //$('#update-app-manager').hide();
                 closeModalAndCleanInput(true);
             } else {
                 displayNotification('#notif-div', "manager.account.missingData", "error");
@@ -2869,13 +2868,13 @@ function persistCreateApp() {
         $application_description = $('#app_create_description').val(),
         $application_image = $('#app_create_image').val(),
         $application_restrictions_type = $('#app_create_activity_restriction_type').val(),
-        $application_restrictions_value = $('#app_create_activity_restriction_value').val();
+        $application_restrictions_value = $('#app_create_activity_restriction_value').val(),
+        lti = checkLtiFields('create');
 
     
-    if (!checkLtiFields("create") && $('#isLti').is(":checked")) {
+    if (!lti.isLti && $('#isLti').is(":checked")) {
         displayNotification('#notif-div', "manager.account.missingData", "error");
     } else {
-        let lti = checkLtiFields("create") ? checkLtiFields("create") : { isLti : false };
         mainManager.getmanagerManager().createApplication($application_name, $application_description, $application_image, lti).then((response) => {
             if (response.message == "success") {
                 displayNotification('#notif-div', "manager.apps.createSuccess", "success");
@@ -3315,7 +3314,14 @@ function launchCustomActivity(activityType, isUpdate = false) {
             }
             navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
         } else {
-            displayNotification('#notif-div', "classroom.notif.activityRestricted", "error");
+            console.log(response.Restrictions);
+            if (UserManager.getUser().isFromGar) {
+                $('#app-restricted-number').attr('data-i18n-options', `{"activities": "${response.Restrictions[Object.keys(response.Restrictions)[0]]}"}`);
+                pseudoModal.openModal('activity-restricted-gar');
+                $('#app-restricted-number').localize();
+            } else {
+                pseudoModal.openModal('activity-restricted');
+            }
         }
     });
 }
