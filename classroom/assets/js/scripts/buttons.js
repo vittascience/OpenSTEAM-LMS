@@ -205,6 +205,9 @@ function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = fal
             history: id,
             navbar: idNav
         });
+        if ($_GET('panel') == 'classroom-dashboard-activity-panel') {
+            document.querySelector('#activity-content').innerHTML = '';
+        }
         let state = {};
         var title = '';
         let endUrl = idNav;

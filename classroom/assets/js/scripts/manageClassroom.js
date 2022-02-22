@@ -7,10 +7,13 @@ window.addEventListener(
         switch(msg.type) {
         case 'end-lti-score':
             navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities', '', '', true);
+            // Clearing the LTI content div
+            document.querySelector('#lti-loader-container').innerHTML = '';
             break;
         case 'end-lti-deeplink':
             Main.getClassroomManager()._createActivity.content.description = msg.content;
             contentForward();
+            document.querySelector('#activity-content').innerHTML = '';
             break;
         default:
             console.log('Other Action !');
