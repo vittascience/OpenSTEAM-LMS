@@ -940,7 +940,47 @@ const classroomModals = {
                     </div>`,
         footer: ``
     },
+    'activity-restricted-gar': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'manager.activitiesRestrictions.appRestricted'
+        },
+        content: `  <div id="activity-restricted-gar">
+                        <div class="container-fluid" id="activity-restricted-gar-content">
+                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedSubtitle"> </p>
 
+                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedUL1"> </p>
+                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedUL2"> </p>
+                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedUL3"> </p>
+                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedUL4"> </p>
+                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedUL5"> </p>
+
+                            <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="" data-i18n="manager.activitiesRestrictions.appRestrictedButton"></button>
+                            <hr>
+                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedSubtitle2"> </p>
+                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedSubtitle3"> </p>
+                        </div>
+                    </div>`,
+        footer: ``
+    },
+    'activity-restricted': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'manager.activitiesRestrictions.appRestricted'
+        },
+        content: `  <div id="activity-restricted">
+                        <div class="container-fluid" id="update-default-restrictions">
+                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedGarContent1" data-i18n-options=""> </p>
+                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedGarContent2"> </p>
+                            <hr>
+                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedSubtitle2"> </p>
+                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedSubtitle3"> </p>
+                        </div>
+                    </div>`,
+        footer: ``
+    },
 }
 
 /* 
