@@ -443,32 +443,35 @@ function loadActivityForStudents(isDoable) {
 
     // Content management
     let content = manageContentForActivity();
-
-
-    let correction = ''
-    correction += `<h4 class="c-text-primary text-center font-weight-bold">${i18next.t('classroom.activities.bilan.results')}</h4>`
-    if (Activity.correction == 1) {
-        correction += `<div class="giveNote-container c-primary-form"><label for="givenote-3" onclick="setNote(3)"><input type="radio" id="givenote-3" name="giveNote" value="3">${" " + i18next.t('classroom.activities.accept')}</label><label for="givenote-2" onclick="setNote(2)"><input type="radio" id="givenote-2" name="giveNote" value="2">${" " + i18next.t('classroom.activities.vgood')}</label><label for="givenote-1" onclick="setNote(1)"><input type="radio" id="givenote-1" name="giveNote" value="1">${" " + i18next.t('classroom.activities.good')}</label><label for="givenote-0" onclick="setNote(0)"><input type="radio" id="givenote-0" name="giveNote" value="0">${" " + i18next.t('classroom.activities.refuse')}</label></div>`
-    }
-
-    if (!UserManager.getUser().isRegular && Activity.correction > 0) {
-        if (Activity.note == 3) {
-            var activityResultString = i18next.t('classroom.activities.veryGoodProficiency')
-        } else if (Activity.note == 2) {
-            var activityResultString = i18next.t('classroom.activities.goodProficiency')
-        } else if (Activity.note == 1) {
-            var activityResultString = i18next.t('classroom.activities.weakProficiency')
-        } else if (Activity.note == 0) {
-            var activityResultString = i18next.t('classroom.activities.insufficientProficiency')
-        } 
+    let correction = '';
+    if (!UserManager.getUser().isRegular && Activity.correction > 1) {
+        document.querySelector('#activity-correction').style.display = 'block';
+        let activityResultString;
+        switch (Activity.note) {
+            case 3:
+                activityResultString = i18next.t('classroom.activities.veryGoodProficiency')
+                break;
+            case 2:
+                activityResultString = i18next.t('classroom.activities.goodProficiency')
+                break;
+            case 1:
+                activityResultString = i18next.t('classroom.activities.weakProficiency')
+                break;
+            case 0:
+                activityResultString = i18next.t('classroom.activities.insufficientProficiency')
+                break;
+            default:
+                break;
+        }
         correction += `<div class="results-string" style="background-color:var(--correction-${Activity.note})"">${activityResultString}</div>`
-
         
         if (Activity.commentary != null && Activity.commentary != "") {
             correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
         } else {
             correction += '<div id="commentary-panel">' + i18next.t("classroom.activities.bilan.noComment") + '</div>'
         }
+    } else {
+        document.querySelector('#activity-correction').style.display = 'none';
     }
 
     injectContentForActivity(content, Activity.correction, Activity.activity.type, correction, isDoable);
@@ -550,8 +553,10 @@ function injectContentForActivity(content, correction, type = null, correction_d
             } else {
                 document.querySelector('#activity-content').innerHTML = `
                 <iframe src="${Activity.url}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`;
-                document.querySelector('#activity-correction-container').style.display = 'block';
-                document.querySelector('#activity-correction').innerHTML = correction_div;
+                if (correction != 1) {
+                    document.querySelector('#activity-correction-container').style.display = 'block';
+                    document.querySelector('#activity-correction').innerHTML = correction_div;
+                }
             }
             break;
     }
