@@ -348,7 +348,7 @@ button {
     height: 98%;
     max-height: 98vh;
     display: flex;
-    font-size: 1.5vh;
+    font-size: .9em;
     text-align: center;
     align-items: center;
     flex: 0;
@@ -387,6 +387,7 @@ button {
 
     display: grid;
     grid-template-rows: auto 20%;
+    grid-template-columns: 100%;
     justify-content: center;
     justify-self: end;
 
@@ -587,6 +588,26 @@ button {
         border-radius: 0em 0em 15px 15px;
     }
 
+    .sidebar-classroom .active:not(:first-child) span {
+        display: grid;
+        place-items: center;
+
+        width: 100%;
+        min-height: 3.5em;
+        padding: 0;
+
+
+        line-height: unset;
+        cursor: auto;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        background: var(--classroom-dashboard);
+        color: var(--classroom-white);
+    }
+
     .sidebar-classroom .active::before {
         content: "";
         position: absolute;
@@ -618,6 +639,12 @@ button {
         border-radius: 0px;
         height: calc(100% - 110px);
         padding-bottom: 50px;
+        margin-top: 3.2em;
+    }
+
+    #a11y-dropdown {
+        position: fixed;
+        top: 0.5em;
     }
 
 }
@@ -763,6 +790,8 @@ button {
         height: 7.5em;
     }
 }
+
+
 
 #body-table-teach .propic {
     width: 36px;
@@ -1377,7 +1406,10 @@ h3.section-done {
 
 .activity-card .activity-card-bot span {
     font-style: italic;
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 0.9em;
+    text-shadow: 1px 1px 0px var(--classroom-shadow-1);
+
 }
 
 
@@ -1424,6 +1456,13 @@ h3.section-done {
 
 
 @media (max-width: 768px) {
+
+    .activity-card .activity-card-bot span {
+        display: block;
+        font-size: 0.7em;
+        line-height: 1.2em;
+    }
+
     .activity-search {
         width: 90%;
     }
@@ -1433,6 +1472,8 @@ h3.section-done {
     }
 
 }
+
+
 
 /* ACTIVITY RESOURCES BANK */
 
@@ -1852,29 +1893,41 @@ h3.section-done {
 }
 
 .class-stats-panel #classroom-panel-table-container {
-
     overflow: auto;
-    padding: 10px;
     margin: 10px;
     max-width: 80%;
     width: 100%;
     flex-grow: 1;
 }
 
-.class-stats-panel table {
+.class-stats-panel #classroom-panel-table-container table {
     border-spacing: 5px;
     border-collapse: separate;
-
+    table-layout: fixed;
 }
 
-.table-title {
+.class-stats-panel table thead th {
+    position: sticky;
+    top: 5px;
+    z-index: 10;
+    background-color: var(--classroom-background);
+    box-shadow: 0 -5px 0 var(--classroom-background);
+}
+
+.class-stats-panel table tr th:first-child {
+    position: sticky;
+    left: 5px;
+    z-index: 20;
+}
+
+.class-stats-panel #classroom-panel-table-container .table-title {
     font-size: 2em;
     font-weight: 800;
     text-align: center;
+    z-index: 25;
 }
 
-
-.class-stats-panel th {
+.class-stats-panel #classroom-panel-table-container #header-table-teach th:not(.user-cell-container) {
     /*width: 7em;*/
     text-transform: uppercase;
     font-size: 0.9em;
@@ -1883,26 +1936,33 @@ h3.section-done {
 
 }
 
-.class-stats-panel th.add-activity-th {
-    text-align: center;
+.class-stats-panel .user-cell-container {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
 
-}
-
-.class-stats-panel .username {
-    border: 1px solid var(--classroom-cell);
     padding: 0.7em;
-    width: 11em;
-    border-radius: 10px;
-    /* margin: 0.25em 1em; */
-    color: var(--classroom-text-0);
+    margin: 0;
     width: 243px;
-    margin-right: 0px;
+
+    border: 1px solid var(--classroom-cell);
+    border-radius: 10px;
+    color: var(--classroom-text-0);
+    background: var(--classroom-background);
+    box-shadow: -5px 0px 0px 7px var(--classroom-background);
+    font-weight: 400;
+
 }
 
+.class-stats-panel .user-cell-container .user-cell-username {
+    margin-left: 0.5em;
+}
 
+.class-stats-panel .user-cell-container i {
+    font-size: 1.5em;
+}
 
-.class-stats-panel .username .dropdown {
-
+.class-stats-panel .user-cell-container .dropdown {
     color: var(--classroom-text-2);
 }
 
@@ -1934,13 +1994,7 @@ h3.section-done {
     text-align: center;
 }
 
-.line_height34 {
-    line-height: 34px;
-}
 
-i.line_height34 {
-    font-size: 1.5em;
-}
 
 .bilan-cell {
     min-height: 30px;
