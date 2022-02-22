@@ -1,37 +1,48 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php';
+
+require_once __DIR__ . "/findrelativeroute.php";
+
+$rootPath = findRelativeRoute();
+
+require_once $rootPath . 'vendor/autoload.php';
+require_once $rootPath . 'bootstrap.php';
 
 use Firebase\JWT\JWK;
-
 use Firebase\JWT\JWT;
 use Lti\Controller\ControllerLtiScore;
 use Lti\Entity\LtiScore;
 use User\Entity\User;
 use Classroom\Entity\ActivityLinkUser;
+use Classroom\Entity\LtiTool;
+use phpseclib\Crypt\RSA;
 
-include 'tools-credentials.php';
+$headers = apache_request_headers();
+$jwtToken = explode("Bearer ", $headers['Authorization'])[1];
 
-  $headers = apache_request_headers();
-  $jwtToken = explode("Bearer ", $headers['Authorization'])[1];
 
   $decodedToken = json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $jwtToken)[1]))));
   
-  $ltiIssuer = $decodedToken->iss;
+  $ltiIssuer = $decodedToken->sub;
+
+  $ltiTool = $entityManager->getRepository(LtiTool::class)->findOneByClientId($ltiIssuer);
 
   try {
+    // TODO: IT SHOULD BE BETTER TO GENERATE THE PUBLIC KEY HERE INSTEAD OF GETTING IT FROM THE JWKS ENDPOINT
+    $jwks = json_decode(file_get_contents("https://{$_SERVER['HTTP_HOST']}/classroom/lti/certs.php"), true);
+
     JWT::$leeway = 60; // $leeway in seconds
+
     $validatedToken = JWT::decode(
       $jwtToken,
-      file_get_contents(__DIR__ . "/keys/public.key"), 
-      array('RS256')
+      JWK::parseKeySet($jwks), 
+      array('RS256'),
+      $ltiTool->getKid()
     );
-
   } catch (\Exception $e) {
     echo json_encode(['Error:' => $e->getMessage()]);
     exit;
   }
-
+ 
 // Read the input stream
 $body = file_get_contents("php://input");
 // Decode the JSON object
@@ -52,19 +63,8 @@ try {
   $activityLinkUser->setUrl($comment);
 
   if($gradingProgress == "FullyGraded") {
-    $opensteamScore = 0;
-    // if score has been recieved from the tool provider (cabri)
-    // then convert cabri score (0-100) into opensteam score (0-3)
-    if($scoreGiven<0.5)
-      $opensteamScore = 0;
-    else if($scoreGiven<0.6)
-      $opensteamScore = 1;
-    else if($scoreGiven<0.8)
-      $opensteamScore = 2;
-    else if($scoreGiven<=1)
-      $opensteamScore = 3;
-
-    $activityLinkUser->setNote((int) $scoreGiven);
+    $convertedScore = 3 / $scoreMaximum * $scoreGiven;
+    $activityLinkUser->setNote((int) $convertedScore);
     $activityLinkUser->setCorrection(2);
   } 
   else {
@@ -72,7 +72,6 @@ try {
     $activityLinkUser->setCorrection(1);
   }
 
-  $entityManager->persist($activityLinkUser);
   $entityManager->flush();
 
 } catch(Exception $e) {

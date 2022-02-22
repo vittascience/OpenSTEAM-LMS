@@ -205,6 +205,9 @@ function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = fal
             history: id,
             navbar: idNav
         });
+        if ($_GET('panel') == 'classroom-dashboard-activity-panel') {
+            document.querySelector('#activity-content').innerHTML = '';
+        }
         let state = {};
         var title = '';
         let endUrl = idNav;
@@ -3267,8 +3270,10 @@ function hideAllActivities() {
 function launchCustomActivity(activityType, isUpdate = false) {
     const contentForwardButtonElt = document.getElementById('content-forward-button');
     contentForwardButtonElt.style.display = 'inline-block';
-    // Reset and hide all activities input and fields
-    resetActivityInputs(activityType);
+    if(!isUpdate) {
+        // Reset and hide all activities input and fields
+        resetActivityInputs(activityType);
+    }
     hideAllActivities();
 
     Main.getClassroomManager()._createActivity.id = activityType;

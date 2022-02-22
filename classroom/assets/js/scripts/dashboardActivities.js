@@ -471,11 +471,16 @@ function loadActivityForStudents(isDoable) {
         }
     }
 
-    injectContentForActivity(content, Activity.correction, Activity.activity.type, correction);
+    injectContentForActivity(content, Activity.correction, Activity.activity.type, correction, isDoable);
     isTheActivityIsDoable(isDoable);
 }
 
 function loadActivityForTeacher() {
+    if (Activity.correction == null) {
+        var isDoable = true
+    } else {
+        var isDoable = false
+    }
     // Reset the inputs
     resetInputsForActivity()
 
@@ -505,12 +510,14 @@ function loadActivityForTeacher() {
         correction += '<button onclick="giveNote()" class="btn c-btn-primary btn-sm text-wrap w-100"><span class="text-wrap">' + i18next.t('classroom.activities.sendResults') + '<i class="fas fa-chevron-right"> </i></span></button>'
     }
 
-    injectContentForActivity(content, Activity.correction, Activity.activity.type, correction);
+    injectContentForActivity(content, Activity.correction, Activity.activity.type, correction, isDoable);
     isTheActivityIsDoable(false);
 }
 
-function injectContentForActivity(content, correction, type = null, correction_div)
+function injectContentForActivity(content, correction, type = null, correction_div, isDoable)
 {
+    const activityValidationButtonElt = document.getElementById('activity-validate');
+    activityValidationButtonElt.style.display = 'block';
     // Inject the content to the target div
     if (type == null) {
         $('#activity-content').html(bbcodeToHtml(content))
@@ -537,7 +544,15 @@ function injectContentForActivity(content, correction, type = null, correction_d
             manageDisplayCustomAndReading(correction ,content, correction_div);
             break;
         default:
-
+            if (isDoable) {
+                activityValidationButtonElt.style.display = 'none';
+                launchLtiResource(Activity.id, Activity.activity.type, content, true);
+            } else {
+                document.querySelector('#activity-content').innerHTML = `
+                <iframe src="${Activity.url}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`;
+                document.querySelector('#activity-correction-container').style.display = 'block';
+                document.querySelector('#activity-correction').innerHTML = correction_div;
+            }
             break;
     }
 }
@@ -604,13 +619,18 @@ function resetInputsForActivity() {
 
 }
 
-function isTheActivityIsDoable(doable) {
+function isTheActivityIsDoable(doable, hideValidationButton = false) {
     if (doable == false) {
         $('#activity-validate').hide();
         $('#activity-save').hide();
     } else {
         let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)
-        $('#activity-validate').show()
+        if (!hideValidationButton) {
+            if (!Activity.activity.isLti) {
+                $('#activity-validate').show();
+            }
+        }
+        
         if (interface != undefined && interface != null) {
             $('#activity-save').show()
         }

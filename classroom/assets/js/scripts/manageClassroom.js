@@ -6,15 +6,14 @@ window.addEventListener(
         const msg = event.data.type ? event.data.type : JSON.parse(event.data);
         switch(msg.type) {
         case 'end-lti-score':
-            console.log('ENDING LTI SCORE');
-            navigatePanel('classroom-dashboard-activities-panel','dashboard-activities', '', '', true);
-            location.reload();
+            navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities', '', '', true);
+            // Clearing the LTI content div
+            document.querySelector('#lti-loader-container').innerHTML = '';
             break;
         case 'end-lti-deeplink':
-            console.log('ENDING LTI DEEPLINK');
-            console.log("msg : ", msg.content);
             Main.getClassroomManager()._createActivity.content.description = msg.content;
             contentForward();
+            document.querySelector('#activity-content').innerHTML = '';
             break;
         default:
             console.log('Other Action !');
