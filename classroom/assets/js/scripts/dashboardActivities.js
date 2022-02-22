@@ -395,33 +395,6 @@ function statusActivity(activity, state = true) {
 
 }
 
-/**
- * @ToBeRemoved
- * Last check October 2021
- */
-// function displayStudentsActivities(link, activitiesList) {
-//     Main.getClassroomManager().getUsersInClassroom(link).then(function (students) {
-//         students.forEach(student => {
-
-//             activitiesList.forEach(activity => {
-//                 if (searchActivity(activity.id, students)) {
-//                     switch (statusActivityForStudent(activity.id, student)) {
-//                         case "success":
-//                             break;
-//                         case "failed":
-//                             break;
-//                         case "in process":
-//                             break;
-//                         default:
-//                     }
-
-//                 }
-//             });
-
-//         })
-//     })
-// }
-
 function loadActivityForStudents(isDoable) {
     // Reset the inputs
     resetInputsForActivity()

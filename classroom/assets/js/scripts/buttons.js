@@ -623,6 +623,11 @@ function studentActivitiesDisplay() {
 
     let activities = Main.getClassroomManager()._myActivities;
     let index = 1;
+    document.querySelector('#new-activities-list').innerHTML = '';
+    document.querySelector('#current-activities-list').innerHTML = '';
+    document.querySelector('#saved-activities-list').innerHTML = '';
+    document.querySelector('#done-activities-list').innerHTML = '';
+
     activities.newActivities.forEach(element => {
         if (element.dateEnd) {
             var dateEnd = element.dateEnd.date
@@ -630,10 +635,11 @@ function studentActivitiesDisplay() {
             var dateEnd = "aucune"
         }
         $('#new-activities-list').append(activityItem(element, "newActivities"))
-        $('#header-table-bilan').append('<th data-toggle="tooltip" data-placement="top" title="' + element.activity.title + '"> Act.</br>n°' + index + '</th>')
-        $('#body-table-bilan').append('<td class="' + statusActivity(element) + ' classroom-clickable bilan-cell " title="' + i18next.t('classroom.activities.dateBefore') + ' ' + formatDay(dateEnd) + '"></td>')
+        $('#header-table-bilan').append(`<th data-toggle="tooltip" data-placement="top" title="${element.activity.title}"> Act.</br>n°${index}</th>`)
+        $('#body-table-bilan').append(`<td class="${statusActivity(element)} classroom-clickable bilan-cell " title="${i18next.t('classroom.activities.dateBefore')} ${formatDay(dateEnd)}"></td>`)
         index++
     });
+
     activities.savedActivities.forEach(element => {
         if (element.dateEnd) {
             var dateEnd = element.dateEnd.date
