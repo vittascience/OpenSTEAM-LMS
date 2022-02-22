@@ -629,44 +629,21 @@ function studentActivitiesDisplay() {
     document.querySelector('#done-activities-list').innerHTML = '';
 
     activities.newActivities.forEach(element => {
-        if (element.dateEnd) {
-            var dateEnd = element.dateEnd.date
-        } else {
-            var dateEnd = "aucune"
-        }
         $('#new-activities-list').append(activityItem(element, "newActivities"))
-        $('#header-table-bilan').append(`<th data-toggle="tooltip" data-placement="top" title="${element.activity.title}"> Act.</br>n°${index}</th>`)
-        $('#body-table-bilan').append(`<td class="${statusActivity(element)} classroom-clickable bilan-cell " title="${i18next.t('classroom.activities.dateBefore')} ${formatDay(dateEnd)}"></td>`)
         index++
     });
 
     activities.savedActivities.forEach(element => {
-        if (element.dateEnd) {
-            var dateEnd = element.dateEnd.date
-        } else {
-            var dateEnd = "aucune"
-        }
         $('#saved-activities-list').append(activityItem(element, "savedActivities"))
-        $('#header-table-bilan').append('<th data-toggle="tooltip" data-placement="top" title="' + element.activity.title + '"> Act.</br>n°' + index + '</th>')
-        $('#body-table-bilan').append('<td class="' + statusActivity(element) + ' classroom-clickable bilan-cell " title="' + i18next.t('classroom.activities.dateBefore') + ' ' + formatDay(dateEnd) + '"></td>')
         index++
     });
 
     activities.currentActivities.forEach(element => {
-        if (element.dateEnd) {
-            var dateEnd = element.dateEnd.date
-        } else {
-            var dateEnd = "aucune"
-        }
         $('#current-activities-list').append(activityItem(element, "currentActivities"))
-        $('#header-table-bilan').append('<th data-toggle="tooltip" data-placement="top" title="' + element.activity.title + '"> Act.</br>n°' + index + '</th>')
-        $('#body-table-bilan').append('<td class="' + statusActivity(element) + ' classroom-clickable bilan-cell" title="' + i18next.t('classroom.activities.dateBefore') + ' ' + formatDay(dateEnd) + '"></td>')
         index++
     });
     activities.doneActivities.forEach(element => {
         $('#done-activities-list').append(activityItem(element, "doneActivities"))
-        $('#header-table-bilan').append('<th data-toggle="tooltip" data-placement="top" title="' + element.activity.title + '"> Act.</br>n°' + index + '</th>')
-        $('#body-table-bilan').append('<td class="' + statusActivity(element) + ' bilan-cell classroom-clickable" ></td>')
         index++
     });
     
