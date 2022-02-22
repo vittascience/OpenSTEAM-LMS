@@ -1342,7 +1342,16 @@
 			"usersLimitation": "Limitation d'apprenants par utilisateur",
 			"groupsLimitation": "Limitations de groupe",
 			"activitiesLimitation": "Limitations d'activité",
-			"defaultRestrictions": "Restrictions par défaut"
+			"defaultRestrictions": "Restrictions par défaut",
+			"ltiApps": "Applications LTI",
+			"clientId" : "Id client <span class=\"c-text-red\">*</span>",
+			"deploymentId" : "Id déploiement <span class=\"c-text-red\">*</span>",
+			"toolUrl" : "Url de l'outil <span class=\"c-text-red\">*</span>",
+			"publicKeySet" : "Clé publique <span class=\"c-text-red\">*</span>",
+			"loginUrl" : "Url de login <span class=\"c-text-red\">*</span>",
+			"redirectionUrl" : "Url de redirection <span class=\"c-text-red\">*</span>",
+			"deepLinkUrl" : "Url de deep link <span class=\"c-text-red\">*</span>",
+			"privateKey" : "Clé privée <span class=\"c-text-red\">*</span>"
 		},
 		"activitiesRestrictions": {
 			"updateAll": "Modifier les restrictions",

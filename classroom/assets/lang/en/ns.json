@@ -1028,7 +1028,16 @@
 			"usersLimitation": "Users students limitation",
 			"groupsLimitation": "Groups limitations",
 			"activitiesLimitation": "Activities limitations",
-			"defaultRestrictions": "Default restrictions"
+			"defaultRestrictions": "Default restrictions",
+			"ltiApps": "LTI apps",
+			"clientId" : "Client Id <span class=\"c-text-red\">*</span>",
+			"deploymentId" : "Deployment Id <span class=\"c-text-red\">*</span>",
+			"toolUrl" : "Tool Url <span class=\"c-text-red\">*</span>",
+			"publicKeySet" : "Public key set <span class=\"c-text-red\">*</span>",
+			"loginUrl" : "Login Url <span class=\"c-text-red\">*</span>",
+			"redirectionUrl" : "Redirection url <span class=\"c-text-red\">*</span>",
+			"deepLinkUrl" : "Deeplink url <span class=\"c-text-red\">*</span>",
+			"privateKey" : "Private key <span class=\"c-text-red\">*</span>"
 		},
 		"activitiesRestrictions": {
 			"updateAll": "Update restrictions",

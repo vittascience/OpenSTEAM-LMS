@@ -2640,6 +2640,30 @@ function resetInputApplications() {
     $('#validation_delete_application').val("");
     $('#app_update_activity_restriction_value').val("");
     $('#app_update_activity_restriction_type').val("");
+
+    $('#isLti').prop('checked', false);
+    $('#update_isLti').prop('checked', false);
+
+    $('#inputs-lit').hide();
+    $('#update_inputs-lti').hide();
+
+    $('#clientId').val("");
+    $('#deploymentId').val("");
+    $('#toolUrl').val("");
+    $('#publicKeySet').val("");
+    $('#loginUrl').val("");
+    $('#redirectionUrl').val("");
+    $('#deepLinkUrl').val("");
+    $('#privateKey').val("");
+
+    $('#update_clientId').val("");
+    $('#update_deploymentId').val("");
+    $('#update_toolUrl').val("");
+    $('#update_publicKeySet').val("");
+    $('#update_loginUrl').val("");
+    $('#update_redirectionUrl').val("");
+    $('#update_deepLinkUrl').val("");
+    $('#update_privateKey').val("");
 }
 
 function getAndShowApps() {
@@ -2674,6 +2698,84 @@ function createApp() {
     openModalInState('#create-app-manager');
 }
 
+
+$('body').on('change', '#isLti', function () {
+    if ($(this).is(":checked")) {
+        $('#inputs-lti').show();
+    } else {
+        $('#inputs-lti').hide();
+    }
+})
+
+$('body').on('change', '#update_isLti', function () {
+    if ($(this).is(":checked")) {
+        $('#update_inputs-lti').show();
+    } else {
+        $('#update_inputs-lti').hide();
+    }
+})
+
+// Return false if the input is empty
+function checkLtiFields(type) {
+    if (type == 'create') {
+        if ($('#isLti').is(":checked")) {
+            if (
+                $('#clientId').val() == "" || 
+                $('#deploymentId').val() == "" || 
+                $('#toolUrl').val() == "" || 
+                $('#publicKeySet').val() == "" || 
+                $('#loginUrl').val() == "" || 
+                $('#redirectionUrl').val() == "" || 
+                $('#deepLinkUrl').val() == "" || 
+                $('#privateKey').val() == "") 
+            {
+                return false;
+            } else {
+                let lti = {
+                    isLti : true,
+                    clientId: $('#clientId').val(),
+                    deploymentId: $('#deploymentId').val(),
+                    toolUrl: $('#toolUrl').val(),
+                    publicKeySet: $('#publicKeySet').val(),
+                    loginUrl: $('#loginUrl').val(),
+                    redirectionUrl: $('#redirectionUrl').val(),
+                    deepLinkUrl: $('#deepLinkUrl').val(),
+                    privateKey: $('#privateKey').val()
+                }
+                return lti;
+            }
+        } 
+    } else if (type == 'update') {
+        if ($('#update_isLti').is(":checked")) {
+            if (
+                $('#update_clientId').val() == "" || 
+                $('#update_deploymentId').val() == "" || 
+                $('#update_toolUrl').val() == "" || 
+                $('#update_publicKeySet').val() == "" || 
+                $('#update_loginUrl').val() == "" || 
+                $('#update_redirectionUrl').val() == "" || 
+                $('#update_deepLinkUrl').val() == "" || 
+                $('#update_privateKey').val() == ""
+            ) {
+                return false;
+            } else {
+                let lti = {
+                    isLti : true,
+                    clientId: $('#update_clientId').val(),
+                    deploymentId: $('#update_deploymentId').val(),
+                    toolUrl: $('#update_toolUrl').val(),
+                    publicKeySet: $('#update_publicKeySet').val(),
+                    loginUrl: $('#update_loginUrl').val(),
+                    redirectionUrl: $('#update_redirectionUrl').val(),
+                    deepLinkUrl: $('#update_deepLinkUrl').val(),
+                    privateKey: $('#update_privateKey').val()
+                }
+                return lti;
+            }
+        }
+    }
+}
+
 function updateApp(app_id) {
     resetInputApplications();
     mainManager.getmanagerManager().getApplicationById(app_id).then((response) => {
@@ -2685,6 +2787,19 @@ function updateApp(app_id) {
         $('#app_update_description').val(response.description);
         $('#app_update_image').val(response.image);
         $('#app_update_id').val(response.id);
+
+        if (response.hasOwnProperty('lti')) {
+            $('#update_isLti').prop('checked', true);
+            $('#update_inputs-lti').show();
+            $('#update_clientId').val(response.lti.clientId);
+            $('#update_deploymentId').val(response.lti.deploymentId);
+            $('#update_toolUrl').val(response.lti.toolUrl);
+            $('#update_publicKeySet').val(response.lti.publicKeySet);
+            $('#update_loginUrl').val(response.lti.loginUrl);
+            $('#update_redirectionUrl').val(response.lti.redirectionUrl);
+            $('#update_deepLinkUrl').val(response.lti.deepLinkUrl);
+            $('#update_privateKey').val(response.lti.privateKey);
+        }
         openModalInState('#update-app-manager');
     })
 }
@@ -2696,7 +2811,6 @@ function deleteApp(app_id, app_name) {
 }
 
 function persistUpdateApp() {
-    $('#update-app-manager').hide();
     let $application_id = $('#app_update_id').val(),
         $application_name = $('#app_update_name').val(),
         $application_description = $('#app_update_description').val(),
@@ -2704,23 +2818,27 @@ function persistUpdateApp() {
         $application_restrictions_type = $('#app_update_activity_restriction_type').val(),
         $application_restrictions_value = $('#app_update_activity_restriction_value').val();
 
-
-    mainManager.getmanagerManager().updateOneActivityRestriction($application_id, $application_restrictions_type, $application_restrictions_value);
-
     //console.log($application_restrictions_type , $application_restrictions_value);
-
-    mainManager.getmanagerManager().updateApplication(
-        $application_id,
-        $application_name,
-        $application_description,
-        $application_image).then((response) => {
-        if (response.message == "success") {
-            displayNotification('#notif-div', "manager.apps.updateSuccess", "success");
-            closeModalAndCleanInput(true)
-        } else {
-            displayNotification('#notif-div', "manager.account.missingData", "error");
-        }
-    })
+    if (!checkLtiFields('update') && $('#update_isLti').is(":checked")) {
+        displayNotification('#notif-div', "manager.account.missingData", "error");
+    } else {
+        mainManager.getmanagerManager().updateOneActivityRestriction($application_id, $application_restrictions_type, $application_restrictions_value);
+        let lti = checkLtiFields('update') ? checkLtiFields('update') : { isLti : false };
+        mainManager.getmanagerManager().updateApplication(
+            $application_id,
+            $application_name,
+            $application_description,
+            $application_image,
+            lti).then((response) => {
+            if (response.message == "success") {
+                displayNotification('#notif-div', "manager.apps.updateSuccess", "success");
+                //$('#update-app-manager').hide();
+                closeModalAndCleanInput(true);
+            } else {
+                displayNotification('#notif-div', "manager.account.missingData", "error");
+            }
+        })
+    }
 }
 
 
@@ -2750,18 +2868,22 @@ function persistCreateApp() {
         $application_restrictions_type = $('#app_create_activity_restriction_type').val(),
         $application_restrictions_value = $('#app_create_activity_restriction_value').val();
 
-    mainManager.getmanagerManager().createApplication($application_name, $application_description, $application_image).then((response) => {
-        if (response.message == "success") {
-            displayNotification('#notif-div', "manager.apps.createSuccess", "success");
-            closeModalAndCleanInput(true)
-            mainManager.getmanagerManager().updateOneActivityRestriction(response.application_id, $application_restrictions_type, $application_restrictions_value);
-        } else {
-            displayNotification('#notif-div', "manager.account.missingData", "error");
-        }
-        updateStoredApps();
-    })
-
     
+    if (!checkLtiFields("create") && $('#isLti').is(":checked")) {
+        displayNotification('#notif-div', "manager.account.missingData", "error");
+    } else {
+        let lti = checkLtiFields("create") ? checkLtiFields("create") : { isLti : false };
+        mainManager.getmanagerManager().createApplication($application_name, $application_description, $application_image, lti).then((response) => {
+            if (response.message == "success") {
+                displayNotification('#notif-div', "manager.apps.createSuccess", "success");
+                closeModalAndCleanInput(true)
+                mainManager.getmanagerManager().updateOneActivityRestriction(response.application_id, $application_restrictions_type, $application_restrictions_value);
+            } else {
+                displayNotification('#notif-div', "manager.account.missingData", "error");
+            }
+            updateStoredApps();
+        })
+    }   
 }
 
 function updateStoredApps() {

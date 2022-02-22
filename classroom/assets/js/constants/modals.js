@@ -820,6 +820,35 @@ const classroomModals = {
                                     <input type="number" class="form-control" id="app_update_activity_restriction_value">
                                 </div>
                             </div>
+
+                            <div class="c-checkbox">
+                                <input type="checkbox" class="form-check-input" id="update_isLti">
+                                <label for="update_isLti" class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.apps.ltiApps">Lti apps ?</label>
+                            </div>
+                            <div class="form-row mt-1 c-secondary-form">
+                                <div class="col-md">
+                                    <div id="update_inputs-lti" style="display:none;">
+                                        <label for="update_clientId" data-i18n="[html]manager.apps.clientId">Client Id</label>
+                                        <input type="text" class="form-control mb-2" id="update_clientId">
+                                        <label for="update_deploymentId" data-i18n="[html]manager.apps.deploymentId">Deployment Id</label>
+                                        <input type="text" class="form-control mb-2" id="update_deploymentId">
+                                        <label for="update_toolUrl" data-i18n="[html]manager.apps.toolUrl">Tool Url</label>
+                                        <input type="text" class="form-control mb-2" id="update_toolUrl">
+                                        <label for="update_publicKeySet" data-i18n="[html]manager.apps.publicKeySet">Public Key Set</label>
+                                        <input type="text" class="form-control mb-2" id="update_publicKeySet">
+                                        <label for="update_loginUrl" data-i18n="[html]manager.apps.loginUrl">Login Url</label>
+                                        <input type="text" class="form-control mb-2" id="update_loginUrl">
+                                        <label for="update_redirectionUrl" data-i18n="[html]manager.apps.redirectionUrl">Redirection Url</label>
+                                        <input type="text" class="form-control mb-2" id="update_redirectionUrl">
+                                        <label for="update_deepLinkUrl" data-i18n="[html]manager.apps.deepLinkUrl">DeepLink Url</label>
+                                        <input type="text" class="form-control mb-2" id="update_deepLinkUrl">
+                                        <label for="update_privateKey" data-i18n="[html]manager.apps.privateKey">Private Key</label>
+                                        <input type="text" class="form-control mb-2" id="update_privateKey">
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <button class="btn c-btn-secondary my-3 btn" onclick="persistUpdateApp()" data-i18n="manager.buttons.update">Modifier</button>
                             <button class="btn c-btn-light my-3 btn" onclick="closeModalAndCleanInput()" data-i18n="manager.buttons.cancel">Annuler</button>
                         </div>
@@ -862,6 +891,33 @@ const classroomModals = {
                                 <div class="col-md">
                                     <label for="app_create_activity_restriction_value" data-i18n="manager.activitiesRestrictions.max">Nombre</label>
                                     <input type="number" class="form-control" id="app_create_activity_restriction_value">
+                                </div>
+                            </div>
+
+                            <div class="c-checkbox">
+                                <input type="checkbox" class="form-check-input" id="isLti">
+                                <label for="isLti" class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.apps.ltiApps">Lti apps ?</label>
+                            </div>
+                            <div class="form-row mt-1 c-secondary-form">
+                                <div class="col-md">
+                                    <div id="inputs-lti" style="display:none;">
+                                        <label for="clientId" data-i18n="[html]manager.apps.clientId">Client Id</label>
+                                        <input type="text" class="form-control mb-2" id="clientId">
+                                        <label for="deploymentId" data-i18n="[html]manager.apps.deploymentId">Deployment Id</label>
+                                        <input type="text" class="form-control mb-2" id="deploymentId">
+                                        <label for="toolUrl" data-i18n="[html]manager.apps.toolUrl">Tool Url</label>
+                                        <input type="text" class="form-control mb-2" id="toolUrl">
+                                        <label for="publicKeySet" data-i18n="[html]manager.apps.publicKeySet">Public Key Set</label>
+                                        <input type="text" class="form-control mb-2" id="publicKeySet">
+                                        <label for="loginUrl" data-i18n="[html]manager.apps.loginUrl">Login Url</label>
+                                        <input type="text" class="form-control mb-2" id="loginUrl">
+                                        <label for="redirectionUrl" data-i18n="[html]manager.apps.redirectionUrl">Redirection Url</label>
+                                        <input type="text" class="form-control mb-2" id="redirectionUrl">
+                                        <label for="deepLinkUrl" data-i18n="[html]manager.apps.deepLinkUrl">DeepLink Url</label>
+                                        <input type="text" class="form-control mb-2" id="deepLinkUrl">
+                                        <label for="privateKey" data-i18n="[html]manager.apps.privateKey">Private Key</label>
+                                        <input type="text" class="form-control mb-2" id="privateKey">  
+                                    </div>
                                 </div>
                             </div>
 
