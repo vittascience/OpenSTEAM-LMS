@@ -520,17 +520,7 @@ function injectContentForActivity(content, correction, type = null, correction_d
             manageDisplayCustomAndReading(correction ,content, correction_div);
             break;
         default:
-            if (isDoable) {
-                activityValidationButtonElt.style.display = 'none';
-                launchLtiResource(Activity.id, Activity.activity.type, content, true);
-            } else {
-                document.querySelector('#activity-content').innerHTML = `
-                <iframe src="${Activity.url}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`;
-                if (correction != 1) {
-                    document.querySelector('#activity-correction-container').style.display = 'block';
-                    document.querySelector('#activity-correction').innerHTML = correction_div;
-                }
-            }
+            manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt);
             break;
     }
 }
@@ -574,6 +564,25 @@ function manageDisplayFree(correction, content, correction_div) {
             $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
         } else {
             $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
+        }
+    }
+}
+
+function manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt) {
+    if (isDoable) {
+        activityValidationButtonElt.style.display = 'none';
+        launchLtiResource(Activity.id, Activity.activity.type, content, true);
+    } else {
+        document.querySelector('#activity-content').innerHTML = `
+        <iframe src="${Activity.url}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`;
+        if (!Activity.evaluation) {
+            document.querySelector('#activity-content').innerHTML += `
+            <button onclick="launchLtiResource(${Activity.id}, '${Activity.activity.type}', '${content}', true, '${Activity.url}')">Modifier le travail</button>`;
+        }
+        
+        if (correction != 1) {
+            document.querySelector('#activity-correction-container').style.display = 'block';
+            document.querySelector('#activity-correction').innerHTML = correction_div;
         }
     }
 }

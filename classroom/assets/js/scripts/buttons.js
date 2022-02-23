@@ -3535,7 +3535,7 @@ function launchLtiDeepLinkCreate(type, isUpdate) {
     document.forms["contentitem_request_form"].submit();
 }
 
-function launchLtiResource(activityId, activityType, activityContent, isStudentLaunch = false) {
+function launchLtiResource(activityId, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false) {
     document.querySelector('#activity-content').innerHTML = 
         `<input id="activity-score" type="text" hidden/>
         <form name="resource_launch_form" action="${_PATH}lti/ltilaunch.php" method="post" target="lti_student_iframe">
@@ -3543,6 +3543,7 @@ function launchLtiResource(activityId, activityType, activityContent, isStudentL
             <input type="hidden" id="target_link_uri" name="target_link_uri" value="${activityContent.replace('&amp;', '&')}">
             <input type="hidden" id="student_launch" name="student_launch" value="${isStudentLaunch}">
             <input type="hidden" id="activities_link_user" name="activities_link_user" value="${activityId}">
+            <input type="hidden" id="student_resource_url" name="student_resource_url" value="${studentResourceUrl}">
         </form>
         <iframe id="lti_student_iframe" src="about:blank" name="lti_student_iframe" title="Tool Content" width="100%" style="
         height: 60vh;" allowfullscreen></iframe>
