@@ -508,7 +508,7 @@ function injectContentForActivity(content, correction, type = null, correction_d
             
             break;
         case 'fillIn':
-            
+            manageDispleyFillIn(correction, content, correction_div);
             break;
         case 'reading':
             manageDisplayCustomAndReading(correction ,content, correction_div);
@@ -541,10 +541,16 @@ function manageDisplayCustomAndReading(correction, content, correction_div) {
         $('#activity-correction').html(correction_div);
         $('#activity-correction-container').show(); 
     }
+
+    // todo
+    if (!Activity.evaluation && correction < 2) {
+        $('#activity-validate').show();
+        $('#activity-save').show();
+    }
+
 }
 
 function manageDisplayFree(correction, content, correction_div) {
-
 
     setTextArea();
     $('#activity-title').html(Activity.activity.title);
@@ -566,6 +572,13 @@ function manageDisplayFree(correction, content, correction_div) {
             $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
         }
     }
+    
+    // todo
+    if (!Activity.evaluation && correction < 2) {
+        $('#activity-validate').show();
+        $('#activity-save').show();
+    }
+
 }
 
 function manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt) {
@@ -585,6 +598,11 @@ function manageDisplayLti(correction, content, correction_div, isDoable, activit
             document.querySelector('#activity-correction').innerHTML = correction_div;
         }
     }
+}
+
+function manageDispleyFillIn(correction, content, correction_div) {
+    setTextArea();
+    
 }
 
 

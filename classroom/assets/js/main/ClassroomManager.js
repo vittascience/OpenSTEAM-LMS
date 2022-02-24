@@ -1405,7 +1405,8 @@ class ClassroomManager {
             content: {
                 enonce: '',
                 description: '',
-                indice: ''
+                indice: '',
+                hint: ''
             }, 
             type: '', 
             solution: '',

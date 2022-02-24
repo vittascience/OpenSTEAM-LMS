@@ -3346,6 +3346,15 @@ function contentForward() {
         Main.getClassroomManager()._createActivity.autocorrect = $('#free_autocorrect').is(":checked");
     } else if (Main.getClassroomManager()._createActivity.id == 'reading'){
         Main.getClassroomManager()._createActivity.content.description = $('#reading_content').bbcode();
+    } else if (Main.getClassroomManager()._createActivity.id == 'fillIn') {
+
+        Main.getClassroomManager()._createActivity.content.description = $('#fillIn_content').bbcode();
+        Main.getClassroomManager()._createActivity.content.states = $('#fillIn_states').bbcode();
+        // WiP 
+        Main.getClassroomManager()._createActivity.content.hint = $('#fillIn_hint').val();
+        Main.getClassroomManager()._createActivity.content.tolerance = $('#fillIn_tolerance').val();
+
+
     } else {
         // By default using LTI, the button doesn't do anything specific
     }
@@ -3442,10 +3451,10 @@ function freeValidateActivity() {
     Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, null, null, studentResponse).then((response) => {
         if (response) {
             $("#activity-validate").attr("disabled", false);
-            if (response.note != null) {
+            if (response.note != null && response.correction > 1) {
                 if (response.note == 3) {
                     navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities', '', '', true)
-                } else {
+                } else if (response.note == 0) {
                     navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities', '', '', true)
                 }
             } else {
@@ -3477,6 +3486,30 @@ function goBackToActivities() {
     navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
 }
 
+
+function fillInAddFIeld() {
+    let htmlContent = `<div class="form-group">
+        <label for="fillIn_states" data-i18n="classroom.activities.fillIn.states"></label>
+        <textarea class="form-control" id="fillIn_states" rows="3" data-i18n=""></textarea>
+    </div>`;
+    $('#fillIn_states').bbcode();
+    $('#fillIn_content').after(htmlContent);
+    $('#fillIn_states').bbcode();
+    $('#fillIn_states').localize();
+}
+
+let AllFields = [];
+$('#fillInTestAddInputs').click(() => {
+    let num = AllFields.length + 1;
+    let field = `<p id="fillInFIeld_${num}" style="border: solid; margin: 3px; padding: 10px;">En cliquant sur le bouton << ajouter un champs à compléter >>, un texte est ajouté avec deux caractères verticaux << | réponse | >>. Vous pouvez écrire la réponse correcte entre ces deux caractères. Les réponses alternatives sont séparées par une double barre vertical << || >></p>`;
+    AllFields.push(field);
+    $('#fillIn_content').htmlcode(AllFields.join(''));
+})
+
+$('#fillInTestRemoveInputs').click(() => {
+    AllFields.pop();
+    $('#fillIn_content').htmlcode(AllFields.join(''));
+})
 
 /* let proActivities = [{
         "name": "classroom.activities.applist.apps.reading.title",
@@ -3514,6 +3547,8 @@ function goBackToActivities() {
         "id": "free"
     }
 ]; */
+
+
 
 function launchLtiDeepLinkCreate(type, isUpdate) {
     let updateInput = '';
