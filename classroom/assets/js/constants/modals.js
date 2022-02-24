@@ -947,23 +947,11 @@ const classroomModals = {
             title: 'manager.activitiesRestrictions.appRestricted'
         },
         content: `  <div id="activity-restricted">
-                        <div class="container-fluid text-center" id="activity-restricted-content">
-                            <p class="mt-4 mb-1 font-weight-bold" data-i18n="manager.activitiesRestrictions.appRestrictedSubtitle"> </p>
-
-                            <ul class="mx-auto text-left" style="width: fit-content;">  
-                                <li class="" data-i18n="manager.activitiesRestrictions.appRestrictedUL1"> </li>
-                                <li class="" data-i18n="manager.activitiesRestrictions.appRestrictedUL2"> </li>
-                                <li class="" data-i18n="[html]manager.activitiesRestrictions.appRestrictedUL3"> </li>
-                                <li class="" data-i18n="manager.activitiesRestrictions.appRestrictedUL4"> </li>
-                                <li class="" data-i18n="manager.activitiesRestrictions.appRestrictedUL5"> </li>
-                            </ul>
-
-                            <div class="w-100 mt-3">
-                                <button class="btn c-btn-secondary btn-lg mx-0" onclick="" data-i18n="manager.activitiesRestrictions.appRestrictedButton"></button>
-                            </div>
-
+                        <div class="container-fluid" id="activity-restricted-content">
+                            <p class="mt-4 mb-1 font-weight-bold" data-i18n="manager.activitiesRestrictions.appRestrictedUL1"> </p>
+                            <p class="mt-4 mb-1" data-i18n="manager.activitiesRestrictions.appRestrictedUL2"> </p>
                             <hr>
-                            <div class="w-100">
+                            <div class="w-100 text-center">
                                 <p class="mt-4 mb-1 font-weight-bold" data-i18n="manager.activitiesRestrictions.appRestrictedSubtitle2"> </p>
                                 <p data-i18n="manager.activitiesRestrictions.appRestrictedSubtitle3"> </p>
                             </div>
@@ -979,11 +967,13 @@ const classroomModals = {
         },
         content: `  <div id="activity-restricted-gar">
                         <div class="container-fluid" id="activity-restricted-gar-content">
-                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedGarContent1" id="app-restricted-number" data-i18n-options=""> </p>
-                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedGarContent2"> </p>
+                            <p class="mt-4 mb-1 font-weight-bold" data-i18n="manager.activitiesRestrictions.appRestrictedGarContent1" id="app-restricted-number" data-i18n-options=""> </p>
+                            <p class="mt-4 mb-1" data-i18n="manager.activitiesRestrictions.appRestrictedGarContent2"> </p>
                             <hr>
-                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedSubtitle2"> </p>
-                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.appRestrictedSubtitle3"> </p>
+                            <div class="w-100 text-center">
+                                <p class="mt-4 mb-1 font-weight-bold" data-i18n="manager.activitiesRestrictions.appRestrictedSubtitle2"> </p>
+                                <p data-i18n="manager.activitiesRestrictions.appRestrictedSubtitle3"> </p>
+                            </div>
                         </div>
                     </div>`,
         footer: ``

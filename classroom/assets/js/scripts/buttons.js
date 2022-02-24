@@ -3382,7 +3382,7 @@ function titleForward() {
     if (Main.getClassroomManager()._createActivity.title == '') {
         displayNotification('#notif-div', "classroom.notif.emptyTitle", "error");
     } else {
-        let titre = Main.getClassroomManager()._createActivity.title,
+        let title = Main.getClassroomManager()._createActivity.title,
             type = Main.getClassroomManager()._createActivity.id,
             content = JSON.stringify(Main.getClassroomManager()._createActivity.content),
             solution = Main.getClassroomManager()._createActivity.solution,
@@ -3390,20 +3390,20 @@ function titleForward() {
             autocorrect = Main.getClassroomManager()._createActivity.autocorrect;
 
         if (Main.getClassroomManager()._createActivity.function == "create") {  
-            Main.getClassroomManager().createNewActivity(titre, type, content, solution, tolerance, autocorrect).then((response) => {
+            Main.getClassroomManager().createNewActivity(title, type, content, solution, tolerance, autocorrect).then((response) => {
                 if (response.success == true) {
                     Main.getClassroomManager()._lastCreatedActivity = response.id;
-                    displayNotification('#notif-div', "classroom.notif.activityCreated", "success");
+                    displayNotification('#notif-div', "classroom.notif.activityCreated", "success", `'{"activityTitle": "${title}"}'`);
                     navigatePanel('classroom-dashboard-classes-new-activity-attribution', 'dashboard-proactivities-teacher');
                 } else {
                     displayNotification('#notif-div', "manager.account.errorSending", "error");
                 }
             });
         } else if (Main.getClassroomManager()._createActivity.function == "update") {
-            Main.getClassroomManager().updateActivity(ClassroomSettings.activity, titre, type, content, solution, tolerance, autocorrect).then((response) => {
+            Main.getClassroomManager().updateActivity(ClassroomSettings.activity, title, type, content, solution, tolerance, autocorrect).then((response) => {
                 if (response.success == true) {
                     Main.getClassroomManager()._lastCreatedActivity = response.id;
-                    displayNotification('#notif-div', "classroom.notif.activityCreated", "success");
+                    displayNotification('#notif-div', "classroom.notif.activityCreated", "success", `'{"activityTitle": "${title}"}'`);
                     navigatePanel('classroom-dashboard-classes-new-activity-attribution', 'dashboard-proactivities-teacher');
                 } else {
                     displayNotification('#notif-div', "manager.account.errorSending", "error");
