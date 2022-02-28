@@ -361,9 +361,21 @@ $('#code-copy').click(function () {
     docopy(self)
 })
 
-$('body').on('click', '#add-student-dashboard-panel, .new-student-modal', function () {
-    pseudoModal.openModal('add-student-modal')
-})
+// .new-student-modal removed
+$('body').on('click', '#add-student-dashboard-panel', function () {
+    pseudoModal.openModal('add-student-modal');
+});
+
+
+document.querySelector('#update-classroom-student-button').addEventListener('click', (e) => {
+    e.preventDefault();
+    pseudoModal.openModal('update-classroom-student-modal');
+});
+
+document.querySelector('#create-classroom-student-button').addEventListener('click', (e) => {
+    e.preventDefault();
+    pseudoModal.openModal('create-classroom-student-modal');
+});
 
 //banque de ressources-->copier une activité
 window.addEventListener('storage', () => {
