@@ -1412,7 +1412,10 @@ class ClassroomManager {
             solution: '',
             tolerance: ''
         }
-        document.querySelector('#global_title').value = '';
+        const globalTitle = document.querySelector('#global_title');
+        if (globalTitle != null) {
+            document.querySelector('#global_title').value = '';
+        }
     }
 
 }
