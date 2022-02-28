@@ -1405,8 +1405,12 @@ class ClassroomManager {
             content: {
                 enonce: '',
                 description: '',
-                indice: '',
-                hint: ''
+                hint: '',
+                fillInFields: {
+                    tempData: [],
+                    answer: [],
+                    question: [],
+                }
             }, 
             type: '', 
             solution: '',
