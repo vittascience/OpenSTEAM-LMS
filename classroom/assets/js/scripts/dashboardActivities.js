@@ -604,7 +604,7 @@ function manageDispleyFillIn(correction, content, correction_div) {
     $('#activity-title').html(Activity.activity.title);
 
     console.log(content)
-    $('#activity-content').html(bbcodeToHtml(content));
+    //$('#activity-content').html(bbcodeToHtml(content));
 
 
     /* if (correction == 0 || correction == null) {
@@ -674,8 +674,12 @@ function manageContentForActivity() {
     let content = "";
     if (IsJsonString(Activity.activity.content)) {
         const contentParsed = JSON.parse(Activity.activity.content);
-        if (contentParsed.hasOwnProperty('description')) {
-            content = contentParsed.description;
+        if (Activity.activity.type != "fillIn") {
+            if (contentParsed.hasOwnProperty('description')) {
+                content = contentParsed.description;
+            }
+        } else {
+            content = contentParsed;
         }
     } else {
         content = Activity.activity.content.replace(/(\[iframe\].*?link=[a-f0-9]{13})/gm, '$1&use=classroom')
