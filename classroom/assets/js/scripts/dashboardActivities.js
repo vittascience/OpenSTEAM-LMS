@@ -506,16 +506,16 @@ function injectContentForActivity(content, correction, type = null, correction_d
             manageDisplayFree(correction, content, correction_div)
             break;
         case 'quiz':
-            
+            manageDisplayQuiz(correction, content, correction_div);
             break;
         case 'fillIn':
-            manageDispleyFillIn(correction, content, correction_div);
+            manageDisplayFillIn(correction, content, correction_div);
             break;
         case 'reading':
             manageDisplayCustomAndReading(correction ,content, correction_div);
             break;
         case 'dragAndDrop':
-            
+            manageDisplayDragAndDrop(correction, content, correction_div);
             break;
         case 'custom':
             manageDisplayCustomAndReading(correction ,content, correction_div);
@@ -599,18 +599,49 @@ function manageDisplayLti(correction, content, correction_div, isDoable, activit
     }
 }
 
-function manageDispleyFillIn(correction, content, correction_div) {
+function manageDisplayQuiz(correction, content, correction_div) {
+    //console.log(content);
     setTextArea();
+    
     $('#activity-title').html(Activity.activity.title);
+    $('#activity-content').html(bbcodeToHtml(content));
 
-    console.log(content)
-    //$('#activity-content').html(bbcodeToHtml(content));
+    if (correction == 0) {
+        $('#activity-input').wysibb(wbbOpt);
+        $('#activity-input-container').show();
+    } else if (correction > 0) {
+        $('#activity-correction-container').show(); 
+        $('#activity-correction').html(correction_div);
+    }
+    
+    // todo
+    if (!Activity.evaluation && correction < 2) {
+        $('#activity-validate').show();
+        $('#activity-save').show();
+    }
+}
 
+function manageDisplayFillIn(correction, content, correction_div) {
+    //console.log(content);
+    setTextArea();
 
-    /* if (correction == 0 || correction == null) {
+    $('#activity-title').html(Activity.activity.title);
+    // Show the content with the response to the teacher
+    if (UserManager.getUser().isRegular) {
+        $('#activity-content').html(content.fillInFields.tempData.join('<br>'));
+    }
+
+    if (correction == 0 || correction == null) {
         if (!UserManager.getUser().isRegular) {
             $('#activity-input').wysibb(wbbOpt);
-            $('#activity-input-container').show();
+            $('#activity-fill-in-container').show();
+            let studentContent = "";
+            let regex = /([﻿]+)/gi;
+            content.fillInFields.question.forEach((question, index) => {
+                let input = `<input type="text" id="Student_fillInField_${index+1}">`;
+                studentContent += `<p id="fillInField_${index+1}"> ${question.replace(regex, input)} </p>`;;
+            });
+            $('#activity-fill-in-container').html(studentContent);
         }
     } else if (correction > 0) {
         $('#activity-student-response').show();
@@ -618,18 +649,13 @@ function manageDispleyFillIn(correction, content, correction_div) {
 
         $('#activity-correction-container').show(); 
         $('#activity-correction').html(correction_div);
+
         if (UserManager.getUser().isRegular) {
             $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
         } else {
             $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
         }
     }
-    
-    // todo
-    if (!Activity.evaluation && correction < 2) {
-        $('#activity-validate').show();
-        $('#activity-save').show();
-    } */
 }
 
 
