@@ -3362,10 +3362,10 @@ function contentForward() {
 
         Main.getClassroomManager()._createActivity.content.states = $('#fillIn_states').bbcode();
         Main.getClassroomManager()._createActivity.content.tolerance = $('#fillIn_tolerance').val();
-        //Main.getClassroomManager()._createActivity.content.hint = $('#fillIn_hint').val();
+        Main.getClassroomManager()._createActivity.autocorrect = $('#fillIn_autocorrect').is(":checked");
+        Main.getClassroomManager()._createActivity.content.hint = $('#fillIn_hint').val();
         // Manage fill in fields
         parseFillInFieldsAndSaveThem();
-
 
     } else {
         // By default using LTI, the button doesn't do anything specific
@@ -3438,7 +3438,7 @@ function validateActivity() {
             
             break;
         case 'fillIn':
-            
+            fillInValidateActivity();
             break;
         case 'reading':
             defaultProcessValidateActivity();
@@ -3460,6 +3460,33 @@ function validateActivity() {
  */
 function freeValidateActivity() {
     let studentResponse = $('#activity-input').bbcode();
+    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, null, null, studentResponse).then((response) => {
+        if (response) {
+            $("#activity-validate").attr("disabled", false);
+            if (response.note != null && response.correction > 1) {
+                if (response.note == 3) {
+                    navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities', '', '', true)
+                } else if (response.note == 0) {
+                    navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities', '', '', true)
+                }
+            } else {
+                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher', '', '', true)
+            }
+        } else {
+            displayNotification('#notif-div', "classroom.notif.errorSending", "error");
+        }
+    });
+}
+
+function fillInValidateActivity() {
+    let studentResponse = "";
+    $(`input[id^="Student_fillInField_"]`).each(function() {
+        if (studentResponse != "") {
+            studentResponse += ",";
+        }
+        studentResponse += $(this).val();
+    })
+
     Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, null, null, studentResponse).then((response) => {
         if (response) {
             $("#activity-validate").attr("disabled", false);
@@ -3545,29 +3572,25 @@ $('#fillInRemoveInputs').click(() => {
 ]; */
 
 function parseFillInFieldsAndSaveThem() {
-    let fillInFields = [];
-    let lengthFill = Main.getClassroomManager()._createActivity.content.fillInFields.tempData.length;
+    let fillInFields = [],
+        lengthFill = Main.getClassroomManager()._createActivity.content.fillInFields.tempData.length;
 
+    const   regex = /\|(.*?)\|/gi,
+            regexMultipleAnswer = /([﻿]+)/gi,
+            response = [],
+            stringWithOutAnswer = [];
+        
     for (let i = 0; i < lengthFill; i++) {
         fillInFields.push($(`#fillInField_${i+1}`).text())
     }
 
-    //Main.getClassroomManager()._createActivity.content.fillInFields = fillInFields;
-
-    const   regex = /\|(.*?)\|/gi,
-            regexMultipleAnswer = /([¤]+)/gi,
-            response = [],
-            stringWithOutAnswer = [];
-
     fillInFields.forEach(field => {
         response.push(field.match(regex).map(match => match.replace(regex, "$1")));
-        stringWithOutAnswer.push(field.replace(regex, '¤').replace(regexMultipleAnswer, '[Your answer]'));
+        stringWithOutAnswer.push(field.replace(regex, '﻿').replace(regexMultipleAnswer, '﻿'));
     });
 
     Main.getClassroomManager()._createActivity.content.fillInFields.response = response;
     Main.getClassroomManager()._createActivity.content.fillInFields.question = stringWithOutAnswer;
-
-
 }
 
 
