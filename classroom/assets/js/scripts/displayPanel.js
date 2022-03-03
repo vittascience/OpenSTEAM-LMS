@@ -265,7 +265,7 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
                 if (ClassroomSettings.classroom != null) {
                     link = ClassroomSettings.classroom;
                 } else {
-                    navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher', '', '');
+                    navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher');
                     return;
                 }
             }

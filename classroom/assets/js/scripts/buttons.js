@@ -188,64 +188,57 @@ function backToClassroomFromCode() {
  * @param {boolean} skipConfirm - If set to true, the exit confirmation prompt won't be displayed
  * @param {boolean} isOnpopstate - If set to true, the current navigation won't be saved in history (dedicated to onpopstate events)
  */
-function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = false, isOnpopstate = false) {
-    let confirmExit = true;
-    if ($_GET('interface') == "newActivities" && !Activity.project && !skipConfirm) {
-        confirmExit = confirm(i18next.t("classroom.notif.saveProject"));
+function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = false) {
+    $('.classroom-navbar-button').removeClass("active");
+    $('.dashboard-block').hide();
+    $('#' + id).show();
+    $('#' + idNav).addClass("active");
+    if (id == 'resource-center-classroom') {
+        $('#classroom-dashboard-activities-panel-library-teacher').html('<iframe id="resource-center-classroom" src="/learn/?use=classroom" frameborder="0" style="height:80vh;width:80vw"></iframe>');
     }
-    if (confirmExit) {
-        $('.classroom-navbar-button').removeClass("active");
-        $('.dashboard-block').hide();
-        $('#' + id).show();
-        $('#' + idNav).addClass("active");
-        if (id == 'resource-center-classroom') {
-            $('#classroom-dashboard-activities-panel-library-teacher').html('<iframe id="resource-center-classroom" src="/learn/?use=classroom" frameborder="0" style="height:80vh;width:80vw"></iframe>');
-        }
-        ClassroomSettings.lastPage.unshift({
-            history: id,
-            navbar: idNav
-        });
-        if ($_GET('panel') == 'classroom-dashboard-activity-panel') {
-            document.querySelector('#activity-content').innerHTML = '';
-        }
-        let state = {};
-        var title = '';
-        let endUrl = idNav;
-        if (option != "") {
-            endUrl += '&option=' + option;
-        }
-        if (id == 'classroom-dashboard-ide-panel' || id == 'classroom-dashboard-activity-panel') {
-            endUrl += '&interface=' + interface;
-        }
-        let link = window.location.origin + window.location.pathname + "?panel=" + id + "&nav=" + endUrl;
-        if (!isOnpopstate) {
-            history.pushState(state, title, link);
-        }
-        let formateId = id.replace(/\-/g, '_');
-        if (displayPanel[formateId]) {
-            displayPanel[formateId](option);
-        }
-        // Breadcrumb management
-        let breadcrumbElt = document.getElementById('breadcrumb');
-        let innerBreadCrumbHtml = '';
-        let currentBreadcrumbStructure = findCurrentPanelInTreeStructure(id, ClassroomSettings.treeStructure);
-        for (let i = 0; i < currentBreadcrumbStructure.length - 1; i++) {
-            // Define the last element of the breadcrumb
-            if (i == currentBreadcrumbStructure.length - 2) {
-                innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('${currentBreadcrumbStructure[i]}', '${idNav}')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
-                // Define all the elements of the breadcrumb except the last
-            } else {
-                innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary last" onclick="navigatePanel('${currentBreadcrumbStructure[i]}', '${idNav}')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span><i class="fas fa-chevron-right ml-2"></i></button>`;
-            }
-        }
-        breadcrumbElt.innerHTML = innerBreadCrumbHtml;
-        $('#breadcrumb').localize();
+    ClassroomSettings.lastPage.unshift({
+        history: id,
+        navbar: idNav
+    });
+    if ($_GET('panel') == 'classroom-dashboard-activity-panel') {
+        document.querySelector('#activity-content').innerHTML = '';
     }
+    let state = {};
+    var title = '';
+    let endUrl = idNav;
+    if (option != "") {
+        endUrl += '&option=' + option;
+    }
+    if (id == 'classroom-dashboard-ide-panel' || id == 'classroom-dashboard-activity-panel') {
+        endUrl += '&interface=' + interface;
+    }
+    let link = window.location.origin + window.location.pathname + "?panel=" + id + "&nav=" + endUrl;
+    if (!isOnpopstate) {
+        history.pushState(state, title, link);
+    }
+    let formateId = id.replace(/\-/g, '_');
+    if (displayPanel[formateId]) {
+        displayPanel[formateId](option);
+    }
+    // Breadcrumb management
+    let breadcrumbElt = document.getElementById('breadcrumb');
+    let innerBreadCrumbHtml = '';
+    let currentBreadcrumbStructure = findCurrentPanelInTreeStructure(id, ClassroomSettings.treeStructure);
+    for (let i = 0; i < currentBreadcrumbStructure.length - 1; i++) {
+        // Define the last element of the breadcrumb
+        if (i == currentBreadcrumbStructure.length - 2) {
+            innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('${currentBreadcrumbStructure[i]}', '${idNav}')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
+            // Define all the elements of the breadcrumb except the last
+        } else {
+            innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary last" onclick="navigatePanel('${currentBreadcrumbStructure[i]}', '${idNav}')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span><i class="fas fa-chevron-right ml-2"></i></button>`;
+        }
+    }
+    breadcrumbElt.innerHTML = innerBreadCrumbHtml;
+    $('#breadcrumb').localize();
 
-        $('.tooltip').remove()
-        $('.leader-line').remove()
-        $('[data-toggle="tooltip"]').tooltip()
-    
+    $('.tooltip').remove()
+    $('.leader-line').remove()
+    $('[data-toggle="tooltip"]').tooltip()
 }
 
 /**
@@ -253,7 +246,7 @@ function navigatePanel(id, idNav, option = "", interface = '', skipConfirm = fal
  */
 window.onpopstate = () => {
     if ($_GET('panel') && $_GET('nav')) {
-        navigatePanel($_GET('panel'), $_GET('nav'), option = $_GET('option'), interface = $_GET('interface'), false, true);
+        navigatePanel($_GET('panel'), $_GET('nav'), option = $_GET('option'), interface = $_GET('interface'), true);
     }
 };
 
@@ -572,8 +565,8 @@ function defaultProcessValidateActivity() {
                     $("#activity-validate").attr("disabled", false);
                 }
             } else  {
-                navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities', '', '', true)
-                actualizeStudentActivities(activity, correction)
+                navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
+                actualizeStudentActivities(activity, correction);
                 $("#activity-validate").attr("disabled", false);
             }
         })
@@ -591,7 +584,7 @@ function defaultProcessValidateActivity() {
             } else  {
                 actualizeStudentActivities(activity, correction)
                 $("#activity-validate").attr("disabled", false);
-                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher', '', '', true)
+                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher')
             }
         })
     } else {
@@ -617,7 +610,7 @@ function saveActivity() {
                 "option": $_GET('option'),
                 "interface": 'savedActivities'
             };
-            navigatePanel(navParam.panel, navParam.nav, navParam.option, navParam.interface, true);
+            navigatePanel(navParam.panel, navParam.nav, navParam.option, navParam.interface);
         });
     })
 }
@@ -3465,12 +3458,12 @@ function freeValidateActivity() {
             $("#activity-validate").attr("disabled", false);
             if (response.note != null && response.correction > 1) {
                 if (response.note == 3) {
-                    navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities', '', '', true)
+                    navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities')
                 } else if (response.note == 0) {
-                    navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities', '', '', true)
+                    navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities')
                 }
             } else {
-                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher', '', '', true)
+                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher')
             }
         } else {
             displayNotification('#notif-div', "classroom.notif.errorSending", "error");
@@ -3492,12 +3485,12 @@ function fillInValidateActivity() {
             $("#activity-validate").attr("disabled", false);
             if (response.note != null && response.correction > 1) {
                 if (response.note == 3) {
-                    navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities', '', '', true)
+                    navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities')
                 } else if (response.note == 0) {
-                    navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities', '', '', true)
+                    navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities')
                 }
             } else {
-                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher', '', '', true)
+                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher')
             }
         } else {
             displayNotification('#notif-div', "classroom.notif.errorSending", "error");
