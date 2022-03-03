@@ -584,6 +584,7 @@ function manageDisplayFree(correction, content, correction_div) {
 }
 
 function manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt) {
+    document.querySelector('#activity-title').innerHTML = Activity.activity.title;
     if (isDoable) {
         activityValidationButtonElt.style.display = 'none';
         launchLtiResource(Activity.id, Activity.activity.type, content, true);
