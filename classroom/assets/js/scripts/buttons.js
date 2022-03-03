@@ -3228,15 +3228,15 @@ function setTextArea() {
     }
     // Free 
     $('#free_enonce').wysibb(wbbOpt);
-    $('#free_content').wysibb(wbbOpt);
-    $('#free_correction').wysibb(wbbOpt);
+    $('#free-content').wysibb(wbbOpt);
+    $('#free-correction').wysibb(wbbOpt);
 
     // Reading
     $("#reading_content").wysibb(wbbOpt);
 
     // FillIn
-    $("#fillIn_states").wysibb(wbbOpt);
-    $("#fillIn_content").wysibb(wbbOpt);
+    $("#fill-in-states").wysibb(wbbOpt);
+    $("#fill-in-content").wysibb(wbbOpt);
 
     // DragAndDrop
     $("#dragAndDrop_states").wysibb(wbbOpt);
@@ -3252,9 +3252,9 @@ setTextArea();
  * Hide all the activities section
  */
 function hideAllActivities() {
-    $("#activity_free").hide();
+    $("#activity-free").hide();
     $("#activity_reading").hide();
-    $("#activity_fillIn").hide();
+    $("#activity-fill-in").hide();
     $("#activity_dragAndDrop").hide();
     $("#activity_custom").hide();
     $("#activity_quiz").hide();
@@ -3277,13 +3277,13 @@ function launchCustomActivity(activityType, isUpdate = false) {
         if (response.Limited == false) {
             switch(activityType) {
                 case 'free':
-                    $("#activity_free").show();
+                    $("#activity-free").show();
                     break;
                 case 'quiz':
                     $("#activity_quiz").show();
                     break;
                 case 'fillIn':
-                    $("#activity_fillIn").show();
+                    $("#activity-fill-in").show();
                     break;
                 case 'reading':
                     $("#activity_reading").show();
@@ -3321,23 +3321,30 @@ function launchCustomActivity(activityType, isUpdate = false) {
     });
 }
 
-$("#free_autocorrect").change(function () {
+$("#free-autocorrect").change(function () {
     if ($(this).is(":checked")) {
-        $("#free_correction_content").show();
+        $("#free-correction_content").show();
     } else {
-        $("#free_correction_content").hide();
+        $("#free-correction_content").hide();
     }
 })
 
 function resetActivityInputs(activityType) {
+    $('#global_title').val('');
+    $('#activity-input').val('');
     if (activityType == 'free') {
-        $('#free_content').htmlcode("");
-        $('#free_correction').htmlcode("");
-        $('#global_title').val('');
-        $('#free_autocorrect').prop('checked', false);
-        $("#free_correction_content").hide();
-        $('#activity-input').val('');
+        $('#free-content').htmlcode("");
+        $('#free-correction').htmlcode("");
+        $('#free-autocorrect').prop('checked', false);
+        $("#free-correction_content").hide();
         // reset input eleve
+    } else if (activityType == 'fillIn') {
+        /* fill-in reset */
+        $('#fill-in-states').htmlcode("");
+        $('#fill-in-content').htmlcode("");
+        $('#fill-in-hint').val("");
+        $('#fill-in-tolerance').val("");
+        $('#fill-in-autocorrect').prop('checked', false);
     } else {
         Main.getClassroomManager().setDefaultActivityData();
     }
@@ -3353,17 +3360,17 @@ function contentBackward() {
 // Get the content
 function contentForward() {
     if (Main.getClassroomManager()._createActivity.id == 'free') {
-        Main.getClassroomManager()._createActivity.content.description = $('#free_content').bbcode();
-        Main.getClassroomManager()._createActivity.solution = $('#free_correction').bbcode();
-        Main.getClassroomManager()._createActivity.autocorrect = $('#free_autocorrect').is(":checked");
+        Main.getClassroomManager()._createActivity.content.description = $('#free-content').bbcode();
+        Main.getClassroomManager()._createActivity.solution = [$('#free-correction').bbcode()];
+        Main.getClassroomManager()._createActivity.autocorrect = $('#free-autocorrect').is(":checked");
     } else if (Main.getClassroomManager()._createActivity.id == 'reading'){
         Main.getClassroomManager()._createActivity.content.description = $('#reading_content').bbcode();
     } else if (Main.getClassroomManager()._createActivity.id == 'fillIn') {
 
-        Main.getClassroomManager()._createActivity.content.states = $('#fillIn_states').bbcode();
-        Main.getClassroomManager()._createActivity.content.tolerance = $('#fillIn_tolerance').val();
-        Main.getClassroomManager()._createActivity.autocorrect = $('#fillIn_autocorrect').is(":checked");
-        Main.getClassroomManager()._createActivity.content.hint = $('#fillIn_hint').val();
+        Main.getClassroomManager()._createActivity.content.states = $('#fill-in-states').bbcode();
+        Main.getClassroomManager()._createActivity.content.tolerance = $('#fill-in-tolerance').val();
+        Main.getClassroomManager()._createActivity.autocorrect = $('#fill-in-autocorrect').is(":checked");
+        Main.getClassroomManager()._createActivity.content.hint = $('#fill-in-hint').val();
         // Manage fill in fields
         parseFillInFieldsAndSaveThem();
 
@@ -3371,7 +3378,7 @@ function contentForward() {
         // By default using LTI, the button doesn't do anything specific
     }
     // Check if the content if empty
-    if (Main.getClassroomManager()._createActivity.content.description == '' && Main.getClassroomManager()._createActivity.content.fillInFields.tempData.length == 0) { 
+    if (Main.getClassroomManager()._createActivity.content.description == '' && Main.getClassroomManager()._createActivity.content.fillInFields.array.length == 0) { 
         displayNotification('#notif-div', "classroom.notif.emptyContent", "error");
     } else {
         navigatePanel('classroom-dashboard-classes-new-activity-title', 'dashboard-proactivities-teacher');
@@ -3397,7 +3404,7 @@ function titleForward() {
         let title = Main.getClassroomManager()._createActivity.title,
             type = Main.getClassroomManager()._createActivity.id,
             content = JSON.stringify(Main.getClassroomManager()._createActivity.content),
-            solution = Main.getClassroomManager()._createActivity.solution,
+            solution = JSON.stringify(Main.getClassroomManager()._createActivity.solution),
             tolerance = Main.getClassroomManager()._createActivity.tolerance,
             autocorrect = Main.getClassroomManager()._createActivity.autocorrect;
 
@@ -3432,10 +3439,10 @@ function titleForward() {
 function validateActivity() {
     switch(Activity.activity.type) {
         case 'free':
-            freeValidateActivity()
+            freeValidateActivity();
             break;
         case 'quiz':
-            
+            quizValidateActivity();
             break;
         case 'fillIn':
             fillInValidateActivity();
@@ -3478,31 +3485,34 @@ function freeValidateActivity() {
     });
 }
 
+function quizValidateActivity() {
+
+}
+
 function fillInValidateActivity() {
-    let studentResponse = "";
-    $(`input[id^="Student_fillInField_"]`).each(function() {
-        if (studentResponse != "") {
-            studentResponse += ",";
-        }
-        studentResponse += $(this).val();
+
+    let studentResponse = [];
+    $(`input[id^="response-student-fill-in-field-input"]`).each(function() {
+        studentResponse.push($(this).val());
     })
 
-    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, null, null, studentResponse).then((response) => {
+    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, null, null, JSON.stringify(studentResponse)).then((response) => {
         if (response) {
             $("#activity-validate").attr("disabled", false);
             if (response.note != null && response.correction > 1) {
                 if (response.note == 3) {
-                    navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities', '', '', true)
+                    navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities', '', '', true);
                 } else if (response.note == 0) {
-                    navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities', '', '', true)
+                    navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities', '', '', true);
                 }
             } else {
-                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher', '', '', true)
+                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher', '', '', true);
             }
         } else {
             displayNotification('#notif-div', "classroom.notif.errorSending", "error");
         }
     });
+
 }
 
 
@@ -3528,52 +3538,44 @@ function goBackToActivities() {
 
 function fillInAddFIeld() {
     let htmlContent = `<div class="form-group">
-        <label for="fillIn_states" data-i18n="classroom.activities.fillIn.states"></label>
-        <textarea class="form-control" id="fillIn_states" rows="3" data-i18n=""></textarea>
+        <label for="fill-in-states" data-i18n="classroom.activities.fillIn.states"></label>
+        <textarea class="form-control" id="fill-in-states" rows="3" data-i18n=""></textarea>
     </div>`;
-    $('#fillIn_states').bbcode();
-    $('#fillIn_content').after(htmlContent);
-    $('#fillIn_states').bbcode();
-    $('#fillIn_states').localize();
+    $('#fill-in-states').bbcode();
+    $('#fill-in-content').after(htmlContent);
+    $('#fill-in-states').bbcode();
+    $('#fill-in-states').localize();
 }
 
 /**
  * Fill in activity
  */
 
-$('#fillInAddInputs').click(() => {
-    let index = Main.getClassroomManager()._createActivity.content.fillInFields.tempData.length + 1;
-    let field = `<p id="fillInField_${index}" style="border: solid; margin: 3px; padding: 10px; border-radius: 3px;">En cliquant sur le bouton << ajouter un champs à compléter >>, un texte est ajouté avec deux caractères verticaux << | réponse | >>. Vous pouvez écrire la réponse correcte entre ces deux caractères. Les réponses alternatives sont séparées par une double barre vertical << || >></p>`;
+$('#fill-in-add-inputs').click(() => {
+    let index = Main.getClassroomManager()._createActivity.content.fillInFields.array.length + 1;
+    let field = `<p id="question-fill-in-field-${index}" class="activities-fill-in-square" En cliquant sur le bouton << ajouter un champs à compléter >>, un texte est ajouté avec deux caractères verticaux << | réponse | >>. Vous pouvez écrire la réponse correcte entre ces deux caractères. Les réponses alternatives sont séparées par une double barre vertical << || >></p>`;
 
-    Main.getClassroomManager()._createActivity.content.fillInFields.tempData.push(field);
-    $('#fillIn_content').htmlcode(Main.getClassroomManager()._createActivity.content.fillInFields.tempData.join(''));
+    Main.getClassroomManager()._createActivity.content.fillInFields.array.push(field);
+    $('#fill-in-content').htmlcode(Main.getClassroomManager()._createActivity.content.fillInFields.array.join(''));
 
-    $(`p[id^="fillInField_"]`).bind("DOMSubtreeModified", function() {
-        Main.getClassroomManager()._createActivity.content.fillInFields.tempData.forEach((e, i) => {
+    $(`p[id^="question-fill-in-field-"]`).bind("DOMSubtreeModified", function() {
+        Main.getClassroomManager()._createActivity.content.fillInFields.array.forEach((e, i) => {
             if (e.includes(this.id)) {
-                Main.getClassroomManager()._createActivity.content.fillInFields.tempData[i] = `<p id="${this.id}" style="border: solid; margin: 3px; padding: 10px; border-radius: 3px;">${$(this).text()}</p>`;
+                Main.getClassroomManager()._createActivity.content.fillInFields.array[i] = `<p id="${this.id}" class="activities-fill-in-square">${$(this).text()}</p>`;
             }
         });
     });
+});
+
+$('#fill-in-remove-inputs').click(() => {
+    $(`#question-fill-in-field-${Main.getClassroomManager()._createActivity.content.fillInFields.array.length}`).unbind();
+    Main.getClassroomManager()._createActivity.content.fillInFields.array.pop();
+    $('#fill-in-content').htmlcode(Main.getClassroomManager()._createActivity.content.fillInFields.array.join(''));
 })
-
-
-$('#fillInRemoveInputs').click(() => {
-    $(`#fillInField_${Main.getClassroomManager()._createActivity.content.fillInFields.tempData.length}`).unbind();
-    Main.getClassroomManager()._createActivity.content.fillInFields.tempData.pop();
-    $('#fillIn_content').htmlcode(Main.getClassroomManager()._createActivity.content.fillInFields.tempData.join(''));
-})
-
-
-/* let fillInFields = [    
-    'Le ciel est | bleu || vert |.', 
-    'Le soleil est | jaune || orange || rouge |.', 
-    'La lune est | bleue |.'
-]; */
 
 function parseFillInFieldsAndSaveThem() {
     let fillInFields = [],
-        lengthFill = Main.getClassroomManager()._createActivity.content.fillInFields.tempData.length;
+        lengthFill = Main.getClassroomManager()._createActivity.content.fillInFields.array.length;
 
     const   regex = /\|(.*?)\|/gi,
             regexMultipleAnswer = /([﻿]+)/gi,
@@ -3581,15 +3583,15 @@ function parseFillInFieldsAndSaveThem() {
             stringWithOutAnswer = [];
         
     for (let i = 0; i < lengthFill; i++) {
-        fillInFields.push($(`#fillInField_${i+1}`).text())
+        fillInFields.push($(`#question-fill-in-field-${i+1}`).text().toLowerCase())
     }
 
     fillInFields.forEach(field => {
-        response.push(field.match(regex).map(match => match.replace(regex, "$1")));
+        response.push(field.match(regex).map(match => match.replace(regex, "$1").trim()));
         stringWithOutAnswer.push(field.replace(regex, '﻿').replace(regexMultipleAnswer, '﻿'));
     });
 
-    Main.getClassroomManager()._createActivity.content.fillInFields.response = response;
+    Main.getClassroomManager()._createActivity.solution = response;
     Main.getClassroomManager()._createActivity.content.fillInFields.question = stringWithOutAnswer;
 }
 
@@ -3631,7 +3633,9 @@ function parseFillInFieldsAndSaveThem() {
     }
 ]; */
 
-
+/**
+ * Meilleur clean de contenu lors de la modification d'une activité
+ */
 
 function launchLtiDeepLinkCreate(type, isUpdate) {
     let updateInput = '';
@@ -3667,4 +3671,5 @@ function launchLtiResource(activityId, activityType, activityContent, isStudentL
         height: 60vh;" allowfullscreen></iframe>
         `;
     document.forms["resource_launch_form"].submit();
+    $("#activity-content-container").show();
 }

@@ -328,6 +328,7 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) 
 }
 
 DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
+    console.log(id)
     if (id != 'null') {
         if (UserManager.getUser().isRegular) {
             if (id.slice(0, 2) == "WK") {
@@ -374,6 +375,10 @@ function getTeacherActivity() {
     //
     $('#activity-correction-container').hide();
     $('#activity-details').html('');
+    $("#activity-content").html('');
+    $("#activity-states").html('');
+    $("#activity-states-container").hide();
+    $("#activity-content-container").hide();
     //
 
     $('#activity-title').html(Activity.title + `<button class="btn btn-link" onclick="attributeActivity(` + Activity.id + `)">
@@ -386,7 +391,19 @@ function getTeacherActivity() {
             const contentParsed = JSON.parse(Activity.content);
             if (contentParsed.hasOwnProperty('description')) {
                 $('#activity-content').html(bbcodeToHtml(contentParsed.description))
+                $("#activity-content-container").show();
             } 
+        } else if (Activity.type == 'fillIn') {
+            const contentParsed = JSON.parse(Activity.content);
+            let bbcodeContentDoable = "";
+            contentParsed.fillInFields.array.forEach(e => {
+                bbcodeContentDoable+= e;
+            });
+            $("#activity-states").html(bbcodeToHtml(contentParsed.states));
+            $("#activity-content").html(bbcodeToHtml(bbcodeContentDoable));
+            $("#activity-content-container").show();
+            $("#activity-states-container").show();
+
         } else {
             // activityId, activityType, activityContent
             launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description);
@@ -394,6 +411,7 @@ function getTeacherActivity() {
         
     } else{
         $('#activity-content').html(bbcodeToHtml(Activity.content))
+        $("#activity-content-container").show();
     }
 
     $('#activity-introduction').hide()

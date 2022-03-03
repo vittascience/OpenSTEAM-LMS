@@ -263,14 +263,30 @@
                     <img src="assets/media/auto-icon.svg" title="Auto">
                     <span>Cette activité sera corrigée automatiquement.</span>
                 </div>
+                <!-- Used for status / date  -->
                 <p id="activity-details"></p>
+                <!-- Used for subtitle -->
                 <p id="activity-introduction">
                     <span id="text-introduction"></span>
                 </p>
-                <p id="activity-content"> </p>
+
+                <!-- Used for states -->
+                <div id="activity-states-container" style="display: none;">
+                    <label for="activity-states" class="vitta-modal-title mt-2">Énoncé de l'activité</label>
+                    <p id="activity-states"></p>
+                </div>
+
+
+                <!-- Used for content -->
+                <div id="activity-content-container" style="display: none;">
+                    <label for="activity-content" class="vitta-modal-title mt-2">Contenu de l'activité</label>
+                    <p id="activity-content"></p>
+                </div>
+                
+
                 <!-- @Update Rémi -->
                 <div id="activity-student-response" style="display:none;">
-                    <h5 id="label-activity-student-response" class="c-text-primary">Réponse de l'élève</h5>
+                    <label id="label-activity-student-response" for="activity-student-response-content" class="vitta-modal-title mt-2">Réponse de l'élève</label>
                     <p id="activity-student-response-content"> </p>
                 </div>
 
@@ -1308,20 +1324,20 @@
     <div class="container mb-2 part-content-index c-primary-form">
        
         <!-- Free activity part -->
-        <div id="activity_free" style="display:none;">
+        <div id="activity-free" style="display:none;">
             <div class="content m-3">
-                <label for="free_content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
-                <textarea id="free_content"></textarea>
+                <label for="free-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
+                <textarea id="free-content"></textarea>
             </div>
     
             <div class="c-checkbox">
-                <input type="checkbox" name="free_autocorrect" id="free_autocorrect">
-                <label for="free_autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
+                <input type="checkbox" name="free-autocorrect" id="free-autocorrect">
+                <label for="free-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
             </div>
     
-            <div class="content m-3" id="free_correction_content" style="display: none;">
-                <label for="free_correction" data-i18n="newActivities.correction">Correction de l'activité</label>
-                <textarea id="free_correction"></textarea>
+            <div class="content m-3" id="free-correction_content" style="display: none;">
+                <label for="free-correction" data-i18n="newActivities.correction">Correction de l'activité</label>
+                <textarea id="free-correction"></textarea>
             </div>
         </div>
 
@@ -1357,33 +1373,33 @@
         </div>
 
         <!-- FillIn activity part -->
-        <div id="activity_fillIn" style="display:none;">
+        <div id="activity-fill-in" style="display:none;">
 
             <div class="content m-3">
-                <label for="fillIn_states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
-                <textarea id="fillIn_states"></textarea>
+                <label for="fill-in-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
+                <textarea id="fill-in-states"></textarea>
             </div>
             
             <div class="content m-3">
-                <label for="fillIn_content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
-                <textarea id="fillIn_content"></textarea>
+                <label for="fill-in-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
+                <textarea id="fill-in-content"></textarea>
             </div>
 
-            <button class="btn c-btn-outline-primary" id="fillInAddInputs">Add field</button>
-            <button class="btn c-btn-red" id="fillInRemoveInputs">Remove field</button>
+            <button class="btn c-btn-outline-primary" id="fill-in-add-inputs">Add field</button>
+            <button class="btn c-btn-red" id="fill-in-remove-inputs">Remove field</button>
 
             <div class="content m-3">
-                <p><span data-i18n="newActivities.tolerance1"></span> <input type="number" id="fillIn_tolerance"> <span data-i18n="newActivities.tolerance2"></span></p>
+                <p><span data-i18n="newActivities.tolerance1"></span> <input type="number" id="fill-in-tolerance"> <span data-i18n="newActivities.tolerance2"></span></p>
             </div>
             
-            <div class="content m-3">
-                <label for="fillIn_hint" data-i18n="newActivities.hint">Indice</label>
-                <input type="text" id="fillIn_hint">
-            </div>
-
             <div class="c-checkbox">
-                <input type="checkbox" name="fillIn_autocorrect" id="fillIn_autocorrect">
-                <label for="fillIn_autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
+                <input type="checkbox" name="fill-in-autocorrect" id="fill-in-autocorrect">
+                <label for="fill-in-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
+            </div>
+
+            <div class="content m-3">
+                <label for="fill-in-hint" data-i18n="newActivities.hint">Indice</label>
+                <input type="text" id="fill-in-hint">
             </div>
 
         </div>

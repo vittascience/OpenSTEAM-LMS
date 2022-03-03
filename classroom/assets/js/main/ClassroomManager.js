@@ -1403,11 +1403,11 @@ class ClassroomManager {
             id: '',
             title: '', 
             content: {
-                enonce: '',
+                states: '',
                 description: '',
                 hint: '',
                 fillInFields: {
-                    tempData: [],
+                    array: [],
                     answer: [],
                     question: [],
                 }
@@ -1419,7 +1419,7 @@ class ClassroomManager {
         const globalTitle = document.querySelector('#global_title');
         if (globalTitle != null) {
             document.querySelector('#global_title').value = '';
-        }
+        } 
     }
 
 }

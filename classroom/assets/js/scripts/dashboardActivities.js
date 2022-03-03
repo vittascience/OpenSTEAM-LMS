@@ -279,6 +279,7 @@ $('body').on('click', '.list-students-classroom', function () {
         }
     });
 })
+
 $('body').on('click', '.activity-card', function () {
     if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
         let id = parseInt($(this).find(".info-tutorials").attr("data-id"))
@@ -535,6 +536,7 @@ function manageDisplayCustomAndReading(correction, content, correction_div) {
     setTextArea();
     $('#activity-title').html(Activity.activity.title);
     $('#activity-content').html(bbcodeToHtml(content));
+    $('#activity-content-container').show();
     if (correction == 0) {
         $('#activity-input').wysibb(wbbOpt);
         $('#activity-input-container').show();
@@ -555,6 +557,7 @@ function manageDisplayFree(correction, content, correction_div) {
     setTextArea();
     $('#activity-title').html(Activity.activity.title);
     $('#activity-content').html(bbcodeToHtml(content));
+    $('#activity-content-container').show();
     if (correction == 0 || correction == null) {
         if (!UserManager.getUser().isRegular) {
             $('#activity-input').wysibb(wbbOpt);
@@ -605,6 +608,7 @@ function manageDisplayQuiz(correction, content, correction_div) {
     
     $('#activity-title').html(Activity.activity.title);
     $('#activity-content').html(bbcodeToHtml(content));
+    $('#activity-content-container').show();
 
     if (correction == 0) {
         $('#activity-input').wysibb(wbbOpt);
@@ -622,15 +626,18 @@ function manageDisplayQuiz(correction, content, correction_div) {
 }
 
 function manageDisplayFillIn(correction, content, correction_div) {
-    //console.log(content);
     setTextArea();
 
     $('#activity-title').html(Activity.activity.title);
     // Show the content with the response to the teacher
     if (UserManager.getUser().isRegular) {
-        $('#activity-content').html(content.fillInFields.tempData.join('<br>'));
+        $('#activity-content').html(content.fillInFields.array.join('<br>'));
+        $('#activity-content-container').show();
     }
 
+    $('#activity-states').html(bbcodeToHtml(content.states));
+    $('#activity-states-container').show();
+    
     if (correction == 0 || correction == null) {
         if (!UserManager.getUser().isRegular) {
             $('#activity-input').wysibb(wbbOpt);
@@ -638,14 +645,23 @@ function manageDisplayFillIn(correction, content, correction_div) {
             let studentContent = "";
             let regex = /([﻿]+)/gi;
             content.fillInFields.question.forEach((question, index) => {
-                let input = `<input type="text" id="Student_fillInField_${index+1}">`;
-                studentContent += `<p id="fillInField_${index+1}"> ${question.replace(regex, input)} </p>`;;
+                let input = `<input type="text" id="response-student-fill-in-field-input-${index+1}">`;
+                studentContent += `<p id="response-student-fill-in-field-${index+1}"> ${question.replace(regex, input)} </p>`;;
             });
             $('#activity-fill-in-container').html(studentContent);
         }
     } else if (correction > 0) {
         $('#activity-student-response').show();
-        $('#activity-student-response-content').html(bbcodeToHtml(Activity.response));
+
+        let regex = /([﻿]+)/gi,
+            responses = JSON.parse(Activity.response),
+            contentToAdd = "";
+
+        content.fillInFields.question.forEach((question, index) => {
+            contentToAdd += `<p id="response-student-fill-in-field-${index+1}"> ${question.replace(regex, responses[index])} </p>`;;
+        });
+
+        $('#activity-student-response-content').html(contentToAdd);
 
         $('#activity-correction-container').show(); 
         $('#activity-correction').html(correction_div);

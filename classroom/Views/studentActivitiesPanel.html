@@ -44,14 +44,30 @@
                     <img src="assets/media/auto-icon.svg" title="Auto">
                     <span>Cette activité sera corrigée automatiquement.</span>
                 </div>
+                <!-- Used for status / date  -->
                 <p id="activity-details"></p>
+                <!-- Used for subtitle -->
                 <p id="activity-introduction">
                     <span id="text-introduction"></span>
                 </p>
-                <p id="activity-content"> </p>
+
+                <!-- Used for states -->
+                <div id="activity-states-container" style="display: none;">
+                    <label for="activity-states" class="vitta-modal-title mt-2">Énoncé de l'activité</label>
+                    <p id="activity-states"></p>
+                </div>
+
+
+                <!-- Used for content -->
+                <div id="activity-content-container" style="display: none;">
+                    <label for="activity-content" class="vitta-modal-title mt-2">Contenu de l'activité</label>
+                    <p id="activity-content"></p>
+                </div>
+                
+
                 <!-- @Update Rémi -->
                 <div id="activity-student-response" style="display:none;">
-                    <h5 id="label-activity-student-response" class="c-text-primary">Réponse de l'élève</h5>
+                    <label id="label-activity-student-response" for="activity-student-response-content" class="vitta-modal-title mt-2">Réponse de l'élève</label>
                     <p id="activity-student-response-content"> </p>
                 </div>
 

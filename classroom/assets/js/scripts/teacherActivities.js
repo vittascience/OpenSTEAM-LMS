@@ -82,9 +82,15 @@ $('body').on('click', '.modal-activity-delete', function () {
 
 //activité modal-->modifier
 function activityModify(id) {
+
+    $('#activity-free').hide();
+    $('#activity-fill-in').hide();
+    $("#activity_custom").hide();
+
     if (id == 0) {
         id = Main.getClassroomManager()._lastCreatedActivity;
     }
+
     ClassroomSettings.activity = id
     $('#activity-form-title').val('')
     $('.wysibb-text-editor').html('')
@@ -105,27 +111,50 @@ function manageUpdateByType(activity) {
     const contentForwardButtonElt = document.getElementById('content-forward-button');
     contentForwardButtonElt.style.display = 'inline-block';
     if (activity.type == "free") {  
-        $('#activity_free').show();
+        $('#activity-free').show();
         Main.getClassroomManager()._createActivity.id = activity.type;
         Main.getClassroomManager()._createActivity.function = "update";
+
         let content = JSON.parse(activity.content);
-        $('#free_content').htmlcode(bbcodeToHtml(content.description));
+        $('#free-content').htmlcode(bbcodeToHtml(content.description));
         if (activity.isAutocorrect) {
-            $("#free_autocorrect").prop("checked", true)
-            $("#free_correction_content").show();
+            $("#free-autocorrect").prop("checked", true)
+            $("#free-correction_content").show();
         } else {
-            $("#free_autocorrect").prop("checked", false)
-            $("#free_correction_content").hide();
+            $("#free-autocorrect").prop("checked", false)
+            $("#free-correction_content").hide();
         }
         if (activity.solution != "") {
             if (activity.solution != null) {
-                $('#free_correction').htmlcode(bbcodeToHtml(activity.solution));
+                $('#free-correction').htmlcode(bbcodeToHtml(activity.solution));
             }
         }
         $('#global_title').val(activity.title);   
-        navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-profil-teacher');
+        navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
     } else if (activity.type == "quiz") {
         console.log('TBC')
+    } else if (activity.type == "fillIn") {
+        $('#activity-fill-in').show();
+
+        Main.getClassroomManager()._createActivity.id = activity.type;
+        Main.getClassroomManager()._createActivity.function = "update";
+
+        let content = JSON.parse(activity.content);
+        $("#fill-in-states").htmlcode(bbcodeToHtml(content.states));
+        $("#fill-in-hint").val(content.hint);
+        $("#fill-in-tolerance").val(activity.tolerance);
+
+        let bbcodeContentDoable = "";
+        content.fillInFields.array.forEach(e => {
+            Main.getClassroomManager()._createActivity.content.fillInFields.array.push(e);
+            bbcodeContentDoable+= e;
+        });
+        $("#fill-in-content").htmlcode(bbcodeToHtml(bbcodeContentDoable));
+
+        activity.isAutocorrect ? $("#fill-in-autocorrect").prop("checked", true) : $("#fill-in-autocorrect").prop("checked", false);
+
+        $('#global_title').val(activity.title);   
+        navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
     } else {
         // TODO: CHANGE THIS DEFAULT FALLBACK BY SOMETHING CHECKING IF THE CURRENT ACTIVITY USES LTI
         contentForwardButtonElt.style.display = 'none';

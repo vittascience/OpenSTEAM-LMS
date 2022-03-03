@@ -1522,6 +1522,14 @@ h3.section-done {
     max-width: 60%;
 }
 
+/* updated @Rémi */
+.activities-fill-in-square {
+    border: solid; 
+    margin: 3px; 
+    padding: 10px; 
+    border-radius: 10px;
+}
+
 @media (max-width: 768px) {
     .dashboard-block>nav {
         width: 100%;
