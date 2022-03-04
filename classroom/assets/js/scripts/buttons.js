@@ -3529,24 +3529,14 @@ function goBackToActivities() {
 }
 
 
-function fillInAddFIeld() {
-    let htmlContent = `<div class="form-group">
-        <label for="fill-in-states" data-i18n="classroom.activities.fillIn.states"></label>
-        <textarea class="form-control" id="fill-in-states" rows="3" data-i18n=""></textarea>
-    </div>`;
-    $('#fill-in-states').bbcode();
-    $('#fill-in-content').after(htmlContent);
-    $('#fill-in-states').bbcode();
-    $('#fill-in-states').localize();
-}
-
 /**
  * Fill in activity
  */
 
-$('#fill-in-add-inputs').click(() => {
+/* $('#fill-in-add-inputs').click(() => {
     let index = Main.getClassroomManager()._createActivity.content.fillInFields.array.length + 1;
-    let field = `<p id="question-fill-in-field-${index}" class="activities-fill-in-square" En cliquant sur le bouton << ajouter un champs à compléter >>, un texte est ajouté avec deux caractères verticaux << | réponse | >>. Vous pouvez écrire la réponse correcte entre ces deux caractères. Les réponses alternatives sont séparées par une double barre vertical << || >></p>`;
+    // En cliquant sur le bouton << ajouter un champs à compléter >>, un texte est ajouté avec deux caractères verticaux << | réponse | >>. Vous pouvez écrire la réponse correcte entre ces deux caractères. Les réponses alternatives sont séparées par une double barre vertical << || >>
+    let field = `<p id="question-fill-in-field-${index}" class="activities-fill-in-square">| réponse |</p>`;
 
     Main.getClassroomManager()._createActivity.content.fillInFields.array.push(field);
     $('#fill-in-content').htmlcode(Main.getClassroomManager()._createActivity.content.fillInFields.array.join(''));
@@ -3558,13 +3548,31 @@ $('#fill-in-add-inputs').click(() => {
             }
         });
     });
+}); */
+
+// Test de texte à trou avancé | a || b | et | c| et puis encore | d |
+$('#fill-in-add-inputs').click(() => {
+    let index = Main.getClassroomManager()._createActivity.content.fillInFields.array.length + 1;
+    // En cliquant sur le bouton << ajouter un champs à compléter >>, un texte est ajouté avec deux caractères verticaux << | réponse | >>. Vous pouvez écrire la réponse correcte entre ces deux caractères. Les réponses alternatives sont séparées par une double barre vertical << || >>
+    let field = `| réponse |`;
+
+    Main.getClassroomManager()._createActivity.content.fillInFields.array.push(field);
+    $('#fill-in-content').htmlcode($('#fill-in-content').bbcode() + field);
+
+    $(`p[id^="question-fill-in-field-"]`).bind("DOMSubtreeModified", function() {
+        Main.getClassroomManager()._createActivity.content.fillInFields.array.forEach((e, i) => {
+            if (e.includes(this.id)) {
+                Main.getClassroomManager()._createActivity.content.fillInFields.array[i] = `<p id="${this.id}" class="activities-fill-in-square">${$(this).text()}</p>`;
+            }
+        });
+    });
 });
 
-$('#fill-in-remove-inputs').click(() => {
+/* $('#fill-in-remove-inputs').click(() => {
     $(`#question-fill-in-field-${Main.getClassroomManager()._createActivity.content.fillInFields.array.length}`).unbind();
     Main.getClassroomManager()._createActivity.content.fillInFields.array.pop();
     $('#fill-in-content').htmlcode(Main.getClassroomManager()._createActivity.content.fillInFields.array.join(''));
-})
+}) */
 
 function parseFillInFieldsAndSaveThem() {
     let fillInFields = [],

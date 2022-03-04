@@ -1397,6 +1397,21 @@ class ClassroomManager {
         });
     }
 
+    duplicateActivity(activityId) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=newActivities&action=duplicate_activity",
+                data: {
+                    'activityId': activityId
+                },
+                success: function (r) {
+                    resolve(JSON.parse(r))
+                }
+            });
+        });
+    }
+
     setDefaultActivityData() {
         this._createActivity = {
             function: 'create',

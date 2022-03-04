@@ -3,8 +3,8 @@
         "phpunit/phpunit": "8.0.0",
         "vittascience/vtuser": "1.2.3",
         "vittascience/vtinterfaces": "1.2.2",
-        "vittascience/vtclassroom": "dev-lms-exercices",
-        "vittascience/vtlearn": "1.2.8",
+        "vittascience/vtclassroom": "dev-lms-exercises",
+        "vittascience/vtlearn": "dev-lms-exercises",
         "vittascience/vutils": "1.2.4",
         "symfony/var-dumper": "^5.3"
     },

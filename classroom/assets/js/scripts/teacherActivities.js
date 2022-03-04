@@ -8,17 +8,29 @@ function createActivity(link = null, id = null) {
             $('.wysibb-text-editor').html('')
         }
         $('#activity-form-title').val('')
-
+        navigatePanel('classroom-dashboard-new-activity-panel', 'dashboard-activities-teacher')
+        ClassroomSettings.activityInWriting = true
     } else {
         ClassroomSettings.activity = id
-        ClassroomSettings.status = 'action';
+
+        Main.getClassroomManager().duplicateActivity(id).then(function (response) {
+            if (response.success == true) {
+                displayNotification('#notif-div', "classroom.notif.activityDeleted", "success");
+                teacherActivitiesDisplay();
+                DisplayActivities();
+            } else {
+                displayNotification('#notif-div', "classroom.notif.activityDeleted", "error");
+                console.log("error")
+            }
+        })
+/*         ClassroomSettings.status = 'action';
         Main.getClassroomManager().getActivity(ClassroomSettings.activity).then(function (activity) {
             $('#activity-form-title').val(activity.title)
             $('.wysibb-text-editor').html(activity.content)
-        })
+        }) */
     }
-    navigatePanel('classroom-dashboard-new-activity-panel', 'dashboard-activities-teacher')
-    ClassroomSettings.activityInWriting = true
+/*     navigatePanel('classroom-dashboard-new-activity-panel', 'dashboard-activities-teacher')
+    ClassroomSettings.activityInWriting = true */
 }
 
 function showExercicePanel() {
