@@ -3553,7 +3553,7 @@ function goBackToActivities() {
 // Test de texte à trou avancé | a || b | et | c| et puis encore | d |
 $('#fill-in-add-inputs').click(() => {
     let index = Main.getClassroomManager()._createActivity.content.fillInFields.array.length + 1;
-    // En cliquant sur le bouton << ajouter un champs à compléter >>, un texte est ajouté avec deux caractères verticaux << | réponse | >>. Vous pouvez écrire la réponse correcte entre ces deux caractères. Les réponses alternatives sont séparées par une double barre vertical << || >>
+    // En cliquant sur le bouton << ajouter un champs à compléter >>, un texte est ajouté avec deux caractères verticaux << | réponse | >>. Vous pouvez écrire la réponse correcte entre ces deux caractères. Les réponses alternatives sont séparées par une double esperluete << && >>
     let field = `| réponse |`;
 
     Main.getClassroomManager()._createActivity.content.fillInFields.array.push(field);
