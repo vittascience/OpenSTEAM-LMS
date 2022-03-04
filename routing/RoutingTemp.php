@@ -83,7 +83,7 @@ try {
     // Intercept action.
     $logPath = isset($_ENV['VS_LOG_PATH']) ? $_ENV['VS_LOG_PATH'] : "/logs/log.log";
     $log = Log::createSharedInstance($controller, $logPath, Logger::NOTICE);
-    
+
     // get and scan the entire plugins folder
     $pluginsDir = '../plugins';
     if (is_dir($pluginsDir)) {
@@ -221,7 +221,6 @@ try {
     $log->error($action, $e->getFile(), $e->getLine(), $e->getMessage());
     echo (json_encode(Errors::createError($e->getMessage())));
 } catch (Exception $e) {
-    // $log->error($action, $e->getFile(), $e->getLine(), $e->getMessage());
-    echo $e->getMessage();
-    // echo (json_encode(Errors::createError($e->getMessage())));
+    $log->error($action, $e->getFile(), $e->getLine(), $e->getMessage());
+    echo (json_encode(Errors::createError($e->getMessage())));
 }

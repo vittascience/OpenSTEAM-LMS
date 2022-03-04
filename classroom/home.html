@@ -1,8 +1,7 @@
     <link rel="stylesheet" href="assets/css/checkboxes.css">
     <link rel="stylesheet" href="assets/css/modal.css">
-    <!-- PLUGIN CSS-->
+    <link rel="stylesheet" href="assets/plugins/css/main.css">
 
-    <!-- END PLUGIN CSS -->
     <script src="assets/js/scripts/classroom-lang.js"></script>
 </head>
 
@@ -1219,6 +1218,7 @@
 <script src="assets/js/lib/rotate.js"></script>
 <script src="assets/js/utils/bbcodeToHtml.js"></script>
 <script src="assets/js/utils/registrationTemplate.js"></script>
+<script src="assets/js/utils/profilePicturePath.js"></script>
 <script src="assets/js/scripts/disconnect.js"></script>
 <script src="assets/js/scripts/dashboardActivities.js"></script>
 <script src="assets/js/scripts/teacherActivities.js"></script>
@@ -1258,7 +1258,7 @@
 
                             if (user.isRegular) {
                                 $('body').addClass('theme-teacher')
-                                $('.user-picture').attr('src',`/classroom/assets/media/alphabet/${UserManager.getUser().firstname.slice(0, 1).toUpperCase()}.png`)
+                                $('.user-picture').attr('src', '/classroom/' + getProfilePicturePath(UserManager.getUser().firstname))
 
                                 let administration = [];
                                 // Init the super and group admin
@@ -1279,9 +1279,8 @@
                                 $('#classroom-dashboard-sidebar').show()
                                 $('body').addClass('theme-student')
                                 $('.user-picture').attr('src',
-                                    '/classroom/assets/media/alphabet/' +
-                                    UserManager.getUser().pseudo.slice(0, 1).toUpperCase() +
-                                    '.png')
+                                    '/classroom/' +
+                                    getProfilePicturePath(UserManager.getUser().pseudo))
                                 Main.getClassroomManager().getMyClassroom(UserManager.getUser()
                                     .id).then(function (classroom) {
                                     $('#classroom-name').html(classroom.name)
@@ -1355,9 +1354,13 @@
     }
 </script>
 <script src="assets/js/utils/translate.js"></script>
-<!-- PLUGIN SCRIPTS-->
+<script src="assets/plugins/js/change-texts.js"></script>
+<script src="assets/plugins/js/CompetenciesManager.js"></script>
+<script src="assets/plugins/js/CompetenciesPanel.js"></script>
+<script src="assets/plugins/js/MyActivityAdditionalDetailsManager.js"></script>
+<script src="assets/plugins/js/script.js"></script>
+<script src="assets/plugins/js/Untitled-1.js"></script>
 
-<!-- END PLUGIN SCRIPTS -->
 </body>
 
 </html>

@@ -195,8 +195,8 @@ function classeList(classe, ref = null) {
             ClassroomSettings.studentCount++
         }
 
-        html += '<label class="ml-3 student-attribute-form-row"><input type="checkbox" value="' + student.user.id + '" class="student-id" ' + checked + ' >'
-        html += `<img src="${_PATH}assets/media/alphabet/${student.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil"></img>`
+        html += `<label class="ml-3 student-attribute-form-row"><input type="checkbox" value="${student.user.id}" class="student-id" ' + checked + ' >`
+        html += `<img src="${_PATH}` + getProfilePicturePath(student.user.pseudo) + '" alt="Photo de profil"></img>'
         html += student.user.pseudo + '</label>'
     });
     html += `</div></div>`

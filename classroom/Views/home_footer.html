@@ -33,6 +33,7 @@
 <script src="assets/js/lib/rotate.js"></script>
 <script src="assets/js/utils/bbcodeToHtml.js"></script>
 <script src="assets/js/utils/registrationTemplate.js"></script>
+<script src="assets/js/utils/profilePicturePath.js"></script>
 <script src="assets/js/scripts/disconnect.js"></script>
 <script src="assets/js/scripts/dashboardActivities.js"></script>
 <script src="assets/js/scripts/teacherActivities.js"></script>
@@ -72,7 +73,7 @@
 
                             if (user.isRegular) {
                                 $('body').addClass('theme-teacher')
-                                $('.user-picture').attr('src',`/classroom/assets/media/alphabet/${UserManager.getUser().firstname.slice(0, 1).toUpperCase()}.png`)
+                                $('.user-picture').attr('src', '/classroom/' + getProfilePicturePath(UserManager.getUser().firstname))
 
                                 let administration = [];
                                 // Init the super and group admin
@@ -93,9 +94,8 @@
                                 $('#classroom-dashboard-sidebar').show()
                                 $('body').addClass('theme-student')
                                 $('.user-picture').attr('src',
-                                    '/classroom/assets/media/alphabet/' +
-                                    UserManager.getUser().pseudo.slice(0, 1).toUpperCase() +
-                                    '.png')
+                                    '/classroom/' +
+                                    getProfilePicturePath(UserManager.getUser().pseudo))
                                 Main.getClassroomManager().getMyClassroom(UserManager.getUser()
                                     .id).then(function (classroom) {
                                     $('#classroom-name').html(classroom.name)

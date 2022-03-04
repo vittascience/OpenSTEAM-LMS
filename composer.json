@@ -36,7 +36,7 @@
             "Learn\\": "vendor/vittascience/vtlearn",
             "Utils\\": "vendor/vittascience/vutils/src",
             "Classroom\\": "vendor/vittascience/vtclassroom/src",
-            "Plugins\\": "plugins"
+            "Plugins\\": "plugins/"
         }
     },
     "autoload-dev": {

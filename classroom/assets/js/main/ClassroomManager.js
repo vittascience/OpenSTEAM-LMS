@@ -20,6 +20,7 @@ class ClassroomManager {
         this._myActivities = []
         this._myClasses = []
         this._myTeacherActivities = []
+        this._myTeacherCompetencies = []
         this._tasksQueue = [];
         this._isExecutingTaskInQueue = false;
     }
@@ -165,7 +166,7 @@ class ClassroomManager {
 
     /**
      * Get activities created by the user
-     * Access with Main.ClassroomManager()._myTeacherActivities;
+     * Access with Main.getClassroomManager()._myTeacherActivities;
      * @public
      * @returns {Array}
      */

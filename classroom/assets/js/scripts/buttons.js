@@ -33,6 +33,7 @@ let ClassroomSettings = {
     classroom: null,
     project: null,
     firstLevel: ["classroom-dashboard-activities-panel-teacher",
+        "classroom-dashboard-competencies-panel-teacher",
         "classroom-dashboard-classes-panel-teacher",
         "classroom-dashboard-sandbox-panel",
         "classroom-dashboard-profil-panel-teacher",
@@ -40,7 +41,7 @@ let ClassroomSettings = {
         "classroom-dashboard-profil-panel",
         "classroom-dashboard-help-panel",
     ],
-    teacherPanels: ['classroom-dashboard-activities-panel-teacher', 'classroom-dashboard-activities-panel-library-teacher', 'classroom-dashboard-new-activity-panel', 'classroom-dashboard-new-activity-panel2', 'classroom-dashboard-new-course-panel2', 'classroom-dashboard-new-activity-panel3', 'classroom-dashboard-form-classe-panel', 'classroom-dashboard-classes-panel-teacher', 'classroom-table-panel-teacher', 'classroom-dashboard-help-panel-teacher', 'classroom-dashboard-profil-panel-teacher', 'classroom-table-panel-teacher-code'
+    teacherPanels: ['classroom-dashboard-activities-panel-teacher', 'classroom-dashboard-competencies-panel-teacher' ,'classroom-dashboard-activities-panel-library-teacher', 'classroom-dashboard-competencies-panel-library-teacher', 'classroom-dashboard-new-activity-panel', 'classroom-dashboard-new-activity-panel2', 'classroom-dashboard-new-course-panel2', 'classroom-dashboard-new-activity-panel3', 'classroom-dashboard-new-competency-panel', 'classroom-dashboard-new-competency-panel2', 'classroom-dashboard-form-classe-panel', 'classroom-dashboard-classes-panel-teacher', 'classroom-table-panel-teacher', 'classroom-dashboard-help-panel-teacher', 'classroom-dashboard-profil-panel-teacher', 'classroom-table-panel-teacher-code'
 
     ],
     studentPanels: ['classroom-dashboard-activities-panel', 'classroom-dashboard-activity-panel-success', 'classroom-dashboard-activity-panel-fail', 'classroom-dashboard-activity-panel-correcting', 'classroom-dashboard-help-panel', 'classroom-dashboard-profil-panel', ''
@@ -55,6 +56,11 @@ let ClassroomSettings = {
             "classroom-dashboard-new-activity-panel3": {},
             "classroom-dashboard-new-activity-panel2": {},
             "classroom-dashboard-activity-panel": {}
+        },
+        "classroom-dashboard-competencies-panel-teacher": {
+            "classroom-dashboard-new-competency-panel" : {},
+            "classroom-dashboard-new-competency-panel2" : {},
+            "classroom-dashboard-competency-panel": {}
         },
         "classroom-dashboard-classes-panel-teacher": {
             "classroom-dashboard-form-classe-panel": {},
@@ -83,6 +89,7 @@ let Breadcrumb = {
     "dashboard-help": "classroom-dashboard-help-panel",
     "dashboard-profil": "classroom-dashboard-profil-panel",
     "dashboard-activities-teacher": "classroom-dashboard-activities-panel-teacher",
+    "dashboard-competencies-teacher" : "classroom-dashboard-competencies-panel-teacher",
     "dashboard-classes-teacher": "classroom-dashboard-classes-panel-teacher",
     "dashboard-sandbox-teacher": "classroom-dashboard-sandbox-panel",
     "dashboard-profil-teacher": "classroom-dashboard-profil-panel-teacher"
