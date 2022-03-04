@@ -12,7 +12,8 @@ function createActivity(link = null, id = null) {
         ClassroomSettings.activityInWriting = true
     } else {
         ClassroomSettings.activity = id
-
+        // Dupliquer la ressource
+        // duplicate=1 pour projet lti 
         Main.getClassroomManager().duplicateActivity(id).then(function (response) {
             if (response.success == true) {
                 displayNotification('#notif-div', "classroom.notif.activityDeleted", "success");
