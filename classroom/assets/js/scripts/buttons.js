@@ -483,36 +483,23 @@ $('body').on('click', '.modal-teacherSandbox-delete', function () {
     }
 })
 //increment counter when selecting student
-$('body').on('change', '.student-id', function () {
-    if ($(this).is(':checked')) {
-        ClassroomSettings.studentCount++
-    } else {
-        ClassroomSettings.studentCount--
+document.addEventListener('change', (e) => {
+    if (e.target.classList.contains('student-id') || e.target.classList.contains('list-students-classroom')) {
+        let selectedStudentNumber = 0, 
+        studentCheckboxesElts = document.querySelectorAll('#list-student-attribute-modal .student-id');
+        for (let checkboxElt of studentCheckboxesElts) {
+            if (checkboxElt.checked) selectedStudentNumber++;
+        }
+        for (let numberDisplayElt of document.querySelectorAll('.student-number')) {
+            numberDisplayElt.innerHTML = selectedStudentNumber;
+        }
+        if(selectedStudentNumber > 0) {
+            document.querySelector('#attribute-activity-to-students').removeAttribute('disabled');
+        } else {
+            document.querySelector('#attribute-activity-to-students').setAttribute('disabled', '');
+        }
     }
-    $('.student-number').html(ClassroomSettings.studentCount)
-    if(document.querySelector('.student-number').textContent != '0') {
-        document.getElementById('attribute-activity-to-students').removeAttribute('disabled');
-    } else {
-        document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');
-    }
-})
-
-$('body').on('change', '.list-students-classroom', function () {
-    let nbStudent = $(this).parent().find('.student-list').children().length
-    if ($(this).is(':checked')) {
-
-        ClassroomSettings.studentCount += nbStudent
-    } else {
-        ClassroomSettings.studentCount -= nbStudent
-    }
-    $('.student-number').html(ClassroomSettings.studentCount)
-    if(document.querySelector('.student-number').textContent != '0') {
-        document.getElementById('attribute-activity-to-students').removeAttribute('disabled');
-    } else {
-        document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');
-    }
-})
-
+});
 
 //sandbox dropdown-->duplicate
 $('body').on('click', '.modal-teacherSandbox-duplicate', function () {
