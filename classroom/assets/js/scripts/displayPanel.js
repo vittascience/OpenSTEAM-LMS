@@ -306,6 +306,8 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) 
     document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');
     if (ref != null && ref != 'null') {
         let attribution = getAttributionByRef(ref)
+        let retroAttributionIsActive = ClassroomSettings.isRetroAttributed === true ? true : false
+        $('#retro-attribution-activity-form').prop('checked',retroAttributionIsActive)
         $('#introduction-activity-form').val(attribution.introduction)
         $('#date-begin-activity-form').val(formatDateInput(new Date(attribution.dateBegin.date)))
         $('#date-end-activity-form').val(formatDateInput(new Date(attribution.dateEnd.date)))
@@ -324,6 +326,7 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) 
         $('#date-begin-activity-form').val(formatDateInput(now))
         $('#date-end-activity-form').val(formatDateInput(future))
         $('#introduction-activity-form').val('')
+        $('#retro-attribution-activity-form').prop('checked',true)
     }
 }
 
