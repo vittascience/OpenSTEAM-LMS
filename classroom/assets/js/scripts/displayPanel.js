@@ -395,12 +395,8 @@ function getTeacherActivity() {
             } 
         } else if (Activity.type == 'fillIn') {
             const contentParsed = JSON.parse(Activity.content);
-            let bbcodeContentDoable = "";
-            contentParsed.fillInFields.array.forEach(e => {
-                bbcodeContentDoable+= e;
-            });
             $("#activity-states").html(bbcodeToHtml(contentParsed.states));
-            $("#activity-content").html(bbcodeToHtml(bbcodeContentDoable));
+            $("#activity-content").html(bbcodeToHtml(contentParsed.fillInFields.contentForTeacher));
             $("#activity-content-container").show();
             $("#activity-states-container").show();
 

@@ -156,13 +156,7 @@ function manageUpdateByType(activity) {
         $("#fill-in-states").htmlcode(bbcodeToHtml(content.states));
         $("#fill-in-hint").val(content.hint);
         $("#fill-in-tolerance").val(activity.tolerance);
-
-        let bbcodeContentDoable = "";
-        content.fillInFields.array.forEach(e => {
-            Main.getClassroomManager()._createActivity.content.fillInFields.array.push(e);
-            bbcodeContentDoable+= e;
-        });
-        $("#fill-in-content").htmlcode(bbcodeToHtml(bbcodeContentDoable));
+        $("#fill-in-content").htmlcode(bbcodeToHtml(content.fillInFields.contentForTeacher));
 
         activity.isAutocorrect ? $("#fill-in-autocorrect").prop("checked", true) : $("#fill-in-autocorrect").prop("checked", false);
 

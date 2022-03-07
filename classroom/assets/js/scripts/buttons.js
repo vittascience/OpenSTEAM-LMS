@@ -2631,6 +2631,8 @@ function resetInputApplications() {
     $('#validation_delete_application').val("");
     $('#app_update_activity_restriction_value').val("");
     $('#app_update_activity_restriction_type').val("");
+    $('#app_create_activity_restriction_value').val("");
+    $('#app_create_activity_restriction_type').val("");
 
     $('#isLti').prop('checked', false);
     $('#update_isLti').prop('checked', false);
@@ -3353,15 +3355,19 @@ function contentBackward() {
 // Get the content
 function contentForward() {
     if (Main.getClassroomManager()._createActivity.id == 'free') {
+
         Main.getClassroomManager()._createActivity.content.description = $('#free-content').bbcode();
         Main.getClassroomManager()._createActivity.solution = [$('#free-correction').bbcode()];
         Main.getClassroomManager()._createActivity.autocorrect = $('#free-autocorrect').is(":checked");
+
     } else if (Main.getClassroomManager()._createActivity.id == 'reading'){
+
         Main.getClassroomManager()._createActivity.content.description = $('#reading_content').bbcode();
+
     } else if (Main.getClassroomManager()._createActivity.id == 'fillIn') {
 
         Main.getClassroomManager()._createActivity.content.states = $('#fill-in-states').bbcode();
-        Main.getClassroomManager()._createActivity.content.tolerance = $('#fill-in-tolerance').val();
+        Main.getClassroomManager()._createActivity.tolerance = $('#fill-in-tolerance').val();
         Main.getClassroomManager()._createActivity.autocorrect = $('#fill-in-autocorrect').is(":checked");
         Main.getClassroomManager()._createActivity.content.hint = $('#fill-in-hint').val();
         // Manage fill in fields
@@ -3371,7 +3377,7 @@ function contentForward() {
         // By default using LTI, the button doesn't do anything specific
     }
     // Check if the content if empty
-    if (Main.getClassroomManager()._createActivity.content.description == '' && Main.getClassroomManager()._createActivity.content.fillInFields.array.length == 0) { 
+    if (Main.getClassroomManager()._createActivity.content.description == '' && Main.getClassroomManager()._createActivity.content.fillInFields.contentForTeacher == '') { 
         displayNotification('#notif-div', "classroom.notif.emptyContent", "error");
     } else {
         navigatePanel('classroom-dashboard-classes-new-activity-title', 'dashboard-proactivities-teacher');
@@ -3483,12 +3489,7 @@ function quizValidateActivity() {
 }
 
 function fillInValidateActivity() {
-
-    let studentResponse = [];
-    $(`input[id^="response-student-fill-in-field-input"]`).each(function() {
-        studentResponse.push($(this).val());
-    })
-
+    let studentResponse = $('#activity-input').bbcode().match(/\|(.*?)\|/gi).map(match => match.replace(/\|(.*?)\|/gi, "$1").trim());
     Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, null, null, JSON.stringify(studentResponse)).then((response) => {
         if (response) {
             $("#activity-validate").attr("disabled", false);
@@ -3505,7 +3506,6 @@ function fillInValidateActivity() {
             displayNotification('#notif-div', "classroom.notif.errorSending", "error");
         }
     });
-
 }
 
 
@@ -3550,31 +3550,40 @@ function goBackToActivities() {
     });
 }); */
 
-// Test de texte à trou avancé | a || b | et | c| et puis encore | d |
-$('#fill-in-add-inputs').click(() => {
-    let index = Main.getClassroomManager()._createActivity.content.fillInFields.array.length + 1;
-    // En cliquant sur le bouton << ajouter un champs à compléter >>, un texte est ajouté avec deux caractères verticaux << | réponse | >>. Vous pouvez écrire la réponse correcte entre ces deux caractères. Les réponses alternatives sont séparées par une double esperluete << && >>
-    let field = `| réponse |`;
-
-    Main.getClassroomManager()._createActivity.content.fillInFields.array.push(field);
-    $('#fill-in-content').htmlcode($('#fill-in-content').bbcode() + field);
-
-    $(`p[id^="question-fill-in-field-"]`).bind("DOMSubtreeModified", function() {
-        Main.getClassroomManager()._createActivity.content.fillInFields.array.forEach((e, i) => {
-            if (e.includes(this.id)) {
-                Main.getClassroomManager()._createActivity.content.fillInFields.array[i] = `<p id="${this.id}" class="activities-fill-in-square">${$(this).text()}</p>`;
-            }
-        });
-    });
-});
-
 /* $('#fill-in-remove-inputs').click(() => {
     $(`#question-fill-in-field-${Main.getClassroomManager()._createActivity.content.fillInFields.array.length}`).unbind();
     Main.getClassroomManager()._createActivity.content.fillInFields.array.pop();
     $('#fill-in-content').htmlcode(Main.getClassroomManager()._createActivity.content.fillInFields.array.join(''));
 }) */
 
+// Test de texte à trou avancé | a && b | et | c | et puis encore | d |
+$('#fill-in-add-inputs').click(() => {
+    //let index = Main.getClassroomManager()._createActivity.content.fillInFields.array.length + 1;
+    // 
+    let field = `| réponse |`;
+    /* Main.getClassroomManager()._createActivity.content.fillInFields.array.push(field); */
+    $('#fill-in-content').htmlcode($('#fill-in-content').bbcode() + field);
+});
+
 function parseFillInFieldsAndSaveThem() {
+    
+    Main.getClassroomManager()._createActivity.content.fillInFields.contentForTeacher = $('#fill-in-content').bbcode();
+    
+    let response = $('#fill-in-content').bbcode().match(/\|(.*?)\|/gi).map(match => match.replace(/\|(.*?)\|/gi, "$1"));
+    let contentForStudent = $('#fill-in-content').bbcode();
+    response.forEach((e, i) => {
+        contentForStudent = contentForStudent.replace(`|${e}|`, `| ? |`);
+        if (e.includes('&&')) {
+            response[i] = e.split('&&').map(e => e.trim()).join(',');
+        }
+    })
+    
+    Main.getClassroomManager()._createActivity.solution = response;
+    Main.getClassroomManager()._createActivity.content.fillInFields.contentForStudent = contentForStudent;
+}
+
+
+/* function parseFillInFieldsAndSaveThem() {
     let fillInFields = [],
         lengthFill = Main.getClassroomManager()._createActivity.content.fillInFields.array.length;
 
@@ -3594,7 +3603,7 @@ function parseFillInFieldsAndSaveThem() {
 
     Main.getClassroomManager()._createActivity.solution = response;
     Main.getClassroomManager()._createActivity.content.fillInFields.question = stringWithOutAnswer;
-}
+} */
 
 
 /* let proActivities = [{

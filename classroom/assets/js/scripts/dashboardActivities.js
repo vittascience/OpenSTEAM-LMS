@@ -606,7 +606,7 @@ function manageDisplayLti(correction, content, correction_div, isDoable, activit
 function manageDisplayQuiz(correction, content, correction_div) {
     //console.log(content);
     setTextArea();
-    
+/*     
     $('#activity-title').html(Activity.activity.title);
     $('#activity-content').html(bbcodeToHtml(content));
     $('#activity-content-container').show();
@@ -623,7 +623,7 @@ function manageDisplayQuiz(correction, content, correction_div) {
     if (!Activity.evaluation && correction < 2) {
         $('#activity-validate').show();
         $('#activity-save').show();
-    }
+    } */
 }
 
 function manageDisplayFillIn(correction, content, correction_div) {
@@ -632,7 +632,7 @@ function manageDisplayFillIn(correction, content, correction_div) {
     $('#activity-title').html(Activity.activity.title);
     // Show the content with the response to the teacher
     if (UserManager.getUser().isRegular) {
-        $('#activity-content').html(content.fillInFields.array.join('<br>'));
+        $('#activity-content').html(content.fillInFields.contentForTeacher);
         $('#activity-content-container').show();
     }
 
@@ -642,30 +642,23 @@ function manageDisplayFillIn(correction, content, correction_div) {
     if (correction == 0 || correction == null) {
         if (!UserManager.getUser().isRegular) {
             $('#activity-input').wysibb(wbbOpt);
-            $('#activity-fill-in-container').show();
-            let studentContent = "";
-            let regex = /([﻿]+)/gi;
-            content.fillInFields.question.forEach((question, index) => {
-                let input = `<input type="text" id="response-student-fill-in-field-input-${index+1}">`;
-                studentContent += `<p id="response-student-fill-in-field-${index+1}"> ${question.replace(regex, input)} </p>`;;
-            });
-            $('#activity-fill-in-container').html(studentContent);
+            $('#activity-input').htmlcode(content.fillInFields.contentForStudent);
+            $('#activity-input-container').show();
         }
     } else if (correction > 0) {
-        $('#activity-student-response').show();
+        
+        let studentContentString = content.fillInFields.contentForStudent;
+        let studentResponses = JSON.parse(Activity.response);
 
-        let regex = /([﻿]+)/gi,
-            responses = JSON.parse(Activity.response),
-            contentToAdd = "";
-
-        content.fillInFields.question.forEach((question, index) => {
-            contentToAdd += `<p id="response-student-fill-in-field-${index+1}"> ${question.replace(regex, responses[index])} </p>`;;
+        studentResponses.forEach(response => {
+            studentContentString = studentContentString.replace(/\|(.*?)\|/gi, response);
         });
 
-        $('#activity-student-response-content').html(contentToAdd);
+        $('#activity-student-response-content').html(studentContentString);
+        $('#activity-student-response').show();
 
-        $('#activity-correction-container').show(); 
         $('#activity-correction').html(correction_div);
+        $('#activity-correction-container').show(); 
 
         if (UserManager.getUser().isRegular) {
             $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));

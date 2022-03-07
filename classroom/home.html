@@ -291,13 +291,10 @@
                 </div>
 
                 <div id="activity-input-container" style="display:none;">
-                    <label for="activity-input">Entrez votre réponse</label>
+                    <label for="activity-input" class="vitta-modal-title mt-2">Entrez votre réponse</label>
                     <textarea id="activity-input"></textarea>
                 </div>
 
-                <div id="activity-fill-in-container" style="display:none;">
-
-                </div>
 
                 <button class="btn c-btn-primary" id="activity-validate" data-i18n="classroom.activities.validate" onclick="validateActivity()"> <i class="fas fa-chevron-right"></i></button>
                 <button class="btn c-btn-primary" id="activity-save" style="display:none;" onclick="saveActivity()" data-i18n="classroom.activities.save-draft"><i class="fas fa-chevron-right"></i></button>
@@ -1386,7 +1383,8 @@
             </div>
 
             <button class="btn c-btn-outline-primary" id="fill-in-add-inputs">Add field</button>
-            <button class="btn c-btn-red" id="fill-in-remove-inputs">Remove field</button>
+            <p>En cliquant sur le bouton ajouter un champs à compléter , un texte est ajouté avec deux caractères verticaux | réponse |. Vous pouvez écrire la réponse correcte entre ces deux caractères. Les réponses alternatives sont séparées par une double esperluette  && </p>
+            <!-- <button class="btn c-btn-red" id="fill-in-remove-inputs">Remove field</button> -->
 
             <div class="content m-3">
                 <p><span data-i18n="newActivities.tolerance1"></span> <input type="number" id="fill-in-tolerance"> <span data-i18n="newActivities.tolerance2"></span></p>

@@ -1285,7 +1285,7 @@ class ClassroomManager {
     }
 
     // update an activity
-    updateActivity($id, $title, $type, $content, $solution, $tolerance) {
+    updateActivity($id, $title, $type, $content, $solution, $tolerance, $autocorrect) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -1296,7 +1296,8 @@ class ClassroomManager {
                     'type' : $type,
                     'content' : $content,
                     'solution' : $solution,
-                    'tolerance' : $tolerance
+                    'tolerance' : $tolerance,
+                    'autocorrect' : $autocorrect
                 },
                 success: function (response) {
                     resolve(JSON.parse(response));
@@ -1424,7 +1425,7 @@ class ClassroomManager {
                 fillInFields: {
                     array: [],
                     answer: [],
-                    question: [],
+                    content: [],
                 }
             }, 
             type: '', 
