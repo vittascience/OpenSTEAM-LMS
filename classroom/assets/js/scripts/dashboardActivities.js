@@ -280,11 +280,17 @@ $('body').on('click', '.list-students-classroom', function () {
     });
 })
 
-$('body').on('click', '.activity-card', function () {
+$('body').on('click', '.activity-card, .activity-item-title', function () {
     if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
-        let id = parseInt($(this).find(".info-tutorials").attr("data-id"))
-        let state = $(this).find(".info-tutorials").attr("data-state")
-        navigatePanel('classroom-dashboard-activity-panel', 'dashboard-activities', 'WK' + id, state)
+        let id, state;
+        if (this.classList.contains('activity-item-title')) {
+            id = this.parentElement.querySelector('.info-tutorials').getAttribute("data-id");
+            state = this.parentElement.querySelector('.info-tutorials').getAttribute("data-state") ? this.parentElement.querySelector('.info-tutorials').getAttribute("data-state") : '';
+        } else {
+            id = parseInt($(this).find(".info-tutorials").attr("data-id"));
+            state = $(this).find(".info-tutorials").attr("data-state");
+        }
+        navigatePanel('classroom-dashboard-activity-panel', 'dashboard-activities', 'WK' + id, state);
     }
 })
 
