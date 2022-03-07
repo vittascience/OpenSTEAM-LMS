@@ -1096,7 +1096,6 @@ class ClassroomManager {
                     'id': formData.get('teacher-id'),
                     'firstname': formData.get('first-name'),
                     'surname': formData.get('last-name'),
-                    'pseudo': formData.get('nickname'),
                     'email': formData.get('email'),
                     'password': formData.get('password')
                 },

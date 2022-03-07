@@ -1019,7 +1019,6 @@ function getAndPopulateAccountInfo(){
     let userInfo = {
         firstname: UserManager.getUser().firstname ?? '',
         lastname: UserManager.getUser().surname ?? '',
-        nickname: UserManager.getUser().pseudo ?? '',
         email: UserManager.getUser().isRegular ?? '',
         teacherId: UserManager.getUser().id
     };
@@ -1033,13 +1032,11 @@ function getAndPopulateAccountInfo(){
 function populateAccountInfo(data){
     let firstNameInputElt = document.getElementById('profile-form-first-name'),
     lastNameInputElt = document.getElementById('profile-form-last-name'),
-    nickNameInputElt = document.getElementById('profile-form-nick-name'),
     emailInputElt = document.getElementById('profile-form-email'),
     teacherIdInputElt = document.getElementById('profile-form-teacher-id');
 
     firstNameInputElt.value = data.firstname;
     lastNameInputElt.value = data.lastname;
-    nickNameInputElt.value = data.nickname;
     emailInputElt.value = data.email;
     teacherIdInputElt.value = data.teacherId;
 }
@@ -1096,10 +1093,6 @@ function teacherAccountUpdateFormCheck(formData){
             value: formData.get('last-name'),
             id: 'profile-form-last-name'
         },
-        'pseudo': {
-            value: formData.get('nickname'),
-            id: 'profile-form-nick-name'
-        },
         'email': {
             value: formData.get('email'),
             id: 'profile-form-email'
@@ -1130,11 +1123,6 @@ function teacherAccountUpdateFormCheck(formData){
     if(!formValues.surname.value.length == 0 && formValues.surname.value.length < 2){
         errors.push('lastNameTooShort');
         showFormInputError(formValues.surname.id);
-    }
-
-    if(!formValues.pseudo.value.length == 0 && formValues.pseudo.value.length < 2){
-        errors.push('pseudoTooShort');
-        showFormInputError(formValues.pseudo.id);
     }
 
     if(!formValues.email.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)){
