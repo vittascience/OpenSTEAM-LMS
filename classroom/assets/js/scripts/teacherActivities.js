@@ -220,6 +220,7 @@ $('body').on('click', '#attribute-activity-to-students', function () {
     let students = []
     let classrooms = []
     let studentId = $('#attribute-activity-modal .student-attribute-form-row')
+    const retroAttribution = $('#retro-attribution-activity-form').prop('checked')
     for (let i = 0; i < studentId.length; i++) {
         if ($(studentId[i]).find(".student-id").is(':checked')) {
             students.push($(studentId[i]).find(".student-id").val())
@@ -242,9 +243,6 @@ $('body').on('click', '#attribute-activity-to-students', function () {
                 Main.getClassroomManager().undoAttributeActivity(ClassroomSettings.ref)
             } */
             
-            // get the checkbox value then set it by default for the next time
-            retroAttribution = $('#retro-attribution').prop('checked')
-            $('#retro-attribution').prop('checked',false)
 
             Main.getClassroomManager().attributeActivity({
                 'activity': activity,
@@ -273,7 +271,6 @@ $('body').on('click', '#attribute-activity-to-students', function () {
 
         });
     }
-
 })
 
 //déplie/replie la liste des étudiants
