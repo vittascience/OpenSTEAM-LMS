@@ -328,7 +328,6 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) 
 }
 
 DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
-    console.log(id)
     if (id != 'null') {
         if (UserManager.getUser().isRegular) {
             if (id.slice(0, 2) == "WK") {
