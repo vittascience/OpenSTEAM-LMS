@@ -280,7 +280,7 @@ $('body').on('click', '.list-students-classroom', function () {
     });
 })
 
-$('body').on('click', '.activity-card, .activity-item-title', function () {
+$('body').on('click', '.activity-card, .activity-item .activity-item-title', function () {
     if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
         let id, state;
         if (this.classList.contains('activity-item-title')) {
