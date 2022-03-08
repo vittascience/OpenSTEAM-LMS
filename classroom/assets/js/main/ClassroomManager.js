@@ -433,9 +433,13 @@ class ClassroomManager {
                 type: "POST",
                 url: "/routing/Routing.php?controller=activity&action=get",
                 data: {
-                    "id": ClassroomSettings.activity
+                    "id": ClassroomSettings.activity,
+                    "classroomLink": ClassroomSettings.classroom,
+                    "reference": ClassroomSettings.ref
                 },
                 success: function (response) {
+                    let isRetroAttributed = JSON.parse(response).isRetroAttributed
+                    ClassroomSettings.isRetroAttributed = isRetroAttributed
                     let content = JSON.parse(response).content
                     let link = content.replace(/\n/, '');
                     link = content.replace(/.*(\[iframe\].*python\/\?link=)([a-f0-9]{13}).*/, "$2")
@@ -840,7 +844,9 @@ class ClassroomManager {
                 type: "POST",
                 url: "/routing/Routing.php?controller=activity&action=get",
                 data: {
-                    id: id
+                    "id": id,
+                    "classroomLink": ClassroomSettings.classroom,
+                    "reference": ClassroomSettings.ref
                 },
                 success: function (response) {
                     resolve(JSON.parse(response))
@@ -1096,7 +1102,6 @@ class ClassroomManager {
                     'id': formData.get('teacher-id'),
                     'firstname': formData.get('first-name'),
                     'surname': formData.get('last-name'),
-                    'pseudo': formData.get('nickname'),
                     'email': formData.get('email'),
                     'password': formData.get('password')
                 },

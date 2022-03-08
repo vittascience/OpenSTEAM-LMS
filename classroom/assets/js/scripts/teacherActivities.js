@@ -262,8 +262,8 @@ $('body').on('click', '#attribute-activity-to-students', function () {
             /* if (ClassroomSettings.ref != null) {
                 Main.getClassroomManager().undoAttributeActivity(ClassroomSettings.ref)
             } */
-            
 
+            
             Main.getClassroomManager().attributeActivity({
                 'activity': activity,
                 'students': students,
