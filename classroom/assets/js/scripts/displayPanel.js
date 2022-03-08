@@ -403,8 +403,6 @@ function getTeacherActivity() {
 
         } else if (Activity.type == 'quiz') {
             $("#activity-states").html(bbcodeToHtml(contentParsed.states));
-
-
             $(`div[id^="teacher-suggestion-"]`).each(function() {
                 $(this).remove();
             })

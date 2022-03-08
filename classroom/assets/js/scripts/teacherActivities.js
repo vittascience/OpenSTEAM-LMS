@@ -98,7 +98,7 @@ function activityModify(id) {
 
     $('#activity-free').hide();
     $('#activity-fill-in').hide();
-    $("#activity_custom").hide();
+    $("#activity-custom").hide();
 
     if (id == 0) {
         id = Main.getClassroomManager()._lastCreatedActivity;
@@ -128,9 +128,9 @@ function manageUpdateByType(activity) {
 
     Main.getClassroomManager()._createActivity.id = activity.type;
     Main.getClassroomManager()._createActivity.function = "update";
-    $('#global_title').val(activity.title);
-
+    
     contentForwardButtonElt.style.display = 'inline-block';
+    $('#global_title').val(activity.title);
 
     if (activity.type == "free") {  
         $('#activity-free').show();
@@ -150,20 +150,25 @@ function manageUpdateByType(activity) {
         }
     } else if (activity.type == "quiz") {
 
-        let content = JSON.parse(activity.solution);
+        let solution = JSON.parse(activity.solution),
+            content = JSON.parse(activity.content);
 
-        for (let i = 1; i < content.length+1; i++) {
+        $('#quiz-suggestions-container').html('');
+        for (let i = 1; i < solution.length+1; i++) {
             let divToAdd = `<div class="input-group">
                                 <label for="quiz-suggestion-${i}" id="quiz-label-suggestion-${i}">Proposition ${i}</label>
                                 <button data-i18n="newActivities.delete" id="quiz-button-suggestion-${i}" onclick="deleteQuizSuggestion(${i})">Delete</button>
-                                <input type="text" id="quiz-suggestion-${i}">
+                                <input type="text" id="quiz-suggestion-${i}" value="${solution[i-1].inputVal}">
                                 <label for="quiz-checkbox-${i}" id="quiz-label-checkbox-${i}">Réponse correcte</label>
-                                <input type="checkbox" id="quiz-checkbox-${i}">
+                                <input type="checkbox" id="quiz-checkbox-${i}" ${solution[i-1].isCorrect ? 'checked' : ''}>
                             </div>
                             `;
             $('#quiz-suggestions-container').append(divToAdd);
         }
 
+        $('#quiz-states').htmlcode(bbcodeToHtml(content.states));
+        $('#quiz-hint').val(content.hint);
+        
         if (activity.isAutocorrect) {
             $("#quiz-autocorrect").prop("checked", true)
             $("#quiz-correction_content").show();
@@ -171,6 +176,7 @@ function manageUpdateByType(activity) {
             $("#quiz-autocorrect").prop("checked", false)
             $("#quiz-correction_content").hide();
         }
+        $('#activity-quiz').show();
 
     } else if (activity.type == "fillIn") {
         $('#activity-fill-in').show();
@@ -199,7 +205,7 @@ function manageUpdateByType(activity) {
         contentForwardButtonElt.style.display = 'none';
         Main.getClassroomManager()._createActivity.content.description = JSON.parse(activity.content).description;
         launchLtiDeepLinkCreate(activity.type, true);
-        $("#activity_custom").show();
+        $("#activity-custom").show();
     }
     
     navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');

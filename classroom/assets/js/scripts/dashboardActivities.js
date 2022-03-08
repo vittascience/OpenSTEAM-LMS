@@ -624,13 +624,26 @@ function manageDisplayQuiz(correction, content, correction_div) {
             for (let i = 1; i < data.length+1; i++) {
                 let ctx = ` <div class="input-group">
                                 <input type="checkbox" id="student-quiz-checkbox-${i}">
-                                <input type="text" id="student-quiz-suggestion-${i}" value="${data[i].inputVal}" readonly>
+                                <input type="text" id="student-quiz-suggestion-${i}" value="${data[i-1].inputVal}" readonly>
                             </div>`;
                 $('#activity-student-response-content').append(ctx); 
             }
             $('#activity-student-response').show();
         }
     } else if (correction > 0) {
+
+        if (Activity.response != null) {
+            $('#activity-student-response-content').html("");
+            let data = JSON.parse(Activity.response);
+            for (let i = 1; i < data.length+1; i++) {
+                let ctx = ` <div class="input-group">
+                                <input type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
+                                <input type="text" id="student-quiz-suggestion-${i}" value="${data[i-1].inputVal}" readonly>
+                            </div>`;
+                $('#activity-student-response-content').append(ctx); 
+            }
+            $('#activity-student-response').show();
+        }
 
         if (UserManager.getUser().isRegular) {
             $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
