@@ -180,7 +180,7 @@ function manageUpdateByType(activity) {
         activity.isAutocorrect ? $("#fill-in-autocorrect").prop("checked", true) : $("#fill-in-autocorrect").prop("checked", false);
 
         $('#global_title').val(activity.title);   
-    } else if (activity.type == "reading" || activity.type == "") {
+    } else if (activity.type == "reading" || activity.type == null) {
         let content = "";
         if (IsJsonString(Activity.content)) {
             content = JSON.parse(Activity.content);
