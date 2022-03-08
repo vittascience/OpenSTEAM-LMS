@@ -282,7 +282,7 @@ $('body').on('click', '.list-students-classroom', function () {
 
 $('body').on('click', '.activity-card, .activity-item .activity-item-title', function () {
     if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
-        let id, state;
+        let id, state, navigation;
         if (this.classList.contains('activity-item-title')) {
             id = this.parentElement.querySelector('.info-tutorials').getAttribute("data-id");
             state = this.parentElement.querySelector('.info-tutorials').getAttribute("data-state") ? this.parentElement.querySelector('.info-tutorials').getAttribute("data-state") : '';
@@ -290,19 +290,24 @@ $('body').on('click', '.activity-card, .activity-item .activity-item-title', fun
             id = parseInt($(this).find(".info-tutorials").attr("data-id"));
             state = $(this).find(".info-tutorials").attr("data-state");
         }
-        navigatePanel('classroom-dashboard-activity-panel', 'dashboard-activities', 'WK' + id, state);
+        if (this.parentElement.parentElement.id == 'list-activities-teacher') {
+            navigation = 'dashboard-activities-teacher';
+        } else {
+            navigation = 'dashboard-activities';
+        }
+        navigatePanel('classroom-dashboard-activity-panel', navigation, 'WK' + id, state);
     }
 })
 
 function activityWatch(id) {
-    navigatePanel('classroom-dashboard-activity-panel', 'dashboard-activities', 'WK' + id, '')
+    navigatePanel('classroom-dashboard-activity-panel', 'dashboard-activities-teacher', 'WK' + id, '')
 }
 
 //ouvre une activité depuis un dashboard
 $('body').on('click', '.bilan-cell', function () {
     let self = $(this)
     if (!self.hasClass('no-activity')) {
-        navigatePanel('classroom-dashboard-activity-panel', 'dashboard-activities', 'AC' + parseInt(self.attr('data-id')), self.attr("data-state"))
+        navigatePanel('classroom-dashboard-activity-panel', 'dashboard-activities-teacher', 'AC' + parseInt(self.attr('data-id')), self.attr("data-state"))
     }
 
 })
