@@ -122,12 +122,15 @@ function activityModify(id) {
 
 function manageUpdateByType(activity) {
     const contentForwardButtonElt = document.getElementById('content-forward-button');
+    if (activity.type == null) {
+        activity.type = "reading";
+    }
     Main.getClassroomManager()._createActivity.id = activity.type;
+
+    Main.getClassroomManager()._createActivity.function = "update";
     contentForwardButtonElt.style.display = 'inline-block';
     if (activity.type == "free") {  
         $('#activity-free').show();
-        Main.getClassroomManager()._createActivity.function = "update";
-
         let content = JSON.parse(activity.content);
         $('#free-content').htmlcode(bbcodeToHtml(content.description));
         if (activity.isAutocorrect) {
@@ -169,8 +172,6 @@ function manageUpdateByType(activity) {
     } else if (activity.type == "fillIn") {
         $('#activity-fill-in').show();
 
-        Main.getClassroomManager()._createActivity.function = "update";
-
         let content = JSON.parse(activity.content);
         $("#fill-in-states").htmlcode(bbcodeToHtml(content.states));
         $("#fill-in-hint").val(content.hint);
@@ -181,19 +182,22 @@ function manageUpdateByType(activity) {
 
         $('#global_title').val(activity.title);   
     } else if (activity.type == "reading" || activity.type == null) {
-        let content = "";
-        if (IsJsonString(Activity.content)) {
-            content = JSON.parse(Activity.content);
+        let contentParsed = "";
+
+        if (IsJsonString(activity.content)) {
+            contentParsed = bbcodeToHtml(JSON.parse(activity.content).description);
         } else {
-            content = Activity.content;
+            contentParsed = activity.content;
         }
 
-        $("#reading-content").htmlcode(bbcodeToHtml(content));
-        $('#global_title').val(activity.title);  
+        console.log(contentParsed);
+
+        $("#reading-content").htmlcode((contentParsed));
+        $("#activity-reading").show();
+        $('#global_title').val(activity.title);
     } else {
         // TODO: CHANGE THIS DEFAULT FALLBACK BY SOMETHING CHECKING IF THE CURRENT ACTIVITY USES LTI
         contentForwardButtonElt.style.display = 'none';
-        Main.getClassroomManager()._createActivity.function = "update";
         Main.getClassroomManager()._createActivity.content.description = JSON.parse(activity.content).description;
         launchLtiDeepLinkCreate(activity.type, true);
         $('#global_title').val(activity.title);
