@@ -122,13 +122,16 @@ function activityModify(id) {
 
 function manageUpdateByType(activity) {
     const contentForwardButtonElt = document.getElementById('content-forward-button');
-    if (activity.type == null) {
-        activity.type = "reading";
-    }
-    Main.getClassroomManager()._createActivity.id = activity.type;
 
+    // Merge old activity to reading activity
+    activity.type == null ? activity.type = "reading" : activity.type;
+
+    Main.getClassroomManager()._createActivity.id = activity.type;
     Main.getClassroomManager()._createActivity.function = "update";
+    $('#global_title').val(activity.title);
+
     contentForwardButtonElt.style.display = 'inline-block';
+
     if (activity.type == "free") {  
         $('#activity-free').show();
         let content = JSON.parse(activity.content);
@@ -145,7 +148,6 @@ function manageUpdateByType(activity) {
                 $('#free-correction').htmlcode(bbcodeToHtml(activity.solution));
             }
         }
-        $('#global_title').val(activity.title);   
     } else if (activity.type == "quiz") {
 
         let content = JSON.parse(activity.solution);
@@ -169,6 +171,7 @@ function manageUpdateByType(activity) {
             $("#quiz-autocorrect").prop("checked", false)
             $("#quiz-correction_content").hide();
         }
+
     } else if (activity.type == "fillIn") {
         $('#activity-fill-in').show();
 
@@ -180,7 +183,6 @@ function manageUpdateByType(activity) {
 
         activity.isAutocorrect ? $("#fill-in-autocorrect").prop("checked", true) : $("#fill-in-autocorrect").prop("checked", false);
 
-        $('#global_title').val(activity.title);   
     } else if (activity.type == "reading" || activity.type == null) {
         let contentParsed = "";
 
@@ -190,19 +192,16 @@ function manageUpdateByType(activity) {
             contentParsed = activity.content;
         }
 
-        console.log(contentParsed);
-
         $("#reading-content").htmlcode((contentParsed));
         $("#activity-reading").show();
-        $('#global_title').val(activity.title);
     } else {
         // TODO: CHANGE THIS DEFAULT FALLBACK BY SOMETHING CHECKING IF THE CURRENT ACTIVITY USES LTI
         contentForwardButtonElt.style.display = 'none';
         Main.getClassroomManager()._createActivity.content.description = JSON.parse(activity.content).description;
         launchLtiDeepLinkCreate(activity.type, true);
-        $('#global_title').val(activity.title);
         $("#activity_custom").show();
     }
+    
     navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
 }
 
