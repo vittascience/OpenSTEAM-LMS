@@ -3237,8 +3237,8 @@ function hideAllActivities() {
     $("#activity-free").hide();
     $("#activity-reading").hide();
     $("#activity-fill-in").hide();
-    $("#activity_dragAndDrop").hide();
-    $("#activity_custom").hide();
+    $("#activity-dragAndDrop").hide();
+    $("#activity-custom").hide();
     $("#activity-quiz").hide();
 }
 
@@ -3271,7 +3271,7 @@ function launchCustomActivity(activityType, isUpdate = false) {
                     $("#activity-reading").show();
                     break;
                 case 'dragAndDrop':
-                    $("#activity_dragAndDrop").show();
+                    $("#activity-dragAndDrop").show();
                     break;
                 case 'custom':
                     // Use the previous method for the activity without title
@@ -3280,7 +3280,7 @@ function launchCustomActivity(activityType, isUpdate = false) {
                 default:
                     // Check if it's an lti apps and get the data needed if it's the case
                     contentForwardButtonElt.style.display = 'none';
-                    $("#activity_custom").show();
+                    $("#activity-custom").show();
                     if (isUpdate) {
                         launchLtiDeepLinkCreate(activityType, isUpdate);
                     } else {
@@ -3472,12 +3472,17 @@ function freeValidateActivity() {
 }
 
 function quizValidateActivity() {
+
     let studentResponse = [];
     for (let i = 1; i < $(`input[id^="student-quiz-checkbox-"]`).length+1; i++) {
-        studentResponse.push($(`input[id^="student-quiz-checkbox-${i}"]`).is(":checked"));
+        let res = {
+            inputVal: $(`#student-quiz-suggestion-${i}`).val(),
+            isCorrect: $(`#student-quiz-checkbox-${i}`).is(':checked')
+        }
+        studentResponse.push(res);
     }
     
-    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, null, null, studentResponse).then((response) => {
+    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, null, null, JSON.stringify(studentResponse)).then((response) => {
         if (response) {
             $("#activity-validate").attr("disabled", false);
             if (response.note != null && response.correction > 1) {
@@ -3493,6 +3498,7 @@ function quizValidateActivity() {
             displayNotification('#notif-div', "classroom.notif.errorSending", "error");
         }
     });
+
 }
 
 function fillInValidateActivity() {
@@ -3626,6 +3632,7 @@ function parseQuizFieldsAndSaveThem() {
         }
         
         Main.getClassroomManager()._createActivity.content.hint = $('#quiz-hint').val();
+        Main.getClassroomManager()._createActivity.autocorrect = $('#quiz-autocorrect').is(":checked");
         
         if ($('#quiz-states').bbcode() != '') {
             Main.getClassroomManager()._createActivity.content.states = $('#quiz-states').bbcode();
