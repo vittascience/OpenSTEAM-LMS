@@ -12,8 +12,6 @@ function createActivity(link = null, id = null) {
         ClassroomSettings.activityInWriting = true
     } else {
         ClassroomSettings.activity = id
-        // Dupliquer la ressource
-        // duplicate=1 pour projet lti 
         Main.getClassroomManager().duplicateActivity(id).then(function (response) {
             if (response.success == true) {
                 displayNotification('#notif-div', "classroom.notif.activityDeleted", "success");
@@ -24,14 +22,7 @@ function createActivity(link = null, id = null) {
                 console.log("error")
             }
         })
-/*         ClassroomSettings.status = 'action';
-        Main.getClassroomManager().getActivity(ClassroomSettings.activity).then(function (activity) {
-            $('#activity-form-title').val(activity.title)
-            $('.wysibb-text-editor').html(activity.content)
-        }) */
     }
-/*     navigatePanel('classroom-dashboard-new-activity-panel', 'dashboard-activities-teacher')
-    ClassroomSettings.activityInWriting = true */
 }
 
 function showExercicePanel() {
@@ -96,9 +87,7 @@ $('body').on('click', '.modal-activity-delete', function () {
 //activité modal-->modifier
 function activityModify(id) {
 
-    $('#activity-free').hide();
-    $('#activity-fill-in').hide();
-    $("#activity-custom").hide();
+    hideAllActivities();
 
     if (id == 0) {
         id = Main.getClassroomManager()._lastCreatedActivity;
