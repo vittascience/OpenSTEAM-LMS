@@ -3214,7 +3214,7 @@ function setTextArea() {
     $('#free-correction').wysibb(wbbOpt);
 
     // Reading
-    $("#reading_content").wysibb(wbbOpt);
+    $("#reading-content").wysibb(wbbOpt);
 
     // FillIn
     $("#fill-in-states").wysibb(wbbOpt);
@@ -3235,7 +3235,7 @@ setTextArea();
  */
 function hideAllActivities() {
     $("#activity-free").hide();
-    $("#activity_reading").hide();
+    $("#activity-reading").hide();
     $("#activity-fill-in").hide();
     $("#activity_dragAndDrop").hide();
     $("#activity_custom").hide();
@@ -3268,14 +3268,14 @@ function launchCustomActivity(activityType, isUpdate = false) {
                     $("#activity-fill-in").show();
                     break;
                 case 'reading':
-                    $("#activity_reading").show();
+                    $("#activity-reading").show();
                     break;
                 case 'dragAndDrop':
                     $("#activity_dragAndDrop").show();
                     break;
                 case 'custom':
                     // Use the previous method for the activity without title
-                    $("#activity_reading").show();
+                    $("#activity-reading").show();
                     break;
                 default:
                     // Check if it's an lti apps and get the data needed if it's the case
@@ -3349,10 +3349,10 @@ function contentForward() {
         Main.getClassroomManager()._createActivity.autocorrect = $('#free-autocorrect').is(":checked");
 
     } else if (Main.getClassroomManager()._createActivity.id == 'reading'){
-        if ($('#reading_content').bbcode() == "") {
+        if ($('#reading-content').bbcode() == "") {
             isCheckPassed = false;
         } else {
-            Main.getClassroomManager()._createActivity.content.description = $('#reading_content').bbcode();
+            Main.getClassroomManager()._createActivity.content.description = $('#reading-content').bbcode();
         }
     } else if (Main.getClassroomManager()._createActivity.id == 'fillIn') {
         // Manage fill in fields

@@ -390,7 +390,7 @@ function getTeacherActivity() {
 
     if (IsJsonString(Activity.content)) {
         const contentParsed = JSON.parse(Activity.content);
-        if (Activity.type == 'free' || Activity.type == 'reading' || Activity.type == '') {
+        if (Activity.type == 'free' || Activity.type == 'reading') {
             if (contentParsed.hasOwnProperty('description')) {
                 $('#activity-content').html(bbcodeToHtml(contentParsed.description))
                 $("#activity-content-container").show();
@@ -428,7 +428,7 @@ function getTeacherActivity() {
             launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description);
         }
         
-    } else{
+    } else {
         $('#activity-content').html(bbcodeToHtml(Activity.content))
         $("#activity-content-container").show();
     }

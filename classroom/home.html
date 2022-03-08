@@ -1346,12 +1346,12 @@
         </div>
 
         <!-- Reading activity part -->
-        <div id="activity_reading" style="display:none;">
+        <div id="activity-reading" style="display:none;">
             <div class="form-row mt-1">
-                <label for="reading_content" class="tutorial-label">
+                <label for="reading-content" class="tutorial-label">
                     <span data-i18n="[html]newActivities.content"></span>
                 </label>
-                <textarea id="reading_content" class='part-content' width='100%' style='min-height: 60vh;'></textarea>
+                <textarea id="reading-content" class='part-content' width='100%' style='min-height: 60vh;'></textarea>
             </div>
         </div>
 
@@ -1377,8 +1377,13 @@
 
                 <label for="quiz-hint" data-i18n="newActivities.hint">Indice</label>
                 <input type="text" id="quiz-hint">
-                
+
                 <button data-i18n="newActivities.addQuiz" onclick="addQuizSuggestion()">Ajouter une proposition</button>
+            </div>
+
+            <div class="c-checkbox">
+                <input type="checkbox" name="quiz-autocorrect" id="quiz-autocorrect">
+                <label for="quiz-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
             </div>
 
         </div>
@@ -1417,28 +1422,28 @@
         </div>
 
         <!-- DragAndDrop activity part -->
-        <div id="activity_dragAndDrop" style="display:none;">
+        <div id="activity-dragAndDrop" style="display:none;">
             
             <div class="content m-3">
-                <label for="dragAndDrop_states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
-                <textarea id="dragAndDrop_states"></textarea>
+                <label for="dragAndDrop-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
+                <textarea id="dragAndDrop-states"></textarea>
             </div>
             
             <div class="content m-3">
-                <label for="dragAndDrop_content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
-                <textarea id="dragAndDrop_content"></textarea>
+                <label for="dragAndDrop-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
+                <textarea id="dragAndDrop-content"></textarea>
             </div>
 
             <div class="content m-3">
-                <label for="dragAndDrop_hint" data-i18n="newActivities.hint">Indice</label>
-                <input type="text" id="dragAndDrop_hint">
+                <label for="dragAndDrop-hint" data-i18n="newActivities.hint">Indice</label>
+                <input type="text" id="dragAndDrop-hint">
             </div>
 
         </div>
 
 
         <!-- Custom & probably Lti -->
-        <div id="activity_custom" style="display:none;">
+        <div id="activity-custom" style="display:none;">
             <div id="lti-loader-container"></div>
         </div>
 

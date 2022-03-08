@@ -143,7 +143,6 @@ function manageUpdateByType(activity) {
             }
         }
         $('#global_title').val(activity.title);   
-        navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
     } else if (activity.type == "quiz") {
 
         let content = JSON.parse(activity.solution);
@@ -167,7 +166,6 @@ function manageUpdateByType(activity) {
             $("#quiz-autocorrect").prop("checked", false)
             $("#quiz-correction_content").hide();
         }
-
     } else if (activity.type == "fillIn") {
         $('#activity-fill-in').show();
 
@@ -182,7 +180,16 @@ function manageUpdateByType(activity) {
         activity.isAutocorrect ? $("#fill-in-autocorrect").prop("checked", true) : $("#fill-in-autocorrect").prop("checked", false);
 
         $('#global_title').val(activity.title);   
-        navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
+    } else if (activity.type == "reading" || activity.type == "") {
+        let content = "";
+        if (IsJsonString(Activity.content)) {
+            content = JSON.parse(Activity.content);
+        } else {
+            content = Activity.content;
+        }
+
+        $("#reading-content").htmlcode(bbcodeToHtml(content));
+        $('#global_title').val(activity.title);  
     } else {
         // TODO: CHANGE THIS DEFAULT FALLBACK BY SOMETHING CHECKING IF THE CURRENT ACTIVITY USES LTI
         contentForwardButtonElt.style.display = 'none';
@@ -191,8 +198,8 @@ function manageUpdateByType(activity) {
         launchLtiDeepLinkCreate(activity.type, true);
         $('#global_title').val(activity.title);
         $("#activity_custom").show();
-        navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
     }
+    navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
 }
 
 //création activité vers attribution
