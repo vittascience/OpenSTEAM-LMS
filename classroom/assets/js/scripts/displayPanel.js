@@ -387,19 +387,40 @@ function getTeacherActivity() {
     Activity.isAutocorrect ? $('#activity-auto-disclaimer').show() :  $('#activity-auto-disclaimer').hide();
 
     if (IsJsonString(Activity.content)) {
-        if (Activity.type == 'free' || Activity.type == 'reading') {
-            const contentParsed = JSON.parse(Activity.content);
+        const contentParsed = JSON.parse(Activity.content);
+        if (Activity.type == 'free' || Activity.type == 'reading' || Activity.type == '') {
             if (contentParsed.hasOwnProperty('description')) {
                 $('#activity-content').html(bbcodeToHtml(contentParsed.description))
                 $("#activity-content-container").show();
             } 
         } else if (Activity.type == 'fillIn') {
-            const contentParsed = JSON.parse(Activity.content);
             $("#activity-states").html(bbcodeToHtml(contentParsed.states));
             $("#activity-content").html(bbcodeToHtml(contentParsed.fillInFields.contentForTeacher));
             $("#activity-content-container").show();
             $("#activity-states-container").show();
 
+        } else if (Activity.type == 'quiz') {
+            $("#activity-states").html(bbcodeToHtml(contentParsed.states));
+
+
+            $(`div[id^="teacher-suggestion-"]`).each(function() {
+                $(this).remove();
+            })
+
+            let data = JSON.parse(Activity.solution);
+
+
+            for (let i = 1; i < data.length+1; i++) {
+                let ctx = ` <div class="input-group" id="teacher-suggestion-${i}">
+                                <label for="quiz-suggestion-${i}" id="show-quiz-label-suggestion-${i}">Proposition ${i}</label>
+                                <input type="text" id="show-quiz-suggestion-${i}" value="${data[i-1].inputVal}" readonly>
+                                <label for="quiz-checkbox-${i}" id="show-quiz-label-checkbox-${i}">Réponse correcte</label>
+                                <input type="checkbox" id="show-quiz-checkbox-${i}" ${data[i-1].isCorrect ? 'checked' : ''} onclick="return false;">
+                            </div>`;
+                $('#activity-content-container').append(ctx); 
+            }
+            $("#activity-content-container").show();
+            $("#activity-states-container").show();
         } else {
             // activityId, activityType, activityContent
             launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description);

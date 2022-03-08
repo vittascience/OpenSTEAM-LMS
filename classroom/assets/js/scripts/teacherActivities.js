@@ -122,10 +122,10 @@ function activityModify(id) {
 
 function manageUpdateByType(activity) {
     const contentForwardButtonElt = document.getElementById('content-forward-button');
+    Main.getClassroomManager()._createActivity.id = activity.type;
     contentForwardButtonElt.style.display = 'inline-block';
     if (activity.type == "free") {  
         $('#activity-free').show();
-        Main.getClassroomManager()._createActivity.id = activity.type;
         Main.getClassroomManager()._createActivity.function = "update";
 
         let content = JSON.parse(activity.content);
@@ -145,11 +145,32 @@ function manageUpdateByType(activity) {
         $('#global_title').val(activity.title);   
         navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
     } else if (activity.type == "quiz") {
-        console.log('TBC')
+
+        let content = JSON.parse(activity.solution);
+
+        for (let i = 1; i < content.length+1; i++) {
+            let divToAdd = `<div class="input-group">
+                                <label for="quiz-suggestion-${i}" id="quiz-label-suggestion-${i}">Proposition ${i}</label>
+                                <button data-i18n="newActivities.delete" id="quiz-button-suggestion-${i}" onclick="deleteQuizSuggestion(${i})">Delete</button>
+                                <input type="text" id="quiz-suggestion-${i}">
+                                <label for="quiz-checkbox-${i}" id="quiz-label-checkbox-${i}">Réponse correcte</label>
+                                <input type="checkbox" id="quiz-checkbox-${i}">
+                            </div>
+                            `;
+            $('#quiz-suggestions-container').append(divToAdd);
+        }
+
+        if (activity.isAutocorrect) {
+            $("#quiz-autocorrect").prop("checked", true)
+            $("#quiz-correction_content").show();
+        } else {
+            $("#quiz-autocorrect").prop("checked", false)
+            $("#quiz-correction_content").hide();
+        }
+
     } else if (activity.type == "fillIn") {
         $('#activity-fill-in').show();
 
-        Main.getClassroomManager()._createActivity.id = activity.type;
         Main.getClassroomManager()._createActivity.function = "update";
 
         let content = JSON.parse(activity.content);
@@ -166,7 +187,6 @@ function manageUpdateByType(activity) {
         // TODO: CHANGE THIS DEFAULT FALLBACK BY SOMETHING CHECKING IF THE CURRENT ACTIVITY USES LTI
         contentForwardButtonElt.style.display = 'none';
         Main.getClassroomManager()._createActivity.function = "update";
-        Main.getClassroomManager()._createActivity.id = activity.type;
         Main.getClassroomManager()._createActivity.content.description = JSON.parse(activity.content).description;
         launchLtiDeepLinkCreate(activity.type, true);
         $('#global_title').val(activity.title);

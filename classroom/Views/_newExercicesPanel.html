@@ -60,22 +60,34 @@
         </div>
 
         <!-- Quiz activity part -->
-        <div id="activity_quiz" style="display:none;">
+        <div id="activity-quiz" style="display:none;">
 
             <div class="content m-3">
-                <label for="quiz_states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
-                <textarea id="quiz_states"></textarea>
+                <label for="quiz-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
+                <textarea id="quiz-states"></textarea>
             </div>
 
             <div class="content m-3">
-                <div class="quiz_propositions">
-                    <label for="quiz_proposition_1">Proposition 1</label><button data-i18n="newActivities.delete">Delete</button>
-                    <input type="text" id="quiz_proposition_1">
 
-                    <label for="quiz_hint" data-i18n="newActivities.hint">Indice</label>
-                    <input type="text" id="quiz_hint">
+                <div id="quiz-suggestions-container">
+                    <div class="input-group">
+                        <label for="quiz-suggestion-1" id="quiz-label-suggestion-1">Proposition 1</label>
+                        <button data-i18n="newActivities.delete" id="quiz-button-suggestion-1" onclick="deleteQuizSuggestion(1)">Delete</button>
+                        <input type="text" id="quiz-suggestion-1">
+                        <label for="quiz-checkbox-1" id="quiz-label-checkbox-1">Réponse correcte</label>
+                        <input type="checkbox" id="quiz-checkbox-1">
+                    </div>
                 </div>
-                <button data-i18n="newActivities.addQuiz">Ajouter une proposition</button>
+
+                <label for="quiz-hint" data-i18n="newActivities.hint">Indice</label>
+                <input type="text" id="quiz-hint">
+
+                <button data-i18n="newActivities.addQuiz" onclick="addQuizSuggestion()">Ajouter une proposition</button>
+            </div>
+
+            <div class="c-checkbox">
+                <input type="checkbox" name="quiz-autocorrect" id="quiz-autocorrect">
+                <label for="quiz-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
             </div>
 
         </div>

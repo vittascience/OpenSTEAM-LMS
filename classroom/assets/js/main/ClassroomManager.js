@@ -1423,13 +1423,15 @@ class ClassroomManager {
                 description: '',
                 hint: '',
                 fillInFields: {
-                    array: [],
-                    answer: [],
-                    content: [],
+                    contentForTeacher: [],
+                    contentForStudent: [],
+                },
+                quiz: {
+                    contentForStudent: []
                 }
             }, 
             type: '', 
-            solution: '',
+            solution: [],
             tolerance: ''
         }
         const globalTitle = document.querySelector('#global_title');

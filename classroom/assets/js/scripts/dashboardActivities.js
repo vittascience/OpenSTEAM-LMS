@@ -604,26 +604,44 @@ function manageDisplayLti(correction, content, correction_div, isDoable, activit
 }
 
 function manageDisplayQuiz(correction, content, correction_div) {
-    //console.log(content);
+    console.log('QCM WIP');
     setTextArea();
-/*     
-    $('#activity-title').html(Activity.activity.title);
-    $('#activity-content').html(bbcodeToHtml(content));
-    $('#activity-content-container').show();
 
-    if (correction == 0) {
-        $('#activity-input').wysibb(wbbOpt);
-        $('#activity-input-container').show();
+    $('#activity-title').html(Activity.activity.title);
+    $('#activity-states').html(bbcodeToHtml(content.states));
+    $('#activity-states-container').show();
+
+    if (correction == 0 || correction == null) {
+        if (!UserManager.getUser().isRegular) {
+            $('#activity-student-response-content').html("");
+            let data = content.quiz.contentForStudent;
+            for (let i = 1; i < data.length+1; i++) {
+                let ctx = ` <div class="input-group">
+                                <input type="checkbox" id="student-quiz-checkbox-${i}">
+                                <input type="text" id="student-quiz-suggestion-${i}" value="${data[i].inputVal}" readonly>
+                            </div>`;
+                $('#activity-student-response-content').append(ctx); 
+            }
+            $('#activity-student-response').show();
+        }
     } else if (correction > 0) {
-        $('#activity-correction-container').show(); 
-        $('#activity-correction').html(correction_div);
+
+        if (UserManager.getUser().isRegular) {
+            $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
+        } else {
+            $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
+        }
+        if (correction > 1) {
+            $('#activity-correction-container').show(); 
+            $('#activity-correction').html(correction_div);
+        }
     }
     
     // todo
     if (!Activity.evaluation && correction < 2) {
         $('#activity-validate').show();
         $('#activity-save').show();
-    } */
+    }
 }
 
 function manageDisplayFillIn(correction, content, correction_div) {
@@ -645,7 +663,7 @@ function manageDisplayFillIn(correction, content, correction_div) {
             $('#activity-input').htmlcode(content.fillInFields.contentForStudent);
             $('#activity-input-container').show();
         }
-    } else if (correction > 0) {
+    } else if (correction >  0) {
         
         let studentContentString = content.fillInFields.contentForStudent;
         let studentResponses = JSON.parse(Activity.response);
@@ -657,15 +675,16 @@ function manageDisplayFillIn(correction, content, correction_div) {
         $('#activity-student-response-content').html(studentContentString);
         $('#activity-student-response').show();
 
-        $('#activity-correction').html(correction_div);
-        $('#activity-correction-container').show(); 
-
         if (UserManager.getUser().isRegular) {
             $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
         } else {
             $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
         }
-    }
+        if (correction > 1) {
+            $('#activity-correction-container').show(); 
+            $('#activity-correction').html(correction_div);
+        }
+    } 
 }
 
 
@@ -710,7 +729,7 @@ function manageContentForActivity() {
     let content = "";
     if (IsJsonString(Activity.activity.content)) {
         const contentParsed = JSON.parse(Activity.activity.content);
-        if (Activity.activity.type != "fillIn") {
+        if (Activity.activity.type != "fillIn" && Activity.activity.type != "quiz") {
             if (contentParsed.hasOwnProperty('description')) {
                 content = contentParsed.description;
             }
