@@ -354,6 +354,11 @@ DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
             }
             ClassroomSettings.activity = id = Number(id.slice(2))
             Activity = getActivity(id, $_GET('interface'))
+            // Run the activity tracker if the current activity is doable or exercise
+            if (Activity.evaluation != true || Activity.correction == null) {
+                Main.activityTracker = new ActivityTracker();
+                Main.activityTracker.startActivityTracker();
+            }
             loadActivityForStudents(isDoable)
         }
     }

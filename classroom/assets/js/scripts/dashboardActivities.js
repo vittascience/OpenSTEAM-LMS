@@ -411,8 +411,6 @@ function statusActivity(activity, state = true) {
 function loadActivityForStudents(isDoable) {
     // Reset the inputs
     resetInputsForActivity()
-    // Start a timer 
-    ClassroomSettings.chrono = Date.now()
 
     // Check if the activity has an introduction
     if (Activity.introduction != null && Activity.introduction != "") {

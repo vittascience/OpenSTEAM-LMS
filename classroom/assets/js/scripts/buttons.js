@@ -26,7 +26,6 @@ let ClassroomSettings = {
     lastPage: [],
     isEvaluation: true,
     studentCount: 0,
-    chrono: null,
     activity: false,
     activityInWriting: false,
     status: null,
@@ -189,6 +188,11 @@ function backToClassroomFromCode() {
  * @param {boolean} isOnpopstate - If set to true, the current navigation won't be saved in history (dedicated to onpopstate events)
  */
 function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = false) {
+    // If there is any working activity tracker, send the tracking data and stop it
+    if (typeof Main.activityTracker != 'undefined' && Main.activityTracker.getIsTracking()) {
+        Main.activityTracker.saveTimePassed();
+        Main.activityTracker.stopActivityTracker();
+    }
     $('.classroom-navbar-button').removeClass("active");
     $('.dashboard-block').hide();
     $('#' + id).show();
@@ -360,15 +364,20 @@ $('body').on('click', '#add-student-dashboard-panel', function () {
 });
 
 
-document.querySelector('#update-classroom-student-button').addEventListener('click', (e) => {
-    e.preventDefault();
-    pseudoModal.openModal('update-classroom-student-modal');
-});
+if (document.querySelector('#update-classroom-student-button')) {
+    document.querySelector('#update-classroom-student-button').addEventListener('click', (e) => {
+        e.preventDefault();
+        pseudoModal.openModal('update-classroom-student-modal');
+    });
 
-document.querySelector('#create-classroom-student-button').addEventListener('click', (e) => {
-    e.preventDefault();
-    pseudoModal.openModal('create-classroom-student-modal');
-});
+    document.querySelector('#create-classroom-student-button').addEventListener('click', (e) => {
+        e.preventDefault();
+        pseudoModal.openModal('create-classroom-student-modal');
+    });
+}
+
+
+
 
 //banque de ressources-->copier une activité
 window.addEventListener('storage', () => {
@@ -3227,7 +3236,10 @@ function setTextArea() {
      // Quiz
      $("#quiz-states").wysibb(wbbOpt);
 }
-setTextArea();
+
+if (document.querySelector('#free_enonce') !== null) {
+    setTextArea();
+}
 
 
 /**

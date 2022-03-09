@@ -246,7 +246,8 @@
 				"delete": "Supprimer",
 				"copyLink": "Copier le lien direct",
 				"learnerMode": "Mode apprenant",
-				"dueBy":"À rendre avant le"
+				"dueBy": "À rendre avant le",
+				"timePassed": "Temps passé : "
 			}	
 		},
 		"activities": {

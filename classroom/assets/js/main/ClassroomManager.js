@@ -915,7 +915,6 @@ class ClassroomManager {
                     },
                     dataType: "JSON",
                     success: function (response) {
-                        let chrono = parseInt((Date.now() - ClassroomSettings.chrono) / 1000)
                         $.ajax({
                             type: "POST",
                             url: "/routing/Routing.php?controller=activity_link_user&action=update",
@@ -923,14 +922,12 @@ class ClassroomManager {
                                 'project': response.id,
                                 'id': activity,
                                 'correction': correction,
-                                'timePassed': chrono,
                                 'classroomLink': ClassroomSettings.classroom,
                                 'note': note
 
                             },
                             success: function (r) {
                                 resolve(JSON.parse(r))
-                                ClassroomSettings.chrono = Date.now()
                             }
                         });
 
@@ -941,7 +938,6 @@ class ClassroomManager {
                 });
             })
         } else {
-            let chrono = parseInt((Date.now() - ClassroomSettings.chrono) / 1000)
             return new Promise(function (resolve, reject) {
                 $.ajax({
                     type: "POST",
@@ -949,13 +945,11 @@ class ClassroomManager {
                     data: {
                         'id': activity,
                         'correction': correction,
-                        'timePassed': chrono,
                         'classroomLink': ClassroomSettings.classroom,
                         'note': note
                     },
                     success: function (r) {
                         resolve(JSON.parse(r))
-                        ClassroomSettings.chrono = Date.now()
                     }
                 });
             });
@@ -977,7 +971,6 @@ class ClassroomManager {
                     'project': activity.project,
                     'id': activity.id,
                     'correction': correction,
-                    'timePassed': activity.timePassed,
                     "commentary": comment,
                     'classroomLink': ClassroomSettings.classroom,
                     'note': note
@@ -1366,7 +1359,6 @@ class ClassroomManager {
 
 
     saveNewStudentActivity(activity, correction = 1, note = 0, response) {
-        let chrono = parseInt((Date.now() - ClassroomSettings.chrono) / 1000)
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -1374,14 +1366,12 @@ class ClassroomManager {
                 data: {
                     'id': activity,
                     'correction': correction,
-                    'timePassed': chrono,
                     'classroomLink': ClassroomSettings.classroom,
                     'note': note,
                     'response': response
                 },
                 success: function (r) {
                     resolve(JSON.parse(r))
-                    ClassroomSettings.chrono = Date.now()
                 }
             });
         });

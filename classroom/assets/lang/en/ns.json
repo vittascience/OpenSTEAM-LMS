@@ -246,8 +246,8 @@
 				"delete": "Delete",
 				"copyLink": "Copy the direct link",
 				"learnerMode": "Learner mode",
-				"dueBy":"Due by"
-
+				"dueBy":"Due by",
+				"timePassed": "Time spent: "
 			}	
 		},
 		"activities": {
