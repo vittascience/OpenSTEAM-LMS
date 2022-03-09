@@ -305,6 +305,11 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
 DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) {
     document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');
     if (ref != null && ref != 'null') {
+        // If the user don't come in this panel from the classroom dashboard and with the ref attribute (using the browser history or a simple refresh), we need to skip this panel
+        if (typeof ClassroomSettings.indexRef == 'undefined') {
+            navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher');
+            return;
+        }
         let attribution = getAttributionByRef(ref)
         let retroAttributionIsActive = ClassroomSettings.isRetroAttributed === true ? true : false
         $('#retro-attribution-activity-form').prop('checked',retroAttributionIsActive)
