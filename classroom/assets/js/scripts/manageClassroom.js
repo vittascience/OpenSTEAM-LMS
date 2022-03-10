@@ -908,8 +908,9 @@ function displayStudentsInClassroom(students, link=false) {
             }
             // Display the current student activities in the dashboard
             let currentActivity = arrayActivities[i];
+            const formatedTimePast = currentActivity.timePassed == 0 ? '' : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em>`;
             if (currentActivity) {
-                html += `<td class=" ${statusActivity(currentActivity)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>"></td>`;
+                html += `<td class=" ${statusActivity(currentActivity)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>${formatedTimePast}"></td>`;
             } else {
                 html += `<td class="no-activity bilan-cell" "></td>`;
             }
@@ -983,6 +984,31 @@ function addStudentRow(pseudo, studentId = false, isNotDeletable) {
             <i class=\"fas fa-times\"></i>
         </button>`}
     </li>`;
+}
+
+/**
+ * Format a duration provided in seconds into a "h m s" format
+ * @param {integer} secs - Number of seconds
+ * @returns {string} - The formated duration or an empty string if the provided argument is 0
+ */
+function formatDuration(secs) {
+    const sec_num = parseInt(secs, 10);
+    const hours = Math.floor(sec_num / 3600);
+    const minutes = Math.floor(sec_num / 60) % 60;
+    const seconds = sec_num % 60;
+    const displayedUnits = ['h', 'm', 's'];
+    let firstFilled = false;
+
+    return [hours,minutes,seconds]
+    .map((v, i) => {
+        if (!firstFilled) {
+            firstFilled = v > 0 ? true : false;
+            return v > 0 ? v + displayedUnits[i] : '';
+        } else {
+            return ` ${v + displayedUnits[i]}`;
+        }
+    })
+    .join('');
 }
 
 /**

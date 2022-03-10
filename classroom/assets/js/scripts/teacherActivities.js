@@ -39,7 +39,6 @@ window.addEventListener('storage', () => {
         if ($('#activity-validate').is(':visible') && window.localStorage.classroomActivity != null) {
             let autocorrection = window.localStorage.classroomActivity
             delete window.localStorage.classroomActivity
-            Activity.timePassed += ClassroomSettings.chrono
             window.localStorage.autocorrect = 'false';
 
             $("#activity-validate").attr("disabled", "disabled");
