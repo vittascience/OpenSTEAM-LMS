@@ -3221,8 +3221,8 @@ function setTextArea() {
     $("#fill-in-content").wysibb(wbbOpt);
 
     // DragAndDrop
-    $("#dragAndDrop_states").wysibb(wbbOpt);
-    $("#dragAndDrop_content").wysibb(wbbOpt);
+    $("#drag-and-drop-states").wysibb(wbbOpt);
+    $("#drag-and-drop-content").wysibb(wbbOpt);
 
      // Quiz
      $("#quiz-states").wysibb(wbbOpt);
@@ -3237,7 +3237,7 @@ function hideAllActivities() {
     $("#activity-free").hide();
     $("#activity-reading").hide();
     $("#activity-fill-in").hide();
-    $("#activity-dragAndDrop").hide();
+    $("#activity-drag-and-drop").hide();
     $("#activity-custom").hide();
     $("#activity-quiz").hide();
 }
@@ -3271,7 +3271,7 @@ function launchCustomActivity(activityType, isUpdate = false) {
                     $("#activity-reading").show();
                     break;
                 case 'dragAndDrop':
-                    $("#activity-dragAndDrop").show();
+                    $("#activity-drag-and-drop").show();
                     break;
                 case 'custom':
                     // Use the previous method for the activity without title
@@ -3360,8 +3360,8 @@ function contentForward() {
     } else if (Main.getClassroomManager()._createActivity.id == 'quiz') {
         // Manage quiz fields
         isCheckPassed = parseQuizFieldsAndSaveThem();
-    } else {
-        // By default using LTI, the button doesn't do anything specific
+    } else if (Main.getClassroomManager()._createActivity.id == 'dragAndDrop') {
+        isCheckPassed = parseDragAndDropFieldsAndSaveThem();
     }
     // Check if the content if empty
     if (Main.getClassroomManager()._createActivity.content.description == '' && !isCheckPassed) { 
@@ -3522,8 +3522,6 @@ function fillInValidateActivity() {
 }
 
 
-
-
 function activitiesCreation(apps) {
     let htmlContent = `<div class="app-head" data-i18n="classroom.activities.applist.selectApp"></div>`;
     apps.forEach(app => {
@@ -3553,6 +3551,8 @@ $('#fill-in-add-inputs').click(() => {
     $('#fill-in-content').htmlcode($('#fill-in-content').bbcode() + `| réponse |`);
 });
 
+
+
 function parseFillInFieldsAndSaveThem() {
     
     Main.getClassroomManager()._createActivity.content.fillInFields.contentForTeacher = $('#fill-in-content').bbcode();
@@ -3566,9 +3566,6 @@ function parseFillInFieldsAndSaveThem() {
         }
     })
 
-    /**
-     * Store all the data
-     */
     if ($('#fill-in-states').bbcode() != '') {
         Main.getClassroomManager()._createActivity.content.states = $('#fill-in-states').bbcode();
     } else {
@@ -3585,6 +3582,43 @@ function parseFillInFieldsAndSaveThem() {
     if (Main.getClassroomManager()._createActivity.content.fillInFields.contentForTeacher == "") {
         return false
     }
+    return true;
+}
+
+$('#dragAndDrop-add-inputs').click(() => {
+    $('#drag-and-drop-content').htmlcode($('#drag-and-drop-content').bbcode() + `| réponse |`);
+});
+
+// Voici un exemple de test à trou pour un glisser | déposer |, je test simplement le parsing des | réponses |
+function parseDragAndDropFieldsAndSaveThem() {
+    
+    Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForTeacher = $('#drag-and-drop-content').bbcode();
+    
+    let response = $('#drag-and-drop-content').bbcode().match(/\|(.*?)\|/gi).map(match => match.replace(/\|(.*?)\|/gi, "$1"));
+    let contentForStudent = $('#drag-and-drop-content').bbcode();
+    response.forEach((e, i) => {
+        contentForStudent = contentForStudent.replace(`|${e}|`, `| ? |`);
+        if (e.includes('&&')) {
+            response[i] = e.split('&&').map(e => e.trim()).join(',');
+        }
+    })
+
+    if ($('#drag-and-drop-states').bbcode() != '') {
+        Main.getClassroomManager()._createActivity.content.states = $('#drag-and-drop-states').bbcode();
+    } else {
+        return false;
+    }
+
+    Main.getClassroomManager()._createActivity.autocorrect = $('#drag-and-drop-autocorrect').is(":checked");
+    Main.getClassroomManager()._createActivity.content.hint = $('#drag-and-drop-hint').val();
+
+    Main.getClassroomManager()._createActivity.solution = response;
+    Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForStudent = contentForStudent;
+
+    if (Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForTeacher == "") {
+        return false
+    }
+    return true;
 }
 
 

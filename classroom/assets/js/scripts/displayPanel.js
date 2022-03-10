@@ -421,6 +421,15 @@ function getTeacherActivity() {
             }
             $("#activity-content-container").show();
             $("#activity-states-container").show();
+        } else if (Activity.type == 'dragAndDrop') {
+
+            //console.log(contentParsed);
+            $("#activity-states").html(bbcodeToHtml(contentParsed.states));
+            $("#activity-content").html(bbcodeToHtml(contentParsed.dragAndDropFields.contentForTeacher));
+            $("#activity-content-container").show();
+            $("#activity-states-container").show();
+
+
         } else {
             // activityId, activityType, activityContent
             launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description);

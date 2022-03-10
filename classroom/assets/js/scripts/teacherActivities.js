@@ -189,6 +189,17 @@ function manageUpdateByType(activity) {
 
         $("#reading-content").htmlcode((contentParsed));
         $("#activity-reading").show();
+    } else if (activity.type == "dragAndDrop") {
+        
+        $('#activity-drag-and-drop').show();
+
+        let content = JSON.parse(activity.content);
+        $("#drag-and-drop-states").htmlcode(bbcodeToHtml(content.states));
+        $("#drag-and-drop-hint").val(content.hint);
+        $("#drag-and-drop-content").htmlcode(bbcodeToHtml(content.dragAndDropFields.contentForTeacher));
+
+        activity.isAutocorrect ? $("#drag-and-drop-autocorrect").prop("checked", true) : $("#drag-and-drop-autocorrect").prop("checked", false);
+
     } else {
         // TODO: CHANGE THIS DEFAULT FALLBACK BY SOMETHING CHECKING IF THE CURRENT ACTIVITY USES LTI
         contentForwardButtonElt.style.display = 'none';

@@ -1422,21 +1422,29 @@
         </div>
 
         <!-- DragAndDrop activity part -->
-        <div id="activity-dragAndDrop" style="display:none;">
+        <div id="activity-drag-and-drop" style="display:none;">
             
             <div class="content m-3">
-                <label for="dragAndDrop-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
-                <textarea id="dragAndDrop-states"></textarea>
+                <label for="drag-and-drop-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
+                <textarea id="drag-and-drop-states"></textarea>
             </div>
             
             <div class="content m-3">
-                <label for="dragAndDrop-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
-                <textarea id="dragAndDrop-content"></textarea>
+                <label for="drag-and-drop-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
+                <textarea id="drag-and-drop-content"></textarea>
+            </div>
+
+            <button class="btn c-btn-outline-primary" id="dragAndDrop-add-inputs">Add field</button>
+            <p>En cliquant sur le bouton ajouter un champs à compléter , un texte est ajouté avec deux caractères verticaux | réponse |. Vous pouvez écrire la réponse correcte entre ces deux caractères. Les réponses alternatives sont séparées par une double esperluette  && </p>
+
+            <div class="c-checkbox">
+                <input type="checkbox" name="drag-and-drop-autocorrect" id="drag-and-drop-autocorrect">
+                <label for="drag-and-drop-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
             </div>
 
             <div class="content m-3">
-                <label for="dragAndDrop-hint" data-i18n="newActivities.hint">Indice</label>
-                <input type="text" id="dragAndDrop-hint">
+                <label for="drag-and-drop-hint" data-i18n="newActivities.hint">Indice</label>
+                <input type="text" id="drag-and-drop-hint">
             </div>
 
         </div>

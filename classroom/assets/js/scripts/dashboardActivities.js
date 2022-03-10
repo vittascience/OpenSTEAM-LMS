@@ -507,7 +507,11 @@ function injectContentForActivity(content, correction, type = null, correction_d
         $('#activity-content').html(bbcodeToHtml(content))
         $('#activity-correction').html(bbcodeToHtml(correction))
     }
-    
+
+    // Things to do for every activity
+    setTextArea();
+    $('#activity-title').html(Activity.activity.title);
+
     switch(type) {
         case 'free':
             manageDisplayFree(correction, content, correction_div)
@@ -524,9 +528,11 @@ function injectContentForActivity(content, correction, type = null, correction_d
         case 'dragAndDrop':
             manageDisplayDragAndDrop(correction, content, correction_div);
             break;
+/*
+        Rémi : Probably not useful
         case 'custom':
             manageDisplayCustomAndReading(correction ,content, correction_div);
-            break;
+            break; */
         default:
             manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt);
             break;
@@ -539,8 +545,8 @@ let wbbOpt = {
 
 function manageDisplayCustomAndReading(correction, content, correction_div) {
 
-    setTextArea();
-    $('#activity-title').html(Activity.activity.title);
+    
+    //$('#activity-title').html(Activity.activity.title);
     $('#activity-content').html(bbcodeToHtml(content));
     $('#activity-content-container').show();
     if (correction == 0) {
@@ -559,9 +565,52 @@ function manageDisplayCustomAndReading(correction, content, correction_div) {
 
 }
 
-function manageDisplayFree(correction, content, correction_div) {
-    setTextArea();
+function manageDisplayDragAndDrop(correction, content, correction_div) {
+    
     $('#activity-title').html(Activity.activity.title);
+    // Show the content with the response to the teacher
+    if (UserManager.getUser().isRegular) {
+        $('#activity-content').html(content.dragAndDropFields.contentForTeacher);
+        $('#activity-content-container').show();
+    }
+
+    $('#activity-states').html(bbcodeToHtml(content.states));
+    $('#activity-states-container').show();
+    
+    if (correction == 0 || correction == null) {
+        if (!UserManager.getUser().isRegular) {
+            $('#activity-input').wysibb(wbbOpt);
+            $('#activity-input').htmlcode(content.dragAndDropFields.contentForStudent);
+            $('#activity-input-container').show();
+        }
+    } else if (correction >  0) {
+        
+        let studentContentString = content.dragAndDropFields.contentForStudent;
+        let studentResponses = JSON.parse(Activity.response);
+
+        studentResponses.forEach(response => {
+            studentContentString = studentContentString.replace(/\|(.*?)\|/gi, response);
+        });
+
+        $('#activity-student-response-content').html(studentContentString);
+        $('#activity-student-response').show();
+
+        if (UserManager.getUser().isRegular) {
+            $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
+        } else {
+            $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
+        }
+        if (correction > 1) {
+            $('#activity-correction-container').show(); 
+            $('#activity-correction').html(correction_div);
+        }
+    } 
+    
+}
+
+function manageDisplayFree(correction, content, correction_div) {
+
+    //$('#activity-title').html(Activity.activity.title);
     $('#activity-content').html(bbcodeToHtml(content));
     $('#activity-content-container').show();
     if (correction == 0 || correction == null) {
@@ -590,7 +639,7 @@ function manageDisplayFree(correction, content, correction_div) {
 }
 
 function manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt) {
-    document.querySelector('#activity-title').innerHTML = Activity.activity.title;
+    //document.querySelector('#activity-title').innerHTML = Activity.activity.title;
     if (isDoable) {
         activityValidationButtonElt.style.display = 'none';
         launchLtiResource(Activity.id, Activity.activity.type, content, true);
@@ -610,10 +659,6 @@ function manageDisplayLti(correction, content, correction_div, isDoable, activit
 }
 
 function manageDisplayQuiz(correction, content, correction_div) {
-    console.log('QCM WIP');
-    setTextArea();
-
-    $('#activity-title').html(Activity.activity.title);
     $('#activity-states').html(bbcodeToHtml(content.states));
     $('#activity-states-container').show();
 
@@ -621,27 +666,14 @@ function manageDisplayQuiz(correction, content, correction_div) {
         if (!UserManager.getUser().isRegular) {
             $('#activity-student-response-content').html("");
             let data = content.quiz.contentForStudent;
-            for (let i = 1; i < data.length+1; i++) {
-                let ctx = ` <div class="input-group">
-                                <input type="checkbox" id="student-quiz-checkbox-${i}">
-                                <input type="text" id="student-quiz-suggestion-${i}" value="${data[i-1].inputVal}" readonly>
-                            </div>`;
-                $('#activity-student-response-content').append(ctx); 
-            }
+            $('#activity-student-response-content').append(createContentForQuiz(data));
             $('#activity-student-response').show();
         }
     } else if (correction > 0) {
-
         if (Activity.response != null) {
             $('#activity-student-response-content').html("");
             let data = JSON.parse(Activity.response);
-            for (let i = 1; i < data.length+1; i++) {
-                let ctx = ` <div class="input-group">
-                                <input type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
-                                <input type="text" id="student-quiz-suggestion-${i}" value="${data[i-1].inputVal}" readonly>
-                            </div>`;
-                $('#activity-student-response-content').append(ctx); 
-            }
+            $('#activity-student-response-content').append(createContentForQuiz(data, false)); 
             $('#activity-student-response').show();
         }
 
@@ -663,9 +695,27 @@ function manageDisplayQuiz(correction, content, correction_div) {
     }
 }
 
-function manageDisplayFillIn(correction, content, correction_div) {
-    setTextArea();
+function createContentForQuiz(data, doable = true) {
+    let content = "";
+    if (doable) {
+        for (let i = 1; i < data.length+1; i++) {
+            content += ` <div class="input-group">
+                            <input type="checkbox" id="student-quiz-checkbox-${i}">
+                            <input type="text" id="student-quiz-suggestion-${i}" value="${data[i-1].inputVal}" readonly>
+                        </div>`;
+        }
+    } else {
+        for (let i = 1; i < data.length+1; i++) {
+            content += ` <div class="input-group">
+                            <input type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
+                            <input type="text" id="student-quiz-suggestion-${i}" value="${data[i-1].inputVal}" readonly>
+                        </div>`;
+        }
+    }
+    return content;
+}
 
+function manageDisplayFillIn(correction, content, correction_div) {
     $('#activity-title').html(Activity.activity.title);
     // Show the content with the response to the teacher
     if (UserManager.getUser().isRegular) {
@@ -721,8 +771,6 @@ function resetInputsForActivity() {
     $('#activity-title').html(" ");
     $('#activity-content').html(" ");
     $('#activity-correction').html(" ");
-
-
 }
 
 function isTheActivityIsDoable(doable, hideValidationButton = false) {

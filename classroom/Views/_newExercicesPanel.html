@@ -126,21 +126,29 @@
         </div>
 
         <!-- DragAndDrop activity part -->
-        <div id="activity-dragAndDrop" style="display:none;">
+        <div id="activity-drag-and-drop" style="display:none;">
             
             <div class="content m-3">
-                <label for="dragAndDrop-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
-                <textarea id="dragAndDrop-states"></textarea>
+                <label for="drag-and-drop-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
+                <textarea id="drag-and-drop-states"></textarea>
             </div>
             
             <div class="content m-3">
-                <label for="dragAndDrop-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
-                <textarea id="dragAndDrop-content"></textarea>
+                <label for="drag-and-drop-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
+                <textarea id="drag-and-drop-content"></textarea>
+            </div>
+
+            <button class="btn c-btn-outline-primary" id="dragAndDrop-add-inputs">Add field</button>
+            <p>En cliquant sur le bouton ajouter un champs à compléter , un texte est ajouté avec deux caractères verticaux | réponse |. Vous pouvez écrire la réponse correcte entre ces deux caractères. Les réponses alternatives sont séparées par une double esperluette  && </p>
+
+            <div class="c-checkbox">
+                <input type="checkbox" name="drag-and-drop-autocorrect" id="drag-and-drop-autocorrect">
+                <label for="drag-and-drop-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
             </div>
 
             <div class="content m-3">
-                <label for="dragAndDrop-hint" data-i18n="newActivities.hint">Indice</label>
-                <input type="text" id="dragAndDrop-hint">
+                <label for="drag-and-drop-hint" data-i18n="newActivities.hint">Indice</label>
+                <input type="text" id="drag-and-drop-hint">
             </div>
 
         </div>
@@ -151,37 +159,6 @@
             <div id="lti-loader-container"></div>
         </div>
 
-
-<!-- 
-        <div id="classroom-dashboard-new-activity-panel" style="display:none;" class="activity-creation-form dashboard-block">
-            <div class="form-group mb-2 part-content-index part-row c-primary-form">
-                <div class="form-row mt-1">
-                    <label for="part-content-input" class="tutorial-label">
-                        <span data-i18n="classroom.activities.form.title.label"></span>
-                    </label>
-                    <input data-i18n="[placeholder]classroom.activities.form.title.placeholder" type="text" id="activity-form-title" class="form-control part-title-input">
-                </div>
-                <div class="form-row mt-1">
-                    <label for="part-content-input" class="tutorial-label">
-                        <span data-i18n='classroom.activities.form.content.label'></span>
-                    </label>
-                    <textarea id="activity-form-content" class='part-content' width='100%' style='min-height: 60vh;'></textarea>
-                </div>
-                <div class="form-row mt-1">
-                </div>
-            </div>
-            <button class="new-activity-panel2 c-btn-primary"><span data-i18n="classroom.activities.form.button"></span> <i class="fas fa-check"></i></button>
-        </div> -->
-
-
-        <!-- ajouter reponse autocorrect --> 
-        <!-- <div class="tolerance m-3">
-            <p>Ajouter une tolérance d'erreurs de <span> <input type="number" id="free_tolerance" value="0"> </span> caractère(s) sur l'ensemble de la réponse de l'élève.</p>
-        </div> -->
-        <!-- <div class="help m-3">
-            <p><span class="font-weight-bold">Indice *</span> s'affiche si la réponse est fausse</p>
-            <input type="text" id="free_indice" placeholder="Indice">
-        </div> -->
     </div>
 
     <div class="container">

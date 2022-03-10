@@ -1433,6 +1433,10 @@ class ClassroomManager {
                 },
                 quiz: {
                     contentForStudent: []
+                },
+                dragAndDropFields: {
+                    contentForTeacher: [],
+                    contentForStudent: []
                 }
             }, 
             type: '', 
