@@ -548,7 +548,6 @@ let wbbOpt = {
 
 function manageDisplayCustomAndReading(correction, content, correction_div) {
 
-    
     //$('#activity-title').html(Activity.activity.title);
     $('#activity-content').html(bbcodeToHtml(content));
     $('#activity-content-container').show();
@@ -568,49 +567,6 @@ function manageDisplayCustomAndReading(correction, content, correction_div) {
 
 }
 
-function manageDisplayDragAndDrop(correction, content, correction_div) {
-    
-    $('#activity-title').html(Activity.activity.title);
-    // Show the content with the response to the teacher
-    if (UserManager.getUser().isRegular) {
-        $('#activity-content').html(content.dragAndDropFields.contentForTeacher);
-        $('#activity-content-container').show();
-    }
-
-    $('#activity-states').html(bbcodeToHtml(content.states));
-    $('#activity-states-container').show();
-    
-    if (correction == 0 || correction == null) {
-        if (!UserManager.getUser().isRegular) {
-            $('#activity-input').wysibb(wbbOpt);
-            $('#activity-input').htmlcode(content.dragAndDropFields.contentForStudent);
-            $('#activity-input-container').show();
-        }
-    } else if (correction >  0) {
-        
-        let studentContentString = content.dragAndDropFields.contentForStudent;
-        let studentResponses = JSON.parse(Activity.response);
-
-        studentResponses.forEach(response => {
-            studentContentString = studentContentString.replace(/\|(.*?)\|/gi, response);
-        });
-
-        $('#activity-student-response-content').html(studentContentString);
-        $('#activity-student-response').show();
-
-        if (UserManager.getUser().isRegular) {
-            $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
-        } else {
-            $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
-        }
-        if (correction > 1) {
-            $('#activity-correction-container').show(); 
-            $('#activity-correction').html(correction_div);
-        }
-    } 
-    
-}
-
 function manageDisplayFree(correction, content, correction_div) {
 
     //$('#activity-title').html(Activity.activity.title);
@@ -624,14 +580,7 @@ function manageDisplayFree(correction, content, correction_div) {
     } else if (correction > 0) {
         $('#activity-student-response').show();
         $('#activity-student-response-content').html(bbcodeToHtml(Activity.response));
-
-        $('#activity-correction-container').show(); 
-        $('#activity-correction').html(correction_div);
-        if (UserManager.getUser().isRegular) {
-            $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
-        } else {
-            $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
-        }
+        manageCorrectionDiv(correction_div, correction);
     }
     
     // todo
@@ -680,15 +629,7 @@ function manageDisplayQuiz(correction, content, correction_div) {
             $('#activity-student-response').show();
         }
 
-        if (UserManager.getUser().isRegular) {
-            $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
-        } else {
-            $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
-        }
-        if (correction > 1) {
-            $('#activity-correction-container').show(); 
-            $('#activity-correction').html(correction_div);
-        }
+        manageCorrectionDiv(correction_div, correction);
     }
     
     // todo
@@ -737,7 +678,44 @@ function manageDisplayFillIn(correction, content, correction_div) {
         }
     } else if (correction >  0) {
         
-        let studentContentString = content.fillInFields.contentForStudent;
+        let studentContentString = content.fillInFields.contentForStudent,
+            studentResponses = JSON.parse(Activity.response);
+
+        console.log(studentResponses);
+
+        studentResponses.forEach(response => {
+            studentContentString = studentContentString.replace(/\|(.*?)\|/, response);
+        });
+
+        $('#activity-student-response-content').html(studentContentString);
+        $('#activity-student-response').show();
+
+        manageCorrectionDiv(correction_div, correction);
+
+    } 
+}
+
+function manageDisplayDragAndDrop(correction, content, correction_div) {
+    
+    $('#activity-title').html(Activity.activity.title);
+    // Show the content with the response to the teacher
+    if (UserManager.getUser().isRegular) {
+        $('#activity-content').html(content.dragAndDropFields.contentForTeacher);
+        $('#activity-content-container').show();
+    }
+
+    $('#activity-states').html(bbcodeToHtml(content.states));
+    $('#activity-states-container').show();
+    
+    if (correction == 0 || correction == null) {
+        if (!UserManager.getUser().isRegular) {
+            $('#activity-input').wysibb(wbbOpt);
+            $('#activity-input').htmlcode(content.dragAndDropFields.contentForStudent);
+            $('#activity-input-container').show();
+        }
+    } else if (correction >  0) {
+        
+        let studentContentString = content.dragAndDropFields.contentForStudent;
         let studentResponses = JSON.parse(Activity.response);
 
         studentResponses.forEach(response => {
@@ -747,16 +725,21 @@ function manageDisplayFillIn(correction, content, correction_div) {
         $('#activity-student-response-content').html(studentContentString);
         $('#activity-student-response').show();
 
-        if (UserManager.getUser().isRegular) {
-            $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
-        } else {
-            $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
-        }
-        if (correction > 1) {
-            $('#activity-correction-container').show(); 
-            $('#activity-correction').html(correction_div);
-        }
+        manageCorrectionDiv(correction_div, correction);
     } 
+    
+}
+
+function manageCorrectionDiv(correction_div, correction) {
+    if (UserManager.getUser().isRegular) {
+        $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
+    } else {
+        $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
+    }
+    if (correction > 1) {
+        $('#activity-correction').html(correction_div);
+        $('#activity-correction-container').show(); 
+    }
 }
 
 

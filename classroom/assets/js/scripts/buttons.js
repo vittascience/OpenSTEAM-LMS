@@ -3218,7 +3218,7 @@ function setTextArea() {
         buttons: ",bold,italic,underline,|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe",
     }
     // Free 
-    $('#free_enonce').wysibb(wbbOpt);
+    $('#free-enonce').wysibb(wbbOpt);
     $('#free-content').wysibb(wbbOpt);
     $('#free-correction').wysibb(wbbOpt);
 
@@ -3237,11 +3237,6 @@ function setTextArea() {
      $("#quiz-states").wysibb(wbbOpt);
 }
 
-if (document.querySelector('#free_enonce') !== null) {
-    setTextArea();
-}
-
-
 /**
  * Hide all the activities section
  */
@@ -3254,8 +3249,13 @@ function hideAllActivities() {
     $("#activity-quiz").hide();
 }
 
-
+// autocorrect modification pas pris en compte
 function launchCustomActivity(activityType, isUpdate = false) {
+
+    //if (document.querySelector('#free-enonce') !== null) {
+    setTextArea();
+    //}
+
     const contentForwardButtonElt = document.getElementById('content-forward-button');
     contentForwardButtonElt.style.display = 'inline-block';
     if(!isUpdate) {
