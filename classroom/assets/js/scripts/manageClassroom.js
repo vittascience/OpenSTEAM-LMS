@@ -103,12 +103,16 @@ $('body').on('click', '.modal-student-password', function () {
     })
 
 })
-//student modal-->modifier le pseudo
 
-function changePseudoModal(pseudo, id) {
+/**
+ * Setup and open the student pseudo modal
+ * @param {*} id 
+ */
+function changePseudoModal(id) {
     ClassroomSettings.student = id
-    $('.change-pseudo-modal').val(pseudo)
-    pseudoModal.openModal('update-pseudo-modal')
+    const pseudo = Main.getClassroomManager().getLocalCurrentClassroomStudentById(id).user.pseudo;
+    document.querySelector('.change-pseudo-modal').value = pseudo;
+    pseudoModal.openModal('update-pseudo-modal');
 }
 
 $('body').on('click', '#update-pseudo-close', function () {
@@ -904,7 +908,7 @@ function displayStudentsInClassroom(students, link=false) {
                 <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
                 <li class="col-12 pwd-display-stud" href="#"><div data-i18n="classroom.classes.panel.password">Votre mot de passe :</div> <span class="masked">${element.pwd}</span><i class="classroom-clickable fas fa-low-vision switch-pwd ml-2"></i></li>
                 <li class="modal-student-password classroom-clickable col-12 dropdown-item" href="#" data-i18n="classroom.classes.panel.resetPassword">Régenérer le mot de passe</li>
-                <li class="classroom-clickable col-12 dropdown-item" href="#"><span class="classroom-clickable" data-i18n="classroom.classes.panel.editNickname" onclick="changePseudoModal('${element.user.pseudo}',${element.user.id})">Modifier le pseudo</span></li>
+                <li class="classroom-clickable col-12 dropdown-item" href="#"><span class="classroom-clickable" data-i18n="classroom.classes.panel.editNickname" onclick="changePseudoModal(${element.user.id})">Modifier le pseudo</span></li>
                 <li class="dropdown-item modal-student-delete classroom-clickable col-12" href="#" data-i18n="classroom.classes.panel.delete">Supprimer</li>
                 </div>
                 </div>`;
