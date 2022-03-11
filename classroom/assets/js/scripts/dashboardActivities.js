@@ -710,8 +710,57 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
     if (correction == 0 || correction == null) {
         if (!UserManager.getUser().isRegular) {
             $('#activity-input').wysibb(wbbOpt);
-            $('#activity-input').htmlcode(content.dragAndDropFields.contentForStudent);
-            $('#activity-input-container').show();
+
+            let ContentString = manageDragAndDropText(content.dragAndDropFields.contentForStudent);
+            $('#drag-and-drop-text').html(`<div class="m-4 p-4">${ContentString}</div>`);
+
+            // Get the response array and shuffle it
+            let choices = shuffleArray(JSON.parse(Activity.activity.solution));
+
+            choices.forEach(e => {
+                $('#drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim().toUpperCase()}</p>`);
+            });
+            $('#activity-drag-and-drop-container').show();
+
+
+            let drake = dragula([document.querySelector('#drag-and-drop-fields')], {revertOnSpill: true, removeOnSpill: true});
+            $('.dropzone').each((i, e) => {
+                drake.containers.push(document.querySelector('#'+e.id));
+            });
+
+            drake.on('drop', function (el, target, source) {
+                if (target.children.length > 1 && target.id != "drag-and-drop-fields") {
+                    el == target.children[0] ? $(source).append(target.children[1]) : $(source).append(target.children[0]);
+                } else if (target.children.length = 1 && target.id != "drag-and-drop-fields"){
+                    $(target).html(el);
+                }
+
+                if (source.children.length = 1 && source.id != "drag-and-drop-fields"){
+                    if (source.children[0] == undefined) {
+                        $(source).html("DROP HERE");
+                    }
+                }
+            }).on('over', function(el, container, source) { 
+                //console.log(container);
+                
+                if (container.id != "drag-and-drop-fields") {
+                    if (container.children[0] == undefined) {
+                        $(container).html(el);
+                    } else {
+                        $(container).html(el + container.children[0]);
+                    }
+                }
+
+
+
+            }).on('out', function(el, container, source) { 
+                //console.log(container.id.includes("dz"));
+                /* if (container.id.includes("dz")) {
+                    if (container.children.length == 0) {
+                        $(source).html("DROP HERE");
+                    }
+                } */
+            });
         }
     } else if (correction >  0) {
         
@@ -729,6 +778,26 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
     } 
     
 }
+
+
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+function manageDragAndDropText(studentContentString) {
+    let studentResponses = JSON.parse(Activity.activity.solution);
+    for (let i = 0; i < studentResponses.length; i++) {
+        let input = `<span class="dropable-items dropzone" id="dz-${i}">DRAG HERE</span>`;
+        studentContentString = studentContentString.replace(/\|(.*?)\|/, input);
+    }
+    return studentContentString;
+}
+
 
 function manageCorrectionDiv(correction_div, correction) {
     if (UserManager.getUser().isRegular) {
@@ -782,7 +851,7 @@ function manageContentForActivity() {
     let content = "";
     if (IsJsonString(Activity.activity.content)) {
         const contentParsed = JSON.parse(Activity.activity.content);
-        if (Activity.activity.type != "fillIn" && Activity.activity.type != "quiz") {
+        if (Activity.activity.type != "fillIn" && Activity.activity.type != "quiz" && Activity.activity.type != "dragAndDrop") {
             if (contentParsed.hasOwnProperty('description')) {
                 content = contentParsed.description;
             }

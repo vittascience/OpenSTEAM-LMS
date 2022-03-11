@@ -3317,20 +3317,21 @@ function launchCustomActivity(activityType, isUpdate = false) {
 
 $("#free-autocorrect").change(function () {
     if ($(this).is(":checked")) {
-        $("#free-correction_content").show();
+        $("#free-correction-content").show();
     } else {
-        $("#free-correction_content").hide();
+        $("#free-correction-content").hide();
     }
 })
 
 function resetActivityInputs(activityType) {
+    resetDisplayForActivity();
     $('#global_title').val('');
     $('#activity-input').val('');
     if (activityType == 'free') {
         $('#free-content').htmlcode("");
         $('#free-correction').htmlcode("");
         $('#free-autocorrect').prop('checked', false);
-        $("#free-correction_content").hide();
+        $("#free-correction-content").hide();
         // reset input eleve
     } else if (activityType == 'fillIn') {
         /* fill-in reset */
@@ -3339,9 +3340,40 @@ function resetActivityInputs(activityType) {
         $('#fill-in-hint').val("");
         $('#fill-in-tolerance').val("");
         $('#fill-in-autocorrect').prop('checked', false);
-    } else {
-        Main.getClassroomManager().setDefaultActivityData();
+    } else if (activityType == 'reading') {
+        /* reading reset */
+        $('#reading-content').htmlcode("");
+    } else if (activityType == 'dragAndDrop') {
+        /* drag-and-drop reset */
+        $('#drag-and-drop-states').htmlcode("");
+        $('#drag-and-drop-content').htmlcode("");
+        $('#drag-and-drop-hint').val("");
+        $('#drag-and-drop-tolerance').val("");
+        $('#drag-and-drop-autocorrect').prop('checked', false);
+    } else if (activityType == 'quiz') {
+        /* quiz reset */
+        $('#quiz-states').htmlcode("");
+        $('#quiz-content').htmlcode("");
+        $('#quiz-hint').val("");
+        $('#quiz-tolerance').val("");
+        $('#quiz-autocorrect').prop('checked', false);
     }
+    Main.getClassroomManager().setDefaultActivityData();
+}
+
+function resetDisplayForActivity() {
+    $('#activity-free').hide();
+    $('#activity-fill-in').hide();
+    $('#activity-reading').hide();
+    $('#activity-drag-and-drop').hide();
+    $('#activity-custom').hide();
+    $('#activity-quiz').hide();
+
+    $('#activity-states-container').hide();
+    $('#activity-content-container').hide();
+    $('#activity-student-response').hide();
+    $('#activity-input-container').hide();
+    $('#activity-autocorrect-container').hide();
 }
 
 function contentBackward() {

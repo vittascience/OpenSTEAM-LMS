@@ -109,6 +109,7 @@ function activityModify(id) {
 }
 
 function manageUpdateByType(activity) {
+    setTextArea();
     const contentForwardButtonElt = document.getElementById('content-forward-button');
 
     // Merge old activity to reading activity
@@ -120,94 +121,114 @@ function manageUpdateByType(activity) {
     contentForwardButtonElt.style.display = 'inline-block';
     $('#global_title').val(activity.title);
 
-    if (activity.type == "free") {  
-        $('#activity-free').show();
-        let content = JSON.parse(activity.content);
-        $('#free-content').htmlcode(bbcodeToHtml(content.description));
-        if (activity.isAutocorrect) {
-            $("#free-autocorrect").prop("checked", true)
-            $("#free-correction_content").show();
-        } else {
-            $("#free-autocorrect").prop("checked", false)
-            $("#free-correction_content").hide();
-        }
-        if (activity.solution != "") {
-            if (activity.solution != null) {
-                $('#free-correction').htmlcode(bbcodeToHtml(activity.solution));
-            }
-        }
-    } else if (activity.type == "quiz") {
-
-        let solution = JSON.parse(activity.solution),
-            content = JSON.parse(activity.content);
-
-        $('#quiz-suggestions-container').html('');
-        for (let i = 1; i < solution.length+1; i++) {
-            let divToAdd = `<div class="input-group">
-                                <label for="quiz-suggestion-${i}" id="quiz-label-suggestion-${i}">Proposition ${i}</label>
-                                <button data-i18n="newActivities.delete" id="quiz-button-suggestion-${i}" onclick="deleteQuizSuggestion(${i})">Delete</button>
-                                <input type="text" id="quiz-suggestion-${i}" value="${solution[i-1].inputVal}">
-                                <label for="quiz-checkbox-${i}" id="quiz-label-checkbox-${i}">Réponse correcte</label>
-                                <input type="checkbox" id="quiz-checkbox-${i}" ${solution[i-1].isCorrect ? 'checked' : ''}>
-                            </div>
-                            `;
-            $('#quiz-suggestions-container').append(divToAdd);
-        }
-
-        $('#quiz-states').htmlcode(bbcodeToHtml(content.states));
-        $('#quiz-hint').val(content.hint);
-        
-        if (activity.isAutocorrect) {
-            $("#quiz-autocorrect").prop("checked", true)
-            $("#quiz-correction_content").show();
-        } else {
-            $("#quiz-autocorrect").prop("checked", false)
-            $("#quiz-correction_content").hide();
-        }
-        $('#activity-quiz').show();
-
-    } else if (activity.type == "fillIn") {
-        $('#activity-fill-in').show();
-
-        let content = JSON.parse(activity.content);
-        $("#fill-in-states").htmlcode(bbcodeToHtml(content.states));
-        $("#fill-in-hint").val(content.hint);
-        $("#fill-in-tolerance").val(activity.tolerance);
-        $("#fill-in-content").htmlcode(bbcodeToHtml(content.fillInFields.contentForTeacher));
-
-        activity.isAutocorrect ? $("#fill-in-autocorrect").prop("checked", true) : $("#fill-in-autocorrect").prop("checked", false);
-
-    } else if (activity.type == "reading" || activity.type == null) {
-        let contentParsed = "";
-
-        if (IsJsonString(activity.content)) {
-            contentParsed = bbcodeToHtml(JSON.parse(activity.content).description);
-        } else {
-            contentParsed = activity.content;
-        }
-
-        $("#reading-content").htmlcode((contentParsed));
-        $("#activity-reading").show();
-    } else if (activity.type == "dragAndDrop") {
-        
-        $('#activity-drag-and-drop').show();
-
-        let content = JSON.parse(activity.content);
-        $("#drag-and-drop-states").htmlcode(bbcodeToHtml(content.states));
-        $("#drag-and-drop-hint").val(content.hint);
-        $("#drag-and-drop-content").htmlcode(bbcodeToHtml(content.dragAndDropFields.contentForTeacher));
-
-        activity.isAutocorrect ? $("#drag-and-drop-autocorrect").prop("checked", true) : $("#drag-and-drop-autocorrect").prop("checked", false);
-
-    } else {
-        // TODO: CHANGE THIS DEFAULT FALLBACK BY SOMETHING CHECKING IF THE CURRENT ACTIVITY USES LTI
-        contentForwardButtonElt.style.display = 'none';
-        Main.getClassroomManager()._createActivity.content.description = JSON.parse(activity.content).description;
-        launchLtiDeepLinkCreate(activity.type, true);
-        $("#activity-custom").show();
+    switch (activity.type) {
+        case "free":
+            manageUpdateForFree(activity);
+            break;
+        case "quiz":
+            manageUpdateForQuiz(activity);
+            break;
+        case "fillIn":
+            manageUpdateForFillIn(activity);
+            break;
+        case "reading":
+        case null:
+            manageUpdateForReading(activity);
+            break;
+        case "dragAndDrop":
+            manageUpdateForDragAndDrop(activity);
+            break;
+        default:
+            contentForwardButtonElt.style.display = 'none';
+            Main.getClassroomManager()._createActivity.content.description = JSON.parse(activity.content).description;
+            launchLtiDeepLinkCreate(activity.type, true);
+            $("#activity-custom").show();
+            break;
     }
     
     navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
+}
+
+
+function manageUpdateForFree(activity) {
+    $('#activity-free').show();
+    let content = JSON.parse(activity.content);
+    $('#free-content').htmlcode(bbcodeToHtml(content.description));
+    if (activity.isAutocorrect) {
+        $("#free-autocorrect").prop("checked", true)
+        $("#free-correction-content").show();
+    } else {
+        $("#free-autocorrect").prop("checked", false)
+        $("#free-correction-content").hide();
+    }
+    if (activity.solution != "") {
+        if (activity.solution != null) {
+            $('#free-correction').htmlcode(bbcodeToHtml(activity.solution));
+        }
+    }
+}
+
+function manageUpdateForQuiz(activity) {
+    let solution = JSON.parse(activity.solution),
+    content = JSON.parse(activity.content);
+
+    $('#quiz-suggestions-container').html('');
+    for (let i = 1; i < solution.length+1; i++) {
+        let divToAdd = `<div class="input-group">
+                            <label for="quiz-suggestion-${i}" id="quiz-label-suggestion-${i}">Proposition ${i}</label>
+                            <button data-i18n="newActivities.delete" id="quiz-button-suggestion-${i}" onclick="deleteQuizSuggestion(${i})">Delete</button>
+                            <input type="text" id="quiz-suggestion-${i}" value="${solution[i-1].inputVal}">
+                            <label for="quiz-checkbox-${i}" id="quiz-label-checkbox-${i}">Réponse correcte</label>
+                            <input type="checkbox" id="quiz-checkbox-${i}" ${solution[i-1].isCorrect ? 'checked' : ''}>
+                        </div>
+                        `;
+        $('#quiz-suggestions-container').append(divToAdd);
+    }
+
+    $('#quiz-states').htmlcode(bbcodeToHtml(content.states));
+    $('#quiz-hint').val(content.hint);
+
+    if (activity.isAutocorrect) {
+        $("#quiz-autocorrect").prop("checked", true);
+        $("#quiz-correction_content").show();
+    } else {
+        $("#quiz-autocorrect").prop("checked", false);
+        $("#quiz-correction_content").hide();
+    }
+    $('#activity-quiz').show();
+}
+
+function manageUpdateForFillIn(activity) {
+    $('#activity-fill-in').show();
+    let content = JSON.parse(activity.content);
+    $("#fill-in-states").htmlcode(bbcodeToHtml(content.states));
+    $("#fill-in-hint").val(content.hint);
+    $("#fill-in-tolerance").val(activity.tolerance);
+    $("#fill-in-content").htmlcode(bbcodeToHtml(content.fillInFields.contentForTeacher));
+    activity.isAutocorrect ? $("#fill-in-autocorrect").prop("checked", true) : $("#fill-in-autocorrect").prop("checked", false);
+}
+
+function manageUpdateForReading(activity) {
+    let contentParsed = "";
+    if (IsJsonString(activity.content)) {
+        contentParsed = bbcodeToHtml(JSON.parse(activity.content).description);
+    } else {
+        contentParsed = activity.content;
+    }
+    $("#reading-content").htmlcode((contentParsed));
+    $("#activity-reading").show();
+}
+
+
+function manageUpdateForDragAndDrop(activity) {
+    $('#activity-drag-and-drop').show();
+    console.log(activity)
+    let content = JSON.parse(activity.content);
+    console.log(content)
+    $("#drag-and-drop-hint").val(content.hint);
+    $("#drag-and-drop-states").htmlcode(bbcodeToHtml(content.states));
+    $("#drag-and-drop-content").htmlcode(bbcodeToHtml(content.dragAndDropFields.contentForTeacher));
+    activity.isAutocorrect ? $("#drag-and-drop-autocorrect").prop("checked", true) : $("#drag-and-drop-autocorrect").prop("checked", false);
 }
 
 //création activité vers attribution
@@ -229,6 +250,8 @@ function attributeActivity(id, ref = null) {
         }
     })
 }
+
+
 
 function undoAttributeActivity(ref,title,classroomId) {
     Main.getClassroomManager().undoAttributeActivity(ref,classroomId).then(function (result) {
