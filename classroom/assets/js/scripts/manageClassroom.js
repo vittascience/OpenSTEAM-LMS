@@ -3,59 +3,68 @@
  */
 window.addEventListener(
     "message", 
-    async (event) => {
-        if(event.data.type === "" || event.data.type === "loaded") return; // ignore msg
-        const msg = event.data.type ? event.data.type : JSON.parse(event.data);
-        switch(msg.type) {
-            // Message received when an LTI resource launch has gone to submission
-            case 'end-lti-score':
-                // Update the activities from database
-                await Main.getClassroomManager().getStudentActivities(Main.getClassroomManager());
-                // Get the results of the current activity
-                for (let state in Main.getClassroomManager()._myActivities) {
-                    const currentSearch = Main.getClassroomManager()._myActivities[state].filter(x => x.id == Activity.id)[0];
-                    if (typeof currentSearch != 'undefined') {
-                        Activity = currentSearch;
-                        break;
-                    }
-                }
-                // If the current activity needs a manual review, display the relevant panel
-                if (Activity.correction == 1) {
-                    navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-activities');
-                } else {
-                    // Otherwise display the relevant panel for success or fail
-                    switch (Activity.note) {
-                        case 0:
-                            navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities');
-                            break;
-                        case 3:
-                            navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
-                            break;
-                            
-                        default:
-                            navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
-                            break;
-                    }
-                }
-                // Clearing the LTI content div
-                document.querySelector('#lti-loader-container').innerHTML = '';
-                break;
-            // Message received when an LTI deep link has returned
-            case 'end-lti-deeplink':
-                // Saving the deeplink response into the activity creation data
-                Main.getClassroomManager()._createActivity.content.description = msg.content;
-                // Automatically stepping forward in the activity creation process
-                contentForward();
-                // Clear the activity content to close the LTI iframe
-                document.querySelector('#activity-content').innerHTML = '';
-                break;
-            default:
-                console.warn('The current message type isn\'t supported!');
-                console.log(event.data);
-        }
+    (event) => {
+        readEvent(event).catch((error) => {console.log(error)});
     }, 
     false
 );
+
+async function readEvent (event) {
+    if(event.data.type === "" || event.data.type === "loaded") return; // ignore msg
+    try {
+        JSON.parse(event.data);
+    } catch(error) {
+        return false;
+    }
+    const msg = event.data.type ? event.data.type : JSON.parse(event.data);
+    switch(msg.type) {
+        // Message received when an LTI resource launch has gone to submission
+        case 'end-lti-score':
+            // Update the activities from database
+            await Main.getClassroomManager().getStudentActivities(Main.getClassroomManager());
+            // Get the results of the current activity
+            for (let state in Main.getClassroomManager()._myActivities) {
+                const currentSearch = Main.getClassroomManager()._myActivities[state].filter(x => x.id == Activity.id)[0];
+                if (typeof currentSearch != 'undefined') {
+                    Activity = currentSearch;
+                    break;
+                }
+            }
+            // If the current activity needs a manual review, display the relevant panel
+            if (Activity.correction == 1) {
+                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-activities');
+            } else {
+                // Otherwise display the relevant panel for success or fail
+                switch (Activity.note) {
+                    case 0:
+                        navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities');
+                        break;
+                    case 3:
+                        navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
+                        break;
+                        
+                    default:
+                        navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
+                        break;
+                }
+            }
+            // Clearing the LTI content div
+            document.querySelector('#lti-loader-container').innerHTML = '';
+            break;
+        // Message received when an LTI deep link has returned
+        case 'end-lti-deeplink':
+            // Saving the deeplink response into the activity creation data
+            Main.getClassroomManager()._createActivity.content.description = msg.content;
+            // Automatically stepping forward in the activity creation process
+            contentForward();
+            // Clear the activity content to close the LTI iframe
+            document.querySelector('#activity-content').innerHTML = '';
+            break;
+        default:
+            console.warn('The current message type isn\'t supported!');
+            console.log(event.data);
+    }
+}
 
 //formulaire de création de classe
 $('body').on('click', '.teacher-new-classe', function (event) {
