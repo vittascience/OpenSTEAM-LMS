@@ -427,6 +427,7 @@
 			"addStudentByCsv": {
 				"title": "Ajouter des étudiants avec un fichier .csv",
 				"description": "Vous pouvez ajouter un ou plusieurs apprenants d'un seul coup en les important depuis un fichier .csv. Il est facultativement possible de définir le mot de passe pour chacun d'entre eux. Voici les fichiers .csv modèles : ",
+				"descriptionUpdate": "Vous pouvez ajouter un ou plusieurs apprenants d'un seul coup en les important depuis un fichier .csv. <b>ATTENTION</b> : ici, les mots de passe du fichier csv ne sont pas pris en compte ! Voici le fichier .csv modèle : ",
 				"csvTemplate": "fichier modèle avec mot de passe",
 				"csvTemplateNoPassword": "fichier modèle sans mot de passe",
 				"importStudentByCsvButton": "Importer les apprenants"

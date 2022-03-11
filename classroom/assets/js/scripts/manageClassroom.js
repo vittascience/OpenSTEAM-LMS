@@ -369,7 +369,7 @@ $('body').on('click', '#create-classroom-add-student-to-list', () => {
 });
 
 /**
- * Manage the display notification from the response
+ * Manages the display notification from the response
  * @param {*} response 
  */
 function manageResponseOfAddUsers(response) {
@@ -390,18 +390,30 @@ function manageResponseOfAddUsers(response) {
 }
 
 /**
- * Open the modal which allows to add users using a csv file
+ * Opens the modal which allows to add users using a csv file
+ * @param {boolean} update - Gives the context to open the relevant modal
  */
-function openCsvModal(){
-    pseudoModal.openModal('import-csv');
+function openCsvModal(update = false){
+    if (update) {
+        pseudoModal.openModal('import-csv-update-classroom');
+    } else if (ClassroomSettings.classroom !== null){
+        pseudoModal.openModal('import-csv');
+    } else {
+        pseudoModal.openModal('import-csv-create-classroom');
+    }
 }
 
 
 /**
  * Add students to a classroom using a csv file
+ * @param {boolean} update - Gives the context to operate on the relevant elements
  */
-function importLearnerCsv(){
-    if(ClassroomSettings.classroom){
+function importLearnerCsv(update = false){
+    if (update) {
+        // If the current call is in the context of a classroom modification
+        importLearnerCsvCreateUpdateClassroom(document.getElementById('importcsv-fileinput-classroom-update'), document.querySelector('#table-students-update ul'), 'import-csv-update-classroom');
+    } else if(ClassroomSettings.classroom){
+        // If the current call is directly from the classroom dashboard
         csvToClassroom(ClassroomSettings.classroom).then((response) => {
             /**
              * Updated @Rémi
@@ -428,58 +440,66 @@ function importLearnerCsv(){
             console.warn(response);
         });
     } else {
-
         // import the students before the class creation
-        const csvFile = document.getElementById('importcsv-fileinput').files[0];
-        if (csvFile){
-            const reader = new FileReader();
-            try {
-                reader.readAsText(csvFile);
-                reader.onload = function (event) {
-                    let csv = event.target.result;
-                    let lines = csv.split("\n");
-                    let headers = lines[0].split(/[,;]/);
+        importLearnerCsvCreateUpdateClassroom(document.getElementById('importcsv-fileinput-classroom-create'), document.querySelector('#table-students ul'), 'import-csv-create-classroom');
+    }
+}
 
-                    for(let i = 0; i < headers.length; i++) {
-                        headers[i] = headers[i].replace("\r","");
-                    }
-                    
-                    let missingPseudoError = false
-                    for (let i = 1; i < lines.length; i++) {
-                        // sanitize the current line
-                        lines[i] = lines[i].replace(/(\r\n|\n|\r)/gm, "")
-                        // ignore current empty line
-                        // NOTE : EXCEL return a single character for an empty line when we use the "pseudo;password" example file
-                         if(lines[i] == '' || lines[i] ==';') continue 
+/**
+ * Get the student list from a csv file and append it in the classroom creation/update panel
+ * @param {DOM Element} fileInputElt - The file input element
+ * @param {DOM Element} tableStudentUlElt The ul listing all the students
+ * @param {string} modalId The id of the current modal
+ */
+function importLearnerCsvCreateUpdateClassroom(fileInputElt, tableStudentUlElt, modalId) {
+    const csvFile = fileInputElt.files[0];
+    if (csvFile){
+        const reader = new FileReader();
+        try {
+            reader.readAsText(csvFile);
+            reader.onload = function (event) {
+                let csv = event.target.result;
+                let lines = csv.split("\n");
+                let headers = lines[0].split(/[,;]/);
 
-                        let currentline = lines[i].split(/[,;]/);
-                        
-                        // set the error flag to true if the pseudo is missing in the csv
-                        if(currentline[0].trim() == '') missingPseudoError = true;
-
-                        // add the student into the students table
-                        else $('#table-students ul').append(addStudentRow(currentline[0]));
-                    }
-
-                    // display the missing pseudo error
-                    if(missingPseudoError == true) displayNotification('#notif-div', "classroom.notif.pseudoMissingInCsvFile", "error");
-
-                    if ($('#table-students ul li .col').length > 1) {
-                        $('#no-student-label').remove();
-                    }
-                    // remove the previous filename uploaded on open 
-                    $('#importcsv-fileinput').val("");
-                    pseudoModal.closeModal('import-csv');
+                for(let i = 0; i < headers.length; i++) {
+                    headers[i] = headers[i].replace("\r","");
                 }
-            } catch (error) {
-                reject(`Error while opening the csv file! Reason: ${error}`);
-                displayNotification('#notif-div', "classroom.notif.errorWithCsv", "error", `'{"error": "${error}"}'`);
+                
+                let missingPseudoError = false;
+                for (let i = 1; i < lines.length; i++) {
+                    // sanitize the current line
+                    lines[i] = lines[i].replace(/(\r\n|\n|\r)/gm, "")
+                    // ignore current empty line
+                    // NOTE : EXCEL return a single character for an empty line when we use the "pseudo;password" example file
+                    if(lines[i] == '' || lines[i] ==';') continue;
+
+                    let currentline = lines[i].split(/[,;]/);
+                    
+                    // set the error flag to true if the pseudo is missing in the csv
+                    if(currentline[0].trim() == '') missingPseudoError = true;
+
+                    // add the student into the students table
+                    else tableStudentUlElt.innerHTML += addStudentRow(currentline[0]);
+                }
+
+                // display the missing pseudo error
+                if(missingPseudoError == true) displayNotification('#notif-div', 'classroom.notif.pseudoMissingInCsvFile', 'error');
+
+                if (document.querySelectorAll('#table-students ul li .col').length > 1) {
+                    if (document.querySelector('#no-student-label') !== null)
+                        document.querySelector('#no-student-label').remove();
+                }
+                // remove the previous filename uploaded on open 
+                fileInputElt.value = '';
+                pseudoModal.closeModal(modalId);
             }
-        } else {
-            reject('No csv file given!');
-            displayNotification('#notif-div', "classroom.notif.CsvFileMissing", "error");
+        } catch (error) {
+            reject(`Error while opening the csv file! Reason: ${error}`);
+            displayNotification('#notif-div', "classroom.notif.errorWithCsv", "error", `'{"error": "${error}"}'`);
         }
-        $('#table-students ul').html("");
+    } else {
+        displayNotification('#notif-div', "classroom.notif.CsvFileMissing", "error");
     }
 }
 
