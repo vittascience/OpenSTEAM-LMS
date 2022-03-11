@@ -838,9 +838,10 @@ function displayStudentsInClassroom(students, link=false) {
     if (link && link != $_GET('option')) {
         return;
     }
-    $('#body-table-teach').html(''); //clean the display
-    $('#add-student-container').html(''); //clean the display
-    $('#export-class-container').html(''); //clean the display
+    // Clean the display
+    document.querySelector('#body-table-teach').innerHTML = '';
+    document.querySelector('#add-student-container').innerHTML = '';
+    document.querySelector('#export-class-container').innerHTML = '';
     
     // Display the classroom name
     const classroomName = getClassroomInListByLink(ClassroomSettings.classroom)[0].classroom.name;
@@ -908,8 +909,13 @@ function displayStudentsInClassroom(students, link=false) {
             }
             // Display the current student activities in the dashboard
             let currentActivity = arrayActivities[i];
-            const formatedTimePast = currentActivity.timePassed == 0 ? '' : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em>`;
             if (currentActivity) {
+                const formatedTimePast = 
+                typeof currentActivity.timePassed == 'undefined' 
+                    ? '' 
+                    : currentActivity.timePassed == 0 
+                        ? '' 
+                        : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em>`;
                 html += `<td class=" ${statusActivity(currentActivity)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>${formatedTimePast}"></td>`;
             } else {
                 html += `<td class="no-activity bilan-cell" "></td>`;
@@ -1028,6 +1034,34 @@ document.getElementsByTagName('body')[0].addEventListener('click', (e) => {
         }
     }
 });
+
+/**
+ * Mutation observer that remove a tooltip from the dom if its related element is deleted (to avoid an issue where the tooltip remains in place and never disappears)
+ */
+const deletionObserver = new MutationObserver(function(mutations_list) {
+	mutations_list.forEach(function(mutation) {
+		mutation.removedNodes.forEach(function(removed_node) {
+			browseRemovedNodes(removed_node);
+		});
+	});
+});
+deletionObserver.observe(document.querySelector("body"), { subtree: true, childList: true });
+
+/**
+ * Check if the provided element and all its children has a displayed tooltip to remove
+ * @param {DOM Element} removed_node - The DOM Element to browse
+ */
+function browseRemovedNodes(removed_node) {
+    if (removed_node.getAttribute && removed_node.getAttribute('data-toggle') == 'tooltip') {
+        const toolTipId = removed_node.getAttribute('aria-describedby');
+        document.getElementById(toolTipId) !== null ? document.getElementById(toolTipId).remove() : false;
+    }
+    if (removed_node.childNodes) {
+        for (let child of removed_node.childNodes) {
+            browseRemovedNodes(child);
+        }
+    }
+}
 
 /**
  * Open teacher account panel
