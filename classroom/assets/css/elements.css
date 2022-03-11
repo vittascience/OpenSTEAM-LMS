@@ -472,6 +472,10 @@ hr {
 /* CHECKBOXES */
 
 /* Base for label styling */
+.c-checkbox {
+    position: relative;
+}
+
 .c-checkbox [type="checkbox"]:not(:checked),
 .c-checkbox [type="checkbox"]:checked {
     position: absolute;

@@ -1439,5 +1439,41 @@ class ClassroomManager {
         } 
     }
 
+    /**
+     * Retrieve locally a classroom by its link
+     * @param {string} link - A classroom link
+     * @returns The classroom if found, otherwise false 
+     */
+    getLocalClassroomByLink(link) {
+        if(typeof link !== 'string') {
+            console.error('The provided link must be a string!');
+        }
+        for (let classroom of this._myClasses) {
+            if (classroom.classroom.link === link) {
+                return classroom;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Retrieve locally a student by its id
+     * @param {number} id - A student id
+     * @returns The student if found, otherwise false
+     */
+    getLocalCurrentClassroomStudentById(id) {
+        if(typeof id !== 'number') {
+            console.error('The provided id must be a number!');
+            return false;
+        }
+        const currentClassroom = this.getLocalClassroomByLink(ClassroomSettings.classroom);
+        for (let student of currentClassroom.students) {
+            if (student.user.id === id) {
+                return student;
+            }
+        }
+        return false;
+    }
+
 }
 

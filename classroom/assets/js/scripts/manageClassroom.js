@@ -3,59 +3,68 @@
  */
 window.addEventListener(
     "message", 
-    async (event) => {
-        if(event.data.type === "" || event.data.type === "loaded") return; // ignore msg
-        const msg = event.data.type ? event.data.type : JSON.parse(event.data);
-        switch(msg.type) {
-            // Message received when an LTI resource launch has gone to submission
-            case 'end-lti-score':
-                // Update the activities from database
-                await Main.getClassroomManager().getStudentActivities(Main.getClassroomManager());
-                // Get the results of the current activity
-                for (let state in Main.getClassroomManager()._myActivities) {
-                    const currentSearch = Main.getClassroomManager()._myActivities[state].filter(x => x.id == Activity.id)[0];
-                    if (typeof currentSearch != 'undefined') {
-                        Activity = currentSearch;
-                        break;
-                    }
-                }
-                // If the current activity needs a manual review, display the relevant panel
-                if (Activity.correction == 1) {
-                    navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-activities');
-                } else {
-                    // Otherwise display the relevant panel for success or fail
-                    switch (Activity.note) {
-                        case 0:
-                            navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities');
-                            break;
-                        case 3:
-                            navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
-                            break;
-                            
-                        default:
-                            navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
-                            break;
-                    }
-                }
-                // Clearing the LTI content div
-                document.querySelector('#lti-loader-container').innerHTML = '';
-                break;
-            // Message received when an LTI deep link has returned
-            case 'end-lti-deeplink':
-                // Saving the deeplink response into the activity creation data
-                Main.getClassroomManager()._createActivity.content.description = msg.content;
-                // Automatically stepping forward in the activity creation process
-                contentForward();
-                // Clear the activity content to close the LTI iframe
-                document.querySelector('#activity-content').innerHTML = '';
-                break;
-            default:
-                console.warn('The current message type isn\'t supported!');
-                console.log(event.data);
-        }
+    (event) => {
+        readEvent(event).catch((error) => {console.log(error)});
     }, 
     false
 );
+
+async function readEvent (event) {
+    if(event.data.type === "" || event.data.type === "loaded") return; // ignore msg
+    try {
+        JSON.parse(event.data);
+    } catch(error) {
+        return false;
+    }
+    const msg = event.data.type ? event.data.type : JSON.parse(event.data);
+    switch(msg.type) {
+        // Message received when an LTI resource launch has gone to submission
+        case 'end-lti-score':
+            // Update the activities from database
+            await Main.getClassroomManager().getStudentActivities(Main.getClassroomManager());
+            // Get the results of the current activity
+            for (let state in Main.getClassroomManager()._myActivities) {
+                const currentSearch = Main.getClassroomManager()._myActivities[state].filter(x => x.id == Activity.id)[0];
+                if (typeof currentSearch != 'undefined') {
+                    Activity = currentSearch;
+                    break;
+                }
+            }
+            // If the current activity needs a manual review, display the relevant panel
+            if (Activity.correction == 1) {
+                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-activities');
+            } else {
+                // Otherwise display the relevant panel for success or fail
+                switch (Activity.note) {
+                    case 0:
+                        navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities');
+                        break;
+                    case 3:
+                        navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
+                        break;
+                        
+                    default:
+                        navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
+                        break;
+                }
+            }
+            // Clearing the LTI content div
+            document.querySelector('#lti-loader-container').innerHTML = '';
+            break;
+        // Message received when an LTI deep link has returned
+        case 'end-lti-deeplink':
+            // Saving the deeplink response into the activity creation data
+            Main.getClassroomManager()._createActivity.content.description = msg.content;
+            // Automatically stepping forward in the activity creation process
+            contentForward();
+            // Clear the activity content to close the LTI iframe
+            document.querySelector('#activity-content').innerHTML = '';
+            break;
+        default:
+            console.warn('The current message type isn\'t supported!');
+            console.log(event.data);
+    }
+}
 
 //formulaire de création de classe
 $('body').on('click', '.teacher-new-classe', function (event) {
@@ -94,12 +103,16 @@ $('body').on('click', '.modal-student-password', function () {
     })
 
 })
-//student modal-->modifier le pseudo
 
-function changePseudoModal(pseudo, id) {
+/**
+ * Setup and open the student pseudo modal
+ * @param {*} id 
+ */
+function changePseudoModal(id) {
     ClassroomSettings.student = id
-    $('.change-pseudo-modal').val(pseudo)
-    pseudoModal.openModal('update-pseudo-modal')
+    const pseudo = Main.getClassroomManager().getLocalCurrentClassroomStudentById(id).user.pseudo;
+    document.querySelector('.change-pseudo-modal').value = pseudo;
+    pseudoModal.openModal('update-pseudo-modal');
 }
 
 $('body').on('click', '#update-pseudo-close', function () {
@@ -360,7 +373,7 @@ $('body').on('click', '#create-classroom-add-student-to-list', () => {
 });
 
 /**
- * Manage the display notification from the response
+ * Manages the display notification from the response
  * @param {*} response 
  */
 function manageResponseOfAddUsers(response) {
@@ -381,18 +394,30 @@ function manageResponseOfAddUsers(response) {
 }
 
 /**
- * Open the modal which allows to add users using a csv file
+ * Opens the modal which allows to add users using a csv file
+ * @param {boolean} update - Gives the context to open the relevant modal
  */
-function openCsvModal(){
-    pseudoModal.openModal('import-csv');
+function openCsvModal(update = false){
+    if (update) {
+        pseudoModal.openModal('import-csv-update-classroom');
+    } else if (ClassroomSettings.classroom !== null){
+        pseudoModal.openModal('import-csv');
+    } else {
+        pseudoModal.openModal('import-csv-create-classroom');
+    }
 }
 
 
 /**
  * Add students to a classroom using a csv file
+ * @param {boolean} update - Gives the context to operate on the relevant elements
  */
-function importLearnerCsv(){
-    if(ClassroomSettings.classroom){
+function importLearnerCsv(update = false){
+    if (update) {
+        // If the current call is in the context of a classroom modification
+        importLearnerCsvCreateUpdateClassroom(document.getElementById('importcsv-fileinput-classroom-update'), document.querySelector('#table-students-update ul'), 'import-csv-update-classroom');
+    } else if(ClassroomSettings.classroom){
+        // If the current call is directly from the classroom dashboard
         csvToClassroom(ClassroomSettings.classroom).then((response) => {
             /**
              * Updated @Rémi
@@ -419,58 +444,66 @@ function importLearnerCsv(){
             console.warn(response);
         });
     } else {
-
         // import the students before the class creation
-        const csvFile = document.getElementById('importcsv-fileinput').files[0];
-        if (csvFile){
-            const reader = new FileReader();
-            try {
-                reader.readAsText(csvFile);
-                reader.onload = function (event) {
-                    let csv = event.target.result;
-                    let lines = csv.split("\n");
-                    let headers = lines[0].split(/[,;]/);
+        importLearnerCsvCreateUpdateClassroom(document.getElementById('importcsv-fileinput-classroom-create'), document.querySelector('#table-students ul'), 'import-csv-create-classroom');
+    }
+}
 
-                    for(let i = 0; i < headers.length; i++) {
-                        headers[i] = headers[i].replace("\r","");
-                    }
-                    
-                    let missingPseudoError = false
-                    for (let i = 1; i < lines.length; i++) {
-                        // sanitize the current line
-                        lines[i] = lines[i].replace(/(\r\n|\n|\r)/gm, "")
-                        // ignore current empty line
-                        // NOTE : EXCEL return a single character for an empty line when we use the "pseudo;password" example file
-                         if(lines[i] == '' || lines[i] ==';') continue 
+/**
+ * Get the student list from a csv file and append it in the classroom creation/update panel
+ * @param {DOM Element} fileInputElt - The file input element
+ * @param {DOM Element} tableStudentUlElt The ul listing all the students
+ * @param {string} modalId The id of the current modal
+ */
+function importLearnerCsvCreateUpdateClassroom(fileInputElt, tableStudentUlElt, modalId) {
+    const csvFile = fileInputElt.files[0];
+    if (csvFile){
+        const reader = new FileReader();
+        try {
+            reader.readAsText(csvFile);
+            reader.onload = function (event) {
+                let csv = event.target.result;
+                let lines = csv.split("\n");
+                let headers = lines[0].split(/[,;]/);
 
-                        let currentline = lines[i].split(/[,;]/);
-                        
-                        // set the error flag to true if the pseudo is missing in the csv
-                        if(currentline[0].trim() == '') missingPseudoError = true;
-
-                        // add the student into the students table
-                        else $('#table-students ul').append(addStudentRow(currentline[0]));
-                    }
-
-                    // display the missing pseudo error
-                    if(missingPseudoError == true) displayNotification('#notif-div', "classroom.notif.pseudoMissingInCsvFile", "error");
-
-                    if ($('#table-students ul li .col').length > 1) {
-                        $('#no-student-label').remove();
-                    }
-                    // remove the previous filename uploaded on open 
-                    $('#importcsv-fileinput').val("");
-                    pseudoModal.closeModal('import-csv');
+                for(let i = 0; i < headers.length; i++) {
+                    headers[i] = headers[i].replace("\r","");
                 }
-            } catch (error) {
-                reject(`Error while opening the csv file! Reason: ${error}`);
-                displayNotification('#notif-div', "classroom.notif.errorWithCsv", "error", `'{"error": "${error}"}'`);
+                
+                let missingPseudoError = false;
+                for (let i = 1; i < lines.length; i++) {
+                    // sanitize the current line
+                    lines[i] = lines[i].replace(/(\r\n|\n|\r)/gm, "")
+                    // ignore current empty line
+                    // NOTE : EXCEL return a single character for an empty line when we use the "pseudo;password" example file
+                    if(lines[i] == '' || lines[i] ==';') continue;
+
+                    let currentline = lines[i].split(/[,;]/);
+                    
+                    // set the error flag to true if the pseudo is missing in the csv
+                    if(currentline[0].trim() == '') missingPseudoError = true;
+
+                    // add the student into the students table
+                    else tableStudentUlElt.innerHTML += addStudentRow(currentline[0]);
+                }
+
+                // display the missing pseudo error
+                if(missingPseudoError == true) displayNotification('#notif-div', 'classroom.notif.pseudoMissingInCsvFile', 'error');
+
+                if (document.querySelectorAll('#table-students ul li .col').length > 1) {
+                    if (document.querySelector('#no-student-label') !== null)
+                        document.querySelector('#no-student-label').remove();
+                }
+                // remove the previous filename uploaded on open 
+                fileInputElt.value = '';
+                pseudoModal.closeModal(modalId);
             }
-        } else {
-            reject('No csv file given!');
-            displayNotification('#notif-div', "classroom.notif.CsvFileMissing", "error");
+        } catch (error) {
+            reject(`Error while opening the csv file! Reason: ${error}`);
+            displayNotification('#notif-div', "classroom.notif.errorWithCsv", "error", `'{"error": "${error}"}'`);
         }
-        $('#table-students ul').html("");
+    } else {
+        displayNotification('#notif-div', "classroom.notif.CsvFileMissing", "error");
     }
 }
 
@@ -838,9 +871,10 @@ function displayStudentsInClassroom(students, link=false) {
     if (link && link != $_GET('option')) {
         return;
     }
-    $('#body-table-teach').html(''); //clean the display
-    $('#add-student-container').html(''); //clean the display
-    $('#export-class-container').html(''); //clean the display
+    // Clean the display
+    document.querySelector('#body-table-teach').innerHTML = '';
+    document.querySelector('#add-student-container').innerHTML = '';
+    document.querySelector('#export-class-container').innerHTML = '';
     
     // Display the classroom name
     const classroomName = getClassroomInListByLink(ClassroomSettings.classroom)[0].classroom.name;
@@ -874,7 +908,7 @@ function displayStudentsInClassroom(students, link=false) {
                 <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
                 <li class="col-12 pwd-display-stud" href="#"><div data-i18n="classroom.classes.panel.password">Votre mot de passe :</div> <span class="masked">${element.pwd}</span><i class="classroom-clickable fas fa-low-vision switch-pwd ml-2"></i></li>
                 <li class="modal-student-password classroom-clickable col-12 dropdown-item" href="#" data-i18n="classroom.classes.panel.resetPassword">Régenérer le mot de passe</li>
-                <li class="classroom-clickable col-12 dropdown-item" href="#"><span class="classroom-clickable" data-i18n="classroom.classes.panel.editNickname" onclick="changePseudoModal('${element.user.pseudo}',${element.user.id})">Modifier le pseudo</span></li>
+                <li class="classroom-clickable col-12 dropdown-item" href="#"><span class="classroom-clickable" data-i18n="classroom.classes.panel.editNickname" onclick="changePseudoModal(${element.user.id})">Modifier le pseudo</span></li>
                 <li class="dropdown-item modal-student-delete classroom-clickable col-12" href="#" data-i18n="classroom.classes.panel.delete">Supprimer</li>
                 </div>
                 </div>`;
@@ -908,8 +942,13 @@ function displayStudentsInClassroom(students, link=false) {
             }
             // Display the current student activities in the dashboard
             let currentActivity = arrayActivities[i];
-            const formatedTimePast = currentActivity.timePassed == 0 ? '' : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em>`;
             if (currentActivity) {
+                const formatedTimePast = 
+                typeof currentActivity.timePassed == 'undefined' 
+                    ? '' 
+                    : currentActivity.timePassed == 0 
+                        ? '' 
+                        : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em>`;
                 html += `<td class=" ${statusActivity(currentActivity)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>${formatedTimePast}"></td>`;
             } else {
                 html += `<td class="no-activity bilan-cell" "></td>`;
@@ -1028,6 +1067,34 @@ document.getElementsByTagName('body')[0].addEventListener('click', (e) => {
         }
     }
 });
+
+/**
+ * Mutation observer that remove a tooltip from the dom if its related element is deleted (to avoid an issue where the tooltip remains in place and never disappears)
+ */
+const deletionObserver = new MutationObserver(function(mutations_list) {
+	mutations_list.forEach(function(mutation) {
+		mutation.removedNodes.forEach(function(removed_node) {
+			browseRemovedNodes(removed_node);
+		});
+	});
+});
+deletionObserver.observe(document.querySelector("body"), { subtree: true, childList: true });
+
+/**
+ * Check if the provided element and all its children has a displayed tooltip to remove
+ * @param {DOM Element} removed_node - The DOM Element to browse
+ */
+function browseRemovedNodes(removed_node) {
+    if (removed_node.getAttribute && removed_node.getAttribute('data-toggle') == 'tooltip') {
+        const toolTipId = removed_node.getAttribute('aria-describedby');
+        document.getElementById(toolTipId) !== null ? document.getElementById(toolTipId).remove() : false;
+    }
+    if (removed_node.childNodes) {
+        for (let child of removed_node.childNodes) {
+            browseRemovedNodes(child);
+        }
+    }
+}
 
 /**
  * Open teacher account panel

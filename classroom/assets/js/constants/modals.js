@@ -14,9 +14,41 @@ const classroomModals = {
             title: 'classroom.modals.addStudentByCsv.title'
         },
         content: `<div class="text-center mx-auto w-100 mh-100 mb-2">
-                    <p><span data-i18n="classroom.modals.addStudentByCsv.description"></span><a data-i18n="classroom.modals.addStudentByCsv.csvTemplate" href="${_PATH}assets/media/csv_template.csv"></a> - <a data-i18n="classroom.modals.addStudentByCsv.csvTemplateNoPassword" href="${_PATH}assets/media/csv_template_nopw.csv"></a>.</p>
+                    <p> <span data-i18n="classroom.modals.addStudentByCsv.description"></span><a data-i18n="classroom.modals.addStudentByCsv.csvTemplate" href="${_PATH}assets/media/csv_template.csv"></a> - <a data-i18n="classroom.modals.addStudentByCsv.csvTemplateNoPassword" href="${_PATH}assets/media/csv_template_nopw.csv"></a>.</p>
                     <input type="file" id="importcsv-fileinput" name="importcsvfileinput"/><br>
                     <button class="btn c-btn-secondary mt-2" onclick="importLearnerCsv()">
+                        <i class="fas fa-file-csv"></i> 
+                        <span data-i18n="classroom.modals.addStudentByCsv.importStudentByCsvButton">Importer les apprenants</span>
+                    </button>
+                </div>`,
+        footer: ``
+    },
+    'import-csv-create-classroom': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.modals.addStudentByCsv.title'
+        },
+        content: `<div class="text-center mx-auto w-100 mh-100 mb-2">
+                    <p><span data-i18n="[html]classroom.modals.addStudentByCsv.descriptionUpdate"></span><a data-i18n="classroom.modals.addStudentByCsv.csvTemplateNoPassword" href="${_PATH}assets/media/csv_template_nopw.csv"></a>.</p>
+                    <input type="file" id="importcsv-fileinput-classroom-create" name="importcsvfileinput"/><br>
+                    <button class="btn c-btn-secondary mt-2" onclick="importLearnerCsv()">
+                        <i class="fas fa-file-csv"></i> 
+                        <span data-i18n="classroom.modals.addStudentByCsv.importStudentByCsvButton">Importer les apprenants</span>
+                    </button>
+                </div>`,
+        footer: ``
+    },
+    'import-csv-update-classroom': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.modals.addStudentByCsv.title'
+        },
+        content: `<div class="text-center mx-auto w-100 mh-100 mb-2">
+                    <p><span data-i18n="[html]classroom.modals.addStudentByCsv.descriptionUpdate"></span><a data-i18n="classroom.modals.addStudentByCsv.csvTemplateNoPassword" href="${_PATH}assets/media/csv_template_nopw.csv"></a>.</p>
+                    <input type="file" id="importcsv-fileinput-classroom-update" name="importcsvfileinput"/><br>
+                    <button class="btn c-btn-secondary mt-2" onclick="importLearnerCsv(true)">
                         <i class="fas fa-file-csv"></i> 
                         <span data-i18n="classroom.modals.addStudentByCsv.importStudentByCsvButton">Importer les apprenants</span>
                     </button>
@@ -241,7 +273,7 @@ const classroomModals = {
             <div class="d-flex justify-content-center modal-separator mt-4 mb-4">
                 <span data-i18n="classroom.modals.addActivity.orSeparator">OU</span>
             </div>
-            <button class="btn c-btn-secondary" onclick="openCsvModal();">
+            <button class="btn c-btn-secondary" onclick="openCsvModal(true);">
                 <span data-i18n="classroom.modals.addStudent.addStudentByCsvButton">Ajouter un fichier d'apprenants (.csv)</span><i class="fas fa-chevron-right ml-1"></i>
             </button>
         </div>`,

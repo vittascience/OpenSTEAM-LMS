@@ -405,6 +405,7 @@
 			"addStudentByCsv": {
 				"title": "Add students with a .csv file",
 				"description": "You can add one or more learners at once by importing them from a .csv file. It is optionally possible to define the password for each of them. Here are the .csv template files: ",
+				"descriptionUpdate": "You can add one or more learners at once by importing them from a .csv file. <b>WARNING</b> : here, the passwords of the csv file aren't used ! Here is the .csv template file : ",
 				"csvTemplate": "template file with password",
 				"csvTemplateNoPassword": "template file without password",
 				"importStudentByCsvButton": "Importer learners"
