@@ -1137,7 +1137,24 @@ function populateAccountInfo(data){
 /**
  * Update teacher form submit listener
  */
-document.getElementById('update-teacher-account-form').addEventListener('submit', (e) => {
+document.querySelector('#validate-profile-update').addEventListener('click', () => {
+    pseudoModal.openModal('profile-update-password-confirm');
+});
+
+document.querySelector('body').addEventListener('click', (e) => {
+    if (e.target.id == 'saveProfileUpdate') {
+        const userPassword = document.querySelector('#current_password_prompt').value;
+        if (!userPassword.length) {
+            displayNotification('#notif-div', "classroom.notif.passwordMissing", "error");
+            return;
+        }
+        document.querySelector('#current-password').value = userPassword;
+        document.querySelector('#update-teacher-account-form').dispatchEvent(new Event('submit'));
+    }
+});
+
+
+document.querySelector('#update-teacher-account-form').addEventListener('submit', (e) => {
     e.preventDefault();
     let data = new FormData(e.target);
     if(teacherAccountUpdateFormCheck(data)){
@@ -1149,6 +1166,7 @@ document.getElementById('update-teacher-account-form').addEventListener('submit'
                 if(data.get('email') != UserManager.getUser().isRegular){
                     displayNotification('#notif-div', "classroom.notif.emailUpdated", "success");
                 }
+                pseudoModal.closeModal('profile-update-password-confirm');
                 UserManager.init();
             }else{
                 if(response.errorType){
@@ -1167,6 +1185,8 @@ document.getElementById('update-teacher-account-form').addEventListener('submit'
                     }
                 }
             }
+            document.querySelector('#current-password').value = '';
+            document.querySelector('#current_password_prompt').value = '';
         });
     }
 });

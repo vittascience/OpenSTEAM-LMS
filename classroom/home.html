@@ -436,10 +436,11 @@
             </div>
             <input type="hidden" name="teacher-id" id="profile-form-teacher-id">
             <div class="d-flex flex-column align-items-center">
-                <input class="btn c-btn-primary m-3" type="submit"
-                    data-i18n="[value]classroom.profil.accountSettings.updateButton">
+                <a class="btn c-btn-primary m-3" id="validate-profile-update"
+                    data-i18n="classroom.profil.accountSettings.updateButton"></a>
             </div>
         </div>
+        <input type="hidden" name="current-password" id ="current-password">
     </form>
 </div>
 <div id="classroom-dashboard-classes-panel-teacher" style="display:none;" class="dashboard-block classes-panel">

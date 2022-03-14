@@ -1096,7 +1096,8 @@ class ClassroomManager {
                     'firstname': formData.get('first-name'),
                     'surname': formData.get('last-name'),
                     'email': formData.get('email'),
-                    'password': formData.get('password')
+                    'password': formData.get('password'),
+                    'current_password': formData.get('current-password')
                 },
                 success: function (response) {
                     resolve(JSON.parse(response));

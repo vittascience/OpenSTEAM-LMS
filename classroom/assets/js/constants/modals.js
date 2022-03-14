@@ -1057,6 +1057,25 @@ const classroomModals = {
                         </div>
                     </div>`,
         footer: ``
+    },
+    'profile-update-password-confirm': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.modals.profileUpdatePasswordConfirm.title'
+        },
+        content: `  <div>
+                        <div class="col-12">
+                            <form class="text-center c-primary-form">
+                                <p class="text-center" data-i18n="classroom.modals.profileUpdatePasswordConfirm.description"></p>
+                                <input type="password" name="current_password_prompt" id="current_password_prompt" data-i18n="[placeholder]classroom.modals.profileUpdatePasswordConfirm.placeholderInput">
+                            </form>
+                            <div class="text-center">
+                                <button class="btn c-btn-primary mx-auto mt-3 btn-lg" id="saveProfileUpdate" data-i18n="manager.buttons.validate">Valider</button>
+                            </div>
+                        </div>
+                    </div>`,
+        footer: ``
     }
 }
 

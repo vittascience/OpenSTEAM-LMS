@@ -196,7 +196,8 @@
 			"backendReplyPseudoMissingInCsv" : "Check the CSV file : empty line or pseudo missing",
 			"backendReplyPseudoMissingInUsersArray" : "There is one or more error(s) in the student(s) name(s)",
 			"invalidActivityId": "Error submitting job: Invalid activity ID!",
-			"invalidCorrection": "Erreur submitting job: Invalid activity status!"
+			"invalidCorrection": "Erreur submitting job: Invalid activity status!",
+			"currentPasswordDoesNotMatch": "The entered password is not correct!"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
@@ -432,6 +433,12 @@
 			},
 			"shareProject": {
 				"title": "Share project"
+			},
+			"profileUpdatePasswordConfirm": {
+				"title": "Password confirmation",
+				"description": "Please enter your current password to confirm changes to your profile!",
+				"placeholderInput": "Password",
+				"validateButton": "Validate"
 			}
 		}
 	},
