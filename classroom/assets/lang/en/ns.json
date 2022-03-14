@@ -465,7 +465,7 @@
 					},
 					"3": {
 						"title": "Where can I find the source code for the Classroom module?",
-						"answer": "The source code for the Classroom module is not available at the moment. You can find many open-source modules of the Vittascience platform on <a href=\"https://github.com/vittascience\"> the Vittascience GitHub folder </a>, don't hesitate to contribute!"
+						"answer": "The source code of the Classroom module is currently available on <a href=\"https://github.com/vittascience/OpenSTEAM-LMS\">the Vittascience Github repository</a>. Feel free to contribute!"
 					}
 				}
 			},
@@ -514,7 +514,7 @@
 				},
 				"3": {
 					"title": "Where can I find the Classroom module source code?",
-					"answer": "The source code of the Classroom module is not currently available. You can find many open-source modules of the Vittascience platform on <a href=\"https://github.com/vittascience\">the Vittascience Github repository</a>. Feel free to contribute!"
+					"answer": "The source code of the Classroom module is currently available on <a href=\"https://github.com/vittascience/OpenSTEAM-LMS\">the Vittascience Github repository</a>. Feel free to contribute!"
 				}
 			}
 		},

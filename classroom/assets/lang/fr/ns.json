@@ -464,7 +464,7 @@
 					},
 					"3": {
 						"title": "Où peut-on trouver le code source du module Classe ?",
-						"answer": "Le code source du module Classe n'est pas disponible pour le moment. Vous pouvez retrouver de nombreux modules open-source de la plateforme Vittascience sur <a href=\"https://github.com/vittascience\">le dossier GitHub de Vittascience</a>, n'hésitez pas à contribuer !"
+						"answer": "Le code source du module Classe est disponible <a href=\"https://github.com/vittascience/OpenSTEAM-LMS\">sur le repo git associé</a>, n'hésitez pas à contribuer !"
 					}
 				}
 			},
@@ -513,7 +513,7 @@
 				},
 				"3": {
 					"title": "Où peut-on trouver le code source du module Classe ?",
-					"answer": "Le code source du module Classe n'est pas disponible pour le moment. Vous pouvez retrouver de nombreux modules open-source de la plateforme Vittascience sur <a href=\"https://github.com/vittascience\">le dossier GitHub de Vittascience</a>, n'hésitez pas à contribuer !"
+					"answer": "Le code source du module Classe est disponible <a href=\"https://github.com/vittascience/OpenSTEAM-LMS\">sur le repo git associé</a>, n'hésitez pas à contribuer !"
 				}
 			}
 		},
