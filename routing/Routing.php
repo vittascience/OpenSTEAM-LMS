@@ -87,18 +87,18 @@ try {
     // get and scan the entire plugins folder
     $pluginsDir = '../plugins';
     if (is_dir($pluginsDir)) {
-        $pluginsFound = array_diff(scandir($pluginsDir), array('..', '.'));
+        $pluginsFound = array_diff(scandir($pluginsDir), array('..', '.', '.DS_Store'));
 
         // scan each single plugin folder
         foreach ($pluginsFound as $singlePlugin) {
-            $singlePluginFolders = array_diff(scandir("../plugins/$singlePlugin"), array('..', '.'));
+            $singlePluginFolders = array_diff(scandir("../plugins/$singlePlugin"), array('..', '.', '.DS_Store'));
 
             // convert snake_case from url param into PascalCase to find the right controller file to instanciate
             $ControllerToInstanciate = "Controller" . str_replace('_', '', ucwords($controller, '_'));
 
             // check if a Controller folder exists in the plugins list
             if (in_array("Controller", $singlePluginFolders)) {
-                // check if the required controller file exists and require it 
+                // check if the required controller file exists and require it
                 if (file_exists("../plugins/$singlePlugin/Controller/$ControllerToInstanciate.php")) {
                     require_once "../plugins/$singlePlugin/Controller/" . $ControllerToInstanciate . ".php";
 

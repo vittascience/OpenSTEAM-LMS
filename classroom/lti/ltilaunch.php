@@ -58,7 +58,7 @@ if ($activitiesLinkUser == null) {
 	exit;
 }
 
-if ($studentResourceUrl == null) {
+$platform_url = getenv('VS_HOST');
 	echo "Bad student resource url requested!";
 	exit;
 }

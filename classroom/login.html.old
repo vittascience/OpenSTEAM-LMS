@@ -1,8 +1,28 @@
 <!-- page de garde -->
 <!-- <div id="notif-div"></div> -->
 <div id="home-container">
-    <div class="text-center d-flex flex-column justify-content-center jumbotron-cabri">
+    <div class="text-center d-flex flex-column justify-content-center jumbotron-neutral">
         <div id="interactive-elements-container" style="flex-grow:1;">
+            <div id="fake-blockly">
+                <span id="fake-blockly-desc">afficher</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="200" viewBox="0 0 191.9 55.4">
+                    <g id="fake-blockly-svg">
+                        <path
+                            d="M31.8 55.4h-8.9a5.46 5.46 0 01-3.8-1.6L16 50.7a4.57 4.57 0 00-3.1-1.3H5.4A5.38 5.38 0 010 44V6.8a5.38 5.38 0 015.4-5.4h7.1a5.43 5.43 0 013.6 1.4l3.8 3.5a4.62 4.62 0 003 1.1h10.2a4.4 4.4 0 003.5-1.7L39 2.6A5.4 5.4 0 0143.2.5L186.5 0a5.38 5.38 0 015.4 5.4v37.7a5.38 5.38 0 01-5.4 5.4l-143.7-.1a4.82 4.82 0 00-3.2 1.3l-3.9 4a5.22 5.22 0 01-3.9 1.7zM5.3 2.4A4.44 4.44 0 00.9 6.8V44a4.44 4.44 0 004.4 4.4h7.5a5.46 5.46 0 013.8 1.6l3.1 3.1a4.57 4.57 0 003.1 1.3h8.9a4.82 4.82 0 003.2-1.3l3.9-4a5.52 5.52 0 013.9-1.6l143.7.1a4.44 4.44 0 004.4-4.4V5.5a4.44 4.44 0 00-4.4-4.4l-143.3.5a4.4 4.4 0 00-3.5 1.7l-2.4 3.1a5.45 5.45 0 01-4.3 2.1H22.7a5.43 5.43 0 01-3.6-1.4l-3.8-3.5a4.62 4.62 0 00-3-1.1l-7-.1z"
+                            fill="#24a069" />
+                        <path
+                            d="M185.9 23.9a16.35 16.35 0 00-16.4-16.4H79.3a16.35 16.35 0 00-16.4 16.4v.2a16.35 16.35 0 0016.4 16.4h90.2a16.35 16.35 0 0016.4-16.4v-.2zm-27 11.6a2 2 0 01-2 2h-65a2 2 0 01-2-2v-22a2 2 0 012-2h65a2 2 0 012 2z"
+                            fill="#e6e6e6" />
+                        <path fill="#fff" class="cls-3"
+                            d="M76.9 23a1.9 1.9 0 01.8 1.5 2.27 2.27 0 01-.6 1.6 2.17 2.17 0 01-3 0 1.82 1.82 0 01-.6-1.4 2.72 2.72 0 01.6-1.7l1.8-2.6H78L76.9 23zm6 0a1.9 1.9 0 01.8 1.5 2.27 2.27 0 01-.6 1.6 2.17 2.17 0 01-3 0 1.82 1.82 0 01-.6-1.4 2.72 2.72 0 01.6-1.7l1.8-2.6H84L82.9 23zM173.9 24.1a1.9 1.9 0 01-.8-1.5 2.11 2.11 0 01.6-1.6 2.17 2.17 0 013 0 1.82 1.82 0 01.6 1.4 2.72 2.72 0 01-.6 1.7l-1.8 2.6h-2.1zm-6 0a1.9 1.9 0 01-.8-1.5 2.11 2.11 0 01.6-1.6 2.17 2.17 0 013 0 1.82 1.82 0 01.6 1.4 2.72 2.72 0 01-.6 1.7l-1.8 2.6h-2.1z" />
+                    </g>
+                </svg>
+                <input type="text" id="fake-blockly-input" name="name" maxlength="20" placeholder="Bonjour !"
+                    value="Bonjour !" autocomplete="off" data-lpignore="true">
+            </div>
+            <span id="fake-code"><span style="color: #AC00B1;">print</span><span>(</span><span id="fake-code-text"
+                    style="color:#009651;" data-i18n="classroom.login.hello1"></span><span>)</span></span>
+            <span id="fake-display" data-i18n="classroom.login.hello2"></span>
         </div>
         <div id="heading-container" style="flex-grow:1;">
             <h1 data-i18n="[html]classroom.login.neutralTitle"></h1>
@@ -209,31 +229,31 @@
             <p data-i18n="[html]manager.account.registration.mandatory"></p>
             <p data-i18n="[html]manager.account.registration.cguOpenSteam"></p>
 
-            <div class="form-check">
+            <div class="c-checkbox">
                 <input class="form-check-input" type="checkbox" id="cb_name_public">
                 <label class="form-check-label" for="cb_name_public"
                     data-i18n="manager.account.registration.accountPublic">
                 </label>
             </div>
-            <div class="form-check">
+            <div class="c-checkbox">
                 <input class="form-check-input" type="checkbox" id="cb_newsletter">
                 <label class="form-check-label" for="cb_newsletter"
                     data-i18n="manager.account.registration.newsletter">
                 </label>
             </div>
-            <div class="form-check">
+            <div class="c-checkbox">
                 <input class="form-check-input" type="checkbox" id="cb_alert_mail">
                 <label class="form-check-label" for="cb_alert_mail"
                     data-i18n="manager.account.registration.mailAlert">
                 </label>
             </div>
-            <div class="form-check">
+            <div class="c-checkbox">
                 <input class="form-check-input" type="checkbox" id="cb_allow_contact">
                 <label class="form-check-label" for="cb_allow_contact"
                     data-i18n="manager.account.registration.allowContact">
                 </label>
             </div>
-            <div class="form-check">
+            <div class="c-checkbox">
                 <input class="form-check-input" type="checkbox" id="cb_adult" required>
                 <label class="form-check-label" for="cb_adult" data-i18n="manager.account.registration.confirmAdult">
                 </label>
@@ -306,7 +326,7 @@
                 <p data-i18n="classroom.login.firstVisit"></p>
                 <img src="assets/media/green_user.png" class="icon-label">
                 <label for="username" data-i18n="words.username" class="text-capitalize"></label></br>
-                <input type="text" placeholder="" name="username" id="new-user-pseudo-form" required>
+                <input type="text" placeholder="Vitta" name="username" id="new-user-pseudo-form" required>
             </div>
             <button class="btn c-btn-primary" id="create-user" type="submit"><span data-i18n="words.confirm"></span> <i
                     class="fas fa-chevron-right"></i></button>
@@ -319,11 +339,11 @@
 
                 <img src="assets/media/green_user.png" class="icon-label">
                 <label for="username" data-i18n="words.username" class="text-capitalize"></label></br>
-                <input type="text" placeholder="" id="user-pseudo-form" name="secret_code" required></br>
+                <input type="text" placeholder="Vitta" id="user-pseudo-form" name="secret_code" required></br>
 
                 <img src="assets/media/green_lock.png" class="icon-label">
                 <label for="username" data-i18n="words.password"></label></br>
-                <input type="password" placeholder="" name="secret_code" id="user-password-form"
+                <input type="password" placeholder="••••••••••" name="secret_code" id="user-password-form"
                     required></br>
                 <a href="#" data-i18n="classroom.login.forgot"></a></br>
                 <span class="mt-2 mb-2 alert alert-warning mismatched-login" style="display:none;"

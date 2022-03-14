@@ -2,10 +2,10 @@ i18next.use(window.i18nextXHRBackend)
     .init({
         debug: false,
         lng: getCookie('lng'),
-        whitelist: ['fr', 'en'],
+        whitelist: ['fr', 'en', 'es', 'it'],
         fallbackLng: 'fr',
         backend: {
-            loadPath: _PATH + 'assets/lang/{{lng}}/ns.json'
+            loadPath: _PATH + 'assets/lang/{{lng}}/ns.json?version=1.2'
         }
     }, (err, t) => {
         jqueryI18next.init(i18next, $, {

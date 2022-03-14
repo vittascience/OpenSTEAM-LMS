@@ -33,8 +33,7 @@ if ($applicationType == null) {
 	exit;
 }
 
-$platform_url = "https://{$_SERVER["HTTP_HOST"]}";
-
+$platform_url = getenv('VS_HOST');
 $activityRestriction = $entityManager->getRepository(ActivityRestrictions::class)->findOneByActivityType($applicationType);
 
 $ltiTool = $entityManager->getRepository(LtiTool::class)->findOneByApplicationId($activityRestriction->getApplication()->getId());
