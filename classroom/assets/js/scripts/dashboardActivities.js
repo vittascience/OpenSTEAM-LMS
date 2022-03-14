@@ -744,16 +744,19 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
                 //console.log(container);
                 
                 if (container.id != "drag-and-drop-fields") {
-                    if (container.children[0] == undefined) {
+                    //if (container.children[0] == undefined) {
+                        //let toto = container.children[0];
                         $(container).html(el);
-                    } else {
-                        $(container).html(el + container.children[0]);
-                    }
+                        //$(source).html(toto);
+                    //}
                 }
-
-
-
             }).on('out', function(el, container, source) { 
+
+               /*  if (source.id != "drag-and-drop-fields" && container.childen.length > 0) {
+                    $(source).html(el);
+                    //$(container).html(toto);
+                }
+                let toto = container.children[0]; */
                 //console.log(container.id.includes("dz"));
                 /* if (container.id.includes("dz")) {
                     if (container.children.length == 0) {
