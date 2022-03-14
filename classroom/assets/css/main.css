@@ -1530,33 +1530,45 @@ h3.section-done {
     border-radius: 10px;
 }
 
+
+
+.draggable-items,
+.dropable-items {
+    border: 1px solid var(--classroom-text-0); 
+    border-radius: 256px;
+    padding: 6px 12px;
+
+}
+
 .draggable-items {
     cursor: move;
-    padding: 4px;
     margin-bottom: 0;
     margin-top: 0;
-    border: 1px solid;
+    font-weight: 700;
     display: inline-block;
 }
 
 .dropable-items {
-    border: 1px solid black; 
     width: auto;
     height: auto;
     min-width: 20px;
     min-height: 20px;
     display: inline-block;
-    padding: 6px;
     margin: 2px;
 }
 
 .drag-and-drop-div {
-    background-color: darkred;
+    border: 1px solid var(--classroom-text-0);
+    border-radius: 1em;
 }
 
 #drag-and-drop-fields {
-    background-color: darkred;
-    height: 60px;
+    min-height: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    gap: 10px;
 }
 
 

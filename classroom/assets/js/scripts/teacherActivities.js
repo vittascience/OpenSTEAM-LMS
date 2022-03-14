@@ -190,10 +190,8 @@ function manageUpdateForQuiz(activity) {
 
     if (activity.isAutocorrect) {
         $("#quiz-autocorrect").prop("checked", true);
-        $("#quiz-correction_content").show();
     } else {
         $("#quiz-autocorrect").prop("checked", false);
-        $("#quiz-correction_content").hide();
     }
     $('#activity-quiz').show();
 }
