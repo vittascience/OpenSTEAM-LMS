@@ -349,10 +349,16 @@ function statusActivityForStudent(id, activityList) {
     }
 }
 
-function statusActivity(activity, state = true) {
+function statusActivity(activity, state = true, formatedTimePast = '') {
     if (activity.correction == 0 || activity.correction == null) {
-        if (state == true)
-            return "fas fa-stopwatch"
+        if (state == true){
+            if (formatedTimePast == '') {
+                return "stopwatch"
+            } else {
+                return "startwatch"
+            }
+            
+        }
         if (state == "csv") {
             switch (activity.correction) {
                 case 0:

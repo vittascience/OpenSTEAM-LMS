@@ -2078,9 +2078,14 @@ i.line_height34 {
     color: var(--classroom-text-2);
 }
 
-.bilan-cell.fa-stopwatch {
-    background-color: #cccccc;
+.bilan-cell.stopwatch{
     color: white;
+    background: #cccccc center no-repeat url("../media/icon_on_hold.svg");
+}
+
+.bilan-cell.startwatch{
+    color: white;
+    background: #cccccc center no-repeat url("../media/icon_time_spent.svg");
 }
 
 .bilan-3,
