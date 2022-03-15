@@ -878,8 +878,8 @@ function displayStudentsInClassroom(students, link=false) {
     
     // Display the classroom name
     const classroomName = getClassroomInListByLink(ClassroomSettings.classroom)[0].classroom.name;
-    const reducedclassroomName = classroomName.length > 10 ? `${classroomName.substring(0, 10)}...` : classroomName;
-    document.querySelector('#header-table-teach').innerHTML = `<th class="table-title" style="max-width: 250px; font-size: 17pt; text-align: left; height: 3em;" data-toggle="tooltip" title="${classroomName}">${reducedclassroomName}</th>`;
+    const reducedclassroomName = classroomName.length > 16 ? `${classroomName.substring(0, 16)}...` : classroomName;
+    document.querySelector('#header-table-teach').innerHTML = `<th class="table-title" style="max-width: 250px; font-size: 14pt; text-align: left; height: 3em;" data-toggle="tooltip" title="${classroomName}">${reducedclassroomName}</th>`;
 
     // get the current classroom index of activities
     let arrayIndexesActivities = listIndexesActivities(students);
