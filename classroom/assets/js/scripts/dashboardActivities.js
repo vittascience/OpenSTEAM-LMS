@@ -477,13 +477,11 @@ function loadActivityForTeacher() {
     // Reset the inputs
     resetInputsForActivity()
 
-    // If the user is a teacher, we display the correction button
-    if (UserManager.getUser().isRegular) {
-        if (Activity.correction >= 1) {
-            $('#activity-details').html(i18next.t("classroom.activities.activityOfUser") + Activity.user.pseudo + i18next.t("classroom.activities.userSentOn") + formatHour(Activity.dateSend))
-        } else {
-            $('#activity-details').html(i18next.t("classroom.activities.noSend"))
-        }
+    if (Activity.correction >= 1) {
+        $('#activity-details').html(i18next.t("classroom.activities.activityOfUser") + Activity.user.pseudo + i18next.t("classroom.activities.userSentOn") + formatHour(Activity.dateSend))
+        document.querySelector('#activity-details').innerHTML += `<br><img class="chrono-icon" src="${_PATH}assets/media/icon_time_spent.svg">${i18next.t('classroom.activities.timePassed')} ${formatDuration(Activity.timePassed)}`;
+    } else {
+        $('#activity-details').html(i18next.t("classroom.activities.noSend"))
     }
 
     let content = manageContentForActivity();
