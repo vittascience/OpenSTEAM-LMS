@@ -256,7 +256,7 @@
 <div id="classroom-dashboard-activity-panel" class="dashboard-block" style="display:none;">
     <div class="container-fluid">
         <div class="row">
-            <div id="main-div" class="col-12 col-lg-8" style="margin: 0 auto;overflow-wrap: break-word;">
+            <div id="main-div" class="col-12 col-lg-12" style="margin: 0 auto;overflow-wrap: break-word;">
                 <h3 id="activity-title"></h3>
                 <div id="activity-auto-disclaimer" style="display:none;">
                     <img src="assets/media/auto-icon.svg" title="Auto">
@@ -279,9 +279,9 @@
                 <!-- Used for content -->
                 <div id="activity-content-container" style="display: none;">
                     <label for="activity-content" class="vitta-modal-title mt-2">Contenu de l'activité</label>
-                    <p id="activity-content"></p>    
+                    <p id="activity-content"></p>
                 </div>
-                
+
 
                 <!-- @Update Rémi -->
                 <div id="activity-student-response" style="display:none;">
@@ -354,6 +354,7 @@
         </button>
     </div>
 </div>
+
 <div id="classroom-dashboard-profil-panel-teacher" class="dashboard-block profile-panel" style="display:none;">
     <!-- Div alert when application has expired -->
     <div id="info-applications" class="alert alert-danger text-center" style="display:none;"></div>
@@ -751,7 +752,7 @@
 
         <div class="col text-center">
             <span class="form-activity form-activity-activate">2</span>
-            <span data-i18n="classroom.activities.form.2"></span>
+            <span data-i18n="classroom.activities.form.4"></span>
         </div>
     </nav>
     <div class="assign-activity-container" style="margin: 0 auto;">
@@ -777,7 +778,7 @@
                 <textarea rows="4" id="introduction-activity-form"></textarea>
             </div>
         </div>
-        
+
         <!-- Activity RetroAttribution  -->
         <div class="row" id="form-retro-attribution">
             <div class="col mb-5 text-center c-primary-form">
@@ -787,7 +788,7 @@
                 </label>
             </div>
         </div>
-        
+
         <!-- Autocorrect activation -->
         <div class="row" id="form-autocorrect">
             <div class="col mb-5 text-center c-primary-form">
@@ -798,7 +799,7 @@
             </div>
         </div>
 
-       
+
 
         <!-- Submit multiple times -->
         <div class="row">
@@ -830,7 +831,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-12 col-xl-6 c-primary-form assign-activity-calendar">
                     <div class="row">
                         <div class="col-6 text-right align-middle">
@@ -843,7 +844,7 @@
                 </div>
             </div>
         </div>
-            
+
 
 
         <div class="row text-center my-2 mt-5">
@@ -861,6 +862,7 @@
         </div>
     </div>
 </div>
+
 <div id="classroom-dashboard-help-panel-teacher" style="display:none;" class="dashboard-block help-panel">
     <div class="contact-panel">
 
@@ -1334,20 +1336,20 @@
         </div>
     </nav>
 
-    <div class="container mb-2 part-content-index c-primary-form">
-       
+    <div class="activity-container mb-2 part-content-index c-primary-form">
+
         <!-- Free activity part -->
         <div id="activity-free" style="display:none;">
             <div class="content m-3">
                 <label for="free-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
                 <textarea id="free-content"></textarea>
             </div>
-    
+
             <div class="c-checkbox">
                 <input type="checkbox" name="free-autocorrect" id="free-autocorrect">
                 <label for="free-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
             </div>
-    
+
             <div class="content m-3" id="free-correction-content" style="display: none;">
                 <label for="free-correction" data-i18n="newActivities.correction">Correction de l'activité</label>
                 <textarea id="free-correction"></textarea>
@@ -1404,7 +1406,7 @@
                 <label for="fill-in-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
                 <textarea id="fill-in-states"></textarea>
             </div>
-            
+
             <div class="content m-3">
                 <label for="fill-in-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
                 <textarea id="fill-in-content"></textarea>
@@ -1417,7 +1419,7 @@
             <div class="content m-3">
                 <p><span data-i18n="newActivities.tolerance1"></span> <input type="number" id="fill-in-tolerance"> <span data-i18n="newActivities.tolerance2"></span></p>
             </div>
-            
+
             <div class="c-checkbox">
                 <input type="checkbox" name="fill-in-autocorrect" id="fill-in-autocorrect">
                 <label for="fill-in-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
@@ -1432,12 +1434,12 @@
 
         <!-- DragAndDrop activity part -->
         <div id="activity-drag-and-drop" style="display:none;">
-            
+
             <div class="content m-3">
                 <label for="drag-and-drop-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
                 <textarea id="drag-and-drop-states"></textarea>
             </div>
-            
+
             <div class="content m-3">
                 <label for="drag-and-drop-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
                 <textarea id="drag-and-drop-content"></textarea>
@@ -1652,6 +1654,7 @@
         </div>
     </nav>
 </div>
+
 <div id="classroom-dashboard-ide-panel" style="display:none;" class="dashboard-block">
     <iframe width="100%" style="height:85vh;" frameborder="0" allowfullscreen="" style="border:1px #d6d6d6 solid;" src=""></iframe>
 </div>
