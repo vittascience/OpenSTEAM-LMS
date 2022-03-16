@@ -378,7 +378,6 @@
         </button>
     </div>
 </div>
-
 <div id="classroom-dashboard-profil-panel-teacher" class="dashboard-block profile-panel" style="display:none;">
     <!-- Div alert when application has expired -->
     <div id="info-applications" class="alert alert-danger text-center" style="display:none;"></div>
@@ -988,7 +987,6 @@
 
     </div>
 </div>
-
 <div id="classroom-dashboard-help-panel-teacher" style="display:none;" class="dashboard-block help-panel">
     <div class="contact-panel">
 
@@ -1592,9 +1590,14 @@
                 </p>
             </div>
 
+            <div class="c-checkbox">
+                <input type="checkbox" name="fill-in-autocorrect" id="fill-in-autocorrect">
+                <label for="fill-in-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
+            </div>
+
             <div class="content form-group m-3">
-                <label for="fill-in-hint" data-i18n="[html]newActivities.hint">Indice</label>
-                <input type="text" class="form-control" id="fill-in-hint">
+                <label for="fill-in-hint" data-i18n="newActivities.hint">Indice</label>
+                <input type="text" id="fill-in-hint">
             </div>
 
         </div>
@@ -1961,6 +1964,7 @@
         </div>
     </div>
 </div>
+
 
 <div id="classroom-dashboard-ide-panel" style="display:none;" class="dashboard-block">
     <iframe width="100%" style="height:85vh;" frameborder="0" allowfullscreen="" style="border:1px #d6d6d6 solid;" src=""></iframe>
