@@ -3487,7 +3487,7 @@ function validateActivity() {
             defaultProcessValidateActivity();
             break;
         default:
-            
+            defaultProcessValidateActivity()
             break;
     }
 }
