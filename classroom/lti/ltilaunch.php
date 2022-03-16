@@ -59,11 +59,6 @@ if ($activitiesLinkUser == null) {
 }
 
 $platform_url = getenv('VS_HOST');
-	echo "Bad student resource url requested!";
-	exit;
-}
-
-$platform_url = "https://{$_SERVER["HTTP_HOST"]}";
 
 $activityRestriction = $entityManager->getRepository(ActivityRestrictions::class)->findOneByActivityType($applicationType);
 
