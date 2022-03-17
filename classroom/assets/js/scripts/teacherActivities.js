@@ -220,9 +220,7 @@ function manageUpdateForReading(activity) {
 
 function manageUpdateForDragAndDrop(activity) {
     $('#activity-drag-and-drop').show();
-    console.log(activity)
     let content = JSON.parse(activity.content);
-    console.log(content)
     $("#drag-and-drop-hint").val(content.hint);
     $("#drag-and-drop-states").htmlcode(bbcodeToHtml(content.states));
     $("#drag-and-drop-content").htmlcode(bbcodeToHtml(content.dragAndDropFields.contentForTeacher));

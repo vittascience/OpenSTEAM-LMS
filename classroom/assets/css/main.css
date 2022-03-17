@@ -1537,7 +1537,6 @@ h3.section-done {
     border: 1px solid var(--classroom-text-0); 
     border-radius: 256px;
     padding: 6px 12px;
-
 }
 
 .draggable-items {
@@ -1551,8 +1550,8 @@ h3.section-done {
 .dropable-items {
     width: auto;
     height: auto;
-    min-width: 20px;
-    min-height: 20px;
+    min-width: 110px;
+    min-height: 50px;
     display: inline-block;
     margin: 2px;
 }

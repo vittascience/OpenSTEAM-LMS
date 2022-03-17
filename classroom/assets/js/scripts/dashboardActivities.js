@@ -459,6 +459,10 @@ function loadActivityForStudents(isDoable) {
     }
 
     injectContentForActivity(content, Activity.correction, Activity.activity.type, correction, isDoable);
+
+    if (!Activity.evaluation && correction < 2 && !isDoable) {
+        isDoable = true;
+    }
     isTheActivityIsDoable(isDoable);
 }
 
@@ -498,6 +502,8 @@ function loadActivityForTeacher() {
     }
 
     injectContentForActivity(content, Activity.correction, Activity.activity.type, correction, isDoable);
+
+
     isTheActivityIsDoable(false);
 }
 
@@ -558,13 +564,6 @@ function manageDisplayCustomAndReading(correction, content, correction_div) {
         $('#activity-correction').html(correction_div);
         $('#activity-correction-container').show(); 
     }
-
-    // todo
-    if (!Activity.evaluation && correction < 2) {
-        $('#activity-validate').show();
-        $('#activity-save').show();
-    }
-
 }
 
 function manageDisplayFree(correction, content, correction_div) {
@@ -581,12 +580,6 @@ function manageDisplayFree(correction, content, correction_div) {
         $('#activity-student-response').show();
         $('#activity-student-response-content').html(bbcodeToHtml(Activity.response));
         manageCorrectionDiv(correction_div, correction);
-    }
-    
-    // todo
-    if (!Activity.evaluation && correction < 2) {
-        $('#activity-validate').show();
-        $('#activity-save').show();
     }
 }
 
@@ -630,12 +623,6 @@ function manageDisplayQuiz(correction, content, correction_div) {
         }
 
         manageCorrectionDiv(correction_div, correction);
-    }
-    
-    // todo
-    if (!Activity.evaluation && correction < 2) {
-        $('#activity-validate').show();
-        $('#activity-save').show();
     }
 }
 
@@ -716,63 +703,32 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
 
             // Get the response array and shuffle it
             let choices = shuffleArray(JSON.parse(Activity.activity.solution));
-
             choices.forEach(e => {
                 $('#drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim().toUpperCase()}</p>`);
             });
             $('#activity-drag-and-drop-container').show();
-
-
-            let drake = dragula([document.querySelector('#drag-and-drop-fields')], {revertOnSpill: true, removeOnSpill: true});
+        
+        
+            let drake = dragula([document.querySelector('#drag-and-drop-fields')]).on('drop', function(el, target, source, sibling){
+                if (target.id != 'drag-and-drop-fields') {
+                    let swap = $(target).find('p').not(el);
+                    swap.length > 0 ? source.append(swap[0]) : null;
+                }
+            });
+        
             $('.dropzone').each((i, e) => {
                 drake.containers.push(document.querySelector('#'+e.id));
             });
-
-            drake.on('drop', function (el, target, source) {
-                if (target.children.length > 1 && target.id != "drag-and-drop-fields") {
-                    el == target.children[0] ? $(source).append(target.children[1]) : $(source).append(target.children[0]);
-                } else if (target.children.length = 1 && target.id != "drag-and-drop-fields"){
-                    $(target).html(el);
-                }
-
-                if (source.children.length = 1 && source.id != "drag-and-drop-fields"){
-                    if (source.children[0] == undefined) {
-                        $(source).html("DROP HERE");
-                    }
-                }
-            }).on('over', function(el, container, source) { 
-                //console.log(container);
-                
-                if (container.id != "drag-and-drop-fields") {
-                    //if (container.children[0] == undefined) {
-                        //let toto = container.children[0];
-                        $(container).html(el);
-                        //$(source).html(toto);
-                    //}
-                }
-            }).on('out', function(el, container, source) { 
-
-               /*  if (source.id != "drag-and-drop-fields" && container.childen.length > 0) {
-                    $(source).html(el);
-                    //$(container).html(toto);
-                }
-                let toto = container.children[0]; */
-                //console.log(container.id.includes("dz"));
-                /* if (container.id.includes("dz")) {
-                    if (container.children.length == 0) {
-                        $(source).html("DROP HERE");
-                    }
-                } */
-            });
+            
         }
     } else if (correction >  0) {
         
         let studentContentString = content.dragAndDropFields.contentForStudent;
         let studentResponses = JSON.parse(Activity.response);
 
-        studentResponses.forEach(response => {
-            studentContentString = studentContentString.replace(/\|(.*?)\|/gi, response);
-        });
+        for (let i = 0; i < studentResponses.length; i++) {
+            studentContentString = studentContentString.replace(/\|(.*?)\|/, studentResponses[i].string);
+        }
 
         $('#activity-student-response-content').html(studentContentString);
         $('#activity-student-response').show();
@@ -781,7 +737,6 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
     } 
     
 }
-
 
 
 function shuffleArray(array) {
@@ -795,7 +750,7 @@ function shuffleArray(array) {
 function manageDragAndDropText(studentContentString) {
     let studentResponses = JSON.parse(Activity.activity.solution);
     for (let i = 0; i < studentResponses.length; i++) {
-        let input = `<span class="dropable-items dropzone" id="dz-${i}">DRAG HERE</span>`;
+        let input = `<span class="dropable-items dropzone" id="dz-${i}"></span>`;
         studentContentString = studentContentString.replace(/\|(.*?)\|/, input);
     }
     return studentContentString;
@@ -824,14 +779,23 @@ function resetInputsForActivity() {
     // Field for free activity
     $('#activity-input-container').hide();
     $('#activity-student-response').hide();
+    $('#activity-student-response-content').text('');
     
     // Fields
-    $('#activity-title').html(" ");
-    $('#activity-content').html(" ");
-    $('#activity-correction').html(" ");
+    $('#activity-states').html("");
+    $('#activity-title').html("");
+    $('#activity-details').html('');
+    $('#activity-content').html("");
+    $('#activity-correction').html("");
+    
+    // Quiz reset input
+    $(`div[id^="teacher-suggestion-"]`).each(function() {
+        $(this).remove();
+    })
 }
 
 function isTheActivityIsDoable(doable, hideValidationButton = false) {
+    console.log(doable)
     if (doable == false) {
         $('#activity-validate').hide();
         $('#activity-save').hide();
@@ -845,6 +809,13 @@ function isTheActivityIsDoable(doable, hideValidationButton = false) {
         
         if (interface != undefined && interface != null) {
             $('#activity-save').show()
+        }
+
+        console.log(Activity.activity.isLti)
+        if (!Activity.activity.isLti) {
+            console.log("zz")
+            $('#activity-validate').show();
+            $('#activity-save').show();
         }
     }
 }
