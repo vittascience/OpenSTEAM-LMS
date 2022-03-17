@@ -349,10 +349,16 @@ function statusActivityForStudent(id, activityList) {
     }
 }
 
-function statusActivity(activity, state = true) {
+function statusActivity(activity, state = true, formatedTimePast = '') {
     if (activity.correction == 0 || activity.correction == null) {
-        if (state == true)
-            return "fas fa-stopwatch"
+        if (state == true){
+            if (formatedTimePast == '') {
+                return "stopwatch"
+            } else {
+                return "startwatch"
+            }
+            
+        }
         if (state == "csv") {
             switch (activity.correction) {
                 case 0:
@@ -475,13 +481,11 @@ function loadActivityForTeacher() {
     // Reset the inputs
     resetInputsForActivity()
 
-    // If the user is a teacher, we display the correction button
-    if (UserManager.getUser().isRegular) {
-        if (Activity.correction >= 1) {
-            $('#activity-details').html(i18next.t("classroom.activities.activityOfUser") + Activity.user.pseudo + i18next.t("classroom.activities.userSentOn") + formatHour(Activity.dateSend))
-        } else {
-            $('#activity-details').html(i18next.t("classroom.activities.noSend"))
-        }
+    if (Activity.correction >= 1) {
+        $('#activity-details').html(i18next.t("classroom.activities.activityOfUser") + Activity.user.pseudo + i18next.t("classroom.activities.userSentOn") + formatHour(Activity.dateSend))
+        document.querySelector('#activity-details').innerHTML += `<br><img class="chrono-icon" src="${_PATH}assets/media/icon_time_spent.svg">${i18next.t('classroom.activities.timePassed')} ${formatDuration(Activity.timePassed)}`;
+    } else {
+        $('#activity-details').html(i18next.t("classroom.activities.noSend"))
     }
 
     let content = manageContentForActivity();
@@ -513,8 +517,12 @@ function injectContentForActivity(content, correction, type = null, correction_d
     activityValidationButtonElt.style.display = 'block';
     // Inject the content to the target div
     if (type == null) {
-        $('#activity-content').html(bbcodeToHtml(content))
-        $('#activity-correction').html(bbcodeToHtml(correction))
+        $('#activity-content').html(bbcodeToHtml(content));
+        if (typeof correction == 'string') {
+            $('#activity-correction').html(bbcodeToHtml(correction));
+        } else {
+            $('#activity-correction').html(correction);
+        }
     }
 
     // Things to do for every activity
@@ -543,7 +551,11 @@ function injectContentForActivity(content, correction, type = null, correction_d
             manageDisplayCustomAndReading(correction ,content, correction_div);
             break; */
         default:
-            manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt);
+            if (Activity.activity.isLti) {
+                manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt);
+            } else {
+                manageDisplayOldActivities(correction, content, correction_div, isDoable);
+            }
             break;
     }
 }
@@ -596,6 +608,18 @@ function manageDisplayLti(correction, content, correction_div, isDoable, activit
             <button onclick="launchLtiResource(${Activity.id}, '${Activity.activity.type}', '${content}', true, '${Activity.url}')">Modifier le travail</button>`;
         }
         
+        if (correction != 1 || UserManager.getUser().isRegular) {
+            document.querySelector('#activity-correction-container').style.display = 'block';
+            document.querySelector('#activity-correction').innerHTML = correction_div;
+        }
+    }
+}
+
+function manageDisplayOldActivities(correction, content, correction_div, isDoable) {
+    //document.querySelector('#activity-title').innerHTML = Activity.activity.title;
+    document.querySelector('#activity-content').innerHTML = bbcodeToHtml(content);
+    document.querySelector('#activity-content-container').style.display = 'block';
+    if (!isDoable) {
         if (correction != 1 || UserManager.getUser().isRegular) {
             document.querySelector('#activity-correction-container').style.display = 'block';
             document.querySelector('#activity-correction').innerHTML = correction_div;

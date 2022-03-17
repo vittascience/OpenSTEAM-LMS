@@ -275,6 +275,7 @@
 			"sentOn": "This activity was returned on ",
 			"activityOfUser": "Activity of ",
 			"userSentOn" : " sent on ",
+			"timePassed" : "Time spent on activity:",
 			"yourAnswer": "Your answer",
 			"studentAnswer": "Learner's answer",
 			"comments": "Write your comments there",

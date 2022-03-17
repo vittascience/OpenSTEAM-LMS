@@ -878,8 +878,8 @@ function displayStudentsInClassroom(students, link=false) {
     
     // Display the classroom name
     const classroomName = getClassroomInListByLink(ClassroomSettings.classroom)[0].classroom.name;
-    const reducedclassroomName = classroomName.length > 10 ? `${classroomName.substring(0, 10)}...` : classroomName;
-    document.querySelector('#header-table-teach').innerHTML = `<th class="table-title" style="max-width: 250px; font-size: 17pt; text-align: left; height: 3em;" data-toggle="tooltip" title="${classroomName}">${reducedclassroomName}</th>`;
+    const reducedclassroomName = classroomName.length > 16 ? `${classroomName.substring(0, 16)}...` : classroomName;
+    document.querySelector('#header-table-teach').innerHTML = `<th class="table-title" style="max-width: 250px; font-size: 14pt; text-align: left; height: 3em;" data-toggle="tooltip" title="${classroomName}">${reducedclassroomName}</th>`;
 
     // get the current classroom index of activities
     let arrayIndexesActivities = listIndexesActivities(students);
@@ -949,7 +949,7 @@ function displayStudentsInClassroom(students, link=false) {
                     : currentActivity.timePassed == 0 
                         ? '' 
                         : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em>`;
-                html += `<td class=" ${statusActivity(currentActivity)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>${formatedTimePast}"></td>`;
+                html += `<td class=" ${statusActivity(currentActivity, true, formatedTimePast)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>${formatedTimePast}"></td>`;
             } else {
                 html += `<td class="no-activity bilan-cell" "></td>`;
             }
