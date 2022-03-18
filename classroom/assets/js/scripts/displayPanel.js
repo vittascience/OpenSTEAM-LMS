@@ -384,14 +384,7 @@ function formatDateInput(date) {
 }
 
 function getTeacherActivity() {
-    //
-    $('#activity-correction-container').hide();
-    $('#activity-details').html('');
-    $("#activity-content").html('');
-    $("#activity-states").html('');
-    $("#activity-states-container").hide();
-    $("#activity-content-container").hide();
-    //
+    resetInputsForActivity();
 
     $('#activity-title').html(Activity.title + `<button class="btn btn-link" onclick="attributeActivity(` + Activity.id + `)">
     <i class="fas fa-arrow-down"></i> ` + capitalizeFirstLetter(i18next.t('words.attribute')) + `</button>`);

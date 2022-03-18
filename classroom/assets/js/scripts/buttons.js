@@ -3481,13 +3481,13 @@ function validateActivity() {
             defaultProcessValidateActivity();
             break;
         case 'dragAndDrop':
-            
+            dragAndDropValidateActivity();
             break;
         case 'custom':
             defaultProcessValidateActivity();
             break;
         default:
-            
+            defaultProcessValidateActivity()
             break;
     }
 }
@@ -3547,6 +3547,33 @@ function quizValidateActivity() {
 
 function fillInValidateActivity() {
     let studentResponse = $('#activity-input').bbcode().match(/\|(.*?)\|/gi).map(match => match.replace(/\|(.*?)\|/gi, "$1").trim());
+    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, null, null, JSON.stringify(studentResponse)).then((response) => {
+        if (response) {
+            $("#activity-validate").attr("disabled", false);
+            if (response.note != null && response.correction > 1) {
+                if (response.note == 3) {
+                    navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities')
+                } else if (response.note == 0) {
+                    navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities')
+                }
+            } else {
+                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher')
+            }
+        } else {
+            displayNotification('#notif-div', "classroom.notif.errorSending", "error");
+        }
+    });
+}
+
+
+function dragAndDropValidateActivity() {
+    let studentResponse = [];
+    for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
+        let string = document.getElementById(`dz-${i}`).children.length > 0 ? document.getElementById(`dz-${i}`).children[0].innerHTML : "";
+        studentResponse.push({
+            string: string
+        });
+    }
     Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, null, null, JSON.stringify(studentResponse)).then((response) => {
         if (response) {
             $("#activity-validate").attr("disabled", false);
