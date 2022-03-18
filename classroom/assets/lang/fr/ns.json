@@ -875,6 +875,7 @@
 		},
 		"success": "L'authentification a réussi. Redirection...",
 		"error": "Erreur. Veuillez vérifier vos identifiants.",
+		"canNotLoginBefore": "{{failedLoginAttempts}} tentatives échouées. Vous devez attendre {{timeToWait}} minute(s) avant de pouvoir vous connecter à nouveau",
 		"mailSuccess": "Un mail d'activation a été envoyé à votre adresse mail.",
 		"mailError": "Une erreur est survenue. Veuillez vérifier votre adresse mail.",
 		"userNotFound": "Aucun utilisateur trouvé avec ces identifiants.",
