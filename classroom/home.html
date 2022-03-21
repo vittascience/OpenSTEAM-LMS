@@ -423,13 +423,15 @@
                 <label for="profile-form-password" class="tutorial-label"
                     data-i18n="classroom.profil.accountSettings.password"></label>
             </div>
-                <input type="password" name="password" id="profile-form-password" class="form-control form-control-lg">
+            <div class="form-inline">
+                <input type="password" name="password" id="profile-form-password" class="form-control form-control-lg" autocomplete="off">
                 <i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
+            </div>
             <label for="profile-form-confirm-password" class="tutorial-label"
                 data-i18n="classroom.profil.accountSettings.confirmPassword"></label>
             <div class="form-inline">
                 <input type="password" name="confirm-password" id="profile-form-confirm-password"
-                    class="form-control form-control-lg">
+                    class="form-control form-control-lg" autocomplete="off">
                 <i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
             </div>
             <input type="hidden" name="teacher-id" id="profile-form-teacher-id">
