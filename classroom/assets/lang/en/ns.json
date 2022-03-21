@@ -560,6 +560,7 @@
 		},
 		"success": "Authentication was successful. Redirection...",
 		"error": "Error. Please verify your login details.",
+		"canNotLoginBefore": "{{failedLoginAttempts}} failed attempts. You have to wait {{timeToWait}} minute(s) before trying again",
 		"mailSuccess": "An activation email has been sent to your email address.",
 		"mailError": "An error has occurred. Please verify your email address.",
 		"userNotFound": "No linked user found with this mail.",

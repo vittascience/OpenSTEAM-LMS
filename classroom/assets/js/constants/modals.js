@@ -95,9 +95,9 @@ const classroomModals = {
         <h4 data-i18n="classroom.modals.settingsTeacher.password">Mot de passe</h4>
         <p class="text-center" data-i18n="classroom.modals.settingsTeacher.passwordDescription"></p>
         <div class="d-flex justify-content-center">
-            <div class="pwd-display-stud pwd-display-stud-modal" href="#">
-                <input type="password" readonly class="modal-pwd" id="password-display-area"><i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
-            </div>
+            <form class="pwd-display-stud pwd-display-stud-modal" href="#">
+                <input type="password" readonly class="modal-pwd" id="password-display-area" autocomplete="off"><i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
+            </form>
             
             <button class="btn c-btn-secondary" id="pwd-change-modal">Réinitialiser <i class="fas fa-chevron-right"></i></button>`,
         footer: ``
@@ -1068,7 +1068,7 @@ const classroomModals = {
                         <div class="col-12">
                             <form class="text-center c-primary-form">
                                 <p class="text-center" data-i18n="classroom.modals.profileUpdatePasswordConfirm.description"></p>
-                                <input type="password" name="current_password_prompt" id="current_password_prompt" data-i18n="[placeholder]classroom.modals.profileUpdatePasswordConfirm.placeholderInput">
+                                <input type="password" name="current_password_prompt" id="current_password_prompt" data-i18n="[placeholder]classroom.modals.profileUpdatePasswordConfirm.placeholderInput" autocomplete="off">
                             </form>
                             <div class="text-center">
                                 <button class="btn c-btn-primary mx-auto mt-3 btn-lg" id="saveProfileUpdate" data-i18n="manager.buttons.validate">Valider</button>

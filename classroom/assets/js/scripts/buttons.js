@@ -241,7 +241,7 @@ function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = fa
     $('#breadcrumb').localize();
 
     $('.tooltip').remove()
-    $('.leader-line').remove()
+    if (typeof Main.leaderline !== 'undefined') Main.leaderline.hide();
     $('[data-toggle="tooltip"]').tooltip()
 }
 
@@ -732,25 +732,41 @@ function classroomsDisplay() {
         } else {
             $('.list-classes').append(noContentDiv).localize();
 
-            startAttachment = LeaderLine.pointAnchor({
-                element: document.getElementById('no-content-div__bottom-text'),
-                x: -10,
-            })
-            endAttachment = LeaderLine.pointAnchor({
-                element: document.getElementById('teacher-new-classroom-btn'),
-                y: "110%"
-            })
+            
 
-            new LeaderLine(
-                startAttachment,
-                endAttachment, {
-                color: 'var(--classroom-primary)',
-                path: "arc",
-                startSocket: "left",
-                endSocket: "bottom",
-                endPlug: "arrow2",
-                startSocketGravity: [50, -100]
-            });
+            if (typeof Main.leaderline === 'undefined'){
+                const startAttachment = LeaderLine.pointAnchor({
+                    element: document.getElementById('no-content-div__bottom-text'),
+                    x: -10,
+                });
+                const endAttachment = LeaderLine.pointAnchor({
+                    element: document.getElementById('teacher-new-classroom-btn'),
+                    y: "110%"
+                });
+
+                Main.leaderline = new LeaderLine(
+                    startAttachment,
+                    endAttachment, {
+                    color: 'var(--classroom-primary)',
+                    path: "arc",
+                    startSocket: "left",
+                    endSocket: "bottom",
+                    endPlug: "arrow2",
+                    startSocketGravity: [50, -100]
+                });
+            } else {
+                Main.leaderline.setOptions({
+                    start: LeaderLine.pointAnchor({
+                        element: document.getElementById('no-content-div__bottom-text'),
+                        x: -10,
+                    }),
+                    end: LeaderLine.pointAnchor({
+                        element: document.getElementById('teacher-new-classroom-btn'),
+                        y: "110%"
+                    })
+                });
+                Main.leaderline.show();
+            }
         }
     });
 }

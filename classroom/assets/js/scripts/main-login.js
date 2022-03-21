@@ -70,11 +70,19 @@ function checkLogin() {
             button.removeAttribute("disabled");
             button.style.cursor = "pointer";
 
-            if (response.error === "wrong_credentials") {
+            if (typeof response.canNotLoginBefore != 'undefined' ) {
+                const diffInMinutes = (response.canNotLoginBefore  - (new Date().getTime() /1000) )/ 60
+                const timeToWait = Math.ceil(diffInMinutes)
+                console.log(timeToWait)
+                displayNotification('#notif-div', `login_popup.canNotLoginBefore`, "error", `'{"timeToWait": "${timeToWait} min","failedLoginAttempts":${response.failedLoginAttempts}}'`);
+            } 
+            else if (response.error === "wrong_credentials") {
                 displayNotification('#notif-div', "login_popup.error", "error");
-            } else if (response.error === "user_not_found") {
+            } 
+            else if (response.error === "user_not_found") {
                 displayNotification('#notif-div', "login_popup.userNotFound", "error");
-            } else if (response.error === "user_not_active") {
+            } 
+            else if (response.error === "user_not_active") {
                 displayNotification('#notif-div', "login_popup.inactiveAccount", "error");
                 $('#btn-activate-account-classroom').show();
             }
