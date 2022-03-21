@@ -473,11 +473,7 @@ function loadActivityForStudents(isDoable) {
 }
 
 function loadActivityForTeacher() {
-    if (Activity.correction == null) {
-        var isDoable = true
-    } else {
-        var isDoable = false
-    }
+    let isDoable = Activity.correction == null ? true : false;
     // Reset the inputs
     resetInputsForActivity()
 
@@ -819,7 +815,6 @@ function resetInputsForActivity() {
 }
 
 function isTheActivityIsDoable(doable, hideValidationButton = false) {
-    console.log(doable)
     if (doable == false) {
         $('#activity-validate').hide();
         $('#activity-save').hide();
@@ -835,9 +830,7 @@ function isTheActivityIsDoable(doable, hideValidationButton = false) {
             $('#activity-save').show()
         }
 
-        console.log(Activity.activity.isLti)
-        if (!Activity.activity.isLti) {
-            console.log("zz")
+        if (!Activity.activity.isLti) {     
             $('#activity-validate').show();
             $('#activity-save').show();
         }
