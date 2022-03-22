@@ -1404,6 +1404,12 @@ h3.section-done {
     appearance: none;
 }
 
+#classroom-panel-table-container table.dropdowns-opened thead tr.non-dropdown th,
+#classroom-panel-table-container table.dropdowns-opened tbody tr.non-dropdown th {
+    z-index: 0;
+}
+
+
 .activity-card .activity-card-bot span {
     font-style: italic;
     font-weight: 500;
