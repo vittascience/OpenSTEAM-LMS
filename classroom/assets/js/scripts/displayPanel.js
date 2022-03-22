@@ -464,7 +464,9 @@ function getIntelFromClasses() {
     let classes = Main.getClassroomManager()._myClasses
     if (classes.length == 0) {
         $('.tocorrect-activities').html('0')
-        $('#mode-student-check').after(NO_CLASS)
+        if (document.querySelector('#mode-student-check').parentElement.querySelector('p.no-classes') === null) {
+            $('#mode-student-check').after(NO_CLASS);
+        }
         $('#mode-student-check').hide()
 
     } else {
