@@ -3343,6 +3343,10 @@ function resetActivityInputs(activityType) {
     resetDisplayForActivity();
     $('#global_title').val('');
     $('#activity-input').val('');
+
+    $("#activity-hint").text('');
+    $("#activity-hint-container").hide();
+
     if (activityType == 'free') {
         $('#free-content').htmlcode("");
         $('#free-correction').htmlcode("");
@@ -3369,7 +3373,7 @@ function resetActivityInputs(activityType) {
     } else if (activityType == 'quiz') {
         /* quiz reset */
         $('#quiz-states').htmlcode("");
-        $('#quiz-content').htmlcode("");
+        //$('#quiz-content').htmlcode("");
         $('#quiz-hint').val("");
         $('#quiz-tolerance').val("");
         $('#quiz-autocorrect').prop('checked', false);
@@ -3544,36 +3548,58 @@ function quizValidateActivity() {
     
     Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, null, null, JSON.stringify(studentResponse)).then((response) => {
         if (response) {
-            $("#activity-validate").attr("disabled", false);
-            if (response.note != null && response.correction > 1) {
-                if (response.note == 3) {
-                    navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities')
-                } else if (response.note == 0) {
-                    navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities')
+            if (response.hasOwnProperty("badResponse")) {
+
+                for (let i = 1; i < $(`input[id^="student-quiz-suggestion-"]`).length+1; i++) {
+                    $('#student-quiz-suggestion-' + i).css("border","2px solid black");
                 }
+
+                for (let i = 0; i < response.badResponse.length; i++) {
+                    $('#student-quiz-suggestion-' + (response.badResponse[i]+1)).css("border","2px solid red");
+                }
+
+                if (response.hasOwnProperty("hint")) {
+                    if (response.hint != null) {
+                        $("#activity-hint-container").show();
+                        $("#activity-hint").text(response.hint);
+                    }
+                }
+
             } else {
-                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher')
+                validateDefaultResponseManagement(response);
             }
         } else {
             displayNotification('#notif-div', "classroom.notif.errorSending", "error");
         }
     });
+}
 
+function validateDefaultResponseManagement(response) {
+    $("#activity-validate").attr("disabled", false);
+    if (response.note != null && response.correction > 1) {
+        if (response.note == 3) {
+            navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities')
+        } else if (response.note == 0) {
+            navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities')
+        }
+    } else {
+        navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher')
+    }
 }
 
 function fillInValidateActivity() {
     let studentResponse = $('#activity-input').bbcode().match(/\|(.*?)\|/gi).map(match => match.replace(/\|(.*?)\|/gi, "$1").trim());
     Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, null, null, JSON.stringify(studentResponse)).then((response) => {
         if (response) {
-            $("#activity-validate").attr("disabled", false);
-            if (response.note != null && response.correction > 1) {
-                if (response.note == 3) {
-                    navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities')
-                } else if (response.note == 0) {
-                    navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities')
+            if (response.hasOwnProperty("badResponse")) {
+                if (response.hasOwnProperty("hint")) {
+                    if (response.hint != null) {
+                        $("#activity-hint-container").show();
+                        $("#activity-hint").text(response.hint);
+                    }
                 }
             } else {
-                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher')
+                validateDefaultResponseManagement(response);
             }
         } else {
             displayNotification('#notif-div', "classroom.notif.errorSending", "error");
@@ -3592,15 +3618,26 @@ function dragAndDropValidateActivity() {
     }
     Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, null, null, JSON.stringify(studentResponse)).then((response) => {
         if (response) {
-            $("#activity-validate").attr("disabled", false);
-            if (response.note != null && response.correction > 1) {
-                if (response.note == 3) {
-                    navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities')
-                } else if (response.note == 0) {
-                    navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities')
+
+            if (response.hasOwnProperty("badResponse")) {
+
+                for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
+                    $('#dz-' + i).css("border","1px solid var(--classroom-text-0)");
                 }
+
+                for (let i = 0; i < response.badResponse.length; i++) {
+                    $('#dz-' + (response.badResponse[i])).css("border","1px solid red");
+                }
+
+                if (response.hasOwnProperty("hint")) {
+                    if (response.hint != null) {
+                        $("#activity-hint-container").show();
+                        $("#activity-hint").text(response.hint);
+                    }
+                }
+
             } else {
-                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher')
+                validateDefaultResponseManagement(response);
             }
         } else {
             displayNotification('#notif-div', "classroom.notif.errorSending", "error");
