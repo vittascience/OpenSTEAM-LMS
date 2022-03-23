@@ -411,8 +411,6 @@ function getTeacherActivity() {
             })
 
             let data = JSON.parse(Activity.solution);
-
-
             for (let i = 1; i < data.length+1; i++) {
                 let ctx = ` <div class="input-group" id="teacher-suggestion-${i}">
                                 <label for="quiz-suggestion-${i}" id="show-quiz-label-suggestion-${i}">Proposition ${i}</label>

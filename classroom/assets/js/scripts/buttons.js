@@ -3486,25 +3486,23 @@ function titleForward() {
 /**
  * Validation pipeline for the new activity
  */
-function validateActivity() {
+function validateActivity(correction) {
     switch(Activity.activity.type) {
         case 'free':
-            freeValidateActivity();
+            freeValidateActivity(correction);
             break;
         case 'quiz':
-            quizValidateActivity();
+            quizValidateActivity(correction);
             break;
         case 'fillIn':
-            fillInValidateActivity();
+            fillInValidateActivity(correction);
             break;
         case 'reading':
+        case 'custom':
             defaultProcessValidateActivity();
             break;
         case 'dragAndDrop':
-            dragAndDropValidateActivity();
-            break;
-        case 'custom':
-            defaultProcessValidateActivity();
+            dragAndDropValidateActivity(correction);
             break;
         default:
             defaultProcessValidateActivity()
@@ -3515,9 +3513,9 @@ function validateActivity() {
 /**
  * Default process for the validation of the free activity
  */
-function freeValidateActivity() {
+function freeValidateActivity(correction = 1) {
     let studentResponse = $('#activity-input').bbcode();
-    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, null, null, studentResponse).then((response) => {
+    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, studentResponse).then((response) => {
         if (response) {
             $("#activity-validate").attr("disabled", false);
             if (response.note != null && response.correction > 1) {
@@ -3535,7 +3533,7 @@ function freeValidateActivity() {
     });
 }
 
-function quizValidateActivity() {
+function quizValidateActivity(correction = 1) {
 
     let studentResponse = [];
     for (let i = 1; i < $(`input[id^="student-quiz-checkbox-"]`).length+1; i++) {
@@ -3546,7 +3544,7 @@ function quizValidateActivity() {
         studentResponse.push(res);
     }
     
-    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, null, null, JSON.stringify(studentResponse)).then((response) => {
+    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, JSON.stringify(studentResponse)).then((response) => {
         if (response) {
             if (response.hasOwnProperty("badResponse")) {
 
@@ -3559,7 +3557,7 @@ function quizValidateActivity() {
                 }
 
                 if (response.hasOwnProperty("hint")) {
-                    if (response.hint != null) {
+                    if (response.hint != null && response.hint != "") {
                         $("#activity-hint-container").show();
                         $("#activity-hint").text(response.hint);
                     }
@@ -3587,13 +3585,13 @@ function validateDefaultResponseManagement(response) {
     }
 }
 
-function fillInValidateActivity() {
+function fillInValidateActivity(correction = 1) {
     let studentResponse = $('#activity-input').bbcode().match(/\|(.*?)\|/gi).map(match => match.replace(/\|(.*?)\|/gi, "$1").trim());
-    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, null, null, JSON.stringify(studentResponse)).then((response) => {
+    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, JSON.stringify(studentResponse)).then((response) => {
         if (response) {
             if (response.hasOwnProperty("badResponse")) {
                 if (response.hasOwnProperty("hint")) {
-                    if (response.hint != null) {
+                    if (response.hint != null && response.hint != "") {
                         $("#activity-hint-container").show();
                         $("#activity-hint").text(response.hint);
                     }
@@ -3608,7 +3606,7 @@ function fillInValidateActivity() {
 }
 
 
-function dragAndDropValidateActivity() {
+function dragAndDropValidateActivity(correction = 1) {
     let studentResponse = [];
     for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
         let string = document.getElementById(`dz-${i}`).children.length > 0 ? document.getElementById(`dz-${i}`).children[0].innerHTML : "";
@@ -3616,7 +3614,7 @@ function dragAndDropValidateActivity() {
             string: string
         });
     }
-    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, null, null, JSON.stringify(studentResponse)).then((response) => {
+    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, JSON.stringify(studentResponse)).then((response) => {
         if (response) {
 
             if (response.hasOwnProperty("badResponse")) {
@@ -3630,7 +3628,7 @@ function dragAndDropValidateActivity() {
                 }
 
                 if (response.hasOwnProperty("hint")) {
-                    if (response.hint != null) {
+                    if (response.hint != null && response.hint != "") {
                         $("#activity-hint-container").show();
                         $("#activity-hint").text(response.hint);
                     }

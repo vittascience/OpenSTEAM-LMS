@@ -807,6 +807,13 @@ function resetInputsForActivity() {
     $('#activity-details').html('');
     $('#activity-content').html("");
     $('#activity-correction').html("");
+
+    $("#activity-hint").text('');
+    $("#activity-hint-container").hide();
+
+    $('#activity-drag-and-drop-container').hide();
+    $('#drag-and-drop-fields').html('');
+    $('#drag-and-drop-text').html('');
     
     // Quiz reset input
     $(`div[id^="teacher-suggestion-"]`).each(function() {
