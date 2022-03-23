@@ -592,6 +592,7 @@ function manageDisplayFree(correction, content, correction_div) {
 }
 
 function manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt) {
+    document.querySelector('#activity-content-container').style.display = 'block';
     //document.querySelector('#activity-title').innerHTML = Activity.activity.title;
     if (isDoable) {
         activityValidationButtonElt.style.display = 'none';

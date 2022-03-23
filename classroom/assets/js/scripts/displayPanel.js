@@ -359,6 +359,11 @@ DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
             }
             ClassroomSettings.activity = id = Number(id.slice(2))
             Activity = getActivity(id, $_GET('interface'))
+            if (typeof Activity == 'undefined') {
+                console.error(`The activity can't be loaded!`);
+                navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
+                return;
+            }
             // Run the activity tracker if the current activity is doable or exercise
             if (Activity.evaluation != true || Activity.correction == null) {
                 Main.activityTracker = new ActivityTracker();
@@ -430,10 +435,16 @@ function getTeacherActivity() {
             $("#activity-content-container").show();
             $("#activity-states-container").show();
 
-
+            // Default behavior
         } else {
-            // activityId, activityType, activityContent
-            launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description);
+            // LTI Activity
+            if (Activity.isLti) {
+                launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description);
+            } else {
+                // Non core and non LTI Activity fallback
+                $("#activity-content").html(bbcodeToHtml(contentParsed));
+                $("#activity-content-container").show();
+            }
         }
         
     } else {
@@ -451,7 +462,9 @@ function getIntelFromClasses() {
     let classes = Main.getClassroomManager()._myClasses
     if (classes.length == 0) {
         $('.tocorrect-activities').html('0')
-        $('#mode-student-check').after(NO_CLASS)
+        if (document.querySelector('#mode-student-check').parentElement.querySelector('p.no-classes') === null) {
+            $('#mode-student-check').after(NO_CLASS);
+        }
         $('#mode-student-check').hide()
 
     } else {

@@ -355,8 +355,8 @@
 			"exportCsv": "Exporter csv"
 		},
 		"filter": {
-			"desc": "Date croissante",
-			"asc": "Date décroissante",
+			"desc": "Plus ancien",
+			"asc": "Plus récent",
 			"placeholder": "Recherche..."
 		},
 		"sandbox": {
