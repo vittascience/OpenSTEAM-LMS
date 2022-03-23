@@ -546,6 +546,12 @@ function csvToClassroom(link) {
  */
 function csvJSON(csv) {
 
+    /**
+     * define array of internal headers 
+     * to replace incoming headers 
+     * following this format => student|password
+     */
+    const internalHeaders = ["apprenant","mot_de_passe"]
     let lines = csv.split("\n");
     const result = [];
 
@@ -556,9 +562,9 @@ function csvJSON(csv) {
     let headers = lines[0].split(/[,;]/);
     
     for(let i=0; i< headers.length; i++){
-        headers[i] = headers[i].replace("\r","")
+        headers[i] = internalHeaders[i]
+        // headers[i] = headers[i].replace("\r","")
     }
-    
     for (let i = 1; i < lines.length; i++) {
         // sanitize the current line
         lines[i] = lines[i].replace(/(\r\n|\n|\r)/gm, "")
