@@ -410,7 +410,7 @@
 				"descriptionUpdate": "You can add one or more learners at once by importing them from a .csv file. <b>WARNING</b> : here, the passwords of the csv file aren't used ! Here is the .csv template file : ",
 				"csvTemplate": "template file with password",
 				"csvTemplateNoPassword": "template file without password",
-				"importStudentByCsvButton": "Importer learners"
+				"importStudentByCsvButton": "Import learners"
 			},
 			"exportCsv": {
 				"title": "Export in csv format",
