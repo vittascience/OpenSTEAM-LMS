@@ -3751,14 +3751,20 @@ function addQuizSuggestion() {
         i++;
     } while ($(`#quiz-suggestion-${i}`).length > 0);
 
-    let divToAdd = `<div class="input-group">
+    let divToAdd = `<div class="form-group c-primary-form" id="quiz-group-${i}">
                         <label for="quiz-suggestion-${i}" id="quiz-label-suggestion-${i}">Proposition ${i}</label>
-                        <button data-i18n="newActivities.delete" id="quiz-button-suggestion-${i}" onclick="deleteQuizSuggestion(${i})">Delete</button>
-                        <input type="text" id="quiz-suggestion-${i}">
-                        <label for="quiz-checkbox-${i}" id="quiz-label-checkbox-${i}">Réponse correcte</label>
-                        <input type="checkbox" id="quiz-checkbox-${i}">
-                    </div>
-                    `;
+                        <button class="btn c-btn-grey mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-${i}" onclick="deleteQuizSuggestion(${i})">Delete</button>
+
+                        <div class="input-group mt-3">
+                            <input type="text" id="quiz-suggestion-${i}" class="form-control">
+                            <div class="input-group-append">
+                                <div class="input-group-text c-checkbox c-checkbox-grey">
+                                    <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}">
+                                    <label class="form-check-label" for="quiz-checkbox-${i}">Réponse correcte</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
               
     $('#quiz-suggestions-container').append(divToAdd);
     $(`#quiz-button-suggestion-${i}`).localize();
@@ -3822,11 +3828,13 @@ function checkQuizCheckbox() {
 }
 
 function deleteQuizSuggestion(number) {
-    $(`#quiz-suggestion-${number}`).remove();
-    $(`#quiz-label-suggestion-${number}`).remove();
-    $(`#quiz-button-suggestion-${number}`).remove();
-    $(`#quiz-checkbox-${number}`).remove();
-    $(`#quiz-label-checkbox-${number}`).remove();
+    $(`#quiz-group-${number}`).remove();
+
+    // $(`#quiz-suggestion-${number}`).remove();
+    // $(`#quiz-label-suggestion-${number}`).remove();
+    // $(`#quiz-button-suggestion-${number}`).remove();
+    // $(`#quiz-checkbox-${number}`).remove();
+    // $(`#quiz-label-checkbox-${number}`).remove();
 }
 
 

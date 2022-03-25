@@ -67,27 +67,39 @@
                 <textarea id="quiz-states"></textarea>
             </div>
 
-            <div class="content m-3">
+            <div id="quiz-content-edit" class="content m-3">
 
                 <div id="quiz-suggestions-container">
-                    <div class="input-group">
+                   <div class="form-group c-primary-form" id="quiz-group-1">
                         <label for="quiz-suggestion-1" id="quiz-label-suggestion-1">Proposition 1</label>
-                        <button data-i18n="newActivities.delete" id="quiz-button-suggestion-1" onclick="deleteQuizSuggestion(1)">Delete</button>
-                        <input type="text" id="quiz-suggestion-1">
-                        <label for="quiz-checkbox-1" id="quiz-label-checkbox-1">Réponse correcte</label>
-                        <input type="checkbox" id="quiz-checkbox-1">
+                        <button class="btn c-btn-grey mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-1" onclick="deleteQuizSuggestion(1)">Delete</button>
+
+                        <div class="input-group mt-3">
+                            <input type="text" id="quiz-suggestion-1" class="form-control">
+                            <div class="input-group-append">
+                                <div class="input-group-text c-checkbox c-checkbox-grey">
+                                    <input class="form-check-input" type="checkbox" id="quiz-checkbox-1">
+                                    <label class="form-check-label" for="quiz-checkbox-1">Réponse correcte</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <label for="quiz-hint" data-i18n="newActivities.hint">Indice</label>
-                <input type="text" id="quiz-hint">
-
-                <button data-i18n="newActivities.addQuiz" onclick="addQuizSuggestion()">Ajouter une proposition</button>
+                <div class="form-group mt-3">
+                    <label for="quiz-hint" data-i18n="[html]newActivities.hint">Indice</label>
+                    <input type="text" class="form-control" id="quiz-hint">
+                </div>
+                
             </div>
+        
+            <div class="content m-3">
+                <button data-i18n="newActivities.addQuiz" class="btn c-btn-primary" onclick="addQuizSuggestion()">Ajouter une proposition</button>
 
-            <div class="c-checkbox">
-                <input type="checkbox" name="quiz-autocorrect" id="quiz-autocorrect">
-                <label for="quiz-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
+                <div class="c-checkbox mt-2">
+                    <input type="checkbox" name="quiz-autocorrect" id="quiz-autocorrect">
+                    <label for="quiz-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
+                </div>
             </div>
 
         </div>

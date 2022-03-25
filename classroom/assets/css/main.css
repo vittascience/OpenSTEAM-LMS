@@ -1530,8 +1530,6 @@ h3.section-done {
     border-radius: 10px;
 }
 
-
-
 .draggable-items,
 .dropable-items {
     border: 1px solid var(--classroom-text-0); 
@@ -1597,6 +1595,14 @@ h3.section-done {
     }
 
 
+}
+
+/* QCM Styling */
+
+#quiz-content-edit {
+    border-radius: 1em;
+    border: 1px solid var(--classroom-grey);
+    padding: 0.5em 1em;
 }
 
 /* ACTIVITY ASSIGN FORM */
