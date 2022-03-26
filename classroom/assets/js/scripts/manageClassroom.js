@@ -900,7 +900,18 @@ function displayStudentsInClassroom(students, link=false) {
     // add four empty divs for monochrome styling
     $('#body-table-teach .bilan-cell').html(`<div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div>`);
 
- 
+    $('#classroom-panel-table-container table .dropdown').on('show.bs.dropdown', (event) => {
+        let classroomTable = event.target.closest('table');
+        classroomTable.classList.add('dropdowns-opened');
+        $(classroomTable).find('tr').addClass('non-dropdown');
+        event.target.closest('tr').classList.remove('non-dropdown');
+    });
+    
+    $('#classroom-panel-table-container table .dropdown').on('hidden.bs.dropdown', (event) => {
+        let classroomTable = event.target.closest('table');
+        classroomTable.classList.remove('dropdowns-opened');
+        $(classroomTable).find('tr').removeClass('non-dropdown');
+    });
 
 }
 
