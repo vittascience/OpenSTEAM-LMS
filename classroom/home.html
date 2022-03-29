@@ -311,6 +311,9 @@
                     <p id="activity-hint"></p>
                 </div>
 
+                <!-- Warning eval -->
+                <p id="warning-text-evaluation" style="display:none;" data-i18n="classroom.activities.validateWarning"></p>
+                <p id="warning-text-no-evaluation" style="display:none;" data-i18n="classroom.activities.validateNoEval"></p>
 
                 <button class="btn c-btn-primary" id="activity-validate" data-i18n="classroom.activities.validate" onclick="validateActivity(2)"> <i class="fas fa-chevron-right"></i></button>
                 <button class="btn c-btn-primary" id="activity-save" style="display:none;" onclick="validateActivity(1)" data-i18n="classroom.activities.save-draft"><i class="fas fa-chevron-right"></i></button>
@@ -813,11 +816,11 @@
             <div class="col mb-5 text-center c-primary-form">
                 <label for="isEval-activity-form" data-i18n="classroom.activities.form.nature"></label></br>
                 <div class="switcher">
-                    <input type="radio" name="isEval-activity-form" value="true" id="isEval-activity-form" checked="">
-                    <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no"></label>
-
-                    <input type="radio" name="isEval-activity-form" value="false" id="isExo-activity-form">
+                    <input type="radio" name="isEval-activity-form" value="false" id="isExo-activity-form" checked>
                     <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes"></label>
+
+                    <input type="radio" name="isEval-activity-form" value="true" id="isEval-activity-form">
+                    <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no"></label>
 
                     <span class="switcher__toggle"></span>
                 </div>
@@ -1398,10 +1401,12 @@
                 <button data-i18n="newActivities.addQuiz" onclick="addQuizSuggestion()">Ajouter une proposition</button>
             </div>
 
+            <!--             
             <div class="c-checkbox">
                 <input type="checkbox" name="quiz-autocorrect" id="quiz-autocorrect">
                 <label for="quiz-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
-            </div>
+            </div> 
+            -->
 
         </div>
 
@@ -1425,11 +1430,12 @@
             <div class="content m-3">
                 <p><span data-i18n="newActivities.tolerance1"></span> <input type="number" id="fill-in-tolerance"> <span data-i18n="newActivities.tolerance2"></span></p>
             </div>
-            
+            <!--             
             <div class="c-checkbox">
                 <input type="checkbox" name="fill-in-autocorrect" id="fill-in-autocorrect">
                 <label for="fill-in-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
-            </div>
+            </div> 
+            -->
 
             <div class="content m-3">
                 <label for="fill-in-hint" data-i18n="newActivities.hint">Indice</label>
@@ -1453,11 +1459,13 @@
 
             <button class="btn c-btn-outline-primary" id="dragAndDrop-add-inputs">Add field</button>
             <p>En cliquant sur le bouton ajouter un champs à compléter , un texte est ajouté avec deux caractères verticaux | réponse |. Vous pouvez écrire la réponse correcte entre ces deux caractères. Les réponses alternatives sont séparées par une double esperluette  && </p>
-
+            
+            <!-- 
             <div class="c-checkbox">
                 <input type="checkbox" name="drag-and-drop-autocorrect" id="drag-and-drop-autocorrect">
                 <label for="drag-and-drop-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
-            </div>
+            </div> 
+            -->
 
             <div class="content m-3">
                 <label for="drag-and-drop-hint" data-i18n="newActivities.hint">Indice</label>

@@ -3458,6 +3458,10 @@ function titleForward() {
             tolerance = Main.getClassroomManager()._createActivity.tolerance,
             autocorrect = Main.getClassroomManager()._createActivity.autocorrect;
 
+        if (type == "dragAndDrop" || type == "fillIn" || type == "quiz") {
+            autocorrect = true;
+        }
+
         if (Main.getClassroomManager()._createActivity.function == "create") {  
             Main.getClassroomManager().createNewActivity(title, type, content, solution, tolerance, autocorrect).then((response) => {
                 if (response.success == true) {
