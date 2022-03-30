@@ -263,6 +263,8 @@
 			"anonymise": "Anonymiser la liste de vos élèves afin de pouvoir afficher le tableau de bord à vos apprenants.",
 			"save-draft": "Sauvegarder en tant que brouillon",
 			"validate": "Valider l'activité",
+			"validateWarning": "Attention tu ne pourras soumettre cette activité qu'une seule fois",
+			"validateNoEval": "Tu peux soumettre cette activité autant de fois que tu le souhaites",
 			"accept": "Très bonne maîtrise",
 			"vgood": "Maîtrise satisfaisante",
 			"good": "Maîtrise fragile",

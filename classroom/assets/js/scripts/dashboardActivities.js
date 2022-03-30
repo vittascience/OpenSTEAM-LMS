@@ -815,7 +815,9 @@ function resetInputsForActivity() {
     $('#activity-drag-and-drop-container').hide();
     $('#drag-and-drop-fields').html('');
     $('#drag-and-drop-text').html('');
-    
+
+    $('#warning-text-evaluation').hide();
+    $("warning-text-no-evaluation").hide();
     // Quiz reset input
     $(`div[id^="teacher-suggestion-"]`).each(function() {
         $(this).remove();
@@ -838,9 +840,16 @@ function isTheActivityIsDoable(doable, hideValidationButton = false) {
             $('#activity-save').show()
         }
 
-        if (!Activity.activity.isLti) {     
+        if (!Activity.activity.isLti) { 
+            if (Activity.evaluation) {
+                $('#warning-text-evaluation').show();
+            } else {
+                $("warning-text-no-evaluation").show();
+            }
             $('#activity-validate').show();
-            $('#activity-save').show();
+            if (Activity.activity.type != 'reading') {
+                $('#activity-save').show();
+            }
         }
     }
 }
