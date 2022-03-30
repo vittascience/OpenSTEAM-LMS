@@ -1501,7 +1501,7 @@ h3.section-done {
     height: 100%;
 }
 
-/* ACTIVITY CREATE FORM */ 
+/* ACTIVITY CREATE FORM */
 
 .activity-creation-form {
     display: flex;
@@ -1524,15 +1524,15 @@ h3.section-done {
 
 /* updated @Rémi */
 .activities-fill-in-square {
-    border: solid; 
-    margin: 3px; 
-    padding: 10px; 
+    border: solid;
+    margin: 3px;
+    padding: 10px;
     border-radius: 10px;
 }
 
 .draggable-items,
 .dropable-items {
-    border: 1px solid var(--classroom-text-0); 
+    border: 1px solid var(--classroom-text-0);
     border-radius: 256px;
     padding: 6px 12px;
 }
@@ -1603,6 +1603,15 @@ h3.section-done {
     border-radius: 1em;
     border: 1px solid var(--classroom-grey);
     padding: 0.5em 1em;
+}
+
+.quiz-answer-container {
+    width: auto;
+    margin: 0.5em auto;
+    max-width: 250px;
+    border: 1px solid var(--classroom-text-2);
+    padding: 1em;
+    border-radius: 1em;
 }
 
 /* ACTIVITY ASSIGN FORM */
@@ -2087,12 +2096,12 @@ i.line_height34 {
     color: var(--classroom-text-2);
 }
 
-.bilan-cell.stopwatch{
+.bilan-cell.stopwatch {
     color: white;
     background: #cccccc center no-repeat url("../media/icon_on_hold.svg");
 }
 
-.bilan-cell.startwatch{
+.bilan-cell.startwatch {
     color: white;
     background: #cccccc center no-repeat url("../media/icon_time_spent.svg");
 }
