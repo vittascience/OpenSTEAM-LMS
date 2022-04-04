@@ -1579,12 +1579,22 @@ h3.section-done {
 }
 
 
-.lms-answer, .answer-student{
+.lms-answer{
     border: #008447 solid 1px;
     border-radius: 1em;
     padding: 8px;
     margin: 4px;
     width: fit-content;
+}
+
+.answer-student{
+    border: #008447 solid 1px;
+    border-radius: 1em;
+    padding: 8px;
+    margin: 4px;
+    width: fit-content;
+    background-color: var(--background-color);
+    color: var(--classroom-text-0);
 }
 
 
