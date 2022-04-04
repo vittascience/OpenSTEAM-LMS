@@ -736,7 +736,7 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
             $('#activity-input').wysibb(wbbOpt);
 
             let ContentString = manageDragAndDropText(content.dragAndDropFields.contentForStudent);
-            $('#drag-and-drop-text').html(`<div class="m-4 p-4">${ContentString}</div>`);
+            $('#drag-and-drop-text').html(`<div>${ContentString}</div>`);
 
             // Get the response array and shuffle it
             let choices = shuffleArray(JSON.parse(Activity.activity.solution));

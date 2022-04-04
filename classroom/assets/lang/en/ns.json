@@ -1135,7 +1135,7 @@
 		"correction": "Activity correction",
 		"tolerance1": "Add an error tolerance of",
 		"tolerance2": "character(s) on the entire student response.",
-		"hint": "Hint *: displayed if the answer is wrong",
+		"hint": "Hint <i>* displayed if the answer is wrong</i>",
 		"title": "Activity title <span class=\"c-text-red\">*</span>",
 		"description": "Activity description <span class=\"c-text-red\">*</span>",
 		"content": "Activity content <span class=\"c-text-red\">*</span>"

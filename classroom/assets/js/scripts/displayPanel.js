@@ -390,9 +390,14 @@ function formatDateInput(date) {
 
 function getTeacherActivity() {
     resetInputsForActivity();
+    
+    $('#activity-title').html(Activity.title);
 
-    $('#activity-title').html(Activity.title + `<button class="btn btn-link" onclick="attributeActivity(` + Activity.id + `)">
-    <i class="fas fa-arrow-down"></i> ` + capitalizeFirstLetter(i18next.t('words.attribute')) + `</button>`);
+    let activityDropdownElt = `
+    <button class="btn c-btn-primary mx-auto" onclick="attributeActivity(` + Activity.id + `)">
+        <i class="fas fa-arrow-down"></i>${" " + capitalizeFirstLetter(i18next.t('words.attribute'))}
+    </button>`
+    $('#activity-assign-section').html(activityDropdownElt);
 
     Activity.isAutocorrect ? $('#activity-auto-disclaimer').show() :  $('#activity-auto-disclaimer').hide();
 
@@ -417,11 +422,9 @@ function getTeacherActivity() {
 
             let data = JSON.parse(Activity.solution);
             for (let i = 1; i < data.length+1; i++) {
-                let ctx = ` <div class="input-group" id="teacher-suggestion-${i}">
-                                <label for="quiz-suggestion-${i}" id="show-quiz-label-suggestion-${i}">Proposition ${i}</label>
-                                <input type="text" id="show-quiz-suggestion-${i}" value="${data[i-1].inputVal}" readonly>
-                                <label for="quiz-checkbox-${i}" id="show-quiz-label-checkbox-${i}">Réponse correcte</label>
-                                <input type="checkbox" id="show-quiz-checkbox-${i}" ${data[i-1].isCorrect ? 'checked' : ''} onclick="return false;">
+                let ctx = `<div class="input-group c-checkbox quiz-answer-container">
+                                <input class="form-check-input" type="checkbox" id="show-quiz-checkbox-${i}" ${data[i-1].isCorrect ? 'checked' : ''} onclick="return false;">
+                                <label class="form-check-label" for="quiz-checkbox-${i}" id="show-quiz-label-checkbox-${i}">${data[i-1].inputVal}</label>
                             </div>`;
                 $('#activity-content-container').append(ctx); 
             }
