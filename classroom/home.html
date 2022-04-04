@@ -1375,7 +1375,7 @@
                 <button data-i18n="newActivities.addQuiz" class="btn c-btn-primary" onclick="addQuizSuggestion()">Ajouter une proposition</button>
             </div>
 
-                <!--                
+            <!--                
             <div class="c-checkbox">
                 <input type="checkbox" name="quiz-autocorrect" id="quiz-autocorrect">
                 <label for="quiz-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
@@ -1383,89 +1383,90 @@
             -->
 
         </div>
-    </div>
 
-    <!-- FillIn activity part -->
-    <div id="activity-fill-in" style="display:none;">
 
-        <div class="content m-3">
-            <label for="fill-in-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
-            <textarea id="fill-in-states"></textarea>
-        </div>
+        <!-- FillIn activity part -->
+        <div id="activity-fill-in" style="display:none;">
 
-        <div class="content m-3">
-            <label for="fill-in-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
-            <textarea id="fill-in-content"></textarea>
-        </div>
+            <div class="content m-3">
+                <label for="fill-in-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
+                <textarea id="fill-in-states"></textarea>
+            </div>
 
-        <button class="btn c-btn-outline-primary" id="fill-in-add-inputs">Add field</button>
-        <p>En cliquant sur le bouton ajouter un champs à compléter , un texte est ajouté avec deux caractères verticaux | réponse |. Vous pouvez écrire la réponse correcte entre ces deux caractères. Les réponses alternatives sont séparées par une double esperluette && </p>
-        <!-- <button class="btn c-btn-red" id="fill-in-remove-inputs">Remove field</button> -->
+            <div class="content m-3">
+                <label for="fill-in-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
+                <textarea id="fill-in-content"></textarea>
+            </div>
 
-        <div class="content m-3">
-            <p><span data-i18n="newActivities.tolerance1"></span> <input type="number" id="fill-in-tolerance"> <span data-i18n="newActivities.tolerance2"></span></p>
-        </div>
-        <!--             
+            <button class="btn c-btn-outline-primary" id="fill-in-add-inputs">Add field</button>
+            <p>En cliquant sur le bouton ajouter un champs à compléter , un texte est ajouté avec deux caractères verticaux | réponse |. Vous pouvez écrire la réponse correcte entre ces deux caractères. Les réponses alternatives sont séparées par une double esperluette && </p>
+            <!-- <button class="btn c-btn-red" id="fill-in-remove-inputs">Remove field</button> -->
+
+            <div class="content m-3">
+                <p><span data-i18n="newActivities.tolerance1"></span> <input type="number" id="fill-in-tolerance"> <span data-i18n="newActivities.tolerance2"></span></p>
+            </div>
+            <!--             
             <div class="c-checkbox">
                 <input type="checkbox" name="fill-in-autocorrect" id="fill-in-autocorrect">
                 <label for="fill-in-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
             </div> 
             -->
 
-        <div class="content m-3">
-            <label for="fill-in-hint" data-i18n="newActivities.hint">Indice</label>
-            <input type="text" id="fill-in-hint">
+            <div class="content m-3">
+                <label for="fill-in-hint" data-i18n="newActivities.hint">Indice</label>
+                <input type="text" id="fill-in-hint">
+            </div>
+
         </div>
 
-    </div>
+        <!-- DragAndDrop activity part -->
+        <div id="activity-drag-and-drop" style="display:none;">
 
-    <!-- DragAndDrop activity part -->
-    <div id="activity-drag-and-drop" style="display:none;">
+            <div class="content m-3">
+                <label for="drag-and-drop-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
+                <textarea id="drag-and-drop-states"></textarea>
+            </div>
 
-        <div class="content m-3">
-            <label for="drag-and-drop-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
-            <textarea id="drag-and-drop-states"></textarea>
-        </div>
+            <div class="content m-3">
+                <label for="drag-and-drop-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
+                <textarea id="drag-and-drop-content"></textarea>
+            </div>
 
-        <div class="content m-3">
-            <label for="drag-and-drop-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
-            <textarea id="drag-and-drop-content"></textarea>
-        </div>
+            <button class="btn c-btn-outline-primary" id="dragAndDrop-add-inputs">Add field</button>
+            <p>En cliquant sur le bouton ajouter un champs à compléter , un texte est ajouté avec deux caractères verticaux | réponse |. Vous pouvez écrire la réponse correcte entre ces deux caractères. Les réponses alternatives sont séparées par une double esperluette && </p>
 
-        <button class="btn c-btn-outline-primary" id="dragAndDrop-add-inputs">Add field</button>
-        <p>En cliquant sur le bouton ajouter un champs à compléter , un texte est ajouté avec deux caractères verticaux | réponse |. Vous pouvez écrire la réponse correcte entre ces deux caractères. Les réponses alternatives sont séparées par une double esperluette && </p>
-
-        <!-- 
+            <!-- 
             <div class="c-checkbox">
                 <input type="checkbox" name="drag-and-drop-autocorrect" id="drag-and-drop-autocorrect">
                 <label for="drag-and-drop-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
             </div> 
             -->
 
-        <div class="content m-3">
-            <label for="drag-and-drop-hint" data-i18n="newActivities.hint">Indice</label>
-            <input type="text" id="drag-and-drop-hint">
+            <div class="content m-3">
+                <label for="drag-and-drop-hint" data-i18n="newActivities.hint">Indice</label>
+                <input type="text" id="drag-and-drop-hint">
+            </div>
+
         </div>
 
-    </div>
 
+        <!-- Custom & probably Lti -->
+        <div id="activity-custom" style="display:none;">
+            <div id="lti-loader-container"></div>
+        </div>
 
-    <!-- Custom & probably Lti -->
-    <div id="activity-custom" style="display:none;">
-        <div id="lti-loader-container"></div>
-    </div>
-
-    <div class="container">
-        <div class="row text-center w-100">
-            <div class="col-sm mb-2">
-                <button class="btn c-btn-grey" onclick="contentBackward()">
-                    <i class="fas fa-chevron-left"></i> <span data-i18n="classroom.activities.form.back"></span>
-                </button>
-            </div>
-            <div class="col-sm order-first order-sm-last mb-2">
-                <button id="content-forward-button" class="btn c-btn-secondary" onclick="contentForward()">
-                    <span data-i18n="classroom.activities.form.buttonContinue"></span> <i class="fas fa-chevron-right"></i>
-                </button>
+        <div class="container">
+            <div class="row text-center w-100">
+                <div class="col-sm mb-2">
+                    <button class="btn c-btn-grey" onclick="contentBackward()">
+                        <i class="fas fa-chevron-left"></i> <span data-i18n="classroom.activities.form.back"></span>
+                    </button>
+                </div>
+                <div class="col-sm order-first order-sm-last mb-2">
+                    <button id="content-forward-button" class="btn c-btn-secondary" onclick="contentForward()">
+                        <span data-i18n="classroom.activities.form.buttonContinue"></span> <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
