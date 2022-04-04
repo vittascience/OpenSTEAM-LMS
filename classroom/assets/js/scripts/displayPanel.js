@@ -394,10 +394,32 @@ function getTeacherActivity() {
     $('#activity-title').html(Activity.title);
 
     let activityDropdownElt = `
-    <button class="btn c-btn-primary mx-auto" onclick="attributeActivity(` + Activity.id + `)">
-        <i class="fas fa-arrow-down"></i>${" " + capitalizeFirstLetter(i18next.t('words.attribute'))}
-    </button>`
-    $('#activity-assign-section').html(activityDropdownElt);
+    <div class="btn-group">
+        <button type="button" class="btn c-btn-primary" onclick="attributeActivity(` + Activity.id + `)">
+            <i class="fas fa-arrow-down"></i>${" " + capitalizeFirstLetter(i18next.t('words.attribute'))}    
+        </button>
+        <button type="button" class="btn c-btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
+        </button>
+        <ul class="dropdown-menu">
+            <li>
+                <a class="dropdown-item" href="#" onclick="createActivity(null,${Activity.id})">
+                    ${capitalizeFirstLetter(i18next.t('words.duplicate'))}
+                </a>
+            </li>
+                
+            <li>
+                <a class="dropdown-item" onclick="activityModify(${Activity.id})" href="#">
+                    ${capitalizeFirstLetter(i18next.t('words.modify'))}
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item modal-activity-delete" href="#">
+                    ${capitalizeFirstLetter(i18next.t('words.delete'))}
+                </a>
+            </li>
+        </ul>
+    </div>`
+    $('#activity-assign-section').html(activityDropdownElt).show();
 
     Activity.isAutocorrect ? $('#activity-auto-disclaimer').show() :  $('#activity-auto-disclaimer').hide();
 

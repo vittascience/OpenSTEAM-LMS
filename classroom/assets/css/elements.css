@@ -141,6 +141,9 @@
 .c-btn-light {
     font-weight: 700;
     border-radius: 256px;
+    transition: all 0.2s ease-in-out;
+    filter: brightness(1);
+
 }
 
 .c-btn-outline-primary:focus,
@@ -156,7 +159,9 @@
 .c-btn-outline-light:focus,
 .c-btn-light:focus {
     outline: 0;
-    box-shadow: 0 0 0 .2rem rgba(126, 126, 126, 0.25);
+    box-shadow: 0 0 0 .2rem rgba(126, 126, 126, 0.5);
+    filter: brightness(0.9);
+
 }
 
 .c-btn-outline-primary:hover,

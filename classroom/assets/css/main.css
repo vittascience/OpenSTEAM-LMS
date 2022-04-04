@@ -1585,6 +1585,7 @@ h3.section-done {
     padding: 8px;
     margin: 4px;
     width: fit-content;
+    display: inline-block;
 }
 
 .answer-student{
@@ -1673,6 +1674,11 @@ h3.section-done {
     height: 1.5em;
     margin: 5px 10px;
 }
+
+#activity-assign-section {
+    text-align: center;
+}
+
 
 #activity-details {
     text-align: center;
