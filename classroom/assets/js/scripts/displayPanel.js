@@ -390,9 +390,14 @@ function formatDateInput(date) {
 
 function getTeacherActivity() {
     resetInputsForActivity();
+    
+    $('#activity-title').html(Activity.title);
 
-    $('#activity-title').html(Activity.title + `<button class="btn btn-link" onclick="attributeActivity(` + Activity.id + `)">
-    <i class="fas fa-arrow-down"></i> ` + capitalizeFirstLetter(i18next.t('words.attribute')) + `</button>`);
+    let activityDropdownElt = `
+    <button class="btn c-btn-primary mx-auto" onclick="attributeActivity(` + Activity.id + `)">
+        <i class="fas fa-arrow-down"></i>${" " + capitalizeFirstLetter(i18next.t('words.attribute'))}
+    </button>`
+    $('#activity-assign-section').html(activityDropdownElt);
 
     Activity.isAutocorrect ? $('#activity-auto-disclaimer').show() :  $('#activity-auto-disclaimer').hide();
 
