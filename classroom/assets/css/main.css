@@ -1580,7 +1580,7 @@ h3.section-done {
 
 
 .lms-answer{
-    border: #008447 solid 1px;
+    border: var(--correction-3) solid 1px;
     border-radius: 1em;
     padding: 8px;
     margin: 4px;
@@ -1588,7 +1588,7 @@ h3.section-done {
 }
 
 .answer-student{
-    border: #008447 solid 1px;
+    border: var(--correction-3) solid 1px;
     border-radius: 1em;
     padding: 8px;
     margin: 4px;

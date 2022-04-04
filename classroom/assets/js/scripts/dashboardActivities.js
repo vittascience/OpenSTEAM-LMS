@@ -723,7 +723,7 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
     $('#activity-title').html(Activity.activity.title);
     // Show the content with the response to the teacher
     if (UserManager.getUser().isRegular) {
-        $('#activity-content').html(content.dragAndDropFields.contentForTeacher);
+        $('#activity-content').html(bbcodeToHtml(content.dragAndDropFields.contentForTeacher));
         $('#activity-content-container').show();
     }
 
@@ -788,7 +788,7 @@ function manageDragAndDropText(studentContentString) {
     let studentResponses = JSON.parse(Activity.activity.solution);
     for (let i = 0; i < studentResponses.length; i++) {
         let input = `<span class="dropable-items dropzone" id="dz-${i}"></span>`;
-        studentContentString = studentContentString.replace(/\|(.*?)\|/, input);
+        studentContentString = studentContentString.replace(`﻿`, input);
     }
     return studentContentString;
 }

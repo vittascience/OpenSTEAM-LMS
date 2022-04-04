@@ -3607,7 +3607,7 @@ function fillInValidateActivity(correction = 1) {
                         $(`#student-fill-in-field-${i}`).css("border","2px solid green");
                     }
                 }
-                
+
             } else {
                 validateDefaultResponseManagement(response);
             }
@@ -3728,7 +3728,7 @@ function parseDragAndDropFieldsAndSaveThem() {
     
     Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForTeacher = $('#drag-and-drop-content').bbcode();
     
-    let response = $('#drag-and-drop-content').match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1"));
+    let response = $('#drag-and-drop-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1"));
     let contentForStudent = $('#drag-and-drop-content').bbcode();
     response.forEach((e, i) => {
         contentForStudent = contentForStudent.replace(`[answer]${e}[/answer]`, `﻿`);
