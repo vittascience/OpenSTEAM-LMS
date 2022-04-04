@@ -187,7 +187,7 @@ function classeList(classe, ref = null) {
     if (fullClassHasAttribution(classe, ref) == true) {
         checkedClass = "checked"
     }
-    let html = `<div class="col-10"><label><input type="checkbox" value="${classe.classroom.id}"${checkedClass} class ="list-students-classroom">${classe.classroom.name}</label>`
+    let html = `<div class="col-10"><label><input type="checkbox" value="${classe.classroom.id}"${checkedClass} class ="list-students-classroom"> ${classe.classroom.name}</label>`
     html += `<button class="student-list-button" data-id="${classe.classroom.id}"><i class="fas fa-chevron-right"></i></button>`
     html += `<div class="student-list" id="student-list-${classe.classroom.id}" style="display:none;">
     `
@@ -423,10 +423,10 @@ function loadActivityForStudents(isDoable) {
         $('#text-introduction').html(bbcodeToHtml(Activity.introduction))
         $('#activity-introduction').show()
     }
-
+    
     // Check if the correction if available
     if (Activity.correction >= 1) {
-        $('#activity-details').html(i18next.t("classroom.activities.sentOn") + formatHour(Activity.dateSend))
+        $('#activity-details').html(i18next.t("classroom.activities.sentOn") + formatHour(Activity.dateSend), i18next.t("classroom.activities.numberOfTries") + Activity.tries)
     } else {
         $('#activity-details').html(i18next.t("classroom.activities.toSend") + formatDay(Activity.dateEnd))
     }
@@ -479,7 +479,7 @@ function loadActivityForTeacher() {
 
     if (Activity.correction >= 1) {
         $('#activity-details').html(i18next.t("classroom.activities.activityOfUser") + Activity.user.pseudo + i18next.t("classroom.activities.userSentOn") + formatHour(Activity.dateSend))
-        document.querySelector('#activity-details').innerHTML += `<br><img class="chrono-icon" src="${_PATH}assets/media/icon_time_spent.svg">${i18next.t('classroom.activities.timePassed')} ${formatDuration(Activity.timePassed)}`;
+        document.querySelector('#activity-details').innerHTML += `<br><img class="chrono-icon" src="${_PATH}assets/media/icon_time_spent.svg">${i18next.t('classroom.activities.timePassed')} ${formatDuration(Activity.timePassed)}, ${i18next.t("classroom.activities.numberOfTries")} : ${Activity.tries}`;
     } else {
         $('#activity-details').html(i18next.t("classroom.activities.noSend"))
     }
@@ -557,7 +557,7 @@ function injectContentForActivity(content, correction, type = null, correction_d
 }
 
 let wbbOpt = {
-    buttons: ",bold,italic,underline,|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe",
+    buttons: ",bold,italic,underline|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe,answer",
 }
 
 function manageDisplayCustomAndReading(correction, content, correction_div) {
@@ -671,28 +671,34 @@ function manageDisplayFillIn(correction, content, correction_div) {
     $('#activity-title').html(Activity.activity.title);
     // Show the content with the response to the teacher
     if (UserManager.getUser().isRegular) {
-        $('#activity-content').html(content.fillInFields.contentForTeacher);
+        $('#activity-content').html(bbcodeToHtml(content.fillInFields.contentForTeacher));
         $('#activity-content-container').show();
     }
 
     $('#activity-states').html(bbcodeToHtml(content.states));
     $('#activity-states-container').show();
     
-    if (correction == 0 || correction == null) {
+    if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
-            $('#activity-input').wysibb(wbbOpt);
-            $('#activity-input').htmlcode(content.fillInFields.contentForStudent);
-            $('#activity-input-container').show();
+            let studentContent = bbcodeToHtml(content.fillInFields.contentForStudent)
+            let nbOccu = studentContent.match(/﻿/g).length;
+
+            for (let i = 1; i < nbOccu+1; i++) {
+                studentContent = studentContent.replace(`﻿`, `<input type="text" id="student-fill-in-field-${i}" class="answer-student">`);
+            }
+
+            $('#activity-content').html(studentContent);
+            $('#activity-content-container').show();
+
         }
-    } else if (correction >  0) {
+    } else if (correction > 1) {
         
         let studentContentString = content.fillInFields.contentForStudent,
             studentResponses = JSON.parse(Activity.response);
 
-        console.log(studentResponses);
 
-        studentResponses.forEach(response => {
-            studentContentString = studentContentString.replace(/\|(.*?)\|/, response);
+        studentResponses.forEach((response, i) => {
+            studentContentString = studentContentString.replace('﻿', `<input type="text" id="student-fill-in-field-${i}" readonly class="answer-student" value="${response}">`);
         });
 
         $('#activity-student-response-content').html(studentContentString);
@@ -714,8 +720,9 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
 
     $('#activity-states').html(bbcodeToHtml(content.states));
     $('#activity-states-container').show();
+    let studentResponses = JSON.parse(Activity.response);
     
-    if (correction == 0 || correction == null) {
+    if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
             $('#activity-input').wysibb(wbbOpt);
 
@@ -742,10 +749,10 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
             });
             
         }
-    } else if (correction >  0) {
+    } else if (correction >  1) {
         
         let studentContentString = content.dragAndDropFields.contentForStudent;
-        let studentResponses = JSON.parse(Activity.response);
+        
 
         for (let i = 0; i < studentResponses.length; i++) {
             studentContentString = studentContentString.replace(/\|(.*?)\|/, studentResponses[i].string);
@@ -841,11 +848,7 @@ function isTheActivityIsDoable(doable, hideValidationButton = false) {
         }
 
         if (!Activity.activity.isLti) { 
-            if (Activity.evaluation) {
-                $('#warning-text-evaluation').show();
-            } else {
-                $("warning-text-no-evaluation").show();
-            }
+            Activity.evaluation ? $('#warning-text-evaluation').show() : $("warning-text-no-evaluation").show();
             $('#activity-validate').show();
             if (Activity.activity.type != 'reading') {
                 $('#activity-save').show();

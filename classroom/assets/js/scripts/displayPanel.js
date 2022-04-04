@@ -469,7 +469,7 @@ function getIntelFromClasses() {
 
     } else {
         let correctionCount = 0
-        classes.forEach(element => {
+        classes.forEach((element, e) => {
             element.students.forEach(e => {
                 e.activities.forEach(a => {
                     if (a.correction == 1) {
@@ -477,7 +477,11 @@ function getIntelFromClasses() {
                     }
                 })
             })
-            $('#list-classes').append('<div><input class="mx-5" type="radio" name="classroom" id="' + element.classroom.link + '" value="' + element.classroom.link + '"><label for="' + element.classroom.link + '">' + element.classroom.name + '</label></div>')
+            // Auto select the first class
+            if (e == 0) {
+                ClassroomSettings.classroom = element.classroom.link;
+            }
+            $('#list-classes').append(`<div><input class="mx-5" ${e == 0 ? "checked" : ""} type="radio" name="classroom" id="${element.classroom.link}" value="${element.classroom.link}"><label for="${element.classroom.link}">${element.classroom.name}</label></div>`)
         });
         $('.no-classes').remove()
         $('#mode-student-check').show()
