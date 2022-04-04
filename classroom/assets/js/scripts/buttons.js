@@ -3598,6 +3598,16 @@ function fillInValidateActivity(correction = 1) {
                         $("#activity-hint").text(response.hint);
                     }
                 }
+
+                let lengthResponse = $(`input[id^="student-fill-in-field-"]`).length;
+                for (let i = 1; i < lengthResponse+1; i++) {
+                    if (response.badResponse.includes(i-1)) {
+                        $(`#student-fill-in-field-${i}`).css("border","2px solid red");
+                    } else {
+                        $(`#student-fill-in-field-${i}`).css("border","2px solid green");
+                    }
+                }
+                
             } else {
                 validateDefaultResponseManagement(response);
             }

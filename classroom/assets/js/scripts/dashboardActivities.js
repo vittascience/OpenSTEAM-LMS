@@ -479,7 +479,7 @@ function loadActivityForTeacher() {
 
     if (Activity.correction >= 1) {
         $('#activity-details').html(i18next.t("classroom.activities.activityOfUser") + Activity.user.pseudo + i18next.t("classroom.activities.userSentOn") + formatHour(Activity.dateSend))
-        document.querySelector('#activity-details').innerHTML += `<br><img class="chrono-icon" src="${_PATH}assets/media/icon_time_spent.svg">${i18next.t('classroom.activities.timePassed')} ${formatDuration(Activity.timePassed)}, ${i18next.t("classroom.activities.numberOfTries")} : ${Activity.tries}`;
+        document.querySelector('#activity-details').innerHTML += `<br><img class="chrono-icon" src="${_PATH}assets/media/icon_time_spent.svg">${i18next.t('classroom.activities.timePassed')} ${formatDuration(Activity.timePassed)}, ${i18next.t("classroom.activities.numberOfTries")} ${Activity.tries}`;
     } else {
         $('#activity-details').html(i18next.t("classroom.activities.noSend"))
     }
@@ -686,8 +686,17 @@ function manageDisplayFillIn(correction, content, correction_div) {
             for (let i = 1; i < nbOccu+1; i++) {
                 studentContent = studentContent.replace(`﻿`, `<input type="text" id="student-fill-in-field-${i}" class="answer-student">`);
             }
-
             $('#activity-content').html(studentContent);
+
+            if (Activity.response != null && Activity.response != "") {
+                let response = JSON.parse(Activity.response);
+                for (let i = 0; i < response.length; i++) {
+                    let input = document.getElementById(`student-fill-in-field-${i+1}`);
+                    if (response[i] != "" && response[i] != null) {
+                        input.value = response[i];
+                    }
+                }
+            }
             $('#activity-content-container').show();
 
         }
