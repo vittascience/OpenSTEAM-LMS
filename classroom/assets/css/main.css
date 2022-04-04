@@ -1530,14 +1530,11 @@ h3.section-done {
     border-radius: 10px;
 }
 
-.draggable-items,
-.dropable-items {
+.draggable-items {
     border: 1px solid var(--classroom-text-0);
     border-radius: 256px;
-    padding: 6px 12px;
-}
+    padding: 0px 12px;
 
-.draggable-items {
     cursor: move;
     margin-bottom: 0;
     margin-top: 0;
@@ -1546,12 +1543,18 @@ h3.section-done {
 }
 
 .dropable-items {
+    border-radius: 256px;
+    margin: 0.5em;
+    min-width: none;
+}
+
+.dropable-items:empty {
+    border: 1px solid var(--classroom-text-0);
+    min-width: 5em;
+    min-height: 1.8em;
     width: auto;
     height: auto;
-    min-width: 110px;
-    min-height: 50px;
     display: inline-block;
-    margin: 2px;
 }
 
 .drag-and-drop-div {
