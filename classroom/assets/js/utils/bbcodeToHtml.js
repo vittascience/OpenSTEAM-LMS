@@ -67,7 +67,6 @@ function bbcodeToHtml(html) {
     html = html.replace(/\[\/size\]/gi, "</span>")
 
     // anwser 
-
 	html = html.replace(/\[answer\]/gi, "<span class='lms-answer'>");
 	html = html.replace(/\[\/answer\]/gi, "</span>");
 

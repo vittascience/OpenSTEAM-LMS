@@ -432,7 +432,9 @@ function getTeacherActivity() {
             } 
         } else if (Activity.type == 'fillIn') {
             $("#activity-states").html(bbcodeToHtml(contentParsed.states));
-            $("#activity-content").html(bbcodeToHtml(contentParsed.fillInFields.contentForTeacher));
+            let contentForTeacher = content.fillInFields.contentForTeacher;
+            contentForTeacher = parseContent(contentForTeacher, "fill-in-answer-teacher");
+            $('#activity-content').html(bbcodeToHtml(contentForTeacher));
             $("#activity-content-container").show();
             $("#activity-states-container").show();
 
@@ -451,14 +453,15 @@ function getTeacherActivity() {
                             </div>`;
             }
             $('#activity-content-container').html(htmlToPush); 
-            
+
             $("#activity-content-container").show();
             $("#activity-states-container").show();
         } else if (Activity.type == 'dragAndDrop') {
 
-            //console.log(contentParsed);
             $("#activity-states").html(bbcodeToHtml(contentParsed.states));
-            $("#activity-content").html(bbcodeToHtml(contentParsed.dragAndDropFields.contentForTeacher));
+            let contentForTeacher = contentParsed.dragAndDropFields.contentForTeacher;
+            contentForTeacher = parseContent(contentForTeacher, "drag-and-drop-answer-teacher");
+            $("#activity-content").html(bbcodeToHtml(contentForTeacher));
             $("#activity-content-container").show();
             $("#activity-states-container").show();
 

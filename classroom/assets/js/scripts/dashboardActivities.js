@@ -671,7 +671,9 @@ function manageDisplayFillIn(correction, content, correction_div) {
     $('#activity-title').html(Activity.activity.title);
     // Show the content with the response to the teacher
     if (UserManager.getUser().isRegular) {
-        $('#activity-content').html(bbcodeToHtml(content.fillInFields.contentForTeacher));
+        let contentForTeacher = content.fillInFields.contentForTeacher;
+        contentForTeacher = parseContent(contentForTeacher, "fill-in-answer-teacher");
+        $('#activity-content').html(bbcodeToHtml(contentForTeacher));
         $('#activity-content-container').show();
     }
 
@@ -723,7 +725,10 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
     $('#activity-title').html(Activity.activity.title);
     // Show the content with the response to the teacher
     if (UserManager.getUser().isRegular) {
-        $('#activity-content').html(bbcodeToHtml(content.dragAndDropFields.contentForTeacher));
+
+        let contentForTeacher = content.dragAndDropFields.contentForTeacher;
+        contentForTeacher = parseContent(contentForTeacher, "drag-and-drop-answer-teacher");
+        $('#activity-content').html(bbcodeToHtml(contentForTeacher));
         $('#activity-content-container').show();
     }
 
