@@ -204,7 +204,7 @@ function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = fa
         history: id,
         navbar: idNav
     });
-    if ($_GET('panel') == 'classroom-dashboard-activity-panel') {
+    if ($_GET('panel') == 'classroom-dashboard-activity-panel' && document.querySelector('#activity-content') != null) {
         document.querySelector('#activity-content').innerHTML = '';
     }
     let state = {};
