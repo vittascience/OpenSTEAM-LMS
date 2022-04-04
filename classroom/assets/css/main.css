@@ -1557,6 +1557,13 @@ h3.section-done {
 .drag-and-drop-div {
     border: 1px solid var(--classroom-text-0);
     border-radius: 1em;
+    padding: 1em;
+} 
+
+.drag-and-drop-div > div{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 #drag-and-drop-fields {
