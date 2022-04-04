@@ -282,6 +282,7 @@
 			"studentAnswer": "Réponse de l'apprenant",
 			"comments": "Entrez ici vos remarques",
 			"return": "Retour aux activités",
+			"numberOfTries": "Nombre d'essais : ",
 			"bilan": {
 				"title": "Bilan",
 				"results": "Résultats",

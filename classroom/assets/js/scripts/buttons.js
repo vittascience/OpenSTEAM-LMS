@@ -24,7 +24,7 @@ $(document).ready(function () {
 let ClassroomSettings = {
     willAutocorrect: false,
     lastPage: [],
-    isEvaluation: true,
+    isEvaluation: false,
     studentCount: 0,
     activity: false,
     activityInWriting: false,
@@ -3220,18 +3220,12 @@ $('#btn-help-for-groupAdmin').click(function () {
     })
 })
 
-// LMS Exercices DEBUG WiP
-
-function testDebug() {
-    navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-profil-teacher');
-}
-
 /**
  * Setup the rich text editor for the activities
  */
 function setTextArea() {
     let wbbOpt = {
-        buttons: ",bold,italic,underline,|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe",
+        buttons: ",bold,italic,underline|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe,answer",
     }
     // Free 
     $('#free-enonce').wysibb(wbbOpt);
@@ -3590,7 +3584,11 @@ function validateDefaultResponseManagement(response) {
 }
 
 function fillInValidateActivity(correction = 1) {
-    let studentResponse = $('#activity-input').bbcode().match(/\|(.*?)\|/gi).map(match => match.replace(/\|(.*?)\|/gi, "$1").trim());
+    let studentResponse = [];
+    for (let i = 1; i < $(`input[id^="student-fill-in-field-"]`).length+1; i++) {
+        let string = document.getElementById(`student-fill-in-field-${i}`).value;
+        studentResponse.push(string);
+    }
     Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, JSON.stringify(studentResponse)).then((response) => {
         if (response) {
             if (response.hasOwnProperty("badResponse")) {
@@ -3674,7 +3672,7 @@ function goBackToActivities() {
 
 // Test de texte à trou avancé | a && b | et | c | et puis encore | d |
 $('#fill-in-add-inputs').click(() => {
-    $('#fill-in-content').htmlcode($('#fill-in-content').bbcode() + `| réponse |`);
+    $('#fill-in-content').htmlcode($('#fill-in-content').htmlcode() + `<span class="lms-answer">réponse</span> \&nbsp`);
 });
 
 
@@ -3683,10 +3681,10 @@ function parseFillInFieldsAndSaveThem() {
     
     Main.getClassroomManager()._createActivity.content.fillInFields.contentForTeacher = $('#fill-in-content').bbcode();
     
-    let response = $('#fill-in-content').bbcode().match(/\|(.*?)\|/gi).map(match => match.replace(/\|(.*?)\|/gi, "$1"));
+    let response = $('#fill-in-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1"));
     let contentForStudent = $('#fill-in-content').bbcode();
     response.forEach((e, i) => {
-        contentForStudent = contentForStudent.replace(`|${e}|`, `| ? |`);
+        contentForStudent = contentForStudent.replace(`[answer]${e}[/answer]`, `﻿`);
         if (e.includes('&&')) {
             response[i] = e.split('&&').map(e => e.trim()).join(',');
         }
@@ -3712,7 +3710,7 @@ function parseFillInFieldsAndSaveThem() {
 }
 
 $('#dragAndDrop-add-inputs').click(() => {
-    $('#drag-and-drop-content').htmlcode($('#drag-and-drop-content').bbcode() + `| réponse |`);
+    $('#drag-and-drop-content').htmlcode($('#drag-and-drop-content').htmlcode() + `<span class="lms-answer">réponse</span> \&nbsp`);
 });
 
 // Voici un exemple de test à trou pour un glisser | déposer |, je test simplement le parsing des | réponses |
@@ -3720,10 +3718,10 @@ function parseDragAndDropFieldsAndSaveThem() {
     
     Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForTeacher = $('#drag-and-drop-content').bbcode();
     
-    let response = $('#drag-and-drop-content').bbcode().match(/\|(.*?)\|/gi).map(match => match.replace(/\|(.*?)\|/gi, "$1"));
+    let response = $('#drag-and-drop-content').match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1"));
     let contentForStudent = $('#drag-and-drop-content').bbcode();
     response.forEach((e, i) => {
-        contentForStudent = contentForStudent.replace(`|${e}|`, `| ? |`);
+        contentForStudent = contentForStudent.replace(`[answer]${e}[/answer]`, `﻿`);
         if (e.includes('&&')) {
             response[i] = e.split('&&').map(e => e.trim()).join(',');
         }

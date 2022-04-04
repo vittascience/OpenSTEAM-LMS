@@ -1576,6 +1576,16 @@ h3.section-done {
 }
 
 
+.lms-answer, .answer-student{
+    border: #008447 solid 1px;
+    border-radius: 1em;
+    padding: 8px;
+    margin: 4px;
+    width: fit-content;
+}
+
+
+
 @media (max-width: 768px) {
     .dashboard-block>nav {
         width: 100%;

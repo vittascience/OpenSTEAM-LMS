@@ -28,6 +28,7 @@ let getLangInCookie = function () {
 if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) {
 	WBBLANG['fr'] = CURLANG = {
 		bold: "Gras",
+		answer: "Réponse",
 		italic: "Italique",
 		underline: "Souligné",
 		strike: "Barré",
@@ -122,6 +123,7 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 } else {
 	WBBLANG['en'] = CURLANG = {
 		bold: "Bold",
+		answer: "Answer",
 		italic: "Italic",
 		underline: "Underline",
 		strike: "Strike",
@@ -253,7 +255,7 @@ wbbdebug = false;
 			smileConversion: true,
 
 			//END img upload config
-			buttons: "bold,italic,underline,strike,sup,sub,|,img,video,peertube,vimeo,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,table,removeFormat",
+			buttons: "answer,bold,italic,underline,strike,sup,sub,|,img,video,peertube,vimeo,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,table,removeFormat",
 			allButtons: {
 				vittaiframe: {
 					title: CURLANG.vittaiframe,
@@ -309,6 +311,15 @@ wbbdebug = false;
 					},
 					transform: {
 						'<embed src="{URL}" width=100% height=500 type="application/pdf" />': '[embed]{URL}[/embed]'
+					}
+				},
+				answer: {
+					title: CURLANG.answer,
+					buttonHTML: '<i class="fa-solid fa-circle-question" style="height:27px;width:31px;font-size:20px;text-align:center;padding-top: 5px;"></i>',
+					excmd: 'answer',
+					hotkey: 'ctrl+p',
+					transform: {
+						'<span class="lms-answer">{SELTEXT}</span>': '[answer]{SELTEXT}[/answer]'
 					}
 				},
 				bold: {

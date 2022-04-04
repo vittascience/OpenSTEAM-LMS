@@ -282,6 +282,7 @@
 			"studentAnswer": "Learner's answer",
 			"comments": "Write your comments there",
 			"return": "Return to the activities",
+			"numberOfTries": "Number of tries : ",
 			"bilan": {
 				"title": "Bilan",
 				"results": "Results",
