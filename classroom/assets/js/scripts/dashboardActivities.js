@@ -687,6 +687,7 @@ function manageDisplayFillIn(correction, content, correction_div) {
             }
             $('#activity-content').html(studentContent);
 
+            // Place the student's response if there is one
             if (Activity.response != null && Activity.response != "") {
                 let response = JSON.parse(Activity.response);
                 for (let i = 0; i < response.length; i++) {
@@ -759,7 +760,7 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
                 drake.containers.push(document.querySelector('#'+e.id));
             });
 
-            // Place the student's response
+            // Place the student's response if there is one
             if (Activity.response != null && Activity.response != "") {
                 let response = JSON.parse(Activity.response);
                 response.forEach((e, i) => {
