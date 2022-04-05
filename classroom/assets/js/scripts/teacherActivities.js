@@ -14,12 +14,9 @@ function createActivity(link = null, id = null) {
         ClassroomSettings.activity = id
         Main.getClassroomManager().duplicateActivity(id).then(function (response) {
             if (response.success == true) {
-                displayNotification('#notif-div', "classroom.notif.activityDeleted", "success");
+                displayNotification('#notif-div', "classroom.notif.activityDuplicated", "success", `'{"activityName": "${activityTitle}"}'`);
                 teacherActivitiesDisplay();
                 DisplayActivities();
-            } else {
-                displayNotification('#notif-div', "classroom.notif.activityDeleted", "error");
-                console.log("error")
             }
         })
     }

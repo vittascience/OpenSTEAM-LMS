@@ -261,7 +261,12 @@
                 <h3 id="activity-title"></h3>
                 <div id="activity-auto-disclaimer" style="display:none;">
                     <img src="assets/media/auto-icon.svg" title="Auto">
-                    <span>Cette activité sera corrigée automatiquement.</span>
+                    <span data-i18n="classroom.activities.isAutocorrect"></span>
+                </div>
+
+                <div id="activity-auto-corrected-disclaimer" style="display:none;">
+                    <img src="assets/media/auto-icon.svg" title="Auto">
+                    <span data-i18n="classroom.activities.isAutocorrected"></span>
                 </div>
                 <div id="activity-assign-section" style="display:none;"></div>
                 <!-- Used for status / date  -->
@@ -273,26 +278,26 @@
 
                 <!-- Used for states -->
                 <div id="activity-states-container" style="display: none;">
-                    <label for="activity-states" class="vitta-modal-title mt-2">Énoncé de l'activité</label>
+                    <label for="activity-states" class="vitta-modal-title mt-2" data-i18n="classroom.activities.states">Énoncé de l'activité</label>
                     <p id="activity-states"></p>
                 </div>
 
 
                 <!-- Used for content -->
                 <div id="activity-content-container" style="display: none;">
-                    <label for="activity-content" class="vitta-modal-title mt-2">Contenu de l'activité</label>
+                    <label for="activity-content" class="vitta-modal-title mt-2" data-i18n="classroom.activities.content">Contenu de l'activité</label>
                     <p id="activity-content"></p>    
                 </div>
                 
 
                 <!-- @Update Rémi -->
                 <div id="activity-student-response" style="display:none;">
-                    <label id="label-activity-student-response" for="activity-student-response-content" class="vitta-modal-title mt-2">Réponse de l'élève</label>
+                    <label id="label-activity-student-response" for="activity-student-response-content" class="vitta-modal-title mt-2" data-i18n="classroom.activities.studentAnswer">Réponse de l'élève</label>
                     <p id="activity-student-response-content"> </p>
                 </div>
 
                 <div id="activity-input-container" style="display:none;">
-                    <label for="activity-input" class="vitta-modal-title mt-2">Entrez votre réponse</label>
+                    <label for="activity-input" class="vitta-modal-title mt-2" data-i18n="classroom.activities.putYourAnswer">Entrez votre réponse</label>
                     <textarea id="activity-input"></textarea>
                 </div>
 
@@ -308,7 +313,7 @@
                 </div>
 
                 <div id="activity-hint-container" style="display:none;">
-                    <label for="activity-hint" class="vitta-modal-title mt-2">Indice</label>
+                    <label for="activity-hint" class="vitta-modal-title mt-2" data-i18n="classroom.activities.hint">Indice</label>
                     <p id="activity-hint"></p>
                 </div>
 
