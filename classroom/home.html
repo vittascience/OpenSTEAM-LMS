@@ -316,9 +316,12 @@
                 <p id="warning-text-evaluation" style="display:none;" data-i18n="classroom.activities.validateWarning"></p>
                 <p id="warning-text-no-evaluation" style="display:none;" data-i18n="classroom.activities.validateNoEval"></p>
 
-                <button class="btn c-btn-primary" id="activity-validate" data-i18n="classroom.activities.validate" onclick="validateActivity(2)"> <i class="fas fa-chevron-right"></i></button>
-                <button class="btn c-btn-primary" id="activity-save" style="display:none;" onclick="validateActivity(1)" data-i18n="classroom.activities.save-draft"><i class="fas fa-chevron-right"></i></button>
-                <div class="btn" id="activity-instruction" style="display:none"><span data-i18n="classroom.activities.instruction"></span> <i class="fas fa-pen"></i></div>
+                <!-- flex centered spaced around buttons  -->
+                <div class="d-flex justify-content-center">
+                    <button class="btn c-btn-primary" id="activity-validate" data-i18n="classroom.activities.validate" onclick="validateActivity(2)"> <i class="fas fa-chevron-right"></i></button>
+                    <button class="btn c-btn-grey" id="activity-save" style="display:none;" onclick="validateActivity(1)" data-i18n="classroom.activities.save-draft"><i class="fas fa-chevron-right"></i></button>
+                    <div class="btn" id="activity-instruction" style="display:none"><span data-i18n="classroom.activities.instruction"></span> <i class="fas fa-pen"></i></div>
+                </div>
             </div>
             <div id="activity-correction-container" class="col-12 col-lg-4" style="display:none">
                 <div id="activity-correction"></div>
