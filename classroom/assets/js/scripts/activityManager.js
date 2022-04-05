@@ -233,30 +233,6 @@ function freeValidateActivity(correction = 1) {
     });
 }
 
-function quizValidateActivity(correction = 1) {
-
-    let studentResponse = [];
-    for (let i = 1; i < $(`input[id^="student-quiz-checkbox-"]`).length+1; i++) {
-        let res = {
-            inputVal: $(`#student-quiz-suggestion-${i}`).val(),
-            isCorrect: $(`#student-quiz-checkbox-${i}`).is(':checked')
-        }
-        studentResponse.push(res);
-    }
-    
-    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, JSON.stringify(studentResponse)).then((response) => {
-        if (response) {
-            if (response.hasOwnProperty("badResponse")) {
-                saveActivitiesResponseManager('quiz');
-            } else {
-                validateDefaultResponseManagement(response);
-            }
-        } else {
-            displayNotification('#notif-div', "classroom.notif.errorSending", "error");
-        }
-    });
-}
-
 function validateDefaultResponseManagement(response) {
     $("#activity-validate").attr("disabled", false);
     if (response.note != null && response.correction > 1) {
@@ -270,6 +246,22 @@ function validateDefaultResponseManagement(response) {
     }
 }
 
+function quizValidateActivity(correction = 1) {
+
+    let studentResponse = [];
+    for (let i = 1; i < $(`input[id^="student-quiz-checkbox-"]`).length+1; i++) {
+        let res = {
+            inputVal: $(`#student-quiz-suggestion-${i}`).val(),
+            isCorrect: $(`#student-quiz-checkbox-${i}`).is(':checked')
+        }
+        studentResponse.push(res);
+    }
+    
+    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, JSON.stringify(studentResponse)).then((response) => {
+        responseManager(response, 'quiz');
+    });
+}
+
 function fillInValidateActivity(correction = 1) {
     let studentResponse = [];
     for (let i = 1; i < $(`input[id^="student-fill-in-field-"]`).length+1; i++) {
@@ -277,15 +269,7 @@ function fillInValidateActivity(correction = 1) {
         studentResponse.push(string);
     }
     Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, JSON.stringify(studentResponse)).then((response) => {
-        if (response) {
-            if (response.hasOwnProperty("badResponse")) {
-                saveActivitiesResponseManager('fill-in');
-            } else {
-                validateDefaultResponseManagement(response);
-            }
-        } else {
-            displayNotification('#notif-div', "classroom.notif.errorSending", "error");
-        }
+        responseManager(response, 'fill-in');
     });
 }
 
@@ -299,20 +283,24 @@ function dragAndDropValidateActivity(correction = 1) {
         });
     }
     Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, JSON.stringify(studentResponse)).then((response) => {
-        if (response) {
-            if (response.hasOwnProperty("message")) {
-                if (response.message == "activitySaved") {
-                    displayNotification('#notif-div', "classroom.activities.saved", "success");
-                }
-            } else if (response.hasOwnProperty("badResponse")) {
-                saveActivitiesResponseManager('drag-and-drop');
-            } else {
-                validateDefaultResponseManagement(response);
-            }
-        } else {
-            displayNotification('#notif-div', "classroom.notif.errorSending", "error");
-        }
+        responseManager(response, 'drag-and-drop');
     });
+}
+
+function responseManager(response = null, type = null) {
+    if (response) {
+        if (response.hasOwnProperty("message")) {
+            if (response.message == "activitySaved") {
+                displayNotification('#notif-div', "classroom.activities.saved", "success");
+            }
+        } else if (response.hasOwnProperty("badResponse")) {
+            saveActivitiesResponseManager(type);
+        } else {
+            validateDefaultResponseManagement(response);
+        }
+    } else {
+        displayNotification('#notif-div', "classroom.notif.errorSending", "error");
+    }
 }
 
 function saveActivitiesResponseManager(activityType = null) {
