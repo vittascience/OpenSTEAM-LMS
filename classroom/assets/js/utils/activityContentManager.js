@@ -32,6 +32,11 @@ function deleteQcmFields() {
 
 // Set all the inputs we need to reset
 function resetInputsForActivity() {
+
+    // Autocorrect note disclaimer
+    $("#activity-auto-corrected-disclaimer").hide();
+    $("#activity-auto-disclaimer").hide();
+
     // Hide all the divs
     $('#activity-introduction').hide();
     $('#activity-correction-container').hide();

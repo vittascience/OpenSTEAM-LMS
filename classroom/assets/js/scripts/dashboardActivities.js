@@ -480,6 +480,11 @@ function loadActivityForTeacher() {
     if (Activity.correction >= 1) {
         $('#activity-details').html(i18next.t("classroom.activities.activityOfUser") + Activity.user.pseudo + i18next.t("classroom.activities.userSentOn") + formatHour(Activity.dateSend))
         document.querySelector('#activity-details').innerHTML += `<br><img class="chrono-icon" src="${_PATH}assets/media/icon_time_spent.svg">${i18next.t('classroom.activities.timePassed')} ${formatDuration(Activity.timePassed)}, ${i18next.t("classroom.activities.numberOfTries")} ${Activity.tries}`;
+        
+        console.log(Activity.autocorrection)
+        if (Activity.autocorrection) {
+            $("#activity-auto-corrected-disclaimer").show();
+        }
     } else {
         $('#activity-details').html(i18next.t("classroom.activities.noSend"))
     }
@@ -753,6 +758,14 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
             $('.dropzone').each((i, e) => {
                 drake.containers.push(document.querySelector('#'+e.id));
             });
+
+            // Place the student's response
+            if (Activity.response != null && Activity.response != "") {
+                let response = JSON.parse(Activity.response);
+                response.forEach((e, i) => {
+                    $(`#dz-${i}`).html($(`#${e.string.toLowerCase()}`)[0]);
+                })
+            }
             
         }
     } else if (correction >  1) {
