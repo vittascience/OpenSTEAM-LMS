@@ -12,6 +12,7 @@ function createActivity(link = null, id = null) {
         ClassroomSettings.activityInWriting = true
     } else {
         ClassroomSettings.activity = id
+        let activityTitle = getActivity(ClassroomSettings.activity).title;
         Main.getClassroomManager().duplicateActivity(id).then(function (response) {
             if (response.success == true) {
                 displayNotification('#notif-div', "classroom.notif.activityDuplicated", "success", `'{"activityName": "${activityTitle}"}'`);
