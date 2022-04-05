@@ -310,8 +310,8 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) 
             navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher');
             return;
         }
-        let attribution = getAttributionByRef(ref)
-        let retroAttributionIsActive = ClassroomSettings.isRetroAttributed === true ? true : false
+        let attribution = getAttributionByRef(ref);
+        let retroAttributionIsActive = ClassroomSettings.isRetroAttributed === true ? true : false;
         $('#retro-attribution-activity-form').prop('checked',retroAttributionIsActive)
         $('#introduction-activity-form').val(attribution.introduction)
         $('#date-begin-activity-form').val(formatDateInput(new Date(attribution.dateBegin.date)))
@@ -384,7 +384,6 @@ function addZero(number, lenght) {
 }
 
 function formatDateInput(date) {
-
     return date.getFullYear() + "-" + addZero((Number(date.getMonth()) + 1), 2) + "-" + addZero(date.getDate(), 2)
 }
 
@@ -447,12 +446,12 @@ function getTeacherActivity() {
             let data = JSON.parse(Activity.solution);
             let htmlToPush = '';
             for (let i = 1; i < data.length+1; i++) {
-                htmlToPush += `<div class="input-group c-checkbox quiz-answer-container">
+                htmlToPush += `<div class="input-group c-checkbox quiz-answer-container" id="qcm-field-${i}">
                                 <input class="form-check-input" type="checkbox" id="show-quiz-checkbox-${i}" ${data[i-1].isCorrect ? 'checked' : ''} onclick="return false;">
                                 <label class="form-check-label" for="quiz-checkbox-${i}" id="show-quiz-label-checkbox-${i}">${data[i-1].inputVal}</label>
                             </div>`;
             }
-            $('#activity-content-container').html(htmlToPush); 
+            $('#activity-content-container').append(htmlToPush);
 
             $("#activity-content-container").show();
             $("#activity-states-container").show();
