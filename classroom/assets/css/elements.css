@@ -209,6 +209,8 @@
 .c-tertiary-form input[type="number"],
 .c-tertiary-form input[type="date"] {
     border: 2px solid var(--classroom-text-1);
+    background-color: var(--classroom-background);
+    color: var(--classroom-text-1);
     border-radius: 0.5em;
     /*
     margin: 0.5em;
@@ -246,6 +248,8 @@
 .c-tertiary-form input[type="date"]:focus {
     outline: 0;
     box-shadow: 0 0 0 .2rem rgba(126, 126, 126, 0.25);
+    color: var(--classroom-text-1);
+    background-color: var(--classroom-background);
 }
 
 
@@ -291,7 +295,8 @@
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
-    background-color: var(--classroom-white);
+    color: var(--classroom-text-1);
+    
     background-image: url('../media/theme/dropdown_icon.svg');
     background-repeat: no-repeat, repeat;
     background-position: right .7em top 50%, 0 0;
@@ -299,12 +304,20 @@
     padding-right: 2em;
 }
 
+.c-primary-form select:disabled,
+.c-secondary-form select:disabled,
+.c-tertiary-form select:disabled {
+    background-color: var(--classroom-background);
+    opacity: .65;
+}
+
 .c-primary-form .input-group-text,
 .c-secondary-form .input-group-text,
 .c-tertiary-form .input-group-text {
     border-radius: 0.5em;
     align-self: center;
-    color: var(--classroom-white);
+    background-color: var(--classroom-background);
+    color: var(--classroom-text-1);
 }
 
 .c-primary-form .input-group-text {

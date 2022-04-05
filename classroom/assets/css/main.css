@@ -1548,6 +1548,7 @@ h3.section-done {
     color: var(--classroom-text-0);   
     cursor: pointer; 
     text-align: center;
+    user-select: none;
 }
 
 .dropable-items {
