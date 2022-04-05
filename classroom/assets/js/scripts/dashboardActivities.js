@@ -480,6 +480,11 @@ function loadActivityForTeacher() {
     if (Activity.correction >= 1) {
         $('#activity-details').html(i18next.t("classroom.activities.activityOfUser") + Activity.user.pseudo + i18next.t("classroom.activities.userSentOn") + formatHour(Activity.dateSend))
         document.querySelector('#activity-details').innerHTML += `<br><img class="chrono-icon" src="${_PATH}assets/media/icon_time_spent.svg">${i18next.t('classroom.activities.timePassed')} ${formatDuration(Activity.timePassed)}, ${i18next.t("classroom.activities.numberOfTries")} ${Activity.tries}`;
+        
+        console.log(Activity.autocorrection)
+        if (Activity.autocorrection) {
+            $("#activity-auto-corrected-disclaimer").show();
+        }
     } else {
         $('#activity-details').html(i18next.t("classroom.activities.noSend"))
     }
@@ -541,11 +546,9 @@ function injectContentForActivity(content, correction, type = null, correction_d
         case 'dragAndDrop':
             manageDisplayDragAndDrop(correction, content, correction_div);
             break;
-/*
-        Rémi : Probably not useful
         case 'custom':
             manageDisplayCustomAndReading(correction ,content, correction_div);
-            break; */
+            break;
         default:
             if (Activity.activity.isLti) {
                 manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt);
@@ -561,8 +564,6 @@ let wbbOpt = {
 }
 
 function manageDisplayCustomAndReading(correction, content, correction_div) {
-
-    //$('#activity-title').html(Activity.activity.title);
     $('#activity-content').html(bbcodeToHtml(content));
     $('#activity-content-container').show();
     if (correction == 0) {
@@ -575,8 +576,6 @@ function manageDisplayCustomAndReading(correction, content, correction_div) {
 }
 
 function manageDisplayFree(correction, content, correction_div) {
-
-    //$('#activity-title').html(Activity.activity.title);
     $('#activity-content').html(bbcodeToHtml(content));
     $('#activity-content-container').show();
     if (correction == 0 || correction == null) {
@@ -593,7 +592,6 @@ function manageDisplayFree(correction, content, correction_div) {
 
 function manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt) {
     document.querySelector('#activity-content-container').style.display = 'block';
-    //document.querySelector('#activity-title').innerHTML = Activity.activity.title;
     if (isDoable) {
         activityValidationButtonElt.style.display = 'none';
         launchLtiResource(Activity.id, Activity.activity.type, content, true);
@@ -613,7 +611,6 @@ function manageDisplayLti(correction, content, correction_div, isDoable, activit
 }
 
 function manageDisplayOldActivities(correction, content, correction_div, isDoable) {
-    //document.querySelector('#activity-title').innerHTML = Activity.activity.title;
     document.querySelector('#activity-content').innerHTML = bbcodeToHtml(content);
     document.querySelector('#activity-content-container').style.display = 'block';
     if (!isDoable) {
@@ -690,6 +687,7 @@ function manageDisplayFillIn(correction, content, correction_div) {
             }
             $('#activity-content').html(studentContent);
 
+            // Place the student's response if there is one
             if (Activity.response != null && Activity.response != "") {
                 let response = JSON.parse(Activity.response);
                 for (let i = 0; i < response.length; i++) {
@@ -761,6 +759,14 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
             $('.dropzone').each((i, e) => {
                 drake.containers.push(document.querySelector('#'+e.id));
             });
+
+            // Place the student's response if there is one
+            if (Activity.response != null && Activity.response != "") {
+                let response = JSON.parse(Activity.response);
+                response.forEach((e, i) => {
+                    $(`#dz-${i}`).html($(`#${e.string.toLowerCase()}`)[0]);
+                })
+            }
             
         }
     } else if (correction >  1) {
@@ -780,7 +786,6 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
     
 }
 
-
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -798,7 +803,6 @@ function manageDragAndDropText(studentContentString) {
     return studentContentString;
 }
 
-
 function manageCorrectionDiv(correction_div, correction) {
     if (UserManager.getUser().isRegular) {
         $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
@@ -809,40 +813,6 @@ function manageCorrectionDiv(correction_div, correction) {
         $('#activity-correction').html(correction_div);
         $('#activity-correction-container').show(); 
     }
-}
-
-
-// Set all the inputs we need to reset
-function resetInputsForActivity() {
-    // Hide all the divs
-    $('#activity-introduction').hide();
-    $('#activity-correction-container').hide();
-    
-    // Field for free activity
-    $('#activity-input-container').hide();
-    $('#activity-student-response').hide();
-    $('#activity-student-response-content').text('');
-    
-    // Fields
-    $('#activity-states').html("");
-    $('#activity-title').html("");
-    $('#activity-details').html('');
-    $('#activity-content').html("");
-    $('#activity-correction').html("");
-
-    $("#activity-hint").text('');
-    $("#activity-hint-container").hide();
-
-    $('#activity-drag-and-drop-container').hide();
-    $('#drag-and-drop-fields').html('');
-    $('#drag-and-drop-text').html('');
-
-    $('#warning-text-evaluation').hide();
-    $("warning-text-no-evaluation").hide();
-    // Quiz reset input
-    $(`div[id^="teacher-suggestion-"]`).each(function() {
-        $(this).remove();
-    })
 }
 
 function isTheActivityIsDoable(doable, hideValidationButton = false) {
@@ -870,7 +840,6 @@ function isTheActivityIsDoable(doable, hideValidationButton = false) {
         }
     }
 }
-
 
 function manageContentForActivity() {
     let content = "";
