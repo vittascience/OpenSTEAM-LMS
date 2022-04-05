@@ -290,6 +290,7 @@
 			"content": "Activity content",
 			"putYourAnswer": "Put your answer here",
 			"hint": "Hint",
+			"saved": "Activity saved",
 			"bilan": {
 				"title": "Bilan",
 				"results": "Results",

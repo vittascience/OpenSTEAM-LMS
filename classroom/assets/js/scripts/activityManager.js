@@ -247,22 +247,7 @@ function quizValidateActivity(correction = 1) {
     Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, JSON.stringify(studentResponse)).then((response) => {
         if (response) {
             if (response.hasOwnProperty("badResponse")) {
-
-                for (let i = 1; i < $(`input[id^="student-quiz-suggestion-"]`).length+1; i++) {
-                    $('#student-quiz-suggestion-' + i).css("border","2px solid black");
-                }
-
-                for (let i = 0; i < response.badResponse.length; i++) {
-                    $('#student-quiz-suggestion-' + (response.badResponse[i]+1)).css("border","2px solid red");
-                }
-
-                if (response.hasOwnProperty("hint")) {
-                    if (response.hint != null && response.hint != "") {
-                        $("#activity-hint-container").show();
-                        $("#activity-hint").text(response.hint);
-                    }
-                }
-
+                saveActivitiesResponseManager('quiz');
             } else {
                 validateDefaultResponseManagement(response);
             }
@@ -294,22 +279,7 @@ function fillInValidateActivity(correction = 1) {
     Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, JSON.stringify(studentResponse)).then((response) => {
         if (response) {
             if (response.hasOwnProperty("badResponse")) {
-                if (response.hasOwnProperty("hint")) {
-                    if (response.hint != null && response.hint != "") {
-                        $("#activity-hint-container").show();
-                        $("#activity-hint").text(response.hint);
-                    }
-                }
-
-                let lengthResponse = $(`input[id^="student-fill-in-field-"]`).length;
-                for (let i = 1; i < lengthResponse+1; i++) {
-                    if (response.badResponse.includes(i-1)) {
-                        $(`#student-fill-in-field-${i}`).css("border","2px solid red");
-                    } else {
-                        $(`#student-fill-in-field-${i}`).css("border","2px solid green");
-                    }
-                }
-
+                saveActivitiesResponseManager('fill-in');
             } else {
                 validateDefaultResponseManagement(response);
             }
@@ -330,24 +300,12 @@ function dragAndDropValidateActivity(correction = 1) {
     }
     Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, JSON.stringify(studentResponse)).then((response) => {
         if (response) {
-
-            if (response.hasOwnProperty("badResponse")) {
-
-                for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
-                    $('#dz-' + i).css("border","1px solid var(--classroom-text-0)");
+            if (response.hasOwnProperty("message")) {
+                if (response.message == "activitySaved") {
+                    displayNotification('#notif-div', "classroom.activities.saved", "success");
                 }
-
-                for (let i = 0; i < response.badResponse.length; i++) {
-                    $('#dz-' + (response.badResponse[i])).css("border","1px solid red");
-                }
-
-                if (response.hasOwnProperty("hint")) {
-                    if (response.hint != null && response.hint != "") {
-                        $("#activity-hint-container").show();
-                        $("#activity-hint").text(response.hint);
-                    }
-                }
-
+            } else if (response.hasOwnProperty("badResponse")) {
+                saveActivitiesResponseManager('drag-and-drop');
             } else {
                 validateDefaultResponseManagement(response);
             }
@@ -355,6 +313,56 @@ function dragAndDropValidateActivity(correction = 1) {
             displayNotification('#notif-div', "classroom.notif.errorSending", "error");
         }
     });
+}
+
+function saveActivitiesResponseManager(activityType = null) {
+    if (activityType == 'fill-in') {
+        if (response.hasOwnProperty("hint")) {
+            if (response.hint != null && response.hint != "") {
+                $("#activity-hint-container").show();
+                $("#activity-hint").text(response.hint);
+            }
+        }
+
+        let lengthResponse = $(`input[id^="student-fill-in-field-"]`).length;
+        for (let i = 1; i < lengthResponse+1; i++) {
+            if (response.badResponse.includes(i-1)) {
+                $(`#student-fill-in-field-${i}`).css("border","2px solid red");
+            } else {
+                $(`#student-fill-in-field-${i}`).css("border","2px solid green");
+            }
+        }
+    } else if (activityType == 'drag-and-drop') {
+        for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
+            $('#dz-' + i).css("border","1px solid var(--classroom-text-0)");
+        }
+
+        for (let i = 0; i < response.badResponse.length; i++) {
+            $('#dz-' + (response.badResponse[i])).css("border","1px solid red");
+        }
+
+        if (response.hasOwnProperty("hint")) {
+            if (response.hint != null && response.hint != "") {
+                $("#activity-hint-container").show();
+                $("#activity-hint").text(response.hint);
+            }
+        }
+    } else if (activityType == 'quiz') {
+        for (let i = 1; i < $(`input[id^="student-quiz-suggestion-"]`).length+1; i++) {
+            $('#student-quiz-suggestion-' + i).css("border","2px solid black");
+        }
+
+        for (let i = 0; i < response.badResponse.length; i++) {
+            $('#student-quiz-suggestion-' + (response.badResponse[i]+1)).css("border","2px solid red");
+        }
+
+        if (response.hasOwnProperty("hint")) {
+            if (response.hint != null && response.hint != "") {
+                $("#activity-hint-container").show();
+                $("#activity-hint").text(response.hint);
+            }
+        }
+    }
 }
 
 
