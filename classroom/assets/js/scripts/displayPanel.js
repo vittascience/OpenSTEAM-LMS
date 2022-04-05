@@ -462,7 +462,7 @@ function getTeacherActivity() {
 
             let contentForTeacher = contentParsed.dragAndDropFields.contentForTeacher;
 
-            contentForTeacher = parseContent(contentForTeacher, "drag-and-drop-answer-teacher");
+            contentForTeacher = parseContent(contentForTeacher, "drag-and-drop-answer-teacher", true);
 
             $("#activity-content").html(bbcodeToHtml(contentForTeacher));
             $("#activity-content-container").show();

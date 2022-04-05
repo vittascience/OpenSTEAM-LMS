@@ -727,7 +727,7 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
     if (UserManager.getUser().isRegular) {
 
         let contentForTeacher = content.dragAndDropFields.contentForTeacher;
-        contentForTeacher = parseContent(contentForTeacher, "drag-and-drop-answer-teacher");
+        contentForTeacher = parseContent(contentForTeacher, "drag-and-drop-answer-teacher", true);
         $('#activity-content').html(bbcodeToHtml(contentForTeacher));
         $('#activity-content-container').show();
     }

@@ -1530,16 +1530,24 @@ h3.section-done {
     border-radius: 10px;
 }
 
+.drag-and-drop-answer-teacher,
 .draggable-items {
     border: 1px solid var(--classroom-text-0);
     border-radius: 256px;
     padding: 0px 12px;
 
-    cursor: move;
+    cursor: grab;
     margin-bottom: 0;
     margin-top: 0;
     font-weight: 700;
     display: inline-block;
+}
+
+.drag-and-drop-answer-teacher {
+    background: var(--classroom-background);
+    color: var(--classroom-text-0);   
+    cursor: pointer; 
+    text-align: center;
 }
 
 .dropable-items {
