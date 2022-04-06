@@ -423,6 +423,9 @@ function loadActivityForStudents(isDoable) {
         $('#text-introduction').html(bbcodeToHtml(Activity.introduction))
         $('#activity-introduction').show()
     }
+
+    // Disclaimer for eval
+    Activity.evaluation ? $('#warning-text-evaluation').show() : $("warning-text-no-evaluation").show();
     
     // Check if the correction if available
     if (Activity.correction >= 1) {
@@ -635,7 +638,6 @@ function manageDisplayQuiz(correction, content, correction_div) {
             $('#activity-student-response-content').html("");
             if (JSON.parse(Activity.response) != null || JSON.parse(Activity.response) != "") {
                 $('#activity-student-response-content').append(createContentForQuiz(JSON.parse(Activity.response)));
-                //$('#activity-student-response-content').append(createContentForQuiz(content.quiz.contentForStudent));
             } else {
                 $('#activity-student-response-content').append(createContentForQuiz(content.quiz.contentForStudent));
             }
@@ -659,14 +661,14 @@ function createContentForQuiz(data, doable = true) {
         for (let i = 1; i < data.length+1; i++) {
             content += ` <div class="input-group c-checkbox quiz-answer-container" id="qcm-doable-${i}">
                             <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""}>
-                            <label class="form-check-label" id="student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
+                            <label class="form-check-label" for="student-quiz-checkbox-${i}" id="student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
                         </div>`;
         }
     } else {
         for (let i = 1; i < data.length+1; i++) {
             content += ` <div class="input-group c-checkbox quiz-answer-container" id="qcm-not-doable-${i}">
                             <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
-                            <label class="form-check-label" id="student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
+                            <label class="form-check-label" for="student-quiz-checkbox-${i}" id="student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
                         </div>`;
         }
     }
@@ -841,7 +843,6 @@ function isTheActivityIsDoable(doable, hideValidationButton = false) {
         }
 
         if (!Activity.activity.isLti) { 
-            Activity.evaluation ? $('#warning-text-evaluation').show() : $("warning-text-no-evaluation").show();
             $('#activity-validate').show();
             if (Activity.activity.type != 'reading') {
                 $('#activity-save').show();
