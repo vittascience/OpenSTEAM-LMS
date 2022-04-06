@@ -1586,23 +1586,16 @@ h3.section-done {
 }
 
 
-.lms-answer{
-    border: var(--correction-3) solid 1px;
-    border-radius: 1em;
-    padding: 8px;
-    margin: 4px;
+.lms-answer,
+.answer-student{
+    border: var(--classroom-text-0) solid 1px;
+    background-color: var(--classroom-background);
+    color: var(--classroom-text-0);
+    
+    border-radius: 256px;
+    padding: 2px 8px;
     width: fit-content;
     display: inline-block;
-}
-
-.answer-student{
-    border: var(--correction-3) solid 1px;
-    border-radius: 1em;
-    padding: 8px;
-    margin: 4px;
-    width: fit-content;
-    background-color: var(--background-color);
-    color: var(--classroom-text-0);
 }
 
 

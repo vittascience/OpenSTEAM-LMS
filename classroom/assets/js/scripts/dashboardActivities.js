@@ -691,7 +691,7 @@ function manageDisplayFillIn(correction, content, correction_div) {
     // Show the content with the response to the teacher
     if (UserManager.getUser().isRegular) {
         let contentForTeacher = content.fillInFields.contentForTeacher;
-        contentForTeacher = parseContent(contentForTeacher, "fill-in-answer-teacher");
+        contentForTeacher = parseContent(contentForTeacher, "lms-answer fill-in-answer-teacher", true);
         $('#activity-content').html(bbcodeToHtml(contentForTeacher));
         $('#activity-content-container').show();
     }
