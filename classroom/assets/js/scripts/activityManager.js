@@ -295,7 +295,7 @@ function responseManager(response = null, type = null) {
                 displayNotification('#notif-div', "classroom.activities.saved", "success");
             }
         } else if (response.hasOwnProperty("badResponse")) {
-            saveActivitiesResponseManager(type);
+            saveActivitiesResponseManager(type, response);
         } else {
             validateDefaultResponseManagement(response);
         }
@@ -304,7 +304,7 @@ function responseManager(response = null, type = null) {
     }
 }
 
-function saveActivitiesResponseManager(activityType = null) {
+function saveActivitiesResponseManager(activityType = null, response = null) {
     if (activityType == 'fill-in') {
         if (response.hasOwnProperty("hint")) {
             if (response.hint != null && response.hint != "") {

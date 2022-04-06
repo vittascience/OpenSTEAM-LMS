@@ -34,7 +34,7 @@
         <div id="activity-free" style="display:none;">
             <div class="content m-3">
                 <label for="free-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
-                <textarea id="free-content"></textarea>
+                <textarea id="free-content" style="height:400px"></textarea>
             </div>
 
             <div class="c-checkbox">
@@ -44,7 +44,7 @@
 
             <div class="content m-3" id="free-correction-content" style="display: none;">
                 <label for="free-correction" data-i18n="newActivities.correction">Correction de l'activité</label>
-                <textarea id="free-correction"></textarea>
+                <textarea id="free-correction" style="height:400px"></textarea>
             </div>
         </div>
 
@@ -54,7 +54,7 @@
                 <label for="reading-content" class="tutorial-label">
                     <span data-i18n="[html]newActivities.content"></span>
                 </label>
-                <textarea id="reading-content" class='part-content' width='100%' style='min-height: 60vh;'></textarea>
+                <textarea id="reading-content" class='part-content' style="height:400px"></textarea>
             </div>
         </div>
 
@@ -63,7 +63,7 @@
 
             <div class="content m-3">
                 <label for="quiz-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
-                <textarea id="quiz-states"></textarea>
+                <textarea id="quiz-states" style="height:150px"></textarea>
             </div>
 
             <div id="quiz-content-edit" class="content m-3">
@@ -95,13 +95,6 @@
             <div class="content m-3">
                 <button data-i18n="newActivities.addQuiz" class="btn c-btn-primary" onclick="addQuizSuggestion()">Ajouter une proposition</button>
             </div>
-
-            <!--                
-            <div class="c-checkbox">
-                <input type="checkbox" name="quiz-autocorrect" id="quiz-autocorrect">
-                <label for="quiz-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
-            </div> 
-            -->
 
         </div>
 
@@ -138,23 +131,16 @@
 
             <div class="content m-3">
                 <label for="drag-and-drop-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
-                <textarea id="drag-and-drop-states"></textarea>
+                <textarea id="drag-and-drop-states" style="height:150px"></textarea>
             </div>
 
             <div class="content m-3">
                 <label for="drag-and-drop-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
-                <textarea id="drag-and-drop-content"></textarea>
+                <textarea id="drag-and-drop-content" style="height:400px"></textarea>
             </div>
 
             <button class="btn c-btn-outline-primary" id="dragAndDrop-add-inputs">Add field</button>
             <p>En cliquant sur le bouton ajouter un champs à compléter , un texte est ajouté avec deux caractères verticaux | réponse |. Vous pouvez écrire la réponse correcte entre ces deux caractères. Les réponses alternatives sont séparées par une double esperluette && </p>
-
-            <!-- 
-            <div class="c-checkbox">
-                <input type="checkbox" name="drag-and-drop-autocorrect" id="drag-and-drop-autocorrect">
-                <label for="drag-and-drop-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
-            </div> 
-            -->
 
             <div class="content m-3">
                 <label for="drag-and-drop-hint" data-i18n="newActivities.hint">Indice</label>
