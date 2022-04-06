@@ -980,9 +980,7 @@ button {
     height: 100%;
 }
 
-.wysibb-text {
-    min-height: 200px;
-}
+
 
 /* Wysibb -> text editor in tutorial and classroom */
 span.btn-span-peertube,
@@ -2181,10 +2179,6 @@ i.line_height34 {
 
 .open-ide {
     cursor: pointer;
-}
-
-.wysibb-text-editor {
-    min-height: 50vh !important;
 }
 
 .no-activity {

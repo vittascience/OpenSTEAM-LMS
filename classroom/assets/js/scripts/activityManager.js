@@ -3,9 +3,10 @@
  */
  function setTextArea() {
     let wbbOpt = {
+        resize_maxheight:354,
+        autoresize:false,
         buttons: ",bold,italic,underline|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe,answer",
     }
-    
     // Free 
     $('#free-enonce').wysibb(wbbOpt);
     $('#free-content').wysibb(wbbOpt);
