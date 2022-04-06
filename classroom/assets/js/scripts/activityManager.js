@@ -3,9 +3,10 @@
  */
  function setTextArea() {
     let wbbOpt = {
+        resize_maxheight:354,
+        autoresize:false,
         buttons: ",bold,italic,underline|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe,answer",
     }
-    
     // Free 
     $('#free-enonce').wysibb(wbbOpt);
     $('#free-content').wysibb(wbbOpt);
@@ -251,7 +252,7 @@ function quizValidateActivity(correction = 1) {
     let studentResponse = [];
     for (let i = 1; i < $(`input[id^="student-quiz-checkbox-"]`).length+1; i++) {
         let res = {
-            inputVal: $(`#student-quiz-suggestion-${i}`).val(),
+            inputVal: $(`#student-quiz-suggestion-${i}`).text(),
             isCorrect: $(`#student-quiz-checkbox-${i}`).is(':checked')
         }
         studentResponse.push(res);
@@ -490,11 +491,11 @@ function parseQuizFieldsAndSaveThem() {
     } else { 
         for (let i = 1; i < $(`input[id^="quiz-suggestion-"]`).length+1; i++) {
             let res = {
-                inputVal: $(`#quiz-suggestion-${i}`).val(),
-                isCorrect: $(`#quiz-checkbox-${i}`).is(':checked')
+                inputVal: $(`#student-quiz-suggestion-${i}`).text(),
+                isCorrect: $(`#student-quiz-checkbox-${i}`).is(':checked')
             }
             let student = {
-                inputVal: $(`#quiz-suggestion-${i}`).val()
+                inputVal: $(`#student-quiz-suggestion-${i}`).text()
             }
             Main.getClassroomManager()._createActivity.solution.push(res);
             Main.getClassroomManager()._createActivity.content.quiz.contentForStudent.push(student);

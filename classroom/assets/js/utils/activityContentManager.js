@@ -24,6 +24,14 @@ function deleteQcmFields() {
     $(`div[id^="qcm-field-"]`).each(function() {
         $(this).remove();
     })
+
+    $(`div[id^="qcm-not-doable-"]`).each(function() {
+        $(this).remove();
+    })
+
+    $(`div[id^="qcm-doable-"]`).each(function() {
+        $(this).remove();
+    })
 }
 
 /**

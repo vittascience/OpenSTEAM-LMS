@@ -243,12 +243,12 @@ wbbdebug = false;
 			//img upload config
 			imgupload: false,
 			img_uploadurl: "/iupload.php",
-			img_maxwidth: 800,
-			img_maxheight: 800,
+			img_maxwidth: 300,
+			img_maxheight: 300,
 			hotkeys: true,
 			showHotkeys: true,
-			autoresize: true,
-			resize_maxheight: 800,
+			autoresize: false,
+			resize_maxheight: 150,
 			loadPageStyles: true,
 			traceTextarea: false,
 			//			direction:			"ltr",
@@ -315,11 +315,10 @@ wbbdebug = false;
 				},
 				answer: {
 					title: CURLANG.answer,
-					buttonHTML: '<i class="fa-solid fa-circle-question" style="height:27px;width:31px;font-size:20px;text-align:center;padding-top: 5px;"></i>',
-					excmd: 'answer',
-					hotkey: 'ctrl+p',
+					buttonHTML: '<i class="fas fa-pen-alt" style="height:27px;width:31px;font-size:20px;text-align:center;padding-top: 5px;"></i>',
+					hotkey: '',
 					transform: {
-						'<span class="lms-answer">{SELTEXT}</span>': '[answer]{SELTEXT}[/answer]'
+						"<span class='lms-answer'>{SELTEXT}</span>": "[answer]{SELTEXT}[/answer]",
 					}
 				},
 				bold: {
