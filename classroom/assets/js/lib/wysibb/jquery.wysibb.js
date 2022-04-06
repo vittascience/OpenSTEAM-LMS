@@ -319,7 +319,7 @@ wbbdebug = false;
 					excmd: 'answer',
 					hotkey: 'ctrl+p',
 					transform: {
-						'<span class="lms-answer">{SELTEXT}</span>': '[answer]{SELTEXT}[/answer]'
+						"<span class='lms-answer'>{SELTEXT}</span>": "[answer]{SELTEXT}[/answer]"
 					}
 				},
 				bold: {

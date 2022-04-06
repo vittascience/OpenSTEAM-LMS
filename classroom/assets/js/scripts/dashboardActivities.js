@@ -624,6 +624,8 @@ function manageDisplayOldActivities(correction, content, correction_div, isDoabl
 function manageDisplayQuiz(correction, content, correction_div) {
     $('#activity-states').html(bbcodeToHtml(content.states));
     $('#activity-states-container').show();
+    $('#activity-content').append(createContentForQuiz(JSON.parse(Activity.activity.solution), false));
+    $('#activity-content-container').show();
 
     if (correction == 0 || correction == null) {
         if (!UserManager.getUser().isRegular) {
@@ -648,16 +650,16 @@ function createContentForQuiz(data, doable = true) {
     let content = "";
     if (doable) {
         for (let i = 1; i < data.length+1; i++) {
-            content += ` <div class="input-group">
-                            <input type="checkbox" id="student-quiz-checkbox-${i}">
-                            <input type="text" id="student-quiz-suggestion-${i}" value="${data[i-1].inputVal}" readonly>
+            content += ` <div class="input-group c-checkbox quiz-answer-container" id="qcm-doable-${i}">
+                            <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}">
+                            <label class="form-check-label" id="student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
                         </div>`;
         }
     } else {
         for (let i = 1; i < data.length+1; i++) {
-            content += ` <div class="input-group">
-                            <input type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
-                            <input type="text" id="student-quiz-suggestion-${i}" value="${data[i-1].inputVal}" readonly>
+            content += ` <div class="input-group c-checkbox quiz-answer-container" id="qcm-not-doable-${i}">
+                            <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
+                            <label class="form-check-label" id="student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
                         </div>`;
         }
     }
