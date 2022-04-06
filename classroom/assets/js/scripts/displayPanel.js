@@ -432,7 +432,7 @@ function getTeacherActivity() {
         } else if (Activity.type == 'fillIn') {
             $("#activity-states").html(bbcodeToHtml(contentParsed.states));
             let contentForTeacher = contentParsed.fillInFields.contentForTeacher;
-            contentForTeacher = parseContent(contentForTeacher, "lms-answer fill-in-answer-teacher", true);
+            contentForTeacher = parseContent(contentForTeacher, "fill-in-answer-teacher");
             $('#activity-content').html(bbcodeToHtml(contentForTeacher));
             $("#activity-content-container").show();
             $("#activity-states-container").show();
