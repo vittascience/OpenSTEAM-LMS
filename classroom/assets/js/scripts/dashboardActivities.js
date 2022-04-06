@@ -187,10 +187,17 @@ function classeList(classe, ref = null) {
     if (fullClassHasAttribution(classe, ref) == true) {
         checkedClass = "checked"
     }
-    let html = `<div class="col-10"><label><input type="checkbox" value="${classe.classroom.id}"${checkedClass} class ="list-students-classroom"> ${classe.classroom.name}</label>`
-    html += `<button class="student-list-button" data-id="${classe.classroom.id}"><i class="fas fa-chevron-right"></i></button>`
-    html += `<div class="student-list" id="student-list-${classe.classroom.id}" style="display:none;">
-    `
+    let html = `<div class="col-10 student-list-row">
+            <div class="c-checkbox">
+                <input type="checkbox" id="class-${classe.classroom.id}" value="${classe.classroom.id}" ${checkedClass} class="list-students-classroom">
+                <label for="class-${classe.classroom.id}">${classe.classroom.name}</label>
+            </div>
+
+            <button class="student-list-button" data-id="${classe.classroom.id}">
+                <i class="fas fa-chevron-right"></i>
+            </button>`
+    html += `<div class="student-list" id="student-list-${classe.classroom.id}" style="display:none;">`
+
     classe.students.forEach(student => {
         let checked = ""
         if (ref && hasAttribution(student, ref)) {
@@ -198,9 +205,13 @@ function classeList(classe, ref = null) {
             ClassroomSettings.studentCount++
         }
 
-        html += '<label class="ml-3 student-attribute-form-row"><input type="checkbox" value="' + student.user.id + '" class="student-id" ' + checked + ' >'
-        html += `<img src="${_PATH}assets/media/alphabet/${student.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil"></img>`
-        html += student.user.pseudo + '</label>'
+        html += `<div class="c-checkbox ml-3 student-attribute-form-row">
+            <input type="checkbox" id="student-${student.user.id}" value="${student.user.id}" class="student-id" ${checked}>
+            <label class="mb-0" for="student-${student.user.id}">
+                <img class="ml-1" src="${_PATH}assets/media/alphabet/${student.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil"></img>
+                <span>${student.user.pseudo}</span>
+            </label>
+        </div>`
     });
     html += `</div></div>`
     $('.student-number').html(ClassroomSettings.studentCount)
@@ -680,7 +691,7 @@ function manageDisplayFillIn(correction, content, correction_div) {
     // Show the content with the response to the teacher
     if (UserManager.getUser().isRegular) {
         let contentForTeacher = content.fillInFields.contentForTeacher;
-        contentForTeacher = parseContent(contentForTeacher, "fill-in-answer-teacher");
+        contentForTeacher = parseContent(contentForTeacher, "lms-answer fill-in-answer-teacher", true);
         $('#activity-content').html(bbcodeToHtml(contentForTeacher));
         $('#activity-content-container').show();
     }

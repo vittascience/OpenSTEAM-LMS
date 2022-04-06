@@ -1543,8 +1543,8 @@ h3.section-done {
 
 .drag-and-drop-answer-teacher {
     background: var(--classroom-background);
-    color: var(--classroom-text-0);   
-    cursor: pointer; 
+    color: var(--classroom-text-0);
+    cursor: pointer;
     text-align: center;
     user-select: none;
 }
@@ -1568,9 +1568,9 @@ h3.section-done {
     border: 1px solid var(--classroom-text-0);
     border-radius: 1em;
     padding: 1em;
-} 
+}
 
-.drag-and-drop-div > div{
+.drag-and-drop-div>div {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -1586,23 +1586,16 @@ h3.section-done {
 }
 
 
-.lms-answer{
-    border: var(--correction-3) solid 1px;
-    border-radius: 1em;
-    padding: 8px;
-    margin: 4px;
+.lms-answer,
+.answer-student {
+    border: var(--classroom-text-0) solid 1px;
+    background-color: var(--classroom-background);
+    color: var(--classroom-text-0);
+
+    border-radius: 256px;
+    padding: 2px 8px;
     width: fit-content;
     display: inline-block;
-}
-
-.answer-student{
-    border: var(--correction-3) solid 1px;
-    border-radius: 1em;
-    padding: 8px;
-    margin: 4px;
-    width: fit-content;
-    background-color: var(--background-color);
-    color: var(--classroom-text-0);
 }
 
 
@@ -1643,13 +1636,27 @@ h3.section-done {
     padding: 0.5em 1em;
 }
 
-.quiz-answer-container {
-    width: auto;
+
+.quiz-answer-container label {
     margin: 0.5em auto;
+    width: 100%;
     max-width: 250px;
+
     border: 1px solid var(--classroom-text-2);
-    padding: 1em;
+
+    padding: 1em 1.5em;
+    padding-left: 3em !important;
+
     border-radius: 1em;
+}
+
+.quiz-answer-container label::before {
+    left: 1.5em !important;
+}
+
+.quiz-answer-container label::after {
+    top: 40% !important;
+    left: 1em !important;
 }
 
 /* ACTIVITY ASSIGN FORM */
@@ -1784,17 +1791,29 @@ h3.section-done {
     margin: 0.5em;
 }
 
+#list-student-attribute-modal .student-list-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+
+}
+
+#list-student-attribute-modal .student-list-row>.c-checkbox {
+    flex-grow: 2;
+
+}
+
 #list-student-attribute-modal .student-list-button {
     float: right;
     width: 2em;
     height: 2em;
+
 }
 
 #list-student-attribute-modal .student-list {
     display: flex;
     flex-direction: column;
     border-top: solid 1px var(--classroom-cell);
-
+    width: 100%;
 }
 
 #list-student-attribute-modal .student-list>.student-attribute-form-row {
