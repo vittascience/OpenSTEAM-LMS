@@ -416,7 +416,7 @@ function statusActivity(activity, state = true, formatedTimePast = '') {
 
 function loadActivityForStudents(isDoable) {
     // Reset the inputs
-    resetInputsForActivity()
+    resetInputsForActivity();
 
     // Check if the activity has an introduction
     if (Activity.introduction != null && Activity.introduction != "") {
@@ -425,7 +425,7 @@ function loadActivityForStudents(isDoable) {
     }
 
     // Disclaimer for eval
-    Activity.evaluation ? $('#warning-text-evaluation').show() : $("warning-text-no-evaluation").show();
+    Activity.evaluation ? $('#warning-text-evaluation').show() : $("#warning-text-no-evaluation").show();
     
     // Check if the correction if available
     if (Activity.correction >= 1) {
