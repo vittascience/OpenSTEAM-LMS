@@ -1786,17 +1786,29 @@ h3.section-done {
     margin: 0.5em;
 }
 
+#list-student-attribute-modal .student-list-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+
+}
+
+#list-student-attribute-modal .student-list-row > .c-checkbox {
+   flex-grow: 2;
+
+}
+
 #list-student-attribute-modal .student-list-button {
     float: right;
     width: 2em;
     height: 2em;
+
 }
 
 #list-student-attribute-modal .student-list {
     display: flex;
     flex-direction: column;
     border-top: solid 1px var(--classroom-cell);
-
+    width: 100%;
 }
 
 #list-student-attribute-modal .student-list>.student-attribute-form-row {
