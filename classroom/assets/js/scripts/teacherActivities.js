@@ -169,7 +169,7 @@ function manageUpdateForFree(activity) {
 function manageUpdateForQuiz(activity) {
     let solution = JSON.parse(activity.solution),
     content = JSON.parse(activity.content);
-
+    console.log(solution)
     $('#quiz-suggestions-container').html('');
     for (let i = 1; i < solution.length+1; i++) {
         let divToAdd = `<div class="form-group c-primary-form" id="quiz-group-${i}">
@@ -177,10 +177,10 @@ function manageUpdateForQuiz(activity) {
                             <button class="btn c-btn-grey mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-${i}" onclick="deleteQuizSuggestion(${i})">Delete</button>
 
                             <div class="input-group mt-3">
-                                <input type="text" id="quiz-suggestion-${i}" class="form-control">
+                                <input type="text" id="quiz-suggestion-${i}" class="form-control" value="${solution[i-1].inputVal}">
                                 <div class="input-group-append">
                                     <div class="input-group-text c-checkbox c-checkbox-grey">
-                                        <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}">
+                                        <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}" ${solution[i-1].isCorrect ? "checked" : ""}>
                                         <label class="form-check-label" for="quiz-checkbox-${i}">Réponse correcte</label>
                                     </div>
                                 </div>

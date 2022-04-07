@@ -44,7 +44,7 @@ function resetInputsForActivity() {
     // Autocorrect note disclaimer
     $("#activity-auto-corrected-disclaimer").hide();
     $("#activity-auto-disclaimer").hide();
-
+    $("#activity-content-container").hide();
     // Hide all the divs
     $('#activity-introduction').hide();
     $('#activity-correction-container').hide();
@@ -72,7 +72,7 @@ function resetInputsForActivity() {
 
     // Warning message for
     $('#warning-text-evaluation').hide();
-    $("warning-text-no-evaluation").hide();
+    $("#warning-text-no-evaluation").hide();
 
     // Quiz reset input
     deleteQcmFields();

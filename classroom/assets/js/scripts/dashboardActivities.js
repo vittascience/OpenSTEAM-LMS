@@ -436,7 +436,9 @@ function loadActivityForStudents(isDoable) {
     }
 
     // Disclaimer for eval
-    Activity.evaluation ? $('#warning-text-evaluation').show() : $("#warning-text-no-evaluation").show();
+    if (Activity.correction < 2) {
+        Activity.evaluation ? $('#warning-text-evaluation').show() : $("#warning-text-no-evaluation").show();
+    }
     
     // Check if the correction if available
     if (Activity.correction >= 1) {
@@ -494,8 +496,6 @@ function loadActivityForTeacher() {
     if (Activity.correction >= 1) {
         $('#activity-details').html(i18next.t("classroom.activities.activityOfUser") + Activity.user.pseudo + i18next.t("classroom.activities.userSentOn") + formatHour(Activity.dateSend))
         document.querySelector('#activity-details').innerHTML += `<br><img class="chrono-icon" src="${_PATH}assets/media/icon_time_spent.svg">${i18next.t('classroom.activities.timePassed')} ${formatDuration(Activity.timePassed)}, ${i18next.t("classroom.activities.numberOfTries")} ${Activity.tries}`;
-        
-        console.log(Activity.autocorrection)
         if (Activity.autocorrection) {
             $("#activity-auto-corrected-disclaimer").show();
         }
@@ -590,16 +590,23 @@ function manageDisplayCustomAndReading(correction, content, correction_div) {
 }
 
 function manageDisplayFree(correction, content, correction_div) {
-    $('#activity-content').html(bbcodeToHtml(content));
-    $('#activity-content-container').show();
-    if (correction == 0 || correction == null) {
+    $('#activity-states').html(bbcodeToHtml(content));
+    $('#activity-states-container').show();
+    if (UserManager.getUser().isRegular) {
+        $('#activity-content').html(JSON.parse(Activity.activity.solution));
+        $('#activity-content-container').show();
+    }
+    if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
             $('#activity-input').wysibb(wbbOpt);
+            if (Activity.response != null && Activity.response != '') {
+                $('#activity-input').htmlcode(bbcodeToHtml(JSON.parse(Activity.response)));
+            }
             $('#activity-input-container').show();
         }
-    } else if (correction > 0) {
+    } else if (correction > 1) {
         $('#activity-student-response').show();
-        $('#activity-student-response-content').html(bbcodeToHtml(Activity.response));
+        $('#activity-student-response-content').html(bbcodeToHtml(JSON.parse(Activity.response)));
         manageCorrectionDiv(correction_div, correction);
     }
 }
@@ -644,7 +651,7 @@ function manageDisplayQuiz(correction, content, correction_div) {
         $('#activity-content-container').show();
     }
 
-    if (correction == 0 || correction == null) {
+    if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
             $('#activity-student-response-content').html("");
             if (JSON.parse(Activity.response) != null || JSON.parse(Activity.response) != "") {
@@ -653,16 +660,22 @@ function manageDisplayQuiz(correction, content, correction_div) {
                 $('#activity-student-response-content').append(createContentForQuiz(content.quiz.contentForStudent));
             }
             $('#activity-student-response').show();
+        } else {
+            displayQuizTeacherSide();
+            manageCorrectionDiv(correction_div, correction);
         }
-    } else if (correction > 0) {
-        if (Activity.response != null) {
-            $('#activity-student-response-content').html("");
-            let data = JSON.parse(Activity.response);
-            $('#activity-student-response-content').append(createContentForQuiz(data, false)); 
-            $('#activity-student-response').show();
-        }
-
+    } else if (correction > 1) {
+        displayQuizTeacherSide();
         manageCorrectionDiv(correction_div, correction);
+    }
+}
+
+function displayQuizTeacherSide() {
+    if (Activity.response != null) {
+        $('#activity-student-response-content').html("");
+        let data = JSON.parse(Activity.response);
+        $('#activity-student-response-content').append(createContentForQuiz(data, false)); 
+        $('#activity-student-response').show();
     }
 }
 
@@ -720,24 +733,31 @@ function manageDisplayFillIn(correction, content, correction_div) {
                 }
             }
             $('#activity-content-container').show();
-
+        } else {
+            displayFillInTeacherSide(correction_div, correction, content);
         }
     } else if (correction > 1) {
-        
-        let studentContentString = content.fillInFields.contentForStudent,
-            studentResponses = JSON.parse(Activity.response);
+        displayFillInTeacherSide(correction_div, correction, content);
+    } 
+}
 
+function displayFillInTeacherSide(correction_div, correction, content) {
+    let studentContentString = content.fillInFields.contentForStudent,
+        studentResponses = JSON.parse(Activity.response);
 
+    if (studentResponses != null && studentResponses != "") { 
         studentResponses.forEach((response, i) => {
-            studentContentString = studentContentString.replace('﻿', `<input type="text" id="student-fill-in-field-${i}" readonly class="answer-student" value="${response}">`);
-        });
 
+            let autoWidthStyle = 'style="width:' + (response.length + 2) + 'ch"';
+            studentContentString = studentContentString.replace('﻿', `<input type="text" id="student-fill-in-field-${i}" ${autoWidthStyle} readonly class="fill-in-answer-teacher answer-student" value="${response}">`);
+        });
+    
         $('#activity-student-response-content').html(studentContentString);
         $('#activity-student-response').show();
+    }
 
-        manageCorrectionDiv(correction_div, correction);
 
-    } 
+    manageCorrectionDiv(correction_div, correction);
 }
 
 function manageDisplayDragAndDrop(correction, content, correction_div) {
@@ -754,7 +774,6 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
 
     $('#activity-states').html(bbcodeToHtml(content.states));
     $('#activity-states-container').show();
-    let studentResponses = JSON.parse(Activity.response);
     
     if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
@@ -789,23 +808,28 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
                     $(`#dz-${i}`).html($(`#${e.string.toLowerCase()}`)[0]);
                 })
             }
-            
+        } else {
+            displayDragAndDropTeacherSide(correction_div, correction, content);
         }
-    } else if (correction >  1) {
-        
-        let studentContentString = content.dragAndDropFields.contentForStudent;
-        
+    } else if (correction > 1) {
+        displayDragAndDropTeacherSide(correction_div, correction, content);
+    } 
+}
 
+function displayDragAndDropTeacherSide(correction_div, correction, content) {
+    let studentResponses = JSON.parse(Activity.response);
+    let studentContentString = content.dragAndDropFields.contentForStudent;
+
+    if (studentResponses != "" && studentResponses != null) {
         for (let i = 0; i < studentResponses.length; i++) {
-            studentContentString = studentContentString.replace(/\|(.*?)\|/, studentResponses[i].string);
+            let autoWidthStyle = 'style="width:' + (studentResponses[i].string.toLowerCase().length + 2) + 'ch"';
+            studentContentString = studentContentString.replace(`﻿`, `<input readonly class='drag-and-drop-answer-teacher' value="${studentResponses[i].string.toLowerCase()}" ${autoWidthStyle}>`);
         }
-
+    
         $('#activity-student-response-content').html(studentContentString);
         $('#activity-student-response').show();
-
-        manageCorrectionDiv(correction_div, correction);
-    } 
-    
+    }
+    manageCorrectionDiv(correction_div, correction);
 }
 
 function shuffleArray(array) {
@@ -831,14 +855,14 @@ function manageCorrectionDiv(correction_div, correction) {
     } else {
         $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
     }
-    if (correction > 1) {
+    if (correction > 1 || (UserManager.getUser().isRegular && correction >= 1)) {
         $('#activity-correction').html(correction_div);
         $('#activity-correction-container').show(); 
     }
 }
 
 function isTheActivityIsDoable(doable, hideValidationButton = false) {
-    if (doable == false) {
+    if (doable == false || UserManager.getUser().isRegular) {
         $('#activity-validate').hide();
         $('#activity-save').hide();
     } else {

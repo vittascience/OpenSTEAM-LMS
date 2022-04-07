@@ -291,6 +291,7 @@
 			"putYourAnswer": "Put your answer here",
 			"hint": "Hint",
 			"saved": "Activity saved",
+			"wrongAnswer": "Wrong answer",
 			"bilan": {
 				"title": "Bilan",
 				"results": "Results",

@@ -426,13 +426,17 @@ function getTeacherActivity() {
         const contentParsed = JSON.parse(Activity.content);
         if (Activity.type == 'free' || Activity.type == 'reading') {
             if (contentParsed.hasOwnProperty('description')) {
-                $('#activity-content').html(bbcodeToHtml(contentParsed.description))
-                $("#activity-content-container").show();
+
+                $('#activity-states').html(bbcodeToHtml(contentParsed.description));
+                $('#activity-states-container').show();
+                $('#activity-content').html(JSON.parse(Activity.solution));
+                $('#activity-content-container').show();
+
             } 
         } else if (Activity.type == 'fillIn') {
             $("#activity-states").html(bbcodeToHtml(contentParsed.states));
             let contentForTeacher = contentParsed.fillInFields.contentForTeacher;
-            contentForTeacher = parseContent(contentForTeacher, "lms-answer fill-in-answer-teacher", true);
+            contentForTeacher = parseContent(contentForTeacher, "lms-answer fill-in-answer-teacher");
             $('#activity-content').html(bbcodeToHtml(contentForTeacher));
             $("#activity-content-container").show();
             $("#activity-states-container").show();
