@@ -5,15 +5,9 @@ $(document).ready(function () {
 });
 
 function activityItem(activity, state) {
-    let ide = 'vittascience'
-    if (activity.activity.content.match(/vittascience\.com\/microbit/)) {
-        ide = "microbit"
-    }
-    if (activity.activity.content.match(/vittascience\.com\/python/)) {
-        ide = "python"
-    }
-    if (activity.activity.content.match(/vittascience\.com\/arduino/)) {
-        ide = "arduino"
+    let activityType = "activity-card-" + activity.type;
+    if (activity.type = null || activity.type == "") {
+        activityType = "";
     }
 
     if (state == "doneActivities") {
@@ -36,7 +30,7 @@ function activityItem(activity, state) {
     }
 
     let html = `<div class="activity-item">
-                    <div class="activity-card activity-card-` + ide + `">
+                    <div class="activity-card ${activityType} ">
                         <div class="${activityStatus}" data-toggle="tooltip" title="${activityStatusTitle}"><div class="ribbon__content"></div></div>
                         <div class="activity-card-top">
                         ${activity.activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
@@ -81,19 +75,13 @@ function teacherSandboxItem(json) {
 }
 
 function teacherActivityItem(activity) {
-    let ide = 'vittascience'
-    if (activity.content.match(/vittascience\.com\/microbit/)) {
-        ide = "microbit"
-    }
-    if (activity.content.match(/vittascience\.com\/python/)) {
-        ide = "python"
-    }
-    if (activity.content.match(/vittascience\.com\/arduino/)) {
-        ide = "arduino"
+    let activityType = "activity-card-" + activity.type;
+    if (activity.type = null || activity.type == "") {
+        activityType = "";
     }
 
     let html = `<div class="activity-item activity-teacher " >
-                <div class="activity-card activity-card-` + ide + `">
+                <div class="activity-card ${activityType}">
                     <div class="activity-card-top">
                     ${activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
                     <div class="dropdown"><i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
