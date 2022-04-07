@@ -291,6 +291,7 @@
 			"putYourAnswer": "Entrez votre réponse",
 			"hint": "Indice",
 			"saved": "Activité sauvegardée",
+			"wrongAnswer": "Mauvaise réponse",
 			"bilan": {
 				"title": "Bilan",
 				"results": "Résultats",

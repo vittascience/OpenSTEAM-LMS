@@ -72,7 +72,7 @@ function resetInputsForActivity() {
 
     // Warning message for
     $('#warning-text-evaluation').hide();
-    $("warning-text-no-evaluation").hide();
+    $("#warning-text-no-evaluation").hide();
 
     // Quiz reset input
     deleteQcmFields();

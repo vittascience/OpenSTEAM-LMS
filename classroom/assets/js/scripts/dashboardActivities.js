@@ -590,16 +590,23 @@ function manageDisplayCustomAndReading(correction, content, correction_div) {
 }
 
 function manageDisplayFree(correction, content, correction_div) {
-    $('#activity-content').html(bbcodeToHtml(content));
-    $('#activity-content-container').show();
-    if (correction == 0 || correction == null) {
+    $('#activity-states').html(bbcodeToHtml(content));
+    $('#activity-states-container').show();
+    if (UserManager.getUser().isRegular) {
+        $('#activity-content').html(JSON.parse(Activity.activity.solution));
+        $('#activity-content-container').show();
+    }
+    if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
             $('#activity-input').wysibb(wbbOpt);
+            if (Activity.response != null && Activity.response != '') {
+                $('#activity-input').htmlcode(bbcodeToHtml(JSON.parse(Activity.response)));
+            }
             $('#activity-input-container').show();
         }
-    } else if (correction > 0) {
+    } else if (correction > 1) {
         $('#activity-student-response').show();
-        $('#activity-student-response-content').html(bbcodeToHtml(Activity.response));
+        $('#activity-student-response-content').html(bbcodeToHtml(JSON.parse(Activity.response)));
         manageCorrectionDiv(correction_div, correction);
     }
 }

@@ -106,7 +106,7 @@ function contentForward() {
     if (Main.getClassroomManager()._createActivity.id == 'free') {
 
         Main.getClassroomManager()._createActivity.content.description = $('#free-content').bbcode();
-        Main.getClassroomManager()._createActivity.solution = [$('#free-correction').bbcode()];
+        Main.getClassroomManager()._createActivity.solution = $('#free-correction').bbcode();
         Main.getClassroomManager()._createActivity.autocorrect = $('#free-autocorrect').is(":checked");
 
     } else if (Main.getClassroomManager()._createActivity.id == 'reading'){
@@ -217,20 +217,7 @@ function validateActivity(correction) {
 function freeValidateActivity(correction = 1) {
     let studentResponse = $('#activity-input').bbcode();
     Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, studentResponse).then((response) => {
-        if (response) {
-            $("#activity-validate").attr("disabled", false);
-            if (response.note != null && response.correction > 1) {
-                if (response.note == 3) {
-                    navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities')
-                } else if (response.note == 0) {
-                    navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities')
-                }
-            } else {
-                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher')
-            }
-        } else {
-            displayNotification('#notif-div', "classroom.notif.errorSending", "error");
-        }
+        responseManager(response, 'free');
     });
 }
 
@@ -351,6 +338,8 @@ function saveActivitiesResponseManager(activityType = null, response = null) {
                 $("#activity-hint").text(response.hint);
             }
         }
+    } else if (activityType == 'free') {
+        displayNotification('#notif-div', "classroom.activities.wrongAnswer", "error");
     }
 }
 
