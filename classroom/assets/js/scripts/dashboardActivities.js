@@ -5,26 +5,30 @@ $(document).ready(function () {
 });
 
 function activityItem(activity, state) {
+    // Add class to activity card depending on activity type
     let activityType = "activity-card-" + activity.activity.type;
     if (activity.activity.type == null || activity.activity.type == "") {
         activityType = "";
     }
+
+    let activityStatus = "",
+        activityStatusTitle = "";
     if (state == "doneActivities") {
         if (activity.note == 3) {
-            var activityStatus = "ribbon ribbon_accept"
-            var activityStatusTitle = i18next.t('classroom.activities.veryGoodProficiency')
+            activityStatus = "ribbon ribbon_accept"
+            activityStatusTitle = i18next.t('classroom.activities.veryGoodProficiency')
         } else if (activity.note == 2) {
-            var activityStatus = "ribbon ribbon_vgood"
-            var activityStatusTitle = i18next.t('classroom.activities.goodProficiency')
+            activityStatus = "ribbon ribbon_vgood"
+            activityStatusTitle = i18next.t('classroom.activities.goodProficiency')
         } else if (activity.note == 1) {
-            var activityStatus = "ribbon ribbon_good"
-            var activityStatusTitle = i18next.t('classroom.activities.weakProficiency')
+            activityStatus = "ribbon ribbon_good"
+            activityStatusTitle = i18next.t('classroom.activities.weakProficiency')
         } else if (activity.note == 0) {
-            var activityStatus = "ribbon ribbon_refuse"
-            var activityStatusTitle = i18next.t('classroom.activities.insufficientProficiency')
+            activityStatus = "ribbon ribbon_refuse"
+            activityStatusTitle = i18next.t('classroom.activities.insufficientProficiency')
         } else {
-            var activityStatus = ""
-            var activityStatusTitle = "?"
+            activityStatus = ""
+            activityStatusTitle = "?"
         }
     }
 
