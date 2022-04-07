@@ -850,7 +850,10 @@ button {
 }
 
 .form-activity-container {
-    width: 50%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 75%;
     user-select: none;
 }
 
@@ -859,7 +862,6 @@ button {
     height: 2em;
     line-height: unset;
     cursor: unset;
-
 }
 
 .form-activity-activate {
@@ -1616,15 +1618,13 @@ h3.section-done {
     }
 
 
-    .dashboard-block>nav>div:nth-child(2),
-    .dashboard-block>nav>div:nth-child(3) {
+    .dashboard-block>nav>div span:not(.form-activity) {
         display: none;
     }
 
     .activity-creation-form>div {
         max-width: 85%;
     }
-
 
 }
 
