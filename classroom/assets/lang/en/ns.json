@@ -227,8 +227,8 @@
       "createClassNow": "Start by creating a class now!",
       "form": {
         "title": "Create a class",
-        "updateTitle": "Update classroom",
         "name": "Name of the class",
+        "updateTitle": "Update classroom",
         "school": "Name of the establishment",
         "addStudent": "Add a learner",
         "noStudent": "No learners in this class yet",
@@ -249,7 +249,8 @@
         "learnerMode": "Learner mode",
         "dueBy": "Due by",
         "timePassed": "Time spent: "
-      }
+      },
+      "copyDirectLink": " Copy the direct link"
     },
     "activities": {
       "title": "Activities",
@@ -286,7 +287,29 @@
         "noComment": "No comment yet"
       },
       "applist": {
-        "selectApp": "Select the application that you wish to create an activity with"
+        "selectApp": "Select the application that you wish to create an activity with",
+        "apps": {
+          "reading": {
+            "title": " Multimedia",
+            "desc": " This activity allows you to view texts, images, videos, PDFs, as well as external tools."
+          },
+          "quiz": {
+            "title": " MCQS",
+            "desc": " This activity assesses knowledge using multiple choice or simple questions."
+          },
+          "free": {
+            "title": " Free response",
+            "desc": " This activity allows students to respond to a statement in writing."
+          },
+          "fillIn": {
+            "title": " Cloze text",
+            "desc": " This activity assesses knowledge by filling in blanks."
+          },
+          "dragAndDrop": {
+            "title": " Drag and Drop",
+            "desc": " This activity allows you to drag and drop words into different empty spaces."
+          }
+        }
       },
       "form": {
         "1": "Application",
@@ -347,9 +370,9 @@
     },
     "footer": {
       "privacy": "Privacy policy ",
-      "cgu": "Terms of Service",
       "legal": "Legal Notices",
-      "copyright": ""
+      "cgu": "Terms of Service",
+      "copyright": " "
     },
     "teacherHelpPanel": {
       "contactForm": {
@@ -443,124 +466,182 @@
       }
     }
   },
-  "login_popup": {
-    "title": "Login",
-    "details": "Enter your login details to access your account.",
-    "form": {
-      "addressmail": "Email address",
-      "addressmail_placeholder": "exemple@domaine.com",
-      "password": "Password",
-      "password_placeholder": "Your password.",
-      "forgot_password": "I forgot my password.",
-      "btn_connect": "Log in"
+  "faqInfo": {
+    "1": {
+      "section_title": " General Questions",
+      "question_list": {
+        "1": {
+          "title": " What is the Cabri platform?",
+          "answer": " The Cabri platform makes it easy to assign educational content and track learners. Teachers can use content from the community or create their own activities and share them."
+        },
+        "2": {
+          "title": " Who uses the Cabri platform?",
+          "answer": " In class, at home or in extracurricular workshops, the Cabri platform is used by teachers (professors, animators, trainers, etc.) and their learners (pupils, students, apprentices, etc.). The Cabri platform has been designed for the secondary level (~10 to 18 years old), but it can be adapted to other contexts."
+        },
+        "3": {
+          "title": " What is the nature of the support from the Ministry of Education?",
+          "answer": " Vittascience is a winner of the Édu-up scheme to support the production of innovative digital resources. More details are available on <a href=\"/eduUp\">the page dedicated to Édu-up</a>."
+        },
+        "4": {
+          "title": " On which media can the Cabri platform be used?",
+          "answer": " The Cabri platform runs on computers, tablets and smartphones with most browsers and an Internet connection."
+        },
+        "5": {
+          "title": " Can we ask for a demonstration?",
+          "answer": " We regularly host webinars presenting the Cabri platform; you can subscribe to <a href=\"https://www.youtube.com/Vittascience\">Vittascience's YouTube channel</a> to watch the replay and see upcoming scheduled webinars. To book a video conference demonstration with one of our educational representatives, <a href=\"/about?contact=1\">contact us via this form</a>."
+        },
+        "6": {
+          "title": " How to report bugs and give feedback on the Cabri platform?",
+          "answer": " You can contact us on the Cabri platform in the Profile tab with the Help button."
+        },
+        "7": {
+          "title": " Is the Cabri platform available in several languages?",
+          "answer": " Yes, the Cabri platform is currently available in French and English. To change the language, go to the Profile tab, click on the Settings button, and then select the language you prefer."
+        }
+      }
     },
-    "success": "The authentication was successful. Redirection...",
-    "error": "Error. Please check your login details.",
-    "mailSuccess": "An activation email has been sent to your email address.",
-    "mailError": "An error has occurred. Please verify your email address.",
-    "userNotFound": "No linked user found with this mail.",
-    "inactiveAccount": "Your account is not active, click on the button just below to send a new validation mail.",
-    "accountDeactivated": "Your account has been deactivated, contact an administrator if the problem persists.",
-    "errorBeta": "You must be a beta tester to access this feature. <a href='https://fr.vittascience.com/about#contact'>Contact the Vittascience team</a> to learn more."
-  },
-  "signup-popup": {
-    "title": "Registration",
-    "notice": "Please complete the following fields to create your Vittascience account.",
-    "firstName": "First name",
-    "lastName": "Name",
-    "mail": "Email address",
-    "telephone": "Phone",
-    "password": "Password",
-    "passwordConfirmed": "Confirmation",
-    "firstNamePlaceholder": "Your first name.",
-    "lastNamePlaceholder": "Your name.",
-    "mailPlaceholder": "A confirmation email will be sent to you.",
-    "telephonePlaceholder": "Your telephone number (optional).",
-    "passwordPlaceholder": "Minimum 8 characters. Upper case, lower case and numbers.",
-    "passwordConfirmedPlaceholder": "Repeat your password a second time.",
-    "mandatory": "Fields marked with a <span class=\"mandatory\">*</span> are required.",
-    "submit": "Confirm",
-    "back": "Back",
-    "title2nd": "Please provide us with some additional information",
-    "areYou": "Are you...",
-    "member": "An individual?",
-    "teacher": "A teacher?",
-    "teacher-grade": "Level of training",
-    "grades": {
-      "primary": "Primary",
-      "middle": "College",
-      "high": "High School",
-      "highbis": "Professional High School",
-      "higher": "Post-BAC"
+    "2": {
+      "3": {
+        "section_title": " Licenses and authorizations",
+        "question_list": {
+          "1": {
+            "title": " Can we make a description or presentation of the Cabri platform?",
+            "answer": " Yes, you can reuse the visuals of the Cabri platform to create descriptions, presentations, trainings, tutorials, courses or others. If you want to include images or activity content, please mention the author (see next question)."
+          },
+          "2": {
+            "title": " Can we reuse the activities of the Vittascience community?",
+            "answer": " Yes, all the activities visible in the Vittascience resource bank are under Creative Commons license. Two cases are possible:<ul><li>CC BY-NC-SA: the author wants the content to be shared in a non-commercial use only and under the condition of mentioning his name. The content can be modified.</li><li>CC BY-NC-ND: the author wishes the content to be shared in a non-commercial use only and provided that his/her name is mentioned. The content may not be modified.</li></ul>"
+          },
+          "3": {
+            "title": " Where can I find the source code of the Cabri platform?",
+            "answer": " The source code for the Cabri platform is not available at this time. You can find many open source modules of the Vittascience platform on <a href=\"https://github.com/vittascience\">Vittascience GitHub folder</a>, feel free to contribute!"
+          }
+        }
+      },
+      "section_title": " Accounts",
+      "question_list": {
+        "1": {
+          "title": " How to connect to the Cabri platform?",
+          "answer": " It is possible to connect to the Cabri platform in three ways:<ul><li>Class code: allows learners to register or connect quickly with only a pseudonym (without filling in an email address). A class code is automatically generated for each class created by the teacher.</li><li>Vittascience account: allows the teacher to log in with a Vittascience account (email address and password). This method is for teachers only and is not suitable for learners (RGPD).</li><li>RAM account: the Resource Access Manager (RAM) aims to simplify and secure authenticated access between ENT users and their digital resources. More information is available on the <a href=\"/gar\">Accessing Vittascience through GAR</a>.</li></ul>Privacy is paramount for Vittascience, to learn more, find the <a href=\"/privacy\">page dedicated to personal data protection</a>."
+        },
+        "2": {
+          "title": " Can I use Vittascience without an account?",
+          "answer": " Without an account, it is possible to use the Program page and access Vittascience's educational resources. However, you will need an account to perform class activities, save your achievements and share your content. Your learners do not need to create a Vittascience account if you invite them via the Cabri platform."
+        },
+        "3": {
+          "title": " How to create an account?",
+          "answer": " Simply click on Subscribe in the homepage of the Cabri platform, choose the offer that suits you and provide some information.<ul><li>If you opt for the free offer, a link is sent to you by email, simply click on this link to confirm your account. Once your account is confirmed, you can explore the interface, create your activities and share them.</li><li>If you opt for a paid offer, perform the creation of a quote for your establishment or a purchase, then your account will be activated.</li></ul>"
+        },
+        "4": {
+          "title": " What is a teacher account?",
+          "answer": " Any Vittascience account created from an email address or GAR can be used as a teacher account. A teacher account has features to create learner accounts, organize activities, and exchange feedback with their learners."
+        },
+        "5": {
+          "title": " What is a learner account?",
+          "answer": " A learner account allows you to complete activities requested by teachers, to explore Vittascience programming interfaces and to share your own achievements. Only a pseudonym is required to create a learner account. A 4-digit code is automatically generated to secure the learners' access; only the teacher can modify it."
+        },
+        "6": {
+          "title": " Forgot your username or password?",
+          "answer": " If you have a Vittascience (teacher) account, you can receive a password recovery email via <a href=\"/passwordRecovery\">this link</a>. As a learner, you must ask your teacher to reset your 4-digit code."
+        },
+        "7": {
+          "title": " How do I change my password or other account settings?",
+          "answer": " To change your password or other settings, go to <a href=\"/profile\">your profile page</a>. In the case of GAR, the settings are those of your ENT."
+        }
+      }
     },
-    "establishement": "Institution",
-    "establishementPlaceholder": "Search by school name or city.",
-    "subject": "Subject taught",
-    "bio": "Mini-bio",
-    "bioPlaceholder": "Tell us a little bit about yourself, so other users of the site can know a little more about your background :) Maximum 800 characters.",
-    "profilPicture": "Profile picture (optional)",
-    "allowPictures": "Accepted formats: jpeg, jpg, png. Max. 10Mb",
-    "allowPublicName": "Do you accept that your name and surname are public on the site?",
-    "allowNewsletter": "Would you like to receive our newsletter by email?",
-    "allowAlertMessage": "Would you like to receive e-mail alerts when new messages are received on the site?",
-    "allowMessageReceive": "Would you like to be contacted by other users of the site?",
-    "eighteenConfirm": "I confirm that I am over 18 years old (article 1124 of the civil code)",
-    "confirmCGU": "By validating this form, you agree to the <a target=\"_blank\" href=\"/cgu\">Terms and Conditions</a>.",
-    "concernedAboutPrivacy": "Vittascience places the security and confidentiality of its users' personal data at the heart of its concerns. Discover <a target=\"_blank\" href=\"/privacy\">our personal data protection policy</a>",
-    "errors": {
-      "mailUsed": "The mail {{ mail }} is already in use. Please choose another one.",
-      "mailUsedServer": "The email address provided already exists.",
-      "lastName": "The name provided is incorrect.",
-      "firstName": "The first name provided is incorrect.",
-      "mailInvalid": "The email address is invalid.",
-      "passwordInvalid": "The password does not respect the security constraints.",
-      "biographyInvalid": "The biography is incorrect.",
-      "telephoneInvalid": "The phone number is incorrect.",
-      "profilPictureInvalid": "The profile photo provided does not respect the format indicated.",
-      "establishementIncorrect": "The establishment name is incorrect.",
-      "gradeIncorrect": "The level of teaching is incorrect.",
-      "subjectIncorrect": "The name of the subject taught is incorrect."
+    "3": {
+      "section_title": " Licenses and authorizations",
+      "question_list": {
+        "1": {
+          "title": " Can we make a description or presentation of the Cabri platform?",
+          "answer": " Yes, you can reuse the visuals of the Cabri platform to create descriptions, presentations, trainings, tutorials, courses or others. If you want to include images or activity content, please mention the author (see next question)."
+        },
+        "2": {
+          "title": " Can we reuse the activities of the Vittascience community?",
+          "answer": " Yes, all the activities visible in the Vittascience resource bank are under Creative Commons license. Two cases are possible:<ul><li>CC BY-NC-SA: the author wants the content to be shared in a non-commercial use only and under the condition of mentioning his name. The content can be modified.</li><li>CC BY-NC-ND: the author wishes the content to be shared in a non-commercial use only and provided that his/her name is mentioned. The content may not be modified.</li></ul>"
+        },
+        "3": {
+          "title": " Where can I find the source code of the Cabri platform?",
+          "answer": " The source code for the Cabri platform is not available at this time. You can find many open source modules of the Vittascience platform on <a href=\"https://github.com/vittascience\">Vittascience GitHub folder</a>, feel free to contribute!"
+        }
+      }
     },
-    "success": {
-      "main": "Your registration has been successfully registered! A confirmation link has been sent to you at <b>{mail }}</b>.",
-      "notice": "You must access this link before you can log in. If you cannot find the email in question, please check your spam folder."
-    }
+    "title": " Frequently Asked Questions",
+    "hint": " Can't find the answer to your question? <a href=\"/about?contact=1\">Contact us via this form</a>."
   },
-  "switchAccessibility": {
-    "title": "Accessibility",
-    "theme": "Theme",
-    "light_theme": "Clear theme",
-    "dark_theme": "Dark theme",
-    "font": "Police",
-    "basic_font": "Basic",
-    "know_more": "Read more"
-  },
-  "words": {
-    "send": "send",
-    "settings": "parameters",
-    "disconnect": "disconnection",
-    "help": "help",
-    "duplicate": "duplicate",
-    "delete": "delete",
-    "attribute": "allocate",
-    "modify": "edit",
-    "optional": "optional",
-    "evaluation": "evaluation",
-    "exercise": "exercise",
-    "return": "return",
-    "anonymize": "anonymize",
-    "days": "days",
-    "hours": "hours",
-    "minutes": "minutes",
-    "seconds": "seconds",
-    "confirm": "confirm",
-    "username": "pseudonym",
-    "password": "Password",
-    "yes": "Yes",
-    "no": "No"
+  "faqInfoNeutral": {
+    "1": {
+      "section_title": " General Questions",
+      "question_list": {
+        "1": {
+          "title": " What is the Cabri platform?",
+          "answer": " The Cabri platform makes it easy to assign educational content and track learners. Teachers can use content from the community or create their own activities and share them."
+        },
+        "2": {
+          "title": " Who uses the Cabri platform?",
+          "answer": " In class, at home or in extracurricular workshops, the Cabri platform is used by teachers (professors, animators, trainers, etc.) and their learners (pupils, students, apprentices, etc.). The Cabri platform has been designed for the secondary level (~10 to 18 years old), but it can be adapted to other contexts."
+        },
+        "3": {
+          "title": " On which media can the Cabri platform be used?",
+          "answer": " The Cabri platform runs on computers, tablets and smartphones with most browsers and an Internet connection."
+        },
+        "4": {
+          "title": " How to report bugs and give feedback on the Cabri platform?",
+          "answer": " You can contact us on the Cabri platform in the Profile tab with the Help button."
+        },
+        "5": {
+          "title": " Is the Cabri platform available in several languages?",
+          "answer": " Yes, the Cabri platform is currently available in French and English. To change the language, go to the Profile tab, click on the Settings button, and then select the language you prefer."
+        }
+      }
+    },
+    "2": {
+      "section_title": " Accounts",
+      "question_list": {
+        "1": {
+          "title": " How to connect to the Cabri platform?",
+          "answer": " It is possible to connect to the Cabri platform in three ways:<ul><li>Class code: allows learners to register or connect quickly with only a pseudonym (without filling in an email address). A class code is automatically generated for each class created by the teacher.</li><li>Cabri Platform Account: allows the teacher to log in with a Cabri Platform account (email address and password). This method is for teachers only and is not suitable for learners (RGPD).</li><li>RAM account: the Resource Access Manager (RAM) aims to simplify and secure authenticated access between ENT users and their digital resources. More information is available on the <a href=\"/gar\">accessing the Cabri platform through the GAR</a>.</li></ul>Privacy is paramount to the Cabri platform, to learn more, find the <a href=\"/privacy\">page dedicated to personal data protection</a>."
+        },
+        "2": {
+          "title": " How to create an account?",
+          "answer": " Simply click on Create an account on the Cabri platform home page and provide some information. A link will be sent to you by email, just click on it to confirm your account. Once your account is confirmed, you can explore the interface, create your activities and share them."
+        },
+        "3": {
+          "title": " What is a teacher account?",
+          "answer": " Any Cabri Platform account created from an email address or the GAR can be used as a teacher account. A teacher account has features for creating learner accounts, organizing activities and exchanging feedback with learners."
+        },
+        "4": {
+          "title": " What is a learner account?",
+          "answer": " A learner account allows you to complete activities requested by teachers and to share your own achievements. Only a pseudonym is required to create a learner account. A 4-digit code is automatically generated to secure learner access; only the teacher can manually change it. However, the learner can reset the code to obtain a new one."
+        },
+        "5": {
+          "title": " Forgot your username or password?",
+          "answer": " If you have a Cabri Platform (teacher) account, you can receive a password recovery email via <a href=\"/passwordRecovery\">this link</a>. As a learner, you must ask your teacher to reset your 4-digit code."
+        },
+        "6": {
+          "title": " How do I change my password or other account settings?",
+          "answer": " To change your password or other settings, go to your Profile panel, click on Settings and then on Access your profile. In the case of GAR, the settings are those of your ENT."
+        }
+      }
+    },
+    "3": {
+      "section_title": " Licenses and authorizations",
+      "question_list": {
+        "1": {
+          "title": " Can we make a description or presentation of the Cabri platform?",
+          "answer": " Yes, you can reuse the visuals of the Cabri platform to create descriptions, presentations, trainings, tutorials, courses or others. If you want to include images or activity content, please mention the author (see next question)."
+        },
+        "2": {
+          "title": " Where can I find the source code of the Cabri platform?",
+          "answer": " The source code for the Cabri platform is available <a href=\"https://github.com/Cabri/OpenSTEAM-LMS/\">on the associated git repo</a>, feel free to contribute!"
+        }
+      }
+    },
+    "title": " Frequently Asked Questions",
+    "hint": " Can't find the answer to your question? <a href=\"/about?contact=1\">Contact us via this form</a>."
   },
   "faqTeacherNeutral": {
-    "title": "FAQ",
     "1": {
       "section_title": "Activities",
       "question_list": {
@@ -698,10 +779,10 @@
           "answer": "The source code of the Class module is available on the <a href=\"https://github.com/Cabri/OpenSTEAM-LMS/\" target=\"_href\">OpenSTEAM-LMS git repository</a>, feel free to contribute!"
         }
       }
-    }
+    },
+    "title": "FAQ"
   },
   "faqStudentNeutral": {
-    "title": "FAQ",
     "1": {
       "section_title": "Activities",
       "question_list": {
@@ -779,7 +860,124 @@
           "answer": "The source code of the Class module is available on <a href=\"https://github.com/Cabri/OpenSTEAM-LMS/\" target=\"_href\">the OpenSTEAM-LMS git repository</a>, feel free to contribute!"
         }
       }
+    },
+    "title": "FAQ"
+  },
+  "login_popup": {
+    "title": "Login",
+    "details": "Enter your login details to access your account.",
+    "form": {
+      "addressmail": "Email address",
+      "addressmail_placeholder": "exemple@domaine.com",
+      "password": "Password",
+      "password_placeholder": "Your password.",
+      "forgot_password": "I forgot my password.",
+      "btn_connect": "Log in"
+    },
+    "success": "The authentication was successful. Redirection...",
+    "error": "Error. Please check your login details.",
+    "mailSuccess": "An activation email has been sent to your email address.",
+    "mailError": "An error has occurred. Please verify your email address.",
+    "userNotFound": "No linked user found with this mail.",
+    "accountDeactivated": "Your account has been deactivated, contact an administrator if the problem persists.",
+    "inactiveAccount": "Your account is not active, click on the button just below to send a new validation mail.",
+    "errorBeta": "You must be a beta tester to access this feature. <a href='https://fr.vittascience.com/about#contact'>Contact the Vittascience team</a> to learn more."
+  },
+  "signup-popup": {
+    "title": "Registration",
+    "notice": "Please complete the following fields to create your Vittascience account.",
+    "firstName": "First name",
+    "lastName": "Name",
+    "mail": "Email address",
+    "telephone": "Phone",
+    "password": "Password",
+    "passwordConfirmed": "Confirmation",
+    "firstNamePlaceholder": "Your first name.",
+    "lastNamePlaceholder": "Your name.",
+    "mailPlaceholder": "A confirmation email will be sent to you.",
+    "telephonePlaceholder": "Your telephone number (optional).",
+    "passwordPlaceholder": "Minimum 8 characters. Upper case, lower case and numbers.",
+    "passwordConfirmedPlaceholder": "Repeat your password a second time.",
+    "mandatory": "Fields marked with a <span class=\"mandatory\">*</span> are required.",
+    "submit": "Confirm",
+    "back": "Back",
+    "title2nd": "Please provide us with some additional information",
+    "areYou": "Are you...",
+    "member": "An individual?",
+    "teacher": "A teacher?",
+    "teacher-grade": "Level of training",
+    "grades": {
+      "primary": "Primary",
+      "middle": "College",
+      "high": "High School",
+      "highbis": "Professional High School",
+      "higher": "Post-BAC"
+    },
+    "establishement": "Institution",
+    "establishementPlaceholder": "Search by school name or city.",
+    "subject": "Subject taught",
+    "bio": "Mini-bio",
+    "bioPlaceholder": "Tell us a little bit about yourself, so other users of the site can know a little more about your background :) Maximum 800 characters.",
+    "profilPicture": "Profile picture (optional)",
+    "allowPictures": "Accepted formats: jpeg, jpg, png. Max. 10Mb",
+    "allowPublicName": "Do you accept that your name and surname are public on the site?",
+    "allowNewsletter": "Would you like to receive our newsletter by email?",
+    "allowAlertMessage": "Would you like to receive e-mail alerts when new messages are received on the site?",
+    "allowMessageReceive": "Would you like to be contacted by other users of the site?",
+    "eighteenConfirm": "I confirm that I am over 18 years old (article 1124 of the civil code)",
+    "confirmCGU": "By validating this form, you agree to the <a target=\"_blank\" href=\"/cgu\">Terms and Conditions</a>.",
+    "concernedAboutPrivacy": "Vittascience places the security and confidentiality of its users' personal data at the heart of its concerns. Discover <a target=\"_blank\" href=\"/privacy\">our personal data protection policy</a>",
+    "errors": {
+      "mailUsed": "The mail {{ mail }} is already in use. Please choose another one.",
+      "mailUsedServer": "The email address provided already exists.",
+      "lastName": "The name provided is incorrect.",
+      "firstName": "The first name provided is incorrect.",
+      "mailInvalid": "The email address is invalid.",
+      "passwordInvalid": "The password does not respect the security constraints.",
+      "biographyInvalid": "The biography is incorrect.",
+      "telephoneInvalid": "The phone number is incorrect.",
+      "profilPictureInvalid": "The profile photo provided does not respect the format indicated.",
+      "establishementIncorrect": "The establishment name is incorrect.",
+      "gradeIncorrect": "The level of teaching is incorrect.",
+      "subjectIncorrect": "The name of the subject taught is incorrect."
+    },
+    "success": {
+      "main": "Your registration has been successfully registered! A confirmation link has been sent to you at <b>{mail }}</b>.",
+      "notice": "You must access this link before you can log in. If you cannot find the email in question, please check your spam folder."
     }
+  },
+  "switchAccessibility": {
+    "title": "Accessibility",
+    "theme": "Theme",
+    "light_theme": "Clear theme",
+    "dark_theme": "Dark theme",
+    "font": "Police",
+    "basic_font": "Basic",
+    "know_more": "Read more"
+  },
+  "words": {
+    "send": "send",
+    "settings": "parameters",
+    "disconnect": "disconnection",
+    "help": "help",
+    "duplicate": "duplicate",
+    "delete": "delete",
+    "attribute": "allocate",
+    "modify": "edit",
+    "optional": "optional",
+    "evaluation": "evaluation",
+    "exercise": "exercise",
+    "return": "return",
+    "anonymize": "anonymize",
+    "days": "days",
+    "hours": "hours",
+    "minutes": "minutes",
+    "seconds": "seconds",
+    "confirm": "confirm",
+    "username": "pseudonym",
+    "password": "Password",
+    "yes": "Yes",
+    "no": "No"
   },
   "manager": {
     "profil": {
@@ -1042,22 +1240,22 @@
       "toManyStudentsFromTheTeacher": "The teacher you want to add to the group has too many students",
       "toManyStudentsInGroup": "The group cannot accommodate so many students, the teacher has too many students.",
       "teachersPerGroup": "Teacher per group",
-      "studentsPerGroup": "Students per group",
       "activitiesPerGroup": "Activities per group",
       "activitiesPerTeacher": "Activities per teacher",
+      "studentsPerGroup": "Students per group",
       "studentsPerTeacher": "Students per teacher",
       "maxStudents": "Maximum students",
       "maxActivities": "Maximum activities"
     },
     "title": {
       "activeUsers": "Active users",
-      "inaactiveUsers": "Inactive users"
+      "inactiveUsers": " Inactive users"
     },
     "buttons": {
       "continue": "Continue",
       "validate": "Validate",
-      "activate": "Activate",
       "cancel": "Cancel",
+      "activate": "Activate",
       "finalize": "Finalize",
       "send": "Send",
       "login": "Sign in",
@@ -1220,11 +1418,8 @@
         "hardware": "Discover our kits and products"
       },
       "programming": "Programming",
-      "classroom": "Classroom",
-      "arduino": "Arduino",
-      "microbit": "Microbit",
-      "microbit-tutorials": "Microbit Tutorials",
       "ressources": "Resources",
+      "classroom": "Classroom",
       "accessibility": "Change the theme and font of the site",
       "lang": "Change language",
       "user_shortcuts": {
