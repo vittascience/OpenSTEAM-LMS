@@ -1275,14 +1275,12 @@ h3.section-done {
     -webkit-box-orient: vertical;
 }
 
-
-
 .sandbox-card,
 .activity-card {
     height: 100%;
     width: 100%;
     background-color: var(--classroom-primary);
-    background: url("../media/cards/card-vittascience.jpg");
+    background: url("../media/cards/card-default.jpg");
     border-radius: 1.2em;
     background-clip: content-box;
     background-size: cover;
@@ -1313,6 +1311,32 @@ h3.section-done {
 
 
 }
+
+.sandbox-card.sandbox-card-fillIn,
+.activity-card.activity-card-fillIn {
+    background-image: url("../media/cards/card-fillIn.jpg");
+}
+
+.sandbox-card.sandbox-card-free,
+.activity-card.activity-card-free {
+    background-image: url("../media/cards/card-free.jpg");
+}
+
+.sandbox-card.sandbox-card-dragAndDrop,
+.activity-card.activity-card-dragAndDrop {
+    background-image: url("../media/cards/card-dragAndDrop.jpg");
+}
+
+.sandbox-card.sandbox-card-quiz,
+.activity-card.activity-card-quiz {
+    background-image: url("../media/cards/card-quiz.jpg");
+}
+
+.sandbox-card.sandbox-card-reading,
+.activity-card.activity-card-reading {
+    background-image: url("../media/cards/card-reading.jpg");
+}
+
 
 .sandbox-card.sandbox-card-arduino,
 .activity-card.activity-card-arduino {
