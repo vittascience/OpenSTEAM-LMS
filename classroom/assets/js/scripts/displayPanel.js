@@ -235,8 +235,7 @@ DisplayPanel.prototype.classroom_dashboard_form_classe_panel_update = function (
 DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function () {
     ClassroomSettings.activity = false;
     // Refresh the activities
-    Main.getClassroomManager().getTeacherActivities(Main.getClassroomManager())
-    .then(() => {
+    Main.getClassroomManager().getTeacherActivities(Main.getClassroomManager()).then(() => {
         teacherActivitiesDisplay();
     });
 }

@@ -830,7 +830,6 @@ function filterTeacherActivityInList(keywords = [], orderBy = 'id', asc = true) 
         expression += '(?=.*'
         expression += keywords[i].toUpperCase()
         expression += ')'
-
     }
     regExp = new RegExp(expression)
     let list = Main.getClassroomManager()._myTeacherActivities.filter(x => regExp.test(x.title.toUpperCase()))
@@ -843,7 +842,6 @@ function filterTeacherActivityInList(keywords = [], orderBy = 'id', asc = true) 
             return b[orderBy] - a[orderBy];
         })
     }
-
 }
 
 function filterSandboxInList(keywords = [], orderBy = 'id', asc = true) {

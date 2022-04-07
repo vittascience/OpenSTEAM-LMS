@@ -5,11 +5,10 @@ $(document).ready(function () {
 });
 
 function activityItem(activity, state) {
-    let activityType = "activity-card-" + activity.type;
-    if (activity.type = null || activity.type == "") {
+    let activityType = "activity-card-" + activity.activity.type;
+    if (activity.activity.type == null || activity.activity.type == "") {
         activityType = "";
     }
-
     if (state == "doneActivities") {
         if (activity.note == 3) {
             var activityStatus = "ribbon ribbon_accept"
@@ -76,7 +75,7 @@ function teacherSandboxItem(json) {
 
 function teacherActivityItem(activity) {
     let activityType = "activity-card-" + activity.type;
-    if (activity.type = null || activity.type == "") {
+    if (activity.type == null || activity.type == "") {
         activityType = "";
     }
 
@@ -223,7 +222,6 @@ $('body').on('change', '#filter-activity-select', function () {
     } else {
         teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true))
     }
-
 })
 
 $(document).on('keyup', function (e) {
@@ -499,6 +497,10 @@ function loadActivityForTeacher() {
     if (UserManager.getUser().isRegular && Activity.correction > 0) {
 
         correction += `<div class="giveNote-container c-primary-form">`
+
+        if (activity.correction == 1) {
+
+        }
         correction += `<label for="givenote-3" onclick="setNote(3)"><input type="radio" id="givenote-3" ${Activity.note == 3 ? "checked=checked" : ""} name="giveNote" value="3">${" " + i18next.t('classroom.activities.accept')}</label>`;
         correction += `<label for="givenote-2" onclick="setNote(2)"><input type="radio" id="givenote-2" ${Activity.note == 2 ? "checked=checked" : ""} name="giveNote" value="2">${" " + i18next.t('classroom.activities.vgood')}</label>`;
         correction += `<label for="givenote-1" onclick="setNote(1)"><input type="radio" id="givenote-1" ${Activity.note == 1 ? "checked=checked" : ""} name="giveNote" value="1">${" " + i18next.t('classroom.activities.good')}</label>`;
