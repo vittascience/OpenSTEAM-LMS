@@ -48,13 +48,18 @@ function deleteQcmFields() {
 
 // Set all the inputs we need to reset
 function resetInputsForActivity() {
+
+    
+    
     // Autocorrect note disclaimer
     $("#activity-auto-corrected-disclaimer").hide();
     $("#activity-auto-disclaimer").hide();
     $("#activity-content-container").hide();
+
     // Hide all the divs
     $('#activity-introduction').hide();
     $('#activity-correction-container').hide();
+    $("#activity-states-container").hide();
     
     // Field for free activity
     $('#activity-input-container').hide();
