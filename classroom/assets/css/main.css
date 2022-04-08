@@ -523,7 +523,7 @@ button {
 }
 
 .dashboard-block {
-    margin-top: 2.5em;
+    margin-top: 2.8em;
 }
 
 
@@ -1561,6 +1561,15 @@ h3.section-done {
 }
 
 /* updated @Rémi */
+#dragAndDrop-add-inputs,
+#fill-in-add-inputs {
+    margin: 0 auto;
+    margin-top: 0px;
+    display: block;
+    border-radius: 0px 0px 1em 1em;
+    margin-top: -2px;
+}
+
 .activities-fill-in-square {
     border: solid;
     margin: 3px;
@@ -1704,33 +1713,53 @@ h3.section-done {
     max-width: 80%;
 }
 
+#hint-exist-disclaimer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border: 2px solid var(--classroom-tertiary);
+
+    width: min(50ch, 90%);
+    margin: 0 auto 1em;
+    padding: 0.5em;
+    border-radius: 2em;
+}
+
+#hint-exist-disclaimer i {
+    background-color: var(--classroom-tertiary);
+    color: var(--classroom-white);
+
+    width: 2em;
+    height: 2em;
+
+    display: grid;
+    align-items: center;
+    
+    border-radius: 50%;
+    margin-bottom: 0.5em;
+}
+
 /* ACTIVITY CORRECTION FORM */
 
 #activity-title {
     font-weight: 700;
     text-align: center;
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 #activity-auto-disclaimer {
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--classroom-secondary);
-}
-
-#activity-auto-disclaimer img {
     background-color: var(--classroom-secondary);
     border-radius: 256px;
     border: 2px solid var(--classroom-secondary);
-    height: 1.5em;
+    height: 1em;
     margin: 5px 10px;
 }
-
-#activity-assign-section {
-    text-align: center;
-}
-
 
 #activity-details {
     text-align: center;
@@ -1743,10 +1772,14 @@ h3.section-done {
     margin: -0.2rem 0.5rem 0 0;
 }
 
+.theme-dark .chrono-icon {
+    filter: brightness(0%) invert(1);
+}
+
 #activity-correction {
     padding: 0.5em;
     border-radius: 1em;
-    box-shadow: 1px 1px 6px #00000029;
+    box-shadow: 0px 0px 10px var(--classroom-shadow-1);
     margin: .5em;
     overflow: auto;
     position: sticky;

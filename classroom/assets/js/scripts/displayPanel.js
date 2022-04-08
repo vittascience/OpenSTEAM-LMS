@@ -390,15 +390,23 @@ function getTeacherActivity() {
     resetInputsForActivity();
     
     $('#activity-title').html(Activity.title);
+    
+    let autoCorrectionDisclaimerElt = `<img id="activity-auto-disclaimer" data-toggle="tooltip" src="assets/media/auto-icon.svg" title="${i18next.t("classroom.activities.isAutocorrect")}">`
+    Activity.isAutocorrect ? $('#activity-title').append(autoCorrectionDisclaimerElt).tooltip() : null;
 
     let activityDropdownElt = `
-    <div class="btn-group">
-        <button type="button" class="btn c-btn-primary" onclick="attributeActivity(` + Activity.id + `)">
-            <i class="fas fa-arrow-down"></i>${" " + capitalizeFirstLetter(i18next.t('words.attribute'))}    
+    <div class="dropdown mx-2">
+        <button class="btn c-btn-outline-grey" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-cog"></i>
         </button>
-        <button type="button" class="btn c-btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false">
-        </button>
+
         <ul class="dropdown-menu">
+            <li>
+                <a href="#" class="dropdown-item" href="#" onclick="attributeActivity(${Activity.id})" >
+                    ${capitalizeFirstLetter(i18next.t('words.attribute'))}
+                </a>
+            </li>
+        
             <li>
                 <a class="dropdown-item" href="#" onclick="createActivity(null,${Activity.id})">
                     ${capitalizeFirstLetter(i18next.t('words.duplicate'))}
@@ -417,10 +425,8 @@ function getTeacherActivity() {
             </li>
         </ul>
     </div>`
-    $('#activity-assign-section').html(activityDropdownElt).show();
+    $('#activity-title').append(activityDropdownElt);
 
-
-    Activity.isAutocorrect ? $('#activity-auto-disclaimer').show() :  $('#activity-auto-disclaimer').hide();
 
     if (IsJsonString(Activity.content)) {
         const contentParsed = JSON.parse(Activity.content);
