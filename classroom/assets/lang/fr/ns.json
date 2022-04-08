@@ -292,6 +292,7 @@
 			"hint": "Indice",
 			"saved": "Activité sauvegardée",
 			"wrongAnswer": "Mauvaise réponse",
+			"hintExist": "<i class='fas fa-exclamation'></i> Cet exercice possède un indice, il ne peut s'afficher que si l'élève peut soumettre l'activité plusieurs fois",
 			"bilan": {
 				"title": "Bilan",
 				"results": "Résultats",

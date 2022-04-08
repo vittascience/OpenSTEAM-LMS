@@ -292,6 +292,7 @@
 			"hint": "Hint",
 			"saved": "Activity saved",
 			"wrongAnswer": "Wrong answer",
+			"hintExist": "<i class='fas fa-exclamation'></i> This exercise has a hint, it can only be displayed if the student can submit the activity several times",
 			"bilan": {
 				"title": "Bilan",
 				"results": "Results",
