@@ -480,11 +480,11 @@ function parseQuizFieldsAndSaveThem() {
     } else { 
         for (let i = 1; i < $(`input[id^="quiz-suggestion-"]`).length+1; i++) {
             let res = {
-                inputVal: $(`#student-quiz-suggestion-${i}`).text(),
-                isCorrect: $(`#student-quiz-checkbox-${i}`).is(':checked')
+                inputVal: $(`#quiz-suggestion-${i}`).val(),
+                isCorrect: $(`#quiz-checkbox-${i}`).is(':checked')
             }
             let student = {
-                inputVal: $(`#student-quiz-suggestion-${i}`).text()
+                inputVal: $(`#quiz-suggestion-${i}`).val()
             }
             Main.getClassroomManager()._createActivity.solution.push(res);
             Main.getClassroomManager()._createActivity.content.quiz.contentForStudent.push(student);
