@@ -151,7 +151,9 @@ function manageUpdateByType(activity) {
 function manageUpdateForFree(activity) {
     $('#activity-free').show();
     let content = JSON.parse(activity.content);
-    $('#free-content').htmlcode(bbcodeToHtml(content.description));
+    if (content.description != "") {
+        $('#free-content').htmlcode(bbcodeToHtml(content.description));
+    }
     if (activity.isAutocorrect) {
         $("#free-autocorrect").prop("checked", true)
         $("#free-correction-content").show();
