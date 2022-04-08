@@ -1350,7 +1350,8 @@
 			"userNoRights": "Pas de droits assignés",
 			"userAdmin": "Administrateur",
 			"userTeacher": "Enseignant",
-			"restrictions": "Restrictions"
+			"restrictions": "Restrictions",
+			"color": "Couleur"
 		},
 		"apps": {
 			"apps": "Applications",

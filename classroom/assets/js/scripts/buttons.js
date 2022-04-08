@@ -2790,6 +2790,9 @@ function updateApp(app_id) {
         })
         $('#app_update_name').val(response.name);
         $('#app_update_description').val(response.description);
+        if (response.color != "") {
+            $('#app_update_color').val(response.color);
+        }
         $('#app_update_image').val(response.image);
         $('#app_update_id').val(response.id);
 
@@ -2819,16 +2822,16 @@ function persistUpdateApp() {
     let $application_id = $('#app_update_id').val(),
         $application_name = $('#app_update_name').val(),
         $application_description = $('#app_update_description').val(),
+        $application_color = $('#app_update_color').val(),
         $application_image = $('#app_update_image').val(),
         $application_restrictions_type = $('#app_update_activity_restriction_type').val(),
         $application_restrictions_value = $('#app_update_activity_restriction_value').val(),
         lti = checkLtiFields('update');
 
-    console.log(lti);
     if (!lti.isLti && $('#update_isLti').is(":checked")) {
         displayNotification('#notif-div', "manager.account.missingData", "error");
     } else {
-        mainManager.getmanagerManager().updateOneActivityRestriction($application_id, $application_restrictions_type, $application_restrictions_value);
+        mainManager.getmanagerManager().updateOneActivityRestriction($application_id, $application_restrictions_type, $application_restrictions_value, $application_color);
         mainManager.getmanagerManager().updateApplication(
             $application_id,
             $application_name,
@@ -2868,6 +2871,7 @@ function persistDeleteApp() {
 function persistCreateApp() {
     let $application_name = $('#app_create_name').val(),
         $application_description = $('#app_create_description').val(),
+        $application_color = $('#app_create_color').val(),
         $application_image = $('#app_create_image').val(),
         $application_restrictions_type = $('#app_create_activity_restriction_type').val(),
         $application_restrictions_value = $('#app_create_activity_restriction_value').val(),
@@ -2877,7 +2881,7 @@ function persistCreateApp() {
     if (!lti.isLti && $('#isLti').is(":checked")) {
         displayNotification('#notif-div', "manager.account.missingData", "error");
     } else {
-        mainManager.getmanagerManager().createApplication($application_name, $application_description, $application_image, lti).then((response) => {
+        mainManager.getmanagerManager().createApplication($application_name, $application_description, $application_image, lti, $application_color).then((response) => {
             if (response.message == "success") {
                 displayNotification('#notif-div', "manager.apps.createSuccess", "success");
                 closeModalAndCleanInput(true)

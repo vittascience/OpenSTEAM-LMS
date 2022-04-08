@@ -1035,7 +1035,8 @@
 			"userNoRights": "No rights assigned",
 			"userAdmin": "Administrator",
 			"userTeacher": "Teacher",
-			"restrictions": "Restrictions"
+			"restrictions": "Restrictions",
+			"color": "Color"
 		},
 		"apps": {
 			"apps": "Apps",

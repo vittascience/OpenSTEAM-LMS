@@ -895,6 +895,10 @@ const classroomModals = {
                                     <label for="app_update_image" data-i18n="manager.table.image">Image</label>
                                     <input type="text" class="form-control" id="app_update_image">
                                 </div>
+                                <div class="col-md">
+                                    <label for="app_update_color" data-i18n="manager.table.color">Color</label>
+                                    <input type="color" class="form-control" id="app_update_color">
+                                </div>
                                 <input type="hidden" class="form-control" id="app_update_id">
                             </div>
                             <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.restrictions"> Restriction d'activité </p>
@@ -966,6 +970,10 @@ const classroomModals = {
                                 <div class="col-md">
                                     <label for="app_create_image" data-i18n="manager.table.image">Image</label>
                                     <input type="text" class="form-control" id="app_create_image">
+                                </div>
+                                <div class="col-md">
+                                    <label for="app_create_color" data-i18n="manager.table.color">Color</label>
+                                    <input type="color" class="form-control" id="app_create_color">
                                 </div>
                                 <input type="hidden" class="form-control" id="app_create_id">
                             </div>
