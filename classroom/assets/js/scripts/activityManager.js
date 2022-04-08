@@ -345,16 +345,17 @@ function saveActivitiesResponseManager(activityType = null, response = null) {
 
 
 function activitiesCreation(apps) {
+
     let htmlContent = `<div class="app-head" data-i18n="classroom.activities.applist.selectApp"></div>`;
     apps.forEach(app => {
         let restrict = app.hasOwnProperty("type") ? `launchCustomActivity('${app.type}')` : `launchCustomActivity('custom')`;
         htmlContent+= `<div class="app-card" style="--border-color:${app.color};" onclick="${restrict}">
             <img class="app-card-img" src="${app.image}" alt="${app.name}">
-            <h3 class="app-card-title mt-2" data-i18n="">${app.name}</h3>
-            <p class="mt-2" data-i18n="">${app.description}</p>
+            <h3 class="app-card-title mt-2" data-i18n="${app.name}"></h3>
+            <p class="mt-2" data-i18n="${app.description}"></p>
         </div>`
-        
     });
+    
     $('#activity-creation-grid').html(htmlContent);
     $('#activity-creation-grid').localize();
 }

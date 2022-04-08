@@ -1150,6 +1150,16 @@
 		"description": "Activity description <span class=\"c-text-red\">*</span>",
 		"content": "Activity content <span class=\"c-text-red\">*</span>",
 		"addField": "Add answer field",
-		"addFieldTooltip": "By clicking on the Add answer field button, a stylized text is added. You can write the correct answer in this field. Alternative answers are separated by a double ampersand &&"
+		"addFieldTooltip": "By clicking on the Add answer field button, a stylized text is added. You can write the correct answer in this field. Alternative answers are separated by a double ampersand &&",
+		"descMedia": "This activity allows you to view images, videos, PDFs, Vittascience interfaces as well as external tools.",
+		"descFree": "This activity allows students to answer a written exercise.",
+		"descQuiz": "This activity assesses knowledge using multiple or simple choice questions.",
+		"descFillIn": "This activity allows you to apply your knowledge by filling in empty boxes.",
+		"descDragAndDrop": "This activity allows you to drag and drop words into different empty spaces.",
+		"titleMedia": "Multimedia",
+		"titleFree": "Free answer",
+		"titleQuiz": "Quiz",
+		"titleFillIn": "Fill in",
+		"titleDragAndDrop": "Drag and drop"
 	}
 }
