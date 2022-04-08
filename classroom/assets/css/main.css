@@ -2411,6 +2411,36 @@ i.line_height34 {
 
 /* CLASSROOM END */
 
+/* STUDENT ACTIVITY VIEW */
+
+#warning-text-container {
+    border: 2px solid var(--classroom-cell);
+    border-radius: 1em;
+    padding: 0.5em;
+    margin: 0.5em 0;
+}
+
+#warning-text-container p {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    text-align: center;
+    width: 80%;
+margin: 1em auto;
+}
+
+#warning-text-container p i{
+    font-size: 2em;
+
+}
+
+#warning-text-container p#warning-text-evaluation i {
+    color: var(--classroom-red);
+}
+
+#warning-text-container p#warning-text-no-evaluation i {
+    color: var(--classroom-green);
+}
+
 /* STUDENT HELP START */
 
 .help-panel,
@@ -2527,17 +2557,12 @@ i.line_height34 {
 }
 
 /* OTHERS */
+
 /* NOT USED -> MAYBE CAN WE DELETE THIS ? */
 .table-students {
     border: solid 2px var(--classroom-primary);
 }
 
-
-
-/* #vitta-footer {
-    position: absolute;
-    bottom: 0px;
-} */
 
 #home-container #vitta-footer {
     position: static;
