@@ -5,27 +5,30 @@ $(document).ready(function () {
 });
 
 function activityItem(activity, state) {
-    let activityType = "activity-card-" + activity.type;
-    if (activity.type = null || activity.type == "") {
+    // Add class to activity card depending on activity type
+    let activityType = "activity-card-" + activity.activity.type;
+    if (activity.activity.type == null || activity.activity.type == "") {
         activityType = "";
     }
 
+    let activityStatus = "",
+        activityStatusTitle = "";
     if (state == "doneActivities") {
         if (activity.note == 3) {
-            var activityStatus = "ribbon ribbon_accept"
-            var activityStatusTitle = i18next.t('classroom.activities.veryGoodProficiency')
+            activityStatus = "ribbon ribbon_accept"
+            activityStatusTitle = i18next.t('classroom.activities.veryGoodProficiency')
         } else if (activity.note == 2) {
-            var activityStatus = "ribbon ribbon_vgood"
-            var activityStatusTitle = i18next.t('classroom.activities.goodProficiency')
+            activityStatus = "ribbon ribbon_vgood"
+            activityStatusTitle = i18next.t('classroom.activities.goodProficiency')
         } else if (activity.note == 1) {
-            var activityStatus = "ribbon ribbon_good"
-            var activityStatusTitle = i18next.t('classroom.activities.weakProficiency')
+            activityStatus = "ribbon ribbon_good"
+            activityStatusTitle = i18next.t('classroom.activities.weakProficiency')
         } else if (activity.note == 0) {
-            var activityStatus = "ribbon ribbon_refuse"
-            var activityStatusTitle = i18next.t('classroom.activities.insufficientProficiency')
+            activityStatus = "ribbon ribbon_refuse"
+            activityStatusTitle = i18next.t('classroom.activities.insufficientProficiency')
         } else {
-            var activityStatus = ""
-            var activityStatusTitle = "?"
+            activityStatus = ""
+            activityStatusTitle = "?"
         }
     }
 
@@ -76,7 +79,7 @@ function teacherSandboxItem(json) {
 
 function teacherActivityItem(activity) {
     let activityType = "activity-card-" + activity.type;
-    if (activity.type = null || activity.type == "") {
+    if (activity.type == null || activity.type == "") {
         activityType = "";
     }
 
@@ -223,7 +226,6 @@ $('body').on('change', '#filter-activity-select', function () {
     } else {
         teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true))
     }
-
 })
 
 $(document).on('keyup', function (e) {
@@ -424,7 +426,7 @@ function loadActivityForStudents(isDoable) {
     }
 
     // Disclaimer for eval
-    if (Activity.correction < 2) {
+    if (Activity.correction < 2 && Activity.activity.type != 'reading') {
         Activity.evaluation ? $('#warning-text-evaluation').show() : $("#warning-text-no-evaluation").show();
     }
     
@@ -495,10 +497,14 @@ function loadActivityForTeacher() {
 
     let correction = ''
     correction += `<h4 class="c-text-primary text-center font-weight-bold">${i18next.t('classroom.activities.bilan.results')}</h4>`
-
+    if (Activity.activity.isAutocorrect) {
+        correction += `<h6 class="c-text-secondary text-center">${i18next.t('classroom.activities.isAutocorrected')}</h6>`
+    }
     if (UserManager.getUser().isRegular && Activity.correction > 0) {
 
         correction += `<div class="giveNote-container c-primary-form">`
+
+
         correction += `<label for="givenote-3" onclick="setNote(3)"><input type="radio" id="givenote-3" ${Activity.note == 3 ? "checked=checked" : ""} name="giveNote" value="3">${" " + i18next.t('classroom.activities.accept')}</label>`;
         correction += `<label for="givenote-2" onclick="setNote(2)"><input type="radio" id="givenote-2" ${Activity.note == 2 ? "checked=checked" : ""} name="giveNote" value="2">${" " + i18next.t('classroom.activities.vgood')}</label>`;
         correction += `<label for="givenote-1" onclick="setNote(1)"><input type="radio" id="givenote-1" ${Activity.note == 1 ? "checked=checked" : ""} name="giveNote" value="1">${" " + i18next.t('classroom.activities.good')}</label>`;

@@ -1459,6 +1459,8 @@
 		"hint": "Indice <i>* s'affiche si la réponse est fausse</i>",
 		"title": "Titre de l'activité <span class=\"c-text-red\">*</span>",
 		"description": "Description de l'activité <span class=\"c-text-red\">*</span>",
-		"content": "Contenu de l'activité <span class=\"c-text-red\">*</span>"
+		"content": "Contenu de l'activité <span class=\"c-text-red\">*</span>",
+		"addField": "Ajouter un champ de réponse",
+		"addFieldTooltip": "En cliquant sur le bouton Ajouter un champ de réponse, un texte stylisé est ajouté. Vous pouvez écrire la réponse correcte dans ce champ. Les réponses alternatives sont séparées par une double esperluette &&"
 	}
 }

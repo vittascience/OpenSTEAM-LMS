@@ -32,6 +32,12 @@ function deleteQcmFields() {
     $(`div[id^="qcm-doable-"]`).each(function() {
         $(this).remove();
     })
+
+    $(`div[id^="quiz-group-"]`).each(function() {
+        if ($(this).attr('id') != "quiz-group-1") {
+            $(this).remove();
+        }
+    })
 }
 
 /**
@@ -40,7 +46,6 @@ function deleteQcmFields() {
 
 // Set all the inputs we need to reset
 function resetInputsForActivity() {
-
     // Autocorrect note disclaimer
     $("#activity-auto-corrected-disclaimer").hide();
     $("#activity-auto-disclaimer").hide();
@@ -149,4 +154,11 @@ $("#free-autocorrect").change(function () {
         $("#free-correction-content").hide();
     }
 })
+
+
+function setAddFieldTooltips() {
+    $('#dragAndDrop-add-inputs').attr("title", i18next.t('newActivities.addFieldTooltip'));
+    $('#fillIn-add-inputs').attr("title", i18next.t('newActivities.addFieldTooltip'));
+}
+
 

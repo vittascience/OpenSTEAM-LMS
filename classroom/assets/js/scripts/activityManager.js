@@ -41,7 +41,7 @@ function launchCustomActivity(activityType, isUpdate = false) {
         resetActivityInputs(activityType);
     }
     hideAllActivities();
-
+    setAddFieldTooltips();
     Main.getClassroomManager()._createActivity.id = activityType;
     Main.getClassroomManager()._createActivity.function = "create";
 
