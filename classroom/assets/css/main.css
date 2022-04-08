@@ -1561,6 +1561,15 @@ h3.section-done {
 }
 
 /* updated @Rémi */
+#dragAndDrop-add-inputs,
+#fill-in-add-inputs {
+    margin: 0 auto;
+    margin-top: 0px;
+    display: block;
+    border-radius: 0px 0px 1em 1em;
+    margin-top: -2px;
+}
+
 .activities-fill-in-square {
     border: solid;
     margin: 3px;
