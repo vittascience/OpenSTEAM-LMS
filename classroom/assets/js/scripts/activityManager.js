@@ -104,11 +104,9 @@ function contentBackward() {
 function contentForward() {
     let isCheckPassed = true;
     if (Main.getClassroomManager()._createActivity.id == 'free') {
-
         Main.getClassroomManager()._createActivity.content.description = $('#free-content').bbcode();
         Main.getClassroomManager()._createActivity.solution = $('#free-correction').bbcode();
         Main.getClassroomManager()._createActivity.autocorrect = $('#free-autocorrect').is(":checked");
-
     } else if (Main.getClassroomManager()._createActivity.id == 'reading'){
         if ($('#reading-content').bbcode() == "") {
             isCheckPassed = false;

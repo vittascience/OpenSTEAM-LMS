@@ -587,8 +587,11 @@ function manageDisplayFree(correction, content, correction_div) {
     $('#activity-states').html(bbcodeToHtml(content));
     $('#activity-states-container').show();
     if (UserManager.getUser().isRegular) {
-        $('#activity-content').html(JSON.parse(Activity.activity.solution));
-        $('#activity-content-container').show();
+        if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") { 
+            $('#activity-student-response').show();
+            $('#activity-student-response-content').html(bbcodeToHtml(JSON.parse(Activity.response)));
+            manageCorrectionDiv(correction_div, correction);
+        }
     }
     if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
