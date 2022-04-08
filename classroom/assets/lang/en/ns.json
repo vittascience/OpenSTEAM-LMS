@@ -1147,6 +1147,8 @@
 		"hint": "Hint <i>* displayed if the answer is wrong</i>",
 		"title": "Activity title <span class=\"c-text-red\">*</span>",
 		"description": "Activity description <span class=\"c-text-red\">*</span>",
-		"content": "Activity content <span class=\"c-text-red\">*</span>"
+		"content": "Activity content <span class=\"c-text-red\">*</span>",
+		"addField": "Add answer field",
+		"addFieldTooltip": "By clicking on the Add answer field button, a stylized text is added. You can write the correct answer in this field. Alternative answers are separated by a double ampersand &&"
 	}
 }

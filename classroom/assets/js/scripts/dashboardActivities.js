@@ -426,7 +426,7 @@ function loadActivityForStudents(isDoable) {
     }
 
     // Disclaimer for eval
-    if (Activity.correction < 2) {
+    if (Activity.correction < 2 && Activity.activity.type != 'reading') {
         Activity.evaluation ? $('#warning-text-evaluation').show() : $("#warning-text-no-evaluation").show();
     }
     
@@ -497,14 +497,14 @@ function loadActivityForTeacher() {
 
     let correction = ''
     correction += `<h4 class="c-text-primary text-center font-weight-bold">${i18next.t('classroom.activities.bilan.results')}</h4>`
-
+    if (Activity.activity.isAutocorrect) {
+        correction += `<h6 class="c-text-secondary text-center">${i18next.t('classroom.activities.isAutocorrected')}</h6>`
+    }
     if (UserManager.getUser().isRegular && Activity.correction > 0) {
 
         correction += `<div class="giveNote-container c-primary-form">`
 
-        if (activity.correction == 1) {
 
-        }
         correction += `<label for="givenote-3" onclick="setNote(3)"><input type="radio" id="givenote-3" ${Activity.note == 3 ? "checked=checked" : ""} name="giveNote" value="3">${" " + i18next.t('classroom.activities.accept')}</label>`;
         correction += `<label for="givenote-2" onclick="setNote(2)"><input type="radio" id="givenote-2" ${Activity.note == 2 ? "checked=checked" : ""} name="giveNote" value="2">${" " + i18next.t('classroom.activities.vgood')}</label>`;
         correction += `<label for="givenote-1" onclick="setNote(1)"><input type="radio" id="givenote-1" ${Activity.note == 1 ? "checked=checked" : ""} name="giveNote" value="1">${" " + i18next.t('classroom.activities.good')}</label>`;

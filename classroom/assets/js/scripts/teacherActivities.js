@@ -161,7 +161,7 @@ function manageUpdateForFree(activity) {
     }
     if (activity.solution != "") {
         if (activity.solution != null) {
-            $('#free-correction').htmlcode(bbcodeToHtml(activity.solution));
+            $('#free-correction').htmlcode(bbcodeToHtml(JSON.parse(activity.solution)));
         }
     }
 }
@@ -169,7 +169,6 @@ function manageUpdateForFree(activity) {
 function manageUpdateForQuiz(activity) {
     let solution = JSON.parse(activity.solution),
     content = JSON.parse(activity.content);
-    console.log(solution)
     $('#quiz-suggestions-container').html('');
     for (let i = 1; i < solution.length+1; i++) {
         let divToAdd = `<div class="form-group c-primary-form" id="quiz-group-${i}">
@@ -187,6 +186,7 @@ function manageUpdateForQuiz(activity) {
                             </div>
                         </div>`;
         $('#quiz-suggestions-container').append(divToAdd);
+        $(`#quiz-button-suggestion-${i}`).localize();
     }
 
     $('#quiz-states').htmlcode(bbcodeToHtml(content.states));

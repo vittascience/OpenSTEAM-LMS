@@ -419,18 +419,15 @@ function getTeacherActivity() {
     </div>`
     $('#activity-assign-section').html(activityDropdownElt).show();
 
+
     Activity.isAutocorrect ? $('#activity-auto-disclaimer').show() :  $('#activity-auto-disclaimer').hide();
 
     if (IsJsonString(Activity.content)) {
         const contentParsed = JSON.parse(Activity.content);
         if (Activity.type == 'free' || Activity.type == 'reading') {
             if (contentParsed.hasOwnProperty('description')) {
-
-                $('#activity-states').html(bbcodeToHtml(contentParsed.description));
-                $('#activity-states-container').show();
-                $('#activity-content').html(JSON.parse(Activity.solution));
+                $('#activity-content').html(bbcodeToHtml(contentParsed.description));
                 $('#activity-content-container').show();
-
             } 
         } else if (Activity.type == 'fillIn') {
             $("#activity-states").html(bbcodeToHtml(contentParsed.states));
