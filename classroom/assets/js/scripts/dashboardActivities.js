@@ -427,6 +427,7 @@ function loadActivityForStudents(isDoable) {
 
     // Disclaimer for eval
     if (Activity.correction < 2 && Activity.activity.type != 'reading') {
+        $('#warning-text-container').show()
         Activity.evaluation ? $('#warning-text-evaluation').show() : $("#warning-text-no-evaluation").show();
     }
     
