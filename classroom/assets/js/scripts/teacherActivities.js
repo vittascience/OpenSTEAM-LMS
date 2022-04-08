@@ -151,7 +151,7 @@ function manageUpdateByType(activity) {
 function manageUpdateForFree(activity) {
     $('#activity-free').show();
     let content = JSON.parse(activity.content);
-    if (content.description != "") {
+    if (content.description != "" && content.description != null) {
         $('#free-content').htmlcode(bbcodeToHtml(content.description));
     }
     if (activity.isAutocorrect) {
@@ -162,7 +162,7 @@ function manageUpdateForFree(activity) {
         $("#free-correction-content").hide();
     }
     if (activity.solution != "") {
-        if (activity.solution != null) {
+        if (activity.solution != null && activity.solution != "") {
             $('#free-correction').htmlcode(bbcodeToHtml(JSON.parse(activity.solution)));
         }
     }
