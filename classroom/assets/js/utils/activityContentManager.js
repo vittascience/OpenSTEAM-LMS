@@ -38,6 +38,8 @@ function deleteQcmFields() {
             $(this).remove();
         }
     })
+    $('#quiz-suggestion-1').val('');
+    $('#quiz-checkbox-1').prop('checked', false);
 }
 
 /**
@@ -102,7 +104,6 @@ function resetActivityInputs(activityType) {
         $('#fill-in-content').htmlcode("");
         $('#fill-in-hint').val("");
         $('#fill-in-tolerance').val("");
-        $('#fill-in-autocorrect').prop('checked', false);
     } else if (activityType == 'reading') {
         /* reading reset */
         $('#reading-content').htmlcode("");
@@ -112,13 +113,13 @@ function resetActivityInputs(activityType) {
         $('#drag-and-drop-content').htmlcode("");
         $('#drag-and-drop-hint').val("");
         $('#drag-and-drop-tolerance').val("");
-        $('#drag-and-drop-autocorrect').prop('checked', false);
     } else if (activityType == 'quiz') {
         /* quiz reset */
         $('#quiz-states').htmlcode("");
         $('#quiz-hint').val("");
         $('#quiz-tolerance').val("");
-        $('#quiz-autocorrect').prop('checked', false);
+        // Quiz reset input
+        deleteQcmFields();
     }
     Main.getClassroomManager().setDefaultActivityData();
 }
@@ -157,8 +158,10 @@ $("#free-autocorrect").change(function () {
 
 
 function setAddFieldTooltips() {
-    $('#dragAndDrop-add-inputs').attr("title", i18next.t('newActivities.addFieldTooltip'));
-    $('#fillIn-add-inputs').attr("title", i18next.t('newActivities.addFieldTooltip'));
+    $('#dragAndDrop-add-inputs').tooltip("dispose")
+    $('#fill-in-add-inputs').tooltip("dispose")
+    $('#dragAndDrop-add-inputs').attr("title", i18next.t('newActivities.addFieldTooltip')).tooltip();
+    $('#fill-in-add-inputs').attr("title", i18next.t('newActivities.addFieldTooltip')).tooltip();
 }
 
 
