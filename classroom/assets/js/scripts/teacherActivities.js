@@ -162,7 +162,7 @@ function manageUpdateForFree(activity) {
         $("#free-correction-content").hide();
     }
     if (activity.solution != "") {
-        if (activity.solution != null && activity.solution != "") {
+        if (JSON.parse(activity.solution) != null && JSON.parse(activity.solution) != "") {
             $('#free-correction').htmlcode(bbcodeToHtml(JSON.parse(activity.solution)));
         }
     }
