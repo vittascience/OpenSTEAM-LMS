@@ -259,7 +259,7 @@ wbbdebug = false;
 			allButtons: {
 				vittaiframe: {
 					title: CURLANG.vittaiframe,
-					buttonHTML: '<img src="/learn/assets/media/SigleRondGris.png" height="26" height="26" style="margin-top: 2px;"/>',
+					buttonHTML: '<img src="/learn/assets/media/SigleVittascience.svg" height="26" height="26" style="margin-top: 2px;"/>',
 					hotkey: '',
 					modal: {
 						title: CURLANG.modal_vitta_title,

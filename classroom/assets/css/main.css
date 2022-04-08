@@ -468,6 +468,7 @@ button {
 }
 
 #classroom-dashboard-top-bar {
+    pointer-events: none;
     display: flex;
     padding: 0.5em 1em;
     align-items: center;
@@ -523,7 +524,7 @@ button {
 }
 
 .dashboard-block {
-    margin-top: 2.5em;
+    margin-top: 2.8em;
 }
 
 
@@ -1718,28 +1719,20 @@ h3.section-done {
 #activity-title {
     font-weight: 700;
     text-align: center;
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 #activity-auto-disclaimer {
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--classroom-secondary);
-}
-
-#activity-auto-disclaimer img {
     background-color: var(--classroom-secondary);
     border-radius: 256px;
     border: 2px solid var(--classroom-secondary);
-    height: 1.5em;
+    height: 1em;
     margin: 5px 10px;
 }
-
-#activity-assign-section {
-    text-align: center;
-}
-
 
 #activity-details {
     text-align: center;
@@ -1759,7 +1752,7 @@ h3.section-done {
 #activity-correction {
     padding: 0.5em;
     border-radius: 1em;
-    box-shadow: 1px 1px 6px #00000029;
+    box-shadow: 0px 0px 10px var(--classroom-shadow-1);
     margin: .5em;
     overflow: auto;
     position: sticky;
