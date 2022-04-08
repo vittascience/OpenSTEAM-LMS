@@ -1743,6 +1743,10 @@ h3.section-done {
     margin: -0.2rem 0.5rem 0 0;
 }
 
+.theme-dark .chrono-icon {
+    filter: brightness(0%) invert(1);
+}
+
 #activity-correction {
     padding: 0.5em;
     border-radius: 1em;
