@@ -12,7 +12,7 @@ require_once $rootPath . 'vendor/autoload.php';
 
 require_once $rootPath . 'bootstrap.php';
 
-use Classroom\Entity\ActivityRestrictions;
+use Classroom\Entity\Applications;
 use Classroom\Entity\LtiTool;
 
 if (empty($_SESSION["id"])) {
@@ -65,9 +65,7 @@ if ($studentResourceUrl == null) {
 
 $platform_url = "https://{$_SERVER["HTTP_HOST"]}";
 
-$activityRestriction = $entityManager->getRepository(ActivityRestrictions::class)->findOneByActivityType($applicationType);
-
-$ltiTool = $entityManager->getRepository(LtiTool::class)->findOneByApplicationId($activityRestriction->getApplication()->getId());
+$ltiTool = $entityManager->getRepository(Applications::class)->findOneBy(["name" => $applicationType]);
 
 if (!$ltiTool) {
 	echo 'Tool not found!';

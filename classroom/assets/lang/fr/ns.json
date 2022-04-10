@@ -1464,15 +1464,21 @@
 		"content": "Contenu de l'activité <span class=\"c-text-red\">*</span>",
 		"addField": "Ajouter un champ de réponse",
 		"addFieldTooltip": "En cliquant sur le bouton Ajouter un champ de réponse, un texte stylisé est ajouté. Vous pouvez écrire la réponse correcte dans ce champ. Les réponses alternatives sont séparées par une double esperluette &&",
-		"descMedia": "Cette activité permet de visualiser des images, vidéos, PDF, interfaces Vittascience ainsi que des outils externes.",
-		"descFree": "Cette activité permet aux élèves de répondre à un exercice par écrit.",
-		"descQuiz": "Cette activité permet d’évaluer les connaissances à l’aide de question à choix multiples ou simples.",
-		"descFillIn": "Cette activité permet d’appliquer ses connaissances en remplissant des cases vides.",
-		"descDragAndDrop": "Cette activité permet de glisser et déposer des mots dans différents espaces vides.",
-		"titleMedia": "Page multimédia",
-		"titleFree": "Réponse libre",
-		"titleQuiz": "QCM",
-		"titleFillIn": "Texte à trous",
-		"titleDragAndDrop": "Glisser-Déposer"
+		"ActivitiesData": {
+			"title": {
+				"reading": "Page multimédia",
+				"free": "Réponse libre",
+				"quiz": "QCM",
+				"fillIn": "Texte à trous",
+				"dragAndDrop": "Glisser-Déposer"
+			},
+			"description": {
+				"reading": "Cette activité permet de visualiser des images, vidéos, PDF, interfaces Vittascience ainsi que des outils externes.",
+				"free": "Cette activité permet aux élèves de répondre à un exercice par écrit.",
+				"quiz": "Cette activité permet d’évaluer les connaissances à l’aide de question à choix multiples ou simples.",
+				"fillIn": "Cette activité permet d’appliquer ses connaissances en remplissant des cases vides.",
+				"dragAndDrop": "Cette activité permet de glisser et déposer des mots dans différents espaces vides."
+			}
+		}
 	}
 }

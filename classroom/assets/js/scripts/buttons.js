@@ -2720,6 +2720,9 @@ $('body').on('change', '#update_isLti', function () {
     }
 })
 
+
+
+
 // Return false if the input is empty
 function checkLtiFields(type) {
     if (type == 'create') {
@@ -2784,10 +2787,6 @@ function checkLtiFields(type) {
 function updateApp(app_id) {
     resetInputApplications();
     mainManager.getmanagerManager().getApplicationById(app_id).then((response) => {
-        mainManager.getmanagerManager().getActivityRestrictionFromApp(app_id).then((restriction) => {
-            $('#app_update_activity_restriction_value').val(restriction.max_per_teachers);
-            $('#app_update_activity_restriction_type').val(restriction.activity_type);
-        })
         $('#app_update_name').val(response.name);
         $('#app_update_description').val(response.description);
         if (response.color != "") {
@@ -2795,7 +2794,7 @@ function updateApp(app_id) {
         }
         $('#app_update_image').val(response.image);
         $('#app_update_id').val(response.id);
-
+        $('#app_update_activity_restriction_value').val(response.max_per_teachers);
         if (response.hasOwnProperty('lti')) {
             $('#update_isLti').prop('checked', true);
             $('#update_inputs-lti').show();
@@ -2809,6 +2808,7 @@ function updateApp(app_id) {
             $('#update_privateKey').val(response.lti.privateKey);
         }
         openModalInState('#update-app-manager');
+        updateImg('app_update_image');
     })
 }
 
@@ -2824,20 +2824,20 @@ function persistUpdateApp() {
         $application_description = $('#app_update_description').val(),
         $application_color = $('#app_update_color').val(),
         $application_image = $('#app_update_image').val(),
-        $application_restrictions_type = $('#app_update_activity_restriction_type').val(),
         $application_restrictions_value = $('#app_update_activity_restriction_value').val(),
         lti = checkLtiFields('update');
 
     if (!lti.isLti && $('#update_isLti').is(":checked")) {
         displayNotification('#notif-div', "manager.account.missingData", "error");
     } else {
-        mainManager.getmanagerManager().updateOneActivityRestriction($application_id, $application_restrictions_type, $application_restrictions_value, $application_color);
         mainManager.getmanagerManager().updateApplication(
             $application_id,
             $application_name,
             $application_description,
             $application_image,
-            lti).then((response) => {
+            lti,
+            $application_color,
+            $application_restrictions_value).then((response) => {
             if (response.message == "success") {
                 displayNotification('#notif-div', "manager.apps.updateSuccess", "success");
                 closeModalAndCleanInput(true);
@@ -2873,7 +2873,6 @@ function persistCreateApp() {
         $application_description = $('#app_create_description').val(),
         $application_color = $('#app_create_color').val(),
         $application_image = $('#app_create_image').val(),
-        $application_restrictions_type = $('#app_create_activity_restriction_type').val(),
         $application_restrictions_value = $('#app_create_activity_restriction_value').val(),
         lti = checkLtiFields('create');
 
@@ -2881,11 +2880,10 @@ function persistCreateApp() {
     if (!lti.isLti && $('#isLti').is(":checked")) {
         displayNotification('#notif-div', "manager.account.missingData", "error");
     } else {
-        mainManager.getmanagerManager().createApplication($application_name, $application_description, $application_image, lti, $application_color).then((response) => {
+        mainManager.getmanagerManager().createApplication($application_name, $application_description, $application_image, lti, $application_color, $application_restrictions_value).then((response) => {
             if (response.message == "success") {
                 displayNotification('#notif-div', "manager.apps.createSuccess", "success");
-                closeModalAndCleanInput(true)
-                mainManager.getmanagerManager().updateOneActivityRestriction(response.application_id, $application_restrictions_type, $application_restrictions_value);
+                closeModalAndCleanInput(true);
             } else {
                 displayNotification('#notif-div', "manager.account.missingData", "error");
             }
@@ -2893,6 +2891,24 @@ function persistCreateApp() {
         })
     }   
 }
+
+/**
+ * Img manager
+ */
+
+$('body').on('change', '#app_create_image', function () {
+    updateImg('app_create_image');
+})
+
+$('body').on('change', '#app_update_image', function () {
+    updateImg('app_update_image');
+})
+
+function updateImg(imageId) {
+    let image = document.getElementById(`${imageId}_preview`);
+    image.src = document.getElementById(imageId).value;
+}
+
 
 function updateStoredApps() {
     mainManager.getmanagerManager().getAllApplications().then((res) => {
@@ -2903,19 +2919,6 @@ function updateStoredApps() {
 /**
  * Activities restrictions per applications
  */
-
-
-function updateRestriction(id) {
-    crudActivityCloseViews();
-
-    pseudoModal.openModal('update-activities-restrictions-manager');
-    $('#update-activity-restrictions-manager').show();
-    mainManager.getmanagerManager().getOneActivityRestriction(id).then((response) => {
-        $('#activity_restrictions_update_type').val(response.activity_type);
-        $('#activity_restrictions_update_maximum').val(response.max_per_teachers);
-        $('#activity_restrictions_id').val(response.id);
-    })
-}
 
 function createRestriction() {
     crudActivityCloseViews();
@@ -2938,63 +2941,6 @@ function crudActivityCloseViews() {
     });
 }
 
-
-function persistDeleteRestriction() {
-    let validation = $('#validation_delete_restriction').val(),
-        placeholderWord = $('#validation_delete_restriction').attr('placeholder'),
-        restriction_id = $('#validation_delete_restriction_id').val();
-
-    if (validation == placeholderWord) {
-        mainManager.getmanagerManager().deleteOneActivityRestriction(restriction_id).then((response) => {
-            if (response.success == true) {
-                displayNotification('#notif-div', "manager.activitiesRestrictions.deleteSuccess", "success");
-                closeModalAndCleanInputActivityRestrictions()
-            } else {
-                displayNotification('#notif-div', "manager.account.missingData", "error");
-            }
-        })
-    } else {
-        displayNotification('#notif-div', "manager.input.writeDelete", "error");
-    }
-}
-
-function persistUpdateRestriction() {
-    let $restriction_id = $('#activity_restrictions_id').val(),
-        $restriction_max = $('#activity_restrictions_update_maximum').val(),
-        $application_id = $('#application-id-for-restriction').val(),
-        $restriction_type = $('#activity_restrictions_update_type').val();
-
-    mainManager.getmanagerManager().updateOneActivityRestriction(
-        $restriction_id,
-        $application_id,
-        $restriction_type,
-        $restriction_max).then((response) => {
-        if (response.success == true) {
-            displayNotification('#notif-div', "manager.activitiesRestrictions.updateSuccess", "success");
-            closeModalAndCleanInputActivityRestrictions()
-        } else {
-            displayNotification('#notif-div', "manager.account.missingData", "error");
-        }
-    })
-}
-
-function persistCreateRestriction() {
-    let $restriction_max = $('#activity_restrictions_create_maximum').val(),
-        $application_id = $('#application-id-for-restriction').val(),
-        $restriction_type = $('#activity_restrictions_create_type').val();
-
-    mainManager.getmanagerManager().createOneActivityRestriction(
-        $application_id,
-        $restriction_type,
-        $restriction_max).then((response) => {
-        if (response.success == true) {
-            displayNotification('#notif-div', "manager.activitiesRestrictions.createSuccess", "success");
-            closeModalAndCleanInputActivityRestrictions()
-        } else {
-            displayNotification('#notif-div', "manager.account.missingData", "error");
-        }
-    })
-}
 
 function closeModalAndCleanInputActivityRestrictions() {
     activitiesRestrictionsCrud($('#application-id-for-restriction').val());

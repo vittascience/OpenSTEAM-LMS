@@ -344,13 +344,22 @@ function saveActivitiesResponseManager(activityType = null, response = null) {
 
 function activitiesCreation(apps) {
 
+    let titleRoad = "newActivities.ActivitiesData.title.";
+    let descriptionRoad = "newActivities.ActivitiesData.description.";
+
+
     let htmlContent = `<div class="app-head" data-i18n="classroom.activities.applist.selectApp"></div>`;
     apps.forEach(app => {
-        let restrict = app.hasOwnProperty("type") ? `launchCustomActivity('${app.type}')` : `launchCustomActivity('custom')`;
+
+
+        let nameField = i18next.t(titleRoad+app.name) == titleRoad+app.name ? `<h3 class="app-card-title mt-2">${app.name}</h3>` : `<h3 class="app-card-title mt-2" data-i18n="${titleRoad+app.name}"></h3>`;
+        let descriptionField = i18next.t(descriptionRoad+app.description) != descriptionRoad+app.description ? `<p class="mt-2" data-i18n="${descriptionRoad+app.description}"></p>` : `<p class="mt-2">${app.description}</p>`;
+        
+        let restrict = app.name != "" ? `launchCustomActivity('${app.name}')` : `launchCustomActivity('custom')`;
         htmlContent+= `<div class="app-card" style="--border-color:${app.color};" onclick="${restrict}">
             <img class="app-card-img" src="${app.image}" alt="${app.name}">
-            <h3 class="app-card-title mt-2" data-i18n="${app.name}"></h3>
-            <p class="mt-2" data-i18n="${app.description}"></p>
+            ${nameField}
+            ${descriptionField}
         </div>`
     });
     

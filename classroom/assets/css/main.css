@@ -2667,3 +2667,10 @@ margin: 1em auto;
     z-index: 11;
     position: relative;
 }
+
+.app_image_preview {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 75px;
+}

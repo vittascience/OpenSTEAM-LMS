@@ -290,77 +290,7 @@ class managerManager {
                 }
             });
         })
-    }
-
-    /**
-     * @param {*} $restriction_id 
-     * @returns promise
-     */
-    deleteOneActivityRestriction($restriction_id) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "POST",
-                url: "/routing/Routing.php?controller=superadmin&action=delete_one_restriction_activity",
-                data: {
-                    restriction_id: $restriction_id
-                },
-                success: function (response) {
-                    resolve(JSON.parse(response))
-                },
-                error: function () {
-                    reject();
-                }
-            });
-        })
-    }
-
-    /**
-     * @param {*} $restriction_id 
-     * @param {*} $application_id 
-     * @param {*} $restriction_type 
-     * @param {*} $restriction_max 
-     * @returns promise
-     */
-    updateOneActivityRestriction($application_id, $restriction_type, $restriction_max) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "POST",
-                url: "/routing/Routing.php?controller=superadmin&action=update_one_restriction_activity",
-                data: {
-                    application_id: $application_id,
-                    restriction_type: $restriction_type,
-                    restriction_max: $restriction_max
-                },
-                success: function (response) {
-                    resolve(JSON.parse(response))
-                },
-                error: function () {
-                    reject();
-                }
-            });
-        })
-    }
-
-    createOneActivityRestriction($application_id, $restriction_type, $restriction_max) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "POST",
-                url: "/routing/Routing.php?controller=superadmin&action=create_one_restriction_activity",
-                data: {
-                    application_id: $application_id,
-                    restriction_type: $restriction_type,
-                    restriction_max: $restriction_max
-                },
-                success: function (response) {
-                    resolve(JSON.parse(response))
-                },
-                error: function () {
-                    reject();
-                }
-            });
-        })
-    }
-    
+    }  
 
     getAllApplications() {
         return new Promise(function (resolve, reject) {
@@ -395,7 +325,7 @@ class managerManager {
         })
     }
 
-    updateApplication($application_id, $application_name, $application_description, $application_image, $lti_data, $application_color) {
+    updateApplication($application_id, $application_name, $application_description, $application_image, $lti_data, $application_color, $restriction_max) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -406,6 +336,7 @@ class managerManager {
                     application_description: $application_description,
                     application_color: $application_color,
                     application_image: $application_image,
+                    restriction_max: $restriction_max,
                     lti_data: JSON.stringify($lti_data)
                 },
                 success: function (response) {
@@ -437,7 +368,7 @@ class managerManager {
     }
     
 
-    createApplication($application_name, $application_description, $application_image, $lti_data, $application_color) {
+    createApplication($application_name, $application_description, $application_image, $lti_data, $application_color, $restriction_max) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -448,6 +379,7 @@ class managerManager {
                     application_image: $application_image,
                     application_description: $application_description,
                     application_color: $application_color,
+                    restriction_max: $restriction_max,
                     lti_data: JSON.stringify($lti_data)
                 },
                 success: function (response) {

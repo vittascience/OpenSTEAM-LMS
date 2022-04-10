@@ -894,6 +894,7 @@ const classroomModals = {
                                 <div class="col-md">
                                     <label for="app_update_image" data-i18n="manager.table.image">Image</label>
                                     <input type="text" class="form-control" id="app_update_image">
+                                    <img src="placeholder.png" class="app_image_preview" id="app_update_image_preview">
                                 </div>
                                 <div class="col-md">
                                     <label for="app_update_color" data-i18n="manager.table.color">Color</label>
@@ -903,10 +904,6 @@ const classroomModals = {
                             </div>
                             <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.restrictions"> Restriction d'activité </p>
                             <div class="form-row mt-1 c-secondary-form">
-                                <div class="col-md">
-                                    <label for="app_update_activity_restriction_type" data-i18n="manager.activitiesRestrictions.type">Type</label>
-                                    <input type="text" class="form-control" id="app_update_activity_restriction_type">
-                                </div>
                                 <div class="col-md">
                                     <label for="app_update_activity_restriction_value" data-i18n="manager.activitiesRestrictions.max">Nombre</label>
                                     <input type="number" class="form-control" id="app_update_activity_restriction_value">
@@ -970,6 +967,7 @@ const classroomModals = {
                                 <div class="col-md">
                                     <label for="app_create_image" data-i18n="manager.table.image">Image</label>
                                     <input type="text" class="form-control" id="app_create_image">
+                                    <img src="placeholder.png" class="app_image_preview" id="app_create_image_preview">
                                 </div>
                                 <div class="col-md">
                                     <label for="app_create_color" data-i18n="manager.table.color">Color</label>
@@ -980,10 +978,6 @@ const classroomModals = {
 
                             <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.restrictions"> Restriction d'activité </p>
                             <div class="form-row mt-1 c-secondary-form">
-                                <div class="col-md">
-                                    <label for="app_create_activity_restriction_type" data-i18n="manager.activitiesRestrictions.type">Type</label>
-                                    <input type="text" class="form-control" id="app_create_activity_restriction_type">
-                                </div>
                                 <div class="col-md">
                                     <label for="app_create_activity_restriction_value" data-i18n="manager.activitiesRestrictions.max">Nombre</label>
                                     <input type="number" class="form-control" id="app_create_activity_restriction_value">
@@ -1094,59 +1088,3 @@ const classroomModals = {
         footer: ``
     }
 }
-
-/* 
-'update-activities-restrictions-manager': {
-    selector: '',
-    header: {
-        icon: '',
-        title: 'manager.activitiesRestrictions.updateAll'
-    },
-    content: `  <div id="update-activities-restrictions-modal">
-                    <div class="container-fluid" id="update-activity-restrictions-manager" style="display:none;">
-                        <div class="form-row mt-1 c-secondary-form">
-                            <div class="col-md">
-                                <label for="activity_restrictions_update_type">Type activity</label>
-                                <input type="text" class="form-control" id="activity_restrictions_update_type">
-                            </div>
-                            <div class="col-md">
-                                <label for="activity_restrictions_update_maximum">Maximum</label>
-                                <input type="text" class="form-control" id="activity_restrictions_update_maximum">
-                            </div>
-                            <input type="hidden" class="form-control" id="activity_restrictions_id">
-                        </div>
-                        <button class="btn c-btn-secondary my-3 btn" onclick="persistUpdateRestriction()" data-i18n="manager.buttons.update">Modifier</button>
-                        <button class="btn c-btn-light my-3 btn" onclick="closeModalAndCleanInputActivityRestrictions()" data-i18n="manager.buttons.cancel">Annuler</button>
-                    </div>
-
-                    <div class="col-12" id="delete-activity-restrictions-manager" style="display:none;">
-                        <h3 class="font-weight-bold text-danger m-auto text-center" data-i18n="manager.users.deleteConfirmationTitle">Confirmer la suppression</h3>
-                        <p class="text-center" data-i18n="[html]manager.activitiesRestrictions.deleteIntention"></p>
-                        <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>
-                        <div class="text-center c-secondary-form">
-                            <input type="hidden" name="validation_delete_restriction_id" id="validation_delete_restriction_id">
-                            <input type="text" name="validation_delete_restriction" id="validation_delete_restriction" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
-                        </div>
-                        <div class="text-center">
-                            <button class="btn c-btn-red mx-auto mt-3 btn-lg" onclick="persistDeleteRestriction()" data-i18n="manager.buttons.validate">Valider</button>
-                            <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInputActivityRestrictions()" data-i18n="manager.buttons.cancel">Annuler</button>
-                        </div>
-                    </div>
-
-                    <div class="container-fluid" id="create-activity-restrictions-manager" style="display:none;">
-                        <div class="form-row mt-1 c-secondary-form">
-                            <div class="col-md">
-                                <label for="activity_restrictions_create_type">Type activity</label>
-                                <input type="text" class="form-control" id="activity_restrictions_create_type">
-                            </div>
-                            <div class="col-md">
-                                <label for="activity_restrictions_create_maximum">Maximum</label>
-                                <input type="text" class="form-control" id="activity_restrictions_create_maximum">
-                            </div>
-                        </div>
-                        <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistCreateRestriction()" data-i18n="manager.buttons.validate">Valider</button>
-                        <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInputActivityRestrictions()" data-i18n="manager.buttons.cancel">Annuler</button>
-                    </div>
-                </div>`,
-    footer: ``
-}, */
