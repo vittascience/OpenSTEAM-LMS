@@ -284,7 +284,7 @@
 			"comments": "Entrez ici vos remarques",
 			"return": "Retour aux activités",
 			"numberOfTries": "Nombre d'essais : ",
-			"isAutocorrected": "Cet exercice a été auto-corrigé, vous pouvez modifier la note ci dessous.",
+			"isAutocorrected": "Cet exercice a été corrigé automatiquement, vous pouvez modifier la note ci dessous.",
 			"isAutocorrect": "Cette activité sera corrigée automatiquement.",
 			"states": "Énoncé de l'activité",
 			"content": "Contenu de l'activité",
