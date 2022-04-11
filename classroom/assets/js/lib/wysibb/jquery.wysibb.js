@@ -246,7 +246,7 @@ wbbdebug = false;
 			img_maxwidth: 300,
 			img_maxheight: 300,
 			hotkeys: true,
-			showHotkeys: true,
+			showHotkeys: false,
 			autoresize: false,
 			resize_maxheight: 150,
 			loadPageStyles: true,
@@ -315,11 +315,11 @@ wbbdebug = false;
 				},
 				answer: {
 					title: CURLANG.answer,
-					buttonHTML: '<i class="fas fa-pen-alt" style="height:27px;width:31px;font-size:20px;text-align:center;padding-top: 5px;"></i>',
-					hotkey: '',
+					buttonText: '',
 					transform: {
 						"<span class='lms-answer'>{SELTEXT}</span>": "[answer]{SELTEXT}[/answer]",
 					}
+					// button is completely hidden in the elements.css file
 				},
 				bold: {
 					title: CURLANG.bold,

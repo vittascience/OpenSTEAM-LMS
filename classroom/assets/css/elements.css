@@ -468,6 +468,57 @@ hr {
     border-color: var(--classroom-primary) !important;
 }
 
+.wysibb .wbb-answer {
+    display: none !important;
+}
+
+.wysibb .wysibb-toolbar .wysibb-toolbar-container.modeSwitch {
+    display: grid;
+    place-items: center;
+    height: 100%;
+}
+
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn,
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn:hover,
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn.on,
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn.on:hover {
+    padding: 0.25em 0.5em !important;
+    border-radius: 2em;
+    color: var(--classroom-white) !important;
+    filter: brightness(1);
+    height: fit-content;
+    transition: all 0.2s;
+    box-shadow: unset;
+    border: unset;
+}
+
+
+
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn,
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn:hover {
+    background-color: var(--classroom-primary);
+}
+
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn.on,
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn.on:hover {
+    background-color: var(--classroom-primary-dark) !important;
+}
+
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn:hover,
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn.on:hover {
+    filter: brightness(0.9);
+    border-radius: 2em;
+}
+
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn .modesw {
+    height: unset;
+    min-width: unset;
+    margin: 0px;
+    line-height: unset;
+    text-transform: unset;
+}
+
+
 /* Vertical align center utility */
 
 .vertical-align-center {
