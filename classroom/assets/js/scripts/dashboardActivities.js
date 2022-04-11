@@ -740,6 +740,7 @@ function manageDisplayFillIn(correction, content, correction_div) {
 }
 
 function displayFillInTeacherSide(correction_div, correction, content) {
+
     let studentContentString = content.fillInFields.contentForStudent,
         studentResponses = JSON.parse(Activity.response);
 
@@ -753,7 +754,6 @@ function displayFillInTeacherSide(correction_div, correction, content) {
         $('#activity-student-response-content').html(studentContentString);
         $('#activity-student-response').show();
     }
-
 
     manageCorrectionDiv(correction_div, correction);
 }

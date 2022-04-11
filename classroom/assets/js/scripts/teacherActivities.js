@@ -154,6 +154,12 @@ function manageUpdateForFree(activity) {
     if (content.description != "" && content.description != null) {
         $('#free-content').htmlcode(bbcodeToHtml(content.description));
     }
+
+    // set tolerance 
+    if (content.tolerance != null) {
+        $('#free-tolerance').val(activity.tolerance);
+    }
+
     if (activity.isAutocorrect) {
         $("#free-autocorrect").prop("checked", true)
         $("#free-correction-content").show();

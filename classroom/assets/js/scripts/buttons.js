@@ -2904,6 +2904,8 @@ $('body').on('change', '#app_update_image', function () {
     updateImg('app_update_image');
 })
 
+
+
 function updateImg(imageId) {
     let image = document.getElementById(`${imageId}_preview`);
     image.src = document.getElementById(imageId).value;

@@ -81,7 +81,6 @@ function launchCustomActivity(activityType, isUpdate = false) {
             }
             navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
         } else {
-            console.log(response.Restrictions);
             if (UserManager.getUser().isFromGar) {
                 $('#app-restricted-number').attr('data-i18n-options', `{"activities": "${response.Restrictions[Object.keys(response.Restrictions)[0]]}"}`);
                 pseudoModal.openModal('activity-restricted-gar');
@@ -107,6 +106,7 @@ function contentForward() {
         Main.getClassroomManager()._createActivity.content.description = $('#free-content').bbcode();
         Main.getClassroomManager()._createActivity.solution = $('#free-correction').bbcode();
         Main.getClassroomManager()._createActivity.autocorrect = $('#free-autocorrect').is(":checked");
+        Main.getClassroomManager()._createActivity.tolerance = $('#free-tolerance').val();
     } else if (Main.getClassroomManager()._createActivity.id == 'reading'){
         if ($('#reading-content').bbcode() == "") {
             isCheckPassed = false;
@@ -576,3 +576,37 @@ function launchLtiResource(activityId, activityType, activityContent, isStudentL
     document.forms["resource_launch_form"].submit();
     $("#activity-content-container").show();
 }
+
+
+$('body').on('click', '#free-tolerance-increase', function () {
+    let tolerance = parseInt($('#free-tolerance').val());
+    if (!isNaN(tolerance)) {
+        $(`#free-tolerance`).val(tolerance+1);
+    } else {
+        $(`#free-tolerance`).val(1);
+    }
+})
+
+$('body').on('click', '#free-tolerance-decrease', function () {
+    let tolerance = parseInt($('#free-tolerance').val());
+    if (tolerance > 0) {
+        $(`#free-tolerance`).val(tolerance-1);
+    }
+})
+
+$('body').on('click', '#fill-in-tolerance-increase', function () {
+    let tolerance = parseInt($('#fill-in-tolerance').val());
+    if (!isNaN(tolerance)) {
+        $(`#fill-in-tolerance`).val(tolerance+1);
+    } else {
+        $(`#fill-in-tolerance`).val(1);
+    }
+})
+
+$('body').on('click', '#fill-in-tolerance-decrease', function () {
+    let tolerance = parseInt($('#fill-in-tolerance').val());
+    if (tolerance > 0) {
+        $(`#fill-in-tolerance`).val(tolerance-1);
+    }
+})
+
