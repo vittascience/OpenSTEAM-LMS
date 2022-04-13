@@ -480,6 +480,8 @@ function loadActivityForStudents(isDoable) {
 }
 
 function loadActivityForTeacher() {
+
+
     let isDoable = Activity.correction == null ? true : false;
     // Reset the inputs
     resetInputsForActivity()
@@ -672,25 +674,37 @@ function displayQuizTeacherSide() {
     if (Activity.response != null) {
         $('#activity-student-response-content').html("");
         let data = JSON.parse(Activity.response);
-        $('#activity-student-response-content').append(createContentForQuiz(data, false)); 
+        $('#activity-student-response-content').append(createContentForQuiz(data, false, true)); 
         $('#activity-student-response').show();
     }
+
+    Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
+        for (let i = 1; i < $(`label[id^="correction-student-quiz-suggestion-"]`).length+1; i++) {
+            $('#correction-student-quiz-suggestion-' + i).css("border","2px solid green");
+        }
+
+        if (result.success.length > 0) {
+            for (let i = 0; i < result.success.length; i++) {
+                $('#correction-student-quiz-suggestion-' + (result.success[i]+1)).css("border","2px solid orange");
+            }
+        }
+    })
 }
 
-function createContentForQuiz(data, doable = true) {
+function createContentForQuiz(data, doable = true, correction = false) {
     let content = "";
     if (doable) {
         for (let i = 1; i < data.length+1; i++) {
             content += ` <div class="input-group c-checkbox quiz-answer-container" id="qcm-doable-${i}">
                             <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""}>
-                            <label class="form-check-label" for="student-quiz-checkbox-${i}" id="student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
+                            <label class="form-check-label" for="student-quiz-checkbox-${i}" id="${correction ? "correction-" : ""}student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
                         </div>`;
         }
     } else {
         for (let i = 1; i < data.length+1; i++) {
             content += ` <div class="input-group c-checkbox quiz-answer-container" id="qcm-not-doable-${i}">
                             <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
-                            <label class="form-check-label" for="student-quiz-checkbox-${i}" id="student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
+                            <label class="form-check-label" for="student-quiz-checkbox-${i}" id="${correction ? "correction-" : ""}student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
                         </div>`;
         }
     }
@@ -745,11 +759,23 @@ function displayFillInTeacherSide(correction_div, correction, content) {
         studentResponses = JSON.parse(Activity.response);
 
     if (studentResponses != null && studentResponses != "") { 
-        studentResponses.forEach((response, i) => {
 
+        studentResponses.forEach((response, i) => {
             let autoWidthStyle = 'style="width:' + (response.length + 2) + 'ch"';
-            studentContentString = studentContentString.replace('﻿', `<input type="text" id="student-fill-in-field-${i}" ${autoWidthStyle} readonly class="fill-in-answer-teacher answer-student" value="${response}">`);
+            studentContentString = studentContentString.replace('﻿', `<input type="text" id="correction-student-fill-in-field-${i}" ${autoWidthStyle} readonly class="fill-in-answer-teacher answer-student" value="${response}">`);
         });
+
+
+        Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
+
+            for (let i = 0; i < studentResponses.length; i++) {
+                if (result.success.includes(i)) {
+                    $(`#correction-student-fill-in-field-${i}`).css("border","2px solid orange");
+                } else {
+                    $(`#correction-student-fill-in-field-${i}`).css("border","2px solid green");
+                }
+            }
+        })
     
         $('#activity-student-response-content').html(studentContentString);
         $('#activity-student-response').show();
@@ -821,12 +847,24 @@ function displayDragAndDropTeacherSide(correction_div, correction, content) {
     if (studentResponses != "" && studentResponses != null) {
         for (let i = 0; i < studentResponses.length; i++) {
             let autoWidthStyle = 'style="width:' + (studentResponses[i].string.toLowerCase().length + 2) + 'ch"';
-            studentContentString = studentContentString.replace(`﻿`, `<input readonly class='drag-and-drop-answer-teacher' value="${studentResponses[i].string.toLowerCase()}" ${autoWidthStyle}>`);
+            studentContentString = studentContentString.replace(`﻿`, `<input readonly class='drag-and-drop-answer-teacher' id="corrected-student-response-${i}" value="${studentResponses[i].string.toLowerCase()}" ${autoWidthStyle}>`);
         }
     
         $('#activity-student-response-content').html(studentContentString);
         $('#activity-student-response').show();
     }
+
+    Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
+        for (let i = 0; i < $(`input[id^="corrected-student-response-"]`).length; i++) {
+            $('#corrected-student-response-' + i).css("border","1px solid var(--classroom-text-0)");
+        }
+    
+        for (let i = 0; i < result.success.length; i++) {
+            $('#corrected-student-response-' + (result.success[i])).css("border","1px solid orange");
+        }
+    })
+
+
     manageCorrectionDiv(correction_div, correction);
 }
 

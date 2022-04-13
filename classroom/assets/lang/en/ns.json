@@ -292,7 +292,7 @@
 			"hint": "Hint",
 			"saved": "Activity saved",
 			"wrongAnswer": "Wrong answer",
-			"hintExist": "<i class='fas fa-exclamation'></i> This exercise has a hint, it can only be displayed if the student can submit the activity several times",
+			"hintExist": "<i class='fas fa-info-circle'></i> This exercise has a hint, it can only be displayed if the student can submit the activity several times",
 			"bilan": {
 				"title": "Bilan",
 				"results": "Results",
@@ -343,7 +343,22 @@
 			"addLearner": "Add a learner",
 			"addLearners": "Add learners",
 			"addActivity": "Add an activity",
-			"exportCsv": "Export csv"
+			"exportCsv": "Export csv",
+			"month": {
+				"1": "January",
+				"2": "February",
+				"3": "March",
+				"4": "April",
+				"5": "May",
+				"6": "June",
+				"7": "July",
+				"8": "August",
+				"9": "September",
+				"10": "October",
+				"11": "November",
+				"12": "December"
+			},
+			"preview": "Preview"
 		},
 		"filter": {
 			"desc": "Oldest to newest",
@@ -1032,6 +1047,7 @@
 			"maxActivitiesPerTeacher": "Maximum activities per teacher",
 			"monitoring": "Apps monitoring",
 			"image": "Image",
+			"backgroundImage": "Background image",
 			"userNoRights": "No rights assigned",
 			"userAdmin": "Administrator",
 			"userTeacher": "Teacher",
@@ -1154,7 +1170,7 @@
 		"addFieldTooltip": "By clicking on the Add answer field button, a stylized text is added. You can write the correct answer in this field. Alternative answers are separated by a double ampersand &&",
 		"ActivitiesData": {
 			"title": {
-				"reading": "Multimedia",
+				"reading": "Reading",
 				"free": "Free answer",
 				"quiz": "Quiz",
 				"fillIn": "Fill in",

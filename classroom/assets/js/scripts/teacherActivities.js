@@ -242,16 +242,8 @@ function manageUpdateForDragAndDrop(activity) {
 //création activité vers attribution
 function attributeActivity(id, ref = null) {
 
-    let activity = Main.getClassroomManager()._myTeacherActivities.filter(x => x.id == id)[0];
-    let contentParsed = JSON.parse(activity.content);
-
-    $("#hint-exist-disclaimer").hide();
-    if (contentParsed.hasOwnProperty('hint')) {
-        if (contentParsed.hint != "" && contentParsed.hint != null) {
-            $("#hint-exist-disclaimer").show();
-        }
-    }
-
+    Main.getClassroomManager()._idActivityOnAttribution = id;
+   
     if (id == 0) {
         id = Main.getClassroomManager()._lastCreatedActivity;
     }

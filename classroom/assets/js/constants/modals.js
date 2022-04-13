@@ -894,12 +894,24 @@ const classroomModals = {
                                 <div class="col-md">
                                     <label for="app_update_image" data-i18n="manager.table.image">Image</label>
                                     <input type="text" class="form-control" id="app_update_image">
-                                    <img src="placeholder.png" class="app_image_preview" id="app_update_image_preview">
+                                    <img src="" class="app_image_preview" id="app_update_image_preview">
                                 </div>
                                 <div class="col-md">
                                     <label for="app_update_color" data-i18n="manager.table.color">Color</label>
                                     <input type="color" class="form-control" id="app_update_color">
                                 </div>
+
+                                <div class="col-md">
+                                    <label for="app_update_background_image" data-i18n="manager.table.backgroundImage">Image</label>
+                                    <input type="text" class="form-control" id="app_update_background_image">
+                                    <img src="" class="app_image_preview" id="app_update_background_image_preview">
+                                </div>
+
+                                <div class="col-md">
+                                    <label for="app_update_sort_index" data-i18n="manager.activitiesRestrictions.max">Nombre</label>
+                                    <input type="number" class="form-control" id="app_update_sort_index" value="0">
+                                </div>
+
                                 <input type="hidden" class="form-control" id="app_update_id">
                             </div>
                             <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.restrictions"> Restriction d'activité </p>
@@ -967,12 +979,24 @@ const classroomModals = {
                                 <div class="col-md">
                                     <label for="app_create_image" data-i18n="manager.table.image">Image</label>
                                     <input type="text" class="form-control" id="app_create_image">
-                                    <img src="placeholder.png" class="app_image_preview" id="app_create_image_preview">
+                                    <img src="" class="app_image_preview" id="app_create_image_preview">
                                 </div>
                                 <div class="col-md">
                                     <label for="app_create_color" data-i18n="manager.table.color">Color</label>
                                     <input type="color" class="form-control" id="app_create_color">
                                 </div>
+
+                                <div class="col-md">
+                                    <label for="app_create_background_image" data-i18n="manager.table.backgroundImage">Image</label>
+                                    <input type="text" class="form-control" id="app_create_background_image">
+                                    <img src="" class="app_image_preview" id="app_create_background_image_preview">
+                                </div>
+
+                                <div class="col-md">
+                                    <label for="app_create_sort_index" data-i18n="manager.activitiesRestrictions.max">Nombre</label>
+                                    <input type="number" class="form-control" id="app_create_sort_index" value="0">
+                                </div>
+
                                 <input type="hidden" class="form-control" id="app_create_id">
                             </div>
 

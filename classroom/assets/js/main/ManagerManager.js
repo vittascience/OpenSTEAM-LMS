@@ -325,7 +325,7 @@ class managerManager {
         })
     }
 
-    updateApplication($application_id, $application_name, $application_description, $application_image, $lti_data, $application_color, $restriction_max) {
+    updateApplication($application_id, $application_name, $application_description, $application_image, $lti_data, $application_color, $restriction_max, $application_background_image, $application_sort_index) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -337,7 +337,9 @@ class managerManager {
                     application_color: $application_color,
                     application_image: $application_image,
                     restriction_max: $restriction_max,
-                    lti_data: JSON.stringify($lti_data)
+                    lti_data: JSON.stringify($lti_data),
+                    application_background_image: $application_background_image,
+                    application_sort_index: $application_sort_index
                 },
                 success: function (response) {
                     resolve(JSON.parse(response))
@@ -368,7 +370,7 @@ class managerManager {
     }
     
 
-    createApplication($application_name, $application_description, $application_image, $lti_data, $application_color, $restriction_max) {
+    createApplication($application_name, $application_description, $application_image, $lti_data, $application_color, $restriction_max, $application_background_image, $application_sort_index) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -380,7 +382,9 @@ class managerManager {
                     application_description: $application_description,
                     application_color: $application_color,
                     restriction_max: $restriction_max,
-                    lti_data: JSON.stringify($lti_data)
+                    lti_data: JSON.stringify($lti_data),
+                    application_background_image: $application_background_image,
+                    application_sort_index: $application_sort_index
                 },
                 success: function (response) {
                     resolve(JSON.parse(response))
@@ -872,7 +876,7 @@ class managerManager {
 
                     let activeFlag = true;
                     if (element.hasOwnProperty('active')) {
-                        if (element.active != "1" && $group_id != -2) {
+                        if (element.active != "1") {
                             activeFlag = false;
                         }
                     } 

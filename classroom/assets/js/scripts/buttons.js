@@ -127,12 +127,41 @@ $('body').on('mouseenter mouseleave', '.dropdown-act', function () {
 })
 
 $('input[type=radio][name=isEval-activity-form]').change(function () {
-    if (ClassroomSettings.isEvaluation == true) {
-        ClassroomSettings.isEvaluation = false
-    } else {
+
+    let id = Main.getClassroomManager()._idActivityOnAttribution,
+        activity = "",
+        contentParsed = "";
+
+    if (id != 0) {
+        activity= Main.getClassroomManager()._myTeacherActivities.filter(x => x.id == id)[0];
+        contentParsed = JSON.parse(activity.content);
+    }
+
+    if (this.value == "true") {
         ClassroomSettings.isEvaluation = true
+        if (id != 0) {
+            if (contentParsed.hasOwnProperty('hint')) {
+                if (contentParsed.hint != "" && contentParsed.hint != null) {
+                    $("#hint-exist-disclaimer").show();
+                }
+            }
+        }
+    } else {
+        $("#hint-exist-disclaimer").hide();
+        ClassroomSettings.isEvaluation = false
     }
 });
+
+function showDisclaimerIfEval() {
+    let activity = Main.getClassroomManager()._myTeacherActivities.filter(x => x.id == id)[0];
+    let contentParsed = JSON.parse(activity.content);
+    $("#hint-exist-disclaimer").hide();
+    if (contentParsed.hasOwnProperty('hint')) {
+        if (contentParsed.hint != "" && contentParsed.hint != null) {
+            $("#hint-exist-disclaimer").show();
+        }
+    }
+}
 
 function autocorrectSwitch() {
     if (ClassroomSettings.willAutocorrect == true) {
@@ -804,15 +833,18 @@ function toggleBlockClass() {
     });
 }
 
+// Show the month in string format
 function formatDay(da) {
     let d = new Date(da.date)
-    return d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+    let translatedMonth = i18next.t("classroom.activities.month." + parseInt(d.getMonth() + 1) );
+    return d.getDate() + " " + (translatedMonth) + " " + d.getFullYear();
 }
 
 function formatHour(da) {
-    let d = new Date(da.date)
-    return d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear() + " " +
-        d.getHours() + ":" + d.getMinutes();
+    let d = new Date(da.date);
+    let translatedMonth = i18next.t("classroom.activities.month." + parseInt(d.getMonth() + 1));
+    let twoDigitsHour = d.getHours() < 10 ? '0' + d.getHours() : d.getHours();
+    return d.getDate() + " " + (translatedMonth) + " " + d.getFullYear() + " - " + twoDigitsHour + "h" + d.getMinutes();
 }
 
 function docopy(self) {
@@ -2795,6 +2827,10 @@ function updateApp(app_id) {
         $('#app_update_image').val(response.image);
         $('#app_update_id').val(response.id);
         $('#app_update_activity_restriction_value').val(response.max_per_teachers);
+
+        $('#app_update_background_image').val(response.background_image);
+        $('#app_update_sort_index').val(response.sort);
+
         if (response.hasOwnProperty('lti')) {
             $('#update_isLti').prop('checked', true);
             $('#update_inputs-lti').show();
@@ -2817,7 +2853,10 @@ function deleteApp(app_id, app_name) {
     $('#application_delete_name').text(app_name);
     $('#validation_delete_application_id').val(app_id);
 }
-
+/**
+ *         $('#app_update_background_image').val(response.id);
+        $('#app_update_sort_index').val(response.id);
+ */
 function persistUpdateApp() {
     let $application_id = $('#app_update_id').val(),
         $application_name = $('#app_update_name').val(),
@@ -2825,7 +2864,9 @@ function persistUpdateApp() {
         $application_color = $('#app_update_color').val(),
         $application_image = $('#app_update_image').val(),
         $application_restrictions_value = $('#app_update_activity_restriction_value').val(),
-        lti = checkLtiFields('update');
+        lti = checkLtiFields('update'),
+        $application_background_image = $('#app_update_background_image').val(),
+        $application_sort_index = $('#app_update_sort_index').val();
 
     if (!lti.isLti && $('#update_isLti').is(":checked")) {
         displayNotification('#notif-div', "manager.account.missingData", "error");
@@ -2837,7 +2878,9 @@ function persistUpdateApp() {
             $application_image,
             lti,
             $application_color,
-            $application_restrictions_value).then((response) => {
+            $application_restrictions_value,
+            $application_background_image,
+            $application_sort_index).then((response) => {
             if (response.message == "success") {
                 displayNotification('#notif-div', "manager.apps.updateSuccess", "success");
                 closeModalAndCleanInput(true);
@@ -2874,13 +2917,22 @@ function persistCreateApp() {
         $application_color = $('#app_create_color').val(),
         $application_image = $('#app_create_image').val(),
         $application_restrictions_value = $('#app_create_activity_restriction_value').val(),
-        lti = checkLtiFields('create');
+        lti = checkLtiFields('create'),
+        $application_background_image = $('#app_create_background_image').val(),
+        $application_sort_index = $('#app_create_sort_index').val();
 
     
     if (!lti.isLti && $('#isLti').is(":checked")) {
         displayNotification('#notif-div', "manager.account.missingData", "error");
     } else {
-        mainManager.getmanagerManager().createApplication($application_name, $application_description, $application_image, lti, $application_color, $application_restrictions_value).then((response) => {
+        mainManager.getmanagerManager().createApplication(
+            $application_name, 
+            $application_description, 
+            $application_image, lti, 
+            $application_color, 
+            $application_restrictions_value,
+            $application_background_image,
+            $application_sort_index).then((response) => {
             if (response.message == "success") {
                 displayNotification('#notif-div', "manager.apps.createSuccess", "success");
                 closeModalAndCleanInput(true);

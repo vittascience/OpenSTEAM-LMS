@@ -292,7 +292,7 @@
 			"hint": "Indice",
 			"saved": "Activité sauvegardée",
 			"wrongAnswer": "Mauvaise réponse",
-			"hintExist": "<i class='fas fa-exclamation'></i> Cet exercice possède un indice, il ne peut s'afficher que si l'élève peut soumettre l'activité plusieurs fois",
+			"hintExist": "<i class='fas fa-info-circle'></i> Cet exercice possède un indice, il ne peut s'afficher que si l'élève peut soumettre l'activité plusieurs fois",
 			"bilan": {
 				"title": "Bilan",
 				"results": "Résultats",
@@ -365,7 +365,22 @@
 			"addLearner": "Ajouter un apprenant",
 			"addLearners": "Ajouter des apprenants",
 			"addActivity": "Ajouter une activité",
-			"exportCsv": "Exporter csv"
+			"exportCsv": "Exporter csv",
+			"month": {
+				"1": "Janvier",
+				"2": "Février",
+				"3": "Mars",
+				"4": "Avril",
+				"5": "Mai",
+				"6": "Juin",
+				"7": "Juillet",
+				"8": "Août",
+				"9": "Septembre",
+				"10": "Octobre",
+				"11": "Novembre",
+				"12": "Décembre"
+			},
+			"preview": "Prévisualisation"
 		},
 		"filter": {
 			"desc": "Plus ancien",
@@ -1347,6 +1362,7 @@
 			"maxActivitiesPerTeacher": "Maximum d'activités par enseignant",
 			"monitoring": "Suveillance des applications",
 			"image": "Image",
+			"backgroundImage": "Image de fond",
 			"userNoRights": "Pas de droits assignés",
 			"userAdmin": "Administrateur",
 			"userTeacher": "Enseignant",
@@ -1466,7 +1482,7 @@
 		"addFieldTooltip": "En cliquant sur le bouton Ajouter un champ de réponse, un texte stylisé est ajouté. Vous pouvez écrire la réponse correcte dans ce champ. Les réponses alternatives sont séparées par une double esperluette &&",
 		"ActivitiesData": {
 			"title": {
-				"reading": "Page multimédia",
+				"reading": "Lecture simple",
 				"free": "Réponse libre",
 				"quiz": "QCM",
 				"fillIn": "Texte à trous",
