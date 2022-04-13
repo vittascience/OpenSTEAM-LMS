@@ -844,6 +844,11 @@ function displayDragAndDropTeacherSide(correction_div, correction, content) {
     let studentResponses = JSON.parse(Activity.response);
     let studentContentString = content.dragAndDropFields.contentForStudent;
 
+
+    $(`input[id^="corrected-student-response-"]`).each((i, e) => {
+        $(e).remove();
+    })
+
     if (studentResponses != "" && studentResponses != null) {
         for (let i = 0; i < studentResponses.length; i++) {
             let autoWidthStyle = 'style="width:' + (studentResponses[i].string.toLowerCase().length + 2) + 'ch"';
@@ -856,11 +861,11 @@ function displayDragAndDropTeacherSide(correction_div, correction, content) {
 
     Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
         for (let i = 0; i < $(`input[id^="corrected-student-response-"]`).length; i++) {
-            $('#corrected-student-response-' + i).css("border","1px solid var(--classroom-text-0)");
+            $('#corrected-student-response-' + i).css("border","2px solid green");
         }
     
         for (let i = 0; i < result.success.length; i++) {
-            $('#corrected-student-response-' + (result.success[i])).css("border","1px solid orange");
+            $('#corrected-student-response-' + (result.success[i])).css("border","2px solid orange");
         }
     })
 
