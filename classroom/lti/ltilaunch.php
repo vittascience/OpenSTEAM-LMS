@@ -65,7 +65,8 @@ if ($studentResourceUrl == null) {
 
 $platform_url = "https://{$_SERVER["HTTP_HOST"]}";
 
-$ltiTool = $entityManager->getRepository(Applications::class)->findOneBy(["name" => $applicationType]);
+$ltiApplication = $entityManager->getRepository(Applications::class)->findOneBy(["name" => $applicationType])->getId();
+$ltiTool = $entityManager->getRepository(LtiTool::class)->findOneBy(["applicationId" => $ltiApplication]);
 
 if (!$ltiTool) {
 	echo 'Tool not found!';
