@@ -323,11 +323,11 @@ function saveActivitiesResponseManager(activityType = null, response = null) {
         }
     } else if (activityType == 'quiz') {
         for (let i = 1; i < $(`input[id^="student-quiz-suggestion-"]`).length+1; i++) {
-            $('#student-quiz-suggestion-' + i).css("border","2px solid black");
+            $('#student-quiz-suggestion-' + i).parent().addClass('quiz-answer-correct');
         }
 
         for (let i = 0; i < response.badResponse.length; i++) {
-            $('#student-quiz-suggestion-' + (response.badResponse[i]+1)).css("border","2px solid red");
+            $('#student-quiz-suggestion-' + (response.badResponse[i]+1)).parent().addClass('quiz-answer-incorrect');
         }
 
         if (response.hasOwnProperty("hint")) {
