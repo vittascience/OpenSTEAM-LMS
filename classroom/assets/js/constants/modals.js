@@ -489,7 +489,7 @@ const classroomModals = {
             </div>
         </div>
     
-        <div class="form-row c-secondary-form">
+        <div class="form-row c-secondary-form" id="update_u_mail_phone" style="display:none;">
             <div class="form-group col-md">
                 <label for="update_u_mail" data-i18n="[html]manager.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
                 <input type="email" class="form-control" id="update_u_mail">
@@ -902,7 +902,7 @@ const classroomModals = {
                                 </div>
 
                                 <div class="col-md">
-                                    <label for="app_update_background_image" data-i18n="manager.table.backgroundImage">Image</label>
+                                    <label for="app_update_background_image" data-i18n="manager.table.backgroundImage"></label>
                                     <input type="text" class="form-control" id="app_update_background_image">
                                     <img src="" class="app_image_preview" id="app_update_background_image_preview">
                                 </div>

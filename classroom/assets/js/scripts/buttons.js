@@ -1405,6 +1405,10 @@ function showupdateUserModal(id) {
         $('#update_personal_apps_sa').html('');
         pseudoModal.openModal('manager-update-user');
 
+        if (res[0].isRegular != null || res[0].isActive != null) {
+            $('#update_u_mail_phone').hide();
+        }
+
         $('#update_u_firstname').val(res[0].firstname);
         $('#update_u_surname').val(res[0].surname);
         $('#update_u_pseudo').val(res[0].pseudo);
