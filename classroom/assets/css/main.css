@@ -1613,13 +1613,13 @@ h3.section-done {
     display: inline-block;
 }
 
-.drag-and-drop-div {
+#drag-and-drop-fields {
     border: 1px solid var(--classroom-text-0);
     border-radius: 1em;
     padding: 1em;
 }
 
-.drag-and-drop-div>div {
+#drag-and-drop-text>div {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -1709,22 +1709,30 @@ h3.section-done {
     left: 1em !important;
 }
 
+.answer-correct,
 .quiz-answer-container.quiz-answer-correct label {
     border-color: var(--correction-3);
     background-color: rgba(var(--correction-3-rgb), 0.1);
 }
 
+.answer-incorrect,
 .quiz-answer-container.quiz-answer-incorrect label {
     border-color: var(--correction-0);
     background-color: rgba(var(--correction-0-rgb), 0.1);
 }
 
 .quiz-answer-container.quiz-answer-incorrect label::after {
-    content: "X" !important;
-    font-size: 1.2em !important;
-    left: 1.4em !important;
+    content: "×" !important;
+    font-size: 1.7em !important;
+    left: 0.95em !important;
     top: 50% !important;
     color: var(--correction-0) !important;
+}
+
+.answer-incorrect,
+.answer-correct {
+    text-align: center;
+    padding: 0 0.3em;
 }
 
 /* ACTIVITY ASSIGN FORM */
