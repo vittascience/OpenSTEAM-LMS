@@ -1715,7 +1715,7 @@ h3.section-done {
 
 #hint-exist-disclaimer {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 
@@ -1731,14 +1731,13 @@ h3.section-done {
     background-color: var(--classroom-tertiary);
     color: var(--classroom-white);
 
-    width: 2em;
+    width: 3.2em;
     height: 2em;
 
     display: grid;
     align-items: center;
     
     border-radius: 50%;
-    margin-bottom: 0.5em;
 }
 
 /* ACTIVITY CORRECTION FORM */

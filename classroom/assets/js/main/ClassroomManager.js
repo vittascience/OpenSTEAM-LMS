@@ -26,6 +26,7 @@ class ClassroomManager {
         this._allApps = []
         this._createActivity = {}
         this._lastCreatedActivity = 0;
+        this._idActivityOnAttribution = 0;
         this.setDefaultActivityData();
     }
 
@@ -1356,17 +1357,35 @@ class ClassroomManager {
     }
 
 
-    saveNewStudentActivity(activity, correction = 1, note = 0, response) {
+    saveNewStudentActivity(activity, correction = 1, note = 0, response, activityLinkUserId) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
                 url: "/routing/Routing.php?controller=newActivities&action=save_new_activity",
                 data: {
                     'id': activity,
+                    'activityLinkUserId': activityLinkUserId,
                     'correction': correction,
                     'classroomLink': ClassroomSettings.classroom,
                     'note': note,
                     'response': response
+                },
+                success: function (r) {
+                    resolve(JSON.parse(r))
+                }
+            });
+        });
+    }
+
+
+    getActivityAutocorrectionResult(activity, activityLinkUserId) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=newActivities&action=get_autocorrect_result",
+                data: {
+                    'activityId': activity,
+                    'activityLinkId': activityLinkUserId,
                 },
                 success: function (r) {
                     resolve(JSON.parse(r))
