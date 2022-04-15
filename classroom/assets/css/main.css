@@ -1598,6 +1598,9 @@ h3.section-done {
     aspect-ratio: 1 / 1;
     width: 2em;
     height: 2em;
+    display: inline-grid;
+    justify-items: center;
+    align-items: center;
 }
 
 .activities-fill-in-square {
