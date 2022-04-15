@@ -490,6 +490,8 @@ hr {
     transition: all 0.2s;
     box-shadow: unset;
     border: unset;
+    max-width: 100%;
+    margin-right: 0.15em;
 }
 
 
