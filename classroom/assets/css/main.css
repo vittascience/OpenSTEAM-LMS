@@ -1570,6 +1570,36 @@ h3.section-done {
     margin-top: -2px;
 }
 
+#fill-in-tolerance {
+    width: 4ch; 
+    -moz-appearance: textfield;
+    text-align: center;
+
+}
+
+#fill-in-tolerance,
+#fill-in-tolerance-decrease,
+#fill-in-tolerance-increase {
+    border: 1px solid var(--classroom-text-0);
+    border-color: var(--classroom-text-0) !important;
+    background-color: var(--classroom-background);
+    color: var(--classroom-text-0);
+}
+
+#fill-in-tolerance::-webkit-outer-spin-button,
+#fill-in-tolerance::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#fill-in-tolerance-decrease,
+#fill-in-tolerance-increase {
+    padding: 0.1em;
+    aspect-ratio: 1 / 1;
+    width: 2em;
+    height: 2em;
+}
+
 .activities-fill-in-square {
     border: solid;
     margin: 3px;
