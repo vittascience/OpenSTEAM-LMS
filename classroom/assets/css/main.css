@@ -2452,8 +2452,9 @@ i.line_height34 {
     display: grid;
     grid-template-columns: auto 1fr;
     text-align: center;
-    width: 80%;
-margin: 1em auto;
+    margin: 0.25em;
+    align-items: center;
+    font-size: smaller;
 }
 
 #warning-text-container p i{
