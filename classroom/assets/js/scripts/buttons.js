@@ -2711,12 +2711,22 @@ function getAndShowApps() {
     $('#all-applications-crud').html();
     let htmlApps = "";
     mainManager.getmanagerManager().getAllApplications().then((response) => {
+        console.log(response)
         getAllrestrictions();
         response.forEach(application => {
+
+            let divImg = "";
+            if (application.image != null && application.image != "") {
+                divImg = `<img src="${application.image}" class="app_image_preview">`
+            } else {
+                divImg = "None";
+            }
+
             htmlApps += `<tr>
+                            <td>${divImg}</td>
                             <td class="font-weight-bold">${application.name}</td>
                             <td>${application.description}</td>
-                            <td>${application.image}</td>
+                            <td>${application.max_per_teachers}</td>
                             <td>
                                 <a class="c-link-secondary" href="javascript:void(0)" onclick="updateApp(${application.id})"><i class="fas fa-pencil-alt fa-2x"></i></a>
                             </td>

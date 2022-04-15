@@ -1367,7 +1367,8 @@
 			"userAdmin": "Administrateur",
 			"userTeacher": "Enseignant",
 			"restrictions": "Restrictions",
-			"color": "Couleur"
+			"color": "Couleur",
+			"restriction": "Restriction"
 		},
 		"apps": {
 			"apps": "Applications",

@@ -1052,7 +1052,8 @@
 			"userAdmin": "Administrator",
 			"userTeacher": "Teacher",
 			"restrictions": "Restrictions",
-			"color": "Color"
+			"color": "Color",
+			"restriction": "Restriction"
 		},
 		"apps": {
 			"apps": "Apps",
