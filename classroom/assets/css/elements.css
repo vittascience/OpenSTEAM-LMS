@@ -642,3 +642,67 @@ hr {
 .c-checkbox [type="checkbox"]:not(:checked):focus+label:before {
     box-shadow: 0 0 0 .2rem rgba(126, 126, 126, 0.25);
 }
+
+/* RADIO BUTTONS */
+
+.c-radio {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2em auto;
+    gap: 0.5em;
+    align-items: center;
+}
+
+.c-radio + .c-radio {
+    margin-top: 1em;
+}
+
+.c-radio input[type="radio"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 2em;
+    height: 2em;
+    border: 1px solid var(--classroom-text-0);
+    border-radius: 50%;
+
+    cursor: pointer;
+    
+    display: grid;
+    place-content: center;
+    transition: 120ms box-shadow ease-in-out;
+}
+.c-radio input[type="radio"]:focus { 
+    box-shadow: 0 0 0 0.2rem rgb(126 126 126 / 50%);
+}
+
+
+.c-radio input[type="radio"]::before {
+    content: "";
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    background-color: var(--classroom-grey);
+}
+  
+.c-radio input[type="radio"]:checked::before {
+    transform: scale(1);
+}
+
+.c-primary-form .c-radio input[type="radio"]::before {
+    background-color: var(--classroom-primary);
+}
+
+
+.c-secondary-form .c-radio input[type="radio"]::before {
+    background-color: var(--classroom-secondary);
+}
+
+.c-tertiary-form .c-radio input[type="radio"]::before {
+    background-color: var(--classroom-tertiary);
+}
