@@ -153,6 +153,27 @@ class AutoBuildManager {
     }
 
     /**
+     * Tasks related to the static files
+     */
+    async pluginJson() {
+      return new Promise(async (resolve, reject) => {
+        if (this.pluginsList.length) {
+          // check if there aren't js filename duplicate
+          if (this.checkForDuplicateInArray(this.pluginsList.json)) {
+            console.error('Error: there is a duplicate in the plugin(s) js filenames')
+            return reject();
+          }
+          // copy static files into the plugins folder in classroom folder
+          await this.copyJsonFilesToClassroom();
+
+          resolve();
+        } else {
+          resolve();
+        }
+      });
+    }
+
+    /**
      * Create the temporary Views folder
      */
     createTemporaryViewsFolder() {
@@ -192,6 +213,7 @@ class AutoBuildManager {
             await this.createFolder(`${this.pluginsFolderInClassroom}/css`);
             await this.createFolder(`${this.pluginsFolderInClassroom}/js`);
             await this.createFolder(`${this.pluginsFolderInClassroom}/images`);
+            await this.createFolder(`${this.pluginsFolderInClassroom}/json`);
             resolve();
         });
     }
@@ -285,6 +307,29 @@ class AutoBuildManager {
     }
 
     /**
+     * Copy all the static files in the plugins folder to the js folder in the plugins folder which is in classroom folder
+     */
+    copyJsonFilesToClassroom() {
+      return new Promise((resolve, reject) => {
+        let promises = [];
+        this.pluginsList.forEach((plugin) => {
+          plugin.json.forEach((jsonFile) => {
+            promises.push(
+              new Promise((resolve, reject) => {
+                gulp.src(`${this.pluginFolder}/${plugin.name}/public/json/${jsonFile}`).pipe(gulp.dest(`${this.pluginsFolderInClassroom}/json/`)).on('finish', () => {
+                  resolve();
+                });
+              })
+            );
+          });
+        });
+        Promise.all(promises).then(() => {
+          resolve();
+        });
+      });
+    }
+
+    /**
      * Add all the plugins css links in the head (header.html)
      */
     addCssLinksInHead() {
@@ -352,7 +397,8 @@ class AutoBuildManager {
                                 views: [],
                                 css: [],
                                 js: [],
-                                images: []
+                                images: [],
+                                json: []
                             };
                             this.pluginsList.push(currentPlugin);
                         });
@@ -372,7 +418,8 @@ class AutoBuildManager {
             await this.loadPluginsFilesList('public/css', 'css');
             await this.loadPluginsFilesList('public/js', 'js');
             await this.loadPluginsFilesList('public/images', 'images');
-            resolve();
+            await this.loadPluginsFilesList('public/json', 'json');
+          resolve();
         });
     }
 
@@ -617,6 +664,9 @@ pluginCss.displayName = 'plugin css';
 const pluginJs = () => { return autoBuildManager.pluginJs() };
 pluginJs.displayName = 'plugin js';
 
+const pluginJson = () => { return autoBuildManager.pluginJson() };
+pluginJson.displayName = 'plugin json';
+
 const homeConcat = () => { return autoBuildManager.homeConcat() };
 homeConcat.displayName = 'home concat';
 
@@ -630,6 +680,7 @@ autoBuild = gulp.series(
     pluginImages,
     pluginCss,
     pluginJs,
+    pluginJson,
     homeConcat,
     removeTemporaryViewsFolder
 );
