@@ -8,7 +8,7 @@ const NO_CLASS = "<p class='no-classes'> Vous devez d'abord créer une classe po
 const capitalizedDemoStudentName = `${demoStudentName.charAt().toUpperCase()}${demoStudentName.slice(1)}`
 const cookies = document.cookie.split(';')
 const lang = cookies.filter(entry => entry.trim().startsWith('lng'))
-const langValue = lang[0].split('=')[1] ?? 'fr'
+const langValue = lang[0] ? lang[0].split('=')[1] : 'fr'
 
 const classroomModals = {
     'import-csv': {
