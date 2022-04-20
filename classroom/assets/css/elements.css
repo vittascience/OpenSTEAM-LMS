@@ -706,3 +706,12 @@ hr {
 .c-tertiary-form .c-radio input[type="radio"]::before {
     background-color: var(--classroom-tertiary);
 }
+
+/* SWITCHER */
+input:checked+.slider-mini {
+    background-color: var(--classroom-primary) !important;
+}
+
+.switcher__toggle {
+    background-color: var(--classroom-primary) !important;
+}
