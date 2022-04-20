@@ -374,7 +374,7 @@ button {
 }
 
 .sidebar-classroom div:not(:first-child) {
-    font-weight: 700
+    font-weight: 700;
     text-transform: uppercase;
     color: white;
     background: var(--classroom-dashboard-dark);
