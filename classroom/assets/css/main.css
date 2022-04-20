@@ -2714,8 +2714,7 @@ i.line_height34 {
 }
 
 .app_image_preview {
-    border: 1px solid #ddd;
     border-radius: 4px;
     padding: 5px;
-    width: 75px;
+    width: 55px;
 }

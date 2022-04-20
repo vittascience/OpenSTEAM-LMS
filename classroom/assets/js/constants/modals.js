@@ -8,7 +8,7 @@ const NO_CLASS = "<p class='no-classes'> Vous devez d'abord créer une classe po
 const capitalizedDemoStudentName = `${demoStudentName.charAt().toUpperCase()}${demoStudentName.slice(1)}`
 const cookies = document.cookie.split(';')
 const lang = cookies.filter(entry => entry.trim().startsWith('lng'))
-const langValue = lang[0].split('=')[1] ?? 'fr'
+const langValue = lang[0] ? lang[0].split('=')[1] : 'fr'
 
 const classroomModals = {
     'import-csv': {
@@ -489,7 +489,7 @@ const classroomModals = {
             </div>
         </div>
     
-        <div class="form-row c-secondary-form" id="update_u_mail_phone" style="display:none;">
+        <div class="form-row c-secondary-form">
             <div class="form-group col-md">
                 <label for="update_u_mail" data-i18n="[html]manager.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
                 <input type="email" class="form-control" id="update_u_mail">
@@ -944,7 +944,7 @@ const classroomModals = {
                                         <label for="update_deepLinkUrl" data-i18n="[html]manager.apps.deepLinkUrl">DeepLink Url</label>
                                         <input type="text" class="form-control mb-2" id="update_deepLinkUrl">
                                         <label for="update_privateKey" data-i18n="[html]manager.apps.privateKey">Private Key</label>
-                                        <textarea class="form-control mb-2" id="update_privateKey"></textarea>
+                                        <input type="text" class="form-control mb-2" id="update_privateKey">
                                     </div>
                                 </div>
                             </div>
