@@ -1551,7 +1551,8 @@ h3.section-done {
     margin-top: -2px;
 }
 
-#fill-in-tolerance {
+#fill-in-tolerance,
+#free-tolerance {
     width: 4ch; 
     -moz-appearance: textfield;
     text-align: center;
@@ -1559,8 +1560,8 @@ h3.section-done {
 }
 
 #fill-in-tolerance,
-#fill-in-tolerance-decrease,
-#fill-in-tolerance-increase {
+#free-tolerance,
+.tolerance-btn {
     border: 1px solid var(--classroom-text-0);
     border-color: var(--classroom-text-0) !important;
     background-color: var(--classroom-background);
@@ -1568,13 +1569,14 @@ h3.section-done {
 }
 
 #fill-in-tolerance::-webkit-outer-spin-button,
-#fill-in-tolerance::-webkit-inner-spin-button {
+#fill-in-tolerance::-webkit-inner-spin-button,
+#free-tolerance::-webkit-outer-spin-button,
+#free-tolerance::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-#fill-in-tolerance-decrease,
-#fill-in-tolerance-increase {
+.tolerance-btn {
     padding: 0.1em;
     aspect-ratio: 1 / 1;
     width: 2em;
