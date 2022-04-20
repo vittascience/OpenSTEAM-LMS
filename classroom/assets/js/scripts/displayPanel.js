@@ -397,6 +397,7 @@ function getTeacherActivity() {
     let activityDropdownElt = `
     <div class="dropdown mx-2">
         <button class="btn c-btn-outline-grey" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            ${capitalizeFirstLetter(i18next.t('words.options'))}
             <i class="fas fa-cog"></i>
         </button>
 
