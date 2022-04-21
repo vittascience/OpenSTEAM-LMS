@@ -979,6 +979,8 @@ const classroomModals = {
                                     <label for="app_create_description" data-i18n="[html]manager.table.descriptionMandatory">Description</label>
                                     <input type="text" class="form-control" id="app_create_description">
                                 </div>
+                            </div>
+                            <div class="form-row mt-1 c-secondary-form">
                                 <div class="col-md">
                                     <label for="app_create_image" data-i18n="manager.table.image">Image</label>
                                     <input type="text" class="form-control" id="app_create_image">
@@ -988,7 +990,8 @@ const classroomModals = {
                                     <label for="app_create_color" data-i18n="manager.table.color">Color</label>
                                     <input type="color" class="form-control" id="app_create_color">
                                 </div>
-
+                            </div>
+                            <div class="form-row mt-1 c-secondary-form">
                                 <div class="col-md">
                                     <label for="app_create_background_image" data-i18n="manager.table.backgroundImage">Image</label>
                                     <input type="text" class="form-control" id="app_create_background_image">
