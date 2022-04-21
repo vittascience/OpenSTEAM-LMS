@@ -680,12 +680,12 @@ function displayQuizTeacherSide() {
 
     Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
         for (let i = 1; i < $(`label[id^="correction-student-quiz-suggestion-"]`).length+1; i++) {
-            $('#correction-student-quiz-suggestion-' + i).css("border","2px solid green");
+            $('#correction-student-quiz-suggestion-' + i).parent().addClass('quiz-answer-correct');
         }
 
         if (result.success.length > 0) {
             for (let i = 0; i < result.success.length; i++) {
-                $('#correction-student-quiz-suggestion-' + (result.success[i]+1)).css("border","2px solid orange");
+                $('#correction-student-quiz-suggestion-' + (result.success[i]+1)).parent().addClass('quiz-answer-incorrect');
             }
         }
     })
@@ -770,9 +770,9 @@ function displayFillInTeacherSide(correction_div, correction, content) {
 
             for (let i = 0; i < studentResponses.length; i++) {
                 if (result.success.includes(i)) {
-                    $(`#correction-student-fill-in-field-${i}`).css("border","2px solid orange");
+                    $(`#correction-student-fill-in-field-${i}`).addClass("answer-incorrect");
                 } else {
-                    $(`#correction-student-fill-in-field-${i}`).css("border","2px solid green");
+                    $(`#correction-student-fill-in-field-${i}`).addClass("answer-correct");
                 }
             }
         })
@@ -861,11 +861,11 @@ function displayDragAndDropTeacherSide(correction_div, correction, content) {
 
     Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
         for (let i = 0; i < $(`input[id^="corrected-student-response-"]`).length; i++) {
-            $('#corrected-student-response-' + i).css("border","2px solid green");
+            $('#corrected-student-response-' + i).addClass("answer-correct");
         }
     
         for (let i = 0; i < result.success.length; i++) {
-            $('#corrected-student-response-' + (result.success[i])).css("border","2px solid orange");
+            $('#corrected-student-response-' + (result.success[i])).addClass("answer-incorrect");
         }
     })
 

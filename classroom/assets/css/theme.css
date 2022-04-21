@@ -9,9 +9,13 @@
     --classroom-tertiary-dark: #50afc2;
 
     --correction-0: #ffc152;
+    --correction-0-rgb: 255, 193, 82;
     --correction-1: #ffda97;
+    --correction-1-rgb: 255, 218, 151;
     --correction-2: #7cc6a5;
+    --correction-2-rgb: 124, 198, 165;
     --correction-3: #22b573;
+    --correction-3-rgb: 34, 183, 115;
     --correction-success: var(--classroom-green);
     --correction-fail: var(--classroom-red);
 
