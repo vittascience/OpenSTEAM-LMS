@@ -397,6 +397,7 @@ function getTeacherActivity() {
     let activityDropdownElt = `
     <div class="dropdown mx-2">
         <button class="btn c-btn-outline-grey" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            ${capitalizeFirstLetter(i18next.t('words.options'))}
             <i class="fas fa-cog"></i>
         </button>
 
@@ -519,7 +520,11 @@ function getIntelFromClasses() {
             if (e == 0) {
                 ClassroomSettings.classroom = element.classroom.link;
             }
-            $('#list-classes').append(`<div><input class="mx-5" ${e == 0 ? "checked" : ""} type="radio" name="classroom" id="${element.classroom.link}" value="${element.classroom.link}"><label for="${element.classroom.link}">${element.classroom.name}</label></div>`)
+            $('#list-classes').append(`
+            <label class="c-radio mb-3">
+                <input type="radio" name="classroom" id="${element.classroom.link}" value="${element.classroom.link}" ${e == 0 ? "checked" : ""} />
+                ${element.classroom.name}
+            </label>`)
         });
         $('.no-classes').remove()
         $('#mode-student-check').show()

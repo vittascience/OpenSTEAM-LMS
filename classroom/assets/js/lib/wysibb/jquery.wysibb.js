@@ -1393,7 +1393,7 @@ wbbdebug = false;
 			//build bbcode switch button
 			//var $bbsw = $('<div class="wysibb-toolbar-container modeSwitch"><div class="wysibb-toolbar-btn" unselectable="on"><span class="btn-inner ve-tlb-bbcode" unselectable="on"></span></div></div>').appendTo(this.$toolbar);
 			let translationBtn = i18next.t("classroom.activities.preview");
-			var $bbsw = $(document.createElement('div')).addClass("wysibb-toolbar-container modeSwitch").html(`<div class="wysibb-toolbar-btn mswitch" unselectable="on"><span class="btn-inner modesw" unselectable="on">[${translationBtn}]</span></div>`).appendTo(this.$toolbar);
+			var $bbsw = $(document.createElement('div')).addClass("wysibb-toolbar-container modeSwitch").html(`<div class="wysibb-toolbar-btn mswitch" unselectable="on"><span class="btn-inner modesw" unselectable="on">${translationBtn}</span></div>`).appendTo(this.$toolbar);
 			if (this.options.bbmode == true) {
 				$bbsw.children(".wysibb-toolbar-btn").addClass("on");
 			}

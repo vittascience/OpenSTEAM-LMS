@@ -48,13 +48,22 @@
             </div>
 
             <div class="content m-3">
-                <p><span data-i18n="newActivities.tolerance1"></span> <button id="free-tolerance-decrease" class="tolerance-btn">-</button> <input type="number" id="free-tolerance" value="0"> <button id="free-tolerance-increase" class="tolerance-btn">+</button> <span data-i18n="newActivities.tolerance2"></span></p>
+                <p>
+                    <span data-i18n="newActivities.tolerance1"></span>
+                    <button id="free-tolerance-decrease" class="tolerance-btn">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <input type="number" id="free-tolerance" value="0">
+                    <button id="free-tolerance-increase" class="tolerance-btn">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <span data-i18n="newActivities.tolerance2"></span></p>
             </div>
         </div>
 
         <!-- Reading activity part -->
         <div id="activity-reading" style="display:none;">
-            <div class="form-row mt-1">
+            <div class="content m-3">
                 <label for="reading-content" class="tutorial-label">
                     <span data-i18n="[html]newActivities.content"></span>
                 </label>
@@ -116,16 +125,28 @@
                 <textarea id="fill-in-content" style="height:400px"></textarea>
             </div>
 
-            <button class="btn c-btn-outline" id="fill-in-add-inputs" data-i18n="[html]newActivities.addField" data-toggle="tooltip" title="">Add field</button>
-            <!-- <p>En cliquant sur le bouton ajouter un champs à compléter , un texte est ajouté avec deux caractères verticaux | réponse |. Vous pouvez écrire la réponse correcte entre ces deux caractères. Les réponses alternatives sont séparées par une double esperluette && </p> -->
+            <button class="btn c-btn-primary" id="fill-in-add-inputs" data-toggle="tooltip" title="">
+                <i class="fas fa-pen-alt"></i>
+                <span data-i18n="[html]newActivities.addField"></span>
+            </button>
 
             <div class="content m-3">
-                <p><span data-i18n="newActivities.tolerance1"></span> <button id="fill-in-tolerance-decrease" class="tolerance-btn">-</button> <input type="number" id="fill-in-tolerance" value="0"> <button id="fill-in-tolerance-increase" class="tolerance-btn">+</button> <span data-i18n="newActivities.tolerance2"></span></p>
+                <p>
+                    <span data-i18n="newActivities.tolerance1"></span>
+                    <button id="fill-in-tolerance-decrease" class="tolerance-btn">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <input type="number" id="fill-in-tolerance" value="0">
+                    <button id="fill-in-tolerance-increase" class="tolerance-btn">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <span data-i18n="newActivities.tolerance2"></span>
+                </p>
             </div>
 
-            <div class="content m-3">
+            <div class="content form-group m-3">
                 <label for="fill-in-hint" data-i18n="[html]newActivities.hint">Indice</label>
-                <input type="text" id="fill-in-hint">
+                <input type="text" class="form-control" id="fill-in-hint">
             </div>
 
         </div>
@@ -143,11 +164,14 @@
                 <textarea id="drag-and-drop-content" style="height:400px"></textarea>
             </div>
 
-            <button class="btn c-btn-outline-primary" id="dragAndDrop-add-inputs" data-i18n="newActivities.addField" data-toggle="tooltip" title="">Add field</button>
+            <button class="btn c-btn-primary" id="dragAndDrop-add-inputs" data-toggle="tooltip" title="">
+                <i class="fas fa-pen-alt"></i>
+                <span data-i18n="newActivities.addField">Add field</span>
+            </button>
 
-            <div class="content m-3">
+            <div class="content form-group m-3">
                 <label for="drag-and-drop-hint" data-i18n="[html]newActivities.hint">Indice</label>
-                <input type="text" id="drag-and-drop-hint">
+                <input type="text" class="form-control" id="drag-and-drop-hint">
             </div>
 
         </div>

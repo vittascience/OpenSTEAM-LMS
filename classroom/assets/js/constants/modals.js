@@ -191,7 +191,7 @@ const classroomModals = {
         },
         content: `
         <p data-i18n="classroom.modals.listClass.description" data-i18n-options={"demoStudent":"${capitalizedDemoStudentName}"}>Vous pouvez tester en toute simplicité l'interface en tant qu'apprenant, et revenir à tout moment à votre profil d'enseignant. La progression en tant qu'apprenant sera sauvegardée sur le compte {{demoStudent}}.</p>
-        <div id="list-classes" class="c-primary-form"></div>
+        <div id="list-classes" class="mx-5 c-primary-form"></div>
         <button class="btn  mb-2 c-btn-primary" id="mode-student-check" onclick="modeApprenant()" > <span class="mr-1" data-i18n="classroom.modals.listClass.switchButton">Passer en mode apprenant</span> <i class="fas fa-cog"></i></button>
                 `,
         footer: ``
@@ -881,7 +881,7 @@ const classroomModals = {
         },
         content: `  <div id="update-applications-modal">
                         <div class="container-fluid" id="update-app-manager" style="display:none;">
-                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.group.generalInfo"> Restriction d'activité </p>
+                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.group.generalInfo">Restriction d'activité</p>
                             <div class="form-row mt-1 c-secondary-form">
                                 <div class="col-md">
                                     <label for="app_update_name" data-i18n="[html]manager.table.nameMandatory">Name</label>
@@ -891,6 +891,8 @@ const classroomModals = {
                                     <label for="app_update_description" data-i18n="[html]manager.table.descriptionMandatory">Description</label>
                                     <input type="text" class="form-control" id="app_update_description">
                                 </div>
+                            </div>
+                            <div class="form-row mt-1 c-secondary-form">
                                 <div class="col-md">
                                     <label for="app_update_image" data-i18n="manager.table.image">Image</label>
                                     <input type="text" class="form-control" id="app_update_image">
@@ -900,7 +902,8 @@ const classroomModals = {
                                     <label for="app_update_color" data-i18n="manager.table.color">Color</label>
                                     <input type="color" class="form-control" id="app_update_color">
                                 </div>
-
+                            </div>
+                            <div class="form-row mt-1 c-secondary-form">
                                 <div class="col-md">
                                     <label for="app_update_background_image" data-i18n="manager.table.backgroundImage"></label>
                                     <input type="text" class="form-control" id="app_update_background_image">
