@@ -288,6 +288,7 @@
 			"isAutocorrect": "Cette activité sera corrigée automatiquement.",
 			"states": "Énoncé de l'activité",
 			"content": "Contenu de l'activité",
+			"correction": "Corrigé",
 			"putYourAnswer": "Entrez votre réponse",
 			"hint": "Indice",
 			"saved": "Activité sauvegardée",
@@ -1415,7 +1416,9 @@
 			"appRestrictedSubtitle2": "Un problème avec votre abonnement ?",
 			"appRestrictedSubtitle3": "Contacter le support",
 			"appRestrictedGarContent1": "Vous avez atteint la limite de {{activities}} activités associés à votre compte.",
-			"appRestrictedGarContent2": "Pour ajouter des activités sumpplémentaires, veuillez prendre contact avec le.la responsable d'affectation GAR de votre établissement."
+			"appRestrictedGarContent2": "Pour ajouter des activités sumpplémentaires, veuillez prendre contact avec le.la responsable d'affectation GAR de votre établissement.",
+			"indexPos": "Index de position",
+			"appQuantity": "Quantité"
 		},
 		"defaultRestrictions": {
 			"update": "Modifier les restrictions par défaut",

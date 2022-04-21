@@ -117,6 +117,7 @@ function manageUpdateByType(activity) {
     Main.getClassroomManager()._createActivity.function = "update";
     
     contentForwardButtonElt.style.display = 'inline-block';
+
     $('#global_title').val(activity.title);
 
     switch (activity.type) {

@@ -911,7 +911,7 @@ const classroomModals = {
                                 </div>
 
                                 <div class="col-md">
-                                    <label for="app_update_sort_index" data-i18n="manager.activitiesRestrictions.max">Nombre</label>
+                                    <label for="app_update_sort_index" data-i18n="manager.activitiesRestrictions.indexPos">Nombre</label>
                                     <input type="number" class="form-control" id="app_update_sort_index" value="0">
                                 </div>
 
@@ -920,7 +920,7 @@ const classroomModals = {
                             <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.restrictions"> Restriction d'activité </p>
                             <div class="form-row mt-1 c-secondary-form">
                                 <div class="col-md">
-                                    <label for="app_update_activity_restriction_value" data-i18n="manager.activitiesRestrictions.max">Nombre</label>
+                                    <label for="app_update_activity_restriction_value" data-i18n="manager.activitiesRestrictions.appQuantity">Nombre</label>
                                     <input type="number" class="form-control" id="app_update_activity_restriction_value">
                                 </div>
                             </div>
