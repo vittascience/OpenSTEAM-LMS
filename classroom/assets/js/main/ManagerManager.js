@@ -424,7 +424,7 @@ class managerManager {
      * @param {array} $group_app 
      * @returns {object} response
      */
-    updateGroup($group_id, $group_name, $group_description, $group_app) {
+    updateGroup($group_id, $group_name, $group_description, $group_app, $global_restriction) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -433,7 +433,8 @@ class managerManager {
                     id: $group_id,
                     name: $group_name,
                     description: $group_description,
-                    applications: $group_app
+                    applications: $group_app,
+                    global_restriction: $global_restriction
                 },
                 success: function (response) {
                     resolve(JSON.parse(response))
@@ -473,14 +474,15 @@ class managerManager {
      * @param {array} $user_app 
      * @returns 
      */
-    updateUserApps($user_id, $user_app) {
+    updateUserApps($user_id, $user_app, $global_user_restriction) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
                 url: "/routing/Routing.php?controller=superadmin&action=update_user_app",
                 data: {
                     user_id: $user_id,
-                    user_app: $user_app
+                    user_app: $user_app,
+                    global_user_restriction: $global_user_restriction
                 },
                 success: function (response) {
                     resolve(JSON.parse(response))
@@ -529,7 +531,7 @@ class managerManager {
         })
     }
 
-    createUserAndLinkToGroup($firstname, $surname, $user_pseudo, $phone, $mail, $bio, $groups, $is_admin, $is_teacher, $teacher_grade, $teacher_suject, $school) {
+    createUserAndLinkToGroup($firstname, $surname, $user_pseudo, $phone, $mail, $bio, $groups, $is_admin, $is_teacher, $teacher_grade, $teacher_suject, $school, $apps) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -546,7 +548,8 @@ class managerManager {
                     grade: $teacher_grade,
                     subject: $teacher_suject,
                     mail: $mail,
-                    school: $school
+                    school: $school,
+                    apps: JSON.stringify($apps)
                 },
                 success: function (response) {
                     resolve(JSON.parse(response));
@@ -667,7 +670,8 @@ class managerManager {
         const process = (data) => {
             let $data_table = "",
                 $data_table_inactive ="",
-                group = "";
+                group = "",
+                nbUsers = data[data.length - 1].totalItems;
 
             mainManager.getmanagerManager()._allActualUsers = [];
 
@@ -677,11 +681,11 @@ class managerManager {
             });
 
             if ($group_id == -1)
-                $('#group_name_from_table').text(i18next.t('manager.group.usersWithoutGroups'));
+                $('#group_name_from_table').text(i18next.t('manager.group.usersWithoutGroups')  + ' - ' + nbUsers);
             else if ($group_id == -2)
-                $('#group_name_from_table').text(i18next.t('manager.group.usersInactiveOrNoRegular'));
+                $('#group_name_from_table').text(i18next.t('manager.group.usersInactiveOrNoRegular')  + ' - ' + nbUsers);
             else
-                $('#group_name_from_table').text(group.name);
+                $('#group_name_from_table').text(group.name + ' - ' + nbUsers);
 
             data.forEach(element => {
                 if (element.hasOwnProperty('currentPage')) {
@@ -1023,6 +1027,9 @@ class managerManager {
                 <td>${element.description}</td>
                 <td>
                     ${div_img}
+                </td>
+                <td>
+                    ${element.nbUsers}
                 </td>
                 <td>
                     <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateGroupModal(${element.id})"><i class="fas fa-pencil-alt fa-2x"></i></a>
