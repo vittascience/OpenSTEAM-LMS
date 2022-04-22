@@ -671,7 +671,8 @@ class managerManager {
             let $data_table = "",
                 $data_table_inactive ="",
                 group = "",
-                nbUsers = data[data.length - 1].totalItems;
+                activeUsers = 0,
+                inactiveUsers = 0;
 
             mainManager.getmanagerManager()._allActualUsers = [];
 
@@ -681,11 +682,11 @@ class managerManager {
             });
 
             if ($group_id == -1)
-                $('#group_name_from_table').text(i18next.t('manager.group.usersWithoutGroups')  + ' - ' + nbUsers);
+                $('#group_name_from_table').text(i18next.t('manager.group.usersWithoutGroups'));
             else if ($group_id == -2)
-                $('#group_name_from_table').text(i18next.t('manager.group.usersInactiveOrNoRegular')  + ' - ' + nbUsers);
+                $('#group_name_from_table').text(i18next.t('manager.group.usersInactiveOrNoRegular'));
             else
-                $('#group_name_from_table').text(group.name + ' - ' + nbUsers);
+                $('#group_name_from_table').text(group.name);
 
             data.forEach(element => {
                 if (element.hasOwnProperty('currentPage')) {
@@ -727,7 +728,7 @@ class managerManager {
                     if (element.hasOwnProperty('applications')) {
                         element.applications.forEach(element_2 => {
                             if (element_2.image != null && element_2.image != "") {
-                                div_img += `<img src="assets/plugins/images/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             } else {
                                 div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             }
@@ -752,6 +753,7 @@ class managerManager {
                         }
                     } 
                     if (activeFlag) {
+                        activeUsers++;
                         $data_table +=
                         `<tr>
                             <td>${element.surname}</td>
@@ -773,6 +775,7 @@ class managerManager {
                             </td>
                         </tr>`;
                     } else {
+                        inactiveUsers++;
                         $data_table_inactive += 
                         `<tr>
                             <td>${element.surname}</td>
@@ -796,6 +799,10 @@ class managerManager {
                     }
                 }
             });
+
+            $('#active-users-manager').html(i18next.t('manager.title.activeUsers') + " : " + activeUsers);
+            $('#inactive-users-manager').html(i18next.t('manager.title.inactiveUsers') + " : " + inactiveUsers);
+
             $('#table_info_group_data').html($data_table);
             $('#table_info_group_data_inactive').html($data_table_inactive);
             $('[data-toggle="tooltip"]').tooltip()
@@ -864,7 +871,7 @@ class managerManager {
                     if (element.hasOwnProperty('applications')) {
                         element.applications.forEach(element_2 => {
                             if (element_2.image != null && element_2.image != "") {
-                                div_img += `<img src="assets/plugins/images/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             } else {
                                 div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             }
@@ -958,19 +965,6 @@ class managerManager {
 
         data_table +=
             `<tr>
-                <th scope="row" onclick="showGroupMembers(-2, 1 ,${users_per_page}, ${users_sort})">${i18next.t('manager.group.usersInactiveOrNoRegular')}</i></th>
-                <td>${i18next.t('manager.group.usersInactiveOrNoRegularDescription')}</td>
-                <td>
-                    --
-                </td>
-                <td>
-                    --
-                </td>
-                <td>
-                    --
-                </td>
-            </tr>
-            <tr>
                 <th scope="row" onclick="showGroupMembers(-1, 1 ,${users_per_page}, ${users_sort})">${i18next.t('manager.group.usersWithoutGroups')}</th>
                 <td>${i18next.t('manager.group.usersWithoutGroupsDescription')}</td>
                 <td>
@@ -1015,7 +1009,7 @@ class managerManager {
                 if (element.hasOwnProperty('applications')) {
                     element.applications.forEach(element_2 => {
                         if (element_2.image != null && element_2.image != "") {
-                            div_img += `<img src="assets/plugins/images/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                            div_img += `<img src="${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                         } else {
                             div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                         }
@@ -1080,7 +1074,7 @@ class managerManager {
                     if (element.hasOwnProperty('applications')) {
                         element.applications.forEach(element_2 => {
                             if (element_2.image != null && element_2.image != "") {
-                                div_img += `<img src="assets/plugins/images/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             } else {
                                 div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             }

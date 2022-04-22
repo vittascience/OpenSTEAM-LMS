@@ -127,7 +127,6 @@ CREATE TABLE `classroom_applications` (
 --
 -- Déchargement des données de la table `classroom_applications`
 --
-
 INSERT INTO `classroom_applications` (`id`, `name`, `description`, `image`, `is_lti`) VALUES
 (22, 'Réponse libre', 'Les exercices libres', './assets/plugins/images/free.png', 0),
 (23, 'Multimédia', 'Cette activité permet de visualiser des textes, images, vidéos, PDF, ainsi que des outils externes.', './assets/plugins/images/reading.png', 0);
