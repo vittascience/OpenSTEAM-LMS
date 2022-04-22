@@ -1738,10 +1738,6 @@ h3.section-done {
 }
 
 .quiz-answer-container.quiz-answer-incorrect label::after {
-    content: "×" !important;
-    font-size: 1.7em !important;
-    left: 0.95em !important;
-    top: 50% !important;
     color: var(--correction-0) !important;
 }
 
