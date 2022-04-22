@@ -946,10 +946,11 @@ function displayStudentsInClassroom(students, link=false) {
             }
             // Display the current student activities in the dashboard
             let currentActivity = arrayActivities[i];
+
             if (currentActivity) {
                 const formatedTimePast = 
                 typeof currentActivity.timePassed == 'undefined' ? '' : currentActivity.timePassed == 0 ? '' : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em><br><em>${i18next.t("classroom.activities.numberOfTries")} ${currentActivity.tries}</em>`;
-                html += `<td class=" ${statusActivity(currentActivity, true, formatedTimePast)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>${formatedTimePast}"></td>`;
+                html += `<td class=" ${statusActivity(currentActivity, true, formatedTimePast)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${getTranslatedActivityName(currentActivity.activity.type)}</em></br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>${formatedTimePast}"></td>`;
             } else {
                 html += `<td class="no-activity bilan-cell" "></td>`;
             }
