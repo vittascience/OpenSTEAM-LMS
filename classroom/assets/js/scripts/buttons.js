@@ -1031,7 +1031,38 @@ function showupdateGroupModal(id) {
         $('#upd_group_name').val(res[0].name);
         $('#upd_group_desc').val(res[0].description);
         $('#upd_group_id').val(res[0].id);
-        let url = window.location.origin + "/classroom/group_invitation.php?gc=" + res[0].link;
+
+        let url = window.location.origin + "/classroom/group_invitation.php?gc=" + res[0].link,
+            dateBegin = res[0].dateBegin != null ? new Date(res[0].dateBegin.date).toISOString().split('T')[0] : "",
+            dateEnd = res[0].dateEnd != null ? new Date(res[0].dateEnd.date).toISOString().split('T')[0] : "",
+            defaultRestrictions = mainManager.getmanagerManager()._defaultRestrictions,
+            maxStudentsPerTeachers = res[0].maxStudentsPerTeachers != null ? res[0].maxStudentsPerTeachers : defaultRestrictions[1].restrictions.maxStudentsPerTeacher,
+            maxStudents = res[0].maxStudents != null ? res[0].maxStudents : defaultRestrictions[1].restrictions.maxStudents,
+            maxTeachers = res[0].maxTeachers != null ? res[0].maxTeachers : defaultRestrictions[1].restrictions.maxTeachers;
+
+
+        $('#group_upd_global_restrictions').html(`
+
+        <div class="activity-add-form c-secondary-form my-3">
+
+        <h6 class="form-check-label font-weight-bold mb-4" style="color: var(--classroom-primary)">${i18next.t('manager.group.groupsRestrictions')}</h6>
+        <br>
+        <label class="form-check-label" for="begin_date"><i class="far fa-calendar-alt"></i>  ${i18next.t('classroom.activities.form.dateBegin')}</label>
+        <input type="date" id="begin_date" name="trip-start" value="${dateBegin}" max="2023-12-31">
+
+        <label class="form-check-label" for="end_date"><i class="far fa-calendar-alt"></i>  ${i18next.t('classroom.activities.form.dateEnd')}</label>
+        <input type="date" id="end_date" name="trip-start" value="${dateEnd}" max="2025-12-31">
+
+        <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerTeachers')}" for="max_students_per_teachers"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.studentsPerTeacher')}</label>
+        <input type="number" id="max_students_per_teachers" value="${maxStudentsPerTeachers}">
+
+        <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerGroups')}" for="max_students_per_groups"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.studentsPerGroup')}</label>
+        <input type="number" id="max_students_per_groups" value="${maxStudents}">
+
+        <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxTeachers')}" for="max_teachers_per_groups"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.teachersPerGroup')}</label>
+        <input type="number" id="max_teachers_per_groups" value="${maxTeachers}">
+        </div>
+        `);
         $('#upd_group_link').val(url);
     });
 }
@@ -1039,14 +1070,16 @@ function showupdateGroupModal(id) {
 function updateGroupWithModal() {
     let ApplicationsData = [];
 
+    const GlobalRestrictions = [
+        $('#begin_date').val(),
+        $('#end_date').val(),
+        $('#max_students_per_teachers').val(),
+        $('#max_students_per_groups').val(),
+        $('#max_teachers_per_groups').val(),
+    ];
     $("input:checkbox.form-check-input.app").each(function (element) {
         const ApplicationTemp = [$(this).val(),
             $(this).is(':checked'),
-            $('#begin_date_' + $(this).val()).val(),
-            $('#end_date_' + $(this).val()).val(),
-            $('#max_students_per_teachers_' + $(this).val()).val(),
-            $('#max_students_per_groups_' + $(this).val()).val(),
-            $('#max_teachers_per_groups_' + $(this).val()).val(),
             $('#max_activities_per_groups_' + $(this).val()).val(),
             $('#max_activities_per_teachers_' + $(this).val()).val()
         ]
@@ -1056,7 +1089,8 @@ function updateGroupWithModal() {
         $('#upd_group_id').val(),
         $('#upd_group_name').val(),
         $('#upd_group_desc').val(),
-        JSON.stringify(ApplicationsData)
+        JSON.stringify(ApplicationsData),
+        JSON.stringify(GlobalRestrictions)
     ).then((response) => {
         if (response.message == "success") {
             displayNotification('#notif-div', "manager.group.groupUpdated", "success");
@@ -1267,6 +1301,23 @@ function updateAppForUser(methodName = "update") {
         // Get the actual user's information
         let user = mainManager.getmanagerManager()._actualUserDetails;
         let defaultRestrictions = mainManager.getmanagerManager()._defaultRestrictions;
+
+        let Restrictions = "";
+
+        let dateBegin = "";
+        let dateEnd = "";
+        let maxStudents = defaultRestrictions[0].restrictions.maxStudents;
+
+        if (user[0]) {
+            if (user[0].restrictions.length > 0) { 
+                dateBegin = user[0].restrictions[0].date_begin != null ? new Date(user[0].restrictions[0].date_begin).toISOString().split('T')[0] : null;
+                dateEnd = user[0].restrictions[0].date_end != null ? new Date(user[0].restrictions[0].date_end).toISOString().split('T')[0] : null;
+                if (user[0].restrictions[0].max_students != null && user[0].restrictions[0].max_students != undefined) {
+                    maxStudents = user[0].restrictions[0].max_students;
+                }
+            }
+        }
+
         $('#update_personal_apps_sa').html("");
         $('#create_update_personal_apps_sa').html("");
 
@@ -1292,22 +1343,11 @@ function updateAppForUser(methodName = "update") {
                 </label>
                 <br>
                 <div class="activity-add-form c-secondary-form" id="${methodName}_personal_apps_${element.id}" style="display:none;">
-                    <label class="form-check-label" for="${methodName}_begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
-                    <input type="date" id="${methodName}_begin_date_${element.id}" name="trip-start" value="${new Date()}" min="${new Date()}" max="2023-12-31">
-                    <label class="form-check-label" for="${methodName}_end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
-                    <input type="date" id="${methodName}_end_date_${element.id}" name="trip-start" min="0" max="2025-12-31">
-
-                    <label class="form-check-label" for="${methodName}_max_teacher_${element.id}">${i18next.t('manager.group.maxStudents')}</label>
-                    <input type="number" id="${methodName}_max_teacher_${element.id}" value="${defaultRestrictions[0].restrictions.maxStudents}">
-
                     <label class="form-check-label" for="${methodName}_max_activities_${element.id}">${i18next.t('manager.group.maxActivities')}</label>
                     <input type="number" id="${methodName}_max_activities_${element.id}">
                 </div>
                 </div>`;
             } else {
-                let dateBegin = new Date(infoapp.date_begin).toISOString().split('T')[0],
-                    dateEnd = new Date(infoapp.date_end).toISOString().split('T')[0];
-
                 stringhtml += `<div class="c-checkbox">
                 <input class="form-check-input appuser" type="checkbox" checked value="${element.id}" id="${methodName}_application_${element.id}">
                 <label class="form-check-label font-weight-bold mb-2" style="color: var(--classroom-primary)" for="${methodName}_application_${element.id}">
@@ -1315,19 +1355,25 @@ function updateAppForUser(methodName = "update") {
                 </label>
                 <br>
                 <div class="activity-add-form c-secondary-form" id="${methodName}_personal_apps_${element.id}">
-                    <label class="form-check-label" for="${methodName}_begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
-                    <input type="date" id="${methodName}_begin_date_${element.id}" name="trip-start" value="${dateBegin}" max="2023-12-31">
-                    <label class="form-check-label" for="${methodName}_end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
-                    <input type="date" id="${methodName}_end_date_${element.id}" name="trip-start" value="${dateEnd}" max="2025-12-31">
-                    <label class="form-check-label" for="${methodName}_max_teacher_${element.id}">${i18next.t('manager.group.maxStudents')}</label>
-                    <input type="number" id="${methodName}_max_teacher_${element.id}" value="${infoapp.max_students}">
-
                     <label class="form-check-label" for="${methodName}_max_activities_${element.id}">${i18next.t('manager.group.maxActivities')}</label>
                     <input type="number" id="${methodName}_max_activities_${element.id}" value="${infoapp.max_activities}">
                 </div>
                 </div>`;
             }
         });
+
+        Restrictions = `<h6 class="form-check-label font-weight-bold mb-1" style="color: var(--classroom-primary)">${i18next.t('manager.users.globalRestrictions')}</h6>
+                        <br>
+                        <div class="activity-add-form c-secondary-form">
+                        <label class="form-check-label" for="update_begin_date">${i18next.t('manager.table.dateBeginFA')}</label>
+                        <input type="date" id="update_begin_date" name="trip-start" value="${dateBegin}" max="2023-12-31">
+                        <label class="form-check-label" for="update_end_date">${i18next.t('manager.table.dateEndFA')}</label>
+                        <input type="date" id="update_end_date" name="trip-start" value="${dateEnd}" max="2025-12-31">
+                        <label class="form-check-label" for="update_max_teacher">${i18next.t('manager.table.maxStudentsFA')}</label>
+                        <input type="number" id="update_max_teacher" value="${maxStudents}">
+                        </div>`;
+        $('#update_global_user_restrictions').html(Restrictions);
+
 
         if (methodName == "update") {
             $('#update_personal_apps_sa').html(stringhtml);
@@ -1367,19 +1413,22 @@ function persistUpdateUserApp(user = 0) {
     }
 
     let ApplicationsData = [];
+    let GlobalRestrictions = [
+        $('#update_begin_date').val(),
+        $('#update_end_date').val(),
+        $('#update_max_teacher').val(),
+    ];
+
     $("input:checkbox.form-check-input.appuser").each(function (element) {
         const ApplicationTemp = [
             $(this).val(),
             $(this).is(':checked'),
-            $('#update_begin_date_' + $(this).val()).val(),
-            $('#update_end_date_' + $(this).val()).val(),
-            $('#update_max_teacher_' + $(this).val()).val(),
             $('#update_max_activities_' + $(this).val()).val()
         ]
         ApplicationsData.push(ApplicationTemp);
     });
 
-    mainManager.getmanagerManager().updateUserApps(user, JSON.stringify(ApplicationsData)).then((res) => {
+    mainManager.getmanagerManager().updateUserApps(user, JSON.stringify(ApplicationsData), JSON.stringify(GlobalRestrictions)).then((res) => {
         if (res.message == "success") {
             displayNotification('#notif-div', "manager.users.appsUpdated", "success");
             pseudoModal.closeAllModal();
@@ -1502,7 +1551,7 @@ function showupdateUserModal(id) {
             }
 
             let html = "";
-            html += "<label data-i18n='manager.profil.apps'>Applications</label>";
+            html += "<label class='form-check-label font-weight-bold mb-1' style='color: var(--classroom-primary)' data-i18n='manager.profil.groupsApps'>Applications</label>";
             mainManager.getmanagerManager()._comboGroups.forEach(element => {
                 if (element.id == mainManager.getmanagerManager()._actualGroup) {
                     element.applications.forEach(application => {
@@ -1655,7 +1704,23 @@ function createUserAndLinkToGroup() {
         $is_teacher = $('#u_is_teacher').is(':checked'),
         $teacher_grade = $('#user_teacher_grade').length ? $('#user_teacher_grade').val() : null,
         $teacher_suject = $('#user_teacher_subjects').length ? $('#user_teacher_subjects').val() : null,
-        $groups = [];
+        $groups = [],
+        $applications = [
+            $('#create_begin_date').val(),
+            $('#create_end_date').val(),
+            $('#create_max_students').val(),
+            []
+        ];
+
+
+    $(`input[id^="create_application_"]`).each(function() {
+        let appData = [];
+        let appID = $(this)[0].id.replace('create_application_', '');
+        appData.push($(this).val());
+        appData.push($(this).is(':checked'));
+        appData.push($("#create_max_activities_"+appID).val());
+        $applications[3].push(appData);
+    })
 
     $groups.push([$('#u_is_group_admin').is(':checked'), $('#u_group').val()])
     for (let index = 0; index < mainManager.getmanagerManager()._addedCreateUserGroup; index++) {
@@ -1673,7 +1738,8 @@ function createUserAndLinkToGroup() {
         $is_teacher,
         $teacher_grade,
         $teacher_suject,
-        $school).then((response) => {
+        $school,
+        $applications).then((response) => {
         if (response.message == "success") {
             displayNotification('#notif-div', "manager.users.userCreated", "success");
             if (response.mail == true) {
@@ -1987,9 +2053,7 @@ function showGroupMembersGroupAdmin(id) {
 
 function optionsGroupApplications($type) {
 
-    let defaultRestrictions = mainManager.getmanagerManager()._defaultRestrictions;
     const process = (data) => {
-
         $('#group_upd_apps_options').html("");
         $('#group_apps_options').html("");
 
@@ -2014,20 +2078,6 @@ function optionsGroupApplications($type) {
                 </label>
                 <br>
                 <div class="activity-add-form c-secondary-form" id="apps_restriction_${element.id}" style="display:none;">
-                    <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
-                    <input type="date" id="begin_date_${element.id}" name="trip-start" value="${new Date()}" min="${new Date()}" max="2023-12-31">
-                    
-                    <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
-                    <input type="date" id="end_date_${element.id}" name="trip-start" min="0" max="2025-12-31">
-
-                    <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerTeachers')}" for="max_students_per_teachers_${element.id}"><i class="fas fa-info mx-1"></i>${i18next.t('manager.group.studentsPerTeacher')}</label>
-                    <input type="number" id="max_students_per_teachers_${element.id}" value="${defaultRestrictions[1].restrictions.maxStudentsPerTeacher}">
-
-                    <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerGroups')}" for="max_students_per_groups_${element.id}"><i class="fas fa-info mx-1"></i>${i18next.t('manager.group.studentsPerGroup')}</label>
-                    <input type="number" id="max_students_per_groups_${element.id}" value="${defaultRestrictions[1].restrictions.maxStudents}">
-
-                    <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxTeachers')}" for="max_teachers_per_groups_${element.id}"><i class="fas fa-info mx-1"></i>${i18next.t('manager.group.teachersPerGroup')}</label>
-                    <input type="number" id="max_teachers_per_groups_${element.id}" value="${defaultRestrictions[1].restrictions.maxTeachers}">
 
                     <label class="form-check-label" for="max_activities_per_groups_${element.id}">${i18next.t('manager.group.activitiesPerGroup')}</label>
                     <input type="number" id="max_activities_per_groups_${element.id}">
@@ -2038,8 +2088,6 @@ function optionsGroupApplications($type) {
                 </div>
                 </div><hr>`;
             } else {
-                let dateBegin = new Date($infoapp.date_begin).toISOString().split('T')[0],
-                    dateEnd = new Date($infoapp.date_end).toISOString().split('T')[0];
 
                 stringhtml += `<div class="c-checkbox">
                 <input class="form-check-input app" type="checkbox" checked value="${element.id}" id="application_${element.id}">
@@ -2048,22 +2096,6 @@ function optionsGroupApplications($type) {
                 </label>
                 <br>
                 <div class="activity-add-form c-secondary-form" id="apps_restriction_${element.id}">
-                    <label class="form-check-label" for="begin_date_${element.id}">${i18next.t('classroom.activities.form.dateBegin')}</label>
-                    <input type="date" id="begin_date_${element.id}" name="trip-start" value="${dateBegin}"
-                        max="2023-12-31">
-
-                    <label class="form-check-label" for="end_date_${element.id}">${i18next.t('classroom.activities.form.dateEnd')}</label>
-                    <input type="date" id="end_date_${element.id}" name="trip-start" value="${dateEnd}"
-                        max="2025-12-31">
-
-                    <label class="form-check-label" for="max_students_per_teachers_${element.id}">${i18next.t('manager.group.studentsPerTeacher')}</label>
-                    <input type="number" id="max_students_per_teachers_${element.id}" value="${$infoapp.max_students_per_teachers}">
-
-                    <label class="form-check-label" for="max_students_per_groups_${element.id}">${i18next.t('manager.group.studentsPerGroup')}</label>
-                    <input type="number" id="max_students_per_groups_${element.id}" value="${$infoapp.max_students_per_groups}">
-
-                    <label class="form-check-label" for="max_teachers_per_groups_${element.id}">${i18next.t('manager.group.teachersPerGroup')}</label>
-                    <input type="number" id="max_teachers_per_groups_${element.id}" value="${$infoapp.max_teachers_per_groups}">
 
                     <label class="form-check-label" for="max_activities_per_groups_${element.id}">${i18next.t('manager.group.activitiesPerGroup')}</label>
                     <input type="number" id="max_activities_per_groups_${element.id}" value="${$infoapp.max_activities_per_groups}">
@@ -2165,7 +2197,7 @@ function showupdateUserModal_groupadmin(user_id) {
             $('#update_u_phone_ga').val(res[0].telephone);
 
             let html = "";
-            html += "<label data-i18n='manager.profil.apps'>Applications</label>";
+            html += "<label class='form-check-label font-weight-bold mb-1' style='color: var(--classroom-primary)' data-i18n='manager.profil.groupsApps'>Applications</label>";
             mainGroupAdmin.getGroupAdminManager()._comboGroups.forEach(element => {
                 if (element.id == mainGroupAdmin.getGroupAdminManager()._actualGroup) {
                     element.applications.forEach(application => {
@@ -2384,7 +2416,7 @@ $('#create_user_link_to_group_groupadmin').click(function () {
             createSubjectSelect(getSubjects(0), 1);
 
             let html = "";
-            html += "<label data-i18n='manager.profil.apps'>Applications</label>";
+            html += "<label class='form-check-label font-weight-bold mb-1' style='color: var(--classroom-primary)' data-i18n='manager.profil.groupsApps'>Applications</label>";
             mainGroupAdmin.getGroupAdminManager()._comboGroups.forEach(element => {
                 if (element.id == mainGroupAdmin.getGroupAdminManager()._actualGroup) {
                     element.applications.forEach(application => {
@@ -2607,28 +2639,47 @@ function getGroupMonitoring() {
 
 function showMonitoring(data) {
     let html = "";
+    let htmlGlobal = "";
     $('#group-monitoring-body').html();
+    $('#group-monitoring-global-body').html();
+
     if (data.hasOwnProperty('applications')) {
+        let dateBegin = null;
+        let dateEnd = null;
+        if (data.dateBegin != null && data.dateEnd != null) {
+            dateBegin = new Date(data.dateBegin.date).toLocaleDateString();
+            dateEnd = new Date(data.dateEnd.date).toLocaleDateString();
+        }
+
+        let outDatedString = "";
+        if (data.outDated == 0) {
+            outDatedString = i18next.t('manager.apps.appStatus0');
+        } else if (data.outDated == 1) {
+            outDatedString = i18next.t('manager.apps.appStatus1');  
+        } else if (data.outDated == 2) {
+            outDatedString = i18next.t('manager.apps.appStatus2');
+        }
+
+
+        htmlGlobal = `<td>${outDatedString}</td>
+                        <td>${dateBegin}</td>
+                        <td>${dateEnd}</td>
+                        <td>${data.maxStudents}</td>
+                        <td>${data.actualStudents}</td>
+                        <td>${data.maxTeachers}</td>
+                        <td>${data.groupTotalTeachers}</td>
+                        <td>${data.maxStudentsPerTeacher}</td>`;
+                        
         data.applications.forEach(app => {
-            const dateBegin = new Date(app.dateBegin.date);
-            const dateEnd = new Date(app.dateEnd.date);
-            const outDated = app.outDated ? "oui" : "non";
             html += `<tr>
                         <td>${app.name}</td>
-                        <td>${outDated}</td>
-                        <td>${dateBegin.toLocaleDateString()}</td>
-                        <td>${dateEnd.toLocaleDateString()}</td>
-                        <td>${app.maxStudents}</td>
-                        <td>${app.actualStudents}</td>
-                        <td>${app.maxTeachers}</td>
-                        <td>${app.actualTeachers}</td>
-                        <td>${app.maxStudentsPerTeacher}</td>
-                        <td>${app.activityType}</td>
                         <td>${app.activityLimit}</td>
+                        <td>${app.actualTeachers}</td>
                         <td>${app.activityMaxPerTeacher}</td>
                     </tr>`;
         })
     }
+    $('#group-monitoring-global-body').html(htmlGlobal);
     $('#group-monitoring-body').html(html);
     $('#group-monitoring').show();
 }

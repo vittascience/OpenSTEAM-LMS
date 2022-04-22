@@ -350,6 +350,8 @@ const classroomModals = {
                         <input type="text" class="form-control" id="upd_group_link">
                      </div>
                     <label for="group_upd_apps_options" data-i18n="manager.group.applications">Application(s) du groupe</label>
+                    <div id="group_upd_global_restrictions">
+                    </div>
                     <div class="form-group" id="group_upd_apps_options">
                     </div>
                     <input type="hidden" class="form-control" id="upd_group_id">
@@ -457,9 +459,25 @@ const classroomModals = {
     
     <div id="group_add_sa">
     </div>
-    
+
+    <hr>
+
+    <div id="create_global_user_restrictions">
+        <h6 class="form-check-label font-weight-bold mb-1" style="color: var(--classroom-primary)" data-i18n="manager.users.globalRestrictions"></h6>
+        <br>
+        <div class="activity-add-form c-secondary-form">
+            <label class="form-check-label" for="create_begin_date" data-i18n="[html]manager.table.dateBeginFA"></label>
+            <input type="date" id="create_begin_date" name="trip-start" max="2023-12-31">
+            <label class="form-check-label" for="create_end_date" data-i18n="[html]manager.table.dateEndFA"></label>
+            <input type="date" id="create_end_date" name="trip-start" max="2025-12-31">
+            <label class="form-check-label" for="create_max_students" data-i18n="[html]manager.table.maxStudentsFA"></label>
+            <input type="number" id="create_max_students">
+        </div>
+    </div>
+
+    <hr>
+
     <div id="create_update_personal_apps_sa">
-        
     </div>
     
     <button class="btn c-btn-secondary" onclick="createUserAndLinkToGroup()" data-i18n="manager.buttons.user.create">Create user</button>
@@ -559,6 +577,11 @@ const classroomModals = {
         <hr>
 
         <div id="update_applications_sa">
+        </div>
+
+        <hr>
+
+        <div id="update_global_user_restrictions">
         </div>
 
         <hr>

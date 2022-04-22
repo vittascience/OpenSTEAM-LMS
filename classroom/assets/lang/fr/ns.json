@@ -1016,6 +1016,7 @@
 			"bio": "Bio",
 			"group": "Groupe",
 			"apps": "Applications",
+			"groupsApps": "Applications de groupe",
 			"personalApps": "Applications personnelles",
 			"email": "E-mail <span class=\"c-text-red\">*</span>",
 			"nickname": "Pseudo",
@@ -1129,6 +1130,7 @@
 			"mailNotSentToUserReset": "l'e-mail de changement de mot de passe n'a pas pu être envoyé à l'utilisateur",
 			"appsUpdated": "Les applications de l'utilisateur ont été mise à jour",
 			"updateAppModalTitle": "Application",
+			"globalRestrictions": "Restrictions globales",
 			"teacherGrades": {
 				"0": "Primaire",
 				"1": "Collège",
@@ -1259,10 +1261,10 @@
 			"groupUpdated": "Groupe modifié avec succès",
 			"groupCreateFailed": "Le groupe n'a pas pu être créé, il manque des informations",
 			"showLinkTitle": "Lien du groupe",
-			"usersWithoutGroups": "Utilisateurs sans groupe",
+			"usersWithoutGroups": "Enseignants sans groupe",
 			"searchResult": "Résultat de la recherche",
 			"usersInactiveOrNoRegular": "Utilisateurs non regular",
-			"usersWithoutGroupsDescription": "Groupement d'utilisateurs n'étant liés à aucun groupe",
+			"usersWithoutGroupsDescription": "Groupement d'enseignants n'étant liés à aucun groupe",
 			"usersInactiveOrNoRegularDescription": "Groupement non regular",
 			"groupDeleteError": "Le groupe n'a pas pu être supprimé.",
 			"groupFull": "Le groupe est complet.",
@@ -1275,7 +1277,8 @@
 			"studentsPerGroup": "Apprenants par groupe",
 			"studentsPerTeacher": "Apprenants par enseignant",
 			"maxStudents": "Maximum d'apprenants",
-			"maxActivities": "Maximum d'activités"
+			"maxActivities": "Maximum d'activités",
+			"groupsRestrictions": "Restriction du groupe"
 		},
 		"title": {
 			"activeUsers": "Utilisateurs actifs",
@@ -1342,6 +1345,7 @@
 			"lastname": "Nom",
 			"firstname": "Prénom",
 			"applications": "Applications",
+			"nbUsers": "Nombre d'utilisateurs",
 			"group": "Groupe",
 			"description": "Description",
 			"descriptionMandatory": "Description <span class=\"c-text-red\">*</span>",
@@ -1353,8 +1357,9 @@
 			"dateBegin": "Date début",
 			"dateEnd": "Date de fin",
 			"outDated": "Périmé",
+			"status": "Status",
 			"maxStudents": "Maximum d'apprenants",
-			"actualStudents": "Éleves actuels",
+			"actualStudents": "Apprenants actuels",
 			"maxTeachers": "Maximum d'enseignants",
 			"actualTeachers": "Enseignants actuels",
 			"maxStudentsPerTeachers": "Maximum d'apprenants par enseignant",
@@ -1370,7 +1375,10 @@
 			"userTeacher": "Enseignant",
 			"restrictions": "Restrictions",
 			"color": "Couleur",
-			"restriction": "Restriction"
+			"restriction": "Restriction",
+			"dateBeginFA": "<i class='far fa-calendar-alt'></i>  Date début",
+			"dateEndFA": "<i class='far fa-calendar-alt'></i>  Date de fin",
+			"maxStudentsFA": "<i class='fas fa-user-alt'></i>  Maximum d'apprenants"
 		},
 		"apps": {
 			"apps": "Applications",
@@ -1395,7 +1403,12 @@
 			"loginUrl" : "Url de login <span class=\"c-text-red\">*</span>",
 			"redirectionUrl" : "Url de redirection <span class=\"c-text-red\">*</span>",
 			"deepLinkUrl" : "Url de deep link <span class=\"c-text-red\">*</span>",
-			"privateKey" : "Clé privée <span class=\"c-text-red\">*</span>"
+			"privateKey" : "Clé privée <span class=\"c-text-red\">*</span>",
+			"monitoringApps": "Informations des applications",
+			"monitoringGroup": "Informations du groupe",
+			"appStatus0": "Inactive",
+			"appStatus1": "À jour",
+			"appStatus2": "Périmé"
 		},
 		"activitiesRestrictions": {
 			"updateAll": "Modifier les restrictions",
