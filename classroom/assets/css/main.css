@@ -329,7 +329,7 @@ button {
     height: 98%;
     max-height: 98vh;
     display: flex;
-    font-size: 1.5vh;
+    font-size: .9em;
     text-align: center;
     align-items: center;
     flex: 0;
@@ -368,6 +368,7 @@ button {
 
     display: grid;
     grid-template-rows: auto 20%;
+    grid-template-columns: 100%;
     justify-content: center;
     justify-self: end;
 
@@ -568,6 +569,26 @@ button {
         border-radius: 0em 0em 15px 15px;
     }
 
+    .sidebar-classroom .active:not(:first-child) span {
+        display: grid;
+        place-items: center;
+
+        width: 100%;
+        min-height: 3.5em;
+        padding: 0;
+
+
+        line-height: unset;
+        cursor: auto;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        background: var(--classroom-dashboard);
+        color: var(--classroom-white);
+    }
+
     .sidebar-classroom .active::before {
         content: "";
         position: absolute;
@@ -599,6 +620,12 @@ button {
         border-radius: 0px;
         height: calc(100% - 110px);
         padding-bottom: 50px;
+        margin-top: 3.2em;
+    }
+
+    #a11y-dropdown {
+        position: fixed;
+        top: 0.5em;
     }
 
 }
@@ -744,6 +771,8 @@ button {
         height: 7.5em;
     }
 }
+
+
 
 #body-table-teach .propic {
     width: 36px;
@@ -1202,6 +1231,8 @@ img.btn-cabri {
 
 }
 
+/* STUDENT ACTIVITY LIST */
+
 #classroom-dashboard-activities-panel .section-container {
     background: var(--classroom-background-1);
     box-shadow: 0px 0px 7px 0px var(--classroom-shadow-1);
@@ -1231,6 +1262,28 @@ img.btn-cabri {
     margin-right: 0.5em;
     font-size: 1.5em;
 }
+
+#classroom-dashboard-activities-panel .section-header h3.section-title {
+    padding: 0px;
+    margin: 0px;
+    width: auto;
+}
+
+#classroom-dashboard-activities-panel .section-header span.resource-number {
+    margin-left: 0.75em;
+    border-radius: 256em;
+
+    height: 1.5em;
+    min-width: 1.5em;
+
+    font-weight: 600;
+    text-align: center;
+
+    background-color: var(--classroom-white);
+    color: var(--classroom-black);
+    box-shadow: 0px 1px 3px var(--classroom-shadow-1) inset;
+}
+
 
 .section-new,
 h3.section-new {
@@ -1394,9 +1447,18 @@ h3.section-done {
     appearance: none;
 }
 
+#classroom-panel-table-container table.dropdowns-opened thead tr.non-dropdown th,
+#classroom-panel-table-container table.dropdowns-opened tbody tr.non-dropdown th {
+    z-index: 0;
+}
+
+
 .activity-card .activity-card-bot span {
     font-style: italic;
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 0.9em;
+    text-shadow: 1px 1px 0px var(--classroom-shadow-1);
+
 }
 
 
@@ -1457,6 +1519,13 @@ h3.section-done {
 
 
 @media (max-width: 768px) {
+
+    .activity-card .activity-card-bot span {
+        display: block;
+        font-size: 0.7em;
+        line-height: 1.2em;
+    }
+
     .activity-search {
         width: 90%;
     }
@@ -1466,6 +1535,8 @@ h3.section-done {
     }
 
 }
+
+
 
 /* ACTIVITY RESOURCES BANK */
 
@@ -2187,29 +2258,41 @@ h3.section-done {
 }
 
 .class-stats-panel #classroom-panel-table-container {
-
     overflow: auto;
-    padding: 10px;
     margin: 10px;
     max-width: 80%;
     width: 100%;
     flex-grow: 1;
 }
 
-.class-stats-panel table {
+.class-stats-panel #classroom-panel-table-container table {
     border-spacing: 5px;
     border-collapse: separate;
-
+    table-layout: fixed;
 }
 
-.table-title {
+.class-stats-panel table thead th {
+    position: sticky;
+    top: 5px;
+    z-index: 10;
+    background-color: var(--classroom-background);
+    box-shadow: 0 -5px 0 var(--classroom-background);
+}
+
+.class-stats-panel table tr th:first-child {
+    position: sticky;
+    left: 5px;
+    z-index: 20;
+}
+
+.class-stats-panel #classroom-panel-table-container .table-title {
     font-size: 2em;
     font-weight: 800;
     text-align: center;
+    z-index: 25;
 }
 
-
-.class-stats-panel th {
+.class-stats-panel #classroom-panel-table-container #header-table-teach th:not(.user-cell-container) {
     /*width: 7em;*/
     text-transform: uppercase;
     font-size: 0.9em;
@@ -2218,26 +2301,33 @@ h3.section-done {
 
 }
 
-.class-stats-panel th.add-activity-th {
-    text-align: center;
+.class-stats-panel .user-cell-container {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
 
-}
-
-.class-stats-panel .username {
-    border: 1px solid var(--classroom-cell);
     padding: 0.7em;
-    width: 11em;
-    border-radius: 10px;
-    /* margin: 0.25em 1em; */
-    color: var(--classroom-text-0);
+    margin: 0;
     width: 243px;
-    margin-right: 0px;
+
+    border: 1px solid var(--classroom-cell);
+    border-radius: 10px;
+    color: var(--classroom-text-0);
+    background: var(--classroom-background);
+    box-shadow: -5px 0px 0px 7px var(--classroom-background);
+    font-weight: 400;
+
 }
 
+.class-stats-panel .user-cell-container .user-cell-username {
+    margin-left: 0.5em;
+}
 
+.class-stats-panel .user-cell-container i {
+    font-size: 1.5em;
+}
 
-.class-stats-panel .username .dropdown {
-
+.class-stats-panel .user-cell-container .dropdown {
     color: var(--classroom-text-2);
 }
 
@@ -2251,6 +2341,7 @@ h3.section-done {
     border-radius: 5px;
     vertical-align: bottom;
     margin: 0 3px;
+    margin-top: 2px;
     display: inline-block;
     line-height: 32px;
 }
@@ -2268,13 +2359,7 @@ h3.section-done {
     text-align: center;
 }
 
-.line_height34 {
-    line-height: 34px;
-}
 
-i.line_height34 {
-    font-size: 1.5em;
-}
 
 .bilan-cell {
     min-height: 30px;
@@ -2282,6 +2367,7 @@ i.line_height34 {
     border: solid 1px transparent;
     border-radius: 10px;
     text-align: center;
+    transition: all 0.1s ease-in-out;
 }
 
 /* Classroom result with only an icon */
@@ -2324,6 +2410,90 @@ i.line_height34 {
 .status-0 {
     border-color: transparent;
     background-color: var(--correction-0);
+}
+
+/* Monochrome classroom results */
+
+#body-table-teach.is-monochrome tr {
+    height: 100%;
+}
+
+.is-monochrome .bilan-3,
+.is-monochrome .status-3,
+.is-monochrome .bilan-2,
+.is-monochrome .status-2,
+.is-monochrome .bilan-1,
+.is-monochrome .status-1,
+.is-monochrome .bilan-0,
+.is-monochrome .status-0 {
+    border-color: var(--classroom-primary);
+    background-color: var(--classroom-white);
+    border-width: 2px;
+    height: 100%;
+    position: relative;
+    border-radius: 5px;
+
+}
+
+#legend-container.is-monochrome .bilan-3,
+#legend-container.is-monochrome .status-3,
+#legend-container.is-monochrome .bilan-2,
+#legend-container.is-monochrome .status-2,
+#legend-container.is-monochrome .bilan-1,
+#legend-container.is-monochrome .status-1,
+#legend-container.is-monochrome .bilan-0,
+#legend-container.is-monochrome .status-0 {
+    background-color: var(--classroom-white);
+    outline: solid 1px var(--classroom-primary);
+    height: 30px;
+    border-radius: 2px;
+}
+
+.is-monochrome .bilan-3 .monochrome-grade-div,
+.is-monochrome .status-3 .monochrome-grade-div,
+.is-monochrome .bilan-2 .monochrome-grade-div,
+.is-monochrome .status-2 .monochrome-grade-div,
+.is-monochrome .bilan-1 .monochrome-grade-div,
+.is-monochrome .status-1 .monochrome-grade-div,
+.is-monochrome .bilan-0 .monochrome-grade-div,
+.is-monochrome .status-0 .monochrome-grade-div {
+    background: var(--classroom-primary);
+    height: 13%;
+    margin: 20% auto;
+    width: 85%;
+    min-height: 7px;
+}
+
+#legend-container.is-monochrome .monochrome-grade-div {
+    min-height: unset;
+}
+
+.is-monochrome .bilan-0,
+.is-monochrome .status-0 {
+    border-color: var(--classroom-primary);
+    background-color: var(--classroom-white);
+    border-width: 2px;
+}
+
+.is-monochrome .bilan-2 .monochrome-grade-div:nth-child(1),
+.is-monochrome .status-2 .monochrome-grade-div:nth-child(1) {
+    background-color: transparent;
+}
+
+.is-monochrome .bilan-1 .monochrome-grade-div:nth-child(1),
+.is-monochrome .status-1 .monochrome-grade-div:nth-child(1),
+.is-monochrome .bilan-1 .monochrome-grade-div:nth-child(2),
+.is-monochrome .status-1 .monochrome-grade-div:nth-child(2) {
+    background-color: transparent;
+}
+
+.is-monochrome .bilan-0 .monochrome-grade-div:nth-child(1),
+.is-monochrome .status-0 .monochrome-grade-div:nth-child(1),
+.is-monochrome .bilan-0 .monochrome-grade-div:nth-child(2),
+.is-monochrome .status-0 .monochrome-grade-div:nth-child(2),
+.is-monochrome .bilan-0 .monochrome-grade-div:nth-child(3),
+.is-monochrome .status-0 .monochrome-grade-div:nth-child(3) {
+    background-color: transparent;
 }
 
 .open-ide:hover {

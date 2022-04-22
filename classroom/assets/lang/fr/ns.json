@@ -4,8 +4,8 @@
 			"noClass": "Le code entré ne correspond à aucune classe.",
 			"countdown1": "Le module de gestion de classe est actuellement en version bêta. Si vous souhaitez l’essayer, veuillez <a href=\"/about?contact=1\">contacter l’équipe Vittascience</a>.",
 			"countdown2": "Sortie officielle dans",
-			"hello1": "'Bonjour!'",
-			"hello2": "Bonjour!",
+			"display":"afficher",
+			"hello": "Bonjour !",
 			"title": "Gérez vos classes</br>avec Vittascience",
 			"neutralTitle": "Open STEAM LMS",
 			"subtitle": "Découvrir - Apprendre - Partager",
@@ -294,6 +294,7 @@
 			"saved": "Activité sauvegardée",
 			"wrongAnswer": "Mauvaise réponse",
 			"hintExist": "<i class='fas fa-info-circle'></i> Cet exercice possède un indice, il ne peut s'afficher que si l'élève peut soumettre l'activité plusieurs fois",
+			"anoStudent": "Élève",
 			"bilan": {
 				"title": "Bilan",
 				"results": "Résultats",
@@ -542,7 +543,7 @@
 					},
 					"3": {
 						"title": "Où peut-on trouver le code source du module Classe ?",
-						"answer": "Le code source du module Classe n'est pas disponible pour le moment. Vous pouvez retrouver de nombreux modules open-source de la plateforme Vittascience sur <a href=\"https://github.com/vittascience\">le dossier GitHub de Vittascience</a>, n'hésitez pas à contribuer !"
+						"answer": "Le code source du module Classe est disponible <a href=\"https://github.com/vittascience/OpenSTEAM-LMS\">sur le repo git associé</a>, n'hésitez pas à contribuer !"
 					}
 				}
 			},
@@ -591,7 +592,7 @@
 				},
 				"3": {
 					"title": "Où peut-on trouver le code source du module Classe ?",
-					"answer": "Le code source du module Classe n'est pas disponible pour le moment. Vous pouvez retrouver de nombreux modules open-source de la plateforme Vittascience sur <a href=\"https://github.com/vittascience\">le dossier GitHub de Vittascience</a>, n'hésitez pas à contribuer !"
+					"answer": "Le code source du module Classe est disponible <a href=\"https://github.com/vittascience/OpenSTEAM-LMS\">sur le repo git associé</a>, n'hésitez pas à contribuer !"
 				}
 			}
 		},

@@ -47,12 +47,21 @@
     border-color: transparent !important;
     background: transparent !important;
     position: relative;
-    left: 31px;
-    top: -46px;
+    
+    left: 30px;
+    top: -53px;
+    width: 72px;
+    height: 27px;
+    border-radius: 0.25em;
+
     font-size: 0.75em;
-    width: 74px;
+    line-height: 2em;
     font-weight: 600;
     color: var(--text-0);
+}
+
+#fake-blockly-input:focus {
+    outline: solid 2px var(--classroom-primary);
 }
 
 #arrow-try-change {
@@ -63,6 +72,11 @@
     font-family: var(--monospace-font);
     color: var(--text-0);
     font-size: 1.5em;
+}
+
+#fake-code-text::before,
+#fake-code-text::after {
+    content: "'";
 }
 
 #fake-display {
@@ -92,11 +106,6 @@
     color: var(--text-0);
     font-size: 1.2em;
     width: 50%;
-}
-
-
-#classroom-carousel {
-    background-color: var(--bg-2);
 }
 
 #classroom-carousel h3 {

@@ -4,8 +4,8 @@
 			"noClass": "The code entered does not correspond to any classroom.",
 			"countdown1": "The Classroom management module is currently in its beta stage. If you wish to try it out, please <a href=\"/about?contact=1\">contact the Vittascience team</a>.",
 			"countdown2": "Official release in",
-			"hello1": "'Hello!'",
-			"hello2": "Hello!",
+			"display":"display",
+			"hello": "Hello!",
 			"title": "Manage your Classrooms</br>with Vittascience",
 			"neutralTitle": "Open STEAM LMS",
 			"subtitle": "Discover - Learn - Share",
@@ -294,6 +294,7 @@
 			"saved": "Activity saved",
 			"wrongAnswer": "Wrong answer",
 			"hintExist": "<i class='fas fa-info-circle'></i> This exercise has a hint, it can only be displayed if the student can submit the activity several times",
+			"anoStudent": "Student",
 			"bilan": {
 				"title": "Bilan",
 				"results": "Results",
@@ -520,7 +521,7 @@
 					},
 					"3": {
 						"title": "Where can I find the source code for the Classroom module?",
-						"answer": "The source code for the Classroom module is not available at the moment. You can find many open-source modules of the Vittascience platform on <a href=\"https://github.com/vittascience\"> the Vittascience GitHub folder </a>, don't hesitate to contribute!"
+						"answer": "The source code of the Classroom module is currently available on <a href=\"https://github.com/vittascience/OpenSTEAM-LMS\">the Vittascience Github repository</a>. Feel free to contribute!"
 					}
 				}
 			},
@@ -569,7 +570,7 @@
 				},
 				"3": {
 					"title": "Where can I find the Classroom module source code?",
-					"answer": "The source code of the Classroom module is not currently available. You can find many open-source modules of the Vittascience platform on <a href=\"https://github.com/vittascience\">the Vittascience Github repository</a>. Feel free to contribute!"
+					"answer": "The source code of the Classroom module is currently available on <a href=\"https://github.com/vittascience/OpenSTEAM-LMS\">the Vittascience Github repository</a>. Feel free to contribute!"
 				}
 			}
 		},

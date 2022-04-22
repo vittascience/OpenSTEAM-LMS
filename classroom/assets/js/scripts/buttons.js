@@ -343,25 +343,6 @@ $('body').on('change', '#list-classes input', function () {
     ClassroomSettings.classroom = $(this).val()
 })
 
-$('body').on('change', '#is-anonymised', anonymizeStudents);
-
-function anonymizeStudents() {
-    let index = 1;
-    if ($('#is-anonymised').is(':checked')) {
-        $('.username').each(function (el) {
-            $('.username')[el].children[0].setAttribute('src', _PATH + 'assets/media/alphabet/A.png')
-            $('.username')[el].children[0].setAttribute('alt', '')
-            $('.username')[el].children[0].setAttribute('anonymized', 'true')
-            $('.username')[el].children[1].innerHTML = "Elève n° " + index
-            $('.username')[el].children[1].setAttribute('title', '')
-            index++
-        })
-    } else {
-        let students = getClassroomInListByLink(ClassroomSettings.classroom)[0].students;
-        displayStudentsInClassroom(students);
-    }
-}
-
 function listeModeApprenant() {
     pseudoModal.openModal('list-classes-modal')
 }
@@ -537,7 +518,30 @@ document.addEventListener('change', (e) => {
             document.querySelector('#attribute-activity-to-students').setAttribute('disabled', '');
         }
     }
-});
+    $('.student-number').html(ClassroomSettings.studentCount)
+    if (document.querySelector('.student-number').textContent != '0') {
+        document.getElementById('attribute-activity-to-students').removeAttribute('disabled');
+    } else {
+        document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');
+    }
+})
+
+$('body').on('change', '.list-students-classroom', function () {
+    let nbStudent = $(this).parent().find('.student-list').children().length
+    if ($(this).is(':checked')) {
+
+        ClassroomSettings.studentCount += nbStudent
+    } else {
+        ClassroomSettings.studentCount -= nbStudent
+    }
+    $('.student-number').html(ClassroomSettings.studentCount)
+    if (document.querySelector('.student-number').textContent != '0') {
+        document.getElementById('attribute-activity-to-students').removeAttribute('disabled');
+    } else {
+        document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');
+    }
+})
+
 
 //sandbox dropdown-->duplicate
 $('body').on('click', '.modal-teacherSandbox-duplicate', function () {
@@ -606,7 +610,7 @@ function defaultProcessValidateActivity() {
                     displayNotification('#notif-div', `classroom.notif.${error}`, "error");
                     $("#activity-validate").attr("disabled", false);
                 }
-            } else  {
+            } else {
                 actualizeStudentActivities(activity, correction)
                 $("#activity-validate").attr("disabled", false);
                 navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher')
@@ -658,25 +662,31 @@ function studentActivitiesDisplay() {
     document.querySelector('#saved-activities-list').innerHTML = '';
     document.querySelector('#done-activities-list').innerHTML = '';
 
+
+    $('.section-new .resource-number').html(activities.newActivities.length)
     activities.newActivities.forEach(element => {
         $('#new-activities-list').append(activityItem(element, "newActivities"))
         index++
     });
 
+    $('.section-saved .resource-number').html(activities.savedActivities.length)
     activities.savedActivities.forEach(element => {
         $('#saved-activities-list').append(activityItem(element, "savedActivities"))
         index++
     });
 
+    $('.section-current .resource-number').html(activities.currentActivities.length)
     activities.currentActivities.forEach(element => {
         $('#current-activities-list').append(activityItem(element, "currentActivities"))
         index++
     });
+
+    $('.section-done .resource-number').html(activities.doneActivities.length)
     activities.doneActivities.forEach(element => {
         $('#done-activities-list').append(activityItem(element, "doneActivities"))
         index++
     });
-    
+
     if (activities.doneActivities.length < 1) {
         $('#average-score').hide()
     } else {
@@ -1018,7 +1028,7 @@ function createGroupWithModal() {
             displayNotification('#notif-div', "manager.group.groupCreateFailed", "error");
         }
     });
-    
+
     pseudoModal.closeAllModal();
     tempoAndShowGroupsTable()
 }
@@ -1128,8 +1138,8 @@ $('#dashboard-manager-groups').click(() => {
 
 function getGroupsManagerInfo() {
     let sort = $('#sort_groups_filter').val(),
-    groupsperpage = $('#groups_per_page').val();
-mainManager.getmanagerManager().getAllGroupsInfos(sort, 1, groupsperpage);
+        groupsperpage = $('#groups_per_page').val();
+    mainManager.getmanagerManager().getAllGroupsInfos(sort, 1, groupsperpage);
 }
 
 $('#sort_users_filter, #users_per_page').on('change', () => {
@@ -2449,14 +2459,14 @@ function createUserAndLinkToGroup_groupAdmin() {
         $teacher_grade = $('#user_teacher_grade_ga').length ? $('#user_teacher_grade_ga').val() + 1 : null,
         $teacher_suject = $('#user_teacher_subjects_ga').length ? $('#user_teacher_subjects_ga').val() + 1 : null;
 
-        $ApplicationFromGroup = [];
-        $('[name="create_group_app"]').each(function () {
-            const ApplicationTemp = [
-                $(this).val(),
-                $(this).is(':checked')
-            ]
-            $ApplicationFromGroup.push(ApplicationTemp);
-        });
+    $ApplicationFromGroup = [];
+    $('[name="create_group_app"]').each(function () {
+        const ApplicationTemp = [
+            $(this).val(),
+            $(this).is(':checked')
+        ]
+        $ApplicationFromGroup.push(ApplicationTemp);
+    });
 
 
     mainGroupAdmin.getGroupAdminManager().createUserAndLinkToGroup($firstname,
@@ -3087,10 +3097,10 @@ function getAllrestrictions() {
         let html = "";
         $('#all-default-restrictions').html("");
         response.forEach(restriction => {
-            let name = "", 
-                limitation = "", 
+            let name = "",
+                limitation = "",
                 update = "";
-            switch(restriction.name) {
+            switch (restriction.name) {
                 case 'userDefaultRestrictions':
                     name = i18next.t(`manager.apps.usersLimitation`);
                     limitation = `<ul class="m-0">`;
@@ -3225,13 +3235,13 @@ function createRegistrationTemplate() {
     getRegistrationTemplate().then((res) => {
 
         // List all the views who are adjustable
-        const   usernameViews = ['#manager_username', '#manager_update_username', '#group_admin_username', '#group_admin_username_update'],
-                phoneViews = ['#manager_phone', '#manager_update_phone', '#group_admin_phone', '#group_admin_phone_update'],
-                userBioViews = ['#manager_bio', '#manager_update_bio', '#group_admin_bio', '#group_admin_bio_update'],
-                userTeacherSectionViews = ['#user_teacher_infos', '#update_user_teacher_infos', '#user_teacher_infos_ga', '#update_user_teacher_infos_ga'],
-                userTeacherSchoolViews = ['#section_teacher_school', '#section_teacher_school_ga', '#section_teacher_school_update_ga', '#section_teacher_update_school'],
-                userTeacherGradeViews = ['#section_teacher_grade', '#section_teacher_grade_ga', '#section_teacher_grade_update_ga', '#section_teacher_update_grade'],
-                userTeacherSubjectsViews = ['#section_teacher_subjects', '#section_teacher_subjects_ga', '#section_teacher_subjects_update_ga', '#section_teacher_update_subjects'];
+        const usernameViews = ['#manager_username', '#manager_update_username', '#group_admin_username', '#group_admin_username_update'],
+            phoneViews = ['#manager_phone', '#manager_update_phone', '#group_admin_phone', '#group_admin_phone_update'],
+            userBioViews = ['#manager_bio', '#manager_update_bio', '#group_admin_bio', '#group_admin_bio_update'],
+            userTeacherSectionViews = ['#user_teacher_infos', '#update_user_teacher_infos', '#user_teacher_infos_ga', '#update_user_teacher_infos_ga'],
+            userTeacherSchoolViews = ['#section_teacher_school', '#section_teacher_school_ga', '#section_teacher_school_update_ga', '#section_teacher_update_school'],
+            userTeacherGradeViews = ['#section_teacher_grade', '#section_teacher_grade_ga', '#section_teacher_grade_update_ga', '#section_teacher_update_grade'],
+            userTeacherSubjectsViews = ['#section_teacher_subjects', '#section_teacher_subjects_ga', '#section_teacher_subjects_update_ga', '#section_teacher_update_subjects'];
 
         // If the registration template does not need an element to be displayed, we remove it
         const deleteInputs = (array) => {
@@ -3269,7 +3279,7 @@ function createRegistrationTemplate() {
         if (res.USER_BIO == "false") {
             deleteInputs(userBioViews);
         }
-        
+
     })
 }
 
@@ -3288,4 +3298,3 @@ $('#btn-help-for-groupAdmin').click(function () {
         $('#groupadmin-contact-subject-input').val("");
     })
 })
-
