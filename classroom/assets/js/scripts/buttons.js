@@ -506,20 +506,23 @@ document.addEventListener('change', (e) => {
     if (e.target.classList.contains('student-id') || e.target.classList.contains('list-students-classroom')) {
         let selectedStudentNumber = 0, 
         studentCheckboxesElts = document.querySelectorAll('#list-student-attribute-modal .student-id');
+
         for (let checkboxElt of studentCheckboxesElts) {
-            if (checkboxElt.checked) selectedStudentNumber++;
+            if (checkboxElt.checked) {
+                selectedStudentNumber++;
+            } 
         }
-        for (let numberDisplayElt of document.querySelectorAll('.student-number')) {
-            numberDisplayElt.innerHTML = selectedStudentNumber;
-        }
-        if(selectedStudentNumber > 0) {
+
+        document.querySelector('#assign-total-student-number').innerHTML = selectedStudentNumber.toString();
+        
+        if (selectedStudentNumber > 0) {
             document.querySelector('#attribute-activity-to-students').removeAttribute('disabled');
         } else {
             document.querySelector('#attribute-activity-to-students').setAttribute('disabled', '');
         }
     }
     $('.student-number').html(ClassroomSettings.studentCount)
-    if (document.querySelector('.student-number').textContent != '0') {
+    if (document.querySelector('#assign-total-student-number').textContent != '0') {
         document.getElementById('attribute-activity-to-students').removeAttribute('disabled');
     } else {
         document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');

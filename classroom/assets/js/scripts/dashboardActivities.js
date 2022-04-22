@@ -269,6 +269,7 @@ $(document).on('keyup', function (e) {
         }
     }
 });
+
 $('body').on('click', '.list-students-classroom', function () {
     let isChecked = $(this).is(':checked')
     let studentCheckbox = $(this).parent().parent().find('.student-list input')
