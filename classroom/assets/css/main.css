@@ -2274,6 +2274,7 @@ h3.section-done {
 .class-stats-panel table thead th {
     position: sticky;
     top: 5px;
+    left: 5px;
     z-index: 10;
     background-color: var(--classroom-background);
     box-shadow: 0 -5px 0 var(--classroom-background);
