@@ -12,7 +12,6 @@ function getClassroomDisplaySettings(link) {
             }
             localStorage.setItem('classroomDisplaySettings', JSON.stringify(settings))
         }
-
         return settings[link];
 
     } else { //  if not ready we create the localStorage and relaunch the function
@@ -79,14 +78,12 @@ $('body').on('change', '#is-anonymised', function () {
 });
 
 function anonymizeStudents() {
-    let index = 1;
-    $('.username').each(function (el) {
-        $('.username')[el].children[0].setAttribute('src', _PATH + 'assets/media/alphabet/E.png')
-        $('.username')[el].children[0].setAttribute('alt', '')
-        $('.username')[el].children[0].setAttribute('anonymized', 'true')
-        $('.username')[el].children[1].innerHTML = i18next.t('classroom.activities.anoStudent') + " " + index
-        $('.username')[el].children[1].setAttribute('title', '')
-        index++
+    $('.username').each(function (index,el) {
+        $(el).children().children('img').attr('src', _PATH + 'assets/media/alphabet/E.png')
+        $(el).children().children('img').attr('alt', '')
+        $(el).children().children('img').attr('anonymized', 'true')
+        $(el).children().children('.user-cell-username').text(i18next.t('classroom.activities.anoStudent') + " " + index)
+        $(el).children().children('.user-cell-username').attr('title', '')
     })
 }
 
