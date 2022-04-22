@@ -45,20 +45,22 @@
             <div class="content m-3" id="free-correction-content" style="display: none;">
                 <label for="free-correction" data-i18n="newActivities.correction">Correction de l'activité</label>
                 <textarea id="free-correction" style="height:340px"></textarea>
+
+                <div class="content m-3">
+                    <p>
+                        <span data-i18n="newActivities.tolerance1"></span>
+                        <button id="free-tolerance-decrease" class="tolerance-btn">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <input type="number" id="free-tolerance" value="0">
+                        <button id="free-tolerance-increase" class="tolerance-btn">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <span data-i18n="newActivities.tolerance2"></span></p>
+                </div>
             </div>
 
-            <div class="content m-3">
-                <p>
-                    <span data-i18n="newActivities.tolerance1"></span>
-                    <button id="free-tolerance-decrease" class="tolerance-btn">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <input type="number" id="free-tolerance" value="0">
-                    <button id="free-tolerance-increase" class="tolerance-btn">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                    <span data-i18n="newActivities.tolerance2"></span></p>
-            </div>
+
         </div>
 
         <!-- Reading activity part -->
