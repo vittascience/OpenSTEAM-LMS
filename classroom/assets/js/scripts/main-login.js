@@ -73,7 +73,6 @@ function checkLogin() {
             if (typeof response.canNotLoginBefore != 'undefined' ) {
                 const diffInMinutes = (response.canNotLoginBefore  - (new Date().getTime() /1000) )/ 60
                 const timeToWait = Math.ceil(diffInMinutes)
-                console.log(timeToWait)
                 displayNotification('#notif-div', `login_popup.canNotLoginBefore`, "error", `'{"timeToWait": "${timeToWait} min","failedLoginAttempts":${response.failedLoginAttempts}}'`);
             } 
             else if (response.error === "wrong_credentials") {

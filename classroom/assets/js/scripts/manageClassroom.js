@@ -441,7 +441,7 @@ function importLearnerCsv(update = false){
             }
         })
         .catch((response) => {
-            console.warn(response);
+            //console.warn(response);
         });
     } else {
         // import the students before the class creation
