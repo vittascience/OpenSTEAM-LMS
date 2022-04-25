@@ -441,7 +441,7 @@ function importLearnerCsv(update = false){
             }
         })
         .catch((response) => {
-            console.warn(response);
+            //console.warn(response);
         });
     } else {
         // import the students before the class creation
@@ -546,6 +546,12 @@ function csvToClassroom(link) {
  */
 function csvJSON(csv) {
 
+    /**
+     * define array of internal headers 
+     * to replace incoming headers 
+     * following this format => student|password
+     */
+    const internalHeaders = ["apprenant","mot_de_passe"]
     let lines = csv.split("\n");
     const result = [];
 
@@ -556,9 +562,9 @@ function csvJSON(csv) {
     let headers = lines[0].split(/[,;]/);
     
     for(let i=0; i< headers.length; i++){
-        headers[i] = headers[i].replace("\r","")
+        headers[i] = internalHeaders[i]
+        // headers[i] = headers[i].replace("\r","")
     }
-    
     for (let i = 1; i < lines.length; i++) {
         // sanitize the current line
         lines[i] = lines[i].replace(/(\r\n|\n|\r)/gm, "")
@@ -824,7 +830,6 @@ function filterTeacherActivityInList(keywords = [], orderBy = 'id', asc = true) 
         expression += '(?=.*'
         expression += keywords[i].toUpperCase()
         expression += ')'
-
     }
     regExp = new RegExp(expression)
     let list = Main.getClassroomManager()._myTeacherActivities.filter(x => regExp.test(x.title.toUpperCase()))
@@ -837,7 +842,6 @@ function filterTeacherActivityInList(keywords = [], orderBy = 'id', asc = true) 
             return b[orderBy] - a[orderBy];
         })
     }
-
 }
 
 function filterSandboxInList(keywords = [], orderBy = 'id', asc = true) {
@@ -881,9 +885,12 @@ function displayStudentsInClassroom(students, link=false) {
     const reducedclassroomName = classroomName.length > 16 ? `${classroomName.substring(0, 16)}...` : classroomName;
     document.querySelector('#header-table-teach').innerHTML = `<th class="table-title" style="max-width: 250px; font-size: 14pt; text-align: left; height: 3em;" data-toggle="tooltip" title="${classroomName}">${reducedclassroomName}</th>`;
 
+    $('#is-monochrome').attr('data-link', link);
+    $('#is-anonymised').attr('data-link', link);
+
     // get the current classroom index of activities
     let arrayIndexesActivities = listIndexesActivities(students);
-
+    
     students.forEach(element => {
         // reorder the current student activities to fit to the classroom index of activities
         let arrayActivities = reorderActivities(element.activities, arrayIndexesActivities);
@@ -895,25 +902,38 @@ function displayStudentsInClassroom(students, link=false) {
         }
         // Add demoStudent's head table cell if it's the current student
         if (element.user.pseudo == demoStudentName) {
-            html = `<tr><td class="username row" data-student-id="` + element.user.id + `"><img class="col-2 propic" src="${_PATH}assets/media/alphabet/` + element.user.pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil"><div class="col-7 line_height34" title="` + element.user.pseudo + `">` + pseudo + ` </div> <div class="dropdown col "><i class="classroom-clickable line_height34 fas fa-exchange-alt" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-            <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
-        <li id="mode-apprenant" class="dropdown-item classroom-clickable col-12" href="#" onclick="modeApprenant()" data-i18n="classroom.classes.panel.learnerMode">Mode apprenant</li>
-        </div>
-        </div></td>`;
+            html = /* html */`<tr>
+                <th class="username" data-student-id="${element.user.id}">
+                    <div class="user-cell-container">
+                        <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil">
+                        <div class="user-cell-username" title="${element.user.pseudo}">${pseudo}</div>
+                        <div class="dropdown">
+                            <i class="classroom-clickable line_height34 fas fa-exchange-alt" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                            <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
+                                <li id="mode-apprenant" class="dropdown-item classroom-clickable col-12" href="#" onclick="modeApprenant()" data-i18n="classroom.classes.panel.learnerMode">Mode apprenant</li>
+                            </div>
+                        </div>
+                    </div>
+                </th>`;
         // Add the current student head table cell
         } else {
-            html = `<tr><td class="username row" data-student-id="` + element.user.id + `"><img class="col-2 propic" src="${_PATH}assets/media/alphabet/` + element.user.pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil"><div class="col-7 line_height34" title="` + element.user.pseudo + `">` + pseudo + ` </div>`
+            html = /*html*/`<tr>
+                <th class="username" data-student-id="${element.user.id}">
+                    <div class="user-cell-container">
+                        <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil">
+                        <div class="user-cell-username" title="${element.user.pseudo}">${pseudo}</div>`
             if (!UserManager.getUser().isFromGar) {
-                html += `<div class="dropdown col"><i class="classroom-clickable line_height34 fas fa-cog" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                html += /**/`<div class="dropdown"><i class="classroom-clickable line_height34 fas fa-cog" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                 <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
                 <li class="col-12 pwd-display-stud" href="#"><div data-i18n="classroom.classes.panel.password">Votre mot de passe :</div> <span class="masked">${element.pwd}</span><i class="classroom-clickable fas fa-low-vision switch-pwd ml-2"></i></li>
                 <li class="modal-student-password classroom-clickable col-12 dropdown-item" href="#" data-i18n="classroom.classes.panel.resetPassword">Régenérer le mot de passe</li>
                 <li class="classroom-clickable col-12 dropdown-item" href="#"><span class="classroom-clickable" data-i18n="classroom.classes.panel.editNickname" onclick="changePseudoModal(${element.user.id})">Modifier le pseudo</span></li>
                 <li class="dropdown-item modal-student-delete classroom-clickable col-12" href="#" data-i18n="classroom.classes.panel.delete">Supprimer</li>
                 </div>
+                </div>
                 </div>`;
             }
-            html += `</td>`;
+            html += `</th>`;
         }
         let activityNumber = 1;
         // Display the current student activities in the dashboard
@@ -942,21 +962,18 @@ function displayStudentsInClassroom(students, link=false) {
             }
             // Display the current student activities in the dashboard
             let currentActivity = arrayActivities[i];
+
             if (currentActivity) {
                 const formatedTimePast = 
-                typeof currentActivity.timePassed == 'undefined' 
-                    ? '' 
-                    : currentActivity.timePassed == 0 
-                        ? '' 
-                        : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em>`;
-                html += `<td class=" ${statusActivity(currentActivity)} bilan-cell ${currentActivity.correction ? 'classroom-clickable' : 'no-activity'}" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>${formatedTimePast}"></td>`;
+                typeof currentActivity.timePassed == 'undefined' ? '' : currentActivity.timePassed == 0 ? '' : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em><br><em>${i18next.t("classroom.activities.numberOfTries")} ${currentActivity.tries}</em>`;
+                html += `<td class=" ${statusActivity(currentActivity, true, formatedTimePast)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${getTranslatedActivityName(currentActivity.activity.type)}</em></br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>${formatedTimePast}"></td>`;
             } else {
-                html += `<td class="no-activity bilan-cell" "></td>`;
+                html += `<td class="no-activity bilan-cell"></td>`;
             }
         }
         // addition of 6 "empty" cells at the end of the current table row
         for (let i = 0; i < 6; i++) {
-            // html += '<td class="no-activity bilan-cell"></td>';
+            html += '<td class="no-activity bilan-cell"></td>';
         }
         // end of the current table row
         html += '</tr>';
@@ -964,11 +981,49 @@ function displayStudentsInClassroom(students, link=false) {
         $('[data-toggle="tooltip"]').tooltip()
     });
     
+    // get classroom settings from localstorage
+    let settings = getClassroomDisplaySettings(link);
+
+    if (settings['monochrome']) {
+        $('#body-table-teach').addClass('is-monochrome')
+        $('#legend-container').addClass('is-monochrome')
+        $('#is-monochrome').prop('checked', true);          
+    } else {
+        $('#body-table-teach').removeClass('is-monochrome')
+        $('#legend-container').removeClass('is-monochrome')
+        $('#is-monochrome').prop('checked', false);
+    }
+    
+    if (settings['anonymised']) {
+        anonymizeStudents()
+        $('#is-anonymised').prop('checked', true);
+    } else {
+        $('#is-anonymised').prop('checked', false);
+    }
+
+    
     $('#add-student-container').append(`<button id="add-student-dashboard-panel" class="btn c-btn-primary"><span data-i18n="classroom.activities.addLearners">Ajouter des apprenants</span> <i class="fas fa-plus"></i></button>`).localize();
 
     $('#export-class-container').append(`<button id="download-csv" class="btn c-btn-tertiary ml-2" onclick="openDownloadCsvModal()"><i class="fa fa-download" aria-hidden="true"></i><span class="ml-1" data-i18n="classroom.activities.exportCsv">Exporter CSV</span></button>`).localize();
 
     $('#header-table-teach').append(`<th class="add-activity-th" colspan="7"> <button class="btn c-btn-primary dashboard-activities-teacher" onclick="pseudoModal.openModal('add-activity-modal')" data-i18n="classroom.activities.addActivity">Ajouter une activité</button></th>`).localize();
+
+    // add four empty divs for monochrome styling
+    $('#body-table-teach .bilan-cell').html(`<div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div>`);
+
+    $('#classroom-panel-table-container table .dropdown').on('show.bs.dropdown', (event) => {
+        let classroomTable = event.target.closest('table');
+        classroomTable.classList.add('dropdowns-opened');
+        $(classroomTable).find('tr').addClass('non-dropdown');
+        event.target.closest('tr').classList.remove('non-dropdown');
+    });
+    
+    $('#classroom-panel-table-container table .dropdown').on('hidden.bs.dropdown', (event) => {
+        let classroomTable = event.target.closest('table');
+        classroomTable.classList.remove('dropdowns-opened');
+        $(classroomTable).find('tr').removeClass('non-dropdown');
+    });
+
 }
 
 $('body').on('click', '.switch-pwd', function (event) {
@@ -1301,9 +1356,6 @@ class DashboardAutoRefresh {
                         if (getClassroomInListByLink($_GET('option'))[0]) {
                             let students = getClassroomInListByLink($_GET('option'))[0].students;
                             displayStudentsInClassroom(students);
-                            if (document.getElementById('is-anonymised').checked) {
-                                anonymizeStudents();
-                            }
                         }
                     }
                 }

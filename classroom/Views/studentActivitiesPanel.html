@@ -1,35 +1,38 @@
 <div id="classroom-dashboard-activities-panel" style="display:none;" class="dashboard-block">
     <div class="section-container section-new">
-        <div class="section-header">
+        <div class="section-header" onclick="sectionToggle('new')">
             <i id="i-new" class="ml-2 fas fa-lg fa-chevron-down"></i>
-            <h3 class="section-title" onclick="sectionToggle('new')" data-i18n="classroom.activities.new"></h3>
-
+            <h3 class="section-title" data-i18n="classroom.activities.new"></h3>
+            <span class="resource-number"> </span>
         </div>
         <div id="new-activities-list"></div>
     </div>
-
+    
     <div class="section-container section-saved">
-        <div class="section-header">
-            <i id="i-saved" class="ml-2 fas fa-lg fa-chevron-down"></i>
-            <h3 class="section-title " onclick="sectionToggle('saved')">Brouillons</h3>
+        <div class="section-header" onclick="sectionToggle('saved')">
+            <i id="i-saved" class="ml-2 fas fa-lg fa-chevron-up"></i>
+            <h3 class="section-title" >Brouillons</h3>
+            <span class="resource-number"> </span>
         </div>
-        <div id="saved-activities-list"></div>
+        <div id="saved-activities-list" style="display: none;"></div>
     </div>
-
+    
     <div class="section-container section-current">
-        <div class="section-header">
-            <i id="i-current" class="ml-2 fas fa-lg fa-chevron-down"></i>
-            <h3 class="section-title" onclick="sectionToggle('current')" data-i18n="classroom.activities.current"></h3>
+        <div class="section-header" onclick="sectionToggle('current')">
+            <i id="i-current" class="ml-2 fas fa-lg fa-chevron-up"></i>
+            <h3 class="section-title" data-i18n="classroom.activities.current"></h3>
+            <span class="resource-number"> </span>
         </div>
-        <div id="current-activities-list"></div>
+        <div id="current-activities-list" style="display: none;"></div>
     </div>
-
+    
     <div class="section-container section-done">
-        <div class="section-header">
-            <i id="i-done" class="ml-2 fas fa-lg fa-chevron-down"></i>
-            <h3 class="section-title" onclick="sectionToggle('done')" data-i18n="classroom.activities.done"></h3>
+        <div class="section-header" onclick="sectionToggle('done')">
+            <i id="i-done" class="ml-2 fas fa-lg fa-chevron-up"></i>
+            <h3 class="section-title" data-i18n="classroom.activities.done"></h3>
+            <span class="resource-number"> </span>
         </div>
-        <div id="done-activities-list"></div>
+        <div id="done-activities-list" style="display: none;"></div>
     </div>
 
 </div>
@@ -40,12 +43,15 @@
         <div class="row">
             <div id="main-div" class="col-12 col-lg-12" style="margin: 0 auto;overflow-wrap: break-word;">
                 <h3 id="activity-title"></h3>
-                <div id="activity-auto-disclaimer" style="display:none;">
-                    <img src="assets/media/auto-icon.svg" title="Auto">
-                    <span>Cette activité sera corrigée automatiquement.</span>
-                </div>
+               
                 <!-- Used for status / date  -->
                 <p id="activity-details"></p>
+
+                <!-- Disclaimer for autocorrect -->
+                <div id="activity-auto-corrected-disclaimer" style="display:none;">
+                    <span data-i18n="classroom.activities.isAutocorrected"></span>
+                </div>
+
                 <!-- Used for subtitle -->
                 <p id="activity-introduction">
                     <span id="text-introduction"></span>
@@ -53,42 +59,64 @@
 
                 <!-- Used for states -->
                 <div id="activity-states-container" style="display: none;">
-                    <label for="activity-states" class="vitta-modal-title mt-2">Énoncé de l'activité</label>
+                    <label for="activity-states" class="vitta-modal-title mt-2" data-i18n="classroom.activities.states">Énoncé de l'activité</label>
                     <p id="activity-states"></p>
                 </div>
 
 
                 <!-- Used for content -->
                 <div id="activity-content-container" style="display: none;">
-                    <label for="activity-content" class="vitta-modal-title mt-2">Contenu de l'activité</label>
+                    <label for="activity-content" class="vitta-modal-title mt-2" data-i18n="classroom.activities.correction">Contenu de l'activité</label>
                     <p id="activity-content"></p>    
                 </div>
                 
 
                 <!-- @Update Rémi -->
                 <div id="activity-student-response" style="display:none;">
-                    <label id="label-activity-student-response" for="activity-student-response-content" class="vitta-modal-title mt-2">Réponse de l'élève</label>
+                    <label id="label-activity-student-response" for="activity-student-response-content" class="vitta-modal-title mt-2" data-i18n="classroom.activities.studentAnswer">Réponse de l'élève</label>
                     <p id="activity-student-response-content"> </p>
                 </div>
 
                 <div id="activity-input-container" style="display:none;">
-                    <label for="activity-input" class="vitta-modal-title mt-2">Entrez votre réponse</label>
-                    <textarea id="activity-input"></textarea>
+                    <label for="activity-input" class="vitta-modal-title mt-2" data-i18n="classroom.activities.putYourAnswer">Entrez votre réponse</label>
+                    <textarea id="activity-input" style="height:400px"></textarea>
                 </div>
 
                 <div id="activity-drag-and-drop-container" style="display:none;">
-                    <div id="drag-and-drop-text" class="drag-and-drop-div">
+                    <label class="vitta-modal-title mt-2">Drag & drop</label>
+                    <div id="drag-and-drop-text">
 
                     </div>
                      <div id="drag-and-drop-fields" class="m-2">
 
                     </div>
+
                 </div>
 
+                <div id="activity-hint-container" style="display:none;">
+                    <label for="activity-hint" class="vitta-modal-title mt-2" data-i18n="classroom.activities.hint">Indice</label>
+                    <p id="activity-hint"></p>
+                </div>
 
-                <button class="btn c-btn-primary" id="activity-validate" data-i18n="classroom.activities.validate" onclick="validateActivity()"> <i class="fas fa-chevron-right"></i></button>
-                <button class="btn c-btn-primary" id="activity-save" style="display:none;" onclick="saveActivity()" data-i18n="classroom.activities.save-draft"><i class="fas fa-chevron-right"></i></button>
-                <div class="btn" id="activity-instruction" style="display:none"><span data-i18n="classroom.activities.instruction"></span> <i class="fas fa-pen"></i></div>
+                <!-- Warning eval -->
+                <div id="warning-text-container">
+                    <p id="warning-text-evaluation" style="display:none;" data-i18n="[html]classroom.activities.validateWarning"></p>
+                    <p id="warning-text-no-evaluation" style="display:none;" data-i18n="[html]classroom.activities.validateNoEval"></p>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <button class="btn c-btn-primary mx-1" id="activity-validate" data-i18n="classroom.activities.validate" onclick="validateActivity(1)"> 
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+
+                    <button class="btn c-btn-grey mx-2" id="activity-save" style="display:none;" onclick="validateActivity(0)" data-i18n="classroom.activities.save-draft">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+
+                    <div class="btn" id="activity-instruction" style="display:none">
+                        <span data-i18n="classroom.activities.instruction"></span> <i class="fas fa-pen"></i>
+                    </div>
+                </div>
             </div>
             <div id="activity-correction-container" class="col-12 col-lg-4" style="display:none">
                 <div id="activity-correction"></div>

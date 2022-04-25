@@ -26,6 +26,7 @@ class ClassroomManager {
         this._allApps = []
         this._createActivity = {}
         this._lastCreatedActivity = 0;
+        this._idActivityOnAttribution = 0;
         this.setDefaultActivityData();
     }
 
@@ -177,22 +178,19 @@ class ClassroomManager {
     getTeacherActivities(container) {
         return new Promise((resolve, reject) => {
             let currentTask = (onEnd) => {
-                var process = function (thisInstance, response) {
-                    if (response.error_message && response.error_message !== undefined) {
+                var process = function (thisInstance, res) {
+                    if (res.error_message && res.error_message !== undefined) {
                         thisInstance.errors.push(GET_PUBLIC_PROJECTS_ERROR)
                     }
-                    thisInstance._myTeacherActivities = response;
+                    thisInstance._myTeacherActivities = res;
                     resolve()
                     onEnd();
                 };
-                var callBack = function (thisInstance, response) {
-                    process(thisInstance, response);
-                };
-                $.ajax({
+               $.ajax({
                     type: "POST",
                     url: "/routing/Routing.php?controller=activity&action=get_mine_for_classroom",
                     success: function (response) {
-                        callBack(container, JSON.parse(response));
+                        process(container, JSON.parse(response));
                         onEnd();
                     },
                     error: function () {
@@ -1359,17 +1357,35 @@ class ClassroomManager {
     }
 
 
-    saveNewStudentActivity(activity, correction = 1, note = 0, response) {
+    saveNewStudentActivity(activity, correction = 1, note = 0, response, activityLinkUserId) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
                 url: "/routing/Routing.php?controller=newActivities&action=save_new_activity",
                 data: {
                     'id': activity,
+                    'activityLinkUserId': activityLinkUserId,
                     'correction': correction,
                     'classroomLink': ClassroomSettings.classroom,
                     'note': note,
                     'response': response
+                },
+                success: function (r) {
+                    resolve(JSON.parse(r))
+                }
+            });
+        });
+    }
+
+
+    getActivityAutocorrectionResult(activity, activityLinkUserId) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=newActivities&action=get_autocorrect_result",
+                data: {
+                    'activityId': activity,
+                    'activityLinkId': activityLinkUserId,
                 },
                 success: function (r) {
                     resolve(JSON.parse(r))

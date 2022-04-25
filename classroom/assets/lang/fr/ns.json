@@ -1245,7 +1245,8 @@
       "studentsPerGroup": "Apprenants par groupe",
       "studentsPerTeacher": "Apprenants par enseignant",
 			"maxStudents": "Maximum d'apprenants",
-			"maxActivities": "Maximum d'activités"
+			"maxActivities": "Maximum d'activités",
+			"groupsRestrictions": "Restriction du groupe"
 		},
 		"title": {
 			"activeUsers": "Utilisateurs actifs",
