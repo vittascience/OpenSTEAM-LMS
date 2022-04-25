@@ -982,7 +982,7 @@ const classroomModals = {
                                         <label for="update_deepLinkUrl" data-i18n="[html]manager.apps.deepLinkUrl">DeepLink Url</label>
                                         <input type="text" class="form-control mb-2" id="update_deepLinkUrl">
                                         <label for="update_privateKey" data-i18n="[html]manager.apps.privateKey">Private Key</label>
-                                        <input type="text" class="form-control mb-2" id="update_privateKey">
+                                        <textarea class="form-control mb-2" id="update_privateKey"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -1071,7 +1071,7 @@ const classroomModals = {
                                         <label for="deepLinkUrl" data-i18n="[html]manager.apps.deepLinkUrl">DeepLink Url</label>
                                         <input type="text" class="form-control mb-2" id="deepLinkUrl">
                                         <label for="privateKey" data-i18n="[html]manager.apps.privateKey">Private Key</label>
-                                        <input type="text" class="form-control mb-2" id="privateKey">  
+                                        <textarea class="form-control mb-2" id="privateKey"></textarea>
                                     </div>
                                 </div>
                             </div>
