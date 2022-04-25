@@ -655,8 +655,10 @@ function manageDisplayQuiz(correction, content, correction_div) {
     if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
             $('#activity-student-response-content').html("");
-            if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") {
-                $('#activity-student-response-content').append(createContentForQuiz(JSON.parse(Activity.response)));
+            if (Activity.response != null && Activity.response != '') {
+                if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") {
+                    $('#activity-student-response-content').append(createContentForQuiz(JSON.parse(Activity.response)));
+                }
             } else {
                 $('#activity-student-response-content').append(createContentForQuiz(content.quiz.contentForStudent));
             }
