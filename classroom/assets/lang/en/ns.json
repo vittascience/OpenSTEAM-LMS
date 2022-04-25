@@ -71,7 +71,7 @@
 		},
 		"successPanel": "Congratulation, you succeed this activity !",
 		"failPanel": "The answer is wrong",
-		"toCorrectPanel": "The activity was send to your teacher,</br>who will correct it soon ! <i class=\"fas fa-pen\"></i>",
+		"toCorrectPanel": "The activity was send to your teacher,</br>who will correct it soon !",
 		"bank": {
 			"helpTooltip": "The resource center contains numerous activities that you can use freely! Your teacher won't have access to your activities results"
 		},
@@ -106,6 +106,9 @@
 			}
 		},
 		"notif": {
+			"emptyContent": "The content can not be empty",
+			"emptyTitle": "The title can not be empty",
+			"activityRestricted": "You can not create more activities from this type",
 			"shareProjectTeacher": "The project has been shared with your teacher",
 			"addActivities": "The selected activities have been added to your list",
 			"addActivity": "The activity has beed added to your list",
@@ -131,6 +134,7 @@
 			"usersAdded": "Accounts have been created",
 			"usersAddedFromCsv": "The accounts were created from the csv file",
 			"activityDeleted": "The activity {{activityName}} has been removed",
+			"activityDuplicated": "The activity {{activityName}} has been duplicated",
 			"mustAttributeToStudent": "You must assign the activity to students",
 			"activityAttributed": "The activity {{activityTitle}} has been assigned to the listed learners",
 			"activityAttributionChanged": "The assignment of the activity {{activityTitle}} has been changed for the listed learners",
@@ -193,7 +197,8 @@
 			"backendReplyPseudoMissingInCsv" : "Check the CSV file : empty line or pseudo missing",
 			"backendReplyPseudoMissingInUsersArray" : "There is one or more error(s) in the student(s) name(s)",
 			"invalidActivityId": "Error submitting job: Invalid activity ID!",
-			"invalidCorrection": "Erreur submitting job: Invalid activity status!"
+			"invalidCorrection": "Erreur submitting job: Invalid activity status!",
+			"currentPasswordDoesNotMatch": "The entered password is not correct!"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
@@ -243,8 +248,8 @@
 				"delete": "Delete",
 				"copyLink": "Copy the direct link",
 				"learnerMode": "Learner mode",
-				"dueBy":"Due by"
-
+				"dueBy":"Due by",
+				"timePassed": "Time spent: "
 			}	
 		},
 		"activities": {
@@ -259,6 +264,8 @@
 			"anonymise": "Anonymise your learners list, allowing you to display it for everyone.",
 			"save-draft": "Save as a draft",
 			"validate": "Validate the activity",
+			"validateWarning": "<i class='fas fa-exclamation-triangle'></i> Please note that you can only submit this activity once.",
+			"validateNoEval": "<i class='fas fa-thumbs-up'></i> You can submit this activity as many times as you want.",
 			"accept": "Very good proficiency",
 			"vgood": "Good proficiency",
 			"good": "Weak proficiency",
@@ -267,16 +274,40 @@
 			"commentary": "Comment",
 			"sendResults": "Send the comment ",
 			"noSend": "This activity hasn't been returned",
+			"toSend": "Activity due by ",
+			"sentOn": "This activity was returned on ",
+			"activityOfUser": "Activity of ",
+			"userSentOn" : " sent on ",
+			"timePassed" : "Time spent on activity:",
+			"yourAnswer": "Your answer",
+			"studentAnswer": "Learner's answer",
 			"comments": "Write your comments there",
+			"return": "Return to the activities",
+			"numberOfTries": "Number of tries : ",
+			"isAutocorrected": "This activity has been automatically corrected, you can change the note just below.",
+			"isAutocorrect": "This activity will be automatically corrected",
+			"states": "Activity states",
+			"content": "Activity content",
+			"correction": "Correction",
+			"putYourAnswer": "Put your answer here",
+			"hint": "Hint",
+			"saved": "Activity saved",
+			"wrongAnswer": "Wrong answer",
+			"hintExist": "<i class='fas fa-info-circle'></i> This exercise has a hint, it can only be displayed if the student can submit the activity several times",
 			"anoStudent": "Student",
 			"bilan": {
 				"title": "Bilan",
 				"results": "Results",
 				"noComment": "No comment yet"
 			},
+			"applist":{
+				"selectApp":"Select the application that you wish to create an activity with"
+			},
 			"form": {
-				"1": "Activity creation",
-				"2": "Attribution",
+				"1": "Application",
+				"2": "Content",
+				"3": "Title",
+				"4": "Attribution",
 				"title": {
 					"label": "Activity title",
 					"placeholder": "Part title"
@@ -284,8 +315,11 @@
 				"content": {
 					"label": "Activity content"
 				},
+				"back": "Back",
+				"validate": "Validate",
+				"buttonContinue": "Save and continue",
 				"button": "Save and approve",
-				"success": "Congratulations, you create an activity !",
+				"success": "Congratulations, you created an activity!",
 				"attribute": "Attribute the activity right now",
 				"attribute2": "Attribute the activity ",
 				"return": "Return to My activities",
@@ -311,7 +345,22 @@
 			"addLearner": "Add a learner",
 			"addLearners": "Add learners",
 			"addActivity": "Add an activity",
-			"exportCsv": "Export csv"
+			"exportCsv": "Export csv",
+			"month": {
+				"1": "January",
+				"2": "February",
+				"3": "March",
+				"4": "April",
+				"5": "May",
+				"6": "June",
+				"7": "July",
+				"8": "August",
+				"9": "September",
+				"10": "October",
+				"11": "November",
+				"12": "December"
+			},
+			"preview": "Preview"
 		},
 		"filter": {
 			"desc": "Oldest to newest",
@@ -388,9 +437,10 @@
 			"addStudentByCsv": {
 				"title": "Add students with a .csv file",
 				"description": "You can add one or more learners at once by importing them from a .csv file. It is optionally possible to define the password for each of them. Here are the .csv template files: ",
+				"descriptionUpdate": "You can add one or more learners at once by importing them from a .csv file. <b>WARNING</b> : here, the passwords of the csv file aren't used ! Here is the .csv template file : ",
 				"csvTemplate": "template file with password",
 				"csvTemplateNoPassword": "template file without password",
-				"importStudentByCsvButton": "Importer learners"
+				"importStudentByCsvButton": "Import learners"
 			},
 			"exportCsv": {
 				"title": "Export in csv format",
@@ -414,6 +464,12 @@
 			},
 			"shareProject": {
 				"title": "Share project"
+			},
+			"profileUpdatePasswordConfirm": {
+				"title": "Password confirmation",
+				"description": "Please enter your current password to confirm changes to your profile!",
+				"placeholderInput": "Password",
+				"validateButton": "Validate"
 			}
 		}
 	},
@@ -534,6 +590,7 @@
 		},
 		"success": "Authentication was successful. Redirection...",
 		"error": "Error. Please verify your login details.",
+		"canNotLoginBefore": "{{failedLoginAttempts}} failed attempts. You have to wait {{timeToWait}} minute(s) before trying again",
 		"mailSuccess": "An activation email has been sent to your email address.",
 		"mailError": "An error has occurred. Please verify your email address.",
 		"userNotFound": "No linked user found with this mail.",
@@ -634,6 +691,7 @@
 		"confirm": "confirm",
 		"username": "pseudonym",
 		"password": "Password",
+		"options": "options",
 		"yes": "Yes",
 		"no": "No"
 	},
@@ -645,6 +703,7 @@
 			"group": "Group",
 			"apps": "Apps",
 			"personalApps": "Personal apps",
+			"groupsApps": "Group's apps",
 			"email": "E-mail <span class=\"c-text-red\">*</span>",
 			"nickname": "Username",
 			"lastname": "Lastname <span class=\"c-text-red\">*</span>",
@@ -757,6 +816,7 @@
 			"mailNotSentToUserReset": "The password change email could not be sent to the user",
 			"appsUpdated": "User apps have been updated",
 			"updateAppModalTitle": "Application",
+			"globalRestrictions": "Global restrictions",
 			"teacherGrades": {
 				"0": "Elementary School",
 				"1": "Middle School",
@@ -887,10 +947,10 @@
 			"groupUpdated": "Group successfully updated",
 			"groupCreateFailed": "The group could not be created, missing data.",
 			"showLinkTitle": "Group's link",
-			"usersWithoutGroups": "Users without groups",
+			"usersWithoutGroups": "Teachers without groups",
 			"searchResult": "Result of the research",
 			"usersInactiveOrNoRegular": "Inactive users or not regular",
-			"usersWithoutGroupsDescription": "User group not linked to any group",
+			"usersWithoutGroupsDescription": "Teacher's group not linked to any group",
 			"usersInactiveOrNoRegularDescription": "Group of non-regular users",
 			"groupDeleteError": "The group could not be deleted.",
 			"groupFull": "The group is full.",
@@ -903,7 +963,8 @@
 			"activitiesPerTeacher": "Activities per teacher",
 			"studentsPerTeacher": "Students per teacher",
 			"maxStudents": "Maximum students",
-			"maxActivities": "Maximum activities"
+			"maxActivities": "Maximum activities",
+			"groupsRestrictions": "Group's restrictions"
 		},
 		"title": {
 			"activeUsers": "Active users",
@@ -970,6 +1031,7 @@
 			"lastname": "Lastname",
 			"firstname": "Firstname",
 			"applications": "Applications",
+			"nbUsers": "Number of users",
 			"group": "Group",
 			"description": "Description",
 			"descriptionMandatory": "Description <span class=\"c-text-red\">*</span>",
@@ -981,6 +1043,7 @@
 			"dateBegin": "Begin date",
 			"dateEnd": "End date",
 			"outDated": "Out dated",
+			"status": "Status",
 			"maxStudents": "Maximum students",
 			"actualStudents": "Current students",
 			"maxTeachers": "Maximum teachers",
@@ -992,10 +1055,16 @@
 			"maxActivitiesPerTeacher": "Maximum activities per teacher",
 			"monitoring": "Apps monitoring",
 			"image": "Image",
+			"backgroundImage": "Background image",
 			"userNoRights": "No rights assigned",
 			"userAdmin": "Administrator",
 			"userTeacher": "Teacher",
-			"restrictions": "Restrictions"
+			"restrictions": "Restrictions",
+			"color": "Color",
+			"restriction": "Restriction",
+			"dateBeginFA": "<i class='far fa-calendar-alt'></i>  Begin date",
+			"dateEndFA": "<i class='far fa-calendar-alt'></i>  End date",
+			"maxStudentsFA": "<i class=fas fa-user-alt'></i>  Maximum students"
 		},
 		"apps": {
 			"apps": "Apps",
@@ -1011,7 +1080,21 @@
 			"usersLimitation": "Users students limitation",
 			"groupsLimitation": "Groups limitations",
 			"activitiesLimitation": "Activities limitations",
-			"defaultRestrictions": "Default restrictions"
+			"defaultRestrictions": "Default restrictions",
+			"ltiApps": "LTI apps",
+			"clientId" : "Client Id <span class=\"c-text-red\">*</span>",
+			"deploymentId" : "Deployment Id <span class=\"c-text-red\">*</span>",
+			"toolUrl" : "Tool Url <span class=\"c-text-red\">*</span>",
+			"publicKeySet" : "Public key set <span class=\"c-text-red\">*</span>",
+			"loginUrl" : "Login Url <span class=\"c-text-red\">*</span>",
+			"redirectionUrl" : "Redirection url <span class=\"c-text-red\">*</span>",
+			"deepLinkUrl" : "Deeplink url <span class=\"c-text-red\">*</span>",
+			"privateKey" : "Private key <span class=\"c-text-red\">*</span>",
+			"monitoringApps": "Apps informations",
+			"monitoringGroup": "Group informations",
+			"appStatus0": "Inactive",
+			"appStatus1": "Running",
+			"appStatus2": "OutDated"
 		},
 		"activitiesRestrictions": {
 			"updateAll": "Update restrictions",
@@ -1025,7 +1108,16 @@
 			"restrictionType": "Activity type",
 			"maxActivity": "Activity maximum",
 			"closeDetail": "Close the detail",
-			"restrictions": "Activity restrictions"
+			"restrictions": "Activity restrictions",
+			"appRestricted" : "Create more activities !",
+			"appRestrictedUL1": "You have reached the limit of {{activities}} activities associated with your account.",
+			"appRestrictedUL2": "To add additional activities, please contact your administrator.",
+			"appRestrictedSubtitle2": "A problem with your subscription ?",
+			"appRestrictedSubtitle3": "Contact support",
+			"appRestrictedGarContent1": "You have reached the limit of {{activities}} activities associated with your account.",
+			"appRestrictedGarContent2": "To add additional activities, please contact the GAR assignment manager at your institution.",
+			"indexPos": "Index position",
+			"appQuantity": "Quantity"
 		},
 		"defaultRestrictions": {
 			"update": "Update default restrictions",
@@ -1076,6 +1168,39 @@
 				"disconnect": "Disconnect",
 				"willSignup": "sign in",
 				"willSignin": "Log in"
+			}
+		}
+	},
+	"newActivities": {
+		"create": "Create a new activity",
+		"delete": "Delete",
+		"addQuiz": "Add a suggestion",
+		"states": "Activity statement <span class=\"c-text-red\">*</span>",
+		"cancel": "Cancel",
+		"autocorrect": "Autocorrect",
+		"correction": "Activity correction",
+		"tolerance1": "Add an error tolerance of",
+		"tolerance2": "character(s) on the entire student response.",
+		"hint": "Hint <i>* displayed if the answer is wrong</i>",
+		"title": "Activity title <span class=\"c-text-red\">*</span>",
+		"description": "Activity description <span class=\"c-text-red\">*</span>",
+		"content": "Activity content <span class=\"c-text-red\">*</span>",
+		"addField": "Add answer field",
+		"addFieldTooltip": "By clicking on the Add answer field button, a stylized text is added. You can write the correct answer in this field. Alternative answers are separated by a double ampersand &&",
+		"ActivitiesData": {
+			"title": {
+				"reading": "Reading",
+				"free": "Free answer",
+				"quiz": "Quiz",
+				"fillIn": "Fill in",
+				"dragAndDrop": "Drag and drop"
+			},
+			"description": {
+				"reading": "This activity allows you to view images, videos, PDFs, Vittascience interfaces as well as external tools.",
+				"free": "This activity allows students to answer a written exercise.",
+				"quiz": "This activity assesses knowledge using multiple or simple choice questions.",
+				"fillIn": "This activity allows you to apply your knowledge by filling in empty boxes.",
+				"dragAndDrop": "This activity allows you to drag and drop words into different empty spaces."
 			}
 		}
 	}

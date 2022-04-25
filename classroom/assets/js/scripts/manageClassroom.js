@@ -1,11 +1,79 @@
+/**
+ * Listener for direct communications from iframes in LTI application interoperability context
+ */
+window.addEventListener(
+    "message", 
+    (event) => {
+        readEvent(event).catch((error) => {console.log(error)});
+    }, 
+    false
+);
+
+async function readEvent (event) {
+    if(event.data.type === "" || event.data.type === "loaded") return; // ignore msg
+    try {
+        JSON.parse(event.data);
+    } catch(error) {
+        return false;
+    }
+    const msg = event.data.type ? event.data.type : JSON.parse(event.data);
+    switch(msg.type) {
+        // Message received when an LTI resource launch has gone to submission
+        case 'end-lti-score':
+            // Update the activities from database
+            await Main.getClassroomManager().getStudentActivities(Main.getClassroomManager());
+            // Get the results of the current activity
+            for (let state in Main.getClassroomManager()._myActivities) {
+                const currentSearch = Main.getClassroomManager()._myActivities[state].filter(x => x.id == Activity.id)[0];
+                if (typeof currentSearch != 'undefined') {
+                    Activity = currentSearch;
+                    break;
+                }
+            }
+            // If the current activity needs a manual review, display the relevant panel
+            if (Activity.correction == 1) {
+                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-activities');
+            } else {
+                // Otherwise display the relevant panel for success or fail
+                switch (Activity.note) {
+                    case 0:
+                        navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities');
+                        break;
+                    case 3:
+                        navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
+                        break;
+                        
+                    default:
+                        navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
+                        break;
+                }
+            }
+            // Clearing the LTI content div
+            document.querySelector('#lti-loader-container').innerHTML = '';
+            break;
+        // Message received when an LTI deep link has returned
+        case 'end-lti-deeplink':
+            // Saving the deeplink response into the activity creation data
+            Main.getClassroomManager()._createActivity.content.description = msg.content;
+            // Automatically stepping forward in the activity creation process
+            contentForward();
+            // Clear the activity content to close the LTI iframe
+            document.querySelector('#activity-content').innerHTML = '';
+            break;
+        default:
+            console.warn('The current message type isn\'t supported!');
+            console.log(event.data);
+    }
+}
+
 //formulaire de création de classe
 $('body').on('click', '.teacher-new-classe', function (event) {
-    ClassroomSettings.classroom = null
-    $('#classroom-classes-title').text(`${i18next.t('classroom.classes.form.title')}`)
-    navigatePanel('classroom-dashboard-form-classe-panel', 'dashboard-classes-teacher')
-    $('#table-students ul').html("");
+    ClassroomSettings.classroom = null;
+    // $('#classroom-classes-title').text(`${i18next.t('classroom.classes.form.title')}`)
+    navigatePanel('classroom-dashboard-form-classe-panel', 'dashboard-classes-teacher');
+    $('#table-students ul').html('<li id="no-student-label" data-i18n="classroom.classes.form.noStudent"></li>').localize();
 
-})
+});
 
 
 //student modal-->supprimer
@@ -35,12 +103,16 @@ $('body').on('click', '.modal-student-password', function () {
     })
 
 })
-//student modal-->modifier le pseudo
 
-function changePseudoModal(pseudo, id) {
+/**
+ * Setup and open the student pseudo modal
+ * @param {*} id 
+ */
+function changePseudoModal(id) {
     ClassroomSettings.student = id
-    $('.change-pseudo-modal').val(pseudo)
-    pseudoModal.openModal('update-pseudo-modal')
+    const pseudo = Main.getClassroomManager().getLocalCurrentClassroomStudentById(id).user.pseudo;
+    document.querySelector('.change-pseudo-modal').value = pseudo;
+    pseudoModal.openModal('update-pseudo-modal');
 }
 
 $('body').on('click', '#update-pseudo-close', function () {
@@ -77,11 +149,11 @@ $('body').on('click', '.modal-classroom-delete', function (e) {
 
 //classroom modal-->modifier
 $('body').on('click', '.modal-classroom-modify', function (e) {
-    $('#classroom-classes-title').text(`${i18next.t('classroom.classes.form.updateTitle')}`);
+    // $('#classroom-classes-title').text(`${i18next.t('classroom.classes.form.updateTitle')}`);
     e.stopPropagation();
-    ClassroomSettings.classroom = $(this).parent().parent().parent().attr('data-link')
-    navigatePanel('classroom-dashboard-form-classe-panel', 'dashboard-classes-teacher')
-})
+    ClassroomSettings.classroom = $(this).parent().parent().parent().attr('data-link');
+    navigatePanel('classroom-dashboard-form-classe-panel-update', 'dashboard-classes-teacher');
+});
 
 //ouvre le dashboard d'une classe
 $('body').on('click', '.class-card', function () {
@@ -131,129 +203,119 @@ $('body').on('click', '.remove-student', function () {
     $(this).parent().remove()
 })
 
-//ajout d'une classe en bdd
-$('.new-classroom-form').click(function () {
-    $(this).attr('disabled', 'disabled')
-    $('#body-table-teach').html('')
-    $('#header-table-teach').html('<th style="max-width:250px;color:var(--text-1);">Activités</th>')
-    if (ClassroomSettings.classroom == null) {
-        Main.getClassroomManager().addClassroom({
-            'name': $('#classroom-form-name').val(),
-            'school': $('#classroom-form-school').val(),
-            'isBlocked': document.querySelector('#classroom-form-is-blocked').checked
-        }).then(function (classroom) {
-            // handle specific error
-            if(classroom.errorType){
-                displayNotification('#notif-div', `classroom.notif.${classroom.errorType}`, "error", `'{"ClassroomNameInvalid": "${classroom.errorType}"}'`)
-                $('.new-classroom-form').attr('disabled', false);
-                return
-            } 
-            // If the backend detects that the user is not a premium user and that he already has one classroom
-            else if(classroom.isClassroomAdded == false){
-                
-                displayNotification('#notif-div', "classroom.notif.classNotCreated", "error", `'{"classroomNumberLimit": "${classroom.classroomNumberLimit}"}'`);
-               $('.new-classroom-form').attr('disabled', false);
+// Classroom addition in database
+document.querySelector('#classroom-create-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    e.submitter.disabled = true;
+    Main.getClassroomManager().addClassroom({
+        'name': document.querySelector('#classroom-form-name').value,
+        'school': document.querySelector('#classroom-form-school').value,
+        'isBlocked': document.querySelector('#classroom-form-is-blocked').checked
+    }).then((classroom) => {
+        // handle specific error
+        if(classroom.errorType){
+            displayNotification('#notif-div', `classroom.notif.${classroom.errorType}`, "error", `'{"ClassroomNameInvalid": "${classroom.errorType}"}'`)
+            e.submitter.disabled = false;
+            return;
+        } 
+        // If the backend detects that the user is not a premium user and that he already has one classroom
+        else if(classroom.isClassroomAdded == false){
+            displayNotification('#notif-div', "classroom.notif.classNotCreated", "error", `'{"classroomNumberLimit": "${classroom.classroomNumberLimit}"}'`);
+            e.submitter.disabled = false;
+        }else{
+            const students = [];
+            const existingStudents = [];
+            for (let studentRowElt of document.querySelectorAll('#table-students ul li')){
+                if (studentRowElt.id != 'no-student-label') {
+                    students.push(studentRowElt.getAttribute('data-pseudo'));
+                }
+            }
+            if(students.length){
+                Main.getClassroomManager().addUsersToGroup(students, existingStudents, classroom.link).then((response) => {
+                    if(!response.isUsersAdded){
+                        if(response.errorType){
+                            displayNotification('#notif-div', `classroom.notif.${response.errorType}`, "error");
+                        } else{
+                            displayNotification('#notif-div', "classroom.notif.classCreatedButNotUsers", "error", `'{"classroomName": "${classroom.name}", "learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
+                        }
+                        
+                        Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
+                            e.submitter.disabled = false;
+                            navigatePanel('classroom-table-panel-teacher', 'dashboard-classes-teacher', classroom.link);
+                        });
+                    } else{
+                        Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
+                            ClassroomSettings.classroom = classroom.link;
+                            addUserAndGetDashboard(classroom.link);
+                            displayNotification('#notif-div', "classroom.notif.classroomCreated", "success", `'{"classroomName": "${classroom.name}"}'`);
+                            e.submitter.disabled = false;
+                        });
+                    }
+                });
             }else{
-                let students = []
-                let existingStudents = []
-                $('#table-students ul li .col').each(function (index) {
-                    if ($(this).html() != "") {
-                        students.push($(this).html())
-                    }
-                })
-                if(students.length){
-                    Main.getClassroomManager().addUsersToGroup(students, existingStudents, classroom.link).then(function (response) {
-                        if(!response.isUsersAdded){
-                            if(response.errorType){
-                                 displayNotification('#notif-div', `classroom.notif.${response.errorType}`, "error");
-                            }
-                            else{
-                                 displayNotification('#notif-div', "classroom.notif.classCreatedButNotUsers", "error", `'{"classroomName": "${classroom.name}", "learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
-                            }
-                           
-                            Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
-                                $('.new-classroom-form').attr('disabled', false);
-                                navigatePanel('classroom-table-panel-teacher', 'dashboard-classes-teacher', classroom.link)
-                           })
-                        }
-                        else{
-                            Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
-                                ClassroomSettings.classroom = classroom.link;
-                                addUserAndGetDashboard(classroom.link);
-                                displayNotification('#notif-div', "classroom.notif.classroomCreated", "success", `'{"classroomName": "${classroom.name}"}'`);
-                                $('.new-classroom-form').attr('disabled', false);
-                            });
-                        }
-                    });
-                }else{
-                    Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
-                        ClassroomSettings.classroom = classroom.link;
-                        addUserAndGetDashboard(classroom.link);
-                        displayNotification('#notif-div', "classroom.notif.classroomCreated", "success", `'{"classroomName": "${classroom.name}"}'`);
-                        $('.new-classroom-form').attr('disabled', false);
-                    });
-                }
+                Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
+                    ClassroomSettings.classroom = classroom.link;
+                    addUserAndGetDashboard(classroom.link);
+                    displayNotification('#notif-div', "classroom.notif.classroomCreated", "success", `'{"classroomName": "${classroom.name}"}'`);
+                    e.submitter.disabled = false;
+                });
             }
-        });
-    } else {
-        Main.getClassroomManager().updateClassroom({
-            'name': $('#classroom-form-name').val(),
-            'school': $('#classroom-form-school').val(),
-            'link': ClassroomSettings.classroom,
-            'isBlocked': document.querySelector('#classroom-form-is-blocked').checked
-        }).then(function (classroom) {
+        }
+    });
+});
 
-            if(classroom.errorType){
-                displayNotification('#notif-div', `classroom.notif.${classroom.errorType}`, "error", `'{"ClassroomNameInvalid": "${classroom.errorType}"}'`)
-               $('.new-classroom-form').attr('disabled', false);
-                return
+// Classroom update in database from classroom update panel
+document.querySelector('#classroom-update-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    e.submitter.disabled = true;
+    Main.getClassroomManager().updateClassroom({
+        'name': document.querySelector('#classroom-form-name-update').value,
+        'school': document.querySelector('#classroom-form-school-update').value,
+        'link': ClassroomSettings.classroom,
+        'isBlocked': document.querySelector('#classroom-form-is-blocked-update').checked
+    }).then((classroom) => {
+        if(classroom.errorType){
+            displayNotification('#notif-div', `classroom.notif.${classroom.errorType}`, "error", `'{"ClassroomNameInvalid": "${classroom.errorType}"}'`);
+            e.submitter.disabled = false;
+            return;
+        }
+        const students = [];
+        const existingStudents = [];
+        for (let studentRowElt of document.querySelectorAll('#table-students-update ul li')){
+            if (studentRowElt.getAttribute('data-id') != 'false') {
+                existingStudents.push({
+                    'pseudo': studentRowElt.getAttribute('data-pseudo'),
+                    'id': studentRowElt.getAttribute('data-id')
+                });
+            } else {
+                students.push(studentRowElt.getAttribute('data-pseudo'));
             }
-            let students = []
-            let existingStudents = []
-            $('.student-form-name').each(function (index) {
-                if ($(this).val() != "") {
-                    if (parseInt($(this).attr('data-id')) > 0) {
-                        existingStudents.push({
-                            'pseudo': $(this).val(),
-                            'id': $(this).attr('data-id')
-                        })
-                    } else {
-                        students.push($(this).val())
-                    }
-                }
-            })
-            Main.getClassroomManager().addUsersToGroup(students, existingStudents, classroom.link).then(function (response) {
-                let noAdditionError = response.isUsersAdded ? response.isUsersAdded : response.noUser;
-                if(!noAdditionError){
-                    displayNotification('#notif-div', "classroom.notif.classUpdatedButNotUsers", "error", `'{"classroomName": "${classroom.name}", "learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
-                   $('.new-classroom-form').attr('disabled', false);
-                }
-                else{
-                    Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
-                        addUserAndGetDashboard(classroom.link)
-                        displayNotification('#notif-div', "classroom.notif.classroomUpdated", "success", `'{"classroomName": "${classroom.name}"}'`)
-                       $('.new-classroom-form').attr('disabled', false);
-                    });
-                }
-            })
+        }
+        Main.getClassroomManager().addUsersToGroup(students, existingStudents, classroom.link).then((response) => {
+            let noAdditionError = response.isUsersAdded ? response.isUsersAdded : response.noUser;
+            if(!noAdditionError){
+                displayNotification('#notif-div', "classroom.notif.classUpdatedButNotUsers", "error", `'{"classroomName": "${classroom.name}", "learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
+                e.submitter.disabled = false;
+            }
+            else{
+                Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
+                    addUserAndGetDashboard(classroom.link)
+                    displayNotification('#notif-div', "classroom.notif.classroomUpdated", "success", `'{"classroomName": "${classroom.name}"}'`)
+                    e.submitter.disabled = false;
+                });
+            }
         });
-    }
-})
-//add students to a classroom
-$('body').on('click', '.save-student-in-classroom', function () {
-    if (ClassroomSettings.classroom != null) {
-        let students = []
-        let existingStudents = []
-        $('.student-form-name').each(function (index) {
-            if ($(this).val() != "") {
-                if (parseInt($(this).attr('data-id')) > 0) {
-                    existingStudents.push({'pseudo': $(this).val(), 'id': $(this).attr('data-id')})
-                } else {
-                    students.push($(this).val())
-                }
-            }
-        })
-        Main.getClassroomManager().addUsersToGroup(students, existingStudents, ClassroomSettings.classroom).then(function (response) {
+    });
+});
+
+//add students to an existing classroom on the classroom dashboard
+$('body').on('click', '#add-student-to-classroom', function () {
+    const studentName = document.querySelector('#classroom-dashboard-add-student-div .student-form-name').value;
+    if (studentName != ''){
+        let students = [studentName];
+        let existingStudents = [];
+
+        Main.getClassroomManager().addUsersToGroup(students, existingStudents, ClassroomSettings.classroom).then((response) => {
             if(!response.isUsersAdded){
                 if(response.noUser){
                     displayNotification('#notif-div', "classroom.notif.noUserUsername", "error");
@@ -273,28 +335,45 @@ $('body').on('click', '.save-student-in-classroom', function () {
             }else{
                 Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
                     addUserAndGetDashboard(ClassroomSettings.classroom);
-                    $('#add-student-div').html(BASE_STUDENT_FORM);
-                    pseudoModal.closeModal('add-student-modal')
-                    displayNotification('#notif-div', "classroom.notif.usersAdded", "success")
+                    document.querySelector('#classroom-dashboard-add-student-div').innerHTML = BASE_STUDENT_FORM;
+                    pseudoModal.closeModal('add-student-modal');
+                    displayNotification('#notif-div', "classroom.notif.usersAdded", "success");
                 });
             }
-        })
+        });
     } else {
-        if ($('.student-form-name').val() != ''){
-            $('#no-student-label').remove()
-            $('#table-students ul').append(addStudentRow($('.student-form-name').val()))
-            pseudoModal.closeModal('add-student-modal')
-            // Reset the input field
-            $('.student-form-name').val('');
-        } else {
-            displayNotification('#notif-div', "classroom.notif.noUserUsername", "error");
-        }
+        displayNotification('#notif-div', "classroom.notif.noUserUsername", "error");
+    }
+});
+
+//add students to an existing classroom on the update classroom panel
+$('body').on('click', '#update-classroom-add-student-to-list', function () {
+    if ($('#update-classroom-add-student-div .student-form-name').val() != ''){
+        $('#table-students-update ul').append(addStudentRow($('#update-classroom-add-student-div .student-form-name').val()));
+        pseudoModal.closeModal('update-classroom-student-modal');
+        // Reset the input field
+        $('#update-classroom-add-student-div .student-form-name').val('');
+    } else {
+        displayNotification('#notif-div', "classroom.notif.noUserUsername", "error");
     }
 
-})
+});
+
+// Add students to a new classroom on the create classroom panel (select by ID -> add id to button in modal)
+$('body').on('click', '#create-classroom-add-student-to-list', () => {
+    if ($('#add-student-div .student-form-name').val() != ''){
+        $('#no-student-label').remove();
+        $('#table-students ul').append(addStudentRow($('#add-student-div .student-form-name').val()))
+        pseudoModal.closeModal('create-classroom-student-modal');
+        // Reset the input field
+        $('#add-student-div .student-form-name').val('');
+    } else {
+        displayNotification('#notif-div', "classroom.notif.noUserUsername", "error");
+    }
+});
 
 /**
- * Manage the display notification from the response
+ * Manages the display notification from the response
  * @param {*} response 
  */
 function manageResponseOfAddUsers(response) {
@@ -315,18 +394,30 @@ function manageResponseOfAddUsers(response) {
 }
 
 /**
- * Open the modal which allows to add users using a csv file
+ * Opens the modal which allows to add users using a csv file
+ * @param {boolean} update - Gives the context to open the relevant modal
  */
-function openCsvModal(){
-    pseudoModal.openModal('import-csv');
+function openCsvModal(update = false){
+    if (update) {
+        pseudoModal.openModal('import-csv-update-classroom');
+    } else if (ClassroomSettings.classroom !== null){
+        pseudoModal.openModal('import-csv');
+    } else {
+        pseudoModal.openModal('import-csv-create-classroom');
+    }
 }
 
 
 /**
  * Add students to a classroom using a csv file
+ * @param {boolean} update - Gives the context to operate on the relevant elements
  */
-function importLearnerCsv(){
-    if(ClassroomSettings.classroom){
+function importLearnerCsv(update = false){
+    if (update) {
+        // If the current call is in the context of a classroom modification
+        importLearnerCsvCreateUpdateClassroom(document.getElementById('importcsv-fileinput-classroom-update'), document.querySelector('#table-students-update ul'), 'import-csv-update-classroom');
+    } else if(ClassroomSettings.classroom){
+        // If the current call is directly from the classroom dashboard
         csvToClassroom(ClassroomSettings.classroom).then((response) => {
             /**
              * Updated @Rémi
@@ -350,61 +441,69 @@ function importLearnerCsv(){
             }
         })
         .catch((response) => {
-            console.warn(response);
+            //console.warn(response);
         });
     } else {
-
         // import the students before the class creation
-        const csvFile = document.getElementById('importcsv-fileinput').files[0];
-        if (csvFile){
-            const reader = new FileReader();
-            try {
-                reader.readAsText(csvFile);
-                reader.onload = function (event) {
-                    let csv = event.target.result;
-                    let lines = csv.split("\n");
-                    let headers = lines[0].split(/[,;]/);
+        importLearnerCsvCreateUpdateClassroom(document.getElementById('importcsv-fileinput-classroom-create'), document.querySelector('#table-students ul'), 'import-csv-create-classroom');
+    }
+}
 
-                    for(let i = 0; i < headers.length; i++) {
-                        headers[i] = headers[i].replace("\r","");
-                    }
-                    
-                    let missingPseudoError = false
-                    for (let i = 1; i < lines.length; i++) {
-                        // sanitize the current line
-                        lines[i] = lines[i].replace(/(\r\n|\n|\r)/gm, "")
-                        // ignore current empty line
-                        // NOTE : EXCEL return a single character for an empty line when we use the "pseudo;password" example file
-                         if(lines[i] == '' || lines[i] ==';') continue 
+/**
+ * Get the student list from a csv file and append it in the classroom creation/update panel
+ * @param {DOM Element} fileInputElt - The file input element
+ * @param {DOM Element} tableStudentUlElt The ul listing all the students
+ * @param {string} modalId The id of the current modal
+ */
+function importLearnerCsvCreateUpdateClassroom(fileInputElt, tableStudentUlElt, modalId) {
+    const csvFile = fileInputElt.files[0];
+    if (csvFile){
+        const reader = new FileReader();
+        try {
+            reader.readAsText(csvFile);
+            reader.onload = function (event) {
+                let csv = event.target.result;
+                let lines = csv.split("\n");
+                let headers = lines[0].split(/[,;]/);
 
-                        let currentline = lines[i].split(/[,;]/);
-                        
-                        // set the error flag to true if the pseudo is missing in the csv
-                        if(currentline[0].trim() == '') missingPseudoError = true;
-
-                        // add the student into the students table
-                        else $('#table-students ul').append(addStudentRow(currentline[0]));
-                    }
-
-                    // display the missing pseudo error
-                    if(missingPseudoError == true) displayNotification('#notif-div', "classroom.notif.pseudoMissingInCsvFile", "error");
-
-                    if ($('#table-students ul li .col').length > 1) {
-                        $('#no-student-label').remove();
-                    }
-                    // remove the previous filename uploaded on open 
-                    $('#importcsv-fileinput').val("");
-                    pseudoModal.closeModal('import-csv');
+                for(let i = 0; i < headers.length; i++) {
+                    headers[i] = headers[i].replace("\r","");
                 }
-            } catch (error) {
-                reject(`Error while opening the csv file! Reason: ${error}`);
-                displayNotification('#notif-div', "classroom.notif.errorWithCsv", "error", `'{"error": "${error}"}'`);
+                
+                let missingPseudoError = false;
+                for (let i = 1; i < lines.length; i++) {
+                    // sanitize the current line
+                    lines[i] = lines[i].replace(/(\r\n|\n|\r)/gm, "")
+                    // ignore current empty line
+                    // NOTE : EXCEL return a single character for an empty line when we use the "pseudo;password" example file
+                    if(lines[i] == '' || lines[i] ==';') continue;
+
+                    let currentline = lines[i].split(/[,;]/);
+                    
+                    // set the error flag to true if the pseudo is missing in the csv
+                    if(currentline[0].trim() == '') missingPseudoError = true;
+
+                    // add the student into the students table
+                    else tableStudentUlElt.innerHTML += addStudentRow(currentline[0]);
+                }
+
+                // display the missing pseudo error
+                if(missingPseudoError == true) displayNotification('#notif-div', 'classroom.notif.pseudoMissingInCsvFile', 'error');
+
+                if (document.querySelectorAll('#table-students ul li .col').length > 1) {
+                    if (document.querySelector('#no-student-label') !== null)
+                        document.querySelector('#no-student-label').remove();
+                }
+                // remove the previous filename uploaded on open 
+                fileInputElt.value = '';
+                pseudoModal.closeModal(modalId);
             }
-        } else {
-            reject('No csv file given!');
-            displayNotification('#notif-div', "classroom.notif.CsvFileMissing", "error");
+        } catch (error) {
+            reject(`Error while opening the csv file! Reason: ${error}`);
+            displayNotification('#notif-div', "classroom.notif.errorWithCsv", "error", `'{"error": "${error}"}'`);
         }
-        $('#table-students ul').html("");
+    } else {
+        displayNotification('#notif-div', "classroom.notif.CsvFileMissing", "error");
     }
 }
 
@@ -447,6 +546,12 @@ function csvToClassroom(link) {
  */
 function csvJSON(csv) {
 
+    /**
+     * define array of internal headers 
+     * to replace incoming headers 
+     * following this format => student|password
+     */
+    const internalHeaders = ["apprenant","mot_de_passe"]
     let lines = csv.split("\n");
     const result = [];
 
@@ -457,9 +562,9 @@ function csvJSON(csv) {
     let headers = lines[0].split(/[,;]/);
     
     for(let i=0; i< headers.length; i++){
-        headers[i] = headers[i].replace("\r","")
+        headers[i] = internalHeaders[i]
+        // headers[i] = headers[i].replace("\r","")
     }
-    
     for (let i = 1; i < lines.length; i++) {
         // sanitize the current line
         lines[i] = lines[i].replace(/(\r\n|\n|\r)/gm, "")
@@ -725,7 +830,6 @@ function filterTeacherActivityInList(keywords = [], orderBy = 'id', asc = true) 
         expression += '(?=.*'
         expression += keywords[i].toUpperCase()
         expression += ')'
-
     }
     regExp = new RegExp(expression)
     let list = Main.getClassroomManager()._myTeacherActivities.filter(x => regExp.test(x.title.toUpperCase()))
@@ -738,7 +842,6 @@ function filterTeacherActivityInList(keywords = [], orderBy = 'id', asc = true) 
             return b[orderBy] - a[orderBy];
         })
     }
-
 }
 
 function filterSandboxInList(keywords = [], orderBy = 'id', asc = true) {
@@ -772,14 +875,19 @@ function displayStudentsInClassroom(students, link=false) {
     if (link && link != $_GET('option')) {
         return;
     }
-    $('#body-table-teach').html(''); //clean the display
-    $('#add-student-container').html(''); //clean the display
-    $('#export-class-container').html(''); //clean the display
-    $('#header-table-teach').html('<th class="table-title" style="max-width: 250px; font-size: 19pt; text-align: left; height: 3em;" data-i18n="classroom.activities.title"></th>').localize();
+    // Clean the display
+    document.querySelector('#body-table-teach').innerHTML = '';
+    document.querySelector('#add-student-container').innerHTML = '';
+    document.querySelector('#export-class-container').innerHTML = '';
     
-    $('#is-monochrome').attr('data-link', link)
-    $('#is-anonymised').attr('data-link', link)
-    
+    // Display the classroom name
+    const classroomName = getClassroomInListByLink(ClassroomSettings.classroom)[0].classroom.name;
+    const reducedclassroomName = classroomName.length > 16 ? `${classroomName.substring(0, 16)}...` : classroomName;
+    document.querySelector('#header-table-teach').innerHTML = `<th class="table-title" style="max-width: 250px; font-size: 14pt; text-align: left; height: 3em;" data-toggle="tooltip" title="${classroomName}">${reducedclassroomName}</th>`;
+
+    $('#is-monochrome').attr('data-link', link);
+    $('#is-anonymised').attr('data-link', link);
+
     // get the current classroom index of activities
     let arrayIndexesActivities = listIndexesActivities(students);
     
@@ -819,7 +927,7 @@ function displayStudentsInClassroom(students, link=false) {
                 <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
                 <li class="col-12 pwd-display-stud" href="#"><div data-i18n="classroom.classes.panel.password">Votre mot de passe :</div> <span class="masked">${element.pwd}</span><i class="classroom-clickable fas fa-low-vision switch-pwd ml-2"></i></li>
                 <li class="modal-student-password classroom-clickable col-12 dropdown-item" href="#" data-i18n="classroom.classes.panel.resetPassword">Régenérer le mot de passe</li>
-                <li class="classroom-clickable col-12 dropdown-item" href="#"><span class="classroom-clickable" data-i18n="classroom.classes.panel.editNickname" onclick="changePseudoModal('${element.user.pseudo}',${element.user.id})">Modifier le pseudo</span></li>
+                <li class="classroom-clickable col-12 dropdown-item" href="#"><span class="classroom-clickable" data-i18n="classroom.classes.panel.editNickname" onclick="changePseudoModal(${element.user.id})">Modifier le pseudo</span></li>
                 <li class="dropdown-item modal-student-delete classroom-clickable col-12" href="#" data-i18n="classroom.classes.panel.delete">Supprimer</li>
                 </div>
                 </div>
@@ -854,8 +962,11 @@ function displayStudentsInClassroom(students, link=false) {
             }
             // Display the current student activities in the dashboard
             let currentActivity = arrayActivities[i];
+
             if (currentActivity) {
-                html += `<td class=" ${statusActivity(currentActivity)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>"></td>`;
+                const formatedTimePast = 
+                typeof currentActivity.timePassed == 'undefined' ? '' : currentActivity.timePassed == 0 ? '' : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em><br><em>${i18next.t("classroom.activities.numberOfTries")} ${currentActivity.tries}</em>`;
+                html += `<td class=" ${statusActivity(currentActivity, true, formatedTimePast)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${getTranslatedActivityName(currentActivity.activity.type)}</em></br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>${formatedTimePast}"></td>`;
             } else {
                 html += `<td class="no-activity bilan-cell"></td>`;
             }
@@ -958,15 +1069,40 @@ function actualizeStudentActivities(activity, correction) {
 
 }
 
-function addStudentRow(pseudo) {
+function addStudentRow(pseudo, studentId = false, isNotDeletable) {
     return `
-    <li class="row align-items-center my-1 ">
+    <li data-pseudo="${pseudo}" data-id="${studentId}" class="row align-items-center my-1 ">
         <img class="col-2 propic" src="${_PATH}assets/media/alphabet/` + pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil">
         <div class="col">` + pseudo + `</div>
-        <button type=\"button\" class=\"btn btn-danger remove-student h-50\" data-toggle=\"tooltip\" data-placement=\"top\"  >
+        ${isNotDeletable ? '' : `<button type=\"button\" class=\"btn btn-danger remove-student h-50\" data-toggle=\"tooltip\" data-placement=\"top\"  >
             <i class=\"fas fa-times\"></i>
-        </button>
-    </li>`
+        </button>`}
+    </li>`;
+}
+
+/**
+ * Format a duration provided in seconds into a "h m s" format
+ * @param {integer} secs - Number of seconds
+ * @returns {string} - The formated duration or an empty string if the provided argument is 0
+ */
+function formatDuration(secs) {
+    const sec_num = parseInt(secs, 10);
+    const hours = Math.floor(sec_num / 3600);
+    const minutes = Math.floor(sec_num / 60) % 60;
+    const seconds = sec_num % 60;
+    const displayedUnits = ['h', 'm', 's'];
+    let firstFilled = false;
+
+    return [hours,minutes,seconds]
+    .map((v, i) => {
+        if (!firstFilled) {
+            firstFilled = v > 0 ? true : false;
+            return v > 0 ? v + displayedUnits[i] : '';
+        } else {
+            return ` ${v + displayedUnits[i]}`;
+        }
+    })
+    .join('');
 }
 
 /**
@@ -988,6 +1124,34 @@ document.getElementsByTagName('body')[0].addEventListener('click', (e) => {
 });
 
 /**
+ * Mutation observer that remove a tooltip from the dom if its related element is deleted (to avoid an issue where the tooltip remains in place and never disappears)
+ */
+const deletionObserver = new MutationObserver(function(mutations_list) {
+	mutations_list.forEach(function(mutation) {
+		mutation.removedNodes.forEach(function(removed_node) {
+			browseRemovedNodes(removed_node);
+		});
+	});
+});
+deletionObserver.observe(document.querySelector("body"), { subtree: true, childList: true });
+
+/**
+ * Check if the provided element and all its children has a displayed tooltip to remove
+ * @param {DOM Element} removed_node - The DOM Element to browse
+ */
+function browseRemovedNodes(removed_node) {
+    if (removed_node.getAttribute && removed_node.getAttribute('data-toggle') == 'tooltip') {
+        const toolTipId = removed_node.getAttribute('aria-describedby');
+        document.getElementById(toolTipId) !== null ? document.getElementById(toolTipId).remove() : false;
+    }
+    if (removed_node.childNodes) {
+        for (let child of removed_node.childNodes) {
+            browseRemovedNodes(child);
+        }
+    }
+}
+
+/**
  * Open teacher account panel
  */
 function openTeacherAccountPanel(){
@@ -1003,7 +1167,6 @@ function getAndPopulateAccountInfo(){
     let userInfo = {
         firstname: UserManager.getUser().firstname ?? '',
         lastname: UserManager.getUser().surname ?? '',
-        nickname: UserManager.getUser().pseudo ?? '',
         email: UserManager.getUser().isRegular ?? '',
         teacherId: UserManager.getUser().id
     };
@@ -1017,13 +1180,11 @@ function getAndPopulateAccountInfo(){
 function populateAccountInfo(data){
     let firstNameInputElt = document.getElementById('profile-form-first-name'),
     lastNameInputElt = document.getElementById('profile-form-last-name'),
-    nickNameInputElt = document.getElementById('profile-form-nick-name'),
     emailInputElt = document.getElementById('profile-form-email'),
     teacherIdInputElt = document.getElementById('profile-form-teacher-id');
 
     firstNameInputElt.value = data.firstname;
     lastNameInputElt.value = data.lastname;
-    nickNameInputElt.value = data.nickname;
     emailInputElt.value = data.email;
     teacherIdInputElt.value = data.teacherId;
 }
@@ -1031,7 +1192,24 @@ function populateAccountInfo(data){
 /**
  * Update teacher form submit listener
  */
-document.getElementById('update-teacher-account-form').addEventListener('submit', (e) => {
+document.querySelector('#validate-profile-update').addEventListener('click', () => {
+    pseudoModal.openModal('profile-update-password-confirm');
+});
+
+document.querySelector('body').addEventListener('click', (e) => {
+    if (e.target.id == 'saveProfileUpdate') {
+        const userPassword = document.querySelector('#current_password_prompt').value;
+        if (!userPassword.length) {
+            displayNotification('#notif-div', "classroom.notif.passwordMissing", "error");
+            return;
+        }
+        document.querySelector('#current-password').value = userPassword;
+        document.querySelector('#update-teacher-account-form').dispatchEvent(new Event('submit'));
+    }
+});
+
+
+document.querySelector('#update-teacher-account-form').addEventListener('submit', (e) => {
     e.preventDefault();
     let data = new FormData(e.target);
     if(teacherAccountUpdateFormCheck(data)){
@@ -1043,6 +1221,7 @@ document.getElementById('update-teacher-account-form').addEventListener('submit'
                 if(data.get('email') != UserManager.getUser().isRegular){
                     displayNotification('#notif-div', "classroom.notif.emailUpdated", "success");
                 }
+                pseudoModal.closeModal('profile-update-password-confirm');
                 UserManager.init();
             }else{
                 if(response.errorType){
@@ -1061,6 +1240,8 @@ document.getElementById('update-teacher-account-form').addEventListener('submit'
                     }
                 }
             }
+            document.querySelector('#current-password').value = '';
+            document.querySelector('#current_password_prompt').value = '';
         });
     }
 });
@@ -1079,10 +1260,6 @@ function teacherAccountUpdateFormCheck(formData){
         'surname': {
             value: formData.get('last-name'),
             id: 'profile-form-last-name'
-        },
-        'pseudo': {
-            value: formData.get('nickname'),
-            id: 'profile-form-nick-name'
         },
         'email': {
             value: formData.get('email'),
@@ -1114,11 +1291,6 @@ function teacherAccountUpdateFormCheck(formData){
     if(!formValues.surname.value.length == 0 && formValues.surname.value.length < 2){
         errors.push('lastNameTooShort');
         showFormInputError(formValues.surname.id);
-    }
-
-    if(!formValues.pseudo.value.length == 0 && formValues.pseudo.value.length < 2){
-        errors.push('pseudoTooShort');
-        showFormInputError(formValues.pseudo.id);
     }
 
     if(!formValues.email.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)){

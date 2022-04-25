@@ -2,24 +2,32 @@ function createActivity(link = null, id = null) {
     ClassroomSettings.status = "attribute"
     ClassroomSettings.isNew = true;
     if (id == null) {
-
         if (link) {
             $('.wysibb-text-editor').html('[iframe]' + URLServer + '' + link + '[/iframe]')
         } else {
             $('.wysibb-text-editor').html('')
         }
         $('#activity-form-title').val('')
-
+        navigatePanel('classroom-dashboard-new-activity-panel', 'dashboard-activities-teacher')
+        ClassroomSettings.activityInWriting = true
     } else {
         ClassroomSettings.activity = id
-        ClassroomSettings.status = 'action';
-        Main.getClassroomManager().getActivity(ClassroomSettings.activity).then(function (activity) {
-            $('#activity-form-title').val(activity.title)
-            $('.wysibb-text-editor').html(activity.content)
+        let activityTitle = getActivity(ClassroomSettings.activity).title;
+        Main.getClassroomManager().duplicateActivity(id).then(function (response) {
+            if (response.success == true) {
+                displayNotification('#notif-div', "classroom.notif.activityDuplicated", "success", `'{"activityName": "${activityTitle}"}'`);
+                teacherActivitiesDisplay();
+                DisplayActivities();
+            }
         })
     }
-    navigatePanel('classroom-dashboard-new-activity-panel', 'dashboard-activities-teacher')
-    ClassroomSettings.activityInWriting = true
+}
+
+function showExercicePanel() {
+    Main.getClassroomManager().getAllApps().then((apps) => {
+        activitiesCreation(apps);
+        navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-activities-teacher');
+    })
 }
 
 
@@ -29,7 +37,6 @@ window.addEventListener('storage', () => {
         if ($('#activity-validate').is(':visible') && window.localStorage.classroomActivity != null) {
             let autocorrection = window.localStorage.classroomActivity
             delete window.localStorage.classroomActivity
-            Activity.timePassed += ClassroomSettings.chrono
             window.localStorage.autocorrect = 'false';
 
             $("#activity-validate").attr("disabled", "disabled");
@@ -61,10 +68,11 @@ $('body').on('click', '.activity-card-top i', function (event) {
 
 //activité modal-->supprimer
 $('body').on('click', '.modal-activity-delete', function () {
-    let confirm = window.confirm("Etes vous sur de vouloir supprimer l'activité'?")
+    let confirm = window.confirm("Etes vous sur de vouloir supprimer l'activité ?")
     if (confirm) {
+        let activityTitle = getActivity(ClassroomSettings.activity).title;
         Main.getClassroomManager().deleteActivity(ClassroomSettings.activity).then(function (activity) {
-            displayNotification('#notif-div', "classroom.notif.activityDeleted", "success", `'{"activityName": "${activity.name}"}'`);
+            displayNotification('#notif-div', "classroom.notif.activityDeleted", "success", `'{"activityName": "${activityTitle}"}'`);
             deleteTeacherActivityInList(activity.id);
             teacherActivitiesDisplay();
             DisplayActivities();
@@ -75,20 +83,171 @@ $('body').on('click', '.modal-activity-delete', function () {
 
 //activité modal-->modifier
 function activityModify(id) {
+
+    hideAllActivities();
+
+    if (id == 0) {
+        id = Main.getClassroomManager()._lastCreatedActivity;
+    }
+
     ClassroomSettings.activity = id
     $('#activity-form-title').val('')
     $('.wysibb-text-editor').html('')
     Main.getClassroomManager().getActivity(ClassroomSettings.activity).then(function (activity) {
-        $('#activity-form-title').val(activity.title)
-        $('.wysibb-text-editor').html(activity.content)
+        if (activity.type != "") {
+            manageUpdateByType(activity);
+        } else {
+            $('#activity-form-title').val(activity.title)
+            $('.wysibb-text-editor').html(activity.content)
+
+            navigatePanel('classroom-dashboard-new-activity-panel', 'dashboard-activities-teacher')
+        }
     })
     ClassroomSettings.status = 'edit';
-    navigatePanel('classroom-dashboard-new-activity-panel', 'dashboard-activities-teacher')
+}
 
+function manageUpdateByType(activity) {
+    setTextArea();
+    const contentForwardButtonElt = document.getElementById('content-forward-button');
+
+    // Merge old activity to reading activity
+    activity.type == null ? activity.type = "reading" : activity.type;
+
+    Main.getClassroomManager()._createActivity.id = activity.type;
+    Main.getClassroomManager()._createActivity.function = "update";
+    
+    contentForwardButtonElt.style.display = 'inline-block';
+
+    $('#global_title').val(activity.title);
+
+    switch (activity.type) {
+        case "free":
+            manageUpdateForFree(activity);
+            break;
+        case "quiz":
+            manageUpdateForQuiz(activity);
+            break;
+        case "fillIn":
+            manageUpdateForFillIn(activity);
+            break;
+        case "reading":
+        case null:
+            manageUpdateForReading(activity);
+            break;
+        case "dragAndDrop":
+            manageUpdateForDragAndDrop(activity);
+            break;
+        default:
+            contentForwardButtonElt.style.display = 'none';
+            Main.getClassroomManager()._createActivity.content.description = JSON.parse(activity.content).description;
+            launchLtiDeepLinkCreate(activity.type, true);
+            $("#activity-custom").show();
+            break;
+    }
+    
+    navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
+}
+
+
+function manageUpdateForFree(activity) {
+    $('#activity-free').show();
+    let content = JSON.parse(activity.content);
+    if (content.description != "" && content.description != null) {
+        $('#free-content').htmlcode(bbcodeToHtml(content.description));
+    }
+
+    // set tolerance 
+    if (content.tolerance != null) {
+        $('#free-tolerance').val(activity.tolerance);
+    }
+
+    if (activity.isAutocorrect) {
+        $("#free-autocorrect").prop("checked", true)
+        $("#free-correction-content").show();
+    } else {
+        $("#free-autocorrect").prop("checked", false)
+        $("#free-correction-content").hide();
+    }
+    if (activity.solution != "") {
+        if (JSON.parse(activity.solution) != null && JSON.parse(activity.solution) != "") {
+            $('#free-correction').htmlcode(bbcodeToHtml(JSON.parse(activity.solution)));
+        }
+    }
+}
+
+function manageUpdateForQuiz(activity) {
+    let solution = JSON.parse(activity.solution),
+    content = JSON.parse(activity.content);
+    $('#quiz-suggestions-container').html('');
+    for (let i = 1; i < solution.length+1; i++) {
+        let divToAdd = `<div class="form-group c-primary-form" id="quiz-group-${i}">
+                            <label for="quiz-suggestion-${i}" id="quiz-label-suggestion-${i}">Proposition ${i}</label>
+                            <button class="btn c-btn-grey mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-${i}" onclick="deleteQuizSuggestion(${i})">Delete</button>
+
+                            <div class="input-group mt-3">
+                                <input type="text" id="quiz-suggestion-${i}" class="form-control" value="${solution[i-1].inputVal}">
+                                <div class="input-group-append">
+                                    <div class="input-group-text c-checkbox c-checkbox-grey">
+                                        <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}" ${solution[i-1].isCorrect ? "checked" : ""}>
+                                        <label class="form-check-label" for="quiz-checkbox-${i}">Réponse correcte</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+        $('#quiz-suggestions-container').append(divToAdd);
+        $(`#quiz-button-suggestion-${i}`).localize();
+    }
+
+    $('#quiz-states').htmlcode(bbcodeToHtml(content.states));
+    $('#quiz-hint').val(content.hint);
+
+    if (activity.isAutocorrect) {
+        $("#quiz-autocorrect").prop("checked", true);
+    } else {
+        $("#quiz-autocorrect").prop("checked", false);
+    }
+    $('#activity-quiz').show();
+}
+
+function manageUpdateForFillIn(activity) {
+    $('#activity-fill-in').show();
+    let content = JSON.parse(activity.content);
+    $("#fill-in-states").htmlcode(bbcodeToHtml(content.states));
+    $("#fill-in-hint").val(content.hint);
+    $("#fill-in-tolerance").val(activity.tolerance);
+    $("#fill-in-content").htmlcode(bbcodeToHtml(content.fillInFields.contentForTeacher));
+    activity.isAutocorrect ? $("#fill-in-autocorrect").prop("checked", true) : $("#fill-in-autocorrect").prop("checked", false);
+}
+
+function manageUpdateForReading(activity) {
+    let contentParsed = "";
+    if (IsJsonString(activity.content)) {
+        contentParsed = bbcodeToHtml(JSON.parse(activity.content).description);
+    } else {
+        contentParsed = activity.content;
+    }
+    $("#reading-content").htmlcode((contentParsed));
+    $("#activity-reading").show();
+}
+
+
+function manageUpdateForDragAndDrop(activity) {
+    $('#activity-drag-and-drop').show();
+    let content = JSON.parse(activity.content);
+    $("#drag-and-drop-hint").val(content.hint);
+    $("#drag-and-drop-states").htmlcode(bbcodeToHtml(content.states));
+    $("#drag-and-drop-content").htmlcode(bbcodeToHtml(content.dragAndDropFields.contentForTeacher));
+    activity.isAutocorrect ? $("#drag-and-drop-autocorrect").prop("checked", true) : $("#drag-and-drop-autocorrect").prop("checked", false);
 }
 
 //création activité vers attribution
 function attributeActivity(id, ref = null) {
+
+    Main.getClassroomManager()._idActivityOnAttribution = id;
+   
+    if (id == 0) {
+        id = Main.getClassroomManager()._lastCreatedActivity;
+    }
     ClassroomSettings.activity = id
     ClassroomSettings.ref = ref
     document.getElementsByClassName('student-number')[0].textContent = '0';
@@ -103,6 +262,8 @@ function attributeActivity(id, ref = null) {
         }
     })
 }
+
+
 
 function undoAttributeActivity(ref,title,classroomId) {
     Main.getClassroomManager().undoAttributeActivity(ref,classroomId).then(function (result) {
@@ -129,6 +290,7 @@ $('body').on('click', '#attribute-activity-to-students', function () {
     let students = []
     let classrooms = []
     let studentId = $('#attribute-activity-modal .student-attribute-form-row')
+    const retroAttribution = $('#retro-attribution-activity-form').prop('checked')
     for (let i = 0; i < studentId.length; i++) {
         if ($(studentId[i]).find(".student-id").is(':checked')) {
             students.push($(studentId[i]).find(".student-id").val())
@@ -150,11 +312,8 @@ $('body').on('click', '#attribute-activity-to-students', function () {
             /* if (ClassroomSettings.ref != null) {
                 Main.getClassroomManager().undoAttributeActivity(ClassroomSettings.ref)
             } */
-            
-            // get the checkbox value then set it by default for the next time
-            retroAttribution = $('#retro-attribution').prop('checked')
-            $('#retro-attribution').prop('checked',false)
 
+            
             Main.getClassroomManager().attributeActivity({
                 'activity': activity,
                 'students': students,
@@ -182,7 +341,6 @@ $('body').on('click', '#attribute-activity-to-students', function () {
 
         });
     }
-
 })
 
 //déplie/replie la liste des étudiants

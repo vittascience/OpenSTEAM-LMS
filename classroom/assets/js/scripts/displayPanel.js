@@ -67,21 +67,14 @@ DisplayPanel.prototype.classroom_dashboard_ide_panel = function (option) {
 }
 
 DisplayPanel.prototype.classroom_dashboard_activities_panel = function () {
-    $('#header-table-bilan').html('<th style="max-width:200px" data-i18="classroom.navbar.activities"></th>');
-    $('#body-table-bilan').html('<td style="max-width:200px">');
     $('table').localize();
-    $('#new-activities-list').html('');
-    $('#saved-activities-list').html('');
-    $('#current-activities-list').html('');
-    $('#done-activities-list').html('');
     // Refresh the activities
     Main.getClassroomManager().getStudentActivities(Main.getClassroomManager())
     .then(() => {
         studentActivitiesDisplay();
     });
-
-
 }
+
 DisplayPanel.prototype.classroom_dashboard_activities_panel_library_teacher = function () {
     if (!$("#resource-center-classroom").length) {
         $('#classroom-dashboard-activities-panel-library-teacher').html('<iframe id="resource-center-classroom" src="/learn/?use=classroom" frameborder="0" style="height:80vh;width:80vw"></iframe>')
@@ -217,40 +210,32 @@ DisplayPanel.prototype.classroom_dashboard_sandbox_panel = function () {
 }
 
 DisplayPanel.prototype.classroom_dashboard_form_classe_panel = function () {
-    if (ClassroomSettings.classroom != null) {
-        let classroom = getClassroomInListByLink(ClassroomSettings.classroom)[0]
-        $('#classroom-form-name').val(classroom.classroom.name),
-            $('#classroom-form-school').val(classroom.classroom.school)
-        $('#add-student-div').html(BASE_STUDENT_FORM)
-        if (classroom.classroom.isBlocked) {
-            document.querySelector('#classroom-form-is-blocked').checked = true;
-        } else {
-            document.querySelector('#classroom-form-is-blocked').checked = false;
-        }
-        // ask thomas about that     
-        $('#table-students ul').html("");
-        classroom.students.forEach(function (student) {
-            /* let html = `<div class="c-primary-form row col-12">
-                            <label class="col-5" data-i18n="classroom.modals.addStudent.pseudo">Pseudonyme</label>
-                            <input class="col-5 student-form-name" type="text" value="` + student.user.pseudo + `" data-id="` + student.user.id + `">
-                        </div>`
-            $('#add-student-div').append(html) */
+    document.querySelector('#classroom-form-is-blocked').checked = false;
+    $('#classroom-form-name').val('');
+    $('#classroom-form-school').val('');
+    $('#add-student-div').html(BASE_STUDENT_FORM);
+}
 
-            $('#table-students ul').append(addStudentRow(student.user.pseudo))
-        }) 
+DisplayPanel.prototype.classroom_dashboard_form_classe_panel_update = function () {
+    let classroom = getClassroomInListByLink(ClassroomSettings.classroom)[0];
+    $('#classroom-form-name-update').val(classroom.classroom.name);
+    $('#classroom-form-school-update').val(classroom.classroom.school);
+    $('#add-student-div').html(BASE_STUDENT_FORM);
+    if (classroom.classroom.isBlocked) {
+        document.querySelector('#classroom-form-is-blocked-update').checked = true;
     } else {
-        document.querySelector('#classroom-form-is-blocked').checked = false;
-        $('#classroom-form-name').val(''),
-            $('#classroom-form-school').val('')
-        $('#add-student-div').html(BASE_STUDENT_FORM)
+        document.querySelector('#classroom-form-is-blocked-update').checked = false;
     }
+    $('#table-students-update ul').html("");
+    classroom.students.forEach(function (student) {
+        $('#table-students-update ul').append(addStudentRow(student.user.pseudo, student.user.id, true));
+    }) 
 }
 
 DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function () {
     ClassroomSettings.activity = false;
     // Refresh the activities
-    Main.getClassroomManager().getTeacherActivities(Main.getClassroomManager())
-    .then(() => {
+    Main.getClassroomManager().getTeacherActivities(Main.getClassroomManager()).then(() => {
         teacherActivitiesDisplay();
     });
 }
@@ -279,7 +264,7 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
                 if (ClassroomSettings.classroom != null) {
                     link = ClassroomSettings.classroom;
                 } else {
-                    navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher', '', '');
+                    navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher');
                     return;
                 }
             }
@@ -313,7 +298,14 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
 DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) {
     document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');
     if (ref != null && ref != 'null') {
-        let attribution = getAttributionByRef(ref)
+        // If the user don't come in this panel from the classroom dashboard and with the ref attribute (using the browser history or a simple refresh), we need to skip this panel
+        if (typeof ClassroomSettings.indexRef == 'undefined') {
+            navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher');
+            return;
+        }
+        let attribution = getAttributionByRef(ref);
+        let retroAttributionIsActive = ClassroomSettings.isRetroAttributed === true ? true : false;
+        $('#retro-attribution-activity-form').prop('checked',retroAttributionIsActive)
         $('#introduction-activity-form').val(attribution.introduction)
         $('#date-begin-activity-form').val(formatDateInput(new Date(attribution.dateBegin.date)))
         $('#date-end-activity-form').val(formatDateInput(new Date(attribution.dateEnd.date)))
@@ -332,21 +324,24 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) 
         $('#date-begin-activity-form').val(formatDateInput(now))
         $('#date-end-activity-form').val(formatDateInput(future))
         $('#introduction-activity-form').val('')
+        $('#retro-attribution-activity-form').prop('checked',true)
     }
 }
+
 DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
     if (id != 'null') {
         if (UserManager.getUser().isRegular) {
             if (id.slice(0, 2) == "WK") {
+
                 ClassroomSettings.activity = id = Number(id.slice(2))
-                Activity = getActivity(id)
-                getTeacherActivity()
+                Activity = getActivity(id);
+                getTeacherActivity();
 
             } else {
                 ClassroomSettings.activity = id = Number(id.slice(2))
                 Main.getClassroomManager().getOneUserLinkActivity(id).then(function (result) {
-                    Activity = result
-                    loadActivity(false)
+                    Activity = result;
+                    loadActivityForTeacher();
                 })
             }
         } else {
@@ -357,8 +352,17 @@ DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
             }
             ClassroomSettings.activity = id = Number(id.slice(2))
             Activity = getActivity(id, $_GET('interface'))
-            loadActivity(isDoable)
-
+            if (typeof Activity == 'undefined') {
+                console.error(`The activity can't be loaded!`);
+                navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
+                return;
+            }
+            // Run the activity tracker if the current activity is doable or exercise
+            if (Activity.evaluation != true || Activity.correction == null) {
+                Main.activityTracker = new ActivityTracker();
+                Main.activityTracker.startActivityTracker();
+            }
+            loadActivityForStudents(isDoable)
         }
     }
 }
@@ -373,30 +377,132 @@ function addZero(number, lenght) {
 }
 
 function formatDateInput(date) {
-
     return date.getFullYear() + "-" + addZero((Number(date.getMonth()) + 1), 2) + "-" + addZero(date.getDate(), 2)
 }
 
 function getTeacherActivity() {
-    $('#activity-title').html(Activity.title + `<button class="btn btn-link" onclick="attributeActivity(` + Activity.id + `)">
-    <i class="fas fa-arrow-down"></i> ` + capitalizeFirstLetter(i18next.t('words.attribute')) + `
-</button>`)
-    $('#activity-content').html(bbcodeToHtml(Activity.content))
+    resetInputsForActivity();
+    
+    $('#activity-title').html(Activity.title);
+    
+    let autoCorrectionDisclaimerElt = `<img id="activity-auto-disclaimer" data-toggle="tooltip" src="assets/media/auto-icon.svg" title="${i18next.t("classroom.activities.isAutocorrect")}">`
+    Activity.isAutocorrect ? $('#activity-title').append(autoCorrectionDisclaimerElt).tooltip() : null;
+
+    let activityDropdownElt = `
+    <div class="dropdown mx-2">
+        <button class="btn c-btn-outline-grey" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            ${capitalizeFirstLetter(i18next.t('words.options'))}
+            <i class="fas fa-cog"></i>
+        </button>
+
+        <ul class="dropdown-menu">
+            <li>
+                <a href="#" class="dropdown-item" href="#" onclick="attributeActivity(${Activity.id})" >
+                    ${capitalizeFirstLetter(i18next.t('words.attribute'))}
+                </a>
+            </li>
+        
+            <li>
+                <a class="dropdown-item" href="#" onclick="createActivity(null,${Activity.id})">
+                    ${capitalizeFirstLetter(i18next.t('words.duplicate'))}
+                </a>
+            </li>
+                
+            <li>
+                <a class="dropdown-item" onclick="activityModify(${Activity.id})" href="#">
+                    ${capitalizeFirstLetter(i18next.t('words.modify'))}
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item modal-activity-delete" href="#">
+                    ${capitalizeFirstLetter(i18next.t('words.delete'))}
+                </a>
+            </li>
+        </ul>
+    </div>`
+    $('#activity-title').append(activityDropdownElt);
+
+
+    if (IsJsonString(Activity.content)) {
+        const contentParsed = JSON.parse(Activity.content);
+        if (Activity.type == 'free' || Activity.type == 'reading') {
+            if (contentParsed.hasOwnProperty('description')) {
+                $('#activity-content').html(bbcodeToHtml(contentParsed.description));
+                $('#activity-content-container').show();
+            } 
+        } else if (Activity.type == 'fillIn') {
+            $("#activity-states").html(bbcodeToHtml(contentParsed.states));
+            let contentForTeacher = contentParsed.fillInFields.contentForTeacher;
+            contentForTeacher = parseContent(contentForTeacher, "lms-answer fill-in-answer-teacher", true);
+            $('#activity-content').html(bbcodeToHtml(contentForTeacher));
+            $("#activity-content-container").show();
+            $("#activity-states-container").show();
+
+        } else if (Activity.type == 'quiz') {
+            $("#activity-states").html(bbcodeToHtml(contentParsed.states));
+            $(`div[id^="teacher-suggestion-"]`).each(function() {
+                $(this).remove();
+            })
+
+            let data = JSON.parse(Activity.solution);
+            let htmlToPush = '';
+            for (let i = 1; i < data.length+1; i++) {
+                htmlToPush += `<div class="input-group c-checkbox quiz-answer-container" id="qcm-field-${i}">
+                                <input class="form-check-input" type="checkbox" id="show-quiz-checkbox-${i}" ${data[i-1].isCorrect ? 'checked' : ''} onclick="return false;">
+                                <label class="form-check-label" for="quiz-checkbox-${i}" id="show-quiz-label-checkbox-${i}">${data[i-1].inputVal}</label>
+                            </div>`;
+            }
+            $('#activity-content-container').append(htmlToPush);
+
+            $("#activity-content-container").show();
+            $("#activity-states-container").show();
+        } else if (Activity.type == 'dragAndDrop') {
+
+            $("#activity-states").html(bbcodeToHtml(contentParsed.states));
+
+            let contentForTeacher = contentParsed.dragAndDropFields.contentForTeacher;
+
+            contentForTeacher = parseContent(contentForTeacher, "drag-and-drop-answer-teacher", true);
+
+            $("#activity-content").html(bbcodeToHtml(contentForTeacher));
+            $("#activity-content-container").show();
+            $("#activity-states-container").show();
+
+            // Default behavior
+        } else {
+            // LTI Activity
+            if (Activity.isLti) {
+                launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description);
+            } else {
+                // Non core and non LTI Activity fallback
+                $("#activity-content").html(bbcodeToHtml(contentParsed));
+                $("#activity-content-container").show();
+            }
+        }
+        
+    } else {
+        $('#activity-content').html(bbcodeToHtml(Activity.content))
+        $("#activity-content-container").show();
+    }
+
     $('#activity-introduction').hide()
     $('#activity-validate').hide()
 }
+
 
 function getIntelFromClasses() {
     $('#list-classes').html('')
     let classes = Main.getClassroomManager()._myClasses
     if (classes.length == 0) {
         $('.tocorrect-activities').html('0')
-        $('#mode-student-check').after(NO_CLASS)
+        if (document.querySelector('#mode-student-check').parentElement.querySelector('p.no-classes') === null) {
+            $('#mode-student-check').after(NO_CLASS);
+        }
         $('#mode-student-check').hide()
 
     } else {
         let correctionCount = 0
-        classes.forEach(element => {
+        classes.forEach((element, e) => {
             element.students.forEach(e => {
                 e.activities.forEach(a => {
                     if (a.correction == 1) {
@@ -404,7 +510,15 @@ function getIntelFromClasses() {
                     }
                 })
             })
-            $('#list-classes').append('<div><input class="mx-5" type="radio" name="classroom" id="' + element.classroom.link + '" value="' + element.classroom.link + '"><label for="' + element.classroom.link + '">' + element.classroom.name + '</label></div>')
+            // Auto select the first class
+            if (e == 0) {
+                ClassroomSettings.classroom = element.classroom.link;
+            }
+            $('#list-classes').append(`
+            <label class="c-radio mb-3">
+                <input type="radio" name="classroom" id="${element.classroom.link}" value="${element.classroom.link}" ${e == 0 ? "checked" : ""} />
+                ${element.classroom.name}
+            </label>`)
         });
         $('.no-classes').remove()
         $('#mode-student-check').show()

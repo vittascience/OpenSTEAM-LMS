@@ -65,6 +65,11 @@ function bbcodeToHtml(html) {
     //size
     html = html.replace(/\[size\=([0-9]{1,3})]/gi, "<span style='font-size:$1px;'>")
     html = html.replace(/\[\/size\]/gi, "</span>")
+
+    // anwser 
+	html = html.replace(/\[answer\]/gi, "<span class='lms-answer'>");
+	html = html.replace(/\[\/answer\]/gi, "</span>");
+
     return html
 }
 
@@ -79,4 +84,13 @@ function generateRandomString(length = 10) {
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
+}
+
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
 }

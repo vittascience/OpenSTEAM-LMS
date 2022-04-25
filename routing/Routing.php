@@ -27,12 +27,12 @@ use Interfaces\Controller\ControllerProject;
 use Classroom\Controller\ControllerClassroom;
 use Utils\Exceptions\EntityOperatorException;
 
-/**
- * A modifier pour le namespace superadmin
- */
+
 
 use Classroom\Controller\ControllerGroupAdmin;
 use Classroom\Controller\ControllerSuperAdmin;
+
+use Learn\Controller\ControllerNewActivities;
 
 use Learn\Controller\ControllerCourseLinkCourse;
 use Utils\Exceptions\EntityDataIntegrityException;
@@ -198,6 +198,11 @@ try {
             break;
         case 'groupadmin':
             $controller = new ControllerGroupAdmin($entityManager, $user);
+            echo (json_encode($controller->action($action, $_POST)));
+            $log->info($action, OK);
+            break;
+        case 'newActivities':
+            $controller = new ControllerNewActivities($entityManager, $user);
             echo (json_encode($controller->action($action, $_POST)));
             $log->info($action, OK);
             break;

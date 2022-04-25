@@ -78,5 +78,5 @@ WBBLANG['fr'] = {
 	sm9: "Malade",
 
 	vittaiframe: "Interface de développement",
-	vittapdf: "Liseuse de pdf"
+	vittapdf: "Liseuse de pdf",	
 };

@@ -22,6 +22,12 @@ class ClassroomManager {
         this._myTeacherActivities = []
         this._tasksQueue = [];
         this._isExecutingTaskInQueue = false;
+        this._allActivities = []
+        this._allApps = []
+        this._createActivity = {}
+        this._lastCreatedActivity = 0;
+        this._idActivityOnAttribution = 0;
+        this.setDefaultActivityData();
     }
 
     /**
@@ -172,22 +178,19 @@ class ClassroomManager {
     getTeacherActivities(container) {
         return new Promise((resolve, reject) => {
             let currentTask = (onEnd) => {
-                var process = function (thisInstance, response) {
-                    if (response.error_message && response.error_message !== undefined) {
+                var process = function (thisInstance, res) {
+                    if (res.error_message && res.error_message !== undefined) {
                         thisInstance.errors.push(GET_PUBLIC_PROJECTS_ERROR)
                     }
-                    thisInstance._myTeacherActivities = response;
+                    thisInstance._myTeacherActivities = res;
                     resolve()
                     onEnd();
                 };
-                var callBack = function (thisInstance, response) {
-                    process(thisInstance, response);
-                };
-                $.ajax({
+               $.ajax({
                     type: "POST",
                     url: "/routing/Routing.php?controller=activity&action=get_mine_for_classroom",
                     success: function (response) {
-                        callBack(container, JSON.parse(response));
+                        process(container, JSON.parse(response));
                         onEnd();
                     },
                     error: function () {
@@ -428,9 +431,13 @@ class ClassroomManager {
                 type: "POST",
                 url: "/routing/Routing.php?controller=activity&action=get",
                 data: {
-                    "id": ClassroomSettings.activity
+                    "id": ClassroomSettings.activity,
+                    "classroomLink": ClassroomSettings.classroom,
+                    "reference": ClassroomSettings.ref
                 },
                 success: function (response) {
+                    let isRetroAttributed = JSON.parse(response).isRetroAttributed
+                    ClassroomSettings.isRetroAttributed = isRetroAttributed
                     let content = JSON.parse(response).content
                     let link = content.replace(/\n/, '');
                     link = content.replace(/.*(\[iframe\].*python\/\?link=)([a-f0-9]{13}).*/, "$2")
@@ -835,7 +842,9 @@ class ClassroomManager {
                 type: "POST",
                 url: "/routing/Routing.php?controller=activity&action=get",
                 data: {
-                    id: id
+                    "id": id,
+                    "classroomLink": ClassroomSettings.classroom,
+                    "reference": ClassroomSettings.ref
                 },
                 success: function (response) {
                     resolve(JSON.parse(response))
@@ -904,7 +913,6 @@ class ClassroomManager {
                     },
                     dataType: "JSON",
                     success: function (response) {
-                        let chrono = parseInt((Date.now() - ClassroomSettings.chrono) / 1000)
                         $.ajax({
                             type: "POST",
                             url: "/routing/Routing.php?controller=activity_link_user&action=update",
@@ -912,14 +920,12 @@ class ClassroomManager {
                                 'project': response.id,
                                 'id': activity,
                                 'correction': correction,
-                                'timePassed': chrono,
                                 'classroomLink': ClassroomSettings.classroom,
                                 'note': note
 
                             },
                             success: function (r) {
                                 resolve(JSON.parse(r))
-                                ClassroomSettings.chrono = Date.now()
                             }
                         });
 
@@ -930,7 +936,6 @@ class ClassroomManager {
                 });
             })
         } else {
-            let chrono = parseInt((Date.now() - ClassroomSettings.chrono) / 1000)
             return new Promise(function (resolve, reject) {
                 $.ajax({
                     type: "POST",
@@ -938,13 +943,11 @@ class ClassroomManager {
                     data: {
                         'id': activity,
                         'correction': correction,
-                        'timePassed': chrono,
                         'classroomLink': ClassroomSettings.classroom,
                         'note': note
                     },
                     success: function (r) {
                         resolve(JSON.parse(r))
-                        ClassroomSettings.chrono = Date.now()
                     }
                 });
             });
@@ -966,7 +969,6 @@ class ClassroomManager {
                     'project': activity.project,
                     'id': activity.id,
                     'correction': correction,
-                    'timePassed': activity.timePassed,
                     "commentary": comment,
                     'classroomLink': ClassroomSettings.classroom,
                     'note': note
@@ -1091,9 +1093,9 @@ class ClassroomManager {
                     'id': formData.get('teacher-id'),
                     'firstname': formData.get('first-name'),
                     'surname': formData.get('last-name'),
-                    'pseudo': formData.get('nickname'),
                     'email': formData.get('email'),
-                    'password': formData.get('password')
+                    'password': formData.get('password'),
+                    'current_password': formData.get('current-password')
                 },
                 success: function (response) {
                     resolve(JSON.parse(response));
@@ -1188,4 +1190,307 @@ class ClassroomManager {
             if(classroom.classroom.link == link) return classroom.classroom.id
         }
     }
+
+
+    // New exercices management
+
+    /**
+     * @public
+     * @param {string} activityId
+     * @returns {Activity}
+     * @memberof ActiviiesManager
+     * @description Get an activity by its id
+     * @example
+     * const activity = activitiesManager.getActivityById('activityId')
+     */
+    getActivityById(activityId) {
+        return this._allActivities.find(activity => activity.id === activityId)
+    }
+
+
+    /**
+     * Get all the apps
+     * @public
+     * @returns {Array}
+     */
+    getAllApps() {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=newActivities&action=get_all_apps",
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject('error')
+                }
+            });
+        })
+    };
+
+    //get one app by id
+    // write the commentaries
+
+    /**
+     * @public
+     * @param {string} activityId
+     * @returns {Activity}
+     * @description Get an activity by its id
+     * @example
+     * const activity = main.getClassroomManager.getActivityById('activityId')
+     */
+    getActivityById(id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=newActivities&action=get_one_activity",
+                data: {
+                    'id': id
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject('error')
+                }
+            });
+        })
+    }
+
+    // create a new activity
+    createNewActivity($title, $type, $content, $solution, $tolerance, $autocorrect) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=newActivities&action=create_exercice",
+                data: {
+                    'title' : $title,
+                    'type' : $type,
+                    'content' : $content,
+                    'solution' : $solution,
+                    'tolerance' : $tolerance,
+                    'autocorrect' : $autocorrect
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject('error')
+                }
+            });
+        })
+    }
+
+    // update an activity
+    updateActivity($id, $title, $type, $content, $solution, $tolerance, $autocorrect) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=newActivities&action=update_activity",
+                data: {
+                    'id' : $id,
+                    'title' : $title,
+                    'type' : $type,
+                    'content' : $content,
+                    'solution' : $solution,
+                    'tolerance' : $tolerance,
+                    'autocorrect' : $autocorrect
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject('error')
+                }
+            });
+        })
+    }
+
+
+    // delete an activity
+
+    deleteActivity($id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=newActivities&action=delete_activity",
+                data: {
+                    'id' : $id
+                },
+                success: function (response) {
+                    resolve(response);
+                },
+                error: function () {
+                    reject('error')
+                }
+            });
+        })
+    }
+
+
+    /**
+     * Return if the activity is limited or not
+     * @param {*} type 
+     * @param {*} id
+     */
+    isActivitiesRestricted(id = null, type = null) {
+        // Only one check can be done at the same time
+        if (id != null && type != null) {
+            return false;
+        }
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=activity&action=isActivitiesLimited",
+                data: {
+                    activityId: id,
+                    activityType: type
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        });
+    }
+
+
+    saveNewStudentActivity(activity, correction = 1, note = 0, response, activityLinkUserId) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=newActivities&action=save_new_activity",
+                data: {
+                    'id': activity,
+                    'activityLinkUserId': activityLinkUserId,
+                    'correction': correction,
+                    'classroomLink': ClassroomSettings.classroom,
+                    'note': note,
+                    'response': response
+                },
+                success: function (r) {
+                    resolve(JSON.parse(r))
+                }
+            });
+        });
+    }
+
+
+    getActivityAutocorrectionResult(activity, activityLinkUserId) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=newActivities&action=get_autocorrect_result",
+                data: {
+                    'activityId': activity,
+                    'activityLinkId': activityLinkUserId,
+                },
+                success: function (r) {
+                    resolve(JSON.parse(r))
+                }
+            });
+        });
+    }
+
+    getStudentLinkActivity(studentId, activityId) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=newActivities&action=get_student_link_activity",
+                data: {
+                    'studentId': studentId,
+                    'activityId': activityId
+                },
+                success: function (r) {
+                    resolve(JSON.parse(r))
+                }
+            });
+        });
+    }
+
+    duplicateActivity(activityId) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=newActivities&action=duplicate_activity",
+                data: {
+                    'activityId': activityId
+                },
+                success: function (r) {
+                    resolve(JSON.parse(r))
+                }
+            });
+        });
+    }
+
+    setDefaultActivityData() {
+        this._createActivity = {
+            function: 'create',
+            id: '',
+            title: '', 
+            content: {
+                states: '',
+                description: '',
+                hint: '',
+                fillInFields: {
+                    contentForTeacher: [],
+                    contentForStudent: [],
+                },
+                quiz: {
+                    contentForStudent: []
+                },
+                dragAndDropFields: {
+                    contentForTeacher: [],
+                    contentForStudent: []
+                }
+            }, 
+            type: '', 
+            solution: [],
+            tolerance: ''
+        }
+        const globalTitle = document.querySelector('#global_title');
+        if (globalTitle != null) {
+            document.querySelector('#global_title').value = '';
+        } 
+    }
+
+    /**
+     * Retrieve locally a classroom by its link
+     * @param {string} link - A classroom link
+     * @returns The classroom if found, otherwise false 
+     */
+    getLocalClassroomByLink(link) {
+        if(typeof link !== 'string') {
+            console.error('The provided link must be a string!');
+        }
+        for (let classroom of this._myClasses) {
+            if (classroom.classroom.link === link) {
+                return classroom;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Retrieve locally a student by its id
+     * @param {number} id - A student id
+     * @returns The student if found, otherwise false
+     */
+    getLocalCurrentClassroomStudentById(id) {
+        if(typeof id !== 'number') {
+            console.error('The provided id must be a number!');
+            return false;
+        }
+        const currentClassroom = this.getLocalClassroomByLink(ClassroomSettings.classroom);
+        for (let student of currentClassroom.students) {
+            if (student.user.id === id) {
+                return student;
+            }
+        }
+        return false;
+    }
+
 }
+

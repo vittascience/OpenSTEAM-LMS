@@ -103,14 +103,14 @@
 }
 
 .c-btn-grey {
-    background: var(--classroom-text-2);
+    background: var(--classroom-grey);
     color: var(--classroom-white);
     border-radius: 256px;
 }
 
 .c-btn-outline-grey {
-    border: 2px solid var(--classroom-text-2);
-    color: var(--classroom-text-2);
+    border: 2px solid var(--classroom-grey);
+    color: var(--classroom-grey);
     background: transparent;
 }
 
@@ -140,6 +140,9 @@
 .c-btn-light {
     font-weight: 700;
     border-radius: 256px;
+    transition: all 0.2s ease-in-out;
+    filter: brightness(1);
+
 }
 
 .c-btn-outline-primary:focus,
@@ -156,6 +159,7 @@
 .c-btn-light:focus {
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(126, 126, 126, 0.25);
+    filter: brightness(0.9);
 }
 
 .c-btn-outline-primary:hover,
@@ -203,6 +207,8 @@
 .c-tertiary-form input[type="number"],
 .c-tertiary-form input[type="date"] {
     border: 2px solid var(--classroom-text-1);
+    background-color: var(--classroom-background);
+    color: var(--classroom-text-1);
     border-radius: 0.5em;
     /*
     margin: 0.5em;
@@ -239,7 +245,9 @@
 .c-tertiary-form input[type="number"]:focus,
 .c-tertiary-form input[type="date"]:focus {
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(126, 126, 126, 0.25);
+    box-shadow: 0 0 0 .2rem rgba(126, 126, 126, 0.25);
+    color: var(--classroom-text-1);
+    background-color: var(--classroom-background);
 }
 
 .c-primary-form input[type="text"],
@@ -284,12 +292,19 @@
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
-    background-color: var(--classroom-white);
-    background-image: url("../media/theme/dropdown_icon.svg");
+    color: var(--classroom-text-1);
+    background-image: url('../media/theme/dropdown_icon.svg');
     background-repeat: no-repeat, repeat;
     background-position: right 0.7em top 50%, 0 0;
     background-size: 1em auto, 100%;
     padding-right: 2em;
+}
+
+.c-primary-form select:disabled,
+.c-secondary-form select:disabled,
+.c-tertiary-form select:disabled {
+    background-color: var(--classroom-background);
+    opacity: .65;
 }
 
 .c-primary-form .input-group-text,
@@ -297,7 +312,8 @@
 .c-tertiary-form .input-group-text {
     border-radius: 0.5em;
     align-self: center;
-    color: var(--classroom-white);
+    background-color: var(--classroom-background);
+    color: var(--classroom-text-1);
 }
 
 .c-primary-form .input-group-text {
@@ -448,6 +464,59 @@ hr {
     border-color: var(--classroom-primary) !important;
 }
 
+.wysibb .wbb-answer {
+    display: none !important;
+}
+
+.wysibb .wysibb-toolbar .wysibb-toolbar-container.modeSwitch {
+    display: grid;
+    place-items: center;
+    height: 100%;
+}
+
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn,
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn:hover,
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn.on,
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn.on:hover {
+    padding: 0.25em 0.5em !important;
+    border-radius: 2em;
+    color: var(--classroom-white) !important;
+    filter: brightness(1);
+    height: fit-content;
+    transition: all 0.2s;
+    box-shadow: unset;
+    border: unset;
+    max-width: 100%;
+    margin-right: 0.15em;
+}
+
+
+
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn,
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn:hover {
+    background-color: var(--classroom-primary);
+}
+
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn.on,
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn.on:hover {
+    background-color: var(--classroom-primary-dark) !important;
+}
+
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn:hover,
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn.on:hover {
+    filter: brightness(0.9);
+    border-radius: 2em;
+}
+
+.wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn .modesw {
+    height: unset;
+    min-width: unset;
+    margin: 0px;
+    line-height: unset;
+    text-transform: unset;
+}
+
+
 /* Vertical align center utility */
 
 .vertical-align-center {
@@ -470,8 +539,13 @@ hr {
 /* CHECKBOXES */
 
 /* Base for label styling */
+.c-checkbox {
+    position: relative;
+}
+
 .c-checkbox [type="checkbox"]:not(:checked),
 .c-checkbox [type="checkbox"]:checked {
+    display: none;
     position: absolute;
     left: 0;
     opacity: 0.01;
@@ -494,14 +568,13 @@ hr {
     top: calc(50% - 0.6em);
     width: 1.2em;
     height: 1.2em;
-    border: 2px solid var(--classroom-text-1);
-    border-radius: 0.2em;
-    transition: all 0.1s;
+    border: 2px solid var(--classroom-text-2);
+    border-radius: .2em;
+    transition: all .1s;
 }
-
-.c-checkbox.c-checkbox-grey [type="checkbox"]:not(:checked)+label:before,
-.c-checkbox.c-checkbox-grey [type="checkbox"]:checked+label:before {
-    border: 2px solid var(--classroom-text-0);
+.c-checkbox.c-checkbox-grey  [type="checkbox"]:not(:checked)+label:before,
+.c-checkbox.c-checkbox-grey  [type="checkbox"]:checked+label:before {
+    border: 2px solid var(--classroom-grey);
 }
 
 /* checked mark aspect */
@@ -563,7 +636,80 @@ hr {
 /* Accessibility */
 .c-checkbox [type="checkbox"]:checked:focus+label:before,
 .c-checkbox [type="checkbox"]:not(:checked):focus+label:before {
-    box-shadow: 0 0 0 0.2rem rgba(126, 126, 126, 0.25);
+    box-shadow: 0 0 0 .2rem rgba(126, 126, 126, 0.25);
+}
+
+/* RADIO BUTTONS */
+
+.c-radio {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2em auto;
+    gap: 0.5em;
+    align-items: center;
+}
+
+.c-radio + .c-radio {
+    margin-top: 1em;
+}
+
+.c-radio input[type="radio"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 2em;
+    height: 2em;
+    border: 1px solid var(--classroom-text-0);
+    border-radius: 50%;
+
+    cursor: pointer;
+    
+    display: grid;
+    place-content: center;
+    transition: 120ms box-shadow ease-in-out;
+}
+.c-radio input[type="radio"]:focus { 
+    box-shadow: 0 0 0 0.2rem rgb(126 126 126 / 50%);
+}
+
+
+.c-radio input[type="radio"]::before {
+    content: "";
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    background-color: var(--classroom-grey);
+}
+  
+.c-radio input[type="radio"]:checked::before {
+    transform: scale(1);
+}
+
+.c-primary-form .c-radio input[type="radio"]::before {
+    background-color: var(--classroom-primary);
+}
+
+
+.c-secondary-form .c-radio input[type="radio"]::before {
+    background-color: var(--classroom-secondary);
+}
+
+.c-tertiary-form .c-radio input[type="radio"]::before {
+    background-color: var(--classroom-tertiary);
+}
+
+/* SWITCHER */
+input:checked+.slider-mini {
+    background-color: var(--classroom-primary) !important;
+}
+
+.switcher__toggle {
+    background-color: var(--classroom-primary) !important;
 }
 
 /* LOADER/NANOBAR */

@@ -28,6 +28,7 @@ let getLangInCookie = function () {
 if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) {
 	WBBLANG['fr'] = CURLANG = {
 		bold: "Gras",
+		answer: "Réponse",
 		italic: "Italique",
 		underline: "Souligné",
 		strike: "Barré",
@@ -122,6 +123,7 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 } else {
 	WBBLANG['en'] = CURLANG = {
 		bold: "Bold",
+		answer: "Answer",
 		italic: "Italic",
 		underline: "Underline",
 		strike: "Strike",
@@ -241,23 +243,23 @@ wbbdebug = false;
 			//img upload config
 			imgupload: false,
 			img_uploadurl: "/iupload.php",
-			img_maxwidth: 800,
-			img_maxheight: 800,
+			img_maxwidth: 300,
+			img_maxheight: 300,
 			hotkeys: true,
-			showHotkeys: true,
-			autoresize: true,
-			resize_maxheight: 800,
+			showHotkeys: false,
+			autoresize: false,
+			resize_maxheight: 150,
 			loadPageStyles: true,
 			traceTextarea: false,
 			//			direction:			"ltr",
 			smileConversion: true,
 
 			//END img upload config
-			buttons: "bold,italic,underline,strike,sup,sub,|,img,video,peertube,vimeo,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,table,removeFormat",
+			buttons: "answer,bold,italic,underline,strike,sup,sub,|,img,video,peertube,vimeo,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,table,removeFormat",
 			allButtons: {
 				vittaiframe: {
 					title: CURLANG.vittaiframe,
-					buttonHTML: '<img src="/learn/assets/media/SigleRondGris.png" height="26" height="26" style="margin-top: 2px;"/>',
+					buttonHTML: '<img src="/learn/assets/media/SigleVittascience.svg" height="26" height="26" style="margin-top: 2px;"/>',
 					hotkey: '',
 					modal: {
 						title: CURLANG.modal_vitta_title,
@@ -310,6 +312,14 @@ wbbdebug = false;
 					transform: {
 						'<embed src="{URL}" width=100% height=500 type="application/pdf" />': '[embed]{URL}[/embed]'
 					}
+				},
+				answer: {
+					title: CURLANG.answer,
+					buttonText: '',
+					transform: {
+						"<span class='lms-answer'>{SELTEXT}</span>": "[answer]{SELTEXT}[/answer]",
+					}
+					// button is completely hidden in the elements.css file
 				},
 				bold: {
 					title: CURLANG.bold,
@@ -1382,7 +1392,8 @@ wbbdebug = false;
 
 			//build bbcode switch button
 			//var $bbsw = $('<div class="wysibb-toolbar-container modeSwitch"><div class="wysibb-toolbar-btn" unselectable="on"><span class="btn-inner ve-tlb-bbcode" unselectable="on"></span></div></div>').appendTo(this.$toolbar);
-			var $bbsw = $(document.createElement('div')).addClass("wysibb-toolbar-container modeSwitch").html('<div class="wysibb-toolbar-btn mswitch" unselectable="on"><span class="btn-inner modesw" unselectable="on">[bbcode]</span></div>').appendTo(this.$toolbar);
+			let translationBtn = i18next.t("classroom.activities.preview");
+			var $bbsw = $(document.createElement('div')).addClass("wysibb-toolbar-container modeSwitch").html(`<div class="wysibb-toolbar-btn mswitch" unselectable="on"><span class="btn-inner modesw" unselectable="on">${translationBtn}</span></div>`).appendTo(this.$toolbar);
 			if (this.options.bbmode == true) {
 				$bbsw.children(".wysibb-toolbar-btn").addClass("on");
 			}

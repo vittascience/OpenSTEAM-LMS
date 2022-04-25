@@ -6,6 +6,10 @@ const BASE_STUDENT_FORM = `<div class="c-primary-form row col-12">
 const LINK_REGEX = /(\[iframe\].*link=)([a-f0-9]{13})/
 const NO_CLASS = "<p class='no-classes'> Vous devez d'abord créer une classe pour pouvoir utiliser cette fonctionalité"
 const capitalizedDemoStudentName = `${demoStudentName.charAt().toUpperCase()}${demoStudentName.slice(1)}`
+const cookies = document.cookie.split(';')
+const lang = cookies.filter(entry => entry.trim().startsWith('lng'))
+const langValue = lang[0] ? lang[0].split('=')[1] : 'fr'
+
 const classroomModals = {
     'import-csv': {
         selector: '',
@@ -14,9 +18,45 @@ const classroomModals = {
             title: 'classroom.modals.addStudentByCsv.title'
         },
         content: `<div class="text-center mx-auto w-100 mh-100 mb-2">
-                    <p><span data-i18n="classroom.modals.addStudentByCsv.description"></span><a data-i18n="classroom.modals.addStudentByCsv.csvTemplate" href="${_PATH}assets/media/csv_template.csv"></a> - <a data-i18n="classroom.modals.addStudentByCsv.csvTemplateNoPassword" href="${_PATH}assets/media/csv_template_nopw.csv"></a>.</p>
+                    <p> <span data-i18n="classroom.modals.addStudentByCsv.description"></span>
+                        <a data-i18n="classroom.modals.addStudentByCsv.csvTemplate;[download]classroom.modals.addStudentByCsv.csvTemplate" href="${_PATH}assets/media/lang/${langValue}/csv_template.csv"></a>
+                         - 
+                        <a data-i18n="classroom.modals.addStudentByCsv.csvTemplateNoPassword;[download]classroom.modals.addStudentByCsv.csvTemplateNoPassword" href="${_PATH}assets/media/lang/${langValue}/csv_template_nopw.csv"></a>.
+                    </p>
                     <input type="file" id="importcsv-fileinput" name="importcsvfileinput"/><br>
                     <button class="btn c-btn-secondary mt-2" onclick="importLearnerCsv()">
+                        <i class="fas fa-file-csv"></i> 
+                        <span data-i18n="classroom.modals.addStudentByCsv.importStudentByCsvButton">Importer les apprenants</span>
+                    </button>
+                </div>`,
+        footer: ``
+    },
+    'import-csv-create-classroom': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.modals.addStudentByCsv.title'
+        },
+        content: `<div class="text-center mx-auto w-100 mh-100 mb-2">
+                    <p><span data-i18n="[html]classroom.modals.addStudentByCsv.descriptionUpdate"></span><a data-i18n="classroom.modals.addStudentByCsv.csvTemplateNoPassword;[download]classroom.modals.addStudentByCsv.csvTemplateNoPassword" href="${_PATH}assets/media/lang/${langValue}/csv_template_nopw.csv"></a>.</p>
+                    <input type="file" id="importcsv-fileinput-classroom-create" name="importcsvfileinput"/><br>
+                    <button class="btn c-btn-secondary mt-2" onclick="importLearnerCsv()">
+                        <i class="fas fa-file-csv"></i> 
+                        <span data-i18n="classroom.modals.addStudentByCsv.importStudentByCsvButton">Importer les apprenants</span>
+                    </button>
+                </div>`,
+        footer: ``
+    },
+    'import-csv-update-classroom': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.modals.addStudentByCsv.title'
+        },
+        content: `<div class="text-center mx-auto w-100 mh-100 mb-2">
+                    <p><span data-i18n="[html]classroom.modals.addStudentByCsv.descriptionUpdate"></span><a data-i18n="classroom.modals.addStudentByCsv.csvTemplateNoPassword;[download]classroom.modals.addStudentByCsv.csvTemplateNoPassword" href="${_PATH}assets/media/lang/${langValue}/csv_template_nopw.csv"></a>.</p>
+                    <input type="file" id="importcsv-fileinput-classroom-update" name="importcsvfileinput"/><br>
+                    <button class="btn c-btn-secondary mt-2" onclick="importLearnerCsv(true)">
                         <i class="fas fa-file-csv"></i> 
                         <span data-i18n="classroom.modals.addStudentByCsv.importStudentByCsvButton">Importer les apprenants</span>
                     </button>
@@ -56,16 +96,22 @@ const classroomModals = {
             title: 'classroom.modals.settingsTeacher.title'
         },
         content: `<h4 data-i18n="classroom.modals.settingsTeacher.lang">Langue</h4>
-        <div id="switch-lang-list" class="d-flex justify-content-center">
-            <img class="flags-item mr-2" alt="flag" src="assets/media/flags/fr.png" onclick="changeLang('fr')">
-            <img class="flags-item" alt="flag" src="assets/media/flags/en.png" onclick="changeLang('en')">
+        <div id="switch-lang-list">
+            <div class="flags-item">
+                <img alt="flag" src="assets/media/flags/fr.png" onclick="changeLang('fr')">
+                <span>Français</span>
+            </div>
+            <div class="flags-item">
+                <img alt="flag" src="assets/media/flags/en.png" onclick="changeLang('en')">
+                <span>English</span>
+            </div>
         </div>
         <h4 data-i18n="classroom.modals.settingsTeacher.password">Mot de passe</h4>
         <p class="text-center" data-i18n="classroom.modals.settingsTeacher.passwordDescription"></p>
         <div class="d-flex justify-content-center">
-            <div class="pwd-display-stud pwd-display-stud-modal" href="#">
-                <input type="password" readonly class="modal-pwd" id="password-display-area"><i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
-            </div>
+            <form class="pwd-display-stud pwd-display-stud-modal" href="#">
+                <input type="password" readonly class="modal-pwd" id="password-display-area" autocomplete="off"><i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
+            </form>
             
             <button class="btn c-btn-secondary" id="pwd-change-modal">Réinitialiser <i class="fas fa-chevron-right"></i></button>`,
         footer: ``
@@ -87,9 +133,15 @@ const classroomModals = {
                     */
         content: `<div>
                     <h4 data-i18n="classroom.modals.settingsTeacher.lang">Langue</h4>
-                    <div id="switch-lang-list" class="d-flex justify-content-center">
-                    <img class="flags-item  mr-2" alt="flag" src="assets/media/flags/fr.png" onclick="changeLang('fr')">
-                    <img class="flags-item" alt="flag" src="assets/media/flags/en.png" onclick="changeLang('en')">
+                    <div id="switch-lang-list">
+                        <div class="flags-item">
+                            <img alt="flag" src="assets/media/flags/fr.png" onclick="changeLang('fr')">
+                            <span>Français</span>
+                        </div>
+                        <div class="flags-item">
+                            <img alt="flag" src="assets/media/flags/en.png" onclick="changeLang('en')">
+                            <span>English</span>
+                        </div>
                     </div>
                     <h4 data-i18n="classroom.modals.settingsTeacher.description">Pour modifier votre mot de passe ou d'autres paramètres de votre compte</h4>
                     <div class="d-flex flex-column align-items-center" style="gap: 0.5rem;">
@@ -151,7 +203,7 @@ const classroomModals = {
         },
         content: `
         <p data-i18n="classroom.modals.listClass.description" data-i18n-options={"demoStudent":"${capitalizedDemoStudentName}"}>Vous pouvez tester en toute simplicité l'interface en tant qu'apprenant, et revenir à tout moment à votre profil d'enseignant. La progression en tant qu'apprenant sera sauvegardée sur le compte {{demoStudent}}.</p>
-        <div id="list-classes" class=""></div>
+        <div id="list-classes" class="mx-5 c-primary-form"></div>
         <button class="btn  mb-2 c-btn-primary" id="mode-student-check" onclick="modeApprenant()" > <span class="mr-1" data-i18n="classroom.modals.listClass.switchButton">Passer en mode apprenant</span> <i class="fas fa-cog"></i></button>
                 `,
         footer: ``
@@ -199,7 +251,7 @@ const classroomModals = {
                 `,
         footer: ``
     },
-    'add-student-modal': {
+    'create-classroom-student-modal': {
         selector: '',
         header: {
             icon: '',
@@ -212,7 +264,55 @@ const classroomModals = {
                 <input class="col-5 student-form-name" type="text">
             </div>
         </div>
-        <button class="save-student-in-classroom c-btn-primary m-3"><i class="fas fa-save"></i> <span class="ml-1" data-i18n="classroom.modals.addStudent.addStudentButton">Ajouter l'apprenant</span></button>
+        <button id="create-classroom-add-student-to-list" class="save-student-in-classroom c-btn-primary m-3"><i class="fas fa-save"></i> <span class="ml-1" data-i18n="clsave-student-in-classroomassroom.modals.addStudent.addStudentButton">Ajouter l'apprenant</span></button>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <div class="d-flex justify-content-center modal-separator mt-4 mb-4">
+                <span data-i18n="classroom.modals.addActivity.orSeparator">OU</span>
+            </div>
+            <button class="btn c-btn-secondary" onclick="openCsvModal();">
+                <span data-i18n="classroom.modals.addStudent.addStudentByCsvButton">Ajouter un fichier d'apprenants (.csv)</span><i class="fas fa-chevron-right ml-1"></i>
+            </button>
+        </div>`,
+        footer: ``
+    },
+    'update-classroom-student-modal': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.modals.addStudent.title'
+        },
+        content: `
+        <div id="update-classroom-add-student-div">
+            <div class="c-primary-form row col-12">
+                <label class="col-5" data-i18n="classroom.modals.addStudent.pseudo">Pseudonyme</label>
+                <input class="col-5 student-form-name" type="text">
+            </div>
+        </div>
+        <button id="update-classroom-add-student-to-list" class="btn save-student-in-classroom c-btn-primary m-3"><i class="fas fa-save"></i> <span class="ml-1" data-i18n="classroom.modals.addStudent.addStudentButton">Ajouter l'apprenant</span></button>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <div class="d-flex justify-content-center modal-separator mt-4 mb-4">
+                <span data-i18n="classroom.modals.addActivity.orSeparator">OU</span>
+            </div>
+            <button class="btn c-btn-secondary" onclick="openCsvModal(true);">
+                <span data-i18n="classroom.modals.addStudent.addStudentByCsvButton">Ajouter un fichier d'apprenants (.csv)</span><i class="fas fa-chevron-right ml-1"></i>
+            </button>
+        </div>`,
+        footer: ``
+    },
+    'add-student-modal': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.modals.addStudent.title'
+        },
+        content: `
+        <div id="classroom-dashboard-add-student-div">
+            <div class="c-primary-form row col-12">
+                <label class="col-5" data-i18n="classroom.modals.addStudent.pseudo">Pseudonyme</label>
+                <input class="col-5 student-form-name" type="text">
+            </div>
+        </div>
+        <button id="add-student-to-classroom" class="btn save-student-in-classroom c-btn-primary m-3"><i class="fas fa-save"></i> <span class="ml-1" data-i18n="classroom.modals.addStudent.addStudentButton">Ajouter l'apprenant</span></button>
         <div class="d-flex flex-column justify-content-center align-items-center">
             <div class="d-flex justify-content-center modal-separator mt-4 mb-4">
                 <span data-i18n="classroom.modals.addActivity.orSeparator">OU</span>
@@ -262,6 +362,8 @@ const classroomModals = {
                         <input type="text" class="form-control" id="upd_group_link">
                      </div>
                     <label for="group_upd_apps_options" data-i18n="manager.group.applications">Application(s) du groupe</label>
+                    <div id="group_upd_global_restrictions">
+                    </div>
                     <div class="form-group" id="group_upd_apps_options">
                     </div>
                     <input type="hidden" class="form-control" id="upd_group_id">
@@ -369,9 +471,25 @@ const classroomModals = {
     
     <div id="group_add_sa">
     </div>
-    
+
+    <hr>
+
+    <div id="create_global_user_restrictions">
+        <h6 class="form-check-label font-weight-bold mb-1" style="color: var(--classroom-primary)" data-i18n="manager.users.globalRestrictions"></h6>
+        <br>
+        <div class="activity-add-form c-secondary-form">
+            <label class="form-check-label" for="create_begin_date" data-i18n="[html]manager.table.dateBeginFA"></label>
+            <input type="date" id="create_begin_date" name="trip-start" max="2023-12-31">
+            <label class="form-check-label" for="create_end_date" data-i18n="[html]manager.table.dateEndFA"></label>
+            <input type="date" id="create_end_date" name="trip-start" max="2025-12-31">
+            <label class="form-check-label" for="create_max_students" data-i18n="[html]manager.table.maxStudentsFA"></label>
+            <input type="number" id="create_max_students">
+        </div>
+    </div>
+
+    <hr>
+
     <div id="create_update_personal_apps_sa">
-        
     </div>
     
     <button class="btn c-btn-secondary" onclick="createUserAndLinkToGroup()" data-i18n="manager.buttons.user.create">Create user</button>
@@ -471,6 +589,11 @@ const classroomModals = {
         <hr>
 
         <div id="update_applications_sa">
+        </div>
+
+        <hr>
+
+        <div id="update_global_user_restrictions">
         </div>
 
         <hr>
@@ -793,7 +916,7 @@ const classroomModals = {
         },
         content: `  <div id="update-applications-modal">
                         <div class="container-fluid" id="update-app-manager" style="display:none;">
-                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.group.generalInfo"> Restriction d'activité </p>
+                            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.group.generalInfo">Restriction d'activité</p>
                             <div class="form-row mt-1 c-secondary-form">
                                 <div class="col-md">
                                     <label for="app_update_name" data-i18n="[html]manager.table.nameMandatory">Name</label>
@@ -803,23 +926,68 @@ const classroomModals = {
                                     <label for="app_update_description" data-i18n="[html]manager.table.descriptionMandatory">Description</label>
                                     <input type="text" class="form-control" id="app_update_description">
                                 </div>
+                            </div>
+                            <div class="form-row mt-1 c-secondary-form">
                                 <div class="col-md">
                                     <label for="app_update_image" data-i18n="manager.table.image">Image</label>
                                     <input type="text" class="form-control" id="app_update_image">
+                                    <img src="" class="app_image_preview" id="app_update_image_preview">
                                 </div>
+                                <div class="col-md">
+                                    <label for="app_update_color" data-i18n="manager.table.color">Color</label>
+                                    <input type="color" class="form-control" id="app_update_color">
+                                </div>
+                            </div>
+                            <div class="form-row mt-1 c-secondary-form">
+                                <div class="col-md">
+                                    <label for="app_update_background_image" data-i18n="manager.table.backgroundImage"></label>
+                                    <input type="text" class="form-control" id="app_update_background_image">
+                                    <img src="" class="app_image_preview" id="app_update_background_image_preview">
+                                </div>
+
+                                <div class="col-md">
+                                    <label for="app_update_sort_index" data-i18n="manager.activitiesRestrictions.indexPos">Nombre</label>
+                                    <input type="number" class="form-control" id="app_update_sort_index" value="0">
+                                </div>
+
                                 <input type="hidden" class="form-control" id="app_update_id">
                             </div>
                             <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.restrictions"> Restriction d'activité </p>
                             <div class="form-row mt-1 c-secondary-form">
                                 <div class="col-md">
-                                    <label for="app_update_activity_restriction_type" data-i18n="manager.activitiesRestrictions.type">Type</label>
-                                    <input type="text" class="form-control" id="app_update_activity_restriction_type">
-                                </div>
-                                <div class="col-md">
-                                    <label for="app_update_activity_restriction_value" data-i18n="manager.activitiesRestrictions.max">Nombre</label>
+                                    <label for="app_update_activity_restriction_value" data-i18n="manager.activitiesRestrictions.appQuantity">Nombre</label>
                                     <input type="number" class="form-control" id="app_update_activity_restriction_value">
                                 </div>
                             </div>
+
+                            <div class="c-checkbox">
+                                <input type="checkbox" class="form-check-input" id="update_isLti">
+                                <label for="update_isLti" class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.apps.ltiApps">Lti apps ?</label>
+                            </div>
+                            <div class="form-row mt-1 c-secondary-form">
+                                <div class="col-md">
+                                    <div id="update_inputs-lti" style="display:none;">
+                                        <label for="update_clientId" data-i18n="[html]manager.apps.clientId">Client Id</label>
+                                        <input type="text" class="form-control mb-2" id="update_clientId">
+                                        <label for="update_deploymentId" data-i18n="[html]manager.apps.deploymentId">Deployment Id</label>
+                                        <input type="text" class="form-control mb-2" id="update_deploymentId">
+                                        <label for="update_toolUrl" data-i18n="[html]manager.apps.toolUrl">Tool Url</label>
+                                        <input type="text" class="form-control mb-2" id="update_toolUrl">
+                                        <label for="update_publicKeySet" data-i18n="[html]manager.apps.publicKeySet">Public Key Set</label>
+                                        <input type="text" class="form-control mb-2" id="update_publicKeySet">
+                                        <label for="update_loginUrl" data-i18n="[html]manager.apps.loginUrl">Login Url</label>
+                                        <input type="text" class="form-control mb-2" id="update_loginUrl">
+                                        <label for="update_redirectionUrl" data-i18n="[html]manager.apps.redirectionUrl">Redirection Url</label>
+                                        <input type="text" class="form-control mb-2" id="update_redirectionUrl">
+                                        <label for="update_deepLinkUrl" data-i18n="[html]manager.apps.deepLinkUrl">DeepLink Url</label>
+                                        <input type="text" class="form-control mb-2" id="update_deepLinkUrl">
+                                        <label for="update_privateKey" data-i18n="[html]manager.apps.privateKey">Private Key</label>
+                                        <textarea class="form-control mb-2" id="update_privateKey"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <button class="btn c-btn-secondary my-3 btn" onclick="persistUpdateApp()" data-i18n="manager.buttons.update">Modifier</button>
                             <button class="btn c-btn-light my-3 btn" onclick="closeModalAndCleanInput()" data-i18n="manager.buttons.cancel">Annuler</button>
                         </div>
@@ -846,22 +1014,65 @@ const classroomModals = {
                                     <label for="app_create_description" data-i18n="[html]manager.table.descriptionMandatory">Description</label>
                                     <input type="text" class="form-control" id="app_create_description">
                                 </div>
+                            </div>
+                            <div class="form-row mt-1 c-secondary-form">
                                 <div class="col-md">
                                     <label for="app_create_image" data-i18n="manager.table.image">Image</label>
                                     <input type="text" class="form-control" id="app_create_image">
+                                    <img src="" class="app_image_preview" id="app_create_image_preview">
                                 </div>
+                                <div class="col-md">
+                                    <label for="app_create_color" data-i18n="manager.table.color">Color</label>
+                                    <input type="color" class="form-control" id="app_create_color">
+                                </div>
+                            </div>
+                            <div class="form-row mt-1 c-secondary-form">
+                                <div class="col-md">
+                                    <label for="app_create_background_image" data-i18n="manager.table.backgroundImage">Image</label>
+                                    <input type="text" class="form-control" id="app_create_background_image">
+                                    <img src="" class="app_image_preview" id="app_create_background_image_preview">
+                                </div>
+
+                                <div class="col-md">
+                                    <label for="app_create_sort_index" data-i18n="manager.activitiesRestrictions.max">Nombre</label>
+                                    <input type="number" class="form-control" id="app_create_sort_index" value="0">
+                                </div>
+
                                 <input type="hidden" class="form-control" id="app_create_id">
                             </div>
 
                             <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.restrictions"> Restriction d'activité </p>
                             <div class="form-row mt-1 c-secondary-form">
                                 <div class="col-md">
-                                    <label for="app_create_activity_restriction_type" data-i18n="manager.activitiesRestrictions.type">Type</label>
-                                    <input type="text" class="form-control" id="app_create_activity_restriction_type">
-                                </div>
-                                <div class="col-md">
                                     <label for="app_create_activity_restriction_value" data-i18n="manager.activitiesRestrictions.max">Nombre</label>
                                     <input type="number" class="form-control" id="app_create_activity_restriction_value">
+                                </div>
+                            </div>
+
+                            <div class="c-checkbox">
+                                <input type="checkbox" class="form-check-input" id="isLti">
+                                <label for="isLti" class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.apps.ltiApps">Lti apps ?</label>
+                            </div>
+                            <div class="form-row mt-1 c-secondary-form">
+                                <div class="col-md">
+                                    <div id="inputs-lti" style="display:none;">
+                                        <label for="clientId" data-i18n="[html]manager.apps.clientId">Client Id</label>
+                                        <input type="text" class="form-control mb-2" id="clientId">
+                                        <label for="deploymentId" data-i18n="[html]manager.apps.deploymentId">Deployment Id</label>
+                                        <input type="text" class="form-control mb-2" id="deploymentId">
+                                        <label for="toolUrl" data-i18n="[html]manager.apps.toolUrl">Tool Url</label>
+                                        <input type="text" class="form-control mb-2" id="toolUrl">
+                                        <label for="publicKeySet" data-i18n="[html]manager.apps.publicKeySet">Public Key Set</label>
+                                        <input type="text" class="form-control mb-2" id="publicKeySet">
+                                        <label for="loginUrl" data-i18n="[html]manager.apps.loginUrl">Login Url</label>
+                                        <input type="text" class="form-control mb-2" id="loginUrl">
+                                        <label for="redirectionUrl" data-i18n="[html]manager.apps.redirectionUrl">Redirection Url</label>
+                                        <input type="text" class="form-control mb-2" id="redirectionUrl">
+                                        <label for="deepLinkUrl" data-i18n="[html]manager.apps.deepLinkUrl">DeepLink Url</label>
+                                        <input type="text" class="form-control mb-2" id="deepLinkUrl">
+                                        <label for="privateKey" data-i18n="[html]manager.apps.privateKey">Private Key</label>
+                                        <textarea class="form-control mb-2" id="privateKey"></textarea>
+                                    </div>
                                 </div>
                             </div>
 
@@ -884,61 +1095,61 @@ const classroomModals = {
                     </div>`,
         footer: ``
     },
-
-}
-
-/* 
-'update-activities-restrictions-manager': {
-    selector: '',
-    header: {
-        icon: '',
-        title: 'manager.activitiesRestrictions.updateAll'
+    'activity-restricted': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'manager.activitiesRestrictions.appRestricted'
+        },
+        content: `  <div id="activity-restricted">
+                        <div class="container-fluid" id="activity-restricted-content">
+                            <p class="mt-4 mb-1 font-weight-bold" data-i18n="manager.activitiesRestrictions.appRestrictedUL1"> </p>
+                            <p class="mt-4 mb-1" data-i18n="manager.activitiesRestrictions.appRestrictedUL2"> </p>
+                            <hr>
+                            <div class="w-100 text-center">
+                                <p class="mt-4 mb-1 font-weight-bold" data-i18n="manager.activitiesRestrictions.appRestrictedSubtitle2"> </p>
+                                <p data-i18n="manager.activitiesRestrictions.appRestrictedSubtitle3"> </p>
+                            </div>
+                        </div>
+                    </div>`,
+        footer: ``
     },
-    content: `  <div id="update-activities-restrictions-modal">
-                    <div class="container-fluid" id="update-activity-restrictions-manager" style="display:none;">
-                        <div class="form-row mt-1 c-secondary-form">
-                            <div class="col-md">
-                                <label for="activity_restrictions_update_type">Type activity</label>
-                                <input type="text" class="form-control" id="activity_restrictions_update_type">
-                            </div>
-                            <div class="col-md">
-                                <label for="activity_restrictions_update_maximum">Maximum</label>
-                                <input type="text" class="form-control" id="activity_restrictions_update_maximum">
-                            </div>
-                            <input type="hidden" class="form-control" id="activity_restrictions_id">
-                        </div>
-                        <button class="btn c-btn-secondary my-3 btn" onclick="persistUpdateRestriction()" data-i18n="manager.buttons.update">Modifier</button>
-                        <button class="btn c-btn-light my-3 btn" onclick="closeModalAndCleanInputActivityRestrictions()" data-i18n="manager.buttons.cancel">Annuler</button>
-                    </div>
-
-                    <div class="col-12" id="delete-activity-restrictions-manager" style="display:none;">
-                        <h3 class="font-weight-bold text-danger m-auto text-center" data-i18n="manager.users.deleteConfirmationTitle">Confirmer la suppression</h3>
-                        <p class="text-center" data-i18n="[html]manager.activitiesRestrictions.deleteIntention"></p>
-                        <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>
-                        <div class="text-center c-secondary-form">
-                            <input type="hidden" name="validation_delete_restriction_id" id="validation_delete_restriction_id">
-                            <input type="text" name="validation_delete_restriction" id="validation_delete_restriction" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
-                        </div>
-                        <div class="text-center">
-                            <button class="btn c-btn-red mx-auto mt-3 btn-lg" onclick="persistDeleteRestriction()" data-i18n="manager.buttons.validate">Valider</button>
-                            <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInputActivityRestrictions()" data-i18n="manager.buttons.cancel">Annuler</button>
-                        </div>
-                    </div>
-
-                    <div class="container-fluid" id="create-activity-restrictions-manager" style="display:none;">
-                        <div class="form-row mt-1 c-secondary-form">
-                            <div class="col-md">
-                                <label for="activity_restrictions_create_type">Type activity</label>
-                                <input type="text" class="form-control" id="activity_restrictions_create_type">
-                            </div>
-                            <div class="col-md">
-                                <label for="activity_restrictions_create_maximum">Maximum</label>
-                                <input type="text" class="form-control" id="activity_restrictions_create_maximum">
+    'activity-restricted-gar': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'manager.activitiesRestrictions.appRestricted'
+        },
+        content: `  <div id="activity-restricted-gar">
+                        <div class="container-fluid" id="activity-restricted-gar-content">
+                            <p class="mt-4 mb-1 font-weight-bold" data-i18n="manager.activitiesRestrictions.appRestrictedGarContent1" id="app-restricted-number" data-i18n-options=""> </p>
+                            <p class="mt-4 mb-1" data-i18n="manager.activitiesRestrictions.appRestrictedGarContent2"> </p>
+                            <hr>
+                            <div class="w-100 text-center">
+                                <p class="mt-4 mb-1 font-weight-bold" data-i18n="manager.activitiesRestrictions.appRestrictedSubtitle2"> </p>
+                                <p data-i18n="manager.activitiesRestrictions.appRestrictedSubtitle3"> </p>
                             </div>
                         </div>
-                        <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistCreateRestriction()" data-i18n="manager.buttons.validate">Valider</button>
-                        <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInputActivityRestrictions()" data-i18n="manager.buttons.cancel">Annuler</button>
-                    </div>
-                </div>`,
-    footer: ``
-}, */
+                    </div>`,
+        footer: ``
+    },
+    'profile-update-password-confirm': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.modals.profileUpdatePasswordConfirm.title'
+        },
+        content: `  <div>
+                        <div class="col-12">
+                            <form class="text-center c-primary-form">
+                                <p class="text-center" data-i18n="classroom.modals.profileUpdatePasswordConfirm.description"></p>
+                                <input type="password" name="current_password_prompt" id="current_password_prompt" data-i18n="[placeholder]classroom.modals.profileUpdatePasswordConfirm.placeholderInput" autocomplete="off">
+                            </form>
+                            <div class="text-center">
+                                <button class="btn c-btn-primary mx-auto mt-3 btn-lg" id="saveProfileUpdate" data-i18n="manager.buttons.validate">Valider</button>
+                            </div>
+                        </div>
+                    </div>`,
+        footer: ``
+    }
+}
