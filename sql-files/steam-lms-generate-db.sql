@@ -528,6 +528,18 @@ CREATE TABLE `user_teachers` (
   `school` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
+
+--
+-- Structure de la table `users_login_attempts`
+--
+
+CREATE TABLE `users_login_attempts` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `registration_time` int(11) DEFAULT NULL,
+  `can_not_login_before` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Index pour les tables déchargées
 --
@@ -897,6 +909,13 @@ ALTER TABLE `users`
 ALTER TABLE `user_teachers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
+
+--
+-- Index pour la table `users_login_attempts`
+--
+ALTER TABLE `users_login_attempts`
+  ADD PRIMARY KEY (`id`);
+
 --
 -- Contraintes pour les tables déchargées
 --
@@ -956,6 +975,15 @@ ALTER TABLE `learn_activities`
 --
 ALTER TABLE `learn_chapters`
   ADD CONSTRAINT `FK_B130E3A7514956FD` FOREIGN KEY (`collection_id`) REFERENCES `learn_collections` (`id`);
+COMMIT;
+
+
+--
+-- AUTO_INCREMENT pour la table `users_login_attempts`
+--
+ALTER TABLE `users_login_attempts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
