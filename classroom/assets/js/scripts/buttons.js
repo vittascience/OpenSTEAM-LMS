@@ -2775,7 +2775,6 @@ function getAndShowApps() {
     $('#all-applications-crud').html();
     let htmlApps = "";
     mainManager.getmanagerManager().getAllApplications().then((response) => {
-        console.log(response)
         getAllrestrictions();
         response.forEach(application => {
 
