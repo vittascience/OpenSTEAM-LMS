@@ -4,8 +4,8 @@
       "noClass": "Il codice inserito non corrisponde a nessuna classe.",
       "countdown1": " Il modulo di gestione delle classi è attualmente in beta. Se vuoi provarlo, per favore <a href=\"/about?contact=1\">contatta il team di Vittascience</a>.",
       "countdown2": " Rilascio ufficiale in",
-      "hello1": "Ciao!",
-      "hello2": "Ciao!",
+      "display": " vedi",
+      "hello": " Ciao!",
       "title": " Gestisci le tue classi con Vittascience",
       "neutralTitle": "OpenSTEAM LMS",
       "subtitle": "Scoprire - Imparare - Condividere",
@@ -134,6 +134,7 @@
       "usersAdded": "Gli account sono stati creati",
       "usersAddedFromCsv": "Gli account sono stati creati secondo il file csv",
       "activityDeleted": "L'attività {{attivitàNome}} è stata cancellata",
+      "activityDuplicated": " L'attività {{attivitàNome}} è stata duplicata",
       "mustAttributeToStudent": "Devi selezionare gli studenti",
       "activityAttributed": "L'attività {{attivitàTitolo}} è stata assegnata agli studenti elencati",
       "activityAttributionChanged": "L'assegnazione dell'attività {{attivitàTitolo}} è stata cambiata per gli studenti elencati",
@@ -249,8 +250,7 @@
         "learnerMode": "Passare alla modalità studente",
         "dueBy": "Dovuto a",
         "timePassed": " Tempo trascorso :"
-      },
-      "copyDirectLink": "Copiare il link diretto"
+      }
     },
     "activities": {
       "title": "Attività",
@@ -264,6 +264,8 @@
       "anonymise": "Anonimizza la tua lista di studenti in modo da poter mostrare il dashboard ai tuoi studenti",
       "save-draft": "Salva come bozza",
       "validate": "Convalidare l'attività",
+      "validateWarning": " <i class='fas fa-exclamation-triangle'></i> Attenzione, puoi inviare questa attività solo una volta!",
+      "validateNoEval": " <i class='fas fa-thumbs-up'></i> Puoi presentare questa attività quante volte vuoi.",
       "accept": "Molto buono",
       "vgood": "Soddisfacente",
       "good": "Fragile",
@@ -281,6 +283,18 @@
       "studentAnswer": " Risposta dell'allievo",
       "comments": "Inserisci i tuoi commenti qui",
       "return": " Torna alle attività",
+      "numberOfTries": " Numero di test :",
+      "isAutocorrected": " Questo esercizio è stato corretto automaticamente, puoi cambiare il punteggio qui sotto.",
+      "isAutocorrect": " Questa attività sarà corretta automaticamente.",
+      "states": " Dichiarazione di attività",
+      "content": " Contenuto dell'attività",
+      "correction": " Corretto",
+      "putYourAnswer": " Inserisci la tua risposta",
+      "hint": " Indice",
+      "saved": " Attività salvata",
+      "wrongAnswer": " Risposta sbagliata",
+      "hintExist": " <i class='fas fa-info-circle'></i> Questo esercizio ha un suggerimento, può essere visualizzato solo se lo studente può presentare l'attività più volte",
+      "anoStudent": " Studente",
       "bilan": {
         "title": "Bilancio",
         "results": "Risultati",
@@ -353,7 +367,22 @@
       "addLearner": "Aggiungere uno studente",
       "addLearners": " Aggiunta di studenti",
       "addActivity": " Aggiungere un'attività",
-      "exportCsv": "Esportazione csv"
+      "exportCsv": "Esportazione csv",
+      "month": {
+        "1": " Gennaio",
+        "2": " Febbraio",
+        "3": " Marzo",
+        "4": " Aprile",
+        "5": " Maggio",
+        "6": " Giugno",
+        "7": " Luglio",
+        "8": " Agosto",
+        "9": " Settembre",
+        "10": " Ottobre",
+        "11": " Novembre",
+        "12": " Dicembre"
+      },
+      "preview": " Anteprima"
     },
     "filter": {
       "desc": "Dal meno recente al più recente",
@@ -876,6 +905,7 @@
     },
     "success": "L'autenticazione ha avuto successo. Reindirizzamento...",
     "error": "Errore. Per favore controlla i tuoi dati di accesso.",
+    "canNotLoginBefore": " {{failedLoginAttempts}} fallito. Devi aspettare {{timeToWait}} minuti prima di poter accedere di nuovo",
     "mailSuccess": " Un'e-mail di attivazione è stata inviata al tuo indirizzo di posta elettronica.",
     "mailError": " Si è verificato un errore. Per favore, controllate il vostro indirizzo e-mail.",
     "userNotFound": " Nessun utente trovato con queste credenziali.",
@@ -976,6 +1006,7 @@
     "confirm": "confermare",
     "username": "nome utente",
     "password": "Password",
+    "options": " opzioni",
     "yes": "Sì",
     "no": "No"
   },
@@ -986,6 +1017,7 @@
       "bio": " Bio",
       "group": " Gruppo",
       "apps": " Applicazioni",
+      "groupsApps": " Applicazioni di gruppo",
       "personalApps": " Applicazioni personali",
       "email": " E-mail <span class=\"c-text-red\">*</span>",
       "nickname": " Nome utente",
@@ -1099,6 +1131,7 @@
       "mailNotSentToUserReset": " Non è stato possibile inviare all'utente l'e-mail di cambio password.",
       "appsUpdated": " Le applicazioni dell'utente sono state aggiornate.",
       "updateAppModalTitle": " Applicazione",
+      "globalRestrictions": " Restrizioni globali",
       "teacherGrades": {
         "0": " Primario",
         "1": " College",
@@ -1245,7 +1278,8 @@
       "studentsPerGroup": " Studenti per gruppo",
       "studentsPerTeacher": " Studenti per insegnante",
       "maxStudents": " Numero massimo di studenti",
-      "maxActivities": " Attività massime"
+      "maxActivities": " Attività massime",
+      "groupsRestrictions": " Restrizione del gruppo"
     },
     "title": {
       "activeUsers": " Utenti attivi",
@@ -1312,6 +1346,7 @@
       "lastname": " Nome",
       "firstname": " Nome",
       "applications": " Applicazioni",
+      "nbUsers": " Numero di utenti",
       "group": " Gruppo",
       "description": " Descrizione",
       "descriptionMandatory": " Descrizione <span class=\"c-text-red\">*</span>",
@@ -1323,6 +1358,7 @@
       "dateBegin": " Data di inizio",
       "dateEnd": " Data di fine",
       "outDated": " Superato",
+      "status": " Stato",
       "maxStudents": " Numero massimo di studenti",
       "actualStudents": " Studenti attuali",
       "maxTeachers": " Numero massimo di insegnanti",
@@ -1334,10 +1370,16 @@
       "maxActivitiesPerTeacher": " Numero massimo di attività per insegnante",
       "monitoring": " Monitoraggio delle applicazioni",
       "image": " Immagine",
+      "backgroundImage": " Immagine di sfondo",
       "userNoRights": " Nessun diritto assegnato",
       "userAdmin": " Direttore",
       "userTeacher": " Insegnante",
-      "restrictions": " Restrizioni"
+      "restrictions": " Restrizioni",
+      "color": " Colore",
+      "restriction": " Restrizione",
+      "dateBeginFA": " <i class='far fa-calendar-alt'></i> Data di inizio",
+      "dateEndFA": " <i class='far fa-calendar-alt'></i> Data di fine",
+      "maxStudentsFA": " <i class='fas fa-user-alt'></i> Massimo di studenti"
     },
     "apps": {
       "apps": " Applicazioni",
@@ -1362,7 +1404,12 @@
       "loginUrl": " Url di accesso <span class=\"c-text-red\">*</span>",
       "redirectionUrl": " Redirect Url <span class=\"c-text-red\">*</span>",
       "deepLinkUrl": " Link profondo url <span class=\"c-text-red\">*</span>",
-      "privateKey": " Chiave privata <span class=\"c-text-red\">*</span>"
+      "privateKey": " Chiave privata <span class=\"c-text-red\">*</span>",
+      "monitoringApps": " Informazioni sull'applicazione",
+      "monitoringGroup": " Informazioni sul gruppo",
+      "appStatus0": " Inattivo",
+      "appStatus1": " Fino ad oggi",
+      "appStatus2": " Scaduto"
     },
     "activitiesRestrictions": {
       "updateAll": " Cambiare le restrizioni",
@@ -1383,7 +1430,9 @@
       "appRestrictedSubtitle2": " Un problema con il tuo abbonamento?",
       "appRestrictedSubtitle3": " Contatta il supporto",
       "appRestrictedGarContent1": " Hai raggiunto il limite di {{attività}} associato al tuo account.",
-      "appRestrictedGarContent2": " Per aggiungere altre attività, contatta il responsabile delle assegnazioni RBM della tua scuola."
+      "appRestrictedGarContent2": " Per aggiungere altre attività, contatta il responsabile delle assegnazioni RBM della tua scuola.",
+      "indexPos": " Indice di posizione",
+      "appQuantity": " Quantità"
     },
     "defaultRestrictions": {
       "update": " Cambiare le restrizioni predefinite",
@@ -1447,6 +1496,24 @@
     "hint": " Hint * : visualizzato se la risposta è sbagliata",
     "title": " Titolo dell'attività <span class=\"c-text-red\">*</span>",
     "description": " Descrizione dell'attività <span class=\"c-text-red\">*</span>",
-    "content": " Contenuto dell'attività <span class=\"c-text-red\">*</span>"
+    "content": " Contenuto dell'attività <span class=\"c-text-red\">*</span>",
+    "addField": " Aggiungere un campo di risposta",
+    "addFieldTooltip": " Cliccando sul pulsante Aggiungi campo di risposta, viene aggiunto un testo stilizzato. Puoi scrivere la risposta corretta in questo campo. Le risposte alternative sono separate da una doppia virgola &&.",
+    "ActivitiesData": {
+      "title": {
+        "reading": " Lettura semplice",
+        "free": " Risposta gratuita",
+        "quiz": " MCQS",
+        "fillIn": " Testo cloze",
+        "dragAndDrop": " Trascinare e rilasciare"
+      },
+      "description": {
+        "reading": " Questa attività permette di visualizzare immagini, video, PDF, interfacce Vittascience e strumenti esterni.",
+        "free": " Questa attività permette agli studenti di completare un esercizio scritto.",
+        "quiz": " Questa attività valuta le conoscenze utilizzando la scelta multipla o domande semplici.",
+        "fillIn": " Questa attività ti permette di applicare le tue conoscenze riempiendo gli spazi vuoti.",
+        "dragAndDrop": " Questa attività ti permette di trascinare e rilasciare parole in diversi spazi vuoti."
+      }
+    }
   }
 }

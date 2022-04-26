@@ -4,8 +4,8 @@
       "noClass": "The code entered does not correspond to any classroom.",
       "countdown1": "The Classroom management module is currently in its beta stage. If you wish to try it out, please <a href=\"/about?contact=1\">contact the Vittascience team</a>.",
       "countdown2": "Official release in",
-      "hello1": "'Hello!'",
-      "hello2": "Hello!",
+      "display": " display",
+      "hello": " Hello !",
       "title": "Manage your Classrooms</br>with Vittascience",
       "neutralTitle": "OpenSTEAM LMS",
       "subtitle": "Discover - Learn - Share",
@@ -134,6 +134,7 @@
       "usersAdded": "The accounts have been created",
       "usersAddedFromCsv": "The accounts were created according to the csv file",
       "activityDeleted": "The {{activityName}} activity has been deleted",
+      "activityDuplicated": " The {{activityName}} activity has been duplicated",
       "mustAttributeToStudent": "You must assign the activity to learners",
       "activityAttributed": "The activity {{activityTitle}} has been assigned to the learners listed",
       "activityAttributionChanged": "The {{activityTitle}} assignment has been changed for the learners listed",
@@ -249,8 +250,7 @@
         "learnerMode": "Learner mode",
         "dueBy": "Due by",
         "timePassed": "Time spent: "
-      },
-      "copyDirectLink": " Copy the direct link"
+      }
     },
     "activities": {
       "title": "Activities",
@@ -264,6 +264,8 @@
       "anonymise": "Anonymize your student list so that you can display the dashboard to your learners.",
       "save-draft": "Save as draft",
       "validate": "Validate the activity",
+      "validateWarning": " <i class='fas fa-exclamation-triangle'></i> Please note, you will only be able to submit this activity once!",
+      "validateNoEval": " <i class='fas fa-thumbs-up'></i> You can submit this activity as many times as you like.",
       "accept": "Very good proficiency",
       "vgood": "Good proficiency",
       "good": "Weak proficiency",
@@ -281,6 +283,18 @@
       "studentAnswer": "Learner's answer",
       "comments": "Write your comments there",
       "return": "Return to the activities",
+      "numberOfTries": " Number of trials:",
+      "isAutocorrected": " This exercise has been corrected automatically, you can modify the note below.",
+      "isAutocorrect": " This activity will be corrected automatically.",
+      "states": " Activity Statement",
+      "content": " Content of the activity",
+      "correction": " Corrected",
+      "putYourAnswer": " Enter your answer",
+      "hint": " Index",
+      "saved": " Saved activity",
+      "wrongAnswer": " Wrong answer",
+      "hintExist": " <i class='fas fa-info-circle'></i> This exercise has a hint, it can only be displayed if the student can submit the activity multiple times",
+      "anoStudent": " Student",
       "bilan": {
         "title": "Balance sheet",
         "results": "Results",
@@ -353,7 +367,22 @@
       "addLearner": "Add a learner",
       "addLearners": "Add learners",
       "addActivity": "Add an activity",
-      "exportCsv": "Export csv"
+      "exportCsv": "Export csv",
+      "month": {
+        "1": " January",
+        "2": " February",
+        "3": " March",
+        "4": " April",
+        "5": " May",
+        "6": " June",
+        "7": " July",
+        "8": " August",
+        "9": " September",
+        "10": " October",
+        "11": " November",
+        "12": " December"
+      },
+      "preview": " Preview"
     },
     "filter": {
       "desc": "Oldest to newest",
@@ -876,6 +905,7 @@
     },
     "success": "The authentication was successful. Redirection...",
     "error": "Error. Please check your login details.",
+    "canNotLoginBefore": " {{failedLoginAttempts}} failed. You must wait {{timeToWait}} minute(s) before you can log in again",
     "mailSuccess": "An activation email has been sent to your email address.",
     "mailError": "An error has occurred. Please verify your email address.",
     "userNotFound": "No linked user found with this mail.",
@@ -976,6 +1006,7 @@
     "confirm": "confirm",
     "username": "pseudonym",
     "password": "Password",
+    "options": " options",
     "yes": "Yes",
     "no": "No"
   },
@@ -986,6 +1017,7 @@
       "bio": "Bio",
       "group": "Group",
       "apps": "Apps",
+      "groupsApps": " Group applications",
       "personalApps": "Personal apps",
       "email": "E-mail <span class=\"c-text-red\">*</span>",
       "nickname": "Username",
@@ -1099,6 +1131,7 @@
       "mailNotSentToUserReset": "The password change email could not be sent to the user",
       "appsUpdated": "User apps have been updated",
       "updateAppModalTitle": "Application",
+      "globalRestrictions": " Global Restrictions",
       "teacherGrades": {
         "0": "Elementary School",
         "1": "Middle School",
@@ -1245,7 +1278,8 @@
       "studentsPerGroup": "Students per group",
       "studentsPerTeacher": "Students per teacher",
       "maxStudents": "Maximum students",
-      "maxActivities": "Maximum activities"
+      "maxActivities": "Maximum activities",
+      "groupsRestrictions": " Group Restriction"
     },
     "title": {
       "activeUsers": "Active users",
@@ -1312,6 +1346,7 @@
       "lastname": "Lastname",
       "firstname": "Firstname",
       "applications": "Applications",
+      "nbUsers": " Number of users",
       "group": "Group",
       "description": "Description",
       "descriptionMandatory": "Description <span class=\"c-text-red\">*</span>",
@@ -1323,6 +1358,7 @@
       "dateBegin": "Begin date",
       "dateEnd": "End date",
       "outDated": "Out dated",
+      "status": " Status",
       "maxStudents": "Maximum students",
       "actualStudents": "Current students",
       "maxTeachers": "Maximum teachers",
@@ -1334,10 +1370,16 @@
       "maxActivitiesPerTeacher": "Maximum activities per teacher",
       "monitoring": "Apps monitoring",
       "image": "Image",
+      "backgroundImage": " Background image",
       "userNoRights": "No rights assigned",
       "userAdmin": "Administrator",
       "userTeacher": "Teacher",
-      "restrictions": "Restrictions"
+      "restrictions": "Restrictions",
+      "color": " Color",
+      "restriction": " Restriction",
+      "dateBeginFA": " <i class='far fa-calendar-alt'></i> Start date",
+      "dateEndFA": " <i class='far fa-calendar-alt'></i> End date",
+      "maxStudentsFA": " <i class='fas fa-user-alt'></i> Maximum learners"
     },
     "apps": {
       "apps": "Apps",
@@ -1362,7 +1404,12 @@
       "loginUrl": "Login Url <span class=\"c-text-red\">*</span>",
       "redirectionUrl": "Redirection url <span class=\"c-text-red\">*</span>",
       "deepLinkUrl": "Deeplink url <span class=\"c-text-red\">*</span>",
-      "privateKey": "Private key <span class=\"c-text-red\">*</span>"
+      "privateKey": "Private key <span class=\"c-text-red\">*</span>",
+      "monitoringApps": " Application information",
+      "monitoringGroup": " Group information",
+      "appStatus0": " Inactive",
+      "appStatus1": " Up to date",
+      "appStatus2": " Expired"
     },
     "activitiesRestrictions": {
       "updateAll": "Update restrictions",
@@ -1383,7 +1430,9 @@
       "appRestrictedSubtitle2": "A problem with your subscription ?",
       "appRestrictedSubtitle3": "Contact support",
       "appRestrictedGarContent1": "You have reached the limit of {{activities}} activities associated with your account.",
-      "appRestrictedGarContent2": "To add additional activities, please contact the GAR assignment manager at your institution."
+      "appRestrictedGarContent2": "To add additional activities, please contact the GAR assignment manager at your institution.",
+      "indexPos": " Position index",
+      "appQuantity": " Quantity"
     },
     "defaultRestrictions": {
       "update": "Update default restrictions",
@@ -1447,6 +1496,24 @@
     "hint": "Hint *: displayed if the answer is wrong",
     "title": "Activity title <span class=\"c-text-red\">*</span>",
     "description": "Activity description <span class=\"c-text-red\">*</span>",
-    "content": "Activity content <span class=\"c-text-red\">*</span>"
+    "content": "Activity content <span class=\"c-text-red\">*</span>",
+    "addField": " Add an answer field",
+    "addFieldTooltip": " By clicking the Add Answer Field button, a stylized text is added. You can write the correct answer in this field. Alternative answers are separated by a double ampersand &&.",
+    "ActivitiesData": {
+      "title": {
+        "reading": " Simple reading",
+        "free": " Free response",
+        "quiz": " MCQS",
+        "fillIn": " Cloze text",
+        "dragAndDrop": " Drag and Drop"
+      },
+      "description": {
+        "reading": " This activity allows you to view images, videos, PDFs, Vittascience interfaces and external tools.",
+        "free": " This activity allows students to respond to an exercise in writing.",
+        "quiz": " This activity assesses knowledge using multiple choice or simple questions.",
+        "fillIn": " This activity allows you to apply your knowledge by filling in the blanks.",
+        "dragAndDrop": " This activity allows you to drag and drop words into different empty spaces."
+      }
+    }
   }
 }
