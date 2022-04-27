@@ -34,7 +34,8 @@ if ($applicationType == null) {
 }
 
 $platform_url = getenv('VS_HOST');
-$activityRestriction = $entityManager->getRepository(ActivityRestrictions::class)->findOneByActivityType($applicationType);
+$ltiApplication = $entityManager->getRepository(Applications::class)->findOneBy(["name" => $applicationType])->getId();
+$ltiTool = $entityManager->getRepository(LtiTool::class)->findOneBy(["application" => $ltiApplication]);
 
 if (!$ltiTool) {
 	echo 'Tool not found!';
