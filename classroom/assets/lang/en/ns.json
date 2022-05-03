@@ -360,7 +360,10 @@
 				"11": "November",
 				"12": "December"
 			},
-			"preview": "Preview"
+			"preview": "Preview",
+			"deleteActivityDisclaimer": "This activity will be deleted from the platform",
+			"deleteConfirm": "Do you really want to delete this activity ?",
+			"deleteActivity": "Delete the activity"
 		},
 		"filter": {
 			"desc": "Oldest to newest",

@@ -1151,5 +1151,28 @@ const classroomModals = {
                         </div>
                     </div>`,
         footer: ``
-    }
+    },
+    'delete-activity-modal': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.activities.deleteActivity'
+        },
+        content: `  <div id="delete-user-modal">
+                        <div class="col-12">
+                            <div class="alert" id="alertDisableUserGA" role="alert" style="display:none;"></div>
+                            <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="classroom.activities.deleteConfirm">Confirmer la désactivation</h3>
+                            <p class="text-center" data-i18n="classroom.activities.deleteActivityDisclaimer"></p>
+                            <div class="text-center c-secondary-form">
+                                <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>
+                                <input type="text" name="validation-delete-activity" id="validation-delete-activity" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                            </div>
+                            <div class="text-center">
+                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelDeleteActivity()" data-i18n="manager.buttons.cancel">Annuler</button>
+                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteActivity()" data-i18n="manager.buttons.validate">Valider</button>
+                            </div>
+                        </div>
+                    </div>`,
+        footer: ``
+    },
 }

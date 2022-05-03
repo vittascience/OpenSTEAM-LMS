@@ -676,22 +676,26 @@ function manageDisplayQuiz(correction, content, correction_div) {
 function displayQuizTeacherSide() {
     if (Activity.response != null) {
         $('#activity-student-response-content').html("");
-        let data = JSON.parse(Activity.response);
+        let data = "";
+        if (Activity.response != null && Activity.response != "") {
+            data = JSON.parse(Activity.response);
+        }
         $('#activity-student-response-content').append(createContentForQuiz(data, false, true)); 
         $('#activity-student-response').show();
+        if (data != null && data != "") {
+            Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
+                for (let i = 1; i < $(`label[id^="correction-student-quiz-suggestion-"]`).length+1; i++) {
+                    $('#correction-student-quiz-suggestion-' + i).parent().addClass('quiz-answer-correct');
+                }
+        
+                if (result.success.length > 0) {
+                    for (let i = 0; i < result.success.length; i++) {
+                        $('#correction-student-quiz-suggestion-' + (result.success[i]+1)).parent().addClass('quiz-answer-incorrect');
+                    }
+                }
+            })
+        }
     }
-
-    Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
-        for (let i = 1; i < $(`label[id^="correction-student-quiz-suggestion-"]`).length+1; i++) {
-            $('#correction-student-quiz-suggestion-' + i).parent().addClass('quiz-answer-correct');
-        }
-
-        if (result.success.length > 0) {
-            for (let i = 0; i < result.success.length; i++) {
-                $('#correction-student-quiz-suggestion-' + (result.success[i]+1)).parent().addClass('quiz-answer-incorrect');
-            }
-        }
-    })
 }
 
 function createContentForQuiz(data, doable = true, correction = false) {

@@ -382,7 +382,10 @@
 				"11": "Novembre",
 				"12": "Décembre"
 			},
-			"preview": "Prévisualisation"
+			"preview": "Prévisualisation",
+			"deleteActivityDisclaimer": "Vous êtes sur le point de supprimer une activité. Cette action est irréversible.",
+			"deleteConfirm": "Confirmer la suppression de l'activité",
+			"deleteActivity": "Supprimer l'activité"
 		},
 		"filter": {
 			"desc": "Plus ancien",

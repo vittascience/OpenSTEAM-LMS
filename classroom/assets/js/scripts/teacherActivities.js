@@ -66,19 +66,37 @@ $('body').on('click', '.activity-card-top i', function (event) {
     ClassroomSettings.activity = $(this).parent().parent().parent().find('.info-tutorials').attr('data-id')
 })
 
-//activité modal-->supprimer
-$('body').on('click', '.modal-activity-delete', function () {
-    let confirm = window.confirm("Etes vous sur de vouloir supprimer l'activité ?")
-    if (confirm) {
+
+function startDeleteActivity() {
+    $('#validation_delete_group').val("");
+    pseudoModal.openModal('delete-activity-modal');
+}
+
+function persistDeleteActivity() {
+    let validation = $('#validation-delete-activity').val();
+    let placeholderWord = $('#validation-delete-activity').attr('placeholder');
+    if (validation == placeholderWord) {
         let activityTitle = getActivity(ClassroomSettings.activity).title;
         Main.getClassroomManager().deleteActivity(ClassroomSettings.activity).then(function (activity) {
             displayNotification('#notif-div', "classroom.notif.activityDeleted", "success", `'{"activityName": "${activityTitle}"}'`);
             deleteTeacherActivityInList(activity.id);
             teacherActivitiesDisplay();
             DisplayActivities();
+            pseudoModal.closeModal('delete-activity-modal');
         })
         ClassroomSettings.activity = null;
+    } else {
+        displayNotification('#notif-div', "manager.input.writeDelete", "error");
     }
+}
+
+function cancelDeleteActivity() {
+    pseudoModal.closeModal('delete-activity-modal');
+}
+
+//activité modal-->supprimer
+$('body').on('click', '.modal-activity-delete', function () {
+    startDeleteActivity();
 })
 
 //activité modal-->modifier
