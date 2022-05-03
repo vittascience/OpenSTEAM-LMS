@@ -186,12 +186,12 @@ const classroomModals = {
             title: 'classroom.modals.attributeActivity.title'
         },
         content: `
-    <h4 class="c-text-primary font-weight-bold text-uppercase">Sélectionner des apprenants</h4>
-    <p class='text-center'><span class="student-number">0</span> apprenants sélectionnés</p>
+    <h4 class="c-text-primary font-weight-bold text-uppercase" data-i18n="classroom.classes.selectStudents">Sélectionner des apprenants</h4>
+    <p class='text-center' data-i18n="[html]classroom.classes.selectedStudents"><span class="student-number" id="attribuate-student-number">0</span> apprenants sélectionnés</p>
     <div class="container-fluid">
         <div id="list-student-attribute-modal" class="row justify-content-center c-primary-form"></div>
     </div>
-    <button id="attribute-activity-to-students-close" class="btn btn-lg c-btn-primary">Valider</button>
+    <button id="attribute-activity-to-students-close" class="btn btn-lg c-btn-primary" data-i18n="manager.buttons.validate">Valider</button>
                 `,
         footer: ``
     },

@@ -514,6 +514,7 @@ document.addEventListener('change', (e) => {
         }
 
         document.querySelector('#assign-total-student-number').innerHTML = selectedStudentNumber.toString();
+        document.querySelector('#attribuate-student-number').innerText = selectedStudentNumber;
         
         if (selectedStudentNumber > 0) {
             document.querySelector('#attribute-activity-to-students').removeAttribute('disabled');
@@ -521,7 +522,7 @@ document.addEventListener('change', (e) => {
             document.querySelector('#attribute-activity-to-students').setAttribute('disabled', '');
         }
     }
-    $('.student-number').html(ClassroomSettings.studentCount)
+    $('.student-number').html(ClassroomSettings.studentCount);
     if (document.querySelector('#assign-total-student-number').textContent != '0') {
         document.getElementById('attribute-activity-to-students').removeAttribute('disabled');
     } else {

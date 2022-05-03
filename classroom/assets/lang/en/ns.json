@@ -250,7 +250,10 @@
 				"learnerMode": "Learner mode",
 				"dueBy":"Due by",
 				"timePassed": "Time spent: "
-			}	
+			},	
+			"selectStudents": "Select the students",
+			"selectedStudents": "<span id='attribuate-student-number'>0</span> students selected",
+			"activationLink": "Activation link enabled"
 		},
 		"activities": {
 			"title": "Activities",
@@ -363,7 +366,9 @@
 			"preview": "Preview",
 			"deleteActivityDisclaimer": "This activity will be deleted from the platform",
 			"deleteConfirm": "Do you really want to delete this activity ?",
-			"deleteActivity": "Delete the activity"
+			"deleteActivity": "Delete the activity",
+			"correctAnswer": "Correct answer",
+			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activities </p>"
 		},
 		"filter": {
 			"desc": "Oldest to newest",

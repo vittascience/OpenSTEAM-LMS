@@ -250,7 +250,10 @@
 				"learnerMode": "Mode apprenant",
 				"dueBy": "À rendre avant le",
 				"timePassed": "Temps passé : "
-			}	
+			},
+			"selectStudents": "Sélectionner des apprenants",
+			"selectedStudents": "<span id='attribuate-student-number'>0</span> apprenants sélectionnés",
+			"activationLink": "Lien d'activation activé"
 		},
 		"activities": {
 			"title": "Activités",
@@ -385,7 +388,9 @@
 			"preview": "Prévisualisation",
 			"deleteActivityDisclaimer": "Vous êtes sur le point de supprimer une activité. Cette action est irréversible.",
 			"deleteConfirm": "Confirmer la suppression de l'activité",
-			"deleteActivity": "Supprimer l'activité"
+			"deleteActivity": "Supprimer l'activité",
+			"correctAnswer": "Réponse correcte",
+			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activités </p>"
 		},
 		"filter": {
 			"desc": "Plus ancien",

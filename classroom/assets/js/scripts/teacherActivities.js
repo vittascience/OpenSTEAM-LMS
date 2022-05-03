@@ -207,13 +207,14 @@ function manageUpdateForQuiz(activity) {
                                 <div class="input-group-append">
                                     <div class="input-group-text c-checkbox c-checkbox-grey">
                                         <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}" ${solution[i-1].isCorrect ? "checked" : ""}>
-                                        <label class="form-check-label" for="quiz-checkbox-${i}">Réponse correcte</label>
+                                        <label class="form-check-label" for="quiz-checkbox-${i}" id="label-quizz-${i}"  data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
                                     </div>
                                 </div>
                             </div>
                         </div>`;
         $('#quiz-suggestions-container').append(divToAdd);
         $(`#quiz-button-suggestion-${i}`).localize();
+        $(`#label-quizz-${i}`).localize();
     }
 
     $('#quiz-states').htmlcode(bbcodeToHtml(content.states));
@@ -294,7 +295,8 @@ function undoAttributeActivity(ref,title,classroomId) {
 
 //ouverture du modal listant les élèves pour leur attribuer l'activité
 $('#new-activity-attribute').click(function () {
-    pseudoModal.openModal('attribute-activity-modal')
+    pseudoModal.openModal('attribute-activity-modal');
+    $("#attribute-activity-modal").localize();
 })
 
 //fermeture du modal

@@ -398,7 +398,7 @@ function getTranslatedActivityName(type) {
     } else if (i18next.t(type) != type) {
         return i18next.t(type);
     } else {
-        return false;
+        return '';
     }
 }
 
@@ -509,7 +509,7 @@ function addQuizSuggestion() {
                             <div class="input-group-append">
                                 <div class="input-group-text c-checkbox c-checkbox-grey">
                                     <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}">
-                                    <label class="form-check-label" for="quiz-checkbox-${i}">Réponse correcte</label>
+                                    <label class="form-check-label" for="quiz-checkbox-${i}" id="label-quiz-${i}" data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
                                 </div>
                             </div>
                         </div>
@@ -517,6 +517,7 @@ function addQuizSuggestion() {
               
     $('#quiz-suggestions-container').append(divToAdd);
     $(`#quiz-button-suggestion-${i}`).localize();
+    $(`#label-quiz-${i}`).localize();
 }
 
 function parseQuizFieldsAndSaveThem() {

@@ -135,7 +135,7 @@ function classeItem(classe, nbStudents, students) {
                 <h3 class="activity-item-title">${classe.name}</h3>
             </div>`
     html += `<div class="class-card-bot">
-                <span class="nb-activities">${maxAct}</span> Activité` + setPluriel(maxAct) + `</p>
+                ${i18next.t('classroom.activities.nbActivities', {'nbActi': maxAct})}
             </div>`
     html += `</div></div>`
 
@@ -426,9 +426,15 @@ function loadActivityForStudents(isDoable) {
         $('#activity-introduction').show()
     }
 
+    let activityType = [
+        "reading",
+        "dragAndDrop",
+        "fillIn",
+        "quiz"
+    ]
     // Disclaimer for eval
-    if (Activity.correction < 2 && Activity.activity.type != 'reading') {
-        $('#warning-text-container').show()
+    if (Activity.correction < 2 && (activityType.includes(Activity.activity.type))) {
+        $('#warning-text-container').show();
         Activity.evaluation ? $('#warning-text-evaluation').show() : $("#warning-text-no-evaluation").show();
     }
     
