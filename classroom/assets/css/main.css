@@ -1183,12 +1183,17 @@ img.btn-cabri {
     width: 75%;
 }
 
+.title-margin {
+    margin-top: 3rem;
+}
+
 
 #sandbox-container-list,
 #list-activities-teacher,
 #mine-sandbox,
 #shared-sandbox,
 #new-activities-list,
+#saved-activities-list,
 #current-activities-list,
 #done-activities,
 #done-activities-list,

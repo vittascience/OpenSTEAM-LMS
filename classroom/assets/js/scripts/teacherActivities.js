@@ -83,6 +83,7 @@ function persistDeleteActivity() {
             teacherActivitiesDisplay();
             DisplayActivities();
             pseudoModal.closeModal('delete-activity-modal');
+            $('#validation-delete-activity').val("");
         })
         ClassroomSettings.activity = null;
     } else {

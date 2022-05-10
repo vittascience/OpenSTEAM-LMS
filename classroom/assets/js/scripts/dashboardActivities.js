@@ -1,9 +1,3 @@
-//@Rémi : Do we need that ? 
-$(document).ready(function () {
-
-
-});
-
 function activityItem(activity, state) {
     // Add class to activity card depending on activity type
     let activityType = "activity-card-" + activity.activity.type;
@@ -36,7 +30,7 @@ function activityItem(activity, state) {
                     <div class="activity-card ${activityType} ">
                         <div class="${activityStatus}" data-toggle="tooltip" title="${activityStatusTitle}"><div class="ribbon__content"></div></div>
                         <div class="activity-card-top">
-                        ${activity.activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
+                            ${activity.activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
                         </div>
                         <div class="activity-card-mid"></div>
                         <div class="activity-card-bot">
@@ -493,6 +487,16 @@ function loadActivityForTeacher() {
     // Reset the inputs
     resetInputsForActivity()
 
+    /**
+     * Content title management
+     */
+    if (UserManager.getUser().isRegular && Activity.correction > 1) {
+        $('#label-activity-content').text(i18next.t("newActivities.correction"));
+    } else {
+        $('#label-activity-content').text(i18next.t("newActivities.contentTitle"));
+    }
+
+
     if (Activity.correction >= 1) {
         $('#activity-details').html(i18next.t("classroom.activities.activityOfUser") + Activity.user.pseudo + i18next.t("classroom.activities.userSentOn") + formatHour(Activity.dateSend))
         document.querySelector('#activity-details').innerHTML += `<br><img class="chrono-icon" src="${_PATH}assets/media/icon_time_spent.svg">${i18next.t('classroom.activities.timePassed')} ${formatDuration(Activity.timePassed)}, ${i18next.t("classroom.activities.numberOfTries")} ${Activity.tries}`;
@@ -577,15 +581,14 @@ function injectContentForActivity(content, correction, type = null, correction_d
     }
 }
 
-let wbbOpt = {
-    buttons: ",bold,italic,underline|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe,answer",
-}
+
 
 function manageDisplayCustomAndReading(correction, content, correction_div) {
+    const wbbptions = Main.getClassroomManager().wbbOpt;
     $('#activity-content').html(bbcodeToHtml(content));
     $('#activity-content-container').show();
     if (correction == 0) {
-        $('#activity-input').wysibb(wbbOpt);
+        $('#activity-input').wysibb(wbbptions);
         $('#activity-input-container').show();
     } else if (correction > 0) {
         $('#activity-correction').html(correction_div);
@@ -597,15 +600,18 @@ function manageDisplayFree(correction, content, correction_div) {
     $('#activity-states').html(bbcodeToHtml(content));
     $('#activity-states-container').show();
     if (UserManager.getUser().isRegular) {
-        if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") { 
-            $('#activity-student-response').show();
-            $('#activity-student-response-content').html(bbcodeToHtml(JSON.parse(Activity.response)));
-            manageCorrectionDiv(correction_div, correction);
+        if (Activity.response != null && Activity.response != '') {
+            if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") { 
+                $('#activity-student-response').show();
+                $('#activity-student-response-content').html(bbcodeToHtml(JSON.parse(Activity.response)));
+                manageCorrectionDiv(correction_div, correction);
+            }
         }
     }
     if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
-            $('#activity-input').wysibb(wbbOpt);
+            const wbbptions = Main.getClassroomManager().wbbOpt;
+            $('#activity-input').wysibb(wbbptions);
             if (Activity.response != null && Activity.response != '') {
                 $('#activity-input').htmlcode(bbcodeToHtml(JSON.parse(Activity.response)));
             }
@@ -814,35 +820,43 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
     
     if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
-            $('#activity-input').wysibb(wbbOpt);
+            const wbbptions = Main.getClassroomManager().wbbOpt;
+            $('#activity-input').wysibb(wbbptions);
 
             let ContentString = manageDragAndDropText(content.dragAndDropFields.contentForStudent);
             $('#drag-and-drop-text').html(`<div>${ContentString}</div>`);
 
             // Get the response array and shuffle it
             let choices = shuffleArray(JSON.parse(Activity.activity.solution));
+
             choices.forEach(e => {
                 $('#drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
             });
             $('#activity-drag-and-drop-container').show();
         
-        
-            let drake = dragula([document.querySelector('#drag-and-drop-fields')]).on('drop', function(el, target, source, sibling){
+            // Reset the dragula fields
+            Main.getClassroomManager().dragulaGlobal.containers = [];
+            
+            Main.getClassroomManager().dragulaGlobal = dragula([document.querySelector('#drag-and-drop-fields')]).on('drop', function(el, target, source) {
                 if (target.id != 'drag-and-drop-fields') {
                     let swap = $(target).find('p').not(el);
                     swap.length > 0 ? source.append(swap[0]) : null;
                 }
             });
-        
+
             $('.dropzone').each((i, e) => {
-                drake.containers.push(document.querySelector('#'+e.id));
+                Main.getClassroomManager().dragulaGlobal.containers.push(document.querySelector('#'+e.id));
             });
 
             // Place the student's response if there is one
             if (Activity.response != null && Activity.response != "") {
                 let response = JSON.parse(Activity.response);
                 response.forEach((e, i) => {
-                    $(`#dz-${i}`).html($(`#${e.string.toLowerCase()}`)[0]);
+                    if (e.string.toLowerCase() != "" && e.string.toLowerCase() != null) {
+                        if ($(`#${e.string.toLowerCase()}`).length > 0) {
+                            $(`#dz-${i}`).html($(`#${e.string.toLowerCase()}`)[0]);
+                        }
+                    }
                 })
             }
         } else {

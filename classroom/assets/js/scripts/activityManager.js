@@ -2,29 +2,31 @@
  * Setup the rich text editor for the activities
  */
  function setTextArea() {
-    let wbbOpt = {
+/*     let wbbOpt = {
         resize_maxheight:354,
         autoresize:false,
         buttons: ",bold,italic,underline|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe,answer",
-    }
+    } */
+
+    const options = Main.getClassroomManager().wbbOpt;
     // Free 
-    $('#free-enonce').wysibb(wbbOpt);
-    $('#free-content').wysibb(wbbOpt);
-    $('#free-correction').wysibb(wbbOpt);
+    $('#free-enonce').wysibb(options);
+    $('#free-content').wysibb(options);
+    $('#free-correction').wysibb(options);
 
     // Reading
-    $("#reading-content").wysibb(wbbOpt);
+    $("#reading-content").wysibb(options);
 
     // FillIn
-    $("#fill-in-states").wysibb(wbbOpt);
-    $("#fill-in-content").wysibb(wbbOpt);
+    $("#fill-in-states").wysibb(options);
+    $("#fill-in-content").wysibb(options);
 
     // DragAndDrop
-    $("#drag-and-drop-states").wysibb(wbbOpt);
-    $("#drag-and-drop-content").wysibb(wbbOpt);
+    $("#drag-and-drop-states").wysibb(options);
+    $("#drag-and-drop-content").wysibb(options);
 
      // Quiz
-     $("#quiz-states").wysibb(wbbOpt);
+     $("#quiz-states").wysibb(options);
 }
 
 // autocorrect modification pas pris en compte
@@ -421,7 +423,8 @@ function goBackToActivities() {
  */
 
 $('#fill-in-add-inputs').click(() => {
-    $('#fill-in-content').htmlcode($('#fill-in-content').htmlcode() + `<span class="lms-answer">réponse</span> \&nbsp`);
+    $('#fill-in-content').bbcode();
+    $('#fill-in-content').htmlcode($('#fill-in-content').htmlcode() + `<span class="lms-answer">réponse</span> \&nbsp `);
 });
 
 function parseFillInFieldsAndSaveThem() {
@@ -457,6 +460,7 @@ function parseFillInFieldsAndSaveThem() {
 }
 
 $('#dragAndDrop-add-inputs').click(() => {
+    $('#drag-and-drop-content').bbcode()
     $('#drag-and-drop-content').htmlcode($('#drag-and-drop-content').htmlcode() + `<span class="lms-answer">réponse</span> \&nbsp`);
 });
 

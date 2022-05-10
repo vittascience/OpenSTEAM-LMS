@@ -158,10 +158,10 @@ $('body').on('click', '.modal-classroom-modify', function (e) {
 //ouvre le dashboard d'une classe
 $('body').on('click', '.class-card', function () {
     if (!$(this).find("i:hover").length) {
-        // TODO
         let trad = i18next.t("classroom.classes.activationLink");
-        $('#blocking-class-tooltip').attr("title", trad);
-        $('[data-toggle="tooltip"]').tooltip();
+        $('#blocking-class-tooltip').tooltip("dispose");
+        $('#blocking-class-tooltip').attr("title", trad).tooltip();
+
         ClassroomSettings.classroom = $(this).find('.class-card-top').attr('data-link')
         navigatePanel('classroom-table-panel-teacher', 'dashboard-classes-teacher', ClassroomSettings.classroom)
     }
@@ -1065,6 +1065,7 @@ function setStudentsSelect() {
 function actualizeStudentActivities(activity, correction) {
     let tempActivities = Main.getClassroomManager()._myActivities.newActivities.filter(x => x.id !== activity.id)
     Main.getClassroomManager()._myActivities.newActivities = tempActivities
+
     if (correction == 1) {
         Main.getClassroomManager()._myActivities.currentActivities.push(activity)
     } else {
