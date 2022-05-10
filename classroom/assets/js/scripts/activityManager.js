@@ -149,10 +149,11 @@ function titleBackward() {
  */
 function titleForward() {
     Main.getClassroomManager()._createActivity.title = $('#global_title').val();
-    
+    $('#activity-title-forward').attr('disabled', true);
     // Check if the title is empty
     if (Main.getClassroomManager()._createActivity.title == '') {
         displayNotification('#notif-div', "classroom.notif.emptyTitle", "error");
+        $('#activity-title-forward').attr('disabled', false);
     } else {
         let title = Main.getClassroomManager()._createActivity.title,
             type = Main.getClassroomManager()._createActivity.id,
@@ -186,6 +187,7 @@ function titleForward() {
                 }
             });
         }
+        $('#activity-title-forward').attr('disabled', false);
     }
 }
 
