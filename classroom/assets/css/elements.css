@@ -516,6 +516,13 @@ hr {
     text-transform: unset;
 }
 
+#wbbmodal .wbbm {
+    font-family: var(--main-font);
+}
+
+#wbbmodal .wbbm-cont {
+    color: var(--classroom-black);
+}
 
 /* Vertical align center utility */
 
@@ -811,7 +818,6 @@ input:checked+.slider-mini {
         display: none;
     }
 }
-
 
 /* Scrollbar utility */
 
