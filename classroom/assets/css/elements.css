@@ -516,6 +516,13 @@ hr {
     text-transform: unset;
 }
 
+#wbbmodal .wbbm {
+    font-family: var(--main-font);
+}
+
+#wbbmodal .wbbm-cont {
+    color: var(--classroom-black);
+}
 
 /* Vertical align center utility */
 
@@ -637,6 +644,23 @@ hr {
 .c-checkbox [type="checkbox"]:checked:focus+label:before,
 .c-checkbox [type="checkbox"]:not(:checked):focus+label:before {
     box-shadow: 0 0 0 .2rem rgba(126, 126, 126, 0.25);
+}
+
+/* if in append group */
+.input-group-append .c-checkbox [type="checkbox"]:not(:checked)+label:before,
+.input-group-append .c-checkbox [type="checkbox"]:checked+label:before {
+    border: 2px solid var(--classroom-white);
+}
+
+.input-group-append .c-checkbox.c-checkbox-grey [type="checkbox"]:not(:checked)+label:after,
+.input-group-append .c-checkbox.c-checkbox-grey [type="checkbox"]:checked+label:after {
+    color: var(--classroom-white);
+}
+
+.input-group-append .c-checkbox [type="checkbox"]:not(:checked)+label,
+.input-group-append .c-checkbox [type="checkbox"]:checked+label {
+    font-weight: 600;
+    color: var(--classroom-white);
 }
 
 /* RADIO BUTTONS */
@@ -794,7 +818,6 @@ input:checked+.slider-mini {
         display: none;
     }
 }
-
 
 /* Scrollbar utility */
 
