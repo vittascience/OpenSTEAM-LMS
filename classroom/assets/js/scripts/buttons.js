@@ -514,6 +514,7 @@ document.addEventListener('change', (e) => {
         }
 
         document.querySelector('#assign-total-student-number').innerHTML = selectedStudentNumber.toString();
+        document.querySelector('#attribuate-student-number').innerText = selectedStudentNumber;
         
         if (selectedStudentNumber > 0) {
             document.querySelector('#attribute-activity-to-students').removeAttribute('disabled');
@@ -521,7 +522,7 @@ document.addEventListener('change', (e) => {
             document.querySelector('#attribute-activity-to-students').setAttribute('disabled', '');
         }
     }
-    $('.student-number').html(ClassroomSettings.studentCount)
+    $('.student-number').html(ClassroomSettings.studentCount);
     if (document.querySelector('#assign-total-student-number').textContent != '0') {
         document.getElementById('attribute-activity-to-students').removeAttribute('disabled');
     } else {
@@ -665,47 +666,45 @@ function studentActivitiesDisplay() {
     document.querySelector('#saved-activities-list').innerHTML = '';
     document.querySelector('#done-activities-list').innerHTML = '';
 
-
     $('.section-new .resource-number').html(activities.newActivities.length)
     activities.newActivities.forEach(element => {
-        $('#new-activities-list').append(activityItem(element, "newActivities"))
-        index++
+        $('#new-activities-list').append(activityItem(element, "newActivities"));
+        index++;
     });
 
     $('.section-saved .resource-number').html(activities.savedActivities.length)
     activities.savedActivities.forEach(element => {
-        $('#saved-activities-list').append(activityItem(element, "savedActivities"))
-        index++
+        $('#saved-activities-list').append(activityItem(element, "savedActivities"));
+        index++;
     });
 
     $('.section-current .resource-number').html(activities.currentActivities.length)
     activities.currentActivities.forEach(element => {
-        $('#current-activities-list').append(activityItem(element, "currentActivities"))
-        index++
+        $('#current-activities-list').append(activityItem(element, "currentActivities"));
+        index++;
     });
 
     $('.section-done .resource-number').html(activities.doneActivities.length)
     activities.doneActivities.forEach(element => {
-        $('#done-activities-list').append(activityItem(element, "doneActivities"))
-        index++
+        $('#done-activities-list').append(activityItem(element, "doneActivities"));
+        index++;
     });
 
     if (activities.doneActivities.length < 1) {
-        $('#average-score').hide()
+        $('#average-score').hide();
     } else {
-        $('#number-activities-done').html(activities.doneActivities.length)
-        $('#score-student').html($('#body-table-bilan .bilan-success').length)
-        $('#average-score').show()
+        $('#number-activities-done').html(activities.doneActivities.length);
+        $('#score-student').html($('#body-table-bilan .bilan-success').length);
+        $('#average-score').show();
     }
 
     if (index == 1) {
-        $('#bilan-student').hide()
+        $('#bilan-student').hide();
     } else {
-        $('#bilan-student').show()
+        $('#bilan-student').show();
     }
 
-    $('[data-toggle="tooltip"]').tooltip()
-
+    $('[data-toggle="tooltip"]').tooltip();
 }
 
 function sandboxDisplay(projects = Main.getClassroomManager()._myProjects) {
@@ -814,8 +813,11 @@ function classroomsDisplay() {
 }
 
 function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherActivities) {
+    // Keep the list sorted
+    let sortedList = $("#filter-activity-select").val() != "desc" ? list.sort((a, b) => {return b.id - a.id}) : list;
+
     $('#list-activities-teacher').html(``)
-    list.forEach(element => {
+    sortedList.forEach(element => {
         $('#list-activities-teacher').append(teacherActivityItem(element))
     });
     $('[data-toggle="tooltip"]').tooltip()
@@ -1033,7 +1035,7 @@ function createGroupWithModal() {
     });
 
     pseudoModal.closeAllModal();
-    tempoAndShowGroupsTable()
+    tempoAndShowGroupsTable();
 }
 
 function showupdateGroupModal(id) {
@@ -1055,27 +1057,25 @@ function showupdateGroupModal(id) {
 
 
         $('#group_upd_global_restrictions').html(`
+            <div class="activity-add-form c-secondary-form my-3">
 
-        <div class="activity-add-form c-secondary-form my-3">
+            <h6 class="form-check-label font-weight-bold mb-4" style="color: var(--classroom-primary)">${i18next.t('manager.group.groupsRestrictions')}</h6>
+            <br>
+            <label class="form-check-label" for="begin_date"><i class="far fa-calendar-alt"></i>  ${i18next.t('classroom.activities.form.dateBegin')}</label>
+            <input type="date" id="begin_date" name="trip-start" value="${dateBegin}" max="2023-12-31">
 
-        <h6 class="form-check-label font-weight-bold mb-4" style="color: var(--classroom-primary)">${i18next.t('manager.group.groupsRestrictions')}</h6>
-        <br>
-        <label class="form-check-label" for="begin_date"><i class="far fa-calendar-alt"></i>  ${i18next.t('classroom.activities.form.dateBegin')}</label>
-        <input type="date" id="begin_date" name="trip-start" value="${dateBegin}" max="2023-12-31">
+            <label class="form-check-label" for="end_date"><i class="far fa-calendar-alt"></i>  ${i18next.t('classroom.activities.form.dateEnd')}</label>
+            <input type="date" id="end_date" name="trip-start" value="${dateEnd}" max="2025-12-31">
 
-        <label class="form-check-label" for="end_date"><i class="far fa-calendar-alt"></i>  ${i18next.t('classroom.activities.form.dateEnd')}</label>
-        <input type="date" id="end_date" name="trip-start" value="${dateEnd}" max="2025-12-31">
+            <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerTeachers')}" for="max_students_per_teachers"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.studentsPerTeacher')}</label>
+            <input type="number" id="max_students_per_teachers" value="${maxStudentsPerTeachers}">
 
-        <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerTeachers')}" for="max_students_per_teachers"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.studentsPerTeacher')}</label>
-        <input type="number" id="max_students_per_teachers" value="${maxStudentsPerTeachers}">
+            <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerGroups')}" for="max_students_per_groups"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.studentsPerGroup')}</label>
+            <input type="number" id="max_students_per_groups" value="${maxStudents}">
 
-        <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerGroups')}" for="max_students_per_groups"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.studentsPerGroup')}</label>
-        <input type="number" id="max_students_per_groups" value="${maxStudents}">
-
-        <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxTeachers')}" for="max_teachers_per_groups"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.teachersPerGroup')}</label>
-        <input type="number" id="max_teachers_per_groups" value="${maxTeachers}">
-        </div>
-        `);
+            <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxTeachers')}" for="max_teachers_per_groups"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.teachersPerGroup')}</label>
+            <input type="number" id="max_teachers_per_groups" value="${maxTeachers}">
+            </div>`);
         $('#upd_group_link').val(url);
     });
 }

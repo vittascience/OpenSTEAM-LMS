@@ -48,9 +48,6 @@ function deleteQcmFields() {
 
 // Set all the inputs we need to reset
 function resetInputsForActivity() {
-
-    
-    
     // Autocorrect note disclaimer
     $("#activity-auto-corrected-disclaimer").hide();
     $("#activity-auto-disclaimer").hide();
@@ -166,7 +163,7 @@ $("#free-autocorrect").change(function () {
 function setAddFieldTooltips() {
     $('#dragAndDrop-add-inputs').tooltip("dispose")
     $('#fill-in-add-inputs').tooltip("dispose")
-    $('#dragAndDrop-add-inputs').attr("title", i18next.t('newActivities.addFieldTooltip')).tooltip();
+    $('#dragAndDrop-add-inputs').attr("title", i18next.t('newActivities.addFieldTooltip') ).tooltip();
     $('#fill-in-add-inputs').attr("title", i18next.t('newActivities.addFieldTooltip')).tooltip();
 }
 

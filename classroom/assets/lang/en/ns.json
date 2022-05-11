@@ -250,7 +250,10 @@
 				"learnerMode": "Learner mode",
 				"dueBy":"Due by",
 				"timePassed": "Time spent: "
-			}	
+			},	
+			"selectStudents": "Select the students",
+			"selectedStudents": "<span id='attribuate-student-number'>0</span> students selected",
+			"activationLink": "Activation link enabled"
 		},
 		"activities": {
 			"title": "Activities",
@@ -360,7 +363,12 @@
 				"11": "November",
 				"12": "December"
 			},
-			"preview": "Preview"
+			"preview": "Preview",
+			"deleteActivityDisclaimer": "This activity will be deleted from the platform",
+			"deleteConfirm": "Do you really want to delete this activity ?",
+			"deleteActivity": "Delete the activity",
+			"correctAnswer": "Correct answer",
+			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activities </p>"
 		},
 		"filter": {
 			"desc": "Oldest to newest",
@@ -1179,6 +1187,7 @@
 		"cancel": "Cancel",
 		"autocorrect": "Autocorrect",
 		"correction": "Activity correction",
+		"contentTitle": "Activity content",
 		"tolerance1": "Add an error tolerance of",
 		"tolerance2": "character(s) on the entire student response.",
 		"hint": "Hint <i>* displayed if the answer is wrong</i>",

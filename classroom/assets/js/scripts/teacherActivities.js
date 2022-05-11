@@ -66,19 +66,38 @@ $('body').on('click', '.activity-card-top i', function (event) {
     ClassroomSettings.activity = $(this).parent().parent().parent().find('.info-tutorials').attr('data-id')
 })
 
-//activité modal-->supprimer
-$('body').on('click', '.modal-activity-delete', function () {
-    let confirm = window.confirm("Etes vous sur de vouloir supprimer l'activité ?")
-    if (confirm) {
+
+function startDeleteActivity() {
+    $('#validation_delete_group').val("");
+    pseudoModal.openModal('delete-activity-modal');
+}
+
+function persistDeleteActivity() {
+    let validation = $('#validation-delete-activity').val();
+    let placeholderWord = $('#validation-delete-activity').attr('placeholder');
+    if (validation == placeholderWord) {
         let activityTitle = getActivity(ClassroomSettings.activity).title;
         Main.getClassroomManager().deleteActivity(ClassroomSettings.activity).then(function (activity) {
             displayNotification('#notif-div', "classroom.notif.activityDeleted", "success", `'{"activityName": "${activityTitle}"}'`);
             deleteTeacherActivityInList(activity.id);
             teacherActivitiesDisplay();
             DisplayActivities();
+            pseudoModal.closeModal('delete-activity-modal');
+            $('#validation-delete-activity').val("");
         })
         ClassroomSettings.activity = null;
+    } else {
+        displayNotification('#notif-div', "manager.input.writeDelete", "error");
     }
+}
+
+function cancelDeleteActivity() {
+    pseudoModal.closeModal('delete-activity-modal');
+}
+
+//activité modal-->supprimer
+$('body').on('click', '.modal-activity-delete', function () {
+    startDeleteActivity();
 })
 
 //activité modal-->modifier
@@ -189,13 +208,14 @@ function manageUpdateForQuiz(activity) {
                                 <div class="input-group-append">
                                     <div class="input-group-text c-checkbox c-checkbox-grey">
                                         <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}" ${solution[i-1].isCorrect ? "checked" : ""}>
-                                        <label class="form-check-label" for="quiz-checkbox-${i}">Réponse correcte</label>
+                                        <label class="form-check-label" for="quiz-checkbox-${i}" id="label-quizz-${i}"  data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
                                     </div>
                                 </div>
                             </div>
                         </div>`;
         $('#quiz-suggestions-container').append(divToAdd);
         $(`#quiz-button-suggestion-${i}`).localize();
+        $(`#label-quizz-${i}`).localize();
     }
 
     $('#quiz-states').htmlcode(bbcodeToHtml(content.states));
@@ -276,7 +296,8 @@ function undoAttributeActivity(ref,title,classroomId) {
 
 //ouverture du modal listant les élèves pour leur attribuer l'activité
 $('#new-activity-attribute').click(function () {
-    pseudoModal.openModal('attribute-activity-modal')
+    pseudoModal.openModal('attribute-activity-modal');
+    $("#attribute-activity-modal").localize();
 })
 
 //fermeture du modal
