@@ -17,9 +17,9 @@ class ClassroomManager {
      * @public
      */
     constructor() {
-        this._myActivities = []
-        this._myClasses = []
-        this._myTeacherActivities = []
+        this._myActivities = [];
+        this._myClasses = [];
+        this._myTeacherActivities = [];
         this._tasksQueue = [];
         this._isExecutingTaskInQueue = false;
         this._allActivities = []

@@ -311,7 +311,7 @@ function saveActivitiesResponseManager(activityType = null, response = null) {
         let lengthResponse = $(`input[id^="student-fill-in-field-"]`).length;
         for (let i = 1; i < lengthResponse+1; i++) {
             if (response.badResponse.includes(i-1)) {
-                $(`#student-fill-in-field-${i}`).css("border","2px solid red");
+                $(`#student-fill-in-field-${i}`).css("border","2px solid orange");
             } else {
                 $(`#student-fill-in-field-${i}`).css("border","2px solid green");
             }
@@ -322,7 +322,7 @@ function saveActivitiesResponseManager(activityType = null, response = null) {
         }
 
         for (let i = 0; i < response.badResponse.length; i++) {
-            $('#dz-' + (response.badResponse[i])).css("border","1px solid red");
+            $('#dz-' + (response.badResponse[i])).css("border","1px solid orange");
         }
 
         if (response.hasOwnProperty("hint")) {
