@@ -250,7 +250,10 @@
         "learnerMode": "Modo alumno",
         "dueBy": "A entregar por",
         "timePassed": "Tiempo dedicado:"
-      }
+      },
+      "selectStudents": " Selección de alumnos",
+      "selectedStudents": " <span id='atributo-número-de-alumno'>0</span> alumnos seleccionados",
+      "activationLink": " Enlace de activación activado"
     },
     "activities": {
       "title": "Actividades",
@@ -382,7 +385,12 @@
         "11": " Noviembre",
         "12": " Diciembre"
       },
-      "preview": " Vista previa"
+      "preview": " Vista previa",
+      "deleteActivityDisclaimer": " Está a punto de eliminar una actividad. Esta acción es irreversible.",
+      "deleteConfirm": " Confirmar la supresión de la actividad",
+      "deleteActivity": " Eliminar la actividad",
+      "correctAnswer": " Respuesta correcta",
+      "nbActivities": " <span class='nb-activities'>{{ nbActi }}</span> Actividades </p>"
     },
     "filter": {
       "desc": "Del menos al más reciente",
@@ -1491,6 +1499,7 @@
     "cancel": "Cancelar",
     "autocorrect": "Corrección automática",
     "correction": "Corrección de la actividad",
+    "contentTitle": " Contenido de la actividad",
     "tolerance1": "Añadir una tolerancia de error de",
     "tolerance2": "carácter(es) en la respuesta completa del estudiante.",
     "hint": "Pista * : se muestra si la respuesta es incorrecta",
