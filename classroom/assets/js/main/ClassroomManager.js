@@ -17,9 +17,9 @@ class ClassroomManager {
      * @public
      */
     constructor() {
-        this._myActivities = []
-        this._myClasses = []
-        this._myTeacherActivities = []
+        this._myActivities = [];
+        this._myClasses = [];
+        this._myTeacherActivities = [];
         this._tasksQueue = [];
         this._isExecutingTaskInQueue = false;
         this._allActivities = []
@@ -28,6 +28,12 @@ class ClassroomManager {
         this._lastCreatedActivity = 0;
         this._idActivityOnAttribution = 0;
         this.setDefaultActivityData();
+        this.wbbOpt = {
+            resize_maxheight: 354,
+            autoresize: false,
+            buttons: ",bold,italic,underline|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe,answer",
+        },
+        this.dragulaGlobal = dragula();
     }
 
     /**

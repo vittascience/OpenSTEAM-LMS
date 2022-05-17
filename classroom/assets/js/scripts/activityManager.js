@@ -2,29 +2,31 @@
  * Setup the rich text editor for the activities
  */
  function setTextArea() {
-    let wbbOpt = {
+/*     let wbbOpt = {
         resize_maxheight:354,
         autoresize:false,
         buttons: ",bold,italic,underline|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe,answer",
-    }
+    } */
+
+    const options = Main.getClassroomManager().wbbOpt;
     // Free 
-    $('#free-enonce').wysibb(wbbOpt);
-    $('#free-content').wysibb(wbbOpt);
-    $('#free-correction').wysibb(wbbOpt);
+    $('#free-enonce').wysibb(options);
+    $('#free-content').wysibb(options);
+    $('#free-correction').wysibb(options);
 
     // Reading
-    $("#reading-content").wysibb(wbbOpt);
+    $("#reading-content").wysibb(options);
 
     // FillIn
-    $("#fill-in-states").wysibb(wbbOpt);
-    $("#fill-in-content").wysibb(wbbOpt);
+    $("#fill-in-states").wysibb(options);
+    $("#fill-in-content").wysibb(options);
 
     // DragAndDrop
-    $("#drag-and-drop-states").wysibb(wbbOpt);
-    $("#drag-and-drop-content").wysibb(wbbOpt);
+    $("#drag-and-drop-states").wysibb(options);
+    $("#drag-and-drop-content").wysibb(options);
 
      // Quiz
-     $("#quiz-states").wysibb(wbbOpt);
+     $("#quiz-states").wysibb(options);
 }
 
 // autocorrect modification pas pris en compte
@@ -147,10 +149,11 @@ function titleBackward() {
  */
 function titleForward() {
     Main.getClassroomManager()._createActivity.title = $('#global_title').val();
-    
+    $('#activity-title-forward').attr('disabled', true);
     // Check if the title is empty
     if (Main.getClassroomManager()._createActivity.title == '') {
         displayNotification('#notif-div', "classroom.notif.emptyTitle", "error");
+        $('#activity-title-forward').attr('disabled', false);
     } else {
         let title = Main.getClassroomManager()._createActivity.title,
             type = Main.getClassroomManager()._createActivity.id,
@@ -184,6 +187,7 @@ function titleForward() {
                 }
             });
         }
+        $('#activity-title-forward').attr('disabled', false);
     }
 }
 
@@ -307,7 +311,7 @@ function saveActivitiesResponseManager(activityType = null, response = null) {
         let lengthResponse = $(`input[id^="student-fill-in-field-"]`).length;
         for (let i = 1; i < lengthResponse+1; i++) {
             if (response.badResponse.includes(i-1)) {
-                $(`#student-fill-in-field-${i}`).css("border","2px solid red");
+                $(`#student-fill-in-field-${i}`).css("border","2px solid orange");
             } else {
                 $(`#student-fill-in-field-${i}`).css("border","2px solid green");
             }
@@ -318,7 +322,7 @@ function saveActivitiesResponseManager(activityType = null, response = null) {
         }
 
         for (let i = 0; i < response.badResponse.length; i++) {
-            $('#dz-' + (response.badResponse[i])).css("border","1px solid red");
+            $('#dz-' + (response.badResponse[i])).css("border","1px solid orange");
         }
 
         if (response.hasOwnProperty("hint")) {
@@ -398,7 +402,7 @@ function getTranslatedActivityName(type) {
     } else if (i18next.t(type) != type) {
         return i18next.t(type);
     } else {
-        return false;
+        return '';
     }
 }
 
@@ -421,7 +425,8 @@ function goBackToActivities() {
  */
 
 $('#fill-in-add-inputs').click(() => {
-    $('#fill-in-content').htmlcode($('#fill-in-content').htmlcode() + `<span class="lms-answer">réponse</span> \&nbsp`);
+    $('#fill-in-content').bbcode();
+    $('#fill-in-content').htmlcode($('#fill-in-content').htmlcode() + `<span class="lms-answer">réponse</span> \&nbsp `);
 });
 
 function parseFillInFieldsAndSaveThem() {
@@ -457,6 +462,7 @@ function parseFillInFieldsAndSaveThem() {
 }
 
 $('#dragAndDrop-add-inputs').click(() => {
+    $('#drag-and-drop-content').bbcode()
     $('#drag-and-drop-content').htmlcode($('#drag-and-drop-content').htmlcode() + `<span class="lms-answer">réponse</span> \&nbsp`);
 });
 
@@ -509,7 +515,7 @@ function addQuizSuggestion() {
                             <div class="input-group-append">
                                 <div class="input-group-text c-checkbox c-checkbox-grey">
                                     <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}">
-                                    <label class="form-check-label" for="quiz-checkbox-${i}">Réponse correcte</label>
+                                    <label class="form-check-label" for="quiz-checkbox-${i}" id="label-quiz-${i}" data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
                                 </div>
                             </div>
                         </div>
@@ -517,6 +523,7 @@ function addQuizSuggestion() {
               
     $('#quiz-suggestions-container').append(divToAdd);
     $(`#quiz-button-suggestion-${i}`).localize();
+    $(`#label-quiz-${i}`).localize();
 }
 
 function parseQuizFieldsAndSaveThem() {

@@ -281,7 +281,7 @@
 
                 <!-- Used for content -->
                 <div id="activity-content-container" style="display: none;">
-                    <label for="activity-content" class="vitta-modal-title mt-2" data-i18n="classroom.activities.correction">Contenu de l'activité</label>
+                    <label for="activity-content" id="label-activity-content" class="vitta-modal-title mt-2" data-i18n="newActivities.contentTitle">Contenu de l'activité</label>
                     <p id="activity-content"></p>    
                 </div>
                 
@@ -650,7 +650,7 @@
         </div>
     </div>
     <div id="classroom-info">
-        <button class="btn c-btn-secondary" class="blocking-class" onclick="toggleBlockClass()" data-toggle="tooltip" title="Lien d'activation activé">
+        <button class="btn c-btn-secondary" id="blocking-class-tooltip" class="blocking-class" onclick="toggleBlockClass()" data-toggle="tooltip" title="Lien d'activation activé">
             <i class="fa fa-lock-open"></i>
         </button>
 
@@ -684,7 +684,7 @@
     <div class="d-flex justify-content-center c-primary-form row" style="margin: 0 auto;">
         <div class="col-12 col-md-7">
             <div class="d-flex flex-fill">
-                <input type="search" id="filter-activity-input" placeholder="Recherche..." class="flex-fill">
+                <input type="search" id="filter-activity-input" data-i18n="[placeholder]manager.buttons.search" class="flex-fill">
 
                 <button id="filter-activity" class="c-btn-primary" style="width: 3em;height: 3em;">
                     <i class="fas fa-search"></i>
@@ -897,7 +897,7 @@
 <div id="classroom-dashboard-help-panel-teacher" style="display:none;" class="dashboard-block help-panel">
     <div class="contact-panel">
 
-        <h3 data-i18n="classroom.teacherHelpPanel.contactForm.title">Contacter Vittascience</h3>
+        <h3 data-i18n="classroom.teacherHelpPanel.contactForm.title" class="title-margin">Contacter Vittascience</h3>
 
         <div id="about-contact-info">
 
@@ -938,7 +938,7 @@
 <div id="groupadmin-dashboard-help" style="display:none;" class="dashboard-block help-panel">
 
     <div class="contact-panel">
-        <h3 data-i18n="classroom.teacherHelpPanel.contactForm.title"></h3>
+        <h3 data-i18n="classroom.teacherHelpPanel.contactForm.title" class="title-margin"></h3>
 
         <div id="groupadmin-about-contact-info">
             <form id="groupadmin-about-contact-form" class="c-primary-form">
@@ -1444,7 +1444,7 @@
                             <div class="input-group-append">
                                 <div class="input-group-text c-checkbox c-checkbox-grey">
                                     <input class="form-check-input" type="checkbox" id="quiz-checkbox-1">
-                                    <label class="form-check-label" for="quiz-checkbox-1">Réponse correcte</label>
+                                    <label class="form-check-label" for="quiz-checkbox-1" data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
                                 </div>
                             </div>
                         </div>
@@ -1585,7 +1585,7 @@
 
     <div class="container">
         <div class="form-row mx-auto my-2 c-primary-form">
-            <div class="col-xl-9 my-1">
+            <div class="col-xl-9 my-1 mx-auto">
                 <label data-i18n="classroom.activities.form.title.label">Titre : </label>
                 <input class="w-100" type="text" id="global_title">
             </div>
@@ -1600,7 +1600,7 @@
                 </button>
             </div>
             <div class="col-sm order-first order-sm-last mb-2">
-                <button class="btn c-btn-secondary" onclick="titleForward()">
+                <button class="btn c-btn-secondary" onclick="titleForward()" id="activity-title-forward">
                     <span data-i18n="classroom.activities.form.validate"></span> <i class="fas fa-check"></i>
                 </button>
             </div>
