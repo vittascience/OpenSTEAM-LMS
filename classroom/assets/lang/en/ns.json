@@ -273,6 +273,7 @@
 			"vgood": "Good proficiency",
 			"good": "Weak proficiency",
 			"refuse": "Insufficient proficiency",
+			"nnoted": "No note",
 			"instruction": "Instructions",
 			"commentary": "Comment",
 			"sendResults": "Send the comment ",
@@ -479,6 +480,11 @@
 				"placeholderInput": "Password",
 				"validateButton": "Validate"
 			}
+		},
+		"folders": {
+			"folderManagement": "Folder management",
+			"name": "Name",
+			"title": "Folders"
 		}
 	},
 	"faqInfo": {

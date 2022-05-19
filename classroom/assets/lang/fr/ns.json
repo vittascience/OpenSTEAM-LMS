@@ -273,6 +273,7 @@
 			"vgood": "Maîtrise satisfaisante",
 			"good": "Maîtrise fragile",
 			"refuse": "Maîtrise insuffisante",
+			"nnoted": "Non noté",
 			"instruction": "Consigne",
 			"commentary": "Commentaire",
 			"sendResults": "Envoyer le commentaire ",
@@ -501,6 +502,12 @@
 				"placeholderInput": "Mot de passe",
 				"validateButton": "Valider"
 			}
+		},
+		"folders": {
+			"folderManagement": "Gestion des dossiers",
+			"name": "Nom du dossier <span class=\"mandatory\">*</span>",
+			"title": "Dossier",
+			"image": "Image du dossier"
 		}
 	},
 	"faqInfo": {
