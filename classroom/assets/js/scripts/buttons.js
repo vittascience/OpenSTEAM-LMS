@@ -820,9 +820,13 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
     sortedList.forEach(element => {
         $('#list-activities-teacher').append(teacherActivityItem(element))
     });
-    $('[data-toggle="tooltip"]').tooltip()
 
+    folders.userFolders.forEach(folder => {
+        $('#list-activities-teacher').append(teacherFolder(folder))
+    });
+    $('[data-toggle="tooltip"]').tooltip()
 }
+
 $('body').on('change', '#action-teach-setting', function () {
     console.log('check')
 })

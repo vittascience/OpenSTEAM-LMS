@@ -479,6 +479,11 @@
 				"placeholderInput": "Password",
 				"validateButton": "Validate"
 			}
+		},
+		"folders": {
+			"folderManagement": "Folder management",
+			"name": "Name",
+			"title": "Folders"
 		}
 	},
 	"faqInfo": {
