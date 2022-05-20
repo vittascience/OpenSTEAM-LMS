@@ -818,14 +818,22 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
 
     $('#list-activities-teacher').html(``);
     sortedList.forEach(element => {
-        if (element.folder == folders.actualFolder) {
+        if (element.folder == null && folders.actualFolder == null) {
             $('#list-activities-teacher').append(teacherActivityItem(element));
+        } else if (element.folder != null) {
+            if (element.folder.id == folders.actualFolder) {
+                $('#list-activities-teacher').append(teacherActivityItem(element));
+            }
         }
     });
 
     folders.userFolders.forEach(folder => {
-        if (folder.parentFolder == folders.actualFolder) {
+        if (folder.parentFolder == null && folders.actualFolder == null) {
             $('#list-activities-teacher').append(teacherFolder(folder));
+        } else if (folder.parentFolder != null) {
+            if (folder.parentFolder.id == folders.actualFolder) {
+                $('#list-activities-teacher').append(teacherFolder(folder));
+            }
         }
     });
 

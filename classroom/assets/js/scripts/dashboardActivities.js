@@ -77,49 +77,60 @@ function teacherActivityItem(activity) {
         activityType = "";
     }
 
-    let html = `<div class="activity-item activity-teacher " >
-                <div class="activity-card ${activityType}">
-                    <div class="activity-card-top">
-                    ${activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
-                    <div class="dropdown"><i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                    <div class="dropdown-menu" aria-labelledby="dropdown-activityItem-${activity.id}" data-id="${activity.id}">
-    <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">` + capitalizeFirstLetter(i18next.t('words.attribute')) + `</li>
-                <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">` + capitalizeFirstLetter(i18next.t('words.duplicate')) + `</li>
-                <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">` + capitalizeFirstLetter(i18next.t('words.modify')) + `</li>
-                <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">` + capitalizeFirstLetter(i18next.t('words.delete')) + `</li>
-              </div>
-              </div>
+    let html = `<div class="activity-item activity-teacher" data-id="${activity.id}">
+                    <div>
+                        <div class="activity-card ${activityType}">
+                            <div class="activity-card-top">
+                            ${activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
+                            <div class="dropdown">
+                                <i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </i>
+                                <div class="dropdown-menu" aria-labelledby="dropdown-activityItem-${activity.id}" data-id="${activity.id}">
+                                    <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">` + capitalizeFirstLetter(i18next.t('words.attribute')) + `</li>
+                                    <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">` + capitalizeFirstLetter(i18next.t('words.duplicate')) + `</li>
+                                    <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">` + capitalizeFirstLetter(i18next.t('words.modify')) + `</li>
+                                    <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">` + capitalizeFirstLetter(i18next.t('words.delete')) + `</li>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="activity-card-mid">
+                        </div>
+                        <div class="activity-card-bot">
+                            <div class="info-tutorials" data-id="${activity.id}">
+                            </div>
+                        </div>
+                        </div>
+                        <h3 data-toggle="tooltip" title="${activity.title}" class="activity-item-title">${activity.title}</h3>
                     </div>
-                    <div class="activity-card-mid"></div>
-                    <div class="activity-card-bot">
-                        <div class="info-tutorials" data-id="${activity.id}">
-                    </div>
-                </div></div>`
-    html += `<h3 data-toggle="tooltip" title="${activity.title}" class="activity-item-title">${activity.title}</h3></div>`
+                </div>`
 
     return html;
 }
 
 function teacherFolder(folder) {
-    let html = `<div class="folder-item" onclick="folders.openFolder(${folder.id})">
-        <div class="folder-card">
-            <div class="folder-card-top">
-                <div class="dropdown"><i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                <div class="dropdown-menu" aria-labelledby="dropdown-activityItem-${folder.id}" data-id="${folder.id}">
-                    <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="folders.updateFolder(${folder.id})" style="border-bottom:2px solid rgba(0,0,0,.15">Modifier</li>
-                    <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="folders.deleteFolder(${folder.id})">Déplacer vers</li>
-                    <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="folders.deleteFolder(${folder.id})">Supprimer</li>
+    let html = `<div class="folder-item" data-id="${folder.id}">
+        <div> 
+            <div class="folder-card" data-id="${folder.id}">
+                <div class="folder-card-top">
+                    <div class="dropdown">
+                        <i class="fas fa-cog fa-2x" type="button" id="dropdown-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        </i>
+                        <div class="dropdown-menu" aria-labelledby="dropdown-folder-${folder.id}" data-id="${folder.id}">
+                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="folders.updateFolder(${folder.id})" style="border-bottom:2px solid rgba(0,0,0,.15">Modifier</li>
+                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="folders.deleteFolder(${folder.id})">Déplacer vers</li>
+                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="folders.deleteFolder(${folder.id})">Supprimer</li>
+                        </div>
+                    </div>
+                </div>
+                <div class="folder-card-mid">
+                </div>
+                <div class="folder-card-bot">
+                    <div class="info-tutorials" data-id="${folder.id}">
+                    </div>
                 </div>
             </div>
+            <h3 data-toggle="tooltip" title="${folder.name}" class="activity-item-title">${folder.name}</h3>
         </div>
-            <div class="folder-card-mid">
-            </div>
-            <div class="folder-card-bot">
-                <div class="info-tutorials" data-id="${folder.id}">
-                </div>
-            </div>
-        </div>
-        <h3 data-toggle="tooltip" title="${folder.name}" class="activity-item-title">${folder.name}</h3>
     </div>`
 
     return html;

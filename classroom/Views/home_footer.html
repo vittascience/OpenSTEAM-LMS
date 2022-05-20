@@ -45,7 +45,7 @@
 <script src="assets/js/scripts/ActivityTracker.js"></script>
 <script src="assets/js/scripts/activityManager.js"></script>
 <script src="assets/js/scripts/classroomDisplay.js"></script>
-<script src="assets/js/scripts/folderManager.js"></script>
+<script src="assets/js/scripts/folderManager.js" defer></script>
 <!-- end build -->
 <script src="assets/js/main/Loader.js"></script>
 <script src="assets/js/main/UIManager.js"></script>
@@ -100,22 +100,17 @@
 
                                 Main.getClassroomManager()._addTaskToQueue(currentTask);
                             } else {
+                                // panel => classroom-dashboard-activities-panel-teacher
+                                // nav => dashboard-activities-teacher
                                 $('#classroom-dashboard-sidebar').show()
                                 $('body').addClass('theme-student')
-                                $('.user-picture').attr('src',
-                                    '/classroom/assets/media/alphabet/' +
-                                    UserManager.getUser().pseudo.slice(0, 1).toUpperCase() +
-                                    '.png')
-                                Main.getClassroomManager().getMyClassroom(UserManager.getUser()
-                                    .id).then(function (classroom) {
+                                $('.user-picture').attr('src', '/classroom/assets/media/alphabet/' + UserManager.getUser().pseudo.slice(0, 1).toUpperCase() + '.png')
+                                Main.getClassroomManager().getMyClassroom(UserManager.getUser().id).then(function (classroom) {
+                                    console.log($_GET('panel'))
                                     $('#classroom-name').html(classroom.name)
                                     ClassroomSettings.classroom = classroom.link
-                                    if ($_GET('panel') &&
-                                        (ClassroomSettings.mixPanels.includes($_GET(
-                                                'panel')) || ClassroomSettings
-                                            .studentPanels.includes($_GET('panel')))) {
-                                        navigatePanel($_GET('panel'), $_GET('nav'),
-                                            $_GET('option'), $_GET('interface'))
+                                    if ($_GET('panel') && (ClassroomSettings.mixPanels.includes($_GET('panel')) || ClassroomSettings.studentPanels.includes($_GET('panel')))) {
+                                        navigatePanel($_GET('panel'), $_GET('nav'), $_GET('option'), $_GET('interface'))
                                     } else {
                                         navigatePanel(
                                             'classroom-dashboard-profil-panel',

@@ -1318,7 +1318,7 @@ h3.section-done {
     width: 300px;
     padding: 0.25em;
     justify-items: stretch;
-    margin-top: 1em;
+    margin-top: 3em;
 }
 
 .sandbox-item-title,
@@ -2965,10 +2965,33 @@ h3.section-done {
     width: 300px;
     padding: 0.25em;
     justify-items: stretch;
-    margin-top: 1em;
+    margin-top: 3em;
 }
 
-#tree-folders {
+.dropdown i,
+.folder-card .folder-card-top .dropdown i,
+.class-card .class-card-top .dropdown i,
+#body-table-teach .dropdown i {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.tree-folders {
+    margin: 0em 5%;
+    padding: 1em;
     display: inline-flex;
+}
+
+.tree-folders-items {
+    display: inline-flex;
+    border: 1px solid var(--classroom-primary);
+    border-radius: 0.25rem;
+    background-color: transparent;
+    color: var(--classroom-primary);
+    margin: 1em;
+}
+
+.tree-folders-items:hover {
     text-decoration: none;
 }
