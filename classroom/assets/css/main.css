@@ -2394,6 +2394,12 @@ h3.section-done {
     background: #cccccc center no-repeat url("../media/icon_time_spent.svg");
 }
 
+.bilan-4,
+.status-4 {
+    border-color: transparent;
+    background-color: var(--correction-3);
+}
+
 .bilan-3,
 .status-3 {
     border-color: transparent;
@@ -2423,7 +2429,8 @@ h3.section-done {
 #body-table-teach.is-monochrome tr {
     height: 100%;
 }
-
+.is-monochrome .bilan-4,
+.is-monochrome .status-4,
 .is-monochrome .bilan-3,
 .is-monochrome .status-3,
 .is-monochrome .bilan-2,
@@ -2441,6 +2448,8 @@ h3.section-done {
 
 }
 
+#legend-container.is-monochrome .bilan-4,
+#legend-container.is-monochrome .status-4,
 #legend-container.is-monochrome .bilan-3,
 #legend-container.is-monochrome .status-3,
 #legend-container.is-monochrome .bilan-2,
@@ -2454,7 +2463,8 @@ h3.section-done {
     height: 30px;
     border-radius: 2px;
 }
-
+.is-monochrome .bilan-4 .monochrome-grade-div,
+.is-monochrome .status-4 .monochrome-grade-div,
 .is-monochrome .bilan-3 .monochrome-grade-div,
 .is-monochrome .status-3 .monochrome-grade-div,
 .is-monochrome .bilan-2 .monochrome-grade-div,
