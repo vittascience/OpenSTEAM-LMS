@@ -94,18 +94,39 @@ class Folders {
         this.userFolders[index] = folder;
     }
 
+    openFolder(folderId) {
+        this.actualFolder = folderId;
+        teacherActivitiesDisplay();
+        this.addTreeFolder(this.getFolderById(folderId));
+    }
+
+    addTreeFolder(folder) {
+        let $tree = $("#tree-folders");
+        $tree.append(`<p> > </p> <a href="#" onclick="folders.goToFolder(${folder.id})">${folder.name}</a>`);  
+    }
+
+    goToFolder(folderId) {
+        this.actualFolder = folderId;
+        if (folderId == null) {
+            let $tree = $("#tree-folders");
+            $tree.html(`<a href="#" onclick="folders.goToFolder(null)">Mes activités</a>`);
+        }
+        teacherActivitiesDisplay();
+    }
+
 
     /**
      * XHR
      */
 
-    createFolder($name, $image) {
+    createFolder($name, $parent = null) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
                 url: "/routing/Routing.php?controller=activity&action=create_folder",
                 data: {
-                    name: $name
+                    name: $name,
+                    parent: $parent
                 },
                 success: function (res) {
                     resolve(JSON.parse(res));
@@ -135,14 +156,15 @@ class Folders {
         })
     }
 
-    updateFolderById(id, $name, $image) {
+    updateFolderById(id, $name, $parent) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
                 url: "/routing/Routing.php?controller=activity&action=update_folder",
                 data: {
                     id: id,
-                    name: $name
+                    name: $name,
+                    parent: $parent
                 },
                 success: function (res) {
                     resolve(JSON.parse(res));

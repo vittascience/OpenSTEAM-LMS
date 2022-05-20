@@ -816,15 +816,20 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
     // Keep the list sorted
     let sortedList = $("#filter-activity-select").val() != "desc" ? list.sort((a, b) => {return b.id - a.id}) : list;
 
-    $('#list-activities-teacher').html(``)
+    $('#list-activities-teacher').html(``);
     sortedList.forEach(element => {
-        $('#list-activities-teacher').append(teacherActivityItem(element))
+        if (element.folder == folders.actualFolder) {
+            $('#list-activities-teacher').append(teacherActivityItem(element));
+        }
     });
 
     folders.userFolders.forEach(folder => {
-        $('#list-activities-teacher').append(teacherFolder(folder))
+        if (folder.parentFolder == folders.actualFolder) {
+            $('#list-activities-teacher').append(teacherFolder(folder));
+        }
     });
-    $('[data-toggle="tooltip"]').tooltip()
+
+    $('[data-toggle="tooltip"]').tooltip();
 }
 
 $('body').on('change', '#action-teach-setting', function () {

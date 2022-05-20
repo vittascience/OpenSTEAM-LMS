@@ -101,19 +101,20 @@ function teacherActivityItem(activity) {
 }
 
 function teacherFolder(folder) {
-    let html = `<div class="activity-item activity-teacher">
-        <div class="activity-card folder">
-            <div class="activity-card-top">
+    let html = `<div class="folder-item" onclick="folders.openFolder(${folder.id})">
+        <div class="folder-card">
+            <div class="folder-card-top">
                 <div class="dropdown"><i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                 <div class="dropdown-menu" aria-labelledby="dropdown-activityItem-${folder.id}" data-id="${folder.id}">
                     <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="folders.updateFolder(${folder.id})" style="border-bottom:2px solid rgba(0,0,0,.15">Modifier</li>
+                    <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="folders.deleteFolder(${folder.id})">Déplacer vers</li>
                     <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="folders.deleteFolder(${folder.id})">Supprimer</li>
                 </div>
             </div>
         </div>
-            <div class="activity-card-mid">
+            <div class="folder-card-mid">
             </div>
-            <div class="activity-card-bot">
+            <div class="folder-card-bot">
                 <div class="info-tutorials" data-id="${folder.id}">
                 </div>
             </div>
