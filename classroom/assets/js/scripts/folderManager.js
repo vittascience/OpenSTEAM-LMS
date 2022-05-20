@@ -213,7 +213,6 @@ class Folders {
                                     console.log("error");
                                 }
                             })
-                            folders.displayAndDragulaInitObjects();
                         }
                     } else {
                         folders.displayAndDragulaInitObjects();
@@ -221,9 +220,9 @@ class Folders {
                 } else {
                     folders.displayAndDragulaInitObjects();
                 }
-            }).on('shadow', function(el, container, source) { 
+            }).on('shadow', function(el) { 
                 el.remove();
-            }).on('cancel', function(el, container, source) {
+            }).on('cancel', function() {
                 folders.displayAndDragulaInitObjects();
             })
     }
