@@ -390,7 +390,9 @@
 			"deleteConfirm": "Confirmer la suppression de l'activité",
 			"deleteActivity": "Supprimer l'activité",
 			"correctAnswer": "Réponse correcte",
-			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activités </p>"
+			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activités </p>",
+			"moveToFolder": "Déplacer vers",
+			"rootFolder": "Dossier racine"
 		},
 		"filter": {
 			"desc": "Plus ancien",

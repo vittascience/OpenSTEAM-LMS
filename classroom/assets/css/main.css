@@ -2923,7 +2923,7 @@ h3.section-done {
     height: 100%;
     width: 100%;
     background-color: none;
-    background-image: url(../media/folders/folder.png);
+    background-image: url(../media/folders/folders.png);
     border-radius: 1.2em;
     background-clip: content-box;
     background-size: cover;
@@ -2945,8 +2945,9 @@ h3.section-done {
 
 .folder-card .folder-card-top,
 .folder-card .folder-card-bot {
-    padding-top: 2.5em;
-    padding-right: 1.8em;
+    color: var(--classroom-green);
+    padding-top: 1.3em;
+    padding-right: 1.3em;
     text-align: right;
 }
 
@@ -2994,4 +2995,9 @@ h3.section-done {
 
 .tree-folders-items:hover {
     text-decoration: none;
+}
+
+.btn-folders {
+    background-color: transparent;
+    padding: 0 !important;
 }

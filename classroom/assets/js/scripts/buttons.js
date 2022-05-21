@@ -816,6 +816,10 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
     // Keep the list sorted
     let sortedList = $("#filter-activity-select").val() != "desc" ? list.sort((a, b) => {return b.id - a.id}) : list;
 
+    if (folders.treeFolder.html() == "") {
+        folders.resetTreeFolders();
+    }
+    
     $('#list-activities-teacher').html(``);
     sortedList.forEach(element => {
         if (element.folder == null && folders.actualFolder == null) {

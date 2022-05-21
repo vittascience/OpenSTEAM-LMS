@@ -90,6 +90,7 @@ function teacherActivityItem(activity) {
                                     <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">` + capitalizeFirstLetter(i18next.t('words.duplicate')) + `</li>
                                     <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">` + capitalizeFirstLetter(i18next.t('words.modify')) + `</li>
                                     <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">` + capitalizeFirstLetter(i18next.t('words.delete')) + `</li>
+                                    <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="folders.moveToFolderModal(${activity.id}, 'activity')">Déplacer vers</li>
                                 </div>
                             </div>
                         </div>
@@ -117,7 +118,7 @@ function teacherFolder(folder) {
                         </i>
                         <div class="dropdown-menu" aria-labelledby="dropdown-folder-${folder.id}" data-id="${folder.id}">
                             <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="folders.updateFolder(${folder.id})" style="border-bottom:2px solid rgba(0,0,0,.15">Modifier</li>
-                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="folders.deleteFolder(${folder.id})">Déplacer vers</li>
+                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="folders.moveToFolderModal(${folder.id}, 'folder')">Déplacer vers</li>
                             <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="folders.deleteFolder(${folder.id})">Supprimer</li>
                         </div>
                     </div>

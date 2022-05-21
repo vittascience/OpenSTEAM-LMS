@@ -1196,7 +1196,7 @@ const classroomModals = {
             </div>
            
             <button class="btn c-btn-secondary my-3 btn" onclick="folders.persistUpdateFolder()" data-i18n="manager.buttons.update">Modifier</button>
-            <button class="btn c-btn-light my-3 btn" onclick="folders.closeModalAndCleanInputFolder()" data-i18n="manager.buttons.cancel">Annuler</button>
+            <button class="btn c-btn-light my-3 btn" onclick="folders.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
         </div>
     
     
@@ -1214,7 +1214,7 @@ const classroomModals = {
     
             <div class="text-center">
                 <button class="btn c-btn-red mx-auto mt-3 btn-lg" onclick="folders.persistDeleteFolder()" data-i18n="manager.buttons.validate">Valider</button>
-                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="folders.closeModalAndCleanInputFolder()" data-i18n="manager.buttons.cancel">Annuler</button>
+                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="folders.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
             </div>
         </div>
         
@@ -1232,9 +1232,23 @@ const classroomModals = {
             </div>
     
             <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="folders.persistCreateFolder()" data-i18n="manager.buttons.validate">Valider</button>
-            <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="folders.closeModalAndCleanInputFolder()" data-i18n="manager.buttons.cancel">Annuler</button>
+            <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="folders.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
         </div>
     </div>`,
         footer: ``
     },
+    'folders-move-to': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.activities.moveToFolder'
+        },
+        content: `  <div id="folders-move-to-content" class="container-fluid">
+                        <div id="folders-tree-content-modal">
+                        </div>
+                        <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="folders.persistMoveToFolder()" data-i18n="manager.buttons.validate">Valider</button>
+                        <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="folders.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
+                    </div>`,
+        footer: ``
+    }
 }

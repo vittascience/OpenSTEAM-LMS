@@ -368,7 +368,9 @@
 			"deleteConfirm": "Do you really want to delete this activity ?",
 			"deleteActivity": "Delete the activity",
 			"correctAnswer": "Correct answer",
-			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activities </p>"
+			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activities </p>",
+			"moveToFolder": "Move to",
+			"rootFolder": "Root folder"
 		},
 		"filter": {
 			"desc": "Oldest to newest",
