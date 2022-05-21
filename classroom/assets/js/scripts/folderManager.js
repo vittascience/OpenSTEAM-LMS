@@ -255,11 +255,8 @@ class Folders {
 
 
         if (folder != null) {
-            children = myActivities.filter(child => {
-                if (child.folder != null) {
-                    child.folder.id == folder
-                }
-            });
+            children = myActivities.filter(child => child.folder != null);
+            children = children.filter(child => child.folder.id == folder);
         } else {
             children = myActivities.filter(child => child.folder == null);
         }
