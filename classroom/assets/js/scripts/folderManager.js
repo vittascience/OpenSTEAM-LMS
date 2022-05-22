@@ -258,20 +258,35 @@ class Folders {
         return content;
     }
 
-    makeContentForTree(folder) {
-        let radioString = this.makeTreeWithOutInitialFolder(folder);
+    makeContentForTree(item) {
+        let radioString = this.makeTreeWithOutInitialFolderAndChildren(item);
         let content = `<li>
                         ${radioString}
-                        ${this.createChildActivitiesUl(folder.id)}
-                        ${this.createChildUl(folder.id)}
+                        ${this.createChildActivitiesUl(item.id)}
+                        ${this.createChildUl(item.id)}
                     </li>`
         return content;
     }
 
-    makeTreeWithOutInitialFolder(folder) {
+    makeTreeWithOutInitialFolderAndChildren(folder) {
         let content = "",
-            randomString = this.createRandomString();
-        if (folder.id == this.objectId && this.isSeek == false) {
+            randomString = this.createRandomString(),
+            isOneOfParents = false,
+            hasParentFolder = folder.parentFolder != null;
+
+        // check if the folder is a parents of the actual folder
+        let folderToCheck = folder;
+        while (hasParentFolder) {
+            let parentFolder = this.getFolderById(folderToCheck.parentFolder.id);
+            if (parentFolder.id == this.objectId) {
+                isOneOfParents = true;
+            }
+            hasParentFolder = parentFolder.parentFolder != null;
+            if (hasParentFolder) {
+                folderToCheck = parentFolder;
+            }
+        }
+        if ((folder.id == this.objectId && this.isSeek == false) || (isOneOfParents && this.isSeek == false)) {
             content = `<label>📁 - ${folder.name}</label>`;
         } else {
             content = `<input type="radio" name="tree-structure" id="${randomString}" data-id="${folder.id}">
