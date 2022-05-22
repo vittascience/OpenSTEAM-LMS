@@ -3001,3 +3001,10 @@ h3.section-done {
     background-color: transparent;
     padding: 0 !important;
 }
+
+#folders-seek-tree-content-modal ul,
+#folders-seek-tree-content-modal li,
+#folders-tree-content-modal ul,
+#folders-tree-content-modal li {
+    list-style-type: none;
+}

@@ -392,7 +392,8 @@
 			"correctAnswer": "Réponse correcte",
 			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activités </p>",
 			"moveToFolder": "Déplacer vers",
-			"rootFolder": "Dossier racine"
+			"rootFolder": "Dossier racine",
+			"seekFolder": "Aller dans le dossier"
 		},
 		"filter": {
 			"desc": "Plus ancien",

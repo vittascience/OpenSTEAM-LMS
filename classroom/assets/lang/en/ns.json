@@ -370,7 +370,8 @@
 			"correctAnswer": "Correct answer",
 			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activities </p>",
 			"moveToFolder": "Move to",
-			"rootFolder": "Root folder"
+			"rootFolder": "Root folder",
+			"seekFolder": "Go to folder"
 		},
 		"filter": {
 			"desc": "Oldest to newest",

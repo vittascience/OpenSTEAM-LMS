@@ -13,6 +13,7 @@ class Folders {
         this.parent = null;
         this.objectToMove = null;
         this.objectId = null;
+        this.isSeek = false;
     }
 
     init() {
@@ -117,11 +118,28 @@ class Folders {
         this.viewModal.forEach(view => {
             $(view).hide();
         });
+
         $("#folder_create_name").val("");
         $("#folder_update_name").val("");
-        pseudoModal.closeModal("folder-manager-modal");
+        $("#folders-tree-content-modal").html("");
+        $("#folders-seek-tree-content-modal").html("");
+
+        pseudoModal.closeAllModal();
     }
 
+    seekFolderModal() {
+        this.moveToFolderModal(null, null, true);
+        pseudoModal.openModal("folders-seek");
+    }
+
+    persistGoToSelected() {
+        let folderId = $("input[name='tree-structure']:checked").attr("data-id");
+        if (folderId == "0") {
+            folderId = null;
+        }
+        this.goToFolder(folderId);
+        this.resetInputs();
+    }
     /**
      * Utils
      */
@@ -192,39 +210,37 @@ class Folders {
         });
     }
 
-    moveToFolderModal(id, itemType) {
+    createRandomString() {
+        return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    }
+
+    moveToFolderModal(id, itemType, seek = false) {
         this.objectToMove = itemType;
         this.objectId = id;
-        
-        let folderTreeContent = $("#folders-tree-content-modal"),
+        this.isSeek = seek;
+
+        const foldersWithoutParent = this.userFolders.filter(folder => folder.parentFolder == null);
+        let folderTreeContent = !seek ? $("#folders-tree-content-modal") : $("#folders-seek-tree-content-modal"),
             content = "",
             rootFolderTranslation = i18next.t("classroom.activities.rootFolder");
-        const foldersWithoutParent = this.userFolders.filter(folder => folder.parentFolder == null);
         
         folderTreeContent.html("");
         if (foldersWithoutParent.length > 0) {
+            let randomString = this.createRandomString();
             content += `<ul id="folders-move-to-list">`;
             content += `<li>
-                            <input type="radio" name="tree-structure" id="0">
-                                <label for="0">${rootFolderTranslation}</label>
+                            <input type="radio" name="tree-structure" data-id="0" id="${randomString}">
+                                <label for="${randomString}">${rootFolderTranslation}</label>
                             </input>
                             ${this.createChildActivitiesUl(null)}
                         </li>`;
 
             foldersWithoutParent.forEach(folder => {
-                content += `<li>
-                                <input type="radio" name="tree-structure" id="${folder.id}">
-                                <label for="${folder.id}">📁 - ${folder.name}</label>
-                                </input>
-                                ${this.createChildActivitiesUl(folder.id)}
-                                ${this.createChildUl(folder.id)}
-                            </li>`;
+                content += this.makeContentForTree(folder);
             });
             content += `</ul>`;
         }
         folderTreeContent.html(content);
-        
-
         pseudoModal.openModal("folders-move-to");
     }
 
@@ -235,15 +251,32 @@ class Folders {
         if (children.length > 0) {
             content += `<ul>`;
             children.forEach(child => {
-                content += `<li>
-                                <input type="radio" name="tree-structure" id="${child.id}">
-                                    <label for="${child.id}">📁 - ${child.name}</label>
-                                </input>
-                                ${this.createChildActivitiesUl(child.id)}
-                                ${this.createChildUl(child.id)}
-                            </li>`;
+                content += this.makeContentForTree(child);
             });
             content += `</ul>`;
+        }
+        return content;
+    }
+
+    makeContentForTree(folder) {
+        let radioString = this.makeTreeWithOutInitialFolder(folder);
+        let content = `<li>
+                        ${radioString}
+                        ${this.createChildActivitiesUl(folder.id)}
+                        ${this.createChildUl(folder.id)}
+                    </li>`
+        return content;
+    }
+
+    makeTreeWithOutInitialFolder(folder) {
+        let content = "",
+            randomString = this.createRandomString();
+        if (folder.id == this.objectId && this.isSeek == false) {
+            content = `<label>📁 - ${folder.name}</label>`;
+        } else {
+            content = `<input type="radio" name="tree-structure" id="${randomString}" data-id="${folder.id}">
+                                <label for="${randomString}">📁 - ${folder.name}</label>
+                            </input>`;
         }
         return content;
     }
@@ -252,7 +285,6 @@ class Folders {
         let myActivities = Main.getClassroomManager()._myTeacherActivities,
             children = [],
             content = "";
-
 
         if (folder != null) {
             children = myActivities.filter(child => child.folder != null);
@@ -265,7 +297,7 @@ class Folders {
             content += `<ul>`;
             children.forEach(child => {
                 content += `<li>
-                                <label for="${child.id}">💻 - ${child.title}</label>
+                                <label>💻 - ${child.title}</label>
                             </li>`;
             });
             content += `</ul>`;
@@ -274,7 +306,7 @@ class Folders {
     }
 
     persistMoveToFolder() {
-        let folderId = $("input[name='tree-structure']:checked").attr("id");
+        let folderId = $("input[name='tree-structure']:checked").attr("data-id");
         if (folderId == "0") {
             folderId = null;
         }
@@ -287,8 +319,7 @@ class Folders {
                 this.manageResponseFromMoved(res);
             })
         }
-        this.goToFolder(folderId);
-        pseudoModal.closeModal("folders-move-to");
+        this.resetInputs();
     }
 
     manageResponseFromMoved(res) {
