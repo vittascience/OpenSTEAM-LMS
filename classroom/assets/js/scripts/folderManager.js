@@ -232,7 +232,8 @@ class Folders {
                             <input type="radio" name="tree-structure" data-id="0" id="${randomString}">
                                 <label for="${randomString}">${rootFolderTranslation}</label>
                             </input>
-                            ${this.createChildActivitiesUl(null)}
+
+                            ${seek ? "" : this.createChildActivitiesUl(null)}
                         </li>`;
 
             foldersWithoutParent.forEach(folder => {
@@ -320,6 +321,17 @@ class Folders {
         return content;
     }
 
+/*     folderManagerForFolder(folderId) {
+        let folder = $('#'+folderId);
+        if (folder.hasClass("folded")) {
+            folder.removeClass("folded");
+            folder.addClass("unfolded");
+        } else {
+            folder.removeClass("unfolded");
+            folder.addClass("folded");
+        }
+    } */
+
     persistMoveToFolder() {
         let folderId = $("input[name='tree-structure']:checked").attr("data-id");
         if (folderId == "0") {
@@ -351,7 +363,6 @@ class Folders {
     dragulaInitObjects() {
         // Reset the dragula fields
         this.dragula.containers = [];
-        //this.dragula.containers.push(document.querySelector('#list-activities-teacher'));
         let foldersArray = document.querySelectorAll('.folder-item');
         let activitiesArray = document.querySelectorAll('.activity-item');
 
