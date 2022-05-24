@@ -523,10 +523,13 @@ document.addEventListener('change', (e) => {
         }
     }
     $('.student-number').html(ClassroomSettings.studentCount);
-    if (document.querySelector('#assign-total-student-number').textContent != '0') {
-        document.getElementById('attribute-activity-to-students').removeAttribute('disabled');
-    } else {
-        document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');
+    // temp fix
+    if (document.querySelector('#assign-total-student-number') != null) {
+        if (document.querySelector('#assign-total-student-number').textContent != '0') {
+            document.getElementById('attribute-activity-to-students').removeAttribute('disabled');
+        } else {
+            document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');
+        }
     }
 })
 

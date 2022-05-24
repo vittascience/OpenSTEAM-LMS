@@ -26,6 +26,7 @@ function activityItem(activity, state) {
         }
     }
 
+    let dateEndNotif = activity.activity.isLti ? "style='display:none'" : "";
     let html = `<div class="activity-item">
                     <div class="activity-card ${activityType} ">
                         <div class="${activityStatus}" data-toggle="tooltip" title="${activityStatusTitle}"><div class="ribbon__content"></div></div>
@@ -34,7 +35,7 @@ function activityItem(activity, state) {
                         </div>
                         <div class="activity-card-mid"></div>
                         <div class="activity-card-bot">
-                            <div class="info-tutorials"  data-id="${activity.activity.id}"  data-state="${state}">`
+                            <div class="info-tutorials" ${dateEndNotif} data-id="${activity.activity.id}"  data-state="${state}">`
 
     if (activity.dateEnd != undefined) {
         html += `<span> ` + i18next.t('classroom.activities.dateBefore') + ` ${formatDay(activity.dateEnd)} <i class="fas fa-stopwatch"></i></span>`
@@ -277,6 +278,10 @@ $('body').on('click', '.list-students-classroom', function () {
 })
 
 $('body').on('click', '.activity-card, .activity-item .activity-item-title', function () {
+    // check if user is regular and display the breadcrumb if he is
+    UserManager.getUser().isRegular ? $('.breadcrumb').show() : $('.breadcrumb').hide();
+
+
     if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
         let id, state, navigation;
         if (this.classList.contains('activity-item-title')) {
@@ -603,7 +608,12 @@ function manageDisplayFree(correction, content, correction_div) {
         if (Activity.response != null && Activity.response != '') {
             if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") { 
                 $('#activity-student-response').show();
-                $('#activity-student-response-content').html(bbcodeToHtml(JSON.parse(Activity.response)));
+                let parsed = tryToParse(Activity.response);
+                if (parsed != false) {
+                    $('#activity-student-response-content').html(bbcodeToHtml(parsed));
+                } else if (Activity.response != null) {
+                    $('#activity-student-response-content').html(bbcodeToHtml(Activity.response));
+                }
                 manageCorrectionDiv(correction_div, correction);
             }
         }
@@ -613,7 +623,12 @@ function manageDisplayFree(correction, content, correction_div) {
             const wbbptions = Main.getClassroomManager().wbbOpt;
             $('#activity-input').wysibb(wbbptions);
             if (Activity.response != null && Activity.response != '') {
-                $('#activity-input').htmlcode(bbcodeToHtml(JSON.parse(Activity.response)));
+                let parsed = tryToParse(Activity.response);
+                if (parsed != false) {
+                    $('#activity-input').htmlcode(bbcodeToHtml(parsed));
+                } else {
+                    $('#activity-input').htmlcode("");
+                }
             }
             $('#activity-input-container').show();
         }
@@ -834,6 +849,11 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
             });
             $('#activity-drag-and-drop-container').show();
         
+            // init dragula if it's not already initialized
+            if (Main.getClassroomManager().dragulaGlobal == false) {
+                Main.getClassroomManager().dragulaGlobal = dragula();
+            }
+
             // Reset the dragula fields
             Main.getClassroomManager().dragulaGlobal.containers = [];
             
