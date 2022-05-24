@@ -391,7 +391,11 @@
 			"deleteConfirm": "Confirmer la suppression de l'activité",
 			"deleteActivity": "Supprimer l'activité",
 			"correctAnswer": "Réponse correcte",
-			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activités </p>"
+			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activités </p>",
+			"facultative": "Champs facultatifs",
+			"infoRetroAttribution": "Cette activité sera attribuée aux nouveaux apprenants",
+			"infoAutocorrect": "Cette activité dispose de correction automatique",
+			"infoEvaluation": "En mode évaluation, les apprenants ne peuvent soumettre l’activité qu'une seule fois"
 		},
 		"filter": {
 			"desc": "Plus ancien",

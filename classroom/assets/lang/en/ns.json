@@ -369,7 +369,11 @@
 			"deleteConfirm": "Do you really want to delete this activity ?",
 			"deleteActivity": "Delete the activity",
 			"correctAnswer": "Correct answer",
-			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activities </p>"
+			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activities </p>",
+			"facultative": "Optional field",
+			"infoRetroAttribution": "This activity will be added for every new students",
+			"infoAutocorrect": "This activity has automated correction, do you like to activate it ?",
+			"infoEvaluation": "In evaluation mode, learners can only submit the activity once"
 		},
 		"filter": {
 			"desc": "Oldest to newest",
