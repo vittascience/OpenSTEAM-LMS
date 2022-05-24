@@ -196,6 +196,7 @@ function titleForward() {
  * Validation pipeline for the new activity
  */
 function validateActivity(correction) {
+    console.log(correction);
     switch(Activity.activity.type) {
         case 'free':
             freeValidateActivity(correction);
@@ -229,7 +230,11 @@ function freeValidateActivity(correction = 1) {
     });
 }
 
+
+// todo
 function validateDefaultResponseManagement(response) {
+
+    
     $("#activity-validate").attr("disabled", false);
     if (response.note != null && response.correction > 1) {
         if (response.note == 3) {
