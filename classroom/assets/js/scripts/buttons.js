@@ -815,28 +815,37 @@ function classroomsDisplay() {
 function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherActivities) {
     // Keep the list sorted
     let sortedList = $("#filter-activity-select").val() != "desc" ? list.sort((a, b) => {return b.id - a.id}) : list;
+    let displayStyle = Main.getClassroomManager().displayMode;
 
-    if (folders.treeFolder.html() == "") {
-        folders.resetTreeFolders();
+
+    if (foldersManager.treeFolder.html() == "") {
+        foldersManager.resetTreeFolders();
     }
+
+    if (displayStyle == "list") {
+        $("#list-activities-teacher").css("flex-direction", "column")
+    } else {
+        $("#list-activities-teacher").css("flex-direction", "row")
+    }
+
     
     $('#list-activities-teacher').html(``);
     sortedList.forEach(element => {
-        if (element.folder == null && folders.actualFolder == null) {
-            $('#list-activities-teacher').append(teacherActivityItem(element));
+        if (element.folder == null && foldersManager.actualFolder == null) {
+            $('#list-activities-teacher').append(teacherActivityItem(element, displayStyle));
         } else if (element.folder != null) {
-            if (element.folder.id == folders.actualFolder) {
-                $('#list-activities-teacher').append(teacherActivityItem(element));
+            if (element.folder.id == foldersManager.actualFolder) {
+                $('#list-activities-teacher').append(teacherActivityItem(element, displayStyle));
             }
         }
     });
 
-    folders.userFolders.forEach(folder => {
-        if (folder.parentFolder == null && folders.actualFolder == null) {
-            $('#list-activities-teacher').append(teacherFolder(folder));
+    foldersManager.userFolders.forEach(folder => {
+        if (folder.parentFolder == null && foldersManager.actualFolder == null) {
+            $('#list-activities-teacher').append(teacherFolder(folder, displayStyle));
         } else if (folder.parentFolder != null) {
-            if (folder.parentFolder.id == folders.actualFolder) {
-                $('#list-activities-teacher').append(teacherFolder(folder));
+            if (folder.parentFolder.id == foldersManager.actualFolder) {
+                $('#list-activities-teacher').append(teacherFolder(folder, displayStyle));
             }
         }
     });

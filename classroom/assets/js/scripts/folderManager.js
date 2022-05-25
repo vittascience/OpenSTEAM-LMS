@@ -1,5 +1,5 @@
 
-class Folders {
+class FoldersManager {
     /**
      * Creates an instance of Folders.
      * @public
@@ -32,7 +32,7 @@ class Folders {
         $('body').on('click', '.folder-card', function () {
             if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
                 let id = $(this).attr('data-id');
-                folders.openFolder(id);
+                foldersManager.openFolder(id);
             }
         })
     }
@@ -46,32 +46,47 @@ class Folders {
     persistCreateFolder() {
         let name = $("#folder_create_name").val(),
             parent = this.actualFolder;
-        this.createFolder(name, parent).then(res => {
-            if (!res.hasOwnProperty("error")) {
-                this.userFolders.push(res);
-                this.refreshSettings(this.actualFolder);
-            } else {
-                console.log("error");
-            }
-        })
+
+        if (name.length > 0 && name.length <= 31) {
+            this.createFolder(name, parent).then(res => {
+                if (!res.hasOwnProperty("error")) {
+                    this.userFolders.push(res);
+                    this.refreshSettings(this.actualFolder);
+                    displayNotification('#notif-div', "classroom.activities.foldersMessages.created", "success");
+                } else {
+                    if (res.error == "folderNameInvalid") {
+                        displayNotification('#notif-div', "classroom.activities.foldersMessages.errorLenght", "error");
+                    } else {
+                        displayNotification('#notif-div', "classroom.activities.foldersMessages.errorCreate", "error");
+                    }
+                }
+            })
+        } else {
+            displayNotification('#notif-div', "classroom.activities.foldersMessages.errorLenght", "error");
+        } 
     }
     
     persistDeleteFolder() {
         let id = this.actualFolder,
             parent = this.getFolderById(this.actualFolder).parentFolder;
 
-        this.deleteFolderById(id).then(res => {
-            if (!res.hasOwnProperty("error")) {
-                this.getAllUserFolders().then(res => {
-                    this.refreshSettings();
-                    this.userFolders = res;
-                    let backToId = parent ? parent.id : null;
-                    this.goToFolder(backToId);
-                })
-            } else {
-                console.log("error");
-            }
-        })
+        if ($("#validation-delete-folder").val() == $("#validation-delete-folder").attr("placeholder")) {
+            this.deleteFolderById(id).then(res => {
+                if (!res.hasOwnProperty("error")) {
+                    this.getAllUserFolders().then(res => {
+                        this.refreshSettings();
+                        this.userFolders = res;
+                        let backToId = parent ? parent.id : null;
+                        this.goToFolder(backToId);
+                    })
+                    displayNotification('#notif-div', "classroom.activities.foldersMessages.deleted", "success");
+                } else {
+                    displayNotification('#notif-div', "classroom.activities.foldersMessages.errorDelete", "error");
+                }
+            })
+        } else {
+            displayNotification('#notif-div', "manager.input.writeDelete", "error");
+        }
     }
     
     persistUpdateFolder() {
@@ -81,9 +96,11 @@ class Folders {
         this.updateFolderById(id, name).then(res => {
             if (!res.hasOwnProperty("error")) {
                 this.replaceFolderData(res);
-                this.refreshSettings(this.getFolderById(id).parentFolder.id);
+                let parentId = this.getFolderById(id).parentFolder != null ? this.getFolderById(id).parentFolder.id : null;
+                this.refreshSettings(parentId);
+                displayNotification('#notif-div', "classroom.activities.foldersMessages.updated", "success");
             } else {
-                console.log("error");
+                displayNotification('#notif-div', "classroom.activities.foldersMessages.errorUpdate", "error");
             }
         })
     }
@@ -123,6 +140,7 @@ class Folders {
         $("#folder_update_name").val("");
         $("#folders-tree-content-modal").html("");
         $("#folders-seek-tree-content-modal").html("");
+        $('#validation-delete-folder').val("");
 
         pseudoModal.closeAllModal();
     }
@@ -163,7 +181,7 @@ class Folders {
         if (this.treeFolder.html() == "") {
             this.resetTreeFolders();
         }
-        this.treeFolder.append(`<button class="btn tree-folders-items" onclick="folders.goToFolder(${folder.id})">📁 ${folder.name}</button>`);  
+        this.treeFolder.append(`<span class="chevron-breadcrumb"> > </span> <button class="btn tree-folders-items" data-id="${folder.id}" onclick="foldersManager.goToFolder(${folder.id})">📁 ${folder.name}</button>`);  
     }
 
     goToFolder(folderId) {
@@ -181,7 +199,7 @@ class Folders {
     }
 
     resetTreeFolders() {
-        this.treeFolder.html(`<button class="btn tree-folders-items" onclick="folders.goToFolder(null)">Mes activités</button>`);
+        this.treeFolder.html(`<button class="btn tree-folders-items" onclick="foldersManager.goToFolder(null)">Mes activités</button>`);
     }
 
     createTreeFolders() {
@@ -199,7 +217,7 @@ class Folders {
         }
 
         idOfParents.reverse().forEach(folder => {
-            this.treeFolder.append(`<button class="btn tree-folders-items" onclick="folders.goToFolder(${folder.id})">📁 ${folder.name}</button>`);
+            this.treeFolder.append(`<button class="btn tree-folders-items" onclick="foldersManager.goToFolder(${folder.id})">📁 ${folder.name}</button>`);
         });
     }
 
@@ -263,7 +281,7 @@ class Folders {
         let radioString = this.makeTreeWithOutInitialFolderAndChildren(item);
         let content = `<li>
                         ${radioString}
-                        ${this.createChildActivitiesUl(item.id)}
+                        ${this.isSeek ? "" : this.createChildActivitiesUl(item.id)}
                         ${this.createChildUl(item.id)}
                     </li>`
         return content;
@@ -321,17 +339,6 @@ class Folders {
         return content;
     }
 
-/*     folderManagerForFolder(folderId) {
-        let folder = $('#'+folderId);
-        if (folder.hasClass("folded")) {
-            folder.removeClass("folded");
-            folder.addClass("unfolded");
-        } else {
-            folder.removeClass("unfolded");
-            folder.addClass("folded");
-        }
-    } */
-
     persistMoveToFolder() {
         let folderId = $("input[name='tree-structure']:checked").attr("data-id");
         if (folderId == "0") {
@@ -342,21 +349,23 @@ class Folders {
                 this.manageResponseFromMoved(res);
             })
         } else if (this.objectToMove == "activity") {
-            folders.moveActivityToFolder(this.objectId, folderId).then(res => {
+            this.moveActivityToFolder(this.objectId, folderId).then(res => {
                 this.manageResponseFromMoved(res);
             })
         }
         this.resetInputs();
     }
 
+    // WARNING
     manageResponseFromMoved(res) {
         if (!res.hasOwnProperty("error")) {
-            folders.getAllUserFolders().then(res => {
-                folders.userFolders = res;
-                folders.displayAndDragulaInitObjects();
+            this.getAllUserFolders().then(res => {
+                this.userFolders = res;
+                this.displayAndDragulaInitObjects();
+                displayNotification('#notif-div', "classroom.activities.foldersMessages.movedTo", "success");
             })
         } else {
-            console.log("error");
+            displayNotification('#notif-div', "classroom.activities.foldersMessages.errorMovedTo", "success");
         }
     }
 
@@ -369,30 +378,49 @@ class Folders {
         this.dragula = dragula([...activitiesArray, ...foldersArray])
             .on('drop', function(el, target, source) {
                 if (target != undefined && source != undefined) {
-                    if (target.className == "folder-item") {
+                    if ($(target).hasClass("folder-item")) {
                         let elId = source.getAttribute('data-id'),
                             targetId = target.getAttribute('data-id');
                         
-                        if (source.className == "folder-item") {
-                            folders.moveFolderToFolder(elId, targetId).then(res => {
-                                folders.manageResponseFromMoved(res);
+                        if ($(source).hasClass("folder-item")) {
+                            foldersManager.moveFolderToFolder(elId, targetId).then(res => {
+                                foldersManager.manageResponseFromMoved(res);
                             })
                         } else {
-                            folders.moveActivityToFolder(elId, targetId).then(res => {
-                                folders.manageResponseFromMoved(res);
+                            foldersManager.moveActivityToFolder(elId, targetId).then(res => {
+                                foldersManager.manageResponseFromMoved(res);
                             })
                         }
                     } else {
-                        folders.displayAndDragulaInitObjects();
+                        foldersManager.displayAndDragulaInitObjects();
                     }
                 } else {
-                    folders.displayAndDragulaInitObjects();
+                    foldersManager.displayAndDragulaInitObjects();
                 }
             }).on('shadow', function(el) { 
                 el.remove();
             }).on('cancel', function() {
-                folders.displayAndDragulaInitObjects();
+                foldersManager.displayAndDragulaInitObjects();
+            }).on('over', function(el, container) {
+                if ($(container).hasClass("folder-item")) {
+                    $(container).find(".folder-card").addClass('folder-open');
+                }
+            }).on('out', function(el, container) {
+                if ($(container).hasClass("folder-item")) {
+                    $(container).find(".folder-card").removeClass('folder-open');
+                }
             })
+    }
+
+
+    displayModeSwitch(display)  {
+        if (display == "list") {
+            Main.getClassroomManager().displayMode = "list";
+            this.displayAndDragulaInitObjects();
+        } else {
+            Main.getClassroomManager().displayMode = "card";
+            this.displayAndDragulaInitObjects();
+        }
     }
 
 
@@ -510,7 +538,7 @@ class Folders {
     }
 }
 // Initialize
-const folders = new Folders();
-folders.init();
+const foldersManager = new FoldersManager();
+foldersManager.init();
 
 

@@ -1186,35 +1186,34 @@ const classroomModals = {
         <!-- UPDATE -->
         <div class="container-fluid" id="update-folder-manager" style="display:none;">
     
-            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="">Modification de dossier</p>
+            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="classroom.activities.foldersMessages.updateFolder">Modification de dossier</p>
     
             <div class="form-row mt-1 c-secondary-form">
                 <div class="col-md">
-                    <label for="folder_update_name" data-i18n="[html]classroom.folders.name">Name</label>
+                    <label for="folder_update_name" data-i18n="[html]classroom.activities.foldersMessages.nameMandatory">Name</label>
                     <input type="text" class="form-control" id="folder_update_name">
                 </div>
             </div>
            
-            <button class="btn c-btn-secondary my-3 btn" onclick="folders.persistUpdateFolder()" data-i18n="manager.buttons.update">Modifier</button>
-            <button class="btn c-btn-light my-3 btn" onclick="folders.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
+            <button class="btn c-btn-secondary my-3 btn" onclick="foldersManager.persistUpdateFolder()" data-i18n="manager.buttons.update">Modifier</button>
+            <button class="btn c-btn-light my-3 btn" onclick="foldersManager.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
         </div>
     
     
         <!-- DELETE -->
         <div class="col-12" id="delete-folder-manager" style="display:none;">
     
-            <h3 class="font-weight-bold text-danger m-auto text-center" data-i18n="">Confirmer la suppression</h3>
-            <p class="text-center" data-i18n="">La suppression du dossier ... PH</p>
+            <h3 class="font-weight-bold text-danger m-auto text-center" data-i18n="classroom.activities.foldersMessages.deleteFolder">Confirmer la suppression</h3>
             <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>
     
             <div class="text-center c-secondary-form">
-                <input type="hidden" name="validation_delete_folder_id" id="validation_delete_folder_id">
-                <input type="text" name="validation_delete_folder" id="validation_delete_folder" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                <input type="hidden" name="validation-delete-folder_id" id="validation-delete-folder_id">
+                <input type="text" name="validation-delete-folder" id="validation-delete-folder" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
             </div>
     
             <div class="text-center">
-                <button class="btn c-btn-red mx-auto mt-3 btn-lg" onclick="folders.persistDeleteFolder()" data-i18n="manager.buttons.validate">Valider</button>
-                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="folders.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
+                <button class="btn c-btn-red mx-auto mt-3 btn-lg" onclick="foldersManager.persistDeleteFolder()" data-i18n="manager.buttons.validate">Valider</button>
+                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="foldersManager.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
             </div>
         </div>
         
@@ -1222,17 +1221,17 @@ const classroomModals = {
         <!-- CREATE -->
         <div class="container-fluid" id="create-folder-manager" style="display:none;">
     
-            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="">Création de dossier</p>
+            <p class="mt-4 mb-1 vitta-modal-title" data-i18n="classroom.activities.foldersMessages.createFolder">Création de dossier</p>
     
             <div class="form-row mt-1 c-secondary-form">
                 <div class="col-md">
-                    <label for="folder_create_name" data-i18n="[html]classroom.folders.name">Name</label>
+                    <label for="folder_create_name" data-i18n="[html]classroom.activities.foldersMessages.nameMandatory">Name</label>
                     <input type="text" class="form-control" id="folder_create_name">
                 </div>
             </div>
     
-            <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="folders.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
-            <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="folders.persistCreateFolder()" data-i18n="manager.buttons.validate">Valider</button>
+            <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="foldersManager.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
+            <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="foldersManager.persistCreateFolder()" data-i18n="manager.buttons.validate">Valider</button>
         </div>
     </div>`,
         footer: ``
@@ -1246,8 +1245,8 @@ const classroomModals = {
         content: `  <div id="folders-move-to-content" class="container-fluid">
                         <div id="folders-tree-content-modal">
                         </div>
-                        <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="folders.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
-                        <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="folders.persistMoveToFolder()" data-i18n="manager.buttons.validate">Valider</button>
+                        <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="foldersManager.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
+                        <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="foldersManager.persistMoveToFolder()" data-i18n="manager.buttons.validate">Valider</button>
                     </div>`,
         footer: ``
     },
@@ -1260,8 +1259,8 @@ const classroomModals = {
         content: `  <div id="folders-move-to-content" class="container-fluid">
                         <div id="folders-seek-tree-content-modal">
                         </div>
-                        <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="folders.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
-                        <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="folders.persistGoToSelected()" data-i18n="manager.buttons.validate">Valider</button>
+                        <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="foldersManager.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
+                        <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="foldersManager.persistGoToSelected()" data-i18n="manager.buttons.validate">Valider</button>
                     </div>`,
         footer: ``
     }

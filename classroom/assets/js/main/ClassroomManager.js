@@ -36,6 +36,7 @@ class ClassroomManager {
             buttons: ",bold,italic,underline|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe,answer",
         },
         this.dragulaGlobal = dragula();
+        this.displayMode = 'card';
     }
 
     /**

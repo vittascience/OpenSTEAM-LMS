@@ -71,70 +71,126 @@ function teacherSandboxItem(json) {
     return html
 }
 
-function teacherActivityItem(activity) {
+function teacherActivityItem(activity, displayStyle) {
     let activityType = "activity-card-" + activity.type;
     if (activity.type == null || activity.type == "") {
         activityType = "";
     }
-
-    let html = `<div class="activity-item activity-teacher" data-id="${activity.id}">
-                    <div>
-                        <div class="activity-card ${activityType}">
-                            <div class="activity-card-top">
-                            ${activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
-                            <div class="dropdown">
-                                <i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                </i>
-                                <div class="dropdown-menu" aria-labelledby="dropdown-activityItem-${activity.id}" data-id="${activity.id}">
-                                    <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
-                                    <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
-                                    <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
-                                    <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
-                                    <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="folders.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
-                                </div>
-                            </div> 
-                        </div>
-                        <div class="activity-card-mid">
-                        </div>
-                        <div class="activity-card-bot">
-                            <div class="info-tutorials" data-id="${activity.id}">
+    let content = "";
+    if (displayStyle == "card") {
+        content = `<div class="activity-item activity-teacher" data-id="${activity.id}">
+                        <div>
+                            <div class="activity-card ${activityType}">
+                                <div class="activity-card-top">
+                                ${activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
+                                <div class="dropdown">
+                                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    </i>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-activityItem-${activity.id}" data-id="${activity.id}">
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
+                                        <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
+                                        <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
+                                        <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                                    </div>
+                                </div> 
                             </div>
+                            <div class="activity-card-mid">
+                            </div>
+                            <div class="activity-card-bot">
+                                <div class="info-tutorials" data-id="${activity.id}">
+                                </div>
+                            </div>
+                            </div>
+                            <h3 data-toggle="tooltip" title="${activity.title}" class="activity-item-title">${activity.title}</h3>
                         </div>
-                        </div>
-                        <h3 data-toggle="tooltip" title="${activity.title}" class="activity-item-title">${activity.title}</h3>
-                    </div>
-                </div>`
+                    </div>`
+    } else if (displayStyle == "list") {
+        content = `<div class="row activity-item-list" data-id="${activity.id}">
+        <div class="container-draggable">
+            <div class="activity-list ${activityType}">
+                <div class="activity-list-title col">
+                    💻 ${activity.title}
+                </div>
+    
+                <div class="info-tutorials col-2" data-id="${activity.id}">
+                </div>
 
-    return html;
-}
+                ${activity.isAutocorrect    ? `<div class="activity-list-auto col-1">
+                                                <img src='assets/media/auto-icon.svg' title='Auto'>
+                                            </div>` 
+                                            : "" }
+               
+                <div class="dropdown col-1 activity-list-dropdown">
+                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </i>
+                    <div class="dropdown-menu" aria-labelledby="dropdown-activityItem-${activity.id}" data-id="${activity.id}">
+                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
+                        <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
+                        <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
+                        <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
+                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                    </div>
+                </div> 
 
-function teacherFolder(folder) {
-    let html = `<div class="folder-item" data-id="${folder.id}">
-        <div> 
-            <div class="folder-card" data-id="${folder.id}">
-                <div class="folder-card-top">
-                    <div class="dropdown">
-                        <i class="fas fa-cog fa-2x" type="button" id="dropdown-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        </i>
-                        <div class="dropdown-menu" aria-labelledby="dropdown-folder-${folder.id}" data-id="${folder.id}">
-                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="folders.updateFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.update'))}</li>
-                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="folders.moveToFolderModal(${folder.id}, 'folder')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
-                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="folders.deleteFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.delete'))}</li>
-                        </div>
-                    </div>
-                </div>
-                <div class="folder-card-mid">
-                </div>
-                <div class="folder-card-bot">
-                    <div class="info-tutorials" data-id="${folder.id}">
-                    </div>
-                </div>
             </div>
-            <h3 data-toggle="tooltip" title="${folder.name}" class="activity-item-title">${folder.name}</h3>
         </div>
     </div>`
+    }
+    return content;
+}
 
-    return html;
+function teacherFolder(folder, displayStyle) {
+    let content = "";
+    if (displayStyle == "card") {
+        content = `<div class="folder-item" data-id="${folder.id}">
+                    <div> 
+                        <div class="folder-card" data-id="${folder.id}">
+                            <div class="folder-card-top">
+                                <div class="dropdown">
+                                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    </i>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-folder-${folder.id}" data-id="${folder.id}">
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.updateFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.update'))}</li>
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${folder.id}, 'folder')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.deleteFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.delete'))}</li>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="folder-card-mid">
+                            </div>
+                            <div class="folder-card-bot">
+                                <div class="info-tutorials" data-id="${folder.id}">
+                                </div>
+                            </div>
+                        </div>
+                        <h3 data-toggle="tooltip" title="${folder.name}" class="activity-item-title">${folder.name}</h3>
+                    </div>
+                </div>`
+    } else if (displayStyle == "list") {
+        content = `<div class="row folder-item-list" data-id="${folder.id}">
+                        <div class="container-draggable">
+                            <div class="folder-list" data-id="${folder.id}">
+                    
+                                <div class="folder-list-title col">
+                                    📁 ${folder.name}
+                                </div>
+                    
+                    
+                                <div class="dropdown col-1 folder-list-dropdown">
+                                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    </i>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-folder-${folder.id}" data-id="${folder.id}">
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.updateFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.update'))}</li>
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${folder.id}, 'folder')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.deleteFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.delete'))}</li>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+    }
+    return content;
 }
 
 function classeItem(classe, nbStudents, students) {

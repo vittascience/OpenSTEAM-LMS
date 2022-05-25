@@ -393,7 +393,22 @@
 			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activités </p>",
 			"moveToFolder": "Déplacer vers",
 			"rootFolder": "Dossier racine",
-			"seekFolder": "Aller dans le dossier"
+			"seekFolder": "Aller dans le dossier",
+			"foldersMessages": {
+				"errorDelete": "Une erreur est survenue lors de la suppression du dossier",
+				"errorCreate": "Une erreur est survenue lors de la création du dossier",
+				"errorLenght": "Le nom du dossier doit contenir entre 1 et 30 caractères",
+				"errorUpdate": "Une erreur est survenue lors de la modification du dossier",
+				"errorMoveTo": "Une erreur est survenue lors du déplacement de l'objet",
+				"movedTo": "Objet déplacé avec succès",
+				"created": "Dossier créé avec succès",
+				"updated": "Dossier modifié avec succès",
+				"deleted": "Dossier supprimé avec succès",
+				"createFolder": "Créer un dossier",
+				"deleteFolder": "Confirmer la suppression du dossier",
+				"updateFolder": "Modifier le dossier",
+				"nameMandatory": "Nom du dossier <span class='mandatory'>*</span>"
+			}
 		},
 		"filter": {
 			"desc": "Plus ancien",

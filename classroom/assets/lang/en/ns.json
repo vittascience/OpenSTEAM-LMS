@@ -371,7 +371,22 @@
 			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activities </p>",
 			"moveToFolder": "Move to",
 			"rootFolder": "Root folder",
-			"seekFolder": "Go to folder"
+			"seekFolder": "Go to folder",
+			"foldersMessages": {
+				"errorDelete": "An error occured while deleting the folder",
+				"errorCreate": "An error occured while creating the folder",
+				"errorLenght": "The folder name must be between 1 and 30 characters",
+				"errorUpdate": "An error occured while updating the folder",
+				"errorMoveTo": "An error occured while moving the object",
+				"movedTo": "The object has been moved to",
+				"created": "The folder has been created",
+				"updated": "The folder has been updated",
+				"deleted": "The folder has been deleted",
+				"createFolder": "Create a folder",
+				"deleteFolder": "Confirm the deletion of the folder",
+				"updateFolder": "Update the folder",
+				"nameMandatory": "Folder name <span class='mandatory'>*</span>"
+			}
 		},
 		"filter": {
 			"desc": "Oldest to newest",

@@ -1187,7 +1187,6 @@ img.btn-cabri {
     margin-top: 3rem;
 }
 
-
 #sandbox-container-list,
 #list-activities-teacher,
 #mine-sandbox,
@@ -1205,6 +1204,10 @@ img.btn-cabri {
     justify-content: space-evenly;
     flex-wrap: wrap;
     width: 100%;
+}
+
+#list-activities-teacher {
+    padding: 1.2em;
 }
 
 #classroom-dashboard-sandbox-panel h3.section-title,
@@ -1354,10 +1357,165 @@ h3.section-done {
     position: relative;
 }
 
+/*
+    Folders
+*/
+
+.folder-card {
+    background-image: url(../media/folders/folder_close.png);
+    height: 100%;
+    width: 100%;
+    background-color: none;
+    border-radius: 1.2em;
+    background-clip: content-box;
+    background-size: cover;
+    color: white;
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-rows: auto 1fr auto;
+    position: relative; 
+}
+
+.folder-card-top {
+    display: inline-flex;
+    justify-content: flex-end;
+}
+
+.folder-card .folder-card-mid {
+    flex-grow: 1;
+}
+
+.folder-card .folder-card-top,
+.folder-card .folder-card-bot {
+    color: var(--classroom-green);
+    padding-top: 1.3em;
+    padding-right: 1.3em;
+    text-align: right;
+}
+
+.folder-card .folder-card-bot span {
+    font-style: italic;
+    font-weight: 500;
+    font-size: 0.9em;
+    text-shadow: 1px 1px 0px var(--classroom-shadow-1);
+
+}
+
+.folder-item {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 170px auto;
+    width: 300px;
+    padding: 0.25em;
+    justify-items: stretch;
+    margin-top: 3em;
+}
+
+.dropdown i,
+.folder-card .folder-card-top .dropdown i,
+.class-card .class-card-top .dropdown i,
+#body-table-teach .dropdown i {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.tree-folders {
+    margin: 0em 5%;
+    padding: 1em;
+    display: inline-flex;
+}
+
+.tree-folders-items {
+    display: inline-flex;
+    border: 1px solid var(--classroom-primary);
+    border-radius: 0.25rem;
+    background-color: transparent;
+    color: var(--classroom-primary);
+    margin: 1em;
+}
+
+.tree-folders-items:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 5px 0px var(--classroom-shadow-1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.tree-folders-items:hover {
+    text-decoration: none;
+}
+
+.btn-folders {
+    background-color: transparent;
+    padding: 0 !important;
+}
+
+#folders-seek-tree-content-modal ul,
+#folders-seek-tree-content-modal li,
+#folders-tree-content-modal ul,
+#folders-tree-content-modal li {
+    list-style-type: none;
+}
+
+.folder-open {
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
+    background-image: url(../media/folders/dossier_open.png);
+}
+
+.chevron-breadcrumb {
+    margin: auto;
+    color: var(--classroom-primary);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/*
+    Activities & folders list mode
+*/
+.folder-item-list,
+.activity-item-list {
+    width: 100%;
+    height: auto;
+    border-bottom: #e2e2e2 1px solid;
+    margin: 0.5rem 0 0 0;
+}
+
+.activity-list,
+.folder-list {
+    display: flex;
+    width: inherit;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container-draggable {
+    display: flex;
+    width: 100%;
+    height: 48px;
+}
+
+.activity-list-title,
+.folder-list-title {
+    font-weight: bold;
+}
+
+.activity-list-auto,
+.folder-list-auto {
+    background-color: #008447;
+    border-radius: 1.2em;
+}
+
+
+
 @media (max-width: 768px) {
 
     .sandbox-item,
-    .activity-item {
+    .activity-item,
+    .folder-item {
         grid-template-rows: 90px auto;
         width: 160px;
         padding: 0.1em;
@@ -1365,10 +1523,10 @@ h3.section-done {
     }
 
     .sandbox-card,
-    .activity-card {
+    .activity-card,
+    .folder-card {
         border-radius: 0.6em;
         aspect-ratio: 16/9;
-
     }
 
 
@@ -2919,92 +3077,3 @@ h3.section-done {
     width: 55px;
 }
 
-.folder-card {
-    height: 100%;
-    width: 100%;
-    background-color: none;
-    background-image: url(../media/folders/folders.png);
-    border-radius: 1.2em;
-    background-clip: content-box;
-    background-size: cover;
-    color: white;
-    display: grid;
-    grid-auto-flow: row;
-    grid-template-rows: auto 1fr auto;
-    position: relative; 
-}
-
-.folder-card-top {
-    display: inline-flex;
-    justify-content: flex-end;
-}
-
-.folder-card .folder-card-mid {
-    flex-grow: 1;
-}
-
-.folder-card .folder-card-top,
-.folder-card .folder-card-bot {
-    color: var(--classroom-green);
-    padding-top: 1.3em;
-    padding-right: 1.3em;
-    text-align: right;
-}
-
-.folder-card .folder-card-bot span {
-    font-style: italic;
-    font-weight: 500;
-    font-size: 0.9em;
-    text-shadow: 1px 1px 0px var(--classroom-shadow-1);
-
-}
-
-.folder-item {
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 170px auto;
-    width: 300px;
-    padding: 0.25em;
-    justify-items: stretch;
-    margin-top: 3em;
-}
-
-.dropdown i,
-.folder-card .folder-card-top .dropdown i,
-.class-card .class-card-top .dropdown i,
-#body-table-teach .dropdown i {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
-
-.tree-folders {
-    margin: 0em 5%;
-    padding: 1em;
-    display: inline-flex;
-}
-
-.tree-folders-items {
-    display: inline-flex;
-    border: 1px solid var(--classroom-primary);
-    border-radius: 0.25rem;
-    background-color: transparent;
-    color: var(--classroom-primary);
-    margin: 1em;
-}
-
-.tree-folders-items:hover {
-    text-decoration: none;
-}
-
-.btn-folders {
-    background-color: transparent;
-    padding: 0 !important;
-}
-
-#folders-seek-tree-content-modal ul,
-#folders-seek-tree-content-modal li,
-#folders-tree-content-modal ul,
-#folders-tree-content-modal li {
-    list-style-type: none;
-}
