@@ -407,7 +407,8 @@
 				"createFolder": "Créer un dossier",
 				"deleteFolder": "Confirmer la suppression du dossier",
 				"updateFolder": "Modifier le dossier",
-				"nameMandatory": "Nom du dossier <span class='mandatory'>*</span>"
+				"nameMandatory": "Nom du dossier <span class='mandatory'>*</span>",
+				"deleteDisclaimer": "Attention, le dossier et l'ensemble de son contenu (activités et sous-dossiers) seront supprimés"
 			}
 		},
 		"filter": {

@@ -1466,8 +1466,7 @@ h3.section-done {
 .chevron-breadcrumb {
     margin: auto;
     color: var(--classroom-primary);
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 14px;
 }
 
 

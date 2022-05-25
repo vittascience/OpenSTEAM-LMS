@@ -385,7 +385,8 @@
 				"createFolder": "Create a folder",
 				"deleteFolder": "Confirm the deletion of the folder",
 				"updateFolder": "Update the folder",
-				"nameMandatory": "Folder name <span class='mandatory'>*</span>"
+				"nameMandatory": "Folder name <span class='mandatory'>*</span>",
+				"deleteDisclaimer": "Be carefful, the folder and its content (activities and subfolders) will be deleted"
 			}
 		},
 		"filter": {

@@ -181,7 +181,7 @@ class FoldersManager {
         if (this.treeFolder.html() == "") {
             this.resetTreeFolders();
         }
-        this.treeFolder.append(`<span class="chevron-breadcrumb"> > </span> <button class="btn tree-folders-items" data-id="${folder.id}" onclick="foldersManager.goToFolder(${folder.id})">📁 ${folder.name}</button>`);  
+        this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span> <button class="btn tree-folders-items" data-id="${folder.id}" onclick="foldersManager.goToFolder(${folder.id})">📁 ${folder.name}</button>`);  
     }
 
     goToFolder(folderId) {

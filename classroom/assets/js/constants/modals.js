@@ -1204,6 +1204,7 @@ const classroomModals = {
         <div class="col-12" id="delete-folder-manager" style="display:none;">
     
             <h3 class="font-weight-bold text-danger m-auto text-center" data-i18n="classroom.activities.foldersMessages.deleteFolder">Confirmer la suppression</h3>
+            <p class="text-center" data-i18n="classroom.activities.foldersMessages.deleteDisclaimer">Attention, le dossier et l'ensemble de son contenu (activités et sous-dossiers) seront supprimés.</p>
             <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>
     
             <div class="text-center c-secondary-form">
