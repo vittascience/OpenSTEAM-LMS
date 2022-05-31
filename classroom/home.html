@@ -798,49 +798,55 @@
         </div>
 
 
-        
+
         <!-- Activity RetroAttribution  -->
         <div class="row" id="form-retro-attribution">
-            <div class="col mb-5 text-center c-primary-form">
+            <div class="col mb-5 text-center c-primary-form assign-row">
                 <div class="c-checkbox">
                     <input type="checkbox" id="retro-attribution-activity-form">
                     <label for="retro-attribution-activity-form">
                         <span data-i18n="classroom.activities.form.retroAttribution"></span>
                     </label>
                 </div>
-                <i class="fas fa-info" id="infoRetroAttribution" data-toggle="tooltip" title=""></i>
+                <i class="fas fa-info assign-info-icon" id="infoRetroAttribution" data-toggle="tooltip" title=""></i>
             </div>
         </div>
-        
+
         <!-- Autocorrect activation -->
         <div class="row" id="form-autocorrect">
-            <div class="col mb-5 text-center c-primary-form">
+            <div class="col mb-5 text-center c-primary-form assign-row">
                 <div class="c-checkbox">
                     <input type="checkbox" id="isAutocorrection-activity-form" onclick="autocorrectSwitch()">
                     <label for="isAutocorrection-activity-form">
                         <span data-i18n="classroom.activities.form.autocorrect"></span>
                     </label>
                 </div>
-                <i class="fas fa-info" id="infoAutocorrect" data-toggle="tooltip" title=""></i>
+                <i class="fas fa-info assign-info-icon" id="infoAutocorrect" data-toggle="tooltip" title=""></i>
             </div>
         </div>
 
-        
+
         <!-- Submit multiple times -->
         <div class="row">
             <div class="col mb-5 text-center c-primary-form">
-                <label for="isEval-activity-form" data-i18n="classroom.activities.form.nature"></label></br>
-                <div class="switcher">
-                    <input type="radio" name="isEval-activity-form" value="false" id="isExo-activity-form" checked>
-                    <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes"></label>
-                    
-                    <input type="radio" name="isEval-activity-form" value="true" id="isEval-activity-form">
-                    <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no"></label>
-                    
-                    <span class="switcher__toggle"></span>
+                <div class="assign-row">
+                    <div>
+                        <label for="isEval-activity-form" data-i18n="classroom.activities.form.nature"></label>
+                        <div class="switcher">
+                            <input type="radio" name="isEval-activity-form" value="false" id="isExo-activity-form" checked>
+                            <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes"></label>
+
+                            <input type="radio" name="isEval-activity-form" value="true" id="isEval-activity-form">
+                            <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no"></label>
+
+                            <span class="switcher__toggle"></span>
+                        </div>
+                    </div>
+
+                    <i class="fas fa-info assign-info-icon" id="infoEvaluation" data-toggle="tooltip" title=""></i>
                 </div>
+
                 <p id="hint-exist-disclaimer" data-i18n="[html]classroom.activities.hintExist" style="display:none;"></p>
-                <i class="fas fa-info" id="infoEvaluation" data-toggle="tooltip" title=""></i>
             </div>
         </div>
 
@@ -862,7 +868,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-12 col-xl-6 c-primary-form assign-activity-calendar">
                         <div class="row">
                             <div class="col-6 text-right align-middle">
@@ -887,7 +893,7 @@
             </div>
 
         </div>
-            
+
 
         <div class="row text-center my-2 mt-5">
             <div class="col-sm mb-2">

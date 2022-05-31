@@ -1880,6 +1880,35 @@ h3.section-done {
     border-radius: 50%;
 }
 
+.assign-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.assign-row .c-checkbox {
+    height: fit-content
+}
+
+.assign-row .c-checkbox label {
+    margin-bottom: 0em;
+}
+
+.assign-info-icon {
+    color: var(--classroom-text-2);
+    border: 2px solid var(--classroom-text-2);
+
+    width: 2em;
+    height: 2em;
+    flex-shrink: 0;
+
+    display: grid;
+    align-items: center;
+    
+    border-radius: 50%;
+    margin: 0.5em;
+}
+
 /* ACTIVITY CORRECTION FORM */
 
 #activity-title {
