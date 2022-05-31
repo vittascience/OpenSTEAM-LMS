@@ -1506,6 +1506,10 @@ h3.section-done {
     clip-path: polygon(-5% -5%, 105% -5%, 105% 105%, 50% 77%, -5% 105%);
 }
 
+.ribbon.ribbon_no_grade .ribbon__content {
+    background: var(--classroom-text-2);
+}
+
 .ribbon.ribbon_accept .ribbon__content {
     background: var(--correction-3);
 }
@@ -2426,7 +2430,7 @@ h3.section-done {
 .bilan-4,
 .status-4 {
     border-color: transparent;
-    background-color: var(--correction-3);
+    background-color: var(--classroom-text-2);
 }
 
 .bilan-3,
@@ -2458,8 +2462,12 @@ h3.section-done {
 #body-table-teach.is-monochrome tr {
     height: 100%;
 }
+
 .is-monochrome .bilan-4,
-.is-monochrome .status-4,
+.is-monochrome .status-4 {
+    border-radius: 5px;
+}
+
 .is-monochrome .bilan-3,
 .is-monochrome .status-3,
 .is-monochrome .bilan-2,
@@ -2478,7 +2486,10 @@ h3.section-done {
 }
 
 #legend-container.is-monochrome .bilan-4,
-#legend-container.is-monochrome .status-4,
+#legend-container.is-monochrome .status-4 {
+    border-radius: 2px;
+}
+
 #legend-container.is-monochrome .bilan-3,
 #legend-container.is-monochrome .status-3,
 #legend-container.is-monochrome .bilan-2,
@@ -2492,6 +2503,7 @@ h3.section-done {
     height: 30px;
     border-radius: 2px;
 }
+
 .is-monochrome .bilan-4 .monochrome-grade-div,
 .is-monochrome .status-4 .monochrome-grade-div,
 .is-monochrome .bilan-3 .monochrome-grade-div,
@@ -2518,6 +2530,11 @@ h3.section-done {
     border-color: var(--classroom-primary);
     background-color: var(--classroom-white);
     border-width: 2px;
+}
+
+.is-monochrome .bilan-4 .monochrome-grade-div,
+.is-monochrome .status-4 .monochrome-grade-div {
+    background-color: transparent;
 }
 
 .is-monochrome .bilan-2 .monochrome-grade-div:nth-child(1),
@@ -2550,7 +2567,6 @@ h3.section-done {
 }
 
 .no-activity {
-
     border: solid 1px var(--classroom-cell);
     background-color: transparent;
 }

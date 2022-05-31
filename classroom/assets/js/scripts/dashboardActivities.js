@@ -9,8 +9,8 @@ function activityItem(activity, state) {
         activityStatusTitle = "";
     if (state == "doneActivities") {
         if (activity.note == 4) {
-            activityStatus = "ribbon ribbon_accept"
-            activityStatusTitle = i18next.t('classroom.activities.nnoted')
+            activityStatus = "ribbon ribbon_no_grade";
+            activityStatusTitle = i18next.t('classroom.activities.noProficiency')
         } else if (activity.note == 3) {
             activityStatus = "ribbon ribbon_accept"
             activityStatusTitle = i18next.t('classroom.activities.veryGoodProficiency')
@@ -477,24 +477,32 @@ function loadActivityForStudents(isDoable) {
     let correction = '';
     if (!UserManager.getUser().isRegular && Activity.correction > 1) {
         document.querySelector('#activity-correction').style.display = 'block';
-        let activityResultString;
+        let activityResultString, activityResultColor;
         switch (Activity.note) {
+            case 4:
+                activityResultString = i18next.t('classroom.activities.noProficiency')
+                activityResultColor = 'var(--classroom-text-2)'
+                break;
             case 3:
                 activityResultString = i18next.t('classroom.activities.veryGoodProficiency')
+                activityResultColor = 'var(--correction-3)'
                 break;
             case 2:
                 activityResultString = i18next.t('classroom.activities.goodProficiency')
+                activityResultColor = 'var(--correction-2)'
                 break;
             case 1:
                 activityResultString = i18next.t('classroom.activities.weakProficiency')
+                activityResultColor = 'var(--correction-1)'
                 break;
             case 0:
                 activityResultString = i18next.t('classroom.activities.insufficientProficiency')
+                activityResultColor = 'var(--correction-0)'
                 break;
             default:
                 break;
         }
-        correction += `<div class="results-string" style="background-color:var(--correction-${Activity.note})"">${activityResultString}</div>`
+        correction += `<div class="results-string" style="background-color:${activityResultColor}">${activityResultString}</div>`
         
         if (Activity.commentary != null && Activity.commentary != "") {
             correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
