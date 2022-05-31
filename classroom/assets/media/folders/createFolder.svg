@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="35.172" height="30.998" viewBox="0 0 35.172 30.998">
+  <defs>
+    <style>
+      .cls-1-folder, .cls-2-folder {
+        fill: #24a069;
+      }
+
+      .cls-1 {
+        stroke: rgba(0,0,0,0);
+        stroke-miterlimit: 10;
+      }
+    </style>
+  </defs>
+    <g id="Nouveau_dossier" data-name="Nouveau dossier" transform="translate(-751.216 -92.607)">
+        <g id="Groupe_1973" data-name="Groupe 1973" transform="translate(-10.978 -324)">
+            <path id="Soustraction_5" data-name="Soustraction 5" class="cls-1-folder" d="M31.4,30H2.767A2.974,2.974,0,0,1,0,27.2V2.566A2.552,2.552,0,0,1,2.533,0H14.077A2.349,2.349,0,0,1,15.734.68l3.523,3.472H31.4a2.974,2.974,0,0,1,2.769,2.8V27.2A2.974,2.974,0,0,1,31.4,30ZM3.738,5.4A2.321,2.321,0,0,0,1.419,7.721V26.455a2.321,2.321,0,0,0,2.318,2.318H30.365a2.321,2.321,0,0,0,2.318-2.318V7.721A2.321,2.321,0,0,0,30.365,5.4H3.738Z" transform="translate(762.696 417.105)"/>
+        </g>
+        <path id="icon-add" class="cls-2-folder" d="M480.276,106.964H476.1v-4.172a1.472,1.472,0,1,0-2.945,0v4.172h-4.172a1.473,1.473,0,0,0,0,2.945h4.172v4.172a1.472,1.472,0,1,0,2.945,0v-4.172h4.172a1.473,1.473,0,0,0,0-2.945Z" transform="translate(294.368 2.031)"/>
+    </g>
+</svg>

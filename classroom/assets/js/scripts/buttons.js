@@ -818,14 +818,44 @@ function classroomsDisplay() {
 function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherActivities) {
     // Keep the list sorted
     let sortedList = $("#filter-activity-select").val() != "desc" ? list.sort((a, b) => {return b.id - a.id}) : list;
+    let displayStyle = Main.getClassroomManager().displayMode;
 
-    $('#list-activities-teacher').html(``)
+
+    if (foldersManager.treeFolder.html() == "") {
+        foldersManager.resetTreeFolders();
+    }
+
+    if (displayStyle == "list") {
+        $("#list-activities-teacher").css("flex-direction", "column")
+    } else {
+        $("#list-activities-teacher").css("flex-direction", "row")
+    }
+
+    
+    $('#list-activities-teacher').html(``);
     sortedList.forEach(element => {
-        $('#list-activities-teacher').append(teacherActivityItem(element))
+        if (element.folder == null && foldersManager.actualFolder == null) {
+            $('#list-activities-teacher').append(teacherActivityItem(element, displayStyle));
+        } else if (element.folder != null) {
+            if (element.folder.id == foldersManager.actualFolder) {
+                $('#list-activities-teacher').append(teacherActivityItem(element, displayStyle));
+            }
+        }
     });
-    $('[data-toggle="tooltip"]').tooltip()
 
+    foldersManager.userFolders.forEach(folder => {
+        if (folder.parentFolder == null && foldersManager.actualFolder == null) {
+            $('#list-activities-teacher').append(teacherFolder(folder, displayStyle));
+        } else if (folder.parentFolder != null) {
+            if (folder.parentFolder.id == foldersManager.actualFolder) {
+                $('#list-activities-teacher').append(teacherFolder(folder, displayStyle));
+            }
+        }
+    });
+
+    $('[data-toggle="tooltip"]').tooltip();
 }
+
 $('body').on('change', '#action-teach-setting', function () {
     console.log('check')
 })

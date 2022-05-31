@@ -29,6 +29,7 @@ class ClassroomManager {
         this._idActivityOnAttribution = 0;
         this.setDefaultActivityData();
         this.dragulaGlobal = false;
+        this.displayMode = 'card';
         this.wbbOpt = {
             allButtons : {
             },

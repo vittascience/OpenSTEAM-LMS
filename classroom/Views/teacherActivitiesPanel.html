@@ -16,12 +16,29 @@
                 <option value="asc" data-i18n="classroom.filter.asc"></option>
             </select>
         </div>
+
+        <div class="col-auto vertical-align-center">
+            <button  class="btn btn-folders mx-1" onclick="foldersManager.displayModeSwitch('card')" >
+                <img src="./assets/media/folders/cadrillage.svg" alt="arb-folders">
+            </button>
+            <button class="btn btn-folders mx-1" onclick="foldersManager.displayModeSwitch('list')" >
+                <img src="./assets/media/folders/arborescence.svg" alt="arb-folders">
+            </button>
+        </div>
     </div>
+
     </br>
 
     <div class="buttons-interactions flex-wrap">
         <button id="new-activity-panel1" onclick="showExercicePanel()" class=" btn c-btn-outline-secondary"><span class="mr-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
         </button>
+        
+        <button class="btn btn-folders" id="new-activities-folder" onclick="foldersManager.openFolderModal()" >
+            <img src="./assets/media/folders/createFolder.svg" alt="folders">
+        </button>
+        <button class="btn btn-folders" onclick="foldersManager.seekFolderModal()">
+            <img src="./assets/media/folders/arborescence.svg" alt="arb-folders">
+        </button>  
     </div>
 
     <div id="list-activities-teacher">
