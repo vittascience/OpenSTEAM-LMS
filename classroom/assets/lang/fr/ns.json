@@ -273,6 +273,7 @@
 			"vgood": "Maîtrise satisfaisante",
 			"good": "Maîtrise fragile",
 			"refuse": "Maîtrise insuffisante",
+			"nnoted": "Non-noté",
 			"instruction": "Consigne",
 			"commentary": "Commentaire",
 			"sendResults": "Envoyer le commentaire ",
@@ -367,6 +368,7 @@
 			"goodProficiency": "Maîtrise satisfaisante",
 			"weakProficiency": "Maîtrise fragile",
 			"insufficientProficiency": "Maîtrise insuffisante",
+			"noProficiency": "Non-noté",
 			"addLearner": "Ajouter un apprenant",
 			"addLearners": "Ajouter des apprenants",
 			"addActivity": "Ajouter une activité",
@@ -409,7 +411,11 @@
 				"updateFolder": "Modifier le dossier",
 				"nameMandatory": "Nom du dossier <span class='mandatory'>*</span>",
 				"deleteDisclaimer": "Attention, le dossier et l'ensemble de son contenu (activités et sous-dossiers) seront supprimés"
-			}
+			},
+			"facultative": "Champs facultatifs",
+			"infoRetroAttribution": "Cette activité sera attribuée aux nouveaux apprenants",
+			"infoAutocorrect": "Cette activité dispose de correction automatique",
+			"infoEvaluation": "En mode évaluation, les apprenants ne peuvent soumettre l’activité qu'une seule fois"
 		},
 		"filter": {
 			"desc": "Plus ancien",

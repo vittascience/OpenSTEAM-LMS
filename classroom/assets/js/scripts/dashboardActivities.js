@@ -8,7 +8,10 @@ function activityItem(activity, state) {
     let activityStatus = "",
         activityStatusTitle = "";
     if (state == "doneActivities") {
-        if (activity.note == 3) {
+        if (activity.note == 4) {
+            activityStatus = "ribbon ribbon_no_grade";
+            activityStatusTitle = i18next.t('classroom.activities.noProficiency')
+        } else if (activity.note == 3) {
             activityStatus = "ribbon ribbon_accept"
             activityStatusTitle = i18next.t('classroom.activities.veryGoodProficiency')
         } else if (activity.note == 2) {
@@ -192,6 +195,30 @@ function teacherFolder(folder, displayStyle) {
                     </div>`
     }
     return content;
+}
+
+function teacherFolder(folder) {
+    let html = `<div class="activity-item activity-teacher">
+        <div class="activity-card folder">
+            <div class="activity-card-top">
+                <div class="dropdown"><i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                <div class="dropdown-menu" aria-labelledby="dropdown-activityItem-${folder.id}" data-id="${folder.id}">
+                    <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="folders.updateFolder(${folder.id})" style="border-bottom:2px solid rgba(0,0,0,.15">Modifier</li>
+                    <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="folders.deleteFolder(${folder.id})">Supprimer</li>
+                </div>
+            </div>
+        </div>
+            <div class="activity-card-mid">
+            </div>
+            <div class="activity-card-bot">
+                <div class="info-tutorials" data-id="${folder.id}">
+                </div>
+            </div>
+        </div>
+        <h3 data-toggle="tooltip" title="${folder.name}" class="activity-item-title">${folder.name}</h3>
+    </div>`
+
+    return html;
 }
 
 function classeItem(classe, nbStudents, students) {
@@ -480,7 +507,13 @@ function statusActivity(activity, state = true, formatedTimePast = '') {
             return "à corriger"
         return "todo-activity"
     }
-    if (activity.note == 3) {
+    if (activity.note == 4) {
+        if (state == true)
+            return "bilan-4";
+        if (state == "csv")
+            return "Non noté"
+        return "done-activity"
+    } else if (activity.note == 3) {
         if (state == true)
             return "bilan-3";
         if (state == "csv")
@@ -542,24 +575,32 @@ function loadActivityForStudents(isDoable) {
     let correction = '';
     if (!UserManager.getUser().isRegular && Activity.correction > 1) {
         document.querySelector('#activity-correction').style.display = 'block';
-        let activityResultString;
+        let activityResultString, activityResultColor;
         switch (Activity.note) {
+            case 4:
+                activityResultString = i18next.t('classroom.activities.noProficiency')
+                activityResultColor = 'var(--classroom-text-2)'
+                break;
             case 3:
                 activityResultString = i18next.t('classroom.activities.veryGoodProficiency')
+                activityResultColor = 'var(--correction-3)'
                 break;
             case 2:
                 activityResultString = i18next.t('classroom.activities.goodProficiency')
+                activityResultColor = 'var(--correction-2)'
                 break;
             case 1:
                 activityResultString = i18next.t('classroom.activities.weakProficiency')
+                activityResultColor = 'var(--correction-1)'
                 break;
             case 0:
                 activityResultString = i18next.t('classroom.activities.insufficientProficiency')
+                activityResultColor = 'var(--correction-0)'
                 break;
             default:
                 break;
         }
-        correction += `<div class="results-string" style="background-color:var(--correction-${Activity.note})"">${activityResultString}</div>`
+        correction += `<div class="results-string" style="background-color:${activityResultColor}">${activityResultString}</div>`
         
         if (Activity.commentary != null && Activity.commentary != "") {
             correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
@@ -615,6 +656,9 @@ function loadActivityForTeacher() {
     if (UserManager.getUser().isRegular && Activity.correction > 0) {
 
         correction += `<div class="giveNote-container c-primary-form">`
+
+        // @updated
+        correction += `<label for="givenote-4" onclick="setNote(4)"><input type="radio" id="givenote-4" ${Activity.note == 4 ? "checked=checked" : ""} name="giveNote" value="4">${" " + i18next.t('classroom.activities.nnoted')}</label>`;
 
 
         correction += `<label for="givenote-3" onclick="setNote(3)"><input type="radio" id="givenote-3" ${Activity.note == 3 ? "checked=checked" : ""} name="giveNote" value="3">${" " + i18next.t('classroom.activities.accept')}</label>`;

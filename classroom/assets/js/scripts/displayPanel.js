@@ -320,7 +320,7 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) 
     } else {
         let now = new Date()
         let future = new Date()
-        future.setDate(future.getDate() + 7);
+        future.setDate(future.getDate() + 365);
         $('#date-begin-activity-form').val(formatDateInput(now))
         $('#date-end-activity-form').val(formatDateInput(future))
         $('#introduction-activity-form').val('')

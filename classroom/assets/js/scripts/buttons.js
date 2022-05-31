@@ -3333,3 +3333,15 @@ $('#btn-help-for-groupAdmin').click(function () {
         $('#groupadmin-contact-subject-input').val("");
     })
 })
+/* Add tooltip to info  */
+function setAddFieldTooltips() {
+    $('#infoRetroAttribution').tooltip("dispose");
+    $('#infoAutocorrect').tooltip("dispose");
+    $('#infoEvaluation').tooltip("dispose");
+
+    $('#infoRetroAttribution').attr("title", i18next.t('classroom.activities.infoRetroAttribution')).tooltip();
+    $('#infoAutocorrect').attr("title", i18next.t('classroom.activities.infoAutocorrect')).tooltip();
+    $('#infoEvaluation').attr("title", i18next.t('classroom.activities.infoEvaluation')).tooltip();
+
+}
+setTimeout(setAddFieldTooltips, 2000);

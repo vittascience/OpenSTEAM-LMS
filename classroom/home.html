@@ -277,18 +277,10 @@
                 </p>
 
                 <!-- Used for states -->
-                <div id="activity-states-container" style="display: none;">
+                <div id="activity-states-container" style="display:none;">
                     <label for="activity-states" class="vitta-modal-title mt-2" data-i18n="classroom.activities.states">Énoncé de l'activité</label>
                     <p id="activity-states"></p>
                 </div>
-
-
-                <!-- Used for content -->
-                <div id="activity-content-container" style="display: none;">
-                    <label for="activity-content" id="label-activity-content" class="vitta-modal-title mt-2" data-i18n="newActivities.contentTitle">Contenu de l'activité</label>
-                    <p id="activity-content"></p>    
-                </div>
-                
 
                 <!-- @Update Rémi -->
                 <div id="activity-student-response" style="display:none;">
@@ -296,12 +288,18 @@
                     <p id="activity-student-response-content"> </p>
                 </div>
 
+                <!-- Used for content -->
+                <div id="activity-content-container" style="display:none;">
+                    <label for="activity-content" id="label-activity-content" class="vitta-modal-title mt-2" data-i18n="newActivities.contentTitle">Contenu de l'activité</label>
+                    <p id="activity-content"></p>    
+                </div>
+                
                 <div id="activity-input-container" style="display:none;">
                     <label for="activity-input" class="vitta-modal-title mt-2" data-i18n="classroom.activities.putYourAnswer">Entrez votre réponse</label>
                     <textarea id="activity-input" style="height:400px"></textarea>
                 </div>
 
-                <div id="activity-drag-and-drop-container" style="display:none;">
+                <div id="activity-drag-and-drop-container" style="display: none;">
                     <label class="vitta-modal-title mt-2">Drag & drop</label>
                     <div id="drag-and-drop-text">
 
@@ -626,6 +624,15 @@
                     </div>
                     <span data-i18n="classroom.activities.insufficientProficiency"></span>
                 </li>
+                <li class="ml-3">
+                    <div class="bilan-legend bilan-4">
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                    </div>
+                    <span data-i18n="classroom.activities.noProficiency"></span>
+                </li>
             </ul>
             <ul class="row legend" style="list-style:none; align-items: flex-end">
                 <li class="ml-3">
@@ -816,88 +823,102 @@
             </div>
         </div>
 
-        <!-- Instructions -->
-        <div class="row">
-            <div class="col-12 mb-5 text-center c-primary-form">
-                <label for="introduction-activity-form">
-                    <b data-i18n="classroom.activities.form.instructions"></b>
-                    <i data-i18n="words.optional"></i>
-                </label></br>
-                <textarea rows="4" id="introduction-activity-form"></textarea>
-            </div>
-        </div>
-        
+
+
         <!-- Activity RetroAttribution  -->
         <div class="row" id="form-retro-attribution">
-            <div class="col mb-5 text-center c-primary-form">
+            <div class="col mb-5 text-center c-primary-form assign-row">
                 <div class="c-checkbox">
                     <input type="checkbox" id="retro-attribution-activity-form">
                     <label for="retro-attribution-activity-form">
                         <span data-i18n="classroom.activities.form.retroAttribution"></span>
                     </label>
                 </div>
+                <i class="fas fa-info assign-info-icon" id="infoRetroAttribution" data-toggle="tooltip" title=""></i>
             </div>
         </div>
-        
+
         <!-- Autocorrect activation -->
         <div class="row" id="form-autocorrect">
-            <div class="col mb-5 text-center c-primary-form">
+            <div class="col mb-5 text-center c-primary-form assign-row">
                 <div class="c-checkbox">
                     <input type="checkbox" id="isAutocorrection-activity-form" onclick="autocorrectSwitch()">
                     <label for="isAutocorrection-activity-form">
                         <span data-i18n="classroom.activities.form.autocorrect"></span>
                     </label>
                 </div>
+                <i class="fas fa-info assign-info-icon" id="infoAutocorrect" data-toggle="tooltip" title=""></i>
             </div>
         </div>
 
-       
 
         <!-- Submit multiple times -->
         <div class="row">
             <div class="col mb-5 text-center c-primary-form">
-                <label for="isEval-activity-form" data-i18n="classroom.activities.form.nature"></label></br>
-                <div class="switcher">
-                    <input type="radio" name="isEval-activity-form" value="false" id="isExo-activity-form" checked>
-                    <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes"></label>
-                    
-                    <input type="radio" name="isEval-activity-form" value="true" id="isEval-activity-form">
-                    <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no"></label>
-                    
-                    <span class="switcher__toggle"></span>
+                <div class="assign-row">
+                    <div>
+                        <label for="isEval-activity-form" data-i18n="classroom.activities.form.nature"></label>
+                        <div class="switcher">
+                            <input type="radio" name="isEval-activity-form" value="false" id="isExo-activity-form" checked>
+                            <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes"></label>
+
+                            <input type="radio" name="isEval-activity-form" value="true" id="isEval-activity-form">
+                            <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no"></label>
+
+                            <span class="switcher__toggle"></span>
+                        </div>
+                    </div>
+
+                    <i class="fas fa-info assign-info-icon" id="infoEvaluation" data-toggle="tooltip" title=""></i>
                 </div>
+
                 <p id="hint-exist-disclaimer" data-i18n="[html]classroom.activities.hintExist" style="display:none;"></p>
             </div>
         </div>
 
 
-        <!-- Form time span -->
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-xl-6 c-primary-form assign-activity-calendar">
-                    <div class="row">
-                        <div class="col-6 text-right align-middle">
-                            <label for="date-begin-activity-form" data-i18n="classroom.activities.form.dateBegin"></label>
+        <div class="container text-center">
+
+            <button type="button" data-toggle="collapse" data-target="#facultative" class="btn c-btn-primary" data-i18n="classroom.activities.facultative">Options facultatives</button>
+
+            <!-- Form time span -->
+            <div class="container collapse mt-3 pt-1" id="facultative">
+                <div class="row">
+                    <div class="col-12 col-xl-6 c-primary-form assign-activity-calendar">
+                        <div class="row">
+                            <div class="col-6 text-right align-middle">
+                                <label for="date-begin-activity-form" data-i18n="classroom.activities.form.dateBegin"></label>
+                            </div>
+                            <div class="col-6 text-left">
+                                <input type="date" id="date-begin-activity-form">
+                            </div>
                         </div>
-                        <div class="col-6 text-left">
-                            <input type="date" id="date-begin-activity-form">
+                    </div>
+
+                    <div class="col-12 col-xl-6 c-primary-form assign-activity-calendar">
+                        <div class="row">
+                            <div class="col-6 text-right align-middle">
+                                <label for="date-end-activity-form" data-i18n="classroom.activities.form.dateEnd"></label>
+                            </div>
+                            <div class="col-6 text-left">
+                                <input type="date" id="date-end-activity-form">
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="col-12 col-xl-6 c-primary-form assign-activity-calendar">
-                    <div class="row">
-                        <div class="col-6 text-right align-middle">
-                            <label for="date-end-activity-form" data-i18n="classroom.activities.form.dateEnd"></label>
-                        </div>
-                        <div class="col-6 text-left">
-                            <input type="date" id="date-end-activity-form">
-                        </div>
+                <!-- Instructions -->
+                <div class="row mt-3">
+                    <div class="col-12 mb-5 text-center c-primary-form">
+                        <label for="introduction-activity-form">
+                            <b data-i18n="classroom.activities.form.instructions"></b>
+                            <i data-i18n="words.optional"></i>
+                        </label></br>
+                        <textarea rows="4" id="introduction-activity-form"></textarea>
                     </div>
                 </div>
             </div>
+
         </div>
-            
 
 
         <div class="row text-center my-2 mt-5">
@@ -913,6 +934,9 @@
                 </button>
             </div>
         </div>
+
+
+
     </div>
 </div>
 <div id="classroom-dashboard-help-panel-teacher" style="display:none;" class="dashboard-block help-panel">

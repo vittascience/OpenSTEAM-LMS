@@ -273,6 +273,7 @@
 			"vgood": "Good proficiency",
 			"good": "Weak proficiency",
 			"refuse": "Insufficient proficiency",
+			"nnoted": "Not evaluated",
 			"instruction": "Instructions",
 			"commentary": "Comment",
 			"sendResults": "Send the comment ",
@@ -345,6 +346,7 @@
 			"goodProficiency": "Good proficiency",
 			"weakProficiency": "Weak proficiency",
 			"insufficientProficiency": "Insufficient proficiency",
+			"noProficiency": "Not evaluated",
 			"addLearner": "Add a learner",
 			"addLearners": "Add learners",
 			"addActivity": "Add an activity",
@@ -387,7 +389,11 @@
 				"updateFolder": "Update the folder",
 				"nameMandatory": "Folder name <span class='mandatory'>*</span>",
 				"deleteDisclaimer": "Be carefful, the folder and its content (activities and subfolders) will be deleted"
-			}
+			},
+			"facultative": "Optional field",
+			"infoRetroAttribution": "This activity will be added for every new students",
+			"infoAutocorrect": "This activity has automated correction, do you like to activate it ?",
+			"infoEvaluation": "In evaluation mode, learners can only submit the activity once"
 		},
 		"filter": {
 			"desc": "Oldest to newest",

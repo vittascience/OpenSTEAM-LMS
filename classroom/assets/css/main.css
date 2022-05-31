@@ -1663,6 +1663,10 @@ h3.section-done {
     clip-path: polygon(-5% -5%, 105% -5%, 105% 105%, 50% 77%, -5% 105%);
 }
 
+.ribbon.ribbon_no_grade .ribbon__content {
+    background: var(--classroom-text-2);
+}
+
 .ribbon.ribbon_accept .ribbon__content {
     background: var(--correction-3);
 }
@@ -2040,6 +2044,35 @@ h3.section-done {
     align-items: center;
     
     border-radius: 50%;
+}
+
+.assign-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.assign-row .c-checkbox {
+    height: fit-content
+}
+
+.assign-row .c-checkbox label {
+    margin-bottom: 0em;
+}
+
+.assign-info-icon {
+    color: var(--classroom-text-2);
+    border: 2px solid var(--classroom-text-2);
+
+    width: 2em;
+    height: 2em;
+    flex-shrink: 0;
+
+    display: grid;
+    align-items: center;
+    
+    border-radius: 50%;
+    margin: 0.5em;
 }
 
 /* ACTIVITY CORRECTION FORM */
@@ -2556,6 +2589,12 @@ h3.section-done {
     background: #cccccc center no-repeat url("../media/icon_time_spent.svg");
 }
 
+.bilan-4,
+.status-4 {
+    border-color: transparent;
+    background-color: var(--classroom-text-2);
+}
+
 .bilan-3,
 .status-3 {
     border-color: transparent;
@@ -2586,6 +2625,11 @@ h3.section-done {
     height: 100%;
 }
 
+.is-monochrome .bilan-4,
+.is-monochrome .status-4 {
+    border-radius: 5px;
+}
+
 .is-monochrome .bilan-3,
 .is-monochrome .status-3,
 .is-monochrome .bilan-2,
@@ -2603,6 +2647,11 @@ h3.section-done {
 
 }
 
+#legend-container.is-monochrome .bilan-4,
+#legend-container.is-monochrome .status-4 {
+    border-radius: 2px;
+}
+
 #legend-container.is-monochrome .bilan-3,
 #legend-container.is-monochrome .status-3,
 #legend-container.is-monochrome .bilan-2,
@@ -2617,6 +2666,8 @@ h3.section-done {
     border-radius: 2px;
 }
 
+.is-monochrome .bilan-4 .monochrome-grade-div,
+.is-monochrome .status-4 .monochrome-grade-div,
 .is-monochrome .bilan-3 .monochrome-grade-div,
 .is-monochrome .status-3 .monochrome-grade-div,
 .is-monochrome .bilan-2 .monochrome-grade-div,
@@ -2641,6 +2692,11 @@ h3.section-done {
     border-color: var(--classroom-primary);
     background-color: var(--classroom-white);
     border-width: 2px;
+}
+
+.is-monochrome .bilan-4 .monochrome-grade-div,
+.is-monochrome .status-4 .monochrome-grade-div {
+    background-color: transparent;
 }
 
 .is-monochrome .bilan-2 .monochrome-grade-div:nth-child(1),
@@ -2673,7 +2729,6 @@ h3.section-done {
 }
 
 .no-activity {
-
     border: solid 1px var(--classroom-cell);
     background-color: transparent;
 }
