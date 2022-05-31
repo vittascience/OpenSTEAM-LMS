@@ -1856,8 +1856,10 @@ function switchToGroupAdmin() {
     $('#groupadmin-dashboard-sidebar').show();
 
     mainGroupAdmin.getGroupAdminManager().getGroupUserAdminId().then((response) => {
-        mainGroupAdmin.getGroupAdminManager()._actualGroup = response[0].id;
-        mainGroupAdmin.getGroupAdminManager().isGroupsApplicationsOutDated(response[0].id);
+        if (response[0] != undefined) {
+            mainGroupAdmin.getGroupAdminManager()._actualGroup = response[0].id;
+            mainGroupAdmin.getGroupAdminManager().isGroupsApplicationsOutDated(response[0].id);
+        }
     })
     pseudoModal.closeAllModal();
 }
