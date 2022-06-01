@@ -133,6 +133,7 @@ function contentForward() {
         displayNotification('#notif-div', "classroom.notif.emptyContent", "error");
     } else {
         navigatePanel('classroom-dashboard-classes-new-activity-title', 'dashboard-proactivities-teacher');
+        ActivityPreviewBeforeCreation(Main.getClassroomManager()._createActivity.id);
     }
 }
 
@@ -671,3 +672,52 @@ $('body').on('click', '#fill-in-tolerance-decrease', function () {
     }
 })
 
+
+function ActivityPreviewBeforeCreation(type) {
+    let $title = $('#preview-title');
+    let $states = $('#preview-states');
+    let $content = $('#preview-content');
+    let $bbcodeContent = $('#preview-content-bbcode');
+
+    resetPreviewViews();
+
+    $title.html(Main.getClassroomManager()._createActivity.title);
+
+    switch (type) {
+        case "quiz":
+            
+            break;
+        case "free":
+            
+            break;
+        case "fillIn":
+            
+            break;
+        case "reading":
+            
+            break;
+        case "dragAndDrop":
+            
+            break;
+        case "custom":
+            
+            break;
+    
+        default:
+            break;
+    }
+    if (type == 'quiz') {
+        
+
+
+    }
+}
+
+function resetPreviewViews() {
+    const Views = [$('#preview-title'), $('#preview-states'), $('#preview-content'), $('#preview-content-bbcode')];
+
+    Views.forEach(e => {
+        e.html('');
+        e.hide();
+    });
+}
