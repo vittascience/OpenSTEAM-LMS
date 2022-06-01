@@ -853,6 +853,7 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
         }
     });
 
+    foldersManager.dragulaInitObjects();
     $('[data-toggle="tooltip"]').tooltip();
 }
 
