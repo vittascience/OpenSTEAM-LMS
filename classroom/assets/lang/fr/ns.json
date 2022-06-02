@@ -361,7 +361,8 @@
 				"dateEnd": "Date de fin :",
 				"retroAttribution" : "Cette activité sera attribuée aux nouveaux apprenants"
 			},
-			"toCopy": "Ce code permet de rejoindre en toute simplicité votre classe",
+			"toCopy": "Ce code permet de rejoindre en toute simplicité votre classe :",
+			"qrCode": "Scanner le QR code :",
 			"copyLink": "Le lien vers votre classe a été ajouté au presse-papier",
 			"dateBefore": "A rendre avant le",
 			"integrate": "Intégrer dans une activité",

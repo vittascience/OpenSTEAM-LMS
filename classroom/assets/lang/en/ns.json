@@ -340,6 +340,7 @@
 				"retroAttribution" : "This activity will be added for every new students"
 			},
 			"toCopy": "This code allow you to join the classroom at ease :",
+			"qrCode": "Scan the QR code :",
 			"copyLink": "The link to your class has been added to the clipboard",
 			"dateBefore": "To give back before",
 			"integrate": "Integrate in an activity",

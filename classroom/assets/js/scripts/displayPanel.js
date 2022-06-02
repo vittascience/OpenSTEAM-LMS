@@ -272,6 +272,16 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
             let students = getClassroomInListByLink(link)[0].students
             displayStudentsInClassroom(students, link)
             $('.classroom-link').html(ClassroomSettings.classroom)
+
+            QrCreator.render({
+                text: 'some text',
+                radius: 0.5, 
+                ecLevel: 'H',
+                fill: getComputedStyle(document.documentElement).getPropertyValue('--classroom-primary'),
+                background: "white", 
+                size: 300
+              }, document.querySelector('#classroom-code-share-qr-code'));
+
             // Block classroom feature
             if (getClassroomInListByLink(link)[0].classroom.isBlocked == false) {
                 $('#classroom-info > button:first-child').removeClass('greyscale')

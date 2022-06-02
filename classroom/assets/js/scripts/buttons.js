@@ -900,12 +900,16 @@ function docopy(self) {
 
     currentOriginUrl = new URL(window.location.href).origin;
     fullPath = currentOriginUrl + '/classroom/login.php?link=';
+
+    
     document.getElementById('hidden-link-prefix').innerHTML = fullPath;
+
     // Cible de l'élément qui doit être copié
     var target = self[0].dataset.target;
     var fromElement = document.querySelector(target);
     if (!fromElement) return;
     $('#hidden-link-prefix').show()
+
     // Sélection des caractères concernés
     var range = document.createRange();
     var selection = window.getSelection();
@@ -915,7 +919,6 @@ function docopy(self) {
 
     try {
         // Exécution de la commande de copie
-
         var result = document.execCommand('copy');
         if (result) {
             // La copie a réussi

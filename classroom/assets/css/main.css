@@ -2909,6 +2909,24 @@ h3.section-done {
 
 }
 
+/* CLASSROOM SHARE PANEL */
+
+#classroom-code-share-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 2px solid var(--classroom-cell);
+    border-radius: 1em;
+    position: relative;
+    
+}
+
+#classroom-code-share-container #code-share-close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+}
+
 
 /* CLASSROOM END */
 
