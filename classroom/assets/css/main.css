@@ -1203,6 +1203,7 @@ img.btn-cabri {
 #current-activities-list,
 #done-activities,
 #done-activities-list,
+#facultative-options,
 .list-classes {
     display: flex;
     flex-direction: row;
@@ -1437,7 +1438,7 @@ h3.section-done {
 .tree-folders-items {
     display: inline-flex;
     border: 1px solid var(--classroom-primary);
-    border-radius: 0.25rem;
+    border-radius: 0.9rem;
     background-color: transparent;
     color: var(--classroom-primary);
     margin: 1em;
@@ -1475,6 +1476,42 @@ h3.section-done {
     margin: auto;
     color: var(--classroom-primary);
     font-size: 14px;
+}
+
+.folder-icons {
+    height: 28px;
+    margin-bottom: 2px;
+}
+
+.section-facultative-options {
+    background: var(--classroom-background-1);
+    box-shadow: 0px 0px 7px 0px var(--classroom-shadow-1);
+    border-radius: 1em;
+    padding: 0.1em 0;
+    margin: 1em;
+}
+
+.section-header-facultative-options {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin: 0.5em;
+    user-select: none;
+    cursor: pointer;
+}
+.section-title-facultative-options {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1.2em;
+    overflow: hidden;
+    user-select: none;
+    display: flex;
+    align-items: baseline;
+    padding: 0px;
+    margin: 0px;
+    width: auto;
+    margin-left: 0.5em;
 }
 
 

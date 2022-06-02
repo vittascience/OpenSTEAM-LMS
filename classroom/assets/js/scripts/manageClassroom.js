@@ -984,6 +984,8 @@ function displayStudentsInClassroom(students, link=false) {
         $('#body-table-teach').append(html).localize();
         $('[data-toggle="tooltip"]').tooltip()
     });
+
+    $('#body-table-teach').append('<button id="add-student-dashboard-panel" class="btn c-btn-primary"><span data-i18n="classroom.activities.addLearners">Ajouter des apprenants</span> <i class="fas fa-plus"></i></button>').localize();
     
     // get classroom settings from localstorage
     let settings = getClassroomDisplaySettings(link);
@@ -1005,8 +1007,6 @@ function displayStudentsInClassroom(students, link=false) {
         $('#is-anonymised').prop('checked', false);
     }
 
-    
-    $('#add-student-container').append(`<button id="add-student-dashboard-panel" class="btn c-btn-primary"><span data-i18n="classroom.activities.addLearners">Ajouter des apprenants</span> <i class="fas fa-plus"></i></button>`).localize();
 
     $('#export-class-container').append(`<button id="download-csv" class="btn c-btn-tertiary ml-2" onclick="openDownloadCsvModal()"><i class="fa fa-download" aria-hidden="true"></i><span class="ml-1" data-i18n="classroom.activities.exportCsv">Exporter CSV</span></button>`).localize();
 

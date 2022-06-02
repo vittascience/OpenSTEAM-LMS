@@ -198,7 +198,8 @@
 			"backendReplyPseudoMissingInUsersArray" : "Il y a une erreur dans un ou plusieurs nom d'apprenant(s)",
 			"invalidActivityId": "Erreur lors de la soumission du travail : identifiant d'activité non valide !",
 			"invalidCorrection": "Erreur lors de la soumission du travail : statut d'activité non valide !",
-			"currentPasswordDoesNotMatch": "Le mot de passe saisi n'est pas correct !"
+			"currentPasswordDoesNotMatch": "Le mot de passe saisi n'est pas correct !",
+			"noAnswerInActivity": "Vous devez renseigner au moins un champ de réponse"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",

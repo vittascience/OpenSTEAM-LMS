@@ -963,12 +963,9 @@ function findClassroomToConnect(linkC) {
 }
 
 function sectionToggle(id) {
-
     $('#' + id + '-activities-list').toggle()
     $('#i-' + id).toggleClass('fa-chevron-down')
     $('#i-' + id).toggleClass('fa-chevron-up')
-
-
 }
 
 /**
@@ -3348,3 +3345,11 @@ function setAddFieldTooltips() {
 
 }
 setTimeout(setAddFieldTooltips, 2000);
+
+
+
+function facultativeOptions() {
+    $('#facultative-options').toggle()
+    $('#i-facultative-options').toggleClass('fa-chevron-down')
+    $('#i-facultative-options').toggleClass('fa-chevron-up')
+}
