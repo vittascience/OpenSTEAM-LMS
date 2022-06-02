@@ -198,7 +198,8 @@
 			"backendReplyPseudoMissingInUsersArray" : "There is one or more error(s) in the student(s) name(s)",
 			"invalidActivityId": "Error submitting job: Invalid activity ID!",
 			"invalidCorrection": "Erreur submitting job: Invalid activity status!",
-			"currentPasswordDoesNotMatch": "The entered password is not correct!"
+			"currentPasswordDoesNotMatch": "The entered password is not correct!",
+			"noAnswerInActivity": "You must have at least one answer field"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",

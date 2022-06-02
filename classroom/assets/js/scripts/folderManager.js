@@ -14,6 +14,13 @@ class FoldersManager {
         this.objectToMove = null;
         this.objectId = null;
         this.isSeek = false;
+        this.icons = {
+            free: "./assets/media/activity/free.png",
+            dragAndDrop: "./assets/media/activity/dragAndDrop.png",
+            fillIn: "./assets/media/activity/fillIn.png",
+            reading: "./assets/media/activity/reading.png",
+            quiz: "./assets/media/activity/quiz.png",
+        }
     }
 
     init() {
@@ -330,8 +337,9 @@ class FoldersManager {
         if (children.length > 0) {
             content += `<ul>`;
             children.forEach(child => {
+                console.log(child);
                 content += `<li>
-                                <label>💻 - ${child.title}</label>
+                                <label> <img src="${this.icons.hasOwnProperty(child.type) ? this.icons[child.type] : "💻"}" alt="${child.type}" class="folder-icons"> - ${child.title}</label>
                             </li>`;
             });
             content += `</ul>`;
@@ -410,6 +418,7 @@ class FoldersManager {
                     $(container).find(".folder-card").removeClass('folder-open');
                 }
             })
+            
     }
 
 
