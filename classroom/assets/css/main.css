@@ -455,8 +455,10 @@ button {
     align-items: center;
     justify-content: flex-end;
     position: absolute;
-    width: calc(100% - 200px);
-    z-index: 10;
+
+    width: 100%;
+    width: -webkit-fill-available;
+    z-index: 9999;
 }
 
 #classroom-dashboard-content {
@@ -467,6 +469,7 @@ button {
     border-radius: 15px;
     height: 100%;
     width: 100%;
+    position: relative;
     overflow-y: scroll;
 
     scrollbar-width: thin;
@@ -489,6 +492,10 @@ button {
     background-color: var(--classroom-cell);
     border-radius: 6px;
     border: 3px solid transparent;
+}
+
+#classroom-panel-table-container::-webkit-scrollbar-corner {
+    background-color: transparent;
 }
 
 
@@ -1409,6 +1416,7 @@ h3.section-done {
     padding: 0.25em;
     justify-items: stretch;
     margin-top: 3em;
+    cursor: pointer;
 }
 
 .dropdown i,
