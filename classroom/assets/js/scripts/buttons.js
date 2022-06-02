@@ -364,9 +364,13 @@ if (document.getElementById('settings-student') && window.localStorage.showSwitc
 }
 
 $('#code-copy').click(function () {
-    let self = $(this)
-    docopy(self)
+    currentOriginUrl = new URL(window.location.href).origin;
+    fullPath = currentOriginUrl + '/classroom/login.php?link=' + $("#classroom-link-share").text();
+    navigator.clipboard.writeText(fullPath)
+    $('#hidden-link-prefix').hide()
+    displayNotification('#notif-div', "classroom.activities.copyLink", "success")
 })
+
 
 // .new-student-modal removed
 $('body').on('click', '#add-student-dashboard-panel', function () {
@@ -896,48 +900,10 @@ function formatHour(da) {
     return d.getDate() + " " + (translatedMonth) + " " + d.getFullYear() + " - " + twoDigitsHour + "h" + d.getMinutes();
 }
 
-function docopy(self) {
-
-    currentOriginUrl = new URL(window.location.href).origin;
-    fullPath = currentOriginUrl + '/classroom/login.php?link=';
+/* function docopy(self) {
 
     
-    document.getElementById('hidden-link-prefix').innerHTML = fullPath;
-
-    // Cible de l'élément qui doit être copié
-    var target = self[0].dataset.target;
-    var fromElement = document.querySelector(target);
-    if (!fromElement) return;
-    $('#hidden-link-prefix').show()
-
-    // Sélection des caractères concernés
-    var range = document.createRange();
-    var selection = window.getSelection();
-    range.selectNode(fromElement);
-    selection.removeAllRanges();
-    selection.addRange(range);
-
-    try {
-        // Exécution de la commande de copie
-        var result = document.execCommand('copy');
-        if (result) {
-            // La copie a réussi
-        }
-    } catch (err) {
-        // Une erreur est surevnue lors de la tentative de copie
-        alert(err);
-    }
-
-    // Fin de l'opération
-    selection = window.getSelection();
-    if (typeof selection.removeRange === 'function') {
-        selection.removeRange(range);
-    } else if (typeof selection.removeAllRanges === 'function') {
-        selection.removeAllRanges();
-    }
-    $('#hidden-link-prefix').hide()
-    displayNotification('#notif-div', "classroom.activities.copyLink", "success")
-}
+} */
 
 function returnToConnectionPanel(currentPanel) {
     if (window.getComputedStyle(document.getElementById('classroom-register-container')).display == 'block') {
