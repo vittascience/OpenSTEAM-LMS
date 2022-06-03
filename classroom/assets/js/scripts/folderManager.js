@@ -215,7 +215,11 @@ class FoldersManager {
     createTreeFolders() {
         let actualFolder = this.getFolderById(this.actualFolder),
             idOfParents = [actualFolder],
+            parent = null;
+
+        if (actualFolder.parentFolder != null) {
             parent = actualFolder.parentFolder;
+        }
         
         while (parent) {
             idOfParents.push(parent);
