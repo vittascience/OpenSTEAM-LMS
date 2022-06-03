@@ -8,7 +8,10 @@ function activityItem(activity, state) {
     let activityStatus = "",
         activityStatusTitle = "";
     if (state == "doneActivities") {
-        if (activity.note == 3) {
+        if (activity.note == 4) {
+            activityStatus = "ribbon ribbon_no_grade";
+            activityStatusTitle = i18next.t('classroom.activities.noProficiency')
+        } else if (activity.note == 3) {
             activityStatus = "ribbon ribbon_accept"
             activityStatusTitle = i18next.t('classroom.activities.veryGoodProficiency')
         } else if (activity.note == 2) {
@@ -26,6 +29,7 @@ function activityItem(activity, state) {
         }
     }
 
+    let dateEndNotif = activity.activity.isLti ? "style='display:none'" : "";
     let html = `<div class="activity-item">
                     <div class="activity-card ${activityType} ">
                         <div class="${activityStatus}" data-toggle="tooltip" title="${activityStatusTitle}"><div class="ribbon__content"></div></div>
@@ -34,7 +38,7 @@ function activityItem(activity, state) {
                         </div>
                         <div class="activity-card-mid"></div>
                         <div class="activity-card-bot">
-                            <div class="info-tutorials"  data-id="${activity.activity.id}"  data-state="${state}">`
+                            <div class="info-tutorials" ${dateEndNotif} data-id="${activity.activity.id}"  data-state="${state}">`
 
     if (activity.dateEnd != undefined) {
         html += `<span> ` + i18next.t('classroom.activities.dateBefore') + ` ${formatDay(activity.dateEnd)} <i class="fas fa-stopwatch"></i></span>`
@@ -71,33 +75,126 @@ function teacherSandboxItem(json) {
     return html
 }
 
-function teacherActivityItem(activity) {
+function teacherActivityItem(activity, displayStyle) {
     let activityType = "activity-card-" + activity.type;
     if (activity.type == null || activity.type == "") {
         activityType = "";
     }
+    let content = "";
+    if (displayStyle == "card") {
+        content = `<div class="activity-item activity-teacher" data-id="${activity.id}">
+                        <div>
+                            <div class="activity-card ${activityType}">
+                                <div class="activity-card-top">
+                                ${activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
+                                <div class="dropdown">
+                                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    </i>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-activityItem-${activity.id}" data-id="${activity.id}">
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
+                                        <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
+                                        <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
+                                        <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="activity-card-mid">
+                            </div>
+                            <div class="activity-card-bot">
+                                <div class="info-tutorials" data-id="${activity.id}">
+                                </div>
+                            </div>
+                            </div>
+                            <h3 data-toggle="tooltip" title="${activity.title}" class="activity-item-title">${activity.title}</h3>
+                        </div>
+                    </div>`
+    } else if (displayStyle == "list") {
+        content = `<div class="row activity-item-list" data-id="${activity.id}">
+        <div class="container-draggable">
+            <div class="activity-list ${activityType}">
+                <div class="activity-list-title col">
+                    💻 ${activity.title}
+                </div>
+    
+                <div class="info-tutorials col-2" data-id="${activity.id}">
+                </div>
 
-    let html = `<div class="activity-item activity-teacher " >
-                <div class="activity-card ${activityType}">
-                    <div class="activity-card-top">
-                    ${activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
-                    <div class="dropdown"><i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                ${activity.isAutocorrect    ? `<div class="activity-list-auto col-1">
+                                                <img src='assets/media/auto-icon.svg' title='Auto'>
+                                            </div>` 
+                                            : "" }
+               
+                <div class="dropdown col-1 activity-list-dropdown">
+                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </i>
                     <div class="dropdown-menu" aria-labelledby="dropdown-activityItem-${activity.id}" data-id="${activity.id}">
-    <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">` + capitalizeFirstLetter(i18next.t('words.attribute')) + `</li>
-                <li class="dropdown-item classroom-clickable col-12" style="display: none;" href="#" onclick="createActivity(null,${activity.id})">` + capitalizeFirstLetter(i18next.t('words.duplicate')) + `</li>
-                <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">` + capitalizeFirstLetter(i18next.t('words.modify')) + `</li>
-                <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">` + capitalizeFirstLetter(i18next.t('words.delete')) + `</li>
-              </div>
-              </div>
+                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
+                        <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
+                        <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
+                        <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
+                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
                     </div>
-                    <div class="activity-card-mid"></div>
-                    <div class="activity-card-bot">
-                        <div class="info-tutorials" data-id="${activity.id}">
-                    </div>
-                </div></div>`
-    html += `<h3 data-toggle="tooltip" title="${activity.title}" class="activity-item-title">${activity.title}</h3></div>`
+                </div> 
 
-    return html;
+            </div>
+        </div>
+    </div>`
+    }
+    return content;
+}
+
+function teacherFolder(folder, displayStyle) {
+    let content = "";
+    if (displayStyle == "card") {
+        content = `<div class="folder-item" data-id="${folder.id}">
+                    <div> 
+                        <div class="folder-card" data-id="${folder.id}">
+                            <div class="folder-card-top">
+                                <div class="dropdown">
+                                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    </i>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-folder-${folder.id}" data-id="${folder.id}">
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.updateFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.update'))}</li>
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${folder.id}, 'folder')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.deleteFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.delete'))}</li>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="folder-card-mid">
+                            </div>
+                            <div class="folder-card-bot">
+                                <div class="info-tutorials" data-id="${folder.id}">
+                                </div>
+                            </div>
+                        </div>
+                        <h3 data-toggle="tooltip" title="${folder.name}" class="activity-item-title">${folder.name}</h3>
+                    </div>
+                </div>`
+    } else if (displayStyle == "list") {
+        content = `<div class="row folder-item-list" data-id="${folder.id}">
+                        <div class="container-draggable">
+                            <div class="folder-list" data-id="${folder.id}">
+                    
+                                <div class="folder-list-title col">
+                                    📁 ${folder.name}
+                                </div>
+                    
+                    
+                                <div class="dropdown col-1 folder-list-dropdown">
+                                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    </i>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-folder-${folder.id}" data-id="${folder.id}">
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.updateFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.update'))}</li>
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${folder.id}, 'folder')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.deleteFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.delete'))}</li>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+    }
+    return content;
 }
 
 function classeItem(classe, nbStudents, students) {
@@ -277,6 +374,10 @@ $('body').on('click', '.list-students-classroom', function () {
 })
 
 $('body').on('click', '.activity-card, .activity-item .activity-item-title', function () {
+    // check if user is regular and display the breadcrumb if he is
+    UserManager.getUser().isRegular ? $('.breadcrumb').show() : $('.breadcrumb').hide();
+
+
     if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
         let id, state, navigation;
         if (this.classList.contains('activity-item-title')) {
@@ -382,7 +483,13 @@ function statusActivity(activity, state = true, formatedTimePast = '') {
             return "à corriger"
         return "todo-activity"
     }
-    if (activity.note == 3) {
+    if (activity.note == 4) {
+        if (state == true)
+            return "bilan-4";
+        if (state == "csv")
+            return "Non noté"
+        return "done-activity"
+    } else if (activity.note == 3) {
         if (state == true)
             return "bilan-3";
         if (state == "csv")
@@ -429,7 +536,8 @@ function loadActivityForStudents(isDoable) {
     // Disclaimer for eval
     if (Activity.correction < 2 && (activityType.includes(Activity.activity.type))) {
         $('#warning-text-container').show();
-        Activity.evaluation ? $('#warning-text-evaluation').show() : $("#warning-text-no-evaluation").show();
+        $('#warning-text-container > i').hide();
+        Activity.evaluation ? $('#warning-icon-evaluation').show().tooltip() : $("#warning-icon-no-evaluation").show().tooltip();
     }
     
     // Check if the correction if available
@@ -444,24 +552,32 @@ function loadActivityForStudents(isDoable) {
     let correction = '';
     if (!UserManager.getUser().isRegular && Activity.correction > 1) {
         document.querySelector('#activity-correction').style.display = 'block';
-        let activityResultString;
+        let activityResultString, activityResultColor;
         switch (Activity.note) {
+            case 4:
+                activityResultString = i18next.t('classroom.activities.noProficiency')
+                activityResultColor = 'var(--classroom-text-2)'
+                break;
             case 3:
                 activityResultString = i18next.t('classroom.activities.veryGoodProficiency')
+                activityResultColor = 'var(--correction-3)'
                 break;
             case 2:
                 activityResultString = i18next.t('classroom.activities.goodProficiency')
+                activityResultColor = 'var(--correction-2)'
                 break;
             case 1:
                 activityResultString = i18next.t('classroom.activities.weakProficiency')
+                activityResultColor = 'var(--correction-1)'
                 break;
             case 0:
                 activityResultString = i18next.t('classroom.activities.insufficientProficiency')
+                activityResultColor = 'var(--correction-0)'
                 break;
             default:
                 break;
         }
-        correction += `<div class="results-string" style="background-color:var(--correction-${Activity.note})"">${activityResultString}</div>`
+        correction += `<div class="results-string" style="background-color:${activityResultColor}">${activityResultString}</div>`
         
         if (Activity.commentary != null && Activity.commentary != "") {
             correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
@@ -516,13 +632,16 @@ function loadActivityForTeacher() {
     }
     if (UserManager.getUser().isRegular && Activity.correction > 0) {
 
-        correction += `<div class="giveNote-container c-primary-form">`
+        correction += `<div class="giveNote-container">`
 
-
+        
+        
         correction += `<label for="givenote-3" onclick="setNote(3)"><input type="radio" id="givenote-3" ${Activity.note == 3 ? "checked=checked" : ""} name="giveNote" value="3">${" " + i18next.t('classroom.activities.accept')}</label>`;
         correction += `<label for="givenote-2" onclick="setNote(2)"><input type="radio" id="givenote-2" ${Activity.note == 2 ? "checked=checked" : ""} name="giveNote" value="2">${" " + i18next.t('classroom.activities.vgood')}</label>`;
         correction += `<label for="givenote-1" onclick="setNote(1)"><input type="radio" id="givenote-1" ${Activity.note == 1 ? "checked=checked" : ""} name="giveNote" value="1">${" " + i18next.t('classroom.activities.good')}</label>`;
-        correction += `<label for="givenote-0" onclick="setNote(0)"><input type="radio" id="givenote-0" ${Activity.note == 0 ? "checked=checked" : ""} name="giveNote" value="0">${" " + i18next.t('classroom.activities.refuse')}</label></div>`;
+        correction += `<label for="givenote-0" onclick="setNote(0)"><input type="radio" id="givenote-0" ${Activity.note == 0 ? "checked=checked" : ""} name="giveNote" value="0">${" " + i18next.t('classroom.activities.refuse')}</label>`;
+        // @updated
+        correction += `<label for="givenote-4" onclick="setNote(4)"><input type="radio" id="givenote-4" ${Activity.note == 4 ? "checked=checked" : ""} name="giveNote" value="4">${" " + i18next.t('classroom.activities.nnoted')}</label></div>`;
 
         correction += '<div id="commentary-panel" class="c-primary-form"><label>' + i18next.t("classroom.activities.comments") + '</label><textarea id="commentary-textarea" style="width:100%" rows="8">' + Activity.commentary + '</textarea></div>'
         correction += '<button onclick="giveNote()" class="btn c-btn-primary btn-sm text-wrap w-100"><span class="text-wrap">' + i18next.t('classroom.activities.sendResults') + '<i class="fas fa-chevron-right"> </i></span></button>'
@@ -603,7 +722,12 @@ function manageDisplayFree(correction, content, correction_div) {
         if (Activity.response != null && Activity.response != '') {
             if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") { 
                 $('#activity-student-response').show();
-                $('#activity-student-response-content').html(bbcodeToHtml(JSON.parse(Activity.response)));
+                let parsed = tryToParse(Activity.response);
+                if (parsed != false) {
+                    $('#activity-student-response-content').html(bbcodeToHtml(parsed));
+                } else if (Activity.response != null) {
+                    $('#activity-student-response-content').html(bbcodeToHtml(Activity.response));
+                }
                 manageCorrectionDiv(correction_div, correction);
             }
         }
@@ -613,7 +737,12 @@ function manageDisplayFree(correction, content, correction_div) {
             const wbbptions = Main.getClassroomManager().wbbOpt;
             $('#activity-input').wysibb(wbbptions);
             if (Activity.response != null && Activity.response != '') {
-                $('#activity-input').htmlcode(bbcodeToHtml(JSON.parse(Activity.response)));
+                let parsed = tryToParse(Activity.response);
+                if (parsed != false) {
+                    $('#activity-input').htmlcode(bbcodeToHtml(parsed));
+                } else {
+                    $('#activity-input').htmlcode("");
+                }
             }
             $('#activity-input-container').show();
         }
@@ -711,6 +840,7 @@ function displayQuizTeacherSide() {
 }
 
 function createContentForQuiz(data, doable = true, correction = false) {
+    manageLabelForActivity();
     let content = "";
     if (doable) {
         for (let i = 1; i < data.length+1; i++) {
@@ -796,7 +926,7 @@ function displayFillInTeacherSide(correction_div, correction, content) {
             }
         })
     
-        $('#activity-student-response-content').html(studentContentString);
+        $('#activity-student-response-content').html(bbcodeToHtml(studentContentString));
         $('#activity-student-response').show();
     }
 
@@ -834,6 +964,11 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
             });
             $('#activity-drag-and-drop-container').show();
         
+            // init dragula if it's not already initialized
+            if (Main.getClassroomManager().dragulaGlobal == false) {
+                Main.getClassroomManager().dragulaGlobal = dragula();
+            }
+
             // Reset the dragula fields
             Main.getClassroomManager().dragulaGlobal.containers = [];
             
@@ -882,7 +1017,7 @@ function displayDragAndDropTeacherSide(correction_div, correction, content) {
             studentContentString = studentContentString.replace(`﻿`, `<input readonly class='drag-and-drop-answer-teacher' id="corrected-student-response-${i}" value="${studentResponses[i].string.toLowerCase()}" ${autoWidthStyle}>`);
         }
     
-        $('#activity-student-response-content').html(studentContentString);
+        $('#activity-student-response-content').html(bbcodeToHtml(studentContentString));
         $('#activity-student-response').show();
     }
 
@@ -918,14 +1053,18 @@ function manageDragAndDropText(studentContentString) {
 }
 
 function manageCorrectionDiv(correction_div, correction) {
-    if (UserManager.getUser().isRegular) {
-        $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
-    } else {
-        $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
-    }
+    manageLabelForActivity();
     if (correction > 1 || (UserManager.getUser().isRegular && correction >= 1)) {
         $('#activity-correction').html(correction_div);
         $('#activity-correction-container').show(); 
+    }
+}
+
+function manageLabelForActivity() {
+    if (UserManager.getUser().isRegular && $_GET('panel') == "classroom-dashboard-activity-panel-teacher") {
+        $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
+    } else {
+        $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
     }
 }
 

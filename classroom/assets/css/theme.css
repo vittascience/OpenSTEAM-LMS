@@ -42,6 +42,8 @@
     --classroom-dashboard: var(--classroom-primary);
     --classroom-dashboard-dark: var(--classroom-primary-dark);
 
+    color-scheme: light;
+
 }
 
 .theme-dark {
@@ -52,6 +54,8 @@
     --classroom-text-2: rgb(153, 153, 153);
     --classroom-shadow-1: rgba(0, 0, 0, 1);
     --classroom-cell: #4e4e4e;
+
+    color-scheme: dark;
 }
 
 /* Change the hue-rotate to make the icon color match your primary color */
