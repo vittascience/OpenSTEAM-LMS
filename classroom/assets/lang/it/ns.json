@@ -198,7 +198,8 @@
       "backendReplyPseudoMissingInUsersArray": " C'è un errore in uno o più nomi di allievi.",
       "invalidActivityId": " Errore durante l'invio del lavoro: identificatore di attività non valido!",
       "invalidCorrection": " Errore nell'invio del lavoro: stato di attività non valido!",
-      "currentPasswordDoesNotMatch": " La password inserita non è corretta!"
+      "currentPasswordDoesNotMatch": " La password inserita non è corretta!",
+      "noAnswerInActivity": " È necessario compilare almeno un campo di risposta"
     },
     "ids": {
       "classroom-dashboard-help-panel-teacher": "Aiuto",
@@ -253,7 +254,8 @@
       },
       "selectStudents": " Selezione degli allievi",
       "selectedStudents": " <span id='attributo-numero-studente'>0</span> studenti selezionati",
-      "activationLink": " Link di attivazione attivato"
+      "activationLink": " Link di attivazione attivato",
+      "activationLinkDisabled": " Link di attivazione disabilitato"
     },
     "activities": {
       "title": "Attività",
@@ -273,6 +275,7 @@
       "vgood": "Soddisfacente",
       "good": "Fragile",
       "refuse": "Insufficiente",
+      "nnoted": " Non valutato",
       "instruction": "Consegna",
       "commentary": "Commento",
       "sendResults": "Invia il commento allo studente ",
@@ -360,6 +363,7 @@
         "retroAttribution": " Questa attività sarà assegnata ai nuovi studenti"
       },
       "toCopy": "Questo codice rende facile unirsi alla tua classe\n",
+      "qrCode": " Scansione del codice QR :",
       "copyLink": "Il link alla tua classe è stato aggiunto negli appunti\n",
       "dateBefore": "Termine di scadenza della consegna",
       "integrate": "Integrare in un'attività",
@@ -367,6 +371,7 @@
       "goodProficiency": "Soddisfacente",
       "weakProficiency": "Fragile",
       "insufficientProficiency": "Insufficiente",
+      "noProficiency": " Non valutato",
       "addLearner": "Aggiungere uno studente",
       "addLearners": " Aggiunta di studenti",
       "addActivity": " Aggiungere un'attività",
@@ -390,7 +395,30 @@
       "deleteConfirm": " Confermare la cancellazione dell'attività",
       "deleteActivity": " Cancellare l'attività",
       "correctAnswer": " Risposta corretta",
-      "nbActivities": " <span class='nb-activities'>{{ nbActi }}</span> Attività </p>"
+      "nbActivities": " <span class='nb-activities'>{{ nbActi }}</span> Attività </p>",
+      "moveToFolder": " Spostarsi a",
+      "rootFolder": " Cartella principale",
+      "seekFolder": " Andare alla cartella",
+      "foldersMessages": {
+        "errorDelete": " Si è verificato un errore durante l'eliminazione della cartella",
+        "errorCreate": " Si è verificato un errore durante la creazione del file",
+        "errorLenght": " Il nome della cartella deve avere una lunghezza compresa tra 1 e 30 caratteri.",
+        "errorUpdate": " Si è verificato un errore durante la modifica del file",
+        "errorMoveTo": " Si è verificato un errore durante lo spostamento dell'oggetto",
+        "movedTo": " Oggetto spostato con successo",
+        "created": " File creato con successo",
+        "updated": " File modificato con successo",
+        "deleted": " File eliminato con successo",
+        "createFolder": " Creare una cartella",
+        "deleteFolder": " Confermare l'eliminazione del file",
+        "updateFolder": " Modificare il file",
+        "nameMandatory": " Nome cartella <span class='mandatory'>*</span>",
+        "deleteDisclaimer": " Attenzione, la cartella e tutti i suoi contenuti (attività e sottocartelle) verranno eliminati."
+      },
+      "facultative": " Campi opzionali",
+      "infoRetroAttribution": " Questa attività sarà assegnata ai nuovi studenti quando saranno aggiunti alla classe.",
+      "infoAutocorrect": " Questa attività ha una correzione automatica",
+      "infoEvaluation": " Nella modalità di valutazione, i discenti possono inviare l'attività una sola volta e non hanno accesso a suggerimenti e consigli."
     },
     "filter": {
       "desc": "Dal meno recente al più recente",
@@ -501,6 +529,12 @@
         "placeholderInput": " Password",
         "validateButton": " Convalidare"
       }
+    },
+    "folders": {
+      "folderManagement": " Gestione dei casi",
+      "name": " Nome cartella <span class=\"mandatory\">*</span>",
+      "title": " File",
+      "image": " Immagine del file"
     }
   },
   "faqInfo": {

@@ -198,7 +198,8 @@
       "backendReplyPseudoMissingInUsersArray": "There is one or more error(s) in the student(s) name(s)",
       "invalidActivityId": "Error submitting job: Invalid activity ID!",
       "invalidCorrection": "Erreur submitting job: Invalid activity status!",
-      "currentPasswordDoesNotMatch": "The entered password is not correct!"
+      "currentPasswordDoesNotMatch": "The entered password is not correct!",
+      "noAnswerInActivity": " You must fill in at least one response field"
     },
     "ids": {
       "classroom-dashboard-help-panel-teacher": "Help",
@@ -253,7 +254,8 @@
       },
       "selectStudents": " Selecting learners",
       "selectedStudents": " <span id='attribuate-student-number'>0</span> selected learners",
-      "activationLink": " Activation link activated"
+      "activationLink": " Activation link activated",
+      "activationLinkDisabled": " Activation link disabled"
     },
     "activities": {
       "title": "Activities",
@@ -273,6 +275,7 @@
       "vgood": "Good proficiency",
       "good": "Weak proficiency",
       "refuse": "Insufficient proficiency",
+      "nnoted": " Not rated",
       "instruction": "Instructions",
       "commentary": "Comment",
       "sendResults": "Send the comment ",
@@ -360,6 +363,7 @@
         "retroAttribution": "This activity will be added for every new students"
       },
       "toCopy": "This code allows you to easily join your class",
+      "qrCode": " Scan the QR code :",
       "copyLink": "The link to your class has been added to the clipboard",
       "dateBefore": "To be returned before",
       "integrate": "Integrate into an activity",
@@ -367,6 +371,7 @@
       "goodProficiency": "Satisfactory control",
       "weakProficiency": "Fragile control",
       "insufficientProficiency": "Insufficient mastery",
+      "noProficiency": " Not rated",
       "addLearner": "Add a learner",
       "addLearners": "Add learners",
       "addActivity": "Add an activity",
@@ -390,7 +395,30 @@
       "deleteConfirm": " Confirm the deletion of the activity",
       "deleteActivity": " Delete the activity",
       "correctAnswer": " Correct answer",
-      "nbActivities": " <span class='nb-activities'>{{ nbActi }}</span> Activities </p>"
+      "nbActivities": " <span class='nb-activities'>{{ nbActi }}</span> Activities </p>",
+      "moveToFolder": " Move to",
+      "rootFolder": " Root folder",
+      "seekFolder": " Go to the folder",
+      "foldersMessages": {
+        "errorDelete": " An error occurred while deleting the folder",
+        "errorCreate": " An error occurred while creating the file",
+        "errorLenght": " The folder name must contain between 1 and 30 characters",
+        "errorUpdate": " An error occurred while editing the file",
+        "errorMoveTo": " An error occurred when moving the object",
+        "movedTo": " Object successfully moved",
+        "created": " Successfully created file",
+        "updated": " Successfully modified file",
+        "deleted": " File successfully deleted",
+        "createFolder": " Create a folder",
+        "deleteFolder": " Confirm the deletion of the file",
+        "updateFolder": " Modify the file",
+        "nameMandatory": " Folder Name <span class='mandatory'>*</span>",
+        "deleteDisclaimer": " Attention, the folder and all its contents (activities and subfolders) will be deleted"
+      },
+      "facultative": " Optional fields",
+      "infoRetroAttribution": " This activity will be assigned to new learners when they are added to your class.",
+      "infoAutocorrect": " This activity has automatic correction",
+      "infoEvaluation": " In assessment mode, learners can only submit the activity once and do not have access to hints and prompts."
     },
     "filter": {
       "desc": "Oldest to newest",
@@ -501,6 +529,12 @@
         "placeholderInput": "Password",
         "validateButton": "Validate"
       }
+    },
+    "folders": {
+      "folderManagement": " File management",
+      "name": " Folder name <span class=\"mandatory\">*</span>",
+      "title": " File",
+      "image": " Image of the file"
     }
   },
   "faqInfo": {

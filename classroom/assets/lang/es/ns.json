@@ -198,7 +198,8 @@
       "backendReplyPseudoMissingInUsersArray": "Hay un error en uno o varios nombre(s) de alumno(s).",
       "invalidActivityId": "Error al enviar el trabajo: ¡identificación de actividad no válida!",
       "invalidCorrection": "Error al enviar el trabajo: ¡estado de la actividad no válido!",
-      "currentPasswordDoesNotMatch": "La contraseña dada no es válida."
+      "currentPasswordDoesNotMatch": "La contraseña dada no es válida.",
+      "noAnswerInActivity": " Debe rellenar al menos un campo de respuesta"
     },
     "ids": {
       "classroom-dashboard-help-panel-teacher": "Ayuda",
@@ -253,7 +254,8 @@
       },
       "selectStudents": " Selección de alumnos",
       "selectedStudents": " <span id='atributo-número-de-alumno'>0</span> alumnos seleccionados",
-      "activationLink": " Enlace de activación activado"
+      "activationLink": " Enlace de activación activado",
+      "activationLinkDisabled": " Enlace de activación desactivado"
     },
     "activities": {
       "title": "Actividades",
@@ -273,6 +275,7 @@
       "vgood": "Competencia satisfactoria",
       "good": "Competencia frágil",
       "refuse": "Competencia insuficiente",
+      "nnoted": " No clasificado",
       "instruction": "Consigna",
       "commentary": "Comentario",
       "sendResults": "Enviar el comentario al alumno",
@@ -360,6 +363,7 @@
         "retroAttribution": "Esta actividad se asignará a los nuevos alumnos"
       },
       "toCopy": "Este código facilita unirse a su clase",
+      "qrCode": " Escanee el código QR :",
       "copyLink": "El enlace a su clase se ha agregado al portapapeles",
       "dateBefore": "Para ser devuelto antes de",
       "integrate": "Integrar dentro de una actividad",
@@ -367,6 +371,7 @@
       "goodProficiency": "Competencia satisfactoria",
       "weakProficiency": "Competencia frágil",
       "insufficientProficiency": "Competencia insuficiente",
+      "noProficiency": " No clasificado",
       "addLearner": "Agregar un alumno",
       "addLearners": "Añadir un alumno",
       "addActivity": "Añadir una actividad",
@@ -390,7 +395,30 @@
       "deleteConfirm": " Confirmar la supresión de la actividad",
       "deleteActivity": " Eliminar la actividad",
       "correctAnswer": " Respuesta correcta",
-      "nbActivities": " <span class='nb-activities'>{{ nbActi }}</span> Actividades </p>"
+      "nbActivities": " <span class='nb-activities'>{{ nbActi }}</span> Actividades </p>",
+      "moveToFolder": " Mover a",
+      "rootFolder": " Carpeta raíz",
+      "seekFolder": " Ir a la carpeta",
+      "foldersMessages": {
+        "errorDelete": " Se ha producido un error al borrar la carpeta",
+        "errorCreate": " Se ha producido un error al crear el archivo",
+        "errorLenght": " El nombre de la carpeta debe tener entre 1 y 30 caracteres",
+        "errorUpdate": " Se ha producido un error al editar el archivo",
+        "errorMoveTo": " Se ha producido un error al mover el objeto",
+        "movedTo": " Objeto trasladado con éxito",
+        "created": " Archivo creado con éxito",
+        "updated": " Archivo modificado con éxito",
+        "deleted": " Archivo eliminado con éxito",
+        "createFolder": " Crear una carpeta",
+        "deleteFolder": " Confirmar la eliminación del archivo",
+        "updateFolder": " Modificar el archivo",
+        "nameMandatory": " Nombre de la carpeta <span class='mandatory'>*</span>",
+        "deleteDisclaimer": " Atención, la carpeta y todo su contenido (actividades y subcarpetas) se eliminará"
+      },
+      "facultative": " Campos opcionales",
+      "infoRetroAttribution": " Esta actividad se asignará a los nuevos alumnos cuando se incorporen a su clase.",
+      "infoAutocorrect": " Esta actividad tiene corrección automática",
+      "infoEvaluation": " En el modo de evaluación, los alumnos sólo pueden enviar la actividad una vez y no tienen acceso a las pistas y avisos."
     },
     "filter": {
       "desc": "Del menos al más reciente",
@@ -501,6 +529,12 @@
         "placeholderInput": "Contraseña",
         "validateButton": "Validar"
       }
+    },
+    "folders": {
+      "folderManagement": " Gestión de casos",
+      "name": " Nombre de la carpeta <span class=\"mandatory\">*</span>",
+      "title": " Archivo",
+      "image": " Imagen de archivo"
     }
   },
   "faqInfo": {
