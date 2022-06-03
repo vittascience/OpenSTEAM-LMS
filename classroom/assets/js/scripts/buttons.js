@@ -260,8 +260,12 @@ function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = fa
     for (let i = 0; i < currentBreadcrumbStructure.length - 1; i++) {
         // Define the last element of the breadcrumb
         if (i == currentBreadcrumbStructure.length - 2) {
-            innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('${currentBreadcrumbStructure[i]}', '${idNav}')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
-            // Define all the elements of the breadcrumb except the last
+            if ($_GET("panel") == "classroom-dashboard-activity-panel") {
+                innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
+            } else {
+                innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('${currentBreadcrumbStructure[i]}', '${idNav}')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
+                // Define all the elements of the breadcrumb except the last
+            }
         } else {
             innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary last" onclick="navigatePanel('${currentBreadcrumbStructure[i]}', '${idNav}')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span><i class="fas fa-chevron-right ml-2"></i></button>`;
         }

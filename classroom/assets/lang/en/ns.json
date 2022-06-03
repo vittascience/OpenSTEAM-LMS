@@ -394,9 +394,9 @@
 				"deleteDisclaimer": "Be carefful, the folder and its content (activities and subfolders) will be deleted"
 			},
 			"facultative": "Optional field",
-			"infoRetroAttribution": "This activity will be added for every new students",
+			"infoRetroAttribution": "This activity will be added for every new students added to the class",
 			"infoAutocorrect": "This activity has automated correction, do you like to activate it ?",
-			"infoEvaluation": "In evaluation mode, learners can only submit the activity once"
+			"infoEvaluation": "In evaluation mode, learners can only submit the activity once and do not have access to hints and helps."
 		},
 		"filter": {
 			"desc": "Oldest to newest",

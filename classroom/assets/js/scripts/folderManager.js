@@ -34,6 +34,7 @@ class FoldersManager {
 
         $('#dashboard-activities-teacher').on('click', () => {
             this.resetTreeFolders();
+            this.createTreeFolders();
         })
 
         $('body').on('click', '.folder-card', function () {

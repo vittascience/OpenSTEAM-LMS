@@ -840,6 +840,7 @@ function displayQuizTeacherSide() {
 }
 
 function createContentForQuiz(data, doable = true, correction = false) {
+    manageLabelForActivity();
     let content = "";
     if (doable) {
         for (let i = 1; i < data.length+1; i++) {
@@ -1052,14 +1053,18 @@ function manageDragAndDropText(studentContentString) {
 }
 
 function manageCorrectionDiv(correction_div, correction) {
-    if (UserManager.getUser().isRegular) {
-        $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
-    } else {
-        $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
-    }
+    manageLabelForActivity();
     if (correction > 1 || (UserManager.getUser().isRegular && correction >= 1)) {
         $('#activity-correction').html(correction_div);
         $('#activity-correction-container').show(); 
+    }
+}
+
+function manageLabelForActivity() {
+    if (UserManager.getUser().isRegular && $_GET('panel') == "classroom-dashboard-activity-panel-teacher") {
+        $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
+    } else {
+        $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
     }
 }
 

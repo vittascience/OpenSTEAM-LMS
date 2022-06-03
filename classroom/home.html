@@ -1893,7 +1893,6 @@
                                 $('body').addClass('theme-student')
                                 $('.user-picture').attr('src', '/classroom/assets/media/alphabet/' + UserManager.getUser().pseudo.slice(0, 1).toUpperCase() + '.png')
                                 Main.getClassroomManager().getMyClassroom(UserManager.getUser().id).then(function (classroom) {
-                                    console.log($_GET('panel'))
                                     $('#classroom-name').html(classroom.name)
                                     ClassroomSettings.classroom = classroom.link
                                     if ($_GET('panel') && (ClassroomSettings.mixPanels.includes($_GET('panel')) || ClassroomSettings.studentPanels.includes($_GET('panel')))) {
