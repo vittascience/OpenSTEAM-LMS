@@ -272,8 +272,11 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
             let students = getClassroomInListByLink(link)[0].students
             displayStudentsInClassroom(students, link)
             $('.classroom-link').html(ClassroomSettings.classroom)
+            $('#classroom-code-share-qr-code').html('');
+            currentOriginUrl = new URL(window.location.href).origin;
+            fullPath = currentOriginUrl + '/classroom/login.php?link=' + ClassroomSettings.classroom;
             QrCreator.render({
-                text: 'some text',
+                text: fullPath,
                 radius: 0.5, 
                 ecLevel: 'H',
                 fill: getComputedStyle(document.documentElement).getPropertyValue('--classroom-primary'),
