@@ -231,7 +231,9 @@ class FoldersManager {
         }
 
         idOfParents.reverse().forEach(folder => {
-            this.treeFolder.append(`<button class="btn tree-folders-items" onclick="foldersManager.goToFolder(${folder.id})">📁 ${folder.name}</button>`);
+            if (folder != null && folder.id != undefined) {
+                this.treeFolder.append(`<button class="btn tree-folders-items" onclick="foldersManager.goToFolder(${folder.id})">📁 ${folder.name}</button>`);
+            }
         });
     }
 
