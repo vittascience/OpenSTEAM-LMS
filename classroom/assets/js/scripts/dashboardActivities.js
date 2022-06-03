@@ -536,7 +536,8 @@ function loadActivityForStudents(isDoable) {
     // Disclaimer for eval
     if (Activity.correction < 2 && (activityType.includes(Activity.activity.type))) {
         $('#warning-text-container').show();
-        Activity.evaluation ? $('#warning-text-evaluation').show() : $("#warning-text-no-evaluation").show();
+        $('#warning-text-container > i').hide();
+        Activity.evaluation ? $('#warning-icon-evaluation').show().tooltip() : $("#warning-icon-no-evaluation").show().tooltip();
     }
     
     // Check if the correction if available

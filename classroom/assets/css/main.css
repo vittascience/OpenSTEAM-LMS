@@ -2988,31 +2988,38 @@ h3.section-done {
 /* STUDENT ACTIVITY VIEW */
 
 #warning-text-container {
-    border: 2px solid var(--classroom-cell);
-    border-radius: 1em;
-    padding: 0.5em;
-    margin: 0.5em 0;
-}
+    width: 20px;
+    height: 20px;
 
-#warning-text-container p {
-    display: grid;
-    grid-template-columns: auto 1fr;
+    font-size: 13px;
+
+    display: inline-block;
+
     text-align: center;
-    margin: 0.25em;
-    align-items: center;
-    font-size: smaller;
+    position: relative;
+
+    bottom: 13px;
+    right: 20px;
+
+    border-radius: 50%;
+   
+    cursor: pointer;
+    margin: 14px 0px 0px 8px;
+
+    background-color: var(--classroom-background);
+    border: 1px solid var(--classroom-cell);
 }
 
-#warning-text-container p i{
-    font-size: 2em;
-
+#warning-text-container i {
+    width: 100%;
+    height: 100%;
 }
 
-#warning-text-container p#warning-text-evaluation i {
+#warning-text-container #warning-icon-evaluation {
     color: var(--classroom-red);
 }
 
-#warning-text-container p#warning-text-no-evaluation i {
+#warning-text-container #warning-icon-no-evaluation {
     color: var(--classroom-green);
 }
 
