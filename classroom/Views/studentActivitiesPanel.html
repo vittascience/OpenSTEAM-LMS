@@ -58,18 +58,10 @@
                 </p>
 
                 <!-- Used for states -->
-                <div id="activity-states-container" style="display: none;">
+                <div id="activity-states-container" style="display:none;">
                     <label for="activity-states" class="vitta-modal-title mt-2" data-i18n="classroom.activities.states">Énoncé de l'activité</label>
                     <p id="activity-states"></p>
                 </div>
-
-
-                <!-- Used for content -->
-                <div id="activity-content-container" style="display: none;">
-                    <label for="activity-content" id="label-activity-content" class="vitta-modal-title mt-2" data-i18n="newActivities.contentTitle">Contenu de l'activité</label>
-                    <p id="activity-content"></p>    
-                </div>
-                
 
                 <!-- @Update Rémi -->
                 <div id="activity-student-response" style="display:none;">
@@ -77,12 +69,18 @@
                     <p id="activity-student-response-content"> </p>
                 </div>
 
+                <!-- Used for content -->
+                <div id="activity-content-container" style="display:none;">
+                    <label for="activity-content" id="label-activity-content" class="vitta-modal-title mt-2" data-i18n="newActivities.contentTitle">Contenu de l'activité</label>
+                    <p id="activity-content"></p>    
+                </div>
+                
                 <div id="activity-input-container" style="display:none;">
                     <label for="activity-input" class="vitta-modal-title mt-2" data-i18n="classroom.activities.putYourAnswer">Entrez votre réponse</label>
                     <textarea id="activity-input" style="height:400px"></textarea>
                 </div>
 
-                <div id="activity-drag-and-drop-container" style="display:none;">
+                <div id="activity-drag-and-drop-container" style="display: none;">
                     <label class="vitta-modal-title mt-2">Drag & drop</label>
                     <div id="drag-and-drop-text">
 
@@ -98,16 +96,16 @@
                     <p id="activity-hint"></p>
                 </div>
 
-                <!-- Warning eval -->
-                <div id="warning-text-container">
-                    <p id="warning-text-evaluation" style="display:none;" data-i18n="[html]classroom.activities.validateWarning"></p>
-                    <p id="warning-text-no-evaluation" style="display:none;" data-i18n="[html]classroom.activities.validateNoEval"></p>
-                </div>
-
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center mt-2">
                     <button class="btn c-btn-primary mx-1" id="activity-validate" data-i18n="classroom.activities.validate" onclick="validateActivity(1)"> 
                         <i class="fas fa-chevron-right"></i>
                     </button>
+
+                    <!-- Warning eval -->
+                    <div id="warning-icon-container">
+                        <i id="warning-icon-no-evaluation" class="fas fa-redo" data-i18n="[title]classroom.activities.validateNoEval" style="display:none;"></i>
+                        <i id="warning-icon-evaluation" class="fas fa-exclamation" data-i18n="[title]classroom.activities.validateWarning" style="display:none;"></i>
+                    </div>
 
                     <button class="btn c-btn-grey mx-2" id="activity-save" style="display:none;" onclick="validateActivity(0)" data-i18n="classroom.activities.save-draft">
                         <i class="fas fa-chevron-right"></i>

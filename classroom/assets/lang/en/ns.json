@@ -198,7 +198,8 @@
 			"backendReplyPseudoMissingInUsersArray" : "There is one or more error(s) in the student(s) name(s)",
 			"invalidActivityId": "Error submitting job: Invalid activity ID!",
 			"invalidCorrection": "Erreur submitting job: Invalid activity status!",
-			"currentPasswordDoesNotMatch": "The entered password is not correct!"
+			"currentPasswordDoesNotMatch": "The entered password is not correct!",
+			"noAnswerInActivity": "You must have at least one answer field"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
@@ -253,7 +254,8 @@
 			},	
 			"selectStudents": "Select the students",
 			"selectedStudents": "<span id='attribuate-student-number'>0</span> students selected",
-			"activationLink": "Activation link enabled"
+			"activationLink": "Activation link enabled",
+			"activationLinkDisabled": "Activation link disabled"
 		},
 		"activities": {
 			"title": "Activities",
@@ -267,12 +269,13 @@
 			"anonymise": "Anonymise your learners list, allowing you to display it for everyone.",
 			"save-draft": "Save as a draft",
 			"validate": "Validate the activity",
-			"validateWarning": "<i class='fas fa-exclamation-triangle'></i> Please note that you can only submit this activity once.",
-			"validateNoEval": "<i class='fas fa-thumbs-up'></i> You can submit this activity as many times as you want.",
+			"validateWarning": "Please note that you can only submit this activity once.",
+			"validateNoEval": "You can submit this activity as many times as you want.",
 			"accept": "Very good proficiency",
 			"vgood": "Good proficiency",
 			"good": "Weak proficiency",
 			"refuse": "Insufficient proficiency",
+			"nnoted": "Not evaluated",
 			"instruction": "Instructions",
 			"commentary": "Comment",
 			"sendResults": "Send the comment ",
@@ -338,6 +341,7 @@
 				"retroAttribution" : "This activity will be added for every new students"
 			},
 			"toCopy": "This code allow you to join the classroom at ease :",
+			"qrCode": "Scan the QR code :",
 			"copyLink": "The link to your class has been added to the clipboard",
 			"dateBefore": "To give back before",
 			"integrate": "Integrate in an activity",
@@ -345,6 +349,7 @@
 			"goodProficiency": "Good proficiency",
 			"weakProficiency": "Weak proficiency",
 			"insufficientProficiency": "Insufficient proficiency",
+			"noProficiency": "Not evaluated",
 			"addLearner": "Add a learner",
 			"addLearners": "Add learners",
 			"addActivity": "Add an activity",
@@ -368,7 +373,30 @@
 			"deleteConfirm": "Do you really want to delete this activity ?",
 			"deleteActivity": "Delete the activity",
 			"correctAnswer": "Correct answer",
-			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activities </p>"
+			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activities </p>",
+			"moveToFolder": "Move to",
+			"rootFolder": "Root folder",
+			"seekFolder": "Go to folder",
+			"foldersMessages": {
+				"errorDelete": "An error occured while deleting the folder",
+				"errorCreate": "An error occured while creating the folder",
+				"errorLenght": "The folder name must be between 1 and 30 characters",
+				"errorUpdate": "An error occured while updating the folder",
+				"errorMoveTo": "An error occured while moving the object",
+				"movedTo": "The object has been moved to",
+				"created": "The folder has been created",
+				"updated": "The folder has been updated",
+				"deleted": "The folder has been deleted",
+				"createFolder": "Create a folder",
+				"deleteFolder": "Confirm the deletion of the folder",
+				"updateFolder": "Update the folder",
+				"nameMandatory": "Folder name <span class='mandatory'>*</span>",
+				"deleteDisclaimer": "Be carefful, the folder and its content (activities and subfolders) will be deleted"
+			},
+			"facultative": "Optional field",
+			"infoRetroAttribution": "This activity will be added for every new students added to the class",
+			"infoAutocorrect": "This activity has automated correction, do you like to activate it ?",
+			"infoEvaluation": "In evaluation mode, learners can only submit the activity once and do not have access to hints and helps."
 		},
 		"filter": {
 			"desc": "Oldest to newest",
@@ -479,6 +507,11 @@
 				"placeholderInput": "Password",
 				"validateButton": "Validate"
 			}
+		},
+		"folders": {
+			"folderManagement": "Folder management",
+			"name": "Name",
+			"title": "Folders"
 		}
 	},
 	"faqInfo": {

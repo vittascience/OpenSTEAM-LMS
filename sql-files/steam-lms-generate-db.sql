@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : mariadb
--- Généré le : ven. 22 avr. 2022 à 13:57
+-- Généré le : ven. 03 juin 2022 à 14:52
 -- Version du serveur : 10.6.5-MariaDB-1:10.6.5+maria~focal
 -- Version de PHP : 7.4.20
 
@@ -32,6 +32,7 @@ CREATE TABLE `classrooms` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
   `school` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `groupe` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `link` varchar(5) COLLATE utf8mb3_unicode_ci NOT NULL,
   `is_changed` tinyint(1) DEFAULT NULL,
   `is_blocked` int(11) NOT NULL DEFAULT 0,
@@ -112,11 +113,11 @@ CREATE TABLE `classroom_applications` (
 --
 
 INSERT INTO `classroom_applications` (`id`, `name`, `description`, `image`, `is_lti`, `color`, `max_per_teachers`, `sort`, `background_image`) VALUES
-(1, 'reading', 'reading', './assets/media/activity/reading.png', 0, '#e22828', -1, 7, ''),
-(2, 'free', 'free', './assets/media/activity/free.png', 0, '#6e2173', 1, 3, NULL),
-(3, 'dragAndDrop', 'dragAndDrop', './assets/media/activity/dragAndDrop.png', 0, '#92b611', -1, 2, NULL),
-(4, 'quiz', 'quiz', './assets/media/activity/quiz.png', 0, '#000000', -1, 5, NULL),
-(5, 'fillIn', 'fillIn', './assets/media/activity/fillIn.png', 0, '#c53489', -1, 4, NULL);
+(1, 'reading', 'reading', './assets/media/activity/reading.png', 0, '#12acb1', -1, 7, ''),
+(2, 'free', 'free', './assets/media/activity/free.png', 0, '#3fa9f5', 4, 3, ''),
+(3, 'dragAndDrop', 'dragAndDrop', './assets/media/activity/dragAndDrop.png', 0, '#24a069', -1, 2, ''),
+(4, 'quiz', 'quiz', './assets/media/activity/quiz.png', 0, '#ff931e', -1, 5, ''),
+(5, 'fillIn', 'fillIn', './assets/media/activity/fillIn.png', 0, '#5c947a', -1, 4, '');
 
 -- --------------------------------------------------------
 
@@ -315,7 +316,8 @@ CREATE TABLE `learn_activities` (
   `type` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `solution` text COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `tolerance` int(11) DEFAULT NULL,
-  `is_autocorrect` tinyint(1) DEFAULT NULL
+  `is_autocorrect` tinyint(1) DEFAULT NULL,
+  `folder` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
@@ -417,6 +419,19 @@ CREATE TABLE `learn_favorites` (
   `user_id` int(11) NOT NULL,
   `tutorial_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `learn_folders`
+--
+
+CREATE TABLE `learn_folders` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `user` int(11) NOT NULL,
+  `parent_folder` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -726,6 +741,12 @@ ALTER TABLE `learn_favorites`
   ADD KEY `IDX_8BAF06B489366B7B` (`tutorial_id`);
 
 --
+-- Index pour la table `learn_folders`
+--
+ALTER TABLE `learn_folders`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `learn_tutorials_link_tutorials`
 --
 ALTER TABLE `learn_tutorials_link_tutorials`
@@ -889,6 +910,12 @@ ALTER TABLE `learn_comments`
 -- AUTO_INCREMENT pour la table `learn_courses`
 --
 ALTER TABLE `learn_courses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `learn_folders`
+--
+ALTER TABLE `learn_folders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

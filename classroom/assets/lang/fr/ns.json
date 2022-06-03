@@ -198,7 +198,8 @@
 			"backendReplyPseudoMissingInUsersArray" : "Il y a une erreur dans un ou plusieurs nom d'apprenant(s)",
 			"invalidActivityId": "Erreur lors de la soumission du travail : identifiant d'activité non valide !",
 			"invalidCorrection": "Erreur lors de la soumission du travail : statut d'activité non valide !",
-			"currentPasswordDoesNotMatch": "Le mot de passe saisi n'est pas correct !"
+			"currentPasswordDoesNotMatch": "Le mot de passe saisi n'est pas correct !",
+			"noAnswerInActivity": "Vous devez renseigner au moins un champ de réponse"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",
@@ -253,7 +254,8 @@
 			},
 			"selectStudents": "Sélectionner des apprenants",
 			"selectedStudents": "<span id='attribuate-student-number'>0</span> apprenants sélectionnés",
-			"activationLink": "Lien d'activation activé"
+			"activationLink": "Lien d'activation activé",
+			"activationLinkDisabled": "Lien d'activation désactivé"
 		},
 		"activities": {
 			"title": "Activités",
@@ -267,12 +269,13 @@
 			"anonymise": "Anonymiser la liste de vos élèves afin de pouvoir afficher le tableau de bord à vos apprenants.",
 			"save-draft": "Sauvegarder en tant que brouillon",
 			"validate": "Valider l'activité",
-			"validateWarning": "<i class='fas fa-exclamation-triangle'></i> Attention, tu ne pourras soumettre cette activité qu'une seule fois !",
-			"validateNoEval": "<i class='fas fa-thumbs-up'></i> Tu peux soumettre cette activité autant de fois que tu le souhaites.",
+			"validateWarning": "Attention, tu ne pourras soumettre cette activité qu'une seule fois !",
+			"validateNoEval": "Tu peux soumettre cette activité autant de fois que tu le souhaites.",
 			"accept": "Très bonne maîtrise",
 			"vgood": "Maîtrise satisfaisante",
 			"good": "Maîtrise fragile",
 			"refuse": "Maîtrise insuffisante",
+			"nnoted": "Non-noté",
 			"instruction": "Consigne",
 			"commentary": "Commentaire",
 			"sendResults": "Envoyer le commentaire ",
@@ -359,7 +362,8 @@
 				"dateEnd": "Date de fin :",
 				"retroAttribution" : "Cette activité sera attribuée aux nouveaux apprenants"
 			},
-			"toCopy": "Ce code permet de rejoindre en toute simplicité votre classe",
+			"toCopy": "Ce code permet de rejoindre en toute simplicité votre classe :",
+			"qrCode": "Scanner le QR code :",
 			"copyLink": "Le lien vers votre classe a été ajouté au presse-papier",
 			"dateBefore": "A rendre avant le",
 			"integrate": "Intégrer dans une activité",
@@ -367,6 +371,7 @@
 			"goodProficiency": "Maîtrise satisfaisante",
 			"weakProficiency": "Maîtrise fragile",
 			"insufficientProficiency": "Maîtrise insuffisante",
+			"noProficiency": "Non-noté",
 			"addLearner": "Ajouter un apprenant",
 			"addLearners": "Ajouter des apprenants",
 			"addActivity": "Ajouter une activité",
@@ -390,7 +395,30 @@
 			"deleteConfirm": "Confirmer la suppression de l'activité",
 			"deleteActivity": "Supprimer l'activité",
 			"correctAnswer": "Réponse correcte",
-			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activités </p>"
+			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activités </p>",
+			"moveToFolder": "Déplacer vers",
+			"rootFolder": "Dossier racine",
+			"seekFolder": "Aller dans le dossier",
+			"foldersMessages": {
+				"errorDelete": "Une erreur est survenue lors de la suppression du dossier",
+				"errorCreate": "Une erreur est survenue lors de la création du dossier",
+				"errorLenght": "Le nom du dossier doit contenir entre 1 et 30 caractères",
+				"errorUpdate": "Une erreur est survenue lors de la modification du dossier",
+				"errorMoveTo": "Une erreur est survenue lors du déplacement de l'objet",
+				"movedTo": "Objet déplacé avec succès",
+				"created": "Dossier créé avec succès",
+				"updated": "Dossier modifié avec succès",
+				"deleted": "Dossier supprimé avec succès",
+				"createFolder": "Créer un dossier",
+				"deleteFolder": "Confirmer la suppression du dossier",
+				"updateFolder": "Modifier le dossier",
+				"nameMandatory": "Nom du dossier <span class='mandatory'>*</span>",
+				"deleteDisclaimer": "Attention, le dossier et l'ensemble de son contenu (activités et sous-dossiers) seront supprimés"
+			},
+			"facultative": "Champs facultatifs",
+			"infoRetroAttribution": "Cette activité sera attribuée aux nouveaux apprenants, quand ils seront ajoutés à votre classe.",
+			"infoAutocorrect": "Cette activité dispose de correction automatique",
+			"infoEvaluation": "En mode évaluation, les apprenants ne peuvent soumettre l’activité qu'une seule fois et n'ont pas accès aux indices et aux aides."
 		},
 		"filter": {
 			"desc": "Plus ancien",
@@ -501,6 +529,12 @@
 				"placeholderInput": "Mot de passe",
 				"validateButton": "Valider"
 			}
+		},
+		"folders": {
+			"folderManagement": "Gestion des dossiers",
+			"name": "Nom du dossier <span class=\"mandatory\">*</span>",
+			"title": "Dossier",
+			"image": "Image du dossier"
 		}
 	},
 	"faqInfo": {

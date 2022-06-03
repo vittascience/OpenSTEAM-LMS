@@ -153,6 +153,15 @@
                     </div>
                     <span data-i18n="classroom.activities.insufficientProficiency"></span>
                 </li>
+                <li class="ml-3">
+                    <div class="bilan-legend bilan-4">
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                    </div>
+                    <span data-i18n="classroom.activities.noProficiency"></span>
+                </li>
             </ul>
             <ul class="row legend" style="list-style:none; align-items: flex-end">
                 <li class="ml-3">
@@ -186,10 +195,13 @@
         </button>
 
         <div>
-            <span data-i18n="classroom.activities.toCopy"></span> <span id="classroom-link-tocopy"><span style="display:none;" id="hidden-link-prefix"></span><span class="classroom-link"></span></span>
+            <span data-i18n="classroom.activities.toCopy"></span>
+            <span id="classroom-link-tocopy">
+                <span style="display:none;" id="hidden-link-prefix"></span>
+                <span class="classroom-link"></span>
+            </span>
         </div>
-        <button id="code-copy" class="btn c-btn-secondary" title="Copier le lien direct" class="js-copy" data-target="#classroom-link-tocopy" data-i18n="classroom.classes.panel.copyLink">Copier le lien direct</button>
-
+        
         <button class="btn c-btn-secondary" class="blocking-class" onclick="navigatePanel('classroom-table-panel-teacher-code', 'dashboard-classroom-teacher')" data-toggle="tooltip" title="Afficher en plein écran">
             <i class="fa fa-expand"></i>
 
@@ -201,13 +213,23 @@
 
 
 <div id="classroom-table-panel-teacher-code" style="display:none;" class="row dashboard-block classes-panel class-stats-panel">
-    <button onclick="backToClassroomFromCode()" class="btn c-btn-primary" title="Copier le lien" class="js-copy" data-target="#classroom-link-tocopy"><i class="fas fa-backward"></i><span data-i18n="classroom.activities.toCopy"></span></button>
-    <div class="d-flex align-content-center text-center">
+    <div id="classroom-code-share-container">
+        <button id="code-share-close-btn" onclick="backToClassroomFromCode()" class="btn c-btn-primary">
+            <i class="fas fa-times"></i>
+        </button>
+
         <div>
-            <span data-i18n="classroom.activities.toCopy"></span> </br>
-            <p style="font-size:200px;">
-                <span class="classroom-link"></span>
-            </p>
+            <span data-i18n="classroom.activities.toCopy"></span>
+            <span class="classroom-link" id="classroom-link-share"></span>
+            
+            <button id="code-copy" class="btn c-btn-secondary" title="Copier le lien direct" class="js-copy" data-target="#classroom-link-tocopy" data-i18n="classroom.classes.panel.copyLink">Copier le lien direct</button>
+        </div>
+
+        <div>
+            <span data-i18n="classroom.activities.qrCode"></span> </br>
+            <div id="classroom-code-share-qr-code">
+                
+            </div>
         </div>
     </div>
 </div>

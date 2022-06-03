@@ -28,14 +28,15 @@ class ClassroomManager {
         this._lastCreatedActivity = 0;
         this._idActivityOnAttribution = 0;
         this.setDefaultActivityData();
+        this.dragulaGlobal = false;
+        this.displayMode = 'card';
         this.wbbOpt = {
             allButtons : {
             },
             resize_maxheight: 354,
             autoresize: false,
             buttons: ",bold,italic,underline|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe,answer",
-        },
-        this.dragulaGlobal = dragula();
+        }
     }
 
     /**
