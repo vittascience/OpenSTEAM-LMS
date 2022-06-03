@@ -2192,7 +2192,21 @@ h3.section-done {
     margin-bottom: 0em !important;
 }
 
-.giveNote-container 
+.giveNote-container #givenote-0 {
+    accent-color: var(--correction-0);
+}
+.giveNote-container #givenote-1 {
+    accent-color: var(--correction-1);
+}
+.giveNote-container #givenote-2 {
+    accent-color: var(--correction-2);
+}
+.giveNote-container #givenote-3 {
+    accent-color: var(--correction-3);
+}
+.giveNote-container #givenote-4 {
+    accent-color: var(--classroom-text-2);
+}
 
 /* ACTIVITY RESULTS */
 

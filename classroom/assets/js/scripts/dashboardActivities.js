@@ -632,7 +632,7 @@ function loadActivityForTeacher() {
     }
     if (UserManager.getUser().isRegular && Activity.correction > 0) {
 
-        correction += `<div class="giveNote-container c-primary-form">`
+        correction += `<div class="giveNote-container">`
 
         
         
