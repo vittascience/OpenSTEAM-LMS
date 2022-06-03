@@ -196,7 +196,6 @@ function titleForward() {
  * Validation pipeline for the new activity
  */
 function validateActivity(correction) {
-    console.log(correction);
     switch(Activity.activity.type) {
         case 'free':
             freeValidateActivity(correction);

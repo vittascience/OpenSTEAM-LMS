@@ -257,14 +257,13 @@ class FoldersManager {
                             <input type="radio" name="tree-structure" data-id="0" id="${randomString}">
                                 <label for="${randomString}">${rootFolderTranslation}</label>
                             </input>
-
                             ${seek ? "" : this.createChildActivitiesUl(null)}
-                        </li>`;
-
+                        `;
             foldersWithoutParent.forEach(folder => {
                 content += this.makeContentForTree(folder);
             });
-            content += `</ul>`;
+
+            content += `</li></ul>`;
         }
         folderTreeContent.html(content);
         pseudoModal.openModal("folders-move-to");
@@ -275,22 +274,22 @@ class FoldersManager {
             content = "";
         children = children.filter(child => child.parentFolder.id == folder);
         if (children.length > 0) {
-            content += `<ul>`;
+            content += `<li>`;
             children.forEach(child => {
                 content += this.makeContentForTree(child);
             });
-            content += `</ul>`;
+            content += `</li>`;
         }
         return content;
     }
 
     makeContentForTree(item) {
         let radioString = this.makeTreeWithOutInitialFolderAndChildren(item);
-        let content = `<li>
+        let content = `<ul>
                         ${radioString}
                         ${this.isSeek ? "" : this.createChildActivitiesUl(item.id)}
                         ${this.createChildUl(item.id)}
-                    </li>`
+                    </ul>`
         return content;
     }
 
@@ -339,7 +338,7 @@ class FoldersManager {
             children.forEach(child => {
                 console.log(child);
                 content += `<li>
-                                <label> <img src="${this.icons.hasOwnProperty(child.type) ? this.icons[child.type] : "💻"}" alt="${child.type}" class="folder-icons"> - ${child.title}</label>
+                                <label> <img src="${this.icons.hasOwnProperty(child.type) ? this.icons[child.type] : "💻"}" alt="${child.type}" class="folder-icons"> ${child.title}</label>
                             </li>`;
             });
             content += `</ul>`;
