@@ -254,7 +254,8 @@
 			},	
 			"selectStudents": "Select the students",
 			"selectedStudents": "<span id='attribuate-student-number'>0</span> students selected",
-			"activationLink": "Activation link enabled"
+			"activationLink": "Activation link enabled",
+			"activationLinkDisabled": "Activation link disabled"
 		},
 		"activities": {
 			"title": "Activities",

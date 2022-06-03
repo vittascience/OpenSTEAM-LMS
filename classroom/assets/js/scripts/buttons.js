@@ -873,13 +873,20 @@ function toggleBlockClass() {
     let classroom = getClassroomInListByLink(currentClassroomLink)[0].classroom;
     if (classroom.isBlocked == true) {
         classroom.isBlocked = false;
-        $('#classroom-info > button:first-child').removeClass('greyscale');
-        $('#classroom-info > button:first-child > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
+        $('#blocking-class-tooltip').removeClass('greyscale');
+        $('#blocking-class-tooltip > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
+        $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '1');
+        $('#blocking-class-tooltip').tooltip("dispose");
+        $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.activationLink')).tooltip();
+        
     } else {
         classroom.isBlocked = true;
-        $('#classroom-info > button:first-child').addClass('greyscale');
-        $('#classroom-info > button:first-child > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
-
+        console.log("blocked");
+        $('#blocking-class-tooltip').addClass('greyscale');
+        $('#blocking-class-tooltip > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
+        $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '0.5');
+        $('#blocking-class-tooltip').tooltip("dispose");
+        $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.activationLinkDisabled')).tooltip();
     }
     Main.getClassroomManager().updateClassroom(classroom).then(function (response) {
         console.log(`Classroom locked: ${response.isBlocked}`);

@@ -286,14 +286,18 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
 
             // Block classroom feature
             if (getClassroomInListByLink(link)[0].classroom.isBlocked == false) {
-                $('#classroom-info > button:first-child').removeClass('greyscale')
-                $('#classroom-info > button:first-child > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
+                $('#blocking-class-tooltip').removeClass('greyscale')
+                $('#blocking-class-tooltip > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
+                $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '1');
+                $('#blocking-class-tooltip').tooltip("dispose");
+                $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.activationLink')).tooltip();
 
             } else {
-                $('#classroom-info > button:first-child').addClass('greyscale')
-                $('#classroom-info > button:first-child > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
-
-
+                $('#blocking-class-tooltip').addClass('greyscale')
+                $('#blocking-class-tooltip > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
+                $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '0.5');
+                $('#blocking-class-tooltip').tooltip("dispose");
+                $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.activationLinkDisabled')).tooltip();
             }
 
             Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {

@@ -254,7 +254,8 @@
 			},
 			"selectStudents": "Sélectionner des apprenants",
 			"selectedStudents": "<span id='attribuate-student-number'>0</span> apprenants sélectionnés",
-			"activationLink": "Lien d'activation activé"
+			"activationLink": "Lien d'activation activé",
+			"activationLinkDisabled": "Lien d'activation désactivé"
 		},
 		"activities": {
 			"title": "Activités",

@@ -158,10 +158,6 @@ $('body').on('click', '.modal-classroom-modify', function (e) {
 //ouvre le dashboard d'une classe
 $('body').on('click', '.class-card', function () {
     if (!$(this).find("i:hover").length) {
-        let trad = i18next.t("classroom.classes.activationLink");
-        $('#blocking-class-tooltip').tooltip("dispose");
-        $('#blocking-class-tooltip').attr("title", trad).tooltip();
-
         ClassroomSettings.classroom = $(this).find('.class-card-top').attr('data-link')
         navigatePanel('classroom-table-panel-teacher', 'dashboard-classes-teacher', ClassroomSettings.classroom)
     }
