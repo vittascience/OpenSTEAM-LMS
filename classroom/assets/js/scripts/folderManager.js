@@ -217,7 +217,7 @@ class FoldersManager {
             idOfParents = [actualFolder],
             parent = null;
 
-        if (actualFolder.hasOwnProperty('parentFolder')) {
+        if (actualFolder != null && actualFolder.parentFolder != undefined) {
             parent = actualFolder.parentFolder;
         }
         
