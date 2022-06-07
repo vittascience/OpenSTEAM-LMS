@@ -823,7 +823,7 @@ function classroomsDisplay() {
     });
 }
 
-function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherActivities) {
+function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherActivities, keyword = false, asc = false) {
     // Keep the list sorted
     let sortedList = $("#filter-activity-select").val() != "desc" ? list.sort((a, b) => {return b.id - a.id}) : list;
     let displayStyle = Main.getClassroomManager().displayMode;
@@ -833,13 +833,8 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
         foldersManager.resetTreeFolders();
     }
 
-    if (displayStyle == "list") {
-        $("#list-activities-teacher").css("flex-direction", "column")
-    } else {
-        $("#list-activities-teacher").css("flex-direction", "row")
-    }
 
-    
+    displayStyle == "list" ? $("#list-activities-teacher").css("flex-direction", "column") : $("#list-activities-teacher").css("flex-direction", "row");
     $('#list-activities-teacher').html(``);
     sortedList.forEach(element => {
         if (element.folder == null && foldersManager.actualFolder == null) {
@@ -851,7 +846,10 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
         }
     });
 
-    foldersManager.userFolders.forEach(folder => {
+
+    // Add sorting to the folders
+    let folders = keyword ? filterTeacherFolderInList(keyword, asc) : foldersManager.treeFolders;
+    folders.forEach(folder => {
         if (folder.parentFolder == null && foldersManager.actualFolder == null) {
             $('#list-activities-teacher').append(teacherFolder(folder, displayStyle));
         } else if (folder.parentFolder != null) {
@@ -864,6 +862,30 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
     foldersManager.dragulaInitObjects();
     $('[data-toggle="tooltip"]').tooltip();
 }
+
+
+function filterTeacherFolderInList(keywords = [], asc = true) {
+
+    let expression = ''
+    for (let i = 0; i < keywords.length; i++) {
+        expression += '(?=.*'
+        expression += keywords[i].toUpperCase()
+        expression += ')'
+    }
+    regExp = new RegExp(expression)
+    let list = foldersManager.userFolders.filter(x => regExp.test(x.name.toUpperCase()))
+    if (asc) {
+        return list.sort(function (a, b) {
+            return a["id"] - b["id"];
+        })
+    } else {
+        return list.sort(function (a, b) {
+            return b["id"] - a["id"];
+        })
+    }
+}
+
+
 
 $('body').on('change', '#action-teach-setting', function () {
     console.log('check')

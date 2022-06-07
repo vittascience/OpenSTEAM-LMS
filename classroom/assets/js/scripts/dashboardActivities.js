@@ -304,18 +304,18 @@ function classeList(classe, ref = null) {
 $('body').on('click', '#filter-activity', function () {
     let arrayKeywords = $('#filter-activity-input').val().split(' ')
     if ($('#filter-activity-select').val() == 'asc') {
-        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false))
+        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false), arrayKeywords, false)
     } else {
-        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true))
+        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true), arrayKeywords, true)
     }
 })
 
 $('body').on('change', '#filter-activity-select', function () {
     let arrayKeywords = $('#filter-activity-input').val().split(' ')
     if ($('#filter-activity-select').val() == 'asc') {
-        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false))
+        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false), arrayKeywords, false)
     } else {
-        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true))
+        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true), arrayKeywords, true)
     }
 })
 
@@ -323,9 +323,9 @@ $(document).on('keyup', function (e) {
     if ($("#filter-activity-input").is(":focus") || $("#filter-activity").is(":focus") || $("#filter-activity-select").is(":focus")) {
         let arrayKeywords = $('#filter-activity-input').val().split(' ')
         if ($('#filter-activity-select').val() == 'asc') {
-            teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false))
+            teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false), arrayKeywords, false)
         } else {
-            teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true))
+            teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true), arrayKeywords, true)
         }
     }
 });
