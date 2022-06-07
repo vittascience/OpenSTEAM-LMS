@@ -846,10 +846,10 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
         }
     });
 
-
+    
     // Add sorting to the folders
-    let folders = keyword ? filterTeacherFolderInList(keyword, asc) : foldersManager.treeFolders;
-    folders.forEach(folder => {
+    let foldersZ = keyword ? filterTeacherFolderInList(keyword, asc) : foldersManager.userFolders;
+    foldersZ.forEach(folder => {
         if (folder.parentFolder == null && foldersManager.actualFolder == null) {
             $('#list-activities-teacher').append(teacherFolder(folder, displayStyle));
         } else if (folder.parentFolder != null) {

@@ -1019,17 +1019,17 @@ function displayDragAndDropTeacherSide(correction_div, correction, content) {
     
         $('#activity-student-response-content').html(bbcodeToHtml(studentContentString));
         $('#activity-student-response').show();
+        Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
+            for (let i = 0; i < $(`input[id^="corrected-student-response-"]`).length; i++) {
+                $('#corrected-student-response-' + i).addClass("answer-correct");
+            }
+        
+            for (let i = 0; i < result.success.length; i++) {
+                $('#corrected-student-response-' + (result.success[i])).addClass("answer-incorrect");
+            }
+        })
     }
 
-    Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
-        for (let i = 0; i < $(`input[id^="corrected-student-response-"]`).length; i++) {
-            $('#corrected-student-response-' + i).addClass("answer-correct");
-        }
-    
-        for (let i = 0; i < result.success.length; i++) {
-            $('#corrected-student-response-' + (result.success[i])).addClass("answer-incorrect");
-        }
-    })
 
 
     manageCorrectionDiv(correction_div, correction);

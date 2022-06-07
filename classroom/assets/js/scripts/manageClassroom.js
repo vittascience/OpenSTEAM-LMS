@@ -78,16 +78,31 @@ $('body').on('click', '.teacher-new-classe', function (event) {
 
 //student modal-->supprimer
 $('body').on('click', '.modal-student-delete', function () {
-    let confirm = window.confirm(i18next.t("classroom.notif.deleteAccount"))
-    if (confirm) {
-        ClassroomSettings.student = parseInt($(this).attr('data-student-id'));
-        Main.getClassroomManager().deleteStudent(ClassroomSettings.student).then(function (response) {
+    pseudoModal.openModal('delete-student-modal');
+
+    $("#student-to-delete-id").val($(this).attr('data-student-id'));
+})
+
+function persistDeleteStudent() {
+
+    let validation = $('#validation-delete-student').val(),
+        placeholderWord = $('#validation-delete-student').attr('placeholder');
+
+    if (validation == placeholderWord) {
+        ClassroomSettings.student = parseInt($("#student-to-delete-id").val());
+        Main.getClassroomManager().deleteStudent(ClassroomSettings.student).then(() => {
             let classroom = deleteStudentInList(ClassroomSettings.student, ClassroomSettings.classroom)
             displayStudentsInClassroom(classroom.students)
             displayNotification('#notif-div', "classroom.notif.accountIsDelete", "success")
         })
+        $('#validation-delete-student').val("");
+        pseudoModal.closeModal('delete-student-modal');
     }
-})
+}
+
+
+
+
 
 //student modal-->restaurer le mot de passe
 $('body').on('click', '.modal-student-password', function () {

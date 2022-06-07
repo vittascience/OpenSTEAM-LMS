@@ -255,7 +255,9 @@
 			"selectStudents": "Select the students",
 			"selectedStudents": "<span id='attribuate-student-number'>0</span> students selected",
 			"activationLink": "Activation link enabled",
-			"activationLinkDisabled": "Activation link disabled"
+			"activationLinkDisabled": "Activation link disabled",
+			"deleteStudent": "Delete the student",
+			"deleteStudentConfirm": "Are you sure you want to delete this student?"
 		},
 		"activities": {
 			"title": "Activities",
