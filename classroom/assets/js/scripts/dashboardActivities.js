@@ -536,7 +536,8 @@ function loadActivityForStudents(isDoable) {
     // Disclaimer for eval
     if (Activity.correction < 2 && (activityType.includes(Activity.activity.type))) {
         $('#warning-text-container').show();
-        Activity.evaluation ? $('#warning-text-evaluation').show() : $("#warning-text-no-evaluation").show();
+        $('#warning-text-container > i').hide();
+        Activity.evaluation ? $('#warning-icon-evaluation').show().tooltip() : $("#warning-icon-no-evaluation").show().tooltip();
     }
     
     // Check if the correction if available
@@ -631,16 +632,16 @@ function loadActivityForTeacher() {
     }
     if (UserManager.getUser().isRegular && Activity.correction > 0) {
 
-        correction += `<div class="giveNote-container c-primary-form">`
+        correction += `<div class="giveNote-container">`
 
-        // @updated
-        correction += `<label for="givenote-4" onclick="setNote(4)"><input type="radio" id="givenote-4" ${Activity.note == 4 ? "checked=checked" : ""} name="giveNote" value="4">${" " + i18next.t('classroom.activities.nnoted')}</label>`;
-
-
+        
+        
         correction += `<label for="givenote-3" onclick="setNote(3)"><input type="radio" id="givenote-3" ${Activity.note == 3 ? "checked=checked" : ""} name="giveNote" value="3">${" " + i18next.t('classroom.activities.accept')}</label>`;
         correction += `<label for="givenote-2" onclick="setNote(2)"><input type="radio" id="givenote-2" ${Activity.note == 2 ? "checked=checked" : ""} name="giveNote" value="2">${" " + i18next.t('classroom.activities.vgood')}</label>`;
         correction += `<label for="givenote-1" onclick="setNote(1)"><input type="radio" id="givenote-1" ${Activity.note == 1 ? "checked=checked" : ""} name="giveNote" value="1">${" " + i18next.t('classroom.activities.good')}</label>`;
-        correction += `<label for="givenote-0" onclick="setNote(0)"><input type="radio" id="givenote-0" ${Activity.note == 0 ? "checked=checked" : ""} name="giveNote" value="0">${" " + i18next.t('classroom.activities.refuse')}</label></div>`;
+        correction += `<label for="givenote-0" onclick="setNote(0)"><input type="radio" id="givenote-0" ${Activity.note == 0 ? "checked=checked" : ""} name="giveNote" value="0">${" " + i18next.t('classroom.activities.refuse')}</label>`;
+        // @updated
+        correction += `<label for="givenote-4" onclick="setNote(4)"><input type="radio" id="givenote-4" ${Activity.note == 4 ? "checked=checked" : ""} name="giveNote" value="4">${" " + i18next.t('classroom.activities.nnoted')}</label></div>`;
 
         correction += '<div id="commentary-panel" class="c-primary-form"><label>' + i18next.t("classroom.activities.comments") + '</label><textarea id="commentary-textarea" style="width:100%" rows="8">' + Activity.commentary + '</textarea></div>'
         correction += '<button onclick="giveNote()" class="btn c-btn-primary btn-sm text-wrap w-100"><span class="text-wrap">' + i18next.t('classroom.activities.sendResults') + '<i class="fas fa-chevron-right"> </i></span></button>'
@@ -839,6 +840,7 @@ function displayQuizTeacherSide() {
 }
 
 function createContentForQuiz(data, doable = true, correction = false) {
+    manageLabelForActivity();
     let content = "";
     if (doable) {
         for (let i = 1; i < data.length+1; i++) {
@@ -924,7 +926,7 @@ function displayFillInTeacherSide(correction_div, correction, content) {
             }
         })
     
-        $('#activity-student-response-content').html(studentContentString);
+        $('#activity-student-response-content').html(bbcodeToHtml(studentContentString));
         $('#activity-student-response').show();
     }
 
@@ -1015,7 +1017,7 @@ function displayDragAndDropTeacherSide(correction_div, correction, content) {
             studentContentString = studentContentString.replace(`﻿`, `<input readonly class='drag-and-drop-answer-teacher' id="corrected-student-response-${i}" value="${studentResponses[i].string.toLowerCase()}" ${autoWidthStyle}>`);
         }
     
-        $('#activity-student-response-content').html(studentContentString);
+        $('#activity-student-response-content').html(bbcodeToHtml(studentContentString));
         $('#activity-student-response').show();
     }
 
@@ -1051,14 +1053,18 @@ function manageDragAndDropText(studentContentString) {
 }
 
 function manageCorrectionDiv(correction_div, correction) {
-    if (UserManager.getUser().isRegular) {
-        $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
-    } else {
-        $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
-    }
+    manageLabelForActivity();
     if (correction > 1 || (UserManager.getUser().isRegular && correction >= 1)) {
         $('#activity-correction').html(correction_div);
         $('#activity-correction-container').show(); 
+    }
+}
+
+function manageLabelForActivity() {
+    if (UserManager.getUser().isRegular && $_GET('panel') == "classroom-dashboard-activity-panel-teacher") {
+        $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
+    } else {
+        $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
     }
 }
 

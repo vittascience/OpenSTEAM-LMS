@@ -14,6 +14,13 @@ class FoldersManager {
         this.objectToMove = null;
         this.objectId = null;
         this.isSeek = false;
+        this.icons = {
+            free: "./assets/media/activity/free.png",
+            dragAndDrop: "./assets/media/activity/dragAndDrop.png",
+            fillIn: "./assets/media/activity/fillIn.png",
+            reading: "./assets/media/activity/reading.png",
+            quiz: "./assets/media/activity/quiz.png",
+        }
     }
 
     init() {
@@ -27,6 +34,9 @@ class FoldersManager {
 
         $('#dashboard-activities-teacher').on('click', () => {
             this.resetTreeFolders();
+            if ($_GET('panel') == "classroom-dashboard-activities-panel-teacher") {
+                this.createTreeFolders();
+            }
         })
 
         $('body').on('click', '.folder-card', function () {
@@ -181,7 +191,7 @@ class FoldersManager {
         if (this.treeFolder.html() == "") {
             this.resetTreeFolders();
         }
-        this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span> <button class="btn tree-folders-items" data-id="${folder.id}" onclick="foldersManager.goToFolder(${folder.id})">📁 ${folder.name}</button>`);  
+        this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span> <button class="btn c-btn-outline-primary" data-id="${folder.id}" onclick="foldersManager.goToFolder(${folder.id})">📁 ${folder.name}</button>`);  
     }
 
     goToFolder(folderId) {
@@ -199,13 +209,17 @@ class FoldersManager {
     }
 
     resetTreeFolders() {
-        this.treeFolder.html(`<button class="btn tree-folders-items" onclick="foldersManager.goToFolder(null)">Mes activités</button>`);
+        this.treeFolder.html(`<button class="btn c-btn-outline-primary" onclick="foldersManager.goToFolder(null)">Mes activités</button>`);
     }
 
     createTreeFolders() {
         let actualFolder = this.getFolderById(this.actualFolder),
             idOfParents = [actualFolder],
+            parent = null;
+
+        if (actualFolder != null && actualFolder.parentFolder != undefined) {
             parent = actualFolder.parentFolder;
+        }
         
         while (parent) {
             idOfParents.push(parent);
@@ -217,7 +231,9 @@ class FoldersManager {
         }
 
         idOfParents.reverse().forEach(folder => {
-            this.treeFolder.append(`<button class="btn tree-folders-items" onclick="foldersManager.goToFolder(${folder.id})">📁 ${folder.name}</button>`);
+            if (folder != null && folder.id != undefined) {
+                this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span>  <button class="btn c-btn-outline-primary" onclick="foldersManager.goToFolder(${folder.id})">📁 ${folder.name}</button>`);
+            }
         });
     }
 
@@ -250,14 +266,13 @@ class FoldersManager {
                             <input type="radio" name="tree-structure" data-id="0" id="${randomString}">
                                 <label for="${randomString}">${rootFolderTranslation}</label>
                             </input>
-
                             ${seek ? "" : this.createChildActivitiesUl(null)}
-                        </li>`;
-
+                        `;
             foldersWithoutParent.forEach(folder => {
                 content += this.makeContentForTree(folder);
             });
-            content += `</ul>`;
+
+            content += `</li></ul>`;
         }
         folderTreeContent.html(content);
         pseudoModal.openModal("folders-move-to");
@@ -268,22 +283,22 @@ class FoldersManager {
             content = "";
         children = children.filter(child => child.parentFolder.id == folder);
         if (children.length > 0) {
-            content += `<ul>`;
+            content += `<li>`;
             children.forEach(child => {
                 content += this.makeContentForTree(child);
             });
-            content += `</ul>`;
+            content += `</li>`;
         }
         return content;
     }
 
     makeContentForTree(item) {
         let radioString = this.makeTreeWithOutInitialFolderAndChildren(item);
-        let content = `<li>
+        let content = `<ul>
                         ${radioString}
                         ${this.isSeek ? "" : this.createChildActivitiesUl(item.id)}
                         ${this.createChildUl(item.id)}
-                    </li>`
+                    </ul>`
         return content;
     }
 
@@ -330,8 +345,9 @@ class FoldersManager {
         if (children.length > 0) {
             content += `<ul>`;
             children.forEach(child => {
+                console.log(child);
                 content += `<li>
-                                <label>💻 - ${child.title}</label>
+                                <label> <img src="${this.icons.hasOwnProperty(child.type) ? this.icons[child.type] : "💻"}" alt="${child.type}" class="folder-icons"> ${child.title}</label>
                             </li>`;
             });
             content += `</ul>`;
@@ -410,6 +426,7 @@ class FoldersManager {
                     $(container).find(".folder-card").removeClass('folder-open');
                 }
             })
+            
     }
 
 

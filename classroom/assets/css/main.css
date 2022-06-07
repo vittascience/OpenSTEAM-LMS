@@ -455,8 +455,10 @@ button {
     align-items: center;
     justify-content: flex-end;
     position: absolute;
-    width: calc(100% - 200px);
-    z-index: 10;
+
+    width: 100%;
+    width: -webkit-fill-available;
+    z-index: 9999;
 }
 
 #classroom-dashboard-content {
@@ -467,6 +469,7 @@ button {
     border-radius: 15px;
     height: 100%;
     width: 100%;
+    position: relative;
     overflow-y: scroll;
 
     scrollbar-width: thin;
@@ -489,6 +492,10 @@ button {
     background-color: var(--classroom-cell);
     border-radius: 6px;
     border: 3px solid transparent;
+}
+
+#classroom-panel-table-container::-webkit-scrollbar-corner {
+    background-color: transparent;
 }
 
 
@@ -1196,6 +1203,7 @@ img.btn-cabri {
 #current-activities-list,
 #done-activities,
 #done-activities-list,
+#facultative-options,
 .list-classes {
     display: flex;
     flex-direction: row;
@@ -1409,6 +1417,7 @@ h3.section-done {
     padding: 0.25em;
     justify-items: stretch;
     margin-top: 3em;
+    cursor: pointer;
 }
 
 .dropdown i,
@@ -1424,25 +1433,6 @@ h3.section-done {
     margin: 0em 5%;
     padding: 1em;
     display: inline-flex;
-}
-
-.tree-folders-items {
-    display: inline-flex;
-    border: 1px solid var(--classroom-primary);
-    border-radius: 0.25rem;
-    background-color: transparent;
-    color: var(--classroom-primary);
-    margin: 1em;
-}
-
-.tree-folders-items:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 0px 5px 0px var(--classroom-shadow-1);
-    transition: transform 0.2s ease-in-out;
-}
-
-.tree-folders-items:hover {
-    text-decoration: none;
 }
 
 .btn-folders {
@@ -1464,9 +1454,46 @@ h3.section-done {
 }
 
 .chevron-breadcrumb {
-    margin: auto;
+    margin: 0 0.5em;
     color: var(--classroom-primary);
     font-size: 14px;
+    align-self: center;
+}
+
+.folder-icons {
+    height: 28px;
+    margin-bottom: 2px;
+}
+
+.section-facultative-options {
+    background: var(--classroom-background-1);
+    box-shadow: 0px 0px 7px 0px var(--classroom-shadow-1);
+    border-radius: 1em;
+    padding: 0.1em 0;
+    margin: 1em;
+}
+
+.section-header-facultative-options {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin: 0.5em;
+    user-select: none;
+    cursor: pointer;
+}
+.section-title-facultative-options {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 1.2em;
+    overflow: hidden;
+    user-select: none;
+    display: flex;
+    align-items: baseline;
+    padding: 0px;
+    margin: 0px;
+    width: auto;
+    margin-left: 0.5em;
 }
 
 
@@ -2147,6 +2174,22 @@ h3.section-done {
     margin-bottom: 0em !important;
 }
 
+.giveNote-container #givenote-0 {
+    accent-color: var(--correction-0);
+}
+.giveNote-container #givenote-1 {
+    accent-color: var(--correction-1);
+}
+.giveNote-container #givenote-2 {
+    accent-color: var(--correction-2);
+}
+.giveNote-container #givenote-3 {
+    accent-color: var(--correction-3);
+}
+.giveNote-container #givenote-4 {
+    accent-color: var(--classroom-text-2);
+}
+
 /* ACTIVITY RESULTS */
 
 .results-panel {
@@ -2823,12 +2866,6 @@ h3.section-done {
     height: 30px;
 }
 
-#classroom-table-panel-teacher-code .classroom-link {
-    color: var(--classroom-secondary);
-    text-transform: uppercase;
-
-}
-
 @media (max-width: 768px) {
     .class-stats-panel {
         height: calc(100vh - 110px - 2.5em);
@@ -2864,37 +2901,121 @@ h3.section-done {
 
 }
 
+/* CLASSROOM SHARE PANEL */
+
+#classroom-code-share-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 2px solid var(--classroom-cell);
+    border-radius: 1em;
+    position: relative;
+    max-width: 80%;
+}
+
+#classroom-code-share-container #code-share-close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    background-color: var(--classroom-cell);
+}
+
+#classroom-code-share-container > div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1em;
+}
+
+#classroom-code-share-container > div > span {
+    width: 70%;
+    font-size: 1.3em;
+    text-align: center;
+}
+
+#classroom-code-share-container > div:nth-child(2) {
+    border-right: 2px solid var(--classroom-cell);
+}
+
+#classroom-table-panel-teacher-code .classroom-link {
+    color: var(--classroom-secondary);
+    text-transform: uppercase;
+    font-size: 4em;
+    font-weight: 600;
+}
+
+#classroom-table-panel-teacher-code #classroom-code-share-qr-code {
+    padding: 0.5em;
+    border-radius: 0.7em;
+    background-color: var(--classroom-white);
+    width: 20ch;
+    height: 20ch;
+}
+
+#classroom-table-panel-teacher-code #classroom-code-share-qr-code canvas {  
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+@media (max-width: 900px) {
+    #classroom-code-share-container {
+        grid-template-columns: 1fr;;
+    }
+
+    #classroom-code-share-container > div:nth-child(2) {
+        border-right: 0;
+        border-bottom: 2px solid var(--classroom-cell);
+    }
+
+    #classroom-code-share-container > div > span {
+        width: 90%;
+    }
+
+    #classroom-table-panel-teacher-code .classroom-link {
+        font-size: 3em;
+    }
+}
+
 
 /* CLASSROOM END */
 
 /* STUDENT ACTIVITY VIEW */
 
 #warning-text-container {
-    border: 2px solid var(--classroom-cell);
-    border-radius: 1em;
-    padding: 0.5em;
-    margin: 0.5em 0;
-}
+    width: 20px;
+    height: 20px;
 
-#warning-text-container p {
-    display: grid;
-    grid-template-columns: auto 1fr;
+    font-size: 13px;
+
+    display: inline-block;
+
     text-align: center;
-    margin: 0.25em;
-    align-items: center;
-    font-size: smaller;
+    position: relative;
+
+    bottom: 13px;
+    right: 20px;
+
+    border-radius: 50%;
+   
+    cursor: pointer;
+    margin: 14px 0px 0px 8px;
+
+    background-color: var(--classroom-background);
+    border: 1px solid var(--classroom-cell);
 }
 
-#warning-text-container p i{
-    font-size: 2em;
-
+#warning-text-container i {
+    width: 100%;
+    height: 100%;
 }
 
-#warning-text-container p#warning-text-evaluation i {
+#warning-text-container #warning-icon-evaluation {
     color: var(--classroom-red);
 }
 
-#warning-text-container p#warning-text-no-evaluation i {
+#warning-text-container #warning-icon-no-evaluation {
     color: var(--classroom-green);
 }
 

@@ -260,8 +260,12 @@ function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = fa
     for (let i = 0; i < currentBreadcrumbStructure.length - 1; i++) {
         // Define the last element of the breadcrumb
         if (i == currentBreadcrumbStructure.length - 2) {
-            innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('${currentBreadcrumbStructure[i]}', '${idNav}')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
-            // Define all the elements of the breadcrumb except the last
+            if ($_GET("panel") == "classroom-dashboard-activity-panel") {
+                innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
+            } else {
+                innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('${currentBreadcrumbStructure[i]}', '${idNav}')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
+                // Define all the elements of the breadcrumb except the last
+            }
         } else {
             innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary last" onclick="navigatePanel('${currentBreadcrumbStructure[i]}', '${idNav}')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span><i class="fas fa-chevron-right ml-2"></i></button>`;
         }
@@ -364,9 +368,13 @@ if (document.getElementById('settings-student') && window.localStorage.showSwitc
 }
 
 $('#code-copy').click(function () {
-    let self = $(this)
-    docopy(self)
+    currentOriginUrl = new URL(window.location.href).origin;
+    fullPath = currentOriginUrl + '/classroom/login.php?link=' + $("#classroom-link-share").text();
+    navigator.clipboard.writeText(fullPath)
+    $('#hidden-link-prefix').hide()
+    displayNotification('#notif-div', "classroom.activities.copyLink", "success")
 })
+
 
 // .new-student-modal removed
 $('body').on('click', '#add-student-dashboard-panel', function () {
@@ -869,13 +877,20 @@ function toggleBlockClass() {
     let classroom = getClassroomInListByLink(currentClassroomLink)[0].classroom;
     if (classroom.isBlocked == true) {
         classroom.isBlocked = false;
-        $('#classroom-info > button:first-child').removeClass('greyscale');
-        $('#classroom-info > button:first-child > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
+        $('#blocking-class-tooltip').removeClass('greyscale');
+        $('#blocking-class-tooltip > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
+        $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '1');
+        $('#blocking-class-tooltip').tooltip("dispose");
+        $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.activationLink')).tooltip();
+        
     } else {
         classroom.isBlocked = true;
-        $('#classroom-info > button:first-child').addClass('greyscale');
-        $('#classroom-info > button:first-child > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
-
+        console.log("blocked");
+        $('#blocking-class-tooltip').addClass('greyscale');
+        $('#blocking-class-tooltip > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
+        $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '0.5');
+        $('#blocking-class-tooltip').tooltip("dispose");
+        $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.activationLinkDisabled')).tooltip();
     }
     Main.getClassroomManager().updateClassroom(classroom).then(function (response) {
         console.log(`Classroom locked: ${response.isBlocked}`);
@@ -896,45 +911,10 @@ function formatHour(da) {
     return d.getDate() + " " + (translatedMonth) + " " + d.getFullYear() + " - " + twoDigitsHour + "h" + d.getMinutes();
 }
 
-function docopy(self) {
+/* function docopy(self) {
 
-    currentOriginUrl = new URL(window.location.href).origin;
-    fullPath = currentOriginUrl + '/classroom/login.php?link=';
-    document.getElementById('hidden-link-prefix').innerHTML = fullPath;
-    // Cible de l'élément qui doit être copié
-    var target = self[0].dataset.target;
-    var fromElement = document.querySelector(target);
-    if (!fromElement) return;
-    $('#hidden-link-prefix').show()
-    // Sélection des caractères concernés
-    var range = document.createRange();
-    var selection = window.getSelection();
-    range.selectNode(fromElement);
-    selection.removeAllRanges();
-    selection.addRange(range);
-
-    try {
-        // Exécution de la commande de copie
-
-        var result = document.execCommand('copy');
-        if (result) {
-            // La copie a réussi
-        }
-    } catch (err) {
-        // Une erreur est surevnue lors de la tentative de copie
-        alert(err);
-    }
-
-    // Fin de l'opération
-    selection = window.getSelection();
-    if (typeof selection.removeRange === 'function') {
-        selection.removeRange(range);
-    } else if (typeof selection.removeAllRanges === 'function') {
-        selection.removeAllRanges();
-    }
-    $('#hidden-link-prefix').hide()
-    displayNotification('#notif-div', "classroom.activities.copyLink", "success")
-}
+    
+} */
 
 function returnToConnectionPanel(currentPanel) {
     if (window.getComputedStyle(document.getElementById('classroom-register-container')).display == 'block') {
@@ -963,12 +943,9 @@ function findClassroomToConnect(linkC) {
 }
 
 function sectionToggle(id) {
-
     $('#' + id + '-activities-list').toggle()
     $('#i-' + id).toggleClass('fa-chevron-down')
     $('#i-' + id).toggleClass('fa-chevron-up')
-
-
 }
 
 /**
@@ -3348,3 +3325,11 @@ function setAddFieldTooltips() {
 
 }
 setTimeout(setAddFieldTooltips, 2000);
+
+
+
+function facultativeOptions() {
+    $('#facultative-options').toggle()
+    $('#i-facultative-options').toggleClass('fa-chevron-down')
+    $('#i-facultative-options').toggleClass('fa-chevron-up')
+}

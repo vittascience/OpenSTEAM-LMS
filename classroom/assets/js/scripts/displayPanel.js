@@ -272,16 +272,32 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
             let students = getClassroomInListByLink(link)[0].students
             displayStudentsInClassroom(students, link)
             $('.classroom-link').html(ClassroomSettings.classroom)
+            $('#classroom-code-share-qr-code').html('');
+            currentOriginUrl = new URL(window.location.href).origin;
+            fullPath = currentOriginUrl + '/classroom/login.php?link=' + ClassroomSettings.classroom;
+            QrCreator.render({
+                text: fullPath,
+                radius: 0.5, 
+                ecLevel: 'H',
+                fill: getComputedStyle(document.documentElement).getPropertyValue('--classroom-primary'),
+                background: "white", 
+                size: 300
+              }, document.querySelector('#classroom-code-share-qr-code'));
+
             // Block classroom feature
             if (getClassroomInListByLink(link)[0].classroom.isBlocked == false) {
-                $('#classroom-info > button:first-child').removeClass('greyscale')
-                $('#classroom-info > button:first-child > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
+                $('#blocking-class-tooltip').removeClass('greyscale')
+                $('#blocking-class-tooltip > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
+                $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '1');
+                $('#blocking-class-tooltip').tooltip("dispose");
+                $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.activationLink')).tooltip();
 
             } else {
-                $('#classroom-info > button:first-child').addClass('greyscale')
-                $('#classroom-info > button:first-child > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
-
-
+                $('#blocking-class-tooltip').addClass('greyscale')
+                $('#blocking-class-tooltip > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
+                $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '0.5');
+                $('#blocking-class-tooltip').tooltip("dispose");
+                $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.activationLinkDisabled')).tooltip();
             }
 
             Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {

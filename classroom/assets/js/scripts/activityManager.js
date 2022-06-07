@@ -197,7 +197,6 @@ function titleForward() {
  * Validation pipeline for the new activity
  */
 function validateActivity(correction) {
-    console.log(correction);
     switch(Activity.activity.type) {
         case 'free':
             freeValidateActivity(correction);
@@ -317,18 +316,18 @@ function saveActivitiesResponseManager(activityType = null, response = null) {
         let lengthResponse = $(`input[id^="student-fill-in-field-"]`).length;
         for (let i = 1; i < lengthResponse+1; i++) {
             if (response.badResponse.includes(i-1)) {
-                $(`#student-fill-in-field-${i}`).css("border","2px solid orange");
+                $(`#student-fill-in-field-${i}`).css("border","2px solid var(--correction-0)");
             } else {
-                $(`#student-fill-in-field-${i}`).css("border","2px solid green");
+                $(`#student-fill-in-field-${i}`).css("border","2px solid var(--correction-3)");
             }
         }
     } else if (activityType == 'drag-and-drop') {
         for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
-            $('#dz-' + i).css("border","1px solid var(--classroom-text-0)");
+            $('#dz-' + i).css("border","1px solid var(--correction-3)");
         }
 
         for (let i = 0; i < response.badResponse.length; i++) {
-            $('#dz-' + (response.badResponse[i])).css("border","1px solid orange");
+            $('#dz-' + (response.badResponse[i])).css("border","1px solid var(--correction-0)");
         }
 
         if (response.hasOwnProperty("hint")) {
@@ -437,8 +436,13 @@ $('#fill-in-add-inputs').click(() => {
 
 function parseFillInFieldsAndSaveThem() {
     
+    if ($('#fill-in-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi) == null) {
+        displayNotification('#notif-div', "classroom.notif.noAnswerInActivity", "error");
+        return false;
+    }
+
     Main.getClassroomManager()._createActivity.content.fillInFields.contentForTeacher = $('#fill-in-content').bbcode();
-    
+
     let response = $('#fill-in-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1"));
     let contentForStudent = $('#fill-in-content').bbcode();
     response.forEach((e, i) => {
@@ -474,6 +478,11 @@ $('#dragAndDrop-add-inputs').click(() => {
 
 
 function parseDragAndDropFieldsAndSaveThem() {
+
+    if ($('#drag-and-drop-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi) == null) {
+        displayNotification('#notif-div', "classroom.notif.noAnswerInActivity", "error");
+        return false;
+    }
     
     Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForTeacher = $('#drag-and-drop-content').bbcode();
     
