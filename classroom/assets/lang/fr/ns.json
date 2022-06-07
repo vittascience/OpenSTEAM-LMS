@@ -301,6 +301,8 @@
 			"hint": "Indice",
 			"saved": "Activité sauvegardée",
 			"wrongAnswer": "Mauvaise réponse",
+			"emptyAnswer": "La réponse ne peut pas être vide",
+			"wrongAnswerLarge": "Mauvaise réponse, tu peux essayer à nouveau !",
 			"hintExist": "<i class='fas fa-info-circle'></i> Cet exercice possède un indice, il ne peut s'afficher que si l'élève peut soumettre l'activité plusieurs fois",
 			"anoStudent": "Élève",
 			"bilan": {

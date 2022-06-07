@@ -301,6 +301,8 @@
 			"hint": "Hint",
 			"saved": "Activity saved",
 			"wrongAnswer": "Wrong answer",
+			"emptyAnswer": "Answer cannot be empty",
+			"wrongAnswerLarge": "Wrong answer, you can try again !",
 			"hintExist": "<i class='fas fa-info-circle'></i> This exercise has a hint, it can only be displayed if the student can submit the activity several times",
 			"anoStudent": "Student",
 			"bilan": {

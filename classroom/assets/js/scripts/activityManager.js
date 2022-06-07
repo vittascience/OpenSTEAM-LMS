@@ -293,6 +293,8 @@ function responseManager(response = null, type = null) {
         if (response.hasOwnProperty("message")) {
             if (response.message == "activitySaved") {
                 displayNotification('#notif-div', "classroom.activities.saved", "success");
+            } else if (response.message == "emptyAnswer") {
+                displayNotification('#notif-div', "classroom.activities.emptyAnswer", "error");
             }
         } else if (response.hasOwnProperty("badResponse")) {
             saveActivitiesResponseManager(type, response);
@@ -306,6 +308,7 @@ function responseManager(response = null, type = null) {
 
 function saveActivitiesResponseManager(activityType = null, response = null) {
     if (activityType == 'fill-in') {
+        displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
         if (response.hasOwnProperty("hint")) {
             if (response.hint != null && response.hint != "") {
                 $("#activity-hint-container").show();
@@ -322,6 +325,7 @@ function saveActivitiesResponseManager(activityType = null, response = null) {
             }
         }
     } else if (activityType == 'drag-and-drop') {
+        displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
         for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
             $('#dz-' + i).css("border","1px solid var(--correction-3)");
         }
@@ -337,6 +341,7 @@ function saveActivitiesResponseManager(activityType = null, response = null) {
             }
         }
     } else if (activityType == 'quiz') {
+        displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
         for (let i = 1; i < $(`input[id^="student-quiz-suggestion-"]`).length+1; i++) {
             $('#student-quiz-suggestion-' + i).parent().addClass('quiz-answer-correct');
         }
