@@ -263,6 +263,8 @@ function manageUpdateForDragAndDrop(activity) {
 //création activité vers attribution
 function attributeActivity(id, ref = null) {
 
+    $("#assign-total-student-number").text(0);
+
     Main.getClassroomManager()._idActivityOnAttribution = id;
    
     if (id == 0) {

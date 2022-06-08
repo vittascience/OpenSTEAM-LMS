@@ -100,6 +100,11 @@ function persistDeleteStudent() {
     }
 }
 
+function cancelDeleteStudent() {
+    $('#validation-delete-student').val("");
+    pseudoModal.closeModal('delete-student-modal');
+}
+
 
 
 

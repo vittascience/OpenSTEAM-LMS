@@ -266,7 +266,7 @@ class FoldersManager {
                             <input type="radio" name="tree-structure" data-id="0" id="${randomString}">
                                 <label for="${randomString}">${rootFolderTranslation}</label>
                             </input>
-                            ${seek ? "" : this.createChildActivitiesUl(null)}
+                            
                         `;
             foldersWithoutParent.forEach(folder => {
                 content += this.makeContentForTree(folder);
@@ -277,6 +277,7 @@ class FoldersManager {
         folderTreeContent.html(content);
         pseudoModal.openModal("folders-move-to");
     }
+    // ${seek ? "" : this.createChildActivitiesUl(null)}
 
     createChildUl(folder) {
         let children = this.userFolders.filter(f => f.parentFolder != null),
@@ -296,11 +297,12 @@ class FoldersManager {
         let radioString = this.makeTreeWithOutInitialFolderAndChildren(item);
         let content = `<ul>
                         ${radioString}
-                        ${this.isSeek ? "" : this.createChildActivitiesUl(item.id)}
+                        
                         ${this.createChildUl(item.id)}
                     </ul>`
         return content;
     }
+    // ${this.isSeek ? "" : this.createChildActivitiesUl(item.id)}
 
     makeTreeWithOutInitialFolderAndChildren(folder) {
         let content = "",

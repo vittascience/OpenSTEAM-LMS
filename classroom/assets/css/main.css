@@ -2983,7 +2983,7 @@ h3.section-done {
 
 /* STUDENT ACTIVITY VIEW */
 
-#warning-text-container {
+#warning-icon-container {
     width: 20px;
     height: 20px;
 
@@ -3006,16 +3006,16 @@ h3.section-done {
     border: 1px solid var(--classroom-cell);
 }
 
-#warning-text-container i {
+#warning-icon-container i {
     width: 100%;
     height: 100%;
 }
 
-#warning-text-container #warning-icon-evaluation {
+#warning-icon-container #warning-icon-evaluation {
     color: var(--classroom-red);
 }
 
-#warning-text-container #warning-icon-no-evaluation {
+#warning-icon-container #warning-icon-no-evaluation {
     color: var(--classroom-green);
 }
 

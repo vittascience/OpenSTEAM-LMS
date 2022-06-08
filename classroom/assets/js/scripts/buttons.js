@@ -126,6 +126,11 @@ $('body').on('mouseenter mouseleave', '.dropdown-act', function () {
     $(this).find('.fa-cog').toggle()
 })
 
+// avoid modal closing when clicking on the modal
+$(document).on('click', '.dropdown-menu', function (e) {
+    e.stopPropagation();
+});
+
 $('input[type=radio][name=isEval-activity-form]').change(function () {
 
     let id = Main.getClassroomManager()._idActivityOnAttribution,
@@ -276,6 +281,10 @@ function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = fa
     $('.tooltip').remove()
     if (typeof Main.leaderline !== 'undefined') Main.leaderline.hide();
     $('[data-toggle="tooltip"]').tooltip()
+
+    if (id == 'classroom-dashboard-activities-panel-teacher' && idNav == 'dashboard-activities-teacher') {
+        foldersManager.goToFolder(foldersManager.actualFolder);
+    }
 }
 
 /**
@@ -3355,3 +3364,4 @@ function facultativeOptions() {
     $('#i-facultative-options').toggleClass('fa-chevron-down')
     $('#i-facultative-options').toggleClass('fa-chevron-up')
 }
+
