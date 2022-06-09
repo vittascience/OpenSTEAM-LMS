@@ -1529,10 +1529,9 @@ h3.section-done {
     font-weight: bold;
 }
 
-.activity-list-auto,
-.folder-list-auto {
-    background-color: #008447;
-    border-radius: 1.2em;
+.activity-list-auto {
+    max-width: 80px;
+    min-width: 70px;
 }
 
 
@@ -3250,5 +3249,18 @@ h3.section-done {
     border-radius: 4px;
     padding: 5px;
     width: 55px;
+}
+
+
+.list-item-img {
+    width: 55px;
+    height: 55px;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.activity-list-dropdown,
+.folder-list-dropdown {
+    color: #cccccc;
 }
 

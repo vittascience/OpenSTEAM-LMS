@@ -45,6 +45,13 @@ class FoldersManager {
                 foldersManager.openFolder(id);
             }
         })
+
+        $('body').on('click', '.folder-list', function () {
+            if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
+                let id = $(this).attr('data-id');
+                foldersManager.openFolder(id);
+            }
+        })
     }
 
     openFolderModal() {
@@ -390,17 +397,27 @@ class FoldersManager {
     dragulaInitObjects() {
         // Reset the dragula fields
         this.dragula.containers = [];
-        let foldersArray = document.querySelectorAll('.folder-item');
-        let activitiesArray = document.querySelectorAll('.activity-item');
 
-        this.dragula = dragula([...activitiesArray, ...foldersArray])
+        let foldersArray = document.querySelectorAll('.folder-item'),
+            activitiesArray = document.querySelectorAll('.activity-item'),
+            activitiesListArray = document.querySelectorAll('.folder-item-list'),
+            foldersListArray = document.querySelectorAll('.activity-item-list'),
+            dragableObjects = [];
+
+        if (Main.getClassroomManager().displayMode == "list") {
+            dragableObjects = [...foldersListArray, ...activitiesListArray];
+        } else {
+            dragableObjects = [...foldersArray, ...activitiesArray];
+        }
+
+        this.dragula = dragula(dragableObjects)
             .on('drop', function(el, target, source) {
                 if (target != undefined && source != undefined) {
-                    if ($(target).hasClass("folder-item")) {
+                    if ($(target).hasClass("folder-item") || $(target).hasClass("folder-item-list")) {
                         let elId = source.getAttribute('data-id'),
                             targetId = target.getAttribute('data-id');
                         
-                        if ($(source).hasClass("folder-item")) {
+                        if ($(source).hasClass("folder-item") || $(source).hasClass("folder-item-list")) {
                             foldersManager.moveFolderToFolder(elId, targetId).then(res => {
                                 foldersManager.manageResponseFromMoved(res);
                             })

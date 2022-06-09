@@ -110,25 +110,28 @@ function teacherActivityItem(activity, displayStyle) {
                         </div>
                     </div>`
     } else if (displayStyle == "list") {
+
+        /* let activityTypeImg = activity.type != null && "" ?  */
         content = `<div class="row activity-item-list" data-id="${activity.id}">
         <div class="container-draggable">
             <div class="activity-list ${activityType}">
                 <div class="activity-list-title col">
-                    💻 ${activity.title}
+                    <img class="list-item-img" src="${foldersManager.icons.hasOwnProperty(activity.type) ? foldersManager.icons[activity.type] : "💻"}" alt="${activity.type}" class="folder-icons">
+                    ${activity.title}
                 </div>
     
                 <div class="info-tutorials col-2" data-id="${activity.id}">
                 </div>
 
                 ${activity.isAutocorrect    ? `<div class="activity-list-auto col-1">
-                                                <img src='assets/media/auto-icon.svg' title='Auto'>
+                                                <img src='assets/media/auto-icon-grey.svg' title='Auto'>
                                             </div>` 
                                             : "" }
                
                 <div class="dropdown col-1 activity-list-dropdown">
-                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </i>
-                    <div class="dropdown-menu" aria-labelledby="dropdown-activityItem-${activity.id}" data-id="${activity.id}">
+                    <div class="dropdown-menu" aria-labelledby="dropdown-list-activityItem-${activity.id}" data-id="${activity.id}">
                         <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
                         <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
                         <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
@@ -177,14 +180,15 @@ function teacherFolder(folder, displayStyle) {
                             <div class="folder-list" data-id="${folder.id}">
                     
                                 <div class="folder-list-title col">
-                                    📁 ${folder.name}
+                                    <img class="list-item-img" src="./assets/media/folders/folder_close.png" alt="folder_close" class="folder-icons">
+                                    ${folder.name}
                                 </div>
                     
                     
                                 <div class="dropdown col-1 folder-list-dropdown">
-                                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     </i>
-                                    <div class="dropdown-menu" aria-labelledby="dropdown-folder-${folder.id}" data-id="${folder.id}">
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-list-folder-${folder.id}" data-id="${folder.id}">
                                         <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.updateFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.update'))}</li>
                                         <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${folder.id}, 'folder')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
                                         <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.deleteFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.delete'))}</li>
@@ -375,7 +379,7 @@ $('body').on('click', '.list-students-classroom', function () {
 
 $('body').on('click', '.activity-card, .activity-item .activity-item-title', function () {
     // check if user is regular and display the breadcrumb if he is
-    UserManager.getUser().isRegular ? $('.breadcrumb').show() : $('.breadcrumb').hide();
+    //UserManager.getUser().isRegular ? $('.breadcrumb').show() : $('.breadcrumb').hide();
 
 
     if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
