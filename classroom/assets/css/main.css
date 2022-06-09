@@ -1534,6 +1534,25 @@ h3.section-done {
     min-width: 70px;
 }
 
+.app_image_preview {
+    border-radius: 4px;
+    padding: 5px;
+    width: 55px;
+}
+
+
+.list-item-img {
+    width: 55px;
+    height: 55px;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.activity-list-dropdown,
+.folder-list-dropdown {
+    color: #cccccc;
+}
+
 
 
 @media (max-width: 768px) {
@@ -3245,22 +3264,5 @@ h3.section-done {
     position: relative;
 }
 
-.app_image_preview {
-    border-radius: 4px;
-    padding: 5px;
-    width: 55px;
-}
 
-
-.list-item-img {
-    width: 55px;
-    height: 55px;
-    border-radius: 4px;
-    margin-right: 10px;
-}
-
-.activity-list-dropdown,
-.folder-list-dropdown {
-    color: #cccccc;
-}
 

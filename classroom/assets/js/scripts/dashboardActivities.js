@@ -377,11 +377,7 @@ $('body').on('click', '.list-students-classroom', function () {
     });
 })
 
-$('body').on('click', '.activity-card, .activity-item .activity-item-title', function () {
-    // check if user is regular and display the breadcrumb if he is
-    //UserManager.getUser().isRegular ? $('.breadcrumb').show() : $('.breadcrumb').hide();
-
-
+$('body').on('click', '.activity-list, .activity-list-item, .activity-card, .activity-item .activity-item-title', function () {
     if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
         let id, state, navigation;
         if (this.classList.contains('activity-item-title')) {
