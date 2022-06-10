@@ -3365,3 +3365,10 @@ function facultativeOptions() {
     $('#i-facultative-options').toggleClass('fa-chevron-up')
 }
 
+
+function activityPreviewToggler() {
+    $('#activity-preview').toggle()
+    $('#i-activity-preview').toggleClass('fa-chevron-down')
+    $('#i-activity-preview').toggleClass('fa-chevron-up')
+}
+

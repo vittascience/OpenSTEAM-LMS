@@ -420,6 +420,7 @@
 				"deleteDisclaimer": "Attention, le dossier et l'ensemble de son contenu (activités et sous-dossiers) seront supprimés"
 			},
 			"facultative": "Champs facultatifs",
+			"previewActivity": "Prévisualisation de l'activité",
 			"infoRetroAttribution": "Cette activité sera attribuée aux nouveaux apprenants, quand ils seront ajoutés à votre classe.",
 			"infoAutocorrect": "Cette activité dispose de correction automatique",
 			"infoEvaluation": "En mode évaluation, les apprenants ne peuvent soumettre l’activité qu'une seule fois et n'ont pas accès aux indices et aux aides."

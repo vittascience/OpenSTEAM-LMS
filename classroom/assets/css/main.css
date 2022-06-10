@@ -1465,7 +1465,8 @@ h3.section-done {
     margin-bottom: 2px;
 }
 
-.section-facultative-options {
+.section-facultative-options,
+.section-preview-activity {
     background: var(--classroom-background-1);
     box-shadow: 0px 0px 7px 0px var(--classroom-shadow-1);
     border-radius: 1em;
@@ -1473,7 +1474,8 @@ h3.section-done {
     margin: 1em;
 }
 
-.section-header-facultative-options {
+.section-header-facultative-options,
+.section-header-preview-activity {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -1482,7 +1484,8 @@ h3.section-done {
     user-select: none;
     cursor: pointer;
 }
-.section-title-facultative-options {
+.section-title-facultative-options,
+.section-title-preview-activity {
     text-transform: uppercase;
     font-weight: 600;
     font-size: 1.2em;
@@ -1939,7 +1942,8 @@ h3.section-done {
     display: inline-block;
 }
 
-#drag-and-drop-fields {
+#drag-and-drop-fields,
+.drag-and-drop-fields {
     border: 1px solid var(--classroom-text-0);
     border-radius: 1em;
     padding: 1em;
@@ -1951,7 +1955,8 @@ h3.section-done {
     align-items: center;
 }
 
-#drag-and-drop-fields {
+#drag-and-drop-fields,
+.drag-and-drop-fields {
     min-height: 60px;
     display: flex;
     flex-wrap: wrap;
@@ -2122,7 +2127,8 @@ h3.section-done {
 
 /* ACTIVITY CORRECTION FORM */
 
-#activity-title {
+#activity-title,
+.activity-title {
     font-weight: 700;
     text-align: center;
 
@@ -3264,5 +3270,10 @@ h3.section-done {
     position: relative;
 }
 
+.preview-container {
+    border: 1px solid var(--classroom-primary);
+    border-radius: 1em;
+    padding: 1em;
+}
 
 

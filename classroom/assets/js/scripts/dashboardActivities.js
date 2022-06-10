@@ -839,21 +839,24 @@ function displayQuizTeacherSide() {
     }
 }
 
-function createContentForQuiz(data, doable = true, correction = false) {
+function createContentForQuiz(data, doable = true, correction = false, preview = false) {
     manageLabelForActivity();
+    let previewId = preview ? '-preview' : '';
+    let correctionId = correction ? 'correction-' : '';
+
     let content = "";
     if (doable) {
         for (let i = 1; i < data.length+1; i++) {
-            content += ` <div class="input-group c-checkbox quiz-answer-container" id="qcm-doable-${i}">
-                            <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""}>
-                            <label class="form-check-label" for="student-quiz-checkbox-${i}" id="${correction ? "correction-" : ""}student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
+            content += ` <div class="input-group c-checkbox quiz-answer-container" id="qcm-doable-${i}${previewId}">
+                            <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}${previewId}" ${data[i-1].isCorrect ? "checked" : ""}>
+                            <label class="form-check-label" for="student-quiz-checkbox-${i}${previewId}" id="${correctionId}student-quiz-suggestion-${i}${previewId}">${data[i-1].inputVal}</label>
                         </div>`;
         }
     } else {
         for (let i = 1; i < data.length+1; i++) {
             content += ` <div class="input-group c-checkbox quiz-answer-container" id="qcm-not-doable-${i}">
                             <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
-                            <label class="form-check-label" for="student-quiz-checkbox-${i}" id="${correction ? "correction-" : ""}student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
+                            <label class="form-check-label" for="student-quiz-checkbox-${i}" id="${correctionId}student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
                         </div>`;
         }
     }
@@ -950,8 +953,8 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
     
     if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
-            const wbbptions = Main.getClassroomManager().wbbOpt;
-            $('#activity-input').wysibb(wbbptions);
+/*             const wbbptions = Main.getClassroomManager().wbbOpt;
+            $('#activity-input').wysibb(wbbptions); */
 
             let ContentString = manageDragAndDropText(content.dragAndDropFields.contentForStudent);
             $('#drag-and-drop-text').html(`<div>${ContentString}</div>`);
@@ -1043,10 +1046,11 @@ function shuffleArray(array) {
     return array;
 }
 
-function manageDragAndDropText(studentContentString) {
-    let studentResponses = JSON.parse(Activity.activity.solution);
+function manageDragAndDropText(studentContentString, preview = false) {
+    let studentResponses = preview ? Main.getClassroomManager()._createActivity.solution : JSON.parse(Activity.activity.solution);
+    let previewString = preview ? "-preview" : "";
     for (let i = 0; i < studentResponses.length; i++) {
-        let input = `<span class="dropable-items dropzone" id="dz-${i}"></span>`;
+        let input = `<span class="dropable-items dropzone${previewString}" id="dz-${i}${previewString}"></span>`;
         studentContentString = studentContentString.replace(`﻿`, input);
     }
     return studentContentString;

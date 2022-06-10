@@ -689,50 +689,126 @@ $('body').on('click', '#fill-in-tolerance-decrease', function () {
 
 
 function ActivityPreviewBeforeCreation(type) {
-    let $title = $('#preview-title');
-    let $states = $('#preview-states');
-    let $content = $('#preview-content');
-    let $bbcodeContent = $('#preview-content-bbcode');
+    const $title = $('#preview-title'),
+        $states = $('#preview-states'),
+        $statesText = $('#preview-activity-states'),
+        $content = $('#preview-content'),
+        $contentText = $('#preview-activity-content'),
+        $bbcodeContent = $('#preview-content-bbcode'),
+        $dragAndDrop = $('#preview-activity-drag-and-drop-container'),
+        $contentbbcode = $('#preview-activity-bbcode-content'),
+        ActivityPreview = Main.getClassroomManager()._createActivity,
+        wbbptions = Main.getClassroomManager().wbbOpt;
 
     resetPreviewViews();
 
     $title.html(Main.getClassroomManager()._createActivity.title);
+    $statesText.html(bbcodeToHtml(Main.getClassroomManager()._createActivity.content.states))
+    $title.show();
 
     switch (type) {
         case "quiz":
-            
+            $contentText.html(ActivityPreview.content.quiz.contentForStudent, true, false, true)
+            $states.show();
+            $content.show();
             break;
         case "free":
-            
+            $statesText.html(bbcodeToHtml(Main.getClassroomManager()._createActivity.content.description))
+            $contentbbcode.wysibb(wbbptions);
+            $bbcodeContent.show();
+            $states.show();
             break;
         case "fillIn":
-            
+            let studentContent = bbcodeToHtml(ActivityPreview.content.fillInFields.contentForStudent)
+            let nbOccu = studentContent.match(/﻿/g).length;
+            for (let i = 1; i < nbOccu+1; i++) {
+                studentContent = studentContent.replace(`﻿`, `<input type="text" id="student-fill-in-field-${i}-preview" class="answer-student">`);
+            }
+            $contentText.html(studentContent);
+            $states.show();
+            $content.show();
             break;
         case "reading":
-            
+            $contentText.html(bbcodeToHtml(ActivityPreview.content.description));
+            $content.show();
             break;
         case "dragAndDrop":
+            let ContentString = manageDragAndDropText(ActivityPreview.content.dragAndDropFields.contentForStudent, true);
+            $('#preview-drag-and-drop-text').html(`<div>${ContentString}</div>`);
+
+            // Get the response array and shuffle it
+            let choices = shuffleArray(ActivityPreview.solution);
             
+            choices.forEach(e => {
+                $('#preview-drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
+            });
+        
+            // init dragula if it's not already initialized
+            if (Main.getClassroomManager().dragulaGlobal == false) {
+                Main.getClassroomManager().dragulaGlobal = dragula();
+            }
+
+            // Reset the dragula fields
+            Main.getClassroomManager().dragulaGlobal.containers = [];
+            
+            Main.getClassroomManager().dragulaGlobal = dragula([document.querySelector('#preview-drag-and-drop-fields')]).on('drop', function(el, target, source) {
+                if (target.id != 'preview-drag-and-drop-fields') {
+                    let swap = $(target).find('p').not(el);
+                    swap.length > 0 ? source.append(swap[0]) : null;
+                }
+            });
+
+            $('.dropzone-preview').each((i, e) => {
+                Main.getClassroomManager().dragulaGlobal.containers.push(document.querySelector('#'+e.id));
+            });
+
+            $states.show();
+            $dragAndDrop.show();
             break;
         case "custom":
-            
+            $contentText.html(bbcodeToHtml(ActivityPreview.content.description));
+            $content.show();
             break;
-    
         default:
             break;
     }
-    if (type == 'quiz') {
-        
-
-
-    }
 }
 
-function resetPreviewViews() {
-    const Views = [$('#preview-title'), $('#preview-states'), $('#preview-content'), $('#preview-content-bbcode')];
+$("#global_title").keyup(function() {
+    $("#preview-title").html($("#global_title").val());
+})
 
+function resetPreviewViews() {
+    const Views = [ $('#preview-title'), 
+                    $('#preview-states'), 
+                    $('#preview-content'), 
+                    $('#preview-content-bbcode'), 
+                    $('#preview-activity-drag-and-drop-container')];
+    const ContentViews = [  $('#preview-activity-content'), 
+                            $('#preview-activity-states'), 
+                            $('#preview-activity-bbcode-content'), 
+                            $('#preview-drag-and-drop-text'), 
+                            $('#preview-drag-and-drop-fields')];
     Views.forEach(e => {
-        e.html('');
         e.hide();
     });
+    ContentViews.forEach(e => {
+        e.html('');
+    });
+}
+
+
+
+function manageContentForPreviewActivity() {
+    let content = "";
+    let activityToParse = Main.getClassroomManager()._createActivity
+    const contentParsed = activityToParse.content;
+    if (activityToParse.type != "fillIn" && activityToParse.type != "quiz" && activityToParse.type != "dragAndDrop") {
+        if (contentParsed.hasOwnProperty('description')) {
+            content = contentParsed.description;
+        }
+    } else {
+        content = contentParsed;
+    }
+    return content;
 }
