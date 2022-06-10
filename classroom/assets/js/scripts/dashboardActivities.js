@@ -124,7 +124,7 @@ function teacherActivityItem(activity, displayStyle) {
                 </div>
 
                 ${activity.isAutocorrect    ? `<div class="activity-list-auto col-1">
-                                                <img src='assets/media/auto-icon-grey.svg' title='Auto'>
+                                                <img src='assets/media/auto-icon-grey.svg' title='Auto' onload="SVGInject(this)">
                                             </div>` 
                                             : "" }
                

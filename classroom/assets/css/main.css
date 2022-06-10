@@ -1438,6 +1438,12 @@ h3.section-done {
 .btn-folders {
     background-color: transparent;
     padding: 0 !important;
+    height: fit-content;
+    align-self: center;
+}
+
+.btn-folders svg {
+    height: 100%;
 }
 
 #folders-seek-tree-content-modal ul,
@@ -1949,6 +1955,7 @@ h3.section-done {
     padding: 1em;
 }
 
+#preview-drag-and-drop-text>div,
 #drag-and-drop-text>div {
     display: flex;
     flex-wrap: wrap;
@@ -3274,6 +3281,11 @@ h3.section-done {
     border: 1px solid var(--classroom-primary);
     border-radius: 1em;
     padding: 1em;
+    pointer-events: none;
 }
+
+.preview-container h3 {
+    display: none;
+} 
 
 
