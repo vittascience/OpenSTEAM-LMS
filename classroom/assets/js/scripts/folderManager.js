@@ -198,7 +198,7 @@ class FoldersManager {
         if (this.treeFolder.html() == "") {
             this.resetTreeFolders();
         }
-        this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span> <button class="btn c-btn-outline-primary" data-id="${folder.id}" onclick="foldersManager.goToFolder(${folder.id})">📁 ${folder.name}</button>`);  
+        this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span> <button class="btn c-btn-outline-primary" data-id="${folder.id}" onclick="foldersManager.goToFolder(${folder.id})"><i class="fas fa-folder-open folder-breadcrumb"></i> ${folder.name}</button>`);  
     }
 
     goToFolder(folderId) {
@@ -239,7 +239,7 @@ class FoldersManager {
 
         idOfParents.reverse().forEach(folder => {
             if (folder != null && folder.id != undefined) {
-                this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span>  <button class="btn c-btn-outline-primary" onclick="foldersManager.goToFolder(${folder.id})">📁 ${folder.name}</button>`);
+                this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span>  <button class="btn c-btn-outline-primary" onclick="foldersManager.goToFolder(${folder.id})"><i class="fas fa-folder-open folder-breadcrumb"></i> ${folder.name}</button>`);
             }
         });
     }
@@ -333,7 +333,7 @@ class FoldersManager {
             content = `<label>📁 - ${folder.name}</label>`;
         } else {
             content = `<input type="radio" name="tree-structure" id="${randomString}" data-id="${folder.id}">
-                                <label for="${randomString}">📁 - ${folder.name}</label>
+                                <label for="${randomString}"><i class="fas fa-folder-open folder-breadcrumb"></i> - ${folder.name}</label>
                             </input>`;
         }
         return content;
