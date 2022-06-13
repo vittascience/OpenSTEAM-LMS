@@ -916,7 +916,7 @@ function toggleBlockClass() {
         
     } else {
         classroom.isBlocked = true;
-        console.log("blocked");
+        //console.log("blocked");
         $('#blocking-class-tooltip').addClass('greyscale');
         $('#blocking-class-tooltip > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
         $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '0.5');
@@ -924,7 +924,7 @@ function toggleBlockClass() {
         $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.activationLinkDisabled')).tooltip();
     }
     Main.getClassroomManager().updateClassroom(classroom).then(function (response) {
-        console.log(`Classroom locked: ${response.isBlocked}`);
+        //console.log(`Classroom locked: ${response.isBlocked}`);
     });
 }
 
@@ -3344,6 +3344,7 @@ $('#btn-help-for-groupAdmin').click(function () {
         $('#groupadmin-contact-subject-input').val("");
     })
 })
+
 /* Add tooltip to info  */
 function setAddFieldTooltips() {
     $('#infoRetroAttribution').tooltip("dispose");

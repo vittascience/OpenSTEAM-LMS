@@ -796,19 +796,3 @@ function resetPreviewViews() {
         e.html('');
     });
 }
-
-
-
-function manageContentForPreviewActivity() {
-    let content = "";
-    let activityToParse = Main.getClassroomManager()._createActivity
-    const contentParsed = activityToParse.content;
-    if (activityToParse.type != "fillIn" && activityToParse.type != "quiz" && activityToParse.type != "dragAndDrop") {
-        if (contentParsed.hasOwnProperty('description')) {
-            content = contentParsed.description;
-        }
-    } else {
-        content = contentParsed;
-    }
-    return content;
-}
