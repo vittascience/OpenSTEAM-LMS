@@ -916,16 +916,13 @@ function toggleBlockClass() {
         
     } else {
         classroom.isBlocked = true;
-        //console.log("blocked");
         $('#blocking-class-tooltip').addClass('greyscale');
         $('#blocking-class-tooltip > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
         $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '0.5');
         $('#blocking-class-tooltip').tooltip("dispose");
         $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.activationLinkDisabled')).tooltip();
     }
-    Main.getClassroomManager().updateClassroom(classroom).then(function (response) {
-        //console.log(`Classroom locked: ${response.isBlocked}`);
-    });
+    Main.getClassroomManager().updateClassroom(classroom);
 }
 
 // Show the month in string format
@@ -941,11 +938,6 @@ function formatHour(da) {
     let twoDigitsHour = d.getHours() < 10 ? '0' + d.getHours() : d.getHours();
     return d.getDate() + " " + (translatedMonth) + " " + d.getFullYear() + " - " + twoDigitsHour + "h" + d.getMinutes();
 }
-
-/* function docopy(self) {
-
-    
-} */
 
 function returnToConnectionPanel(currentPanel) {
     if (window.getComputedStyle(document.getElementById('classroom-register-container')).display == 'block') {
@@ -3373,3 +3365,22 @@ function activityPreviewToggler() {
     $('#i-activity-preview').toggleClass('fa-chevron-up')
 }
 
+$('#qr-copy').click(() => {
+    if ($("#classroom-code-share-qr-code").find("canvas").length > 0) {
+        const canvasImg = $("#classroom-code-share-qr-code").find("canvas")[0];
+        canvasImg.toBlob(function(blob) { 
+            const item = new ClipboardItem({ "image/png": blob });
+            navigator.clipboard.write([item]); 
+        });
+    }
+})
+
+$('#qr-download').click(() => {
+    if ($("#classroom-code-share-qr-code").find("canvas").length > 0) {
+        const canvasImg = $("#classroom-code-share-qr-code").find("canvas")[0];
+        let link = document.createElement('a');
+        link.download = 'qr-code.png';
+        link.href = canvasImg.toDataURL()
+        link.click();
+    }
+})

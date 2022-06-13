@@ -248,6 +248,8 @@
 				"editNickname": "Edit your nickname",
 				"delete": "Delete",
 				"copyLink": "Copy the direct link",
+				"copyImage": "Copy the image",
+				"downloadImage": "Download the image",
 				"learnerMode": "Learner mode",
 				"dueBy":"Due by",
 				"timePassed": "Time spent: "
@@ -401,7 +403,7 @@
 			"facultative": "Optional field",
 			"infoRetroAttribution": "This activity will be added for every new students added to the class",
 			"infoAutocorrect": "This activity has automated correction, do you like to activate it ?",
-			"infoEvaluation": "In evaluation mode, learners can only submit the activity once and do not have access to hints and helps."
+			"infoEvaluation": "By selecting no, learners can only submit the activity once and do not have access to hints and helps."
 		},
 		"filter": {
 			"desc": "Oldest to newest",
