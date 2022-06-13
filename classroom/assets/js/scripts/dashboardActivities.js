@@ -110,25 +110,28 @@ function teacherActivityItem(activity, displayStyle) {
                         </div>
                     </div>`
     } else if (displayStyle == "list") {
+
+        /* let activityTypeImg = activity.type != null && "" ?  */
         content = `<div class="row activity-item-list" data-id="${activity.id}">
         <div class="container-draggable">
             <div class="activity-list ${activityType}">
                 <div class="activity-list-title col">
-                    💻 ${activity.title}
+                    <img class="list-item-img" src="${foldersManager.icons.hasOwnProperty(activity.type) ? foldersManager.icons[activity.type] : "💻"}" alt="${activity.type}" class="folder-icons">
+                    ${activity.title}
                 </div>
     
                 <div class="info-tutorials col-2" data-id="${activity.id}">
                 </div>
 
                 ${activity.isAutocorrect    ? `<div class="activity-list-auto col-1">
-                                                <img src='assets/media/auto-icon.svg' title='Auto'>
+                                                <img src='assets/media/auto-icon-grey.svg' title='Auto' onload="SVGInject(this)">
                                             </div>` 
                                             : "" }
                
                 <div class="dropdown col-1 activity-list-dropdown">
-                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </i>
-                    <div class="dropdown-menu" aria-labelledby="dropdown-activityItem-${activity.id}" data-id="${activity.id}">
+                    <div class="dropdown-menu" aria-labelledby="dropdown-list-activityItem-${activity.id}" data-id="${activity.id}">
                         <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
                         <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
                         <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
@@ -150,6 +153,8 @@ function teacherFolder(folder, displayStyle) {
         content = `<div class="folder-item" data-id="${folder.id}">
                     <div> 
                         <div class="folder-card" data-id="${folder.id}">
+                        <img class="folder-close-icon" src="./assets/media/folders/folder_close_icon.svg" onload="SVGInject(this)">
+                        <img class="folder-open-icon" src="./assets/media/folders/folder_open_icon.svg" onload="SVGInject(this)">
                             <div class="folder-card-top">
                                 <div class="dropdown">
                                     <i class="fas fa-cog fa-2x" type="button" id="dropdown-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -177,14 +182,15 @@ function teacherFolder(folder, displayStyle) {
                             <div class="folder-list" data-id="${folder.id}">
                     
                                 <div class="folder-list-title col">
-                                    📁 ${folder.name}
+                                    <img class="list-item-img" src="./assets/media/folders/folder_close_icon.svg" alt="folder_close" class="folder-icons" onload="SVGInject(this)">
+                                    ${folder.name}
                                 </div>
                     
                     
                                 <div class="dropdown col-1 folder-list-dropdown">
-                                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     </i>
-                                    <div class="dropdown-menu" aria-labelledby="dropdown-folder-${folder.id}" data-id="${folder.id}">
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-list-folder-${folder.id}" data-id="${folder.id}">
                                         <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.updateFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.update'))}</li>
                                         <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${folder.id}, 'folder')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
                                         <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.deleteFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.delete'))}</li>
@@ -304,18 +310,18 @@ function classeList(classe, ref = null) {
 $('body').on('click', '#filter-activity', function () {
     let arrayKeywords = $('#filter-activity-input').val().split(' ')
     if ($('#filter-activity-select').val() == 'asc') {
-        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false))
+        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false), arrayKeywords, false)
     } else {
-        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true))
+        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true), arrayKeywords, true)
     }
 })
 
 $('body').on('change', '#filter-activity-select', function () {
     let arrayKeywords = $('#filter-activity-input').val().split(' ')
     if ($('#filter-activity-select').val() == 'asc') {
-        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false))
+        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false), arrayKeywords, false)
     } else {
-        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true))
+        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true), arrayKeywords, true)
     }
 })
 
@@ -323,9 +329,9 @@ $(document).on('keyup', function (e) {
     if ($("#filter-activity-input").is(":focus") || $("#filter-activity").is(":focus") || $("#filter-activity-select").is(":focus")) {
         let arrayKeywords = $('#filter-activity-input').val().split(' ')
         if ($('#filter-activity-select').val() == 'asc') {
-            teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false))
+            teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false), arrayKeywords, false)
         } else {
-            teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true))
+            teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true), arrayKeywords, true)
         }
     }
 });
@@ -373,11 +379,7 @@ $('body').on('click', '.list-students-classroom', function () {
     });
 })
 
-$('body').on('click', '.activity-card, .activity-item .activity-item-title', function () {
-    // check if user is regular and display the breadcrumb if he is
-    UserManager.getUser().isRegular ? $('.breadcrumb').show() : $('.breadcrumb').hide();
-
-
+$('body').on('click', '.activity-list, .activity-list-item, .activity-card, .activity-item .activity-item-title', function () {
     if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
         let id, state, navigation;
         if (this.classList.contains('activity-item-title')) {
@@ -535,8 +537,8 @@ function loadActivityForStudents(isDoable) {
     ]
     // Disclaimer for eval
     if (Activity.correction < 2 && (activityType.includes(Activity.activity.type))) {
-        $('#warning-text-container').show();
-        $('#warning-text-container > i').hide();
+        $('#warning-icon-container').show();
+        $('#warning-icon-container > i').hide();
         Activity.evaluation ? $('#warning-icon-evaluation').show().tooltip() : $("#warning-icon-no-evaluation").show().tooltip();
     }
     
@@ -839,21 +841,24 @@ function displayQuizTeacherSide() {
     }
 }
 
-function createContentForQuiz(data, doable = true, correction = false) {
+function createContentForQuiz(data, doable = true, correction = false, preview = false) {
     manageLabelForActivity();
+    let previewId = preview ? '-preview' : '';
+    let correctionId = correction ? 'correction-' : '';
+
     let content = "";
     if (doable) {
         for (let i = 1; i < data.length+1; i++) {
-            content += ` <div class="input-group c-checkbox quiz-answer-container" id="qcm-doable-${i}">
-                            <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""}>
-                            <label class="form-check-label" for="student-quiz-checkbox-${i}" id="${correction ? "correction-" : ""}student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
+            content += ` <div class="input-group c-checkbox quiz-answer-container" id="qcm-doable-${i}${previewId}">
+                            <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}${previewId}" ${data[i-1].isCorrect ? "checked" : ""}>
+                            <label class="form-check-label" for="student-quiz-checkbox-${i}${previewId}" id="${correctionId}student-quiz-suggestion-${i}${previewId}">${data[i-1].inputVal}</label>
                         </div>`;
         }
     } else {
         for (let i = 1; i < data.length+1; i++) {
             content += ` <div class="input-group c-checkbox quiz-answer-container" id="qcm-not-doable-${i}">
                             <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
-                            <label class="form-check-label" for="student-quiz-checkbox-${i}" id="${correction ? "correction-" : ""}student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
+                            <label class="form-check-label" for="student-quiz-checkbox-${i}" id="${correctionId}student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
                         </div>`;
         }
     }
@@ -950,8 +955,8 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
     
     if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
-            const wbbptions = Main.getClassroomManager().wbbOpt;
-            $('#activity-input').wysibb(wbbptions);
+/*             const wbbptions = Main.getClassroomManager().wbbOpt;
+            $('#activity-input').wysibb(wbbptions); */
 
             let ContentString = manageDragAndDropText(content.dragAndDropFields.contentForStudent);
             $('#drag-and-drop-text').html(`<div>${ContentString}</div>`);
@@ -1019,17 +1024,17 @@ function displayDragAndDropTeacherSide(correction_div, correction, content) {
     
         $('#activity-student-response-content').html(bbcodeToHtml(studentContentString));
         $('#activity-student-response').show();
+        Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
+            for (let i = 0; i < $(`input[id^="corrected-student-response-"]`).length; i++) {
+                $('#corrected-student-response-' + i).addClass("answer-correct");
+            }
+        
+            for (let i = 0; i < result.success.length; i++) {
+                $('#corrected-student-response-' + (result.success[i])).addClass("answer-incorrect");
+            }
+        })
     }
 
-    Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
-        for (let i = 0; i < $(`input[id^="corrected-student-response-"]`).length; i++) {
-            $('#corrected-student-response-' + i).addClass("answer-correct");
-        }
-    
-        for (let i = 0; i < result.success.length; i++) {
-            $('#corrected-student-response-' + (result.success[i])).addClass("answer-incorrect");
-        }
-    })
 
 
     manageCorrectionDiv(correction_div, correction);
@@ -1043,10 +1048,11 @@ function shuffleArray(array) {
     return array;
 }
 
-function manageDragAndDropText(studentContentString) {
-    let studentResponses = JSON.parse(Activity.activity.solution);
+function manageDragAndDropText(studentContentString, preview = false) {
+    let studentResponses = preview ? Main.getClassroomManager()._createActivity.solution : JSON.parse(Activity.activity.solution);
+    let previewString = preview ? "-preview" : "";
     for (let i = 0; i < studentResponses.length; i++) {
-        let input = `<span class="dropable-items dropzone" id="dz-${i}"></span>`;
+        let input = `<span class="dropable-items dropzone${previewString}" id="dz-${i}${previewString}"></span>`;
         studentContentString = studentContentString.replace(`﻿`, input);
     }
     return studentContentString;

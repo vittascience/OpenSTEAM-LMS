@@ -80,7 +80,7 @@ function resetInputsForActivity() {
     $('#drag-and-drop-text').html('');
 
     // Warning message for
-    $('#warning-text-container').hide();
+    $('#warning-icon-container').hide();
     $('#warning-text-evaluation').hide();
     $("#warning-text-no-evaluation").hide();
 

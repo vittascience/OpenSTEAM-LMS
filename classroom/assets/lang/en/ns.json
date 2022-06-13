@@ -248,6 +248,8 @@
 				"editNickname": "Edit your nickname",
 				"delete": "Delete",
 				"copyLink": "Copy the direct link",
+				"copyImage": "Copy the image",
+				"downloadImage": "Download the image",
 				"learnerMode": "Learner mode",
 				"dueBy":"Due by",
 				"timePassed": "Time spent: "
@@ -255,7 +257,9 @@
 			"selectStudents": "Select the students",
 			"selectedStudents": "<span id='attribuate-student-number'>0</span> students selected",
 			"activationLink": "Activation link enabled",
-			"activationLinkDisabled": "Activation link disabled"
+			"activationLinkDisabled": "Activation link disabled",
+			"deleteStudent": "Delete the student",
+			"deleteStudentConfirm": "Are you sure you want to delete this student?"
 		},
 		"activities": {
 			"title": "Activities",
@@ -299,6 +303,9 @@
 			"hint": "Hint",
 			"saved": "Activity saved",
 			"wrongAnswer": "Wrong answer",
+			"emptyAnswer": "Answer cannot be empty",
+			"wrongAnswerLarge": "Wrong answer, you can try again !",
+			"previewActivity": "Preview the activity",
 			"hintExist": "<i class='fas fa-info-circle'></i> This exercise has a hint, it can only be displayed if the student can submit the activity several times",
 			"anoStudent": "Student",
 			"bilan": {
@@ -396,7 +403,7 @@
 			"facultative": "Optional field",
 			"infoRetroAttribution": "This activity will be added for every new students added to the class",
 			"infoAutocorrect": "This activity has automated correction, do you like to activate it ?",
-			"infoEvaluation": "In evaluation mode, learners can only submit the activity once and do not have access to hints and helps."
+			"infoEvaluation": "By selecting no, learners can only submit the activity once and do not have access to hints and helps."
 		},
 		"filter": {
 			"desc": "Oldest to newest",

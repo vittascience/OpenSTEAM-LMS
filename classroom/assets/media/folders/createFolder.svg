@@ -2,12 +2,7 @@
   <defs>
     <style>
       .cls-1-folder, .cls-2-folder {
-        fill: #24a069;
-      }
-
-      .cls-1-folder {
-        stroke: rgba(0,0,0,0);
-        stroke-miterlimit: 10;
+        fill: var(--classroom-primary);
       }
     </style>
   </defs>

@@ -1264,5 +1264,27 @@ const classroomModals = {
                         <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="foldersManager.persistGoToSelected()" data-i18n="manager.buttons.validate">Valider</button>
                     </div>`,
         footer: ``
+    },
+    'delete-student-modal': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.classes.deleteStudent'
+        },
+        content: `  <div id="delete-user-modal">
+                        <div class="col-12">
+                            <input type="hidden" id="student-to-delete-id">
+                            <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="classroom.classes.deleteStudentConfirm"></h3>
+                            <div class="text-center c-secondary-form">
+                                <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>
+                                <input type="text" name="validation-delete-student" id="validation-delete-student" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                            </div>
+                            <div class="text-center">
+                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelDeleteStudent()" data-i18n="manager.buttons.cancel">Annuler</button>
+                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteStudent()" data-i18n="manager.buttons.validate">Valider</button>
+                            </div>
+                        </div>
+                    </div>`,
+        footer: ``
     }
 }

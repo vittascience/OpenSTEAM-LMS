@@ -126,6 +126,11 @@ $('body').on('mouseenter mouseleave', '.dropdown-act', function () {
     $(this).find('.fa-cog').toggle()
 })
 
+// avoid modal closing when clicking on the modal
+$(document).on('click', '.dropdown-menu', function (e) {
+    e.stopPropagation();
+});
+
 $('input[type=radio][name=isEval-activity-form]').change(function () {
 
     let id = Main.getClassroomManager()._idActivityOnAttribution,
@@ -276,6 +281,10 @@ function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = fa
     $('.tooltip').remove()
     if (typeof Main.leaderline !== 'undefined') Main.leaderline.hide();
     $('[data-toggle="tooltip"]').tooltip()
+
+    if (id == 'classroom-dashboard-activities-panel-teacher' && idNav == 'dashboard-activities-teacher') {
+        foldersManager.goToFolder(foldersManager.actualFolder);
+    }
 }
 
 /**
@@ -823,7 +832,7 @@ function classroomsDisplay() {
     });
 }
 
-function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherActivities) {
+function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherActivities, keyword = false, asc = false) {
     // Keep the list sorted
     let sortedList = $("#filter-activity-select").val() != "desc" ? list.sort((a, b) => {return b.id - a.id}) : list;
     let displayStyle = Main.getClassroomManager().displayMode;
@@ -833,13 +842,8 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
         foldersManager.resetTreeFolders();
     }
 
-    if (displayStyle == "list") {
-        $("#list-activities-teacher").css("flex-direction", "column")
-    } else {
-        $("#list-activities-teacher").css("flex-direction", "row")
-    }
 
-    
+    displayStyle == "list" ? $("#list-activities-teacher").css("flex-direction", "column") : $("#list-activities-teacher").css("flex-direction", "row");
     $('#list-activities-teacher').html(``);
     sortedList.forEach(element => {
         if (element.folder == null && foldersManager.actualFolder == null) {
@@ -851,7 +855,10 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
         }
     });
 
-    foldersManager.userFolders.forEach(folder => {
+    
+    // Add sorting to the folders
+    let foldersZ = keyword ? filterTeacherFolderInList(keyword, asc) : foldersManager.userFolders;
+    foldersZ.forEach(folder => {
         if (folder.parentFolder == null && foldersManager.actualFolder == null) {
             $('#list-activities-teacher').append(teacherFolder(folder, displayStyle));
         } else if (folder.parentFolder != null) {
@@ -864,6 +871,30 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
     foldersManager.dragulaInitObjects();
     $('[data-toggle="tooltip"]').tooltip();
 }
+
+
+function filterTeacherFolderInList(keywords = [], asc = true) {
+
+    let expression = ''
+    for (let i = 0; i < keywords.length; i++) {
+        expression += '(?=.*'
+        expression += keywords[i].toUpperCase()
+        expression += ')'
+    }
+    regExp = new RegExp(expression)
+    let list = foldersManager.userFolders.filter(x => regExp.test(x.name.toUpperCase()))
+    if (asc) {
+        return list.sort(function (a, b) {
+            return a["id"] - b["id"];
+        })
+    } else {
+        return list.sort(function (a, b) {
+            return b["id"] - a["id"];
+        })
+    }
+}
+
+
 
 $('body').on('change', '#action-teach-setting', function () {
     console.log('check')
@@ -885,16 +916,13 @@ function toggleBlockClass() {
         
     } else {
         classroom.isBlocked = true;
-        console.log("blocked");
         $('#blocking-class-tooltip').addClass('greyscale');
         $('#blocking-class-tooltip > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
         $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '0.5');
         $('#blocking-class-tooltip').tooltip("dispose");
         $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.activationLinkDisabled')).tooltip();
     }
-    Main.getClassroomManager().updateClassroom(classroom).then(function (response) {
-        console.log(`Classroom locked: ${response.isBlocked}`);
-    });
+    Main.getClassroomManager().updateClassroom(classroom);
 }
 
 // Show the month in string format
@@ -910,11 +938,6 @@ function formatHour(da) {
     let twoDigitsHour = d.getHours() < 10 ? '0' + d.getHours() : d.getHours();
     return d.getDate() + " " + (translatedMonth) + " " + d.getFullYear() + " - " + twoDigitsHour + "h" + d.getMinutes();
 }
-
-/* function docopy(self) {
-
-    
-} */
 
 function returnToConnectionPanel(currentPanel) {
     if (window.getComputedStyle(document.getElementById('classroom-register-container')).display == 'block') {
@@ -3313,6 +3336,7 @@ $('#btn-help-for-groupAdmin').click(function () {
         $('#groupadmin-contact-subject-input').val("");
     })
 })
+
 /* Add tooltip to info  */
 function setAddFieldTooltips() {
     $('#infoRetroAttribution').tooltip("dispose");
@@ -3333,3 +3357,30 @@ function facultativeOptions() {
     $('#i-facultative-options').toggleClass('fa-chevron-down')
     $('#i-facultative-options').toggleClass('fa-chevron-up')
 }
+
+
+function activityPreviewToggler() {
+    $('#activity-preview').toggle()
+    $('#i-activity-preview').toggleClass('fa-chevron-down')
+    $('#i-activity-preview').toggleClass('fa-chevron-up')
+}
+
+$('#qr-copy').click(() => {
+    if ($("#classroom-code-share-qr-code").find("canvas").length > 0) {
+        const canvasImg = $("#classroom-code-share-qr-code").find("canvas")[0];
+        canvasImg.toBlob(function(blob) { 
+            const item = new ClipboardItem({ "image/png": blob });
+            navigator.clipboard.write([item]); 
+        });
+    }
+})
+
+$('#qr-download').click(() => {
+    if ($("#classroom-code-share-qr-code").find("canvas").length > 0) {
+        const canvasImg = $("#classroom-code-share-qr-code").find("canvas")[0];
+        let link = document.createElement('a');
+        link.download = 'qr-code.png';
+        link.href = canvasImg.toDataURL()
+        link.click();
+    }
+})

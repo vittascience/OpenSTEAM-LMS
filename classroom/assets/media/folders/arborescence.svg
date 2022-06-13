@@ -1,12 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="26.365" height="26.365" viewBox="0 0 26.365 26.365">
   <defs>
     <style>
-      .cls-1-arbo {
-        fill: #24a069;
-      }
-
+      .cls-1-arbo,
       .cls-2-arbo {
-        fill: #24a069;
+        fill: var(--classroom-primary);
       }
     </style>
   </defs>
@@ -15,8 +12,8 @@
     <rect id="Rectangle_3981" data-name="Rectangle 3981" class="cls-1-arbo" width="15" height="1" transform="translate(78.147 19.365)"/>
     <rect id="Rectangle_3982" data-name="Rectangle 3982" class="cls-1-arbo" width="15" height="1" transform="translate(78.147 6.176)"/>
     <rect id="Rectangle_3983" data-name="Rectangle 3983" class="cls-1-arbo" width="15" height="1" transform="translate(78.147 12.682)"/>
-    <path id="Tracé_6280" data-name="Tracé 6280" class=".cls-2-arbo" d="M74.842,5.176a1.5,1.5,0,1,1-1.5,1.5,1.5,1.5,0,0,1,1.5-1.5"/>
-    <path id="Tracé_6281" data-name="Tracé 6281" class=".cls-2-arbo" d="M74.842,11.683a1.5,1.5,0,1,1-1.5,1.5,1.5,1.5,0,0,1,1.5-1.5"/>
-    <path id="Tracé_6282" data-name="Tracé 6282" class=".cls-2-arbo" d="M74.842,18.176a1.5,1.5,0,1,1-1.5,1.5,1.5,1.5,0,0,1,1.5-1.5"/>
+    <path id="Tracé_6280" data-name="Tracé 6280" class="cls-2-arbo" d="M74.842,5.176a1.5,1.5,0,1,1-1.5,1.5,1.5,1.5,0,0,1,1.5-1.5"/>
+    <path id="Tracé_6281" data-name="Tracé 6281" class="cls-2-arbo" d="M74.842,11.683a1.5,1.5,0,1,1-1.5,1.5,1.5,1.5,0,0,1,1.5-1.5"/>
+    <path id="Tracé_6282" data-name="Tracé 6282" class="cls-2-arbo" d="M74.842,18.176a1.5,1.5,0,1,1-1.5,1.5,1.5,1.5,0,0,1,1.5-1.5"/>
   </g>
 </svg>

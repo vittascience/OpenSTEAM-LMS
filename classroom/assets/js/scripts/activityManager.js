@@ -133,6 +133,7 @@ function contentForward() {
         displayNotification('#notif-div', "classroom.notif.emptyContent", "error");
     } else {
         navigatePanel('classroom-dashboard-classes-new-activity-title', 'dashboard-proactivities-teacher');
+        ActivityPreviewBeforeCreation(Main.getClassroomManager()._createActivity.id);
     }
 }
 
@@ -160,14 +161,15 @@ function titleForward() {
             content = JSON.stringify(Main.getClassroomManager()._createActivity.content),
             solution = JSON.stringify(Main.getClassroomManager()._createActivity.solution),
             tolerance = Main.getClassroomManager()._createActivity.tolerance,
-            autocorrect = Main.getClassroomManager()._createActivity.autocorrect;
+            autocorrect = Main.getClassroomManager()._createActivity.autocorrect,
+            folder = foldersManager.actualFolder;
 
         if (type == "dragAndDrop" || type == "fillIn" || type == "quiz") {
             autocorrect = true;
         }
 
         if (Main.getClassroomManager()._createActivity.function == "create") {  
-            Main.getClassroomManager().createNewActivity(title, type, content, solution, tolerance, autocorrect).then((response) => {
+            Main.getClassroomManager().createNewActivity(title, type, content, solution, tolerance, autocorrect, folder).then((response) => {
                 if (response.success == true) {
                     Main.getClassroomManager()._lastCreatedActivity = response.id;
                     displayNotification('#notif-div', "classroom.notif.activityCreated", "success", `'{"activityTitle": "${title}"}'`);
@@ -292,6 +294,8 @@ function responseManager(response = null, type = null) {
         if (response.hasOwnProperty("message")) {
             if (response.message == "activitySaved") {
                 displayNotification('#notif-div', "classroom.activities.saved", "success");
+            } else if (response.message == "emptyAnswer") {
+                displayNotification('#notif-div', "classroom.activities.emptyAnswer", "error");
             }
         } else if (response.hasOwnProperty("badResponse")) {
             saveActivitiesResponseManager(type, response);
@@ -305,6 +309,7 @@ function responseManager(response = null, type = null) {
 
 function saveActivitiesResponseManager(activityType = null, response = null) {
     if (activityType == 'fill-in') {
+        displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
         if (response.hasOwnProperty("hint")) {
             if (response.hint != null && response.hint != "") {
                 $("#activity-hint-container").show();
@@ -321,6 +326,7 @@ function saveActivitiesResponseManager(activityType = null, response = null) {
             }
         }
     } else if (activityType == 'drag-and-drop') {
+        displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
         for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
             $('#dz-' + i).css("border","1px solid var(--correction-3)");
         }
@@ -336,6 +342,7 @@ function saveActivitiesResponseManager(activityType = null, response = null) {
             }
         }
     } else if (activityType == 'quiz') {
+        displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
         for (let i = 1; i < $(`input[id^="student-quiz-suggestion-"]`).length+1; i++) {
             $('#student-quiz-suggestion-' + i).parent().addClass('quiz-answer-correct');
         }
@@ -680,3 +687,112 @@ $('body').on('click', '#fill-in-tolerance-decrease', function () {
     }
 })
 
+
+function ActivityPreviewBeforeCreation(type) {
+    const $title = $('#preview-title'),
+        $states = $('#preview-states'),
+        $statesText = $('#preview-activity-states'),
+        $content = $('#preview-content'),
+        $contentText = $('#preview-activity-content'),
+        $bbcodeContent = $('#preview-content-bbcode'),
+        $dragAndDrop = $('#preview-activity-drag-and-drop-container'),
+        $contentbbcode = $('#preview-activity-bbcode-content'),
+        ActivityPreview = Main.getClassroomManager()._createActivity,
+        wbbptions = Main.getClassroomManager().wbbOpt;
+
+    resetPreviewViews();
+
+    $title.html(Main.getClassroomManager()._createActivity.title);
+    $statesText.html(bbcodeToHtml(Main.getClassroomManager()._createActivity.content.states))
+    $title.show();
+
+    switch (type) {
+        case "quiz":
+            $contentText.html(ActivityPreview.content.quiz.contentForStudent, true, false, true)
+            $states.show();
+            $content.show();
+            break;
+        case "free":
+            $statesText.html(bbcodeToHtml(Main.getClassroomManager()._createActivity.content.description))
+            $contentbbcode.wysibb(wbbptions);
+            $bbcodeContent.show();
+            $states.show();
+            break;
+        case "fillIn":
+            let studentContent = bbcodeToHtml(ActivityPreview.content.fillInFields.contentForStudent)
+            let nbOccu = studentContent.match(/﻿/g).length;
+            for (let i = 1; i < nbOccu+1; i++) {
+                studentContent = studentContent.replace(`﻿`, `<input type="text" id="student-fill-in-field-${i}-preview" class="answer-student">`);
+            }
+            $contentText.html(studentContent);
+            $states.show();
+            $content.show();
+            break;
+        case "reading":
+            $contentText.html(bbcodeToHtml(ActivityPreview.content.description));
+            $content.show();
+            break;
+        case "dragAndDrop":
+            let ContentString = manageDragAndDropText(ActivityPreview.content.dragAndDropFields.contentForStudent, true);
+            $('#preview-drag-and-drop-text').html(`<div>${ContentString}</div>`);
+
+            // Get the response array and shuffle it
+            let choices = shuffleArray(ActivityPreview.solution);
+            
+            choices.forEach(e => {
+                $('#preview-drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
+            });
+        
+            // init dragula if it's not already initialized
+            if (Main.getClassroomManager().dragulaGlobal == false) {
+                Main.getClassroomManager().dragulaGlobal = dragula();
+            }
+
+            // Reset the dragula fields
+            Main.getClassroomManager().dragulaGlobal.containers = [];
+            
+            Main.getClassroomManager().dragulaGlobal = dragula([document.querySelector('#preview-drag-and-drop-fields')]).on('drop', function(el, target, source) {
+                if (target.id != 'preview-drag-and-drop-fields') {
+                    let swap = $(target).find('p').not(el);
+                    swap.length > 0 ? source.append(swap[0]) : null;
+                }
+            });
+
+            $('.dropzone-preview').each((i, e) => {
+                Main.getClassroomManager().dragulaGlobal.containers.push(document.querySelector('#'+e.id));
+            });
+
+            $states.show();
+            $dragAndDrop.show();
+            break;
+        case "custom":
+            $contentText.html(bbcodeToHtml(ActivityPreview.content.description));
+            $content.show();
+            break;
+        default:
+            break;
+    }
+}
+
+$("#global_title").keyup(function() {
+    $("#preview-title").html($("#global_title").val());
+})
+
+function resetPreviewViews() {
+    const Views = [ $('#preview-title'), 
+                    $('#preview-states'), 
+                    $('#preview-content'), 
+                    $('#preview-content-bbcode'), 
+                    $('#preview-activity-drag-and-drop-container')];
+    const ContentViews = [  $('#preview-activity-content'), 
+                            $('#preview-activity-states'), 
+                            $('#preview-activity-bbcode-content'), 
+                            $('#preview-drag-and-drop-text'), 
+                            $('#preview-drag-and-drop-fields')];
+    Views.forEach(e => {
+        e.hide();
+    });
+    ContentViews.forEach(e => {
+        e.html('');
+    });
+}
