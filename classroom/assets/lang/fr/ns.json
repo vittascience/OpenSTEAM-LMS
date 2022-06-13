@@ -248,6 +248,8 @@
 				"editNickname": "Modifier le pseudonyme",
 				"delete": "Supprimer",
 				"copyLink": "Copier le lien direct",
+				"copyImage": "Copy the image",
+				"downloadImage": "Download the image",
 				"learnerMode": "Mode apprenant",
 				"dueBy":"À rendre avant le",
         "timePassed": "Temps passé : "
@@ -255,7 +257,9 @@
       "selectStudents": "Sélectionner des apprenants",
       "selectedStudents": "<span id='attribuate-student-number'>0</span> apprenants sélectionnés",
       "activationLink": "Lien d'activation activé",
-      "activationLinkDisabled": "Lien d'activation désactivé"
+      "activationLinkDisabled": "Lien d'activation désactivé",
+      "deleteStudent": "Supprimer l'élève",
+      "deleteStudentConfirm": "Voulez-vous vraiment supprimer cet élève ?"
     },
     "activities": {
       "title": "Activités",
@@ -299,6 +303,8 @@
       "hint": "Indice",
       "saved": "Activité sauvegardée",
       "wrongAnswer": "Mauvaise réponse",
+      "emptyAnswer": "La réponse ne peut pas être vide",
+      "wrongAnswerLarge": "Mauvaise réponse, tu peux essayer à nouveau !",
       "hintExist": "<i class='fas fa-info-circle'></i> Cet exercice possède un indice, il ne peut s'afficher que si l'élève peut soumettre l'activité plusieurs fois",
       "anoStudent": "Élève",
       "bilan": {
@@ -416,9 +422,10 @@
         "deleteDisclaimer": "Attention, le dossier et l'ensemble de son contenu (activités et sous-dossiers) seront supprimés"
       },
       "facultative": "Champs facultatifs",
+      "previewActivity": "Prévisualisation de l'activité",
       "infoRetroAttribution": "Cette activité sera attribuée aux nouveaux apprenants, quand ils seront ajoutés à votre classe.",
       "infoAutocorrect": "Cette activité dispose de correction automatique",
-      "infoEvaluation": "En mode évaluation, les apprenants ne peuvent soumettre l’activité qu'une seule fois et n'ont pas accès aux indices et aux aides."
+      "infoEvaluation": "En cliquant sur non, les apprenants ne peuvent soumettre l’activité qu'une seule fois et n'ont pas accès aux indices et aux aides."
     },
     "filter": {
       "desc": "Date croissante",

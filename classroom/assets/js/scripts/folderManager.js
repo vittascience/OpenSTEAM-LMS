@@ -45,6 +45,13 @@ class FoldersManager {
                 foldersManager.openFolder(id);
             }
         })
+
+        $('body').on('click', '.folder-list', function () {
+            if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
+                let id = $(this).attr('data-id');
+                foldersManager.openFolder(id);
+            }
+        })
     }
 
     openFolderModal() {
@@ -191,7 +198,7 @@ class FoldersManager {
         if (this.treeFolder.html() == "") {
             this.resetTreeFolders();
         }
-        this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span> <button class="btn c-btn-outline-primary" data-id="${folder.id}" onclick="foldersManager.goToFolder(${folder.id})">📁 ${folder.name}</button>`);  
+        this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span> <button class="btn c-btn-outline-primary" data-id="${folder.id}" onclick="foldersManager.goToFolder(${folder.id})"><i class="fas fa-folder-open folder-breadcrumb"></i> ${folder.name}</button>`);  
     }
 
     goToFolder(folderId) {
@@ -232,7 +239,7 @@ class FoldersManager {
 
         idOfParents.reverse().forEach(folder => {
             if (folder != null && folder.id != undefined) {
-                this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span>  <button class="btn c-btn-outline-primary" onclick="foldersManager.goToFolder(${folder.id})">📁 ${folder.name}</button>`);
+                this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span>  <button class="btn c-btn-outline-primary" onclick="foldersManager.goToFolder(${folder.id})"><i class="fas fa-folder-open folder-breadcrumb"></i> ${folder.name}</button>`);
             }
         });
     }
@@ -266,7 +273,7 @@ class FoldersManager {
                             <input type="radio" name="tree-structure" data-id="0" id="${randomString}">
                                 <label for="${randomString}">${rootFolderTranslation}</label>
                             </input>
-                            ${seek ? "" : this.createChildActivitiesUl(null)}
+                            
                         `;
             foldersWithoutParent.forEach(folder => {
                 content += this.makeContentForTree(folder);
@@ -277,6 +284,7 @@ class FoldersManager {
         folderTreeContent.html(content);
         pseudoModal.openModal("folders-move-to");
     }
+    // ${seek ? "" : this.createChildActivitiesUl(null)}
 
     createChildUl(folder) {
         let children = this.userFolders.filter(f => f.parentFolder != null),
@@ -296,11 +304,12 @@ class FoldersManager {
         let radioString = this.makeTreeWithOutInitialFolderAndChildren(item);
         let content = `<ul>
                         ${radioString}
-                        ${this.isSeek ? "" : this.createChildActivitiesUl(item.id)}
+                        
                         ${this.createChildUl(item.id)}
                     </ul>`
         return content;
     }
+    // ${this.isSeek ? "" : this.createChildActivitiesUl(item.id)}
 
     makeTreeWithOutInitialFolderAndChildren(folder) {
         let content = "",
@@ -324,7 +333,7 @@ class FoldersManager {
             content = `<label>📁 - ${folder.name}</label>`;
         } else {
             content = `<input type="radio" name="tree-structure" id="${randomString}" data-id="${folder.id}">
-                                <label for="${randomString}">📁 - ${folder.name}</label>
+                                <label for="${randomString}"><i class="fas fa-folder-open folder-breadcrumb"></i> - ${folder.name}</label>
                             </input>`;
         }
         return content;
@@ -388,17 +397,27 @@ class FoldersManager {
     dragulaInitObjects() {
         // Reset the dragula fields
         this.dragula.containers = [];
-        let foldersArray = document.querySelectorAll('.folder-item');
-        let activitiesArray = document.querySelectorAll('.activity-item');
 
-        this.dragula = dragula([...activitiesArray, ...foldersArray])
+        let foldersArray = document.querySelectorAll('.folder-item'),
+            activitiesArray = document.querySelectorAll('.activity-item'),
+            activitiesListArray = document.querySelectorAll('.folder-item-list'),
+            foldersListArray = document.querySelectorAll('.activity-item-list'),
+            dragableObjects = [];
+
+        if (Main.getClassroomManager().displayMode == "list") {
+            dragableObjects = [...foldersListArray, ...activitiesListArray];
+        } else {
+            dragableObjects = [...foldersArray, ...activitiesArray];
+        }
+
+        this.dragula = dragula(dragableObjects)
             .on('drop', function(el, target, source) {
                 if (target != undefined && source != undefined) {
-                    if ($(target).hasClass("folder-item")) {
+                    if ($(target).hasClass("folder-item") || $(target).hasClass("folder-item-list")) {
                         let elId = source.getAttribute('data-id'),
                             targetId = target.getAttribute('data-id');
                         
-                        if ($(source).hasClass("folder-item")) {
+                        if ($(source).hasClass("folder-item") || $(source).hasClass("folder-item-list")) {
                             foldersManager.moveFolderToFolder(elId, targetId).then(res => {
                                 foldersManager.manageResponseFromMoved(res);
                             })

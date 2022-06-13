@@ -62,10 +62,14 @@ window.addEventListener('storage', () => {
 });
 
 //activité-->ouvrir la modal
-$('body').on('click', '.activity-card-top i', function (event) {
+$('body').on('click', '.activity-card-top i', function () {
     ClassroomSettings.activity = $(this).parent().parent().parent().find('.info-tutorials').attr('data-id')
 })
 
+// get activity id in list mode
+$('body').on('click', '.activity-list-dropdown i', function () {
+    ClassroomSettings.activity = $(this).attr('id').replace("dropdown-list-activityItem-", "");
+})
 
 function startDeleteActivity() {
     $('#validation_delete_group').val("");
@@ -262,6 +266,8 @@ function manageUpdateForDragAndDrop(activity) {
 
 //création activité vers attribution
 function attributeActivity(id, ref = null) {
+
+    $("#assign-total-student-number").text(0);
 
     Main.getClassroomManager()._idActivityOnAttribution = id;
    

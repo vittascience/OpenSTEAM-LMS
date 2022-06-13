@@ -1267,7 +1267,7 @@ class ClassroomManager {
     }
 
     // create a new activity
-    createNewActivity($title, $type, $content, $solution, $tolerance, $autocorrect) {
+    createNewActivity($title, $type, $content, $solution, $tolerance, $autocorrect, $folder) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -1278,7 +1278,8 @@ class ClassroomManager {
                     'content' : $content,
                     'solution' : $solution,
                     'tolerance' : $tolerance,
-                    'autocorrect' : $autocorrect
+                    'autocorrect' : $autocorrect,
+                    'folder' : $folder
                 },
                 success: function (response) {
                     resolve(JSON.parse(response));

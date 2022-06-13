@@ -242,6 +242,51 @@
 
 
 
+        <div class="section-preview-activity" style="display:none;">
+
+            <div class="section-header-preview-activity" onclick="activityPreviewToggler()">
+                <i id="i-activity-preview" class="ml-2 fas fa-lg fa-chevron-up"></i>
+                <h3 class="section-title-preview-activity" data-i18n="classroom.activities.previewActivity">preview-activity</h3>
+            </div>
+
+            <div class="preview-container" id="activity-preview" style="display: none;">
+                <h3 class="activity-title" id="preview-title" style="display: none;"></h3>
+                
+    
+                <div id="preview-states" style="display: none;">
+                    <label for="preview-activity-states" class="vitta-modal-title mt-2" data-i18n="classroom.activities.states">Énoncé de l'activité</label>
+                    <p id="preview-activity-states"></p>
+                </div>
+    
+    
+                <div id="preview-content" style="display: none;">
+                    <label for="preview-activity-content" id="label-activity-content" class="vitta-modal-title mt-2" data-i18n="newActivities.contentTitle">Contenu de l'activité</label>
+                    <p id="preview-activity-content"></p>   
+                </div>
+    
+    
+                <div id="preview-content-bbcode" style="display: none;">
+                    <label class="vitta-modal-title mt-2" for="preview-activity-bbcode-content" data-i18n="[html]newActivities.content"></label>
+                    <textarea id="preview-activity-bbcode-content" style="height:400px"></textarea>
+                </div>
+    
+                
+                <div id="preview-activity-drag-and-drop-container" style="display: none;">
+                    <label class="vitta-modal-title mt-2">Drag & drop</label>
+                    <div id="preview-drag-and-drop-text">
+    
+                    </div>
+                     <div id="preview-drag-and-drop-fields" class="m-2 drag-and-drop-fields">
+    
+                    </div>
+    
+                </div>
+            </div>
+
+        </div>
+        
+
+
         <div class="row text-center w-100">
             <div class="col-sm mb-2">
                 <button class="btn c-btn-grey" onclick="titleBackward()">

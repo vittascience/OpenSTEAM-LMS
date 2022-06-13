@@ -316,12 +316,6 @@
                         <i class="fas fa-chevron-right"></i>
                     </button>
 
-                    <!-- Warning eval -->
-                    <div id="warning-text-container">
-                        <i id="warning-icon-no-evaluation" class="fas fa-redo" data-i18n="[title]classroom.activities.validateNoEval" style="display:none;"></i>
-                        <i id="warning-icon-evaluation" class="fas fa-exclamation" data-i18n="[title]classroom.activities.validateWarning" style="display:none;"></i>
-                    </div>
-
                     <button class="btn c-btn-grey mx-2" id="activity-save" style="display:none;" onclick="validateActivity(0)" data-i18n="classroom.activities.save-draft">
                         <i class="fas fa-chevron-right"></i>
                     </button>
@@ -697,6 +691,10 @@
             <div id="classroom-code-share-qr-code">
                 
             </div>
+            <div class="mt-3">
+                <button id="qr-copy" class="btn c-btn-secondary" title="Copier l'image" class="js-copy" data-i18n="classroom.classes.panel.copyImage">Copier l'image</button>
+                <button id="qr-download" class="btn c-btn-secondary" title="Téléverser l'image" class="js-copy" data-i18n="classroom.classes.panel.downloadImage">Téléverser l'image</button>
+            </div>
         </div>
     </div>
 </div>
@@ -719,6 +717,14 @@
             </select>
         </div>
 
+        <!-- <div class="col-auto vertical-align-center">
+            <button  class="btn btn-folders mx-1" onclick="foldersManager.displayModeSwitch('card')" >
+                <img src="./assets/media/folders/cadrillage.svg" alt="arb-folders" onload="SVGInject(this)">
+            </button>
+            <button class="btn btn-folders mx-1" onclick="foldersManager.displayModeSwitch('list')" >
+                <img src="./assets/media/folders/arborescence.svg" alt="arb-folders" onload="SVGInject(this)">
+            </button>
+        </div> -->
     </div>
 
     </br>
@@ -728,10 +734,10 @@
         </button>
         
         <button class="btn btn-folders" id="new-activities-folder" onclick="foldersManager.openFolderModal()" >
-            <img src="./assets/media/folders/createFolder.svg" alt="folders">
+            <img src="./assets/media/folders/createFolder.svg" alt="folders" onload="SVGInject(this)">
         </button>
         <button class="btn btn-folders" onclick="foldersManager.seekFolderModal()">
-            <img src="./assets/media/folders/arborescence.svg" alt="arb-folders">
+            <img src="./assets/media/folders/arborescence.svg" alt="arb-folders" onload="SVGInject(this)">
         </button>  
     </div>
     
@@ -856,7 +862,7 @@
                         </div>
                     </div>
 
-                    <i class="fas fa-info assign-info-icon" id="infoEvaluation" data-toggle="tooltip" title=""></i>
+<!--                     <i class="fas fa-info assign-info-icon" id="infoEvaluation" data-toggle="tooltip" title=""></i> -->
                 </div>
 
                 <p id="hint-exist-disclaimer" data-i18n="[html]classroom.activities.hintExist" style="display:none;"></p>
@@ -1644,6 +1650,51 @@
 
 
 
+        <div class="section-preview-activity" style="display:none;">
+
+            <div class="section-header-preview-activity" onclick="activityPreviewToggler()">
+                <i id="i-activity-preview" class="ml-2 fas fa-lg fa-chevron-up"></i>
+                <h3 class="section-title-preview-activity" data-i18n="classroom.activities.previewActivity">preview-activity</h3>
+            </div>
+
+            <div class="preview-container" id="activity-preview" style="display: none;">
+                <h3 class="activity-title" id="preview-title" style="display: none;"></h3>
+                
+    
+                <div id="preview-states" style="display: none;">
+                    <label for="preview-activity-states" class="vitta-modal-title mt-2" data-i18n="classroom.activities.states">Énoncé de l'activité</label>
+                    <p id="preview-activity-states"></p>
+                </div>
+    
+    
+                <div id="preview-content" style="display: none;">
+                    <label for="preview-activity-content" id="label-activity-content" class="vitta-modal-title mt-2" data-i18n="newActivities.contentTitle">Contenu de l'activité</label>
+                    <p id="preview-activity-content"></p>   
+                </div>
+    
+    
+                <div id="preview-content-bbcode" style="display: none;">
+                    <label class="vitta-modal-title mt-2" for="preview-activity-bbcode-content" data-i18n="[html]newActivities.content"></label>
+                    <textarea id="preview-activity-bbcode-content" style="height:400px"></textarea>
+                </div>
+    
+                
+                <div id="preview-activity-drag-and-drop-container" style="display: none;">
+                    <label class="vitta-modal-title mt-2">Drag & drop</label>
+                    <div id="preview-drag-and-drop-text">
+    
+                    </div>
+                     <div id="preview-drag-and-drop-fields" class="m-2 drag-and-drop-fields">
+    
+                    </div>
+    
+                </div>
+            </div>
+
+        </div>
+        
+
+
         <div class="row text-center w-100">
             <div class="col-sm mb-2">
                 <button class="btn c-btn-grey" onclick="titleBackward()">
@@ -1889,6 +1940,7 @@
                                 $('body').addClass('theme-student')
                                 $('.user-picture').attr('src', '/classroom/assets/media/alphabet/' + UserManager.getUser().pseudo.slice(0, 1).toUpperCase() + '.png')
                                 Main.getClassroomManager().getMyClassroom(UserManager.getUser().id).then(function (classroom) {
+                                    console.log($_GET('panel'))
                                     $('#classroom-name').html(classroom.name)
                                     ClassroomSettings.classroom = classroom.link
                                     if ($_GET('panel') && (ClassroomSettings.mixPanels.includes($_GET('panel')) || ClassroomSettings.studentPanels.includes($_GET('panel')))) {
