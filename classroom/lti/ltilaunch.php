@@ -58,7 +58,11 @@ if ($activitiesLinkUser == null) {
 	exit;
 }
 
-$platform_url = getenv('VS_HOST');
+if($studentResourceUrl == null) {
+  echo "Bad student resource url requested!";
+}
+
+$platform_url = isset($_SERVER['HTTPS']) ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'];
 
 $ltiApplication = $entityManager->getRepository(Applications::class)->findOneBy(["name" => $applicationType])->getId();
 $ltiTool = $entityManager->getRepository(LtiTool::class)->findOneBy(["application" => $ltiApplication]);

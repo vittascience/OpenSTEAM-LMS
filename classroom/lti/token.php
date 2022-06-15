@@ -24,7 +24,7 @@ $subjectKey = "sub";
 $subjectValue = $decodedToken->$subjectKey;
 
 // todo HTTP_HOST is insecure (controlled by the client)
-$platform_url = getenv('VS_HOST');
+$platform_url = isset($_SERVER['HTTPS']) ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'];
 
 // decode jwt token and check signature using jwks public key
 $ltiTool = $entityManager->getRepository(LtiTool::class)->findOneByClientId($subjectValue);
@@ -33,8 +33,8 @@ if(!$ltiTool) return;
 
 // validate the jwt token using the tool public key (jwk)
 $validatedToken = JWT::decode(
-  $_REQUEST['client_assertion'], 
-  JWK::parseKeySet(json_decode(file_get_contents($ltiTool->getPublicKeySet()), true)), 
+  $_REQUEST['client_assertion'],
+  JWK::parseKeySet(json_decode(file_get_contents($ltiTool->getPublicKeySet()), true)),
   array('RS256')
 );
 
@@ -52,7 +52,7 @@ $payload = array(
 
 $jwt = JWT::encode(
   $payload,
-  file_get_contents(__DIR__ . "/keys/private.key"),
+  $ltiTool->getPrivateKey(),
   'RS256',
   $ltiTool->getKid()
 );
