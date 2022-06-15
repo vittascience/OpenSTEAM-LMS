@@ -150,7 +150,7 @@ function titleBackward() {
  */
 function titleForward() {
     Main.getClassroomManager()._createActivity.title = $('#global_title').val();
-    $('#activity-title-forward').attr('disabled', true);
+    //$('#activity-title-forward').attr('disabled', true);
     // Check if the title is empty
     if (Main.getClassroomManager()._createActivity.title == '') {
         displayNotification('#notif-div', "classroom.notif.emptyTitle", "error");
@@ -164,6 +164,8 @@ function titleForward() {
             autocorrect = Main.getClassroomManager()._createActivity.autocorrect,
             folder = foldersManager.actualFolder;
 
+        console.log(solution)
+return
         if (type == "dragAndDrop" || type == "fillIn" || type == "quiz") {
             autocorrect = true;
         }
@@ -436,9 +438,17 @@ function goBackToActivities() {
  */
 
 $('#fill-in-add-inputs').click(() => {
-    $('#fill-in-content').bbcode();
-    $('#fill-in-content').htmlcode($('#fill-in-content').htmlcode() + `<span class="lms-answer">réponse</span> \&nbsp `);
+    if ($("#fill-in-content").getSelectText() != "") {
+        $('#fill-in-content').bbcode();
+        replaceSelectionWithHtml(`<span class="lms-answer">${$("#fill-in-content").getSelectText()}</span>\&nbsp`)
+        let newText = $('#fill-in-content').htmlcode();
+        $('#fill-in-content').htmlcode(newText);
+    } else {
+        $('#fill-in-content').bbcode();
+        $('#fill-in-content').htmlcode($('#fill-in-content').htmlcode() + `\&nbsp;<span class="lms-answer">\&nbsp;réponse\&nbsp;</span>\&nbsp`);
+    }
 });
+
 
 function parseFillInFieldsAndSaveThem() {
     
@@ -450,6 +460,7 @@ function parseFillInFieldsAndSaveThem() {
     Main.getClassroomManager()._createActivity.content.fillInFields.contentForTeacher = $('#fill-in-content').bbcode();
 
     let response = $('#fill-in-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1"));
+
     let contentForStudent = $('#fill-in-content').bbcode();
     response.forEach((e, i) => {
         contentForStudent = contentForStudent.replace(`[answer]${e}[/answer]`, `﻿`);
@@ -457,6 +468,10 @@ function parseFillInFieldsAndSaveThem() {
             response[i] = e.split('&&').map(e => e.trim()).join(',');
         }
     })
+
+    for (let index = 0; index < response.length; index++) {
+        response[index] = response[index].trim();
+    }
 
     if ($('#fill-in-states').bbcode() != '') {
         Main.getClassroomManager()._createActivity.content.states = $('#fill-in-states').bbcode();
@@ -478,8 +493,15 @@ function parseFillInFieldsAndSaveThem() {
 }
 
 $('#dragAndDrop-add-inputs').click(() => {
-    $('#drag-and-drop-content').bbcode()
-    $('#drag-and-drop-content').htmlcode($('#drag-and-drop-content').htmlcode() + `<span class="lms-answer">réponse</span> \&nbsp`);
+    if ($("#drag-and-drop-content").getSelectText() != "") {
+        $('#drag-and-drop-content').bbcode();
+        replaceSelectionWithHtml(`<span class="lms-answer">${$("#drag-and-drop-content").getSelectText()}</span>\&nbsp`)
+        let newText = $('#drag-and-drop-content').htmlcode();
+        $('#drag-and-drop-content').htmlcode(newText);
+    } else {
+        $('#drag-and-drop-content').bbcode()
+        $('#drag-and-drop-content').htmlcode($('#drag-and-drop-content').htmlcode() + `\&nbsp;<span class="lms-answer">\&nbsp;réponse\&nbsp;</span>\&nbsp;`);
+    }
 });
 
 
@@ -492,12 +514,15 @@ function parseDragAndDropFieldsAndSaveThem() {
     
     Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForTeacher = $('#drag-and-drop-content').bbcode();
     
-    let response = $('#drag-and-drop-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1"));
+    let responseDD = $('#drag-and-drop-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1"));
     let contentForStudent = $('#drag-and-drop-content').bbcode();
-    response.forEach((e, i) => {
+
+
+    responseDD.forEach((e, i) => {
         contentForStudent = contentForStudent.replace(`[answer]${e}[/answer]`, `﻿`);
+        responseDD[i] = e.trim();
         if (e.includes('&&')) {
-            response[i] = e.split('&&').map(e => e.trim()).join(',');
+            responseDD[i] = e.split('&&').map(e => e.trim()).join(',');
         }
     })
 
@@ -510,7 +535,8 @@ function parseDragAndDropFieldsAndSaveThem() {
     Main.getClassroomManager()._createActivity.autocorrect = $('#drag-and-drop-autocorrect').is(":checked");
     Main.getClassroomManager()._createActivity.content.hint = $('#drag-and-drop-hint').val();
 
-    Main.getClassroomManager()._createActivity.solution = response;
+    Main.getClassroomManager()._createActivity.solution = [...responseDD];
+    console.log([...responseDD])
     Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForStudent = contentForStudent;
 
     if (Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForTeacher == "") {
