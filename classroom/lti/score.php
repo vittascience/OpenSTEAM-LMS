@@ -41,8 +41,8 @@ $jwtToken = explode("Bearer ", $headers['Authorization'])[1];
 
     // check validity of access_token
     $validatedToken = JWT::decode(
-      $jwtToken,
-      JWK::parseKeySet($jwks),
+      explode("Bearer ", $headers['Authorization'])[1],
+      file_get_contents(__DIR__ . "/keys/public.key"),
       array('RS256')
     );
 
