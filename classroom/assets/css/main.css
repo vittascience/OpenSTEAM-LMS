@@ -1954,6 +1954,7 @@ h3.section-done {
     cursor: pointer;
     text-align: center;
     user-select: none;
+    margin-bottom: 0.5em;
 }
 
 .dropable-items {
@@ -2006,6 +2007,7 @@ h3.section-done {
     padding: 2px 8px;
     width: fit-content;
     display: inline-block;
+    margin-bottom: 0.5em;
 }
 
 .answer-correct {
@@ -2336,8 +2338,12 @@ h3.section-done {
     background-color: var(--classroom-white);
 }
 
-/* ACTIVITY ATTRIBUTION END */
+/* ACTIVITY VIEW */
 
+.activity-content img {
+    max-width: 100%;
+
+}
 
 /* CLASSROOM START */
 
