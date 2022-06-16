@@ -62,7 +62,8 @@ if($studentResourceUrl == null) {
   echo "Bad student resource url requested!";
 }
 
-$platform_url = isset($_SERVER['HTTPS']) ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'];
+//$platform_url = isset($_SERVER['HTTPS']) ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'];
+$platform_url = getenv('VS_HOST');
 
 $ltiApplication = $entityManager->getRepository(Applications::class)->findOneBy(["name" => $applicationType])->getId();
 $ltiTool = $entityManager->getRepository(LtiTool::class)->findOneBy(["application" => $ltiApplication]);
@@ -74,8 +75,8 @@ if (!$ltiTool) {
 
 $loginHint = json_encode([
 	"lineitemId" => $targetLinkUri,
-	"userId" => $_SESSION["id"], 
-	"isStudentLaunch" => $studentLaunch, 
+	"userId" => $_SESSION["id"],
+	"isStudentLaunch" => $studentLaunch,
 	"activityType" => $applicationType,
 	"activitiesLinkUser" => $activitiesLinkUser,
 	"deploymentId" => $ltiTool->getDeploymentId(),
