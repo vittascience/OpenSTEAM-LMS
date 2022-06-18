@@ -103,6 +103,7 @@ function contentBackward() {
 
 // Get the content
 function contentForward() {
+    
     let isCheckPassed = true;
     if (Main.getClassroomManager()._createActivity.id == 'free') {
         Main.getClassroomManager()._createActivity.content.description = $('#free-content').bbcode();
@@ -150,7 +151,7 @@ function titleBackward() {
  */
 function titleForward() {
     Main.getClassroomManager()._createActivity.title = $('#global_title').val();
-    //$('#activity-title-forward').attr('disabled', true);
+    $('#activity-title-forward').attr('disabled', true);
     // Check if the title is empty
     if (Main.getClassroomManager()._createActivity.title == '') {
         displayNotification('#notif-div', "classroom.notif.emptyTitle", "error");
@@ -164,8 +165,6 @@ function titleForward() {
             autocorrect = Main.getClassroomManager()._createActivity.autocorrect,
             folder = foldersManager.actualFolder;
 
-        console.log(solution)
-return
         if (type == "dragAndDrop" || type == "fillIn" || type == "quiz") {
             autocorrect = true;
         }
@@ -191,8 +190,8 @@ return
                 }
             });
         }
-        $('#activity-title-forward').attr('disabled', false);
     }
+    $('#activity-title-forward').attr('disabled', false);
 }
 
 
@@ -483,6 +482,7 @@ function parseFillInFieldsAndSaveThem() {
     Main.getClassroomManager()._createActivity.autocorrect = $('#fill-in-autocorrect').is(":checked");
     Main.getClassroomManager()._createActivity.content.hint = $('#fill-in-hint').val();
 
+
     Main.getClassroomManager()._createActivity.solution = response;
     Main.getClassroomManager()._createActivity.content.fillInFields.contentForStudent = contentForStudent;
 
@@ -535,8 +535,8 @@ function parseDragAndDropFieldsAndSaveThem() {
     Main.getClassroomManager()._createActivity.autocorrect = $('#drag-and-drop-autocorrect').is(":checked");
     Main.getClassroomManager()._createActivity.content.hint = $('#drag-and-drop-hint').val();
 
-    Main.getClassroomManager()._createActivity.solution = [...responseDD];
-    console.log([...responseDD])
+
+    Main.getClassroomManager()._createActivity.solution = responseDD;
     Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForStudent = contentForStudent;
 
     if (Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForTeacher == "") {

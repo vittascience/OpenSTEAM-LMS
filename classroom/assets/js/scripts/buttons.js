@@ -610,7 +610,7 @@ function defaultProcessValidateActivity() {
     let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)
     if (interface == undefined || interface == null) {
         correction = 2
-        Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, correction, 3).then(function (activity) {
+        Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, correction, 4).then(function (activity) {
             if (typeof activity.errors != 'undefined') {
                 for (let error in activity.errors) {
 
