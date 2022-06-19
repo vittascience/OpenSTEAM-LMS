@@ -593,7 +593,12 @@ function loadActivityForStudents(isDoable) {
     injectContentForActivity(content, Activity.correction, Activity.activity.type, correction, isDoable);
 
     if (!Activity.evaluation && correction < 2 && !isDoable) {
-        isDoable = true;
+        let allKnownActivity = [...activityType, "free"];
+        if (!allKnownActivity.includes(Activity.activity.type)) {
+            isDoable = false;
+        } else {
+            isDoable = true;
+        }
     }
     isTheActivityIsDoable(isDoable);
 }
