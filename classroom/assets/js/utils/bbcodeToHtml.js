@@ -98,3 +98,47 @@ function IsJsonString(str) {
     }
     return true;
 }
+
+function replaceSelectedText(replacementText) {
+    let sel, 
+        range;
+    if (window.getSelection) {
+        sel = window.getSelection();
+        if (sel.rangeCount) {
+            range = sel.getRangeAt(0);
+            range.deleteContents();
+            range.insertNode(document.createTextNode(replacementText));
+        }
+    } else if (document.selection && document.selection.createRange) {
+        range = document.selection.createRange();
+        range.text = replacementText;
+    }
+}
+
+function replaceSelectionWithHtml(html) {
+    let range;
+    if (window.getSelection && window.getSelection().getRangeAt) {
+        range = window.getSelection().getRangeAt(0);
+        range.deleteContents();
+        let div = document.createElement("div");
+        div.innerHTML = html;
+        let frag = document.createDocumentFragment(), child;
+        while ( (child = div.firstChild) ) {
+            frag.appendChild(child);
+        }
+        range.insertNode(frag);
+    } else if (document.selection && document.selection.createRange) {
+        range = document.selection.createRange();
+        range.pasteHTML(html);
+    }
+}
+
+function getSelectionText() {
+    let text = "";
+    if (window.getSelection) {
+        text = window.getSelection().toString();
+    } else if (document.selection && document.selection.type != "Control") {
+        text = document.selection.createRange().text;
+    }
+    return text;
+}
