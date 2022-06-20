@@ -593,7 +593,12 @@ function loadActivityForStudents(isDoable) {
     injectContentForActivity(content, Activity.correction, Activity.activity.type, correction, isDoable);
 
     if (!Activity.evaluation && correction < 2 && !isDoable) {
-        isDoable = true;
+        let allKnownActivity = [...activityType, "free"];
+        if (!allKnownActivity.includes(Activity.activity.type)) {
+            isDoable = false;
+        } else {
+            isDoable = true;
+        }
     }
     isTheActivityIsDoable(isDoable);
 }
@@ -763,7 +768,7 @@ function manageDisplayLti(correction, content, correction_div, isDoable, activit
     } else {
         document.querySelector('#activity-content').innerHTML = `
         <iframe src="${Activity.url}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`;
-        if (!Activity.evaluation) {
+        if (!Activity.evaluation && !UserManager.getUser().isRegular && correction < 2) {
             document.querySelector('#activity-content').innerHTML += `
             <button onclick="launchLtiResource(${Activity.id}, '${Activity.activity.type}', '${content}', true, '${Activity.url}')">Modifier le travail</button>`;
         }
@@ -955,8 +960,6 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
     
     if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
-/*             const wbbptions = Main.getClassroomManager().wbbOpt;
-            $('#activity-input').wysibb(wbbptions); */
 
             let ContentString = manageDragAndDropText(content.dragAndDropFields.contentForStudent);
             $('#drag-and-drop-text').html(`<div>${ContentString}</div>`);
@@ -1034,18 +1037,16 @@ function displayDragAndDropTeacherSide(correction_div, correction, content) {
             }
         })
     }
-
-
-
     manageCorrectionDiv(correction_div, correction);
 }
 
 function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
+    const arrayClone = [...array];
+    for (let i = arrayClone.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+        [arrayClone[i], arrayClone[j]] = [arrayClone[j], arrayClone[i]];
     }
-    return array;
+    return arrayClone;
 }
 
 function manageDragAndDropText(studentContentString, preview = false) {
