@@ -801,8 +801,6 @@ function ActivityPreviewBeforeCreation(type) {
             $('#activity-preview-div').show();
             break;
         default:
-            $contentText.html(`<iframe src="${ActivityPreview.content.description}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`);
-            $content.show();
             break;
     }
 }
