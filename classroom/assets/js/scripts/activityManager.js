@@ -2,12 +2,6 @@
  * Setup the rich text editor for the activities
  */
  function setTextArea() {
-/*     let wbbOpt = {
-        resize_maxheight:354,
-        autoresize:false,
-        buttons: ",bold,italic,underline|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe,answer",
-    } */
-
     const options = Main.getClassroomManager().wbbOpt;
     // Free 
     $('#free-enonce').wysibb(options);
@@ -715,6 +709,9 @@ $('body').on('click', '#fill-in-tolerance-decrease', function () {
 
 
 function ActivityPreviewBeforeCreation(type) {
+
+    $('#activity-preview-div').hide();
+
     const $title = $('#preview-title'),
         $states = $('#preview-states'),
         $statesText = $('#preview-activity-states'),
@@ -728,21 +725,25 @@ function ActivityPreviewBeforeCreation(type) {
 
     resetPreviewViews();
 
+    
     $title.html(Main.getClassroomManager()._createActivity.title);
-    $statesText.html(bbcodeToHtml(Main.getClassroomManager()._createActivity.content.states))
+    $statesText.html(bbcodeToHtml(Main.getClassroomManager()._createActivity.content.states));
     $title.show();
 
     switch (type) {
         case "quiz":
-            $contentText.html(ActivityPreview.content.quiz.contentForStudent, true, false, true)
+            console.log()
+            $contentText.html(createContentForQuiz(ActivityPreview.content.quiz.contentForStudent, true, false, true));
             $states.show();
             $content.show();
+            $('#activity-preview-div').show();
             break;
         case "free":
             $statesText.html(bbcodeToHtml(Main.getClassroomManager()._createActivity.content.description))
             $contentbbcode.wysibb(wbbptions);
             $bbcodeContent.show();
             $states.show();
+            $('#activity-preview-div').show();
             break;
         case "fillIn":
             let studentContent = bbcodeToHtml(ActivityPreview.content.fillInFields.contentForStudent)
@@ -753,10 +754,12 @@ function ActivityPreviewBeforeCreation(type) {
             $contentText.html(studentContent);
             $states.show();
             $content.show();
+            $('#activity-preview-div').show();
             break;
         case "reading":
             $contentText.html(bbcodeToHtml(ActivityPreview.content.description));
             $content.show();
+            $('#activity-preview-div').show();
             break;
         case "dragAndDrop":
             let ContentString = manageDragAndDropText(ActivityPreview.content.dragAndDropFields.contentForStudent, true);
@@ -790,12 +793,16 @@ function ActivityPreviewBeforeCreation(type) {
 
             $states.show();
             $dragAndDrop.show();
+            $('#activity-preview-div').show();
             break;
         case "custom":
             $contentText.html(bbcodeToHtml(ActivityPreview.content.description));
             $content.show();
+            $('#activity-preview-div').show();
             break;
         default:
+            $contentText.html(`<iframe src="${ActivityPreview.content.description}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`);
+            $content.show();
             break;
     }
 }

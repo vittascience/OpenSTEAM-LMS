@@ -3310,7 +3310,6 @@ h3.section-done {
     border: 1px solid var(--classroom-primary);
     border-radius: 1em;
     padding: 1em;
-    pointer-events: none;
 }
 
 .preview-container h3 {
