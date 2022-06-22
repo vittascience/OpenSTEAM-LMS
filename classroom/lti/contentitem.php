@@ -11,7 +11,7 @@ require_once $rootPath . 'vendor/autoload.php';
 
 require_once $rootPath . 'bootstrap.php';
 
-use Classroom\Entity\ActivityRestrictions;
+use Classroom\Entity\Applications;
 use Classroom\Entity\LtiTool;
 
 if (empty($_SESSION["id"])) {
@@ -33,10 +33,10 @@ if ($applicationType == null) {
 	exit;
 }
 
+//$platform_url = isset($_SERVER['HTTPS']) ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'];
 $platform_url = getenv('VS_HOST');
-$activityRestriction = $entityManager->getRepository(ActivityRestrictions::class)->findOneByActivityType($applicationType);
-
-$ltiTool = $entityManager->getRepository(LtiTool::class)->findOneByApplicationId($activityRestriction->getApplication()->getId());
+$ltiApplication = $entityManager->getRepository(Applications::class)->findOneBy(["name" => $applicationType])->getId();
+$ltiTool = $entityManager->getRepository(LtiTool::class)->findOneBy(["application" => $ltiApplication]);
 
 if (!$ltiTool) {
 	echo 'Tool not found!';
@@ -44,8 +44,8 @@ if (!$ltiTool) {
 }
 
 $loginHint = [
-	"userId" => $_SESSION["id"], 
-	"isStudentLaunch" => false, 
+	"userId" => $_SESSION["id"],
+	"isStudentLaunch" => false,
 	"activityType" => $applicationType,
 	"deploymentId" => $ltiTool->getDeploymentId(),
 	"deepLink" => true

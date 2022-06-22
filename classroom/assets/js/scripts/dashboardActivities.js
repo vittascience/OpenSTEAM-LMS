@@ -1,52 +1,47 @@
-//@Rémi : Do we need that ? 
-$(document).ready(function () {
-
-
-});
-
 function activityItem(activity, state) {
-    let ide = 'vittascience'
-    if (activity.activity.content.match(/vittascience\.com\/microbit/)) {
-        ide = "microbit"
-    }
-    if (activity.activity.content.match(/vittascience\.com\/python/)) {
-        ide = "python"
-    }
-    if (activity.activity.content.match(/vittascience\.com\/arduino/)) {
-        ide = "arduino"
+    // Add class to activity card depending on activity type
+    let activityType = "activity-card-" + activity.activity.type;
+    if (activity.activity.type == null || activity.activity.type == "") {
+        activityType = "";
     }
 
+    let activityStatus = "",
+        activityStatusTitle = "";
     if (state == "doneActivities") {
-        if (activity.note == 3) {
-            var activityStatus = "ribbon ribbon_accept"
-            var activityStatusTitle = i18next.t('classroom.activities.veryGoodProficiency')
+        if (activity.note == 4) {
+            activityStatus = "ribbon ribbon_no_grade";
+            activityStatusTitle = i18next.t('classroom.activities.noProficiency')
+        } else if (activity.note == 3) {
+            activityStatus = "ribbon ribbon_accept"
+            activityStatusTitle = i18next.t('classroom.activities.veryGoodProficiency')
         } else if (activity.note == 2) {
-            var activityStatus = "ribbon ribbon_vgood"
-            var activityStatusTitle = i18next.t('classroom.activities.goodProficiency')
+            activityStatus = "ribbon ribbon_vgood"
+            activityStatusTitle = i18next.t('classroom.activities.goodProficiency')
         } else if (activity.note == 1) {
-            var activityStatus = "ribbon ribbon_good"
-            var activityStatusTitle = i18next.t('classroom.activities.weakProficiency')
+            activityStatus = "ribbon ribbon_good"
+            activityStatusTitle = i18next.t('classroom.activities.weakProficiency')
         } else if (activity.note == 0) {
-            var activityStatus = "ribbon ribbon_refuse"
-            var activityStatusTitle = i18next.t('classroom.activities.insufficientProficiency')
+            activityStatus = "ribbon ribbon_refuse"
+            activityStatusTitle = i18next.t('classroom.activities.insufficientProficiency')
         } else {
-            var activityStatus = ""
-            var activityStatusTitle = "?"
+            activityStatus = ""
+            activityStatusTitle = "?"
         }
     }
 
+    let dateEndNotif = activity.activity.isLti ? "style='display:none'" : "";
     let html = `<div class="activity-item">
-                    <div class="activity-card activity-card-` + ide + `">
+                    <div class="activity-card ${activityType} ">
                         <div class="${activityStatus}" data-toggle="tooltip" title="${activityStatusTitle}"><div class="ribbon__content"></div></div>
                         <div class="activity-card-top">
-                        ${activity.activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
+                            ${activity.activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
                         </div>
                         <div class="activity-card-mid"></div>
                         <div class="activity-card-bot">
-                            <div class="info-tutorials"  data-id="${activity.activity.id}"  data-state="${state}">`
+                            <div class="info-tutorials" ${dateEndNotif} data-id="${activity.activity.id}"  data-state="${state}">`
 
     if (activity.dateEnd != undefined) {
-        html += `<span> ` + i18next.t('classroom.activities.dateBefore') + ` ${formatDay(activity.dateEnd)}</span>`
+        html += `<span> ` + i18next.t('classroom.activities.dateBefore') + ` ${formatDay(activity.dateEnd)} <i class="fas fa-stopwatch"></i></span>`
     }
 
     html += `</div></div></div>`
@@ -80,39 +75,132 @@ function teacherSandboxItem(json) {
     return html
 }
 
-function teacherActivityItem(activity) {
-    let ide = 'vittascience'
-    if (activity.content.match(/vittascience\.com\/microbit/)) {
-        ide = "microbit"
+function teacherActivityItem(activity, displayStyle) {
+    let activityType = "activity-card-" + activity.type;
+    if (activity.type == null || activity.type == "") {
+        activityType = "";
     }
-    if (activity.content.match(/vittascience\.com\/python/)) {
-        ide = "python"
-    }
-    if (activity.content.match(/vittascience\.com\/arduino/)) {
-        ide = "arduino"
-    }
+    let content = "";
+    if (displayStyle == "card") {
+        content = `<div class="activity-item activity-teacher" data-id="${activity.id}">
+                        <div>
+                            <div class="activity-card ${activityType}">
+                                <div class="activity-card-top">
+                                ${activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
+                                <div class="dropdown">
+                                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    </i>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-activityItem-${activity.id}" data-id="${activity.id}">
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
+                                        <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
+                                        <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
+                                        <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="activity-card-mid">
+                            </div>
+                            <div class="activity-card-bot">
+                                <div class="info-tutorials" data-id="${activity.id}">
+                                </div>
+                            </div>
+                            </div>
+                            <h3 data-toggle="tooltip" title="${activity.title}" class="activity-item-title">${activity.title}</h3>
+                        </div>
+                    </div>`
+    } else if (displayStyle == "list") {
 
-    let html = `<div class="activity-item activity-teacher " >
-                <div class="activity-card activity-card-` + ide + `">
-                    <div class="activity-card-top">
-                    ${activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
-                    <div class="dropdown"><i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                    <div class="dropdown-menu" aria-labelledby="dropdown-activityItem-${activity.id}" data-id="${activity.id}">
-    <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">` + capitalizeFirstLetter(i18next.t('words.attribute')) + `</li>
-                <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">` + capitalizeFirstLetter(i18next.t('words.duplicate')) + `</li>
-                <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">` + capitalizeFirstLetter(i18next.t('words.modify')) + `</li>
-                <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">` + capitalizeFirstLetter(i18next.t('words.delete')) + `</li>
-              </div>
-              </div>
-                    </div>
-                    <div class="activity-card-mid"></div>
-                    <div class="activity-card-bot">
-                        <div class="info-tutorials" data-id="${activity.id}">
-                    </div>
-                </div></div>`
-    html += `<h3 data-toggle="tooltip" title="${activity.title}" class="activity-item-title">${activity.title}</h3></div>`
+        /* let activityTypeImg = activity.type != null && "" ?  */
+        content = `<div class="row activity-item-list" data-id="${activity.id}">
+        <div class="container-draggable">
+            <div class="activity-list ${activityType}">
+                <div class="activity-list-title col">
+                    <img class="list-item-img" src="${foldersManager.icons.hasOwnProperty(activity.type) ? foldersManager.icons[activity.type] : "💻"}" alt="${activity.type}" class="folder-icons">
+                    ${activity.title}
+                </div>
+    
+                <div class="info-tutorials col-2" data-id="${activity.id}">
+                </div>
 
-    return html;
+                ${activity.isAutocorrect    ? `<div class="activity-list-auto col-1">
+                                                <img src='assets/media/auto-icon-grey.svg' title='Auto' onload="SVGInject(this)">
+                                            </div>` 
+                                            : "" }
+               
+                <div class="dropdown col-1 activity-list-dropdown">
+                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </i>
+                    <div class="dropdown-menu" aria-labelledby="dropdown-list-activityItem-${activity.id}" data-id="${activity.id}">
+                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
+                        <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
+                        <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
+                        <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
+                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                    </div>
+                </div> 
+
+            </div>
+        </div>
+    </div>`
+    }
+    return content;
+}
+
+function teacherFolder(folder, displayStyle) {
+    let content = "";
+    if (displayStyle == "card") {
+        content = `<div class="folder-item" data-id="${folder.id}">
+                    <div> 
+                        <div class="folder-card" data-id="${folder.id}">
+                        <img class="folder-close-icon" src="./assets/media/folders/folder_close_icon.svg" onload="SVGInject(this)">
+                        <img class="folder-open-icon" src="./assets/media/folders/folder_open_icon.svg" onload="SVGInject(this)">
+                            <div class="folder-card-top">
+                                <div class="dropdown">
+                                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    </i>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-folder-${folder.id}" data-id="${folder.id}">
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.updateFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.update'))}</li>
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${folder.id}, 'folder')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.deleteFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.delete'))}</li>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="folder-card-mid">
+                            </div>
+                            <div class="folder-card-bot">
+                                <div class="info-tutorials" data-id="${folder.id}">
+                                </div>
+                            </div>
+                        </div>
+                        <h3 data-toggle="tooltip" title="${folder.name}" class="activity-item-title">${folder.name}</h3>
+                    </div>
+                </div>`
+    } else if (displayStyle == "list") {
+        content = `<div class="row folder-item-list" data-id="${folder.id}">
+                        <div class="container-draggable">
+                            <div class="folder-list" data-id="${folder.id}">
+                    
+                                <div class="folder-list-title col">
+                                    <img class="list-item-img" src="./assets/media/folders/folder_close_icon.svg" alt="folder_close" class="folder-icons" onload="SVGInject(this)">
+                                    ${folder.name}
+                                </div>
+                    
+                    
+                                <div class="dropdown col-1 folder-list-dropdown">
+                                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    </i>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-list-folder-${folder.id}" data-id="${folder.id}">
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.updateFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.update'))}</li>
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${folder.id}, 'folder')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.deleteFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.delete'))}</li>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+    }
+    return content;
 }
 
 function classeItem(classe, nbStudents, students) {
@@ -144,7 +232,7 @@ function classeItem(classe, nbStudents, students) {
                 <h3 class="activity-item-title">${classe.name}</h3>
             </div>`
     html += `<div class="class-card-bot">
-                <span class="nb-activities">${maxAct}</span> Activité` + setPluriel(maxAct) + `</p>
+                ${i18next.t('classroom.activities.nbActivities', {'nbActi': maxAct})}
             </div>`
     html += `</div></div>`
 
@@ -187,10 +275,17 @@ function classeList(classe, ref = null) {
     if (fullClassHasAttribution(classe, ref) == true) {
         checkedClass = "checked"
     }
-    let html = `<div class="col-10"><label><input type="checkbox" value="${classe.classroom.id}"${checkedClass} class ="list-students-classroom">${classe.classroom.name}</label>`
-    html += `<button class="student-list-button" data-id="${classe.classroom.id}"><i class="fas fa-chevron-right"></i></button>`
-    html += `<div class="student-list" id="student-list-${classe.classroom.id}" style="display:none;">
-    `
+    let html = `<div class="col-10 student-list-row">
+            <div class="c-checkbox">
+                <input type="checkbox" id="class-${classe.classroom.id}" value="${classe.classroom.id}" ${checkedClass} class="list-students-classroom">
+                <label for="class-${classe.classroom.id}">${classe.classroom.name}</label>
+            </div>
+
+            <button class="student-list-button" data-id="${classe.classroom.id}">
+                <i class="fas fa-chevron-right"></i>
+            </button>`
+    html += `<div class="student-list" id="student-list-${classe.classroom.id}" style="display:none;">`
+
     classe.students.forEach(student => {
         let checked = ""
         if (ref && hasAttribution(student, ref)) {
@@ -198,9 +293,13 @@ function classeList(classe, ref = null) {
             ClassroomSettings.studentCount++
         }
 
-        html += '<label class="ml-3 student-attribute-form-row"><input type="checkbox" value="' + student.user.id + '" class="student-id" ' + checked + ' >'
-        html += `<img src="${_PATH}assets/media/alphabet/${student.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil"></img>`
-        html += student.user.pseudo + '</label>'
+        html += `<div class="c-checkbox ml-3 student-attribute-form-row">
+            <input type="checkbox" id="student-${student.user.id}" value="${student.user.id}" class="student-id" ${checked}>
+            <label class="mb-0" for="student-${student.user.id}">
+                <img class="ml-1" src="${_PATH}assets/media/alphabet/${student.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil"></img>
+                <span>${student.user.pseudo}</span>
+            </label>
+        </div>`
     });
     html += `</div></div>`
     $('.student-number').html(ClassroomSettings.studentCount)
@@ -211,29 +310,28 @@ function classeList(classe, ref = null) {
 $('body').on('click', '#filter-activity', function () {
     let arrayKeywords = $('#filter-activity-input').val().split(' ')
     if ($('#filter-activity-select').val() == 'asc') {
-        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false))
+        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false), arrayKeywords, false)
     } else {
-        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true))
+        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true), arrayKeywords, true)
     }
 })
 
 $('body').on('change', '#filter-activity-select', function () {
     let arrayKeywords = $('#filter-activity-input').val().split(' ')
     if ($('#filter-activity-select').val() == 'asc') {
-        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false))
+        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false), arrayKeywords, false)
     } else {
-        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true))
+        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true), arrayKeywords, true)
     }
-
 })
 
 $(document).on('keyup', function (e) {
     if ($("#filter-activity-input").is(":focus") || $("#filter-activity").is(":focus") || $("#filter-activity-select").is(":focus")) {
         let arrayKeywords = $('#filter-activity-input').val().split(' ')
         if ($('#filter-activity-select').val() == 'asc') {
-            teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false))
+            teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false), arrayKeywords, false)
         } else {
-            teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true))
+            teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true), arrayKeywords, true)
         }
     }
 });
@@ -268,6 +366,7 @@ $(document).on('keyup', function (e) {
         }
     }
 });
+
 $('body').on('click', '.list-students-classroom', function () {
     let isChecked = $(this).is(':checked')
     let studentCheckbox = $(this).parent().parent().find('.student-list input')
@@ -280,7 +379,7 @@ $('body').on('click', '.list-students-classroom', function () {
     });
 })
 
-$('body').on('click', '.activity-card, .activity-item .activity-item-title', function () {
+$('body').on('click', '.activity-list, .activity-list-item, .activity-card, .activity-item .activity-item-title', function () {
     if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
         let id, state, navigation;
         if (this.classList.contains('activity-item-title')) {
@@ -349,10 +448,16 @@ function statusActivityForStudent(id, activityList) {
     }
 }
 
-function statusActivity(activity, state = true) {
+function statusActivity(activity, state = true, formatedTimePast = '') {
     if (activity.correction == 0 || activity.correction == null) {
-        if (state == true)
-            return "fas fa-stopwatch"
+        if (state == true){
+            if (formatedTimePast == '') {
+                return "stopwatch"
+            } else {
+                return "startwatch"
+            }
+            
+        }
         if (state == "csv") {
             switch (activity.correction) {
                 case 0:
@@ -380,7 +485,13 @@ function statusActivity(activity, state = true) {
             return "à corriger"
         return "todo-activity"
     }
-    if (activity.note == 3) {
+    if (activity.note == 4) {
+        if (state == true)
+            return "bilan-4";
+        if (state == "csv")
+            return "Non noté"
+        return "done-activity"
+    } else if (activity.note == 3) {
         if (state == true)
             return "bilan-3";
         if (state == "csv")
@@ -410,7 +521,7 @@ function statusActivity(activity, state = true) {
 
 function loadActivityForStudents(isDoable) {
     // Reset the inputs
-    resetInputsForActivity()
+    resetInputsForActivity();
 
     // Check if the activity has an introduction
     if (Activity.introduction != null && Activity.introduction != "") {
@@ -418,9 +529,22 @@ function loadActivityForStudents(isDoable) {
         $('#activity-introduction').show()
     }
 
+    let activityType = [
+        "reading",
+        "dragAndDrop",
+        "fillIn",
+        "quiz"
+    ]
+    // Disclaimer for eval
+    if (Activity.correction < 2 && (activityType.includes(Activity.activity.type))) {
+        $('#warning-icon-container').show();
+        $('#warning-icon-container > i').hide();
+        Activity.evaluation ? $('#warning-icon-evaluation').show().tooltip() : $("#warning-icon-no-evaluation").show().tooltip();
+    }
+    
     // Check if the correction if available
     if (Activity.correction >= 1) {
-        $('#activity-details').html(i18next.t("classroom.activities.sentOn") + formatHour(Activity.dateSend))
+        $('#activity-details').html(i18next.t("classroom.activities.sentOn") + formatHour(Activity.dateSend), i18next.t("classroom.activities.numberOfTries") + Activity.tries)
     } else {
         $('#activity-details').html(i18next.t("classroom.activities.toSend") + formatDay(Activity.dateEnd))
     }
@@ -430,24 +554,32 @@ function loadActivityForStudents(isDoable) {
     let correction = '';
     if (!UserManager.getUser().isRegular && Activity.correction > 1) {
         document.querySelector('#activity-correction').style.display = 'block';
-        let activityResultString;
+        let activityResultString, activityResultColor;
         switch (Activity.note) {
+            case 4:
+                activityResultString = i18next.t('classroom.activities.noProficiency')
+                activityResultColor = 'var(--classroom-text-2)'
+                break;
             case 3:
                 activityResultString = i18next.t('classroom.activities.veryGoodProficiency')
+                activityResultColor = 'var(--correction-3)'
                 break;
             case 2:
                 activityResultString = i18next.t('classroom.activities.goodProficiency')
+                activityResultColor = 'var(--correction-2)'
                 break;
             case 1:
                 activityResultString = i18next.t('classroom.activities.weakProficiency')
+                activityResultColor = 'var(--correction-1)'
                 break;
             case 0:
                 activityResultString = i18next.t('classroom.activities.insufficientProficiency')
+                activityResultColor = 'var(--correction-0)'
                 break;
             default:
                 break;
         }
-        correction += `<div class="results-string" style="background-color:var(--correction-${Activity.note})"">${activityResultString}</div>`
+        correction += `<div class="results-string" style="background-color:${activityResultColor}">${activityResultString}</div>`
         
         if (Activity.commentary != null && Activity.commentary != "") {
             correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
@@ -459,45 +591,72 @@ function loadActivityForStudents(isDoable) {
     }
 
     injectContentForActivity(content, Activity.correction, Activity.activity.type, correction, isDoable);
+
+    if (!Activity.evaluation && correction < 2 && !isDoable) {
+        let allKnownActivity = [...activityType, "free"];
+        if (!allKnownActivity.includes(Activity.activity.type)) {
+            isDoable = false;
+        } else {
+            isDoable = true;
+        }
+    }
     isTheActivityIsDoable(isDoable);
 }
 
 function loadActivityForTeacher() {
-    if (Activity.correction == null) {
-        var isDoable = true
-    } else {
-        var isDoable = false
-    }
+
+
+    let isDoable = Activity.correction == null ? true : false;
     // Reset the inputs
     resetInputsForActivity()
 
-    // If the user is a teacher, we display the correction button
-    if (UserManager.getUser().isRegular) {
-        if (Activity.correction >= 1) {
-            $('#activity-details').html(i18next.t("classroom.activities.activityOfUser") + Activity.user.pseudo + i18next.t("classroom.activities.userSentOn") + formatHour(Activity.dateSend))
-        } else {
-            $('#activity-details').html(i18next.t("classroom.activities.noSend"))
+    /**
+     * Content title management
+     */
+    if (UserManager.getUser().isRegular && Activity.correction > 1) {
+        $('#label-activity-content').text(i18next.t("newActivities.correction"));
+    } else {
+        $('#label-activity-content').text(i18next.t("newActivities.contentTitle"));
+    }
+
+
+    if (Activity.correction >= 1) {
+        $('#activity-details').html(i18next.t("classroom.activities.activityOfUser") + Activity.user.pseudo + i18next.t("classroom.activities.userSentOn") + formatHour(Activity.dateSend))
+        document.querySelector('#activity-details').innerHTML += `<br><img class="chrono-icon" src="${_PATH}assets/media/icon_time_spent.svg">${i18next.t('classroom.activities.timePassed')} ${formatDuration(Activity.timePassed)}, ${i18next.t("classroom.activities.numberOfTries")} ${Activity.tries}`;
+        if (Activity.autocorrection) {
+            $("#activity-auto-corrected-disclaimer").show();
         }
+    } else {
+        $('#activity-details').html(i18next.t("classroom.activities.noSend"))
     }
 
     let content = manageContentForActivity();
 
     let correction = ''
     correction += `<h4 class="c-text-primary text-center font-weight-bold">${i18next.t('classroom.activities.bilan.results')}</h4>`
-
+    if (Activity.activity.isAutocorrect) {
+        correction += `<h6 class="c-text-secondary text-center">${i18next.t('classroom.activities.isAutocorrected')}</h6>`
+    }
     if (UserManager.getUser().isRegular && Activity.correction > 0) {
 
-        correction += `<div class="giveNote-container c-primary-form">`
+        correction += `<div class="giveNote-container">`
+
+        
+        
         correction += `<label for="givenote-3" onclick="setNote(3)"><input type="radio" id="givenote-3" ${Activity.note == 3 ? "checked=checked" : ""} name="giveNote" value="3">${" " + i18next.t('classroom.activities.accept')}</label>`;
         correction += `<label for="givenote-2" onclick="setNote(2)"><input type="radio" id="givenote-2" ${Activity.note == 2 ? "checked=checked" : ""} name="giveNote" value="2">${" " + i18next.t('classroom.activities.vgood')}</label>`;
         correction += `<label for="givenote-1" onclick="setNote(1)"><input type="radio" id="givenote-1" ${Activity.note == 1 ? "checked=checked" : ""} name="giveNote" value="1">${" " + i18next.t('classroom.activities.good')}</label>`;
-        correction += `<label for="givenote-0" onclick="setNote(0)"><input type="radio" id="givenote-0" ${Activity.note == 0 ? "checked=checked" : ""} name="giveNote" value="0">${" " + i18next.t('classroom.activities.refuse')}</label></div>`;
+        correction += `<label for="givenote-0" onclick="setNote(0)"><input type="radio" id="givenote-0" ${Activity.note == 0 ? "checked=checked" : ""} name="giveNote" value="0">${" " + i18next.t('classroom.activities.refuse')}</label>`;
+        // @updated
+        correction += `<label for="givenote-4" onclick="setNote(4)"><input type="radio" id="givenote-4" ${Activity.note == 4 ? "checked=checked" : ""} name="giveNote" value="4">${" " + i18next.t('classroom.activities.nnoted')}</label></div>`;
 
         correction += '<div id="commentary-panel" class="c-primary-form"><label>' + i18next.t("classroom.activities.comments") + '</label><textarea id="commentary-textarea" style="width:100%" rows="8">' + Activity.commentary + '</textarea></div>'
         correction += '<button onclick="giveNote()" class="btn c-btn-primary btn-sm text-wrap w-100"><span class="text-wrap">' + i18next.t('classroom.activities.sendResults') + '<i class="fas fa-chevron-right"> </i></span></button>'
     }
 
     injectContentForActivity(content, Activity.correction, Activity.activity.type, correction, isDoable);
+
+
     isTheActivityIsDoable(false);
 }
 
@@ -507,8 +666,12 @@ function injectContentForActivity(content, correction, type = null, correction_d
     activityValidationButtonElt.style.display = 'block';
     // Inject the content to the target div
     if (type == null) {
-        $('#activity-content').html(bbcodeToHtml(content))
-        $('#activity-correction').html(bbcodeToHtml(correction))
+        $('#activity-content').html(bbcodeToHtml(content));
+        if (typeof correction == 'string') {
+            $('#activity-correction').html(bbcodeToHtml(correction));
+        } else {
+            $('#activity-correction').html(correction);
+        }
     }
 
     // Things to do for every activity
@@ -531,78 +694,102 @@ function injectContentForActivity(content, correction, type = null, correction_d
         case 'dragAndDrop':
             manageDisplayDragAndDrop(correction, content, correction_div);
             break;
-/*
-        Rémi : Probably not useful
         case 'custom':
             manageDisplayCustomAndReading(correction ,content, correction_div);
-            break; */
+            break;
         default:
-            manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt);
+            if (Activity.activity.isLti) {
+                manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt);
+            } else {
+                manageDisplayOldActivities(correction, content, correction_div, isDoable);
+            }
             break;
     }
 }
 
-let wbbOpt = {
-    buttons: ",bold,italic,underline,|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe",
-}
+
 
 function manageDisplayCustomAndReading(correction, content, correction_div) {
-
-    //$('#activity-title').html(Activity.activity.title);
+    const wbbptions = Main.getClassroomManager().wbbOpt;
     $('#activity-content').html(bbcodeToHtml(content));
     $('#activity-content-container').show();
     if (correction == 0) {
-        $('#activity-input').wysibb(wbbOpt);
+        $('#activity-input').wysibb(wbbptions);
         $('#activity-input-container').show();
     } else if (correction > 0) {
         $('#activity-correction').html(correction_div);
         $('#activity-correction-container').show(); 
     }
-
-    // todo
-    if (!Activity.evaluation && correction < 2) {
-        $('#activity-validate').show();
-        $('#activity-save').show();
-    }
-
 }
 
 function manageDisplayFree(correction, content, correction_div) {
-
-    //$('#activity-title').html(Activity.activity.title);
-    $('#activity-content').html(bbcodeToHtml(content));
-    $('#activity-content-container').show();
-    if (correction == 0 || correction == null) {
+    $('#activity-states').html(bbcodeToHtml(content));
+    $('#activity-states-container').show();
+    if (UserManager.getUser().isRegular) {
+        if (Activity.response != null && Activity.response != '') {
+            if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") { 
+                $('#activity-student-response').show();
+                let parsed = tryToParse(Activity.response);
+                if (parsed != false) {
+                    $('#activity-student-response-content').html(bbcodeToHtml(parsed));
+                } else if (Activity.response != null) {
+                    $('#activity-student-response-content').html(bbcodeToHtml(Activity.response));
+                }
+                manageCorrectionDiv(correction_div, correction);
+            }
+        }
+    }
+    if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
-            $('#activity-input').wysibb(wbbOpt);
+            const wbbptions = Main.getClassroomManager().wbbOpt;
+            $('#activity-input').wysibb(wbbptions);
+            if (Activity.response != null && Activity.response != '') {
+                let parsed = tryToParse(Activity.response);
+                if (parsed != false) {
+                    $('#activity-input').htmlcode(bbcodeToHtml(parsed));
+                } else {
+                    $('#activity-input').htmlcode("");
+                }
+            }
             $('#activity-input-container').show();
         }
-    } else if (correction > 0) {
+    } else if (correction > 1) {
         $('#activity-student-response').show();
-        $('#activity-student-response-content').html(bbcodeToHtml(Activity.response));
+        $('#activity-student-response-content').html(bbcodeToHtml(JSON.parse(Activity.response)));
         manageCorrectionDiv(correction_div, correction);
-    }
-    
-    // todo
-    if (!Activity.evaluation && correction < 2) {
-        $('#activity-validate').show();
-        $('#activity-save').show();
     }
 }
 
 function manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt) {
-    //document.querySelector('#activity-title').innerHTML = Activity.activity.title;
+    document.querySelector('#activity-content-container').style.display = 'block';
     if (isDoable) {
         activityValidationButtonElt.style.display = 'none';
-        launchLtiResource(Activity.id, Activity.activity.type, content, true);
+        if (!UserManager.getUser().isRegular) {
+            launchLtiResource(Activity.id, Activity.activity.type, content, true);
+        } else {
+            launchLtiResource(Activity.id, Activity.activity.type, content, false);
+        }
     } else {
         document.querySelector('#activity-content').innerHTML = `
         <iframe src="${Activity.url}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`;
-        if (!Activity.evaluation) {
-            document.querySelector('#activity-content').innerHTML += `
-            <button onclick="launchLtiResource(${Activity.id}, '${Activity.activity.type}', '${content}', true, '${Activity.url}')">Modifier le travail</button>`;
+        if (!UserManager.getUser().isRegular) {
+            if (!Activity.evaluation && correction < 2) {
+                document.querySelector('#activity-content').innerHTML += `
+                <button onclick="launchLtiResource(${Activity.id}, '${Activity.activity.type}', '${content}', true, '${Activity.url}')">Modifier le travail</button>`;
+            }
         }
         
+        if (correction != 1 || UserManager.getUser().isRegular) {
+            document.querySelector('#activity-correction-container').style.display = 'block';
+            document.querySelector('#activity-correction').innerHTML = correction_div;
+        }
+    }
+}
+
+function manageDisplayOldActivities(correction, content, correction_div, isDoable) {
+    document.querySelector('#activity-content').innerHTML = bbcodeToHtml(content);
+    document.querySelector('#activity-content-container').style.display = 'block';
+    if (!isDoable) {
         if (correction != 1 || UserManager.getUser().isRegular) {
             document.querySelector('#activity-correction-container').style.display = 'block';
             document.querySelector('#activity-correction').innerHTML = correction_div;
@@ -614,45 +801,75 @@ function manageDisplayQuiz(correction, content, correction_div) {
     $('#activity-states').html(bbcodeToHtml(content.states));
     $('#activity-states-container').show();
 
-    if (correction == 0 || correction == null) {
+    if (UserManager.getUser().isRegular) {
+        $('#activity-content').append(createContentForQuiz(JSON.parse(Activity.activity.solution), false));
+        $('#activity-content-container').show();
+    }
+
+    if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
             $('#activity-student-response-content').html("");
-            let data = content.quiz.contentForStudent;
-            $('#activity-student-response-content').append(createContentForQuiz(data));
+            if (Activity.response != null && Activity.response != '') {
+                if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") {
+                    $('#activity-student-response-content').append(createContentForQuiz(JSON.parse(Activity.response)));
+                }
+            } else {
+                $('#activity-student-response-content').append(createContentForQuiz(content.quiz.contentForStudent));
+            }
             $('#activity-student-response').show();
+        } else {
+            displayQuizTeacherSide();
+            manageCorrectionDiv(correction_div, correction);
         }
-    } else if (correction > 0) {
-        if (Activity.response != null) {
-            $('#activity-student-response-content').html("");
-            let data = JSON.parse(Activity.response);
-            $('#activity-student-response-content').append(createContentForQuiz(data, false)); 
-            $('#activity-student-response').show();
-        }
-
+    } else if (correction > 1) {
+        displayQuizTeacherSide();
         manageCorrectionDiv(correction_div, correction);
-    }
-    
-    // todo
-    if (!Activity.evaluation && correction < 2) {
-        $('#activity-validate').show();
-        $('#activity-save').show();
     }
 }
 
-function createContentForQuiz(data, doable = true) {
+function displayQuizTeacherSide() {
+    if (Activity.response != null) {
+        $('#activity-student-response-content').html("");
+        let data = "";
+        if (Activity.response != null && Activity.response != "") {
+            data = JSON.parse(Activity.response);
+        }
+        $('#activity-student-response-content').append(createContentForQuiz(data, false, true)); 
+        $('#activity-student-response').show();
+        if (data != null && data != "") {
+            Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
+                for (let i = 1; i < $(`label[id^="correction-student-quiz-suggestion-"]`).length+1; i++) {
+                    $('#correction-student-quiz-suggestion-' + i).parent().addClass('quiz-answer-correct');
+                }
+        
+                if (result.success.length > 0) {
+                    for (let i = 0; i < result.success.length; i++) {
+                        $('#correction-student-quiz-suggestion-' + (result.success[i]+1)).parent().addClass('quiz-answer-incorrect');
+                    }
+                }
+            })
+        }
+    }
+}
+
+function createContentForQuiz(data, doable = true, correction = false, preview = false) {
+    manageLabelForActivity();
+    let previewId = preview ? '-preview' : '';
+    let correctionId = correction ? 'correction-' : '';
+
     let content = "";
     if (doable) {
         for (let i = 1; i < data.length+1; i++) {
-            content += ` <div class="input-group">
-                            <input type="checkbox" id="student-quiz-checkbox-${i}">
-                            <input type="text" id="student-quiz-suggestion-${i}" value="${data[i-1].inputVal}" readonly>
+            content += ` <div class="input-group c-checkbox quiz-answer-container" id="qcm-doable-${i}${previewId}">
+                            <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}${previewId}" ${data[i-1].isCorrect ? "checked" : ""}>
+                            <label class="form-check-label" for="student-quiz-checkbox-${i}${previewId}" id="${correctionId}student-quiz-suggestion-${i}${previewId}">${data[i-1].inputVal}</label>
                         </div>`;
         }
     } else {
         for (let i = 1; i < data.length+1; i++) {
-            content += ` <div class="input-group">
-                            <input type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
-                            <input type="text" id="student-quiz-suggestion-${i}" value="${data[i-1].inputVal}" readonly>
+            content += ` <div class="input-group c-checkbox quiz-answer-container" id="qcm-not-doable-${i}">
+                            <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
+                            <label class="form-check-label" for="student-quiz-checkbox-${i}" id="${correctionId}student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
                         </div>`;
         }
     }
@@ -663,36 +880,73 @@ function manageDisplayFillIn(correction, content, correction_div) {
     $('#activity-title').html(Activity.activity.title);
     // Show the content with the response to the teacher
     if (UserManager.getUser().isRegular) {
-        $('#activity-content').html(content.fillInFields.contentForTeacher);
+        let contentForTeacher = content.fillInFields.contentForTeacher;
+        contentForTeacher = parseContent(contentForTeacher, "lms-answer fill-in-answer-teacher", true);
+        $('#activity-content').html(bbcodeToHtml(contentForTeacher));
         $('#activity-content-container').show();
     }
 
     $('#activity-states').html(bbcodeToHtml(content.states));
     $('#activity-states-container').show();
     
-    if (correction == 0 || correction == null) {
+    if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
-            $('#activity-input').wysibb(wbbOpt);
-            $('#activity-input').htmlcode(content.fillInFields.contentForStudent);
-            $('#activity-input-container').show();
+            let studentContent = bbcodeToHtml(content.fillInFields.contentForStudent)
+            let nbOccu = studentContent.match(/﻿/g).length;
+
+            for (let i = 1; i < nbOccu+1; i++) {
+                studentContent = studentContent.replace(`﻿`, `<input type="text" id="student-fill-in-field-${i}" class="answer-student">`);
+            }
+            $('#activity-content').html(studentContent);
+
+            // Place the student's response if there is one
+            if (Activity.response != null && Activity.response != "") {
+                let response = JSON.parse(Activity.response);
+                for (let i = 0; i < response.length; i++) {
+                    let input = document.getElementById(`student-fill-in-field-${i+1}`);
+                    if (response[i] != "" && response[i] != null) {
+                        input.value = response[i];
+                    }
+                }
+            }
+            $('#activity-content-container').show();
+        } else {
+            displayFillInTeacherSide(correction_div, correction, content);
         }
-    } else if (correction >  0) {
-        
-        let studentContentString = content.fillInFields.contentForStudent,
-            studentResponses = JSON.parse(Activity.response);
+    } else if (correction > 1) {
+        displayFillInTeacherSide(correction_div, correction, content);
+    } 
+}
 
-        console.log(studentResponses);
+function displayFillInTeacherSide(correction_div, correction, content) {
 
-        studentResponses.forEach(response => {
-            studentContentString = studentContentString.replace(/\|(.*?)\|/, response);
+    let studentContentString = content.fillInFields.contentForStudent,
+        studentResponses = JSON.parse(Activity.response);
+
+    if (studentResponses != null && studentResponses != "") { 
+
+        studentResponses.forEach((response, i) => {
+            let autoWidthStyle = 'style="width:' + (response.length + 2) + 'ch"';
+            studentContentString = studentContentString.replace('﻿', `<input type="text" id="correction-student-fill-in-field-${i}" ${autoWidthStyle} readonly class="fill-in-answer-teacher answer-student" value="${response}">`);
         });
 
-        $('#activity-student-response-content').html(studentContentString);
+
+        Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
+
+            for (let i = 0; i < studentResponses.length; i++) {
+                if (result.success.includes(i)) {
+                    $(`#correction-student-fill-in-field-${i}`).addClass("answer-incorrect");
+                } else {
+                    $(`#correction-student-fill-in-field-${i}`).addClass("answer-correct");
+                }
+            }
+        })
+    
+        $('#activity-student-response-content').html(bbcodeToHtml(studentContentString));
         $('#activity-student-response').show();
+    }
 
-        manageCorrectionDiv(correction_div, correction);
-
-    } 
+    manageCorrectionDiv(correction_div, correction);
 }
 
 function manageDisplayDragAndDrop(correction, content, correction_div) {
@@ -700,139 +954,135 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
     $('#activity-title').html(Activity.activity.title);
     // Show the content with the response to the teacher
     if (UserManager.getUser().isRegular) {
-        $('#activity-content').html(content.dragAndDropFields.contentForTeacher);
+
+        let contentForTeacher = content.dragAndDropFields.contentForTeacher;
+        contentForTeacher = parseContent(contentForTeacher, "drag-and-drop-answer-teacher", true);
+        $('#activity-content').html(bbcodeToHtml(contentForTeacher));
         $('#activity-content-container').show();
     }
 
     $('#activity-states').html(bbcodeToHtml(content.states));
     $('#activity-states-container').show();
     
-    if (correction == 0 || correction == null) {
+    if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
-            $('#activity-input').wysibb(wbbOpt);
 
             let ContentString = manageDragAndDropText(content.dragAndDropFields.contentForStudent);
-            $('#drag-and-drop-text').html(`<div class="m-4 p-4">${ContentString}</div>`);
+            $('#drag-and-drop-text').html(`<div>${ContentString}</div>`);
 
             // Get the response array and shuffle it
             let choices = shuffleArray(JSON.parse(Activity.activity.solution));
 
             choices.forEach(e => {
-                $('#drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim().toUpperCase()}</p>`);
+                $('#drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
             });
             $('#activity-drag-and-drop-container').show();
-
-
-            let drake = dragula([document.querySelector('#drag-and-drop-fields')], {revertOnSpill: true, removeOnSpill: true});
-            $('.dropzone').each((i, e) => {
-                drake.containers.push(document.querySelector('#'+e.id));
-            });
-
-            drake.on('drop', function (el, target, source) {
-                if (target.children.length > 1 && target.id != "drag-and-drop-fields") {
-                    el == target.children[0] ? $(source).append(target.children[1]) : $(source).append(target.children[0]);
-                } else if (target.children.length = 1 && target.id != "drag-and-drop-fields"){
-                    $(target).html(el);
-                }
-
-                if (source.children.length = 1 && source.id != "drag-and-drop-fields"){
-                    if (source.children[0] == undefined) {
-                        $(source).html("DROP HERE");
-                    }
-                }
-            }).on('over', function(el, container, source) { 
-                //console.log(container);
-                
-                if (container.id != "drag-and-drop-fields") {
-                    //if (container.children[0] == undefined) {
-                        //let toto = container.children[0];
-                        $(container).html(el);
-                        //$(source).html(toto);
-                    //}
-                }
-            }).on('out', function(el, container, source) { 
-
-               /*  if (source.id != "drag-and-drop-fields" && container.childen.length > 0) {
-                    $(source).html(el);
-                    //$(container).html(toto);
-                }
-                let toto = container.children[0]; */
-                //console.log(container.id.includes("dz"));
-                /* if (container.id.includes("dz")) {
-                    if (container.children.length == 0) {
-                        $(source).html("DROP HERE");
-                    }
-                } */
-            });
-        }
-    } else if (correction >  0) {
         
-        let studentContentString = content.dragAndDropFields.contentForStudent;
-        let studentResponses = JSON.parse(Activity.response);
+            // init dragula if it's not already initialized
+            if (Main.getClassroomManager().dragulaGlobal == false) {
+                Main.getClassroomManager().dragulaGlobal = dragula();
+            }
 
-        studentResponses.forEach(response => {
-            studentContentString = studentContentString.replace(/\|(.*?)\|/gi, response);
-        });
+            // Reset the dragula fields
+            Main.getClassroomManager().dragulaGlobal.containers = [];
+            
+            Main.getClassroomManager().dragulaGlobal = dragula([document.querySelector('#drag-and-drop-fields')]).on('drop', function(el, target, source) {
+                if (target.id != 'drag-and-drop-fields') {
+                    let swap = $(target).find('p').not(el);
+                    swap.length > 0 ? source.append(swap[0]) : null;
+                }
+            });
 
-        $('#activity-student-response-content').html(studentContentString);
-        $('#activity-student-response').show();
+            $('.dropzone').each((i, e) => {
+                Main.getClassroomManager().dragulaGlobal.containers.push(document.querySelector('#'+e.id));
+            });
 
-        manageCorrectionDiv(correction_div, correction);
+            // Place the student's response if there is one
+            if (Activity.response != null && Activity.response != "") {
+                let response = JSON.parse(Activity.response);
+                response.forEach((e, i) => {
+                    if (e.string.toLowerCase() != "" && e.string.toLowerCase() != null) {
+                        if ($(`#${e.string.toLowerCase()}`).length > 0) {
+                            $(`#dz-${i}`).html($(`#${e.string.toLowerCase()}`)[0]);
+                        }
+                    }
+                })
+            }
+        } else {
+            displayDragAndDropTeacherSide(correction_div, correction, content);
+        }
+    } else if (correction > 1) {
+        displayDragAndDropTeacherSide(correction_div, correction, content);
     } 
-    
 }
 
+function displayDragAndDropTeacherSide(correction_div, correction, content) {
+    let studentResponses = JSON.parse(Activity.response);
+    let studentContentString = content.dragAndDropFields.contentForStudent;
 
+
+    $(`input[id^="corrected-student-response-"]`).each((i, e) => {
+        $(e).remove();
+    })
+
+    if (studentResponses != "" && studentResponses != null) {
+        for (let i = 0; i < studentResponses.length; i++) {
+            let autoWidthStyle = 'style="width:' + (studentResponses[i].string.toLowerCase().length + 2) + 'ch"';
+            studentContentString = studentContentString.replace(`﻿`, `<input readonly class='drag-and-drop-answer-teacher' id="corrected-student-response-${i}" value="${studentResponses[i].string.toLowerCase()}" ${autoWidthStyle}>`);
+        }
+    
+        $('#activity-student-response-content').html(bbcodeToHtml(studentContentString));
+        $('#activity-student-response').show();
+        Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
+            for (let i = 0; i < $(`input[id^="corrected-student-response-"]`).length; i++) {
+                $('#corrected-student-response-' + i).addClass("answer-correct");
+            }
+        
+            for (let i = 0; i < result.success.length; i++) {
+                $('#corrected-student-response-' + (result.success[i])).addClass("answer-incorrect");
+            }
+        })
+    }
+    manageCorrectionDiv(correction_div, correction);
+}
 
 function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
+    const arrayClone = [...array];
+    for (let i = arrayClone.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+        [arrayClone[i], arrayClone[j]] = [arrayClone[j], arrayClone[i]];
     }
-    return array;
+    return arrayClone;
 }
 
-function manageDragAndDropText(studentContentString) {
-    let studentResponses = JSON.parse(Activity.activity.solution);
+function manageDragAndDropText(studentContentString, preview = false) {
+    let studentResponses = preview ? Main.getClassroomManager()._createActivity.solution : JSON.parse(Activity.activity.solution);
+    let previewString = preview ? "-preview" : "";
     for (let i = 0; i < studentResponses.length; i++) {
-        let input = `<span class="dropable-items dropzone" id="dz-${i}">DRAG HERE</span>`;
-        studentContentString = studentContentString.replace(/\|(.*?)\|/, input);
+        let input = `<span class="dropable-items dropzone${previewString}" id="dz-${i}${previewString}"></span>`;
+        studentContentString = studentContentString.replace(`﻿`, input);
     }
     return studentContentString;
 }
 
-
 function manageCorrectionDiv(correction_div, correction) {
-    if (UserManager.getUser().isRegular) {
-        $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
-    } else {
-        $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
-    }
-    if (correction > 1) {
+    manageLabelForActivity();
+    if (correction > 1 || (UserManager.getUser().isRegular && correction >= 1)) {
         $('#activity-correction').html(correction_div);
         $('#activity-correction-container').show(); 
     }
 }
 
-
-// Set all the inputs we need to reset
-function resetInputsForActivity() {
-    // Hide all the divs
-    $('#activity-introduction').hide();
-    $('#activity-correction-container').hide();
-    
-    // Field for free activity
-    $('#activity-input-container').hide();
-    $('#activity-student-response').hide();
-    
-    // Fields
-    $('#activity-title').html(" ");
-    $('#activity-content').html(" ");
-    $('#activity-correction').html(" ");
+function manageLabelForActivity() {
+    if (UserManager.getUser().isRegular && $_GET('panel') == "classroom-dashboard-activity-panel-teacher") {
+        $('#label-activity-student-response').text(i18next.t("classroom.activities.studentAnswer"));
+    } else {
+        $('#label-activity-student-response').text(i18next.t("classroom.activities.yourAnswer"));
+    }
 }
 
 function isTheActivityIsDoable(doable, hideValidationButton = false) {
-    if (doable == false) {
+    if (doable == false || UserManager.getUser().isRegular) {
         $('#activity-validate').hide();
         $('#activity-save').hide();
     } else {
@@ -846,9 +1096,15 @@ function isTheActivityIsDoable(doable, hideValidationButton = false) {
         if (interface != undefined && interface != null) {
             $('#activity-save').show()
         }
+
+        if (!Activity.activity.isLti) { 
+            $('#activity-validate').show();
+            if (Activity.activity.type != 'reading') {
+                $('#activity-save').show();
+            }
+        }
     }
 }
-
 
 function manageContentForActivity() {
     let content = "";

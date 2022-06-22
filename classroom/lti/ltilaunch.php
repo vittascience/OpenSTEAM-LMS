@@ -12,7 +12,7 @@ require_once $rootPath . 'vendor/autoload.php';
 
 require_once $rootPath . 'bootstrap.php';
 
-use Classroom\Entity\ActivityRestrictions;
+use Classroom\Entity\Applications;
 use Classroom\Entity\LtiTool;
 
 if (empty($_SESSION["id"])) {
@@ -58,16 +58,15 @@ if ($activitiesLinkUser == null) {
 	exit;
 }
 
-$platform_url = getenv('VS_HOST');
-	echo "Bad student resource url requested!";
-	exit;
+if($studentResourceUrl == null) {
+  echo "Bad student resource url requested!";
 }
 
-$platform_url = "https://{$_SERVER["HTTP_HOST"]}";
+//$platform_url = isset($_SERVER['HTTPS']) ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'];
+$platform_url = getenv('VS_HOST');
 
-$activityRestriction = $entityManager->getRepository(ActivityRestrictions::class)->findOneByActivityType($applicationType);
-
-$ltiTool = $entityManager->getRepository(LtiTool::class)->findOneByApplicationId($activityRestriction->getApplication()->getId());
+$ltiApplication = $entityManager->getRepository(Applications::class)->findOneBy(["name" => $applicationType])->getId();
+$ltiTool = $entityManager->getRepository(LtiTool::class)->findOneBy(["application" => $ltiApplication]);
 
 if (!$ltiTool) {
 	echo 'Tool not found!';
@@ -76,8 +75,8 @@ if (!$ltiTool) {
 
 $loginHint = json_encode([
 	"lineitemId" => $targetLinkUri,
-	"userId" => $_SESSION["id"], 
-	"isStudentLaunch" => $studentLaunch, 
+	"userId" => $_SESSION["id"],
+	"isStudentLaunch" => $studentLaunch,
 	"activityType" => $applicationType,
 	"activitiesLinkUser" => $activitiesLinkUser,
 	"deploymentId" => $ltiTool->getDeploymentId(),

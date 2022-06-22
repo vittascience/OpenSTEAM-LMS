@@ -28,14 +28,17 @@ $jwtToken = explode("Bearer ", $headers['Authorization'])[1];
 
   try {
     // TODO: IT SHOULD BE BETTER TO GENERATE THE PUBLIC KEY HERE INSTEAD OF GETTING IT FROM THE JWKS ENDPOINT
-    //$jwks = json_decode(file_get_contents("https://{$_SERVER['HTTP_HOST']}/classroom/lti/certs.php"), true);
+    //$platform_url = isset($_SERVER['HTTPS']) ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'];
+    //$platform_url = getenv('VS_HOST');
+    $platform_url = getenv('VS_HOST');
+    $jwks = json_decode(file_get_contents($platform_url . "/classroom/lti/certs.php"), true);
 
     JWT::$leeway = 60; // $leeway in seconds
 
     // check validity of access_token
     $validatedToken = JWT::decode(
-      explode("Bearer ", $headers['Authorization'])[1],
-      file_get_contents(__DIR__ . "/keys/public.key"),
+      $jwtToken,
+      JWK::parseKeySet($jwks),
       array('RS256')
     );
 
@@ -67,7 +70,7 @@ try {
     $convertedScore = 3 / $scoreMaximum * $scoreGiven;
     $activityLinkUser->setNote((int) $convertedScore);
     $activityLinkUser->setCorrection(2);
-  } 
+  }
   else {
     // set correction field to 1 (teacher must manually give score)
     $activityLinkUser->setCorrection(1);

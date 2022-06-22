@@ -235,8 +235,7 @@ DisplayPanel.prototype.classroom_dashboard_form_classe_panel_update = function (
 DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function () {
     ClassroomSettings.activity = false;
     // Refresh the activities
-    Main.getClassroomManager().getTeacherActivities(Main.getClassroomManager())
-    .then(() => {
+    Main.getClassroomManager().getTeacherActivities(Main.getClassroomManager()).then(() => {
         teacherActivitiesDisplay();
     });
 }
@@ -256,7 +255,7 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
         if (!Main.getClassroomManager()._myClasses) {
             Main.getClassroomManager().getClasses().then(function () {
                 let students = getClassroomInListByLink(link)[0].students
-                displayStudentsInClassroom(students)
+                displayStudentsInClassroom(students, link)
                 $('.classroom-link').html(ClassroomSettings.classroom)
             })
 
@@ -271,29 +270,39 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
             }
             // Load the classroom with the current cache data
             let students = getClassroomInListByLink(link)[0].students
-            displayStudentsInClassroom(students)
+            displayStudentsInClassroom(students, link)
             $('.classroom-link').html(ClassroomSettings.classroom)
+            $('#classroom-code-share-qr-code').html('');
+            currentOriginUrl = new URL(window.location.href).origin;
+            fullPath = currentOriginUrl + '/classroom/login.php?link=' + ClassroomSettings.classroom;
+            QrCreator.render({
+                text: fullPath,
+                radius: 0.5, 
+                ecLevel: 'H',
+                fill: getComputedStyle(document.documentElement).getPropertyValue('--classroom-primary'),
+                background: "white", 
+                size: 300
+              }, document.querySelector('#classroom-code-share-qr-code'));
+
             // Block classroom feature
             if (getClassroomInListByLink(link)[0].classroom.isBlocked == false) {
-                $('#classroom-info > button:first-child').removeClass('greyscale')
-                $('#classroom-info > button:first-child > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
+                $('#blocking-class-tooltip').removeClass('greyscale')
+                $('#blocking-class-tooltip > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
+                $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '1');
+                $('#blocking-class-tooltip').tooltip("dispose");
+                $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.activationLink')).tooltip();
 
             } else {
-                $('#classroom-info > button:first-child').addClass('greyscale')
-                $('#classroom-info > button:first-child > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
-
-
+                $('#blocking-class-tooltip').addClass('greyscale')
+                $('#blocking-class-tooltip > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
+                $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '0.5');
+                $('#blocking-class-tooltip').tooltip("dispose");
+                $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.activationLinkDisabled')).tooltip();
             }
-            // Get the classes from database and refresh the dashboard
-            if (document.getElementById('is-anonymised').checked) {
-                anonymizeStudents();
-            }
+
             Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
                 let students = getClassroomInListByLink(link)[0].students
                 displayStudentsInClassroom(students, link);
-                if (document.getElementById('is-anonymised').checked) {
-                    anonymizeStudents();
-                }
             });
         }
         dashboardAutoRefresh.refreshLater();
@@ -310,8 +319,8 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) 
             navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher');
             return;
         }
-        let attribution = getAttributionByRef(ref)
-        let retroAttributionIsActive = ClassroomSettings.isRetroAttributed === true ? true : false
+        let attribution = getAttributionByRef(ref);
+        let retroAttributionIsActive = ClassroomSettings.isRetroAttributed === true ? true : false;
         $('#retro-attribution-activity-form').prop('checked',retroAttributionIsActive)
         $('#introduction-activity-form').val(attribution.introduction)
         $('#date-begin-activity-form').val(formatDateInput(new Date(attribution.dateBegin.date)))
@@ -327,7 +336,7 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) 
     } else {
         let now = new Date()
         let future = new Date()
-        future.setDate(future.getDate() + 7);
+        future.setDate(future.getDate() + 365);
         $('#date-begin-activity-form').val(formatDateInput(now))
         $('#date-end-activity-form').val(formatDateInput(future))
         $('#introduction-activity-form').val('')
@@ -359,6 +368,11 @@ DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
             }
             ClassroomSettings.activity = id = Number(id.slice(2))
             Activity = getActivity(id, $_GET('interface'))
+            if (typeof Activity == 'undefined') {
+                console.error(`The activity can't be loaded!`);
+                navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
+                return;
+            }
             // Run the activity tracker if the current activity is doable or exercise
             if (Activity.evaluation != true || Activity.correction == null) {
                 Main.activityTracker = new ActivityTracker();
@@ -379,35 +393,64 @@ function addZero(number, lenght) {
 }
 
 function formatDateInput(date) {
-
     return date.getFullYear() + "-" + addZero((Number(date.getMonth()) + 1), 2) + "-" + addZero(date.getDate(), 2)
 }
 
 function getTeacherActivity() {
-    //
-    $('#activity-correction-container').hide();
-    $('#activity-details').html('');
-    $("#activity-content").html('');
-    $("#activity-states").html('');
-    $("#activity-states-container").hide();
-    $("#activity-content-container").hide();
-    //
+    resetInputsForActivity();
+    
+    $('#activity-title').html(Activity.title);
+    
+    let autoCorrectionDisclaimerElt = `<img id="activity-auto-disclaimer" data-toggle="tooltip" src="assets/media/auto-icon.svg" title="${i18next.t("classroom.activities.isAutocorrect")}">`
+    Activity.isAutocorrect ? $('#activity-title').append(autoCorrectionDisclaimerElt).tooltip() : null;
 
-    $('#activity-title').html(Activity.title + `<button class="btn btn-link" onclick="attributeActivity(` + Activity.id + `)">
-    <i class="fas fa-arrow-down"></i> ` + capitalizeFirstLetter(i18next.t('words.attribute')) + `</button>`);
+    let activityDropdownElt = `
+    <div class="dropdown mx-2">
+        <button class="btn c-btn-outline-grey" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            ${capitalizeFirstLetter(i18next.t('words.options'))}
+            <i class="fas fa-cog"></i>
+        </button>
 
-    Activity.isAutocorrect ? $('#activity-auto-disclaimer').show() :  $('#activity-auto-disclaimer').hide();
+        <ul class="dropdown-menu">
+            <li>
+                <a href="#" class="dropdown-item" href="#" onclick="attributeActivity(${Activity.id})" >
+                    ${capitalizeFirstLetter(i18next.t('words.attribute'))}
+                </a>
+            </li>
+        
+            <li>
+                <a class="dropdown-item" href="#" onclick="createActivity(null,${Activity.id})">
+                    ${capitalizeFirstLetter(i18next.t('words.duplicate'))}
+                </a>
+            </li>
+                
+            <li>
+                <a class="dropdown-item" onclick="activityModify(${Activity.id})" href="#">
+                    ${capitalizeFirstLetter(i18next.t('words.modify'))}
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item modal-activity-delete" href="#">
+                    ${capitalizeFirstLetter(i18next.t('words.delete'))}
+                </a>
+            </li>
+        </ul>
+    </div>`
+    $('#activity-title').append(activityDropdownElt);
+
 
     if (IsJsonString(Activity.content)) {
         const contentParsed = JSON.parse(Activity.content);
         if (Activity.type == 'free' || Activity.type == 'reading') {
             if (contentParsed.hasOwnProperty('description')) {
-                $('#activity-content').html(bbcodeToHtml(contentParsed.description))
-                $("#activity-content-container").show();
+                $('#activity-content').html(bbcodeToHtml(contentParsed.description));
+                $('#activity-content-container').show();
             } 
         } else if (Activity.type == 'fillIn') {
             $("#activity-states").html(bbcodeToHtml(contentParsed.states));
-            $("#activity-content").html(bbcodeToHtml(contentParsed.fillInFields.contentForTeacher));
+            let contentForTeacher = contentParsed.fillInFields.contentForTeacher;
+            contentForTeacher = parseContent(contentForTeacher, "lms-answer fill-in-answer-teacher", true);
+            $('#activity-content').html(bbcodeToHtml(contentForTeacher));
             $("#activity-content-container").show();
             $("#activity-states-container").show();
 
@@ -418,31 +461,39 @@ function getTeacherActivity() {
             })
 
             let data = JSON.parse(Activity.solution);
-
-
+            let htmlToPush = '';
             for (let i = 1; i < data.length+1; i++) {
-                let ctx = ` <div class="input-group" id="teacher-suggestion-${i}">
-                                <label for="quiz-suggestion-${i}" id="show-quiz-label-suggestion-${i}">Proposition ${i}</label>
-                                <input type="text" id="show-quiz-suggestion-${i}" value="${data[i-1].inputVal}" readonly>
-                                <label for="quiz-checkbox-${i}" id="show-quiz-label-checkbox-${i}">Réponse correcte</label>
-                                <input type="checkbox" id="show-quiz-checkbox-${i}" ${data[i-1].isCorrect ? 'checked' : ''} onclick="return false;">
+                htmlToPush += `<div class="input-group c-checkbox quiz-answer-container" id="qcm-field-${i}">
+                                <input class="form-check-input" type="checkbox" id="show-quiz-checkbox-${i}" ${data[i-1].isCorrect ? 'checked' : ''} onclick="return false;">
+                                <label class="form-check-label" for="quiz-checkbox-${i}" id="show-quiz-label-checkbox-${i}">${data[i-1].inputVal}</label>
                             </div>`;
-                $('#activity-content-container').append(ctx); 
             }
+            $('#activity-content-container').append(htmlToPush);
+
             $("#activity-content-container").show();
             $("#activity-states-container").show();
         } else if (Activity.type == 'dragAndDrop') {
 
-            //console.log(contentParsed);
             $("#activity-states").html(bbcodeToHtml(contentParsed.states));
-            $("#activity-content").html(bbcodeToHtml(contentParsed.dragAndDropFields.contentForTeacher));
+
+            let contentForTeacher = contentParsed.dragAndDropFields.contentForTeacher;
+
+            contentForTeacher = parseContent(contentForTeacher, "drag-and-drop-answer-teacher", true);
+
+            $("#activity-content").html(bbcodeToHtml(contentForTeacher));
             $("#activity-content-container").show();
             $("#activity-states-container").show();
 
-
+            // Default behavior
         } else {
-            // activityId, activityType, activityContent
-            launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description);
+            // LTI Activity
+            if (Activity.isLti) {
+                launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description);
+            } else {
+                // Non core and non LTI Activity fallback
+                $("#activity-content").html(bbcodeToHtml(contentParsed));
+                $("#activity-content-container").show();
+            }
         }
         
     } else {
@@ -460,12 +511,14 @@ function getIntelFromClasses() {
     let classes = Main.getClassroomManager()._myClasses
     if (classes.length == 0) {
         $('.tocorrect-activities').html('0')
-        $('#mode-student-check').after(NO_CLASS)
+        if (document.querySelector('#mode-student-check').parentElement.querySelector('p.no-classes') === null) {
+            $('#mode-student-check').after(NO_CLASS);
+        }
         $('#mode-student-check').hide()
 
     } else {
         let correctionCount = 0
-        classes.forEach(element => {
+        classes.forEach((element, e) => {
             element.students.forEach(e => {
                 e.activities.forEach(a => {
                     if (a.correction == 1) {
@@ -473,7 +526,15 @@ function getIntelFromClasses() {
                     }
                 })
             })
-            $('#list-classes').append('<div><input class="mx-5" type="radio" name="classroom" id="' + element.classroom.link + '" value="' + element.classroom.link + '"><label for="' + element.classroom.link + '">' + element.classroom.name + '</label></div>')
+            // Auto select the first class
+            if (e == 0) {
+                ClassroomSettings.classroom = element.classroom.link;
+            }
+            $('#list-classes').append(`
+            <label class="c-radio mb-3">
+                <input type="radio" name="classroom" id="${element.classroom.link}" value="${element.classroom.link}" ${e == 0 ? "checked" : ""} />
+                ${element.classroom.name}
+            </label>`)
         });
         $('.no-classes').remove()
         $('#mode-student-check').show()

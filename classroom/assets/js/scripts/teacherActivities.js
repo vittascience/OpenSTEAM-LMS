@@ -12,14 +12,12 @@ function createActivity(link = null, id = null) {
         ClassroomSettings.activityInWriting = true
     } else {
         ClassroomSettings.activity = id
+        let activityTitle = getActivity(ClassroomSettings.activity).title;
         Main.getClassroomManager().duplicateActivity(id).then(function (response) {
             if (response.success == true) {
-                displayNotification('#notif-div', "classroom.notif.activityDeleted", "success");
+                displayNotification('#notif-div', "classroom.notif.activityDuplicated", "success", `'{"activityName": "${activityTitle}"}'`);
                 teacherActivitiesDisplay();
                 DisplayActivities();
-            } else {
-                displayNotification('#notif-div', "classroom.notif.activityDeleted", "error");
-                console.log("error")
             }
         })
     }
@@ -64,23 +62,46 @@ window.addEventListener('storage', () => {
 });
 
 //activité-->ouvrir la modal
-$('body').on('click', '.activity-card-top i', function (event) {
+$('body').on('click', '.activity-card-top i', function () {
     ClassroomSettings.activity = $(this).parent().parent().parent().find('.info-tutorials').attr('data-id')
 })
 
-//activité modal-->supprimer
-$('body').on('click', '.modal-activity-delete', function () {
-    let confirm = window.confirm("Etes vous sur de vouloir supprimer l'activité'?")
-    if (confirm) {
+// get activity id in list mode
+$('body').on('click', '.activity-list-dropdown i', function () {
+    ClassroomSettings.activity = $(this).attr('id').replace("dropdown-list-activityItem-", "");
+})
+
+function startDeleteActivity() {
+    $('#validation_delete_group').val("");
+    pseudoModal.openModal('delete-activity-modal');
+}
+
+function persistDeleteActivity() {
+    let validation = $('#validation-delete-activity').val();
+    let placeholderWord = $('#validation-delete-activity').attr('placeholder');
+    if (validation == placeholderWord) {
         let activityTitle = getActivity(ClassroomSettings.activity).title;
         Main.getClassroomManager().deleteActivity(ClassroomSettings.activity).then(function (activity) {
             displayNotification('#notif-div', "classroom.notif.activityDeleted", "success", `'{"activityName": "${activityTitle}"}'`);
             deleteTeacherActivityInList(activity.id);
             teacherActivitiesDisplay();
             DisplayActivities();
+            pseudoModal.closeModal('delete-activity-modal');
+            $('#validation-delete-activity').val("");
         })
         ClassroomSettings.activity = null;
+    } else {
+        displayNotification('#notif-div', "manager.input.writeDelete", "error");
     }
+}
+
+function cancelDeleteActivity() {
+    pseudoModal.closeModal('delete-activity-modal');
+}
+
+//activité modal-->supprimer
+$('body').on('click', '.modal-activity-delete', function () {
+    startDeleteActivity();
 })
 
 //activité modal-->modifier
@@ -119,6 +140,7 @@ function manageUpdateByType(activity) {
     Main.getClassroomManager()._createActivity.function = "update";
     
     contentForwardButtonElt.style.display = 'inline-block';
+
     $('#global_title').val(activity.title);
 
     switch (activity.type) {
@@ -153,7 +175,15 @@ function manageUpdateByType(activity) {
 function manageUpdateForFree(activity) {
     $('#activity-free').show();
     let content = JSON.parse(activity.content);
-    $('#free-content').htmlcode(bbcodeToHtml(content.description));
+    if (content.description != "" && content.description != null) {
+        $('#free-content').htmlcode(bbcodeToHtml(content.description));
+    }
+
+    // set tolerance 
+    if (content.tolerance != null) {
+        $('#free-tolerance').val(activity.tolerance);
+    }
+
     if (activity.isAutocorrect) {
         $("#free-autocorrect").prop("checked", true)
         $("#free-correction-content").show();
@@ -162,8 +192,8 @@ function manageUpdateForFree(activity) {
         $("#free-correction-content").hide();
     }
     if (activity.solution != "") {
-        if (activity.solution != null) {
-            $('#free-correction').htmlcode(bbcodeToHtml(activity.solution));
+        if (JSON.parse(activity.solution) != null && JSON.parse(activity.solution) != "") {
+            $('#free-correction').htmlcode(bbcodeToHtml(JSON.parse(activity.solution)));
         }
     }
 }
@@ -171,18 +201,25 @@ function manageUpdateForFree(activity) {
 function manageUpdateForQuiz(activity) {
     let solution = JSON.parse(activity.solution),
     content = JSON.parse(activity.content);
-
     $('#quiz-suggestions-container').html('');
     for (let i = 1; i < solution.length+1; i++) {
-        let divToAdd = `<div class="input-group">
+        let divToAdd = `<div class="form-group c-primary-form" id="quiz-group-${i}">
                             <label for="quiz-suggestion-${i}" id="quiz-label-suggestion-${i}">Proposition ${i}</label>
-                            <button data-i18n="newActivities.delete" id="quiz-button-suggestion-${i}" onclick="deleteQuizSuggestion(${i})">Delete</button>
-                            <input type="text" id="quiz-suggestion-${i}" value="${solution[i-1].inputVal}">
-                            <label for="quiz-checkbox-${i}" id="quiz-label-checkbox-${i}">Réponse correcte</label>
-                            <input type="checkbox" id="quiz-checkbox-${i}" ${solution[i-1].isCorrect ? 'checked' : ''}>
-                        </div>
-                        `;
+                            <button class="btn c-btn-grey mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-${i}" onclick="deleteQuizSuggestion(${i})">Delete</button>
+
+                            <div class="input-group mt-3">
+                                <input type="text" id="quiz-suggestion-${i}" class="form-control" value="${solution[i-1].inputVal}">
+                                <div class="input-group-append">
+                                    <div class="input-group-text c-checkbox c-checkbox-grey">
+                                        <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}" ${solution[i-1].isCorrect ? "checked" : ""}>
+                                        <label class="form-check-label" for="quiz-checkbox-${i}" id="label-quizz-${i}"  data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
         $('#quiz-suggestions-container').append(divToAdd);
+        $(`#quiz-button-suggestion-${i}`).localize();
+        $(`#label-quizz-${i}`).localize();
     }
 
     $('#quiz-states').htmlcode(bbcodeToHtml(content.states));
@@ -220,9 +257,7 @@ function manageUpdateForReading(activity) {
 
 function manageUpdateForDragAndDrop(activity) {
     $('#activity-drag-and-drop').show();
-    console.log(activity)
     let content = JSON.parse(activity.content);
-    console.log(content)
     $("#drag-and-drop-hint").val(content.hint);
     $("#drag-and-drop-states").htmlcode(bbcodeToHtml(content.states));
     $("#drag-and-drop-content").htmlcode(bbcodeToHtml(content.dragAndDropFields.contentForTeacher));
@@ -231,6 +266,11 @@ function manageUpdateForDragAndDrop(activity) {
 
 //création activité vers attribution
 function attributeActivity(id, ref = null) {
+
+    $("#assign-total-student-number").text(0);
+
+    Main.getClassroomManager()._idActivityOnAttribution = id;
+   
     if (id == 0) {
         id = Main.getClassroomManager()._lastCreatedActivity;
     }
@@ -262,7 +302,8 @@ function undoAttributeActivity(ref,title,classroomId) {
 
 //ouverture du modal listant les élèves pour leur attribuer l'activité
 $('#new-activity-attribute').click(function () {
-    pseudoModal.openModal('attribute-activity-modal')
+    pseudoModal.openModal('attribute-activity-modal');
+    $("#attribute-activity-modal").localize();
 })
 
 //fermeture du modal

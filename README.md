@@ -44,10 +44,11 @@ You can find the LMS tutorial on [a video on Youtube](https://www.youtube.com/wa
 3. [VirtualHost Setup](https://github.com/vittascience/OpenSTEAM-LMS#virtualhost-setup)
 4. [Dependencies](https://github.com/vittascience/OpenSTEAM-LMS#dependencies)
 5. [Database setup](https://github.com/vittascience/OpenSTEAM-LMS#database-setup)
-6. [Build](https://github.com/vittascience/OpenSTEAM-LMS#build)
-7. [Plugins](https://github.com/vittascience/OpenSTEAM-LMS#plugins)
-8. [Email Templates](https://github.com/vittascience/OpenSTEAM-LMS#email-templates)
-9. [OpenSTEAM LMS back end core](https://github.com/vittascience/OpenSTEAM-LMS#opensteam-lms-back-end-core)
+6. [Architecture](https://github.com/vittascience/OpenSTEAM-LMS#architecture)
+7. [Build](https://github.com/vittascience/OpenSTEAM-LMS#build)
+8. [Plugins](https://github.com/vittascience/OpenSTEAM-LMS#plugins)
+9. [Email Templates](https://github.com/vittascience/OpenSTEAM-LMS#email-templates)
+10. [OpenSTEAM LMS back end core](https://github.com/vittascience/OpenSTEAM-LMS#opensteam-lms-back-end-core)
 
 ## Clone the repository
 
@@ -127,6 +128,9 @@ To setup the database, type this command in your shell: php sql-files/SteamLmsGe
 Make sure you added the necessay informations (below # setup the new admin data) in the .env file
 Then you have to check if the created database name match the VS_DB_NAME in the .env file.
 
+## Architecture
+
+![](open-steam-architecture.jpg?raw=true)
 ## Build
 
 When changing the view files or when working on a plugin, you need to run a gulp build to apply the changes on the L.M.S.
@@ -219,8 +223,8 @@ This $body variable will be injected inside your html emails before sending each
 
 The current repository only contains front elements of the LMS. The back end is mainly located in the dependencies (in the vendor folder) :
 
-- [vuser](https://github.com/vittascience/vuser) : current version (1.2.3)
-- [vclassroom](https://github.com/vittascience/vclassroom) : current version (1.2.4)
-- [vutils](https://github.com/vittascience/vutils) : current version (1.2.3)
-- vinterfaces (not public yet) : current version (1.2.1)
-- vlearn (not public yet) : current version (1.2.6)
+- [vuser](https://github.com/vittascience/vuser) : current version (1.2.4)
+- [vclassroom](https://github.com/vittascience/vclassroom) : current version (1.2.8)
+- [vutils](https://github.com/vittascience/vutils) : current version (1.2.4)
+- vinterfaces (not public yet) : current version (1.2.2)
+- vlearn (not public yet) : current version (1.2.10a)

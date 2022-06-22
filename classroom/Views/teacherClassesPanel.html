@@ -99,7 +99,7 @@
 
     </div>
 
-    <div id="classroom-panel-table-container">
+    <div id="classroom-panel-table-container" class="stylized-scrollbar">
         <table>
             <thead>
                 <tr id="header-table-teach">
@@ -118,20 +118,49 @@
         <div id="legend-container">
             <ul class="row legend" style="list-style:none;">
                 <li class="ml-3">
-                    <div class="bilan-legend bilan-3"></div>
+                    <div class="bilan-legend bilan-3">
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                    </div>
                     <span data-i18n="classroom.activities.veryGoodProficiency"></span>
                 </li>
                 <li class="ml-3">
-                    <div class="bilan-legend bilan-2"></div>
+                    <div class="bilan-legend bilan-2">
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                    </div>
                     <span data-i18n="classroom.activities.goodProficiency"></span>
                 </li>
                 <li class="ml-3">
-                    <div class="bilan-legend bilan-1"></div>
+                    <div class="bilan-legend bilan-1">
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                    </div>
                     <span data-i18n="classroom.activities.weakProficiency"></span>
                 </li>
                 <li class="ml-3">
-                    <div class="bilan-legend bilan-0"></div>
+                    <div class="bilan-legend bilan-0">
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                    </div>
                     <span data-i18n="classroom.activities.insufficientProficiency"></span>
+                </li>
+                <li class="ml-3">
+                    <div class="bilan-legend bilan-4">
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                        <div class="monochrome-grade-div"></div>
+                    </div>
+                    <span data-i18n="classroom.activities.noProficiency"></span>
                 </li>
             </ul>
             <ul class="row legend" style="list-style:none; align-items: flex-end">
@@ -145,6 +174,13 @@
                 </li>
 
                 <li class="ml-3 c-checkbox" style="height: 1.6em;">
+                    <input type="checkbox" id="is-monochrome" title="" class="mr-2">
+                    <label for="is-monochrome">
+                        <span class="mr-2">Mode monochrome</span>
+                    </label>
+                </li>
+
+                <li class="ml-3 c-checkbox" style="height: 1.6em;">
                     <input type="checkbox" id="is-anonymised" title="" class="mr-2">
                     <label for="is-anonymised">
                         <span class="text-capitalize mr-2" data-i18n="words.anonymize"></span><i data-i18n="[title]classroom.activities.anonymise" class="fas fa-question-circle"></i>
@@ -154,15 +190,18 @@
         </div>
     </div>
     <div id="classroom-info">
-        <button class="btn c-btn-secondary" class="blocking-class" onclick="toggleBlockClass()" data-toggle="tooltip" title="Lien d'activation activé">
+        <button class="btn c-btn-secondary" id="blocking-class-tooltip" class="blocking-class" onclick="toggleBlockClass()" data-toggle="tooltip" title="Lien d'activation activé">
             <i class="fa fa-lock-open"></i>
         </button>
 
         <div>
-            <span data-i18n="classroom.activities.toCopy"></span> <span id="classroom-link-tocopy"><span style="display:none;" id="hidden-link-prefix"></span><span class="classroom-link"></span></span>
+            <span data-i18n="classroom.activities.toCopy"></span>
+            <span id="classroom-link-tocopy">
+                <span style="display:none;" id="hidden-link-prefix"></span>
+                <span class="classroom-link"></span>
+            </span>
         </div>
-        <button id="code-copy" class="btn c-btn-secondary" title="Copier le lien direct" class="js-copy" data-target="#classroom-link-tocopy" data-i18n="classroom.classes.panel.copyLink">Copier le lien direct</button>
-
+        
         <button class="btn c-btn-secondary" class="blocking-class" onclick="navigatePanel('classroom-table-panel-teacher-code', 'dashboard-classroom-teacher')" data-toggle="tooltip" title="Afficher en plein écran">
             <i class="fa fa-expand"></i>
 
@@ -174,13 +213,27 @@
 
 
 <div id="classroom-table-panel-teacher-code" style="display:none;" class="row dashboard-block classes-panel class-stats-panel">
-    <button onclick="backToClassroomFromCode()" class="btn c-btn-primary" title="Copier le lien" class="js-copy" data-target="#classroom-link-tocopy"><i class="fas fa-backward"></i><span data-i18n="classroom.activities.toCopy"></span></button>
-    <div class="d-flex align-content-center text-center">
+    <div id="classroom-code-share-container">
+        <button id="code-share-close-btn" onclick="backToClassroomFromCode()" class="btn c-btn-primary">
+            <i class="fas fa-times"></i>
+        </button>
+
         <div>
-            <span data-i18n="classroom.activities.toCopy"></span> </br>
-            <p style="font-size:200px;">
-                <span class="classroom-link"></span>
-            </p>
+            <span data-i18n="classroom.activities.toCopy"></span>
+            <span class="classroom-link" id="classroom-link-share"></span>
+            
+            <button id="code-copy" class="btn c-btn-secondary" title="Copier le lien direct" class="js-copy" data-target="#classroom-link-tocopy" data-i18n="classroom.classes.panel.copyLink">Copier le lien direct</button>
+        </div>
+
+        <div>
+            <span data-i18n="classroom.activities.qrCode"></span> </br>
+            <div id="classroom-code-share-qr-code">
+                
+            </div>
+            <div class="mt-3">
+                <button id="qr-copy" class="btn c-btn-secondary" title="Copier l'image" class="js-copy" data-i18n="classroom.classes.panel.copyImage">Copier l'image</button>
+                <button id="qr-download" class="btn c-btn-secondary" title="Téléverser l'image" class="js-copy" data-i18n="classroom.classes.panel.downloadImage">Téléverser l'image</button>
+            </div>
         </div>
     </div>
 </div>

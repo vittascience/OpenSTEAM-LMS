@@ -9,9 +9,13 @@
     --classroom-tertiary-dark: #50afc2;
 
     --correction-0: #ffc152;
+    --correction-0-rgb: 255, 193, 82;
     --correction-1: #ffda97;
+    --correction-1-rgb: 255, 218, 151;
     --correction-2: #7cc6a5;
+    --correction-2-rgb: 124, 198, 165;
     --correction-3: #22b573;
+    --correction-3-rgb: 34, 183, 115;
     --correction-success: var(--classroom-green);
     --correction-fail: var(--classroom-red);
 
@@ -27,7 +31,7 @@
 
     --classroom-white: #fff;
     --classroom-black: #000;
-    --classroom-grey: #CCCCCC;
+    --classroom-grey: #AAA;
     --classroom-green: #22b573;
     --classroom-red: #dc3545;
     --classroom-red-dark: #ad242c;
@@ -37,6 +41,8 @@
     /* Default dashboard colors (used for students) */
     --classroom-dashboard: var(--classroom-primary);
     --classroom-dashboard-dark: var(--classroom-primary-dark);
+
+    color-scheme: light;
 
 }
 
@@ -48,6 +54,8 @@
     --classroom-text-2: rgb(153, 153, 153);
     --classroom-shadow-1: rgba(0, 0, 0, 1);
     --classroom-cell: #4e4e4e;
+
+    color-scheme: dark;
 }
 
 /* Change the hue-rotate to make the icon color match your primary color */
