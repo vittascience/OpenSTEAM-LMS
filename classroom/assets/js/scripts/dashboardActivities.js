@@ -764,13 +764,19 @@ function manageDisplayLti(correction, content, correction_div, isDoable, activit
     document.querySelector('#activity-content-container').style.display = 'block';
     if (isDoable) {
         activityValidationButtonElt.style.display = 'none';
-        launchLtiResource(Activity.id, Activity.activity.type, content, true);
+        if (!UserManager.getUser().isRegular) {
+            launchLtiResource(Activity.id, Activity.activity.type, content, true);
+        } else {
+            launchLtiResource(Activity.id, Activity.activity.type, content, false);
+        }
     } else {
         document.querySelector('#activity-content').innerHTML = `
         <iframe src="${Activity.url}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`;
-        if (!Activity.evaluation && !UserManager.getUser().isRegular && correction < 2) {
-            document.querySelector('#activity-content').innerHTML += `
-            <button onclick="launchLtiResource(${Activity.id}, '${Activity.activity.type}', '${content}', true, '${Activity.url}')">Modifier le travail</button>`;
+        if (!UserManager.getUser().isRegular) {
+            if (!Activity.evaluation && correction < 2) {
+                document.querySelector('#activity-content').innerHTML += `
+                <button onclick="launchLtiResource(${Activity.id}, '${Activity.activity.type}', '${content}', true, '${Activity.url}')">Modifier le travail</button>`;
+            }
         }
         
         if (correction != 1 || UserManager.getUser().isRegular) {
