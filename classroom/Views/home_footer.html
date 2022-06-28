@@ -20,40 +20,41 @@
 <script src="assets/js/lib/i18nextXHRBackend.min.js?version=VERSIONNUM"></script>
 <script  src="assets/js/lib/i18nextBrowserLanguageDetector.min.js?version=VERSIONNUM"></script>
 <!-- build:js-classroom -->
-<script src="assets/js/utils/url.js"></script>
-<script src="assets/js/utils/parsingJson.js"></script>
-<script src="assets/js/utils/text.js"></script>
-<script src="assets/js/lib/rotate.js"></script>
-<script src="assets/js/utils/bbcodeToHtml.js"></script>
-<script src="assets/js/utils/activityContentManager.js"></script>
-<script src="assets/js/utils/registrationTemplate.js"></script>
-<script src="assets/js/scripts/disconnect.js"></script>
-<script src="assets/js/scripts/dashboardActivities.js"></script>
-<script src="assets/js/scripts/teacherActivities.js"></script>
-<script src="assets/js/scripts/manageClassroom.js"></script>
-<script src="assets/js/scripts/displayPanel.js"></script>
-<script src="assets/js/main/modal.js"></script>
-<script src="assets/js/constants/modals.js"></script>
-<script src="assets/js/scripts/buttons.js"></script>
-<script src="assets/js/scripts/ActivityTracker.js"></script>
-<script src="assets/js/scripts/activityManager.js"></script>
-<script src="assets/js/scripts/classroomDisplay.js"></script>
-<script src="assets/js/main/FoldersManager.js"></script>
+<script src="assets/js/utils/url.js?version=VERSIONNUM"></script>
+<script src="assets/js/utils/parsingJson.js?version=VERSIONNUM"></script>
+<script src="assets/js/utils/text.js?version=VERSIONNUM"></script>
+<script src="assets/js/lib/rotate.js?version=VERSIONNUM"></script>
+<script src="assets/js/utils/bbcodeToHtml.js?version=VERSIONNUM"></script>
+<script src="assets/js/utils/activityContentManager.js?version=VERSIONNUM"></script>
+<script src="assets/js/utils/registrationTemplate.js?version=VERSIONNUM"></script>
+<script src="assets/js/scripts/disconnect.js?version=VERSIONNUM"></script>
+<script src="assets/js/scripts/dashboardActivities.js?version=VERSIONNUM"></script>
+<script src="assets/js/scripts/teacherActivities.js?version=VERSIONNUM"></script>
+<script src="assets/js/scripts/manageClassroom.js?version=VERSIONNUM"></script>
+<script src="assets/js/scripts/displayPanel.js?version=VERSIONNUM"></script>
+<script src="assets/js/main/modal.js?version=VERSIONNUM"></script>
+<script src="assets/js/constants/modals.js?version=VERSIONNUM"></script>
+<script src="assets/js/scripts/buttons.js?version=VERSIONNUM"></script>
+<script src="assets/js/scripts/ActivityTracker.js?version=VERSIONNUM"></script>
+<script src="assets/js/scripts/activityManager.js?version=VERSIONNUM"></script>
+<script src="assets/js/scripts/classroomDisplay.js?version=VERSIONNUM"></script>
+<script src="assets/js/main/FoldersManager.js?version=VERSIONNUM"></script>
+
 <!-- end build -->
-<script src="assets/js/main/Loader.js"></script>
-<script src="assets/js/main/UIManager.js"></script>
-<script src="assets/js/main/User.js"></script>
-<script src="assets/js/main/ClassroomManager.js"></script>
+<script src="assets/js/main/Loader.js?version=VERSIONNUM"></script>
+<script src="assets/js/main/UIManager.js?version=VERSIONNUM"></script>
+<script src="assets/js/main/User.js?version=VERSIONNUM"></script>
+<script src="assets/js/main/ClassroomManager.js?version=VERSIONNUM"></script>
 <!-- manager & groupadmin -->
-<script src="assets/js/main/ManagerManager.js"></script>
-<script src="assets/js/main/GroupAdminManager.js"></script>
-<script src="assets/js/main/MainManagerAndGroup.js"></script>
+<script src="assets/js/main/ManagerManager.js?version=VERSIONNUM"></script>
+<script src="assets/js/main/GroupAdminManager.js?version=VERSIONNUM"></script>
+<script src="assets/js/main/MainManagerAndGroup.js?version=VERSIONNUM"></script>
 <!-- end manager & groupadmin -->
-<script src="assets/js/main/Main.js"></script>
-<script src="assets/js/main/Loader.js"></script>
+<script src="assets/js/main/Main.js?version=1.2.7c"></script>
+<script src="assets/js/main/Loader.js?version=VERSIONNUM"></script>
 <!-- drag and drop bundle -->
-<link rel="stylesheet" stype="text/css" href="assets/css/dragula.css">
-<script src="assets/js/lib/dragula.js" ></script>
+<link rel="stylesheet" stype="text/css" href="assets/css/dragula.css?version=VERSIONNUM">
+<script src="assets/js/lib/dragula.js?version=VERSIONNUM" ></script>
 
 <script src="assets/js/main/CustomActivityManager.js"></script>
 
@@ -63,11 +64,11 @@
                 Main.init().then((resolve) => {
                     const EVENTS_SCRIPTS = [{
                             id: "modals",
-                            src: "assets/js/scripts/loadModals.js"
+                            src: "assets/js/scripts/loadModals.js?version=VERSIONNUM"
                         },
                         {
                             id: "i18n",
-                            src: "assets/js/scripts/checkMail.js"
+                            src: "assets/js/scripts/checkMail.js?version=VERSIONNUM"
                         }
                     ];
                     Loader.loadScripts(EVENTS_SCRIPTS).then(

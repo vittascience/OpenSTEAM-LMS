@@ -97,10 +97,17 @@ const classroomModals = {
         },
         content: `<h4 data-i18n="classroom.modals.settingsTeacher.lang">Langue</h4>
         <div id="switch-lang-list" class="d-flex justify-content-center">
+<<<<<<< HEAD
             <img class="flags-item mr-2" alt="flag" src="assets/media/flags/fr.png?version=VERSIONNUM" onclick="changeLang('fr')">
             <img class="flags-item" alt="flag" src="assets/media/flags/en.png?version=VERSIONNUM" onclick="changeLang('en')">
             <img class="flags-item mr-2" alt="flag" src="assets/media/flags/es.png?version=VERSIONNUM" onclick="changeLang('es')">
             <img class="flags-item mr-2" alt="flag" src="assets/media/flags/it.png?version=VERSIONNUM" onclick="changeLang('it')">
+=======
+            <img class="flags-item mr-2" alt="flag" src="assets/media/flags/fr.png?version=1.2.7c" onclick="changeLang('fr')">
+            <img class="flags-item" alt="flag" src="assets/media/flags/en.png?version=1.2.7c" onclick="changeLang('en')">
+            <img class="flags-item mr-2" alt="flag" src="assets/media/flags/es.png?version=1.2.7c" onclick="changeLang('es')">
+            <img class="flags-item mr-2" alt="flag" src="assets/media/flags/it.png?version=1.2.7c" onclick="changeLang('it')">
+>>>>>>> 6c3001c (Add query param ?version=1.2.7c (to force browser to reload cache))
         </div>
         <h4 data-i18n="classroom.modals.settingsTeacher.password">Mot de passe</h4>
         <p class="text-center" data-i18n="classroom.modals.settingsTeacher.passwordDescription"></p>
