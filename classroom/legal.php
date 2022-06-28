@@ -37,7 +37,6 @@
     <script src="assets/js/lib/i18nextXHRBackend.min.js?version=VERSIONNUM"></script>
     <script src="assets/js/lib/i18nextBrowserLanguageDetector.min.js?version=VERSIONNUM"></script>
     <script src="assets/js/utils/translate.js?version=VERSIONNUM"></script>
-
 </body>
 
 </html>
