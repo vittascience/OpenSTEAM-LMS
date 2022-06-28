@@ -259,7 +259,7 @@ wbbdebug = false;
 			allButtons: {
 				vittaiframe: {
 					title: CURLANG.vittaiframe,
-					buttonHTML: '<img src="/learn/assets/media/SigleVittascience.svg" height="26" height="26" style="margin-top: 2px;"/>',
+					buttonHTML: '<img src="/learn/assets/media/SigleVittascience.svg?version=1.2.7c" height="26" height="26" style="margin-top: 2px;"/>',
 					hotkey: '',
 					modal: {
 						title: CURLANG.modal_vitta_title,
@@ -278,7 +278,7 @@ wbbdebug = false;
 				},
 				cabriiframe: {
 					title: CURLANG.cabriiframe,
-					buttonHTML: '<span class="btn-inner btn-span-cabri"><img class="btn-cabri" src="/classroom/assets/media/cabri_logo.png"></span>',
+					buttonHTML: '<span class="btn-inner btn-span-cabri"><img class="btn-cabri" src="/classroom/assets/media/cabri_logo.png?version=1.2.7c"></span>',
 					hotkey: '',
 					modal: {
 						title: CURLANG.modal_cabri_title,
@@ -499,7 +499,7 @@ wbbdebug = false;
 				},
 				peertube: {
 					title: CURLANG.peertube,
-					buttonHTML: '<span class="btn-inner btn-span-peertube"><img class="btn-peertube" src="/classroom/assets/media/peertube_logo.svg"></span>',
+					buttonHTML: '<span class="btn-inner btn-span-peertube"><img class="btn-peertube" src="/classroom/assets/media/peertube_logo.svg?version=1.2.7c"></span>',
 					modal: {
 						title: CURLANG.peertube,
 						width: "600px",
@@ -744,7 +744,7 @@ wbbdebug = false;
 				},
 				genialyiframe: {
 					title: CURLANG.genialy,
-					buttonHTML: '<img class="fonticon ve-tlb-link1" src="/learn/assets/media/SigleGenially.png" width="26" height="26" style="margin-top: 2px;" />',
+					buttonHTML: '<img class="fonticon ve-tlb-link1" src="/learn/assets/media/SigleGenially.png?version=1.2.7c" width="26" height="26" style="margin-top: 2px;" />',
 					hotkey: '',
 					modal: {
 						title: CURLANG.modal_genialy_title,
@@ -816,7 +816,7 @@ wbbdebug = false;
 				//blockquote: [["   {SELTEXT}",{seltext: {rgx:false,attr:false,sel:false}}]]
 			},
 			smileList: [
-				//{title:CURLANG.sm1, img: '<img src="{themePrefix}{themeName}/img/smiles/sm1.png" class="sm">', bbcode:":)"},
+				//{title:CURLANG.sm1, img: '<img src="{themePrefix}{themeName}/img/smiles/sm1.png?version=1.2.7c" class="sm">', bbcode:":)"},
 			],
 			attrWrap: ['src', 'color', 'href'] //use becouse FF and IE change values for this attr, modify [attr] to _[attr]
 		}
@@ -2675,7 +2675,7 @@ wbbdebug = false;
 			var $wrap = $(this.elFromString("<div>" + bbdata + "</div>"));
 			//transform smiles
 			/* $wrap.contents().filter(function() {return this.nodeType==3}).each($.proxy(smilerpl,this)).end().find("*").contents().filter(function() {return this.nodeType==3}).each($.proxy(smilerpl,this));
-	
+
 				function smilerpl(i,el) {
 					var ndata = el.data;
 					$.each(this.options.smileList,$.proxy(function(i,row) {
@@ -2989,7 +2989,7 @@ wbbdebug = false;
 			/* $.each(this.options.rules,$.proxy(function(s,bb) {
 					$block.find(s).attr("wbbkeep",1);
 				},this));
-	
+
 				//replace div and p without last br to html()+br
 				$block.find("*[wbbkeep!='1']").each($.proxy(function(i,el) {
 					var $this = $(el);

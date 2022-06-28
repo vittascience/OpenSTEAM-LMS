@@ -101,7 +101,7 @@ class GroupAdminManager {
                         if (element_2.image != null && element_2.image != "") {
                             div_img += `<img src="${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                         } else {
-                            div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                            div_img += `<img src="assets/media/no-app-icon.svg?version=1.2.7c" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                         }
                     });
                 }
@@ -140,7 +140,7 @@ class GroupAdminManager {
         let sort = $('#sort_users_filter_groupadmin').val(),
             usersPerPage = $('#users_per_page_groupadmin').val();
         const process = (data) => {
-            let $data_table = "", 
+            let $data_table = "",
                 $data_table_inactive = "";;
             data.forEach(element => {
 
@@ -175,7 +175,7 @@ class GroupAdminManager {
                             if (element_2.image != null && element_2.image != "") {
                                 div_img += `<img src="${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             } else {
-                                div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="assets/media/no-app-icon.svg?version=1.2.7c" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             }
                         });
                     }
@@ -295,11 +295,11 @@ class GroupAdminManager {
                             if (element_2.image != null && element_2.image != "") {
                                 div_img += `<img src="${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             } else {
-                                div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="assets/media/no-app-icon.svg?version=1.2.7c" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             }
                         });
                     }
-                    
+
                     let activeFlag = true;
                     if (element.hasOwnProperty('active')) {
                         if (element.active != "1") {
@@ -377,17 +377,17 @@ class GroupAdminManager {
     }
 
     /**
-     * 
-     * @param {String} $firstname 
-     * @param {String} $surname 
-     * @param {String} $user_pseudo 
-     * @param {String} $phone 
-     * @param {String} $mail 
-     * @param {String} $bio 
-     * @param {Array} $groups 
-     * @param {Int} $teacher_grade 
-     * @param {Int} $teacher_suject 
-     * @param {String} $school 
+     *
+     * @param {String} $firstname
+     * @param {String} $surname
+     * @param {String} $user_pseudo
+     * @param {String} $phone
+     * @param {String} $mail
+     * @param {String} $bio
+     * @param {Array} $groups
+     * @param {Int} $teacher_grade
+     * @param {Int} $teacher_suject
+     * @param {String} $school
      * @param {Array} $applications
      * @returns {Json}
      */
@@ -538,8 +538,8 @@ class GroupAdminManager {
 
     /**
      * Send a password request to the user
-     * @param {int} $user_id 
-     * @returns 
+     * @param {int} $user_id
+     * @returns
      */
     sendResetPassword($user_id) {
         return new Promise(function (resolve, reject) {

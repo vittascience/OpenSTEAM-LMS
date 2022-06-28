@@ -1,15 +1,15 @@
 #WysiBB - WYSIWYG BBcode editor
 
 WysiBB is a jQuery visual WYSIWYG editor for BBcode.
-For more information please visit [wysibb.com](http://www.wysibb.com) 
+For more information please visit [wysibb.com](http://www.wysibb.com)
 
 ## Usage
 
 Include the JQuery and WysiBB files
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script src="http://cdn.wysibb.com/js/jquery.wysibb.min.js"></script>
-	<link rel="stylesheet" href="http://cdn.wysibb.com/css/default/wbbtheme.css" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js?version=1.2.7c"></script>
+	<script src="http://cdn.wysibb.com/js/jquery.wysibb.min.js?version=1.2.7c"></script>
+	<link rel="stylesheet" href="http://cdn.wysibb.com/css/default/wbbtheme.css?version=1.2.7c" />
 
 Activate WysiBB on an existing textarea
 
@@ -38,17 +38,17 @@ WysiBB comes with all BBCodes by default (allButtons). You can configure BBCode 
 	</script>
 
 ####Language
-WysiBB comes in russian by default, but you can set a different language 
-	
+WysiBB comes in russian by default, but you can set a different language
+
 	<head>
 	...
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script src="http://cdn.wysibb.com/js/jquery.wysibb.min.js"></script>
-	<link rel="stylesheet" href="http://cdn.wysibb.com/css/default/wbbtheme.css" />
-	<script src="/js/lang/fr.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js?version=1.2.7c"></script>
+	<script src="http://cdn.wysibb.com/js/jquery.wysibb.min.js?version=1.2.7c"></script>
+	<link rel="stylesheet" href="http://cdn.wysibb.com/css/default/wbbtheme.css?version=1.2.7c" />
+	<script src="/js/lang/fr.js?version=1.2.7c"></script>
 	...
 	</head>
-	
+
 	<script>
 	$(document).ready(function() {
 	var wbbOpt = {
@@ -64,7 +64,7 @@ WysiBB comes in russian by default, but you can set a different language
 
 ####Shortkeys
 
-You can assign any keyboard shortcuts for BBcode. By default WysiBB set some hotkeys. You can add or change their combinations for existing BBcodes. 
+You can assign any keyboard shortcuts for BBcode. By default WysiBB set some hotkeys. You can add or change their combinations for existing BBcodes.
 Consider hook up hotkeys for example.
 
 	var wbbOpt = {
@@ -149,12 +149,12 @@ Get / replace HTML editor content
 	$("#editor").htmlcode(); //get HTML editor content
 	$("#editor").htmlcode(htmlcode); //set HTML editor content
 
-getHTMLByCommand (command, params) 
+getHTMLByCommand (command, params)
 Outputs the editor content as HTML. Where command - the command name, params - object variable
 
 	$("#editor").getHTMLByCommand("code",{seltext:"this code"});
 
-getBBCodeByCommand (command, params) 
+getBBCodeByCommand (command, params)
 Get an outcome of the execution of commands in BB code form. Where command - the command name, params - object variable
 
 	$("#editor").getBBCodeByCommand("code",{seltext:"this code"});
@@ -190,7 +190,7 @@ Any contributions and/or pull requests would be welcome.
 Themes, translations, bug reports and bug fixes are greatly appreciated.
 
 
-## Support 
+## Support
 
 [Support forum](http://www.wysibb.com/forum/) (mostly in Russian)
 

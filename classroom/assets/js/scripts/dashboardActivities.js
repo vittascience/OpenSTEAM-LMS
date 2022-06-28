@@ -56,7 +56,7 @@ function teacherSandboxItem(json) {
     let html = `<div class="sandbox-item sandbox-teacher">
                     <div class="sandbox-card sandbox-card-` + json.interface + `" data-id="${json.id}" data-href="/` + json.interface + `/?link=` + json.link + `&embed=1">
                         <div class="sandbox-card-top">
-                        <i class="fas fa-share fa-2x" style="grid-column-start: 1; grid-column-end: 1;" data-link="${json.link}" ></i>      
+                        <i class="fas fa-share fa-2x" style="grid-column-start: 1; grid-column-end: 1;" data-link="${json.link}" ></i>
                             <div class="dropdown"><i class="fas fa-cog fa-2x" style="grid-column-start: 3; grid-column-end: 3;" type="button" id="dropdown-teacherSandboxItem-${json.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                     <div class="dropdown-menu" aria-labelledby="dropdown-teacherSandboxItem-${json.id}">`
     if (UserManager.getUser().isRegular) {
@@ -97,7 +97,7 @@ function teacherActivityItem(activity, displayStyle) {
                                         <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
                                         <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                             <div class="activity-card-mid">
                             </div>
@@ -119,15 +119,15 @@ function teacherActivityItem(activity, displayStyle) {
                     <img class="list-item-img" src="${foldersManager.icons.hasOwnProperty(activity.type) ? foldersManager.icons[activity.type] : "💻"}" alt="${activity.type}" class="folder-icons">
                     ${activity.title}
                 </div>
-    
+
                 <div class="info-tutorials col-2" data-id="${activity.id}">
                 </div>
 
                 ${activity.isAutocorrect    ? `<div class="activity-list-auto col-1">
                                                 <img src='assets/media/auto-icon-grey.svg' title='Auto' onload="SVGInject(this)">
-                                            </div>` 
+                                            </div>`
                                             : "" }
-               
+
                 <div class="dropdown col-1 activity-list-dropdown">
                     <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     </i>
@@ -138,7 +138,7 @@ function teacherActivityItem(activity, displayStyle) {
                         <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
                         <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
                     </div>
-                </div> 
+                </div>
 
             </div>
         </div>
@@ -151,10 +151,10 @@ function teacherFolder(folder, displayStyle) {
     let content = "";
     if (displayStyle == "card") {
         content = `<div class="folder-item" data-id="${folder.id}">
-                    <div> 
+                    <div>
                         <div class="folder-card" data-id="${folder.id}">
-                        <img class="folder-close-icon" src="./assets/media/folders/folder_close_icon.svg" onload="SVGInject(this)">
-                        <img class="folder-open-icon" src="./assets/media/folders/folder_open_icon.svg" onload="SVGInject(this)">
+                        <img class="folder-close-icon" src="./assets/media/folders/folder_close_icon.svg?version=1.2.7c" onload="SVGInject(this)">
+                        <img class="folder-open-icon" src="./assets/media/folders/folder_open_icon.svg?version=1.2.7c" onload="SVGInject(this)">
                             <div class="folder-card-top">
                                 <div class="dropdown">
                                     <i class="fas fa-cog fa-2x" type="button" id="dropdown-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -180,13 +180,13 @@ function teacherFolder(folder, displayStyle) {
         content = `<div class="row folder-item-list" data-id="${folder.id}">
                         <div class="container-draggable">
                             <div class="folder-list" data-id="${folder.id}">
-                    
+
                                 <div class="folder-list-title col">
-                                    <img class="list-item-img" src="./assets/media/folders/folder_close_icon.svg" alt="folder_close" class="folder-icons" onload="SVGInject(this)">
+                                    <img class="list-item-img" src="./assets/media/folders/folder_close_icon.svg?version=1.2.7c" alt="folder_close" class="folder-icons" onload="SVGInject(this)">
                                     ${folder.name}
                                 </div>
-                    
-                    
+
+
                                 <div class="dropdown col-1 folder-list-dropdown">
                                     <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     </i>
@@ -296,7 +296,7 @@ function classeList(classe, ref = null) {
         html += `<div class="c-checkbox ml-3 student-attribute-form-row">
             <input type="checkbox" id="student-${student.user.id}" value="${student.user.id}" class="student-id" ${checked}>
             <label class="mb-0" for="student-${student.user.id}">
-                <img class="ml-1" src="${_PATH}assets/media/alphabet/${student.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil"></img>
+                <img class="ml-1" src="${_PATH}assets/media/alphabet/${student.user.pseudo.slice(0, 1).toUpperCase()}.png?version=1.2.7c" alt="Photo de profil"></img>
                 <span>${student.user.pseudo}</span>
             </label>
         </div>`
@@ -456,7 +456,7 @@ function statusActivity(activity, state = true, formatedTimePast = '') {
             } else {
                 return "startwatch"
             }
-            
+
         }
         if (state == "csv") {
             switch (activity.correction) {
@@ -541,7 +541,7 @@ function loadActivityForStudents(isDoable) {
         $('#warning-icon-container > i').hide();
         Activity.evaluation ? $('#warning-icon-evaluation').show().tooltip() : $("#warning-icon-no-evaluation").show().tooltip();
     }
-    
+
     // Check if the correction if available
     if (Activity.correction >= 1) {
         $('#activity-details').html(i18next.t("classroom.activities.sentOn") + formatHour(Activity.dateSend), i18next.t("classroom.activities.numberOfTries") + Activity.tries)
@@ -580,7 +580,7 @@ function loadActivityForStudents(isDoable) {
                 break;
         }
         correction += `<div class="results-string" style="background-color:${activityResultColor}">${activityResultString}</div>`
-        
+
         if (Activity.commentary != null && Activity.commentary != "") {
             correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
         } else {
@@ -622,7 +622,7 @@ function loadActivityForTeacher() {
 
     if (Activity.correction >= 1) {
         $('#activity-details').html(i18next.t("classroom.activities.activityOfUser") + Activity.user.pseudo + i18next.t("classroom.activities.userSentOn") + formatHour(Activity.dateSend))
-        document.querySelector('#activity-details').innerHTML += `<br><img class="chrono-icon" src="${_PATH}assets/media/icon_time_spent.svg">${i18next.t('classroom.activities.timePassed')} ${formatDuration(Activity.timePassed)}, ${i18next.t("classroom.activities.numberOfTries")} ${Activity.tries}`;
+        document.querySelector('#activity-details').innerHTML += `<br><img class="chrono-icon" src="${_PATH}assets/media/icon_time_spent.svg?version=1.2.7c">${i18next.t('classroom.activities.timePassed')} ${formatDuration(Activity.timePassed)}, ${i18next.t("classroom.activities.numberOfTries")} ${Activity.tries}`;
         if (Activity.autocorrection) {
             $("#activity-auto-corrected-disclaimer").show();
         }
@@ -641,8 +641,8 @@ function loadActivityForTeacher() {
 
         correction += `<div class="giveNote-container">`
 
-        
-        
+
+
         correction += `<label for="givenote-3" onclick="setNote(3)"><input type="radio" id="givenote-3" ${Activity.note == 3 ? "checked=checked" : ""} name="giveNote" value="3">${" " + i18next.t('classroom.activities.accept')}</label>`;
         correction += `<label for="givenote-2" onclick="setNote(2)"><input type="radio" id="givenote-2" ${Activity.note == 2 ? "checked=checked" : ""} name="giveNote" value="2">${" " + i18next.t('classroom.activities.vgood')}</label>`;
         correction += `<label for="givenote-1" onclick="setNote(1)"><input type="radio" id="givenote-1" ${Activity.note == 1 ? "checked=checked" : ""} name="giveNote" value="1">${" " + i18next.t('classroom.activities.good')}</label>`;
@@ -718,7 +718,7 @@ function manageDisplayCustomAndReading(correction, content, correction_div) {
         $('#activity-input-container').show();
     } else if (correction > 0) {
         $('#activity-correction').html(correction_div);
-        $('#activity-correction-container').show(); 
+        $('#activity-correction-container').show();
     }
 }
 
@@ -727,7 +727,7 @@ function manageDisplayFree(correction, content, correction_div) {
     $('#activity-states-container').show();
     if (UserManager.getUser().isRegular) {
         if (Activity.response != null && Activity.response != '') {
-            if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") { 
+            if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") {
                 $('#activity-student-response').show();
                 let parsed = tryToParse(Activity.response);
                 if (parsed != false) {
@@ -778,7 +778,7 @@ function manageDisplayLti(correction, content, correction_div, isDoable, activit
                 <button onclick="launchLtiResource(${Activity.id}, '${Activity.activity.type}', '${content}', true, '${Activity.url}')">Modifier le travail</button>`;
             }
         }
-        
+
         if (correction != 1 || UserManager.getUser().isRegular) {
             document.querySelector('#activity-correction-container').style.display = 'block';
             document.querySelector('#activity-correction').innerHTML = correction_div;
@@ -834,14 +834,14 @@ function displayQuizTeacherSide() {
         if (Activity.response != null && Activity.response != "") {
             data = JSON.parse(Activity.response);
         }
-        $('#activity-student-response-content').append(createContentForQuiz(data, false, true)); 
+        $('#activity-student-response-content').append(createContentForQuiz(data, false, true));
         $('#activity-student-response').show();
         if (data != null && data != "") {
             Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
                 for (let i = 1; i < $(`label[id^="correction-student-quiz-suggestion-"]`).length+1; i++) {
                     $('#correction-student-quiz-suggestion-' + i).parent().addClass('quiz-answer-correct');
                 }
-        
+
                 if (result.success.length > 0) {
                     for (let i = 0; i < result.success.length; i++) {
                         $('#correction-student-quiz-suggestion-' + (result.success[i]+1)).parent().addClass('quiz-answer-incorrect');
@@ -888,7 +888,7 @@ function manageDisplayFillIn(correction, content, correction_div) {
 
     $('#activity-states').html(bbcodeToHtml(content.states));
     $('#activity-states-container').show();
-    
+
     if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
             let studentContent = bbcodeToHtml(content.fillInFields.contentForStudent)
@@ -915,7 +915,7 @@ function manageDisplayFillIn(correction, content, correction_div) {
         }
     } else if (correction > 1) {
         displayFillInTeacherSide(correction_div, correction, content);
-    } 
+    }
 }
 
 function displayFillInTeacherSide(correction_div, correction, content) {
@@ -923,7 +923,7 @@ function displayFillInTeacherSide(correction_div, correction, content) {
     let studentContentString = content.fillInFields.contentForStudent,
         studentResponses = JSON.parse(Activity.response);
 
-    if (studentResponses != null && studentResponses != "") { 
+    if (studentResponses != null && studentResponses != "") {
 
         studentResponses.forEach((response, i) => {
             let autoWidthStyle = 'style="width:' + (response.length + 2) + 'ch"';
@@ -941,7 +941,7 @@ function displayFillInTeacherSide(correction_div, correction, content) {
                 }
             }
         })
-    
+
         $('#activity-student-response-content').html(bbcodeToHtml(studentContentString));
         $('#activity-student-response').show();
     }
@@ -950,7 +950,7 @@ function displayFillInTeacherSide(correction_div, correction, content) {
 }
 
 function manageDisplayDragAndDrop(correction, content, correction_div) {
-    
+
     $('#activity-title').html(Activity.activity.title);
     // Show the content with the response to the teacher
     if (UserManager.getUser().isRegular) {
@@ -963,7 +963,7 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
 
     $('#activity-states').html(bbcodeToHtml(content.states));
     $('#activity-states-container').show();
-    
+
     if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
 
@@ -977,7 +977,7 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
                 $('#drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
             });
             $('#activity-drag-and-drop-container').show();
-        
+
             // init dragula if it's not already initialized
             if (Main.getClassroomManager().dragulaGlobal == false) {
                 Main.getClassroomManager().dragulaGlobal = dragula();
@@ -985,7 +985,7 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
 
             // Reset the dragula fields
             Main.getClassroomManager().dragulaGlobal.containers = [];
-            
+
             Main.getClassroomManager().dragulaGlobal = dragula([document.querySelector('#drag-and-drop-fields')]).on('drop', function(el, target, source) {
                 if (target.id != 'drag-and-drop-fields') {
                     let swap = $(target).find('p').not(el);
@@ -1013,7 +1013,7 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
         }
     } else if (correction > 1) {
         displayDragAndDropTeacherSide(correction_div, correction, content);
-    } 
+    }
 }
 
 function displayDragAndDropTeacherSide(correction_div, correction, content) {
@@ -1030,14 +1030,14 @@ function displayDragAndDropTeacherSide(correction_div, correction, content) {
             let autoWidthStyle = 'style="width:' + (studentResponses[i].string.toLowerCase().length + 2) + 'ch"';
             studentContentString = studentContentString.replace(`﻿`, `<input readonly class='drag-and-drop-answer-teacher' id="corrected-student-response-${i}" value="${studentResponses[i].string.toLowerCase()}" ${autoWidthStyle}>`);
         }
-    
+
         $('#activity-student-response-content').html(bbcodeToHtml(studentContentString));
         $('#activity-student-response').show();
         Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
             for (let i = 0; i < $(`input[id^="corrected-student-response-"]`).length; i++) {
                 $('#corrected-student-response-' + i).addClass("answer-correct");
             }
-        
+
             for (let i = 0; i < result.success.length; i++) {
                 $('#corrected-student-response-' + (result.success[i])).addClass("answer-incorrect");
             }
@@ -1069,7 +1069,7 @@ function manageCorrectionDiv(correction_div, correction) {
     manageLabelForActivity();
     if (correction > 1 || (UserManager.getUser().isRegular && correction >= 1)) {
         $('#activity-correction').html(correction_div);
-        $('#activity-correction-container').show(); 
+        $('#activity-correction-container').show();
     }
 }
 
@@ -1092,12 +1092,12 @@ function isTheActivityIsDoable(doable, hideValidationButton = false) {
                 $('#activity-validate').show();
             }
         }
-        
+
         if (interface != undefined && interface != null) {
             $('#activity-save').show()
         }
 
-        if (!Activity.activity.isLti) { 
+        if (!Activity.activity.isLti) {
             $('#activity-validate').show();
             if (Activity.activity.type != 'reading') {
                 $('#activity-save').show();

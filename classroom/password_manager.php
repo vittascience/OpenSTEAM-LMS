@@ -13,7 +13,7 @@ use Dotenv\Dotenv;
 use User\Entity\Regular;
 
 
-// Load env variables 
+// Load env variables
 $dotenv = Dotenv::createImmutable(__DIR__."/../");
 $dotenv->safeLoad();
 
@@ -31,9 +31,9 @@ showPasswordPage();
 function showPasswordPage() {
     require_once(__DIR__ . "/header.html");
     ?>
-        <link rel="stylesheet" href="/classroom/assets/css/main.css">
-        <script src="./assets/js/lib/rotate.js"></script>
-        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+        <link rel="stylesheet" href="/classroom/assets/css/main.css?version=1.2.7c">
+        <script src="./assets/js/lib/rotate.js?version=1.2.7c"></script>
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css?version=1.2.7c"/>
         </head>
         <body>
     <?php

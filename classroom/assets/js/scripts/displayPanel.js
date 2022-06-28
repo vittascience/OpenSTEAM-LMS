@@ -145,10 +145,10 @@ DisplayPanel.prototype.classroom_dashboard_help_panel = function () {
 DisplayPanel.prototype.classroom_dashboard_help_panel_teacher = function () {
     let html = '';
     let index = [7, 12, 5, 3, 3, 3]; // number of questions+1 per category in faq
-    
+
     // capitalize demoStudent name
     let capitalizedDemoStudentName = `${demoStudentName.charAt(0).toUpperCase()}${demoStudentName.slice(1)}`;
-    
+
     for (let i = 1; i <= index.length; i++) {
         html += "<h4 data-i18n='[html]faqTeacherNeutral." + i + ".section_title'></h4>";
         for (let j = 1; j < index[i - 1]; j++) {
@@ -229,7 +229,7 @@ DisplayPanel.prototype.classroom_dashboard_form_classe_panel_update = function (
     $('#table-students-update ul').html("");
     classroom.students.forEach(function (student) {
         $('#table-students-update ul').append(addStudentRow(student.user.pseudo, student.user.id, true));
-    }) 
+    })
 }
 
 DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function () {
@@ -277,10 +277,10 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
             fullPath = currentOriginUrl + '/classroom/login.php?link=' + ClassroomSettings.classroom;
             QrCreator.render({
                 text: fullPath,
-                radius: 0.5, 
+                radius: 0.5,
                 ecLevel: 'H',
                 fill: getComputedStyle(document.documentElement).getPropertyValue('--classroom-primary'),
-                background: "white", 
+                background: "white",
                 size: 300
               }, document.querySelector('#classroom-code-share-qr-code'));
 
@@ -398,10 +398,10 @@ function formatDateInput(date) {
 
 function getTeacherActivity() {
     resetInputsForActivity();
-    
+
     $('#activity-title').html(Activity.title);
-    
-    let autoCorrectionDisclaimerElt = `<img id="activity-auto-disclaimer" data-toggle="tooltip" src="assets/media/auto-icon.svg" title="${i18next.t("classroom.activities.isAutocorrect")}">`
+
+    let autoCorrectionDisclaimerElt = `<img id="activity-auto-disclaimer" data-toggle="tooltip" src="assets/media/auto-icon.svg?version=1.2.7c" title="${i18next.t("classroom.activities.isAutocorrect")}">`
     Activity.isAutocorrect ? $('#activity-title').append(autoCorrectionDisclaimerElt).tooltip() : null;
 
     let activityDropdownElt = `
@@ -417,13 +417,13 @@ function getTeacherActivity() {
                     ${capitalizeFirstLetter(i18next.t('words.attribute'))}
                 </a>
             </li>
-        
+
             <li>
                 <a class="dropdown-item" href="#" onclick="createActivity(null,${Activity.id})">
                     ${capitalizeFirstLetter(i18next.t('words.duplicate'))}
                 </a>
             </li>
-                
+
             <li>
                 <a class="dropdown-item" onclick="activityModify(${Activity.id})" href="#">
                     ${capitalizeFirstLetter(i18next.t('words.modify'))}
@@ -445,7 +445,7 @@ function getTeacherActivity() {
             if (contentParsed.hasOwnProperty('description')) {
                 $('#activity-content').html(bbcodeToHtml(contentParsed.description));
                 $('#activity-content-container').show();
-            } 
+            }
         } else if (Activity.type == 'fillIn') {
             $("#activity-states").html(bbcodeToHtml(contentParsed.states));
             let contentForTeacher = contentParsed.fillInFields.contentForTeacher;
@@ -495,7 +495,7 @@ function getTeacherActivity() {
                 $("#activity-content-container").show();
             }
         }
-        
+
     } else {
         $('#activity-content').html(bbcodeToHtml(Activity.content))
         $("#activity-content-container").show();
