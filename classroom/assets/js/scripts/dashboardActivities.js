@@ -115,12 +115,12 @@ function teacherActivityItem(activity, displayStyle) {
         content = `<div class="row activity-item-list" data-id="${activity.id}">
         <div class="container-draggable">
             <div class="activity-list ${activityType}">
-                <div class="activity-list-title col">
+                <div class="activity-list-title col text-truncate">
                     <img class="list-item-img" src="${foldersManager.icons.hasOwnProperty(activity.type) ? foldersManager.icons[activity.type] : "💻"}" alt="${activity.type}" class="folder-icons">
                     ${activity.title}
                 </div>
     
-                <div class="info-tutorials col-2" data-id="${activity.id}">
+                <div class="info-tutorials col-2 d-none d-sm-block" data-id="${activity.id}">
                 </div>
 
                 ${activity.isAutocorrect    ? `<div class="activity-list-auto col-1">
@@ -153,8 +153,8 @@ function teacherFolder(folder, displayStyle) {
         content = `<div class="folder-item" data-id="${folder.id}">
                     <div> 
                         <div class="folder-card" data-id="${folder.id}">
-                        <img class="folder-close-icon" src="./assets/media/folders/folder_close_icon.svg" onload="SVGInject(this)">
-                        <img class="folder-open-icon" src="./assets/media/folders/folder_open_icon.svg" onload="SVGInject(this)">
+                            <img class="folder-close-icon" src="./assets/media/folders/folder_close_icon.svg" onload="SVGInject(this)">
+                            <img class="folder-open-icon" src="./assets/media/folders/folder_open_icon.svg" onload="SVGInject(this)">
                             <div class="folder-card-top">
                                 <div class="dropdown">
                                     <i class="fas fa-cog fa-2x" type="button" id="dropdown-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -180,13 +180,12 @@ function teacherFolder(folder, displayStyle) {
         content = `<div class="row folder-item-list" data-id="${folder.id}">
                         <div class="container-draggable">
                             <div class="folder-list" data-id="${folder.id}">
-                    
-                                <div class="folder-list-title col">
-                                    <img class="list-item-img" src="./assets/media/folders/folder_close_icon.svg" alt="folder_close" class="folder-icons" onload="SVGInject(this)">
-                                    ${folder.name}
+                                <div class="folder-list-title col d-flex">
+                                    <img class="list-item-img list-folder-img-manager" src="./assets/media/folders/folder_close_icon.svg" alt="folder_close" class="folder-icons" onload="SVGInject(this)">
+                                    <span class="list-folder-name">  
+                                        ${folder.name}
+                                    </span>
                                 </div>
-                    
-                    
                                 <div class="dropdown col-1 folder-list-dropdown">
                                     <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     </i>
@@ -1019,7 +1018,6 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
 function displayDragAndDropTeacherSide(correction_div, correction, content) {
     let studentResponses = JSON.parse(Activity.response);
     let studentContentString = content.dragAndDropFields.contentForStudent;
-
 
     $(`input[id^="corrected-student-response-"]`).each((i, e) => {
         $(e).remove();
