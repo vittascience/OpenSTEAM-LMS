@@ -3386,3 +3386,5 @@ $('#qr-download').click(() => {
         link.click();
     }
 })
+
+
