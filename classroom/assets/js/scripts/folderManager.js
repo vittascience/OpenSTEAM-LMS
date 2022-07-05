@@ -410,6 +410,10 @@ class FoldersManager {
             dragableObjects = [...foldersArray, ...activitiesArray];
         }
 
+        dragableObjects.forEach(object => {
+            object.style.touchAction = "none";
+        });
+
         this.dragula = dragula(dragableObjects)
             .on('drop', function(el, target, source) {
                 if (target != undefined && source != undefined) {
@@ -433,28 +437,45 @@ class FoldersManager {
                     foldersManager.displayAndDragulaInitObjects();
                 }
             }).on('shadow', function(el) { 
-                el.remove();
+                document.querySelectorAll('.gu-transit').forEach(element => {
+                    element.style.display = "none";
+                })
             }).on('cancel', function() {
                 foldersManager.displayAndDragulaInitObjects();
             }).on('over', function(el, container) {
-                if ($(container).hasClass("folder-item")) {
-                    $(container).find(".folder-card").addClass('folder-open');
+                if (Main.getClassroomManager().displayMode == "list") {
+                    if ($(container).hasClass("folder-item-list")) {
+                        $(container).find(".folder-list").find(".list-folder-img-manager").attr("src", "./assets/media/folders/folder_open_icon.svg");
+                        SVGInject($(container).find(".folder-list").find(".list-folder-img-manager"));
+                    }
+                } else {
+                    if ($(container).hasClass("folder-item")) {
+                        $(container).find(".folder-card").addClass('folder-open');
+                    }
                 }
             }).on('out', function(el, container) {
-                if ($(container).hasClass("folder-item")) {
-                    $(container).find(".folder-card").removeClass('folder-open');
+                if (Main.getClassroomManager().displayMode == "list") {
+                    if ($(container).hasClass("folder-item-list")) {
+                        $(container).find(".folder-list").find(".list-folder-img-manager").attr("src", "./assets/media/folders/folder_close_icon.svg");
+                        SVGInject($(container).find(".folder-list").find(".list-folder-img-manager"));
+                    }
+                } else {
+                    if ($(container).hasClass("folder-item")) {
+                        $(container).find(".folder-card").removeClass('folder-open');
+                    }
                 }
             })
-            
     }
 
 
     displayModeSwitch(display)  {
         if (display == "list") {
             Main.getClassroomManager().displayMode = "list";
+            localStorage.setItem('classroomViewMode', "list");
             this.displayAndDragulaInitObjects();
         } else {
             Main.getClassroomManager().displayMode = "card";
+            localStorage.setItem('classroomViewMode', "card");
             this.displayAndDragulaInitObjects();
         }
     }

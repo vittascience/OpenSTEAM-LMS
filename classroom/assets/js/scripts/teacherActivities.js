@@ -142,6 +142,7 @@ function manageUpdateByType(activity) {
     contentForwardButtonElt.style.display = 'inline-block';
 
     $('#global_title').val(activity.title);
+    Main.getClassroomManager()._createActivity.title = activity.title;
 
     switch (activity.type) {
         case "free":

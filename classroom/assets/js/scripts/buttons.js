@@ -842,20 +842,10 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
         foldersManager.resetTreeFolders();
     }
 
-
-    displayStyle == "list" ? $("#list-activities-teacher").css("flex-direction", "column") : $("#list-activities-teacher").css("flex-direction", "row");
     $('#list-activities-teacher').html(``);
-    sortedList.forEach(element => {
-        if (element.folder == null && foldersManager.actualFolder == null) {
-            $('#list-activities-teacher').append(teacherActivityItem(element, displayStyle));
-        } else if (element.folder != null) {
-            if (element.folder.id == foldersManager.actualFolder) {
-                $('#list-activities-teacher').append(teacherActivityItem(element, displayStyle));
-            }
-        }
-    });
+    displayStyle == "list" ? $("#list-activities-teacher").css("flex-direction", "column") : $("#list-activities-teacher").css("flex-direction", "row");
 
-    
+
     // Add sorting to the folders
     let foldersZ = keyword ? filterTeacherFolderInList(keyword, asc) : foldersManager.userFolders;
     foldersZ.forEach(folder => {
@@ -867,6 +857,18 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
             }
         }
     });
+
+    
+    sortedList.forEach(element => {
+        if (element.folder == null && foldersManager.actualFolder == null) {
+            $('#list-activities-teacher').append(teacherActivityItem(element, displayStyle));
+        } else if (element.folder != null) {
+            if (element.folder.id == foldersManager.actualFolder) {
+                $('#list-activities-teacher').append(teacherActivityItem(element, displayStyle));
+            }
+        }
+    });
+
 
     foldersManager.dragulaInitObjects();
     $('[data-toggle="tooltip"]').tooltip();
@@ -3384,3 +3386,5 @@ $('#qr-download').click(() => {
         link.click();
     }
 })
+
+
