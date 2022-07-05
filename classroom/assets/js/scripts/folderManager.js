@@ -437,9 +437,9 @@ class FoldersManager {
                     foldersManager.displayAndDragulaInitObjects();
                 }
             }).on('shadow', function(el) { 
-                if (typeof screen.orientation !== 'undefined') { 
-                    el.remove();
-                }
+                document.querySelectorAll('.gu-transit').forEach(element => {
+                    element.style.display = "none";
+                })
             }).on('cancel', function() {
                 foldersManager.displayAndDragulaInitObjects();
             }).on('over', function(el, container) {

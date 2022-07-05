@@ -801,9 +801,7 @@ function ActivityPreviewBeforeCreation(type) {
             $('#activity-preview-div').show();
             break;
         case "lti-vittascience":
-
-            launchLtiResource()
-            $contentText.html(bbcodeToHtml(ActivityPreview.content.description));
+            launchLtiResource("0000", "lti-vittascience", ActivityPreview.content.description, false, false, "#preview-activity-content");
             $content.show();
             $('#activity-preview-div').show();
             break;
