@@ -111,12 +111,13 @@ function teacherActivityItem(activity, displayStyle) {
                     </div>`
     } else if (displayStyle == "list") {
 
+        let activityImg = foldersManager.icons.hasOwnProperty(activity.type) ? `<img class="list-item-img" src="${foldersManager.icons[activity.type]}" alt="${activity.type}" class="folder-icons">` : "💻";
         /* let activityTypeImg = activity.type != null && "" ?  */
         content = `<div class="row activity-item-list" data-id="${activity.id}">
         <div class="container-draggable">
             <div class="activity-list ${activityType}">
                 <div class="activity-list-title col text-truncate">
-                    <img class="list-item-img" src="${foldersManager.icons.hasOwnProperty(activity.type) ? foldersManager.icons[activity.type] : "💻"}" alt="${activity.type}" class="folder-icons">
+                    ${activityImg}
                     ${activity.title}
                 </div>
     
