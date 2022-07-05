@@ -437,7 +437,7 @@ class FoldersManager {
                     foldersManager.displayAndDragulaInitObjects();
                 }
             }).on('shadow', function(el) { 
-                if (Main.getClassroomManager().displayMode == "card") {
+                if (typeof screen.orientation !== 'undefined') { 
                     el.remove();
                 }
             }).on('cancel', function() {
