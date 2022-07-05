@@ -410,6 +410,10 @@ class FoldersManager {
             dragableObjects = [...foldersArray, ...activitiesArray];
         }
 
+        dragableObjects.forEach(object => {
+            object.style.touchAction = "none";
+        });
+
         this.dragula = dragula(dragableObjects)
             .on('drop', function(el, target, source) {
                 if (target != undefined && source != undefined) {
@@ -433,7 +437,9 @@ class FoldersManager {
                     foldersManager.displayAndDragulaInitObjects();
                 }
             }).on('shadow', function(el) { 
-                el.remove();
+                if (Main.getClassroomManager().displayMode == "card") {
+                    el.remove();
+                }
             }).on('cancel', function() {
                 foldersManager.displayAndDragulaInitObjects();
             }).on('over', function(el, container) {

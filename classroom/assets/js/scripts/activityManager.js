@@ -211,7 +211,7 @@ function validateActivity(correction) {
             dragAndDropValidateActivity(correction);
             break;
         default:
-            defaultProcessValidateActivity()
+            defaultProcessValidateActivity();
             break;
     }
 }
