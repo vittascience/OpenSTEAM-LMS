@@ -67,7 +67,7 @@ $('body').on('click', '.activity-card-top i', function () {
 })
 
 // get activity id in list mode
-$('body').on('click', '.activity-list-dropdown i', function () {
+$('body').on('click', '.activity-list-options i', function () {
     ClassroomSettings.activity = $(this).attr('id').replace("dropdown-list-activityItem-", "");
 })
 
