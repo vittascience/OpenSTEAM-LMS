@@ -5,6 +5,7 @@ const replace = require('gulp-replace');
 const htmlReplace = require('gulp-html-replace');
 const merge = require('gulp-merge-json');
 const fs = require('fs');
+const child_process = require('child_process');
 const {
     resolve
 } = require('path');
@@ -48,6 +49,7 @@ class AutoBuildManager {
         ];
         this.temporaryViewsFolder = 'gulp/temp-views';
         this.pluginsFolderInClassroom = 'classroom/assets/plugins';
+        this.customBuildFileName = 'custom_build.js';
     }
 
     async init() {
@@ -597,6 +599,38 @@ class AutoBuildManager {
             }
         });
     }
+    
+    /**
+     * Manage custom build if necessary
+     */
+    manageCustomBuild() {
+        return new Promise( async (resolve, reject) => {
+            const customBuildPromises = [];
+            for (let plugin of this.pluginsList) {
+                customBuildPromises.push(new Promise((resolve, reject) => {
+                    const customBuildFilePath = `./plugins/${plugin.name}/${this.customBuildFileName}`;
+                    fs.open(customBuildFilePath, (error, data) => {
+                        if (error) {
+                            console.log(`There is no custom build for ${plugin.name} plugin!`);
+                            resolve();
+                            return;
+                        }
+                        child_process.exec(`node ${customBuildFilePath}`, (error, stdout, stderr) => {
+                            console.log(`${stdout}`);
+                            if (error !== null) {
+                                console.log(`exec error: ${error}`);
+                                reject();
+                                return;
+                            }
+                            resolve();
+                        });
+                    });
+                }));
+            }
+            const promisesResult = await Promise.all(customBuildPromises);
+            resolve(promisesResult);
+        });
+    }
 }
 
 let autoBuildManager = new AutoBuildManager();
@@ -623,6 +657,10 @@ homeConcat.displayName = 'home concat';
 const removeTemporaryViewsFolder = () => { return autoBuildManager.removeTemporaryViewsFolder() };
 removeTemporaryViewsFolder.displayName = 'remove temporary views folder';
 
+const manageCustomBuild = () => { return autoBuildManager.manageCustomBuild() };
+manageCustomBuild.displayName = 'manage custom build';
+
+
 // Queueing all the tasks
 autoBuild = gulp.series(
     init,
@@ -631,7 +669,8 @@ autoBuild = gulp.series(
     pluginCss,
     pluginJs,
     homeConcat,
-    removeTemporaryViewsFolder
+    removeTemporaryViewsFolder,
+    manageCustomBuild
 );
 
 autoBuild.displayName = "Classroom: gulp series";
