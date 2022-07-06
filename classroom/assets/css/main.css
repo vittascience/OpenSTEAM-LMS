@@ -1394,6 +1394,11 @@ h3.section-done {
     opacity: 0;
 }
 
+.list-folder-img-manager {
+    color: #008447;
+    transform: scale(0.6);
+}
+
 .folder-card:not(.folder-open) svg.folder-close-icon {
     opacity: 1;
 }
@@ -1583,6 +1588,10 @@ h3.section-done {
 .activity-list-dropdown,
 .folder-list-dropdown {
     color: var(--classroom-text-2);
+}
+
+.list-folder-name {
+    margin: auto auto auto 4px;
 }
 
 
@@ -3310,11 +3319,15 @@ h3.section-done {
     border: 1px solid var(--classroom-primary);
     border-radius: 1em;
     padding: 1em;
-    pointer-events: none;
 }
 
 .preview-container h3 {
     display: none;
 } 
+
+
+.space-evenly {
+    justify-content: space-evenly;
+}
 
 
