@@ -3,12 +3,12 @@
     <style>
       .clsfd-1 {
         fill: none;
-        stroke: #59C07C;
+        stroke: var(--classroom-primary);
         stroke-miterlimit: 10;
       }
 
       .clsfd-2 {
-        fill: #59C07C;
+        fill: var(--classroom-primary);
       }
     </style>
   </defs>
