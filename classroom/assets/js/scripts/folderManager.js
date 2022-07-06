@@ -14,13 +14,7 @@ class FoldersManager {
         this.objectToMove = null;
         this.objectId = null;
         this.isSeek = false;
-        this.icons = {
-            free: "./assets/media/activity/free.png",
-            dragAndDrop: "./assets/media/activity/dragAndDrop.png",
-            fillIn: "./assets/media/activity/fillIn.png",
-            reading: "./assets/media/activity/reading.png",
-            quiz: "./assets/media/activity/quiz.png",
-        }
+        this.icons = {}
     }
 
     init() {
@@ -53,6 +47,7 @@ class FoldersManager {
             }
         })
     }
+
 
     openFolderModal() {
         this.resetInputs();
