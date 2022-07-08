@@ -397,7 +397,7 @@ class managerManager {
     }
 
     // Add a group
-    createGroup($group_description, $group_name, $group_app) {
+    createGroup($group_description, $group_name, $group_app, $global_restriction) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -405,7 +405,8 @@ class managerManager {
                 data: {
                     name: $group_name,
                     description: $group_description,
-                    applications: $group_app
+                    applications: $group_app,
+                    global_restriction: $global_restriction
                 },
                 success: function (response) {
                     resolve(JSON.parse(response))
