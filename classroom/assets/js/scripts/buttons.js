@@ -1029,6 +1029,29 @@ function resetStudentPassword(querySelector) {
 
 $('#create_group_manager').click(function () {
     pseudoModal.openModal('manager-create-group');
+
+
+    $('#group_global_restrictions').html(`
+            <div class="activity-add-form c-secondary-form my-3">
+
+            <h6 class="form-check-label font-weight-bold mb-4" style="color: var(--classroom-primary)">${i18next.t('manager.group.groupsRestrictions')}</h6>
+            <br>
+            <label class="form-check-label" for="groupe_create_begin_date"><i class="far fa-calendar-alt"></i>  ${i18next.t('classroom.activities.form.dateBegin')}</label>
+            <input type="date" id="groupe_create_begin_date" name="trip-start" max="2023-12-31">
+
+            <label class="form-check-label" for="groupe_create_end_date"><i class="far fa-calendar-alt"></i>  ${i18next.t('classroom.activities.form.dateEnd')}</label>
+            <input type="date" id="groupe_create_end_date" name="trip-start" max="2025-12-31">
+
+            <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerTeachers')}" for="groupe_create_max_students_per_teachers"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.studentsPerTeacher')}</label>
+            <input type="number" id="groupe_create_max_students_per_teachers" value="0">
+
+            <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerGroups')}" for="groupe_create_max_students_per_groups"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.studentsPerGroup')}</label>
+            <input type="number" id="groupe_create_max_students_per_groups" value="0">
+
+            <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxTeachers')}" for="groupe_create_max_teachers_per_groups"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.teachersPerGroup')}</label>
+            <input type="number" id="groupe_create_max_teachers_per_groups" value="0">
+            </div>`);
+
     // Clean input
     $('#group_name').val("");
     $('#group_desc').val("");
@@ -1048,21 +1071,24 @@ function createGroupWithModal() {
         $description = $('#group_desc').val(),
         ApplicationsData = [];
 
+    const GlobalRestrictions = [
+            $('#groupe_create_begin_date').val(),
+            $('#groupe_create_end_date').val(),
+            $('#groupe_create_max_students_per_teachers').val(),
+            $('#groupe_create_max_students_per_groups').val(),
+            $('#groupe_create_max_teachers_per_groups').val(),
+        ];
+
     $("input:checkbox.form-check-input.app").each(function () {
         const ApplicationTemp = [$(this).val(),
             $(this).is(':checked'),
-            $('#begin_date_' + $(this).val()).val(),
-            $('#end_date_' + $(this).val()).val(),
-            $('#max_students_per_teachers_' + $(this).val()).val(),
-            $('#max_students_per_groups_' + $(this).val()).val(),
-            $('#max_teachers_per_groups_' + $(this).val()).val(),
             $('#max_activities_per_groups_' + $(this).val()).val(),
             $('#max_activities_per_teachers_' + $(this).val()).val()
         ]
         ApplicationsData.push(ApplicationTemp);
     });
 
-    mainManager.getmanagerManager().createGroup($description, $name, JSON.stringify(ApplicationsData)).then((response) => {
+    mainManager.getmanagerManager().createGroup($description, $name, JSON.stringify(ApplicationsData), JSON.stringify(GlobalRestrictions)).then((response) => {
         if (response.response == "success") {
             displayNotification('#notif-div', "manager.group.groupCreated", "success");
         } else {
@@ -1126,6 +1152,7 @@ function updateGroupWithModal() {
         $('#max_students_per_groups').val(),
         $('#max_teachers_per_groups').val(),
     ];
+
     $("input:checkbox.form-check-input.app").each(function (element) {
         const ApplicationTemp = [$(this).val(),
             $(this).is(':checked'),
@@ -1134,6 +1161,7 @@ function updateGroupWithModal() {
         ]
         ApplicationsData.push(ApplicationTemp);
     });
+
     mainManager.getmanagerManager().updateGroup(
         $('#upd_group_id').val(),
         $('#upd_group_name').val(),
