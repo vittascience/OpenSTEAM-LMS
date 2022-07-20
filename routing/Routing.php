@@ -20,25 +20,31 @@ use Learn\Controller\ControllerChapter;
 use Learn\Controller\ControllerComment;
 
 
+use Interfaces\Controller\ControllerAws;
 use Learn\Controller\ControllerActivity;
 use Learn\Controller\ControllerFavorite;
 use Learn\Controller\ControllerCollection;
 use Interfaces\Controller\ControllerProject;
 use Classroom\Controller\ControllerClassroom;
-use Utils\Exceptions\EntityOperatorException;
 
 
-
-use Classroom\Controller\ControllerGroupAdmin;
-use Classroom\Controller\ControllerSuperAdmin;
 
 use Learn\Controller\ControllerNewActivities;
+use Utils\Exceptions\EntityOperatorException;
 
+use Classroom\Controller\ControllerGroupAdmin;
+
+use Classroom\Controller\ControllerSuperAdmin;
+use Interfaces\Controller\ControllerUnitTests;
 use Learn\Controller\ControllerCourseLinkCourse;
 use Utils\Exceptions\EntityDataIntegrityException;
+use Interfaces\Controller\ControllerExercisePython;
 use Classroom\Controller\ControllerActivityLinkUser;
 use Interfaces\Controller\ControllerProjectLinkUser;
+use Interfaces\Controller\ControllerUnitTestsInputs;
 use Classroom\Controller\ControllerClassroomLinkUser;
+use Interfaces\Controller\ControllerUnitTestsOutputs;
+use Interfaces\Controller\ControllerExercisePythonFrames;
 
 
 $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
@@ -206,6 +212,39 @@ try {
             echo (json_encode($controller->action($action, $_POST)));
             $log->info($action, OK);
             break;
+            case 'exercise':
+                $controller = new ControllerExercisePython($entityManager, $user);
+                $controller->action($action, $_POST, true);
+                break;
+            case 'exercise_frames':
+                $controller = new ControllerExercisePythonFrames($entityManager, $user);
+                $controller->action($action, $_POST, true);
+                break;
+            case 'unitTests':
+                $controller = new ControllerUnitTests($entityManager, $user);
+                $controller->action($action, $_POST, true);
+                break;
+            case 'unitTestsIO':
+                echo "{\"inputs\":";
+                $controllerInputs = new ControllerUnitTestsInputs($entityManager, $user);
+                $controllerInputs->action($action, $_POST, true);
+                echo ",\"outputs\":";
+                $controllerOutputs = new ControllerUnitTestsOutputs($entityManager, $user);
+                $controllerOutputs->action($action, $_POST, true);
+                echo "}";
+                break;
+            case 'input':
+                $controllerInputs = new ControllerUnitTestsInputs($entityManager, $user);
+                $controllerInputs->action($action, $_POST, true);
+                break;
+            case 'output':
+                $controllerOutputs = new ControllerUnitTestsOutputs($entityManager, $user);
+                $controllerOutputs->action($action, $_POST, true);
+                break;
+            case 'aws': 
+                $controllerAwsOutputs = new ControllerAws($entityManager, $user);
+                echo (json_encode($controllerAwsOutputs->action($action, $_POST, true)));
+                break;
         default:
             $log->warning(null, __FILE__, __LINE__, "Non matched controller");
             break;
