@@ -333,13 +333,20 @@ const classroomModals = {
                         <label for="group_name" data-i18n="[html]manager.group.name">Group name</label>
                         <input type="text" class="form-control m-0" id="group_name" data-i18n="[placeholder]manager.group.academy">
                     </div>
+
                     <div class="form-group c-secondary-form">
                         <label for="group_desc" data-i18n="[html]manager.group.description">Group description</label>
                         <textarea rows="2" class="form-control m-0" id="group_desc"></textarea>
                     </div>
+
                     <label for="group_apps_options" data-i18n="manager.group.applications">Application(s) du groupe</label>
+
+                    <div id="group_global_restrictions">
+                    </div>
+
                     <div class="form-group" id="group_apps_options">
                     </div>
+
                     <button class="btn c-btn-secondary" data-i18n="manager.buttons.group.create" onclick="createGroupWithModal()">Create</button>`,
         footer: ``
     },
@@ -361,11 +368,14 @@ const classroomModals = {
                         <label for="upd_group_link" data-i18n="manager.group.link">Group link</label>
                         <input type="text" class="form-control" id="upd_group_link">
                      </div>
+
                     <label for="group_upd_apps_options" data-i18n="manager.group.applications">Application(s) du groupe</label>
                     <div id="group_upd_global_restrictions">
                     </div>
+
                     <div class="form-group" id="group_upd_apps_options">
                     </div>
+
                     <input type="hidden" class="form-control" id="upd_group_id">
                     <button class="btn c-btn-secondary" onclick="updateGroupWithModal()" data-i18n="manager.buttons.group.update">Update</button>`,
         footer: ``
