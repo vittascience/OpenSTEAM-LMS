@@ -28,7 +28,7 @@ $jwtToken = explode("Bearer ", $headers['Authorization'])[1];
 
   try {
     // TODO: IT SHOULD BE BETTER TO GENERATE THE PUBLIC KEY HERE INSTEAD OF GETTING IT FROM THE JWKS ENDPOINT
-    $jwks = json_decode(file_get_contents("https://{$_SERVER['HTTP_HOST']}/classroom/lti/certs.php"), true);
+    $jwks = json_decode(file_get_contents("https://{$_SERVER['HTTP_HOST']}"."/classroom/lti/certs.php"), true);
 
     JWT::$leeway = 60; // $leeway in seconds
 
