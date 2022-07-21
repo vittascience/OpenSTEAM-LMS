@@ -343,7 +343,7 @@ function goToActivityPanel() {
 // Add activity modal (Classroom management) -> Resource Bank button
 function goToCreateActivityPanel() {
     Modal.prototype.closeAllModal();
-    navigatePanel('classroom-dashboard-new-activity-panel', 'dashboard-activities-teacher');
+    navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-activities-teacher');
 }
 
 //prof-->demoStudent
@@ -3091,11 +3091,11 @@ function persistCreateApp() {
  * Img manager
  */
 
-$('body').on('change', '#app_create_image', function () {
+$('body').on('keyup', '#app_create_image', function () {
     updateImg('app_create_image');
 })
 
-$('body').on('change', '#app_update_image', function () {
+$('body').on('keyup', '#app_update_image', function () {
     updateImg('app_update_image');
 })
 
