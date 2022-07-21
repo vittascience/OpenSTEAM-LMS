@@ -647,26 +647,34 @@ function defaultProcessValidateActivity() {
     }
 }
 
-function saveActivity() {
-    $("#activity-save").attr("disabled", true);
-    correction = 0
-    let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)[2]
-    let project = window.localStorage[interface + 'CurrentProject']
-    Main.getClassroomManager().saveStudentActivity(JSON.parse(project), interface, Activity.id, correction).then(function (activity) {
-        actualizeStudentActivities(activity, correction)
-        $("#activity-save").attr("disabled", false);
-        displayNotification('#notif-div', "classroom.notif.savedProject", "success")
-        Main.getClassroomManager().getStudentActivities(Main.getClassroomManager()).then(() => {
-            let navParam = {
-                "panel": $_GET('panel'),
-                "nav": $_GET('nav'),
-                "option": $_GET('option'),
-                "interface": 'savedActivities'
-            };
-            navigatePanel(navParam.panel, navParam.nav, navParam.option, navParam.interface);
-        });
-    })
-}
+/**
+ * @ToBeRemoved unused method
+ * last check Naser July 2022 
+ */
+// function saveActivity() {
+//     $("#activity-save").attr("disabled", true);
+//     correction = 0
+
+//     let parsedActivity = tryToParse(Activity.activity.content);
+//     parsedActivity = parsedActivity ? parsedActivity : Activity.activity.content
+
+//     let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(parsedActivity)[2]
+//     let project = window.localStorage[interface + 'CurrentProject']
+//     Main.getClassroomManager().saveStudentActivity(JSON.parse(project), interface, Activity.id, correction).then(function (activity) {
+//         actualizeStudentActivities(activity, correction)
+//         $("#activity-save").attr("disabled", false);
+//         displayNotification('#notif-div', "classroom.notif.savedProject", "success")
+//         Main.getClassroomManager().getStudentActivities(Main.getClassroomManager()).then(() => {
+//             let navParam = {
+//                 "panel": $_GET('panel'),
+//                 "nav": $_GET('nav'),
+//                 "option": $_GET('option'),
+//                 "interface": 'savedActivities'
+//             };
+//             navigatePanel(navParam.panel, navParam.nav, navParam.option, navParam.interface);
+//         });
+//     })
+// }
 
 //sandbox-->créer une activité
 $('body').on('click', '.sandbox-action-add', function () {
