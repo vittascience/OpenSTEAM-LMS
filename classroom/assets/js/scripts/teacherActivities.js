@@ -23,6 +23,16 @@ function createActivity(link = null, id = null) {
     }
 }
 
+function integrateProject(link) {
+	launchCustomActivity('reading', false, () => {
+		$('#reading-content').execCommand('vittaiframe');
+        document.querySelector('#wbbmodal .inp-text').value = link;
+		setTimeout(() => {
+			document.querySelector('#wbbm-submit').click();
+		},20);
+	});
+}
+
 function showExercicePanel() {
     Main.getClassroomManager().getAllApps().then((apps) => {
         activitiesCreation(apps);

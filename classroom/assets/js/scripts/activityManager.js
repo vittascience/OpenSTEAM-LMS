@@ -75,8 +75,8 @@ function launchCustomActivity(activityType, isUpdate = false, callback = false) 
                     
                     break;
             }
-            if (callback) callback();
             navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
+            if (callback) callback();
         } else {
             if (UserManager.getUser().isFromGar) {
                 $('#app-restricted-number').attr('data-i18n-options', `{"activities": "${response.Restrictions[Object.keys(response.Restrictions)[0]]}"}`);
