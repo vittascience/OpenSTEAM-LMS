@@ -24,7 +24,7 @@
 }
 
 // autocorrect modification pas pris en compte
-function launchCustomActivity(activityType, isUpdate = false) {
+function launchCustomActivity(activityType, isUpdate = false, callback = false) {
 
     //if (document.querySelector('#free-enonce') !== null) {
     setTextArea();
@@ -75,6 +75,7 @@ function launchCustomActivity(activityType, isUpdate = false) {
                     
                     break;
             }
+            if (callback) callback();
             navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
         } else {
             if (UserManager.getUser().isFromGar) {
@@ -489,7 +490,7 @@ function parseFillInFieldsAndSaveThem() {
 $('#dragAndDrop-add-inputs').click(() => {
     if ($("#drag-and-drop-content").getSelectText() != "") {
         $('#drag-and-drop-content').bbcode();
-        replaceSelectionWithHtml(`<span class="lms-answer">${$("#drag-and-drop-content").getSelectText()}</span>\&nbsp`)
+        replaceSelectionWithHtml(`<span class="lms-answer">${$("#drag-and-drop-content").getSelectText()}</span>\&nbsp`);
         let newText = $('#drag-and-drop-content').htmlcode();
         $('#drag-and-drop-content').htmlcode(newText);
     } else {
