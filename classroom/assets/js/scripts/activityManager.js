@@ -187,6 +187,7 @@ function titleForward() {
         }
     }
     $('#activity-title-forward').attr('disabled', false);
+    document.querySelector('#preview-activity-content').innerHTML = '';
 }
 
 

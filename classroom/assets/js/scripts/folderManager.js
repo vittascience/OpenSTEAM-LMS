@@ -440,7 +440,7 @@ class FoldersManager {
             }).on('over', function(el, container) {
                 if (Main.getClassroomManager().displayMode == "list") {
                     if ($(container).hasClass("folder-item-list")) {
-                        $(container).find(".folder-list").find(".list-folder-img-manager").attr("src", "./assets/media/folders/folder_open_icon.svg");
+                        $(container).find(".folder-list").find(".list-folder-img-manager").attr("src", `${_PATH}assets/media/folders/folder_open_icon.svg`);
                         SVGInject($(container).find(".folder-list").find(".list-folder-img-manager"));
                     }
                 } else {
@@ -451,7 +451,7 @@ class FoldersManager {
             }).on('out', function(el, container) {
                 if (Main.getClassroomManager().displayMode == "list") {
                     if ($(container).hasClass("folder-item-list")) {
-                        $(container).find(".folder-list").find(".list-folder-img-manager").attr("src", "./assets/media/folders/folder_close_icon.svg");
+                        $(container).find(".folder-list").find(".list-folder-img-manager").attr("src", `${_PATH}assets/media/folders/folder_close_icon.svg`);
                         SVGInject($(container).find(".folder-list").find(".list-folder-img-manager"));
                     }
                 } else {
