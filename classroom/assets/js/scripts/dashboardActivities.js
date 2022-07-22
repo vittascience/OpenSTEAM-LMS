@@ -34,7 +34,7 @@ function activityItem(activity, state) {
                     <div class="activity-card ${activityType} ">
                         <div class="${activityStatus}" data-toggle="tooltip" title="${activityStatusTitle}"><div class="ribbon__content"></div></div>
                         <div class="activity-card-top">
-                            ${activity.activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
+                            ${activity.activity.isAutocorrect ? `<img src='${_PATH}assets/media/auto-icon.svg' title='Auto'>` : "" }
                         </div>
                         <div class="activity-card-mid"></div>
                         <div class="activity-card-bot">
@@ -86,7 +86,7 @@ function teacherActivityItem(activity, displayStyle) {
                         <div>
                             <div class="activity-card ${activityType}">
                                 <div class="activity-card-top">
-                                ${activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
+                                ${activity.isAutocorrect ? `<img src='${_PATH}assets/media/auto-icon.svg' title='Auto'>` : "" }
                                 <div class="dropdown">
                                     <i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     </i>
@@ -126,7 +126,7 @@ function teacherActivityItem(activity, displayStyle) {
                     </div>
                     <div class="activity-list-info">
                             ${activity.isAutocorrect ? `<div class="activity-list-auto">
-                                <img src='assets/media/auto-icon-grey.svg' title='Auto' onload="SVGInject(this)">
+                                <img src='${_PATH}assets/media/auto-icon-grey.svg' title='Auto' onload="SVGInject(this)">
                             </div>` 
                             : "" }
                     </div>
@@ -162,8 +162,8 @@ function teacherFolder(folder, displayStyle) {
         content = `<div class="folder-item" data-id="${folder.id}">
                     <div> 
                         <div class="folder-card" data-id="${folder.id}">
-                            <img class="folder-close-icon" src="./assets/media/folders/folder_close_icon.svg" onload="SVGInject(this)">
-                            <img class="folder-open-icon" src="./assets/media/folders/folder_open_icon.svg" onload="SVGInject(this)">
+                            <img class="folder-close-icon" src="${_PATH}assets/media/folders/folder_close_icon.svg" onload="SVGInject(this)">
+                            <img class="folder-open-icon" src="${_PATH}assets/media/folders/folder_open_icon.svg" onload="SVGInject(this)">
                             <div class="folder-card-top">
                                 <div class="dropdown">
                                     <i class="fas fa-cog fa-2x" type="button" id="dropdown-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -190,7 +190,7 @@ function teacherFolder(folder, displayStyle) {
                         <div class="container-draggable">
                             <div class="folder-list" data-id="${folder.id}">
                                 <div class="folder-list-icon">
-                                    <img class="list-item-img list-folder-img-manager" src="./assets/media/folders/folder_close_icon.svg" alt="folder_close" class="folder-icons" onload="SVGInject(this)">
+                                    <img class="list-item-img list-folder-img-manager" src="${_PATH}assets/media/folders/folder_close_icon.svg" alt="folder_close" class="folder-icons" onload="SVGInject(this)">
                                 </div>
                                 
                                 <div class="folder-list-title">

@@ -401,7 +401,7 @@ function getTeacherActivity() {
     
     $('#activity-title').html(Activity.title);
     
-    let autoCorrectionDisclaimerElt = `<img id="activity-auto-disclaimer" data-toggle="tooltip" src="assets/media/auto-icon.svg" title="${i18next.t("classroom.activities.isAutocorrect")}">`
+    let autoCorrectionDisclaimerElt = `<img id="activity-auto-disclaimer" data-toggle="tooltip" src="${_PATH}assets/media/auto-icon.svg" title="${i18next.t("classroom.activities.isAutocorrect")}">`
     Activity.isAutocorrect ? $('#activity-title').append(autoCorrectionDisclaimerElt).tooltip() : null;
 
     let activityDropdownElt = `

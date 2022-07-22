@@ -292,12 +292,7 @@ function attributeActivity(id, ref = null) {
     listStudentsToAttribute(ref)
     $('#form-autocorrect').hide()
     ClassroomSettings.willAutocorrect = false;
-    Main.getClassroomManager().isActivityAutocorrected().then(function (result) {
-        navigatePanel('classroom-dashboard-new-activity-panel3', 'dashboard-activities-teacher', ref)
-        if (result) {
-            $('#form-autocorrect').show()
-        }
-    })
+    navigatePanel('classroom-dashboard-new-activity-panel3', 'dashboard-activities-teacher', ref);
 }
 
 
