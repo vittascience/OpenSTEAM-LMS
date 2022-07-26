@@ -283,7 +283,7 @@ function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = fa
     $('[data-toggle="tooltip"]').tooltip()
 
     if (id == 'classroom-dashboard-activities-panel-teacher' && idNav == 'dashboard-activities-teacher') {
-        foldersManager.goToFolder(foldersManager.actualFolder);
+        FoldersManager.goToFolder(FoldersManager.actualFolder);
     }
 }
 
@@ -846,8 +846,8 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
     let displayStyle = Main.getClassroomManager().displayMode;
 
 
-    if (foldersManager.treeFolder.html() == "") {
-        foldersManager.resetTreeFolders();
+    if (FoldersManager.treeFolder.html() == "") {
+        FoldersManager.resetTreeFolders();
     }
 
     $('#list-activities-teacher').html(``);
@@ -855,12 +855,12 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
 
 
     // Add sorting to the folders
-    let foldersZ = keyword ? filterTeacherFolderInList(keyword, asc) : foldersManager.userFolders;
+    let foldersZ = keyword ? filterTeacherFolderInList(keyword, asc) : FoldersManager.userFolders;
     foldersZ.forEach(folder => {
-        if (folder.parentFolder == null && foldersManager.actualFolder == null) {
+        if (folder.parentFolder == null && FoldersManager.actualFolder == null) {
             $('#list-activities-teacher').append(teacherFolder(folder, displayStyle));
         } else if (folder.parentFolder != null) {
-            if (folder.parentFolder.id == foldersManager.actualFolder) {
+            if (folder.parentFolder.id == FoldersManager.actualFolder) {
                 $('#list-activities-teacher').append(teacherFolder(folder, displayStyle));
             }
         }
@@ -868,17 +868,17 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
 
     
     sortedList.forEach(element => {
-        if (element.folder == null && foldersManager.actualFolder == null) {
+        if (element.folder == null && FoldersManager.actualFolder == null) {
             $('#list-activities-teacher').append(teacherActivityItem(element, displayStyle));
         } else if (element.folder != null) {
-            if (element.folder.id == foldersManager.actualFolder) {
+            if (element.folder.id == FoldersManager.actualFolder) {
                 $('#list-activities-teacher').append(teacherActivityItem(element, displayStyle));
             }
         }
     });
 
 
-    foldersManager.dragulaInitObjects();
+    FoldersManager.dragulaInitObjects();
     $('[data-toggle="tooltip"]').tooltip();
 }
 
@@ -892,7 +892,7 @@ function filterTeacherFolderInList(keywords = [], asc = true) {
         expression += ')'
     }
     regExp = new RegExp(expression)
-    let list = foldersManager.userFolders.filter(x => regExp.test(x.name.toUpperCase()))
+    let list = FoldersManager.userFolders.filter(x => regExp.test(x.name.toUpperCase()))
     if (asc) {
         return list.sort(function (a, b) {
             return a["id"] - b["id"];
@@ -2979,7 +2979,6 @@ function updateApp(app_id) {
         $('#app_update_id').val(response.id);
         $('#app_update_activity_restriction_value').val(response.max_per_teachers);
 
-        $('#app_update_background_image').val(response.background_image);
         $('#app_update_sort_index').val(response.sort);
 
         if (response.hasOwnProperty('lti')) {
@@ -3004,10 +3003,8 @@ function deleteApp(app_id, app_name) {
     $('#application_delete_name').text(app_name);
     $('#validation_delete_application_id').val(app_id);
 }
-/**
- *         $('#app_update_background_image').val(response.id);
-        $('#app_update_sort_index').val(response.id);
- */
+
+
 function persistUpdateApp() {
     let $application_id = $('#app_update_id').val(),
         $application_name = $('#app_update_name').val(),
@@ -3016,7 +3013,6 @@ function persistUpdateApp() {
         $application_image = $('#app_update_image').val(),
         $application_restrictions_value = $('#app_update_activity_restriction_value').val(),
         lti = checkLtiFields('update'),
-        $application_background_image = $('#app_update_background_image').val(),
         $application_sort_index = $('#app_update_sort_index').val();
 
     if (!lti.isLti && $('#update_isLti').is(":checked")) {
@@ -3030,7 +3026,6 @@ function persistUpdateApp() {
             lti,
             $application_color,
             $application_restrictions_value,
-            $application_background_image,
             $application_sort_index).then((response) => {
             if (response.message == "success") {
                 displayNotification('#notif-div', "manager.apps.updateSuccess", "success");
@@ -3069,7 +3064,6 @@ function persistCreateApp() {
         $application_image = $('#app_create_image').val(),
         $application_restrictions_value = $('#app_create_activity_restriction_value').val(),
         lti = checkLtiFields('create'),
-        $application_background_image = $('#app_create_background_image').val(),
         $application_sort_index = $('#app_create_sort_index').val();
 
     
@@ -3082,7 +3076,6 @@ function persistCreateApp() {
             $application_image, lti, 
             $application_color, 
             $application_restrictions_value,
-            $application_background_image,
             $application_sort_index).then((response) => {
             if (response.message == "success") {
                 displayNotification('#notif-div', "manager.apps.createSuccess", "success");

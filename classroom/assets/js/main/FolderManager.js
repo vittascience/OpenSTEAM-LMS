@@ -36,14 +36,14 @@ class FoldersManager {
         $('body').on('click', '.folder-card', function () {
             if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
                 let id = $(this).attr('data-id');
-                foldersManager.openFolder(id);
+                FoldersManager.openFolder(id);
             }
         })
 
         $('body').on('click', '.folder-list', function () {
             if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
                 let id = $(this).attr('data-id');
-                foldersManager.openFolder(id);
+                FoldersManager.openFolder(id);
             }
         })
     }
@@ -193,7 +193,7 @@ class FoldersManager {
         if (this.treeFolder.html() == "") {
             this.resetTreeFolders();
         }
-        this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span> <button class="btn c-btn-outline-primary" data-id="${folder.id}" onclick="foldersManager.goToFolder(${folder.id})"><i class="fas fa-folder-open folder-breadcrumb"></i> ${folder.name}</button>`);  
+        this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span> <button class="btn c-btn-outline-primary" data-id="${folder.id}" onclick="FoldersManager.goToFolder(${folder.id})"><i class="fas fa-folder-open folder-breadcrumb"></i> ${folder.name}</button>`);  
     }
 
     goToFolder(folderId) {
@@ -211,7 +211,7 @@ class FoldersManager {
     }
 
     resetTreeFolders() {
-        this.treeFolder.html(`<button class="btn c-btn-outline-primary" onclick="foldersManager.goToFolder(null)">Mes activités</button>`);
+        this.treeFolder.html(`<button class="btn c-btn-outline-primary" onclick="FoldersManager.goToFolder(null)">Mes activités</button>`);
     }
 
     createTreeFolders() {
@@ -234,7 +234,7 @@ class FoldersManager {
 
         idOfParents.reverse().forEach(folder => {
             if (folder != null && folder.id != undefined) {
-                this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span>  <button class="btn c-btn-outline-primary" onclick="foldersManager.goToFolder(${folder.id})"><i class="fas fa-folder-open folder-breadcrumb"></i> ${folder.name}</button>`);
+                this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span>  <button class="btn c-btn-outline-primary" onclick="FoldersManager.goToFolder(${folder.id})"><i class="fas fa-folder-open folder-breadcrumb"></i> ${folder.name}</button>`);
             }
         });
     }
@@ -417,26 +417,26 @@ class FoldersManager {
                             targetId = target.getAttribute('data-id');
                         
                         if ($(source).hasClass("folder-item") || $(source).hasClass("folder-item-list")) {
-                            foldersManager.moveFolderToFolder(elId, targetId).then(res => {
-                                foldersManager.manageResponseFromMoved(res);
+                            FoldersManager.moveFolderToFolder(elId, targetId).then(res => {
+                                FoldersManager.manageResponseFromMoved(res);
                             })
                         } else {
-                            foldersManager.moveActivityToFolder(elId, targetId).then(res => {
-                                foldersManager.manageResponseFromMoved(res);
+                            FoldersManager.moveActivityToFolder(elId, targetId).then(res => {
+                                FoldersManager.manageResponseFromMoved(res);
                             })
                         }
                     } else {
-                        foldersManager.displayAndDragulaInitObjects();
+                        FoldersManager.displayAndDragulaInitObjects();
                     }
                 } else {
-                    foldersManager.displayAndDragulaInitObjects();
+                    FoldersManager.displayAndDragulaInitObjects();
                 }
             }).on('shadow', function(el) { 
                 document.querySelectorAll('.gu-transit').forEach(element => {
                     element.style.display = "none";
                 })
             }).on('cancel', function() {
-                foldersManager.displayAndDragulaInitObjects();
+                FoldersManager.displayAndDragulaInitObjects();
             }).on('over', function(el, container) {
                 if (Main.getClassroomManager().displayMode == "list") {
                     if ($(container).hasClass("folder-item-list")) {
@@ -590,7 +590,7 @@ class FoldersManager {
     }
 }
 // Initialize
-const foldersManager = new FoldersManager();
-foldersManager.init();
+const FoldersManager = new FoldersManager();
+FoldersManager.init();
 
 

@@ -325,7 +325,7 @@ class managerManager {
         })
     }
 
-    updateApplication($application_id, $application_name, $application_description, $application_image, $lti_data, $application_color, $restriction_max, $application_background_image, $application_sort_index) {
+    updateApplication($application_id, $application_name, $application_description, $application_image, $lti_data, $application_color, $restriction_max, $application_sort_index) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -338,7 +338,6 @@ class managerManager {
                     application_image: $application_image,
                     restriction_max: $restriction_max,
                     lti_data: JSON.stringify($lti_data),
-                    application_background_image: $application_background_image,
                     application_sort_index: $application_sort_index
                 },
                 success: function (response) {
@@ -370,7 +369,7 @@ class managerManager {
     }
     
 
-    createApplication($application_name, $application_description, $application_image, $lti_data, $application_color, $restriction_max, $application_background_image, $application_sort_index) {
+    createApplication($application_name, $application_description, $application_image, $lti_data, $application_color, $restriction_max, $application_sort_index) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -383,7 +382,6 @@ class managerManager {
                     application_color: $application_color,
                     restriction_max: $restriction_max,
                     lti_data: JSON.stringify($lti_data),
-                    application_background_image: $application_background_image,
                     application_sort_index: $application_sort_index
                 },
                 success: function (response) {
