@@ -26,9 +26,7 @@
 // autocorrect modification pas pris en compte
 function launchCustomActivity(activityType, isUpdate = false, callback = false) {
 
-    //if (document.querySelector('#free-enonce') !== null) {
     setTextArea();
-    //}
 
     const contentForwardButtonElt = document.getElementById('content-forward-button');
     contentForwardButtonElt.style.display = 'inline-block';
@@ -144,7 +142,7 @@ function titleBackward() {
 /**
  * Title part
  */
-function titleForward() {
+ function titleForward() {
     Main.getClassroomManager()._createActivity.title = $('#global_title').val();
     $('#activity-title-forward').attr('disabled', true);
     // Check if the title is empty

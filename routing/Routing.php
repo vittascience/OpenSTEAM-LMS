@@ -47,6 +47,11 @@ $dotenv->safeLoad();
 const OK = "OK";
 $controller = isset($_GET['controller']) ? $_GET['controller'] : null;
 $action = isset($_GET['action']) ? $_GET['action'] : null;
+
+// Intercept action.
+$logPath = isset($_ENV['VS_LOG_PATH']) ? $_ENV['VS_LOG_PATH'] : "/logs/log.log";
+$log = Log::createSharedInstance($controller, $logPath, Logger::NOTICE);
+
 try {
     // Get User.
     session_start();
@@ -80,9 +85,6 @@ try {
             }
         }
     }
-    // Intercept action.
-    $logPath = isset($_ENV['VS_LOG_PATH']) ? $_ENV['VS_LOG_PATH'] : "/logs/log.log";
-    $log = Log::createSharedInstance($controller, $logPath, Logger::NOTICE);
 
     // get and scan the entire plugins folder
     $pluginsDir = '../plugins';

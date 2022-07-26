@@ -949,11 +949,6 @@ const classroomModals = {
                                 </div>
                             </div>
                             <div class="form-row mt-1 c-secondary-form">
-                                <div class="col-md">
-                                    <label for="app_update_background_image" data-i18n="manager.table.backgroundImage"></label>
-                                    <input type="text" class="form-control" id="app_update_background_image">
-                                    <img src="" class="app_image_preview" id="app_update_background_image_preview">
-                                </div>
 
                                 <div class="col-md">
                                     <label for="app_update_sort_index" data-i18n="manager.activitiesRestrictions.indexPos">Nombre</label>
@@ -1037,11 +1032,6 @@ const classroomModals = {
                                 </div>
                             </div>
                             <div class="form-row mt-1 c-secondary-form">
-                                <div class="col-md">
-                                    <label for="app_create_background_image" data-i18n="manager.table.backgroundImage">Image</label>
-                                    <input type="text" class="form-control" id="app_create_background_image">
-                                    <img src="" class="app_image_preview" id="app_create_background_image_preview">
-                                </div>
 
                                 <div class="col-md">
                                     <label for="app_create_sort_index" data-i18n="manager.activitiesRestrictions.max">Nombre</label>
