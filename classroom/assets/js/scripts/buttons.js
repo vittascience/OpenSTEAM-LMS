@@ -266,10 +266,13 @@ function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = fa
         // Define the last element of the breadcrumb
         if (i == currentBreadcrumbStructure.length - 2) {
             if ($_GET("panel") == "classroom-dashboard-activity-panel") {
-                innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
+                if (UserManager.getUser().isRegular) {
+                    innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
+                } else {
+                    innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
+                }
             } else {
                 innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('${currentBreadcrumbStructure[i]}', '${idNav}')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
-                // Define all the elements of the breadcrumb except the last
             }
         } else {
             innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary last" onclick="navigatePanel('${currentBreadcrumbStructure[i]}', '${idNav}')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span><i class="fas fa-chevron-right ml-2"></i></button>`;
@@ -607,7 +610,11 @@ $('#dashboard-activities, .activity-panel-link').click(function () {
 
 function defaultProcessValidateActivity() {
     $("#activity-validate").attr("disabled", "disabled");
-    let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)
+    let interface = tryToParse(Activity.activity.content);
+    const vittaIframeRegex = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm;
+    interface = interface 
+        ? vittaIframeRegex.exec(interface.description)
+        : false;
     if (interface == undefined || interface == null) {
         correction = 2
         Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, correction, 4).then(function (activity) {
@@ -626,9 +633,9 @@ function defaultProcessValidateActivity() {
         window.localStorage.classroomActivity = null
     } else if (Activity.autocorrection == false) {
         correction = 1
-        let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)[2]
-        let project = window.localStorage[interface + 'CurrentProject']
-        Main.getClassroomManager().saveStudentActivity(JSON.parse(project), interface, Activity.id).then(function (activity) {
+        const interfaceName = interface[2];
+        let project = window.localStorage[interfaceName + 'CurrentProject']
+        Main.getClassroomManager().saveStudentActivity(JSON.parse(project), interfaceName, Activity.id).then(function (activity) {
             if (typeof activity.errors != 'undefined') {
                 for (let error in activity.errors) {
                     displayNotification('#notif-div', `classroom.notif.${error}`, "error");
@@ -646,6 +653,7 @@ function defaultProcessValidateActivity() {
         window.localStorage.autocorrect = true
     }
 }
+
 
 /**
  * @ToBeRemoved unused method
@@ -3092,11 +3100,11 @@ function persistCreateApp() {
  * Img manager
  */
 
-$('body').on('keyup', '#app_create_image', function () {
+$('body').on('input', '#app_create_image', function () {
     updateImg('app_create_image');
 })
 
-$('body').on('keyup', '#app_update_image', function () {
+$('body').on('input', '#app_update_image', function () {
     updateImg('app_update_image');
 })
 

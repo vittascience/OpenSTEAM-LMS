@@ -144,7 +144,7 @@ function titleBackward() {
 /**
  * Title part
  */
-function titleForward() {
+ function titleForward() {
     Main.getClassroomManager()._createActivity.title = $('#global_title').val();
     $('#activity-title-forward').attr('disabled', true);
     // Check if the title is empty
