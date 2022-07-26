@@ -201,8 +201,8 @@ class ClassroomManager {
                     success: function (response) {
                         Main.getClassroomManager().getAllApps().then(res => {
                             for (let i = 0; i < res.length; i++) {
-                                if (!FoldersManager.icons.hasOwnProperty(res[i].name)) {
-                                    FoldersManager.icons[res[i].name] = res[i].image;
+                                if (!foldersManager.icons.hasOwnProperty(res[i].name)) {
+                                    foldersManager.icons[res[i].name] = res[i].image;
                                 }
                             }
                             process(container, JSON.parse(response));

@@ -283,7 +283,7 @@ function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = fa
     $('[data-toggle="tooltip"]').tooltip()
 
     if (id == 'classroom-dashboard-activities-panel-teacher' && idNav == 'dashboard-activities-teacher') {
-        FoldersManager.goToFolder(FoldersManager.actualFolder);
+        foldersManager.goToFolder(foldersManager.actualFolder);
     }
 }
 
@@ -846,8 +846,8 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
     let displayStyle = Main.getClassroomManager().displayMode;
 
 
-    if (FoldersManager.treeFolder.html() == "") {
-        FoldersManager.resetTreeFolders();
+    if (foldersManager.treeFolder.html() == "") {
+        foldersManager.resetTreeFolders();
     }
 
     $('#list-activities-teacher').html(``);
@@ -855,12 +855,12 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
 
 
     // Add sorting to the folders
-    let foldersZ = keyword ? filterTeacherFolderInList(keyword, asc) : FoldersManager.userFolders;
+    let foldersZ = keyword ? filterTeacherFolderInList(keyword, asc) : foldersManager.userFolders;
     foldersZ.forEach(folder => {
-        if (folder.parentFolder == null && FoldersManager.actualFolder == null) {
+        if (folder.parentFolder == null && foldersManager.actualFolder == null) {
             $('#list-activities-teacher').append(teacherFolder(folder, displayStyle));
         } else if (folder.parentFolder != null) {
-            if (folder.parentFolder.id == FoldersManager.actualFolder) {
+            if (folder.parentFolder.id == foldersManager.actualFolder) {
                 $('#list-activities-teacher').append(teacherFolder(folder, displayStyle));
             }
         }
@@ -868,17 +868,17 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
 
     
     sortedList.forEach(element => {
-        if (element.folder == null && FoldersManager.actualFolder == null) {
+        if (element.folder == null && foldersManager.actualFolder == null) {
             $('#list-activities-teacher').append(teacherActivityItem(element, displayStyle));
         } else if (element.folder != null) {
-            if (element.folder.id == FoldersManager.actualFolder) {
+            if (element.folder.id == foldersManager.actualFolder) {
                 $('#list-activities-teacher').append(teacherActivityItem(element, displayStyle));
             }
         }
     });
 
 
-    FoldersManager.dragulaInitObjects();
+    foldersManager.dragulaInitObjects();
     $('[data-toggle="tooltip"]').tooltip();
 }
 
@@ -892,7 +892,7 @@ function filterTeacherFolderInList(keywords = [], asc = true) {
         expression += ')'
     }
     regExp = new RegExp(expression)
-    let list = FoldersManager.userFolders.filter(x => regExp.test(x.name.toUpperCase()))
+    let list = foldersManager.userFolders.filter(x => regExp.test(x.name.toUpperCase()))
     if (asc) {
         return list.sort(function (a, b) {
             return a["id"] - b["id"];

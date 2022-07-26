@@ -158,7 +158,7 @@ function titleForward() {
             solution = JSON.stringify(Main.getClassroomManager()._createActivity.solution),
             tolerance = Main.getClassroomManager()._createActivity.tolerance,
             autocorrect = Main.getClassroomManager()._createActivity.autocorrect,
-            folder = FoldersManager.actualFolder;
+            folder = foldersManager.actualFolder;
 
         if (type == "dragAndDrop" || type == "fillIn" || type == "quiz") {
             autocorrect = true;
