@@ -26,9 +26,7 @@
 // autocorrect modification pas pris en compte
 function launchCustomActivity(activityType, isUpdate = false, callback = false) {
 
-    //if (document.querySelector('#free-enonce') !== null) {
     setTextArea();
-    //}
 
     const contentForwardButtonElt = document.getElementById('content-forward-button');
     contentForwardButtonElt.style.display = 'inline-block';
