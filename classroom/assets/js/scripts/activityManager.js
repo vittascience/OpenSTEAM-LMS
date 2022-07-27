@@ -40,7 +40,7 @@ function launchCustomActivity(activityType, isUpdate = false, callback = false) 
     Main.getClassroomManager()._createActivity.function = "create";
 
     Main.getClassroomManager().isActivitiesRestricted(null, activityType).then((response) => {
-        if (response.Limited == false) {
+        if (response.Limited == false && activityType != "appOutDated") {
             switch(activityType) {
                 case 'free':
                     $("#activity-free").show();
@@ -76,12 +76,16 @@ function launchCustomActivity(activityType, isUpdate = false, callback = false) 
             navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
             if (callback) callback();
         } else {
-            if (UserManager.getUser().isFromGar) {
-                $('#app-restricted-number').attr('data-i18n-options', `{"activities": "${response.Restrictions[Object.keys(response.Restrictions)[0]]}"}`);
-                pseudoModal.openModal('activity-restricted-gar');
-                $('#app-restricted-number').localize();
-            } else {
-                pseudoModal.openModal('activity-restricted');
+            if (activityType == "appOutDated") {
+                pseudoModal.openModal('activity-outdated');
+            } else if (response.Limited) {
+                if (UserManager.getUser().isFromGar) {
+                    $('#app-restricted-number').attr('data-i18n-options', `{"activities": "${response.Restrictions[Object.keys(response.Restrictions)[0]]}"}`);
+                    pseudoModal.openModal('activity-restricted-gar');
+                    $('#app-restricted-number').localize();
+                } else {
+                    pseudoModal.openModal('activity-restricted');
+                }
             }
         }
     });
@@ -371,6 +375,12 @@ function activitiesCreation(apps) {
     let htmlContent = `<div class="app-head" data-i18n="classroom.activities.applist.selectApp"></div>`;
     apps.forEach(app => {
 
+        let outDated = false;
+        if (app.hasOwnProperty("outDated")) {
+            outDated = app.outDated;
+            console.log(app.name)
+        }
+
         let nameField = "";
         if (i18next.t(titleRoad+app.name) != titleRoad+app.name) {
             nameField = `<h3 class="app-card-title mt-2" data-i18n="${titleRoad+app.name}"></h3>`;
@@ -389,7 +399,14 @@ function activitiesCreation(apps) {
             descriptionField = `<p class="app-card-description">${app.description}</p>`;
         }
         
+
+
         let restrict = app.name != "" ? `launchCustomActivity('${app.name}')` : `launchCustomActivity('custom')`;
+
+        if (outDated) {
+            restrict = `launchCustomActivity('appOutDated')`;
+        }
+
         htmlContent+= `<div class="app-card" style="--border-color:${app.color};" onclick="${restrict}">
             <img class="app-card-img" src="${app.image}" alt="${app.name}">
             ${nameField}
