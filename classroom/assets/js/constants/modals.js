@@ -1114,6 +1114,24 @@ const classroomModals = {
                     </div>`,
         footer: ``
     },
+    'activity-outdated': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'manager.activitiesRestrictions.appOutDated'
+        },
+        content: `  <div id="activity-restricted">
+                        <div class="container-fluid" id="activity-restricted-content">
+                            <p class="mt-4 mb-1 font-weight-bold" data-i18n="manager.activitiesRestrictions.appOutDatedUL1"> </p>
+                            <p class="mt-4 mb-1" data-i18n="manager.activitiesRestrictions.appOutDatedUL2"> </p>
+                            <hr>
+                            <div class="w-100 text-center">
+                                <p data-i18n="manager.activitiesRestrictions.appOutDatedSubtitle3"> </p>
+                            </div>
+                        </div>
+                    </div>`,
+        footer: ``
+    },
     'activity-restricted-gar': {
         selector: '',
         header: {
