@@ -46,6 +46,7 @@ class AutoBuildManager {
             'newExercicesPanel.html',
             'appsMediaGalery.html',
             'customAppsPanel.html',
+            'teacherCoursePanel.html',
             'idePanel.html',
             'home_footer.html',
         ];
@@ -455,11 +456,9 @@ class AutoBuildManager {
      * @param {*} list
      */
     async readFolderForList(plugin, folder, list) {
-        console.log(folder);
         return new Promise((resolve, reject) => {
             fs.readdir(folder, (err, files) => {
                 if (files) {
-                    console.table(files);
                     try {
                         if(!this.pluginsList[this.pluginsList.indexOf(plugin)][list])
                             this.pluginsList[this.pluginsList.indexOf(plugin)][list] = [];
@@ -692,6 +691,7 @@ class AutoBuildManager {
                 'classroom/Views/newExercicesPanel.html',
                 'classroom/Views/appsMediaGalery.html',
                 'classroom/Views/customAppsPanel.html',
+                'classroom/Views/teacherCoursePanel.html',
                 'classroom/Views/idePanel.html',
                 'classroom/Views/home_footer.html',
 
