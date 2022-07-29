@@ -741,6 +741,9 @@
         <div class="col-12 col-sm-3 mt-2 d-flex justify-content-center">  
             <button id="new-activity-panel1" onclick="showExercicePanel()" class=" btn c-btn-outline-secondary"><span class="mr-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
             </button>
+
+            <button id="new-activity-panel1" onclick="coursesManager.showCoursePanel()" class="btn c-btn-outline-secondary"><span class="mr-1">Créer un parcours</span><i class="fas fa-chevron-right"></i>
+            </button>
         </div>
 
         <div class="col-12 col-sm-auto mt-2 d-inline-flex justify-content-center">
@@ -1841,6 +1844,86 @@
         </div>
     </nav>
 </div>
+<!-- Main page -->
+<div id="classroom-dashboard-classes-new-course" style="display:none;" class="dashboard-block ">
+    
+    
+    <!-- Top progress bar  -->
+    <nav class="row form-activity-container" style="margin: 0 auto;">
+        <!-- Step 1 -->
+        <div class="col text-center">
+            <span class="form-activity form-activity-activate">1</span>
+            <span data-i18n="">Création du parcours</span>
+        </div>
+
+        <div class="col"></div>
+
+        <!-- Step  -->
+        <div class=" col text-center">
+            <span class="form-activity form-activity-desactivate">2</span>
+            <span data-i18n="">Titre</span>
+        </div>
+
+        <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
+
+        <!-- Step 3 -->
+        <div class=" col text-center">
+            <span class="form-activity form-activity-desactivate">3</span>
+            <span data-i18n="">Paramètres</span>
+        </div>
+
+        <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
+
+        <!-- Step 4 -->
+        <div class="col text-center">
+            <span class="form-activity form-activity-desactivate">4</span>
+            <span data-i18n="classroom.activities.form.4">Attribution</span>
+        </div>
+    </nav>
+
+
+    <div class="container">
+
+
+        <div id="course-content" class="col-8">
+            <p>
+                <span>Activités</span><span>* Obligatoire</span>
+            </p>
+
+            <div class="col-sm mb-2">
+                <button class="btn c-btn-grey" id="course-add-activity">
+                    <i class="fas fa-chevron-left"></i> <span data-i18n="">Ajouter une activité</span>
+                </button>
+
+                <button class="btn c-btn-secondary" id="course-create-activity">
+                    <span data-i18n=""><span class="mr-1" data-i18n="classroom.activities.add">Créer une activité</span><i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
+
+            <div id="course-activities-content">
+
+
+            </div>
+
+        </div>
+        
+
+
+        <div class="row text-center w-100">
+            <div class="col-sm mb-2">
+                <button class="btn c-btn-grey" onclick="" id="course-visualize">
+                    <span data-i18n="">Visualiser</span>
+                </button>
+            </div>
+            <div class="col-sm order-first order-sm-last mb-2">
+                <button class="btn c-btn-secondary" onclick="" id="course-validate">
+                    <span data-i18n="classroom.activities.form.validate">Valider</span> <i class="fas fa-check"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="classroom-dashboard-ide-panel" style="display:none;" class="dashboard-block">
     <iframe width="100%" style="height:85vh;" frameborder="0" allowfullscreen="" style="border:1px #d6d6d6 solid;" src=""></iframe>
 </div>
@@ -1908,6 +1991,8 @@
 <!-- drag and drop bundle -->
 <link rel="stylesheet" stype="text/css" href="assets/css/dragula.css">
 <script src="assets/js/lib/dragula.js" ></script>
+<!-- courses -->
+<script src="assets/js/main/CoursesManager.js"></script>
 
 <script>
     UIManager.init().then((resolve) => {
