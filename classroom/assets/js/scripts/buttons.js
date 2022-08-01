@@ -476,10 +476,6 @@ $('#help-teacher').click(function () {
     navigatePanel('classroom-dashboard-help-panel-teacher', 'dashboard-profil-teacher')
 
 })
-//dropdow-accessibility
-$('#accessDropdown').click(function () {
-    $('#access-dropdown').toggle()
-})
 
 var accessForm = document.querySelector('#access-form');
 if (accessForm) {
