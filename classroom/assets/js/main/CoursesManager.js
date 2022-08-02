@@ -23,10 +23,38 @@ class CoursesManager {
             }
         };
         this.dragula = null;
+        this.collections = [
+            "Sciences et technologie-Cycle 3",
+            "Mathématiques-Cycle 3",
+            "Technologie-Cycle 3",
+            "Physique-Chimie-Cycle 4",
+            "Mathématiques-Cycle 4",
+            "Technologie-Cycle 4",
+            "SVT-Cycle 4", "SNT-Seconde",
+            "Physique-Chimie-Seconde",
+            "Mathématiques-Seconde",
+            "SVT-Seconde",
+            "CIT-Seconde",
+            "Enseignement scientifique-Première",
+            "NSI-Première",
+            "Physique-Chimie-Première",
+            "Mathématiques-Première",
+            "Sciences de l'ingénieur-Première",
+            "SVT-Première",
+            "Enseignement scientifique-Terminale",
+            "NSI-Terminale",
+            "Physique-Chimie-Terminale",
+            "Mathématiques-Terminale",
+            "Sciences de l'ingénieur-Terminale",
+            "SVT-Terminale",
+            "STI2D-Lycée",
+            "Autre-(tout niveau)"
+        ];
     }
 
     init() {
         this.dragula = dragula();
+
     }
 
     goToCreate(fresh = false) {
@@ -54,11 +82,6 @@ class CoursesManager {
             document.getElementById('course-difficulty').value = this.courseData.parameters.level;
             document.getElementById('course-language').value = this.courseData.parameters.language;
             document.getElementById('course-support').value = this.courseData.parameters.support;
-        } else {
-            document.getElementById('course-duration').value = '';
-            document.getElementById('course-difficulty').value = '';
-            document.getElementById('course-language').value = '';
-            document.getElementById('course-support').value = '';
         }
         navigatePanel('classroom-dashboard-classes-new-course-parameters', 'dashboard-activities-teacher');
     }
@@ -213,6 +236,48 @@ class CoursesManager {
         document.getElementById('add-activity-content').innerHTML = '';
     }
 
+    addTutorialToCourse() {
+        let html = `<div class="col-12 linkedtutorial-row">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text" data-i18n="tutorial.add.form.linkedtuto.label">Lien vers le tutoriel</div>
+                            </div>
+                            <input type="text" class="form-control linkedtutorial-form" placeholder="" value="" aria-label="" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-danger remove-linkedtutorial" data-toggle="tooltip" data-placement="top" data-i18n="[title]tutorial.add.form.linkedtuto.tooltip" title="" data-original-title="Supprimer ce tutoriel"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>																																																																
+                    </div>`;
+    }
+
+    addProductToCourse() {
+        let html = `<div class="form-group mb-2 row product-row">
+                        <div class="form-row col row">    
+                            <div class="input-group-text col-3">
+                                <span data-i18n="tutorial.add.form.products.name">Nom</span>
+                            </div>
+                            <input type="text" class="form-control col-9 product-name">
+                        </div>
+                        <div class="form-row col row">  
+                            <div class="input-group-text col-3">
+                                <span data-i18n="tutorial.add.form.products.url">URL</span>
+                            </div><input type="text" class="form-control col-9 product-url"> 
+                        </div> 
+                        <button type="button" class="btn btn-danger remove-product" data-toggle="tooltip" data-placement="top" title="Supprimer ce produit" data-i18n="[title]tutorial.add.form.products.tooltip" data-original-title="Supprimer ce produit"><i class="fas fa-times"></i>
+                        </button>
+                    </div>`;
+    }
+
+    fillCollectionSelect(collection) {
+        const collectionSelect = document.getElementById('collection-select');
+        collectionSelect.innerHTML = '';
+        collection.forEach(collection => {
+            const collectionOption = document.createElement('option');
+            collectionOption.value = collection.id;
+            collectionOption.innerHTML = collection.name;
+            collectionSelect.appendChild(collectionOption);
+        });
+    }
 
     persistTitlePage() { 
         const title = document.getElementById('course-title').value,
@@ -227,6 +292,103 @@ class CoursesManager {
 
         this.goToParameters(true);
     }
+
+    addChapterToCourse() {
+
+        // check how many "select-collection-" id exist 
+        let nbCollect = document.querySelectorAll('[id^="select-collection-"]').length;
+        let id = 0;
+
+        const chaptersContent = document.getElementById('course-chapters-content');
+        let collections = "",
+            selectChapter = "",
+            selectCollection = "";
+
+        for (let index = 0; index < nbCollect+1; index++) {
+            if (document.getElementById('select-collection-' + index) == null) {
+                id = index;
+                break;
+            }
+        }
+
+        for (let i = 0; i < this.collections.length; i++) {
+            collections += `<option value="${i}">${this.collections[i]}</option>`;
+        }
+
+        selectCollection = `<div class="form-group col-md">
+                                    <label for="select-collection-${id}">License d'utilisation <span class="c-text-red">*Obligatoire</span></label>
+                                    <select class="form-control" id="select-collection-${id}" aria-label="Default select example">
+                                        ${collections}
+                                    </select>
+                                </div>`;
+
+        
+        this.getChapterByCollection(1, "Sciences et technologie", "Cycle 3").then(chapters => {
+            let chaptersDiv = "";
+            for(let i = 0; i < chapters.length; i++) {
+                chaptersDiv += `<option value="${chapters[i].id}">${chapters[i].name}</option>`;
+            }
+    
+    
+            selectChapter = `   <div class="form-group col-md">
+                                        <label for="select-chapter-${id}">Chapitre <span class="c-text-red">*Obligatoire</span></label>
+                                        <select class="form-control" id="select-chapter-${id}" aria-label="Default select example">
+                                            ${chaptersDiv}
+                                        </select>
+                                    </div>`;
+
+            chaptersContent.innerHTML += `<div class="form-row col-12" id="course-chapter-${id}">
+                ${selectCollection}
+                ${selectChapter}
+                <button type="button" onclick="coursesManager.deleteChapter(${id})" class="btn btn-danger remove-chapter" data-toggle="tooltip" data-placement="top" title="Supprimer ce chapitre" data-i18n="[title]tutorial.add.form.chapter.tooltip" data-original-title="Supprimer ce chapitre"><i class="fas fa-times"></i>
+            </div>`;
+
+            document.getElementById('select-collection-' + id).addEventListener('change', (e) => {
+                console.log(e)
+                let selectedValue = this.collections[e.target.value];
+                this.getChapterByCollection(parseInt(e.target.value)+1, selectedValue.split("-")[0], selectedValue.split("-")[1]).then(chapters => {
+                    let chaptersDiv = "";
+                    for(let i = 0; i < chapters.length; i++) {
+                        chaptersDiv += `<option value="${chapters[i].id}">${chapters[i].name}</option>`;
+                    }
+                    document.getElementById('select-chapter-' + id).innerHTML = chaptersDiv;
+                })
+            });
+        });
+    }
+
+    deleteChapter(id) {
+        console.log("deleteChapter");
+        document.getElementById('course-chapter-' + id).remove();
+    }
+
+    // fetch POST chapter controller=chapter&action=get_chapter_by_collection with params: id, nameCollection, gradeCollection
+    getChapterByCollection(id, nameCollection, gradeCollection) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=chapter&action=get_chapter_by_collection",
+                data: {
+                    id: id,
+                    nameCollection: nameCollection,
+                    gradeCollection: gradeCollection
+                },
+                success: function (res) {
+                    resolve(JSON.parse(res));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+
+    // make an array of collection
+    //<option value="1" selected="">Sciences et technologie-Cycle 3</option><option value="2">Mathématiques-Cycle 3</option><option value="3">Technologie-Cycle 3</option><option value="4">Physique-Chimie-Cycle 4</option><option value="5">Mathématiques-Cycle 4</option><option value="6">Technologie-Cycle 4</option><option value="7">SVT-Cycle 4</option><option value="8">SNT-Seconde</option><option value="9">Physique-Chimie-Seconde</option><option value="10">Mathématiques-Seconde</option><option value="11">SVT-Seconde</option><option value="12">CIT-Seconde</option><option value="13">Enseignement scientifique-Première</option><option value="14">NSI-Première</option><option value="15">Physique-Chimie-Première</option><option value="16">Mathématiques-Première</option><option value="17">Sciences de l'ingénieur-Première</option><option value="18">SVT-Première</option><option value="19">Enseignement scientifique-Terminale</option><option value="20">NSI-Terminale</option><option value="21">Physique-Chimie-Terminale</option><option value="22">Mathématiques-Terminale</option><option value="23">Sciences de l'ingénieur-Terminale</option><option value="24">SVT-Terminale</option><option value="25">STI2D-Lycée</option><option value="26">Autre-(tout niveau)</option>
+
+
+
 
 
     
