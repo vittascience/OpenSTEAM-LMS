@@ -231,11 +231,11 @@ class CoursesManager {
 
     addTutorialToCourse() {
         
-        let nbCollect = document.querySelectorAll('[id^="course-product-"]').length;
+        let nbCollect = document.querySelectorAll('[id^="course-tutorial-"]').length;
         let id = 0;
         
         for (let index = 0; index < nbCollect+1; index++) {
-            if (document.getElementById('course-product-' + index) == null) {
+            if (document.getElementById('course-tutorial-' + index) == null) {
                 id = index;
                 break;
             }
@@ -252,6 +252,8 @@ class CoursesManager {
                             </div>
                         </div>																																																																
                     </div>`;
+        const tutorialsDiv = document.getElementById('course-tutorials-content');
+        tutorialsDiv.innerHTML += html;
     }
 
     addProductToCourse() {
