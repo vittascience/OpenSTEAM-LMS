@@ -12,7 +12,7 @@ class CoursesManager {
             image: '',
             parameters: {
                 duration: '',
-                level: '',
+                difficulty: '',
                 language: '',
                 support: '',
                 options: {
@@ -26,7 +26,7 @@ class CoursesManager {
     }
 
     init() {
-        
+        this.dragula = dragula();
     }
 
     goToCreate(fresh = false) {
@@ -51,12 +51,12 @@ class CoursesManager {
     goToParameters(fromTitle = false) {
         if (!fromTitle) {
             document.getElementById('course-duration').value = this.courseData.parameters.duration;
-            document.getElementById('course-level').value = this.courseData.parameters.level;
+            document.getElementById('course-difficulty').value = this.courseData.parameters.level;
             document.getElementById('course-language').value = this.courseData.parameters.language;
             document.getElementById('course-support').value = this.courseData.parameters.support;
         } else {
             document.getElementById('course-duration').value = '';
-            document.getElementById('course-level').value = '';
+            document.getElementById('course-difficulty').value = '';
             document.getElementById('course-language').value = '';
             document.getElementById('course-support').value = '';
         }

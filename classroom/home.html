@@ -2051,9 +2051,10 @@
                     <label for="course-difficulty">Difficulté <span class="c-text-red">*Obligatoire</span></label>
                     <select class="form-control" id="course-difficulty" aria-label="Default select example">
                         <option selected>Choississez la difficulté</option>
-                        <option value="1">Facile</option>
-                        <option value="2">Moyen</option>
-                        <option value="3">Difficile</option>
+                        <option value="0">Facile</option>
+                        <option value="1">Intermédiaire</option>
+                        <option value="2">Avancé</option>
+                        <option value="3">Expert</option>
                     </select>
                 </div>
 
@@ -2061,30 +2062,31 @@
                     <label for="course-support">Support <span class="c-text-red">*Obligatoire</span></label>
                     <select class="form-control" id="course-support" aria-label="Default select example">
                         <option selected>Choississez le support</option>
-                        <option value="1">Arduino</option>
-                        <option value="2">Micro:bit</option>
+                        <option value="0">Arduino</option>
+                        <option value="1">BBC micro:bit</option>
+                        <option value="2">Python</option>
+                        <option value="3">STM32</option>
+                        <option value="4">ESP32</option>
+                        <option value="5">TI-83 Premium CE</option>
+                        <option value="6">Raspberry Pi</option>
                     </select>
                 </div>
             </div>
             
             <div class="form-row c-secondary-form">
                 <div class="form-group col-md">
-                    <label for="course-duration">Temps de réalisation <span class="c-text-red">*Obligatoire</span></label>
-                    <select class="form-control" id="course-duration" aria-label="Default select example">
-                        <option selected>Choississez le temps de réalisation</option>
-                        <option value="1">1H</option>
-                        <option value="2">2H</option>
-                    </select>
+                    <label for="course-duration">Temps pour la réalisation (en min) <span class="c-text-red">*Obligatoire</span></label>
+                    <input type="number" name="course-duration" id="course-duration" value="1" min="1">
                 </div>
 
                 <div class="form-group col-md">
                     <label for="course-language">Langue <span class="c-text-red">*Obligatoire</span></label>
                     <select class="form-control" id="course-language" aria-label="Default select example">
                         <option selected>Choississez la langue</option>
-                        <option value="1">Français</option>
-                        <option value="2">Anglais</option>
-                        <option value="3">Italien</option>
-                        <option value="4">Arabe</option>
+                        <option value="0">Français</option>
+                        <option value="1">Anglais</option>
+                        <option value="2">Italien</option>
+                        <option value="3">Arabe</option>
                     </select>
                 </div>
             </div>
@@ -2094,8 +2096,10 @@
                     <label for="course-license">License d'utilisation <span class="c-text-red">*Obligatoire</span></label>
                     <select class="form-control" id="course-license" aria-label="Default select example">
                         <option selected>Choississez la licence</option>
-                        <option value="1">Privé</option>
-                        <option value="2">Public</option>
+                        <option value="0">Privée (vous seul•e pouvez voir cette ressource)</option>
+						<option value="3">Déréférencée (ressource partageable par lien mais introuvable sur la page Ressources)</option>
+						<option value="1">Publique CC-BY-NC-SA (ressource libre, non-commerciale et modifiable)</option>
+						<option value="2">Publique CC-BY-NC-ND (ressource libre, non-commerciale et non-modifiable)</option>
                     </select>
                 </div>
             </div>
