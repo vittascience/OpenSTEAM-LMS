@@ -54,7 +54,6 @@ class CoursesManager {
 
     init() {
         this.dragula = dragula();
-
     }
 
     goToCreate(fresh = false) {
