@@ -76,12 +76,6 @@ class CoursesManager {
     }
 
     goToParameters(fromTitle = false) {
-        if (!fromTitle) {
-            document.getElementById('course-duration').value = this.courseData.parameters.duration;
-            document.getElementById('course-difficulty').value = this.courseData.parameters.level;
-            document.getElementById('course-language').value = this.courseData.parameters.language;
-            document.getElementById('course-support').value = this.courseData.parameters.support;
-        }
         navigatePanel('classroom-dashboard-classes-new-course-parameters', 'dashboard-activities-teacher');
     }
 
@@ -236,37 +230,72 @@ class CoursesManager {
     }
 
     addTutorialToCourse() {
-        let html = `<div class="col-12 linkedtutorial-row">
+        
+        let nbCollect = document.querySelectorAll('[id^="course-product-"]').length;
+        let id = 0;
+        
+        for (let index = 0; index < nbCollect+1; index++) {
+            if (document.getElementById('course-product-' + index) == null) {
+                id = index;
+                break;
+            }
+        }
+
+        let html = `<div class="col-12 linkedtutorial-row" id="course-tutorial-${id}">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <div class="input-group-text" data-i18n="tutorial.add.form.linkedtuto.label">Lien vers le tutoriel</div>
                             </div>
                             <input type="text" class="form-control linkedtutorial-form" placeholder="" value="" aria-label="" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-danger remove-linkedtutorial" data-toggle="tooltip" data-placement="top" data-i18n="[title]tutorial.add.form.linkedtuto.tooltip" title="" data-original-title="Supprimer ce tutoriel"><i class="fas fa-times"></i></button>
+                                <button class="btn btn-danger remove-linkedtutorial" onclick="coursesManager.deleteTutorialFromCourse(${id})" data-toggle="tooltip" data-placement="top" data-i18n="[title]tutorial.add.form.linkedtuto.tooltip" title="" data-original-title="Supprimer ce tutoriel"><i class="fas fa-times"></i></button>
                             </div>
                         </div>																																																																
                     </div>`;
     }
 
     addProductToCourse() {
-        let html = `<div class="form-group mb-2 row product-row">
+
+        let nbCollect = document.querySelectorAll('[id^="course-product-"]').length;
+        let id = 0;
+        
+        for (let index = 0; index < nbCollect+1; index++) {
+            if (document.getElementById('course-product-' + index) == null) {
+                id = index;
+                break;
+            }
+        }
+
+        let html = `<div class="form-group mb-2 row product-row" id="course-product-${id}">
                         <div class="form-row col row">    
                             <div class="input-group-text col-3">
                                 <span data-i18n="tutorial.add.form.products.name">Nom</span>
                             </div>
                             <input type="text" class="form-control col-9 product-name">
                         </div>
+
                         <div class="form-row col row">  
                             <div class="input-group-text col-3">
                                 <span data-i18n="tutorial.add.form.products.url">URL</span>
                             </div><input type="text" class="form-control col-9 product-url"> 
-                        </div> 
-                        <button type="button" class="btn btn-danger remove-product" data-toggle="tooltip" data-placement="top" title="Supprimer ce produit" data-i18n="[title]tutorial.add.form.products.tooltip" data-original-title="Supprimer ce produit"><i class="fas fa-times"></i>
+                        </div>
+
+                        <button type="button" onclick="coursesManager.deleteProductFromCourse(${id})" class="btn btn-danger remove-product" data-toggle="tooltip" data-placement="top" title="Supprimer ce produit" data-i18n="[title]tutorial.add.form.products.tooltip" data-original-title="Supprimer ce produit"><i class="fas fa-times"></i>
                         </button>
                     </div>`;
+        const productsDiv = document.getElementById('course-products-content');
+        productsDiv.innerHTML += html;
     }
 
+    deleteProductFromCourse(productId) {
+        document.getElementById('course-product-' + productId).remove();
+    }
+
+    deleteTutorialFromCourse(tutorialId) {
+        document.getElementById('course-tutorial-' + tutorialId).remove();
+    }
+
+    
     fillCollectionSelect(collection) {
         const collectionSelect = document.getElementById('collection-select');
         collectionSelect.innerHTML = '';
@@ -297,25 +326,25 @@ class CoursesManager {
         // check how many "select-collection-" id exist 
         let nbCollect = document.querySelectorAll('[id^="select-collection-"]').length;
         let id = 0;
-
-        const chaptersContent = document.getElementById('course-chapters-content');
-        let collections = "",
-            selectChapter = "",
-            selectCollection = "";
-
+        
         for (let index = 0; index < nbCollect+1; index++) {
             if (document.getElementById('select-collection-' + index) == null) {
                 id = index;
                 break;
             }
         }
+        const chaptersContent = document.getElementById('course-chapters-content');
+        let collections = "",
+            selectChapter = "",
+            selectCollection = "";
+
 
         for (let i = 0; i < this.collections.length; i++) {
             collections += `<option value="${i}">${this.collections[i]}</option>`;
         }
 
         selectCollection = `<div class="form-group col-md">
-                                    <label for="select-collection-${id}">License d'utilisation <span class="c-text-red">*Obligatoire</span></label>
+                                    <label for="select-collection-${id}">Collection <span class="c-text-red">*Obligatoire</span></label>
                                     <select class="form-control" id="select-collection-${id}" aria-label="Default select example">
                                         ${collections}
                                     </select>
