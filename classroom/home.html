@@ -1845,7 +1845,7 @@
     </nav>
 </div>
 <!-- Main page -->
-<div id="classroom-dashboard-classes-new-course" style="display:none;" class="dashboard-block ">
+<div id="classroom-dashboard-classes-new-course" style="display:none;" class="dashboard-block">
     
     
     <!-- Top progress bar  -->
@@ -1885,14 +1885,14 @@
     <div class="container">
 
 
-        <div id="course-content" class="col-8">
+        <div id="course-content" class="col-8 course-content">
             <p>
                 <span>Activités</span><span>* Obligatoire</span>
             </p>
 
             <div class="col-sm mb-2">
-                <button class="btn c-btn-grey" id="course-add-activity">
-                    <i class="fas fa-chevron-left"></i> <span data-i18n="">Ajouter une activité</span>
+                <button class="btn c-btn-grey" id="course-add-activity" onclick="coursesManager.addActivityToCourse()">
+                    <span data-i18n="">Ajouter une activité</span>
                 </button>
 
                 <button class="btn c-btn-secondary" id="course-create-activity">
@@ -1901,7 +1901,7 @@
             </div>
 
 
-            <div id="course-activities-content">
+            <div id="course-activities-content" class="course-activities-content">
 
 
             </div>
@@ -1917,13 +1917,233 @@
                 </button>
             </div>
             <div class="col-sm order-first order-sm-last mb-2">
-                <button class="btn c-btn-secondary" onclick="" id="course-validate">
+                <button class="btn c-btn-secondary" onclick="coursesManager.goToTitle(true)" id="course-validate">
                     <span data-i18n="classroom.activities.form.validate">Valider</span> <i class="fas fa-check"></i>
                 </button>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
+<div id="classroom-dashboard-classes-new-course-title" style="display:none;" class="dashboard-block">
+    
+    
+    <!-- Top progress bar  -->
+    <nav class="row form-activity-container" style="margin: 0 auto;">
+        <!-- Step 1 -->
+        <div class="col text-center">
+            <span class="form-activity form-activity-activate"><i class="fas fa-check"></i></span>
+            <span data-i18n="">Création du parcours</span>
+        </div>
+
+        <div class="col"></div>
+
+        <!-- Step  -->
+        <div class=" col text-center">
+            <span class="form-activity form-activity-activate">2</span>
+            <span data-i18n="">Titre</span>
+        </div>
+
+        <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
+
+        <!-- Step 3 -->
+        <div class=" col text-center">
+            <span class="form-activity form-activity-desactivate">3</span>
+            <span data-i18n="">Paramètres</span>
+        </div>
+
+        <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
+
+        <!-- Step 4 -->
+        <div class="col text-center">
+            <span class="form-activity form-activity-desactivate">4</span>
+            <span data-i18n="classroom.activities.form.4">Attribution</span>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div id="course-title-content" class="col-8 course-content">
+            
+            <div class="form-group">
+                <label for="course-title">Titre de l'activité <span class="c-text-red">*Obligatoire</span></label>
+                <input type="text" class="form-control" id="course-title" placeholder="Titre de votre activité">
+            </div>
+
+            <div class="form-group">
+                <label for="course-description">Description <span class="c-text-red">*Obligatoire</span></label>
+                <textarea class="form-control" id="course-description" placeholder="Quelques mots de présentation"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="course-image">Image de couverture <span class="c-text-red">*Obligatoire</span></label>
+                <input type="file" class="form-control" id="course-image" placeholder="Ajouter une image">
+            </div>
+
+        </div>
+        
+
+
+        <div class="row text-center w-100">
+            <div class="col-sm mb-2">
+                <button class="btn c-btn-grey" onclick="coursesManager.goToCreate()" id="course-visualize">
+                    <span data-i18n="">Retour</span>
+                </button>
+            </div>
+            <div class="col-sm order-first order-sm-last mb-2">
+                <button class="btn c-btn-secondary" onclick="coursesManager.goToParameters()" id="course-validate">
+                    <span data-i18n="classroom.activities.form.validate">Valider</span> <i class="fas fa-check"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+    
+
+</div>
+
+
+<div id="classroom-dashboard-classes-new-course-parameters" style="display:none;" class="dashboard-block">
+    
+    
+    <!-- Top progress bar  -->
+    <nav class="row form-activity-container" style="margin: 0 auto;">
+        <!-- Step 1 -->
+        <div class="col text-center">
+            <span class="form-activity form-activity-activate"><i class="fas fa-check"></i></span>
+            <span data-i18n="">Création du parcours</span>
+        </div>
+
+        <div class="col"></div>
+
+        <!-- Step  -->
+        <div class=" col text-center">
+            <span class="form-activity form-activity-activate"><i class="fas fa-check"></i></span>
+            <span data-i18n="">Titre</span>
+        </div>
+
+        <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
+
+        <!-- Step 3 -->
+        <div class=" col text-center">
+            <span class="form-activity form-activity-activate">3</span>
+            <span data-i18n="">Paramètres</span>
+        </div>
+
+        <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
+
+        <!-- Step 4 -->
+        <div class="col text-center">
+            <span class="form-activity form-activity-desactivate">4</span>
+            <span data-i18n="classroom.activities.form.4">Attribution</span>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div id="course-title-content" class="col-8 course-content">
+            
+            <div class="form-row c-secondary-form">
+                <div class="form-group col-md">
+                    <label for="course-difficulty">Difficulté <span class="c-text-red">*Obligatoire</span></label>
+                    <select class="form-control" id="course-difficulty" aria-label="Default select example">
+                        <option selected>Choississez la difficulté</option>
+                        <option value="1">Facile</option>
+                        <option value="2">Moyen</option>
+                        <option value="3">Difficile</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md">
+                    <label for="course-support">Support <span class="c-text-red">*Obligatoire</span></label>
+                    <select class="form-control" id="course-support" aria-label="Default select example">
+                        <option selected>Choississez le support</option>
+                        <option value="1">Arduino</option>
+                        <option value="2">Micro:bit</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row c-secondary-form">
+                <div class="form-group col-md">
+                    <label for="course-duration">Temps de réalisation <span class="c-text-red">*Obligatoire</span></label>
+                    <select class="form-control" id="course-duration" aria-label="Default select example">
+                        <option selected>Choississez le temps de réalisation</option>
+                        <option value="1">1H</option>
+                        <option value="2">2H</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md">
+                    <label for="course-language">Langue <span class="c-text-red">*Obligatoire</span></label>
+                    <select class="form-control" id="course-language" aria-label="Default select example">
+                        <option selected>Choississez la langue</option>
+                        <option value="1">Français</option>
+                        <option value="2">Anglais</option>
+                        <option value="3">Italien</option>
+                        <option value="4">Arabe</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row c-secondary-form">
+                <div class="form-group col-md">
+                    <label for="course-license">License d'utilisation <span class="c-text-red">*Obligatoire</span></label>
+                    <select class="form-control" id="course-license" aria-label="Default select example">
+                        <option selected>Choississez la licence</option>
+                        <option value="1">Privé</option>
+                        <option value="2">Public</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="section-course-options">
+
+                <div class="section-header-course-options" onclick="coursesManager.facultativeOptions()">
+                    <i id="i-course-options" class="ml-2 fas fa-lg fa-chevron-up"></i>
+                    <h3 class="section-title-course-options" data-i18n="classroom.activities.facultative">Options facultatives</h3>
+                </div>
+                <div id="course-options" style="display: none;">
+                    <div class="form-group">
+                        <label for="course-chapters">Chapitre</label>
+                        <button class="btn btn-success" id="course-chapters">Ajouter un chapitre lié</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="course-products">Produit</label>
+                        <button  class="btn btn-success" id="course-products">Ajouter un produit lié</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="course-tutorial">Tutoriel</label>
+                        <button class="btn btn-success" id="course-tutorial">Ajouter un tutoriel lié</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+
+
+        <div class="row text-center w-100">
+            <div class="col-sm mb-2">
+                <button class="btn c-btn-grey" onclick="coursesManager.goToTitle()" id="course-visualize">
+                    <span data-i18n="">Retour</span>
+                </button>
+            </div>
+            <div class="col-sm order-first order-sm-last mb-2">
+                <button class="btn c-btn-secondary" onclick="coursesManager.goToAttribution()" id="course-validate">
+                    <span data-i18n="classroom.activities.form.validate">Valider</span> <i class="fas fa-check"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+    
+
+</div>
+
 <div id="classroom-dashboard-ide-panel" style="display:none;" class="dashboard-block">
     <iframe width="100%" style="height:85vh;" frameborder="0" allowfullscreen="" style="border:1px #d6d6d6 solid;" src=""></iframe>
 </div>

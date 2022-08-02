@@ -1304,5 +1304,24 @@ const classroomModals = {
                         </div>
                     </div>`,
         footer: ``
-    }
+    },
+    'add-activity-to-course': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'Ajouter des activités'
+        },
+        content: `  <div id="add-activity-container" class="container-fluid">
+
+                        <input type="search" class="form-control" id="course-activity-search" class="course-activity-search" placeholder="Rechercher une activité">
+
+                        <div id="add-activity-content">
+
+                        </div>
+
+                        <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="coursesManager.cancelActivityToCourse()" data-i18n="manager.buttons.cancel">Annuler</button>
+                        <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="coursesManager.persistActivityToCourse()" data-i18n="manager.buttons.validate">Valider</button>
+                    </div>`,
+        footer: ``
+    },
 }
