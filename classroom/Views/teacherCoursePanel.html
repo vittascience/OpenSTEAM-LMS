@@ -312,36 +312,40 @@
 
 
 
-<div id="classroom-dashboard-classes-new-course-attributiion" style="display:none;" class="dashboard-block container">
-    <nav class="row form-activity-container mb-3" style="margin: 0 auto;">
-
-        
+<div id="classroom-dashboard-classes-new-course-attribution" style="display:none;" class="dashboard-block container">
+    <!-- Top progress bar  -->
+    <nav class="row form-activity-container" style="margin: 0 auto;">
+        <!-- Step 1 -->
         <div class="col text-center">
-            <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
-            <span data-i18n="classroom.activities.form.1">Application</span>
+            <span class="form-activity form-activity-activate"><i class="fas fa-check"></i></span>
+            <span data-i18n="">Création du parcours</span>
         </div>
 
         <div class="col"></div>
 
+        <!-- Step  -->
         <div class=" col text-center">
-            <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
-            <span data-i18n="classroom.activities.form.2">Contenu</span>
+            <span class="form-activity form-activity-activate"><i class="fas fa-check"></i></span>
+            <span data-i18n="">Titre</span>
         </div>
 
         <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
 
+        <!-- Step 3 -->
         <div class=" col text-center">
-            <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
-            <span data-i18n="classroom.activities.form.3">Titre</span>
+            <span class="form-activity form-activity-activate"><i class="fas fa-check"></i></span>
+            <span data-i18n="">Paramètres</span>
         </div>
 
         <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
 
+        <!-- Step 4 -->
         <div class="col text-center">
             <span class="form-activity form-activity-activate">4</span>
-            <span>Attribution</span>
+            <span data-i18n="classroom.activities.form.4">Attribution</span>
         </div>
     </nav>
+
     <div class="assign-activity-container" style="margin: 0 auto;">
 
         <div class="row">
@@ -460,7 +464,7 @@
 
         <div class="row text-center my-2 mt-5">
             <div class="col-sm mb-2">
-                <button class="btn c-btn-grey" onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')">
+                <button class="btn c-btn-grey" onclick="coursesManager.goToParameters()">
                     <i class="fas fa-angle-left"></i> <span class="text-capitalize" data-i18n="words.return"></span>
                 </button>
             </div>
