@@ -14,16 +14,11 @@ class CoursesManager {
                 duration: '',
                 difficulty: '',
                 language: '',
-                support: '',
-                options: {
-                    chapters: [],
-                    products: [],
-                    tutorials: [],
-                }
+                license: '',
             }
         };
         this.dragula = null;
-        this.collections = [
+        /* this.collections = [
             "Sciences et technologie-Cycle 3",
             "Mathématiques-Cycle 3",
             "Technologie-Cycle 3",
@@ -49,7 +44,7 @@ class CoursesManager {
             "SVT-Terminale",
             "STI2D-Lycée",
             "Autre-(tout niveau)"
-        ];
+        ]; */
     }
 
     init() {
@@ -75,7 +70,7 @@ class CoursesManager {
         navigatePanel('classroom-dashboard-classes-new-course-title', 'dashboard-activities-teacher');
     }
 
-    goToParameters(fromTitle = false) {
+    goToParameters() {
         navigatePanel('classroom-dashboard-classes-new-course-parameters', 'dashboard-activities-teacher');
     }
 
@@ -117,12 +112,25 @@ class CoursesManager {
         if (this.dragula.containers.length > 0) {
             this.dragula.containers = [];
         }
-        this.dragula = dragula([activityFromCourses]);
+        this.dragula = dragula([activityFromCourses]).on('drop', () => {
+            setTimeout(() => {
+                this.sortActualCourseArrayFromDiv();
+            }, 100);
+        });
     }
 
 
     showCoursePanel() {
         navigatePanel('classroom-dashboard-classes-new-course', 'dashboard-activities-teacher');
+    }
+
+    sortActualCourseArrayFromDiv() {
+        const courseItems = document.querySelectorAll('[class^=course-item]');
+        this.actualCourses = [];
+        courseItems.forEach(item => {
+            const courseId = parseInt(item.getAttribute('data-course-id'));
+            this.actualCourses.push(Main.getClassroomManager()._myTeacherActivities.find(activity => activity.id === courseId));
+        });
     }
 
     addActivityToCourse() {
@@ -229,7 +237,39 @@ class CoursesManager {
         document.getElementById('add-activity-content').innerHTML = '';
     }
 
-    addTutorialToCourse() {
+    persistTitlePage() { 
+        const title = document.getElementById('course-title').value,
+            description = document.getElementById('course-description').value,
+            image = document.getElementById('course-image').files[0];
+
+        if (title && description) {
+            this.courseData.title = title;
+            this.courseData.description = description;
+            this.courseData.image = image;
+            this.goToParameters(true);
+        } else {
+            displayNotification('#notif-div', "informations manquantes", "error");
+        } 
+    }
+
+    persistParameters() {
+        const duration = document.getElementById('course-duration').value,
+            difficulty = document.getElementById('course-difficulty').value,
+            language = document.getElementById('course-language').value,
+            license = document.getElementById('course-license').value;
+
+        if (duration && difficulty && language && license) {
+            this.courseData.duration = duration;
+            this.courseData.difficulty = difficulty;
+            this.courseData.language = language;
+            this.courseData.license = license;
+            this.goToAttribution(true);
+        } else {
+            displayNotification('#notif-div', "informations manquantes", "error");
+        }
+    }
+
+    /* addTutorialToCourse() {
         
         let nbCollect = document.querySelectorAll('[id^="course-tutorial-"]').length;
         let id = 0;
@@ -246,7 +286,7 @@ class CoursesManager {
                             <div class="input-group-prepend">
                                 <div class="input-group-text" data-i18n="tutorial.add.form.linkedtuto.label">Lien vers le tutoriel</div>
                             </div>
-                            <input type="text" class="form-control linkedtutorial-form" placeholder="" value="" aria-label="" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control linkedtutorial-form" placeholder="" value="" aria-label="" aria-describedby="basic-addon2" id="course-tutorial-link-${id}">
                             <div class="input-group-append">
                                 <button class="btn btn-danger remove-linkedtutorial" onclick="coursesManager.deleteTutorialFromCourse(${id})" data-toggle="tooltip" data-placement="top" data-i18n="[title]tutorial.add.form.linkedtuto.tooltip" title="" data-original-title="Supprimer ce tutoriel"><i class="fas fa-times"></i></button>
                             </div>
@@ -273,13 +313,14 @@ class CoursesManager {
                             <div class="input-group-text col-3">
                                 <span data-i18n="tutorial.add.form.products.name">Nom</span>
                             </div>
-                            <input type="text" class="form-control col-9 product-name">
+                            <input type="text" class="form-control col-9 product-name" id="course-product-name-${id}">
                         </div>
 
                         <div class="form-row col row">  
                             <div class="input-group-text col-3">
                                 <span data-i18n="tutorial.add.form.products.url">URL</span>
-                            </div><input type="text" class="form-control col-9 product-url"> 
+                            </div>
+                            <input type="text" class="form-control col-9 product-url" id="course-product-url-${id}"> 
                         </div>
 
                         <button type="button" onclick="coursesManager.deleteProductFromCourse(${id})" class="btn btn-danger remove-product" data-toggle="tooltip" data-placement="top" title="Supprimer ce produit" data-i18n="[title]tutorial.add.form.products.tooltip" data-original-title="Supprimer ce produit"><i class="fas fa-times"></i>
@@ -287,14 +328,6 @@ class CoursesManager {
                     </div>`;
         const productsDiv = document.getElementById('course-products-content');
         productsDiv.innerHTML += html;
-    }
-
-    deleteProductFromCourse(productId) {
-        document.getElementById('course-product-' + productId).remove();
-    }
-
-    deleteTutorialFromCourse(tutorialId) {
-        document.getElementById('course-tutorial-' + tutorialId).remove();
     }
 
     
@@ -308,23 +341,18 @@ class CoursesManager {
             collectionSelect.appendChild(collectionOption);
         });
     }
+ */
+ 
 
-    persistTitlePage() { 
-        const title = document.getElementById('course-title').value,
-            description = document.getElementById('course-description').value,
-            image = document.getElementById('course-image').files[0];
-
-        if (title && description && image) {
-            this.courseData.title = title;
-            this.courseData.description = description;
-            this.courseData.image = image;
-        }
-
-        this.goToParameters(true);
+        /*     deleteProductFromCourse(productId) {
+        document.getElementById('course-product-' + productId).remove();
     }
 
-    addChapterToCourse() {
+    deleteTutorialFromCourse(tutorialId) {
+        document.getElementById('course-tutorial-' + tutorialId).remove();
+    } */
 
+/*     addChapterToCourse() {
         // check how many "select-collection-" id exist 
         let nbCollect = document.querySelectorAll('[id^="select-collection-"]').length;
         let id = 0;
@@ -385,15 +413,53 @@ class CoursesManager {
                 })
             });
         });
-    }
+    } */
 
-    deleteChapter(id) {
+/*     deleteChapter(id) {
         console.log("deleteChapter");
         document.getElementById('course-chapter-' + id).remove();
-    }
+    } */
 
-    // fetch POST chapter controller=chapter&action=get_chapter_by_collection with params: id, nameCollection, gradeCollection
-    getChapterByCollection(id, nameCollection, gradeCollection) {
+/*     saveParameters() {
+        let chapters = [];
+        let products = [];
+        let tutorials = [];
+
+        const chaptersContent = document.getElementById('course-chapters-content');
+        const productsContent = document.getElementById('course-products-content');
+        const tutorialsContent = document.getElementById('course-tutorials-content');
+
+        for (let i = 0; i < chaptersContent.children.length; i++) {
+            let chapter = {
+                collection: document.getElementById('select-collection-' + i).value,
+                chapter: document.getElementById('select-chapter-' + i).value
+            }
+            chapters.push(chapter);
+        }
+
+        for (let i = 0; i < productsContent.children.length; i++) {
+            let product = {
+                name: document.getElementById('course-product-name-' + i).value,
+                url: document.getElementById('course-product-url-' + i).value
+            }
+            products.push(product);
+        }
+
+        for (let i = 0; i < tutorialsContent.children.length; i++) {
+            let tutorial = {
+                url: document.getElementById('course-tutorial-link-' + i).value
+            }
+            tutorials.push(tutorial);
+        }
+
+        this.courseData.parameters.options.chapters.push(chapters);
+        this.courseData.parameters.options.products.push(products);
+        this.courseData.parameters.options.tutorials.push(tutorials);
+    } */
+
+
+
+/*     getChapterByCollection(id, nameCollection, gradeCollection) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -411,17 +477,7 @@ class CoursesManager {
                 }
             });
         })
-    }
-
-
-    // make an array of collection
-    //<option value="1" selected="">Sciences et technologie-Cycle 3</option><option value="2">Mathématiques-Cycle 3</option><option value="3">Technologie-Cycle 3</option><option value="4">Physique-Chimie-Cycle 4</option><option value="5">Mathématiques-Cycle 4</option><option value="6">Technologie-Cycle 4</option><option value="7">SVT-Cycle 4</option><option value="8">SNT-Seconde</option><option value="9">Physique-Chimie-Seconde</option><option value="10">Mathématiques-Seconde</option><option value="11">SVT-Seconde</option><option value="12">CIT-Seconde</option><option value="13">Enseignement scientifique-Première</option><option value="14">NSI-Première</option><option value="15">Physique-Chimie-Première</option><option value="16">Mathématiques-Première</option><option value="17">Sciences de l'ingénieur-Première</option><option value="18">SVT-Première</option><option value="19">Enseignement scientifique-Terminale</option><option value="20">NSI-Terminale</option><option value="21">Physique-Chimie-Terminale</option><option value="22">Mathématiques-Terminale</option><option value="23">Sciences de l'ingénieur-Terminale</option><option value="24">SVT-Terminale</option><option value="25">STI2D-Lycée</option><option value="26">Autre-(tout niveau)</option>
-
-
-
-
-
-    
+    }  */
 }
 // Initialize
 const coursesManager = new CoursesManager();
