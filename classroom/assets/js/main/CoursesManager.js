@@ -5,67 +5,52 @@ class CoursesManager {
      * @public
      */
     constructor() {
-        this.actualCourses = [];
         this.courseData = {
-            title: '',
-            description: '',
-            image: '',
+            courses: [],
+            title: null,
+            description: null,
+            image: null,
             parameters: {
-                duration: '',
-                difficulty: '',
-                language: '',
-                license: '',
+                duration: null,
+                difficulty: null,
+                language: null,
+                license: null,
             }
         };
         this.dragula = null;
-        /* this.collections = [
-            "Sciences et technologie-Cycle 3",
-            "Mathématiques-Cycle 3",
-            "Technologie-Cycle 3",
-            "Physique-Chimie-Cycle 4",
-            "Mathématiques-Cycle 4",
-            "Technologie-Cycle 4",
-            "SVT-Cycle 4", "SNT-Seconde",
-            "Physique-Chimie-Seconde",
-            "Mathématiques-Seconde",
-            "SVT-Seconde",
-            "CIT-Seconde",
-            "Enseignement scientifique-Première",
-            "NSI-Première",
-            "Physique-Chimie-Première",
-            "Mathématiques-Première",
-            "Sciences de l'ingénieur-Première",
-            "SVT-Première",
-            "Enseignement scientifique-Terminale",
-            "NSI-Terminale",
-            "Physique-Chimie-Terminale",
-            "Mathématiques-Terminale",
-            "Sciences de l'ingénieur-Terminale",
-            "SVT-Terminale",
-            "STI2D-Lycée",
-            "Autre-(tout niveau)"
-        ]; */
+        this.resetCourseData = null;
     }
 
     init() {
         this.dragula = dragula();
+        this.courseId = null;
+        this.resetCourseData = () => {
+            this.courseData = {
+                title: null,
+                description: null,
+                image: null,
+                parameters: {
+                    duration: null,
+                    difficulty: null,
+                    language: null,
+                    license: null,
+                }
+            }
+        };
     }
 
     goToCreate(fresh = false) {
         if (fresh) {
-            this.actualCourses = [];
+            this.courseData.courses = [];
         }
         this.refrashCourses();
         navigatePanel('classroom-dashboard-classes-new-course', 'dashboard-activities-teacher');
     }
 
-    goToTitle(fromCreate = false) {
-        if (!fromCreate) {
+    goToTitle() {
+        if (this.courseData.title != null && this.courseData.description != null) {
             document.getElementById('course-title').value = this.courseData.title;
             document.getElementById('course-description').value = this.courseData.description;
-        } else {
-            document.getElementById('course-title').value = '';
-            document.getElementById('course-description').value = '';
         }
         navigatePanel('classroom-dashboard-classes-new-course-title', 'dashboard-activities-teacher');
     }
@@ -75,7 +60,18 @@ class CoursesManager {
     }
 
     goToAttribution(fromParameters = false) {
-        navigatePanel('classroom-dashboard-classes-new-course-attribution', 'dashboard-activities-teacher');
+        if (fromParameters) {
+            this._requestAddCourse().then((res) => {
+                if (res.hasOwnProperty('success')) {
+                    console.log(res);
+                    this.courseId = res.course.id;
+                    navigatePanel('classroom-dashboard-classes-new-course-attribution', 'dashboard-activities-teacher');
+                    this.resetCourseData();
+                } else {
+                    displayNotification('error', res.message);
+                }
+            })
+        }
     }
 
     facultativeOptions() {
@@ -87,7 +83,7 @@ class CoursesManager {
     refrashCourses() {
         const coursesDiv = document.getElementById('course-activities-content');
         coursesDiv.innerHTML = '';
-        this.actualCourses.forEach(course => {
+        this.courseData.courses.forEach(course => {
             let activityImg = foldersManager.icons.hasOwnProperty(course.type) ? `<img class="list-item-img d-inline" src="${foldersManager.icons[course.type]}" alt="${course.type}" class="folder-icons">` : "<span class='list-item-img'> <div class='list-item-no-icon'><i class='fas fa-laptop'></i></div></span>";
             const courseDiv = document.createElement('div');
             courseDiv.classList.add('course-item');
@@ -126,10 +122,10 @@ class CoursesManager {
 
     sortActualCourseArrayFromDiv() {
         const courseItems = document.querySelectorAll('[class^=course-item]');
-        this.actualCourses = [];
+        this.courseData.courses = [];
         courseItems.forEach(item => {
             const courseId = parseInt(item.getAttribute('data-course-id'));
-            this.actualCourses.push(Main.getClassroomManager()._myTeacherActivities.find(activity => activity.id === courseId));
+            this.courseData.courses.push(Main.getClassroomManager()._myTeacherActivities.find(activity => activity.id === courseId));
         });
     }
 
@@ -140,7 +136,7 @@ class CoursesManager {
 
         // filter with the ones that are not in the course
         let activitiesToAdd = activities.filter(activity => {
-            return !this.actualCourses.some(course => {
+            return !this.courseData.courses.some(course => {
                 return course.id === activity.id;
             });
         });
@@ -175,7 +171,7 @@ class CoursesManager {
                     activitiesDiv = document.getElementById('add-activity-content');
 
             let activitiesToAdd = activities.filter(activity => {
-                return !this.actualCourses.some(course => {
+                return !this.courseData.courses.some(course => {
                     return course.id === activity.id;
                 });
             });
@@ -210,7 +206,7 @@ class CoursesManager {
         for (let i = 0; i < activitiesChecked.length; i++) {
             let id = parseInt(activitiesChecked[i].value);
             if (activitiesChecked[i].checked && id) {
-                this.actualCourses.push(activities.find(activity => {
+                this.courseData.courses.push(activities.find(activity => {
                     return activity.id === id;
                 }));
             }
@@ -222,7 +218,7 @@ class CoursesManager {
     }
 
     deleteActivityFromCourse(activityId) {
-        this.actualCourses = this.actualCourses.filter(course => {
+        this.courseData.courses = this.courseData.courses.filter(course => {
             return course.id !== activityId;
         });
         this.refrashCourses();
@@ -259,225 +255,67 @@ class CoursesManager {
             license = document.getElementById('course-license').value;
 
         if (duration && difficulty && language && license) {
-            this.courseData.duration = duration;
-            this.courseData.difficulty = difficulty;
-            this.courseData.language = language;
-            this.courseData.license = license;
+            this.courseData.parameters.duration = duration;
+            this.courseData.parameters.difficulty = difficulty;
+            this.courseData.parameters.language = language;
+            this.courseData.parameters.license = license;
             this.goToAttribution(true);
         } else {
             displayNotification('#notif-div', "informations manquantes", "error");
         }
     }
 
-    /* addTutorialToCourse() {
-        
-        let nbCollect = document.querySelectorAll('[id^="course-tutorial-"]').length;
-        let id = 0;
-        
-        for (let index = 0; index < nbCollect+1; index++) {
-            if (document.getElementById('course-tutorial-' + index) == null) {
-                id = index;
-                break;
-            }
-        }
+    //création activité vers attribution
+    attributeActivity(id, ref = null) {
 
-        let html = `<div class="col-12 linkedtutorial-row" id="course-tutorial-${id}">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text" data-i18n="tutorial.add.form.linkedtuto.label">Lien vers le tutoriel</div>
-                            </div>
-                            <input type="text" class="form-control linkedtutorial-form" placeholder="" value="" aria-label="" aria-describedby="basic-addon2" id="course-tutorial-link-${id}">
-                            <div class="input-group-append">
-                                <button class="btn btn-danger remove-linkedtutorial" onclick="coursesManager.deleteTutorialFromCourse(${id})" data-toggle="tooltip" data-placement="top" data-i18n="[title]tutorial.add.form.linkedtuto.tooltip" title="" data-original-title="Supprimer ce tutoriel"><i class="fas fa-times"></i></button>
-                            </div>
-                        </div>																																																																
-                    </div>`;
-        const tutorialsDiv = document.getElementById('course-tutorials-content');
-        tutorialsDiv.innerHTML += html;
-    }
+        $("#assign-total-student-number").text(0);
 
-    addProductToCourse() {
-
-        let nbCollect = document.querySelectorAll('[id^="course-product-"]').length;
-        let id = 0;
-        
-        for (let index = 0; index < nbCollect+1; index++) {
-            if (document.getElementById('course-product-' + index) == null) {
-                id = index;
-                break;
-            }
-        }
-
-        let html = `<div class="form-group mb-2 row product-row" id="course-product-${id}">
-                        <div class="form-row col row">    
-                            <div class="input-group-text col-3">
-                                <span data-i18n="tutorial.add.form.products.name">Nom</span>
-                            </div>
-                            <input type="text" class="form-control col-9 product-name" id="course-product-name-${id}">
-                        </div>
-
-                        <div class="form-row col row">  
-                            <div class="input-group-text col-3">
-                                <span data-i18n="tutorial.add.form.products.url">URL</span>
-                            </div>
-                            <input type="text" class="form-control col-9 product-url" id="course-product-url-${id}"> 
-                        </div>
-
-                        <button type="button" onclick="coursesManager.deleteProductFromCourse(${id})" class="btn btn-danger remove-product" data-toggle="tooltip" data-placement="top" title="Supprimer ce produit" data-i18n="[title]tutorial.add.form.products.tooltip" data-original-title="Supprimer ce produit"><i class="fas fa-times"></i>
-                        </button>
-                    </div>`;
-        const productsDiv = document.getElementById('course-products-content');
-        productsDiv.innerHTML += html;
-    }
-
+        Main.getClassroomManager()._idActivityOnAttribution = id;
     
-    fillCollectionSelect(collection) {
-        const collectionSelect = document.getElementById('collection-select');
-        collectionSelect.innerHTML = '';
-        collection.forEach(collection => {
-            const collectionOption = document.createElement('option');
-            collectionOption.value = collection.id;
-            collectionOption.innerHTML = collection.name;
-            collectionSelect.appendChild(collectionOption);
-        });
+        if (id == 0) {
+            id = Main.getClassroomManager()._lastCreatedActivity;
+        }
+
+        ClassroomSettings.activity = id
+        ClassroomSettings.ref = ref
+
+        document.getElementsByClassName('student-number')[0].textContent = '0';
+
+        $('#list-student-attribute-modal').html('')
+        listStudentsToAttribute(ref)
+        $('#form-autocorrect').hide()
+        ClassroomSettings.willAutocorrect = false;
+        navigatePanel('classroom-dashboard-new-activity-panel3', 'dashboard-activities-teacher', ref);
+
     }
- */
- 
 
-        /*     deleteProductFromCourse(productId) {
-        document.getElementById('course-product-' + productId).remove();
+    updateCourse() {
+
     }
 
-    deleteTutorialFromCourse(tutorialId) {
-        document.getElementById('course-tutorial-' + tutorialId).remove();
-    } */
+    attributeCourse() {
 
-/*     addChapterToCourse() {
-        // check how many "select-collection-" id exist 
-        let nbCollect = document.querySelectorAll('[id^="select-collection-"]').length;
-        let id = 0;
-        
-        for (let index = 0; index < nbCollect+1; index++) {
-            if (document.getElementById('select-collection-' + index) == null) {
-                id = index;
-                break;
-            }
-        }
-        const chaptersContent = document.getElementById('course-chapters-content');
-        let collections = "",
-            selectChapter = "",
-            selectCollection = "";
+    }
 
-
-        for (let i = 0; i < this.collections.length; i++) {
-            collections += `<option value="${i}">${this.collections[i]}</option>`;
-        }
-
-        selectCollection = `<div class="form-group col-md">
-                                    <label for="select-collection-${id}">Collection <span class="c-text-red">*Obligatoire</span></label>
-                                    <select class="form-control" id="select-collection-${id}" aria-label="Default select example">
-                                        ${collections}
-                                    </select>
-                                </div>`;
-
-        
-        this.getChapterByCollection(1, "Sciences et technologie", "Cycle 3").then(chapters => {
-            let chaptersDiv = "";
-            for(let i = 0; i < chapters.length; i++) {
-                chaptersDiv += `<option value="${chapters[i].id}">${chapters[i].name}</option>`;
-            }
-    
-    
-            selectChapter = `   <div class="form-group col-md">
-                                        <label for="select-chapter-${id}">Chapitre <span class="c-text-red">*Obligatoire</span></label>
-                                        <select class="form-control" id="select-chapter-${id}" aria-label="Default select example">
-                                            ${chaptersDiv}
-                                        </select>
-                                    </div>`;
-
-            chaptersContent.innerHTML += `<div class="form-row col-12" id="course-chapter-${id}">
-                ${selectCollection}
-                ${selectChapter}
-                <button type="button" onclick="coursesManager.deleteChapter(${id})" class="btn btn-danger remove-chapter" data-toggle="tooltip" data-placement="top" title="Supprimer ce chapitre" data-i18n="[title]tutorial.add.form.chapter.tooltip" data-original-title="Supprimer ce chapitre"><i class="fas fa-times"></i>
-            </div>`;
-
-            document.getElementById('select-collection-' + id).addEventListener('change', (e) => {
-                console.log(e)
-                let selectedValue = this.collections[e.target.value];
-                this.getChapterByCollection(parseInt(e.target.value)+1, selectedValue.split("-")[0], selectedValue.split("-")[1]).then(chapters => {
-                    let chaptersDiv = "";
-                    for(let i = 0; i < chapters.length; i++) {
-                        chaptersDiv += `<option value="${chapters[i].id}">${chapters[i].name}</option>`;
-                    }
-                    document.getElementById('select-chapter-' + id).innerHTML = chaptersDiv;
-                })
-            });
-        });
-    } */
-
-/*     deleteChapter(id) {
-        console.log("deleteChapter");
-        document.getElementById('course-chapter-' + id).remove();
-    } */
-
-/*     saveParameters() {
-        let chapters = [];
-        let products = [];
-        let tutorials = [];
-
-        const chaptersContent = document.getElementById('course-chapters-content');
-        const productsContent = document.getElementById('course-products-content');
-        const tutorialsContent = document.getElementById('course-tutorials-content');
-
-        for (let i = 0; i < chaptersContent.children.length; i++) {
-            let chapter = {
-                collection: document.getElementById('select-collection-' + i).value,
-                chapter: document.getElementById('select-chapter-' + i).value
-            }
-            chapters.push(chapter);
-        }
-
-        for (let i = 0; i < productsContent.children.length; i++) {
-            let product = {
-                name: document.getElementById('course-product-name-' + i).value,
-                url: document.getElementById('course-product-url-' + i).value
-            }
-            products.push(product);
-        }
-
-        for (let i = 0; i < tutorialsContent.children.length; i++) {
-            let tutorial = {
-                url: document.getElementById('course-tutorial-link-' + i).value
-            }
-            tutorials.push(tutorial);
-        }
-
-        this.courseData.parameters.options.chapters.push(chapters);
-        this.courseData.parameters.options.products.push(products);
-        this.courseData.parameters.options.tutorials.push(tutorials);
-    } */
-
-
-
-/*     getChapterByCollection(id, nameCollection, gradeCollection) {
-        return new Promise(function (resolve, reject) {
+    _requestAddCourse() {
+        return new Promise((resolve, reject) => {
             $.ajax({
                 type: "POST",
-                url: "/routing/Routing.php?controller=chapter&action=get_chapter_by_collection",
+                url: "/routing/Routing.php?controller=course&action=add_from_classroom",
                 data: {
-                    id: id,
-                    nameCollection: nameCollection,
-                    gradeCollection: gradeCollection
+                    course: JSON.stringify(this.courseData)
                 },
-                success: function (res) {
-                    resolve(JSON.parse(res));
+                success: function (response) {
+                    resolve(JSON.parse(response));
                 },
                 error: function () {
-                    reject();
+                    reject('error')
                 }
             });
         })
-    }  */
+    }
+
+
 }
 // Initialize
 const coursesManager = new CoursesManager();

@@ -4,7 +4,7 @@
         "vittascience/vtuser": "1.2.6",
         "vittascience/vtinterfaces": "1.2.5a",
         "vittascience/vtclassroom": " 1.2.9",
-        "vittascience/vtlearn": "1.2.12",
+        "vittascience/vtlearn": "dev-lms-courses",
         "vittascience/vutils": " 1.2.5",
         "symfony/var-dumper": "^5.3"
     },
