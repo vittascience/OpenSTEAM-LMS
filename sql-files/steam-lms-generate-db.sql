@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : mariadb
--- Généré le : ven. 03 juin 2022 à 14:52
--- Version du serveur : 10.6.5-MariaDB-1:10.6.5+maria~focal
--- Version de PHP : 7.4.20
+-- Généré le : mar. 26 juil. 2022 à 14:12
+-- Version du serveur : 10.8.3-MariaDB-1:10.8.3+maria~jammy
+-- Version de PHP : 8.0.19
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -484,6 +484,19 @@ CREATE TABLE `users` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `users_login_attempts`
+--
+
+CREATE TABLE `users_login_attempts` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `registration_time` int(11) DEFAULT NULL,
+  `can_not_login_before` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `user_classroom_users`
 --
 
@@ -492,7 +505,8 @@ CREATE TABLE `user_classroom_users` (
   `gar_id` varchar(128) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `school_id` varchar(8) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `is_teacher` tinyint(1) DEFAULT NULL,
-  `mail_teacher` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL
+  `mail_teacher` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `canope_id` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
@@ -542,18 +556,6 @@ CREATE TABLE `user_teachers` (
   `grade` int(11) DEFAULT NULL,
   `school` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
-
-
---
--- Structure de la table `users_login_attempts`
---
-
-CREATE TABLE `users_login_attempts` (
-  `id` int(11) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `registration_time` int(11) DEFAULT NULL,
-  `can_not_login_before` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Index pour les tables déchargées
@@ -769,6 +771,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `users_login_attempts`
+--
+ALTER TABLE `users_login_attempts`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `user_classroom_users`
 --
 ALTER TABLE `user_classroom_users`
@@ -931,17 +939,16 @@ ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT pour la table `users_login_attempts`
+--
+ALTER TABLE `users_login_attempts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT pour la table `user_teachers`
 --
 ALTER TABLE `user_teachers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
-
---
--- Index pour la table `users_login_attempts`
---
-ALTER TABLE `users_login_attempts`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Contraintes pour les tables déchargées
@@ -1002,14 +1009,6 @@ ALTER TABLE `learn_activities`
 --
 ALTER TABLE `learn_chapters`
   ADD CONSTRAINT `FK_B130E3A7514956FD` FOREIGN KEY (`collection_id`) REFERENCES `learn_collections` (`id`);
-COMMIT;
-
-
---
--- AUTO_INCREMENT pour la table `users_login_attempts`
---
-ALTER TABLE `users_login_attempts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 

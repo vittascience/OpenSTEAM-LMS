@@ -1007,8 +1007,6 @@ button {
 .buttons-interactions {
     display: flex;
     flex-direction: row;
-    margin: 0em 5%;
-
 }
 
 .buttons-interactions button {
@@ -1394,6 +1392,11 @@ h3.section-done {
     opacity: 0;
 }
 
+.list-folder-img-manager {
+    color: #008447;
+    transform: scale(0.6);
+}
+
 .folder-card:not(.folder-open) svg.folder-close-icon {
     opacity: 1;
 }
@@ -1536,34 +1539,24 @@ h3.section-done {
 .activity-item-list {
     width: 100%;
     height: auto;
-    border-bottom: #e2e2e2 1px solid;
-    margin: 0.5rem 0 0 0;
+    border-bottom: var(--classroom-cell) 1px solid;
+    margin: 0;
+    margin-top: 0.5rem;
 }
 
 .activity-list,
 .folder-list {
-    display: flex;
-    width: inherit;
-    flex-direction: row;
-    align-content: center;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
-    justify-content: space-between;
+    width: inherit;
+
+    cursor: pointer;
 }
 
 .container-draggable {
     display: flex;
     width: 100%;
-    height: 48px;
-}
-
-.activity-list-title,
-.folder-list-title {
-    font-weight: bold;
-}
-
-.activity-list-auto {
-    max-width: 80px;
-    min-width: 70px;
 }
 
 .app_image_preview {
@@ -1572,19 +1565,76 @@ h3.section-done {
     width: 55px;
 }
 
-
 .list-item-img {
     width: 55px;
     height: 55px;
     border-radius: 4px;
-    margin-right: 10px;
+
+    object-fit: contain;
+    display: flex;
 }
 
-.activity-list-dropdown,
-.folder-list-dropdown {
+.list-item-no-icon {
+    width: 40px !important;
+    height: 40px !important;
+    margin-right: 10px;
+
+    padding: 1em;
+    border-radius: 50%;
+
+    border: 1px solid var(--classroom-white);
+    background-color: var(--classroom-primary);
+    color: var(--classroom-white);
+    box-shadow: 1px 1px 5px #0005;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    place-self: center center;
+
+    margin: 0 auto;
+    left: -1px;
+    position: relative;
+}
+
+.activity-list .activity-list-center {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-inline: 0.5rem;
+
+    overflow: hidden;
+}
+
+/* On medium screens we update the list item to have two rows for better content display */
+@media (max-width: 768px) {
+    .activity-list .activity-list-center {
+        flex-direction: column;
+    }
+}
+
+.activity-list-title,
+.folder-list-title {
+    font-weight: bold;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.folder-list-title {
+    margin-inline: 0.5rem;
+}
+
+.activity-list-auto svg {
+    height: 1rem;
+}
+
+.activity-list-options,
+.folder-list-options {
     color: var(--classroom-text-2);
 }
-
 
 
 @media (max-width: 768px) {
@@ -3310,11 +3360,15 @@ h3.section-done {
     border: 1px solid var(--classroom-primary);
     border-radius: 1em;
     padding: 1em;
-    pointer-events: none;
 }
 
 .preview-container h3 {
     display: none;
 } 
+
+
+.space-evenly {
+    justify-content: space-evenly;
+}
 
 

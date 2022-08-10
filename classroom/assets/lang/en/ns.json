@@ -248,6 +248,8 @@
         "editNickname": "Edit your nickname",
         "delete": "Delete",
         "copyLink": "Copy the direct link",
+        "copyImage": " Copy the image",
+        "downloadImage": " Download the image",
         "learnerMode": "Learner mode",
         "dueBy": "Due by",
         "timePassed": "Time spent: "
@@ -255,7 +257,9 @@
       "selectStudents": " Selecting learners",
       "selectedStudents": " <span id='attribuate-student-number'>0</span> selected learners",
       "activationLink": " Activation link activated",
-      "activationLinkDisabled": " Activation link disabled"
+      "activationLinkDisabled": " Activation link disabled",
+      "deleteStudent": " Delete the student",
+      "deleteStudentConfirm": " Do you really want to remove this student?"
     },
     "activities": {
       "title": "Activities",
@@ -299,6 +303,8 @@
       "hint": " Index",
       "saved": " Saved activity",
       "wrongAnswer": " Wrong answer",
+      "emptyAnswer": " The answer cannot be empty",
+      "wrongAnswerLarge": " Wrong answer, you can try again!",
       "hintExist": " <i class='fas fa-info-circle'></i> This exercise has a hint, it can only be displayed if the student can submit the activity multiple times",
       "anoStudent": " Student",
       "bilan": {
@@ -416,6 +422,7 @@
         "deleteDisclaimer": " Attention, the folder and all its contents (activities and subfolders) will be deleted"
       },
       "facultative": " Optional fields",
+      "previewActivity": " Preview of the activity",
       "infoRetroAttribution": " This activity will be assigned to new learners when they are added to your class.",
       "infoAutocorrect": " This activity has automatic correction",
       "infoEvaluation": " In assessment mode, learners can only submit the activity once and do not have access to hints and prompts."
@@ -1467,6 +1474,10 @@
       "closeDetail": "Close the detail",
       "restrictions": "Activity restrictions",
       "appRestricted": "Create more activities !",
+      "appOutDated": " The application subscription has expired.",
+      "appOutDatedUL1": " Your subscription to this application has expired.",
+      "appOutDatedUL2": " To continue using this application, please contact your administrator.",
+      "appOutDatedSubtitle3": " Contact support",
       "appRestrictedUL1": "You have reached the limit of {{activities}} activities associated with your account.",
       "appRestrictedUL2": "To add additional activities, please contact your administrator.",
       "appRestrictedSubtitle2": "A problem with your subscription ?",

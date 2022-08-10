@@ -248,6 +248,8 @@
         "editNickname": "Cambiare il sopranome",
         "delete": "Ritirare",
         "copyLink": "Copiare il link diretto",
+        "copyImage": " Copiare l'immagine",
+        "downloadImage": " Scarica l'immagine",
         "learnerMode": "Passare alla modalità studente",
         "dueBy": "Dovuto a",
         "timePassed": " Tempo trascorso :"
@@ -255,7 +257,9 @@
       "selectStudents": " Selezione degli allievi",
       "selectedStudents": " <span id='attributo-numero-studente'>0</span> studenti selezionati",
       "activationLink": " Link di attivazione attivato",
-      "activationLinkDisabled": " Link di attivazione disabilitato"
+      "activationLinkDisabled": " Link di attivazione disabilitato",
+      "deleteStudent": " Cancellare lo studente",
+      "deleteStudentConfirm": " Vuole davvero rimuovere questo studente?"
     },
     "activities": {
       "title": "Attività",
@@ -299,6 +303,8 @@
       "hint": " Indice",
       "saved": " Attività salvata",
       "wrongAnswer": " Risposta sbagliata",
+      "emptyAnswer": " La risposta non può essere vuota",
+      "wrongAnswerLarge": " Risposta sbagliata, puoi riprovare!",
       "hintExist": " <i class='fas fa-info-circle'></i> Questo esercizio ha un suggerimento, può essere visualizzato solo se lo studente può presentare l'attività più volte",
       "anoStudent": " Studente",
       "bilan": {
@@ -416,6 +422,7 @@
         "deleteDisclaimer": " Attenzione, la cartella e tutti i suoi contenuti (attività e sottocartelle) verranno eliminati."
       },
       "facultative": " Campi opzionali",
+      "previewActivity": " Anteprima dell'attività",
       "infoRetroAttribution": " Questa attività sarà assegnata ai nuovi studenti quando saranno aggiunti alla classe.",
       "infoAutocorrect": " Questa attività ha una correzione automatica",
       "infoEvaluation": " Nella modalità di valutazione, i discenti possono inviare l'attività una sola volta e non hanno accesso a suggerimenti e consigli."
@@ -1467,6 +1474,10 @@
       "closeDetail": " Chiudi il dettaglio",
       "restrictions": " Restrizioni di attività",
       "appRestricted": " Creare più attività!",
+      "appOutDated": " L'abbonamento all'applicazione è scaduto.",
+      "appOutDatedUL1": " L'abbonamento a questa applicazione è scaduto.",
+      "appOutDatedUL2": " Per continuare a utilizzare questa applicazione, contattare l'amministratore.",
+      "appOutDatedSubtitle3": " Contatta l'assistenza",
       "appRestrictedUL1": " Hai raggiunto il limite di {{attività}} associato al tuo account.",
       "appRestrictedUL2": " Per aggiungere altre attività, contatta il tuo amministratore.",
       "appRestrictedSubtitle2": " Un problema con il tuo abbonamento?",

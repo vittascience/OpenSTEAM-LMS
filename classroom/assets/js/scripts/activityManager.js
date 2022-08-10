@@ -2,12 +2,6 @@
  * Setup the rich text editor for the activities
  */
  function setTextArea() {
-/*     let wbbOpt = {
-        resize_maxheight:354,
-        autoresize:false,
-        buttons: ",bold,italic,underline|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe,answer",
-    } */
-
     const options = Main.getClassroomManager().wbbOpt;
     // Free 
     $('#free-enonce').wysibb(options);
@@ -30,11 +24,9 @@
 }
 
 // autocorrect modification pas pris en compte
-function launchCustomActivity(activityType, isUpdate = false) {
+function launchCustomActivity(activityType, isUpdate = false, callback = false) {
 
-    //if (document.querySelector('#free-enonce') !== null) {
     setTextArea();
-    //}
 
     const contentForwardButtonElt = document.getElementById('content-forward-button');
     contentForwardButtonElt.style.display = 'inline-block';
@@ -48,7 +40,7 @@ function launchCustomActivity(activityType, isUpdate = false) {
     Main.getClassroomManager()._createActivity.function = "create";
 
     Main.getClassroomManager().isActivitiesRestricted(null, activityType).then((response) => {
-        if (response.Limited == false) {
+        if (response.Limited == false && activityType != "appOutDated") {
             switch(activityType) {
                 case 'free':
                     $("#activity-free").show();
@@ -82,13 +74,18 @@ function launchCustomActivity(activityType, isUpdate = false) {
                     break;
             }
             navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
+            if (callback) callback();
         } else {
-            if (UserManager.getUser().isFromGar) {
-                $('#app-restricted-number').attr('data-i18n-options', `{"activities": "${response.Restrictions[Object.keys(response.Restrictions)[0]]}"}`);
-                pseudoModal.openModal('activity-restricted-gar');
-                $('#app-restricted-number').localize();
-            } else {
-                pseudoModal.openModal('activity-restricted');
+            if (activityType == "appOutDated") {
+                pseudoModal.openModal('activity-outdated');
+            } else if (response.Limited) {
+                if (UserManager.getUser().isFromGar) {
+                    $('#app-restricted-number').attr('data-i18n-options', `{"activities": "${response.Restrictions[Object.keys(response.Restrictions)[0]]}"}`);
+                    pseudoModal.openModal('activity-restricted-gar');
+                    $('#app-restricted-number').localize();
+                } else {
+                    pseudoModal.openModal('activity-restricted');
+                }
             }
         }
     });
@@ -149,7 +146,7 @@ function titleBackward() {
 /**
  * Title part
  */
-function titleForward() {
+ function titleForward() {
     Main.getClassroomManager()._createActivity.title = $('#global_title').val();
     $('#activity-title-forward').attr('disabled', true);
     // Check if the title is empty
@@ -192,6 +189,7 @@ function titleForward() {
         }
     }
     $('#activity-title-forward').attr('disabled', false);
+    document.querySelector('#preview-activity-content').innerHTML = '';
 }
 
 
@@ -217,7 +215,7 @@ function validateActivity(correction) {
             dragAndDropValidateActivity(correction);
             break;
         default:
-            defaultProcessValidateActivity()
+            defaultProcessValidateActivity();
             break;
     }
 }
@@ -377,6 +375,12 @@ function activitiesCreation(apps) {
     let htmlContent = `<div class="app-head" data-i18n="classroom.activities.applist.selectApp"></div>`;
     apps.forEach(app => {
 
+        let outDated = false;
+        if (app.hasOwnProperty("outDated")) {
+            outDated = app.outDated;
+            console.log(app.name)
+        }
+
         let nameField = "";
         if (i18next.t(titleRoad+app.name) != titleRoad+app.name) {
             nameField = `<h3 class="app-card-title mt-2" data-i18n="${titleRoad+app.name}"></h3>`;
@@ -395,7 +399,14 @@ function activitiesCreation(apps) {
             descriptionField = `<p class="app-card-description">${app.description}</p>`;
         }
         
+
+
         let restrict = app.name != "" ? `launchCustomActivity('${app.name}')` : `launchCustomActivity('custom')`;
+
+        if (outDated) {
+            restrict = `launchCustomActivity('appOutDated')`;
+        }
+
         htmlContent+= `<div class="app-card" style="--border-color:${app.color};" onclick="${restrict}">
             <img class="app-card-img" src="${app.image}" alt="${app.name}">
             ${nameField}
@@ -495,7 +506,7 @@ function parseFillInFieldsAndSaveThem() {
 $('#dragAndDrop-add-inputs').click(() => {
     if ($("#drag-and-drop-content").getSelectText() != "") {
         $('#drag-and-drop-content').bbcode();
-        replaceSelectionWithHtml(`<span class="lms-answer">${$("#drag-and-drop-content").getSelectText()}</span>\&nbsp`)
+        replaceSelectionWithHtml(`<span class="lms-answer">${$("#drag-and-drop-content").getSelectText()}</span>\&nbsp`);
         let newText = $('#drag-and-drop-content').htmlcode();
         $('#drag-and-drop-content').htmlcode(newText);
     } else {
@@ -663,8 +674,8 @@ function launchLtiDeepLinkCreate(type, isUpdate) {
     document.forms["contentitem_request_form"].submit();
 }
 
-function launchLtiResource(activityId, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false) {
-    document.querySelector('#activity-content').innerHTML = 
+function launchLtiResource(activityId, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false, activityContentId = "#activity-content") {
+    document.querySelector(activityContentId).innerHTML = 
         `<input id="activity-score" type="text" hidden/>
         <form name="resource_launch_form" action="${_PATH}lti/ltilaunch.php" method="post" target="lti_student_iframe">
             <input type="hidden" id="application_type" name="application_type" value="${activityType}">
@@ -715,6 +726,9 @@ $('body').on('click', '#fill-in-tolerance-decrease', function () {
 
 
 function ActivityPreviewBeforeCreation(type) {
+
+    $('#activity-preview-div').hide();
+
     const $title = $('#preview-title'),
         $states = $('#preview-states'),
         $statesText = $('#preview-activity-states'),
@@ -728,21 +742,25 @@ function ActivityPreviewBeforeCreation(type) {
 
     resetPreviewViews();
 
+    
     $title.html(Main.getClassroomManager()._createActivity.title);
-    $statesText.html(bbcodeToHtml(Main.getClassroomManager()._createActivity.content.states))
+    $statesText.html(bbcodeToHtml(Main.getClassroomManager()._createActivity.content.states));
     $title.show();
 
     switch (type) {
         case "quiz":
-            $contentText.html(ActivityPreview.content.quiz.contentForStudent, true, false, true)
+            console.log()
+            $contentText.html(createContentForQuiz(ActivityPreview.content.quiz.contentForStudent, true, false, true));
             $states.show();
             $content.show();
+            $('#activity-preview-div').show();
             break;
         case "free":
             $statesText.html(bbcodeToHtml(Main.getClassroomManager()._createActivity.content.description))
             $contentbbcode.wysibb(wbbptions);
             $bbcodeContent.show();
             $states.show();
+            $('#activity-preview-div').show();
             break;
         case "fillIn":
             let studentContent = bbcodeToHtml(ActivityPreview.content.fillInFields.contentForStudent)
@@ -753,10 +771,12 @@ function ActivityPreviewBeforeCreation(type) {
             $contentText.html(studentContent);
             $states.show();
             $content.show();
+            $('#activity-preview-div').show();
             break;
         case "reading":
             $contentText.html(bbcodeToHtml(ActivityPreview.content.description));
             $content.show();
+            $('#activity-preview-div').show();
             break;
         case "dragAndDrop":
             let ContentString = manageDragAndDropText(ActivityPreview.content.dragAndDropFields.contentForStudent, true);
@@ -790,10 +810,17 @@ function ActivityPreviewBeforeCreation(type) {
 
             $states.show();
             $dragAndDrop.show();
+            $('#activity-preview-div').show();
             break;
         case "custom":
             $contentText.html(bbcodeToHtml(ActivityPreview.content.description));
             $content.show();
+            $('#activity-preview-div').show();
+            break;
+        case "lti-vittascience":
+            launchLtiResource("0000", "lti-vittascience", ActivityPreview.content.description, false, false, "#preview-activity-content");
+            $content.show();
+            $('#activity-preview-div').show();
             break;
         default:
             break;

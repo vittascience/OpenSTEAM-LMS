@@ -46,7 +46,7 @@
 <script src="assets/js/scripts/ActivityTracker.js"></script>
 <script src="assets/js/scripts/activityManager.js"></script>
 <script src="assets/js/scripts/classroomDisplay.js"></script>
-<script src="assets/js/scripts/folderManager.js" defer></script>
+<script src="assets/js/main/FoldersManager.js" defer></script>
 <!-- end build -->
 <script src="assets/js/main/Loader.js"></script>
 <script src="assets/js/main/UIManager.js"></script>
@@ -60,9 +60,8 @@
 <script src="assets/js/main/Main.js"></script>
 <script src="assets/js/main/Loader.js"></script>
 <!-- drag and drop bundle -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.11/dist/interact.min.js"></script> -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.6.6/dragula.min.css" integrity="sha512-49xW99xceMN8dDoWaoCaXvuVMjnUctHv/jOlZxzFSMJYhqDZmSF/UnM6pLJjQu0YEBLSdO1DP0er6rUdm8/VqA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.6.6/dragula.min.js" integrity="sha512-MrA7WH8h42LMq8GWxQGmWjrtalBjrfIzCQ+i2EZA26cZ7OBiBd/Uct5S3NP9IBqKx5b+MMNH1PhzTsk6J9nPQQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" stype="text/css" href="assets/css/dragula.css">
+<script src="assets/js/lib/dragula.js" ></script>
 
 <script>
     UIManager.init().then((resolve) => {
@@ -107,7 +106,6 @@
                                 $('body').addClass('theme-student')
                                 $('.user-picture').attr('src', '/classroom/assets/media/alphabet/' + UserManager.getUser().pseudo.slice(0, 1).toUpperCase() + '.png')
                                 Main.getClassroomManager().getMyClassroom(UserManager.getUser().id).then(function (classroom) {
-                                    console.log($_GET('panel'))
                                     $('#classroom-name').html(classroom.name)
                                     ClassroomSettings.classroom = classroom.link
                                     if ($_GET('panel') && (ClassroomSettings.mixPanels.includes($_GET('panel')) || ClassroomSettings.studentPanels.includes($_GET('panel')))) {

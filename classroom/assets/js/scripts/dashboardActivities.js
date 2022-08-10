@@ -34,7 +34,7 @@ function activityItem(activity, state) {
                     <div class="activity-card ${activityType} ">
                         <div class="${activityStatus}" data-toggle="tooltip" title="${activityStatusTitle}"><div class="ribbon__content"></div></div>
                         <div class="activity-card-top">
-                            ${activity.activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
+                            ${activity.activity.isAutocorrect ? `<img src='${_PATH}assets/media/auto-icon.svg' title='Auto'>` : "" }
                         </div>
                         <div class="activity-card-mid"></div>
                         <div class="activity-card-bot">
@@ -60,7 +60,7 @@ function teacherSandboxItem(json) {
                             <div class="dropdown"><i class="fas fa-cog fa-2x" style="grid-column-start: 3; grid-column-end: 3;" type="button" id="dropdown-teacherSandboxItem-${json.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                     <div class="dropdown-menu" aria-labelledby="dropdown-teacherSandboxItem-${json.id}">`
     if (UserManager.getUser().isRegular) {
-        html += `<li class="classroom-clickable col-12 dropdown-item" onclick="createActivity('/` + json.interface + `/?link=` + json.link + `&embed=1')" href="#">` + i18next.t('classroom.activities.integrate') + `</li>`
+        html += `<li class="classroom-clickable col-12 dropdown-item" onclick="integrateProject('${location.origin}/${json.interface}/?link=${json.link}&embed=1')" href="#">` + i18next.t('classroom.activities.integrate') + `</li>`
     }
     html += `<li class="modal-teacherSandbox-duplicate classroom-clickable col-12 dropdown-item" href="#">` + capitalizeFirstLetter(i18next.t('words.duplicate')) + `</li>
                 <li class="dropdown-item modal-teacherSandbox-delete classroom-clickable col-12" href="#">` + capitalizeFirstLetter(i18next.t('words.delete')) + `</li>
@@ -86,7 +86,7 @@ function teacherActivityItem(activity, displayStyle) {
                         <div>
                             <div class="activity-card ${activityType}">
                                 <div class="activity-card-top">
-                                ${activity.isAutocorrect ? "<img src='assets/media/auto-icon.svg' title='Auto'>" : "" }
+                                ${activity.isAutocorrect ? `<img src='${_PATH}assets/media/auto-icon.svg' title='Auto'>` : "" }
                                 <div class="dropdown">
                                     <i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     </i>
@@ -111,35 +111,44 @@ function teacherActivityItem(activity, displayStyle) {
                     </div>`
     } else if (displayStyle == "list") {
 
+        let activityImg = foldersManager.icons.hasOwnProperty(activity.type) ? `<img class="list-item-img" src="${foldersManager.icons[activity.type]}" alt="${activity.type}" class="folder-icons">` : "<span class='list-item-img'> <div class='list-item-no-icon'><i class='fas fa-laptop'></i></div></span>";
         /* let activityTypeImg = activity.type != null && "" ?  */
         content = `<div class="row activity-item-list" data-id="${activity.id}">
         <div class="container-draggable">
-            <div class="activity-list ${activityType}">
-                <div class="activity-list-title col">
-                    <img class="list-item-img" src="${foldersManager.icons.hasOwnProperty(activity.type) ? foldersManager.icons[activity.type] : "💻"}" alt="${activity.type}" class="folder-icons">
-                    ${activity.title}
-                </div>
-    
-                <div class="info-tutorials col-2" data-id="${activity.id}">
+            <div class="activity-list">
+                <div class="activity-list-icon">
+                    ${activityImg}
                 </div>
 
-                ${activity.isAutocorrect    ? `<div class="activity-list-auto col-1">
-                                                <img src='assets/media/auto-icon-grey.svg' title='Auto' onload="SVGInject(this)">
-                                            </div>` 
-                                            : "" }
-               
-                <div class="dropdown col-1 activity-list-dropdown">
-                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    </i>
-                    <div class="dropdown-menu" aria-labelledby="dropdown-list-activityItem-${activity.id}" data-id="${activity.id}">
-                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
-                        <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
-                        <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
-                        <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
-                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                <div class="activity-list-center">
+                    <div class="activity-list-title">
+                        ${activity.title}
                     </div>
-                </div> 
+                    <div class="activity-list-info">
+                            ${activity.isAutocorrect ? `<div class="activity-list-auto">
+                                <img src='${_PATH}assets/media/auto-icon-grey.svg' title='Auto' onload="SVGInject(this)">
+                            </div>` 
+                            : "" }
+                    </div>
+                </div>
 
+                
+                
+                <div class="activity-list-options">
+                    <div class="activity-list-options dropdown">
+                        <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        </i>
+                        <div class="dropdown-menu" aria-labelledby="dropdown-list-activityItem-${activity.id}" data-id="${activity.id}">
+                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
+                            <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
+                            <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
+                            <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
+                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                        </div>
+                    </div> 
+                </div>
+                <div class="info-tutorials d-none" data-id="${activity.id}"></div>
+                
             </div>
         </div>
     </div>`
@@ -153,8 +162,8 @@ function teacherFolder(folder, displayStyle) {
         content = `<div class="folder-item" data-id="${folder.id}">
                     <div> 
                         <div class="folder-card" data-id="${folder.id}">
-                        <img class="folder-close-icon" src="./assets/media/folders/folder_close_icon.svg" onload="SVGInject(this)">
-                        <img class="folder-open-icon" src="./assets/media/folders/folder_open_icon.svg" onload="SVGInject(this)">
+                            <img class="folder-close-icon" src="${_PATH}assets/media/folders/folder_close_icon.svg" onload="SVGInject(this)">
+                            <img class="folder-open-icon" src="${_PATH}assets/media/folders/folder_open_icon.svg" onload="SVGInject(this)">
                             <div class="folder-card-top">
                                 <div class="dropdown">
                                     <i class="fas fa-cog fa-2x" type="button" id="dropdown-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -180,20 +189,23 @@ function teacherFolder(folder, displayStyle) {
         content = `<div class="row folder-item-list" data-id="${folder.id}">
                         <div class="container-draggable">
                             <div class="folder-list" data-id="${folder.id}">
-                    
-                                <div class="folder-list-title col">
-                                    <img class="list-item-img" src="./assets/media/folders/folder_close_icon.svg" alt="folder_close" class="folder-icons" onload="SVGInject(this)">
+                                <div class="folder-list-icon">
+                                    <img class="list-item-img list-folder-img-manager" src="${_PATH}assets/media/folders/folder_close_icon.svg" alt="folder_close" class="folder-icons" onload="SVGInject(this)">
+                                </div>
+                                
+                                <div class="folder-list-title">
                                     ${folder.name}
                                 </div>
-                    
-                    
-                                <div class="dropdown col-1 folder-list-dropdown">
-                                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    </i>
-                                    <div class="dropdown-menu" aria-labelledby="dropdown-list-folder-${folder.id}" data-id="${folder.id}">
-                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.updateFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.update'))}</li>
-                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${folder.id}, 'folder')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
-                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.deleteFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.delete'))}</li>
+
+                                <div class="folder-list-options ">
+                                    <div class="folder-list-options dropdown">
+                                        <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        </i>
+                                        <div class="dropdown-menu" aria-labelledby="dropdown-list-folder-${folder.id}" data-id="${folder.id}">
+                                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.updateFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.update'))}</li>
+                                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${folder.id}, 'folder')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.deleteFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.delete'))}</li>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1019,7 +1031,6 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
 function displayDragAndDropTeacherSide(correction_div, correction, content) {
     let studentResponses = JSON.parse(Activity.response);
     let studentContentString = content.dragAndDropFields.contentForStudent;
-
 
     $(`input[id^="corrected-student-response-"]`).each((i, e) => {
         $(e).remove();

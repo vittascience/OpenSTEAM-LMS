@@ -23,6 +23,16 @@ function createActivity(link = null, id = null) {
     }
 }
 
+function integrateProject(link) {
+	launchCustomActivity('reading', false, () => {
+		$('#reading-content').execCommand('vittaiframe');
+        document.querySelector('#wbbmodal .inp-text').value = link;
+		setTimeout(() => {
+			document.querySelector('#wbbm-submit').click();
+		},20);
+	});
+}
+
 function showExercicePanel() {
     Main.getClassroomManager().getAllApps().then((apps) => {
         activitiesCreation(apps);
@@ -67,7 +77,7 @@ $('body').on('click', '.activity-card-top i', function () {
 })
 
 // get activity id in list mode
-$('body').on('click', '.activity-list-dropdown i', function () {
+$('body').on('click', '.activity-list-options i', function () {
     ClassroomSettings.activity = $(this).attr('id').replace("dropdown-list-activityItem-", "");
 })
 
@@ -142,6 +152,7 @@ function manageUpdateByType(activity) {
     contentForwardButtonElt.style.display = 'inline-block';
 
     $('#global_title').val(activity.title);
+    Main.getClassroomManager()._createActivity.title = activity.title;
 
     switch (activity.type) {
         case "free":
@@ -281,12 +292,7 @@ function attributeActivity(id, ref = null) {
     listStudentsToAttribute(ref)
     $('#form-autocorrect').hide()
     ClassroomSettings.willAutocorrect = false;
-    Main.getClassroomManager().isActivityAutocorrected().then(function (result) {
-        navigatePanel('classroom-dashboard-new-activity-panel3', 'dashboard-activities-teacher', ref)
-        if (result) {
-            $('#form-autocorrect').show()
-        }
-    })
+    navigatePanel('classroom-dashboard-new-activity-panel3', 'dashboard-activities-teacher', ref);
 }
 
 
