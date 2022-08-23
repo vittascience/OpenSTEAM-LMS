@@ -293,9 +293,30 @@ class CoursesManager {
 
     }
 
-    attributeCourse() {
+    attributeCourse(courseId, students, classrooms) {
 
+        $("#assign-total-student-number-course").text(0);
+
+        if (id == 0) {
+            id = Main.getClassroomManager()._lastCreatedActivity;
+        }
+
+        ClassroomSettings.activity = id
+        ClassroomSettings.ref = ref
+
+        document.getElementsByClassName('student-number')[0].textContent = '0';
+
+        $('#list-student-attribute-modal').html('')
+        listStudentsToAttribute(ref)
+
+        navigatePanel('classroom-dashboard-classes-new-course-attribution-select', 'dashboard-activities-teacher');
+
+
+        
+        this._requestUsersLinkCourse(courseId, students, classrooms);
     }
+
+
 
     _requestAddCourse() {
         return new Promise((resolve, reject) => {
@@ -315,6 +336,25 @@ class CoursesManager {
         })
     }
 
+    _requestUsersLinkCourse(courseId, students, classrooms) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=user_link_course&action=link_user_to_course",
+                data: {
+                    courseId: courseId,
+                    students: students,
+                    classrooms: classrooms
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject('error')
+                }
+            });
+        })
+    }
 
 }
 // Initialize

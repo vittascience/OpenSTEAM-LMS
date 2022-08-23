@@ -25,16 +25,17 @@ use Learn\Controller\ControllerFavorite;
 use Learn\Controller\ControllerCollection;
 use Interfaces\Controller\ControllerProject;
 use Classroom\Controller\ControllerClassroom;
-use Utils\Exceptions\EntityOperatorException;
-
-
-
-use Classroom\Controller\ControllerGroupAdmin;
-use Classroom\Controller\ControllerSuperAdmin;
-
 use Learn\Controller\ControllerNewActivities;
 
+
+
+use Utils\Exceptions\EntityOperatorException;
+use Classroom\Controller\ControllerGroupAdmin;
+
+use Classroom\Controller\ControllerSuperAdmin;
+
 use Learn\Controller\ControllerCourseLinkCourse;
+use Classroom\Controller\ControllerCourseLinkUser;
 use Utils\Exceptions\EntityDataIntegrityException;
 use Classroom\Controller\ControllerActivityLinkUser;
 use Interfaces\Controller\ControllerProjectLinkUser;
@@ -205,6 +206,11 @@ try {
             break;
         case 'newActivities':
             $controller = new ControllerNewActivities($entityManager, $user);
+            echo (json_encode($controller->action($action, $_POST)));
+            $log->info($action, OK);
+            break;
+        case 'user_link_course':
+            $controller = new ControllerCourseLinkUser($entityManager, $user);
             echo (json_encode($controller->action($action, $_POST)));
             $log->info($action, OK);
             break;
