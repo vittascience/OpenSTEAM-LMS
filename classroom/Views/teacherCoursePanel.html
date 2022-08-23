@@ -336,3 +336,113 @@
     </div>
 
 </div>
+
+
+<div id="classroom-dashboard-classes-new-course-attribution-select" style="display:none;" class="dashboard-block container">
+
+    <div class="assign-activity-container" style="margin: 0 auto;">
+
+        <div class="row">
+            <div class="col-12 mb-5 text-center">
+                <button id="new-course-attribute" class="btn c-btn-primary mt-5">
+                    <span data-i18n="classroom.activities.form.select1"></span> <i class="fas fa-plus"></i>
+                </button>
+                <div class="mt-2">
+                    <span id="assign-total-student-number-course">0</span> <span data-i18n="classroom.activities.form.select2"></span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Submit multiple times -->
+        <div class="row">
+            <div class="col mb-5 text-center c-primary-form">
+                <div class="assign-row">
+                    <div>
+                        <label for="isEval-activity-form" data-i18n="classroom.activities.form.nature"></label>
+                        <div class="switcher">
+                            <input type="radio" name="isEval-activity-form" value="false" id="isExo-activity-form" checked>
+                            <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes"></label>
+
+                            <input type="radio" name="isEval-activity-form" value="true" id="isEval-activity-form">
+                            <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no"></label>
+
+                            <span class="switcher__toggle"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="section-facultative-options">
+
+            <div class="section-header-facultative-options" onclick="facultativeOptions()">
+                <i id="i-facultative-options" class="ml-2 fas fa-lg fa-chevron-up"></i>
+                <h3 class="section-title-facultative-options" data-i18n="classroom.activities.facultative">Options facultatives</h3>
+            </div>
+
+            <div id="facultative-options" style="display: none;">
+                <div class="container mt-3 pt-1" id="facultative">
+
+                    <div class="row">
+                        <div class="col-12 col-xl-6 c-primary-form assign-activity-calendar">
+                            <div class="row">
+                                <div class="col-6 text-right align-middle">
+                                    <label for="date-begin-course-form" data-i18n="classroom.activities.form.dateBegin"></label>
+                                </div>
+                                <div class="col-6 text-left">
+                                    <input type="date" id="date-begin-course-form">
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-12 col-xl-6 c-primary-form assign-activity-calendar">
+                            <div class="row">
+                                <div class="col-6 text-right align-middle">
+                                    <label for="date-end-course-form" data-i18n="classroom.activities.form.dateEnd"></label>
+                                </div>
+                                <div class="col-6 text-left">
+                                    <input type="date" id="date-end-course-form">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- Activity RetroAttribution  -->
+                    <!-- <div class="row" id="form-retro-attribution">
+                        <div class="col mb-5 text-center c-primary-form assign-row">
+                            <div class="c-checkbox">
+                                <input type="checkbox" id="retro-attribution-activity-form">
+                                <label for="retro-attribution-activity-form">
+                                    <span data-i18n="classroom.activities.form.retroAttribution"></span>
+                                </label>
+                            </div>
+                            <i class="fas fa-info assign-info-icon" id="infoRetroAttribution" data-toggle="tooltip" title=""></i>
+                        </div>
+                    </div> -->
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row text-center my-2 mt-5">
+            <div class="col-sm mb-2">
+                <button class="btn c-btn-grey" onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')">
+                    <i class="fas fa-angle-left"></i> <span class="text-capitalize" data-i18n="words.return"></span>
+                </button>
+            </div>
+
+            <div class="col-sm order-first order-sm-last mb-2">
+                <button id="attribute-course-to-students" class="btn c-btn-primary" disabled>
+                    <span data-i18n="classroom.activities.form.attribute2"></span><i class="fas fa-angle-right"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
