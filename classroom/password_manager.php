@@ -31,9 +31,9 @@ showPasswordPage();
 function showPasswordPage() {
     require_once(__DIR__ . "/header.html");
     ?>
-        <link rel="stylesheet" href="/classroom/assets/css/main.css?version=1.2.7c">
-        <script src="./assets/js/lib/rotate.js?version=1.2.7c"></script>
-        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css?version=1.2.7c"/>
+        <link rel="stylesheet" href="/classroom/assets/css/main.css?version=1.2.12a">
+        <script src="./assets/js/lib/rotate.js?version=1.2.12a"></script>
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css?version=1.2.12a"/>
         </head>
         <body>
     <?php

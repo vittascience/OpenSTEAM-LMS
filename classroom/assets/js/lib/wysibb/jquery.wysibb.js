@@ -278,7 +278,7 @@ wbbdebug = false;
 				},
 				cabriiframe: {
 					title: CURLANG.cabriiframe,
-					buttonHTML: '<span class="btn-inner btn-span-cabri"><img class="btn-cabri" src="/classroom/assets/media/cabri_logo.png?version=1.2.7c"></span>',
+					buttonHTML: '<span class="btn-inner btn-span-cabri"><img class="btn-cabri" src="/classroom/assets/media/cabri_logo.png?version=1.2.12a"></span>',
 					hotkey: '',
 					modal: {
 						title: CURLANG.modal_cabri_title,
@@ -499,7 +499,7 @@ wbbdebug = false;
 				},
 				peertube: {
 					title: CURLANG.peertube,
-					buttonHTML: '<span class="btn-inner btn-span-peertube"><img class="btn-peertube" src="/classroom/assets/media/peertube_logo.svg?version=1.2.7c"></span>',
+					buttonHTML: '<span class="btn-inner btn-span-peertube"><img class="btn-peertube" src="/classroom/assets/media/peertube_logo.svg?version=1.2.12a"></span>',
 					modal: {
 						title: CURLANG.peertube,
 						width: "600px",
@@ -816,7 +816,7 @@ wbbdebug = false;
 				//blockquote: [["   {SELTEXT}",{seltext: {rgx:false,attr:false,sel:false}}]]
 			},
 			smileList: [
-				//{title:CURLANG.sm1, img: '<img src="{themePrefix}{themeName}/img/smiles/sm1.png?version=1.2.7c" class="sm">', bbcode:":)"},
+				//{title:CURLANG.sm1, img: '<img src="{themePrefix}{themeName}/img/smiles/sm1.png?version=1.2.12a" class="sm">', bbcode:":)"},
 			],
 			attrWrap: ['src', 'color', 'href'] //use becouse FF and IE change values for this attr, modify [attr] to _[attr]
 		}

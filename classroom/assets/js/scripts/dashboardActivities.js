@@ -310,7 +310,7 @@ function classeList(classe, ref = null) {
         html += `<div class="c-checkbox ml-3 student-attribute-form-row">
             <input type="checkbox" id="student-${student.user.id}" value="${student.user.id}" class="student-id" ${checked}>
             <label class="mb-0" for="student-${student.user.id}">
-                <img class="ml-1" src="${_PATH}assets/media/alphabet/${student.user.pseudo.slice(0, 1).toUpperCase()}.png?version=1.2.7c" alt="Photo de profil"></img>
+                <img class="ml-1" src="${_PATH}assets/media/alphabet/${student.user.pseudo.slice(0, 1).toUpperCase()}.png?version=1.2.12a" alt="Photo de profil"></img>
                 <span>${student.user.pseudo}</span>
             </label>
         </div>`
@@ -636,7 +636,7 @@ function loadActivityForTeacher() {
 
     if (Activity.correction >= 1) {
         $('#activity-details').html(i18next.t("classroom.activities.activityOfUser") + Activity.user.pseudo + i18next.t("classroom.activities.userSentOn") + formatHour(Activity.dateSend))
-        document.querySelector('#activity-details').innerHTML += `<br><img class="chrono-icon" src="${_PATH}assets/media/icon_time_spent.svg?version=1.2.7c">${i18next.t('classroom.activities.timePassed')} ${formatDuration(Activity.timePassed)}, ${i18next.t("classroom.activities.numberOfTries")} ${Activity.tries}`;
+        document.querySelector('#activity-details').innerHTML += `<br><img class="chrono-icon" src="${_PATH}assets/media/icon_time_spent.svg?version=1.2.12a">${i18next.t('classroom.activities.timePassed')} ${formatDuration(Activity.timePassed)}, ${i18next.t("classroom.activities.numberOfTries")} ${Activity.tries}`;
         if (Activity.autocorrection) {
             $("#activity-auto-corrected-disclaimer").show();
         }
