@@ -502,7 +502,7 @@ CREATE TABLE `users_login_attempts` (
 
 CREATE TABLE `user_classroom_users` (
   `user` int(11) NOT NULL,
-  `gar_id` varchar(128) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `gar_id` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `school_id` varchar(8) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `is_teacher` tinyint(1) DEFAULT NULL,
   `mail_teacher` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
