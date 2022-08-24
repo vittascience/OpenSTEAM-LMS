@@ -248,6 +248,8 @@
         "editNickname": "Modificar el seudónimo",
         "delete": "Eliminar",
         "copyLink": "Copiar el link directo",
+        "copyImage": " Copiar la imagen",
+        "downloadImage": " Descargar la imagen",
         "learnerMode": "Modo alumno",
         "dueBy": "A entregar por",
         "timePassed": "Tiempo dedicado:"
@@ -255,7 +257,9 @@
       "selectStudents": " Selección de alumnos",
       "selectedStudents": " <span id='atributo-número-de-alumno'>0</span> alumnos seleccionados",
       "activationLink": " Enlace de activación activado",
-      "activationLinkDisabled": " Enlace de activación desactivado"
+      "activationLinkDisabled": " Enlace de activación desactivado",
+      "deleteStudent": " Borrar al estudiante",
+      "deleteStudentConfirm": " ¿Realmente quieres eliminar a este estudiante?"
     },
     "activities": {
       "title": "Actividades",
@@ -299,6 +303,8 @@
       "hint": " Índice",
       "saved": " Actividad guardada",
       "wrongAnswer": " Respuesta incorrecta",
+      "emptyAnswer": " La respuesta no puede ser vacía",
+      "wrongAnswerLarge": " Respuesta incorrecta, ¡puedes volver a intentarlo!",
       "hintExist": " <i class='fas fa-info-circle'></i> Este ejercicio tiene una pista, sólo se puede mostrar si el alumno puede presentar la actividad varias veces",
       "anoStudent": " Estudiante",
       "bilan": {
@@ -416,6 +422,7 @@
         "deleteDisclaimer": " Atención, la carpeta y todo su contenido (actividades y subcarpetas) se eliminará"
       },
       "facultative": " Campos opcionales",
+      "previewActivity": " Vista previa de la actividad",
       "infoRetroAttribution": " Esta actividad se asignará a los nuevos alumnos cuando se incorporen a su clase.",
       "infoAutocorrect": " Esta actividad tiene corrección automática",
       "infoEvaluation": " En el modo de evaluación, los alumnos sólo pueden enviar la actividad una vez y no tienen acceso a las pistas y avisos."
@@ -1467,6 +1474,10 @@
       "closeDetail": "Cerrar el detalle",
       "restrictions": "Restricciones de la actividad",
       "appRestricted": "Crear más actividades",
+      "appOutDated": " La suscripción a la aplicación ha expirado.",
+      "appOutDatedUL1": " Su suscripción a esta aplicación ha expirado.",
+      "appOutDatedUL2": " Para seguir utilizando esta aplicación, póngase en contacto con su administrador.",
+      "appOutDatedSubtitle3": " Contactar con el servicio de asistencia",
       "appRestrictedUL1": "Ha alcanzado el límite de {{actividades}} asociadas a su cuenta.",
       "appRestrictedUL2": "Para añadir actividades adicionales, póngase en contacto con su administrador.",
       "appRestrictedSubtitle2": "¿Problemas con su suscripción?",

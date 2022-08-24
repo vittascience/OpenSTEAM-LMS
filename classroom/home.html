@@ -700,7 +700,9 @@
 </div>
 <div id="classroom-dashboard-activities-panel-teacher" style="display:none;" class="dashboard-block">
     <div class="d-flex justify-content-center c-primary-form row" style="margin: 0 auto;">
-        <div class="col-12 col-md-7">
+
+
+        <div class="col-12 col-lg-8 mt-2">
             <div class="d-flex flex-fill">
                 <input type="search" id="filter-activity-input" data-i18n="[placeholder]manager.buttons.search" class="flex-fill">
 
@@ -710,35 +712,42 @@
             </div>
         </div>
 
-        <div class="col-auto vertical-align-center">
-            <select name="filter-activity-select" id="filter-activity-select" class="c-primary-form">
-                <option value="desc" data-i18n="classroom.filter.desc"></option>
-                <option value="asc" data-i18n="classroom.filter.asc"></option>
-            </select>
-        </div>
+        <div class="col-12 col-md-auto vertical-align-center mt-2 space-evenly">
 
-        <div class="col-auto vertical-align-center">
-            <button  class="btn btn-folders mx-1" onclick="foldersManager.displayModeSwitch('card')" >
-                <img src="./assets/media/folders/cadrillage.svg?version=1.2.7c" alt="arb-folders" onload="SVGInject(this)">
-            </button>
-            <!-- <button class="btn btn-folders mx-1" onclick="foldersManager.displayModeSwitch('list')" >
-                <img src="./assets/media/folders/arborescence.svg?version=1.2.7c" alt="arb-folders" onload="SVGInject(this)">
-            </button> -->
+            <div class="col-auto mx-auto mt-2">
+                <select name="filter-activity-select" id="filter-activity-select" class="c-primary-form">
+                    <option value="desc" data-i18n="classroom.filter.desc"></option>
+                    <option value="asc" data-i18n="classroom.filter.asc"></option>
+                </select>
+            </div>
+
+            <div class="col-auto mt-2">
+                <button  class="btn btn-folders mx-1" onclick="foldersManager.displayModeSwitch('card')" >
+                    <img src="assets/media/folders/cadrillage.svg" alt="arb-folders" onload="SVGInject(this)">
+                </button>
+                <button class="btn btn-folders mx-1" onclick="foldersManager.displayModeSwitch('list')" >
+                    <img src="assets/media/folders/arborescence.svg" alt="arb-folders" onload="SVGInject(this)">
+                </button>
+            </div>
         </div>
     </div>
 
-    </br>
+    <div class="buttons-interactions flex-wrap d-inline-flex col-12 mt-3">
 
-    <div class="buttons-interactions flex-wrap">
-        <button id="new-activity-panel1" onclick="showExercicePanel()" class=" btn c-btn-outline-secondary"><span class="mr-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
-        </button>
+        <div class="col-12 col-sm-3 mt-2 d-flex justify-content-center">
+            <button id="new-activity-panel1" onclick="showExercicePanel()" class=" btn c-btn-outline-secondary"><span class="mr-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
 
-        <button class="btn btn-folders" id="new-activities-folder" onclick="foldersManager.openFolderModal()" >
-            <img src="./assets/media/folders/createFolder.svg?version=1.2.7c" alt="folders" onload="SVGInject(this)">
-        </button>
-        <button class="btn btn-folders" onclick="foldersManager.seekFolderModal()">
-            <img src="./assets/media/folders/arborescence.svg?version=1.2.7c" alt="arb-folders" onload="SVGInject(this)">
-        </button>
+        <div class="col-12 col-sm-auto mt-2 d-inline-flex justify-content-center">
+            <button class="btn btn-folders" id="new-activities-folder" onclick="foldersManager.openFolderModal()" >
+                <img src="assets/media/folders/createFolder.svg" alt="folders" onload="SVGInject(this)">
+            </button>
+            <button class="btn btn-folders" onclick="foldersManager.seekFolderModal()">
+                <img src="assets/media/folders/icon_arborescence.svg" alt="arb-folders" onload="SVGInject(this)">
+            </button>
+        </div>
+
     </div>
 
     <div id="list-activities-teacher">
@@ -1650,7 +1659,7 @@
 
 
 
-        <div class="section-preview-activity" style="display:none;">
+        <div class="section-preview-activity" id="activity-preview-div">
 
             <div class="section-header-preview-activity" onclick="activityPreviewToggler()">
                 <i id="i-activity-preview" class="ml-2 fas fa-lg fa-chevron-up"></i>
@@ -1861,25 +1870,25 @@
     src="assets/js/lib/i18nextBrowserLanguageDetector.min.js?version=1.2.7c">
 </script>
 <!-- build:js-classroom -->
-<script src="assets/js/utils/url.js?version=1.2.7c"></script>
-<script src="assets/js/utils/parsingJson.js?version=1.2.7c"></script>
-<script src="assets/js/utils/text.js?version=1.2.7c"></script>
-<script src="assets/js/lib/rotate.js?version=1.2.7c"></script>
-<script src="assets/js/utils/bbcodeToHtml.js?version=1.2.7c"></script>
-<script src="assets/js/utils/activityContentManager.js?version=1.2.7c"></script>
-<script src="assets/js/utils/registrationTemplate.js?version=1.2.7c"></script>
-<script src="assets/js/scripts/disconnect.js?version=1.2.7c"></script>
-<script src="assets/js/scripts/dashboardActivities.js?version=1.2.7c"></script>
-<script src="assets/js/scripts/teacherActivities.js?version=1.2.7c"></script>
-<script src="assets/js/scripts/manageClassroom.js?version=1.2.7c"></script>
-<script src="assets/js/scripts/displayPanel.js?version=1.2.7c"></script>
-<script src="assets/js/main/modal.js?version=1.2.7c"></script>
-<script src="assets/js/constants/modals.js?version=1.2.7c"></script>
-<script src="assets/js/scripts/buttons.js?version=1.2.7c"></script>
-<script src="assets/js/scripts/ActivityTracker.js?version=1.2.7c"></script>
-<script src="assets/js/scripts/activityManager.js?version=1.2.7c"></script>
-<script src="assets/js/scripts/classroomDisplay.js?version=1.2.7c"></script>
-<script src="assets/js/scripts/folderManager.js?version=1.2.7c" defer></script>
+<script src="assets/js/utils/url.js"></script>
+<script src="assets/js/utils/parsingJson.js"></script>
+<script src="assets/js/utils/text.js"></script>
+<script src="assets/js/lib/rotate.js"></script>
+<script src="assets/js/utils/bbcodeToHtml.js"></script>
+<script src="assets/js/utils/activityContentManager.js"></script>
+<script src="assets/js/utils/registrationTemplate.js"></script>
+<script src="assets/js/scripts/disconnect.js"></script>
+<script src="assets/js/scripts/dashboardActivities.js"></script>
+<script src="assets/js/scripts/teacherActivities.js"></script>
+<script src="assets/js/scripts/manageClassroom.js"></script>
+<script src="assets/js/scripts/displayPanel.js"></script>
+<script src="assets/js/main/modal.js"></script>
+<script src="assets/js/constants/modals.js"></script>
+<script src="assets/js/scripts/buttons.js"></script>
+<script src="assets/js/scripts/ActivityTracker.js"></script>
+<script src="assets/js/scripts/activityManager.js"></script>
+<script src="assets/js/scripts/classroomDisplay.js"></script>
+<script src="assets/js/main/FoldersManager.js" defer></script>
 <!-- end build -->
 <script src="assets/js/main/Loader.js?version=1.2.7c"></script>
 <script src="assets/js/main/UIManager.js?version=1.2.7c"></script>
@@ -1893,9 +1902,8 @@
 <script src="assets/js/main/Main.js?version=1.2.7c"></script>
 <script src="assets/js/main/Loader.js?version=1.2.7c"></script>
 <!-- drag and drop bundle -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.11/dist/interact.min.js?version=1.2.7c"></script> -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.6.6/dragula.min.css?version=1.2.7c" integrity="sha512-49xW99xceMN8dDoWaoCaXvuVMjnUctHv/jOlZxzFSMJYhqDZmSF/UnM6pLJjQu0YEBLSdO1DP0er6rUdm8/VqA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.6.6/dragula.min.js?version=1.2.7c" integrity="sha512-MrA7WH8h42LMq8GWxQGmWjrtalBjrfIzCQ+i2EZA26cZ7OBiBd/Uct5S3NP9IBqKx5b+MMNH1PhzTsk6J9nPQQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" type="text/css" href="assets/css/dragula.css?version=1.2.7c">
+<script src="assets/js/lib/dragula.js?version=1.2.7c" ></script>
 
 <script>
     UIManager.init().then((resolve) => {
@@ -1940,7 +1948,6 @@
                                 $('body').addClass('theme-student')
                                 $('.user-picture').attr('src', '/classroom/assets/media/alphabet/' + UserManager.getUser().pseudo.slice(0, 1).toUpperCase() + '.png')
                                 Main.getClassroomManager().getMyClassroom(UserManager.getUser().id).then(function (classroom) {
-                                    console.log($_GET('panel'))
                                     $('#classroom-name').html(classroom.name)
                                     ClassroomSettings.classroom = classroom.link
                                     if ($_GET('panel') && (ClassroomSettings.mixPanels.includes($_GET('panel')) || ClassroomSettings.studentPanels.includes($_GET('panel')))) {

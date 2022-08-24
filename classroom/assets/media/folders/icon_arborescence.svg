@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26.365" height="26.365" viewBox="0 0 26.365 26.365">
+  <defs>
+    <style>
+      .clsfd-1 {
+        fill: none;
+        stroke: var(--classroom-primary);
+        stroke-miterlimit: 10;
+      }
+
+      .clsfd-2 {
+        fill: var(--classroom-primary);
+      }
+    </style>
+  </defs>
+  <g id="Groupe_3525" data-name="Groupe 3525" transform="translate(-1157.022 -68.824)">
+    <g id="Visualisation_en_ligne" data-name="Visualisation en ligne" transform="translate(-1299.588 5432.657)">
+      <rect id="Rectangle_66" data-name="Rectangle 66" class="clsfd-1" width="25.365" height="25.365" rx="3" transform="translate(2457.11 -5363.333)"/>
+    </g>
+    <g id="noun-network-317687" transform="translate(1153.435 64.705)">
+      <path id="Tracé_6572" data-name="Tracé 6572" class="clsfd-2" d="M58.715,61.262l.016-.391,8.677.352-.016.391Z" transform="translate(-42.833 -44.267)"/>
+      <path id="Tracé_6573" data-name="Tracé 6573" class="clsfd-2" d="M57.734,28.26l1.719-7.888.382.084-1.719,7.888Z" transform="translate(-42.04 -11.509)"/>
+      <path id="Tracé_6574" data-name="Tracé 6574" class="clsfd-2" d="M70.684,27.94l.364-.143,4.863,12.335-.364.143Z" transform="translate(-52.515 -17.515)"/>
+      <path id="Tracé_6575" data-name="Tracé 6575" class="clsfd-2" d="M58.6,61.422l.272-.281,6.338,6.115-.272.281Z" transform="translate(-42.742 -44.485)"/>
+      <path id="Tracé_6576" data-name="Tracé 6576" class="clsfd-2" d="M30.238,63.3l5.469-3.053.191.342-5.469,3.053Z" transform="translate(-19.799 -43.762)"/>
+      <path id="Tracé_6577" data-name="Tracé 6577" class="clsfd-2" d="M39.605,44.732l.262-.29,3.523,3.18-.262.29Z" transform="translate(-27.376 -30.978)"/>
+      <path id="Tracé_6578" data-name="Tracé 6578" class="clsfd-2" d="M52.347,53.438a1.982,1.982,0,1,1-1.981-1.981,1.982,1.982,0,0,1,1.981,1.981" transform="translate(-34.476 -36.653)"/>
+      <path id="Tracé_6579" data-name="Tracé 6579" class="clsfd-2" d="M35.34,38.662A1.541,1.541,0,1,1,33.8,37.122a1.541,1.541,0,0,1,1.541,1.541" transform="translate(-21.433 -25.057)"/>
+      <path id="Tracé_6580" data-name="Tracé 6580" class="clsfd-2" d="M60.185,8.909a2.765,2.765,0,1,1-2.765-2.765,2.764,2.764,0,0,1,2.765,2.765" transform="translate(-39.55 0)"/>
+      <path id="Tracé_6581" data-name="Tracé 6581" class="clsfd-2" d="M12.023,62.908a3.131,3.131,0,1,1-3.131-3.131,3.131,3.131,0,0,1,3.131,3.131" transform="translate(0 -43.382)"/>
+      <path id="Tracé_6582" data-name="Tracé 6582" class="clsfd-2" d="M87.828,84.167a3.914,3.914,0,1,1-3.914-3.914,3.914,3.914,0,0,1,3.914,3.914" transform="translate(-60.05 -59.945)"/>
+      <path id="Tracé_6583" data-name="Tracé 6583" class="clsfd-2" d="M100.4,58.775A1.174,1.174,0,1,1,99.225,57.6a1.174,1.174,0,0,1,1.174,1.174" transform="translate(-74.651 -41.623)"/>
+    </g>
+  </g>
+</svg>

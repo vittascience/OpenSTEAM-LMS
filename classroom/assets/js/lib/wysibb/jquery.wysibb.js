@@ -259,7 +259,7 @@ wbbdebug = false;
 			allButtons: {
 				vittaiframe: {
 					title: CURLANG.vittaiframe,
-					buttonHTML: '<img src="/learn/assets/media/SigleVittascience.svg?version=1.2.7c" height="26" height="26" style="margin-top: 2px;"/>',
+					buttonHTML: '<img src="/classroom/assets/media/activity/SigleVittascience.svg?version=1.2.12a" height="26" height="26" style="margin-top: 2px;"/>',
 					hotkey: '',
 					modal: {
 						title: CURLANG.modal_vitta_title,
@@ -268,7 +268,7 @@ wbbdebug = false;
 							input: [{
 								param: "URL",
 								title: CURLANG.modal_vitta_url,
-								validation: '^http(s)?:\/\/(fr.|en.|valpha.|vgamma.|vdelta.|vbeta.|)vittascience(.com)?'
+								validation: '^http(s)?:\/\/(fr.|en.|valpha.|vgamma.|vdelta.|vbeta.|vepsilon.|veta.|vtheta.|viota.|vkappa.|vzeta.|vdev.|)vittascience(.com)?'
 							}]
 						}]
 					},
@@ -744,7 +744,7 @@ wbbdebug = false;
 				},
 				genialyiframe: {
 					title: CURLANG.genialy,
-					buttonHTML: '<img class="fonticon ve-tlb-link1" src="/learn/assets/media/SigleGenially.png?version=1.2.7c" width="26" height="26" style="margin-top: 2px;" />',
+					buttonHTML: '<img class="fonticon ve-tlb-link1" src="/learn/assets/media/SigleGenially.png?version=1.2.12a" width="26" height="26" style="margin-top: 2px;" />',
 					hotkey: '',
 					modal: {
 						title: CURLANG.modal_genialy_title,
