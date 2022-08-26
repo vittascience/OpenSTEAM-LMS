@@ -1319,7 +1319,8 @@ h3.section-done {
 }
 
 .sandbox-item,
-.activity-item {
+.activity-item,
+.course-item {
     cursor: pointer;
     display: grid;
     grid-template-columns: 100%;
@@ -1331,7 +1332,8 @@ h3.section-done {
 }
 
 .sandbox-item-title,
-.activity-item-title {
+.activity-item-title,
+.course-item-title {
     color: var(--classroom-text-1);
     font-size: 1em;
     font-weight: 700;
@@ -1363,6 +1365,21 @@ h3.section-done {
     position: relative;
 }
 
+.course-card {
+    height: 100%;
+    width: 100%;
+    background-color: var(--classroom-primary);
+    background: url("../media/cards/card-course.jpg");
+    border-radius: 1.2em;
+    background-clip: content-box;
+    background-size: cover;
+    color: white;
+
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-rows: auto 1fr auto;
+    position: relative;
+}
 /*
     Folders
 */
@@ -1539,6 +1556,7 @@ h3.section-done {
     Activities & folders list mode
 */
 .folder-item-list,
+.course-item-list,
 .activity-item-list {
     width: 100%;
     height: auto;
@@ -1548,6 +1566,7 @@ h3.section-done {
 }
 
 .activity-list,
+.course-list,
 .folder-list {
     display: grid;
     grid-template-columns: auto 1fr auto;
@@ -1601,7 +1620,8 @@ h3.section-done {
     position: relative;
 }
 
-.activity-list .activity-list-center {
+.activity-list .activity-list-center,
+.course-list .course-list-center {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -1612,12 +1632,14 @@ h3.section-done {
 
 /* On medium screens we update the list item to have two rows for better content display */
 @media (max-width: 768px) {
-    .activity-list .activity-list-center {
+    .activity-list .activity-list-center,
+    .course-list .course-list-center {
         flex-direction: column;
     }
 }
 
 .activity-list-title,
+.course-list-title,
 .folder-list-title {
     font-weight: bold;
 
@@ -1630,11 +1652,13 @@ h3.section-done {
     margin-inline: 0.5rem;
 }
 
-.activity-list-auto svg {
+.activity-list-auto svg,
+.course-list-auto svg {
     height: 1rem;
 }
 
 .activity-list-options,
+.course-list-options,
 .folder-list-options {
     color: var(--classroom-text-2);
 }
@@ -1715,22 +1739,27 @@ h3.section-done {
 .sandbox-card .sandbox-card-top,
 .sandbox-card .sandbox-card-bot,
 .activity-card .activity-card-top,
+.course-card .course-card-top,
+.course-card .course-card-bot,
 .activity-card .activity-card-bot {
     padding: 0.5em;
     text-align: right;
 }
 
-.activity-card .activity-card-top {
+.activity-card .activity-card-top,
+.course-card .course-card-top {
     display: inline-flex;
     justify-content: flex-end;
 }
 
-.activity-card .activity-card-top img {
+.activity-card .activity-card-top img,
+.course-card .course-card-top img {
     height: 25px;
     margin: 0 5px;
 }
 
 .sandbox-card .sandbox-card-top .dropdown i,
+.course-card .course-card-top .dropdown i,
 .activity-card .activity-card-top .dropdown i,
 .class-card .class-card-top .dropdown i,
 #body-table-teach .dropdown i {

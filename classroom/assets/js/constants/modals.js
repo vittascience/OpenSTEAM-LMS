@@ -185,14 +185,12 @@ const classroomModals = {
             icon: '',
             title: 'classroom.modals.attributeActivity.title'
         },
-        content: `
-    <h4 class="c-text-primary font-weight-bold text-uppercase" data-i18n="classroom.classes.selectStudents">Sélectionner des apprenants</h4>
-    <p class='text-center' data-i18n="[html]classroom.classes.selectedStudents"><span class="student-number" id="attribuate-student-number">0</span> apprenants sélectionnés</p>
-    <div class="container-fluid">
-        <div id="list-student-attribute-modal" class="row justify-content-center c-primary-form"></div>
-    </div>
-    <button id="attribute-activity-to-students-close" class="btn btn-lg c-btn-primary" data-i18n="manager.buttons.validate">Valider</button>
-                `,
+        content: `  <h4 class="c-text-primary font-weight-bold text-uppercase" data-i18n="classroom.classes.selectStudents">Sélectionner des apprenants</h4>
+                    <p class='text-center' data-i18n="[html]classroom.classes.selectedStudents"><span class="student-number" id="attribuate-student-number">0</span> apprenants sélectionnés</p>
+                    <div class="container-fluid">
+                        <div id="list-student-attribute-modal" class="row justify-content-center c-primary-form"></div>
+                    </div>
+                    <button id="attribute-activity-to-students-close" class="btn btn-lg c-btn-primary" data-i18n="manager.buttons.validate">Valider</button>`,
         footer: ``
     },
     'list-classes-modal': {
@@ -1324,4 +1322,29 @@ const classroomModals = {
                     </div>`,
         footer: ``
     },
+    'course-manager-modal': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.courses.coursesManager'
+        },
+        content: `  <div id="folder-manager-modal-content">
+                        <div class="col-12" id="delete-course-manager">
+                    
+                            <h3 class="font-weight-bold text-danger m-auto text-center" data-i18n="classroom.activities.coursesMessages.deleteFolder">Confirmer la suppression</h3>
+                            <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>
+                    
+                            <div class="text-center c-secondary-form">
+                                <input type="hidden" name="validation-delete-course-id" id="validation-delete-course-id">
+                                <input type="text" name="validation-delete-course" id="validation-delete-course" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                            </div>
+                    
+                            <div class="text-center">
+                                <button class="btn c-btn-red mx-auto mt-3 btn-lg" onclick="coursesManager.persistDeleteCourse()" data-i18n="manager.buttons.validate">Valider</button>
+                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="coursesManager.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
+                            </div>
+                        </div>
+                    </div>`,
+        footer: ``
+    }
 }
