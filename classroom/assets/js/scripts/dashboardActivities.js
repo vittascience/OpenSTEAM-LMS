@@ -217,6 +217,7 @@ function teacherFolder(folder, displayStyle) {
     return content;
 }
 
+
 function classeItem(classe, nbStudents, students) {
     function maxLength(array) {
         let count = 0

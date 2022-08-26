@@ -5,6 +5,7 @@ class CoursesManager {
      * @public
      */
     constructor() {
+        this.myCourses = [];
         this.courseData = {
             courses: [],
             title: null,
@@ -19,6 +20,11 @@ class CoursesManager {
         };
         this.dragula = null;
         this.resetCourseData = null;
+        this.attributeData = {
+            students: [],
+            classrooms: [],
+            courseId: null,
+        };
     }
 
     init() {
@@ -37,6 +43,15 @@ class CoursesManager {
                 }
             }
         };
+
+        this._requestGetMyCourseTeacher().then((res) => {
+            this.myCourses = res;
+        });
+
+        $('#new-course-attribute').click(function () {
+            pseudoModal.openModal('attribute-activity-modal');
+            $("#attribute-activity-modal").localize();
+        })
     }
 
     goToCreate(fresh = false) {
@@ -265,57 +280,175 @@ class CoursesManager {
         }
     }
 
-    //création activité vers attribution
-    attributeActivity(id, ref = null) {
-
-        $("#assign-total-student-number").text(0);
-
-        Main.getClassroomManager()._idActivityOnAttribution = id;
-    
-        if (id == 0) {
-            id = Main.getClassroomManager()._lastCreatedActivity;
-        }
-
-        ClassroomSettings.activity = id
-        ClassroomSettings.ref = ref
-
-        document.getElementsByClassName('student-number')[0].textContent = '0';
-
-        $('#list-student-attribute-modal').html('')
-        listStudentsToAttribute(ref)
-        $('#form-autocorrect').hide()
-        ClassroomSettings.willAutocorrect = false;
-        navigatePanel('classroom-dashboard-new-activity-panel3', 'dashboard-activities-teacher', ref);
-
-    }
-
     updateCourse() {
 
     }
 
-    attributeCourse(courseId, students, classrooms) {
-
+    attributeCourse(id = null) {
         $("#assign-total-student-number-course").text(0);
-
-        if (id == 0) {
-            id = Main.getClassroomManager()._lastCreatedActivity;
+        
+        if (id) {
+            this.actualCourse = id;
         }
 
-        ClassroomSettings.activity = id
-        ClassroomSettings.ref = ref
+        if (id < 1) {
+            displayNotification('#notif-div', "informations manquantes", "error");
+            return;
+        }
 
+        //document.getElementsByClassName('course-student-number')[0].textContent = '0';
+        
         document.getElementsByClassName('student-number')[0].textContent = '0';
-
-        $('#list-student-attribute-modal').html('')
-        listStudentsToAttribute(ref)
+        
+        $('#list-student-attribute-modal').html('');
+        this.listStudentsToAttributeForCouse();
 
         navigatePanel('classroom-dashboard-classes-new-course-attribution-select', 'dashboard-activities-teacher');
-
-
-        
-        this._requestUsersLinkCourse(courseId, students, classrooms);
     }
 
+    persistAttribution() {
+        let students = [],
+            classrooms = [],
+            studentId = $('#attribute-activity-modal .student-attribute-form-row');
+
+        const retroAttribution = $('#retro-attribution-activity-form').prop('checked')
+        
+        for (let i = 0; i < studentId.length; i++) {
+            if ($(studentId[i]).find(".student-id").is(':checked')) {
+                students.push($(studentId[i]).find(".student-id").val())
+                let classId = $(studentId[i]).parent().attr("id").substring(13)
+                if (!classrooms.includes(classId)) {
+                    classrooms.push(classId)
+                }
+            }
+        }
+
+        if (students.length == 0) {
+            $('#attribute-course-to-students').attr('disabled', false)
+            displayNotification('#notif-div', "classroom.notif.mustAttributeToStudent", "error")
+        } 
+
+        this._requestUsersLinkCourse(this.actualCourse, students, classrooms).then((res) => {
+            if (res == true) {
+                displayNotification('#notif-div', "classroom.notif.courseAttributed", "success")
+                $('#attribute-course-to-students').attr('disabled', false)
+                navigatePanel('classroom-dashboard-activities-panel-teacher&nav=dashboard-activities-teacher', 'dashboard-activities-teacher');
+            } else {
+                displayNotification('#notif-div', "classroom.notif.courseNotAttributed", "error")
+            }
+        });
+    }
+
+    listStudentsToAttributeForCouse() {
+        let classes = Main.getClassroomManager()._myClasses;
+        if (classes.length == 0) {
+            $('#attribute-activity-to-students-close').after(NO_CLASS);
+            $('#attribute-activity-to-students-close').hide();
+    
+        } else {
+            classes.forEach(element => {
+                $('#list-student-attribute-modal').append(classeList(element));
+            });
+            $('.no-classes').remove();
+            $('#attribute-activity-to-students-close').show();
+        }
+    }
+
+    showMyCourses() {
+        const courses = this.courseData.courses;
+    }
+
+
+    deleteCourse(id) {
+        this.resetInputs();
+        this.actualCourse = id;
+        pseudoModal.openModal("course-manager-modal");
+    }
+
+    resetInputs() {
+        document.getElementById('validation-delete-course').value = '';
+    }
+
+    duplicateCourse(id) {
+    
+    }
+
+    updateCourse(id) {
+
+    }
+
+    moveCourseToFolder(id) {
+
+    }
+
+    teacherCourseItem(course, displayStyle) {
+
+        let content = "";
+        if (displayStyle == "card") {
+            content = `<div class="course-item course-teacher" data-id="${course.id}">
+                            <div>
+                                <div class="course-card">
+                                    <div class="course-card-top">
+                                    <div class="dropdown">
+                                        <i class="fas fa-cog fa-2x" type="button" id="dropdown-courseItem-${course.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        </i>
+                                        <div class="dropdown-menu" aria-labelledby="dropdown-courseItem-${course.id}" data-id="${course.id}">
+                                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="coursesManager.attributeCourse(${course.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
+                                            <li class="dropdown-item classroom-clickable col-12" href="#" onclick="coursesManager.duplicateCourse(${course.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
+                                            <li class=" classroom-clickable col-12 dropdown-item" onclick="coursesManager.updateCourse(${course.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
+                                            <li class="dropdown-item modal-course-delete classroom-clickable col-12" href="#" onclick="coursesManager.deleteCourse(${course.id})">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
+                                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="coursesManager.moveCourseToFolder(${course.id})">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <div class="course-card-mid">
+                                </div>
+                                <div class="course-card-bot">
+                                    <div class="info-tutorials" data-id="${course.id}">
+                                    </div>
+                                </div>
+                                </div>
+                                <h3 data-toggle="tooltip" title="${course.title}" class="course-item-title">${course.title}</h3>
+                            </div>
+                        </div>`
+        } else if (displayStyle == "list") {
+    
+            let activityImg = "<span class='list-item-img'> <div class='list-item-no-icon'><i class='fas fa-laptop'></i></div></span>";
+            /* let activityTypeImg = activity.type != null && "" ?  */
+            content = `<div class="row course-item-list" data-id="${course.id}">
+                <div class="container-draggable">
+                    <div class="course-list">
+                        <div class="course-list-icon">
+                            ${activityImg}
+                        </div>
+        
+                        <div class="course-list-center">
+                            <div class="course-list-title">
+                                ${course.title}
+                            </div>
+                        </div>
+        
+                        <div class="course-list-options">
+                            <div class="course-list-options dropdown">
+                                <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-courseItem-${course.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                </i>
+                                <div class="dropdown-menu" aria-labelledby="dropdown-list-courseItem-${course.id}" data-id="${course.id}">
+                                    <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="coursesManager.attributeCourse(${course.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
+                                    <li class="dropdown-item classroom-clickable col-12" href="#" onclick="">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
+                                    <li class=" classroom-clickable col-12 dropdown-item" onclick="" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
+                                    <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
+                                    <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-tutorials d-none" data-id="${course.id}"></div>
+                        
+                    </div>
+                </div>
+            </div>`
+        }
+        return content;
+    }
 
 
     _requestAddCourse() {
@@ -324,6 +457,25 @@ class CoursesManager {
                 type: "POST",
                 url: "/routing/Routing.php?controller=course&action=add_from_classroom",
                 data: {
+                    course: JSON.stringify(this.courseData)
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject('error')
+                }
+            });
+        })
+    }
+
+    _requestUpdateCourse(id) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=course&action=update_from_classroom",
+                data: {
+                    courseId: id,
                     course: JSON.stringify(this.courseData)
                 },
                 success: function (response) {
@@ -356,6 +508,48 @@ class CoursesManager {
         })
     }
 
+    _requestGetMyCourseTeacher() {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=user_link_course&action=get_my_courses_as_teacher",
+                success: (response) => {
+                    let courses = [];
+                    response = JSON.parse(response);
+                    response.forEach(course => {
+                        // keep only course when linked to activity
+                        if (course.hasOwnProperty("activities")) {
+                            courses.push(course);
+                        }
+                    });
+                    resolve(courses);
+                },
+                error: function () {
+                    reject('error')
+                }
+            });
+        })
+    }
+
+
+    _requestMoveCourseToFolder(courseId, folderId) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=course&action=moveCourseToFolder",
+                data: {
+                    courseId: activityId,
+                    folderId: folderId
+                },
+                success: function (res) {
+                    resolve(JSON.parse(res));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
 }
 // Initialize
 const coursesManager = new CoursesManager();

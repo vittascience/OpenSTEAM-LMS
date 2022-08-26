@@ -534,12 +534,16 @@ document.addEventListener('change', (e) => {
         }
 
         document.querySelector('#assign-total-student-number').innerHTML = selectedStudentNumber.toString();
+        document.querySelector('#assign-total-student-number-course').innerHTML = selectedStudentNumber.toString();
         document.querySelector('#attribuate-student-number').innerText = selectedStudentNumber;
 
         if (selectedStudentNumber > 0) {
             document.querySelector('#attribute-activity-to-students').removeAttribute('disabled');
+            document.querySelector('#attribute-course-to-students').removeAttribute('disabled');
+
         } else {
             document.querySelector('#attribute-activity-to-students').setAttribute('disabled', '');
+            document.querySelector('#attribute-course-to-students').setAttribute('disabled', '');
         }
     }
     $('.student-number').html(ClassroomSettings.studentCount);
@@ -549,6 +553,14 @@ document.addEventListener('change', (e) => {
             document.getElementById('attribute-activity-to-students').removeAttribute('disabled');
         } else {
             document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');
+        }
+    }
+
+    if (document.querySelector('#assign-total-student-number-course') != null) {
+        if (document.querySelector('#assign-total-student-number-course').textContent != '0') {
+            document.getElementById('attribute-course-to-students').removeAttribute('disabled');
+        } else {
+            document.getElementById('attribute-course-to-students').setAttribute('disabled', '');
         }
     }
 })
@@ -564,8 +576,10 @@ $('body').on('change', '.list-students-classroom', function () {
     $('.student-number').html(ClassroomSettings.studentCount)
     if (document.querySelector('.student-number').textContent != '0') {
         document.getElementById('attribute-activity-to-students').removeAttribute('disabled');
+        document.getElementById('attribute-course-to-students').removeAttribute('disabled');
     } else {
         document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');
+        document.getElementById('attribute-course-to-students').setAttribute('disabled', '');
     }
 })
 
@@ -886,6 +900,11 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
     });
 
 
+    coursesManager.myCourses.forEach(course => {
+        $('#list-activities-teacher').append(coursesManager.teacherCourseItem(course, displayStyle)); 
+    });
+
+
     foldersManager.dragulaInitObjects();
     $('[data-toggle="tooltip"]').tooltip();
 }
@@ -949,6 +968,7 @@ function formatDay(da) {
     let translatedMonth = i18next.t("classroom.activities.month." + parseInt(d.getMonth() + 1) );
     return d.getDate() + " " + (translatedMonth) + " " + d.getFullYear();
 }
+
 
 function formatHour(da) {
     let d = new Date(da.date);
