@@ -901,7 +901,13 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
 
 
     coursesManager.myCourses.forEach(course => {
-        $('#list-activities-teacher').append(coursesManager.teacherCourseItem(course, displayStyle)); 
+        if (course.folder == null && foldersManager.actualFolder == null) {
+            $('#list-activities-teacher').append(coursesManager.teacherCourseItem(course, displayStyle)); 
+        } else if (course.folder != null) {
+            if (course.folder.id == foldersManager.actualFolder) {
+                $('#list-activities-teacher').append(coursesManager.teacherCourseItem(course, displayStyle)); 
+            }
+        }
     });
 
 
