@@ -372,6 +372,10 @@ class FoldersManager {
             this.moveActivityToFolder(this.objectId, folderId).then(res => {
                 this.manageResponseFromMoved(res);
             })
+        } else if (this.objectToMove == "course") {
+            this.moveCourseToFolder(this.objectId, folderId).then(res => {
+                this.manageResponseFromMoved(res);
+            })
         }
         this.resetInputs();
     }
@@ -578,6 +582,25 @@ class FoldersManager {
                 data: {
                     folderId: folderId,
                     destinationFolderId: destinationFolderId
+                },
+                success: function (res) {
+                    resolve(JSON.parse(res));
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
+    moveCourseToFolder(courseId, folderId) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=course&action=moveCourseToFolder",
+                data: {
+                    courseId: courseId,
+                    folderId: folderId
                 },
                 success: function (res) {
                     resolve(JSON.parse(res));

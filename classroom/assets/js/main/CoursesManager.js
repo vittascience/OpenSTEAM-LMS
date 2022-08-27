@@ -44,9 +44,7 @@ class CoursesManager {
             }
         };
 
-        this._requestGetMyCourseTeacher().then((res) => {
-            this.myCourses = res;
-        });
+        this.actualizeCourse();
 
         $('#new-course-attribute').click(function () {
             pseudoModal.openModal('attribute-activity-modal');
@@ -78,7 +76,6 @@ class CoursesManager {
         if (fromParameters) {
             this._requestAddCourse().then((res) => {
                 if (res.hasOwnProperty('success')) {
-                    console.log(res);
                     this.courseId = res.course.id;
                     navigatePanel('classroom-dashboard-classes-new-course-attribution', 'dashboard-activities-teacher');
                     this.resetCourseData();
@@ -281,7 +278,8 @@ class CoursesManager {
     }
 
     updateCourse() {
-
+        const id = this.actualCourse;
+        
     }
 
     attributeCourse(id = null) {
@@ -291,13 +289,10 @@ class CoursesManager {
             this.actualCourse = id;
         }
 
-        if (id < 1) {
-            displayNotification('#notif-div', "informations manquantes", "error");
-            return;
+        if (this.actualCourse < 1) {
+            return displayNotification('#notif-div', "Id de parcours manquant", "error");
         }
 
-        //document.getElementsByClassName('course-student-number')[0].textContent = '0';
-        
         document.getElementsByClassName('student-number')[0].textContent = '0';
         
         $('#list-student-attribute-modal').html('');
@@ -377,9 +372,38 @@ class CoursesManager {
 
     }
 
-    moveCourseToFolder(id) {
-
+    actualizeCourse(fromDeletion = false) {
+        this._requestGetMyCourseTeacher().then((res) => {
+            this.myCourses = res;
+            if (fromDeletion) {
+                teacherActivitiesDisplay();
+            }
+        });
     }
+
+    moveCourseToFolder(id) {
+        foldersManager.moveToFolderModal(id, 'course');
+    }
+
+    persistDeleteCourse() {
+        let id = this.actualCourse;
+        if ($("#validation-delete-course").val() == $("#validation-delete-course").attr("placeholder")) {
+            this._requestDeleteCourse(id).then((res) => {
+                if (res.hasOwnProperty("success")) {
+                    if (res.success) {
+                        this.actualizeCourse(true);
+                        displayNotification('#notif-div', "classroom.notif.courseDeleted", "success");
+                        pseudoModal.closeModal("course-manager-modal");
+                    } else {
+                        displayNotification('#notif-div', "classroom.notif.courseNotDeleted", "error");
+                    }
+                } else {
+                    displayNotification('#notif-div', "manager.input.writeDelete", "error");
+                }
+            });
+        }
+    }
+                
 
     teacherCourseItem(course, displayStyle) {
 
@@ -488,6 +512,24 @@ class CoursesManager {
         })
     }
 
+    _requestDeleteCourse(id) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=course&action=delete_from_classroom",
+                data: {
+                    courseId: id,
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject('error')
+                }
+            });
+        })
+    }
+
     _requestUsersLinkCourse(courseId, students, classrooms) {
         return new Promise((resolve, reject) => {
             $.ajax({
@@ -532,24 +574,7 @@ class CoursesManager {
     }
 
 
-    _requestMoveCourseToFolder(courseId, folderId) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "POST",
-                url: "/routing/Routing.php?controller=course&action=moveCourseToFolder",
-                data: {
-                    courseId: activityId,
-                    folderId: folderId
-                },
-                success: function (res) {
-                    resolve(JSON.parse(res));
-                },
-                error: function () {
-                    reject();
-                }
-            });
-        })
-    }
+
 }
 // Initialize
 const coursesManager = new CoursesManager();
