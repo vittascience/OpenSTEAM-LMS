@@ -6,6 +6,9 @@ class CoursesManager {
      */
     constructor() {
         this.myCourses = [];
+        this.courseId = null;
+        this.isUpdate = false;
+        this.lastestCourse = null;
         this.courseData = {
             courses: [],
             title: null,
@@ -29,9 +32,11 @@ class CoursesManager {
 
     init() {
         this.dragula = dragula();
-        this.courseId = null;
         this.resetCourseData = () => {
+            this.isUpdate = false;
+            this.courseId = null;
             this.courseData = {
+                courses: [],
                 title: null,
                 description: null,
                 image: null,
@@ -42,6 +47,7 @@ class CoursesManager {
                     license: null,
                 }
             }
+            this.refreshCourses();
         };
 
         this.actualizeCourse();
@@ -56,7 +62,7 @@ class CoursesManager {
         if (fresh) {
             this.courseData.courses = [];
         }
-        this.refrashCourses();
+        this.refreshCourses();
         navigatePanel('classroom-dashboard-classes-new-course', 'dashboard-activities-teacher');
     }
 
@@ -64,25 +70,59 @@ class CoursesManager {
         if (this.courseData.title != null && this.courseData.description != null) {
             document.getElementById('course-title').value = this.courseData.title;
             document.getElementById('course-description').value = this.courseData.description;
+        } else {
+            document.getElementById('course-title').value = '';
+            document.getElementById('course-description').value = '';
         }
         navigatePanel('classroom-dashboard-classes-new-course-title', 'dashboard-activities-teacher');
     }
 
     goToParameters() {
+        if (this.courseData.parameters.duration != null) {
+            document.getElementById('course-duration').value = this.courseData.parameters.duration;
+        } else {
+            document.getElementById('course-duration').value = 1;
+        }
+        if (this.courseData.parameters.difficulty != null) {
+            document.getElementById('course-difficulty').value = this.courseData.parameters.difficulty;
+        } else {
+            document.getElementById('course-difficulty').value = '';
+        }
+        if (this.courseData.parameters.license != null) {
+            document.getElementById('course-license').value = this.courseData.parameters.license;
+        } else {
+            document.getElementById('course-license').value = '';
+        }
         navigatePanel('classroom-dashboard-classes-new-course-parameters', 'dashboard-activities-teacher');
     }
 
     goToAttribution(fromParameters = false) {
         if (fromParameters) {
-            this._requestAddCourse().then((res) => {
-                if (res.hasOwnProperty('success')) {
-                    this.courseId = res.course.id;
-                    navigatePanel('classroom-dashboard-classes-new-course-attribution', 'dashboard-activities-teacher');
-                    this.resetCourseData();
-                } else {
-                    displayNotification('error', res.message);
-                }
-            })
+
+            if (!this.isUpdate) {
+                this._requestAddCourse().then((res) => {
+                    if (res.hasOwnProperty('success')) {
+                        this.lastestCourse = res.course.id;
+                        navigatePanel('classroom-dashboard-classes-new-course-attribution', 'dashboard-activities-teacher');
+                        this.resetCourseData();
+                        this.actualizeCourse();
+                    } else {
+                        displayNotification('error', res.message);
+                    }
+                })
+            } else {
+                this._requestUpdateCourse().then((res) => {
+                    if (res.hasOwnProperty('success')) {
+                        this.lastestCourse = res.course.id;
+                        navigatePanel('classroom-dashboard-classes-new-course-attribution', 'dashboard-activities-teacher');
+                        this.resetCourseData();
+                        this.actualizeCourse();
+                    } else {
+                        displayNotification('error', res.message);
+                    }
+                });
+            }
+            
         }
     }
 
@@ -92,7 +132,7 @@ class CoursesManager {
         $('#i-course-options').toggleClass('fa-chevron-up')
     }
 
-    refrashCourses() {
+    refreshCourses() {
         const coursesDiv = document.getElementById('course-activities-content');
         coursesDiv.innerHTML = '';
         this.courseData.courses.forEach(course => {
@@ -129,6 +169,7 @@ class CoursesManager {
 
 
     showCoursePanel() {
+        this.resetCourseData();
         navigatePanel('classroom-dashboard-classes-new-course', 'dashboard-activities-teacher');
     }
 
@@ -153,6 +194,7 @@ class CoursesManager {
             });
         });
 
+        activitiesDiv.innerHTML = '';
         // create the list of activities
         activitiesToAdd.forEach(activity => {
             const   activityImg = foldersManager.icons.hasOwnProperty(activity.type) ? `<img class="list-item-img d-inline" src="${foldersManager.icons[activity.type]}" alt="${activity.type}" class="folder-icons">` : "<span class='list-item-img'> <div class='list-item-no-icon'><i class='fas fa-laptop'></i></div></span>",
@@ -224,7 +266,7 @@ class CoursesManager {
             }
         }
 
-        this.refrashCourses();
+        this.refreshCourses();
         this.emptyDivFromActivityToCourse();
         pseudoModal.closeModal('add-activity-to-course');
     }
@@ -233,7 +275,7 @@ class CoursesManager {
         this.courseData.courses = this.courseData.courses.filter(course => {
             return course.id !== activityId;
         });
-        this.refrashCourses();
+        this.refreshCourses();
     }
 
     cancelActivityToCourse() {
@@ -263,7 +305,7 @@ class CoursesManager {
     persistParameters() {
         const duration = document.getElementById('course-duration').value,
             difficulty = document.getElementById('course-difficulty').value,
-            language = document.getElementById('course-language').value,
+            language = getCookie("lng"),
             license = document.getElementById('course-license').value;
 
         if (duration && difficulty && language && license) {
@@ -277,19 +319,35 @@ class CoursesManager {
         }
     }
 
-    updateCourse() {
-        const id = this.actualCourse;
-        
+    restoreParametersForUpdate(course) {
+        this.isUpdate = true;
+        this.courseId = course.id;
+        this.courseData.title = course.title;
+        this.courseData.description = course.description;
+        this.courseData.image = course.image;
+        this.courseData.parameters.duration = course.duration;
+        this.courseData.parameters.difficulty = course.difficulty;
+        this.courseData.parameters.language = course.lang;
+        this.courseData.parameters.license = course.rights;
+
+        this.courseData.courses = [];
+        course.activities.forEach(item => {
+            this.courseData.courses.push(Main.getClassroomManager()._myTeacherActivities.find(activity => activity.id === item.id));
+        });
+        this.goToCreate(false);
     }
+
 
     attributeCourse(id = null) {
         $("#assign-total-student-number-course").text(0);
         
         if (id) {
-            this.actualCourse = id;
+            this.courseId = id;
+        } else {
+            this.courseId = this.lastestCourse;
         }
 
-        if (this.actualCourse < 1) {
+        if (this.courseId < 1) {
             return displayNotification('#notif-div', "Id de parcours manquant", "error");
         }
 
@@ -323,11 +381,11 @@ class CoursesManager {
             displayNotification('#notif-div', "classroom.notif.mustAttributeToStudent", "error")
         } 
 
-        this._requestUsersLinkCourse(this.actualCourse, students, classrooms).then((res) => {
+        this._requestUsersLinkCourse(this.courseId, students, classrooms).then((res) => {
             if (res == true) {
                 displayNotification('#notif-div', "classroom.notif.courseAttributed", "success")
                 $('#attribute-course-to-students').attr('disabled', false)
-                navigatePanel('classroom-dashboard-activities-panel-teacher&nav=dashboard-activities-teacher', 'dashboard-activities-teacher');
+                navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')
             } else {
                 displayNotification('#notif-div', "classroom.notif.courseNotAttributed", "error")
             }
@@ -349,14 +407,13 @@ class CoursesManager {
         }
     }
 
-    showMyCourses() {
+/*     showMyCourses() {
         const courses = this.courseData.courses;
-    }
-
+    } */
 
     deleteCourse(id) {
         this.resetInputs();
-        this.actualCourse = id;
+        this.courseId = id;
         pseudoModal.openModal("course-manager-modal");
     }
 
@@ -368,8 +425,21 @@ class CoursesManager {
     
     }
 
-    updateCourse(id) {
-
+    updateCourse(id = null) {
+        if (id == null) {
+            id = this.lastestCourse;
+        }
+        this._requestGetOneCourseById(id).then((res) => {
+            if (res.hasOwnProperty('success')) {
+                if (res.success) {
+                    this.restoreParametersForUpdate(res.course);
+                } else {
+                    displayNotification('#notif-div', "classroom.notif.errorCourse", "error")
+                }  
+            } else {
+                displayNotification('#notif-div', "classroom.notif.undefinedCourse", "error")
+            }
+        });
     }
 
     actualizeCourse(fromDeletion = false) {
@@ -386,7 +456,7 @@ class CoursesManager {
     }
 
     persistDeleteCourse() {
-        let id = this.actualCourse;
+        let id = this.courseId;
         if ($("#validation-delete-course").val() == $("#validation-delete-course").attr("placeholder")) {
             this._requestDeleteCourse(id).then((res) => {
                 if (res.hasOwnProperty("success")) {
@@ -402,6 +472,22 @@ class CoursesManager {
                 }
             });
         }
+    }
+
+    duplicateCourse(id) {
+        this._requestDuplicateCourse(id).then((res) => {
+            if (res.hasOwnProperty("success")) {
+                if (res.success) {
+                    this.actualizeCourse(true);
+                    displayNotification('#notif-div', "classroom.notif.courseDuplicated", "success");
+                    pseudoModal.closeModal("course-manager-modal");
+                } else {
+                    displayNotification('#notif-div', "classroom.notif.courseNotDuplicated", "error");
+                }
+            } else {
+                displayNotification('#notif-div', "manager.input.writeDuplicate", "error");
+            }
+        });
     }
                 
 
@@ -475,13 +561,13 @@ class CoursesManager {
     }
 
 
-    _requestAddCourse() {
+    _requestGetOneCourseById(id) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "POST",
-                url: "/routing/Routing.php?controller=course&action=add_from_classroom",
+                url: "/routing/Routing.php?controller=course&action=get_one_from_classroom",
                 data: {
-                    course: JSON.stringify(this.courseData)
+                    courseId: id
                 },
                 success: function (response) {
                     resolve(JSON.parse(response));
@@ -493,13 +579,32 @@ class CoursesManager {
         })
     }
 
-    _requestUpdateCourse(id) {
+    _requestAddCourse() {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=course&action=add_from_classroom",
+                data: {
+                    course: JSON.stringify(this.courseData),
+                    folder: foldersManager.actualFolder
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject('error')
+                }
+            });
+        })
+    }
+
+    _requestUpdateCourse() {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "POST",
                 url: "/routing/Routing.php?controller=course&action=update_from_classroom",
                 data: {
-                    courseId: id,
+                    courseId: this.courseId,
                     course: JSON.stringify(this.courseData)
                 },
                 success: function (response) {
@@ -517,6 +622,25 @@ class CoursesManager {
             $.ajax({
                 type: "POST",
                 url: "/routing/Routing.php?controller=course&action=delete_from_classroom",
+                data: {
+                    courseId: id,
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject('error')
+                }
+            });
+        })
+    }
+
+
+    _requestDuplicateCourse(id) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=course&action=duplicate_from_classroom",
                 data: {
                     courseId: id,
                 },
