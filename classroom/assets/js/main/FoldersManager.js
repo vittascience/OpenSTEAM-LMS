@@ -349,7 +349,6 @@ class FoldersManager {
         if (children.length > 0) {
             content += `<ul>`;
             children.forEach(child => {
-                console.log(child);
                 content += `<li>
                                 <label> <img src="${this.icons.hasOwnProperty(child.type) ? this.icons[child.type] : "💻"}" alt="${child.type}" class="folder-icons"> ${child.title}</label>
                             </li>`;
@@ -364,6 +363,7 @@ class FoldersManager {
         if (folderId == "0") {
             folderId = null;
         }
+
         if (this.objectToMove == "folder") {
             this.moveFolderToFolder(this.objectId, folderId).then(res => {
                 this.manageResponseFromMoved(res);
@@ -373,12 +373,16 @@ class FoldersManager {
                 this.manageResponseFromMoved(res);
             })
         } else if (this.objectToMove == "course") {
-            this.moveCourseToFolder(this.objectId, folderId).then(res => {
-                this.manageResponseFromMoved(res);
+            this.moveCourseToFolder(this.objectId, folderId).then(resMove => {
+                coursesManager._requestGetMyCourseTeacher().then((res) => {
+                    coursesManager.myCourses = res;
+                    this.manageResponseFromMoved(resMove);
+                });
             })
         }
         this.resetInputs();
     }
+    
 
     // WARNING
     manageResponseFromMoved(res) {
@@ -401,12 +405,14 @@ class FoldersManager {
             activitiesArray = document.querySelectorAll('.activity-item'),
             activitiesListArray = document.querySelectorAll('.folder-item-list'),
             foldersListArray = document.querySelectorAll('.activity-item-list'),
+            coursesListArray = document.querySelectorAll('.course-item-list'),
+            coursesArray = document.querySelectorAll('.course-item'),
             dragableObjects = [];
 
         if (Main.getClassroomManager().displayMode == "list") {
-            dragableObjects = [...foldersListArray, ...activitiesListArray];
+            dragableObjects = [...foldersListArray, ...activitiesListArray, ...coursesListArray];
         } else {
-            dragableObjects = [...foldersArray, ...activitiesArray];
+            dragableObjects = [...foldersArray, ...activitiesArray, ...coursesArray];
         }
 
         dragableObjects.forEach(object => {
@@ -424,9 +430,16 @@ class FoldersManager {
                             foldersManager.moveFolderToFolder(elId, targetId).then(res => {
                                 foldersManager.manageResponseFromMoved(res);
                             })
-                        } else {
+                        } else if ($(source).hasClass("activity-item") || $(source).hasClass("activity-item-list")) {
                             foldersManager.moveActivityToFolder(elId, targetId).then(res => {
                                 foldersManager.manageResponseFromMoved(res);
+                            })
+                        } else if ($(source).hasClass("course-item") || $(source).hasClass("course-item-list")) {
+                            foldersManager.moveCourseToFolder(elId, targetId).then(resMove => {
+                                coursesManager._requestGetMyCourseTeacher().then((res) => {
+                                    coursesManager.myCourses = res;
+                                    foldersManager.manageResponseFromMoved(resMove);
+                                });
                             })
                         }
                     } else {
