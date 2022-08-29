@@ -69,10 +69,12 @@ DisplayPanel.prototype.classroom_dashboard_ide_panel = function (option) {
 DisplayPanel.prototype.classroom_dashboard_activities_panel = function () {
     $('table').localize();
     // Refresh the activities
-    Main.getClassroomManager().getStudentActivities(Main.getClassroomManager())
-        .then(() => {
-            studentActivitiesDisplay();
-        });
+    Main.getClassroomManager().getStudentActivities(Main.getClassroomManager()).then(() => {
+        coursesManager._requestGetMyCourseStudent().then((data) => {
+
+        })
+        studentActivitiesDisplay();
+    });
 }
 
 DisplayPanel.prototype.classroom_dashboard_activities_panel_library_teacher = function () {
@@ -145,10 +147,10 @@ DisplayPanel.prototype.classroom_dashboard_help_panel = function () {
 DisplayPanel.prototype.classroom_dashboard_help_panel_teacher = function () {
     let html = '';
     let index = [7, 12, 5, 3, 3, 3]; // number of questions+1 per category in faq
-
+    
     // capitalize demoStudent name
     let capitalizedDemoStudentName = `${demoStudentName.charAt(0).toUpperCase()}${demoStudentName.slice(1)}`;
-
+    
     for (let i = 1; i <= index.length; i++) {
         html += "<h4 data-i18n='[html]faqTeacherNeutral." + i + ".section_title'></h4>";
         for (let j = 1; j < index[i - 1]; j++) {
@@ -229,7 +231,7 @@ DisplayPanel.prototype.classroom_dashboard_form_classe_panel_update = function (
     $('#table-students-update ul').html("");
     classroom.students.forEach(function (student) {
         $('#table-students-update ul').append(addStudentRow(student.user.pseudo, student.user.id, true));
-    })
+    }) 
 }
 
 DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function () {
@@ -277,12 +279,12 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
             fullPath = currentOriginUrl + '/classroom/login.php?link=' + ClassroomSettings.classroom;
             QrCreator.render({
                 text: fullPath,
-                radius: 0.5,
+                radius: 0.5, 
                 ecLevel: 'H',
                 fill: getComputedStyle(document.documentElement).getPropertyValue('--classroom-primary'),
-                background: "white",
+                background: "white", 
                 size: 300
-            }, document.querySelector('#classroom-code-share-qr-code'));
+              }, document.querySelector('#classroom-code-share-qr-code'));
 
             // Block classroom feature
             if (getClassroomInListByLink(link)[0].classroom.isBlocked == false) {
@@ -398,9 +400,9 @@ function formatDateInput(date) {
 
 function getTeacherActivity() {
     resetInputsForActivity();
-
+    
     $('#activity-title').html(Activity.title);
-
+    
     let autoCorrectionDisclaimerElt = `<img id="activity-auto-disclaimer" data-toggle="tooltip" src="${_PATH}assets/media/auto-icon.svg" title="${i18next.t("classroom.activities.isAutocorrect")}">`
     Activity.isAutocorrect ? $('#activity-title').append(autoCorrectionDisclaimerElt).tooltip() : null;
 
@@ -440,13 +442,52 @@ function getTeacherActivity() {
 
 
     if (IsJsonString(Activity.content)) {
-
         const contentParsed = JSON.parse(Activity.content);
-        const funct = customActivity.getTeacherActivityCustom.filter(activityValidate => activityValidate[0] == Activity.type)[0];
-        if (funct) {
-            funct[1](contentParsed, Activity);
-        } else {
+        if (Activity.type == 'free' || Activity.type == 'reading') {
+            if (contentParsed.hasOwnProperty('description')) {
+                $('#activity-content').html(bbcodeToHtml(contentParsed.description));
+                $('#activity-content-container').show();
+            } 
+        } else if (Activity.type == 'fillIn') {
+            $("#activity-states").html(bbcodeToHtml(contentParsed.states));
+            let contentForTeacher = contentParsed.fillInFields.contentForTeacher;
+            contentForTeacher = parseContent(contentForTeacher, "lms-answer fill-in-answer-teacher", true);
+            $('#activity-content').html(bbcodeToHtml(contentForTeacher));
+            $("#activity-content-container").show();
+            $("#activity-states-container").show();
 
+        } else if (Activity.type == 'quiz') {
+            $("#activity-states").html(bbcodeToHtml(contentParsed.states));
+            $(`div[id^="teacher-suggestion-"]`).each(function() {
+                $(this).remove();
+            })
+
+            let data = JSON.parse(Activity.solution);
+            let htmlToPush = '';
+            for (let i = 1; i < data.length+1; i++) {
+                htmlToPush += `<div class="input-group c-checkbox quiz-answer-container" id="qcm-field-${i}">
+                                <input class="form-check-input" type="checkbox" id="show-quiz-checkbox-${i}" ${data[i-1].isCorrect ? 'checked' : ''} onclick="return false;">
+                                <label class="form-check-label" for="quiz-checkbox-${i}" id="show-quiz-label-checkbox-${i}">${data[i-1].inputVal}</label>
+                            </div>`;
+            }
+            $('#activity-content-container').append(htmlToPush);
+
+            $("#activity-content-container").show();
+            $("#activity-states-container").show();
+        } else if (Activity.type == 'dragAndDrop') {
+
+            $("#activity-states").html(bbcodeToHtml(contentParsed.states));
+
+            let contentForTeacher = contentParsed.dragAndDropFields.contentForTeacher;
+
+            contentForTeacher = parseContent(contentForTeacher, "drag-and-drop-answer-teacher", true);
+
+            $("#activity-content").html(bbcodeToHtml(contentForTeacher));
+            $("#activity-content-container").show();
+            $("#activity-states-container").show();
+
+            // Default behavior
+        } else {
             // LTI Activity
             if (Activity.isLti) {
                 launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description);
@@ -456,8 +497,8 @@ function getTeacherActivity() {
                 $("#activity-content-container").show();
             }
         }
+        
     } else {
-
         $('#activity-content').html(bbcodeToHtml(Activity.content))
         $("#activity-content-container").show();
     }
@@ -466,54 +507,6 @@ function getTeacherActivity() {
     $('#activity-validate').hide()
 }
 
-function showTeacherReadingAndFreeActivity(contentParsed, Activity) {
-    if (contentParsed.hasOwnProperty('description')) {
-
-        $('#activity-content').html(bbcodeToHtml(contentParsed.description));
-        $('#activity-content-container').show();
-    }
-}
-
-function showTeacherFillInActivity(contentParsed, Activity) {
-    $("#activity-states").html(bbcodeToHtml(contentParsed.states));
-    let contentForTeacher = contentParsed.fillInFields.contentForTeacher;
-    contentForTeacher = parseContent(contentForTeacher, "lms-answer fill-in-answer-teacher", true);
-    $('#activity-content').html(bbcodeToHtml(contentForTeacher));
-    $("#activity-content-container").show();
-    $("#activity-states-container").show();
-}
-
-function showTeacherQuizActivity(contentParsed, Activity) {
-    $("#activity-states").html(bbcodeToHtml(contentParsed.states));
-    $(`div[id^="teacher-suggestion-"]`).each(function() {
-        $(this).remove();
-    })
-
-    let data = JSON.parse(Activity.solution);
-    let htmlToPush = '';
-    for (let i = 1; i < data.length+1; i++) {
-        htmlToPush += `<div class="input-group c-checkbox quiz-answer-container" id="qcm-field-${i}">
-                        <input class="form-check-input" type="checkbox" id="show-quiz-checkbox-${i}" ${data[i-1].isCorrect ? 'checked' : ''} onclick="return false;">
-                        <label class="form-check-label" for="quiz-checkbox-${i}" id="show-quiz-label-checkbox-${i}">${data[i-1].inputVal}</label>
-                    </div>`;
-    }
-    $('#activity-content-container').append(htmlToPush);
-
-    $("#activity-content-container").show();
-    $("#activity-states-container").show();
-}
-
-function showTeacherDragAndDropActivity(contentParsed, Activity) {
-    $("#activity-states").html(bbcodeToHtml(contentParsed.states));
-
-    let contentForTeacher = contentParsed.dragAndDropFields.contentForTeacher;
-
-    contentForTeacher = parseContent(contentForTeacher, "drag-and-drop-answer-teacher", true);
-
-    $("#activity-content").html(bbcodeToHtml(contentForTeacher));
-    $("#activity-content-container").show();
-    $("#activity-states-container").show();
-}
 
 function getIntelFromClasses() {
     $('#list-classes').html('')
