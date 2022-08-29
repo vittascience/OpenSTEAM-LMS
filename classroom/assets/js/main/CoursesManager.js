@@ -9,6 +9,7 @@ class CoursesManager {
         this.courseId = null;
         this.isUpdate = false;
         this.lastestCourse = null;
+        this.coursesAsStudent = [];
         this.courseData = {
             courses: [],
             title: null,
@@ -50,7 +51,11 @@ class CoursesManager {
             this.refreshCourses();
         };
 
-        this.actualizeCourse();
+        if (UserManager.getUser()) {
+            if (UserManager.getUser().isRegular) {
+                this.actualizeCourse();
+            }
+        }
 
         $('#new-course-attribute').click(function () {
             pseudoModal.openModal('attribute-activity-modal');
@@ -138,7 +143,7 @@ class CoursesManager {
         this.courseData.courses.forEach(course => {
             let activityImg = foldersManager.icons.hasOwnProperty(course.type) ? `<img class="list-item-img d-inline" src="${foldersManager.icons[course.type]}" alt="${course.type}" class="folder-icons">` : "<span class='list-item-img'> <div class='list-item-no-icon'><i class='fas fa-laptop'></i></div></span>";
             const courseDiv = document.createElement('div');
-            courseDiv.classList.add('course-item');
+            courseDiv.classList.add('course-item-draggable');
             courseDiv.setAttribute('data-course-id', course.id);
             courseDiv.innerHTML = `
                 <div class="preview-activity-in-courses">
@@ -163,7 +168,7 @@ class CoursesManager {
         this.dragula = dragula([activityFromCourses]).on('drop', () => {
             setTimeout(() => {
                 this.sortActualCourseArrayFromDiv();
-            }, 100);
+            }, 150);
         });
     }
 
@@ -174,7 +179,7 @@ class CoursesManager {
     }
 
     sortActualCourseArrayFromDiv() {
-        const courseItems = document.querySelectorAll('[class^=course-item]');
+        const courseItems = document.querySelectorAll('div[class^=course-item-draggable]');
         this.courseData.courses = [];
         courseItems.forEach(item => {
             const courseId = parseInt(item.getAttribute('data-course-id'));
@@ -305,7 +310,7 @@ class CoursesManager {
     persistParameters() {
         const duration = document.getElementById('course-duration').value,
             difficulty = document.getElementById('course-difficulty').value,
-            language = getCookie("lng"),
+            language = getCookie("lng") == "" ? "fr" : language,
             license = document.getElementById('course-license').value;
 
         if (duration && difficulty && language && license) {
@@ -692,6 +697,26 @@ class CoursesManager {
                 },
                 error: function () {
                     reject('error')
+                }
+            });
+        })
+    }
+
+    _requestGetMyCourseStudent() {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=user_link_course&action=get_my_courses_as_student",
+                success: (response) => {
+                    let courses = [];
+                    response = JSON.parse(response);
+                    response.forEach(course => {
+                        // keep only course when linked to activity
+                        if (course.hasOwnProperty("activities")) {
+                            courses.push(course);
+                        }
+                    });
+                    resolve(courses);
                 }
             });
         })

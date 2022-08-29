@@ -378,7 +378,6 @@ function activitiesCreation(apps) {
         let outDated = false;
         if (app.hasOwnProperty("outDated")) {
             outDated = app.outDated;
-            console.log(app.name)
         }
 
         let nameField = "";

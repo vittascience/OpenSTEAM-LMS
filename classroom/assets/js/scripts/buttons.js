@@ -710,6 +710,8 @@ $('body').on('click', '.sandbox-action-add', function () {
 function studentActivitiesDisplay() {
 
     let activities = Main.getClassroomManager()._myActivities;
+    
+
     let index = 1;
     document.querySelector('#new-activities-list').innerHTML = '';
     document.querySelector('#current-activities-list').innerHTML = '';

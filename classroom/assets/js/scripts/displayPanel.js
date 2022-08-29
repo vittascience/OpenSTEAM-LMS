@@ -69,8 +69,10 @@ DisplayPanel.prototype.classroom_dashboard_ide_panel = function (option) {
 DisplayPanel.prototype.classroom_dashboard_activities_panel = function () {
     $('table').localize();
     // Refresh the activities
-    Main.getClassroomManager().getStudentActivities(Main.getClassroomManager())
-    .then(() => {
+    Main.getClassroomManager().getStudentActivities(Main.getClassroomManager()).then(() => {
+        coursesManager._requestGetMyCourseStudent().then((data) => {
+
+        })
         studentActivitiesDisplay();
     });
 }
