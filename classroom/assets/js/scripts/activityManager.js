@@ -24,8 +24,28 @@
 }
 
 // autocorrect modification pas pris en compte
-function launchCustomActivity(activityType, isUpdate = false, callback = false) {
 
+const activityAndCaseView = [
+    ['free', "#activity-free"],
+    ['quiz', "#activity-quiz"],
+    ['fillIn', "#activity-fill-in"],
+    ['reading', "#activity-reading"],
+    ['custom', "#activity-reading"],
+    ['dragAndDrop', "#activity-drag-and-drop"],
+]
+
+function LtiDefaultCode(activityType, isUpdate) {
+    contentForwardButtonElt.style.display = 'none';
+    $("#activity-custom").show();
+    if (isUpdate) {
+        launchLtiDeepLinkCreate(activityType, isUpdate);
+    } else {
+        launchLtiDeepLinkCreate(activityType);
+    }
+}
+
+function launchCustomActivity(activityType, isUpdate = false, callback = false) {
+    console.log(activityType);
     setTextArea();
 
     const contentForwardButtonElt = document.getElementById('content-forward-button');
@@ -41,37 +61,11 @@ function launchCustomActivity(activityType, isUpdate = false, callback = false) 
 
     Main.getClassroomManager().isActivitiesRestricted(null, activityType).then((response) => {
         if (response.Limited == false && activityType != "appOutDated") {
-            switch(activityType) {
-                case 'free':
-                    $("#activity-free").show();
-                    break;
-                case 'quiz':
-                    $("#activity-quiz").show();
-                    break;
-                case 'fillIn':
-                    $("#activity-fill-in").show();
-                    break;
-                case 'reading':
-                    $("#activity-reading").show();
-                    break;
-                case 'dragAndDrop':
-                    $("#activity-drag-and-drop").show();
-                    break;
-                case 'custom':
-                    // Use the previous method for the activity without title
-                    $("#activity-reading").show();
-                    break;
-                default:
-                    // Check if it's an lti apps and get the data needed if it's the case
-                    contentForwardButtonElt.style.display = 'none';
-                    $("#activity-custom").show();
-                    if (isUpdate) {
-                        launchLtiDeepLinkCreate(activityType, isUpdate);
-                    } else {
-                        launchLtiDeepLinkCreate(activityType);
-                    }
-                    
-                    break;
+            const funct = activityAndCaseView.filter(activityValidate => activityValidate[0] == activityType)[0];
+            if (funct) {
+                $(funct[1]).show();
+            } else {
+                LtiDefaultCode(activityType, isUpdate);
             }
             navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
             if (callback) callback();
@@ -196,27 +190,21 @@ function titleBackward() {
 /**
  * Validation pipeline for the new activity
  */
+const activityAndCase = [
+    ["free", freeValidateActivity, true],
+    ["reading", defaultProcessValidateActivity, false],
+    ["fillIn", fillInValidateActivity, true],
+    ["quiz", quizValidateActivity, true],
+    ["dragAndDrop", dragAndDropValidateActivity, true],
+];
+
 function validateActivity(correction) {
-    switch(Activity.activity.type) {
-        case 'free':
-            freeValidateActivity(correction);
-            break;
-        case 'quiz':
-            quizValidateActivity(correction);
-            break;
-        case 'fillIn':
-            fillInValidateActivity(correction);
-            break;
-        case 'reading':
-        case 'custom':
-            defaultProcessValidateActivity();
-            break;
-        case 'dragAndDrop':
-            dragAndDropValidateActivity(correction);
-            break;
-        default:
-            defaultProcessValidateActivity();
-            break;
+    // filter activityAndCase to get the right function
+    const funct = activityAndCase.filter(activityValidate => activityValidate[0] == Activity.activity.type)[0];
+    if (funct) {
+        funct[1](funct[2] ?? correction);
+    } else {
+        defaultProcessValidateActivity();
     }
 }
 
@@ -378,7 +366,6 @@ function activitiesCreation(apps) {
         let outDated = false;
         if (app.hasOwnProperty("outDated")) {
             outDated = app.outDated;
-            console.log(app.name)
         }
 
         let nameField = "";
