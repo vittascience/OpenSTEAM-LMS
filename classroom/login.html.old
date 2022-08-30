@@ -45,7 +45,7 @@
             <div class="col-sm col-lg-3 text-center">
                 <img class="img-fluid" src="assets/media/assign_activities.png" alt=""></br>
                 <span data-i18n="[html]classroom.login.attribute"></span>
-                
+
             </div>
             <div class="col-sm col-lg-3 text-center">
                 <img class="img-fluid" src="assets/media/visualise_activities.png" alt=""></br>
@@ -225,7 +225,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <p data-i18n="[html]manager.account.registration.mandatory"></p>
             <p data-i18n="[html]manager.account.registration.cguOpenSteam"></p>
 
@@ -371,25 +371,26 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
 </script>
-<script src="assets/js/lib/i18next.js"></script>
-<script src="assets/js/lib/jquery-i18next.min.js"></script>
-<script src="assets/js/lib/i18nextXHRBackend.min.js"></script>
-<script src="assets/js/lib/i18nextBrowserLanguageDetector.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script src="assets/js/utils/translate.js"></script>
-<script src="assets/js/utils/get.js"></script>
-<script src="assets/js/scripts/dashboardActivities.js"></script>
-<script src="assets/js/scripts/displayPanel.js"></script>
-<script src="assets/js/lib/EasyAutocomplete-1.3.5/jquery.easy-autocomplete.min.js"></script>
-<script src="assets/js/main/Loader.js"></script>
-<script src="assets/js/main/UIManager.js"></script>
-<script src="assets/js/main/User.js"></script>
-<script src="assets/js/main/ClassroomManager.js"></script>
-<script src="assets/js/main/Main.js"></script>
-<script src="assets/js/scripts/main-login.js"></script>
-<script src="assets/js/utils/registrationTemplate.js"></script>
-<script src="assets/js/scripts/buttons.js"></script>
-<script src="assets/js/scripts/login.js"></script>
+
+<script src="assets/js/lib/i18next.js?version=1.2.12a"></script>
+<script src="assets/js/lib/jquery-i18next.min.js?version=1.2.12a"></script>
+<script src="assets/js/lib/i18nextXHRBackend.min.js?version=1.2.12a"></script>
+<script src="assets/js/lib/i18nextBrowserLanguageDetector.min.js?version=1.2.12a"></script>
+<script type="text/javascript" src="/classroom/assets/js/lib/slick-carrousel.js?version=1.2.12a"></script>
+<script src="assets/js/utils/translate.js?version=1.2.12a"></script>
+<script src="assets/js/utils/get.js?version=1.2.12a"></script>
+<script src="assets/js/scripts/dashboardActivities.js?version=1.2.12a"></script>
+<script src="assets/js/scripts/displayPanel.js?version=1.2.12a"></script>
+<script src="assets/js/lib/EasyAutocomplete-1.3.5/jquery.easy-autocomplete.min.js?version=1.2.12a"></script>
+<script src="assets/js/main/Loader.js?version=1.2.12a"></script>
+<script src="assets/js/main/UIManager.js?version=1.2.12a"></script>
+<script src="assets/js/main/User.js?version=1.2.12a"></script>
+<script src="assets/js/main/ClassroomManager.js?version=1.2.12a"></script>
+<script src="assets/js/main/Main.js?version=1.2.12a"></script>
+<script src="assets/js/scripts/main-login.js?version=1.2.12a"></script>
+<script src="assets/js/utils/registrationTemplate.js?version=1.2.12a"></script>
+<script src="assets/js/scripts/buttons.js?version=1.2.12a"></script>
+<script src="assets/js/scripts/login.js?version=1.2.12a"></script>
 <script>
     UIManager.init().then((resolve) => {
         UserManager.init().then((resolve) => {
