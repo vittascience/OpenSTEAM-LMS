@@ -40,6 +40,53 @@ use Classroom\Controller\ControllerActivityLinkUser;
 use Interfaces\Controller\ControllerProjectLinkUser;
 use Classroom\Controller\ControllerClassroomLinkUser;
 
+function cors()
+    {
+        $origins = array();
+        $origins[] = 'http://localhost:8100';
+        $origins[] = 'http://localhost:8101';
+        $origins[] = 'http://localhost:8000';
+        $origins[] = 'https://localhost:8100';
+        $origins[] = 'ionic://localhost';
+        $origins[] = 'http://localhost';
+        $origins[] = 'https://localhost';
+        $origins[] = 'https://app.mathia.education';
+        $origins[] = 'https://dev.mathia.education';
+        $origins[] = 'https://app.kidaia.com';
+        $origins[] = 'https://dev.kidaia.com';
+        $origins[] = 'https://en.kidaia.com';
+        $origins[] = 'https://preprod.app.mathia.education';
+        $origins[] = 'https://preprod.app.kidaia.com';
+
+        $origins[] = 'https://192.168.0.27:8100';
+        $origins[] = 'http://192.168.0.37:8100';
+        $origins[] = 'http://192.168.1.50:8100';
+        $origins[] = 'http://192.168.2.15:8100';
+        $origins[] = 'http://192.168.1.200:8100';
+        if (isset($_SERVER['HTTP_ORIGIN'])) {
+            if (in_array($_SERVER['HTTP_ORIGIN'], $origins)) {
+                header("Access-Control-Allow-Origin: " . $_SERVER['HTTP_ORIGIN'] . "");
+            }
+            header('Access-Control-Allow-Credentials: true');
+            header('Access-Control-Max-Age: 86400'); // cache for 1 day
+
+        }
+
+        // Access-Control headers are received during OPTIONS requests
+        if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+
+            if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'])) {
+                header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+            }
+
+            if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS'])) {
+                header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+            }
+
+            exit(0);
+        }
+    }
+
 
 $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
 $dotenv->safeLoad();
@@ -51,7 +98,7 @@ $action = isset($_GET['action']) ? $_GET['action'] : null;
 // Intercept action.
 $logPath = isset($_ENV['VS_LOG_PATH']) ? $_ENV['VS_LOG_PATH'] : "/logs/log.log";
 $log = Log::createSharedInstance($controller, $logPath, Logger::NOTICE);
-
+cors();
 try {
     // Get User.
     session_start();
