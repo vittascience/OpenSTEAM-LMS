@@ -3,12 +3,12 @@
         <div class="col-12">
             <div id="update-applications-modal">
                 <div class="row" id="group-monitoring">
-                    <p data-i18n="manager.table.monitoring" class="font-weight-bold">Group's applications monitoring</p>
+
+                    <h6 class="form-check-label font-weight-bold mb-1" style="color: var(--classroom-primary)" data-i18n="manager.apps.monitoringGroup"></h6>
                     <table class="table c-table">
                         <thead>
-                            <tr>
-                                <th scope="col" data-i18n="manager.table.name">Name</th>
-                                <th scope="col" data-i18n="manager.table.outDated">outDated</th>
+                            <tr></tr>
+                                <th scope="col" data-i18n="manager.table.status">outDated</th>
                                 <th scope="col" data-i18n="manager.table.dateBegin">dateBegin</th>
                                 <th scope="col" data-i18n="manager.table.dateEnd">dateEnd</th>
                                 <th scope="col" data-i18n="manager.table.maxStudents">maxStudents</th>
@@ -16,6 +16,20 @@
                                 <th scope="col" data-i18n="manager.table.maxTeachers">maxTeachers</th>
                                 <th scope="col" data-i18n="manager.table.actualTeachers">actualTeachers</th>
                                 <th scope="col" data-i18n="manager.table.maxStudentsPerTeachers">maxStudentsPerTeacher</th>
+                            </tr>
+                        </thead>
+                        <tbody id="group-monitoring-global-body">
+                        </tbody>
+                    </table>
+
+                    <h6 class="form-check-label font-weight-bold mb-1 mt-4" style="color: var(--classroom-primary)" data-i18n="manager.apps.monitoringApps"></h6>
+                    <table class="table c-table">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-i18n="manager.table.activityType">Type d'activité</th>
+                                <th scope="col" data-i18n="manager.table.maxActivitiesPerGroup">Max par groupe</th>
+                                <th scope="col" data-i18n="manager.table.actualTeachers">actualTeachers</th>
+                                <th scope="col" data-i18n="manager.table.maxActivitiesPerTeacher">Max par enseignant</th>
                             </tr>
                         </thead>
                         <tbody id="group-monitoring-body">

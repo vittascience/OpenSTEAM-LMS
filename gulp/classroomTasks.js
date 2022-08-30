@@ -5,6 +5,7 @@ const replace = require('gulp-replace');
 const htmlReplace = require('gulp-html-replace');
 const merge = require('gulp-merge-json');
 const fs = require('fs');
+const child_process = require('child_process');
 const {
     resolve
 } = require('path');
@@ -42,11 +43,13 @@ class AutoBuildManager {
             'managerProfilePanel.html',
             'managerAppsPanel.html',
             'managerUsersPanel.html',
+            'newExercicesPanel.html',
             'idePanel.html',
             'home_footer.html',
         ];
         this.temporaryViewsFolder = 'gulp/temp-views';
         this.pluginsFolderInClassroom = 'classroom/assets/plugins';
+        this.customBuildFileName = 'custom_build.js';
     }
 
     async init() {
@@ -351,9 +354,7 @@ class AutoBuildManager {
                                 views: [],
                                 css: [],
                                 js: [],
-                                images: [],
-                                controllers: [],
-                                entities: []
+                                images: []
                             };
                             this.pluginsList.push(currentPlugin);
                         });
@@ -370,8 +371,6 @@ class AutoBuildManager {
     async loadFilesList() {
         return new Promise(async (resolve, reject) => {
             await this.loadPluginsFilesList('Views', 'views');
-            await this.loadPluginsFilesList('Controller', 'controllers');
-            await this.loadPluginsFilesList('Entities', 'entities');
             await this.loadPluginsFilesList('public/css', 'css');
             await this.loadPluginsFilesList('public/js', 'js');
             await this.loadPluginsFilesList('public/images', 'images');
@@ -405,7 +404,9 @@ class AutoBuildManager {
                 if (files) {
                     try {
                         files.forEach(file => {
-                            this.pluginsList[this.pluginsList.indexOf(plugin)][list].push(file);
+                            if (file != '.gitkeep') {
+                                this.pluginsList[this.pluginsList.indexOf(plugin)][list].push(file);
+                            }
                         });
                         resolve();
                     } catch (error) {
@@ -413,6 +414,7 @@ class AutoBuildManager {
                     }
                 } else {
                     console.error(`Folder ${folder} doesn't exist! Skipping!`);
+                    resolve();
                 }
             });
         }).catch((error) => {
@@ -543,6 +545,7 @@ class AutoBuildManager {
                 'gulp/temp-views/managerProfilePanel.html',
                 'gulp/temp-views/managerAppsPanel.html',
                 'gulp/temp-views/managerUsersPanel.html',
+                'gulp/temp-views/newExercicesPanel.html',
                 'gulp/temp-views/idePanel.html',
                 'gulp/temp-views/home_footer.html',
 
@@ -572,6 +575,7 @@ class AutoBuildManager {
                 'classroom/Views/managerProfilePanel.html',
                 'classroom/Views/managerAppsPanel.html',
                 'classroom/Views/managerUsersPanel.html',
+                'classroom/Views/newExercicesPanel.html',
                 'classroom/Views/idePanel.html',
                 'classroom/Views/home_footer.html',
 
@@ -593,6 +597,38 @@ class AutoBuildManager {
             } else {
                 resolve();
             }
+        });
+    }
+    
+    /**
+     * Manage custom build if necessary
+     */
+    manageCustomBuild() {
+        return new Promise( async (resolve, reject) => {
+            const customBuildPromises = [];
+            for (let plugin of this.pluginsList) {
+                customBuildPromises.push(new Promise((resolve, reject) => {
+                    const customBuildFilePath = `./plugins/${plugin.name}/${this.customBuildFileName}`;
+                    fs.open(customBuildFilePath, (error, data) => {
+                        if (error) {
+                            console.log(`There is no custom build for ${plugin.name} plugin!`);
+                            resolve();
+                            return;
+                        }
+                        child_process.exec(`node ${customBuildFilePath}`, (error, stdout, stderr) => {
+                            console.log(`${stdout}`);
+                            if (error !== null) {
+                                console.log(`exec error: ${error}`);
+                                reject();
+                                return;
+                            }
+                            resolve();
+                        });
+                    });
+                }));
+            }
+            const promisesResult = await Promise.all(customBuildPromises);
+            resolve(promisesResult);
         });
     }
 }
@@ -621,6 +657,10 @@ homeConcat.displayName = 'home concat';
 const removeTemporaryViewsFolder = () => { return autoBuildManager.removeTemporaryViewsFolder() };
 removeTemporaryViewsFolder.displayName = 'remove temporary views folder';
 
+const manageCustomBuild = () => { return autoBuildManager.manageCustomBuild() };
+manageCustomBuild.displayName = 'manage custom build';
+
+
 // Queueing all the tasks
 autoBuild = gulp.series(
     init,
@@ -629,7 +669,8 @@ autoBuild = gulp.series(
     pluginCss,
     pluginJs,
     homeConcat,
-    removeTemporaryViewsFolder
+    removeTemporaryViewsFolder,
+    manageCustomBuild
 );
 
 autoBuild.displayName = "Classroom: gulp series";

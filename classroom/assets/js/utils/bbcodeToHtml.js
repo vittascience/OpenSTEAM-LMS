@@ -1,4 +1,8 @@
 function bbcodeToHtml(html) {
+    // add support for the response who only contains a number
+    if (!(typeof html === 'string' || html instanceof String)) {
+        html = html.toString();
+    }
     //iframes
     html = html.replace(/(\[iframe\])(https:\/\/(fr\.|en\.|)vittascience\.com[a-zA-Z0-9?=;&\/﻿]+)(\[\/iframe\])/gi, "<iframe width='100%' height='500' frameborder='0' allowfullscreen style='border:1px #d6d6d6 solid;' src=\"$2&embed=1&frameid=" + generateRandomString(6) + "\"></iframe>")
     html = html.replace(/(\[iframe\])(http:\/\/51\.178\.95\.45[a-zA-Z0-9?=&\/]+)(\[\/iframe\])/gi, "<iframe width='100%' height='500' frameborder='0' allowfullscreen style='border:1px #d6d6d6 solid;' src=\"$2&embed=1&frameid=" + generateRandomString(6) + "\"></iframe>")
@@ -65,6 +69,11 @@ function bbcodeToHtml(html) {
     //size
     html = html.replace(/\[size\=([0-9]{1,3})]/gi, "<span style='font-size:$1px;'>")
     html = html.replace(/\[\/size\]/gi, "</span>")
+
+    // anwser 
+	html = html.replace(/\[answer\]/gi, "<span class='lms-answer'>");
+	html = html.replace(/\[\/answer\]/gi, "</span>");
+
     return html
 }
 
@@ -79,4 +88,57 @@ function generateRandomString(length = 10) {
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
+}
+
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
+function replaceSelectedText(replacementText) {
+    let sel, 
+        range;
+    if (window.getSelection) {
+        sel = window.getSelection();
+        if (sel.rangeCount) {
+            range = sel.getRangeAt(0);
+            range.deleteContents();
+            range.insertNode(document.createTextNode(replacementText));
+        }
+    } else if (document.selection && document.selection.createRange) {
+        range = document.selection.createRange();
+        range.text = replacementText;
+    }
+}
+
+function replaceSelectionWithHtml(html) {
+    let range;
+    if (window.getSelection && window.getSelection().getRangeAt) {
+        range = window.getSelection().getRangeAt(0);
+        range.deleteContents();
+        let div = document.createElement("div");
+        div.innerHTML = html;
+        let frag = document.createDocumentFragment(), child;
+        while ( (child = div.firstChild) ) {
+            frag.appendChild(child);
+        }
+        range.insertNode(frag);
+    } else if (document.selection && document.selection.createRange) {
+        range = document.selection.createRange();
+        range.pasteHTML(html);
+    }
+}
+
+function getSelectionText() {
+    let text = "";
+    if (window.getSelection) {
+        text = window.getSelection().toString();
+    } else if (document.selection && document.selection.type != "Control") {
+        text = document.selection.createRange().text;
+    }
+    return text;
 }

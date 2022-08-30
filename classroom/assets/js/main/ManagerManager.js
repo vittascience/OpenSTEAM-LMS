@@ -29,6 +29,7 @@ class managerManager {
         this._actualUserDetails = []
         this._tasksQueue = [];
         this._isExecutingTaskInQueue = false;
+        this._defaultRestrictions = [];
     }
 
     /**
@@ -289,77 +290,7 @@ class managerManager {
                 }
             });
         })
-    }
-
-    /**
-     * @param {*} $restriction_id 
-     * @returns promise
-     */
-    deleteOneActivityRestriction($restriction_id) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "POST",
-                url: "/routing/Routing.php?controller=superadmin&action=delete_one_restriction_activity",
-                data: {
-                    restriction_id: $restriction_id
-                },
-                success: function (response) {
-                    resolve(JSON.parse(response))
-                },
-                error: function () {
-                    reject();
-                }
-            });
-        })
-    }
-
-    /**
-     * @param {*} $restriction_id 
-     * @param {*} $application_id 
-     * @param {*} $restriction_type 
-     * @param {*} $restriction_max 
-     * @returns promise
-     */
-    updateOneActivityRestriction($application_id, $restriction_type, $restriction_max) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "POST",
-                url: "/routing/Routing.php?controller=superadmin&action=update_one_restriction_activity",
-                data: {
-                    application_id: $application_id,
-                    restriction_type: $restriction_type,
-                    restriction_max: $restriction_max
-                },
-                success: function (response) {
-                    resolve(JSON.parse(response))
-                },
-                error: function () {
-                    reject();
-                }
-            });
-        })
-    }
-
-    createOneActivityRestriction($application_id, $restriction_type, $restriction_max) {
-        return new Promise(function (resolve, reject) {
-            $.ajax({
-                type: "POST",
-                url: "/routing/Routing.php?controller=superadmin&action=create_one_restriction_activity",
-                data: {
-                    application_id: $application_id,
-                    restriction_type: $restriction_type,
-                    restriction_max: $restriction_max
-                },
-                success: function (response) {
-                    resolve(JSON.parse(response))
-                },
-                error: function () {
-                    reject();
-                }
-            });
-        })
-    }
-    
+    }  
 
     getAllApplications() {
         return new Promise(function (resolve, reject) {
@@ -394,7 +325,7 @@ class managerManager {
         })
     }
 
-    updateApplication($application_id, $application_name, $application_description, $application_image) {
+    updateApplication($application_id, $application_name, $application_description, $application_image, $lti_data, $application_color, $restriction_max, $application_sort_index) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -403,7 +334,11 @@ class managerManager {
                     application_id: $application_id,
                     application_name: $application_name,
                     application_description: $application_description,
-                    application_image: $application_image
+                    application_color: $application_color,
+                    application_image: $application_image,
+                    restriction_max: $restriction_max,
+                    lti_data: JSON.stringify($lti_data),
+                    application_sort_index: $application_sort_index
                 },
                 success: function (response) {
                     resolve(JSON.parse(response))
@@ -432,8 +367,9 @@ class managerManager {
             });
         })
     }
+    
 
-    createApplication($application_name, $application_description, $application_image) {
+    createApplication($application_name, $application_description, $application_image, $lti_data, $application_color, $restriction_max, $application_sort_index) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -441,7 +377,12 @@ class managerManager {
                 data: {
                     application_name: $application_name,
                     application_description: $application_description,
-                    application_image: $application_image
+                    application_image: $application_image,
+                    application_description: $application_description,
+                    application_color: $application_color,
+                    restriction_max: $restriction_max,
+                    lti_data: JSON.stringify($lti_data),
+                    application_sort_index: $application_sort_index
                 },
                 success: function (response) {
                     resolve(JSON.parse(response))
@@ -454,7 +395,7 @@ class managerManager {
     }
 
     // Add a group
-    createGroup($group_description, $group_name, $group_app) {
+    createGroup($group_description, $group_name, $group_app, $global_restriction) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -462,7 +403,8 @@ class managerManager {
                 data: {
                     name: $group_name,
                     description: $group_description,
-                    applications: $group_app
+                    applications: $group_app,
+                    global_restriction: $global_restriction
                 },
                 success: function (response) {
                     resolve(JSON.parse(response))
@@ -481,7 +423,7 @@ class managerManager {
      * @param {array} $group_app 
      * @returns {object} response
      */
-    updateGroup($group_id, $group_name, $group_description, $group_app) {
+    updateGroup($group_id, $group_name, $group_description, $group_app, $global_restriction) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -490,7 +432,8 @@ class managerManager {
                     id: $group_id,
                     name: $group_name,
                     description: $group_description,
-                    applications: $group_app
+                    applications: $group_app,
+                    global_restriction: $global_restriction
                 },
                 success: function (response) {
                     resolve(JSON.parse(response))
@@ -530,14 +473,15 @@ class managerManager {
      * @param {array} $user_app 
      * @returns 
      */
-    updateUserApps($user_id, $user_app) {
+    updateUserApps($user_id, $user_app, $global_user_restriction) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
                 url: "/routing/Routing.php?controller=superadmin&action=update_user_app",
                 data: {
                     user_id: $user_id,
-                    user_app: $user_app
+                    user_app: $user_app,
+                    global_user_restriction: $global_user_restriction
                 },
                 success: function (response) {
                     resolve(JSON.parse(response))
@@ -586,7 +530,7 @@ class managerManager {
         })
     }
 
-    createUserAndLinkToGroup($firstname, $surname, $user_pseudo, $phone, $mail, $bio, $groups, $is_admin, $is_teacher, $teacher_grade, $teacher_suject, $school) {
+    createUserAndLinkToGroup($firstname, $surname, $user_pseudo, $phone, $mail, $bio, $groups, $is_admin, $is_teacher, $teacher_grade, $teacher_suject, $school, $apps) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -603,7 +547,8 @@ class managerManager {
                     grade: $teacher_grade,
                     subject: $teacher_suject,
                     mail: $mail,
-                    school: $school
+                    school: $school,
+                    apps: JSON.stringify($apps)
                 },
                 success: function (response) {
                     resolve(JSON.parse(response));
@@ -724,7 +669,9 @@ class managerManager {
         const process = (data) => {
             let $data_table = "",
                 $data_table_inactive ="",
-                group = "";
+                group = "",
+                activeUsers = 0,
+                inactiveUsers = 0;
 
             mainManager.getmanagerManager()._allActualUsers = [];
 
@@ -780,7 +727,7 @@ class managerManager {
                     if (element.hasOwnProperty('applications')) {
                         element.applications.forEach(element_2 => {
                             if (element_2.image != null && element_2.image != "") {
-                                div_img += `<img src="assets/plugins/images/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             } else {
                                 div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             }
@@ -805,6 +752,7 @@ class managerManager {
                         }
                     } 
                     if (activeFlag) {
+                        activeUsers++;
                         $data_table +=
                         `<tr>
                             <td>${element.surname}</td>
@@ -826,6 +774,7 @@ class managerManager {
                             </td>
                         </tr>`;
                     } else {
+                        inactiveUsers++;
                         $data_table_inactive += 
                         `<tr>
                             <td>${element.surname}</td>
@@ -849,6 +798,10 @@ class managerManager {
                     }
                 }
             });
+
+            $('#active-users-manager').html(i18next.t('manager.title.activeUsers') + " : " + activeUsers);
+            $('#inactive-users-manager').html(i18next.t('manager.title.inactiveUsers') + " : " + inactiveUsers);
+
             $('#table_info_group_data').html($data_table);
             $('#table_info_group_data_inactive').html($data_table_inactive);
             $('[data-toggle="tooltip"]').tooltip()
@@ -917,7 +870,7 @@ class managerManager {
                     if (element.hasOwnProperty('applications')) {
                         element.applications.forEach(element_2 => {
                             if (element_2.image != null && element_2.image != "") {
-                                div_img += `<img src="assets/plugins/images/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             } else {
                                 div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             }
@@ -933,7 +886,7 @@ class managerManager {
 
                     let activeFlag = true;
                     if (element.hasOwnProperty('active')) {
-                        if (element.active != "1" && $group_id != -2) {
+                        if (element.active != "1") {
                             activeFlag = false;
                         }
                     } 
@@ -1011,19 +964,6 @@ class managerManager {
 
         data_table +=
             `<tr>
-                <th scope="row" onclick="showGroupMembers(-2, 1 ,${users_per_page}, ${users_sort})">${i18next.t('manager.group.usersInactiveOrNoRegular')}</i></th>
-                <td>${i18next.t('manager.group.usersInactiveOrNoRegularDescription')}</td>
-                <td>
-                    --
-                </td>
-                <td>
-                    --
-                </td>
-                <td>
-                    --
-                </td>
-            </tr>
-            <tr>
                 <th scope="row" onclick="showGroupMembers(-1, 1 ,${users_per_page}, ${users_sort})">${i18next.t('manager.group.usersWithoutGroups')}</th>
                 <td>${i18next.t('manager.group.usersWithoutGroupsDescription')}</td>
                 <td>
@@ -1068,7 +1008,7 @@ class managerManager {
                 if (element.hasOwnProperty('applications')) {
                     element.applications.forEach(element_2 => {
                         if (element_2.image != null && element_2.image != "") {
-                            div_img += `<img src="assets/plugins/images/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                            div_img += `<img src="${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                         } else {
                             div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                         }
@@ -1080,6 +1020,9 @@ class managerManager {
                 <td>${element.description}</td>
                 <td>
                     ${div_img}
+                </td>
+                <td>
+                    ${element.nbUsers}
                 </td>
                 <td>
                     <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateGroupModal(${element.id})"><i class="fas fa-pencil-alt fa-2x"></i></a>
@@ -1130,7 +1073,7 @@ class managerManager {
                     if (element.hasOwnProperty('applications')) {
                         element.applications.forEach(element_2 => {
                             if (element_2.image != null && element_2.image != "") {
-                                div_img += `<img src="assets/plugins/images/${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             } else {
                                 div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             }

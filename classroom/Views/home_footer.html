@@ -29,9 +29,11 @@
 </script>
 <!-- build:js-classroom -->
 <script src="assets/js/utils/url.js"></script>
+<script src="assets/js/utils/parsingJson.js"></script>
 <script src="assets/js/utils/text.js"></script>
 <script src="assets/js/lib/rotate.js"></script>
 <script src="assets/js/utils/bbcodeToHtml.js"></script>
+<script src="assets/js/utils/activityContentManager.js"></script>
 <script src="assets/js/utils/registrationTemplate.js"></script>
 <script src="assets/js/utils/profilePicturePath.js"></script>
 <script src="assets/js/scripts/disconnect.js"></script>
@@ -42,6 +44,10 @@
 <script src="assets/js/main/modal.js"></script>
 <script src="assets/js/constants/modals.js"></script>
 <script src="assets/js/scripts/buttons.js"></script>
+<script src="assets/js/scripts/ActivityTracker.js"></script>
+<script src="assets/js/scripts/activityManager.js"></script>
+<script src="assets/js/scripts/classroomDisplay.js"></script>
+<script src="assets/js/main/FoldersManager.js" defer></script>
 <!-- end build -->
 <script src="assets/js/main/Loader.js"></script>
 <script src="assets/js/main/UIManager.js"></script>
@@ -51,9 +57,13 @@
 <script src="assets/js/main/ManagerManager.js"></script>
 <script src="assets/js/main/GroupAdminManager.js"></script>
 <script src="assets/js/main/MainManagerAndGroup.js"></script>
-<!-- manager & groupadmin -->
+<!-- end manager & groupadmin -->
 <script src="assets/js/main/Main.js"></script>
 <script src="assets/js/main/Loader.js"></script>
+<!-- drag and drop bundle -->
+<link rel="stylesheet" stype="text/css" href="assets/css/dragula.css">
+<script src="assets/js/lib/dragula.js" ></script>
+
 <script>
     UIManager.init().then((resolve) => {
         UserManager.init().then((resolve) => {
@@ -91,21 +101,16 @@
 
                                 Main.getClassroomManager()._addTaskToQueue(currentTask);
                             } else {
+                                // panel => classroom-dashboard-activities-panel-teacher
+                                // nav => dashboard-activities-teacher
                                 $('#classroom-dashboard-sidebar').show()
                                 $('body').addClass('theme-student')
-                                $('.user-picture').attr('src',
-                                    '/classroom/' +
-                                    getProfilePicturePath(UserManager.getUser().pseudo))
-                                Main.getClassroomManager().getMyClassroom(UserManager.getUser()
-                                    .id).then(function (classroom) {
+                                $('.user-picture').attr('src', '/classroom/assets/media/alphabet/' + UserManager.getUser().pseudo.slice(0, 1).toUpperCase() + '.png')
+                                Main.getClassroomManager().getMyClassroom(UserManager.getUser().id).then(function (classroom) {
                                     $('#classroom-name').html(classroom.name)
                                     ClassroomSettings.classroom = classroom.link
-                                    if ($_GET('panel') &&
-                                        (ClassroomSettings.mixPanels.includes($_GET(
-                                                'panel')) || ClassroomSettings
-                                            .studentPanels.includes($_GET('panel')))) {
-                                        navigatePanel($_GET('panel'), $_GET('nav'),
-                                            $_GET('option'), $_GET('interface'))
+                                    if ($_GET('panel') && (ClassroomSettings.mixPanels.includes($_GET('panel')) || ClassroomSettings.studentPanels.includes($_GET('panel')))) {
+                                        navigatePanel($_GET('panel'), $_GET('nav'), $_GET('option'), $_GET('interface'))
                                     } else {
                                         navigatePanel(
                                             'classroom-dashboard-profil-panel',

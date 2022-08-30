@@ -1,12 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : mariadb
--- Généré le : jeu. 23 déc. 2021 à 15:38
--- Version du serveur : 10.6.5-MariaDB-1:10.6.5+maria~focal
--- Version de PHP : 7.4.20
+-- Généré le : mar. 26 juil. 2022 à 14:12
+-- Version du serveur : 10.8.3-MariaDB-1:10.8.3+maria~jammy
+-- Version de PHP : 8.0.19
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `vittascience`
+-- Base de données : `openSteam`
 --
 
 -- --------------------------------------------------------
@@ -35,7 +36,8 @@ CREATE TABLE `classrooms` (
   `link` varchar(5) COLLATE utf8mb3_unicode_ci NOT NULL,
   `is_changed` tinyint(1) DEFAULT NULL,
   `is_blocked` int(11) NOT NULL DEFAULT 0,
-  `uai` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL
+  `uai` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `gar_code` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
@@ -84,21 +86,9 @@ CREATE TABLE `classroom_activities_link_classroom_users` (
   `introduction` varchar(2000) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `is_autocorrected` tinyint(1) NOT NULL DEFAULT 0,
   `is_evaluation` tinyint(1) NOT NULL DEFAULT 0,
-  `url` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL
+  `url` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `response` text COLLATE utf8mb3_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `classroom_activities_restrictions`
---
-
-CREATE TABLE `classroom_activities_restrictions` (
-  `id` int(11) NOT NULL,
-  `application_id` int(11) NOT NULL,
-  `activity_type` varchar(255) NOT NULL,
-  `max_per_teachers` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -110,8 +100,24 @@ CREATE TABLE `classroom_applications` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `image` varchar(255) DEFAULT NULL
+  `image` varchar(255) DEFAULT NULL,
+  `is_lti` tinyint(1) DEFAULT NULL,
+  `color` varchar(10) DEFAULT NULL,
+  `max_per_teachers` int(11) DEFAULT NULL,
+  `sort` int(11) DEFAULT NULL,
+  `background_image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `classroom_applications`
+--
+
+INSERT INTO `classroom_applications` (`id`, `name`, `description`, `image`, `is_lti`, `color`, `max_per_teachers`, `sort`, `background_image`) VALUES
+(1, 'reading', 'reading', './assets/media/activity/reading.png', 0, '#12acb1', -1, 7, ''),
+(2, 'free', 'free', './assets/media/activity/free.png', 0, '#3fa9f5', 4, 3, ''),
+(3, 'dragAndDrop', 'dragAndDrop', './assets/media/activity/dragAndDrop.png', 0, '#24a069', -1, 2, ''),
+(4, 'quiz', 'quiz', './assets/media/activity/quiz.png', 0, '#ff931e', -1, 5, ''),
+(5, 'fillIn', 'fillIn', './assets/media/activity/fillIn.png', 0, '#5c947a', -1, 4, '');
 
 -- --------------------------------------------------------
 
@@ -123,7 +129,12 @@ CREATE TABLE `classroom_groups` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `link` varchar(5) NOT NULL,
-  `description` varchar(255) NOT NULL
+  `description` varchar(255) NOT NULL,
+  `date_begin` datetime DEFAULT NULL,
+  `date_end` datetime DEFAULT NULL,
+  `max_teachers` int(11) DEFAULT NULL,
+  `max_students` int(11) DEFAULT NULL,
+  `max_students_per_teachers` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -136,11 +147,6 @@ CREATE TABLE `classroom_groups_link_applications` (
   `id` int(11) NOT NULL,
   `group_id` int(11) NOT NULL,
   `application_id` int(11) NOT NULL,
-  `date_begin` datetime NOT NULL,
-  `date_end` datetime NOT NULL,
-  `max_students_per_groups` int(11) DEFAULT NULL,
-  `max_teachers_per_groups` int(11) DEFAULT NULL,
-  `max_students_per_teachers` int(11) DEFAULT NULL,
   `max_activities_per_groups` int(11) DEFAULT NULL,
   `max_activities_per_teachers` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -163,7 +169,7 @@ CREATE TABLE `classroom_restrictions` (
 
 INSERT INTO `classroom_restrictions` (`id`, `name`, `restrictions`) VALUES
 (1, 'userDefaultRestrictions', '\"{\\\"maxStudents\\\":50}\"'),
-(2, 'groupDefaultRestrictions', '\"{\\\"maxStudents\\\":14,\\\"maxTeachers\\\":15,\\\"maxStudentsPerTeacher\\\":13}\"');
+(2, 'groupDefaultRestrictions', '\"{\\\"maxStudents\\\":500,\\\"maxTeachers\\\":10,\\\"maxStudentsPerTeacher\\\":50}\"');
 
 -- --------------------------------------------------------
 
@@ -175,9 +181,6 @@ CREATE TABLE `classroom_users_link_applications` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `application_id` int(11) NOT NULL,
-  `date_begin` datetime NOT NULL,
-  `date_end` datetime NOT NULL,
-  `max_students_per_teachers` int(11) DEFAULT NULL,
   `max_activities_per_teachers` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -217,6 +220,20 @@ CREATE TABLE `classroom_users_link_groups` (
   `user_id` int(11) NOT NULL,
   `group_id` int(11) NOT NULL,
   `rights` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `classroom_users_restrictions`
+--
+
+CREATE TABLE `classroom_users_restrictions` (
+  `id` int(11) NOT NULL,
+  `date_begin` datetime DEFAULT NULL,
+  `date_end` datetime DEFAULT NULL,
+  `max_students` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -272,6 +289,20 @@ CREATE TABLE `interfaces_projects_link_users` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `lang`
+--
+
+CREATE TABLE `lang` (
+  `id` int(11) NOT NULL,
+  `name` varchar(250) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `langcode` varchar(2) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `path` varchar(250) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `available` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `learn_activities`
 --
 
@@ -282,7 +313,11 @@ CREATE TABLE `learn_activities` (
   `is_from_classroom` tinyint(1) NOT NULL DEFAULT 0,
   `title` varchar(1000) COLLATE utf8mb3_unicode_ci DEFAULT 'No title',
   `content` varchar(10000) COLLATE utf8mb3_unicode_ci NOT NULL DEFAULT 'No content',
-  `type` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL
+  `type` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `solution` text COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `tolerance` int(11) DEFAULT NULL,
+  `is_autocorrect` tinyint(1) DEFAULT NULL,
+  `folder` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
@@ -388,6 +423,19 @@ CREATE TABLE `learn_favorites` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `learn_folders`
+--
+
+CREATE TABLE `learn_folders` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `user` int(11) NOT NULL,
+  `parent_folder` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `learn_tutorials_link_tutorials`
 --
 
@@ -399,21 +447,22 @@ CREATE TABLE `learn_tutorials_link_tutorials` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `python_containers`
+-- Structure de la table `lti_tools`
 --
 
-CREATE TABLE `python_containers` (
+CREATE TABLE `lti_tools` (
   `id` int(11) NOT NULL,
-  `task_arn` varchar(255) NOT NULL,
-  `is_attribued` int(11) DEFAULT NULL,
-  `public_ip` varchar(255) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `user` int(11) DEFAULT NULL,
-  `container_key` varchar(255) DEFAULT NULL,
-  `task_key` varchar(255) DEFAULT NULL,
-  `status` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `application_id` int(11) NOT NULL,
+  `client_id` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `deployment_id` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `tool_url` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `public_key_set` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `login_url` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `redirection_url` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `deeplink_url` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `private_key` text COLLATE utf8mb3_unicode_ci NOT NULL,
+  `kid` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -435,15 +484,29 @@ CREATE TABLE `users` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `users_login_attempts`
+--
+
+CREATE TABLE `users_login_attempts` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `registration_time` int(11) DEFAULT NULL,
+  `can_not_login_before` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `user_classroom_users`
 --
 
 CREATE TABLE `user_classroom_users` (
   `user` int(11) NOT NULL,
-  `gar_id` varchar(128) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `gar_id` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `school_id` varchar(8) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `is_teacher` tinyint(1) DEFAULT NULL,
-  `mail_teacher` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL
+  `mail_teacher` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `canope_id` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
@@ -524,12 +587,6 @@ ALTER TABLE `classroom_activities_link_classroom_users`
   ADD KEY `IDX_E8E10C030A9DA54` (`id_course`);
 
 --
--- Index pour la table `classroom_activities_restrictions`
---
-ALTER TABLE `classroom_activities_restrictions`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Index pour la table `classroom_applications`
 --
 ALTER TABLE `classroom_applications`
@@ -586,6 +643,12 @@ ALTER TABLE `classroom_users_link_groups`
   ADD KEY `group_id` (`group_id`);
 
 --
+-- Index pour la table `classroom_users_restrictions`
+--
+ALTER TABLE `classroom_users_restrictions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `connection_tokens`
 --
 ALTER TABLE `connection_tokens`
@@ -607,6 +670,12 @@ ALTER TABLE `interfaces_projects_link_users`
   ADD PRIMARY KEY (`user`,`project`),
   ADD KEY `IDX_ADA761808D93D649` (`user`),
   ADD KEY `IDX_ADA761802FB3D0EE` (`project`);
+
+--
+-- Index pour la table `lang`
+--
+ALTER TABLE `lang`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `learn_activities`
@@ -674,6 +743,12 @@ ALTER TABLE `learn_favorites`
   ADD KEY `IDX_8BAF06B489366B7B` (`tutorial_id`);
 
 --
+-- Index pour la table `learn_folders`
+--
+ALTER TABLE `learn_folders`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `learn_tutorials_link_tutorials`
 --
 ALTER TABLE `learn_tutorials_link_tutorials`
@@ -683,15 +758,22 @@ ALTER TABLE `learn_tutorials_link_tutorials`
   ADD KEY `IDX_B7C981A3871CA2` (`tutorial2_id`);
 
 --
--- Index pour la table `python_containers`
+-- Index pour la table `lti_tools`
 --
-ALTER TABLE `python_containers`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `lti_tools`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UNIQ_BB6A630A3E030ACD` (`application_id`);
 
 --
 -- Index pour la table `users`
 --
 ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `users_login_attempts`
+--
+ALTER TABLE `users_login_attempts`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -743,16 +825,10 @@ ALTER TABLE `classroom_activities_link_classroom_users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `classroom_activities_restrictions`
---
-ALTER TABLE `classroom_activities_restrictions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT pour la table `classroom_applications`
 --
 ALTER TABLE `classroom_applications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT pour la table `classroom_groups`
@@ -791,6 +867,12 @@ ALTER TABLE `classroom_users_link_groups`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT pour la table `classroom_users_restrictions`
+--
+ALTER TABLE `classroom_users_restrictions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT pour la table `connection_tokens`
 --
 ALTER TABLE `connection_tokens`
@@ -800,6 +882,12 @@ ALTER TABLE `connection_tokens`
 -- AUTO_INCREMENT pour la table `interfaces_projects`
 --
 ALTER TABLE `interfaces_projects`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lang`
+--
+ALTER TABLE `lang`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -833,15 +921,27 @@ ALTER TABLE `learn_courses`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `python_containers`
+-- AUTO_INCREMENT pour la table `learn_folders`
 --
-ALTER TABLE `python_containers`
+ALTER TABLE `learn_folders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `lti_tools`
+--
+ALTER TABLE `lti_tools`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `users_login_attempts`
+--
+ALTER TABLE `users_login_attempts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -909,73 +1009,7 @@ ALTER TABLE `learn_activities`
 --
 ALTER TABLE `learn_chapters`
   ADD CONSTRAINT `FK_B130E3A7514956FD` FOREIGN KEY (`collection_id`) REFERENCES `learn_collections` (`id`);
-
---
--- Contraintes pour la table `learn_chapters_link_tutorials`
---
-ALTER TABLE `learn_chapters_link_tutorials`
-  ADD CONSTRAINT `FK_3AAC0F58579F4768` FOREIGN KEY (`chapter_id`) REFERENCES `learn_chapters` (`id`),
-  ADD CONSTRAINT `FK_3AAC0F5889366B7B` FOREIGN KEY (`tutorial_id`) REFERENCES `learn_tutorials` (`id`);
-
---
--- Contraintes pour la table `learn_comments`
---
-ALTER TABLE `learn_comments`
-  ADD CONSTRAINT `FK_298F36FC7032E9EE` FOREIGN KEY (`comment_answered`) REFERENCES `learn_comments` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_298F36FC89366B7B` FOREIGN KEY (`tutorial_id`) REFERENCES `learn_tutorials` (`id`),
-  ADD CONSTRAINT `FK_298F36FC8D93D649` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Contraintes pour la table `learn_courses`
---
-ALTER TABLE `learn_courses`
-  ADD CONSTRAINT `FK_64441C0C30CB4478` FOREIGN KEY (`id_fork`) REFERENCES `learn_courses` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_64441C0C8D93D649` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Contraintes pour la table `learn_courses_link_activities`
---
-ALTER TABLE `learn_courses_link_activities`
-  ADD CONSTRAINT `FK_AF4AA5BD30A9DA54` FOREIGN KEY (`id_course`) REFERENCES `learn_courses` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_AF4AA5BDFCAFE5CF` FOREIGN KEY (`id_activity`) REFERENCES `learn_activities` (`id`) ON DELETE CASCADE;
-
---
--- Contraintes pour la table `learn_favorites`
---
-ALTER TABLE `learn_favorites`
-  ADD CONSTRAINT `FK_8BAF06B489366B7B` FOREIGN KEY (`tutorial_id`) REFERENCES `learn_tutorials` (`id`),
-  ADD CONSTRAINT `FK_8BAF06B4A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
---
--- Contraintes pour la table `learn_tutorials_link_tutorials`
---
-ALTER TABLE `learn_tutorials_link_tutorials`
-  ADD CONSTRAINT `FK_B7C981A1132B34C` FOREIGN KEY (`tutorial1_id`) REFERENCES `learn_courses` (`id`),
-  ADD CONSTRAINT `FK_B7C981A3871CA2` FOREIGN KEY (`tutorial2_id`) REFERENCES `learn_courses` (`id`);
-
---
--- Contraintes pour la table `user_classroom_users`
---
-ALTER TABLE `user_classroom_users`
-  ADD CONSTRAINT `FK_6AA056EF8D93D649` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Contraintes pour la table `user_premium`
---
-ALTER TABLE `user_premium`
-  ADD CONSTRAINT `FK_454934486B3CA4C` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Contraintes pour la table `user_regulars`
---
-ALTER TABLE `user_regulars`
-  ADD CONSTRAINT `FK_7A774CC5BF396750` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Contraintes pour la table `user_teachers`
---
-ALTER TABLE `user_teachers`
-  ADD CONSTRAINT `FK_D8AFBF6AC2FB178` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -58,11 +58,6 @@
                 <input type="text" name="last-name" id="profile-form-last-name" class="form-control form-control-lg">
             </div>
             <div class="form-row">
-                <label for="profile-form-nick-name" class="tutorial-label"
-                    data-i18n="classroom.profil.accountSettings.nickname"></label>
-                <input type="text" name="nickname" id="profile-form-nick-name" class="form-control form-control-lg">
-            </div>
-            <div class="form-row">
                 <label for="profile-form-email" class="tutorial-label"
                     data-i18n="classroom.profil.accountSettings.email"></label>
                 <input type="email" name="email" id="profile-form-email" class="form-control form-control-lg">
@@ -72,21 +67,22 @@
                     data-i18n="classroom.profil.accountSettings.password"></label>
             </div>
             <div class="form-inline">
-                <input type="password" name="password" id="profile-form-password" class="form-control form-control-lg">
+                <input type="password" name="password" id="profile-form-password" class="form-control form-control-lg" autocomplete="off">
                 <i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
             </div>
             <label for="profile-form-confirm-password" class="tutorial-label"
                 data-i18n="classroom.profil.accountSettings.confirmPassword"></label>
             <div class="form-inline">
                 <input type="password" name="confirm-password" id="profile-form-confirm-password"
-                    class="form-control form-control-lg">
+                    class="form-control form-control-lg" autocomplete="off">
                 <i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
             </div>
             <input type="hidden" name="teacher-id" id="profile-form-teacher-id">
             <div class="d-flex flex-column align-items-center">
-                <input class="btn c-btn-primary m-3" type="submit"
-                    data-i18n="[value]classroom.profil.accountSettings.updateButton">
+                <a class="btn c-btn-primary m-3" id="validate-profile-update"
+                    data-i18n="classroom.profil.accountSettings.updateButton"></a>
             </div>
         </div>
+        <input type="hidden" name="current-password" id ="current-password">
     </form>
 </div>

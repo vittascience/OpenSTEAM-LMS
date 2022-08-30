@@ -4,8 +4,8 @@
 			"noClass": "Le code entré ne correspond à aucune classe.",
 			"countdown1": "Le module de gestion de classe est actuellement en version bêta. Si vous souhaitez l’essayer, veuillez <a href=\"/about?contact=1\">contacter l’équipe Vittascience</a>.",
 			"countdown2": "Sortie officielle dans",
-			"hello1": "'Bonjour!'",
-			"hello2": "Bonjour!",
+			"display":"afficher",
+			"hello": "Bonjour !",
 			"title": "Gérez vos classes</br>avec Vittascience",
 			"neutralTitle": "Open STEAM LMS",
 			"subtitle": "Découvrir - Apprendre - Partager",
@@ -71,7 +71,7 @@
 		},
 		"successPanel": "Bravo, tu as réussi cette activité !",
 		"failPanel": "La réponse n'est pas correcte",
-		"toCorrectPanel": "L'activité à été transmise à ton enseignant,</br>qui reviendra vers toi bientôt ! <i class=\"fas fa-pen\"></i>",
+		"toCorrectPanel": "L'activité à été transmise à ton enseignant,</br>qui reviendra vers toi bientôt !",
 		"bank": {
 			"helpTooltip": "La banque de ressource contient de nombreuses activités sur lesquelles tu peux t'entraîner en autonomie ! Ton enseignant n'aura pas accès aux résultats de ces activités."
 		},
@@ -106,6 +106,9 @@
 			}
 		},
 		"notif": {
+			"emptyContent": "Le contenu ne peut pas être vide.",
+			"emptyTitle": "Le titre ne peut pas être vide.",
+			"activityRestricted": "Vous ne pouvez pas créer plus d'activité de ce type.",
 			"shareProjectTeacher": "Le projet a été partagé avec votre enseignant",
 			"addActivities": "Les activités sélectionnées ont été ajoutées à votre liste",
 			"addActivity": "L'activité a été ajoutée à votre liste",
@@ -131,6 +134,7 @@
 			"usersAdded": "Les comptes ont été créés",
 			"usersAddedFromCsv": "Les comptes ont été créés d'après le fichier csv",
 			"activityDeleted": "L'activité {{activityName}} a été supprimée",
+			"activityDuplicated": "L'activité {{activityName}} a été dupliquée",
 			"mustAttributeToStudent": "Vous devez attribuer l'activité à des étudiants",
 			"activityAttributed": "L'activité {{activityTitle}} a été attribuée aux apprenants listés",
 			"activityAttributionChanged": "L'attribution de l'activité {{activityTitle}} a été modifiée pour les apprenants listés",
@@ -180,10 +184,10 @@
 			"activityContentInvalid": "L'activité n'a pas pu être créée : contenu invalide",
 			"activityIsFromClassroomInvalid": "L'activité n'a pas pu être créée : erreur de contexte",
 			"activityUserIdInvalid": "L'activité n'a pas pu être créée : utilisateur invalide",
-			"personalLimitationsReached": "Vous avez atteint votre nombre maximum d'apprenants.",
+			"personalLimitationsReached": "Vous avez atteint votre nombre maximum d'apprenants ({{max}} maximum)",
 			"groupLimitationsGroup": "Votre groupe ne peut plus accueillir d'apprenants",
 			"groupLimitationsTeacher": "Vous avez atteint la limite d'apprenants que votre groupe vous octroie",
-			"bothLimitationsReached": "Vous avez atteint les limitations d'apprenants que vous et votre groupe pouvez avoir.",
+			"bothLimitationsReached": "Vous avez atteint les limitations d'apprenants que vous et votre groupe pouvez avoir. ({{maxG}} maximum par groupe, {{maxP}} maximum personnel)",
 			"ClassroomNameInvalid": "Le nom de la classe est requis",
 			"reservedNickname": "Le nom : \"{{reservedNickname}}\" ne peut être attribué.",
 			"invalidLink": "Le lien que vous avez entré n'est pas valide",
@@ -191,7 +195,11 @@
 			"noUserUsername" : "Vous devez rentrer un nom d'utilisateur",
 			"pseudoMissingInCsvFile" : "Certains élèves n'ont pu être ajouté car leur pseudo était manquant",
 			"backendReplyPseudoMissingInCsv" : "Vérifier le fichier CSV : ligne vide ou pseudo manquant",
-			"backendReplyPseudoMissingInUsersArray" : "Il y a une erreur dans un ou plusieurs nom d'apprenant(s)"
+			"backendReplyPseudoMissingInUsersArray" : "Il y a une erreur dans un ou plusieurs nom d'apprenant(s)",
+			"invalidActivityId": "Erreur lors de la soumission du travail : identifiant d'activité non valide !",
+			"invalidCorrection": "Erreur lors de la soumission du travail : statut d'activité non valide !",
+			"currentPasswordDoesNotMatch": "Le mot de passe saisi n'est pas correct !",
+			"noAnswerInActivity": "Vous devez renseigner au moins un champ de réponse"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",
@@ -222,6 +230,7 @@
 			"form": {
 				"title": "Créer une classe",
 				"name": "Nom de la classe",
+				"updateTitle": "Modifier une classe",
 				"school": "Nom de l'établissement",
 				"addStudent": "Ajouter un apprenant",
 				"noStudent": "Pas encore d'apprenants dans cette classe",
@@ -239,9 +248,18 @@
 				"editNickname": "Modifier le pseudonyme",
 				"delete": "Supprimer",
 				"copyLink": "Copier le lien direct",
+				"copyImage": "Copy the image",
+				"downloadImage": "Download the image",
 				"learnerMode": "Mode apprenant",
-				"dueBy":"À rendre avant le"
-			}	
+				"dueBy": "À rendre avant le",
+				"timePassed": "Temps passé : "
+			},
+			"selectStudents": "Sélectionner des apprenants",
+			"selectedStudents": "<span id='attribuate-student-number'>0</span> apprenants sélectionnés",
+			"activationLink": "Lien d'activation activé",
+			"activationLinkDisabled": "Lien d'activation désactivé",
+			"deleteStudent": "Supprimer l'élève",
+			"deleteStudentConfirm": "Voulez-vous vraiment supprimer cet élève ?"
 		},
 		"activities": {
 			"title": "Activités",
@@ -255,23 +273,75 @@
 			"anonymise": "Anonymiser la liste de vos élèves afin de pouvoir afficher le tableau de bord à vos apprenants.",
 			"save-draft": "Sauvegarder en tant que brouillon",
 			"validate": "Valider l'activité",
+			"validateWarning": "Attention, tu ne pourras soumettre cette activité qu'une seule fois !",
+			"validateNoEval": "Tu peux soumettre cette activité autant de fois que tu le souhaites.",
 			"accept": "Très bonne maîtrise",
 			"vgood": "Maîtrise satisfaisante",
 			"good": "Maîtrise fragile",
 			"refuse": "Maîtrise insuffisante",
+			"nnoted": "Non-noté",
 			"instruction": "Consigne",
 			"commentary": "Commentaire",
 			"sendResults": "Envoyer le commentaire ",
 			"noSend": "Cette activité n'a pas été rendue",
+			"toSend": "Activité à rendre pour le ",
+			"sentOn": "Cette activité a été rendue le ",
+			"activityOfUser": "Activité de ",
+			"userSentOn" : " rendue le ",
+			"timePassed" : "Temps passé sur l'activité :",
+			"yourAnswer": "Votre réponse",
+			"studentAnswer": "Réponse de l'apprenant",
 			"comments": "Entrez ici vos remarques",
+			"return": "Retour aux activités",
+			"numberOfTries": "Nombre d'essais : ",
+			"isAutocorrected": "Cet exercice a été corrigé automatiquement, vous pouvez modifier la note ci dessous.",
+			"isAutocorrect": "Cette activité sera corrigée automatiquement.",
+			"states": "Énoncé de l'activité",
+			"content": "Contenu de l'activité",
+			"correction": "Corrigé",
+			"putYourAnswer": "Entrez votre réponse",
+			"hint": "Indice",
+			"saved": "Activité sauvegardée",
+			"wrongAnswer": "Mauvaise réponse",
+			"emptyAnswer": "La réponse ne peut pas être vide",
+			"wrongAnswerLarge": "Mauvaise réponse, tu peux essayer à nouveau !",
+			"hintExist": "<i class='fas fa-info-circle'></i> Cet exercice possède un indice, il ne peut s'afficher que si l'élève peut soumettre l'activité plusieurs fois",
+			"anoStudent": "Élève",
 			"bilan": {
 				"title": "Bilan",
 				"results": "Résultats",
 				"noComment": "Aucun commentaire"
 			},
+			"applist":{
+				"selectApp":"Sélectionnez l'application avec laquelle vous souhaitez créer une activité",
+				"apps":{
+					"reading":{
+						"title": "Multimédia",
+						"desc": "Cette activité permet de visualiser des textes, images, vidéos, PDF, ainsi que des outils externes."
+					},
+					"quiz":{
+						"title": "QCM",
+						"desc": "Cette activité permet d'évaluer les connaissances à l'aide de question à choix multiples ou simples."
+					},
+					"free":{
+						"title": "Réponse libre",
+						"desc": "Cette activité permet aux élèves de répondre à un énoncé par écrit."
+					},
+					"fillIn":{
+						"title": "Texte à trous",
+						"desc": "Cette activité permet d'évaluer les connaissances en remplissant des cases vides."
+					},
+					"dragAndDrop":{
+						"title": "Glisser-Déposer",
+						"desc": "Cette activité permet de glisser et déposer des mots dans différents espaces vides."
+					}
+				}
+			},
 			"form": {
-				"1": "Création de l'activité",
-				"2": "Attribution",
+				"1": "Application",
+				"2": "Contenu",
+				"3": "Titre",
+				"4": "Attribution",
 				"title": {
 					"label": "Titre de l'activité",
 					"placeholder": "Titre de la partie"
@@ -279,6 +349,9 @@
 				"content": {
 					"label": "Contenu de l'activité"
 				},
+				"back": "Retour",
+				"validate": "Valider",
+				"buttonContinue": "Sauvegarder et continuer",
 				"button": "Sauvegarder et Valider",
 				"success": "Bravo, vous avez créé une activité !",
 				"attribute": "Attribuer l'activité dès maintenant",
@@ -295,7 +368,8 @@
 				"dateEnd": "Date de fin :",
 				"retroAttribution" : "Cette activité sera attribuée aux nouveaux apprenants"
 			},
-			"toCopy": "Ce code permet de rejoindre en toute simplicité votre classe",
+			"toCopy": "Ce code permet de rejoindre en toute simplicité votre classe :",
+			"qrCode": "Scanner le QR code :",
 			"copyLink": "Le lien vers votre classe a été ajouté au presse-papier",
 			"dateBefore": "A rendre avant le",
 			"integrate": "Intégrer dans une activité",
@@ -303,14 +377,59 @@
 			"goodProficiency": "Maîtrise satisfaisante",
 			"weakProficiency": "Maîtrise fragile",
 			"insufficientProficiency": "Maîtrise insuffisante",
+			"noProficiency": "Non-noté",
 			"addLearner": "Ajouter un apprenant",
 			"addLearners": "Ajouter des apprenants",
 			"addActivity": "Ajouter une activité",
-			"exportCsv": "Exporter csv"
+			"exportCsv": "Exporter csv",
+			"month": {
+				"1": "Janvier",
+				"2": "Février",
+				"3": "Mars",
+				"4": "Avril",
+				"5": "Mai",
+				"6": "Juin",
+				"7": "Juillet",
+				"8": "Août",
+				"9": "Septembre",
+				"10": "Octobre",
+				"11": "Novembre",
+				"12": "Décembre"
+			},
+			"preview": "Prévisualisation",
+			"deleteActivityDisclaimer": "Vous êtes sur le point de supprimer une activité. Cette action est irréversible.",
+			"deleteConfirm": "Confirmer la suppression de l'activité",
+			"deleteActivity": "Supprimer l'activité",
+			"correctAnswer": "Réponse correcte",
+			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activités </p>",
+			"moveToFolder": "Déplacer vers",
+			"rootFolder": "Dossier racine",
+			"seekFolder": "Aller dans le dossier",
+			"foldersMessages": {
+				"errorDelete": "Une erreur est survenue lors de la suppression du dossier",
+				"errorCreate": "Une erreur est survenue lors de la création du dossier",
+				"errorLenght": "Le nom du dossier doit contenir entre 1 et 30 caractères",
+				"errorUpdate": "Une erreur est survenue lors de la modification du dossier",
+				"errorMoveTo": "Une erreur est survenue lors du déplacement de l'objet",
+				"movedTo": "Objet déplacé avec succès",
+				"created": "Dossier créé avec succès",
+				"updated": "Dossier modifié avec succès",
+				"deleted": "Dossier supprimé avec succès",
+				"createFolder": "Créer un dossier",
+				"deleteFolder": "Confirmer la suppression du dossier",
+				"updateFolder": "Modifier le dossier",
+				"nameMandatory": "Nom du dossier <span class='mandatory'>*</span>",
+				"deleteDisclaimer": "Attention, le dossier et l'ensemble de son contenu (activités et sous-dossiers) seront supprimés"
+			},
+			"facultative": "Champs facultatifs",
+			"previewActivity": "Prévisualisation de l'activité",
+			"infoRetroAttribution": "Cette activité sera attribuée aux nouveaux apprenants, quand ils seront ajoutés à votre classe.",
+			"infoAutocorrect": "Cette activité dispose de correction automatique",
+			"infoEvaluation": "En cliquant sur non, les apprenants ne peuvent soumettre l’activité qu'une seule fois et n'ont pas accès aux indices et aux aides."
 		},
 		"filter": {
-			"desc": "Date croissante",
-			"asc": "Date décroissante",
+			"desc": "Plus ancien",
+			"asc": "Plus récent",
 			"placeholder": "Recherche..."
 		},
 		"sandbox": {
@@ -383,6 +502,7 @@
 			"addStudentByCsv": {
 				"title": "Ajouter des étudiants avec un fichier .csv",
 				"description": "Vous pouvez ajouter un ou plusieurs apprenants d'un seul coup en les important depuis un fichier .csv. Il est facultativement possible de définir le mot de passe pour chacun d'entre eux. Voici les fichiers .csv modèles : ",
+				"descriptionUpdate": "Vous pouvez ajouter un ou plusieurs apprenants d'un seul coup en les important depuis un fichier .csv. <b>ATTENTION</b> : ici, les mots de passe du fichier csv ne sont pas pris en compte ! Voici le fichier .csv modèle : ",
 				"csvTemplate": "fichier modèle avec mot de passe",
 				"csvTemplateNoPassword": "fichier modèle sans mot de passe",
 				"importStudentByCsvButton": "Importer les apprenants"
@@ -406,7 +526,22 @@
 			},
 			"attributeActivity": {
 				"title": "Attribuer l'activité"
+			},
+			"shareProject": {
+				"title": "Partager le projet"
+			},
+			"profileUpdatePasswordConfirm": {
+				"title": "Confirmation du mot de passe",
+				"description": "Veuillez saisir votre mot de passe actuel afin de valider les modifications de votre profil !",
+				"placeholderInput": "Mot de passe",
+				"validateButton": "Valider"
 			}
+		},
+		"folders": {
+			"folderManagement": "Gestion des dossiers",
+			"name": "Nom du dossier <span class=\"mandatory\">*</span>",
+			"title": "Dossier",
+			"image": "Image du dossier"
 		}
 	},
 	"faqInfo": {
@@ -457,7 +592,7 @@
 					},
 					"3": {
 						"title": "Où peut-on trouver le code source du module Classe ?",
-						"answer": "Le code source du module Classe n'est pas disponible pour le moment. Vous pouvez retrouver de nombreux modules open-source de la plateforme Vittascience sur <a href=\"https://github.com/vittascience\">le dossier GitHub de Vittascience</a>, n'hésitez pas à contribuer !"
+						"answer": "Le code source du module Classe est disponible <a href=\"https://github.com/vittascience/OpenSTEAM-LMS\">sur le repo git associé</a>, n'hésitez pas à contribuer !"
 					}
 				}
 			},
@@ -506,7 +641,7 @@
 				},
 				"3": {
 					"title": "Où peut-on trouver le code source du module Classe ?",
-					"answer": "Le code source du module Classe n'est pas disponible pour le moment. Vous pouvez retrouver de nombreux modules open-source de la plateforme Vittascience sur <a href=\"https://github.com/vittascience\">le dossier GitHub de Vittascience</a>, n'hésitez pas à contribuer !"
+					"answer": "Le code source du module Classe est disponible <a href=\"https://github.com/vittascience/OpenSTEAM-LMS\">sur le repo git associé</a>, n'hésitez pas à contribuer !"
 				}
 			}
 		},
@@ -819,6 +954,7 @@
 		},
 		"success": "L'authentification a réussi. Redirection...",
 		"error": "Erreur. Veuillez vérifier vos identifiants.",
+		"canNotLoginBefore": "{{failedLoginAttempts}} tentatives échouées. Vous devez attendre {{timeToWait}} minute(s) avant de pouvoir vous connecter à nouveau",
 		"mailSuccess": "Un mail d'activation a été envoyé à votre adresse mail.",
 		"mailError": "Une erreur est survenue. Veuillez vérifier votre adresse mail.",
 		"userNotFound": "Aucun utilisateur trouvé avec ces identifiants.",
@@ -919,6 +1055,7 @@
 		"confirm": "confirmer",
 		"username": "pseudonyme",
 		"password": "Mot de passe",
+		"options": "options",
 		"yes": "Oui",
 		"no": "Non"
 	},
@@ -929,7 +1066,8 @@
 			"bio": "Bio",
 			"group": "Groupe",
 			"apps": "Applications",
-			"personalApps": "Applications personnel",
+			"groupsApps": "Applications de groupe",
+			"personalApps": "Applications personnelles",
 			"email": "E-mail <span class=\"c-text-red\">*</span>",
 			"nickname": "Pseudo",
 			"lastname": "Nom <span class=\"c-text-red\">*</span>",
@@ -1042,6 +1180,7 @@
 			"mailNotSentToUserReset": "l'e-mail de changement de mot de passe n'a pas pu être envoyé à l'utilisateur",
 			"appsUpdated": "Les applications de l'utilisateur ont été mise à jour",
 			"updateAppModalTitle": "Application",
+			"globalRestrictions": "Restrictions globales",
 			"teacherGrades": {
 				"0": "Primaire",
 				"1": "Collège",
@@ -1172,10 +1311,10 @@
 			"groupUpdated": "Groupe modifié avec succès",
 			"groupCreateFailed": "Le groupe n'a pas pu être créé, il manque des informations",
 			"showLinkTitle": "Lien du groupe",
-			"usersWithoutGroups": "Utilisateurs sans groupe",
+			"usersWithoutGroups": "Enseignants sans groupe",
 			"searchResult": "Résultat de la recherche",
 			"usersInactiveOrNoRegular": "Utilisateurs non regular",
-			"usersWithoutGroupsDescription": "Groupement d'utilisateurs n'étant liés à aucun groupe",
+			"usersWithoutGroupsDescription": "Groupement d'enseignants n'étant liés à aucun groupe",
 			"usersInactiveOrNoRegularDescription": "Groupement non regular",
 			"groupDeleteError": "Le groupe n'a pas pu être supprimé.",
 			"groupFull": "Le groupe est complet.",
@@ -1188,7 +1327,8 @@
 			"studentsPerGroup": "Apprenants par groupe",
 			"studentsPerTeacher": "Apprenants par enseignant",
 			"maxStudents": "Maximum d'apprenants",
-			"maxActivities": "Maximum d'activités"
+			"maxActivities": "Maximum d'activités",
+			"groupsRestrictions": "Restriction du groupe"
 		},
 		"title": {
 			"activeUsers": "Utilisateurs actifs",
@@ -1255,6 +1395,7 @@
 			"lastname": "Nom",
 			"firstname": "Prénom",
 			"applications": "Applications",
+			"nbUsers": "Nombre d'utilisateurs",
 			"group": "Groupe",
 			"description": "Description",
 			"descriptionMandatory": "Description <span class=\"c-text-red\">*</span>",
@@ -1266,18 +1407,28 @@
 			"dateBegin": "Date début",
 			"dateEnd": "Date de fin",
 			"outDated": "Périmé",
+			"status": "Statut",
 			"maxStudents": "Maximum d'apprenants",
-			"actualStudents": "Éleves actuels",
+			"actualStudents": "Apprenants actuels",
 			"maxTeachers": "Maximum d'enseignants",
 			"actualTeachers": "Enseignants actuels",
 			"maxStudentsPerTeachers": "Maximum d'apprenants par enseignant",
 			"maxStudentsPerTeacher": "Maximum d'apprenants par enseignant",
+			"activityType": "Type d'activité",
+			"maxActivitiesPerGroup": "Maximum d'activités par groupe",
+			"maxActivitiesPerTeacher": "Maximum d'activités par enseignant",
 			"monitoring": "Suveillance des applications",
 			"image": "Image",
+			"backgroundImage": "Image de fond",
 			"userNoRights": "Pas de droits assignés",
 			"userAdmin": "Administrateur",
 			"userTeacher": "Enseignant",
-			"restrictions": "Restrictions"
+			"restrictions": "Restrictions",
+			"color": "Couleur",
+			"restriction": "Restriction",
+			"dateBeginFA": "<i class='far fa-calendar-alt'></i>  Date début",
+			"dateEndFA": "<i class='far fa-calendar-alt'></i>  Date de fin",
+			"maxStudentsFA": "<i class='fas fa-user-alt'></i>  Maximum d'apprenants"
 		},
 		"apps": {
 			"apps": "Applications",
@@ -1293,7 +1444,21 @@
 			"usersLimitation": "Limitation d'apprenants par utilisateur",
 			"groupsLimitation": "Limitations de groupe",
 			"activitiesLimitation": "Limitations d'activité",
-			"defaultRestrictions": "Restrictions par défaut"
+			"defaultRestrictions": "Restrictions par défaut",
+			"ltiApps": "Applications LTI",
+			"clientId" : "Id client <span class=\"c-text-red\">*</span>",
+			"deploymentId" : "Id déploiement <span class=\"c-text-red\">*</span>",
+			"toolUrl" : "Url de l'outil <span class=\"c-text-red\">*</span>",
+			"publicKeySet" : "Clé publique <span class=\"c-text-red\">*</span>",
+			"loginUrl" : "Url de login <span class=\"c-text-red\">*</span>",
+			"redirectionUrl" : "Url de redirection <span class=\"c-text-red\">*</span>",
+			"deepLinkUrl" : "Url de deep link <span class=\"c-text-red\">*</span>",
+			"privateKey" : "Clé privée <span class=\"c-text-red\">*</span>",
+			"monitoringApps": "Informations des applications",
+			"monitoringGroup": "Informations du groupe",
+			"appStatus0": "Inactive",
+			"appStatus1": "À jour",
+			"appStatus2": "Périmé"
 		},
 		"activitiesRestrictions": {
 			"updateAll": "Modifier les restrictions",
@@ -1307,7 +1472,20 @@
 			"restrictionType": "Type d'activité",
 			"maxActivity": "Maximum d'activité",
 			"closeDetail": "Fermer le détail",
-			"restrictions": "Restrictions d'activité"
+			"restrictions": "Restrictions d'activité",
+			"appRestricted" : "Créez plus d'activités !",
+			"appOutDated" : "L'abonnement de l'application est périmé.",
+			"appOutDatedUL1": "Votre abonnement donnant accès à cette application est périmé.",
+			"appOutDatedUL2": "Pour continuer à utiliser cette application, veuillez prendre contact avec votre administrateur.",
+			"appOutDatedSubtitle3": "Contacter le support",
+			"appRestrictedUL1": "Vous avez atteint la limite de {{activities}} activités associés à votre compte.",
+			"appRestrictedUL2": "Pour ajouter des activités sumpplémentaires, veuillez prendre contact avec votre administrateur.",
+			"appRestrictedSubtitle2": "Un problème avec votre abonnement ?",
+			"appRestrictedSubtitle3": "Contacter le support",
+			"appRestrictedGarContent1": "Vous avez atteint la limite de {{activities}} activités associés à votre compte.",
+			"appRestrictedGarContent2": "Pour ajouter des activités sumpplémentaires, veuillez prendre contact avec le.la responsable d'affectation GAR de votre établissement.",
+			"indexPos": "Index de position",
+			"appQuantity": "Quantité"
 		},
 		"defaultRestrictions": {
 			"update": "Modifier les restrictions par défaut",
@@ -1355,6 +1533,40 @@
 				"disconnect": "Se déconnecter",
 				"willSignup": "Je m'inscris !",
 				"willSignin": "Je me connecte"
+			}
+		}
+	},	
+	"newActivities": {
+		"create": "Créer une nouvelle activité",
+		"delete": "Supprimer",
+		"addQuiz": "Ajouter une proposition",
+		"states": "Énoncé de l'activité <span class=\"c-text-red\">*</span>",
+		"cancel": "Annuler",
+		"autocorrect": "Correction automatique",
+		"correction": "Corrigé de l'activité",
+		"contentTitle": "Contenu de l'activité",	
+		"tolerance1": "Ajouter une tolérance d'erreur de",
+		"tolerance2": "caractère(s) sur l'ensemble de la réponse de l'élève.",
+		"hint": "Indice <i>* s'affiche si la réponse est fausse</i>",
+		"title": "Titre de l'activité <span class=\"c-text-red\">*</span>",
+		"description": "Description de l'activité <span class=\"c-text-red\">*</span>",
+		"content": "Contenu de l'activité <span class=\"c-text-red\">*</span>",
+		"addField": "Ajouter un champ de réponse",
+		"addFieldTooltip": "En cliquant sur le bouton Ajouter un champ de réponse, un texte stylisé est ajouté. Vous pouvez écrire la réponse correcte dans ce champ. Les réponses alternatives sont séparées par une double esperluette &&",
+		"ActivitiesData": {
+			"title": {
+				"reading": "Lecture simple",
+				"free": "Réponse libre",
+				"quiz": "QCM",
+				"fillIn": "Texte à trous",
+				"dragAndDrop": "Glisser-Déposer"
+			},
+			"description": {
+				"reading": "Cette activité permet de visualiser des images, vidéos, PDF, interfaces Vittascience ainsi que des outils externes.",
+				"free": "Cette activité permet aux élèves de répondre à un exercice par écrit.",
+				"quiz": "Cette activité permet d’évaluer les connaissances à l’aide de question à choix multiples ou simples.",
+				"fillIn": "Cette activité permet d’appliquer ses connaissances en remplissant des cases vides.",
+				"dragAndDrop": "Cette activité permet de glisser et déposer des mots dans différents espaces vides."
 			}
 		}
 	}

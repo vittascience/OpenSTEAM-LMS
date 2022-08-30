@@ -4,7 +4,7 @@
     <div class="text-center d-flex flex-column justify-content-center jumbotron-neutral">
         <div id="interactive-elements-container" style="flex-grow:1;">
             <div id="fake-blockly">
-                <span id="fake-blockly-desc">afficher</span>
+                <span id="fake-blockly-desc" data-i18n="classroom.login.display">afficher</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="200" viewBox="0 0 191.9 55.4">
                     <g id="fake-blockly-svg">
                         <path
@@ -17,12 +17,11 @@
                             d="M76.9 23a1.9 1.9 0 01.8 1.5 2.27 2.27 0 01-.6 1.6 2.17 2.17 0 01-3 0 1.82 1.82 0 01-.6-1.4 2.72 2.72 0 01.6-1.7l1.8-2.6H78L76.9 23zm6 0a1.9 1.9 0 01.8 1.5 2.27 2.27 0 01-.6 1.6 2.17 2.17 0 01-3 0 1.82 1.82 0 01-.6-1.4 2.72 2.72 0 01.6-1.7l1.8-2.6H84L82.9 23zM173.9 24.1a1.9 1.9 0 01-.8-1.5 2.11 2.11 0 01.6-1.6 2.17 2.17 0 013 0 1.82 1.82 0 01.6 1.4 2.72 2.72 0 01-.6 1.7l-1.8 2.6h-2.1zm-6 0a1.9 1.9 0 01-.8-1.5 2.11 2.11 0 01.6-1.6 2.17 2.17 0 013 0 1.82 1.82 0 01.6 1.4 2.72 2.72 0 01-.6 1.7l-1.8 2.6h-2.1z" />
                     </g>
                 </svg>
-                <input type="text" id="fake-blockly-input" name="name" maxlength="20" placeholder="Bonjour !"
-                    value="Bonjour !" autocomplete="off" data-lpignore="true">
+                <input type="text" id="fake-blockly-input" name="name" maxlength="20" data-i18n="[value]classroom.login.hello" autocomplete="off" data-lpignore="true">
             </div>
             <span id="fake-code"><span style="color: #AC00B1;">print</span><span>(</span><span id="fake-code-text"
-                    style="color:#009651;" data-i18n="classroom.login.hello1"></span><span>)</span></span>
-            <span id="fake-display" data-i18n="classroom.login.hello2"></span>
+                    style="color:#009651;" data-i18n="classroom.login.hello"></span><span>)</span></span>
+            <span id="fake-display" data-i18n="classroom.login.hello"></span>
         </div>
         <div id="heading-container" style="flex-grow:1;">
             <h1 data-i18n="[html]classroom.login.neutralTitle"></h1>
@@ -68,12 +67,12 @@
         <div id="classroom-login-code" class="container-border-left">
 
             <h3 class="font-weight-bold c-text-secondary" data-i18n="classroom.login.student"></h3>
-            <div class="c-secondary-form">
+            <div class="c-secondary-form mb-3">
                 <img src="assets/media/orange_lock.png" class="icon-label">
                 <label for="secret_code" data-i18n="classroom.login.codeInput"></label></br>
                 <input type="text" placeholder="123ABC" name="secret_code" id="class-code" required>
             </div>
-            <button class="btn c-btn-secondary" id="class-connexion" type="submit"><span
+            <button class="btn c-btn-secondary text-capitalize" id="class-connexion" type="submit"><span
                     data-i18n="words.confirm"></span>
                 <i class="fas fa-chevron-right"></i></button>
         </div>
@@ -229,31 +228,31 @@
             <p data-i18n="[html]manager.account.registration.mandatory"></p>
             <p data-i18n="[html]manager.account.registration.cguOpenSteam"></p>
 
-            <div class="form-check">
+            <div class="c-checkbox">
                 <input class="form-check-input" type="checkbox" id="cb_name_public">
                 <label class="form-check-label" for="cb_name_public"
                     data-i18n="manager.account.registration.accountPublic">
                 </label>
             </div>
-            <div class="form-check">
+            <div class="c-checkbox">
                 <input class="form-check-input" type="checkbox" id="cb_newsletter">
                 <label class="form-check-label" for="cb_newsletter"
                     data-i18n="manager.account.registration.newsletter">
                 </label>
             </div>
-            <div class="form-check">
+            <div class="c-checkbox">
                 <input class="form-check-input" type="checkbox" id="cb_alert_mail">
                 <label class="form-check-label" for="cb_alert_mail"
                     data-i18n="manager.account.registration.mailAlert">
                 </label>
             </div>
-            <div class="form-check">
+            <div class="c-checkbox">
                 <input class="form-check-input" type="checkbox" id="cb_allow_contact">
                 <label class="form-check-label" for="cb_allow_contact"
                     data-i18n="manager.account.registration.allowContact">
                 </label>
             </div>
-            <div class="form-check">
+            <div class="c-checkbox">
                 <input class="form-check-input" type="checkbox" id="cb_adult" required>
                 <label class="form-check-label" for="cb_adult" data-i18n="manager.account.registration.confirmAdult">
                 </label>
@@ -357,14 +356,14 @@
     </div>
 </div>
 
-<!-- <script>
+<script>
     /* INTERACTIVE BLOCK */
     $("#fake-blockly-input").on("input", (function () {
         var text = $("#fake-blockly-input").val().trim();
-        $('#fake-code-text').html('\'' + text + '\'');
-        $('#fake-display').html(text);
+        $('#fake-code-text').text(text);
+        $('#fake-display').text(text);
     }));
-</script> -->
+</script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
 </script>
