@@ -3,7 +3,7 @@
         "index.php" => [
             [
                 "type" => "css",
-                "src" => "https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+                "src" => "assets/css/slick.css"
             ],
             [
                 "type" => "css",
@@ -11,7 +11,7 @@
             ],
             [
                 "type" => "js",
-                "src" => "https://cdn.jsdelivr.net/npm/vanilla-lazyload@12.4.0/dist/lazyload.min.js"
+                "src" => "assets/js/lib/lazyload.js"
             ]
         ],
         "shop.php" => [
@@ -21,7 +21,7 @@
             ],
             [
                 "type" => "css",
-                "src" => "https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+                "src" => "assets/css/lib/slick.css"
             ],
             [
                 "type" => "css",

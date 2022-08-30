@@ -375,7 +375,7 @@
 <script src="assets/js/lib/jquery-i18next.min.js?version=1.2.12a"></script>
 <script src="assets/js/lib/i18nextXHRBackend.min.js?version=1.2.12a"></script>
 <script src="assets/js/lib/i18nextBrowserLanguageDetector.min.js?version=1.2.12a"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js?version=1.2.12a"></script>
+<script type="text/javascript" src="/classroom/assets/js/lib/slick-carrousel.js?version=1.2.12a"></script>
 <script src="assets/js/utils/translate.js?version=1.2.12a"></script>
 <script src="assets/js/utils/get.js?version=1.2.12a"></script>
 <script src="assets/js/scripts/dashboardActivities.js?version=1.2.12a"></script>

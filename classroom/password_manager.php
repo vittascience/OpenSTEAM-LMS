@@ -33,7 +33,7 @@ function showPasswordPage() {
     ?>
         <link rel="stylesheet" href="/classroom/assets/css/main.css?version=1.2.12a">
         <script src="./assets/js/lib/rotate.js?version=1.2.12a"></script>
-        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css?version=1.2.12a"/>
+        <link rel="stylesheet" type="text/css" href="assets/css/slick.css?version=1.2.12a">
         </head>
         <body>
     <?php
