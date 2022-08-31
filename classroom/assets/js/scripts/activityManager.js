@@ -45,7 +45,6 @@ function LtiDefaultCode(activityType, isUpdate) {
 }
 
 function launchCustomActivity(activityType, isUpdate = false, callback = false) {
-    console.log(activityType);
     setTextArea();
 
     const contentForwardButtonElt = document.getElementById('content-forward-button');
@@ -92,6 +91,9 @@ function contentBackward() {
     })
 }
 
+const ContentForwardCustom = [
+    
+]
 // Get the content
 function contentForward() {
     
@@ -119,6 +121,11 @@ function contentForward() {
         isCheckPassed = parseQuizFieldsAndSaveThem();
     } else if (Main.getClassroomManager()._createActivity.id == 'dragAndDrop') {
         isCheckPassed = parseDragAndDropFieldsAndSaveThem();
+    } else {
+        const funct = ContentForwardCustom.filter(contentForwardCheck => contentForwardCheck[0] == Main.getClassroomManager()._createActivity.id)[0];
+        if (funct) {
+            isCheckPassed = funct[1]();
+        }
     }
     // Check if the content if empty
     if (Main.getClassroomManager()._createActivity.content.description == '' && !isCheckPassed) { 

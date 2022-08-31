@@ -1841,6 +1841,13 @@
         </div>
     </nav>
 </div>
+<div id="app-media-galery" class="dashboard-block" style="display: none;">
+    <div class="d-flexflex-fill c-primary-form">
+        <input type="search" name="apps-file-search" id="apps-file-search" class="flex-fill seach-app-galery" data-i18n="[placeholder]manager.buttons.search">
+    </div>
+    <div class="container app-media-galery mt-4"  id="app-media-galery-container">
+    </div>
+</div>
 <div id="classroom-dashboard-ide-panel" style="display:none;" class="dashboard-block">
     <iframe width="100%" style="height:85vh;" frameborder="0" allowfullscreen="" style="border:1px #d6d6d6 solid;" src=""></iframe>
 </div>
@@ -1908,6 +1915,8 @@
 <!-- drag and drop bundle -->
 <link rel="stylesheet" stype="text/css" href="assets/css/dragula.css">
 <script src="assets/js/lib/dragula.js" ></script>
+
+<script src="assets/js/main/CustomActivityManager.js"></script>
 
 <script>
     UIManager.init().then((resolve) => {
