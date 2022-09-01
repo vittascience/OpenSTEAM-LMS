@@ -31,8 +31,6 @@
         <p>Place your Legal Notices here</p>
     </div>
     <script src="assets/js/lib/popper-1.12.9.min.js?version=1.2.12a"></script>
-    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js?version=1.2.12a" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
-    <!-- <script src="//cdn.jsdelivr.net/npm/pouchdb@7.0.0/dist/pouchdb.min.js?version=1.2.12a"></script>  old version was 5.2, in case of problem with this one 7.0 -->
     <script src="assets/js/lib/i18next.js?version=1.2.12a"></script>
     <script src="assets/js/lib/jquery-i18next.min.js?version=1.2.12a"></script>
     <script src="assets/js/lib/i18nextXHRBackend.min.js?version=1.2.12a"></script>

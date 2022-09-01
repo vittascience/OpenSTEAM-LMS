@@ -154,7 +154,7 @@ class managerManager {
     }
 
     /**
-     * @param {*} $restriction_id 
+     * @param {*} $restriction_id
      * @returns promise
      */
     getActivityRestrictionFromApp($application_id) {
@@ -176,7 +176,7 @@ class managerManager {
     }
 
     /**
-     * @param {*} $restriction_id 
+     * @param {*} $restriction_id
      * @returns promise
      */
      getDefaultRestrictions() {
@@ -290,7 +290,7 @@ class managerManager {
                 }
             });
         })
-    }  
+    }
 
     getAllApplications() {
         return new Promise(function (resolve, reject) {
@@ -367,7 +367,7 @@ class managerManager {
             });
         })
     }
-    
+
 
     createApplication($application_name, $application_description, $application_image, $lti_data, $application_color, $restriction_max, $application_sort_index) {
         return new Promise(function (resolve, reject) {
@@ -417,10 +417,10 @@ class managerManager {
     };
 
     /**
-     * @param {int} $group_id 
-     * @param {string} $group_name 
-     * @param {string} $group_description 
-     * @param {array} $group_app 
+     * @param {int} $group_id
+     * @param {string} $group_name
+     * @param {string} $group_description
+     * @param {array} $group_app
      * @returns {object} response
      */
     updateGroup($group_id, $group_name, $group_description, $group_app, $global_restriction) {
@@ -446,7 +446,7 @@ class managerManager {
     }
 
     /**
-     * @param {int} $group_id 
+     * @param {int} $group_id
      * @returns {object} response
      */
     deleteGroup($group_id) {
@@ -469,9 +469,9 @@ class managerManager {
 
     /**
      * Update the user's applications
-     * @param {int} $user_id 
-     * @param {array} $user_app 
-     * @returns 
+     * @param {int} $user_id
+     * @param {array} $user_app
+     * @returns
      */
     updateUserApps($user_id, $user_app, $global_user_restriction) {
         return new Promise(function (resolve, reject) {
@@ -494,8 +494,8 @@ class managerManager {
     }
 
     /**
-     * @param {int} $id 
-     * @returns 
+     * @param {int} $id
+     * @returns
      */
     getAdminFromGroup($id) {
         return new Promise(function (resolve, reject) {
@@ -729,7 +729,7 @@ class managerManager {
                             if (element_2.image != null && element_2.image != "") {
                                 div_img += `<img src="${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             } else {
-                                div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="assets/media/no-app-icon.svg?version=1.2.12a" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             }
                         });
                     }
@@ -750,7 +750,7 @@ class managerManager {
                         if (element.active != "1" && $group_id != -2) {
                             activeFlag = false;
                         }
-                    } 
+                    }
                     if (activeFlag) {
                         activeUsers++;
                         $data_table +=
@@ -775,7 +775,7 @@ class managerManager {
                         </tr>`;
                     } else {
                         inactiveUsers++;
-                        $data_table_inactive += 
+                        $data_table_inactive +=
                         `<tr>
                             <td>${element.surname}</td>
                             <td>${element.firstname}</td>
@@ -828,7 +828,7 @@ class managerManager {
     globalSearchUser($name, $page, $usersperpage) {
         const process = (res) => {
             mainManager.getmanagerManager()._allActualUsers = [];
-            let $data_table = "", 
+            let $data_table = "",
                 $data_table_inactive = "";
 
             $('#group_name_from_table').text(i18next.t('manager.group.searchResult'));
@@ -872,7 +872,7 @@ class managerManager {
                             if (element_2.image != null && element_2.image != "") {
                                 div_img += `<img src="${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             } else {
-                                div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="assets/media/no-app-icon.svg?version=1.2.12a" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             }
                         });
                     }
@@ -889,7 +889,7 @@ class managerManager {
                         if (element.active != "1") {
                             activeFlag = false;
                         }
-                    } 
+                    }
                     if (activeFlag) {
                         $data_table +=
                         `<tr>
@@ -912,7 +912,7 @@ class managerManager {
                             </td>
                         </tr>`;
                     } else {
-                        $data_table_inactive += 
+                        $data_table_inactive +=
                         `<tr>
                             <td>${element.surname}</td>
                             <td>${element.firstname}</td>
@@ -1010,7 +1010,7 @@ class managerManager {
                         if (element_2.image != null && element_2.image != "") {
                             div_img += `<img src="${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                         } else {
-                            div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                            div_img += `<img src="assets/media/no-app-icon.svg?version=1.2.12a" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                         }
                     });
                 }
@@ -1075,7 +1075,7 @@ class managerManager {
                             if (element_2.image != null && element_2.image != "") {
                                 div_img += `<img src="${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             } else {
-                                div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="assets/media/no-app-icon.svg?version=1.2.12a" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             }
                         });
                     }

@@ -56,7 +56,7 @@ function teacherSandboxItem(json) {
     let html = `<div class="sandbox-item sandbox-teacher">
                     <div class="sandbox-card sandbox-card-` + json.interface + `" data-id="${json.id}" data-href="/` + json.interface + `/?link=` + json.link + `&embed=1">
                         <div class="sandbox-card-top">
-                        <i class="fas fa-share fa-2x" style="grid-column-start: 1; grid-column-end: 1;" data-link="${json.link}" ></i>      
+                        <i class="fas fa-share fa-2x" style="grid-column-start: 1; grid-column-end: 1;" data-link="${json.link}" ></i>
                             <div class="dropdown"><i class="fas fa-cog fa-2x" style="grid-column-start: 3; grid-column-end: 3;" type="button" id="dropdown-teacherSandboxItem-${json.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                     <div class="dropdown-menu" aria-labelledby="dropdown-teacherSandboxItem-${json.id}">`
     if (UserManager.getUser().isRegular) {
@@ -97,7 +97,7 @@ function teacherActivityItem(activity, displayStyle) {
                                         <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
                                         <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                             <div class="activity-card-mid">
                             </div>
@@ -115,6 +115,7 @@ function teacherActivityItem(activity, displayStyle) {
         /* let activityTypeImg = activity.type != null && "" ?  */
         content = `<div class="row activity-item-list" data-id="${activity.id}">
         <div class="container-draggable">
+
             <div class="activity-list">
                 <div class="activity-list-icon">
                     ${activityImg}
@@ -126,7 +127,7 @@ function teacherActivityItem(activity, displayStyle) {
                     </div>
                     <div class="activity-list-info">
                             ${activity.isAutocorrect ? `<div class="activity-list-auto">
-                                <img src='${_PATH}assets/media/auto-icon-grey.svg' title='Auto' onload="SVGInject(this)">
+                                <img src='${_PATH}assets/media/auto-icon-grey.svg?version=1.2.12a' title='Auto' onload="SVGInject(this)">
                             </div>` 
                             : "" }
                     </div>
@@ -160,10 +161,10 @@ function teacherFolder(folder, displayStyle) {
     let content = "";
     if (displayStyle == "card") {
         content = `<div class="folder-item" data-id="${folder.id}">
-                    <div> 
+                    <div>
                         <div class="folder-card" data-id="${folder.id}">
-                            <img class="folder-close-icon" src="${_PATH}assets/media/folders/folder_close_icon.svg" onload="SVGInject(this)">
-                            <img class="folder-open-icon" src="${_PATH}assets/media/folders/folder_open_icon.svg" onload="SVGInject(this)">
+                            <img class="folder-close-icon" src="${_PATH}assets/media/folders/folder_close_icon.svg?version=1.2.12a" onload="SVGInject(this)">
+                            <img class="folder-open-icon" src="${_PATH}assets/media/folders/folder_open_icon.svg?version=1.2.12a" onload="SVGInject(this)">
                             <div class="folder-card-top">
                                 <div class="dropdown">
                                     <i class="fas fa-cog fa-2x" type="button" id="dropdown-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -189,8 +190,9 @@ function teacherFolder(folder, displayStyle) {
         content = `<div class="row folder-item-list" data-id="${folder.id}">
                         <div class="container-draggable">
                             <div class="folder-list" data-id="${folder.id}">
+
                                 <div class="folder-list-icon">
-                                    <img class="list-item-img list-folder-img-manager" src="${_PATH}assets/media/folders/folder_close_icon.svg" alt="folder_close" class="folder-icons" onload="SVGInject(this)">
+                                    <img class="list-item-img list-folder-img-manager" src="${_PATH}assets/media/folders/folder_close_icon.svg?version=1.2.12a" alt="folder_close" class="folder-icons" onload="SVGInject(this)">
                                 </div>
                                 
                                 <div class="folder-list-title">
@@ -311,7 +313,7 @@ function classeList(classe, ref = null) {
         html += `<div class="c-checkbox ml-3 student-attribute-form-row">
             <input type="checkbox" id="student-${student.user.id}" value="${student.user.id}" class="student-id" ${checked}>
             <label class="mb-0" for="student-${student.user.id}">
-                <img class="ml-1" src="${_PATH}assets/media/alphabet/${student.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil"></img>
+                <img class="ml-1" src="${_PATH}assets/media/alphabet/${student.user.pseudo.slice(0, 1).toUpperCase()}.png?version=1.2.12a" alt="Photo de profil"></img>
                 <span>${student.user.pseudo}</span>
             </label>
         </div>`
@@ -637,7 +639,7 @@ function loadActivityForTeacher() {
 
     if (Activity.correction >= 1) {
         $('#activity-details').html(i18next.t("classroom.activities.activityOfUser") + Activity.user.pseudo + i18next.t("classroom.activities.userSentOn") + formatHour(Activity.dateSend))
-        document.querySelector('#activity-details').innerHTML += `<br><img class="chrono-icon" src="${_PATH}assets/media/icon_time_spent.svg">${i18next.t('classroom.activities.timePassed')} ${formatDuration(Activity.timePassed)}, ${i18next.t("classroom.activities.numberOfTries")} ${Activity.tries}`;
+        document.querySelector('#activity-details').innerHTML += `<br><img class="chrono-icon" src="${_PATH}assets/media/icon_time_spent.svg?version=1.2.12a">${i18next.t('classroom.activities.timePassed')} ${formatDuration(Activity.timePassed)}, ${i18next.t("classroom.activities.numberOfTries")} ${Activity.tries}`;
         if (Activity.autocorrection) {
             $("#activity-auto-corrected-disclaimer").show();
         }

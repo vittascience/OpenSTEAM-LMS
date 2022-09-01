@@ -405,8 +405,7 @@ function getTeacherActivity() {
     resetInputsForActivity();
 
     $('#activity-title').html(Activity.title);
-
-    let autoCorrectionDisclaimerElt = `<img id="activity-auto-disclaimer" data-toggle="tooltip" src="${_PATH}assets/media/auto-icon.svg" title="${i18next.t("classroom.activities.isAutocorrect")}">`
+    let autoCorrectionDisclaimerElt = `<img id="activity-auto-disclaimer" data-toggle="tooltip" src="${_PATH}assets/media/auto-icon.svg?version=1.2.12a" title="${i18next.t("classroom.activities.isAutocorrect")}">`
     Activity.isAutocorrect ? $('#activity-title').append(autoCorrectionDisclaimerElt).tooltip() : null;
 
     let activityDropdownElt = `
@@ -422,13 +421,13 @@ function getTeacherActivity() {
                     ${capitalizeFirstLetter(i18next.t('words.attribute'))}
                 </a>
             </li>
-        
+
             <li>
                 <a class="dropdown-item" href="#" onclick="createActivity(null,${Activity.id})">
                     ${capitalizeFirstLetter(i18next.t('words.duplicate'))}
                 </a>
             </li>
-                
+
             <li>
                 <a class="dropdown-item" onclick="activityModify(${Activity.id})" href="#">
                     ${capitalizeFirstLetter(i18next.t('words.modify'))}

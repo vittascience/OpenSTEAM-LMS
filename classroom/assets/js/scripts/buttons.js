@@ -524,18 +524,18 @@ $('body').on('click', '.modal-teacherSandbox-delete', function () {
 //increment counter when selecting student
 document.addEventListener('change', (e) => {
     if (e.target.classList.contains('student-id') || e.target.classList.contains('list-students-classroom')) {
-        let selectedStudentNumber = 0, 
+        let selectedStudentNumber = 0,
         studentCheckboxesElts = document.querySelectorAll('#list-student-attribute-modal .student-id');
 
         for (let checkboxElt of studentCheckboxesElts) {
             if (checkboxElt.checked) {
                 selectedStudentNumber++;
-            } 
+            }
         }
 
         document.querySelector('#assign-total-student-number').innerHTML = selectedStudentNumber.toString();
         document.querySelector('#attribuate-student-number').innerText = selectedStudentNumber;
-        
+
         if (selectedStudentNumber > 0) {
             document.querySelector('#attribute-activity-to-students').removeAttribute('disabled');
         } else {
@@ -605,14 +605,14 @@ $('#dashboard-activities, .activity-panel-link').click(function () {
     navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')
 })
 //activity-->validate
-// Add more validate options for the activities 
+// Add more validate options for the activities
 
 
 function defaultProcessValidateActivity() {
     $("#activity-validate").attr("disabled", "disabled");
     let interface = tryToParse(Activity.activity.content);
     const vittaIframeRegex = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm;
-    interface = interface 
+    interface = interface
         ? vittaIframeRegex.exec(interface.description)
         : false;
     if (interface == undefined || interface == null) {
@@ -657,7 +657,7 @@ function defaultProcessValidateActivity() {
 
 /**
  * @ToBeRemoved unused method
- * last check Naser July 2022 
+ * last check Naser July 2022
  */
 // function saveActivity() {
 //     $("#activity-save").attr("disabled", true);
@@ -773,7 +773,7 @@ function sandboxDisplay(projects = Main.getClassroomManager()._myProjects) {
 function classroomsDisplay() {
     let noContentDiv = `
     <p class="no-content-div">
-        <img src="${_PATH}assets/media/my_classes.svg" alt="Icône classe" class="hue-rotate-teacher"> 
+        <img src="${_PATH}assets/media/my_classes.svg?version=1.2.12a" alt="Icône classe" class="hue-rotate-teacher">
         <b data-i18n="classroom.classes.noClasses">Vous n'avez pas encore de classe</b>
         <span id="no-content-div__bottom-text"  data-i18n="classroom.classes.createClassNow">Commencez par créer une classe dès maintenant !</span>
     </p>`
@@ -783,7 +783,7 @@ function classroomsDisplay() {
         document.querySelector('.buttons-interactions button.teacher-new-classe').style.display = 'none';
         noContentDiv = `
         <p class="no-content-div">
-            <img src="${_PATH}assets/media/my_classes.svg" alt="Icône classe" class="hue-rotate-teacher"> 
+            <img src="${_PATH}assets/media/my_classes.svg?version=1.2.12a" alt="Icône classe" class="hue-rotate-teacher">
             <b data-i18n="classroom.classes.noClasses">Vous n'avez pas encore de classe</b>
         </p>`
     }
@@ -809,7 +809,7 @@ function classroomsDisplay() {
         } else {
             $('.list-classes').append(noContentDiv).localize();
 
-            
+
 
             if (typeof Main.leaderline === 'undefined'){
                 const startAttachment = LeaderLine.pointAnchor({
@@ -874,7 +874,7 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
         }
     });
 
-    
+
     sortedList.forEach(element => {
         if (element.folder == null && foldersManager.actualFolder == null) {
             $('#list-activities-teacher').append(teacherActivityItem(element, displayStyle));
@@ -931,7 +931,7 @@ function toggleBlockClass() {
         $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '1');
         $('#blocking-class-tooltip').tooltip("dispose");
         $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.activationLink')).tooltip();
-        
+
     } else {
         classroom.isBlocked = true;
         $('#blocking-class-tooltip').addClass('greyscale');
@@ -1402,7 +1402,7 @@ function updateAppForUser(methodName = "update") {
         let maxStudents = defaultRestrictions[0].restrictions.maxStudents;
 
         if (user[0]) {
-            if (user[0].restrictions.length > 0) { 
+            if (user[0].restrictions.length > 0) {
                 dateBegin = user[0].restrictions[0].date_begin != null ? new Date(user[0].restrictions[0].date_begin).toISOString().split('T')[0] : null;
                 dateEnd = user[0].restrictions[0].date_end != null ? new Date(user[0].restrictions[0].date_end).toISOString().split('T')[0] : null;
                 if (user[0].restrictions[0].max_students != null && user[0].restrictions[0].max_students != undefined) {
@@ -1539,7 +1539,7 @@ function showupdateUserModal(id) {
     let $groups = mainManager.getmanagerManager()._comboGroups;
     mainManager.getmanagerManager()._updatedUserGroup = 0;
     mainManager.getmanagerManager().getUserInfoWithHisGroups(id).then(function (res) {
-        //get the personal apps 
+        //get the personal apps
         updateAppForUser();
         mainManager.getmanagerManager()._actualUserDetails = res;
         $("#update_actualgroup_sa").html("");
@@ -1682,7 +1682,7 @@ function showupdateUserModal(id) {
                                         </label>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>`;
             $("#update_actualgroup_sa").append(group);
@@ -1964,9 +1964,9 @@ function deleteUser(id, name) {
 }
 
 /**
- * 
- * @param {*} id 
- * @param {*} name 
+ *
+ * @param {*} id
+ * @param {*} name
  */
 function deleteUserGroupAdmin(id, name) {
     mainGroupAdmin.getGroupAdminManager()._actualUser = id;
@@ -2092,7 +2092,7 @@ function persistDeleteGroupAdmin() {
 }
 
 /**
- * Show an alert message 
+ * Show an alert message
  * @param {int} i : 0 = class success, 1 = class danger
  * @param {string} id : the id of the div we need to interact with
  * @param {string} message : the message we need to show
@@ -2687,7 +2687,7 @@ function getSubjects(grade) {
 const Grade = getGrades();
 
 
-// Applications management 
+// Applications management
 function isUserAppsOutDated() {
     mainGroupAdmin.getGroupAdminManager().isUserApplicationsOutDated().then((response) => {
         if (response.message == true) {
@@ -2750,7 +2750,7 @@ function showMonitoring(data) {
         if (data.outDated == 0) {
             outDatedString = i18next.t('manager.apps.appStatus0');
         } else if (data.outDated == 1) {
-            outDatedString = i18next.t('manager.apps.appStatus1');  
+            outDatedString = i18next.t('manager.apps.appStatus1');
         } else if (data.outDated == 2) {
             outDatedString = i18next.t('manager.apps.appStatus2');
         }
@@ -2764,7 +2764,7 @@ function showMonitoring(data) {
                         <td>${data.maxTeachers}</td>
                         <td>${data.groupTotalTeachers}</td>
                         <td>${data.maxStudentsPerTeacher}</td>`;
-                        
+
         data.applications.forEach(app => {
             html += `<tr>
                         <td>${app.name}</td>
@@ -2802,7 +2802,7 @@ function openModalInState(state) {
     $(state).show();
 }
 
-// Close modal, reset input, close view and if true refresh the table of 
+// Close modal, reset input, close view and if true refresh the table of
 function closeModalAndCleanInput(refresh = false) {
     if (refresh) {
         getAndShowApps();
@@ -2884,10 +2884,10 @@ function getAndShowApps() {
     })
 }
 
-/*                             
+/*
 <td>
     <a class="c-link-tertiary" href="javascript:void(0)" onclick="activitiesRestrictionsCrud(${application.id})"><i class="fas fa-key fa-2x"></i></a>
-</td> 
+</td>
 */
 
 function createApp() {
@@ -2919,14 +2919,14 @@ function checkLtiFields(type) {
     if (type == 'create') {
         if ($('#isLti').is(":checked")) {
             if (
-                $('#clientId').val() == "" || 
-                $('#deploymentId').val() == "" || 
-                $('#toolUrl').val() == "" || 
-                $('#publicKeySet').val() == "" || 
-                $('#loginUrl').val() == "" || 
-                $('#redirectionUrl').val() == "" || 
-                $('#deepLinkUrl').val() == "" || 
-                $('#privateKey').val() == "") 
+                $('#clientId').val() == "" ||
+                $('#deploymentId').val() == "" ||
+                $('#toolUrl').val() == "" ||
+                $('#publicKeySet').val() == "" ||
+                $('#loginUrl').val() == "" ||
+                $('#redirectionUrl').val() == "" ||
+                $('#deepLinkUrl').val() == "" ||
+                $('#privateKey').val() == "")
             {
                 return {isLti : false};
             } else {
@@ -2946,13 +2946,13 @@ function checkLtiFields(type) {
     } else if (type == 'update') {
         if ($('#update_isLti').is(":checked")) {
             if (
-                $('#update_clientId').val() == "" || 
-                $('#update_deploymentId').val() == "" || 
-                $('#update_toolUrl').val() == "" || 
-                $('#update_publicKeySet').val() == "" || 
-                $('#update_loginUrl').val() == "" || 
-                $('#update_redirectionUrl').val() == "" || 
-                $('#update_deepLinkUrl').val() == "" || 
+                $('#update_clientId').val() == "" ||
+                $('#update_deploymentId').val() == "" ||
+                $('#update_toolUrl').val() == "" ||
+                $('#update_publicKeySet').val() == "" ||
+                $('#update_loginUrl').val() == "" ||
+                $('#update_redirectionUrl').val() == "" ||
+                $('#update_deepLinkUrl').val() == "" ||
                 $('#update_privateKey').val() == ""
             ) {
                 return {isLti : false};
@@ -3074,15 +3074,15 @@ function persistCreateApp() {
         lti = checkLtiFields('create'),
         $application_sort_index = $('#app_create_sort_index').val();
 
-    
+
     if (!lti.isLti && $('#isLti').is(":checked")) {
         displayNotification('#notif-div', "manager.account.missingData", "error");
     } else {
         mainManager.getmanagerManager().createApplication(
-            $application_name, 
-            $application_description, 
-            $application_image, lti, 
-            $application_color, 
+            $application_name,
+            $application_description,
+            $application_image, lti,
+            $application_color,
             $application_restrictions_value,
             $application_sort_index).then((response) => {
             if (response.message == "success") {
@@ -3093,7 +3093,7 @@ function persistCreateApp() {
             }
             updateStoredApps();
         })
-    }   
+    }
 }
 
 /**
@@ -3407,9 +3407,9 @@ function activityPreviewToggler() {
 $('#qr-copy').click(() => {
     if ($("#classroom-code-share-qr-code").find("canvas").length > 0) {
         const canvasImg = $("#classroom-code-share-qr-code").find("canvas")[0];
-        canvasImg.toBlob(function(blob) { 
+        canvasImg.toBlob(function(blob) {
             const item = new ClipboardItem({ "image/png": blob });
-            navigator.clipboard.write([item]); 
+            navigator.clipboard.write([item]);
         });
     }
 })
@@ -3423,5 +3423,3 @@ $('#qr-download').click(() => {
         link.click();
     }
 })
-
-
