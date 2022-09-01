@@ -60,7 +60,7 @@ function launchCustomActivity(activityType, isUpdate = false, callback = false) 
 
     Main.getClassroomManager().isActivitiesRestricted(null, activityType).then((response) => {
         if (response.Limited == false && activityType != "appOutDated") {
-            const funct = activityAndCaseView.filter(activityValidate => activityValidate[0] == activityType)[0];
+            const funct = customActivity.activityAndCaseView.filter(activityValidate => activityValidate[0] == activityType)[0];
             if (funct) {
                 $(funct[1]).show();
             } else {
@@ -91,9 +91,7 @@ function contentBackward() {
     })
 }
 
-const ContentForwardCustom = [
-    
-]
+
 // Get the content
 function contentForward() {
     
@@ -122,7 +120,7 @@ function contentForward() {
     } else if (Main.getClassroomManager()._createActivity.id == 'dragAndDrop') {
         isCheckPassed = parseDragAndDropFieldsAndSaveThem();
     } else {
-        const funct = ContentForwardCustom.filter(contentForwardCheck => contentForwardCheck[0] == Main.getClassroomManager()._createActivity.id)[0];
+        const funct = customActivity.filter(contentForwardCheck => contentForwardCheck[0] == Main.getClassroomManager()._createActivity.id)[0];
         if (funct) {
             isCheckPassed = funct[1]();
         }
@@ -197,17 +195,12 @@ function titleBackward() {
 /**
  * Validation pipeline for the new activity
  */
-const activityAndCase = [
-    ["free", freeValidateActivity, true],
-    ["reading", defaultProcessValidateActivity, false],
-    ["fillIn", fillInValidateActivity, true],
-    ["quiz", quizValidateActivity, true],
-    ["dragAndDrop", dragAndDropValidateActivity, true],
-];
-
 function validateActivity(correction) {
     // filter activityAndCase to get the right function
-    const funct = activityAndCase.filter(activityValidate => activityValidate[0] == Activity.activity.type)[0];
+
+    // CustomActivity = Manager for the custom activity
+
+    const funct = customActivity.activityAndCase.filter(activityValidate => activityValidate[0] == Activity.activity.type)[0];
     if (funct) {
         funct[1](funct[2] ?? correction);
     } else {
