@@ -37,7 +37,7 @@ function onUrlChange() {
 // call onUrlChange one time a the initialization of the page for set the views correctly
 onUrlChange();
 
-// the function who manage the history without refreshing the page 
+// the function who manage the history without refreshing the page
 function navigateLight(page, i = 0) {
     let link;
     switch (i) {
@@ -95,7 +95,7 @@ function findClassroomToConnect(linkC) {
         //$('#classroom-create-account .green-form').show();
         $('#blocked-class').remove();
         $('#class-connexion').attr("disabled", false);
-        
+
         if (response.exist) {
             $('#classroom-login-account, #classroom-create-account').show();
             $('#classroom-desc').html(response.link.toUpperCase() + ' - CLASSE \"' + response.name + '\"');
@@ -104,10 +104,10 @@ function findClassroomToConnect(linkC) {
                 blockedClassDivElt.id = "blocked-class";
                 blockedClassDivElt.innerHTML =
                     "Cette classe a été bloquée par l'enseignant.e qui l'a crée, tu ne peux donc pas créer de nouveau compte.<br>Si tu as déja un compte, essaye plutot de te connecter.";
-    
+
                 $('#classroom-create-account').hide();
                 document.getElementById('classroom-desc').append(blockedClassDivElt);
-    
+
                 $('#classroom-create-account .green-form').hide();
                 $('#create-user').hide();
             }
@@ -182,6 +182,7 @@ if ($_GET('mailchanged')) {
 if ($_GET('denied')) {
     $('#info-div').append(`<div id='info-box' class='alert alert-warning'>` + i18next.t('login-page.notConnect') + "</div>")
 }
+
 
 function loginFaq() {
     let html = ''
@@ -525,11 +526,11 @@ function createRegistrationTemplateForLogin() {
         if (res.USER_USERNAME == "false") {
             $('#registration_pseudo').remove();
         }
-        
+
         if (res.USER_PHONE == "false") {
             $('#registration_phone').remove();
         }
-        
+
         if (res.USER_BIO == "false") {
             $('#registration_bio').remove();
         }
@@ -537,7 +538,7 @@ function createRegistrationTemplateForLogin() {
         if (res.USER_TEACHER_GRADE == "false") {
             $('#registration_grade').remove();
         }
-        
+
         if (res.USER_TEACHER_SUBJECT == "false") {
             $('#registration_subject').remove();
         }
@@ -545,11 +546,11 @@ function createRegistrationTemplateForLogin() {
         if (res.USER_TEACHER_SCHOOL == "false") {
             $('#registration_school').remove();
         }
-        
+
         if ($_GET('p') == "register") {
             $('#classroom-register-container').show();
         }
-    
+
     })
 }
 

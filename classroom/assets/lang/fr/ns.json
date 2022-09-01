@@ -574,7 +574,7 @@
         },
         "7": {
           "title": "Est-ce que la plateforme Cabri est disponible en plusieurs langues ?",
-          "answer": "Oui, la plateforme Cabri est actuellement disponible en français et en anglais. Pour changer la langue, allez dans l'onglet Profil, cliquez sur le bouton Paramètres, puis sélectionnez la langue qui vous convient."
+          "answer": "Oui, la plateforme Cabri est actuellement disponible en français, anglais, espagnol et en italien. Pour changer la langue, allez dans l'onglet Profil, cliquez sur le bouton Paramètres, puis sélectionnez la langue qui vous convient."
         }
       }
     },
@@ -592,7 +592,7 @@
           },
           "3": {
             "title": "Où peut-on trouver le code source de la plateforme Cabri ?",
-            "answer": "Le code source de la plateforme Cabri n'est pas disponible pour le moment. Vous pouvez retrouver de nombreux modules open source de la plateforme Vittascience sur <a href=\"https://github.com/vittascience\">le dossier GitHub de Vittascience</a>, n'hésitez pas à contribuer !"
+            "answer": "Le code source de la plateforme Cabri est disponible open source sur le projet GitHub OpenSTEAM-LMS de Cabri, n'hésitez pas à contribuer !"
           }
         }
       },
@@ -641,7 +641,7 @@
         },
         "3": {
           "title": "Où peut-on trouver le code source de la plateforme Cabri ?",
-          "answer": "Le code source de la plateforme Cabri n'est pas disponible pour le moment. Vous pouvez retrouver de nombreux modules open source de la plateforme Vittascience sur <a href=\"https://github.com/vittascience\">le dossier GitHub de Vittascience</a>, n'hésitez pas à contribuer !"
+          "answer": "Le code source de la plateforme Cabri est disponible sur le repository git OpenSTEAM-LMS sur GitHub, n'hésitez pas à contribuer !"
         }
       }
     },
@@ -712,7 +712,7 @@
         },
         "2": {
           "title": "Où peut-on trouver le code source de la plateforme Cabri ?",
-          "answer": "Le code source de la plateforme Cabri est disponible <a href=\"https://github.com/Cabri/OpenSTEAM-LMS/\">sur le repo git associé</a>, n'hésitez pas à contribuer !"
+          "answer": "Le code source de la plateforme Cabri est disponible sur le repository git OpenSTEAM-LMS sur GitHub, n'hésitez pas à contribuer !"
         }
       }
     },
@@ -755,7 +755,7 @@
       "question_list": {
         "1": {
           "title": "À quoi sert l’onglet Mes classes ?",
-          "answer": "Dans l’onglet Mes Classes, vous pouvez :<ol><li>créer vos propres classes et ajouter des apprenants,</li><li>corriger les réponses aux activités de vos apprenants,</li><li>suivre leur progression.</li></ol>"
+          "answer": "Dans l’onglet Mes Classes, vous pouvez :<ol><li>créer vos propres classes et ajouter des apprenants (sauf lorsqu'on est identifié par le GAR),</li><li>corriger les réponses aux activités de vos apprenants,</li><li>suivre leur progression.</li></ol>"
         },
         "2": {
           "title": "Comment ajouter des apprenants à ma classe ?",
@@ -812,7 +812,7 @@
         },
         "3": {
           "title": "Comment changer la langue ?",
-          "answer": "La plateforme Cabri est actuellement disponible en français et en anglais. Pour changer la langue, allez dans l'onglet Profil, cliquez sur le bouton Paramètres, puis sélectionnez la langue qui vous convient."
+          "answer": "La plateforme Cabri est disponible en plusieurs langues. Pour changer la langue, allez dans l'onglet Profil, cliquez sur le bouton Paramètres, puis sélectionnez la langue qui vous convient."
         },
         "4": {
           "title": "Qu’est-ce que le mode apprenant ?",
@@ -936,7 +936,7 @@
       "question_list": {
         "1": {
           "title": "Où peut-on trouver le code source de la plateforme Cabri ?",
-          "answer": "Le code source de la plateforme Cabri est disponible sur <a href=\"https://github.com/Cabri/OpenSTEAM-LMS/\" target=\"_href\">le repository git OpenSTEAM-LMS</a>, n'hésite pas à contribuer !"
+          "answer": "Le code source de la plateforme Cabri est disponible sur le repository git OpenSTEAM-LMS sur GitHub, n'hésitez pas à contribuer !"
         }
       }
     }
