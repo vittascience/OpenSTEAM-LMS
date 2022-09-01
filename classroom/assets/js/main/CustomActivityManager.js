@@ -10,17 +10,15 @@ class CustomActivity {
         ];
 
         this.activityAndCaseView = [
-            ['free', "#activity-free"],
-            ['quiz', "#activity-quiz"],
-            ['fillIn', "#activity-fill-in"],
-            ['reading', "#activity-reading"],
-            ['custom', "#activity-reading"],
-            ['dragAndDrop', "#activity-drag-and-drop"],
-        ];
-        this.ContentForwardCustom = [
-
+            ['free', "#activity-free", true],
+            ['quiz', "#activity-quiz", true],
+            ['fillIn', "#activity-fill-in", true],
+            ['reading', "#activity-reading", true],
+            ['custom', "#activity-reading", true],
+            ['dragAndDrop', "#activity-drag-and-drop", true],
         ];
 
+        this.ContentForwardCustom = [];
 
         this.appName = null;
         this.mediaItems = [];
@@ -93,7 +91,7 @@ class CustomActivity {
            document.getElementById("app-media-galery-container").innerHTML += `
                <div class="app-media-galery-item col-4 p-2 flex-column" data-name="${element}" style="display:none;">
                     <div class="row mx-auto">
-                        <a href="/classroom/assets/media/apps_media/${this.appName}/${element}"><i class="fas fa-file-pdf"></i> ${element}</a>
+                        <a href="/classroom/assets/plugins/media/${this.appName}/${element}"><i class="fas fa-file-pdf"></i> ${element}</a>
                     </div>
                     <div class="row mx-auto">
                         <button class="btn btn-sm btn-primary" onclick="customActivity.selectMedia(${key})">Sélectionner ce document</button>
@@ -123,7 +121,6 @@ class CustomActivity {
         if (appName != null) {
             this.appName = appName;
         }
-        console.log(appName);
         document.getElementById("app-media-galery-container").innerHTML = "";
         customActivity.getGaleryWithMedia(this.appName).then((res) => {
             customActivity.totalItems = res.length;

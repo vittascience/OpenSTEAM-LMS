@@ -156,52 +156,6 @@ class AutoBuildManager {
     }
 
     /**
-     * Tasks related to the css files
-     */
-        async pluginMedia() {
-        return new Promise(async (resolve, reject) => {
-            if (this.pluginsList.length) {
-                // check if there aren't css filename duplicate
-                if (this.checkForDuplicateInArray(this.pluginsList.css)) {
-                    console.error('Error: there is a duplicate in the plugin(s) css filenames')
-                    return reject();
-                }
-                // copy css files into the plugins folder in classroom folder
-                await this.copyCssFilesToClassroom();
-                // add the css links into the head in the header.html file in the temporary views folder
-                await this.addCssLinksInHead();
-                resolve();
-            } else {
-                resolve();
-            }
-        });
-    }
-
-
-            /**
-     * Copy all the css files in the plugins folder to the css folder in the plugins folder which is in classroom folder
-     */
-    copyMediaFilesToClassroom() {
-        return new Promise((resolve, reject) => {
-            let promises = [];
-            this.pluginsList.forEach((plugin) => {
-                plugin.css.forEach((cssFile) => {
-                    promises.push(
-                        new Promise((resolve, reject) => {
-                            gulp.src(`${this.pluginFolder}/${plugin.name}/public/css/${cssFile}`).pipe(gulp.dest(`${this.pluginsFolderInClassroom}/css/`)).on('finish', () => {
-                                resolve();
-                            });
-                        })
-                    );
-                });
-            });
-            Promise.all(promises).then(() => {
-                resolve();
-            });
-        });
-    }
-
-    /**
      * Create the temporary Views folder
      */
     createTemporaryViewsFolder() {
@@ -241,6 +195,10 @@ class AutoBuildManager {
             await this.createFolder(`${this.pluginsFolderInClassroom}/css`);
             await this.createFolder(`${this.pluginsFolderInClassroom}/js`);
             await this.createFolder(`${this.pluginsFolderInClassroom}/images`);
+            await this.createFolder(`${this.pluginsFolderInClassroom}/media/`);
+            this.pluginsList.forEach(element => {
+                //this.createFolder(`${this.pluginsFolderInClassroom}/media/${element.name}`);
+            });
             resolve();
         });
     }
@@ -401,6 +359,7 @@ class AutoBuildManager {
                                 views: [],
                                 css: [],
                                 js: [],
+                                media: [],
                                 images: []
                             };
                             this.pluginsList.push(currentPlugin);
@@ -420,6 +379,7 @@ class AutoBuildManager {
             await this.loadPluginsFilesList('Views', 'views');
             await this.loadPluginsFilesList('public/css', 'css');
             await this.loadPluginsFilesList('public/js', 'js');
+            await this.loadPluginsFilesList('public/media/', 'media');
             await this.loadPluginsFilesList('public/images', 'images');
             resolve();
         });
@@ -446,9 +406,11 @@ class AutoBuildManager {
      * @param {*} list
      */
     async readFolderForList(plugin, folder, list) {
+        console.log(folder);
         return new Promise((resolve, reject) => {
             fs.readdir(folder, (err, files) => {
                 if (files) {
+                    console.table(files);
                     try {
                         files.forEach(file => {
                             if (file != '.gitkeep') {
@@ -564,6 +526,58 @@ class AutoBuildManager {
         }
         return false;
     }
+
+
+    /**
+     * MEDIA UPDATE
+     */
+     async pluginMedia() {
+        return new Promise(async (resolve, reject) => {
+            if (this.pluginsList.length) {
+                // check if there aren't css filename duplicate
+                if (this.checkForDuplicateInArray(this.pluginsList.media)) {
+                    console.error('Error: there is a duplicate in the plugin(s) media filenames')
+                    return reject();
+                }
+                // copy css files into the plugins folder in classroom folder
+                await this.copyMediaFilesToClassroom();
+                // add the css links into the head in the header.html file in the temporary views folder
+                //await this.addCssLinksInHead();
+                resolve();
+            } else {
+                resolve();
+            }
+        });
+    }
+
+
+    /**
+     * Copy all the css files in the plugins folder to the css folder in the plugins folder which is in classroom folder
+     */
+    copyMediaFilesToClassroom() {
+        return new Promise((resolve, reject) => {
+            let promises = [];
+            this.pluginsList.forEach((plugin) => {
+                plugin.media.forEach((mediaFile) => {
+                    promises.push(
+                        new Promise((resolve, reject) => {
+                            gulp.src(`${this.pluginFolder}/${plugin.name}/public/media/${mediaFile}`).pipe(gulp.dest(`${this.pluginsFolderInClassroom}/media/${plugin.name}/`)).on('finish', () => {
+                                resolve();
+                            });
+                        })
+                    );
+                });
+            });
+            Promise.all(promises).then(() => {
+                resolve();
+            });
+        });
+    }
+
+    
+    /**
+     * MEDIA UPDATE
+     */
 
     /**
      * Concatenate all the view files in the temp-views folder
@@ -700,6 +714,9 @@ pluginCss.displayName = 'plugin css';
 const pluginJs = () => { return autoBuildManager.pluginJs() };
 pluginJs.displayName = 'plugin js';
 
+const pluginMedia = () => { return autoBuildManager.pluginMedia() };
+pluginMedia.displayName = 'plugin media';
+
 const homeConcat = () => { return autoBuildManager.homeConcat() };
 homeConcat.displayName = 'home concat';
 
@@ -717,6 +734,7 @@ autoBuild = gulp.series(
     pluginImages,
     pluginCss,
     pluginJs,
+    pluginMedia,
     homeConcat,
     removeTemporaryViewsFolder,
     manageCustomBuild

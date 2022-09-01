@@ -70,7 +70,9 @@ function launchCustomActivity(activityType, isUpdate = false, callback = false) 
             } else {
                 LtiDefaultCode(activityType, isUpdate);
             }
-            navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
+            if (funct[2]) {
+                navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
+            }
             if (callback) callback();
         } else {
             if (activityType == "appOutDated") {
