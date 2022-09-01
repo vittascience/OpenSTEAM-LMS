@@ -156,6 +156,52 @@ class AutoBuildManager {
     }
 
     /**
+     * Tasks related to the css files
+     */
+        async pluginMedia() {
+        return new Promise(async (resolve, reject) => {
+            if (this.pluginsList.length) {
+                // check if there aren't css filename duplicate
+                if (this.checkForDuplicateInArray(this.pluginsList.css)) {
+                    console.error('Error: there is a duplicate in the plugin(s) css filenames')
+                    return reject();
+                }
+                // copy css files into the plugins folder in classroom folder
+                await this.copyCssFilesToClassroom();
+                // add the css links into the head in the header.html file in the temporary views folder
+                await this.addCssLinksInHead();
+                resolve();
+            } else {
+                resolve();
+            }
+        });
+    }
+
+
+            /**
+     * Copy all the css files in the plugins folder to the css folder in the plugins folder which is in classroom folder
+     */
+    copyMediaFilesToClassroom() {
+        return new Promise((resolve, reject) => {
+            let promises = [];
+            this.pluginsList.forEach((plugin) => {
+                plugin.css.forEach((cssFile) => {
+                    promises.push(
+                        new Promise((resolve, reject) => {
+                            gulp.src(`${this.pluginFolder}/${plugin.name}/public/css/${cssFile}`).pipe(gulp.dest(`${this.pluginsFolderInClassroom}/css/`)).on('finish', () => {
+                                resolve();
+                            });
+                        })
+                    );
+                });
+            });
+            Promise.all(promises).then(() => {
+                resolve();
+            });
+        });
+    }
+
+    /**
      * Create the temporary Views folder
      */
     createTemporaryViewsFolder() {

@@ -8,6 +8,7 @@ class CustomActivity {
             ["quiz", quizValidateActivity, true],
             ["dragAndDrop", dragAndDropValidateActivity, true],
         ];
+
         this.activityAndCaseView = [
             ['free', "#activity-free"],
             ['quiz', "#activity-quiz"],
@@ -17,7 +18,7 @@ class CustomActivity {
             ['dragAndDrop', "#activity-drag-and-drop"],
         ];
         this.ContentForwardCustom = [
-            
+
         ];
 
 
@@ -122,13 +123,14 @@ class CustomActivity {
         if (appName != null) {
             this.appName = appName;
         }
+        console.log(appName);
         document.getElementById("app-media-galery-container").innerHTML = "";
-        this.getGaleryWithMedia(this.appName).then((res) => {
-            this.totalItems = res.length;
-            this.mediaItems = res;
-            this.displayItems();
-            this.managePagination();
-            this.manageDisplay();
+        customActivity.getGaleryWithMedia(this.appName).then((res) => {
+            customActivity.totalItems = res.length;
+            customActivity.mediaItems = res;
+            customActivity.displayItems();
+            customActivity.managePagination();
+            customActivity.manageDisplay();
         });
         navigatePanel("app-media-galery", "dashboard-activities-teacher");
     }
@@ -151,7 +153,6 @@ class CustomActivity {
             });
         })
     }
-
 }
 
 const customActivity = new CustomActivity();

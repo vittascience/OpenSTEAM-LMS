@@ -25,17 +25,17 @@
 
 // autocorrect modification pas pris en compte
 
-const activityAndCaseView = [
+/* const activityAndCaseView = [
     ['free', "#activity-free"],
     ['quiz', "#activity-quiz"],
     ['fillIn', "#activity-fill-in"],
     ['reading', "#activity-reading"],
     ['custom', "#activity-reading"],
     ['dragAndDrop', "#activity-drag-and-drop"],
-]
+] */
 
 function LtiDefaultCode(activityType, isUpdate) {
-    contentForwardButtonElt.style.display = 'none';
+    document.getElementById('content-forward-button').style.display = 'none';
     $("#activity-custom").show();
     if (isUpdate) {
         launchLtiDeepLinkCreate(activityType, isUpdate);
@@ -62,7 +62,11 @@ function launchCustomActivity(activityType, isUpdate = false, callback = false) 
         if (response.Limited == false && activityType != "appOutDated") {
             const funct = customActivity.activityAndCaseView.filter(activityValidate => activityValidate[0] == activityType)[0];
             if (funct) {
-                $(funct[1]).show();
+                if (typeof funct[1] != 'function') {
+                    $(funct[1]).show();
+                } else {
+                    funct[1](funct[0]);
+                }
             } else {
                 LtiDefaultCode(activityType, isUpdate);
             }
