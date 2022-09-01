@@ -228,14 +228,17 @@ function classeItem(classe, nbStudents, students) {
     let maxAct = maxLength(students)
     let remainingCorrections = getRemainingCorrections(students);
     let remainingCorrectionsSpanElt = remainingCorrections ? `<span class="results-correcting c-text-secondary"><i class="fas fa-pen"></i></i> ${remainingCorrections}</span>` : '';
+    let isFromGar = UserManager.getUser().isFromGar, isFromCanope = document.cookie.indexOf("isFromCanope")>-1;
     let html = `<div class="class-item"><div class="class-card">
                 <div class="class-card-top"  data-id="${classe.id}" data-link="${classe.link}">
                 <span><i class="fas fa-user fa-2x"></i></i> ${nbStudents}</span>
                 ${remainingCorrectionsSpanElt}
                 <div class="dropdown"><i class="fas fa-cog fa-2x" type="button" id="dropdown-classeItem-${classe.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                    <div class="dropdown-menu" aria-labelledby="dropdown-classeItem-${classe.id}">
-                <li class="modal-classroom-modify classroom-clickable col-12 dropdown-item" href="#">` + capitalizeFirstLetter(i18next.t('words.modify')) + `</li>
-                <li class="dropdown-item modal-classroom-delete classroom-clickable col-12" href="#">` + capitalizeFirstLetter(i18next.t('words.delete')) + `</li>
+                    <div class="dropdown-menu" aria-labelledby="dropdown-classeItem-${classe.id}">`
+                + `<li class="modal-classroom-modify classroom-clickable col-12 dropdown-item" href="#">` +
+                    (!isFromGar ? capitalizeFirstLetter(i18next.t('words.modify')) : "") + `</li>`  +
+                `<li class="dropdown-item modal-classroom-delete classroom-clickable col-12" href="#">` +
+                    (!isFromCanope? capitalizeFirstLetter(i18next.t('words.delete')) : "") + `</li>
               </div>
               </div>
                 </div>`
@@ -468,7 +471,7 @@ function statusActivity(activity, state = true, formatedTimePast = '') {
             } else {
                 return "startwatch"
             }
-            
+
         }
         if (state == "csv") {
             switch (activity.correction) {
@@ -553,7 +556,7 @@ function loadActivityForStudents(isDoable) {
         $('#warning-icon-container > i').hide();
         Activity.evaluation ? $('#warning-icon-evaluation').show().tooltip() : $("#warning-icon-no-evaluation").show().tooltip();
     }
-    
+
     // Check if the correction if available
     if (Activity.correction >= 1) {
         $('#activity-details').html(i18next.t("classroom.activities.sentOn") + formatHour(Activity.dateSend), i18next.t("classroom.activities.numberOfTries") + Activity.tries)
@@ -592,7 +595,7 @@ function loadActivityForStudents(isDoable) {
                 break;
         }
         correction += `<div class="results-string" style="background-color:${activityResultColor}">${activityResultString}</div>`
-        
+
         if (Activity.commentary != null && Activity.commentary != "") {
             correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
         } else {
@@ -653,8 +656,8 @@ function loadActivityForTeacher() {
 
         correction += `<div class="giveNote-container">`
 
-        
-        
+
+
         correction += `<label for="givenote-3" onclick="setNote(3)"><input type="radio" id="givenote-3" ${Activity.note == 3 ? "checked=checked" : ""} name="giveNote" value="3">${" " + i18next.t('classroom.activities.accept')}</label>`;
         correction += `<label for="givenote-2" onclick="setNote(2)"><input type="radio" id="givenote-2" ${Activity.note == 2 ? "checked=checked" : ""} name="giveNote" value="2">${" " + i18next.t('classroom.activities.vgood')}</label>`;
         correction += `<label for="givenote-1" onclick="setNote(1)"><input type="radio" id="givenote-1" ${Activity.note == 1 ? "checked=checked" : ""} name="giveNote" value="1">${" " + i18next.t('classroom.activities.good')}</label>`;
@@ -730,7 +733,7 @@ function manageDisplayCustomAndReading(correction, content, correction_div) {
         $('#activity-input-container').show();
     } else if (correction > 0) {
         $('#activity-correction').html(correction_div);
-        $('#activity-correction-container').show(); 
+        $('#activity-correction-container').show();
     }
 }
 
@@ -739,7 +742,7 @@ function manageDisplayFree(correction, content, correction_div) {
     $('#activity-states-container').show();
     if (UserManager.getUser().isRegular) {
         if (Activity.response != null && Activity.response != '') {
-            if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") { 
+            if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") {
                 $('#activity-student-response').show();
                 let parsed = tryToParse(Activity.response);
                 if (parsed != false) {
@@ -790,7 +793,7 @@ function manageDisplayLti(correction, content, correction_div, isDoable, activit
                 <button onclick="launchLtiResource(${Activity.id}, '${Activity.activity.type}', '${content}', true, '${Activity.url}')">Modifier le travail</button>`;
             }
         }
-        
+
         if (correction != 1 || UserManager.getUser().isRegular) {
             document.querySelector('#activity-correction-container').style.display = 'block';
             document.querySelector('#activity-correction').innerHTML = correction_div;
@@ -846,14 +849,14 @@ function displayQuizTeacherSide() {
         if (Activity.response != null && Activity.response != "") {
             data = JSON.parse(Activity.response);
         }
-        $('#activity-student-response-content').append(createContentForQuiz(data, false, true)); 
+        $('#activity-student-response-content').append(createContentForQuiz(data, false, true));
         $('#activity-student-response').show();
         if (data != null && data != "") {
             Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
                 for (let i = 1; i < $(`label[id^="correction-student-quiz-suggestion-"]`).length+1; i++) {
                     $('#correction-student-quiz-suggestion-' + i).parent().addClass('quiz-answer-correct');
                 }
-        
+
                 if (result.success.length > 0) {
                     for (let i = 0; i < result.success.length; i++) {
                         $('#correction-student-quiz-suggestion-' + (result.success[i]+1)).parent().addClass('quiz-answer-incorrect');
@@ -900,7 +903,7 @@ function manageDisplayFillIn(correction, content, correction_div) {
 
     $('#activity-states').html(bbcodeToHtml(content.states));
     $('#activity-states-container').show();
-    
+
     if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
             let studentContent = bbcodeToHtml(content.fillInFields.contentForStudent)
@@ -927,7 +930,7 @@ function manageDisplayFillIn(correction, content, correction_div) {
         }
     } else if (correction > 1) {
         displayFillInTeacherSide(correction_div, correction, content);
-    } 
+    }
 }
 
 function displayFillInTeacherSide(correction_div, correction, content) {
@@ -935,7 +938,7 @@ function displayFillInTeacherSide(correction_div, correction, content) {
     let studentContentString = content.fillInFields.contentForStudent,
         studentResponses = JSON.parse(Activity.response);
 
-    if (studentResponses != null && studentResponses != "") { 
+    if (studentResponses != null && studentResponses != "") {
 
         studentResponses.forEach((response, i) => {
             let autoWidthStyle = 'style="width:' + (response.length + 2) + 'ch"';
@@ -953,7 +956,7 @@ function displayFillInTeacherSide(correction_div, correction, content) {
                 }
             }
         })
-    
+
         $('#activity-student-response-content').html(bbcodeToHtml(studentContentString));
         $('#activity-student-response').show();
     }
@@ -962,7 +965,7 @@ function displayFillInTeacherSide(correction_div, correction, content) {
 }
 
 function manageDisplayDragAndDrop(correction, content, correction_div) {
-    
+
     $('#activity-title').html(Activity.activity.title);
     // Show the content with the response to the teacher
     if (UserManager.getUser().isRegular) {
@@ -975,7 +978,7 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
 
     $('#activity-states').html(bbcodeToHtml(content.states));
     $('#activity-states-container').show();
-    
+
     if (correction <= 1 || correction == null) {
         if (!UserManager.getUser().isRegular) {
 
@@ -989,7 +992,7 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
                 $('#drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
             });
             $('#activity-drag-and-drop-container').show();
-        
+
             // init dragula if it's not already initialized
             if (Main.getClassroomManager().dragulaGlobal == false) {
                 Main.getClassroomManager().dragulaGlobal = dragula();
@@ -997,7 +1000,7 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
 
             // Reset the dragula fields
             Main.getClassroomManager().dragulaGlobal.containers = [];
-            
+
             Main.getClassroomManager().dragulaGlobal = dragula([document.querySelector('#drag-and-drop-fields')]).on('drop', function(el, target, source) {
                 if (target.id != 'drag-and-drop-fields') {
                     let swap = $(target).find('p').not(el);
@@ -1025,7 +1028,7 @@ function manageDisplayDragAndDrop(correction, content, correction_div) {
         }
     } else if (correction > 1) {
         displayDragAndDropTeacherSide(correction_div, correction, content);
-    } 
+    }
 }
 
 function displayDragAndDropTeacherSide(correction_div, correction, content) {
@@ -1041,14 +1044,14 @@ function displayDragAndDropTeacherSide(correction_div, correction, content) {
             let autoWidthStyle = 'style="width:' + (studentResponses[i].string.toLowerCase().length + 2) + 'ch"';
             studentContentString = studentContentString.replace(`﻿`, `<input readonly class='drag-and-drop-answer-teacher' id="corrected-student-response-${i}" value="${studentResponses[i].string.toLowerCase()}" ${autoWidthStyle}>`);
         }
-    
+
         $('#activity-student-response-content').html(bbcodeToHtml(studentContentString));
         $('#activity-student-response').show();
         Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
             for (let i = 0; i < $(`input[id^="corrected-student-response-"]`).length; i++) {
                 $('#corrected-student-response-' + i).addClass("answer-correct");
             }
-        
+
             for (let i = 0; i < result.success.length; i++) {
                 $('#corrected-student-response-' + (result.success[i])).addClass("answer-incorrect");
             }
@@ -1080,7 +1083,7 @@ function manageCorrectionDiv(correction_div, correction) {
     manageLabelForActivity();
     if (correction > 1 || (UserManager.getUser().isRegular && correction >= 1)) {
         $('#activity-correction').html(correction_div);
-        $('#activity-correction-container').show(); 
+        $('#activity-correction-container').show();
     }
 }
 
@@ -1103,12 +1106,12 @@ function isTheActivityIsDoable(doable, hideValidationButton = false) {
                 $('#activity-validate').show();
             }
         }
-        
+
         if (interface != undefined && interface != null) {
             $('#activity-save').show()
         }
 
-        if (!Activity.activity.isLti) { 
+        if (!Activity.activity.isLti) {
             $('#activity-validate').show();
             if (Activity.activity.type != 'reading') {
                 $('#activity-save').show();
