@@ -129,7 +129,7 @@ function contentForward() {
     } else if (Main.getClassroomManager()._createActivity.id == 'dragAndDrop') {
         isCheckPassed = parseDragAndDropFieldsAndSaveThem();
     } else {
-        const funct = customActivity.filter(contentForwardCheck => contentForwardCheck[0] == Main.getClassroomManager()._createActivity.id)[0];
+        const funct = customActivity.ContentForwardCustom.filter(contentForwardCheck => contentForwardCheck[0] == Main.getClassroomManager()._createActivity.id)[0];
         if (funct) {
             isCheckPassed = funct[1]();
         }

@@ -689,33 +689,15 @@ function injectContentForActivity(content, correction, type = null, correction_d
     // Things to do for every activity
     setTextArea();
     $('#activity-title').html(Activity.activity.title);
-
-    switch(type) {
-        case 'free':
-            manageDisplayFree(correction, content, correction_div)
-            break;
-        case 'quiz':
-            manageDisplayQuiz(correction, content, correction_div);
-            break;
-        case 'fillIn':
-            manageDisplayFillIn(correction, content, correction_div);
-            break;
-        case 'reading':
-            manageDisplayCustomAndReading(correction ,content, correction_div);
-            break;
-        case 'dragAndDrop':
-            manageDisplayDragAndDrop(correction, content, correction_div);
-            break;
-        case 'custom':
-            manageDisplayCustomAndReading(correction ,content, correction_div);
-            break;
-        default:
-            if (Activity.activity.isLti) {
-                manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt);
-            } else {
-                manageDisplayOldActivities(correction, content, correction_div, isDoable);
-            }
-            break;
+    const funct = customActivity.manageDisplayCustom.filter(activityValidate => activityValidate[0] == type)[0];
+    if (funct) {
+        funct[1](correction, content, correction_div);
+    } else {
+        if (Activity.activity.isLti) {
+            manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt);
+        } else {
+            manageDisplayOldActivities(correction, content, correction_div, isDoable);
+        };
     }
 }
 

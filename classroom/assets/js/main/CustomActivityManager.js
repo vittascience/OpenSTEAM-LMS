@@ -20,6 +20,23 @@ class CustomActivity {
 
         this.ContentForwardCustom = [];
 
+        this.getTeacherActivityCustom = [
+            ["free", showTeacherReadingAndFreeActivity],
+            ["reading", showTeacherReadingAndFreeActivity],
+            ["fillIn", showTeacherFillInActivity],
+            ["quiz", showTeacherQuizActivity],
+            ["dragAndDrop", showTeacherDragAndDropActivity],
+        ];
+
+        this.manageDisplayCustom = [
+            ['free', manageDisplayFree],
+            ['quiz', manageDisplayQuiz],
+            ['fillIn', manageDisplayFillIn],
+            ['reading', manageDisplayCustomAndReading],
+            ['dragAndDrop', manageDisplayDragAndDrop],
+            ['custom', manageDisplayCustomAndReading],
+        ];
+
         this.appName = null;
         this.mediaItems = [];
         this.itemsPagination = 12;
@@ -91,7 +108,7 @@ class CustomActivity {
            document.getElementById("app-media-galery-container").innerHTML += `
                <div class="app-media-galery-item col-4 p-2 flex-column" data-name="${element}" style="display:none;">
                     <div class="row mx-auto">
-                        <a href="/classroom/assets/plugins/media/${this.appName}/${element}"><i class="fas fa-file-pdf"></i> ${element}</a>
+                        <a href="/classroom/assets/plugins/media/${Main.getClassroomManager()._createActivity.id}/${element}"><i class="fas fa-file-pdf"></i> ${element}</a>
                     </div>
                     <div class="row mx-auto">
                         <button class="btn btn-sm btn-primary" onclick="customActivity.selectMedia(${key})">Sélectionner ce document</button>
@@ -101,9 +118,8 @@ class CustomActivity {
     }
 
     selectMedia(key) {
-        this.selectedItem = this.mediaItems[key].replaceAll(" ", "%20");
-        const itemPath = `/classroom/assets/media/apps_media/${this.appName}/${this.selectedItem}`;
-        console.log(itemPath);
+        this.selectedItem = `${location.origin}/classroom/assets/plugins/media/${Main.getClassroomManager()._createActivity.id}/${this.mediaItems[key].replaceAll(" ", "%20")}`;
+        contentForward();
     }
 
     manageDisplay() {

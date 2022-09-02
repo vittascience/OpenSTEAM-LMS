@@ -1,7 +1,11 @@
 function bbcodeToHtml(html) {
     // add support for the response who only contains a number
     if (!(typeof html === 'string' || html instanceof String)) {
-        html = html.toString();
+        if (html != null) {
+            html = html.toString();
+        } else {
+            return html;
+        }
     }
     //iframes
     html = html.replace(/(\[iframe\])(https:\/\/(fr\.|en\.|)vittascience\.com[a-zA-Z0-9?=;&\/﻿]+)(\[\/iframe\])/gi, "<iframe width='100%' height='500' frameborder='0' allowfullscreen style='border:1px #d6d6d6 solid;' src=\"$2&embed=1&frameid=" + generateRandomString(6) + "\"></iframe>")
