@@ -143,6 +143,26 @@ function contentForward() {
     }
 }
 
+function parseFreeFieldsAndSaveThem() {
+    Main.getClassroomManager()._createActivity.content.description = $('#free-content').bbcode();
+    Main.getClassroomManager()._createActivity.solution = $('#free-correction').bbcode();
+    Main.getClassroomManager()._createActivity.autocorrect = $('#free-autocorrect').is(":checked");
+    Main.getClassroomManager()._createActivity.tolerance = $('#free-tolerance').val();
+    return true;
+}
+
+function parseReadingFieldsAndSaveThem() {
+    if ($('#reading-content').bbcode() == "" && $('#reading-content').htmlcode() == "") {
+        return false;
+    } else {
+        if ($('#reading-content').bbcode() != "") {
+            Main.getClassroomManager()._createActivity.content.description = $('#reading-content').bbcode();
+        } else if ($('#reading-content').htmlcode() != "") {
+            Main.getClassroomManager()._createActivity.content.description = $('#reading-content').htmlcode();
+        }
+    }
+}
+
 
 
 function titleBackward() {
@@ -206,9 +226,7 @@ function titleBackward() {
  */
 function validateActivity(correction) {
     // filter activityAndCase to get the right function
-
     // CustomActivity = Manager for the custom activity
-
     const funct = customActivity.activityAndCase.filter(activityValidate => activityValidate[0] == Activity.activity.type)[0];
     if (funct) {
         funct[1](funct[2] ?? correction);
@@ -813,8 +831,8 @@ function ActivityPreviewBeforeCreation(type) {
             $content.show();
             $('#activity-preview-div').show();
             break;
-        case "lti-vittascience":
-            launchLtiResource("0000", "lti-vittascience", ActivityPreview.content.description, false, false, "#preview-activity-content");
+        case "vittascience":
+            launchLtiResource("0000", "vittascience", ActivityPreview.content.description, false, false, "#preview-activity-content");
             $content.show();
             $('#activity-preview-div').show();
             break;

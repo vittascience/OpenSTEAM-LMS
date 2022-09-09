@@ -1898,8 +1898,9 @@ h3.section-done {
 }
 
 #activity-creation-grid .app-card .app-card-img {
-    height: 128px;
-    width: auto;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
 }
 
 #activity-custom {

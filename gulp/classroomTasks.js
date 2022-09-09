@@ -45,6 +45,7 @@ class AutoBuildManager {
             'managerUsersPanel.html',
             'newExercicesPanel.html',
             'appsMediaGalery.html',
+            'customAppsPanel.html',
             'idePanel.html',
             'home_footer.html',
         ];
@@ -608,6 +609,7 @@ class AutoBuildManager {
                 'gulp/temp-views/managerUsersPanel.html',
                 'gulp/temp-views/newExercicesPanel.html',
                 'gulp/temp-views/appsMediaGalery.html',
+                'gulp/temp-views/customAppsPanel.html',
                 'gulp/temp-views/idePanel.html',
                 'gulp/temp-views/home_footer.html',
 
@@ -639,6 +641,7 @@ class AutoBuildManager {
                 'classroom/Views/managerUsersPanel.html',
                 'classroom/Views/newExercicesPanel.html',
                 'classroom/Views/appsMediaGalery.html',
+                'classroom/Views/customAppsPanel.html',
                 'classroom/Views/idePanel.html',
                 'classroom/Views/home_footer.html',
 

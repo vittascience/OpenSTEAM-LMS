@@ -69,6 +69,7 @@
 				"textBeforeLink": "If the button above does not work, copy and paste into your browser, the following link :"
 			}
 		},
+		"pdfPreview": "PDF Preview",
 		"successPanel": "Congratulation, you succeed this activity !",
 		"failPanel": "The answer is wrong",
 		"toCorrectPanel": "The activity was send to your teacher,</br>who will correct it soon !",
@@ -519,6 +520,10 @@
 			"folderManagement": "Folder management",
 			"name": "Name",
 			"title": "Folders"
+		},
+		"pagination": {
+			"previous": "Previous",
+			"next": "Next"
 		}
 	},
 	"faqInfo": {
