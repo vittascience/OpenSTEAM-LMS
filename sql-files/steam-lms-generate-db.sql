@@ -130,8 +130,8 @@ CREATE TABLE `classroom_groups` (
   `name` varchar(255) NOT NULL,
   `link` varchar(5) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `date_begin` datetime DEFAULT NULL,
-  `date_end` datetime DEFAULT NULL,
+  `date_begin` datetime DEFAULT '2000-01-01 00:00:00',
+  `date_end` datetime DEFAULT '2030-01-01 00:00:00',
   `max_teachers` int(11) DEFAULT NULL,
   `max_students` int(11) DEFAULT NULL,
   `max_students_per_teachers` int(11) DEFAULT NULL
