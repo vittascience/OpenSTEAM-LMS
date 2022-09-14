@@ -24,8 +24,27 @@
 }
 
 // autocorrect modification pas pris en compte
-function launchCustomActivity(activityType, isUpdate = false, callback = false) {
 
+/* const activityAndCaseView = [
+    ['free', "#activity-free"],
+    ['quiz', "#activity-quiz"],
+    ['fillIn', "#activity-fill-in"],
+    ['reading', "#activity-reading"],
+    ['custom', "#activity-reading"],
+    ['dragAndDrop', "#activity-drag-and-drop"],
+] */
+
+function LtiDefaultCode(activityType, isUpdate) {
+    document.getElementById('content-forward-button').style.display = 'none';
+    $("#activity-custom").show();
+    if (isUpdate) {
+        launchLtiDeepLinkCreate(activityType, isUpdate);
+    } else {
+        launchLtiDeepLinkCreate(activityType);
+    }
+}
+
+function launchCustomActivity(activityType, isUpdate = false, callback = false) {
     setTextArea();
 
     const contentForwardButtonElt = document.getElementById('content-forward-button');
@@ -41,39 +60,26 @@ function launchCustomActivity(activityType, isUpdate = false, callback = false) 
 
     Main.getClassroomManager().isActivitiesRestricted(null, activityType).then((response) => {
         if (response.Limited == false && activityType != "appOutDated") {
-            switch(activityType) {
-                case 'free':
-                    $("#activity-free").show();
-                    break;
-                case 'quiz':
-                    $("#activity-quiz").show();
-                    break;
-                case 'fillIn':
-                    $("#activity-fill-in").show();
-                    break;
-                case 'reading':
-                    $("#activity-reading").show();
-                    break;
-                case 'dragAndDrop':
-                    $("#activity-drag-and-drop").show();
-                    break;
-                case 'custom':
-                    // Use the previous method for the activity without title
-                    $("#activity-reading").show();
-                    break;
-                default:
-                    // Check if it's an lti apps and get the data needed if it's the case
-                    contentForwardButtonElt.style.display = 'none';
-                    $("#activity-custom").show();
-                    if (isUpdate) {
-                        launchLtiDeepLinkCreate(activityType, isUpdate);
+            const funct = customActivity.activityAndCaseView.filter(activityValidate => activityValidate[0] == activityType)[0];
+            if (funct) {
+                if (typeof funct[1] != 'function') {
+                    $(funct[1]).show();
+                } else {
+                    if (funct[3] != false) {
+                        funct[1](funct[0], funct[3]);
                     } else {
-                        launchLtiDeepLinkCreate(activityType);
+                        funct[1](funct[0]);
                     }
-                    
-                    break;
+                }
+            } else {
+                LtiDefaultCode(activityType, isUpdate);
             }
-            navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
+
+            if (funct) {
+                if (funct[2]) {
+                    navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
+                }
+            }
             if (callback) callback();
         } else {
             if (activityType == "appOutDated") {
@@ -97,6 +103,7 @@ function contentBackward() {
         navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-activities-teacher');
     })
 }
+
 
 // Get the content
 function contentForward() {
@@ -125,6 +132,11 @@ function contentForward() {
         isCheckPassed = parseQuizFieldsAndSaveThem();
     } else if (Main.getClassroomManager()._createActivity.id == 'dragAndDrop') {
         isCheckPassed = parseDragAndDropFieldsAndSaveThem();
+    } else {
+        const funct = customActivity.ContentForwardCustom.filter(contentForwardCheck => contentForwardCheck[0] == Main.getClassroomManager()._createActivity.id)[0];
+        if (funct) {
+            isCheckPassed = funct[1]();
+        }
     }
     // Check if the content if empty
     if (Main.getClassroomManager()._createActivity.content.description == '' && !isCheckPassed) { 
@@ -132,6 +144,26 @@ function contentForward() {
     } else {
         navigatePanel('classroom-dashboard-classes-new-activity-title', 'dashboard-proactivities-teacher');
         ActivityPreviewBeforeCreation(Main.getClassroomManager()._createActivity.id);
+    }
+}
+
+function parseFreeFieldsAndSaveThem() {
+    Main.getClassroomManager()._createActivity.content.description = $('#free-content').bbcode();
+    Main.getClassroomManager()._createActivity.solution = $('#free-correction').bbcode();
+    Main.getClassroomManager()._createActivity.autocorrect = $('#free-autocorrect').is(":checked");
+    Main.getClassroomManager()._createActivity.tolerance = $('#free-tolerance').val();
+    return true;
+}
+
+function parseReadingFieldsAndSaveThem() {
+    if ($('#reading-content').bbcode() == "" && $('#reading-content').htmlcode() == "") {
+        return false;
+    } else {
+        if ($('#reading-content').bbcode() != "") {
+            Main.getClassroomManager()._createActivity.content.description = $('#reading-content').bbcode();
+        } else if ($('#reading-content').htmlcode() != "") {
+            Main.getClassroomManager()._createActivity.content.description = $('#reading-content').htmlcode();
+        }
     }
 }
 
@@ -197,26 +229,13 @@ function titleBackward() {
  * Validation pipeline for the new activity
  */
 function validateActivity(correction) {
-    switch(Activity.activity.type) {
-        case 'free':
-            freeValidateActivity(correction);
-            break;
-        case 'quiz':
-            quizValidateActivity(correction);
-            break;
-        case 'fillIn':
-            fillInValidateActivity(correction);
-            break;
-        case 'reading':
-        case 'custom':
-            defaultProcessValidateActivity();
-            break;
-        case 'dragAndDrop':
-            dragAndDropValidateActivity(correction);
-            break;
-        default:
-            defaultProcessValidateActivity();
-            break;
+    // filter activityAndCase to get the right function
+    // CustomActivity = Manager for the custom activity
+    const funct = customActivity.activityAndCase.filter(activityValidate => activityValidate[0] == Activity.activity.type)[0];
+    if (funct) {
+        funct[1](funct[2] ?? correction);
+    } else {
+        defaultProcessValidateActivity();
     }
 }
 
@@ -378,7 +397,6 @@ function activitiesCreation(apps) {
         let outDated = false;
         if (app.hasOwnProperty("outDated")) {
             outDated = app.outDated;
-            console.log(app.name)
         }
 
         let nameField = "";
@@ -817,8 +835,8 @@ function ActivityPreviewBeforeCreation(type) {
             $content.show();
             $('#activity-preview-div').show();
             break;
-        case "lti-vittascience":
-            launchLtiResource("0000", "lti-vittascience", ActivityPreview.content.description, false, false, "#preview-activity-content");
+        case "vittascience":
+            launchLtiResource("0000", "vittascience", ActivityPreview.content.description, false, false, "#preview-activity-content");
             $content.show();
             $('#activity-preview-div').show();
             break;

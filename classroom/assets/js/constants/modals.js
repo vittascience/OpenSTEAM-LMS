@@ -1034,7 +1034,7 @@ const classroomModals = {
                             <div class="form-row mt-1 c-secondary-form">
 
                                 <div class="col-md">
-                                    <label for="app_create_sort_index" data-i18n="manager.activitiesRestrictions.max">Nombre</label>
+                                    <label for="app_create_sort_index" data-i18n="manager.activitiesRestrictions.indexPos">Nombre</label>
                                     <input type="number" class="form-control" id="app_create_sort_index" value="0">
                                 </div>
 
@@ -1302,6 +1302,17 @@ const classroomModals = {
                                 <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteStudent()" data-i18n="manager.buttons.validate">Valider</button>
                             </div>
                         </div>
+                    </div>`,
+        footer: ``
+    },
+    'pdf-preview': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.pdfPreview'
+        },
+        content: `  <div id="pdf-preview-galery">
+  
                     </div>`,
         footer: ``
     }

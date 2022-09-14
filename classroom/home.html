@@ -1841,6 +1841,101 @@
         </div>
     </nav>
 </div>
+<div id="app-media-galery" class="dashboard-block" style="display: none;">
+
+    <nav class="row form-activity-container" style="margin: 0 auto;">
+        <div class="col text-center">
+            <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
+            <span data-i18n="classroom.activities.form.1">Application</span>
+        </div>
+
+        <div class="col"></div>
+
+        <div class=" col text-center">
+            <span class="form-activity form-activity-activate">2</span>
+            <span data-i18n="classroom.activities.form.2">Contenu</span>
+        </div>
+
+        <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
+
+        <div class=" col text-center">
+            <span class="form-activity form-activity-desactivate">3</span>
+            <span data-i18n="classroom.activities.form.3">Titre</span>
+        </div>
+
+        <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
+
+        <div class="col text-center">
+            <span class="form-activity form-activity-desactivate">4</span>
+            <span data-i18n="classroom.activities.form.4">Attribution</span>
+        </div>
+    </nav>
+
+
+    <div class="d-flex flex-fill mx-auto mt-4 w-75 c-primary-form">
+        <input type="search" name="apps-file-search" id="apps-file-search" class="flex-fill seach-app-galery" data-i18n="[placeholder]manager.buttons.search">
+    </div>
+    <div class="container app-media-galery mt-4 justify-content-center"  id="app-media-galery-container">
+    </div>
+
+    <nav aria-label="pagination" class="mx-auto mt-3 d-flex">
+        <ul class="pagination mx-auto" id="app-media-galery-pagination"></ul>
+    </nav>
+</div>
+
+
+<div id="classroom-dashboard-classes-custom-activity" style="display:none;" class="dashboard-block classes-panel">
+    <nav class="row form-activity-container" style="margin: 0 auto;">
+        <div class="col text-center">
+            <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
+            <span data-i18n="classroom.activities.form.1">Application</span>
+        </div>
+
+        <div class="col"></div>
+
+        <div class=" col text-center">
+            <span class="form-activity form-activity-activate">2</span>
+            <span data-i18n="classroom.activities.form.2">Contenu</span>
+        </div>
+
+        <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
+
+        <div class=" col text-center">
+            <span class="form-activity form-activity-desactivate">3</span>
+            <span data-i18n="classroom.activities.form.3">Titre</span>
+        </div>
+
+        <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
+
+        <div class="col text-center">
+            <span class="form-activity form-activity-desactivate">4</span>
+            <span data-i18n="classroom.activities.form.4">Attribution</span>
+        </div>
+    </nav>
+
+    <div class="container mb-2 part-content-index c-primary-form">
+
+        <!-- Graphonemo activity part -->
+        <div id="activity-custom-content" style="display:none;">
+            
+        </div>
+
+        <div class="container">
+            <div class="row text-center w-100">
+                <div class="col-sm mb-2">
+                    <button class="btn c-btn-grey" onclick="contentBackward()">
+                        <i class="fas fa-chevron-left"></i> <span data-i18n="classroom.activities.form.back"></span>
+                    </button>
+                </div>
+                <div class="col-sm order-first order-sm-last mb-2">
+                    <button id="content-forward-button" class="btn c-btn-secondary" onclick="contentForward()">
+                        <span data-i18n="classroom.activities.form.buttonContinue"></span> <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="classroom-dashboard-ide-panel" style="display:none;" class="dashboard-block">
     <iframe width="100%" style="height:85vh;" frameborder="0" allowfullscreen="" style="border:1px #d6d6d6 solid;" src=""></iframe>
 </div>
@@ -1908,6 +2003,8 @@
 <!-- drag and drop bundle -->
 <link rel="stylesheet" stype="text/css" href="assets/css/dragula.css">
 <script src="assets/js/lib/dragula.js" ></script>
+
+<script src="assets/js/main/CustomActivityManager.js"></script>
 
 <script>
     UIManager.init().then((resolve) => {
