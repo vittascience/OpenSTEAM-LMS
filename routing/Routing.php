@@ -60,6 +60,11 @@ try {
         $user = $entityManager->getRepository('User\Entity\User')
             ->find(intval($_SESSION["id"]))->jsonSerialize();
 
+        $classroom = $entityManager->getRepository('Classroom\Entity\ClassroomLinkUser')->findOneBy(['user' => $_SESSION["id"]])->jsonSerialize();
+        if ($classroom != null) {
+            $user["classroom"] = $classroom["classroom"]["id"];
+        }
+
         try {
             $regular = $entityManager->getRepository('User\Entity\Regular')
                 ->find(intval($_SESSION["id"]))->jsonSerialize();

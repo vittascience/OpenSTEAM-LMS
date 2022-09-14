@@ -65,7 +65,11 @@ function launchCustomActivity(activityType, isUpdate = false, callback = false) 
                 if (typeof funct[1] != 'function') {
                     $(funct[1]).show();
                 } else {
-                    funct[1](funct[0]);
+                    if (funct[3] != false) {
+                        funct[1](funct[0], funct[3]);
+                    } else {
+                        funct[1](funct[0]);
+                    }
                 }
             } else {
                 LtiDefaultCode(activityType, isUpdate);

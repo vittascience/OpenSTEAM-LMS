@@ -10,12 +10,12 @@ class CustomActivity {
         ];
 
         this.activityAndCaseView = [
-            ['free', "#activity-free", true],
-            ['quiz', "#activity-quiz", true],
-            ['fillIn', "#activity-fill-in", true],
-            ['reading', "#activity-reading", true],
-            ['custom', "#activity-reading", true],
-            ['dragAndDrop', "#activity-drag-and-drop", true],
+            ['free', "#activity-free", false],
+            ['quiz', "#activity-quiz", false],
+            ['fillIn', "#activity-fill-in", false],
+            ['reading', "#activity-reading", false],
+            ['custom', "#activity-reading", false],
+            ['dragAndDrop', "#activity-drag-and-drop", false],
         ];
 
         this.ContentForwardCustom = [];
@@ -37,6 +37,12 @@ class CustomActivity {
             ['custom', manageDisplayCustomAndReading],
         ];
 
+
+        this.manageCustomSelectGalery = [
+            ['mathia', `https://app.mathia.education/?aid=`],
+        ]
+
+        this.normalMedia = true;
         this.appName = null;
         this.mediaItems = [];
         this.itemsPagination = 12;
@@ -116,15 +122,29 @@ class CustomActivity {
 
     displayItems() {
         document.getElementById("app-media-galery-container").innerHTML = "";
-        this.mediaItems.forEach((element, key) => {
-            document.getElementById("app-media-galery-container").innerHTML += 
-                            `<div class="card m-2 app-media-galery-item" style="width: 18rem;" data-name="${element}" style="display:none;">
-                                <img src="/classroom/assets/plugins/media/${Main.getClassroomManager()._createActivity.id}/${element.split('.')[0]}.jpg" class="card-img-top" onclick="customActivity.openPdfInModal('${element}')" alt="${element}">
-                                <div class="card-body align-self-center">
-                                    <button class="btn btn-sm c-btn-primary" onclick="customActivity.selectMedia(${key})">Sélectionner ce document</button>
-                                </div>
-                            </div>`;
-       });
+        console.log(this.normalMedia);
+        if (this.normalMedia) {
+            this.mediaItems.forEach((element, key) => {
+                document.getElementById("app-media-galery-container").innerHTML += 
+                                `<div class="card m-2 app-media-galery-item" style="width: 18rem;" data-name="${element}" style="display:none;">
+                                    <img src="/classroom/assets/plugins/media/${Main.getClassroomManager()._createActivity.id}/${element.split('.')[0]}.jpg" class="card-img-top" onclick="customActivity.openPdfInModal('${element}')" alt="${element}">
+                                    <div class="card-body align-self-center">
+                                        <button class="btn btn-sm c-btn-primary" onclick="customActivity.selectMedia(${key})">Sélectionner ce document</button>
+                                    </div>
+                                </div>`;
+            });
+        } else {
+            this.mediaItems.forEach((element, key) => {
+                document.getElementById("app-media-galery-container").innerHTML += 
+                                `<div class="card m-2 app-media-galery-item" style="width: 18rem;" data-name="${element.title}" style="display:none;">
+                                    <p>${element.title}</p>
+                                    <p>${element.difficulty}</p>
+                                    <div class="card-body align-self-center">
+                                        <button class="btn btn-sm c-btn-primary" onclick="customActivity.selectActivity(${element.exercises[0]})">Sélectionner ce document</button>
+                                    </div>
+                                </div>`;
+            });
+        }
     }
 
     openPdfInModal(pdf) {
@@ -139,6 +159,13 @@ class CustomActivity {
         contentForward();
     }
 
+    selectActivity(key) {
+        let customSelect = this.manageCustomSelectGalery.filter(element => element[0] == this.appName)[0];
+        let url = customSelect[1] + key;
+        this.selectedItem = url;
+        contentForward();
+    }
+
     manageDisplay() {
         let items = document.getElementsByClassName("app-media-galery-item");
         for (let i = 0; i < items.length; i++) {
@@ -150,18 +177,29 @@ class CustomActivity {
         }
     }
 
-    populateGalery(appName = null) {
+    populateGalery(appName = null, data = null) {
         if (appName != null) {
-            this.appName = appName;
+            customActivity.appName = appName;
         }
         document.getElementById("app-media-galery-container").innerHTML = "";
-        customActivity.getGaleryWithMedia(this.appName).then((res) => {
-            customActivity.totalItems = res.length;
-            customActivity.mediaItems = res;
+
+        if (data == null) {
+            customActivity.normalMedia = true;
+            customActivity.getGaleryWithMedia(customActivity.appName).then((res) => {
+                customActivity.totalItems = res.length;
+                customActivity.mediaItems = res;
+                customActivity.displayItems();
+                customActivity.managePagination();
+                customActivity.manageDisplay();
+            });
+        } else {
+            customActivity.normalMedia = false;
+            customActivity.totalItems = data.length;
+            customActivity.mediaItems = data;
             customActivity.displayItems();
             customActivity.managePagination();
-            customActivity.manageDisplay();
-        });
+            customActivity.manageDisplay(); 
+        }
         navigatePanel("app-media-galery", "dashboard-activities-teacher");
     }
 
