@@ -32,12 +32,11 @@ CREATE TABLE `classrooms` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
   `school` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `groupe` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `gar_code` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `link` varchar(5) COLLATE utf8mb3_unicode_ci NOT NULL,
   `is_changed` tinyint(1) DEFAULT NULL,
   `is_blocked` int(11) NOT NULL DEFAULT 0,
-  `uai` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `gar_code` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL
+  `uai` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
@@ -272,7 +271,10 @@ CREATE TABLE `interfaces_projects` (
   `link` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
   `mode` varchar(20) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
-  `is_activity_solve` tinyint(1) NOT NULL DEFAULT 0
+  `is_activity_solve` tinyint(1) NOT NULL DEFAULT 0,
+  `is_exercise_creator` tinyint(1) NOT NULL DEFAULT 0,
+  `id_exercise` int(11) DEFAULT NULL,
+  `exercise_statement` longtext COLLATE utf8mb3_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
@@ -317,7 +319,8 @@ CREATE TABLE `learn_activities` (
   `solution` text COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `tolerance` int(11) DEFAULT NULL,
   `is_autocorrect` tinyint(1) DEFAULT NULL,
-  `folder` int(11) DEFAULT NULL
+  `folder` int(11) DEFAULT NULL,
+  `is_collapsed` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
@@ -503,10 +506,10 @@ CREATE TABLE `users_login_attempts` (
 CREATE TABLE `user_classroom_users` (
   `user` int(11) NOT NULL,
   `gar_id` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `canope_id` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `school_id` varchar(8) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `is_teacher` tinyint(1) DEFAULT NULL,
-  `mail_teacher` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `canope_id` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL
+  `mail_teacher` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
