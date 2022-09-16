@@ -25,15 +25,6 @@
 
 // autocorrect modification pas pris en compte
 
-/* const activityAndCaseView = [
-    ['free', "#activity-free"],
-    ['quiz', "#activity-quiz"],
-    ['fillIn', "#activity-fill-in"],
-    ['reading', "#activity-reading"],
-    ['custom', "#activity-reading"],
-    ['dragAndDrop', "#activity-drag-and-drop"],
-] */
-
 function LtiDefaultCode(activityType, isUpdate) {
     document.getElementById('content-forward-button').style.display = 'none';
     $("#activity-custom").show();
@@ -63,6 +54,7 @@ function launchCustomActivity(activityType, isUpdate = false, callback = false) 
             const funct = customActivity.activityAndCaseView.filter(activityValidate => activityValidate[0] == activityType)[0];
             if (funct) {
                 if (typeof funct[1] != 'function') {
+                    navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
                     $(funct[1]).show();
                 } else {
                     if (funct[3] != false) {
@@ -72,6 +64,8 @@ function launchCustomActivity(activityType, isUpdate = false, callback = false) 
                     }
                 }
             } else {
+                navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
+                $("#activity-custom").show();
                 LtiDefaultCode(activityType, isUpdate);
             }
 
