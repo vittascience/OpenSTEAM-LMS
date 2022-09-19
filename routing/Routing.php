@@ -39,7 +39,7 @@ use Utils\Exceptions\EntityDataIntegrityException;
 use Classroom\Controller\ControllerActivityLinkUser;
 use Interfaces\Controller\ControllerProjectLinkUser;
 use Classroom\Controller\ControllerClassroomLinkUser;
-
+use Utils\Controller\ControllerUpload;
 
 $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
 $dotenv->safeLoad();
@@ -60,10 +60,17 @@ try {
         $user = $entityManager->getRepository('User\Entity\User')
             ->find(intval($_SESSION["id"]))->jsonSerialize();
 
-        $classroom = $entityManager->getRepository('Classroom\Entity\ClassroomLinkUser')->findOneBy(['user' => $_SESSION["id"]])->jsonSerialize();
-        if ($classroom != null) {
+        // ne génère pas d'erreur si on appartient à aucune classroom
+        $storedClassroom = $entityManager->getRepository('Classroom\Entity\ClassroomLinkUser')->findOneBy(['user' => $_SESSION["id"]]);
+        if ($storedClassroom) {
+            $classroom = $storedClassroom->jsonSerialize();
             $user["classroom"] = $classroom["classroom"]["id"];
         }
+        // // génère une erreur si on on appartient à aucune classroom
+        // $classroom = $entityManager->getRepository('Classroom\Entity\ClassroomLinkUser')->findOneBy(['user' => $_SESSION["id"]])->jsonSerialize();
+        // if ($classroom != null) {
+        //     $user["classroom"] = $classroom["classroom"]["id"];
+        // }
 
         try {
             $regular = $entityManager->getRepository('User\Entity\Regular')
@@ -212,6 +219,13 @@ try {
             $controller = new ControllerNewActivities($entityManager, $user);
             echo (json_encode($controller->action($action, $_POST)));
             $log->info($action, OK);
+            break;
+        case 'upload': 
+            $action = lcfirst(str_replace('_', '', ucwords($action, '_')));
+            $controllerUpload = new ControllerUpload($entityManager, $user);
+            echo json_encode(call_user_func(
+                array($controllerUpload,$action)
+            ));
             break;
         default:
             $log->warning(null, __FILE__, __LINE__, "Non matched controller");
