@@ -446,7 +446,7 @@ function getTeacherActivity() {
         if (funct) { 
             funct[1](contentParsed, Activity);
         } else {
-            console.log("AUTRE")
+            
             // LTI Activity
             if (Activity.isLti) {
                 launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description);
@@ -468,7 +468,7 @@ function getTeacherActivity() {
 
 function showTeacherReadingAndFreeActivity(contentParsed, Activity) {
     if (contentParsed.hasOwnProperty('description')) {
-        console.log(bbcodeToHtml(contentParsed.description))
+        
         $('#activity-content').html(bbcodeToHtml(contentParsed.description));
         $('#activity-content-container').show();
     } 
