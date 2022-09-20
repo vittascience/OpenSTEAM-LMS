@@ -97,6 +97,9 @@ USER_PHONE=false
 USER_TEACHER_GRADE=false
 USER_TEACHER_SUBJECT=false
 USER_TEACHER_SCHOOL=false
+
+#uploads paths (default: public folder at root level)
+VS_RESOURCE_UPLOAD_DIR=public/content/user_data/resources
 ```
 
 
