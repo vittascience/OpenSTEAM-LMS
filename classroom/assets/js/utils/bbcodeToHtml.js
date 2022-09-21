@@ -23,8 +23,9 @@ function bbcodeToHtml(html) {
     html = html.replace(/(\[url=)(.+?(?=\]))(\])(.+?(?=\[))(\[\/url\])/gi, "<a href='$2' target=\"_blank\">$4</a>")
 
     //pdf
-    html = html.replace(/(\[embed\])(.+)(\[\/embed\])/gi, "<embed width=100% height=500 type=\"application/pdf\" src=\"$2\"/>")
+    html = html.replace(/\[embed title=(.+)\](.+)(\[\/embed\])/gi, "<embed width=100% height=500 type=\"application/pdf\" src=\"$2\"/ title=\"$1\">")
     html = html.replace(/\[embed=A4\](.+)\[\/embed\]/gi, "<embed class='pdf-a4' type='application/pdf' src='$1'/>")
+    html = html.replace(/(\[embed\])(.+)(\[\/embed\])/gi, "<embed width=100% height=500 type=\"application/pdf\" src=\"$2\"/>")
 
     //vimeo
     html = html.replace(/(\[vimeo\])([a-zA-Z0-9?=\-_&\/]+)(\[\/vimeo\])/gi, "<iframe src=\"https://player.vimeo.com/video/$2\" allowfullscreen allow='autoplay'>")
@@ -51,6 +52,7 @@ function bbcodeToHtml(html) {
 
     html = html.replace(/\[\/u\]/gi, "</u>")
     //image
+    html = html.replace(/\[img title=([a-zA-Z0-9?=&\/\\:\-,\+%._ ]*)max-width=([a-zA-Z0-9?=&\/\\:\-,\+%._ ]*)(\])([a-zA-Z0-9éàçèïîôâàë?=&\/\\:%.\-\+\)\(_ ]+)(\[\/img\])/gi, "<img src='$4' title='$1' alt='$1' style='max-width:$2 !important;' class='img-fluid'/>")
     html = html.replace(/(\[img)([a-zA-Z0-9?=&\/\\:\-,\+%._]*)(\])([a-zA-Z0-9éàçèïîôâàë?=&\/\\:%.\-\+\)\(_]+)(\[\/img\])/gi, "<img src='$4'/>")
     //line return
     html = html.replace(/\n/gi, "</br>")
