@@ -57,12 +57,11 @@ try {
     session_start();
     $user = null;
     if (isset($_SESSION["id"])) {
-        $user = $entityManager->getRepository('User\Entity\User')
-            ->find(intval($_SESSION["id"]))->jsonSerialize();
+        $user = $entityManager->getRepository('User\Entity\User')->find(intval($_SESSION["id"]))->jsonSerialize();
 
-        $classroom = $entityManager->getRepository('Classroom\Entity\ClassroomLinkUser')->findOneBy(['user' => $_SESSION["id"]])->jsonSerialize();
+        $classroom = $entityManager->getRepository('Classroom\Entity\ClassroomLinkUser')->findOneBy(['user' => $_SESSION["id"]]);
         if ($classroom != null) {
-            $user["classroom"] = $classroom["classroom"]["id"];
+            $user["classroom"] = $classroom->jsonSerialize()["classroom"]["id"];
         }
 
         try {
