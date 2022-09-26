@@ -97,6 +97,9 @@ USER_PHONE=false
 USER_TEACHER_GRADE=false
 USER_TEACHER_SUBJECT=false
 USER_TEACHER_SCHOOL=false
+
+#uploads paths (default: public folder at root level)
+VS_RESOURCE_UPLOAD_DIR=public/content/user_data/resources
 ```
 
 
@@ -224,7 +227,7 @@ This $body variable will be injected inside your html emails before sending each
 The current repository only contains front elements of the LMS. The back end is mainly located in the dependencies (in the vendor folder) :
 
 - [vuser](https://github.com/vittascience/vuser) : current version (1.2.6a)
-- [vclassroom](https://github.com/vittascience/vclassroom) : current version (1.2.9c)
-- [vutils](https://github.com/vittascience/vutils) : current version (1.2.5)
-- vinterfaces (not public yet) : current version (1.2.5a)
+- [vclassroom](https://github.com/vittascience/vclassroom) : current version (1.3.0)
+- [vutils](https://github.com/vittascience/vutils) : current version (1.2.7)
+- vinterfaces (not public yet) : current version (1.2.5b)
 - vlearn (not public yet) : current version (1.2.12a)
