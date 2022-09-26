@@ -57,21 +57,12 @@ try {
     session_start();
     $user = null;
     if (isset($_SESSION["id"])) {
-        $user = $entityManager->getRepository('User\Entity\User')
-            ->find(intval($_SESSION["id"]))->jsonSerialize();
-
-        // ne génère pas d'erreur si on appartient à aucune classroom
+        $user = $entityManager->getRepository('User\Entity\User')->find(intval($_SESSION["id"]))->jsonSerialize();
         $storedClassroom = $entityManager->getRepository('Classroom\Entity\ClassroomLinkUser')->findOneBy(['user' => $_SESSION["id"]]);
         if ($storedClassroom) {
             $classroom = $storedClassroom->jsonSerialize();
             $user["classroom"] = $classroom["classroom"]["id"];
         }
-        // // génère une erreur si on on appartient à aucune classroom
-        // $classroom = $entityManager->getRepository('Classroom\Entity\ClassroomLinkUser')->findOneBy(['user' => $_SESSION["id"]])->jsonSerialize();
-        // if ($classroom != null) {
-        //     $user["classroom"] = $classroom["classroom"]["id"];
-        // }
-
         try {
             $regular = $entityManager->getRepository('User\Entity\Regular')
                 ->find(intval($_SESSION["id"]))->jsonSerialize();
