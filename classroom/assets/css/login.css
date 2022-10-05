@@ -6,12 +6,11 @@
     justify-content: center;
     width: 100%;
     height: calc(100vh - 2em);
-    text-align: center;
     background: no-repeat bottom center/100% url("../media/home_bg.png");
 }
 
 .jumbotron-neutral {
-    min-height: 100vh;
+    min-height: 60vh;
 }
 
 #interactive-elements-container {
