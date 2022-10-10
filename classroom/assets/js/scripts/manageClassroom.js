@@ -923,7 +923,7 @@ function displayStudentsInClassroom(students, link=false) {
             html = /* html */`<tr>
                 <th class="username" data-student-id="${element.user.id}">
                     <div class="user-cell-container">
-                        <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png?version=1.2.12a" alt="Photo de profil">
+                        <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png?version=VERSIONNUM" alt="Photo de profil">
                         <div class="user-cell-username" title="${element.user.pseudo}">${pseudo}</div>
                         <div class="dropdown">
                             <i class="classroom-clickable line_height34 fas fa-exchange-alt" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
@@ -938,7 +938,7 @@ function displayStudentsInClassroom(students, link=false) {
             html = /*html*/`<tr>
                 <th class="username" data-student-id="${element.user.id}">
                     <div class="user-cell-container">
-                        <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png?version=1.2.12a" alt="Photo de profil">
+                        <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png?version=VERSIONNUM" alt="Photo de profil">
                         <div class="user-cell-username" title="${element.user.pseudo}">${pseudo}</div>`
             if (!UserManager.getUser().isFromGar) {
                 html += /**/`<div class="dropdown"><i class="classroom-clickable line_height34 fas fa-cog" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
@@ -1092,7 +1092,7 @@ function actualizeStudentActivities(activity, correction) {
 function addStudentRow(pseudo, studentId = false, isNotDeletable) {
     return `
     <li data-pseudo="${pseudo}" data-id="${studentId}" class="row align-items-center my-1 ">
-        <img class="col-2 propic" src="${_PATH}assets/media/alphabet/` + pseudo.slice(0, 1).toUpperCase() + `.png?version=1.2.12a" alt="Photo de profil">
+        <img class="col-2 propic" src="${_PATH}assets/media/alphabet/` + pseudo.slice(0, 1).toUpperCase() + `.png?version=VERSIONNUM" alt="Photo de profil">
         <div class="col">` + pseudo + `</div>
         ${isNotDeletable ? '' : `<button type=\"button\" class=\"btn btn-danger remove-student h-50\" data-toggle=\"tooltip\" data-placement=\"top\"  >
             <i class=\"fas fa-times\"></i>
