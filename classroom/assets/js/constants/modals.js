@@ -97,24 +97,10 @@ const classroomModals = {
         },
         content: `<h4 data-i18n="classroom.modals.settingsTeacher.lang">Langue</h4>
         <div id="switch-lang-list" class="d-flex justify-content-center">
-<<<<<<< HEAD
-<<<<<<< HEAD
             <img class="flags-item mr-2" alt="flag" src="assets/media/flags/fr.png?version=VERSIONNUM" onclick="changeLang('fr')">
             <img class="flags-item" alt="flag" src="assets/media/flags/en.png?version=VERSIONNUM" onclick="changeLang('en')">
             <img class="flags-item mr-2" alt="flag" src="assets/media/flags/es.png?version=VERSIONNUM" onclick="changeLang('es')">
             <img class="flags-item mr-2" alt="flag" src="assets/media/flags/it.png?version=VERSIONNUM" onclick="changeLang('it')">
-=======
-            <img class="flags-item mr-2" alt="flag" src="assets/media/flags/fr.png?version=1.2.7c" onclick="changeLang('fr')">
-            <img class="flags-item" alt="flag" src="assets/media/flags/en.png?version=1.2.7c" onclick="changeLang('en')">
-            <img class="flags-item mr-2" alt="flag" src="assets/media/flags/es.png?version=1.2.7c" onclick="changeLang('es')">
-            <img class="flags-item mr-2" alt="flag" src="assets/media/flags/it.png?version=1.2.7c" onclick="changeLang('it')">
->>>>>>> 6c3001c (Add query param ?version=1.2.7c (to force browser to reload cache))
-=======
-            <img class="flags-item mr-2" alt="flag" src="assets/media/flags/fr.png?version=1.2.12a" onclick="changeLang('fr')">
-            <img class="flags-item" alt="flag" src="assets/media/flags/en.png?version=1.2.12a" onclick="changeLang('en')">
-            <img class="flags-item mr-2" alt="flag" src="assets/media/flags/es.png?version=1.2.12a" onclick="changeLang('es')">
-            <img class="flags-item mr-2" alt="flag" src="assets/media/flags/it.png?version=1.2.12a" onclick="changeLang('it')">
->>>>>>> f4460a1 (merging release version 1.2.12a)
         </div>
         <h4 data-i18n="classroom.modals.settingsTeacher.password">Mot de passe</h4>
         <p class="text-center" data-i18n="classroom.modals.settingsTeacher.passwordDescription"></p>
@@ -1040,7 +1026,7 @@ const classroomModals = {
                             <div class="form-row mt-1 c-secondary-form">
 
                                 <div class="col-md">
-                                    <label for="app_create_sort_index" data-i18n="manager.activitiesRestrictions.indexPos">Nombre</label>
+                                    <label for="app_create_sort_index" data-i18n="manager.activitiesRestrictions.max">Nombre</label>
                                     <input type="number" class="form-control" id="app_create_sort_index" value="0">
                                 </div>
 
@@ -1308,17 +1294,6 @@ const classroomModals = {
                                 <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteStudent()" data-i18n="manager.buttons.validate">Valider</button>
                             </div>
                         </div>
-                    </div>`,
-        footer: ``
-    },
-    'pdf-preview': {
-        selector: '',
-        header: {
-            icon: '',
-            title: 'classroom.pdfPreview'
-        },
-        content: `  <div id="pdf-preview-galery">
-  
                     </div>`,
         footer: ``
     }
