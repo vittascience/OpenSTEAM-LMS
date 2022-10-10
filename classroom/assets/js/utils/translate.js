@@ -5,7 +5,7 @@ i18next.use(window.i18nextXHRBackend)
         whitelist: ['fr', 'en', 'es', 'it'],
         fallbackLng: 'fr',
         backend: {
-            loadPath: _PATH + 'assets/lang/{{lng}}/ns.json?version=1.2.12a'
+            loadPath: _PATH + 'assets/lang/{{lng}}/ns.json?version=VERSIONNUM'
         }
     }, (err, t) => {
         jqueryI18next.init(i18next, $, {

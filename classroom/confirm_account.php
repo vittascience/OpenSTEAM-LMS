@@ -67,11 +67,11 @@ if (!$page) {
 } else {
     require_once(__DIR__ . "/header.html");
     ?>
-        <link rel="stylesheet" href="/classroom/assets/css/main.css?version=1.2.12a">
-        <script src="./assets/js/lib/rotate.js?version=1.2.12a"></script>
+        <link rel="stylesheet" href="/classroom/assets/css/main.css?version=VERSIONNUM">
+        <script src="./assets/js/lib/rotate.js?version=VERSIONNUM"></script>
 
-    <script type="text/javascript" src="assets/js/lib/slick-carrousel.js?version=1.2.12a"></script>
-    <link rel="stylesheet" type="text/css" href="assets/css/slick.css?version=1.2.12a">
+    <script type="text/javascript" src="assets/js/lib/slick-carrousel.js?version=VERSIONNUM"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/slick.css?version=VERSIONNUM">
         </head>
         <body>
     <?php

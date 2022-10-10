@@ -773,7 +773,7 @@ function sandboxDisplay(projects = Main.getClassroomManager()._myProjects) {
 function classroomsDisplay() {
     let noContentDiv = `
     <p class="no-content-div">
-        <img src="${_PATH}assets/media/my_classes.svg?version=1.2.12a" alt="Icône classe" class="hue-rotate-teacher">
+        <img src="${_PATH}assets/media/my_classes.svg?version=VERSIONNUM" alt="Icône classe" class="hue-rotate-teacher">
         <b data-i18n="classroom.classes.noClasses">Vous n'avez pas encore de classe</b>
         <span id="no-content-div__bottom-text"  data-i18n="classroom.classes.createClassNow">Commencez par créer une classe dès maintenant !</span>
     </p>`
@@ -783,7 +783,7 @@ function classroomsDisplay() {
         document.querySelector('.buttons-interactions button.teacher-new-classe').style.display = 'none';
         noContentDiv = `
         <p class="no-content-div">
-            <img src="${_PATH}assets/media/my_classes.svg?version=1.2.12a" alt="Icône classe" class="hue-rotate-teacher">
+            <img src="${_PATH}assets/media/my_classes.svg?version=VERSIONNUM" alt="Icône classe" class="hue-rotate-teacher">
             <b data-i18n="classroom.classes.noClasses">Vous n'avez pas encore de classe</b>
         </p>`
     }
