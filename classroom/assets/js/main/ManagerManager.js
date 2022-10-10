@@ -378,7 +378,6 @@ class managerManager {
                     application_name: $application_name,
                     application_description: $application_description,
                     application_image: $application_image,
-                    application_description: $application_description,
                     application_color: $application_color,
                     restriction_max: $restriction_max,
                     lti_data: JSON.stringify($lti_data),
