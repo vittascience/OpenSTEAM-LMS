@@ -49,8 +49,8 @@ if ($redirect != "") {
 
 require_once(__DIR__ . "/header.html");
 ?>
-<link rel="stylesheet" href="/classroom/assets/css/main.css?version=1.2.7c">
-<script src="./assets/js/lib/rotate.js?version=1.2.7c"></script>
+<link rel="stylesheet" href="/classroom/assets/css/main.css?version=VERSIONNUM">
+<script src="./assets/js/lib/rotate.js?version=VERSIONNUM"></script>
 <link rel="stylesheet" type="text/css" href="assets/css/slick.css?version=VERSIONNUM">
 </head>
 

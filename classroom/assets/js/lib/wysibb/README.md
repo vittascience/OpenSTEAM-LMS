@@ -7,10 +7,11 @@ For more information please visit [wysibb.com](http://www.wysibb.com)
 
 Include the JQuery and WysiBB files
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js?version=1.2.12a"></script>
-	<script src="http://cdn.wysibb.com/js/jquery.wysibb.min.js?version=1.2.12a"></script>
-	<link rel="stylesheet" href="http://cdn.wysibb.com/css/default/wbbtheme.css?version=1.2.12a" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js?version=VERSIONNUM"></script>
+	<script src="http://cdn.wysibb.com/js/jquery.wysibb.min.js?version=VERSIONNUM"></script>
+	<link rel="stylesheet" href="http://cdn.wysibb.com/css/default/wbbtheme.css?version=VERSIONNUM" />
 
+Note that VERSIONNUM is replaced.
 Activate WysiBB on an existing textarea
 
 	<script>
@@ -42,10 +43,10 @@ WysiBB comes in russian by default, but you can set a different language
 
 	<head>
 	...
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js?version=1.2.12a"></script>
-	<script src="http://cdn.wysibb.com/js/jquery.wysibb.min.js?version=1.2.12a"></script>
-	<link rel="stylesheet" href="http://cdn.wysibb.com/css/default/wbbtheme.css?version=1.2.12a" />
-	<script src="/js/lang/fr.js?version=1.2.12a"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js?version=VERSIONNUM"></script>
+	<script src="http://cdn.wysibb.com/js/jquery.wysibb.min.js?version=VERSIONNUM"></script>
+	<link rel="stylesheet" href="http://cdn.wysibb.com/css/default/wbbtheme.css?version=VERSIONNUM" />
+	<script src="/js/lang/fr.js?version=VERSIONNUM"></script>
 	...
 	</head>
 

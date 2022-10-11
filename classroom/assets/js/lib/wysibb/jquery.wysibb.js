@@ -259,7 +259,7 @@ wbbdebug = false;
 			allButtons: {
 				vittaiframe: {
 					title: CURLANG.vittaiframe,
-					buttonHTML: '<img src="/classroom/assets/media/activity/SigleVittascience.svg?version=1.2.12a" height="26" height="26" style="margin-top: 2px;"/>',
+					buttonHTML: '<img src="/classroom/assets/media/activity/SigleVittascience.svg?version=VERSIONNUM" height="26" height="26" style="margin-top: 2px;"/>',
 					hotkey: '',
 					modal: {
 						title: CURLANG.modal_vitta_title,
@@ -278,7 +278,7 @@ wbbdebug = false;
 				},
 				cabriiframe: {
 					title: CURLANG.cabriiframe,
-					buttonHTML: '<span class="btn-inner btn-span-cabri"><img class="btn-cabri" src="/classroom/assets/media/cabri_logo.png?version=1.2.12a"></span>',
+					buttonHTML: '<span class="btn-inner btn-span-cabri"><img class="btn-cabri" src="/classroom/assets/media/cabri_logo.png?version=VERSIONNUM"></span>',
 					hotkey: '',
 					modal: {
 						title: CURLANG.modal_cabri_title,
@@ -499,7 +499,7 @@ wbbdebug = false;
 				},
 				peertube: {
 					title: CURLANG.peertube,
-					buttonHTML: '<span class="btn-inner btn-span-peertube"><img class="btn-peertube" src="/classroom/assets/media/peertube_logo.svg?version=1.2.12a"></span>',
+					buttonHTML: '<span class="btn-inner btn-span-peertube"><img class="btn-peertube" src="/classroom/assets/media/peertube_logo.svg?version=VERSIONNUM"></span>',
 					modal: {
 						title: CURLANG.peertube,
 						width: "600px",
@@ -744,7 +744,7 @@ wbbdebug = false;
 				},
 				genialyiframe: {
 					title: CURLANG.genialy,
-					buttonHTML: '<img class="fonticon ve-tlb-link1" src="/learn/assets/media/SigleGenially.png?version=1.2.12a" width="26" height="26" style="margin-top: 2px;" />',
+					buttonHTML: '<img class="fonticon ve-tlb-link1" src="/learn/assets/media/SigleGenially.png?version=VERSIONNUM" width="26" height="26" style="margin-top: 2px;" />',
 					hotkey: '',
 					modal: {
 						title: CURLANG.modal_genialy_title,
@@ -816,7 +816,7 @@ wbbdebug = false;
 				//blockquote: [["   {SELTEXT}",{seltext: {rgx:false,attr:false,sel:false}}]]
 			},
 			smileList: [
-				//{title:CURLANG.sm1, img: '<img src="{themePrefix}{themeName}/img/smiles/sm1.png?version=1.2.12a" class="sm">', bbcode:":)"},
+				//{title:CURLANG.sm1, img: '<img src="{themePrefix}{themeName}/img/smiles/sm1.png?version=VERSIONNUM" class="sm">', bbcode:":)"},
 			],
 			attrWrap: ['src', 'color', 'href'] //use becouse FF and IE change values for this attr, modify [attr] to _[attr]
 		}
