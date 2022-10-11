@@ -34,8 +34,8 @@ use Classroom\Controller\ControllerGroupAdmin;
 
 use Classroom\Controller\ControllerSuperAdmin;
 
-use Learn\Controller\ControllerCourseLinkCourse;
 use Classroom\Controller\ControllerCourseLinkUser;
+use Learn\Controller\ControllerCourseLinkCourse;
 use Utils\Exceptions\EntityDataIntegrityException;
 use Classroom\Controller\ControllerActivityLinkUser;
 use Interfaces\Controller\ControllerProjectLinkUser;
