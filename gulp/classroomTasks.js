@@ -763,6 +763,9 @@ pluginCss.displayName = 'plugin css';
 const pluginJs = () => { return autoBuildManager.pluginJs() };
 pluginJs.displayName = 'plugin js';
 
+const pluginJson = () => { return autoBuildManager.pluginJson() };
+pluginJson.displayName = 'plugin json';
+
 const pluginMedia = () => { return autoBuildManager.pluginMedia() };
 pluginMedia.displayName = 'plugin media';
 
@@ -783,6 +786,7 @@ autoBuild = gulp.series(
     pluginImages,
     pluginCss,
     pluginJs,
+    pluginJson,
     pluginMedia,
     homeConcat,
     removeTemporaryViewsFolder,
