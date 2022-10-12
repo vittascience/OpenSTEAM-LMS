@@ -405,13 +405,8 @@ class AutoBuildManager {
                                 views: [],
                                 css: [],
                                 js: [],
-<<<<<<< HEAD
-                                images: [],
-                                json: []
-=======
                                 media: [],
                                 images: []
->>>>>>> 1.2.10
                             };
                             this.pluginsList.push(currentPlugin);
                         });
@@ -768,13 +763,8 @@ pluginCss.displayName = 'plugin css';
 const pluginJs = () => { return autoBuildManager.pluginJs() };
 pluginJs.displayName = 'plugin js';
 
-<<<<<<< HEAD
-const pluginJson = () => { return autoBuildManager.pluginJson() };
-pluginJson.displayName = 'plugin json';
-=======
 const pluginMedia = () => { return autoBuildManager.pluginMedia() };
 pluginMedia.displayName = 'plugin media';
->>>>>>> 1.2.10
 
 const homeConcat = () => { return autoBuildManager.homeConcat() };
 homeConcat.displayName = 'home concat';
@@ -793,11 +783,7 @@ autoBuild = gulp.series(
     pluginImages,
     pluginCss,
     pluginJs,
-<<<<<<< HEAD
-    pluginJson,
-=======
     pluginMedia,
->>>>>>> 1.2.10
     homeConcat,
     removeTemporaryViewsFolder,
     manageCustomBuild
