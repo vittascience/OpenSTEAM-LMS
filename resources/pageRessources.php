@@ -11,7 +11,7 @@
             ],
             [
                 "type" => "js",
-                "src" => "https://cdn.jsdelivr.net/npm/vanilla-lazyload@12.4.0/dist/lazyload.min.js"
+                "src" => "/assets/js/lib/vanilla_lazyload-12.4.0/lazyload.min.js"
             ]
         ],
         "shop.php" => [
