@@ -3,7 +3,7 @@
         "index.php" => [
             [
                 "type" => "css",
-                "src" => "https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+                "src" => "/assets/js/lib/slick-1.8.1/slick/slick.css"
             ],
             [
                 "type" => "css",
@@ -21,7 +21,7 @@
             ],
             [
                 "type" => "css",
-                "src" => "https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+                "src" => "/assets/js/lib/slick-1.8.1/slick/slick.css"
             ],
             [
                 "type" => "css",
