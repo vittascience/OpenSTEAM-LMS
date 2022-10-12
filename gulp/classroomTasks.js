@@ -321,15 +321,17 @@ class AutoBuildManager {
       return new Promise((resolve, reject) => {
         let promises = [];
         this.pluginsList.forEach((plugin) => {
-          plugin.json.forEach((jsonFile) => {
-            promises.push(
-              new Promise((resolve, reject) => {
-                gulp.src(`${this.pluginFolder}/${plugin.name}/public/json/${jsonFile}`).pipe(gulp.dest(`${this.pluginsFolderInClassroom}/json/`)).on('finish', () => {
-                  resolve();
+            if(plugin.json) {
+                plugin.json.forEach((jsonFile) => {
+                    promises.push(
+                        new Promise((resolve, reject) => {
+                            gulp.src(`${this.pluginFolder}/${plugin.name}/public/json/${jsonFile}`).pipe(gulp.dest(`${this.pluginsFolderInClassroom}/json/`)).on('finish', () => {
+                                resolve();
+                            });
+                        })
+                    );
                 });
-              })
-            );
-          });
+            }
         });
         Promise.all(promises).then(() => {
           resolve();
