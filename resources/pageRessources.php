@@ -81,7 +81,7 @@
         "vittapi.php" => [
             [
                 "type" => "js",
-                "src" => "https://www.gstatic.com/charts/loader.js"
+                "src" => "/assets/js/lib/charts/loader.js"
             ]
         ]
     ];
