@@ -12,7 +12,7 @@
     <meta http-equiv="Content-Security-Policy" content="">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/css/lib/jquery_ui-1.12.1-themes-smoothness/jquery-ui.css">
     <link rel="stylesheet" href="/assets/js/lib/bootstrap-4.1.1/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/lib/fontawesome-5.1.1/all.css">
     <!-- Material icon -->
