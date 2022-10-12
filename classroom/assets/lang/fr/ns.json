@@ -69,6 +69,7 @@
         "textBeforeLink": "Si le bouton ci-dessus ne fonctionne pas, copiez et collez le lien suivant dans votre navigateur :"
       }
     },
+    "pdfPreview": "prévisualisation de PDF",
     "successPanel": "Bravo, tu as réussi cette activité !",
     "failPanel": "La réponse n'est pas correcte.",
     "toCorrectPanel": "L'activité à été transmise à ton enseignant,</br>qui reviendra vers toi bientôt !",
@@ -542,8 +543,11 @@
       "name": "Nom du dossier <span class=\"mandatory\">*</span>",
       "title": "Dossier",
       "image": "Image du dossier"
-    }
-  },
+    },
+    "pagination": {
+      "previous": "Précédent",
+      "next": "Suivant"
+    }  },
   "faqInfo": {
     "1": {
       "section_title": "Questions générales",

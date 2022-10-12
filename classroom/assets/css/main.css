@@ -1898,8 +1898,9 @@ h3.section-done {
 }
 
 #activity-creation-grid .app-card .app-card-img {
-    height: 128px;
-    width: auto;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
 }
 
 #activity-custom {
@@ -3371,4 +3372,14 @@ h3.section-done {
     justify-content: space-evenly;
 }
 
+.app-media-galery {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    min-height: 25%;
+}
+
+.seach-app-galery{
+    width: 100%;
+}
 

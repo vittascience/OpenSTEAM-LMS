@@ -69,6 +69,7 @@
         "textBeforeLink": "If the above button does not work, copy and paste the following link into your browser:"
       }
     },
+    "pdfPreview": "PDF Preview",
     "successPanel": "Well done, you did it!",
     "failPanel": "The answer is not correct",
     "toCorrectPanel": "The activity has been passed on to your teacher,</br> who will get back to you soon! <i class=\"fas fa-pen\"></i>",
@@ -542,6 +543,10 @@
       "name": " Folder name <span class=\"mandatory\">*</span>",
       "title": " File",
       "image": " Image of the file"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
     }
   },
   "faqInfo": {

@@ -1,7 +1,11 @@
 function bbcodeToHtml(html) {
     // add support for the response who only contains a number
     if (!(typeof html === 'string' || html instanceof String)) {
-        html = html.toString();
+        if (html != null) {
+            html = html.toString();
+        } else {
+            return html;
+        }
     }
     //iframes
     html = html.replace(/(\[iframe\])(https:\/\/(fr\.|en\.|)vittascience\.com[a-zA-Z0-9?=;&\/﻿]+)(\[\/iframe\])/gi, "<iframe width='100%' height='500' frameborder='0' allowfullscreen style='border:1px #d6d6d6 solid;' src=\"$2&embed=1&frameid=" + generateRandomString(6) + "\"></iframe>")
@@ -19,8 +23,9 @@ function bbcodeToHtml(html) {
     html = html.replace(/(\[url=)(.+?(?=\]))(\])(.+?(?=\[))(\[\/url\])/gi, "<a href='$2' target=\"_blank\">$4</a>")
 
     //pdf
-    html = html.replace(/(\[embed\])(.+)(\[\/embed\])/gi, "<embed width=100% height=500 type=\"application/pdf\" src=\"$2\"/>")
+    html = html.replace(/\[embed title=(.+)\](.+)(\[\/embed\])/gi, "<embed width=100% height=500 type=\"application/pdf\" src=\"$2\"/ title=\"$1\">")
     html = html.replace(/\[embed=A4\](.+)\[\/embed\]/gi, "<embed class='pdf-a4' type='application/pdf' src='$1'/>")
+    html = html.replace(/(\[embed\])(.+)(\[\/embed\])/gi, "<embed width=100% height=500 type=\"application/pdf\" src=\"$2\"/>")
 
     //vimeo
     html = html.replace(/(\[vimeo\])([a-zA-Z0-9?=\-_&\/]+)(\[\/vimeo\])/gi, "<iframe src=\"https://player.vimeo.com/video/$2\" allowfullscreen allow='autoplay'>")
@@ -47,6 +52,7 @@ function bbcodeToHtml(html) {
 
     html = html.replace(/\[\/u\]/gi, "</u>")
     //image
+    html = html.replace(/\[img title=([a-zA-Z0-9?=&\/\\:\-,\+%._ ]*)max-width=([a-zA-Z0-9?=&\/\\:\-,\+%._ ]*)(\])([a-zA-Z0-9éàçèïîôâàë?=&\/\\:%.\-\+\)\(_ ]+)(\[\/img\])/gi, "<img src='$4' title='$1' alt='$1' style='max-width:$2 !important;' class='img-fluid'/>")
     html = html.replace(/(\[img)([a-zA-Z0-9?=&\/\\:\-,\+%._]*)(\])([a-zA-Z0-9éàçèïîôâàë?=&\/\\:%.\-\+\)\(_]+)(\[\/img\])/gi, "<img src='$4'/>")
     //line return
     html = html.replace(/\n/gi, "</br>")
