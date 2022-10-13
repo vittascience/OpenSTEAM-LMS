@@ -3,7 +3,7 @@
         "index.php" => [
             [
                 "type" => "css",
-                "src" => "/assets/js/lib/slick-1.8.1/slick/slick.css"
+                "src" => "/public/js/lib/slick-1.8.1/slick/slick.css"
             ],
             [
                 "type" => "css",
@@ -11,7 +11,7 @@
             ],
             [
                 "type" => "js",
-                "src" => "/assets/js/lib/vanilla_lazyload-12.4.0/lazyload.min.js"
+                "src" => "/public/js/lib/vanilla_lazyload-12.4.0/lazyload.min.js"
             ]
         ],
         "shop.php" => [
@@ -21,7 +21,7 @@
             ],
             [
                 "type" => "css",
-                "src" => "/assets/js/lib/slick-1.8.1/slick/slick.css"
+                "src" => "/public/js/lib/slick-1.8.1/slick/slick.css"
             ],
             [
                 "type" => "css",
@@ -81,7 +81,7 @@
         "vittapi.php" => [
             [
                 "type" => "js",
-                "src" => "/assets/js/lib/charts/loader.js"
+                "src" => "/openInterface/interfaces/assets/js/external/charts-loader.js"
             ]
         ]
     ];
