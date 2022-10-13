@@ -71,9 +71,9 @@ DisplayPanel.prototype.classroom_dashboard_activities_panel = function () {
     // Refresh the activities
     Main.getClassroomManager().getStudentActivities(Main.getClassroomManager()).then(() => {
         coursesManager._requestGetMyCourseStudent().then((data) => {
-
+            Main.getClassroomManager()._myCourses = data;
+            studentActivitiesDisplay();
         })
-        studentActivitiesDisplay();
     });
 }
 
@@ -346,41 +346,45 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) 
     }
 }
 
+//COURSEDISPLAY
 DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
     if (id != 'null') {
         if (UserManager.getUser().isRegular) {
             if (id.slice(0, 2) == "WK") {
-
                 ClassroomSettings.activity = id = Number(id.slice(2))
                 Activity = getActivity(id);
                 getTeacherActivity();
-
             } else {
                 ClassroomSettings.activity = id = Number(id.slice(2))
                 Main.getClassroomManager().getOneUserLinkActivity(id).then(function (result) {
                     Activity = result;
                     loadActivityForTeacher();
-                })
+                });
             }
         } else {
-            if ($_GET('interface') == 'newActivities' || $_GET('interface') == 'savedActivities') {
-                var isDoable = true
+            console.log($_GET('option'))
+            if ($_GET('option') == "course") {
+                console.log("hello")
             } else {
-                var isDoable = false
+                if ($_GET('interface') == 'newActivities' || $_GET('interface') == 'savedActivities') {
+                    var isDoable = true
+                } else {
+                    var isDoable = false
+                }
+                ClassroomSettings.activity = id = Number(id.slice(2))
+                Activity = getActivity(id, $_GET('interface'))
+                if (typeof Activity == 'undefined') {
+                    console.error(`The activity can't be loaded!`);
+                    navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
+                    return;
+                }
+                // Run the activity tracker if the current activity is doable or exercise
+                if (Activity.evaluation != true || Activity.correction == null) {
+                    Main.activityTracker = new ActivityTracker();
+                    Main.activityTracker.startActivityTracker();
+                }
+                loadActivityForStudents(isDoable)
             }
-            ClassroomSettings.activity = id = Number(id.slice(2))
-            Activity = getActivity(id, $_GET('interface'))
-            if (typeof Activity == 'undefined') {
-                console.error(`The activity can't be loaded!`);
-                navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
-                return;
-            }
-            // Run the activity tracker if the current activity is doable or exercise
-            if (Activity.evaluation != true || Activity.correction == null) {
-                Main.activityTracker = new ActivityTracker();
-                Main.activityTracker.startActivityTracker();
-            }
-            loadActivityForStudents(isDoable)
         }
     }
 }

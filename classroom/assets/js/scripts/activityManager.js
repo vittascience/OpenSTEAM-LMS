@@ -246,8 +246,6 @@ function freeValidateActivity(correction = 1) {
 
 // todo
 function validateDefaultResponseManagement(response) {
-
-    
     $("#activity-validate").attr("disabled", false);
     if (response.note != null && response.correction > 1) {
         if (response.note == 3) {
