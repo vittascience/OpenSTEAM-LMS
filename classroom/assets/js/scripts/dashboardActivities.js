@@ -51,6 +51,57 @@ function activityItem(activity, state) {
     return html;
 }
 
+function courseItem(course, state) {
+
+    let activityStatus = "",
+        activityStatusTitle = "";
+
+    if (state == "doneActivities") {
+        if (activity.note == 4) {
+            activityStatus = "ribbon ribbon_no_grade";
+            activityStatusTitle = i18next.t('classroom.activities.noProficiency')
+        } else if (activity.note == 3) {
+            activityStatus = "ribbon ribbon_accept"
+            activityStatusTitle = i18next.t('classroom.activities.veryGoodProficiency')
+        } else if (activity.note == 2) {
+            activityStatus = "ribbon ribbon_vgood"
+            activityStatusTitle = i18next.t('classroom.activities.goodProficiency')
+        } else if (activity.note == 1) {
+            activityStatus = "ribbon ribbon_good"
+            activityStatusTitle = i18next.t('classroom.activities.weakProficiency')
+        } else if (activity.note == 0) {
+            activityStatus = "ribbon ribbon_refuse"
+            activityStatusTitle = i18next.t('classroom.activities.insufficientProficiency')
+        } else {
+            activityStatus = ""
+            activityStatusTitle = "?"
+        }
+    }
+
+    //let dateEndNotif = activity.activity.isLti ? "style='display:none'" : "";
+    let html = `<div class="course-item" onclick="readCourseFromStudent('${course.course.id}')">
+                    <div class="course-card">
+                        <div class="${activityStatus}" data-toggle="tooltip" title="${course.course.title}"><div class="ribbon__content"></div></div>
+                        <div class="activity-card-top">
+                            
+                        </div>
+                        <div class="activity-card-mid">
+                        
+                        </div>
+                        <div class="activity-card-bot">
+                            <div class="info-tutorials" data-id="${course.course.id}"  data-state="${state}">`
+
+    if (course.dateEnd != undefined) {
+        html += `<span> ` + i18next.t('classroom.activities.dateBefore') + ` ${formatDay(course.dateEnd)} <i class="fas fa-stopwatch"></i></span>`
+    }
+
+    html += `</div></div></div>`
+    html += `<h3 data-toggle="tooltip" title="${course.course.title}" class="activity-item-title">${course.course.title}</h3>`
+    html += `</div>`
+
+    return html;
+}
+
 function teacherSandboxItem(json) {
 
     let html = `<div class="sandbox-item sandbox-teacher">
@@ -392,6 +443,7 @@ $('body').on('click', '.list-students-classroom', function () {
     });
 })
 
+//COURSEDISPLAY
 $('body').on('click', '.activity-list, .activity-list-item, .activity-card, .activity-item .activity-item-title', function () {
     if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
         let id, state, navigation;
@@ -411,6 +463,17 @@ $('body').on('click', '.activity-list, .activity-list-item, .activity-card, .act
     }
 })
 
+
+function readCourseFromStudent(id) {
+    let course = Main.getClassroomManager()._myCourses.filter(course => course.course.id == id)[0];
+    let courseState = course.courseState,
+        activities = course.activities;
+
+    Activity = activities[courseState].activityLinkUser;
+    navigatePanel('classroom-dashboard-activity-panel', 'dashboard-activities-teacher', 'course', '');
+    loadActivityForStudents(true);
+}
+
 function activityWatch(id) {
     navigatePanel('classroom-dashboard-activity-panel', 'dashboard-activities-teacher', 'WK' + id, '')
 }
@@ -421,7 +484,6 @@ $('body').on('click', '.bilan-cell', function () {
     if (!self.hasClass('no-activity')) {
         navigatePanel('classroom-dashboard-activity-panel', 'dashboard-activities-teacher', 'AC' + parseInt(self.attr('data-id')), self.attr("data-state"))
     }
-
 })
 
 $('body').on('click', '#activity-instruction', function () {

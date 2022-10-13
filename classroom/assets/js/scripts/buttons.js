@@ -718,6 +718,10 @@ function studentActivitiesDisplay() {
     document.querySelector('#saved-activities-list').innerHTML = '';
     document.querySelector('#done-activities-list').innerHTML = '';
 
+    Main.getClassroomManager()._myCourses.forEach(course => {
+        $('#new-activities-list').append(courseItem(course, "newActivities"));
+    });
+
     $('.section-new .resource-number').html(activities.newActivities.length)
     activities.newActivities.forEach(element => {
         $('#new-activities-list').append(activityItem(element, "newActivities"));
