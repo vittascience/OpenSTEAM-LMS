@@ -1463,16 +1463,6 @@ h3.section-done {
     display: inline-flex;
 }
 
-.btn-folders {
-    background-color: transparent;
-    padding: 0 !important;
-    height: fit-content;
-    align-self: center;
-}
-
-.btn-folders svg {
-    height: 100%;
-}
 
 #folders-seek-tree-content-modal ul,
 #folders-seek-tree-content-modal li,
@@ -2096,7 +2086,7 @@ h3.section-done {
 
 .dropable-items {
     border-radius: 256px;
-    margin: 0.5em;
+    margin: 0.25em 0.5em;
     min-width: none;
 }
 
@@ -2107,24 +2097,17 @@ h3.section-done {
     width: auto;
     height: auto;
     display: inline-block;
+    transform: translateY(50%);
 }
 
-#drag-and-drop-fields,
 .drag-and-drop-fields {
     border: 1px solid var(--classroom-text-0);
     border-radius: 1em;
     padding: 1em;
 }
 
-#preview-drag-and-drop-text>div,
-#drag-and-drop-text>div {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-#drag-and-drop-fields,
 .drag-and-drop-fields {
+    margin-block: 1em;
     min-height: 60px;
     display: flex;
     flex-wrap: wrap;
@@ -2296,7 +2279,6 @@ h3.section-done {
 
 /* ACTIVITY CORRECTION FORM */
 
-#activity-title,
 .activity-title {
     font-weight: 700;
     text-align: center;
@@ -2315,7 +2297,7 @@ h3.section-done {
     margin: 5px 10px;
 }
 
-#activity-details {
+.activity-details {
     text-align: center;
     font-style: italic;
 }
