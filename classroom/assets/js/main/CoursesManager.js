@@ -1,4 +1,3 @@
-
 class CoursesManager {
     /**
      * Creates an instance of Courses.
@@ -127,7 +126,7 @@ class CoursesManager {
                     }
                 });
             }
-            
+
         }
     }
 
@@ -189,8 +188,8 @@ class CoursesManager {
 
     addActivityToCourse() {
         // get all the activities
-        const   activitiesDiv = document.getElementById('add-activity-content'),
-                activities = Main.getClassroomManager()._myTeacherActivities;
+        const activitiesDiv = document.getElementById('add-activity-content'),
+            activities = Main.getClassroomManager()._myTeacherActivities;
 
         // filter with the ones that are not in the course
         let activitiesToAdd = activities.filter(activity => {
@@ -202,8 +201,8 @@ class CoursesManager {
         activitiesDiv.innerHTML = '';
         // create the list of activities
         activitiesToAdd.forEach(activity => {
-            const   activityImg = foldersManager.icons.hasOwnProperty(activity.type) ? `<img class="list-item-img d-inline" src="${foldersManager.icons[activity.type]}" alt="${activity.type}" class="folder-icons">` : "<span class='list-item-img'> <div class='list-item-no-icon'><i class='fas fa-laptop'></i></div></span>",
-                    activityDiv = document.createElement('div');
+            const activityImg = foldersManager.icons.hasOwnProperty(activity.type) ? `<img class="list-item-img d-inline" src="${foldersManager.icons[activity.type]}" alt="${activity.type}" class="folder-icons">` : "<span class='list-item-img'> <div class='list-item-no-icon'><i class='fas fa-laptop'></i></div></span>",
+                activityDiv = document.createElement('div');
             activityDiv.classList.add('activity-item-courses');
             activityDiv.setAttribute('data-activity-id', activity.id);
             // add checkbox 
@@ -225,9 +224,9 @@ class CoursesManager {
 
     bindEventsToSearch() {
         document.getElementById('course-activity-search').addEventListener('input', () => {
-            const   search = document.getElementById('course-activity-search').value,
-                    activities = Main.getClassroomManager()._myTeacherActivities,
-                    activitiesDiv = document.getElementById('add-activity-content');
+            const search = document.getElementById('course-activity-search').value,
+                activities = Main.getClassroomManager()._myTeacherActivities,
+                activitiesDiv = document.getElementById('add-activity-content');
 
             let activitiesToAdd = activities.filter(activity => {
                 return !this.courseData.courses.some(course => {
@@ -292,7 +291,7 @@ class CoursesManager {
         document.getElementById('add-activity-content').innerHTML = '';
     }
 
-    persistTitlePage() { 
+    persistTitlePage() {
         const title = document.getElementById('course-title').value,
             description = document.getElementById('course-description').value,
             image = document.getElementById('course-image').files[0];
@@ -304,7 +303,7 @@ class CoursesManager {
             this.goToParameters(true);
         } else {
             displayNotification('#notif-div', "informations manquantes", "error");
-        } 
+        }
     }
 
     persistParameters() {
@@ -345,7 +344,7 @@ class CoursesManager {
 
     attributeCourse(id = null) {
         $("#assign-total-student-number-course").text(0);
-        
+
         if (id) {
             this.courseId = id;
         } else {
@@ -357,7 +356,7 @@ class CoursesManager {
         }
 
         document.getElementsByClassName('student-number')[0].textContent = '0';
-        
+
         $('#list-student-attribute-modal').html('');
         this.listStudentsToAttributeForCouse();
 
@@ -370,7 +369,7 @@ class CoursesManager {
             studentId = $('#attribute-activity-modal .student-attribute-form-row');
 
         const retroAttribution = $('#retro-attribution-activity-form').prop('checked')
-        
+
         for (let i = 0; i < studentId.length; i++) {
             if ($(studentId[i]).find(".student-id").is(':checked')) {
                 students.push($(studentId[i]).find(".student-id").val())
@@ -384,7 +383,7 @@ class CoursesManager {
         if (students.length == 0) {
             $('#attribute-course-to-students').attr('disabled', false)
             displayNotification('#notif-div', "classroom.notif.mustAttributeToStudent", "error")
-        } 
+        }
 
         this._requestUsersLinkCourse(this.courseId, students, classrooms).then((res) => {
             if (res == true) {
@@ -402,7 +401,7 @@ class CoursesManager {
         if (classes.length == 0) {
             $('#attribute-activity-to-students-close').after(NO_CLASS);
             $('#attribute-activity-to-students-close').hide();
-    
+
         } else {
             classes.forEach(element => {
                 $('#list-student-attribute-modal').append(classeList(element));
@@ -412,9 +411,9 @@ class CoursesManager {
         }
     }
 
-/*     showMyCourses() {
-        const courses = this.courseData.courses;
-    } */
+    /*     showMyCourses() {
+            const courses = this.courseData.courses;
+        } */
 
     deleteCourse(id) {
         this.resetInputs();
@@ -427,7 +426,7 @@ class CoursesManager {
     }
 
     duplicateCourse(id) {
-    
+
     }
 
     updateCourse(id = null) {
@@ -440,7 +439,7 @@ class CoursesManager {
                     this.restoreParametersForUpdate(res.course);
                 } else {
                     displayNotification('#notif-div', "classroom.notif.errorCourse", "error")
-                }  
+                }
             } else {
                 displayNotification('#notif-div', "classroom.notif.undefinedCourse", "error")
             }
@@ -494,40 +493,43 @@ class CoursesManager {
             }
         });
     }
-                
+
 
     teacherCourseItem(course, displayStyle) {
-
         let content = "";
         if (displayStyle == "card") {
             content = `<div class="course-item course-teacher" data-id="${course.id}">
                             <div>
                                 <div class="course-card">
+                                <img src="https://picsum.photos/200/300" class="course-card-img">
+                                <div class="course-card-info">
                                     <div class="course-card-top">
-                                    <div class="dropdown">
-                                        <i class="fas fa-cog fa-2x" type="button" id="dropdown-courseItem-${course.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        </i>
-                                        <div class="dropdown-menu" aria-labelledby="dropdown-courseItem-${course.id}" data-id="${course.id}">
-                                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="coursesManager.attributeCourse(${course.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
-                                            <li class="dropdown-item classroom-clickable col-12" href="#" onclick="coursesManager.duplicateCourse(${course.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
-                                            <li class=" classroom-clickable col-12 dropdown-item" onclick="coursesManager.updateCourse(${course.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
-                                            <li class="dropdown-item modal-course-delete classroom-clickable col-12" href="#" onclick="coursesManager.deleteCourse(${course.id})">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
-                                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="coursesManager.moveCourseToFolder(${course.id})">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                                        <div class="dropdown">
+                                            <i class="fas fa-cog fa-2x" type="button" id="dropdown-courseItem-${course.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            </i>
+                                            <div class="dropdown-menu" aria-labelledby="dropdown-courseItem-${course.id}" data-id="${course.id}">
+                                                <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="coursesManager.attributeCourse(${course.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
+                                                <li class="dropdown-item classroom-clickable col-12" href="#" onclick="coursesManager.duplicateCourse(${course.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
+                                                <li class=" classroom-clickable col-12 dropdown-item" onclick="coursesManager.updateCourse(${course.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
+                                                <li class="dropdown-item modal-course-delete classroom-clickable col-12" href="#" onclick="coursesManager.deleteCourse(${course.id})">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
+                                                <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="coursesManager.moveCourseToFolder(${course.id})">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                    <div class="course-card-mid">
+                                        <span class="course-card-activities-count">${course.activities ? course.activities.length : 0}<span>
+                                    </div>
+                                    <div class="course-card-bot">
+                                        <div class="info-tutorials" data-id="${course.id}">
                                         </div>
-                                    </div> 
-                                </div>
-                                <div class="course-card-mid">
-                                </div>
-                                <div class="course-card-bot">
-                                    <div class="info-tutorials" data-id="${course.id}">
                                     </div>
                                 </div>
-                                </div>
-                                <h3 data-toggle="tooltip" title="${course.title}" class="course-item-title">${course.title}</h3>
+                            </div>
+                            <h3 data-toggle="tooltip" title="${course.title}" class="course-item-title">${course.title}</h3>
                             </div>
                         </div>`
         } else if (displayStyle == "list") {
-    
+
             let activityImg = "<span class='list-item-img'> <div class='list-item-no-icon'><i class='fas fa-laptop'></i></div></span>";
             /* let activityTypeImg = activity.type != null && "" ?  */
             content = `<div class="row course-item-list" data-id="${course.id}">
@@ -570,38 +572,38 @@ class CoursesManager {
         $("#activity-auto-corrected-disclaimer-course").hide();
         $("#activity-auto-disclaimer-course").hide();
         $("#activity-content-container-course").hide();
-    
+
         // Hide all the divs
         $('#activity-introduction-course').hide();
         $('#activity-correction-container-course').hide();
         $("#activity-states-container-course").hide();
-        
+
         // Field for free activity
         $('#activity-input-container-course').hide();
         $('#activity-student-response-course').hide();
         $('#activity-student-response-content-course').text('');
-        
+
         // Fields
         $('#activity-states-course').html("");
         $('#activity-title-course').html("");
         $('#activity-details-course').html('');
         $('#activity-content-course').html("");
         $('#activity-correction-course').html("");
-    
+
         // Hint
         $("#activity-hint-course").text('');
         $("#activity-hint-container-course").hide();
-    
+
         // Drag and drop
         $('#activity-drag-and-drop-container-course').hide();
         $('#drag-and-drop-fields-course').html('');
         $('#drag-and-drop-text-course').html('');
-    
+
         // Warning message for
         $('#warning-icon-container-course').hide();
         $('#warning-text-evaluation-course').hide();
         $("#warning-text-no-evaluation-course").hide();
-    
+
         // Quiz reset input
         deleteQcmFields();
     }
@@ -610,13 +612,13 @@ class CoursesManager {
     loadCourseForStudents(isDoable) {
         // Reset the inputs
         resetInputsForActivity();
-    
+
         // Check if the activity has an introduction
         if (Activity.introduction != null && Activity.introduction != "") {
             $('#text-introduction-course').html(bbcodeToHtml(Activity.introduction))
             $('#activity-introduction-course').show()
         }
-    
+
         let activityType = [
             "reading",
             "dragAndDrop",
@@ -625,19 +627,19 @@ class CoursesManager {
         ]
 
         // Disclaimer for eval
-/*         if (Activity.correction < 2 && (activityType.includes(Activity.activity.type))) {
-            $('#warning-icon-container-course').show();
-            $('#warning-icon-container-course > i').hide();
-            Activity.evaluation ? $('#warning-icon-evaluation').show().tooltip() : $("#warning-icon-no-evaluation").show().tooltip();
-        } */
-        
+        /*         if (Activity.correction < 2 && (activityType.includes(Activity.activity.type))) {
+                    $('#warning-icon-container-course').show();
+                    $('#warning-icon-container-course > i').hide();
+                    Activity.evaluation ? $('#warning-icon-evaluation').show().tooltip() : $("#warning-icon-no-evaluation").show().tooltip();
+                } */
+
         // Check if the correction if available
         if (Activity.correction >= 1) {
             $('#activity-details-course').html(i18next.t("classroom.activities.sentOn") + formatHour(Activity.dateSend), i18next.t("classroom.activities.numberOfTries") + Activity.tries)
         } else {
             $('#activity-details-course').html(i18next.t("classroom.activities.toSend") + formatDay(Activity.dateEnd))
         }
-    
+
         // Content management
         let content = manageContentForActivity();
         let correction = '';
@@ -668,9 +670,9 @@ class CoursesManager {
                 default:
                     break;
             }
-            
+
             correction += `<div class="results-string" style="background-color:${activityResultColor}">${activityResultString}</div>`
-            
+
             if (Activity.commentary != null && Activity.commentary != "") {
                 correction += '<div id="commentary-panel-course">' + Activity.commentary + '</div>'
             } else {
@@ -679,9 +681,9 @@ class CoursesManager {
         } else {
             document.querySelector('#activity-correction-course').style.display = 'none';
         }
-    
+
         injectContentForActivity(content, Activity.correction, Activity.activity.type, correction, isDoable, true);
-    
+
         if (!Activity.evaluation && correction < 2 && !isDoable) {
             let allKnownActivity = [...activityType, "free"];
             if (!allKnownActivity.includes(Activity.activity.type)) {
@@ -713,12 +715,12 @@ class CoursesManager {
                     $('#activity-validate-course').show();
                 }
             }
-            
-/*             if (interface != undefined && interface != null) {
-                $('#activity-save-course').show()
-            } */
-    
-            if (!Activity.activity.isLti) { 
+
+            /*             if (interface != undefined && interface != null) {
+                            $('#activity-save-course').show()
+                        } */
+
+            if (!Activity.activity.isLti) {
                 $('#activity-validate-course').show();
                 if (Activity.activity.type != 'reading') {
                     $('#activity-save-course').show();
@@ -909,5 +911,3 @@ class CoursesManager {
 // Initialize
 const coursesManager = new CoursesManager();
 coursesManager.init();
-
-
