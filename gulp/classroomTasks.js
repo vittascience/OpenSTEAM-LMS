@@ -461,6 +461,8 @@ class AutoBuildManager {
                 if (files) {
                     console.table(files);
                     try {
+                        if(!this.pluginsList[this.pluginsList.indexOf(plugin)][list])
+                            this.pluginsList[this.pluginsList.indexOf(plugin)][list] = [];
                         files.forEach(file => {
                             if (file != '.gitkeep') {
                                 this.pluginsList[this.pluginsList.indexOf(plugin)][list].push(file);
