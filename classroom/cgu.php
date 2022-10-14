@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="assets/css/lib/jquery_ui-1.12.1-themes-smoothness/jquery-ui.css">
     <link rel="stylesheet" href="assets/js/lib/bootstrap-4.1.1/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/lib/fontawesome-5.1.1/all.css">
+    <link rel="stylesheet" href="assets/css/lib/fontAwesome-5.13.0/css/all.min.css">
     <!-- Material icon -->
     <script src="assets/js/lib/jquery-3.5.1/jquery-3.5.1.min.js"></script>
     <script src="assets/js/lib/popper-1.16.0/popper.min.js">
