@@ -609,7 +609,7 @@ class CoursesManager {
     }
 
 
-    loadCourseForStudents(isDoable) {
+    loadCourseForStudents(isDoable, currentCourse) {
         // Reset the inputs
         resetInputsForActivity();
 
@@ -625,6 +625,23 @@ class CoursesManager {
             "fillIn",
             "quiz"
         ]
+        
+        // Add the current course indicator on top of the given activity
+        let nbOfExercices = currentCourse.activities.length;
+        let currentActivityIndex = currentCourse.activities.findIndex(activity => activity.id == Activity.activity.id);
+
+        // add green cells to .course-state until the current activity, then add grey cells
+        let courseState = "";
+        for (let i = 0; i < nbOfExercices; i++) {
+            if (i <= currentActivityIndex) {
+                courseState += `<div class="course-state-item course-state-done"></div>`;
+            } else {
+                courseState += `<div class="course-state-item course-state-todo"></div>`;
+            }
+        }
+        $('.course-state').html(courseState);
+
+
 
         // Disclaimer for eval
         /*         if (Activity.correction < 2 && (activityType.includes(Activity.activity.type))) {

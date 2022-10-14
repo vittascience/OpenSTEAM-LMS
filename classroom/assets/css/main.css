@@ -1510,7 +1510,7 @@ h3.section-done {
 .course-card .course-card-img {
     height: 100%;
     width: 100%;
-
+    border-radius: 1.2em;
     object-fit: cover;
 }
 
@@ -2084,6 +2084,7 @@ h3.section-done {
 }
 
 .dropable-items {
+    display: inline-flex;
     border-radius: 256px;
     margin: 0.25em 0.5em;
     min-width: none;
@@ -2091,12 +2092,10 @@ h3.section-done {
 
 .dropable-items:empty {
     border: 1px solid var(--classroom-text-0);
+    transform: translateY(50%);
     min-width: 5em;
     min-height: 1.8em;
-    width: auto;
-    height: auto;
-    display: inline-block;
-    transform: translateY(50%);
+
 }
 
 .drag-and-drop-fields {
@@ -2456,11 +2455,38 @@ h3.section-done {
     background-color: var(--classroom-white);
 }
 
-/* ACTIVITY VIEW */
+/* ACTIVITY/COURSE VIEW */
+
+.course-state {
+    display: flex;
+    height: 1.5em;
+    width: 100%;
+    margin-block-end: 1em;
+}
+
+.course-state .course-state-item {
+    flex-grow: 1;
+    border-radius: 100vh;
+    margin: 0.25em;
+    display: flex;
+    background-color: var(--classroom-background-1);
+}
+
+.course-state .course-state-item.course-state-done {
+    height: 100%;
+    border-radius: 100vh;
+    background-color: var(--classroom-primary);
+}
+
+.course-state .course-state-item.course-state-todo {
+    height: 100%;
+    border-radius: 100vh;
+    background-color: var(--classroom-cell);
+}
+
 
 .activity-content img {
     max-width: 100%;
-
 }
 
 /* CLASSROOM START */

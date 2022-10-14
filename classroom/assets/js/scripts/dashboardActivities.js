@@ -473,7 +473,7 @@ function readCourseFromStudent(id) {
 
     Activity = activities[courseState].activityLinkUser;
     navigatePanel('classroom-dashboard-course-panel', 'dashboard-activities-teacher', 'course', '');
-    coursesManager.loadCourseForStudents(true);
+    coursesManager.loadCourseForStudents(true, course);
 }
 
 function activityWatch(id) {
