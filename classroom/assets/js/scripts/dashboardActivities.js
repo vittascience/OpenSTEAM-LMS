@@ -82,20 +82,22 @@ function courseItem(course, state) {
     let html = `<div class="course-item" onclick="readCourseFromStudent('${course.course.id}')">
                     <div class="course-card">
                         <div class="${activityStatus}" data-toggle="tooltip" title="${course.course.title}"><div class="ribbon__content"></div></div>
-                        <div class="activity-card-top">
-                            
-                        </div>
-                        <div class="activity-card-mid">
-                        
-                        </div>
-                        <div class="activity-card-bot">
-                            <div class="info-tutorials" data-id="${course.course.id}"  data-state="${state}">`
+                        <img src="https://picsum.photos/200/300" class="course-card-img">
+                        <div class="course-card-info">
+                            <div class="course-card-top">
+                                
+                            </div>
+                            <div class="course-card-mid">
+                                <span class="course-card-activities-count">${course.activities ? course.activities.length : 0}</span>
+                            </div>
+                            <div class="course-card-bot">
+                                <div class="info-tutorials" data-id="${course.course.id}"  data-state="${state}">`
 
     if (course.dateEnd != undefined) {
         html += `<span> ` + i18next.t('classroom.activities.dateBefore') + ` ${formatDay(course.dateEnd)} <i class="fas fa-stopwatch"></i></span>`
     }
 
-    html += `</div></div></div>`
+    html += `</div></div></div></div>`
     html += `<h3 data-toggle="tooltip" title="${course.course.title}" class="activity-item-title">${course.course.title}</h3>`
     html += `</div>`
 
