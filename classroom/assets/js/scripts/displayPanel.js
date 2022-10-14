@@ -363,9 +363,7 @@ DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
             }
         } else {
             console.log($_GET('option'))
-            if ($_GET('option') == "course") {
-                console.log("hello")
-            } else {
+            if ($_GET('option') != "course") {
                 if ($_GET('interface') == 'newActivities' || $_GET('interface') == 'savedActivities') {
                     var isDoable = true
                 } else {
