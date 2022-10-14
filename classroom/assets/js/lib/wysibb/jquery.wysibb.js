@@ -1033,7 +1033,7 @@ wbbdebug = false;
 								e.preventDefault()
 								
 								//const baseUrl = `${location.protocol}//${location.hostname}`
-								const uploadUrl = `/routing/Routing.php?controller=course&action=upload_img_from_text_editor`
+								const uploadUrl = `/routing/Routing.php?controller=upload&action=upload_img_from_text_editor`
 			
 								// bind data and reset the message box
 								const uploadImgTitle = this.$modal.find('#uploadImgTitle').val()
