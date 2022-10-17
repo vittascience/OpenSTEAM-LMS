@@ -718,10 +718,6 @@ function studentActivitiesDisplay() {
     document.querySelector('#saved-activities-list').innerHTML = '';
     document.querySelector('#done-activities-list').innerHTML = '';
 
-    Main.getClassroomManager()._myCourses.forEach(course => {
-        $('#new-activities-list').append(courseItem(course, "newActivities"));
-    });
-
     $('.section-new .resource-number').html(activities.newActivities.length)
     activities.newActivities.forEach(element => {
         $('#new-activities-list').append(activityItem(element, "newActivities"));
@@ -744,6 +740,26 @@ function studentActivitiesDisplay() {
     activities.doneActivities.forEach(element => {
         $('#done-activities-list').append(activityItem(element, "doneActivities"));
         index++;
+    });
+
+    Main.getClassroomManager()._myCourses.forEach(course => {
+        if (course.courseState == 0 && course.activities[0].activityLinkUser.response == null) {
+            let number = $('.section-new .resource-number').html();
+            $('.section-new .resource-number').html(parseInt(number) + 1)
+            $('#new-activities-list').append(courseItem(course, "newActivities"));
+        } else if (course.courseState == 0 && course.activities[0].activityLinkUser.response != null) {
+            let number = $('.section-saved .resource-number').html();
+            $('.section-saved .resource-number').html(parseInt(number) + 1)
+            $('#saved-activities-list').append(courseItem(course, "currentActivities"));
+        } else if (course.courseState > 0 && course.courseState != 999) {
+            let number = $('.section-current .resource-number').html();
+            $('.section-current .resource-number').html(parseInt(number) + 1)
+            $('#current-activities-list').append(courseItem(course, "currentActivities"));
+        } else if (course.courseState == 999) {
+            let number = $('.section-done .resource-number').html();
+            $('.section-done .resource-number').html(parseInt(number) + 1);
+            $('#done-activities-list').append(courseItem(course, "doneActivities"));
+        }
     });
 
     if (activities.doneActivities.length < 1) {
