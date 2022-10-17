@@ -53,33 +53,11 @@ function activityItem(activity, state) {
 
 function courseItem(course, state) {
 
-    let activityStatus = "",
-        activityStatusTitle = "";
+    let activityStatus = "";
 
-    if (state == "doneActivities") {
-        if (activity.note == 4) {
-            activityStatus = "ribbon ribbon_no_grade";
-            activityStatusTitle = i18next.t('classroom.activities.noProficiency')
-        } else if (activity.note == 3) {
-            activityStatus = "ribbon ribbon_accept"
-            activityStatusTitle = i18next.t('classroom.activities.veryGoodProficiency')
-        } else if (activity.note == 2) {
-            activityStatus = "ribbon ribbon_vgood"
-            activityStatusTitle = i18next.t('classroom.activities.goodProficiency')
-        } else if (activity.note == 1) {
-            activityStatus = "ribbon ribbon_good"
-            activityStatusTitle = i18next.t('classroom.activities.weakProficiency')
-        } else if (activity.note == 0) {
-            activityStatus = "ribbon ribbon_refuse"
-            activityStatusTitle = i18next.t('classroom.activities.insufficientProficiency')
-        } else {
-            activityStatus = ""
-            activityStatusTitle = "?"
-        }
-    }
 
     //let dateEndNotif = activity.activity.isLti ? "style='display:none'" : "";
-    let html = `<div class="course-item" onclick="readCourseFromStudent('${course.course.id}')">
+    let html = `<div class="course-item" onclick="coursesManager.readCourseFromStudent('${course.course.id}')">
                     <div class="course-card">
                         <div class="${activityStatus}" data-toggle="tooltip" title="${course.course.title}"><div class="ribbon__content"></div></div>
                         <img src="https://picsum.photos/200/300" class="course-card-img">
@@ -465,16 +443,6 @@ $('body').on('click', '.activity-list, .activity-list-item, .activity-card, .act
     }
 })
 
-
-function readCourseFromStudent(id) {
-    let course = Main.getClassroomManager()._myCourses.filter(course => course.course.id == id)[0];
-    let courseState = course.courseState,
-        activities = course.activities;
-
-    Activity = activities[courseState].activityLinkUser;
-    navigatePanel('classroom-dashboard-course-panel', 'dashboard-activities-teacher', 'course', '');
-    coursesManager.loadCourseForStudents(true, course);
-}
 
 function activityWatch(id) {
     navigatePanel('classroom-dashboard-activity-panel', 'dashboard-activities-teacher', 'WK' + id, '')

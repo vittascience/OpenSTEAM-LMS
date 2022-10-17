@@ -214,7 +214,6 @@
 </div>
 <div id="classroom-dashboard-course-panel" class="dashboard-block" style="display:none;">
 
-
     <div class="container-fluid">
 
         <div class="course-state w-100">
@@ -298,6 +297,28 @@
         </div>
 
     </div>
+</div>
+
+<div id="classroom-dashboard-course-panel-success" class="dashboard-block" style="display:none;">
+
+    <div class="container-fluid">
+
+        <div class="d-flex justify-content-center mt-2">
+
+            <p id="course-student-end-message" style="display:none">Bravo tu as terminé le parcours</p>
+
+            <button class="btn c-btn-primary mx-1" id="course-next-course" style="display:none" onclick="coursesManager.readCourseFromStudent()"> 
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+            <button class="btn c-btn-grey mx-2" id="course-return" onclick="goBackToActivities()" data-i18n="classroom.activities.save-draft">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+        </div>
+
+    </div>
+
 </div>
 <div id="classroom-dashboard-sandbox-panel" style="display:none;" class="dashboard-block ">
     
