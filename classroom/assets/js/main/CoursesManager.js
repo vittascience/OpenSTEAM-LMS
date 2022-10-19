@@ -925,10 +925,7 @@ class CoursesManager {
     coursesValidateDefaultResponseManagement(response) {
         $("#activity-validate-course").attr("disabled", false);
 
-        let message = document.getElementById("course-student-end-message"),
-            nextActivity = document.getElementById("course-next-course");
-
-        message.style.display = "none";
+        let nextActivity = document.getElementById("course-next-course");
         nextActivity.style.display = "none";
 
         if (response.note != null && response.correction > 1) {
@@ -940,7 +937,7 @@ class CoursesManager {
                         let course = Main.getClassroomManager()._myCourses.find(course => course.course.id == coursesManager.actualCourse.id);
                         console.log(course);
                         if (course.activities.length <= coursesManager.actualCourse.state + 1) {
-                            message.style.display = "block";
+                            //message.style.display = "block";
                         } else {
                             nextActivity.style.display = "block";
                         }
@@ -979,7 +976,7 @@ class CoursesManager {
             };
         
             navigatePanel('classroom-dashboard-course-panel', 'dashboard-activities-teacher', 'course', '');
-            this.loadCourseForStudents(true);
+            this.loadCourseForStudents(true, course);
         });
     }
 
