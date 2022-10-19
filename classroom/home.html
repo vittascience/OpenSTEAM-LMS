@@ -1,5 +1,7 @@
     <link rel="stylesheet" href="assets/css/modal.css">
-    
+    <!-- PLUGIN CSS-->
+
+    <!-- END PLUGIN CSS -->
     <script src="assets/js/scripts/classroom-lang.js"></script>
 </head>
 
@@ -303,19 +305,29 @@
 
     <div class="container-fluid">
 
-        <div class="d-flex justify-content-center mt-2">
+        <div class="results-panel results-correcting">
+            <img src="assets/media/activity_results/correcting.png" alt="Image d'erreur">
 
-            <p id="course-student-end-message" style="display:none">Bravo tu as terminé le parcours</p>
+            <div class="d-flex flex-column align-items-center justify-content-center mt-2">
 
-            <button class="btn c-btn-primary mx-1" id="course-next-course" style="display:none" onclick="coursesManager.readCourseFromStudent()"> 
-                <i class="fas fa-chevron-right"></i>
-            </button>
-
-            <button class="btn c-btn-grey mx-2" id="course-return" onclick="goBackToActivities()" data-i18n="classroom.activities.save-draft">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-
+                <div class="row my-1">
+                    <button class="btn c-btn-primary mx-1" id="course-next-course" onclick="coursesManager.readCourseFromStudent()"> 
+                        Continuer le parcours >>
+                    </button>
+                </div>
+                
+                <div class="row my-1">
+                    <button class="btn c-btn-grey mx-2" id="course-return" onclick="goBackToActivities()">
+                        Retourner au menu des activités
+                    </button>
+                </div>
+                
+                <p id="course-student-message" class="result-text">Ton progrès sera sauvegardé en tant que brouillon pour que tu puissses continuer plus tard</p>
+    
+            </div>
         </div>
+
+
 
     </div>
 
@@ -2564,7 +2576,9 @@
     }
 </script>
 <script src="assets/js/utils/translate.js"></script>
+<!-- PLUGIN SCRIPTS-->
 
+<!-- END PLUGIN SCRIPTS -->
 </body>
 
 </html>

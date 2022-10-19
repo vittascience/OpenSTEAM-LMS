@@ -1503,7 +1503,6 @@ h3.section-done {
     background-size: cover;
 
     color: white;
-    overflow: auto;
     position: relative;
 }
 
@@ -2383,6 +2382,14 @@ h3.section-done {
     color: var(--classroom-text-1);
     text-align: center;
     text-transform: uppercase;
+    font-weight: 600;
+}
+
+.result-text {
+    font-size: 1em !important;
+    color: var(--classroom-text-1);
+    text-align: center;
+    text-transform: none !important;
     font-weight: 600;
 }
 
