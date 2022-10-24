@@ -59,6 +59,8 @@
 <!-- drag and drop bundle -->
 <link rel="stylesheet" stype="text/css" href="assets/css/dragula.css">
 <script src="assets/js/lib/dragula.js" ></script>
+<!-- courses -->
+<script src="assets/js/main/CoursesManager.js"></script>
 
 <script src="assets/js/main/CustomActivityManager.js"></script>
 
@@ -92,6 +94,8 @@
                                             administration[0] = resolve;
                                             createRegistrationTemplate();
                                             goBackToThePreviousView(administration);
+                                            // Courses
+                                            coursesManager.actualizeCourse();
                                             onEnd();
                                         })
                                     })

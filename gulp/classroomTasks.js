@@ -30,6 +30,7 @@ class AutoBuildManager {
             'home_topbar.html',
             'studentProfilePanel.html',
             'studentHelpPanel.html',
+            'studentCoursePanel.html',
             'sandboxPanel.html',
             'studentActivitiesPanel.html',
             'teacherProfilePanel.html',
@@ -46,6 +47,7 @@ class AutoBuildManager {
             'newExercicesPanel.html',
             'appsMediaGalery.html',
             'customAppsPanel.html',
+            'teacherCoursePanel.html',
             'idePanel.html',
             'home_footer.html',
         ];
@@ -594,6 +596,7 @@ class AutoBuildManager {
                 'gulp/temp-views/home_topbar.html',
                 'gulp/temp-views/studentProfilePanel.html',
                 'gulp/temp-views/studentHelpPanel.html',
+                'gulp/temp-views/studentCoursePanel.html',
                 'gulp/temp-views/sandboxPanel.html',
                 'gulp/temp-views/studentActivitiesPanel.html',
                 'gulp/temp-views/teacherProfilePanel.html',
@@ -610,6 +613,7 @@ class AutoBuildManager {
                 'gulp/temp-views/newExercicesPanel.html',
                 'gulp/temp-views/appsMediaGalery.html',
                 'gulp/temp-views/customAppsPanel.html',
+                'gulp/temp-views/teacherCoursePanel.html',
                 'gulp/temp-views/idePanel.html',
                 'gulp/temp-views/home_footer.html',
 
@@ -626,6 +630,7 @@ class AutoBuildManager {
                 'classroom/Views/home_topbar.html',
                 'classroom/Views/studentProfilePanel.html',
                 'classroom/Views/studentHelpPanel.html',
+                'classroom/Views/studentCoursePanel.html',
                 'classroom/Views/sandboxPanel.html',
                 'classroom/Views/studentActivitiesPanel.html',
                 'classroom/Views/teacherProfilePanel.html',
@@ -642,6 +647,7 @@ class AutoBuildManager {
                 'classroom/Views/newExercicesPanel.html',
                 'classroom/Views/appsMediaGalery.html',
                 'classroom/Views/customAppsPanel.html',
+                'classroom/Views/teacherCoursePanel.html',
                 'classroom/Views/idePanel.html',
                 'classroom/Views/home_footer.html',
 

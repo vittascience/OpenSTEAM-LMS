@@ -25,15 +25,16 @@ use Learn\Controller\ControllerFavorite;
 use Learn\Controller\ControllerCollection;
 use Interfaces\Controller\ControllerProject;
 use Classroom\Controller\ControllerClassroom;
-use Utils\Exceptions\EntityOperatorException;
-
-
-
-use Classroom\Controller\ControllerGroupAdmin;
-use Classroom\Controller\ControllerSuperAdmin;
-
 use Learn\Controller\ControllerNewActivities;
 
+
+
+use Utils\Exceptions\EntityOperatorException;
+use Classroom\Controller\ControllerGroupAdmin;
+
+use Classroom\Controller\ControllerSuperAdmin;
+
+use Classroom\Controller\ControllerCourseLinkUser;
 use Learn\Controller\ControllerCourseLinkCourse;
 use Utils\Exceptions\EntityDataIntegrityException;
 use Classroom\Controller\ControllerActivityLinkUser;
@@ -217,6 +218,11 @@ try {
             echo json_encode(call_user_func(
                 array($controllerUpload,$action)
             ));
+            break;
+        case 'user_link_course':
+            $controller = new ControllerCourseLinkUser($entityManager, $user);
+            echo (json_encode($controller->action($action, $_POST)));
+            $log->info($action, OK);
             break;
         default:
             $log->warning(null, __FILE__, __LINE__, "Non matched controller");

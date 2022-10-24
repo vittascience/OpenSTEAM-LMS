@@ -706,13 +706,12 @@ function reorderActivities(activities, indexes) {
     let orderedActivities = [];
     for(let i=0; i<indexes.length; i++){
         for(activity of activities){
-            if(activity.reference == indexes[i].reference){
+            if (activity.reference == indexes[i].reference) {
                 orderedActivities[i] = activity;
                 break;
-            }else{
+            } else {
                 orderedActivities[i] = false;
             }
-        
         };
     }
     return orderedActivities;
@@ -733,7 +732,6 @@ function listIndexesActivities(students) {
                     reference: element.reference
                 })
                 ClassroomSettings.indexRef.push(element)
-
             }
         })
     });

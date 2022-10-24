@@ -534,12 +534,16 @@ document.addEventListener('change', (e) => {
         }
 
         document.querySelector('#assign-total-student-number').innerHTML = selectedStudentNumber.toString();
+        document.querySelector('#assign-total-student-number-course').innerHTML = selectedStudentNumber.toString();
         document.querySelector('#attribuate-student-number').innerText = selectedStudentNumber;
         
         if (selectedStudentNumber > 0) {
             document.querySelector('#attribute-activity-to-students').removeAttribute('disabled');
+            document.querySelector('#attribute-course-to-students').removeAttribute('disabled');
+
         } else {
             document.querySelector('#attribute-activity-to-students').setAttribute('disabled', '');
+            document.querySelector('#attribute-course-to-students').setAttribute('disabled', '');
         }
     }
     $('.student-number').html(ClassroomSettings.studentCount);
@@ -549,6 +553,14 @@ document.addEventListener('change', (e) => {
             document.getElementById('attribute-activity-to-students').removeAttribute('disabled');
         } else {
             document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');
+        }
+    }
+
+    if (document.querySelector('#assign-total-student-number-course') != null) {
+        if (document.querySelector('#assign-total-student-number-course').textContent != '0') {
+            document.getElementById('attribute-course-to-students').removeAttribute('disabled');
+        } else {
+            document.getElementById('attribute-course-to-students').setAttribute('disabled', '');
         }
     }
 })
@@ -564,8 +576,10 @@ $('body').on('change', '.list-students-classroom', function () {
     $('.student-number').html(ClassroomSettings.studentCount)
     if (document.querySelector('.student-number').textContent != '0') {
         document.getElementById('attribute-activity-to-students').removeAttribute('disabled');
+        document.getElementById('attribute-course-to-students').removeAttribute('disabled');
     } else {
         document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');
+        document.getElementById('attribute-course-to-students').setAttribute('disabled', '');
     }
 })
 
@@ -696,6 +710,8 @@ $('body').on('click', '.sandbox-action-add', function () {
 function studentActivitiesDisplay() {
 
     let activities = Main.getClassroomManager()._myActivities;
+    
+
     let index = 1;
     document.querySelector('#new-activities-list').innerHTML = '';
     document.querySelector('#current-activities-list').innerHTML = '';
@@ -724,6 +740,22 @@ function studentActivitiesDisplay() {
     activities.doneActivities.forEach(element => {
         $('#done-activities-list').append(activityItem(element, "doneActivities"));
         index++;
+    });
+
+    Main.getClassroomManager()._myCourses.forEach(course => {
+        if (course.courseState == 0 && course.activities[0].activityLinkUser.response == null) {
+            let number = $('.section-new .resource-number').html();
+            $('.section-new .resource-number').html(parseInt(number) + 1)
+            $('#new-activities-list').append(courseItem(course, "newActivities"));
+        } else if ((course.courseState == 0 && course.activities[0].activityLinkUser.response != null) || course.courseState > 0 && course.courseState != 999) {
+            let number = $('.section-saved .resource-number').html();
+            $('.section-saved .resource-number').html(parseInt(number) + 1)
+            $('#saved-activities-list').append(courseItem(course, "currentActivities"));
+        } else if (course.courseState == 999) {
+            let number = $('.section-done .resource-number').html();
+            $('.section-done .resource-number').html(parseInt(number) + 1);
+            $('#done-activities-list').append(courseItem(course, "doneActivities"));
+        }
     });
 
     if (activities.doneActivities.length < 1) {
@@ -886,6 +918,17 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
     });
 
 
+    coursesManager.myCourses.forEach(course => {
+        if (course.folder == null && foldersManager.actualFolder == null) {
+            $('#list-activities-teacher').append(coursesManager.teacherCourseItem(course, displayStyle)); 
+        } else if (course.folder != null) {
+            if (course.folder.id == foldersManager.actualFolder) {
+                $('#list-activities-teacher').append(coursesManager.teacherCourseItem(course, displayStyle)); 
+            }
+        }
+    });
+
+
     foldersManager.dragulaInitObjects();
     $('[data-toggle="tooltip"]').tooltip();
 }
@@ -949,6 +992,7 @@ function formatDay(da) {
     let translatedMonth = i18next.t("classroom.activities.month." + parseInt(d.getMonth() + 1) );
     return d.getDate() + " " + (translatedMonth) + " " + d.getFullYear();
 }
+
 
 function formatHour(da) {
     let d = new Date(da.date);
