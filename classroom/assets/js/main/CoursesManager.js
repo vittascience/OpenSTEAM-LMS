@@ -423,9 +423,6 @@ class CoursesManager {
         }
     }
 
-    /*     showMyCourses() {
-            const courses = this.courseData.courses;
-        } */
 
     deleteCourse(id) {
         this.resetInputs();
@@ -435,10 +432,6 @@ class CoursesManager {
 
     resetInputs() {
         document.getElementById('validation-delete-course').value = '';
-    }
-
-    duplicateCourse(id) {
-
     }
 
     updateCourse(id = null) {
@@ -653,15 +646,6 @@ class CoursesManager {
         }
         $('.course-state').html(courseState);
 
-
-
-        // Disclaimer for eval
-        /*         if (Activity.correction < 2 && (activityType.includes(Activity.activity.type))) {
-                    $('#warning-icon-container-course').show();
-                    $('#warning-icon-container-course > i').hide();
-                    Activity.evaluation ? $('#warning-icon-evaluation').show().tooltip() : $("#warning-icon-no-evaluation").show().tooltip();
-                } */
-
         // Check if the correction if available
         if (Activity.correction >= 1) {
             $('#activity-details-course').html(i18next.t("classroom.activities.sentOn") + formatHour(Activity.dateSend), i18next.t("classroom.activities.numberOfTries") + Activity.tries)
@@ -798,27 +782,22 @@ class CoursesManager {
         $("#activity-validate").attr("disabled", "disabled");
         let getInterface = tryToParse(Activity.activity.content);
         const vittaIframeRegex = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm;
-        getInterface = getInterface 
-            ? vittaIframeRegex.exec(getInterface.description)
-            : false;
+        getInterface = getInterface ? vittaIframeRegex.exec(getInterface.description) : false;
         if (getInterface == undefined || getInterface == null) {
-            correction = 2
+            let correction = 2;
             Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, correction, 4).then(function (activity) {
                 if (typeof activity.errors != 'undefined') {
                     for (let error in activity.errors) {
-    
                         displayNotification('#notif-div', `classroom.notif.${error}`, "error");
                         $("#activity-validate").attr("disabled", false);
                     }
                 } else  {
-                    navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
-                    actualizeStudentActivities(activity, correction);
-                    $("#activity-validate").attr("disabled", false);
+                    coursesManager.manageAllActivityResponse(activity);
                 }
             })
             window.localStorage.classroomActivity = null
         } else if (Activity.autocorrection == false) {
-            correction = 1
+            let correction = 1;
             const interfaceName = getInterface[2];
             let project = window.localStorage[interfaceName + 'CurrentProject']
             Main.getClassroomManager().saveStudentActivity(JSON.parse(project), interfaceName, Activity.id).then(function (activity) {
@@ -828,9 +807,7 @@ class CoursesManager {
                         $("#activity-validate").attr("disabled", false);
                     }
                 } else {
-                    actualizeStudentActivities(activity, correction)
-                    $("#activity-validate").attr("disabled", false);
-                    navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher')
+                    coursesManager.manageAllActivityResponse(activity);
                 }
             })
         } else {
@@ -925,28 +902,42 @@ class CoursesManager {
     coursesValidateDefaultResponseManagement(response) {
         $("#activity-validate-course").attr("disabled", false);
 
-        let nextActivity = document.getElementById("course-next-course");
+        if (response.note != null && response.correction > 1) {
+            this._requestUpdateState(coursesManager.actualCourse.id, coursesManager.actualCourse.state + 1).then(res => {
+                coursesManager.manageAllActivityResponse(response);
+            });
+        } else {
+            navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher');
+        }
+    }
+
+    manageAllActivityResponse(response) {
+        
+        let nextActivity = document.getElementById("course-next-course"),
+            endCourse = document.getElementById("course-student-message-end"),
+            disclaimerSave = document.getElementById("course-student-message");
+
         nextActivity.style.display = "none";
+        endCourse.style.display = "none";
+        disclaimerSave.style.display = "none";
 
         if (response.note != null && response.correction > 1) {
-            //console.log("affiché page suivante");
             this._requestUpdateState(coursesManager.actualCourse.id, coursesManager.actualCourse.state + 1).then(res => {
                 if (res.hasOwnProperty('success')) {
                     if (res.success) {
                         navigatePanel('classroom-dashboard-course-panel-success', 'dashboard-classes-teacher');
                         let course = Main.getClassroomManager()._myCourses.find(course => course.course.id == coursesManager.actualCourse.id);
-                        console.log(course);
                         if (course.activities.length <= coursesManager.actualCourse.state + 1) {
-                            //message.style.display = "block";
+                            endCourse.style.display = "block";
                         } else {
                             nextActivity.style.display = "block";
+                            disclaimerSave.style.display = "block";
                         }
                     } else {
                         displayNotification('#notif-div', "classroom.notif.errorSending", "error");
                     }
                 }
             });
-
         } else {
             navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher');
         }
@@ -962,12 +953,10 @@ class CoursesManager {
             let course = Main.getClassroomManager()._myCourses.find(course => course.course.id == id);
 
             if (course.courseState == 999) {
-                console.log("Parcours terminé");
                 return false;
             }
             
             Activity = course.activities[course.courseState].activityLinkUser;
-        
             this.actualCourse = {
                 id: id, 
                 state: course.courseState, 
