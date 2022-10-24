@@ -271,8 +271,11 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
                 }
             }
             // Load the classroom with the current cache data
-            let students = getClassroomInListByLink(link)[0].students
-            displayStudentsInClassroom(students, link)
+            // seems to be duplicate call for displayStudentsInClassroom with the code below -> 309 - 310 updated by @Rémi C.
+            /* let students = getClassroomInListByLink(link)[0].students
+            displayStudentsInClassroom(students, link) */
+
+
             $('.classroom-link').html(ClassroomSettings.classroom)
             $('#classroom-code-share-qr-code').html('');
             currentOriginUrl = new URL(window.location.href).origin;
