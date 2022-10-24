@@ -2421,12 +2421,12 @@
 
         <div class="section-facultative-options">
 
-            <div class="section-header-facultative-options" onclick="facultativeOptions()">
-                <i id="i-facultative-options" class="ml-2 fas fa-lg fa-chevron-up"></i>
+            <div class="section-header-facultative-options" onclick="coursesManager.facultativeOptions()">
+                <i id="i-course-options" class="ml-2 fas fa-lg fa-chevron-up"></i>
                 <h3 class="section-title-facultative-options" data-i18n="classroom.activities.facultative">Options facultatives</h3>
             </div>
 
-            <div id="facultative-options" style="display: none;">
+            <div id="course-options" style="display: none;">
                 <div class="container mt-3 pt-1" id="facultative">
 
                     <div class="row">
@@ -2518,6 +2518,9 @@
     src="assets/js/lib/i18nextBrowserLanguageDetector.min.js">
 </script>
 
+<!-- drag and drop bundle (need to be on top of assets)-->
+<link rel="stylesheet" stype="text/css" href="assets/css/dragula.css">
+<script src="assets/js/lib/dragula.js" ></script>
 <!-- build:js-classroom -->
 <script src="assets/js/utils/url.js"></script>
 <script src="assets/js/utils/parsingJson.js"></script>
@@ -2550,9 +2553,6 @@
 <!-- end manager & groupadmin -->
 <script src="assets/js/main/Main.js"></script>
 <script src="assets/js/main/Loader.js"></script>
-<!-- drag and drop bundle -->
-<link rel="stylesheet" stype="text/css" href="assets/css/dragula.css">
-<script src="assets/js/lib/dragula.js" ></script>
 <!-- courses -->
 <script src="assets/js/main/CoursesManager.js"></script>
 

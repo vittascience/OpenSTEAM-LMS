@@ -54,8 +54,6 @@ function activityItem(activity, state) {
 function courseItem(course, state) {
 
     let activityStatus = "";
-
-
     //let dateEndNotif = activity.activity.isLti ? "style='display:none'" : "";
     let html = `<div class="course-item" onclick="coursesManager.readCourseFromStudent('${course.course.id}')">
                     <div class="course-card">
@@ -726,7 +724,7 @@ function injectContentForActivity(content, correction, type = null, correction_d
     $('#activity-title').html(Activity.activity.title);
     const funct = customActivity.manageDisplayCustom.filter(activityValidate => activityValidate[0] == type)[0];
     if (funct) {
-        funct[1](correction, content, correction_div);
+        funct[1](correction, content, correction_div, isFromCourse);
     } else {
         if (Activity.activity.isLti) {
             manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt);
