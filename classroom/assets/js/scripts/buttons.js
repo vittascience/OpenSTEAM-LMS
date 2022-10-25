@@ -1647,22 +1647,24 @@ function showupdateUserModal(id) {
             html += "<label class='form-check-label font-weight-bold mb-1' style='color: var(--classroom-primary)' data-i18n='manager.profil.groupsApps'>Applications</label>";
             mainManager.getmanagerManager()._comboGroups.forEach(element => {
                 if (element.id == mainManager.getmanagerManager()._actualGroup) {
-                    element.applications.forEach(application => {
-                        let checked = ""
-                        if (res[0].hasOwnProperty("applications_from_groups")) {
-                            res[0].applications_from_groups.forEach(element => {
-                                if (application.id == element.application) {
-                                    checked = "checked";
-                                }
-                            });
-                        }
-                        html += `<div class="c-checkbox">
-                            <input class="form-check-input" type="checkbox" name="group_app" id="group_app_${application.id}" value="${application.id}" ${checked}>
-                            <label class="form-check-label" for="group_app_${application.id}">
-                                ${application.name}
-                            </label>
-                        </div>`;
-                    })
+                    if (element.hasOwnProperty('applications')) {
+                        element.applications.forEach(application => {
+                            let checked = ""
+                            if (res[0].hasOwnProperty("applications_from_groups")) {
+                                res[0].applications_from_groups.forEach(element => {
+                                    if (application.id == element.application) {
+                                        checked = "checked";
+                                    }
+                                });
+                            }
+                            html += `<div class="c-checkbox">
+                                <input class="form-check-input" type="checkbox" name="group_app" id="group_app_${application.id}" value="${application.id}" ${checked}>
+                                <label class="form-check-label" for="group_app_${application.id}">
+                                    ${application.name}
+                                </label>
+                            </div>`;
+                        })
+                    }
                 }
             });
             $('#update_applications_sa').html(html);
@@ -2295,22 +2297,24 @@ function showupdateUserModal_groupadmin(user_id) {
             html += "<label class='form-check-label font-weight-bold mb-1' style='color: var(--classroom-primary)' data-i18n='manager.profil.groupsApps'>Applications</label>";
             mainGroupAdmin.getGroupAdminManager()._comboGroups.forEach(element => {
                 if (element.id == mainGroupAdmin.getGroupAdminManager()._actualGroup) {
-                    element.applications.forEach(application => {
-                        let checked = ""
-                        if (res[0].hasOwnProperty("applications_from_groups")) {
-                            res[0].applications_from_groups.forEach(element => {
-                                if (application.id == element.application) {
-                                    checked = "checked";
-                                }
-                            });
-                        }
-                        html += `<div class="c-checkbox">
-                            <input class="form-check-input" type="checkbox" name="group_app" id="group_app_${application.id}" value="${application.id}" ${checked}>
-                            <label class="form-check-label" for="group_app_${application.id}">
-                                ${application.name}
-                            </label>
-                        </div>`;
-                    })
+                    if (element.hasOwnProperty('applications')) {
+                        element.applications.forEach(application => {
+                            let checked = ""
+                            if (res[0].hasOwnProperty("applications_from_groups")) {
+                                res[0].applications_from_groups.forEach(element => {
+                                    if (application.id == element.application) {
+                                        checked = "checked";
+                                    }
+                                });
+                            }
+                            html += `<div class="c-checkbox">
+                                <input class="form-check-input" type="checkbox" name="group_app" id="group_app_${application.id}" value="${application.id}" ${checked}>
+                                <label class="form-check-label" for="group_app_${application.id}">
+                                    ${application.name}
+                                </label>
+                            </div>`;
+                        })
+                    }
                 }
             });
             $('#update_applications_ga').html(html);
@@ -2514,14 +2518,16 @@ $('#create_user_link_to_group_groupadmin').click(function () {
             html += "<label class='form-check-label font-weight-bold mb-1' style='color: var(--classroom-primary)' data-i18n='manager.profil.groupsApps'>Applications</label>";
             mainGroupAdmin.getGroupAdminManager()._comboGroups.forEach(element => {
                 if (element.id == mainGroupAdmin.getGroupAdminManager()._actualGroup) {
-                    element.applications.forEach(application => {
-                        html += `<div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="create_group_app" id="group_app_${application.id}" value="${application.id}">
-                            <label class="form-check" for="group_app_${application.id}">
-                                ${application.name}
-                            </label>
-                        </div>`;
-                    })
+                    if (element.hasOwnProperty('applications')) {
+                        element.applications.forEach(application => {
+                            html += `<div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="create_group_app" id="group_app_${application.id}" value="${application.id}">
+                                <label class="form-check" for="group_app_${application.id}">
+                                    ${application.name}
+                                </label>
+                            </div>`;
+                        })
+                    }
                 }
             });
             $('#create_applications_ga').html(html);
