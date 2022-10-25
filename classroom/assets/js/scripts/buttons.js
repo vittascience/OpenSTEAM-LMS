@@ -1053,10 +1053,10 @@ $('#create_group_manager').click(function () {
             <h6 class="form-check-label font-weight-bold mb-4" style="color: var(--classroom-primary)">${i18next.t('manager.group.groupsRestrictions')}</h6>
             <br>
             <label class="form-check-label" for="groupe_create_begin_date"><i class="far fa-calendar-alt"></i>  ${i18next.t('classroom.activities.form.dateBegin')}</label>
-            <input type="date" id="groupe_create_begin_date" name="trip-start" max="2023-12-31">
+            <input type="date" id="groupe_create_begin_date" name="trip-start" max="2100-12-31">
 
             <label class="form-check-label" for="groupe_create_end_date"><i class="far fa-calendar-alt"></i>  ${i18next.t('classroom.activities.form.dateEnd')}</label>
-            <input type="date" id="groupe_create_end_date" name="trip-start" max="2025-12-31">
+            <input type="date" id="groupe_create_end_date" name="trip-start" max="2100-12-31">
 
             <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerTeachers')}" for="groupe_create_max_students_per_teachers"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.studentsPerTeacher')}</label>
             <input type="number" id="groupe_create_max_students_per_teachers" value="0">
@@ -1140,10 +1140,10 @@ function showupdateGroupModal(id) {
             <h6 class="form-check-label font-weight-bold mb-4" style="color: var(--classroom-primary)">${i18next.t('manager.group.groupsRestrictions')}</h6>
             <br>
             <label class="form-check-label" for="begin_date"><i class="far fa-calendar-alt"></i>  ${i18next.t('classroom.activities.form.dateBegin')}</label>
-            <input type="date" id="begin_date" name="trip-start" value="${dateBegin}" max="2023-12-31">
+            <input type="date" id="begin_date" name="trip-start" value="${dateBegin}" max="2100-12-31">
 
             <label class="form-check-label" for="end_date"><i class="far fa-calendar-alt"></i>  ${i18next.t('classroom.activities.form.dateEnd')}</label>
-            <input type="date" id="end_date" name="trip-start" value="${dateEnd}" max="2025-12-31">
+            <input type="date" id="end_date" name="trip-start" value="${dateEnd}" max="2100-12-31">
 
             <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerTeachers')}" for="max_students_per_teachers"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.studentsPerTeacher')}</label>
             <input type="number" id="max_students_per_teachers" value="${maxStudentsPerTeachers}">
@@ -1459,9 +1459,9 @@ function updateAppForUser(methodName = "update") {
                         <br>
                         <div class="activity-add-form c-secondary-form">
                         <label class="form-check-label" for="update_begin_date">${i18next.t('manager.table.dateBeginFA')}</label>
-                        <input type="date" id="update_begin_date" name="trip-start" value="${dateBegin}" max="2023-12-31">
+                        <input type="date" id="update_begin_date" name="trip-start" value="${dateBegin}" max="2100-12-31">
                         <label class="form-check-label" for="update_end_date">${i18next.t('manager.table.dateEndFA')}</label>
-                        <input type="date" id="update_end_date" name="trip-start" value="${dateEnd}" max="2025-12-31">
+                        <input type="date" id="update_end_date" name="trip-start" value="${dateEnd}" max="2100-12-31">
                         <label class="form-check-label" for="update_max_teacher">${i18next.t('manager.table.maxStudentsFA')}</label>
                         <input type="number" id="update_max_teacher" value="${maxStudents}">
                         </div>`;
