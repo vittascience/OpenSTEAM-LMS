@@ -752,7 +752,7 @@ const classroomModals = {
     
         <hr>
     
-        <div id="update_applications_ga">
+        <div id="update_applications_ga" class="mb-3">
         </div>
     </div>
     
