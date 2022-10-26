@@ -105,6 +105,10 @@ const classroomModals = {
                 <img alt="flag" src="assets/media/flags/en.png" onclick="changeLang('en')">
                 <span>English</span>
             </div>
+            <div class="flags-item">
+                <img alt="flag" src="assets/media/flags/es.png" onclick="changeLang('es')">
+                <span>Español</span>
+            </div>
         </div>
         <h4 data-i18n="classroom.modals.settingsTeacher.password">Mot de passe</h4>
         <p class="text-center" data-i18n="classroom.modals.settingsTeacher.passwordDescription"></p>
@@ -141,6 +145,10 @@ const classroomModals = {
                         <div class="flags-item">
                             <img alt="flag" src="assets/media/flags/en.png" onclick="changeLang('en')">
                             <span>English</span>
+                        </div>
+                        <div class="flags-item">
+                            <img alt="flag" src="assets/media/flags/es.png" onclick="changeLang('es')">
+                            <span>Español</span>
                         </div>
                     </div>
                     <h4 data-i18n="classroom.modals.settingsTeacher.description">Pour modifier votre mot de passe ou d'autres paramètres de votre compte</h4>
