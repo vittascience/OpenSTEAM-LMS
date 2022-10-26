@@ -713,31 +713,27 @@
 <div id="classroom-dashboard-activities-panel-teacher" style="display:none;" class="dashboard-block">
     <div class="d-flex justify-content-center c-primary-form row" style="margin: 0 auto;">
 
-        <div class="col-12 col-md-auto vertical-align-center mt-2 space-evenly">
 
-            <div class="col-auto mx-auto mt-2">
-                <select name="filter-activity-select" id="filter-activity-select" class="c-primary-form">
-                    <option value="desc" data-i18n="classroom.filter.desc"></option>
-                    <option value="asc" data-i18n="classroom.filter.asc"></option>
-                </select>
-            </div>
+        <div class="col-12 col-lg-8 mt-2">
+            <div class="d-flex flex-fill">
+                <input type="search" id="filter-activity-input" data-i18n="[placeholder]manager.buttons.search" class="flex-fill">
 
-            <div class="col-auto mt-2">
-                <button  class="btn btn-folders mx-1" onclick="foldersManager.displayModeSwitch('card')" >
-                    <img src="assets/media/folders/cadrillage.svg" alt="arb-folders" onload="SVGInject(this)">
-                </button>
-                <button class="btn btn-folders mx-1" onclick="foldersManager.displayModeSwitch('list')" >
-                    <img src="assets/media/folders/arborescence.svg" alt="arb-folders" onload="SVGInject(this)">
+                <button id="filter-activity" class="c-btn-primary" style="width: 3em;height: 3em;">
+                    <i class="fas fa-search"></i>
                 </button>
             </div>
         </div>
-    </div>
 
-    <div class="buttons-interactions flex-wrap d-inline-flex col-12 mt-3">
+        <div class="col-12 col-md-auto vertical-align-center mt-2 space-evenly">
 
-        <div class="col-12 col-sm-3 mt-2 d-flex justify-content-center">
-            <button id="new-activity-panel1" onclick="showExercicePanel()" class=" btn c-btn-outline-secondary"><span class="mr-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
+
+        <div class="col-auto vertical-align-center">
+            <button  class="btn btn-folders mx-1" onclick="foldersManager.displayModeSwitch('card')" >
+                <img src="./assets/media/folders/cadrillage.svg?version=VERSIONNUM" alt="arb-folders" onload="SVGInject(this)">
             </button>
+            <!-- <button class="btn btn-folders mx-1" onclick="foldersManager.displayModeSwitch('list')" >
+                <img src="./assets/media/folders/arborescence.svg?version=VERSIONNUM" alt="arb-folders" onload="SVGInject(this)">
+            </button> -->
         </div>
 
         <div class="col-12 col-sm-auto mt-2 d-inline-flex justify-content-center">
@@ -748,6 +744,24 @@
                 <img src="assets/media/folders/icon_arborescence.svg" alt="arb-folders" onload="SVGInject(this)">
             </button>
         </div>
+
+    </div>
+
+    </br>
+
+    <div class="buttons-interactions flex-wrap">
+        <button id="new-activity-panel1" onclick="showExercicePanel()" class=" btn c-btn-outline-secondary"><span class="mr-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
+        </button>
+
+        <button class="btn btn-folders" id="new-activities-folder" onclick="foldersManager.openFolderModal()" >
+            <img src="./assets/media/folders/createFolder.svg?version=VERSIONNUM" alt="folders" onload="SVGInject(this)">
+        </button>
+        <button class="btn btn-folders" onclick="foldersManager.seekFolderModal()">
+            <img src="./assets/media/folders/arborescence.svg?version=VERSIONNUM" alt="arb-folders" onload="SVGInject(this)">
+        </button>
+    </div>
+
+    <div id="list-activities-teacher">
 
     </div>
 </div>
@@ -1941,10 +1955,10 @@
 <script src="assets/js/lib/jquery-3.5.1/jquery-3.5.1.min.js"></script>
 <script src="assets/js/lib/wysibb/jquery.wysibb.js"></script>
 <script src="assets/js/lib/jquery_ui-1.12.0/jquery-ui.min.js"></script>
-<link rel="stylesheet" type="text/css" href="assets/js/lib/wysibb/theme/default/wbbtheme.css?version=VERSIONNUM">
 <!-- drag and drop bundle -->
 <link rel="stylesheet" type="text/css" href="assets/css/dragula.css?version=VERSIONNUM">
 <script src="assets/js/lib/dragula.js?version=VERSIONNUM" ></script>
+<link rel="stylesheet" type="text/css" href="assets/js/lib/wysibb/theme/default/wbbtheme.css?version=VERSIONNUM">
 <script>
     $(document).ready(function () {
         let wbbOpt = {
@@ -1991,7 +2005,6 @@
 <!-- end manager & groupadmin -->
 <script src="assets/js/main/Main.js?version=1.2.7c"></script>
 <script src="assets/js/main/Loader.js?version=VERSIONNUM"></script>
-
 <script src="assets/js/main/CustomActivityManager.js"></script>
 
 <script>
