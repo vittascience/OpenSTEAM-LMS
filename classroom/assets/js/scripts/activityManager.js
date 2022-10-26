@@ -227,7 +227,7 @@ function validateActivity(correction) {
     // CustomActivity = Manager for the custom activity
     const funct = customActivity.activityAndCase.filter(activityValidate => activityValidate[0] == Activity.activity.type)[0];
     if (funct) {
-        funct[1](funct[2] ?? correction);
+        funct[1](funct[2] ? correction : null);
     } else {
         defaultProcessValidateActivity();
     }
