@@ -1,10 +1,12 @@
     <link rel="stylesheet" href="assets/css/modal.css?version=VERSIONNUM">
-    <link rel="stylesheet" href="assets/plugins/css/cabri.theme.css?version=VERSIONNUM">
+    <!-- PLUGIN CSS-->
 
+    <!-- END PLUGIN CSS -->
     <script src="assets/js/scripts/classroom-lang.js?version=VERSIONNUM"></script>
 </head>
 
 <body>
+
 <div id="classroom-dashboard-background">
     <div id="classroom-dashboard-container">
         <div id="classroom-dashboard-sidebar" class="sidebar-classroom" style="display:none;">
@@ -25,6 +27,7 @@
             </div>
 
         </div>
+
 <div id="classroom-dashboard-sidebar-teacher" class="sidebar-classroom" style="display:none;">
     <div id="classroom-sidebar-logo"></div>
     <div class="classroom-navbar-button" id="dashboard-activities-teacher"
@@ -40,6 +43,7 @@
             class="user-picture" src="assets/media/profile_picture.svg?version=VERSIONNUM" alt="Photo de profil">
         <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span></div>
 </div>
+
 <div id="manager-dashboard-sidebar" class="sidebar-classroom" style="display:none;">
     <!-- set your logo here -->
     <div id="classroom-sidebar-logo"></div>
@@ -62,6 +66,7 @@
         <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span>
     </div>
 </div>
+
 <div id="groupadmin-dashboard-sidebar" class="sidebar-classroom" style="display:none;">
     <!-- set your logo here -->
     <div id="classroom-sidebar-logo"></div>
@@ -90,6 +95,7 @@
         <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span>
     </div>
 </div>
+
 <div id="classroom-dashboard-content">
     <div id="classroom-dashboard-top-bar">
         <!-- Breadcrumb -->
@@ -99,8 +105,8 @@
         <button class="btn c-btn-secondary" type="button" id="questionMenuButton" style="display: none;">
             <i class="fas fa-question"></i>
         </button>
-        <div class="dropdown" style="align-self: flex-end;">
-            <button class="btn dropdown-toggle c-btn-primary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div id="a11y-dropdown" class="dropdown" style="align-self: flex-end;">
+            <button class="btn c-btn-primary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-low-vision"></i>
             </button>
             <div class="dropdown-menu a11y-dropdown" aria-labelledby="dropdownMenuButton">
@@ -113,6 +119,9 @@
                         <label for="radio-light-theme" data-i18n='switchAccessibility.light_theme'>Thème
                             clair</label><br>
 
+                        <input type="radio" id="radio-dark-theme" name="theme" value="dark">
+                        <label for="radio-dark-theme" data-i18n='switchAccessibility.dark_theme'>Thème
+                            sombre</label><br>
                     </div>
 
                     <h5 data-i18n='switchAccessibility.font'>Polices</h5>
@@ -163,6 +172,7 @@
                         <i class="fas fa-power-off"></i></button>
         </div>
 </div>
+
 <div id="classroom-dashboard-help-panel" style="display:none;" class="dashboard-block help-panel-student">
     <div class="contact-panel">
 
@@ -278,13 +288,6 @@
                     <p id="activity-states"></p>
                 </div>
 
-
-                <!-- Used for content -->
-                <div id="activity-content-container" style="display: none;">
-                    <label for="activity-content" class="vitta-modal-title mt-2">Contenu de l'activité</label>
-                    <p id="activity-content"></p>
-                </div>
-
                 <!-- @Update Rémi -->
                 <div id="activity-student-response" style="display:none;">
                     <label id="label-activity-student-response" for="activity-student-response-content" class="vitta-modal-title mt-2" data-i18n="classroom.activities.studentAnswer">Réponse de l'élève</label>
@@ -378,6 +381,7 @@
         </button>
     </div>
 </div>
+
 <div id="classroom-dashboard-profil-panel-teacher" class="dashboard-block profile-panel" style="display:none;">
     <!-- Div alert when application has expired -->
     <div id="info-applications" class="alert alert-danger text-center" style="display:none;"></div>
@@ -466,6 +470,7 @@
         <input type="hidden" name="current-password" id ="current-password">
     </form>
 </div>
+
 <div id="classroom-dashboard-classes-panel-teacher" style="display:none;" class="dashboard-block classes-panel">
     <div id="space-groupes"></div>
 
@@ -721,29 +726,14 @@
 
         <div class="col-12 col-md-auto vertical-align-center mt-2 space-evenly">
 
-            <div class="col-auto mx-auto mt-2">
-                <select name="filter-activity-select" id="filter-activity-select" class="c-primary-form">
-                    <option value="desc" data-i18n="classroom.filter.desc"></option>
-                    <option value="asc" data-i18n="classroom.filter.asc"></option>
-                </select>
-            </div>
 
-            <div class="col-auto mt-2">
-                <button  class="btn btn-folders mx-1" onclick="foldersManager.displayModeSwitch('card')" >
-                    <img src="assets/media/folders/cadrillage.svg" alt="arb-folders" onload="SVGInject(this)">
-                </button>
-                <button class="btn btn-folders mx-1" onclick="foldersManager.displayModeSwitch('list')" >
-                    <img src="assets/media/folders/arborescence.svg" alt="arb-folders" onload="SVGInject(this)">
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div class="buttons-interactions flex-wrap d-inline-flex col-12 mt-3">
-
-        <div class="col-12 col-sm-3 mt-2 d-flex justify-content-center">
-            <button id="new-activity-panel1" onclick="showExercicePanel()" class=" btn c-btn-outline-secondary"><span class="mr-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
+        <div class="col-auto vertical-align-center">
+            <button  class="btn btn-folders mx-1" onclick="foldersManager.displayModeSwitch('card')" >
+                <img src="./assets/media/folders/cadrillage.svg?version=VERSIONNUM" alt="arb-folders" onload="SVGInject(this)">
             </button>
+            <!-- <button class="btn btn-folders mx-1" onclick="foldersManager.displayModeSwitch('list')" >
+                <img src="./assets/media/folders/arborescence.svg?version=VERSIONNUM" alt="arb-folders" onload="SVGInject(this)">
+            </button> -->
         </div>
 
         <div class="col-12 col-sm-auto mt-2 d-inline-flex justify-content-center">
@@ -755,6 +745,20 @@
             </button>
         </div>
 
+    </div>
+
+    </br>
+
+    <div class="buttons-interactions flex-wrap">
+        <button id="new-activity-panel1" onclick="showExercicePanel()" class=" btn c-btn-outline-secondary"><span class="mr-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
+        </button>
+
+        <button class="btn btn-folders" id="new-activities-folder" onclick="foldersManager.openFolderModal()" >
+            <img src="./assets/media/folders/createFolder.svg?version=VERSIONNUM" alt="folders" onload="SVGInject(this)">
+        </button>
+        <button class="btn btn-folders" onclick="foldersManager.seekFolderModal()">
+            <img src="./assets/media/folders/arborescence.svg?version=VERSIONNUM" alt="arb-folders" onload="SVGInject(this)">
+        </button>
     </div>
 
     <div id="list-activities-teacher">
@@ -846,26 +850,6 @@
             </div>
         </div>
 
-        <!-- Instructions -->
-        <div class="row">
-            <div class="col-12 mb-5 text-center c-primary-form">
-                <label for="introduction-activity-form">
-                    <b data-i18n="classroom.activities.form.instructions"></b>
-                    <i data-i18n="words.optional"></i>
-                </label></br>
-                <textarea rows="4" id="introduction-activity-form"></textarea>
-            </div>
-        </div>
-
-        <!-- Activity RetroAttribution  -->
-        <div class="row" id="form-retro-attribution">
-            <div class="col mb-5 text-center c-primary-form">
-                <label for="retro-attribution-activity-form" data-i18n="classroom.activities.form.retroAttribution"></label></br>
-                <label class="switch-mini"><input type="checkbox" id="retro-attribution-activity-form">
-                    <span class="slider-mini round"></span>
-                </label>
-            </div>
-        </div>
 
         <!-- Autocorrect activation -->
         <div class="row" id="form-autocorrect">
@@ -939,15 +923,15 @@
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-12 col-xl-6 c-primary-form assign-activity-calendar">
-                    <div class="row">
-                        <div class="col-6 text-right align-middle">
-                            <label for="date-end-activity-form" data-i18n="classroom.activities.form.dateEnd"></label>
-                        </div>
-                        <div class="col-6 text-left">
-                            <input type="date" id="date-end-activity-form">
+                    <!-- Instructions -->
+                    <div class="row mt-3">
+                        <div class="col-12 mb-5 text-center c-primary-form">
+                            <label for="introduction-activity-form">
+                                <b data-i18n="classroom.activities.form.instructions"></b>
+                                <i data-i18n="words.optional"></i>
+                            </label></br>
+                            <textarea rows="4" id="introduction-activity-form"></textarea>
                         </div>
                     </div>
 
@@ -987,6 +971,7 @@
 
     </div>
 </div>
+
 <div id="classroom-dashboard-help-panel-teacher" style="display:none;" class="dashboard-block help-panel">
     <div class="contact-panel">
 
@@ -1085,6 +1070,7 @@
         </button>
     </div>
 </div>
+
 <div id="groupadmin-dashboard-users" style="display:none;" class="dashboard-block">
     <div class="d-flex justify-content-center c-primary-form " style="margin: 0 auto;">
         <div class="container-fluid px-5">
@@ -1249,6 +1235,7 @@
         </button>
     </div>
 </div>
+
 <div id="manager-apps-main" class="dashboard-block" style="display: none;">
     <div class="container-fluid px-5">
         <div class="col-12">
@@ -1566,7 +1553,7 @@
                 <textarea id="fill-in-states" style="height:150px"></textarea>
             </div>
 
-            <div class="content m-3">
+            <div class="content mx-3 mt-3 mb-0">
                 <label for="fill-in-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
                 <textarea id="fill-in-content" style="height:400px"></textarea>
             </div>
@@ -1590,14 +1577,9 @@
                 </p>
             </div>
 
-            <div class="c-checkbox">
-                <input type="checkbox" name="fill-in-autocorrect" id="fill-in-autocorrect">
-                <label for="fill-in-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
-            </div>
-
             <div class="content form-group m-3">
-                <label for="fill-in-hint" data-i18n="newActivities.hint">Indice</label>
-                <input type="text" id="fill-in-hint">
+                <label for="fill-in-hint" data-i18n="[html]newActivities.hint">Indice</label>
+                <input type="text" class="form-control" id="fill-in-hint">
             </div>
 
         </div>
@@ -1610,7 +1592,7 @@
                 <textarea id="drag-and-drop-states" style="height:150px"></textarea>
             </div>
 
-            <div class="content m-3">
+            <div class="content mx-3 mt-3 mb-0">
                 <label for="drag-and-drop-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
                 <textarea id="drag-and-drop-content" style="height:400px"></textarea>
             </div>
@@ -1964,18 +1946,19 @@
         </div>
     </div>
 </div>
-
-
 <div id="classroom-dashboard-ide-panel" style="display:none;" class="dashboard-block">
     <iframe width="100%" style="height:85vh;" frameborder="0" allowfullscreen="" style="border:1px #d6d6d6 solid;" src=""></iframe>
 </div>
 </div>
 </div>
 </div>
-<script src="assets/js/lib/jquery.js?version=VERSIONNUM"></script>
-<script src="assets/js/lib/wysibb/jquery.wysibb.js?version=VERSIONNUM"></script>
-<link href="assets/css/jquery-ui.css?version=VERSIONNUM">
-<link rel="stylesheet" stype="text/css" href="assets/js/lib/wysibb/theme/default/wbbtheme.css?version=VERSIONNUM">
+<script src="assets/js/lib/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<script src="assets/js/lib/wysibb/jquery.wysibb.js"></script>
+<script src="assets/js/lib/jquery_ui-1.12.0/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="assets/js/lib/wysibb/theme/default/wbbtheme.css?version=VERSIONNUM">
+<!-- drag and drop bundle -->
+<link rel="stylesheet" type="text/css" href="assets/css/dragula.css?version=VERSIONNUM">
+<script src="assets/js/lib/dragula.js?version=VERSIONNUM" ></script>
 <script>
     $(document).ready(function () {
         let wbbOpt = {
@@ -1984,17 +1967,12 @@
         $("#activity-form-content").wysibb(wbbOpt);
     })
 </script>
-<script src="assets/js/lib/popper.js?version=VERSIONNUM"></script>
-<script src="assets/js/lib/bootstrap.js?version=VERSIONNUM"></script>
+<script src="assets/js/lib/popper-1.16.0/popper.min.js"></script>
+<script src="assets/js/lib/bootstrap-4.4.1/bootstrap.min.js"></script>
 <script src="assets/js/lib/i18next.js?version=VERSIONNUM"></script>
 <script src="assets/js/lib/jquery-i18next.min.js?version=VERSIONNUM"></script>
 <script src="assets/js/lib/i18nextXHRBackend.min.js?version=VERSIONNUM"></script>
-<script
-    src="assets/js/lib/i18nextBrowserLanguageDetector.min.js?version=VERSIONNUM">
-</script>
-<!-- drag and drop bundle -->
-<link rel="stylesheet" stype="text/css" href="assets/css/dragula.css?version=VERSIONNUM">
-<script src="assets/js/lib/dragula.js?version=VERSIONNUM" ></script>
+<script  src="assets/js/lib/i18nextBrowserLanguageDetector.min.js?version=VERSIONNUM"></script>
 <!-- build:js-classroom -->
 <script src="assets/js/utils/url.js?version=VERSIONNUM"></script>
 <script src="assets/js/utils/parsingJson.js?version=VERSIONNUM"></script>
@@ -2014,8 +1992,7 @@
 <script src="assets/js/scripts/ActivityTracker.js?version=VERSIONNUM"></script>
 <script src="assets/js/scripts/activityManager.js?version=VERSIONNUM"></script>
 <script src="assets/js/scripts/classroomDisplay.js?version=VERSIONNUM"></script>
-<script src="assets/js/main/FoldersManager.js" defer></script>
-
+<script src="assets/js/main/FoldersManager.js?version=VERSIONNUM"></script>
 <!-- end build -->
 <script src="assets/js/main/Loader.js?version=VERSIONNUM"></script>
 <script src="assets/js/main/UIManager.js?version=VERSIONNUM"></script>
@@ -2026,8 +2003,9 @@
 <script src="assets/js/main/GroupAdminManager.js?version=VERSIONNUM"></script>
 <script src="assets/js/main/MainManagerAndGroup.js?version=VERSIONNUM"></script>
 <!-- end manager & groupadmin -->
-<script src="assets/js/main/Main.js"></script>
-<script src="assets/js/main/Loader.js"></script>
+<script src="assets/js/main/Main.js?version=1.2.7c"></script>
+<script src="assets/js/main/Loader.js?version=VERSIONNUM"></script>
+
 <script src="assets/js/main/CustomActivityManager.js"></script>
 
 <script>
@@ -2036,11 +2014,11 @@
                 Main.init().then((resolve) => {
                     const EVENTS_SCRIPTS = [{
                             id: "modals",
-                            src: "assets/js/scripts/loadModals.js"
+                            src: "assets/js/scripts/loadModals.js?version=VERSIONNUM"
                         },
                         {
                             id: "i18n",
-                            src: "assets/js/scripts/checkMail.js"
+                            src: "assets/js/scripts/checkMail.js?version=VERSIONNUM"
                         }
                     ];
                     Loader.loadScripts(EVENTS_SCRIPTS).then(
@@ -2140,11 +2118,9 @@
     }
 </script>
 <script src="assets/js/utils/translate.js?version=VERSIONNUM"></script>
-<script src="assets/plugins/js/get_teacher_activity.js?version=VERSIONNUM"></script>
-<script src="assets/plugins/js/matomo.js?version=VERSIONNUM"></script>
-<script src="assets/plugins/js/change-texts.js?version=VERSIONNUM"></script>
-<script src="assets/plugins/js/wordpress-widget.js?version=VERSIONNUM"></script>
+<!-- PLUGIN SCRIPTS-->
 
+<!-- END PLUGIN SCRIPTS -->
 </body>
 
 </html>
