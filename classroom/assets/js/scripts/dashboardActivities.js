@@ -82,7 +82,7 @@ function courseItem(course, state) {
     let html = `<div class="course-item" onclick="readCourseFromStudent('${course.course.id}')">
                     <div class="course-card">
                         <div class="${activityStatus}" data-toggle="tooltip" title="${course.course.title}"><div class="ribbon__content"></div></div>
-                        <img src="https://picsum.photos/200/300" class="course-card-img">
+                        <img src="./assets/media/cards/card-course.png" class="course-card-img">
                         <div class="course-card-info">
                             <div class="course-card-top">
                                 
@@ -450,7 +450,6 @@ $('body').on('click', '.list-students-classroom', function () {
     });
 })
 
-//COURSEDISPLAY
 $('body').on('click', '.activity-list, .activity-list-item, .activity-card, .activity-item .activity-item-title', function () {
     if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
         let id, state, navigation;
@@ -1176,6 +1175,11 @@ function manageContentForActivity() {
         if (Activity.activity.type != "fillIn" && Activity.activity.type != "quiz" && Activity.activity.type != "dragAndDrop") {
             if (contentParsed.hasOwnProperty('description')) {
                 content = contentParsed.description;
+                if (Activity.project != null) {
+                    if (LINK_REGEX.test(Activity.activity.content)) {
+                        content = content.replace(LINK_REGEX, '$1' + Activity.project.link)
+                    }
+                }
             }
         } else {
             content = contentParsed;

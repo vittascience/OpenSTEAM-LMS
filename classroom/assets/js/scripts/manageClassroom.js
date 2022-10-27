@@ -2,10 +2,10 @@
  * Listener for direct communications from iframes in LTI application interoperability context
  */
 window.addEventListener(
-    "message",
+    "message", 
     (event) => {
         readEvent(event).catch((error) => {console.log(error)});
-    },
+    }, 
     false
 );
 
@@ -42,7 +42,7 @@ async function readEvent (event) {
                     case 3:
                         navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
                         break;
-
+                        
                     default:
                         navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
                         break;
@@ -124,7 +124,7 @@ $('body').on('click', '.modal-student-password', function () {
 
 /**
  * Setup and open the student pseudo modal
- * @param {*} id
+ * @param {*} id 
  */
 function changePseudoModal(id) {
     ClassroomSettings.student = id
@@ -153,7 +153,7 @@ $('body').on('click', '.modal-classroom-delete', function (e) {
         ClassroomSettings.classroom = $(this).parent().parent().parent().attr('data-link')
         Main.getClassroomManager().deleteClassroom(ClassroomSettings.classroom).then(function (classroom) {
             // concatenate classroom name + group in GAR context, else set only classroom name
-            const classroomFullName = classroom.group != null
+            const classroomFullName = classroom.group != null 
                                         ? `${classroom.name}-${classroom.group}`
                                         : `${classroom.name}`
 
@@ -235,7 +235,7 @@ document.querySelector('#classroom-create-form').addEventListener('submit', (e) 
             displayNotification('#notif-div', `classroom.notif.${classroom.errorType}`, "error", `'{"ClassroomNameInvalid": "${classroom.errorType}"}'`)
             e.submitter.disabled = false;
             return;
-        }
+        } 
         // If the backend detects that the user is not a premium user and that he already has one classroom
         else if(classroom.isClassroomAdded == false){
             displayNotification('#notif-div', "classroom.notif.classNotCreated", "error", `'{"classroomNumberLimit": "${classroom.classroomNumberLimit}"}'`);
@@ -256,7 +256,7 @@ document.querySelector('#classroom-create-form').addEventListener('submit', (e) 
                         } else{
                             displayNotification('#notif-div', "classroom.notif.classCreatedButNotUsers", "error", `'{"classroomName": "${classroom.name}", "learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
                         }
-
+                        
                         Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
                             e.submitter.disabled = false;
                             navigatePanel('classroom-table-panel-teacher', 'dashboard-classes-teacher', classroom.link);
@@ -340,7 +340,7 @@ $('body').on('click', '#add-student-to-classroom', function () {
                     return;
                 }
                 /**
-                 * Update Rémi : Users limitation by group
+                 * Update Rémi : Users limitation by group 
                  * possible return : personalLimit, personalLimitAndGroupOutDated, bothLimitReached
                  */
                 if(response.errorType){
@@ -392,10 +392,10 @@ $('body').on('click', '#create-classroom-add-student-to-list', () => {
 
 /**
  * Manages the display notification from the response
- * @param {*} response
+ * @param {*} response 
  */
 function manageResponseOfAddUsers(response) {
-    if (response.hasOwnProperty('message')) {
+    if (response.hasOwnProperty('message')) { 
         if (response.message == "personalLimit") {
             displayNotification('#notif-div', "classroom.notif.personalLimitationsReached", "error", `'{"max": "${response.teacherInfo.maxStudents}"}'`);
             // Show upgrade modal
@@ -404,7 +404,7 @@ function manageResponseOfAddUsers(response) {
            // Show upgrade modal
         } else if (response.message == "bothLimitReached") {
             // Teacher's and Group's limits reached
-            displayNotification('#notif-div', "classroom.notif.bothLimitationsReached", "error", `'{"maxP": "${response.teacherInfo.maxStudents}", "maxG": "${response.groupInfo.maxStudents}"}'`);;
+            displayNotification('#notif-div', "classroom.notif.bothLimitationsReached", "error", `'{"maxP": "${response.teacherInfo.maxStudents}", "maxG": "${response.groupInfo.maxStudents}"}'`);;  
         }
     } else {
         displayNotification('#notif-div', "classroom.notif.usersNotAdded", "error", `'{"learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
@@ -455,7 +455,7 @@ function importLearnerCsv(update = false){
                   return;
                 } else {
                   manageResponseOfAddUsers(response);
-                }
+                }  
             }
         })
         .catch((response) => {
@@ -487,7 +487,7 @@ function importLearnerCsvCreateUpdateClassroom(fileInputElt, tableStudentUlElt, 
                 for(let i = 0; i < headers.length; i++) {
                     headers[i] = headers[i].replace("\r","");
                 }
-
+                
                 let missingPseudoError = false;
                 for (let i = 1; i < lines.length; i++) {
                     // sanitize the current line
@@ -497,7 +497,7 @@ function importLearnerCsvCreateUpdateClassroom(fileInputElt, tableStudentUlElt, 
                     if(lines[i] == '' || lines[i] ==';') continue;
 
                     let currentline = lines[i].split(/[,;]/);
-
+                    
                     // set the error flag to true if the pseudo is missing in the csv
                     if(currentline[0].trim() == '') missingPseudoError = true;
 
@@ -512,7 +512,7 @@ function importLearnerCsvCreateUpdateClassroom(fileInputElt, tableStudentUlElt, 
                     if (document.querySelector('#no-student-label') !== null)
                         document.querySelector('#no-student-label').remove();
                 }
-                // remove the previous filename uploaded on open
+                // remove the previous filename uploaded on open 
                 fileInputElt.value = '';
                 pseudoModal.closeModal(modalId);
             }
@@ -529,7 +529,7 @@ function importLearnerCsvCreateUpdateClassroom(fileInputElt, tableStudentUlElt, 
 
 /**
  * Process and send data from csv to the server
- * @param {string} link
+ * @param {string} link 
  */
 function csvToClassroom(link) {
     return new Promise((resolve, reject) => {
@@ -559,14 +559,14 @@ function csvToClassroom(link) {
 
 /**
  * Convert a csv file into data to be sent to the server
- * @param {*} csv
+ * @param {*} csv 
  * @returns {string} - list of learners and their passwords
  */
 function csvJSON(csv) {
 
     /**
-     * define array of internal headers
-     * to replace incoming headers
+     * define array of internal headers 
+     * to replace incoming headers 
      * following this format => student|password
      */
     const internalHeaders = ["apprenant","mot_de_passe"]
@@ -574,11 +574,11 @@ function csvJSON(csv) {
     const result = [];
 
     // NOTE: If your columns contain commas in their values, you'll need
-    // to deal with those before doing the next step
+    // to deal with those before doing the next step 
     // (you might convert them to &&& or something, then convert them back later)
     // jsfiddle showing the issue https://jsfiddle.net/
     let headers = lines[0].split(/[,;]/);
-
+    
     for(let i=0; i< headers.length; i++){
         headers[i] = internalHeaders[i]
         // headers[i] = headers[i].replace("\r","")
@@ -588,7 +588,7 @@ function csvJSON(csv) {
         lines[i] = lines[i].replace(/(\r\n|\n|\r)/gm, "")
         // ignore current empty line
         // NOTE : EXCEL return a single character for an empty line when we use the "pseudo;password" example file
-        if(lines[i] == '' || lines[i] ==';') continue
+        if(lines[i] == '' || lines[i] ==';') continue 
 
         // create empty object to fill and split line data
         let obj = {};
@@ -596,13 +596,13 @@ function csvJSON(csv) {
 
         for (let j = 0; j < headers.length; j++) {
             if(typeof currentline[j] != 'undefined' ){
-                // fill the object with data
+                // fill the object with data 
                 obj[headers[j]] = currentline[j].replace("\r","").trim();
             }
         }
         result.push(obj);
     }
-    // remove the previous filename uploaded on open
+    // remove the previous filename uploaded on open 
     $('#importcsv-fileinput').val("");
     return JSON.stringify(result); //JSON
 }
@@ -706,13 +706,12 @@ function reorderActivities(activities, indexes) {
     let orderedActivities = [];
     for(let i=0; i<indexes.length; i++){
         for(activity of activities){
-            if(activity.reference == indexes[i].reference){
+            if (activity.reference == indexes[i].reference) {
                 orderedActivities[i] = activity;
                 break;
-            }else{
+            } else {
                 orderedActivities[i] = false;
             }
-
         };
     }
     return orderedActivities;
@@ -730,10 +729,11 @@ function listIndexesActivities(students) {
                 indexArraybis.push({
                     id: element.activity.id,
                     title: element.activity.title,
-                    reference: element.reference
+                    reference: element.reference,
+                    isFromCourse: element.isFromCourse,
+                    course: element.hasOwnProperty('course') ? element.course : null
                 })
                 ClassroomSettings.indexRef.push(element)
-
             }
         })
     });
@@ -890,6 +890,7 @@ function filterSandboxInList(keywords = [], orderBy = 'id', asc = true) {
  * @param {array} students - Array of students in a classroom
  */
 function displayStudentsInClassroom(students, link=false) {
+
     if (link && link != $_GET('option')) {
         return;
     }
@@ -897,7 +898,7 @@ function displayStudentsInClassroom(students, link=false) {
     document.querySelector('#body-table-teach').innerHTML = '';
     document.querySelector('#add-student-container').innerHTML = '';
     document.querySelector('#export-class-container').innerHTML = '';
-
+    
     // Display the classroom name
     const classroomName = getClassroomInListByLink(ClassroomSettings.classroom)[0].classroom.name;
     const reducedclassroomName = classroomName.length > 16 ? `${classroomName.substring(0, 16)}...` : classroomName;
@@ -908,7 +909,7 @@ function displayStudentsInClassroom(students, link=false) {
 
     // get the current classroom index of activities
     let arrayIndexesActivities = listIndexesActivities(students);
-
+    console.log(students)
     students.forEach(element => {
         // reorder the current student activities to fit to the classroom index of activities
         let arrayActivities = reorderActivities(element.activities, arrayIndexesActivities);
@@ -923,7 +924,7 @@ function displayStudentsInClassroom(students, link=false) {
             html = /* html */`<tr>
                 <th class="username" data-student-id="${element.user.id}">
                     <div class="user-cell-container">
-                        <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png?version=VERSIONNUM" alt="Photo de profil">
+                        <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil">
                         <div class="user-cell-username" title="${element.user.pseudo}">${pseudo}</div>
                         <div class="dropdown">
                             <i class="classroom-clickable line_height34 fas fa-exchange-alt" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
@@ -938,7 +939,7 @@ function displayStudentsInClassroom(students, link=false) {
             html = /*html*/`<tr>
                 <th class="username" data-student-id="${element.user.id}">
                     <div class="user-cell-container">
-                        <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png?version=VERSIONNUM" alt="Photo de profil">
+                        <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil">
                         <div class="user-cell-username" title="${element.user.pseudo}">${pseudo}</div>`
             if (!UserManager.getUser().isFromGar) {
                 html += /**/`<div class="dropdown"><i class="classroom-clickable line_height34 fas fa-cog" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
@@ -957,32 +958,68 @@ function displayStudentsInClassroom(students, link=false) {
         // Display the current student activities in the dashboard
 
         // Loop in the classroom activities index (with ids) to generate the dashboard table header and body
-        for(let i=0; i<arrayIndexesActivities.length; i++){
+        for (let i=0; i<arrayIndexesActivities.length; i++) {
             if (element.user.pseudo == demoStudentName) {
-                $('#header-table-teach').append(`
-                <th data-toggle="tooltip" data-placement="top" title="${ arrayIndexesActivities[i].title }">
-                    <div class="dropdown dropdown-act" style="width:30px;">
-                        <div id="dropdown-act-${activityNumber}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="span-act">Act.</br>n°${ activityNumber }</span>
-                            <i style="display:none;font-size:2em;" class="fa fa-cog i-act" aria-hidden="true"></i>
-                            <div class="dropdown-menu" aria-labelledby="dropdown-act-${activityNumber}" data-id="${arrayIndexesActivities[i].id}" style="text-transform: none;">
-                            <li class="ml-5" style="border-bottom:solid 2px black;">
-                                <b>${ arrayIndexesActivities[i].title }</b>
-                            </li>
-                            <li class="classroom-clickable col-12 dropdown-item " onclick="activityWatch(${arrayIndexesActivities[i].id})" ><i class="fas fa-eye"></i> <span data-i18n="classroom.classes.panel.seeActivity">Voir l'activité</span></li>
-                            <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${arrayIndexesActivities[i].id})"><i class="fas fa-pen"></i> <span data-i18n="classroom.classes.panel.editActivity">Modifier l'activité</span></li>
-                            <li class="classroom-clickable col-12 dropdown-item" onclick="attributeActivity(${arrayIndexesActivities[i].id},${arrayIndexesActivities[i].reference})"><i class="fas fa-user-alt"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span></li>
-                            <li class="dropdown-item classroom-clickable col-12" onclick="undoAttributeActivity(${arrayIndexesActivities[i].reference},'${arrayIndexesActivities[i].title}','${Main.getClassroomManager().getClassroomIdByLink(ClassroomSettings.classroom)}')"><i class="fas fa-trash-alt"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span></li>
-                        </div>
-                    </div>
-                </th>`);
-                    activityNumber++
+                let fromCourse = false,
+                    firstFromCourse = false,
+                    courseLength = 0,
+                    courseId = null;
+
+                if (arrayIndexesActivities[i].isFromCourse) {
+                    fromCourse = true;
+                    if (arrayIndexesActivities[i].course != null) {
+                        courseId = arrayIndexesActivities[i].course.id;
+                    }
+                }
+  
+                let course = coursesManager.myCourses.find(course => course.id == courseId)
+                if (course != null) {
+                    courseLength = course.activities.length;
+                    if (course.activities[0].id == arrayIndexesActivities[i].id) {
+                        firstFromCourse = true;
+                    }
+                }
+
+                let tableLength = null;
+                if (firstFromCourse) {
+                    tableLength = `colspan="${courseLength}"`;
+                }
+
+                let thModular = "";
+                if (fromCourse && firstFromCourse) {
+                    thModular = `<th data-toggle="tooltip" class="border-header-class" ${tableLength} data-placement="top" title="Course">`;
+                } else if (!fromCourse) {
+                    thModular = `<th data-toggle="tooltip" class="border-header-class" data-placement="top" title="${arrayIndexesActivities[i].title}">`;
+                }
+
+                if (fromCourse && firstFromCourse || !fromCourse) {
+                    $('#header-table-teach').append(`
+                        ${thModular}
+                        ${!fromCourse ? `` : `<span class="span-act">Par.</br>n°${ activityNumber }</span>`}
+                        <div class="dropdown dropdown-act" style="width:30px;">
+                            <div id="dropdown-act-${activityNumber}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    ${!fromCourse ? `<span class="span-act">Act.</br>n°${ activityNumber }</span>` : ``}
+                                    <i style="display:none;font-size:2em;" class="fa fa-cog i-act" aria-hidden="true"></i>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-act-${activityNumber}" data-id="${arrayIndexesActivities[i].id}" style="text-transform: none;">
+                                    <li class="ml-5" style="border-bottom:solid 2px black;">
+                                        <b>${ arrayIndexesActivities[i].title }</b>
+                                    </li>
+                                    <li class="classroom-clickable col-12 dropdown-item " onclick="activityWatch(${arrayIndexesActivities[i].id})" ><i class="fas fa-eye"></i> <span data-i18n="classroom.classes.panel.seeActivity">Voir l'activité</span></li>
+                                    <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${arrayIndexesActivities[i].id})"><i class="fas fa-pen"></i> <span data-i18n="classroom.classes.panel.editActivity">Modifier l'activité</span></li>
+                                    <li class="classroom-clickable col-12 dropdown-item" onclick="attributeActivity(${arrayIndexesActivities[i].id},${arrayIndexesActivities[i].reference})"><i class="fas fa-user-alt"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span></li>
+                                    <li class="dropdown-item classroom-clickable col-12" onclick="undoAttributeActivity(${arrayIndexesActivities[i].reference},'${arrayIndexesActivities[i].title}','${Main.getClassroomManager().getClassroomIdByLink(ClassroomSettings.classroom)}')"><i class="fas fa-trash-alt"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span></li>
+                                </div>
+                            </div>
+                        </th>`
+                    );
+                    activityNumber++;
+                }
             }
             // Display the current student activities in the dashboard
             let currentActivity = arrayActivities[i];
 
             if (currentActivity) {
-                const formatedTimePast =
+                const formatedTimePast = 
                 typeof currentActivity.timePassed == 'undefined' ? '' : currentActivity.timePassed == 0 ? '' : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em><br><em>${i18next.t("classroom.activities.numberOfTries")} ${currentActivity.tries}</em>`;
                 html += `<td class=" ${statusActivity(currentActivity, true, formatedTimePast)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${getTranslatedActivityName(currentActivity.activity.type)}</em></br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>${formatedTimePast}"></td>`;
             } else {
@@ -999,22 +1036,28 @@ function displayStudentsInClassroom(students, link=false) {
         $('[data-toggle="tooltip"]').tooltip()
     });
 
-    if(! UserManager.getUser().isFromGar)
-        $('#body-table-teach').append('<button id="add-student-dashboard-panel" class="btn c-btn-primary"><span data-i18n="classroom.activities.addLearners">Ajouter des apprenants</span> <i class="fas fa-plus"></i></button>').localize();
 
+    function manageHeaderTableStudents() {
+
+    }
+
+
+
+    $('#body-table-teach').append('<button id="add-student-dashboard-panel" class="btn c-btn-primary"><span data-i18n="classroom.activities.addLearners">Ajouter des apprenants</span> <i class="fas fa-plus"></i></button>').localize();
+    
     // get classroom settings from localstorage
     let settings = getClassroomDisplaySettings(link);
 
     if (settings['monochrome']) {
         $('#body-table-teach').addClass('is-monochrome')
         $('#legend-container').addClass('is-monochrome')
-        $('#is-monochrome').prop('checked', true);
+        $('#is-monochrome').prop('checked', true);          
     } else {
         $('#body-table-teach').removeClass('is-monochrome')
         $('#legend-container').removeClass('is-monochrome')
         $('#is-monochrome').prop('checked', false);
     }
-
+    
     if (settings['anonymised']) {
         anonymizeStudents()
         $('#is-anonymised').prop('checked', true);
@@ -1036,7 +1079,7 @@ function displayStudentsInClassroom(students, link=false) {
         $(classroomTable).find('tr').addClass('non-dropdown');
         event.target.closest('tr').classList.remove('non-dropdown');
     });
-
+    
     $('#classroom-panel-table-container table .dropdown').on('hidden.bs.dropdown', (event) => {
         let classroomTable = event.target.closest('table');
         classroomTable.classList.remove('dropdowns-opened');
@@ -1092,7 +1135,7 @@ function actualizeStudentActivities(activity, correction) {
 function addStudentRow(pseudo, studentId = false, isNotDeletable) {
     return `
     <li data-pseudo="${pseudo}" data-id="${studentId}" class="row align-items-center my-1 ">
-        <img class="col-2 propic" src="${_PATH}assets/media/alphabet/` + pseudo.slice(0, 1).toUpperCase() + `.png?version=VERSIONNUM" alt="Photo de profil">
+        <img class="col-2 propic" src="${_PATH}assets/media/alphabet/` + pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil">
         <div class="col">` + pseudo + `</div>
         ${isNotDeletable ? '' : `<button type=\"button\" class=\"btn btn-danger remove-student h-50\" data-toggle=\"tooltip\" data-placement=\"top\"  >
             <i class=\"fas fa-times\"></i>
@@ -1249,7 +1292,7 @@ document.querySelector('#update-teacher-account-form').addEventListener('submit'
                         case 'unknownUser':
                             displayNotification('#notif-div', "classroom.notif.unknownUser", "error");
                             break;
-
+                    
                         default:
                             break;
                     }
@@ -1271,7 +1314,7 @@ document.querySelector('#update-teacher-account-form').addEventListener('submit'
  * @returns {boolean} - true if check ok, false otherwise
  */
 function teacherAccountUpdateFormCheck(formData){
-
+    
     let formValues = {
         'firstname': {
             value: formData.get('first-name'),
@@ -1295,7 +1338,7 @@ function teacherAccountUpdateFormCheck(formData){
         }
     },
     errors = [];
-
+    
     for(let input in formValues){
         let currentElt = document.getElementById(formValues[input].id);
         if(currentElt.classList.contains('form-input-error')){
@@ -1307,7 +1350,7 @@ function teacherAccountUpdateFormCheck(formData){
         errors.push('firstNameTooShort');
         showFormInputError(formValues.firstname.id);
     }
-
+    
     if(!formValues.surname.value.length == 0 && formValues.surname.value.length < 2){
         errors.push('lastNameTooShort');
         showFormInputError(formValues.surname.id);

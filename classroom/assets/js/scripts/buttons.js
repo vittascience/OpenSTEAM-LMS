@@ -742,6 +742,8 @@ function studentActivitiesDisplay() {
         index++;
     });
 
+
+
     Main.getClassroomManager()._myCourses.forEach(course => {
         if (course.courseState == 0 && course.activities[0].activityLinkUser.response == null) {
             let number = $('.section-new .resource-number').html();
@@ -758,6 +760,8 @@ function studentActivitiesDisplay() {
         }
     });
 
+    manageToggleForStudentPanel();
+
     if (activities.doneActivities.length < 1) {
         $('#average-score').hide();
     } else {
@@ -773,6 +777,25 @@ function studentActivitiesDisplay() {
     }
 
     $('[data-toggle="tooltip"]').tooltip();
+}
+
+function manageToggleForStudentPanel() {
+    // test toggle auto if activity in the section
+    if ($('.section-done .resource-number').html() > 0) {
+        if ($('#done-activities-list').css("display") == 'none') {
+            sectionToggle('done')
+        }
+    }
+    if ($('.section-saved .resource-number').html() > 0) {
+        if ($('#saved-activities-list').css("display") == 'none') {
+            sectionToggle('saved')
+        }  
+    }
+    if ($('.section-current .resource-number').html() > 0) {
+        if ($('#current-activities-list').css("display") == 'none') {
+            sectionToggle('current')
+        }
+    }
 }
 
 function sandboxDisplay(projects = Main.getClassroomManager()._myProjects) {
