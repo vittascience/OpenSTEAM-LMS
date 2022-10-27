@@ -558,7 +558,7 @@ class CoursesManager {
                                     <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="coursesManager.attributeCourse(${course.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
                                     <li class="dropdown-item classroom-clickable col-12" href="#" onclick="">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
                                     <li class=" classroom-clickable col-12 dropdown-item" onclick="" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
-                                    <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
+                                    <li class="dropdown-item modal-course-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
                                     <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
                                 </div>
                             </div>
@@ -661,6 +661,7 @@ class CoursesManager {
         // Content management
         let content = manageContentForActivity();
         let correction = '';
+
         if (!UserManager.getUser().isRegular && Activity.correction > 1) {
             document.querySelector('#activity-correction-course').style.display = 'block';
             let activityResultString, activityResultColor;
@@ -696,6 +697,7 @@ class CoursesManager {
             } else {
                 correction += '<div id="commentary-panel-course">' + i18next.t("classroom.activities.bilan.noComment") + '</div>'
             }
+
         } else {
             document.querySelector('#activity-correction-course').style.display = 'none';
         }

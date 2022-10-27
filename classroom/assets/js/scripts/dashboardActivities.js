@@ -728,7 +728,7 @@ function injectContentForActivity(content, correction, type = null, correction_d
         if (Activity.activity.isLti) {
             manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt);
         } else {
-            manageDisplayOldActivities(correction, content, correction_div, isDoable);
+            manageDisplayOldActivities(correction, content, correction_div, isDoable, isFromCourse);
         };
     }
 }
@@ -763,7 +763,7 @@ function manageDisplayFree(correction, content, correction_div, isFromCourse) {
                 } else if (Activity.response != null) {
                     $('#activity-student-response-content'+course).html(bbcodeToHtml(Activity.response));
                 }
-                manageCorrectionDiv(correction_div, correction);
+                manageCorrectionDiv(correction_div, correction, isFromCourse);
             }
         }
     }
@@ -784,7 +784,7 @@ function manageDisplayFree(correction, content, correction_div, isFromCourse) {
     } else if (correction > 1) {
         $('#activity-student-response'+course).show();
         $('#activity-student-response-content'+course).html(bbcodeToHtml(JSON.parse(Activity.response)));
-        manageCorrectionDiv(correction_div, correction);
+        manageCorrectionDiv(correction_div, correction, isFromCourse);
     }
 }
 
@@ -814,13 +814,16 @@ function manageDisplayLti(correction, content, correction_div, isDoable, activit
     }
 }
 
-function manageDisplayOldActivities(correction, content, correction_div, isDoable) {
-    document.querySelector('#activity-content').innerHTML = bbcodeToHtml(content);
-    document.querySelector('#activity-content-container').style.display = 'block';
+function manageDisplayOldActivities(correction, content, correction_div, isDoable, isFromCourse) {
+    console.log("manageDisplayOldActivities")
+    let course = isFromCourse ? "-course" : "";
+
+    document.querySelector('#activity-content'  + course).innerHTML = bbcodeToHtml(content);
+    document.querySelector('#activity-content-container'  + course).style.display = 'block';
     if (!isDoable) {
         if (correction != 1 || UserManager.getUser().isRegular) {
-            document.querySelector('#activity-correction-container').style.display = 'block';
-            document.querySelector('#activity-correction').innerHTML = correction_div;
+            document.querySelector('#activity-correction-container' + course).style.display = 'block';
+            document.querySelector('#activity-correction'  + course).innerHTML = correction_div;
         }
     }
 }
@@ -977,7 +980,7 @@ function displayFillInTeacherSide(correction_div, correction, content, isFromCou
         $('#activity-student-response'+course).show();
     }
 
-    manageCorrectionDiv(correction_div, correction);
+    manageCorrectionDiv(correction_div, correction, isFromCourse);
 }
 
 function manageDisplayDragAndDrop(correction, content, correction_div, isFromCourse) {
