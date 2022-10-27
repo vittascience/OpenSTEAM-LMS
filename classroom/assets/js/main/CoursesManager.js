@@ -506,7 +506,7 @@ class CoursesManager {
             content = `<div class="course-item course-teacher" data-id="${course.id}">
                             <div>
                                 <div class="course-card">
-                                <img src="https://picsum.photos/200/300" class="course-card-img">
+                                <img src="./assets/media/cards/card-course.png" class="course-card-img">
                                 <div class="course-card-info">
                                     <div class="course-card-top">
                                         <div class="dropdown">
@@ -614,7 +614,7 @@ class CoursesManager {
     }
 
 
-    loadCourseForStudents(isDoable, currentCourse) {
+    loadCourseForStudents(isDoable, currentCourse, progressBar = true) {
         // Reset the inputs
         this.resetInputsForCourse();
     
@@ -630,21 +630,26 @@ class CoursesManager {
             "fillIn",
             "quiz"
         ]
-        
-        // Add the current course indicator on top of the given activity
-        let nbOfExercices = currentCourse.activities.length;
-        let currentActivityIndex = currentCourse.activities.findIndex(activity => activity.id == Activity.activity.id);
 
-        // add green cells to .course-state until the current activity, then add grey cells
-        let courseState = "";
-        for (let i = 0; i < nbOfExercices; i++) {
-            if (i <= currentActivityIndex) {
-                courseState += `<div class="course-state-item course-state-done"></div>`;
-            } else {
-                courseState += `<div class="course-state-item course-state-todo"></div>`;
+        document.getElementById("course-progress-bar").style.display = progressBar ? "flex" : "none";
+        
+        if (progressBar) {
+            // Add the current course indicator on top of the given activity
+            let nbOfExercices = currentCourse.activities.length;
+            let currentActivityIndex = currentCourse.activities.findIndex(activity => activity.id == Activity.activity.id);
+
+            // add green cells to .course-state until the current activity, then add grey cells
+            let courseState = "";
+            for (let i = 0; i < nbOfExercices; i++) {
+                if (i <= currentActivityIndex) {
+                    courseState += `<div class="course-state-item course-state-done"></div>`;
+                } else {
+                    courseState += `<div class="course-state-item course-state-todo"></div>`;
+                }
             }
+            $('.course-state').html(courseState);
         }
-        $('.course-state').html(courseState);
+
 
         // Check if the correction if available
         if (Activity.correction >= 1) {
@@ -733,7 +738,7 @@ class CoursesManager {
     }
 
     coursesFreeValidateActivity(correction = 1) {
-        let studentResponse = $('#activity-input').bbcode();
+        let studentResponse = $('#activity-input-course').bbcode();
         Main.getClassroomManager().saveNewStudentActivity(coursesManager.actualCourse.activity, correction, null, studentResponse, coursesManager.actualCourse.link).then((response) => {
             this.coursesResponseManager(response, 'free');
         });
@@ -913,25 +918,29 @@ class CoursesManager {
 
     manageAllActivityResponse(response) {
         
-        let nextActivity = document.getElementById("course-next-course"),
-            endCourse = document.getElementById("course-student-message-end"),
-            disclaimerSave = document.getElementById("course-student-message");
+        let messageDiv = document.getElementById("course-result-message"),
+            endCourse = document.getElementById("course-options-course-buttons"),
+            messageContent = document.getElementById("course-result-message-content"),
+            validateBtn = document.getElementById("course-validate-buttons");
 
-        nextActivity.style.display = "none";
+        validateBtn.style.display = "none";
         endCourse.style.display = "none";
-        disclaimerSave.style.display = "none";
+        messageDiv.style.display = "none";
 
         if (response.note != null && response.correction > 1) {
             this._requestUpdateState(coursesManager.actualCourse.id, coursesManager.actualCourse.state + 1).then(res => {
                 if (res.hasOwnProperty('success')) {
                     if (res.success) {
-                        navigatePanel('classroom-dashboard-course-panel-success', 'dashboard-classes-teacher');
                         let course = Main.getClassroomManager()._myCourses.find(course => course.course.id == coursesManager.actualCourse.id);
                         if (course.activities.length <= coursesManager.actualCourse.state + 1) {
-                            endCourse.style.display = "block";
+                            // the course is ended
+                            this.readCourseFromStudent();
                         } else {
-                            nextActivity.style.display = "block";
-                            disclaimerSave.style.display = "block";
+                            // the course is not ended
+                            messageDiv.style.display = "block";
+                            endCourse.style.display = "flex";
+                            messageContent.classList.add("course-text-success");
+                            messageContent.innerHTML = "BRAVO ! TU AS RÉUSSI CETTE ACTIVIÉ !";
                         }
                     } else {
                         displayNotification('#notif-div', "classroom.notif.errorSending", "error");
@@ -939,13 +948,76 @@ class CoursesManager {
                 }
             });
         } else {
-            navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher');
+            navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-activities');
         }
     }
 
+    viewCourseActivitiesResult(id = null) {
+        let activitiesResultDiv = document.getElementById("course-activities-result"),
+            courseResultNote = document.getElementById("course-result-note");
+
+        activitiesResultDiv.innerHTML = "";
+        let course = id == null ? Main.getClassroomManager()._myCourses.find(course => course.course.id == this.actualCourse.id) : Main.getClassroomManager()._myCourses.find(course => course.course.id == id);
+        let courseLength = course.activities.length,
+            courseSuccess = 0;
+     
+        for (let i = 0; i < course.activities.length; i++) {
+            let note = 0;
+            if (course.activities[i].activityLinkUser.note == 3) {
+                note = "BIEN, tu as réussi cette activité !";
+            } else if (course.activities[i].activityLinkUser.note < 3 && course.activities[i].activityLinkUser.note > 0) {
+                note = "À REVOIR, la réponse n'est pas correcte";
+            } else if (course.activities[i].activityLinkUser.note == 4) {
+                note = "NON NOTÉ";
+            }
+
+            let html = `<div class="course-activities-result-activity" id="course-${course.id}"> 
+                            <div class="preview-result-course-activity-title">
+                                <p onclick="coursesManager.loadActivity(${course.course.id}, ${course.activities[i].activityLinkUser.id})">ACTVITÉ <br> N°${i+1}</p>
+                            </div>
+
+                            <div>
+                                <div class="bilan-cell-course bilan-${course.activities[i].activityLinkUser.note}"></div>
+                            </div>
+
+                            <div class="align-self-center"> 
+                                <p class="course-texte-result">${note}</p>
+                            </div>
+                        </div>`;
+
+            activitiesResultDiv.innerHTML += html;
+
+            if (course.activities[i].activityLinkUser.note === 3) {
+                courseSuccess++;
+            } else if (course.activities[i].activityLinkUser.note === 4) {
+                courseLength -= 1;
+            }
+        }
+
+        courseResultNote.innerText = `${courseSuccess}/${courseLength}`;
+        navigatePanel('classroom-dashboard-course-panel-ended', 'dashboard-activities');
+    }
+
+    loadActivity(courseId, activityId) {
+        let course = Main.getClassroomManager()._myCourses.find(course => course.course.id == courseId),
+            btnContainer = document.getElementById("course-validate-buttons");
+        Activity = course.activities.find(activity => activity.activityLinkUser.id == activityId).activityLinkUser;
+        navigatePanel('classroom-dashboard-course-panel', 'dashboard-activities-teacher', 'course', '');
+        this.loadCourseForStudents(true, course, false);
+        btnContainer.style.display = "none";
+    }
+
     readCourseFromStudent(id = null) {
+        let resMessage = document.getElementById("course-result-message"),
+            btnNext = document.getElementById("course-options-course-buttons"),
+            btnValidate = document.getElementById("course-validate-buttons");
+
+        resMessage.style.display = "none";
+        btnNext.style.display = "none";
+
         this._requestGetMyCourseStudent().then(res => {
             Main.getClassroomManager()._myCourses = res;
+
             if (id == null) {
                 id = coursesManager.actualCourse.id;
             }
@@ -953,6 +1025,7 @@ class CoursesManager {
             let course = Main.getClassroomManager()._myCourses.find(course => course.course.id == id);
 
             if (course.courseState == 999) {
+                this.viewCourseActivitiesResult(id);
                 return false;
             }
             
@@ -966,6 +1039,7 @@ class CoursesManager {
         
             navigatePanel('classroom-dashboard-course-panel', 'dashboard-activities-teacher', 'course', '');
             this.loadCourseForStudents(true, course);
+            btnValidate.style.display = "block";
         });
     }
 

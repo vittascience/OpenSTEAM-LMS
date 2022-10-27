@@ -2410,6 +2410,7 @@ h3.section-done {
     color: var(--classroom-secondary);
 }
 
+
 /* ACTIVITY END */
 
 /* ACTIVITY ATTRIBUTION START */
@@ -2755,6 +2756,11 @@ h3.section-done {
     color: var(--classroom-text-0);
     text-align: center;
 
+}
+
+.border-header-class {
+    border: solid #c0c0c0 1px;
+    border-radius: 3px;
 }
 
 .class-stats-panel .user-cell-container {
@@ -3514,4 +3520,51 @@ h3.section-done {
 
 .course-activity-search {
     margin: 1em auto;
+}
+
+.course-activities-result {
+    border: 1px solid #259D68;
+    border-radius: 10px;
+    opacity: 1;
+}
+
+.course-activities-result-activity {
+    padding: 1em;
+    height: auto;
+    margin-bottom: 1em;
+    display: flex;
+}
+
+.preview-result-course-activity-title {
+    border: 1px solid #00000030;
+    border-radius: 10px;
+}
+
+.course-activities-result p {
+    padding: 0.5em;
+    font-size: 1em;
+    margin-bottom: 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+.bilan-cell-course {
+    min-height: 30px;
+    min-width: 30px;
+    margin: 0 0.4em;
+    height: 100%;
+    border: solid 1px transparent;
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.1s ease-in-out;
+}
+
+.course-texte-result {
+    font-weight: bold;
+}
+
+.course-text-success {
+    text-align: center;
+    font-weight: bold;
+    color: var(--classroom-primary);
 }

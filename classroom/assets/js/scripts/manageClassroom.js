@@ -891,8 +891,6 @@ function filterSandboxInList(keywords = [], orderBy = 'id', asc = true) {
  */
 function displayStudentsInClassroom(students, link=false) {
 
-    console.log("caller is " + displayStudentsInClassroom.caller);
-
     if (link && link != $_GET('option')) {
         return;
     }
@@ -989,9 +987,9 @@ function displayStudentsInClassroom(students, link=false) {
 
                 let thModular = "";
                 if (fromCourse && firstFromCourse) {
-                    thModular = `<th data-toggle="tooltip" ${tableLength} data-placement="top" title="Course">`;
+                    thModular = `<th data-toggle="tooltip" class="border-header-class" ${tableLength} data-placement="top" title="Course">`;
                 } else if (!fromCourse) {
-                    thModular = `<th data-toggle="tooltip" data-placement="top" title="${arrayIndexesActivities[i].title}">`;
+                    thModular = `<th data-toggle="tooltip" class="border-header-class" data-placement="top" title="${arrayIndexesActivities[i].title}">`;
                 }
 
                 if (fromCourse && firstFromCourse || !fromCourse) {

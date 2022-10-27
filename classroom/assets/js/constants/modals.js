@@ -763,7 +763,7 @@ const classroomModals = {
             icon: '',
             title: 'manager.users.delete'
         },
-        content: `  <div id="delete-user-modal">
+        content: `  <div id="groupadmin-disable-user-modal">
                         <div class="col-12">
                             <div class="alert" id="alertDisableUserGA" role="alert" style="display:none;"></div>
                             <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="manager.users.disableConfirmationTitle">Confirmer la désactivation</h3>
@@ -786,7 +786,7 @@ const classroomModals = {
             icon: '',
             title: 'manager.users.delete'
         },
-        content: `  <div id="delete-user-modal">
+        content: `  <div id="groupadmin-delete-user-modal">
                         <div class="col-12">
                             <div class="alert" id="alertDisableUserGA" role="alert" style="display:none;"></div>
                             <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="manager.users.deleteConfirmationTitle"></h3>
@@ -810,7 +810,7 @@ const classroomModals = {
             icon: '',
             title: 'manager.users.delete'
         },
-        content: `  <div id="delete-user-modal">
+        content: `  <div id="manager-delete-user-modal">
                         <div class="col-12">
                             <div class="alert" id="alertDeleteUser" role="alert" style="display:none;"></div>
                             <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="manager.users.deleteConfirmationTitle">Confirmer la suppression</h3>
@@ -833,7 +833,7 @@ const classroomModals = {
             icon: '',
             title: 'manager.users.delete'
         },
-        content: `  <div id="delete-user-modal">
+        content: `  <div id="manager-disable-user-modal">
                         <div class="col-12">
                             <div class="alert" id="alertDisableUser" role="alert" style="display:none;"></div>
                             <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="manager.users.disableConfirmationTitle">Confirmer la désactivation</h3>
@@ -856,7 +856,7 @@ const classroomModals = {
             icon: '',
             title: 'manager.group.delete'
         },
-        content: `  <div id="delete-user-modal">
+        content: `  <div id="manager-delete-group-modal">
                         <div class="col-12">
                             <div class="alert" id="alertDeleteGroup" role="alert" style="display:none;"></div>
                             <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="manager.users.deleteConfirmationTitle">Confirmer la suppression</h3>
@@ -879,7 +879,7 @@ const classroomModals = {
             icon: '',
             title: 'manager.users.showResetLinkTitle'
         },
-        content: `  <div id="delete-user-modal">
+        content: `  <div id="manager-show-resetlink-modal">
                         <div class="col-12">
                             <h3 class="font-weight-bold text-info m-auto text-center my-3" data-i18n="manager.users.showResetLink">Lien de réinitialisation de mot de passe</h3>
                             <div class="row">
@@ -899,7 +899,7 @@ const classroomModals = {
             icon: '',
             title: 'manager.group.showLinkTitle'
         },
-        content: `  <div id="delete-user-modal">
+        content: `  <div id="groupadmin-show-grouplink-modal">
                         <div class="col-12">
                             <h3 class="font-weight-bold text-info m-auto text-center my-3" data-i18n="manager.group.showLinkTitle">Lien du groupe</h3>
                             <div class="input-group c-secondary-form">
@@ -1174,7 +1174,7 @@ const classroomModals = {
             icon: '',
             title: 'classroom.activities.deleteActivity'
         },
-        content: `  <div id="delete-user-modal">
+        content: `  <div id="delete-activities-modal">
                         <div class="col-12">
                             <div class="alert" id="alertDisableUserGA" role="alert" style="display:none;"></div>
                             <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="classroom.activities.deleteConfirm">Confirmer la désactivation</h3>
@@ -1287,7 +1287,7 @@ const classroomModals = {
             icon: '',
             title: 'classroom.classes.deleteStudent'
         },
-        content: `  <div id="delete-user-modal">
+        content: `  <div id="delete-student-modal">
                         <div class="col-12">
                             <input type="hidden" id="student-to-delete-id">
                             <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="classroom.classes.deleteStudentConfirm"></h3>

@@ -2,9 +2,7 @@
 
     <div class="container-fluid">
 
-        <div class="course-state w-100">
-            
-            
+        <div class="course-state w-75 mx-auto" id="course-progress-bar">
         </div>
 
 
@@ -61,22 +59,44 @@
                     <p id="activity-hint-course"></p>
                 </div>
 
-                <div class="d-flex justify-content-center mt-2">
 
-                    <button class="btn c-btn-primary mx-1" id="course-validate-course" data-i18n="classroom.activities.validate" onclick="coursesManager.validateCourse(1)"> 
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                <div id="course-result-message">
+                    <p id="course-result-message-content"></p>
+                </div>
 
-                    <button class="btn c-btn-grey mx-2" id="course-save-course" style="display:none;" onclick="coursesManager.validateCourse(0)" data-i18n="classroom.activities.save-draft">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
 
-                    <div class="btn" id="activity-instruction-course" style="display:none">
-                        <span data-i18n="classroom.activities.instruction"></span> <i class="fas fa-pen"></i>
+                <div class="d-flex justify-content-center mt-2" id="course-btn-container" style="display:none;">
+
+                    <div id="course-validate-buttons">
+                        <button class="btn c-btn-primary mx-1" id="course-validate-course" data-i18n="classroom.activities.validate" onclick="coursesManager.validateCourse(1)"> 
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+    
+                        <button class="btn c-btn-grey mx-2" id="course-save-course" onclick="coursesManager.validateCourse(0)" data-i18n="classroom.activities.save-draft">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <br>
+                    <div id="course-options-course-buttons" style="display:none;">
+
+                        <div class="row my-1 mx-3">
+                            <button class="btn c-btn-primary mx-1" id="course-next-course" onclick="coursesManager.readCourseFromStudent()"> 
+                                Continuer le parcours >
+                            </button>
+                        </div>
+                        
+                        <div class="row my-1 mx-3">
+                            <button class="btn c-btn-grey mx-2" id="course-return" onclick="goBackToActivities()">
+                                Retourner au menu des activités
+                            </button>
+                        </div>
+
                     </div>
 
                 </div>
+
             </div>
+
             <div id="activity-correction-container-course" class="col-12 col-lg-4" style="display:none">
                 <div id="activity-correction-course"></div>
             </div>
@@ -85,34 +105,25 @@
     </div>
 </div>
 
-<div id="classroom-dashboard-course-panel-success" class="dashboard-block" style="display:none;">
+<div id="classroom-dashboard-course-panel-ended" class="dashboard-block" style="display:none;">
 
     <div class="container-fluid">
 
-        <div class="results-panel results-correcting">
-            <img src="assets/media/activity_results/correcting.png" alt="Image d'erreur">
+        <div class="results-correcting">
 
             <div class="d-flex flex-column align-items-center justify-content-center mt-2">
 
-                <div class="row my-1">
-                    <button class="btn c-btn-primary mx-1" id="course-next-course" onclick="coursesManager.readCourseFromStudent()"> 
-                        Continuer le parcours >>
-                    </button>
+                <h1 class="my-3">RÉSULTATS DU PARCOURS</h1>
+                <p id="course-result-note"></p>
+
+                <div id="course-activities-result" class="course-activities-result">
+
+
                 </div>
-                
-                <div class="row my-1">
-                    <button class="btn c-btn-grey mx-2" id="course-return" onclick="goBackToActivities()">
-                        Retourner au menu des activités
-                    </button>
-                </div>
-                
-                <p id="course-student-message-end" class="result-text">Bravo tu as terminé le parcours !</p>
-                <p id="course-student-message" class="result-text">Ton progrès sera sauvegardé en tant que brouillon pour que tu puissses continuer plus tard</p>
     
             </div>
+
         </div>
-
-
 
     </div>
 
