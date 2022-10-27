@@ -1964,9 +1964,7 @@ function switchTomanager() {
 }
 
 function switchToGroupAdmin() {
-    //mainGroupAdmin.init();
     $('body').addClass('theme-group-admin').removeClass("theme-super-admin theme-teacher")
-    //navigatePanel('classroom-dashboard-profil-panel-groupadmin', 'dashboard-profil-groupadmin');
     $('#classroom-dashboard-sidebar-teacher').hide();
     $('#manager-dashboard-sidebar').hide();
     $('#groupadmin-dashboard-sidebar').show();
