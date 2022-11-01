@@ -21,9 +21,7 @@ class FoldersManager {
         this.dragula = dragula();
         this.getAllUserFolders().then(res => {
             this.userFolders = res;
-            setTimeout(() => {
-                this.dragulaInitObjects();
-            }, 1000);
+            this.dragulaInitObjects();
         })
 
         $('#dashboard-activities-teacher').on('click', () => {
@@ -211,7 +209,12 @@ class FoldersManager {
     }
 
     resetTreeFolders() {
-        this.treeFolder.html(`<button class="btn c-btn-outline-primary" onclick="foldersManager.goToFolder(null)">Mes activités</button>`);
+        // only feed the breadcrumb when we're on the activity panel
+        if ($_GET('nav') == 'dashboard-activities-teacher') {
+            this.treeFolder.html(`<button class="btn c-btn-outline-primary" onclick="foldersManager.goToFolder(null)">Mes activités</button>`);
+        } else {
+            this.treeFolder.html();
+        }
     }
 
     createTreeFolders() {
@@ -299,7 +302,6 @@ class FoldersManager {
         let radioString = this.makeTreeWithOutInitialFolderAndChildren(item);
         let content = `<ul>
                         ${radioString}
-                        
                         ${this.createChildUl(item.id)}
                     </ul>`
         return content;

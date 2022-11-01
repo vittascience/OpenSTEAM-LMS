@@ -2551,7 +2551,6 @@
 <script src="assets/js/scripts/ActivityTracker.js"></script>
 <script src="assets/js/scripts/activityManager.js"></script>
 <script src="assets/js/scripts/classroomDisplay.js"></script>
-<script src="assets/js/main/FoldersManager.js"></script>
 <!-- end build -->
 <script src="assets/js/main/Loader.js"></script>
 <script src="assets/js/main/UIManager.js"></script>
@@ -2566,8 +2565,10 @@
 <script src="assets/js/main/Loader.js"></script>
 <!-- courses -->
 <script src="assets/js/main/CoursesManager.js"></script>
-
+<!-- Custom Activities -->
 <script src="assets/js/main/CustomActivityManager.js"></script>
+<!-- Folder management -->
+<script src="assets/js/main/FoldersManager.js" defer></script>
 
 <script>
     UIManager.init().then((resolve) => {
@@ -2632,14 +2633,14 @@
                             }
                         },
                         (reason) => {
-                            //console.log("Loader failed to load: " + reason);
+                            console.log("Loader failed to load: " + reason);
                             failedToLoad();
                         }
                     );
                 })
             },
             (reason) => {
-                //console.log("UserManager failed to load: " + reason);
+                console.log("UserManager failed to load: " + reason);
                 failedToLoad();
             }
         );
