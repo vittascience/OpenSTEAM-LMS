@@ -191,7 +191,19 @@ class FoldersManager {
         if (this.treeFolder.html() == "") {
             this.resetTreeFolders();
         }
-        this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span> <button class="btn c-btn-outline-primary" data-id="${folder.id}" onclick="foldersManager.goToFolder(${folder.id})"><i class="fas fa-folder-open folder-breadcrumb"></i> ${folder.name}</button>`);  
+
+        let breadCrumbFolderItems = document.querySelectorAll(".folder-breadcrumb-item"),
+            alreadyExist = false;
+
+        breadCrumbFolderItems.forEach(e => {
+            if (e.dataset.id == folder.id) {
+                alreadyExist = true;
+            }
+        });
+        
+        if (!alreadyExist) {
+            this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span> <button class="btn c-btn-outline-primary folder-breadcrumb-item" data-id="${folder.id}" onclick="foldersManager.goToFolder(${folder.id})"><i class="fas fa-folder-open folder-breadcrumb"></i> ${folder.name}</button>`);  
+        }
     }
 
     goToFolder(folderId) {
@@ -409,13 +421,23 @@ class FoldersManager {
             foldersListArray = document.querySelectorAll('.activity-item-list'),
             coursesListArray = document.querySelectorAll('.course-item-list'),
             coursesArray = document.querySelectorAll('.course-item'),
-            dragableObjects = [];
+            dragableObjects = [],
+            viewMode = null;
 
-        if (Main.getClassroomManager().displayMode == "list") {
+
+        // sometime classroomManager is not loader
+        if (Main.getClassroomManager() != null) {
+            viewMode = Main.getClassroomManager().displayMode; 
+        } else {
+            viewMode = localStorage.getItem('classroomViewMode') != null ? localStorage.getItem('classroomViewMode') : 'card'
+        }
+
+        if (viewMode == "list") {
             dragableObjects = [...foldersListArray, ...activitiesListArray, ...coursesListArray];
         } else {
-            dragableObjects = [...foldersArray, ...activitiesArray, ...coursesArray];
+            dragableObjects = [...foldersArray, ...activitiesArray, ...coursesArray, ];
         }
+
 
         dragableObjects.forEach(object => {
             object.style.touchAction = "none";
