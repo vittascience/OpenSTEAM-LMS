@@ -165,6 +165,10 @@ $('body').on('click', '.modal-classroom-delete', function (e) {
     }
 })
 
+function persistDeleteClassroom() {
+    
+}
+
 //classroom modal-->modifier
 $('body').on('click', '.modal-classroom-modify', function (e) {
     // $('#classroom-classes-title').text(`${i18next.t('classroom.classes.form.updateTitle')}`);

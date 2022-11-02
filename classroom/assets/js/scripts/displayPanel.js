@@ -236,10 +236,6 @@ DisplayPanel.prototype.classroom_dashboard_form_classe_panel_update = function (
 
 DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function () {
     ClassroomSettings.activity = false;
-    // Refresh the activities
-    Main.getClassroomManager().getTeacherActivities(Main.getClassroomManager()).then(() => {
-        teacherActivitiesDisplay();
-    });
 }
 
 DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
@@ -419,27 +415,20 @@ function getTeacherActivity() {
         </button>
 
         <ul class="dropdown-menu">
-            <li>
-                <a href="#" class="dropdown-item" href="#" onclick="attributeActivity(${Activity.id})" >
-                    ${capitalizeFirstLetter(i18next.t('words.attribute'))}
-                </a>
+            <li class="dropdown-item" onclick="attributeActivity(${Activity.id})">
+                ${capitalizeFirstLetter(i18next.t('words.attribute'))}
             </li>
         
-            <li>
-                <a class="dropdown-item" href="#" onclick="createActivity(null,${Activity.id})">
-                    ${capitalizeFirstLetter(i18next.t('words.duplicate'))}
-                </a>
+            <li class="dropdown-item" onclick="createActivity(null,${Activity.id})">
+                ${capitalizeFirstLetter(i18next.t('words.duplicate'))}
             </li>
                 
-            <li>
-                <a class="dropdown-item" onclick="activityModify(${Activity.id})" href="#">
-                    ${capitalizeFirstLetter(i18next.t('words.modify'))}
-                </a>
+            <li class="dropdown-item" onclick="activityModify(${Activity.id})">
+                ${capitalizeFirstLetter(i18next.t('words.modify'))}
             </li>
-            <li>
-                <a class="dropdown-item modal-activity-delete" href="#">
-                    ${capitalizeFirstLetter(i18next.t('words.delete'))}
-                </a>
+
+            <li class="dropdown-item modal-activity-delete">
+                ${capitalizeFirstLetter(i18next.t('words.delete'))}
             </li>
         </ul>
     </div>`

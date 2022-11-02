@@ -122,15 +122,6 @@ const classroomModals = {
             icon: '',
             title: 'classroom.modals.settingsTeacher.title'
         },
-        /*  <h4>Choisir une image de profil</h4>
-                    <input type="checkbox" id="firstletter-teach-setting"><label>Première lettre de mon nom</label></br>
-                    <input type="file" id="avatar" name="avatar"accept="image/png, image/jpeg"><label style="margin-left: 1em;font-size: 1em;">Importer une image de profil</label></br>
-                          
-                    <h4>Notifications mail</h4>
-                    <input type="checkbox" id="action-teach-setting" ><label>Je souhaite être informé de toute action dans mes classes</label></br>
-                    <input type="checkbox" id="abstract-teach-setting" ><label>Je souhaite recevoir un résumé quotidien</label></br>
-                    <input type="checkbox" id="nonotif-teach-setting" ><label>Je ne souhaite pas recevoir de notification par mail</label></br>
-                    */
         content: `<div>
                     <h4 data-i18n="classroom.modals.settingsTeacher.lang">Langue</h4>
                     <div id="switch-lang-list">

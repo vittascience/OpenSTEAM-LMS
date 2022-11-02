@@ -908,14 +908,12 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
     let sortedList = $("#filter-activity-select").val() != "desc" ? list.sort((a, b) => {return b.id - a.id}) : list;
     let displayStyle = Main.getClassroomManager().displayMode;
 
-
     if (foldersManager.treeFolder.html() == "") {
         foldersManager.resetTreeFolders();
     }
 
     $('#list-activities-teacher').html(``);
     displayStyle == "list" ? $("#list-activities-teacher").css("flex-direction", "column") : $("#list-activities-teacher").css("flex-direction", "row");
-
 
     // Add sorting to the folders
     let foldersZ = keyword ? filterTeacherFolderInList(keyword, asc) : foldersManager.userFolders;
@@ -928,7 +926,6 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
             }
         }
     });
-
     
     sortedList.forEach(element => {
         if (element.folder == null && foldersManager.actualFolder == null) {
@@ -940,7 +937,6 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
         }
     });
 
-
     coursesManager.myCourses.forEach(course => {
         if (course.folder == null && foldersManager.actualFolder == null) {
             $('#list-activities-teacher').append(coursesManager.teacherCourseItem(course, displayStyle)); 
@@ -951,14 +947,12 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
         }
     });
 
-
     foldersManager.dragulaInitObjects();
     $('[data-toggle="tooltip"]').tooltip();
 }
 
 
 function filterTeacherFolderInList(keywords = [], asc = true) {
-
     let expression = ''
     for (let i = 0; i < keywords.length; i++) {
         expression += '(?=.*'
@@ -977,12 +971,6 @@ function filterTeacherFolderInList(keywords = [], asc = true) {
         })
     }
 }
-
-
-
-$('body').on('change', '#action-teach-setting', function () {
-    console.log('check')
-})
 
 /**
  * Toggle the block class mode (to lock/unlock the access to the classroom)
