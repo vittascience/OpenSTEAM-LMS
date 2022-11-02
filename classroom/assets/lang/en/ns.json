@@ -260,7 +260,11 @@
 			"activationLink": "Activation link enabled",
 			"activationLinkDisabled": "Activation link disabled",
 			"deleteStudent": "Delete the student",
-			"deleteStudentConfirm": "Are you sure you want to delete this student?"
+			"deleteStudentConfirm": "Are you sure you want to delete this student?",
+			"deleteModal": {
+				"message": "You are about to delete this class",
+				"deleteTitle": "Class deletion"
+			}
 		},
 		"activities": {
 			"title": "Activities",

@@ -19,6 +19,7 @@ class ClassroomManager {
     constructor() {
         this._myActivities = [];
         this._myClasses = [];
+        this._selectedClassroomToDelete = null;
         this._myTeacherActivities = [];
         this._tasksQueue = [];
         this._isExecutingTaskInQueue = false;

@@ -260,7 +260,11 @@
 			"activationLink": "Lien d'activation activé",
 			"activationLinkDisabled": "Lien d'activation désactivé",
 			"deleteStudent": "Supprimer l'élève",
-			"deleteStudentConfirm": "Voulez-vous vraiment supprimer cet élève ?"
+			"deleteStudentConfirm": "Voulez-vous vraiment supprimer cet élève ?",
+			"deleteModal": {
+				"message": "Vous êtes sur le point de supprimer la classe",
+				"deleteTitle": "Suppression de classe"
+			}
 		},
 		"activities": {
 			"title": "Activités",

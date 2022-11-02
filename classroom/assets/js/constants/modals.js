@@ -1347,5 +1347,30 @@ const classroomModals = {
                         </div>
                     </div>`,
         footer: ``
+    },
+    'delete-classroom': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.classes.deleteModal.deleteTitle'
+        },
+        content: `  <div id="delete-classroom-modal">
+                        <div class="col-12">
+
+                            <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="classroom.classes.deleteModal.message"></h3>
+
+                            <div class="text-center c-secondary-form">
+                                <p data-i18n="manager.users.disable.message" class="text-center"></p>
+                                <input type="text" name="validation-delete-classroom" id="validation-delete-classroom" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                            </div>
+
+                            <div class="text-center">
+                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelDeleteClassroom()" data-i18n="manager.buttons.cancel">Annuler</button>
+                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteClassroom()" data-i18n="manager.buttons.validate">Valider</button>
+                            </div>
+
+                        </div>
+                    </div>`,
+        footer: ``
     }
 }

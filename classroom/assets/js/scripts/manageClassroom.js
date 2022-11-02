@@ -148,25 +148,32 @@ $('body').on('click', '#update-pseudo-close', function () {
 //classroom modal-->supprimer
 $('body').on('click', '.modal-classroom-delete', function (e) {
     e.stopPropagation();
-    let confirm = window.confirm("Etes vous sur de vouloir supprimer la classe?")
-    if (confirm) {
-        ClassroomSettings.classroom = $(this).parent().parent().parent().attr('data-link')
-        Main.getClassroomManager().deleteClassroom(ClassroomSettings.classroom).then(function (classroom) {
-            // concatenate classroom name + group in GAR context, else set only classroom name
-            const classroomFullName = classroom.group != null 
-                                        ? `${classroom.name}-${classroom.group}`
-                                        : `${classroom.name}`
-
-            deleteClassroomInList(classroom.link);
-            classroomsDisplay();
-            displayNotification('#notif-div', "classroom.notif.classroomDeleted", "success", `'{"classroomName": "${classroomFullName}"}'`);
-        })
-        ClassroomSettings.classroom = null
-    }
+    Main.getClassroomManager()._selectedClassroomToDelete = $(this).parent().parent().parent().attr('data-link');
+    pseudoModal.openModal("delete-classroom");
 })
 
 function persistDeleteClassroom() {
-    
+    let validation = $('#validation-delete-classroom').val(),
+        placeholderWord = $('#validation-delete-classroom').attr('placeholder');
+
+    if (validation == placeholderWord) {
+        Main.getClassroomManager().deleteClassroom(Main.getClassroomManager()._selectedClassroomToDelete).then(function (classroom) {
+            // concatenate classroom name + group in GAR context, else set only classroom name
+            const classroomFullName = classroom.group != null ? `${classroom.name}-${classroom.group}` : `${classroom.name}`;
+            deleteClassroomInList(classroom.link);
+            classroomsDisplay();
+            displayNotification('#notif-div', "classroom.notif.classroomDeleted", "success", `'{"classroomName": "${classroomFullName}"}'`);
+            pseudoModal.closeAllModal();
+        })
+        ClassroomSettings.classroom = null;
+    } else {
+        displayNotification('#notif-div', "manager.input.writeDelete", "error");
+    }
+}
+
+function cancelDeleteClassroom() {
+    pseudoModal.closeAllModal();
+    Main.getClassroomManager()._selectedClassroomToDelete = null;
 }
 
 //classroom modal-->modifier
@@ -913,7 +920,6 @@ function displayStudentsInClassroom(students, link=false) {
 
     // get the current classroom index of activities
     let arrayIndexesActivities = listIndexesActivities(students);
-    console.log(students)
     students.forEach(element => {
         // reorder the current student activities to fit to the classroom index of activities
         let arrayActivities = reorderActivities(element.activities, arrayIndexesActivities);
