@@ -877,7 +877,7 @@
             <img src="assets/media/folders/createFolder.svg" alt="folders" onload="SVGInject(this)">
         </button>
         <button class="btn c-btn-icon-only" onclick="foldersManager.seekFolderModal()">
-            <img src="assets/media/folders/icon_arborescence.svg" alt="arb-folders" onload="SVGInject(this)">
+            <img src="assets/media/folders/folder_tree.svg" alt="arb-folders" onload="SVGInject(this)">
         </button>
     </div>
 
@@ -2114,7 +2114,7 @@
                 </button>
 
                 <button class="btn c-btn-secondary" id="course-create-activity">
-                    <span data-i18n=""><span class="mr-1" data-i18n="classroom.activities.add">Créer une activité</span><i class="fas fa-chevron-right"></i>
+                    <span data-i18n=""><span class="mr-1" data-i18n="classroom.activities.add" onclick="showExercicePanel()">Créer une activité</span><i class="fas fa-chevron-right"></i>
                 </button>
             </div>
 
@@ -2129,11 +2129,6 @@
 
 
         <div class="row text-center w-100">
-            <div class="col-sm mb-2">
-                <button class="btn c-btn-grey" onclick="" id="course-visualize">
-                    <span data-i18n="">Visualiser</span>
-                </button>
-            </div>
             <div class="col-sm order-first order-sm-last mb-2">
                 <button class="btn c-btn-secondary" onclick="coursesManager.goToTitle(true)" id="course-validate">
                     <span data-i18n="classroom.activities.form.validate">Valider</span> <i class="fas fa-check"></i>
@@ -2207,7 +2202,7 @@
 
         <div class="row text-center w-100">
             <div class="col-sm mb-2">
-                <button class="btn c-btn-grey" onclick="coursesManager.goToCreate()" id="course-visualize">
+                <button class="btn c-btn-grey" onclick="coursesManager.goToCreate()">
                     <span data-i18n="">Retour</span>
                 </button>
             </div>
@@ -2307,7 +2302,7 @@
 
         <div class="row text-center w-100">
             <div class="col-sm mb-2">
-                <button class="btn c-btn-grey" onclick="coursesManager.goToTitle()" id="course-visualize">
+                <button class="btn c-btn-grey" onclick="coursesManager.goToTitle()">
                     <span data-i18n="">Retour</span>
                 </button>
             </div>

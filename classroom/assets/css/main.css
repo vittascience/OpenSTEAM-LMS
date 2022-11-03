@@ -3538,7 +3538,9 @@ h3.section-done {
 .preview-result-course-activity-title {
     border: 1px solid #00000030;
     border-radius: 10px;
+    cursor: grab;
 }
+
 
 .course-activities-result p {
     padding: 0.5em;
@@ -3567,4 +3569,8 @@ h3.section-done {
     text-align: center;
     font-weight: bold;
     color: var(--classroom-primary);
+}
+
+#Calque_2 {
+    height: 30px;
 }

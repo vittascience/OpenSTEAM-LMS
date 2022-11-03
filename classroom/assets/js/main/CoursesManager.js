@@ -216,6 +216,7 @@ class CoursesManager {
             const activityImg = foldersManager.icons.hasOwnProperty(activity.type) ? `<img class="list-item-img d-inline" src="${foldersManager.icons[activity.type]}" alt="${activity.type}" class="folder-icons">` : "<span class='list-item-img'> <div class='list-item-no-icon'><i class='fas fa-laptop'></i></div></span>",
                 activityDiv = document.createElement('div');
             activityDiv.classList.add('activity-item-courses');
+            activityDiv.classList.add('mt-3');
             activityDiv.setAttribute('data-activity-id', activity.id);
             // add checkbox 
             activityDiv.innerHTML = `
