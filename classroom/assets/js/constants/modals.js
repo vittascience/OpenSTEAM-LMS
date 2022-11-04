@@ -489,9 +489,9 @@ const classroomModals = {
         <br>
         <div class="activity-add-form c-secondary-form">
             <label class="form-check-label" for="create_begin_date" data-i18n="[html]manager.table.dateBeginFA"></label>
-            <input type="date" id="create_begin_date" name="trip-start" max="2023-12-31">
+            <input type="date" id="create_begin_date" name="trip-start" max="2100-12-31">
             <label class="form-check-label" for="create_end_date" data-i18n="[html]manager.table.dateEndFA"></label>
-            <input type="date" id="create_end_date" name="trip-start" max="2025-12-31">
+            <input type="date" id="create_end_date" name="trip-start" max="2100-12-31">
             <label class="form-check-label" for="create_max_students" data-i18n="[html]manager.table.maxStudentsFA"></label>
             <input type="number" id="create_max_students">
         </div>
@@ -752,7 +752,7 @@ const classroomModals = {
     
         <hr>
     
-        <div id="update_applications_ga">
+        <div id="update_applications_ga" class="mb-3">
         </div>
     </div>
     
