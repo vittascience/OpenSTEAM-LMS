@@ -1109,6 +1109,7 @@
 			"actualTeachers": "Current teachers",
 			"maxStudentsPerTeachers": "Maximum students per teacher",
 			"maxStudentsPerTeacher": "Maximum students per teacher",
+			"maxClassroomsPerTeacher": "Maximum classrooms per teacher",
 			"activityType": "Activity type",
 			"maxActivitiesPerGroup": "Maximum activities per group",
 			"maxActivitiesPerTeacher": "Maximum activities per teacher",

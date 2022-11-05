@@ -3383,7 +3383,7 @@ function persistUpdateDefaultGroupsRestriction() {
     let maxStudentsValue = $('#default-groups-restrictions-value-maxStudents').val(),
         maxTeachersValue = $('#default-groups-restrictions-value-maxTeachers').val(),
         maxStudentsPerTeacherValue = $('#default-groups-restrictions-value-maxStudentsPerTeacher').val(),
-        maxClassromms = $('#default-groups-restrictions-value-maxClassrooms').val()
+        maxClassromms = $('#default-groups-restrictions-value-maxClassroomsPerTeacher').val()
 
 
     mainManager.getmanagerManager().updateDefaultGroupsRestrictions(maxStudentsValue, maxTeachersValue, maxStudentsPerTeacherValue, maxClassromms).then((response) => {

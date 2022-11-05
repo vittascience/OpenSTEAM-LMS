@@ -149,6 +149,7 @@ $('body').on('click', '#update-pseudo-close', function () {
 $('body').on('click', '.modal-classroom-delete', function (e) {
     e.stopPropagation();
     Main.getClassroomManager()._selectedClassroomToDelete = $(this).parent().parent().parent().attr('data-link');
+    $('#validation-delete-classroom').val("");
     pseudoModal.openModal("delete-classroom");
 })
 
