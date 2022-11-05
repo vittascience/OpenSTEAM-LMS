@@ -643,7 +643,8 @@
 			"password": "Password",
 			"password_placeholder": "Your password.",
 			"forgot_password": "I forgot my password.",
-			"btn_connect": "Log in"
+			"btn_connect": "Log in",
+			"btn_activate": "Activate my account"
 		},
 		"success": "Authentication was successful. Redirection...",
 		"error": "Error. Please verify your login details.",
@@ -1021,7 +1022,8 @@
 			"studentsPerTeacher": "Students per teacher",
 			"maxStudents": "Maximum students",
 			"maxActivities": "Maximum activities",
-			"groupsRestrictions": "Group's restrictions"
+			"groupsRestrictions": "Group's restrictions",
+			"classroomPerTeacher": "Classroom(s) per teacher"
 		},
 		"title": {
 			"activeUsers": "Active users",
@@ -1121,7 +1123,9 @@
 			"restriction": "Restriction",
 			"dateBeginFA": "<i class='far fa-calendar-alt'></i>  Begin date",
 			"dateEndFA": "<i class='far fa-calendar-alt'></i>  End date",
-			"maxStudentsFA": "<i class=fas fa-user-alt'></i>  Maximum students"
+			"maxStudentsFA": "<i class='fas fa-user-alt'></i>  Maximum students",
+			"maxClassroomsFA": "<i class='fas fa-chalkboard-teacher'></i>  Maximum classrooms",
+			"maxClassrooms": "Maximum classrooms"
 		},
 		"apps": {
 			"apps": "Apps",

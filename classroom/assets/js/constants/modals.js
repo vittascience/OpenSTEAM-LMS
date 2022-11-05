@@ -486,6 +486,9 @@ const classroomModals = {
             <input type="date" id="create_end_date" name="trip-start" max="2025-12-31">
             <label class="form-check-label" for="create_max_students" data-i18n="[html]manager.table.maxStudentsFA"></label>
             <input type="number" id="create_max_students">
+
+            <label class="form-check-label" for="create_max_classrooms" data-i18n="[html]manager.table.maxClassroomsFA"></label>
+            <input type="number" id="create_max_classrooms">
         </div>
     </div>
 
