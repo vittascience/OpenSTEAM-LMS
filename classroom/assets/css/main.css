@@ -693,6 +693,10 @@ button {
     z-index: 10;
 }
 
+#notif-div div {
+    opacity: 1;
+}
+
 .vitta-notif {
     border-radius: 3em;
     background-color: var(--classroom-black);
@@ -2379,7 +2383,7 @@ h3.section-done {
 }
 
 .results-panel p {
-    font-size: 2em;
+    font-size: 1.5em;
     color: var(--classroom-text-1);
     text-align: center;
     text-transform: uppercase;
@@ -3573,4 +3577,8 @@ h3.section-done {
 
 #Calque_2 {
     height: 30px;
+}
+
+.image-vh {
+    height: 40vh !important;
 }
