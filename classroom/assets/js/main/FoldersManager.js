@@ -207,12 +207,17 @@ class FoldersManager {
     }
 
     goToFolder(folderId) {
+        this.resetDashboardList();
         this.actualFolder = folderId;
         this.resetTreeFolders();
         if (folderId != null) {
             this.createTreeFolders();
         }
         this.displayAndDragulaInitObjects();
+    }
+
+    resetDashboardList() {
+        document.getElementById("list-activities-teacher").innerHTML = "";
     }
 
     deleteFolderFromUserFolders(id) {

@@ -236,6 +236,11 @@ DisplayPanel.prototype.classroom_dashboard_form_classe_panel_update = function (
 
 DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function () {
     ClassroomSettings.activity = false;
+    if (foldersManager) {
+        if (foldersManager.actualFolder != null) {
+            foldersManager.goToFolder(null)
+        }
+    }
 }
 
 DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
