@@ -307,7 +307,8 @@ class CoursesManager {
     persistTitlePage() {
         const title = document.getElementById('course-title').value,
             description = document.getElementById('course-description').value,
-            image = document.getElementById('course-image').files[0];
+            image = null;
+            //image = document.getElementById('course-image').files[0];
 
         if (title && description) {
             this.courseData.title = title;
@@ -322,7 +323,7 @@ class CoursesManager {
     persistParameters() {
         const duration = document.getElementById('course-duration').value,
             difficulty = document.getElementById('course-difficulty').value,
-            language = getCookie("lng") == "" ? "fr" : language,
+            language = getCookie("lng") != "" ? getCookie("lng") : "fr",
             license = document.getElementById('course-license').value;
 
         if (duration && difficulty && language && license) {
