@@ -17,8 +17,8 @@ use Classroom\Entity\LtiTool;
 
 $nonce = base64_encode(random_bytes(16));
 
-//$platform_url = isset($_SERVER['HTTPS']) ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'];
 $platform_url = getenv('VS_HOST');
+
 $loginHint = json_decode($_REQUEST['login_hint'], true);
 
 $ltiTool = $entityManager->getRepository(LtiTool::class)->findOneByClientId($_REQUEST['client_id']);
@@ -99,7 +99,8 @@ else  {
 
 $token = JWT::encode(
   $jwt_payload,
-  $ltiTool->getPrivateKey(),
+  //$ltiTool->getPrivateKey(),
+   file_get_contents(__DIR__ . "/keys/private.key"),
   'RS256',
   $ltiTool->getKid()
 );
