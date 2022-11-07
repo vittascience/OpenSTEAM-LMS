@@ -479,9 +479,13 @@ function goBackToActivities() {
 $('#fill-in-add-inputs').click(() => {
     if ($("#fill-in-content").getSelectText() != "") {
         $('#fill-in-content').bbcode();
-        replaceSelectionWithHtml(`<span class="lms-answer">${$("#fill-in-content").getSelectText()}</span>\&nbsp`)
+
+        let randomString = Math.random().toString(36).substring(7);
+        replaceSelectionWithHtml(`<span class="lms-answer" data-id="${randomString}">${$("#fill-in-content").getSelectText()}</span>\&nbsp`)
         let newText = $('#fill-in-content').htmlcode();
         $('#fill-in-content').htmlcode(newText);
+
+        setCaret('fill-in-content', randomString);
     } else {
         $('#fill-in-content').bbcode();
         $('#fill-in-content').htmlcode($('#fill-in-content').htmlcode() + `\&nbsp;<span class="lms-answer">\&nbsp;réponse\&nbsp;</span>\&nbsp`);
@@ -538,6 +542,7 @@ $('#dragAndDrop-add-inputs').click(() => {
         replaceSelectionWithHtml(`<span class="lms-answer">${$("#drag-and-drop-content").getSelectText()}</span>\&nbsp`);
         let newText = $('#drag-and-drop-content').htmlcode();
         $('#drag-and-drop-content').htmlcode(newText);
+        setCaret('drag-and-drop-content', randomString);
     } else {
         $('#drag-and-drop-content').bbcode()
         $('#drag-and-drop-content').htmlcode($('#drag-and-drop-content').htmlcode() + `\&nbsp;<span class="lms-answer">\&nbsp;réponse\&nbsp;</span>\&nbsp;`);

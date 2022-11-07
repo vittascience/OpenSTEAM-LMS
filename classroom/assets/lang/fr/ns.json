@@ -551,6 +551,9 @@
 		"pagination": {
 			"previous": "Précédent",
 			"next": "Suivant"
+		},
+		"courses": {
+			"coursesManager": "Suppression du parcours"
 		}
 	},
 	"faqInfo": {
@@ -1583,5 +1586,44 @@
 				"dragAndDrop": "Cette activité permet de glisser et déposer des mots dans différents espaces vides."
 			}
 		}
+	},
+	"courses": {
+		"addActivity":"Ajouter une activité",
+		"addActivities":"Ajouter des activités",
+		"createActivity": "Créer une activité",
+		"searchActivity": "Rechercher une activité",
+		"placeholderTitle": "Titre de votre activité",
+		"placeholderDescription": "Description de votre activité",
+		"pagination": {
+			"create":"Création du parcours",
+			"title": "Titre",
+			"parameters": "Paramètres",
+			"attribution": "Attribution"
+		},
+		"parameters": {
+			"title":"Titre du parcours <span class=\"c-text-red\">*</span>",
+			"description": "Description du parcours <span class=\"c-text-red\">*</span>",
+			"difficulty": "Difficulté <span class=\"c-text-red\">*</span>",
+			"difficultyLevel": {
+				"choose": "Choisissez une difficulté",
+				"easy": "Débutant",
+				"medium": "Intermédiaire",
+				"advanced": "Avancé",
+				"expert": "Expert"
+			},
+			"duration": "Durée (en min) <span class=\"c-text-red\">*</span>",
+			"license": "Licence d'utilisation <span class=\"c-text-red\">*</span>",
+			"licenseType": {
+				"choose": "Choisissez une licence",
+				"1": "Privée (vous seul•e pouvez voir cette ressource)",
+				"2": "Déréférencée (ressource partageable par lien mais introuvable sur la page Ressources)",
+				"3": "Publique CC-BY-NC-SA (ressource libre, non-commerciale et modifiable)",
+				"4": "Publique CC-BY-NC-ND (ressource libre, non-commerciale et non-modifiable)"
+			}
+		},
+		"successfullyCreated": "Parcours créé avec succès",
+		"attribution": "Attriber le parcours <i class='fas fa-chevron-right'></i>",
+		"return": "Retour <i class='fas fa-chevron-right'></i>",
+		"update": "Modifier le parcours"
 	}
 }

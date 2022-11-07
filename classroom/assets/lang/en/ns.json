@@ -528,6 +528,9 @@
 		"pagination": {
 			"previous": "Previous",
 			"next": "Next"
+		},
+		"courses": {
+			"coursesManager": "Courses deletion"
 		}
 	},
 	"faqInfo": {
@@ -1270,5 +1273,44 @@
 				"dragAndDrop": "This activity allows you to drag and drop words into different empty spaces."
 			}
 		}
+	},
+	"courses": {
+		"addActivity":"Add an activity",
+		"addActivities":"Add activities",
+		"createActivity": "Create an activity",
+		"searchActivity": "Search an activity",
+		"placeholderTitle": "Activity title",
+		"placeholderDescription": "Activity description",
+		"pagination": {
+			"create":"Course's creation",
+			"title": "Title",
+			"parameters": "Parameters",
+			"attribution": "Attribution"
+		},
+		"parameters": {
+			"title":"Course title <span class=\"c-text-red\">*</span>",
+			"description": "Course's description <span class=\"c-text-red\">*</span>",
+			"difficulty": "Difficulty <span class=\"c-text-red\">*</span>",
+			"difficultyLevel": {
+				"choose": "Choose a difficulty level",
+				"easy": "Easy",
+				"medium": "Medium",
+				"advanced": "Advanced",
+				"expert": "Expert"
+			},
+			"duration": "Duration (minutes) <span class=\"c-text-red\">*</span>",
+			"license": "User license <span class=\"c-text-red\">*</span>",
+			"licenseType": {
+				"choose": "Choose a license",
+				"1": "Private (only you can see this resource)",
+				"2": "Unreferenced (shareable resource by link but not findable on the Resources page)",
+				"3": "Public CC-BY-NC-SA (free, non-commercial and modifiable resource)",
+				"4": "Public CC-BY-NC-ND (free, non-commercial and non-modifiable resource)"
+			}
+		},
+		"successfullyCreated": "Course created successfully",
+		"attribution": "Course attribution <i class='fas fa-chevron-right'></i>",
+		"return": "Return <i class='fas fa-chevron-right'></i>",
+		"update": "Update the course"
 	}
 }

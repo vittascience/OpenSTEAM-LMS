@@ -46,11 +46,11 @@
 
             <div class="col-sm mb-2">
                 <button class="btn c-btn-grey" id="course-add-activity" onclick="coursesManager.addActivityToCourse()">
-                    <span data-i18n="">Ajouter une activité</span>
+                    <span data-i18n="courses.addActivity">Ajouter une activité</span>
                 </button>
 
                 <button class="btn c-btn-secondary" id="course-create-activity">
-                    <span data-i18n=""><span class="mr-1" data-i18n="classroom.activities.add" onclick="showExercicePanel()">Créer une activité</span><i class="fas fa-chevron-right"></i>
+                    <span data-i18n="courses.createActivity"><span class="mr-1" data-i18n="classroom.activities.add" onclick="showExercicePanel()">Créer une activité</span><i class="fas fa-chevron-right"></i>
                 </button>
             </div>
 
@@ -67,7 +67,7 @@
         <div class="row text-center w-100">
             <div class="col-sm order-first order-sm-last mb-2">
                 <button class="btn c-btn-secondary" onclick="coursesManager.goToTitle(true)" id="course-validate">
-                    <span data-i18n="classroom.activities.form.validate">Valider</span> <i class="fas fa-check"></i>
+                    <span data-i18n="manager.buttons.validate">Valider</span> <i class="fas fa-check"></i>
                 </button>
             </div>
         </div>
@@ -85,7 +85,7 @@
         <!-- Step 1 -->
         <div class="col text-center">
             <span class="form-activity form-activity-activate"><i class="fas fa-check"></i></span>
-            <span data-i18n="">Création du parcours</span>
+            <span data-i18n="courses.pagination.create"></span>
         </div>
 
         <div class="col"></div>
@@ -93,7 +93,7 @@
         <!-- Step  -->
         <div class=" col text-center">
             <span class="form-activity form-activity-activate">2</span>
-            <span data-i18n="">Titre</span>
+            <span data-i18n="courses.pagination.title"></span>
         </div>
 
         <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
@@ -101,7 +101,7 @@
         <!-- Step 3 -->
         <div class=" col text-center">
             <span class="form-activity form-activity-desactivate">3</span>
-            <span data-i18n="">Paramètres</span>
+            <span data-i18n="courses.pagination.parameters"></span>
         </div>
 
         <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
@@ -109,7 +109,7 @@
         <!-- Step 4 -->
         <div class="col text-center">
             <span class="form-activity form-activity-desactivate">4</span>
-            <span data-i18n="classroom.activities.form.4">Attribution</span>
+            <span data-i18n="courses.pagination.attribution"></span>
         </div>
     </nav>
 
@@ -118,25 +118,17 @@
         <div id="course-title-content" class="col-8 course-content">
             
             <div class="form-group">
-                <label for="course-title">Titre de l'activité <span class="c-text-red">*Obligatoire</span></label>
-                <input type="text" class="form-control" id="course-title" placeholder="Titre de votre activité">
+                <label for="course-title" data-i18n="[html]courses.parameters.title"></label>
+                <input type="text" class="form-control" id="course-title" data-i18n="[placeholder]courses.placeholderTitle">
             </div>
 
             <div class="form-group">
-                <label for="course-description">Description <span class="c-text-red">*Obligatoire</span></label>
-                <textarea class="form-control" id="course-description" placeholder="Quelques mots de présentation"></textarea>
+                <label for="course-description" data-i18n="[html]courses.parameters.description"></label>
+                <textarea class="form-control" id="course-description" data-i18n="[placeholder]courses.placeholderDescription"></textarea>
             </div>
-
-            <!--             
-            <div class="form-group">
-                <label for="course-image">Image de couverture <span class="c-text-red">*Obligatoire</span></label>
-                <input type="file" class="form-control" id="course-image" placeholder="Ajouter une image">
-            </div> 
-            -->
 
         </div>
         
-
 
         <div class="row text-center w-100">
             <div class="col-sm mb-2">
@@ -165,7 +157,7 @@
         <!-- Step 1 -->
         <div class="col text-center">
             <span class="form-activity form-activity-activate"><i class="fas fa-check"></i></span>
-            <span data-i18n="">Création du parcours</span>
+            <span data-i18n="courses.pagination.create"></span>
         </div>
 
         <div class="col"></div>
@@ -173,7 +165,7 @@
         <!-- Step  -->
         <div class=" col text-center">
             <span class="form-activity form-activity-activate"><i class="fas fa-check"></i></span>
-            <span data-i18n="">Titre</span>
+            <span data-i18n="courses.pagination.title"></span>
         </div>
 
         <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
@@ -181,7 +173,7 @@
         <!-- Step 3 -->
         <div class=" col text-center">
             <span class="form-activity form-activity-activate">3</span>
-            <span data-i18n="">Paramètres</span>
+            <span data-i18n="courses.pagination.parameters"></span>
         </div>
 
         <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
@@ -189,7 +181,7 @@
         <!-- Step 4 -->
         <div class="col text-center">
             <span class="form-activity form-activity-desactivate">4</span>
-            <span data-i18n="classroom.activities.form.4">Attribution</span>
+            <span data-i18n="courses.pagination.attribution"></span>
         </div>
     </nav>
 
@@ -199,13 +191,13 @@
             
             <div class="form-row c-secondary-form">
                 <div class="form-group col-md">
-                    <label for="course-difficulty">Difficulté <span class="c-text-red">*Obligatoire</span></label>
+                    <label for="course-difficulty" data-i18n="[html]courses.parameters.difficulty"></label>
                     <select class="form-control" id="course-difficulty" aria-label="Default select example">
-                        <option selected value="">Choississez la difficulté</option>
-                        <option value="0">Facile</option>
-                        <option value="1">Intermédiaire</option>
-                        <option value="2">Avancé</option>
-                        <option value="3">Expert</option>
+                        <option selected value="" data-i18n="courses.parameters.difficultyLevel.choose">Choississez la difficulté</option>
+                        <option value="0" data-i18n="courses.parameters.difficultyLevel.easy">Facile</option>
+                        <option value="1" data-i18n="courses.parameters.difficultyLevel.medium">Intermédiaire</option>
+                        <option value="2" data-i18n="courses.parameters.difficultyLevel.advenced">Avancé</option>
+                        <option value="3" data-i18n="courses.parameters.difficultyLevel.expert">Expert</option>
                     </select>
                 </div>
             </div>
@@ -213,7 +205,7 @@
             <div class="form-row c-secondary-form">
 
                 <div class="form-group col-md">
-                    <label for="course-duration">Durée (en min)<span class="c-text-red">*Obligatoire</span></label>
+                    <label for="course-duration" data-i18n="[html]courses.parameters.duration"></label>
                     <input type="number" name="course-duration" id="course-duration" class="form-control" value="1" min="1">
                 </div>
 
@@ -221,13 +213,13 @@
 
             <div class="form-row c-secondary-form">
                 <div class="form-group col-md">
-                    <label for="course-license">License d'utilisation <span class="c-text-red">*Obligatoire</span></label>
+                    <label for="course-license" data-i18n="[html]courses.parameters.license"></label>
                     <select class="form-control" id="course-license" aria-label="Default select example">
-                        <option selected value="">Choississez la licence</option>
-                        <option value="0">Privée (vous seul•e pouvez voir cette ressource)</option>
-						<option value="3">Déréférencée (ressource partageable par lien mais introuvable sur la page Ressources)</option>
-						<option value="1">Publique CC-BY-NC-SA (ressource libre, non-commerciale et modifiable)</option>
-						<option value="2">Publique CC-BY-NC-ND (ressource libre, non-commerciale et non-modifiable)</option>
+                        <option selected value="" data-i18n="courses.parameters.licenseType.choose">Choississez la licence</option>
+                        <option value="0" data-i18n="courses.parameters.licenseType.1">Privée (vous seul•e pouvez voir cette ressource)</option>
+						<option value="3" data-i18n="courses.parameters.licenseType.2">Déréférencée (ressource partageable par lien mais introuvable sur la page Ressources)</option>
+						<option value="1" data-i18n="courses.parameters.licenseType.3">Publique CC-BY-NC-SA (ressource libre, non-commerciale et modifiable)</option>
+						<option value="2" data-i18n="courses.parameters.licenseType.4">Publique CC-BY-NC-ND (ressource libre, non-commerciale et non-modifiable)</option>
                     </select>
                 </div>
             </div>
@@ -241,7 +233,7 @@
         <div class="row text-center w-100">
             <div class="col-sm mb-2">
                 <button class="btn c-btn-grey" onclick="coursesManager.goToTitle()">
-                    <span data-i18n="">Retour</span>
+                    <span data-i18n="words.return">Retour</span>
                 </button>
             </div>
             <div class="col-sm order-first order-sm-last mb-2">
@@ -263,7 +255,7 @@
         <!-- Step 1 -->
         <div class="col text-center">
             <span class="form-activity form-activity-activate"><i class="fas fa-check"></i></span>
-            <span data-i18n="">Création du parcours</span>
+            <span data-i18n="courses.pagination.create"></span>
         </div>
 
         <div class="col"></div>
@@ -271,7 +263,7 @@
         <!-- Step  -->
         <div class=" col text-center">
             <span class="form-activity form-activity-activate"><i class="fas fa-check"></i></span>
-            <span data-i18n="">Titre</span>
+            <span data-i18n="courses.pagination.title"></span>
         </div>
 
         <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
@@ -279,7 +271,7 @@
         <!-- Step 3 -->
         <div class=" col text-center">
             <span class="form-activity form-activity-activate"><i class="fas fa-check"></i></span>
-            <span data-i18n="">Paramètres</span>
+            <span data-i18n="courses.pagination.parameters"></span>
         </div>
 
         <div class="col" style="border-bottom: 1px solid var(--classroom-text-1); height: 1px; align-self: center;"></div>
@@ -287,7 +279,7 @@
         <!-- Step 4 -->
         <div class="col text-center">
             <span class="form-activity form-activity-activate">4</span>
-            <span data-i18n="classroom.activities.form.4">Attribution</span>
+            <span data-i18n="courses.pagination.attribution"></span>
         </div>
     </nav>
 
@@ -295,27 +287,25 @@
 
         <!-- Success title -->
         <div class="text-center px-1">
-            <h3 class="c-text-primary text-uppercase font-weight-bold">Parcours créé avec succès</h3>
+            <h3 class="c-text-primary text-uppercase font-weight-bold" data-i18n="courses.successfullyCreated">Parcours créé avec succès</h3>
         </div>
 
         <div class="container text-center">
 
             <div class="row my-2">
                 <div class="col-sm mb-2">
-                    <button id="attribute-course" onclick="coursesManager.attributeCourse()" class="new-activity-panel3 btn c-btn-primary">
-                        Attribuer le parcours <i class="fas fa-chevron-right"></i>
+                    <button id="attribute-course" data-i18n="[html]courses.attribution" onclick="coursesManager.attributeCourse()" class="new-activity-panel3 btn c-btn-primary">
                     </button>
                 </div>
 
                 <div class="col-sm mb-2">
-                    <button class="btn c-btn-primary">
-                        Retour <i class="fas fa-chevron-right"></i>
+                    <button class="btn c-btn-primary" data-i18n="[html]courses.return">
                     </button>
                 </div>
             </div>
 
             <p data-i18n="classroom.activities.form.hint"></p>
-            <button class="btn c-btn-outline-primary" onclick="coursesManager.updateCourse()">
+            <button class="btn c-btn-outline-primary" onclick="coursesManager.updateCourse()" data-i18n="courses.update">
                 Modifier le parcours
             </button>
             
@@ -396,20 +386,6 @@
                             </div>
                         </div>
                     </div>
-    
-                    <!-- Activity RetroAttribution  -->
-                    <!-- <div class="row" id="form-retro-attribution">
-                        <div class="col mb-5 text-center c-primary-form assign-row">
-                            <div class="c-checkbox">
-                                <input type="checkbox" id="retro-attribution-activity-form">
-                                <label for="retro-attribution-activity-form">
-                                    <span data-i18n="classroom.activities.form.retroAttribution"></span>
-                                </label>
-                            </div>
-                            <i class="fas fa-info assign-info-icon" id="infoRetroAttribution" data-toggle="tooltip" title=""></i>
-                        </div>
-                    </div> -->
-
                 </div>
             </div>
         </div>

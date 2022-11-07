@@ -3508,6 +3508,7 @@ h3.section-done {
     border: 1px solid black;
     border-radius: 1em;
     padding: 1em;
+    min-height: 5em;
     height: auto;
     margin: auto;
     margin-bottom: 1em;
