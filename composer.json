@@ -4,8 +4,8 @@
         "phpunit/phpunit": "8.0.0",
         "vittascience/vtuser": "1.2.7",
         "vittascience/vtinterfaces": "1.2.9",
-        "vittascience/vtclassroom": "dev-update-user-ga",
-        "vittascience/vtlearn": "dev-lms-courses",
+        "vittascience/vtclassroom": "1.3.3",
+        "vittascience/vtlearn": "1.3",
         "vittascience/vutils": "1.2.8b",
         "symfony/var-dumper": "^5.3"
     },
