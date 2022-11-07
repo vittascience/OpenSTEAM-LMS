@@ -1139,7 +1139,7 @@
 			"infoMaxStudentsPerTeachers": "Determine the maximum number of students that a teacher in the group can have.",
 			"infoMaxStudentsPerGroups": "Determines the maximum number of students that the group can have (By adding the total of students of teachers who have this application)",
 			"infoMaxTeachers": "Determines the maximum number of teachers who can have the application in this group",
-			"usersLimitation": "Users students limitation",
+			"usersLimitation": "Users limitation",
 			"groupsLimitation": "Groups limitations",
 			"activitiesLimitation": "Activities limitations",
 			"defaultRestrictions": "Default restrictions",
