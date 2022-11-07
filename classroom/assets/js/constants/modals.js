@@ -4,7 +4,7 @@ const BASE_STUDENT_FORM = `<div class="c-primary-form row col-12">
 <input class="col-5 student-form-name" type="text">
 </div>`;
 const LINK_REGEX = /(\[iframe\].*link=)([a-f0-9]{13})/
-const NO_CLASS = "<p class='no-classes'> Vous devez d'abord créer une classe pour pouvoir utiliser cette fonctionalité"
+const NO_CLASS = "<p class='no-classes text-center'> Vous devez d'abord créer une classe pour pouvoir utiliser cette fonctionalité"
 const capitalizedDemoStudentName = `${demoStudentName.charAt().toUpperCase()}${demoStudentName.slice(1)}`
 const cookies = document.cookie.split(';')
 const lang = cookies.filter(entry => entry.trim().startsWith('lng'))
@@ -122,15 +122,6 @@ const classroomModals = {
             icon: '',
             title: 'classroom.modals.settingsTeacher.title'
         },
-        /*  <h4>Choisir une image de profil</h4>
-                    <input type="checkbox" id="firstletter-teach-setting"><label>Première lettre de mon nom</label></br>
-                    <input type="file" id="avatar" name="avatar"accept="image/png, image/jpeg"><label style="margin-left: 1em;font-size: 1em;">Importer une image de profil</label></br>
-                          
-                    <h4>Notifications mail</h4>
-                    <input type="checkbox" id="action-teach-setting" ><label>Je souhaite être informé de toute action dans mes classes</label></br>
-                    <input type="checkbox" id="abstract-teach-setting" ><label>Je souhaite recevoir un résumé quotidien</label></br>
-                    <input type="checkbox" id="nonotif-teach-setting" ><label>Je ne souhaite pas recevoir de notification par mail</label></br>
-                    */
         content: `<div>
                     <h4 data-i18n="classroom.modals.settingsTeacher.lang">Langue</h4>
                     <div id="switch-lang-list">
@@ -185,14 +176,12 @@ const classroomModals = {
             icon: '',
             title: 'classroom.modals.attributeActivity.title'
         },
-        content: `
-    <h4 class="c-text-primary font-weight-bold text-uppercase" data-i18n="classroom.classes.selectStudents">Sélectionner des apprenants</h4>
-    <p class='text-center' data-i18n="[html]classroom.classes.selectedStudents"><span class="student-number" id="attribuate-student-number">0</span> apprenants sélectionnés</p>
-    <div class="container-fluid">
-        <div id="list-student-attribute-modal" class="row justify-content-center c-primary-form"></div>
-    </div>
-    <button id="attribute-activity-to-students-close" class="btn btn-lg c-btn-primary" data-i18n="manager.buttons.validate">Valider</button>
-                `,
+        content: `  <h4 class="c-text-primary font-weight-bold text-uppercase" data-i18n="classroom.classes.selectStudents">Sélectionner des apprenants</h4>
+                    <p class='text-center' data-i18n="[html]classroom.classes.selectedStudents"><span class="student-number" id="attribuate-student-number">0</span> apprenants sélectionnés</p>
+                    <div class="container-fluid">
+                        <div id="list-student-attribute-modal" class="row justify-content-center c-primary-form"></div>
+                    </div>
+                    <button id="attribute-activity-to-students-close" class="btn btn-lg c-btn-primary" data-i18n="manager.buttons.validate">Valider</button>`,
         footer: ``
     },
     'list-classes-modal': {
@@ -494,6 +483,9 @@ const classroomModals = {
             <input type="date" id="create_end_date" name="trip-start" max="2100-12-31">
             <label class="form-check-label" for="create_max_students" data-i18n="[html]manager.table.maxStudentsFA"></label>
             <input type="number" id="create_max_students">
+
+            <label class="form-check-label" for="create_max_classrooms" data-i18n="[html]manager.table.maxClassroomsFA"></label>
+            <input type="number" id="create_max_classrooms">
         </div>
     </div>
 
@@ -765,7 +757,7 @@ const classroomModals = {
             icon: '',
             title: 'manager.users.delete'
         },
-        content: `  <div id="delete-user-modal">
+        content: `  <div id="groupadmin-disable-user-modal">
                         <div class="col-12">
                             <div class="alert" id="alertDisableUserGA" role="alert" style="display:none;"></div>
                             <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="manager.users.disableConfirmationTitle">Confirmer la désactivation</h3>
@@ -788,7 +780,7 @@ const classroomModals = {
             icon: '',
             title: 'manager.users.delete'
         },
-        content: `  <div id="delete-user-modal">
+        content: `  <div id="groupadmin-delete-user-modal">
                         <div class="col-12">
                             <div class="alert" id="alertDisableUserGA" role="alert" style="display:none;"></div>
                             <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="manager.users.deleteConfirmationTitle"></h3>
@@ -812,7 +804,7 @@ const classroomModals = {
             icon: '',
             title: 'manager.users.delete'
         },
-        content: `  <div id="delete-user-modal">
+        content: `  <div id="manager-delete-user-modal">
                         <div class="col-12">
                             <div class="alert" id="alertDeleteUser" role="alert" style="display:none;"></div>
                             <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="manager.users.deleteConfirmationTitle">Confirmer la suppression</h3>
@@ -835,7 +827,7 @@ const classroomModals = {
             icon: '',
             title: 'manager.users.delete'
         },
-        content: `  <div id="delete-user-modal">
+        content: `  <div id="manager-disable-user-modal">
                         <div class="col-12">
                             <div class="alert" id="alertDisableUser" role="alert" style="display:none;"></div>
                             <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="manager.users.disableConfirmationTitle">Confirmer la désactivation</h3>
@@ -858,7 +850,7 @@ const classroomModals = {
             icon: '',
             title: 'manager.group.delete'
         },
-        content: `  <div id="delete-user-modal">
+        content: `  <div id="manager-delete-group-modal">
                         <div class="col-12">
                             <div class="alert" id="alertDeleteGroup" role="alert" style="display:none;"></div>
                             <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="manager.users.deleteConfirmationTitle">Confirmer la suppression</h3>
@@ -881,7 +873,7 @@ const classroomModals = {
             icon: '',
             title: 'manager.users.showResetLinkTitle'
         },
-        content: `  <div id="delete-user-modal">
+        content: `  <div id="manager-show-resetlink-modal">
                         <div class="col-12">
                             <h3 class="font-weight-bold text-info m-auto text-center my-3" data-i18n="manager.users.showResetLink">Lien de réinitialisation de mot de passe</h3>
                             <div class="row">
@@ -901,7 +893,7 @@ const classroomModals = {
             icon: '',
             title: 'manager.group.showLinkTitle'
         },
-        content: `  <div id="delete-user-modal">
+        content: `  <div id="groupadmin-show-grouplink-modal">
                         <div class="col-12">
                             <h3 class="font-weight-bold text-info m-auto text-center my-3" data-i18n="manager.group.showLinkTitle">Lien du groupe</h3>
                             <div class="input-group c-secondary-form">
@@ -1176,10 +1168,11 @@ const classroomModals = {
             icon: '',
             title: 'classroom.activities.deleteActivity'
         },
-        content: `  <div id="delete-user-modal">
+        content: `  <div id="delete-activities-modal">
                         <div class="col-12">
                             <div class="alert" id="alertDisableUserGA" role="alert" style="display:none;"></div>
                             <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="classroom.activities.deleteConfirm">Confirmer la désactivation</h3>
+                            <p id="activity-linked-to-course-message" class="text-center mt-2"> Cette activité est liée à un ou plusieurs parcours.  </p>
                             <p class="text-center" data-i18n="classroom.activities.deleteActivityDisclaimer"></p>
                             <div class="text-center c-secondary-form">
                                 <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>
@@ -1289,7 +1282,7 @@ const classroomModals = {
             icon: '',
             title: 'classroom.classes.deleteStudent'
         },
-        content: `  <div id="delete-user-modal">
+        content: `  <div id="delete-student-modal">
                         <div class="col-12">
                             <input type="hidden" id="student-to-delete-id">
                             <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="classroom.classes.deleteStudentConfirm"></h3>
@@ -1311,8 +1304,75 @@ const classroomModals = {
             icon: '',
             title: 'classroom.pdfPreview'
         },
-        content: `  <div id="pdf-preview-galery">
-  
+        content: `  <div id="pdf-preview-galery">`,
+        footer: ``
+    },
+    'add-activity-to-course': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'courses.addActivities'
+        },
+        content: `  <div id="add-activity-container" class="container-fluid">
+
+                        <input type="search" class="form-control" id="course-activity-search" class="course-activity-search" data-i18n="[placeholder]courses.searchActivity">
+
+                        <div id="add-activity-content">
+
+                        </div>
+
+                        <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="coursesManager.cancelActivityToCourse()" data-i18n="manager.buttons.cancel">Annuler</button>
+                        <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="coursesManager.persistActivityToCourse()" data-i18n="manager.buttons.validate">Valider</button>
+                    </div>`,
+        footer: ``
+    },
+    'course-manager-modal': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.courses.coursesManager'
+        },
+        content: `  <div id="folder-manager-modal-content">
+                        <div class="col-12" id="delete-course-manager">
+                    
+                            <h3 class="font-weight-bold text-danger m-auto text-center" data-i18n="classroom.activities.coursesMessages.deleteFolder">Confirmer la suppression</h3>
+                            <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>
+                    
+                            <div class="text-center c-secondary-form">
+                                <input type="hidden" name="validation-delete-course-id" id="validation-delete-course-id">
+                                <input type="text" name="validation-delete-course" id="validation-delete-course" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                            </div>
+                    
+                            <div class="text-center">
+                                <button class="btn c-btn-red mx-auto mt-3 btn-lg" onclick="coursesManager.persistDeleteCourse()" data-i18n="manager.buttons.validate">Valider</button>
+                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="coursesManager.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
+                            </div>
+                        </div>
+                    </div>`,
+        footer: ``
+    },
+    'delete-classroom': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.classes.deleteModal.deleteTitle'
+        },
+        content: `  <div id="delete-classroom-modal">
+                        <div class="col-12">
+
+                            <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="classroom.classes.deleteModal.message"></h3>
+
+                            <div class="text-center c-secondary-form">
+                                <p data-i18n="manager.users.disable.message" class="text-center"></p>
+                                <input type="text" name="validation-delete-classroom" id="validation-delete-classroom" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                            </div>
+
+                            <div class="text-center">
+                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelDeleteClassroom()" data-i18n="manager.buttons.cancel">Annuler</button>
+                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteClassroom()" data-i18n="manager.buttons.validate">Valider</button>
+                            </div>
+
+                        </div>
                     </div>`,
         footer: ``
     }

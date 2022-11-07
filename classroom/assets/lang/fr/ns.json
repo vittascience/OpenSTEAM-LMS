@@ -260,7 +260,11 @@
 			"activationLink": "Lien d'activation activé",
 			"activationLinkDisabled": "Lien d'activation désactivé",
 			"deleteStudent": "Supprimer l'élève",
-			"deleteStudentConfirm": "Voulez-vous vraiment supprimer cet élève ?"
+			"deleteStudentConfirm": "Voulez-vous vraiment supprimer cet élève ?",
+			"deleteModal": {
+				"message": "Vous êtes sur le point de supprimer la classe",
+				"deleteTitle": "Suppression de classe"
+			}
 		},
 		"activities": {
 			"title": "Activités",
@@ -547,6 +551,9 @@
 		"pagination": {
 			"previous": "Précédent",
 			"next": "Suivant"
+		},
+		"courses": {
+			"coursesManager": "Suppression du parcours"
 		}
 	},
 	"faqInfo": {
@@ -955,7 +962,8 @@
 			"password": "Mot de passe",
 			"password_placeholder": "Votre mot de passe.",
 			"forgot_password": "J'ai oublié mon mot de passe.",
-			"btn_connect": "Se connecter"
+			"btn_connect": "Se connecter",
+			"btn_activate": "Activer mon compte"
 		},
 		"success": "L'authentification a réussi. Redirection...",
 		"error": "Erreur. Veuillez vérifier vos identifiants.",
@@ -1333,7 +1341,8 @@
 			"studentsPerTeacher": "Apprenants par enseignant",
 			"maxStudents": "Maximum d'apprenants",
 			"maxActivities": "Maximum d'activités",
-			"groupsRestrictions": "Restriction du groupe"
+			"groupsRestrictions": "Restriction du groupe",
+			"classroomPerTeacher": "Classe(s) par enseignant"
 		},
 		"title": {
 			"activeUsers": "Utilisateurs actifs",
@@ -1419,6 +1428,7 @@
 			"actualTeachers": "Enseignants actuels",
 			"maxStudentsPerTeachers": "Maximum d'apprenants par enseignant",
 			"maxStudentsPerTeacher": "Maximum d'apprenants par enseignant",
+			"maxClassroomsPerTeacher": "Maximum de classes par enseignant",
 			"activityType": "Type d'activité",
 			"maxActivitiesPerGroup": "Maximum d'activités par groupe",
 			"maxActivitiesPerTeacher": "Maximum d'activités par enseignant",
@@ -1433,7 +1443,9 @@
 			"restriction": "Restriction",
 			"dateBeginFA": "<i class='far fa-calendar-alt'></i>  Date début",
 			"dateEndFA": "<i class='far fa-calendar-alt'></i>  Date de fin",
-			"maxStudentsFA": "<i class='fas fa-user-alt'></i>  Maximum d'apprenants"
+			"maxStudentsFA": "<i class='fas fa-user-alt'></i>  Maximum d'apprenants",
+			"maxClassroomsFA": "<i class='fas fa-chalkboard'></i>  Maximum de classes",
+			"maxClassrooms": "Maximum de classes"
 		},
 		"apps": {
 			"apps": "Applications",
@@ -1446,7 +1458,7 @@
 			"infoMaxStudentsPerTeachers": "Détermine le nombre d'apprenants qu'un enseignant faisant partie du groupe pourra avoir au maximum.",
 			"infoMaxStudentsPerGroups": "Détermine le nombre d'apprenants que le groupe pourra avoir au maximum (En additionnant le total d'apprenants des professeurs disposant de cette application)",
 			"infoMaxTeachers": "Détermine le nombre maximum de professeurs pouvant disposer de l'application dans ce groupe",
-			"usersLimitation": "Limitation d'apprenants par utilisateur",
+			"usersLimitation": "Limitation par utilisateur",
 			"groupsLimitation": "Limitations de groupe",
 			"activitiesLimitation": "Limitations d'activité",
 			"defaultRestrictions": "Restrictions par défaut",
@@ -1574,5 +1586,44 @@
 				"dragAndDrop": "Cette activité permet de glisser et déposer des mots dans différents espaces vides."
 			}
 		}
+	},
+	"courses": {
+		"addActivity":"Ajouter une activité",
+		"addActivities":"Ajouter des activités",
+		"createActivity": "Créer une activité",
+		"searchActivity": "Rechercher une activité",
+		"placeholderTitle": "Titre de votre activité",
+		"placeholderDescription": "Description de votre activité",
+		"pagination": {
+			"create":"Création du parcours",
+			"title": "Titre",
+			"parameters": "Paramètres",
+			"attribution": "Attribution"
+		},
+		"parameters": {
+			"title":"Titre du parcours <span class=\"c-text-red\">*</span>",
+			"description": "Description du parcours <span class=\"c-text-red\">*</span>",
+			"difficulty": "Difficulté <span class=\"c-text-red\">*</span>",
+			"difficultyLevel": {
+				"choose": "Choisissez une difficulté",
+				"easy": "Débutant",
+				"medium": "Intermédiaire",
+				"advanced": "Avancé",
+				"expert": "Expert"
+			},
+			"duration": "Durée (en min) <span class=\"c-text-red\">*</span>",
+			"license": "Licence d'utilisation <span class=\"c-text-red\">*</span>",
+			"licenseType": {
+				"choose": "Choisissez une licence",
+				"1": "Privée (vous seul•e pouvez voir cette ressource)",
+				"2": "Déréférencée (ressource partageable par lien mais introuvable sur la page Ressources)",
+				"3": "Publique CC-BY-NC-SA (ressource libre, non-commerciale et modifiable)",
+				"4": "Publique CC-BY-NC-ND (ressource libre, non-commerciale et non-modifiable)"
+			}
+		},
+		"successfullyCreated": "Parcours créé avec succès",
+		"attribution": "Attriber le parcours <i class='fas fa-chevron-right'></i>",
+		"return": "Retour <i class='fas fa-chevron-right'></i>",
+		"update": "Modifier le parcours"
 	}
 }

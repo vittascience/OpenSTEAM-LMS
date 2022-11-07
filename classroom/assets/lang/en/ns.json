@@ -260,7 +260,11 @@
 			"activationLink": "Activation link enabled",
 			"activationLinkDisabled": "Activation link disabled",
 			"deleteStudent": "Delete the student",
-			"deleteStudentConfirm": "Are you sure you want to delete this student?"
+			"deleteStudentConfirm": "Are you sure you want to delete this student?",
+			"deleteModal": {
+				"message": "You are about to delete this class",
+				"deleteTitle": "Class deletion"
+			}
 		},
 		"activities": {
 			"title": "Activities",
@@ -524,6 +528,9 @@
 		"pagination": {
 			"previous": "Previous",
 			"next": "Next"
+		},
+		"courses": {
+			"coursesManager": "Courses deletion"
 		}
 	},
 	"faqInfo": {
@@ -639,7 +646,8 @@
 			"password": "Password",
 			"password_placeholder": "Your password.",
 			"forgot_password": "I forgot my password.",
-			"btn_connect": "Log in"
+			"btn_connect": "Log in",
+			"btn_activate": "Activate my account"
 		},
 		"success": "Authentication was successful. Redirection...",
 		"error": "Error. Please verify your login details.",
@@ -1017,7 +1025,8 @@
 			"studentsPerTeacher": "Students per teacher",
 			"maxStudents": "Maximum students",
 			"maxActivities": "Maximum activities",
-			"groupsRestrictions": "Group's restrictions"
+			"groupsRestrictions": "Group's restrictions",
+			"classroomPerTeacher": "Classroom(s) per teacher"
 		},
 		"title": {
 			"activeUsers": "Active users",
@@ -1103,6 +1112,7 @@
 			"actualTeachers": "Current teachers",
 			"maxStudentsPerTeachers": "Maximum students per teacher",
 			"maxStudentsPerTeacher": "Maximum students per teacher",
+			"maxClassroomsPerTeacher": "Maximum classrooms per teacher",
 			"activityType": "Activity type",
 			"maxActivitiesPerGroup": "Maximum activities per group",
 			"maxActivitiesPerTeacher": "Maximum activities per teacher",
@@ -1117,7 +1127,9 @@
 			"restriction": "Restriction",
 			"dateBeginFA": "<i class='far fa-calendar-alt'></i>  Begin date",
 			"dateEndFA": "<i class='far fa-calendar-alt'></i>  End date",
-			"maxStudentsFA": "<i class=fas fa-user-alt'></i>  Maximum students"
+			"maxStudentsFA": "<i class='fas fa-user-alt'></i>  Maximum students",
+			"maxClassroomsFA": "<i class='fas fa-chalkboard-teacher'></i>  Maximum classrooms",
+			"maxClassrooms": "Maximum classrooms"
 		},
 		"apps": {
 			"apps": "Apps",
@@ -1130,7 +1142,7 @@
 			"infoMaxStudentsPerTeachers": "Determine the maximum number of students that a teacher in the group can have.",
 			"infoMaxStudentsPerGroups": "Determines the maximum number of students that the group can have (By adding the total of students of teachers who have this application)",
 			"infoMaxTeachers": "Determines the maximum number of teachers who can have the application in this group",
-			"usersLimitation": "Users students limitation",
+			"usersLimitation": "Users limitation",
 			"groupsLimitation": "Groups limitations",
 			"activitiesLimitation": "Activities limitations",
 			"defaultRestrictions": "Default restrictions",
@@ -1261,5 +1273,44 @@
 				"dragAndDrop": "This activity allows you to drag and drop words into different empty spaces."
 			}
 		}
+	},
+	"courses": {
+		"addActivity":"Add an activity",
+		"addActivities":"Add activities",
+		"createActivity": "Create an activity",
+		"searchActivity": "Search an activity",
+		"placeholderTitle": "Activity title",
+		"placeholderDescription": "Activity description",
+		"pagination": {
+			"create":"Course's creation",
+			"title": "Title",
+			"parameters": "Parameters",
+			"attribution": "Attribution"
+		},
+		"parameters": {
+			"title":"Course title <span class=\"c-text-red\">*</span>",
+			"description": "Course's description <span class=\"c-text-red\">*</span>",
+			"difficulty": "Difficulty <span class=\"c-text-red\">*</span>",
+			"difficultyLevel": {
+				"choose": "Choose a difficulty level",
+				"easy": "Easy",
+				"medium": "Medium",
+				"advanced": "Advanced",
+				"expert": "Expert"
+			},
+			"duration": "Duration (minutes) <span class=\"c-text-red\">*</span>",
+			"license": "User license <span class=\"c-text-red\">*</span>",
+			"licenseType": {
+				"choose": "Choose a license",
+				"1": "Private (only you can see this resource)",
+				"2": "Unreferenced (shareable resource by link but not findable on the Resources page)",
+				"3": "Public CC-BY-NC-SA (free, non-commercial and modifiable resource)",
+				"4": "Public CC-BY-NC-ND (free, non-commercial and non-modifiable resource)"
+			}
+		},
+		"successfullyCreated": "Course created successfully",
+		"attribution": "Course attribution <i class='fas fa-chevron-right'></i>",
+		"return": "Return <i class='fas fa-chevron-right'></i>",
+		"update": "Update the course"
 	}
 }

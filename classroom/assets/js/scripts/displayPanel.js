@@ -69,9 +69,11 @@ DisplayPanel.prototype.classroom_dashboard_ide_panel = function (option) {
 DisplayPanel.prototype.classroom_dashboard_activities_panel = function () {
     $('table').localize();
     // Refresh the activities
-    Main.getClassroomManager().getStudentActivities(Main.getClassroomManager())
-    .then(() => {
-        studentActivitiesDisplay();
+    Main.getClassroomManager().getStudentActivities(Main.getClassroomManager()).then(() => {
+        coursesManager._requestGetMyCourseStudent().then((data) => {
+            Main.getClassroomManager()._myCourses = data;
+            studentActivitiesDisplay();
+        })
     });
 }
 
@@ -234,10 +236,11 @@ DisplayPanel.prototype.classroom_dashboard_form_classe_panel_update = function (
 
 DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function () {
     ClassroomSettings.activity = false;
-    // Refresh the activities
-    Main.getClassroomManager().getTeacherActivities(Main.getClassroomManager()).then(() => {
-        teacherActivitiesDisplay();
-    });
+    if (foldersManager) {
+        if (foldersManager.actualFolder != null) {
+            foldersManager.goToFolder(null)
+        }
+    }
 }
 
 DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
@@ -269,8 +272,11 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
                 }
             }
             // Load the classroom with the current cache data
-            let students = getClassroomInListByLink(link)[0].students
-            displayStudentsInClassroom(students, link)
+            // seems to be duplicate call for displayStudentsInClassroom with the code below -> 309 - 310 updated by @Rémi C. October 2022
+            /* let students = getClassroomInListByLink(link)[0].students
+            displayStudentsInClassroom(students, link) */
+
+
             $('.classroom-link').html(ClassroomSettings.classroom)
             $('#classroom-code-share-qr-code').html('');
             currentOriginUrl = new URL(window.location.href).origin;
@@ -344,41 +350,42 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) 
     }
 }
 
+//COURSEDISPLAY
 DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
     if (id != 'null') {
         if (UserManager.getUser().isRegular) {
             if (id.slice(0, 2) == "WK") {
-
                 ClassroomSettings.activity = id = Number(id.slice(2))
                 Activity = getActivity(id);
                 getTeacherActivity();
-
             } else {
                 ClassroomSettings.activity = id = Number(id.slice(2))
                 Main.getClassroomManager().getOneUserLinkActivity(id).then(function (result) {
                     Activity = result;
                     loadActivityForTeacher();
-                })
+                });
             }
         } else {
-            if ($_GET('interface') == 'newActivities' || $_GET('interface') == 'savedActivities') {
-                var isDoable = true
-            } else {
-                var isDoable = false
+            if ($_GET('option') != "course") {
+                if ($_GET('interface') == 'newActivities' || $_GET('interface') == 'savedActivities') {
+                    var isDoable = true
+                } else {
+                    var isDoable = false
+                }
+                ClassroomSettings.activity = id = Number(id.slice(2))
+                Activity = getActivity(id, $_GET('interface'))
+                if (typeof Activity == 'undefined') {
+                    console.error(`The activity can't be loaded!`);
+                    navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
+                    return;
+                }
+                // Run the activity tracker if the current activity is doable or exercise
+                if (Activity.evaluation != true || Activity.correction == null) {
+                    Main.activityTracker = new ActivityTracker();
+                    Main.activityTracker.startActivityTracker();
+                }
+                loadActivityForStudents(isDoable)
             }
-            ClassroomSettings.activity = id = Number(id.slice(2))
-            Activity = getActivity(id, $_GET('interface'))
-            if (typeof Activity == 'undefined') {
-                console.error(`The activity can't be loaded!`);
-                navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
-                return;
-            }
-            // Run the activity tracker if the current activity is doable or exercise
-            if (Activity.evaluation != true || Activity.correction == null) {
-                Main.activityTracker = new ActivityTracker();
-                Main.activityTracker.startActivityTracker();
-            }
-            loadActivityForStudents(isDoable)
         }
     }
 }
@@ -412,27 +419,20 @@ function getTeacherActivity() {
         </button>
 
         <ul class="dropdown-menu">
-            <li>
-                <a href="#" class="dropdown-item" href="#" onclick="attributeActivity(${Activity.id})" >
-                    ${capitalizeFirstLetter(i18next.t('words.attribute'))}
-                </a>
+            <li class="dropdown-item" onclick="attributeActivity(${Activity.id})">
+                ${capitalizeFirstLetter(i18next.t('words.attribute'))}
             </li>
         
-            <li>
-                <a class="dropdown-item" href="#" onclick="createActivity(null,${Activity.id})">
-                    ${capitalizeFirstLetter(i18next.t('words.duplicate'))}
-                </a>
+            <li class="dropdown-item" onclick="createActivity(null,${Activity.id})">
+                ${capitalizeFirstLetter(i18next.t('words.duplicate'))}
             </li>
                 
-            <li>
-                <a class="dropdown-item" onclick="activityModify(${Activity.id})" href="#">
-                    ${capitalizeFirstLetter(i18next.t('words.modify'))}
-                </a>
+            <li class="dropdown-item" onclick="activityModify(${Activity.id})">
+                ${capitalizeFirstLetter(i18next.t('words.modify'))}
             </li>
-            <li>
-                <a class="dropdown-item modal-activity-delete" href="#">
-                    ${capitalizeFirstLetter(i18next.t('words.delete'))}
-                </a>
+
+            <li class="dropdown-item modal-activity-delete">
+                ${capitalizeFirstLetter(i18next.t('words.delete'))}
             </li>
         </ul>
     </div>`
