@@ -272,7 +272,7 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
                 }
             }
             // Load the classroom with the current cache data
-            // seems to be duplicate call for displayStudentsInClassroom with the code below -> 309 - 310 updated by @Rémi C.
+            // seems to be duplicate call for displayStudentsInClassroom with the code below -> 309 - 310 updated by @Rémi C. October 2022
             /* let students = getClassroomInListByLink(link)[0].students
             displayStudentsInClassroom(students, link) */
 
@@ -366,7 +366,6 @@ DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
                 });
             }
         } else {
-            console.log($_GET('option'))
             if ($_GET('option') != "course") {
                 if ($_GET('interface') == 'newActivities' || $_GET('interface') == 'savedActivities') {
                     var isDoable = true
