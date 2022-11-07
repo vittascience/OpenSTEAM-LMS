@@ -1311,11 +1311,11 @@ const classroomModals = {
         selector: '',
         header: {
             icon: '',
-            title: 'Ajouter des activités'
+            title: 'courses.addActivities'
         },
         content: `  <div id="add-activity-container" class="container-fluid">
 
-                        <input type="search" class="form-control" id="course-activity-search" class="course-activity-search" placeholder="Rechercher une activité">
+                        <input type="search" class="form-control" id="course-activity-search" class="course-activity-search" data-i18n="[placeholder]courses.searchActivity">
 
                         <div id="add-activity-content">
 

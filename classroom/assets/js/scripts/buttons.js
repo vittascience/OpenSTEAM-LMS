@@ -3501,6 +3501,29 @@ $('#qr-download').click(() => {
 })
 
 
+function setCaret(contentId, id) {
+
+    const el = $(`#${contentId}`).siblings('.wysibb-text-editor.wysibb-body')[0];
+    let range = document.createRange(),
+		    sel = window.getSelection(),
+		    childNote = null;
+
+    for(let i = 0; i < el.childNodes.length; i++) {
+        if ($(el.childNodes[i]).data('id')) {
+            if ($(el.childNodes[i]).data('id') == id) {
+                childNote = el.childNodes[i];
+            }
+        }
+    }
+
+    range.setStart(childNote, 1)
+    range.collapse(true)
+    
+    sel.removeAllRanges()
+    sel.addRange(range)
+}
+
+
 
 
 

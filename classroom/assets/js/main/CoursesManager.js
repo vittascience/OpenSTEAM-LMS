@@ -433,6 +433,7 @@ class CoursesManager {
     }
 
     resetInputs() {
+        pseudoModal.closeModal("course-manager-modal");
         document.getElementById('validation-delete-course').value = '';
     }
 
