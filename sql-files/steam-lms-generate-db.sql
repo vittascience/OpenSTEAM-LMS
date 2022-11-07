@@ -291,7 +291,7 @@ CREATE TABLE `interfaces_projects` (
   `link` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
   `mode` varchar(20) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
-  `is_activity_solve` tinyint(1) NOT NULL DEFAULT 0
+  `is_activity_solve` tinyint(1) NOT NULL DEFAULT 0,
   `is_exercise_creator` tinyint(1) NOT NULL DEFAULT 0,
   `id_exercise` int(11) DEFAULT NULL,
   `exercise_statement` longtext COLLATE utf8mb3_unicode_ci DEFAULT NULL
