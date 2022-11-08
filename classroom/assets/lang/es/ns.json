@@ -4,10 +4,11 @@
       "noClass": "El código introducido no corresponde a ninguna clase",
       "countdown1": "El módulo de gestión de clases está actualmente en versión beta. Si desea probarlo, <a href=\"/about?contact=1\">contacte con el equipo de Vittascience</a>.",
       "countdown2": "Salida oficial en",
-      "display": " ver",
-      "hello": " ¡Hola !",
+      "hello1": " Hola!'",
+      "hello2": " ¡Hola !",
       "title": "Gestione sus clases con Vittascience",
       "neutralTitle": "OpenSTEAM LMS",
+      "cabriTitle": " Cabri.com",
       "subtitle": "Descubrir-Aprender-Compartir",
       "login": "Conectarse",
       "activities": "Cree fácilmente </br> sus actividades",
@@ -134,13 +135,13 @@
       "usersAdded": "Las cuentas han sido creadas",
       "usersAddedFromCsv": "Las cuentas han sido creadas por medio del archivo csv",
       "activityDeleted": "La actividad {{activityName}} ha sido suprimida",
-      "activityDuplicated": " La actividad {{activityName}} ha sido duplicada",
       "mustAttributeToStudent": "Debes seleccionar a los alumnos",
       "activityAttributed": "La actividad {{activityTitle}} ha sido asignada a los alumnos inscriptos",
       "activityAttributionChanged": "La asignación de la actividad {{activityTitle}} se ha modificado para los alumnos inscriptos",
       "activityCreated": "La actividad  {{activityTitle}} ha sido creada",
       "activityChanged": "La actividad  {{activityTitle}} ha sido modificada",
       "activityTitleMissing": "Debes ingresar el título de la actividad",
+      "activityPlayerMissing": " Debe introducir una URL de jugador.",
       "CsvFileMissing": "No has elegido el archivo csv",
       "errorWithCsv": "Error al abrir el archivo csv : {{error}}",
       "cantGetPassword": "Error, no puede ver su contraseña",
@@ -191,11 +192,14 @@
       "ClassroomNameInvalid": "El nombre de la clase es necesario.",
       "reservedNickname": "El nombre: \"{{reservedNickname}}\" no puede ser asignado.",
       "invalidLink": "El enlace que ha introducido no es válido.",
+      "invalidUrl": " Introduzca un enlace a una página web o un vídeo.",
+      "addFile": " Es necesario añadir un enlace al cuaderno o un archivo.",
       "noUser": "Tiene que rellenar un estudiante.",
       "noUserUsername": "Debe introducir un nombre de usuario.",
       "pseudoMissingInCsvFile": "Algunos estudiantes no pudieron ser añadidos porque faltaba algunos alias.",
       "backendReplyPseudoMissingInCsv": "Compruebe el archivo CSV: línea vacía o falta el apodo.",
       "backendReplyPseudoMissingInUsersArray": "Hay un error en uno o varios nombre(s) de alumno(s).",
+      "generalBackendError": " Se ha producido un error, inténtelo de nuevo más tarde.",
       "invalidActivityId": "Error al enviar el trabajo: ¡identificación de actividad no válida!",
       "invalidCorrection": "Error al enviar el trabajo: ¡estado de la actividad no válido!",
       "currentPasswordDoesNotMatch": "La contraseña dada no es válida.",
@@ -254,6 +258,7 @@
         "dueBy": "A entregar por",
         "timePassed": "Tiempo dedicado:"
       },
+      "copyDirectLink": " Copiar el enlace directo",
       "selectStudents": " Selección de alumnos",
       "selectedStudents": " <span id='atributo-número-de-alumno'>0</span> alumnos seleccionados",
       "activationLink": " Enlace de activación activado",
@@ -265,6 +270,9 @@
       "title": "Actividades",
       "save": "Guardar el cuaderno",
       "add": "Crear una actividad",
+      "addCabriExpress": " Crear actividad Express",
+      "addCabriGenius": " Crear una actividad inteligente",
+      "addOther": " Otro tipo de actividad",
       "new": "Nuevos",
       "current": "En espera de corrección",
       "waiting": "Sin realizar aún",
@@ -310,7 +318,8 @@
       "bilan": {
         "title": "Balance",
         "results": "Resultados",
-        "noComment": "Sin comentario"
+        "noComment": "Sin comentario",
+        "grade": " Nota"
       },
       "applist": {
         "selectApp": "Seleccione la aplicación con la que desea crear una actividad",
@@ -344,8 +353,30 @@
         "4": "Asignación",
         "title": {
           "label": "Título de la actividad",
-          "placeholder": "Titulo del tema"
+          "labelCabri": " ¿Cuál es el título de la actividad?",
+          "placeholder": "Titulo del tema",
+          "placeholderCabri": " Título de la actividad"
         },
+        "iframe": {
+          "label": " ¿Cuál es la URL de acceso?",
+          "placeholder": " Introduzca una URL"
+        },
+        "notebookUpdateMessage": " No edite esta sección si quiere conservar el antiguo libro de actividades.",
+        "notebookUrl": {
+          "label": " Añadir la URL de un cuaderno",
+          "placeholder": " URL del cuaderno"
+        },
+        "playerUrl": {
+          "label": " Añadir una URL de jugador",
+          "placeholder": " URL del jugador"
+        },
+        "player": {
+          "labelFileChooser": " Elija un archivo",
+          "fileUpload": " El archivo se ha cargado con éxito",
+          "dragDrop": " Arrastrar y soltar"
+        },
+        "nextButton": " Siguiente",
+        "endButton": " Acabado",
         "content": {
           "label": "Contenido de la actividad"
         },
@@ -372,64 +403,70 @@
       "qrCode": " Escanee el código QR :",
       "copyLink": "El enlace a su clase se ha agregado al portapapeles",
       "dateBefore": "Para ser devuelto antes de",
+      "dateBeforeAvailable": " Disponible hasta",
       "integrate": "Integrar dentro de una actividad",
       "veryGoodProficiency": "Alta competencia",
       "goodProficiency": "Competencia satisfactoria",
       "weakProficiency": "Competencia frágil",
       "insufficientProficiency": "Competencia insuficiente",
-      "noProficiency": " No clasificado",
       "addLearner": "Agregar un alumno",
-      "addLearners": "Añadir un alumno",
-      "addActivity": "Añadir una actividad",
       "exportCsv": "Exportar csv",
-      "month": {
-        "1": " Enero",
-        "2": " Febrero",
-        "3": " Marzo",
-        "4": " Abril",
-        "5": " Mayo",
-        "6": " Junio",
-        "7": " Julio",
-        "8": " Agosto",
-        "9": " Septiembre",
-        "10": " Octubre",
-        "11": " Noviembre",
-        "12": " Diciembre"
+      "players": {
+        "STANDARD": {
+          "title": " Estándar",
+          "description": " Con el lector estándar, puede leer en línea todos los libros de actividades producidos con la herramienta de autoría Cabri."
+        },
+        "IMUSCICA": {
+          "title": " iMuSciCA",
+          "description": " Con el reproductor iMuSciCA, todas las actividades realizadas con la herramienta de autoría Cabri pueden reproducirse en el estudio musical."
+        },
+        "IFRAME": {
+          "title": " Otros",
+          "description": " Elija entre una selección de lectores para utilizar las actividades realizadas con la herramienta de autoría Cabri."
+        },
+        "EXPRESS": {
+          "title": " Express",
+          "description": " Crear una actividad utilizando herramientas de geometría dinámica y álgebra, calculadora científica y gráfica, etc."
+        },
+        "GENIUS": {
+          "title": " Inteligente",
+          "description": " Cree una actividad con las herramientas Express y añada una evaluación automática."
+        },
+        "IFRAME-CABRI3D": {
+          "title": " Cabri 3D",
+          "description": " Cree una exploración geométrica dinámica en el espacio."
+        },
+        "LTI-BLOCKLY": {
+          "title": " Cabri Blockly",
+          "description": " ¡Añada acciones del usuario a una actividad Cabri, como animaciones, cierres, etc., programadas visualmente del mismo modo que con Scratch o Snap!"
+        }
       },
-      "preview": " Vista previa",
-      "deleteActivityDisclaimer": " Está a punto de eliminar una actividad. Esta acción es irreversible.",
-      "deleteConfirm": " Confirmar la supresión de la actividad",
-      "deleteActivity": " Eliminar la actividad",
-      "correctAnswer": " Respuesta correcta",
-      "nbActivities": " <span class='nb-activities'>{{ nbActi }}</span> Actividades </p>",
-      "moveToFolder": " Mover a",
-      "rootFolder": " Carpeta raíz",
-      "seekFolder": " Ir a la carpeta",
-      "foldersMessages": {
-        "errorDelete": " Se ha producido un error al borrar la carpeta",
-        "errorCreate": " Se ha producido un error al crear el archivo",
-        "errorLenght": " El nombre de la carpeta debe tener entre 1 y 30 caracteres",
-        "errorUpdate": " Se ha producido un error al editar el archivo",
-        "errorMoveTo": " Se ha producido un error al mover el objeto",
-        "movedTo": " Objeto trasladado con éxito",
-        "created": " Archivo creado con éxito",
-        "updated": " Archivo modificado con éxito",
-        "deleted": " Archivo eliminado con éxito",
-        "createFolder": " Crear una carpeta",
-        "deleteFolder": " Confirmar la eliminación del archivo",
-        "updateFolder": " Modificar el archivo",
-        "nameMandatory": " Nombre de la carpeta <span class='mandatory'>*</span>",
-        "deleteDisclaimer": " Atención, la carpeta y todo su contenido (actividades y subcarpetas) se eliminará"
+      "tabs": {
+        "players": " Libro de actividades",
+        "iframes": " Vídeo y página web"
       },
-      "facultative": " Campos opcionales",
-      "previewActivity": " Vista previa de la actividad",
-      "infoRetroAttribution": " Esta actividad se asignará a los nuevos alumnos cuando se incorporen a su clase.",
-      "infoAutocorrect": " Esta actividad tiene corrección automática",
-      "infoEvaluation": " En el modo de evaluación, los alumnos sólo pueden enviar la actividad una vez y no tienen acceso a las pistas y avisos."
+      "iframes": {
+        "IFRAME-VIDEO": {
+          "title": " Vídeo",
+          "description": " Introduzca la URL de un vídeo publicado en una plataforma de alojamiento."
+        },
+        "IFRAME-PAGE": {
+          "title": " Página web",
+          "description": " Introduzca la URL de la página web."
+        }
+      },
+      "displayActivity": " Ver la actividad",
+      "modifyActivity": " Modificar la actividad",
+      "modifyActivityAttribution": " Cambiar la asignación",
+      "removeActivityAttribution": " Retirar la asignación"
     },
     "filter": {
       "desc": "Del menos al más reciente",
       "asc": "Del más al menos reciente",
+      "cabriExpress": " Actividades exprés",
+      "cabriGenius": " Actividades inteligentes",
+      "cabriVittascience": " Actividades de Vittascience",
+      "iframe": " Otras actividades",
       "placeholder": "Buscar..."
     },
     "sandbox": {
@@ -468,6 +505,7 @@
       }
     },
     "modals": {
+      "addLtiActivityName": " ¿Cuál es el título de la actividad?",
       "addActivity": {
         "title": "Agregar una actividad",
         "resourceBank": {
@@ -479,10 +517,26 @@
           "title": "Consultar mis actividades existentes",
           "button": "Mis actividades"
         },
+        "shareProject": {
+          "title": " Compartir el proyecto"
+        },
         "createActivity": {
           "title": "Crear una nueva actividad",
           "button": "Crear una actividad"
-        }
+        },
+        "next": " Siguiente",
+        "limitTitle": " Límite superado",
+        "limitDescription": " Límite del número de actividades alcanzadas para esta cuenta.",
+        "upgradePlan": " Aumentar el límite"
+      },
+      "updateActivity": {
+        "title": " Modificar una actividad"
+      },
+      "deleteActivity": {
+        "title": " Borrar una actividad",
+        "description": " ¿Estás seguro de que quieres eliminar la actividad?",
+        "confirm": " Confirmar",
+        "cancel": " Cancelar"
       },
       "settingsTeacher": {
         "title": "Parámetros de la cuenta",
@@ -1179,6 +1233,7 @@
       "mailSentToUserReset": "Se ha enviado un correo electrónico al usuario para que cambie la contraseña.",
       "mailNotSentToUserReset": "No se ha podido enviar el correo electrónico de cambio de contraseña al usuario.",
       "appsUpdated": "Las aplicaciones del usuario han sido actualizadas.",
+      "updateApps": " Modificar las aplicaciones",
       "updateAppModalTitle": "Aplicación",
       "globalRestrictions": " Restricciones globales",
       "teacherGrades": {
