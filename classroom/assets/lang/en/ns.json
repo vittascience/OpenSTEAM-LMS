@@ -406,8 +406,53 @@
           "title": "Web page",
           "description": "Enter the URL of the web page."
         }
-      }
-    },
+      },
+
+	"month": {
+		"1": " January",
+		"2": " February",
+		"3": " March",
+		"4": " April",
+		"5": " May",
+		"6": " June",
+		"7": " July",
+		"8": " August",
+		"9": " September",
+		"10": " October",
+		"11": " November",
+		"12": " December"
+	},
+	"preview": " Preview",
+	"deleteActivityDisclaimer": " You are about to delete an activity. This action is irreversible.",
+	"deleteConfirm": " Confirm the deletion of the activity",
+	"deleteActivity": " Delete the activity",
+	"correctAnswer": " Correct answer",
+	"nbActivities": " <span class='nb-activities'>{{ nbActi }}</span> Activities </p>",
+	"moveToFolder": " Move to",
+	"rootFolder": " Root folder",
+	"seekFolder": " Go to the folder",
+	"foldersMessages": {
+		"errorDelete": " An error occurred while deleting the folder",
+		"errorCreate": " An error occurred while creating the file",
+		"errorLenght": " The folder name must contain between 1 and 30 characters",
+		"errorUpdate": " An error occurred while editing the file",
+		"errorMoveTo": " An error occurred when moving the object",
+		"movedTo": " Object successfully moved",
+		"created": " Successfully created file",
+		"updated": " Successfully modified file",
+		"deleted": " File successfully deleted",
+		"createFolder": " Create a folder",
+		"deleteFolder": " Confirm the deletion of the file",
+		"updateFolder": " Modify the file",
+		"nameMandatory": " Folder Name <span class='mandatory'>*</span>",
+		"deleteDisclaimer": " Attention, the folder and all its contents (activities and subfolders) will be deleted"
+	},
+	"facultative": " Optional fields",
+	"previewActivity": " Preview of the activity",
+	"infoRetroAttribution": " This activity will be assigned to new learners when they are added to your class.",
+	"infoAutocorrect": " This activity has automatic correction",
+	"infoEvaluation": " In assessment mode, learners can only submit the activity once and do not have access to hints and prompts."
+	},
 		"filter": {
 			"desc": "From the least recent to the most recent",
 			"asc": "From most recent to least recent",
