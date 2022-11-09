@@ -122,14 +122,11 @@ const classroomModals = {
         content: `<div>
                     <h4 data-i18n="classroom.modals.settingsTeacher.lang">Langue</h4>
                     <div id="switch-lang-list">
-                        <div class="flags-item">
-                            <img alt="flag" src="assets/media/flags/fr.png" onclick="changeLang('fr')">
-                            <span>Français</span>
-                        </div>
-                        <div class="flags-item">
-                            <img alt="flag" src="assets/media/flags/en.png" onclick="changeLang('en')">
-                            <span>English</span>
-                        </div>
+            <img class="flags-item mr-2" alt="flag" src="assets/media/flags/fr.png?version=VERSIONNUM" onclick="changeLang('fr')">
+            <img class="flags-item" alt="flag" src="assets/media/flags/en.png?version=VERSIONNUM" onclick="changeLang('en')">
+            <img class="flags-item mr-2" alt="flag" src="assets/media/flags/es.png?version=VERSIONNUM" onclick="changeLang('es')">
+            <img class="flags-item mr-2" alt="flag" src="assets/media/flags/ar.png?version=VERSIONNUM" onclick="changeLang('ar')">
+            <img class="flags-item mr-2" alt="flag" src="assets/media/flags/it.png?version=VERSIONNUM" onclick="changeLang('it')">
                     </div>
                     <h4 data-i18n="classroom.modals.settingsTeacher.description">Pour modifier votre mot de passe ou d'autres paramètres de votre compte</h4>
                     <div class="d-flex flex-column align-items-center" style="gap: 0.5rem;">
