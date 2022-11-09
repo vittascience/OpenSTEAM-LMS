@@ -1622,7 +1622,7 @@
 			}
 		},
 		"successfullyCreated": "Parcours créé avec succès",
-		"attribution": "Attriber le parcours <i class='fas fa-chevron-right'></i>",
+		"attribution": "Attribuer le parcours <i class='fas fa-chevron-right'></i>",
 		"return": "Retour <i class='fas fa-chevron-right'></i>",
 		"update": "Modifier le parcours"
 	}
