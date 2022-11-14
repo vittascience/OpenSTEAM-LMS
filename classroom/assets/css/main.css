@@ -3583,3 +3583,8 @@ h3.section-done {
 .image-vh {
     height: 40vh !important;
 }
+
+.activity-custom-content {
+    display: flex;
+    justify-content: center;
+}

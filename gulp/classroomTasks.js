@@ -555,7 +555,7 @@ class AutoBuildManager {
 
 
     /**
-     * Copy all the css files in the plugins folder to the css folder in the plugins folder which is in classroom folder
+     * Copy all the media files in the plugins folder to the css folder in the plugins folder which is in classroom folder
      */
     copyMediaFilesToClassroom() {
         return new Promise((resolve, reject) => {
