@@ -397,7 +397,9 @@ function activitiesCreation(apps) {
         } else if (i18next.t(app.name) != app.name) {
             nameField = `<h3 class="app-card-title mt-2" data-i18n="${app.name}"></h3>`;
         } else {
-            nameField = `<h3 class="app-card-title mt-2">${app.name}</h3>`;
+            let appName = app.name;
+            appName = appName.replaceAll("-", " ");
+            nameField = `<h3 class="app-card-title mt-2">${appName}</h3>`;
         }
 
         let descriptionField = "";
