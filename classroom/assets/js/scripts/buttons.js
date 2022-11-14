@@ -1123,7 +1123,7 @@ $('#create_group_manager').click(function () {
             <input type="number" id="groupe_create_max_teachers_per_groups" value="${mainManager.getmanagerManager()._defaultRestrictions[1].restrictions.maxTeachers}">
             
             <label class="form-check-label" data-toggle="tooltip" title="" for="groupe_create_max_class_per_teachers"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.classroomPerTeacher')}</label>
-            <input type="number" id="groupe_create_max_class_per_teachers" value="${mainManager.getmanagerManager()._defaultRestrictions[1].restrictions.maxClassrooms}">
+            <input type="number" id="groupe_create_max_class_per_teachers" value="${mainManager.getmanagerManager()._defaultRestrictions[1].restrictions.maxClassroomsPerTeacher}">
             
             </div>`);
 
