@@ -58,7 +58,7 @@ function courseItem(course, state) {
     let html = `<div class="course-item" onclick="coursesManager.readCourseFromStudent('${course.course.id}')">
                     <div class="course-card">
                         <div class="${activityStatus}" data-toggle="tooltip" title="${course.course.title}"><div class="ribbon__content"></div></div>
-                        <img src="./assets/media/cards/card-course.png" class="course-card-img">
+                        <img src="assets/media/cards/card-course.png" class="course-card-img">
                         <div class="course-card-info">
                             <div class="course-card-top">
                                 
@@ -706,6 +706,7 @@ function injectContentForActivity(content, correction, type = null, correction_d
 {
     const activityValidationButtonElt = document.getElementById('activity-validate');
     activityValidationButtonElt.style.display = 'block';
+    let course = isFromCourse ? "-course" : "";
     // Inject the content to the target div
     if (type == null) {
         $('#activity-content').html(bbcodeToHtml(content));
@@ -716,7 +717,6 @@ function injectContentForActivity(content, correction, type = null, correction_d
         }
     }
 
-    let course = isFromCourse ? "-course" : "";
 
     // Things to do for every activity
     setTextArea();

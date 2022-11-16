@@ -540,7 +540,8 @@ function parseFillInFieldsAndSaveThem() {
 $('#dragAndDrop-add-inputs').click(() => {
     if ($("#drag-and-drop-content").getSelectText() != "") {
         $('#drag-and-drop-content').bbcode();
-        replaceSelectionWithHtml(`<span class="lms-answer">${$("#drag-and-drop-content").getSelectText()}</span>\&nbsp`);
+        let randomString = Math.random().toString(36).substring(7);
+        replaceSelectionWithHtml(`<span class="lms-answer" data-id="${randomString}">${$("#drag-and-drop-content").getSelectText()}</span>\&nbsp`);
         let newText = $('#drag-and-drop-content').htmlcode();
         $('#drag-and-drop-content').htmlcode(newText);
         setCaret('drag-and-drop-content', randomString);
