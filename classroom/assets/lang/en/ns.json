@@ -200,7 +200,9 @@
 			"invalidActivityId": "Error submitting job: Invalid activity ID!",
 			"invalidCorrection": "Erreur submitting job: Invalid activity status!",
 			"currentPasswordDoesNotMatch": "The entered password is not correct!",
-			"noAnswerInActivity": "You must have at least one answer field"
+			"noAnswerInActivity": "You must have at least one answer field",
+			"courseMissingData": "You must enter a title and a description",
+			"courseMissingParameters": "You must set the parameters for the course"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
@@ -961,7 +963,8 @@
 					"0": "Higher education",
 					"1": "Other (specify in biography)"
 				}
-			}
+			},
+			"groupFull":"The group is full"
 		},
 		"group": {
 			"generalInfo": "General information",

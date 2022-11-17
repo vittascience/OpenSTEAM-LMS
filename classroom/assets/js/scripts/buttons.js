@@ -1850,6 +1850,8 @@ function updateUserModal() {
             persistUpdateUserApp();
         } else if (response.message == "missing data") {
             displayNotification('#notif-div', "manager.account.missingData", "error");
+        } else if (response.response == false) {
+            displayNotification('#notif-div', "manager.group.groupFull", "error");
         } else if (response.message == "maxStudentsFromTeacher") {
             displayNotification('#notif-div', "manager.group.toManyStudentsFromTheTeacher", "error");
         } else if (response.message = "maxStudentsInGroup") {
@@ -1921,6 +1923,8 @@ function createUserAndLinkToGroup() {
             displayNotification('#notif-div', "classroom.notif.emailExists", "error");
         } else if (response.message == "missing data") {
             displayNotification('#notif-div', "manager.account.missingData", "error");
+        } else if (response.response == false) {
+            displayNotification('#notif-div', "manager.group.groupFull", "error");
         }
     });
     pseudoModal.closeAllModal();

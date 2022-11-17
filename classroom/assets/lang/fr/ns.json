@@ -200,7 +200,9 @@
 			"invalidActivityId": "Erreur lors de la soumission du travail : identifiant d'activité non valide !",
 			"invalidCorrection": "Erreur lors de la soumission du travail : statut d'activité non valide !",
 			"currentPasswordDoesNotMatch": "Le mot de passe saisi n'est pas correct !",
-			"noAnswerInActivity": "Vous devez renseigner au moins un champ de réponse"
+			"noAnswerInActivity": "Vous devez renseigner au moins un champ de réponse",
+			"courseMissingData": "Vous devez renseigner un titre et une description",
+			"courseMissingParameters": "Vous devez renseigner les paramètres pour continuer"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",
@@ -1277,7 +1279,8 @@
 					"0": "Etudes supérieures",
 					"1": "Autre (préciser dans la biographie)"
 				}
-			}
+			},
+			"groupFull":"Le groupe est complet."
 		},
 		"group": {
 			"generalInfo": "Informations générales",

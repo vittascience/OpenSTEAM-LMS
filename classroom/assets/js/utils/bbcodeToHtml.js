@@ -39,18 +39,25 @@ function bbcodeToHtml(html) {
     //bold
     html = html.replace(/\[b\]/gi, "<strong>")
     html = html.replace(/\[\/b\]/gi, "</strong>")
-    //list
+
+    // unordered
     html = html.replace(/\[list\]/gi, "<ul>")
     html = html.replace(/\[\/list\]/gi, "</ul></br>")
+
+    // ordered
+    html = html.replace(/\[list=1\]/gi, "<ol>")
+    html = html.replace(/\[\/list=1\]/gi, "</ol></br>")
     html = html.replace(/\[\*\]/gi, "<li>")
     html = html.replace(/\[\/\*\]/gi, "</li>")
+
     //italic
     html = html.replace(/\[i\]/gi, "<i>")
     html = html.replace(/\[\/i\]/gi, "</i>")
+
     //underline
     html = html.replace(/\[u\]/gi, "<u>")
-
     html = html.replace(/\[\/u\]/gi, "</u>")
+    
     //image
     html = html.replace(/\[img title=([a-zA-Z0-9?=&\/\\:\-,\+%._ ]*)max-width=([a-zA-Z0-9?=&\/\\:\-,\+%._ ]*)(\])([a-zA-Z0-9éàçèïîôâàë?=&\/\\:%.\-\+\)\(_ ]+)(\[\/img\])/gi, "<img src='$4' title='$1' alt='$1' style='max-width:$2 !important;' class='img-fluid'/>")
     html = html.replace(/(\[img)([a-zA-Z0-9?=&\/\\:\-,\+%._]*)(\])([a-zA-Z0-9éàçèïîôâàë?=&\/\\:%.\-\+\)\(_]+)(\[\/img\])/gi, "<img src='$4'/>")
@@ -79,6 +86,25 @@ function bbcodeToHtml(html) {
     // anwser 
 	html = html.replace(/\[answer\]/gi, "<span class='lms-answer'>");
 	html = html.replace(/\[\/answer\]/gi, "</span>");
+
+    //strikethrough text
+    html = html.replace(/\[s\]/gi, "<strike>")
+    html = html.replace(/\[\/s\]/gi, "</strike>")
+
+    // math index bbcode
+    html = html.replace(/\[sub\]/gi, "<sub>")
+    html = html.replace(/\[\/sub\]/gi, "</sub>")
+
+    // exponent bbcode
+    html = html.replace(/\[sup\]/gi, "<sup>")
+    html = html.replace(/\[\/sup\]/gi, "</sup>")
+
+    // code 
+    html = html.replace(/\[code\]/gi, "<div style='background:#e9e9e9;padding:0.5rem;max-height:500px;overflow-y:auto;'><code>")
+    html = html.replace(/\[\/code\]/gi, "</code></div>")
+    //size
+    html = html.replace(/\[size\=([0-9]{1,3})]/gi, "<span style='font-size:$1px;'>")
+    html = html.replace(/\[\/size\]/gi, "</span>")
 
     return html
 }
