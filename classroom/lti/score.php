@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
 * Copyright (C) 2022 Seif-Eddine Benomar - Cabrilog
 * Contribution to OpenSTEAM Project
 */
@@ -35,17 +35,15 @@ $jwtToken = explode("Bearer ", $headers['Authorization'])[1];
     //$platform_url = isset($_SERVER['HTTPS']) ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'];
     //$platform_url = getenv('VS_HOST');
     $platform_url = getenv('VS_HOST');
-    $jwks = json_decode(file_get_contents($platform_url . "/classroom/lti/certs.php"), true);
+    $jwks = json_decode(file_get_contents($platform_url."/classroom/lti/certs.php"), true);
 
     JWT::$leeway = 60; // $leeway in seconds
 
-    // check validity of access_token
     $validatedToken = JWT::decode(
-      explode("Bearer ", $headers['Authorization'])[1],
-      file_get_contents(__DIR__ . "/keys/public.key"),
+      $jwtToken,
+      JWK::parseKeySet($jwks),
       array('RS256')
     );
-
   } catch (\Exception $e) {
     echo json_encode(['Error:' => $e->getMessage()]);
     exit;
