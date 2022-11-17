@@ -710,7 +710,7 @@ $('body').on('click', '.sandbox-action-add', function () {
 function studentActivitiesDisplay() {
 
     let activities = Main.getClassroomManager()._myActivities;
-    
+
 
     let index = 1;
     document.querySelector('#new-activities-list').innerHTML = '';
@@ -789,7 +789,7 @@ function manageToggleForStudentPanel() {
     if ($('.section-saved .resource-number').html() > 0) {
         if ($('#saved-activities-list').css("display") == 'none') {
             sectionToggle('saved')
-        }  
+        }
     }
     if ($('.section-current .resource-number').html() > 0) {
         if ($('#current-activities-list').css("display") == 'none') {
@@ -943,10 +943,10 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
 
     coursesManager.myCourses.forEach(course => {
         if (course.folder == null && foldersManager.actualFolder == null) {
-            $('#list-activities-teacher').append(coursesManager.teacherCourseItem(course, displayStyle)); 
+            $('#list-activities-teacher').append(coursesManager.teacherCourseItem(course, displayStyle));
         } else if (course.folder != null) {
             if (course.folder.id == foldersManager.actualFolder) {
-                $('#list-activities-teacher').append(coursesManager.teacherCourseItem(course, displayStyle)); 
+                $('#list-activities-teacher').append(coursesManager.teacherCourseItem(course, displayStyle));
             }
         }
     });
@@ -1862,6 +1862,8 @@ function updateUserModal() {
             persistUpdateUserApp();
         } else if (response.message == "missing data") {
             displayNotification('#notif-div', "manager.account.missingData", "error");
+        } else if (response.response == false) {
+            displayNotification('#notif-div', "manager.group.groupFull", "error");
         } else if (response.message == "maxStudentsFromTeacher") {
             displayNotification('#notif-div', "manager.group.toManyStudentsFromTheTeacher", "error");
         } else if (response.message = "maxStudentsInGroup") {
@@ -1933,6 +1935,8 @@ function createUserAndLinkToGroup() {
             displayNotification('#notif-div', "classroom.notif.emailExists", "error");
         } else if (response.message == "missing data") {
             displayNotification('#notif-div', "manager.account.missingData", "error");
+        } else if (response.response == false) {
+            displayNotification('#notif-div', "manager.group.groupFull", "error");
         }
     });
     pseudoModal.closeAllModal();
