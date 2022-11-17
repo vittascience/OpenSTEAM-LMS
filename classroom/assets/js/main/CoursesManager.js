@@ -316,7 +316,7 @@ class CoursesManager {
             this.courseData.image = image;
             this.goToParameters(true);
         } else {
-            displayNotification('#notif-div', "informations manquantes", "error");
+            displayNotification('#notif-div', "classroom.notif.courseMissingData", "error");
         }
     }
 
@@ -333,7 +333,7 @@ class CoursesManager {
             this.courseData.parameters.license = license;
             this.goToAttribution(true);
         } else {
-            displayNotification('#notif-div', "informations manquantes", "error");
+            displayNotification('#notif-div', "classroom.notif.courseMissingParameters", "error");
         }
     }
 

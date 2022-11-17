@@ -688,6 +688,9 @@ class managerManager {
             else
                 $('#group_name_from_table').text(group.name);
 
+            if (data == false) {
+                return;
+            }
             data.forEach(element => {
                 if (element.hasOwnProperty('currentPage')) {
                     mainManager.getmanagerManager()._paginationUsersInfo = element;

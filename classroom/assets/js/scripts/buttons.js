@@ -1868,6 +1868,8 @@ function updateUserModal() {
             displayNotification('#notif-div', "manager.group.toManyStudentsFromTheTeacher", "error");
         } else if (response.message = "maxStudentsInGroup") {
             displayNotification('#notif-div', "manager.group.toManyStudentsInGroup", "error");
+        } else if (response.response == false) {
+            displayNotification('#notif-div', "manager.users.groupFull", "error");
         }
     });
 }
@@ -1936,7 +1938,7 @@ function createUserAndLinkToGroup() {
         } else if (response.message == "missing data") {
             displayNotification('#notif-div', "manager.account.missingData", "error");
         } else if (response.response == false) {
-            displayNotification('#notif-div', "manager.group.groupFull", "error");
+            displayNotification('#notif-div', "manager.users.groupFull", "error");
         }
     });
     pseudoModal.closeAllModal();
