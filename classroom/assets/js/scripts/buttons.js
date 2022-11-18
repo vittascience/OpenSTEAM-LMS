@@ -2779,7 +2779,8 @@ function getSubjects(grade) {
 /**
  * Get the grade and the subject in the user language
  */
-const Grade = getGrades();
+const Grade = /login/.test(location.href) ? {} : getGrades();
+
 
 
 // Applications management
