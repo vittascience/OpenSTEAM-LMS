@@ -363,6 +363,7 @@
 			"goodProficiency": "Satisfactory control",
 			"weakProficiency": "Fragile control",
 			"insufficientProficiency": "Insufficient mastery",
+			"noProficiency": "Not evaluated",
 			"addLearner": "Add a learner",
 			"addLearners": "Add learners",
 			"addActivity": "Add an activity",
@@ -1183,7 +1184,9 @@
 			"activitiesPerTeacher": "Activities per teacher",
 			"studentsPerTeacher": "Students per teacher",
 			"maxStudents": "Maximum students",
-			"maxActivities": "Maximum activities"
+			"maxActivities": "Maximum activities",
+			"groupsRestrictions": "Group's restrictions",
+			"classroomPerTeacher": "Classroom(s) per teacher"
 		},
 		"title": {
 			"activeUsers": "Active users",
