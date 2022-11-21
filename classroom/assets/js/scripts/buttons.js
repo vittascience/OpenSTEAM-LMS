@@ -533,17 +533,19 @@ document.addEventListener('change', (e) => {
             }
         }
 
-        document.querySelector('#assign-total-student-number').innerHTML = selectedStudentNumber.toString();
-        document.querySelector('#assign-total-student-number-course').innerHTML = selectedStudentNumber.toString();
-        document.querySelector('#attribuate-student-number').innerText = selectedStudentNumber;
+        var e;
+        e = document.querySelector('#assign-total-student-number'); if(e) e.innerHTML = selectedStudentNumber.toString();
+        e = document.querySelector('#assign-total-student-number-course'); if(e) e.innerHTML = selectedStudentNumber.toString();
+        e = document.querySelector('#attribuate-student-number'); if(e) e.innerText = selectedStudentNumber;
 
+        var e;
         if (selectedStudentNumber > 0) {
-            document.querySelector('#attribute-activity-to-students').removeAttribute('disabled');
-            document.querySelector('#attribute-course-to-students').removeAttribute('disabled');
+            e = document.querySelector('#attribute-activity-to-students'); if(e) e.removeAttribute('disabled');
+            e = document.querySelector('#attribute-course-to-students'); if(e) e.removeAttribute('disabled');
 
         } else {
-            document.querySelector('#attribute-activity-to-students').setAttribute('disabled', '');
-            document.querySelector('#attribute-course-to-students').setAttribute('disabled', '');
+            e = document.querySelector('#attribute-activity-to-students'); if(e) e.setAttribute('disabled', '');
+            e = document.querySelector('#attribute-course-to-students'); if (e) e.setAttribute('disabled', '');
         }
     }
     $('.student-number').html(ClassroomSettings.studentCount);
@@ -574,12 +576,13 @@ $('body').on('change', '.list-students-classroom', function () {
         ClassroomSettings.studentCount -= nbStudent
     }
     $('.student-number').html(ClassroomSettings.studentCount)
+    var e
     if (document.querySelector('.student-number').textContent != '0') {
-        document.getElementById('attribute-activity-to-students').removeAttribute('disabled');
-        document.getElementById('attribute-course-to-students').removeAttribute('disabled');
+        e = document.getElementById('attribute-activity-to-students'); if(e) e.removeAttribute('disabled');
+        e = document.getElementById('attribute-course-to-students'); if(e) e.removeAttribute('disabled');
     } else {
-        document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');
-        document.getElementById('attribute-course-to-students').setAttribute('disabled', '');
+        e = document.getElementById('attribute-activity-to-students'); if(e) e.setAttribute('disabled', '');
+        e = document.getElementById('attribute-course-to-students'); if (e) e.setAttribute('disabled', '');
     }
 })
 
