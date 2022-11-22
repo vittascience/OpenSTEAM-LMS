@@ -118,6 +118,47 @@ $('body').on('click', '.modal-activity-delete', function () {
 })
 
 
+///
+
+//activité modal-->supprimer
+$('body').on('click', '.modal-activity-delete', function () {
+    pseudoModal.openModal('delete-activity-modal');
+    let activityId = ClassroomSettings.activity,
+        courseArray = [];
+    coursesManager.myCourses.forEach(course => {
+        if (course.activities.find(c => c.id == activityId)) {
+            courseArray.push(course.title);
+        }
+    });
+    document.getElementById('activity-linked-to-course-message').style.display = courseArray.length > 0 ? 'block' : 'none';
+})
+
+function manageUpdateByType(activity) {
+    setTextArea();
+    const contentForwardButtonElt = document.getElementById('content-forward-button');
+
+    // Merge old activity to reading activity
+    activity.type == null ? activity.type = "reading" : activity.type;
+
+    Main.getClassroomManager()._createActivity.id = activity.type;
+    Main.getClassroomManager()._createActivity.function = "update";
+    
+    contentForwardButtonElt.style.display = 'inline-block';
+
+    $('#global_title').val(activity.title);
+    Main.getClassroomManager()._createActivity.title = activity.title;
+
+    console.log('update')
+    customActivity.manageUpdateCustom.filter((custom) => {
+        if (custom[0] == activity.type) {
+            console.log(custom);
+            custom[1](activity);
+        }
+    })
+    
+    navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
+}
+
 function activityModify(id) {
 
     hideAllActivities();
@@ -157,105 +198,23 @@ function manageUpdateByType(activity) {
     $('#global_title').val(activity.title);
     Main.getClassroomManager()._createActivity.title = activity.title;
 
-    switch (activity.type) {
-        case "free":
-            manageUpdateForFree(activity);
-            break;
-        case "quiz":
-            manageUpdateForQuiz(activity);
-            break;
-        case "fillIn":
-            manageUpdateForFillIn(activity);
-            break;
-        case "reading":
-        case null:
-            manageUpdateForReading(activity);
-            break;
-        case "dragAndDrop":
-            manageUpdateForDragAndDrop(activity);
-            break;
-        default:
-            contentForwardButtonElt.style.display = 'none';
-            Main.getClassroomManager()._createActivity.content.description = JSON.parse(activity.content).description;
-            launchLtiDeepLinkCreate(activity.type, true);
-            $("#activity-custom").show();
-            break;
-    }
-    
-    navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
-}
-
-
-function manageUpdateForFree(activity) {
-    $('#activity-free').show();
-    let content = JSON.parse(activity.content);
-    if (content.description != "" && content.description != null) {
-        $('#free-content').htmlcode(bbcodeToHtml(content.description));
-    }
-
-    // set tolerance 
-    if (content.tolerance != null) {
-        $('#free-tolerance').val(activity.tolerance);
-    }
-
-    if (activity.isAutocorrect) {
-        $("#free-autocorrect").prop("checked", true)
-        $("#free-correction-content").show();
-    } else {
-        $("#free-autocorrect").prop("checked", false)
-        $("#free-correction-content").hide();
-    }
-    if (activity.solution != "") {
-        if (JSON.parse(activity.solution) != null && JSON.parse(activity.solution) != "") {
-            $('#free-correction').htmlcode(bbcodeToHtml(JSON.parse(activity.solution)));
+    console.log('update')
+    customActivity.manageUpdateCustom.filter((custom) => {
+        if (custom[0] == activity.type) {
+            console.log(custom);
+            custom[1](activity);
         }
-    }
+    })
 }
 
-function manageUpdateForQuiz(activity) {
-    let solution = JSON.parse(activity.solution),
-    content = JSON.parse(activity.content);
-    $('#quiz-suggestions-container').html('');
-    for (let i = 1; i < solution.length+1; i++) {
-        let divToAdd = `<div class="form-group c-primary-form" id="quiz-group-${i}">
-                            <label for="quiz-suggestion-${i}" id="quiz-label-suggestion-${i}">Proposition ${i}</label>
-                            <button class="btn c-btn-grey mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-${i}" onclick="deleteQuizSuggestion(${i})">Delete</button>
 
-                            <div class="input-group mt-3">
-                                <input type="text" id="quiz-suggestion-${i}" class="form-control" value="${solution[i-1].inputVal}">
-                                <div class="input-group-append">
-                                    <div class="input-group-text c-checkbox c-checkbox-grey">
-                                        <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}" ${solution[i-1].isCorrect ? "checked" : ""}>
-                                        <label class="form-check-label" for="quiz-checkbox-${i}" id="label-quizz-${i}"  data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`;
-        $('#quiz-suggestions-container').append(divToAdd);
-        $(`#quiz-button-suggestion-${i}`).localize();
-        $(`#label-quizz-${i}`).localize();
-    }
-
-    $('#quiz-states').htmlcode(bbcodeToHtml(content.states));
-    $('#quiz-hint').val(content.hint);
-
-    if (activity.isAutocorrect) {
-        $("#quiz-autocorrect").prop("checked", true);
-    } else {
-        $("#quiz-autocorrect").prop("checked", false);
-    }
-    $('#activity-quiz').show();
+function manageUpdateForDeaultCase(activity) {
+    contentForwardButtonElt.style.display = 'none';
+    Main.getClassroomManager()._createActivity.content.description = JSON.parse(activity.content).description;
+    launchLtiDeepLinkCreate(activity.type, true);
+    $("#activity-custom").show();
 }
 
-function manageUpdateForFillIn(activity) {
-    $('#activity-fill-in').show();
-    let content = JSON.parse(activity.content);
-    $("#fill-in-states").htmlcode(bbcodeToHtml(content.states));
-    $("#fill-in-hint").val(content.hint);
-    $("#fill-in-tolerance").val(activity.tolerance);
-    $("#fill-in-content").htmlcode(bbcodeToHtml(content.fillInFields.contentForTeacher));
-    activity.isAutocorrect ? $("#fill-in-autocorrect").prop("checked", true) : $("#fill-in-autocorrect").prop("checked", false);
-}
 
 function manageUpdateForReading(activity) {
     let contentParsed = "";
@@ -266,17 +225,10 @@ function manageUpdateForReading(activity) {
     }
     $("#reading-content").htmlcode((contentParsed));
     $("#activity-reading").show();
+
+    navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
 }
 
-
-function manageUpdateForDragAndDrop(activity) {
-    $('#activity-drag-and-drop').show();
-    let content = JSON.parse(activity.content);
-    $("#drag-and-drop-hint").val(content.hint);
-    $("#drag-and-drop-states").htmlcode(bbcodeToHtml(content.states));
-    $("#drag-and-drop-content").htmlcode(bbcodeToHtml(content.dragAndDropFields.contentForTeacher));
-    activity.isAutocorrect ? $("#drag-and-drop-autocorrect").prop("checked", true) : $("#drag-and-drop-autocorrect").prop("checked", false);
-}
 
 //création activité vers attribution
 function attributeActivity(id, ref = null) {

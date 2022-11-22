@@ -120,12 +120,12 @@ function contentForward() {
         }
     } else if (Main.getClassroomManager()._createActivity.id == 'fillIn') {
         // Manage fill in fields
-        isCheckPassed = parseFillInFieldsAndSaveThem();
+        isCheckPassed = fillInManager.parseFillInFieldsAndSaveThem();
     } else if (Main.getClassroomManager()._createActivity.id == 'quiz') {
         // Manage quiz fields
-        isCheckPassed = parseQuizFieldsAndSaveThem();
+        isCheckPassed = quizManager.parseQuizFieldsAndSaveThem();
     } else if (Main.getClassroomManager()._createActivity.id == 'dragAndDrop') {
-        isCheckPassed = parseDragAndDropFieldsAndSaveThem();
+        isCheckPassed = dragAndDropManager.parseDragAndDropFieldsAndSaveThem();
     } else {
         const funct = customActivity.ContentForwardCustom.filter(contentForwardCheck => contentForwardCheck[0] == Main.getClassroomManager()._createActivity.id)[0];
         if (funct) {
@@ -233,15 +233,7 @@ function validateActivity(correction) {
     }
 }
 
-/**
- * Default process for the validation of the free activity
- */
-function freeValidateActivity(correction = 1) {
-    let studentResponse = $('#activity-input').bbcode();
-    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, studentResponse, Activity.id).then((response) => {
-        responseManager(response, 'free');
-    });
-}
+
 
 
 // todo
@@ -258,46 +250,9 @@ function validateDefaultResponseManagement(response) {
     }
 }
 
-function quizValidateActivity(correction = 1) {
-
-    let studentResponse = [];
-    for (let i = 1; i < $(`input[id^="student-quiz-checkbox-"]`).length+1; i++) {
-        let res = {
-            inputVal: $(`#student-quiz-suggestion-${i}`).text(),
-            isCorrect: $(`#student-quiz-checkbox-${i}`).is(':checked')
-        }
-        studentResponse.push(res);
-    }
-    
-    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, JSON.stringify(studentResponse), Activity.id).then((response) => {
-        responseManager(response, 'quiz');
-    });
-}
-
-function fillInValidateActivity(correction = 1) {
-    let studentResponse = [];
-    for (let i = 1; i < $(`input[id^="student-fill-in-field-"]`).length+1; i++) {
-        let string = document.getElementById(`student-fill-in-field-${i}`).value;
-        studentResponse.push(string);
-    }
-    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, JSON.stringify(studentResponse), Activity.id).then((response) => {
-        responseManager(response, 'fill-in');
-    });
-}
 
 
-function dragAndDropValidateActivity(correction = 1) {
-    let studentResponse = [];
-    for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
-        let string = document.getElementById(`dz-${i}`).children.length > 0 ? document.getElementById(`dz-${i}`).children[0].innerHTML : "";
-        studentResponse.push({
-            string: string
-        });
-    }
-    Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, JSON.stringify(studentResponse), Activity.id).then((response) => {
-        responseManager(response, 'drag-and-drop');
-    });
-}
+
 
 function responseManager(response = null, type = null) {
     if (response) {
@@ -353,6 +308,11 @@ function saveActivitiesResponseManager(activityType = null, response = null) {
         }
     } else if (activityType == 'quiz') {
         displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
+
+        document.querySelectorAll('.quiz-answer-incorrect').forEach((element) => {
+            element.classList.remove('quiz-answer-incorrect');
+        });
+
         for (let i = 1; i < $(`input[id^="student-quiz-suggestion-"]`).length+1; i++) {
             $('#student-quiz-suggestion-' + i).parent().addClass('quiz-answer-correct');
         }
@@ -477,214 +437,6 @@ function goBackToActivities() {
     });
 };
 
-$('#fill-in-add-inputs').click(() => {
-    if ($("#fill-in-content").getSelectText() != "") {
-        $('#fill-in-content').bbcode();
-
-        let randomString = Math.random().toString(36).substring(7);
-        replaceSelectionWithHtml(`<span class="lms-answer" data-id="${randomString}">${$("#fill-in-content").getSelectText()}</span>\&nbsp`)
-        let newText = $('#fill-in-content').htmlcode();
-        $('#fill-in-content').htmlcode(newText);
-
-        setCaret('fill-in-content', randomString);
-    } else {
-        $('#fill-in-content').bbcode();
-        $('#fill-in-content').htmlcode($('#fill-in-content').htmlcode() + `\&nbsp;<span class="lms-answer">\&nbsp;réponse\&nbsp;</span>\&nbsp`);
-    }
-});
-
-
-function parseFillInFieldsAndSaveThem() {
-    
-    if ($('#fill-in-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi) == null) {
-        displayNotification('#notif-div', "classroom.notif.noAnswerInActivity", "error");
-        return false;
-    }
-
-    Main.getClassroomManager()._createActivity.content.fillInFields.contentForTeacher = $('#fill-in-content').bbcode();
-
-    let response = $('#fill-in-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1"));
-
-    let contentForStudent = $('#fill-in-content').bbcode();
-    response.forEach((e, i) => {
-        contentForStudent = contentForStudent.replace(`[answer]${e}[/answer]`, `﻿`);
-        if (e.includes('&&')) {
-            response[i] = e.split('&&').map(e => e.trim()).join(',');
-        }
-    })
-
-    for (let index = 0; index < response.length; index++) {
-        response[index] = response[index].trim();
-    }
-
-    if ($('#fill-in-states').bbcode() != '') {
-        Main.getClassroomManager()._createActivity.content.states = $('#fill-in-states').bbcode();
-    } else {
-        return false;
-    }
-
-    Main.getClassroomManager()._createActivity.tolerance = $('#fill-in-tolerance').val();
-    Main.getClassroomManager()._createActivity.autocorrect = $('#fill-in-autocorrect').is(":checked");
-    Main.getClassroomManager()._createActivity.content.hint = $('#fill-in-hint').val();
-
-
-    Main.getClassroomManager()._createActivity.solution = response;
-    Main.getClassroomManager()._createActivity.content.fillInFields.contentForStudent = contentForStudent;
-
-    if (Main.getClassroomManager()._createActivity.content.fillInFields.contentForTeacher == "") {
-        return false
-    }
-    return true;
-}
-
-$('#dragAndDrop-add-inputs').click(() => {
-    if ($("#drag-and-drop-content").getSelectText() != "") {
-        $('#drag-and-drop-content').bbcode();
-        let randomString = Math.random().toString(36).substring(7);
-        replaceSelectionWithHtml(`<span class="lms-answer" data-id="${randomString}">${$("#drag-and-drop-content").getSelectText()}</span>\&nbsp`);
-        let newText = $('#drag-and-drop-content').htmlcode();
-        $('#drag-and-drop-content').htmlcode(newText);
-        setCaret('drag-and-drop-content', randomString);
-    } else {
-        $('#drag-and-drop-content').bbcode()
-        $('#drag-and-drop-content').htmlcode($('#drag-and-drop-content').htmlcode() + `\&nbsp;<span class="lms-answer">\&nbsp;réponse\&nbsp;</span>\&nbsp;`);
-    }
-});
-
-
-function parseDragAndDropFieldsAndSaveThem() {
-
-    if ($('#drag-and-drop-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi) == null) {
-        displayNotification('#notif-div', "classroom.notif.noAnswerInActivity", "error");
-        return false;
-    }
-    
-    Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForTeacher = $('#drag-and-drop-content').bbcode();
-    
-    let responseDD = $('#drag-and-drop-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1"));
-    let contentForStudent = $('#drag-and-drop-content').bbcode();
-
-
-    responseDD.forEach((e, i) => {
-        contentForStudent = contentForStudent.replace(`[answer]${e}[/answer]`, `﻿`);
-        responseDD[i] = e.trim();
-        if (e.includes('&&')) {
-            responseDD[i] = e.split('&&').map(e => e.trim()).join(',');
-        }
-    })
-
-    if ($('#drag-and-drop-states').bbcode() != '') {
-        Main.getClassroomManager()._createActivity.content.states = $('#drag-and-drop-states').bbcode();
-    } else {
-        return false;
-    }
-
-    Main.getClassroomManager()._createActivity.autocorrect = $('#drag-and-drop-autocorrect').is(":checked");
-    Main.getClassroomManager()._createActivity.content.hint = $('#drag-and-drop-hint').val();
-
-
-    Main.getClassroomManager()._createActivity.solution = responseDD;
-    Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForStudent = contentForStudent;
-
-    if (Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForTeacher == "") {
-        return false;
-    }
-    return true;
-}
-
-
-function addQuizSuggestion() {
-    let i = 0;
-    
-    do {
-        i++;
-    } while ($(`#quiz-suggestion-${i}`).length > 0);
-
-    let divToAdd = `<div class="form-group c-primary-form" id="quiz-group-${i}">
-                        <label for="quiz-suggestion-${i}" id="quiz-label-suggestion-${i}">Proposition ${i}</label>
-                        <button class="btn c-btn-grey mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-${i}" onclick="deleteQuizSuggestion(${i})">Delete</button>
-
-                        <div class="input-group mt-3">
-                            <input type="text" id="quiz-suggestion-${i}" class="form-control">
-                            <div class="input-group-append">
-                                <div class="input-group-text c-checkbox c-checkbox-grey">
-                                    <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}">
-                                    <label class="form-check-label" for="quiz-checkbox-${i}" id="label-quiz-${i}" data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>`;
-              
-    $('#quiz-suggestions-container').append(divToAdd);
-    $(`#quiz-button-suggestion-${i}`).localize();
-    $(`#label-quiz-${i}`).localize();
-}
-
-function parseQuizFieldsAndSaveThem() {
-    // check empty fields
-    let emptyFields = checkEmptyQuizFields();
-    let checkBox = checkQuizCheckbox();
-    if (emptyFields) { 
-        displayNotification('error', 'newActivities.emptyFields');
-        return false;
-    } else if (!checkBox) {
-        displayNotification('error', 'newActivities.checkBox');
-        return false;
-    } else {
-        let tempArraySolution = []; 
-        let tempArraycontentForStudent = []; 
-        for (let i = 1; i < $(`input[id^="quiz-suggestion-"]`).length+1; i++) {
-            let res = {
-                inputVal: $(`#quiz-suggestion-${i}`).val(),
-                isCorrect: $(`#quiz-checkbox-${i}`).is(':checked')
-            }
-            let student = {
-                inputVal: $(`#quiz-suggestion-${i}`).val()
-            }
-            tempArraySolution.push(res);
-            tempArraycontentForStudent.push(student);
-        }
-
-        Main.getClassroomManager()._createActivity.content.quiz.contentForStudent = tempArraycontentForStudent;
-        Main.getClassroomManager()._createActivity.solution = tempArraySolution;
-        
-        Main.getClassroomManager()._createActivity.content.hint = $('#quiz-hint').val();
-        Main.getClassroomManager()._createActivity.autocorrect = $('#quiz-autocorrect').is(":checked");
-        
-        if ($('#quiz-states').bbcode() != '') {
-            Main.getClassroomManager()._createActivity.content.states = $('#quiz-states').bbcode();
-        } else {
-            return false;
-        }
-        return true;
-    }
-}
-
-function checkEmptyQuizFields() {
-    let empty = false;
-    for (let i = 1; i < $(`input[id^="quiz-suggestion-"]`).length+1; i++) {
-        if ($(`#quiz-suggestion-${i}`).val() == '') {
-            empty = true;
-        }
-    }
-    return empty;
-}
-
-// check if at least one checkbox is checked
-function checkQuizCheckbox() {
-    let checkboxes = $(`input[id^="quiz-checkbox-"]`);
-    let checked = false;
-    for (let i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            checked = true;
-        }
-    }
-    return checked;
-}
-
-function deleteQuizSuggestion(number) {
-    $(`#quiz-group-${number}`).remove();
-}
 
 /**
  * Meilleur clean de contenu lors de la modification d'une activité
@@ -728,37 +480,9 @@ function launchLtiResource(activityId, activityType, activityContent, isStudentL
 }
 
 
-$('body').on('click', '#free-tolerance-increase', function () {
-    let tolerance = parseInt($('#free-tolerance').val());
-    if (!isNaN(tolerance)) {
-        $(`#free-tolerance`).val(tolerance+1);
-    } else {
-        $(`#free-tolerance`).val(1);
-    }
-})
 
-$('body').on('click', '#free-tolerance-decrease', function () {
-    let tolerance = parseInt($('#free-tolerance').val());
-    if (tolerance > 0) {
-        $(`#free-tolerance`).val(tolerance-1);
-    }
-})
 
-$('body').on('click', '#fill-in-tolerance-increase', function () {
-    let tolerance = parseInt($('#fill-in-tolerance').val());
-    if (!isNaN(tolerance)) {
-        $(`#fill-in-tolerance`).val(tolerance+1);
-    } else {
-        $(`#fill-in-tolerance`).val(1);
-    }
-})
 
-$('body').on('click', '#fill-in-tolerance-decrease', function () {
-    let tolerance = parseInt($('#fill-in-tolerance').val());
-    if (tolerance > 0) {
-        $(`#fill-in-tolerance`).val(tolerance-1);
-    }
-})
 
 
 function ActivityPreviewBeforeCreation(type) {
@@ -785,8 +509,7 @@ function ActivityPreviewBeforeCreation(type) {
 
     switch (type) {
         case "quiz":
-            console.log()
-            $contentText.html(createContentForQuiz(ActivityPreview.content.quiz.contentForStudent, true, false, true));
+            $contentText.html(quizManager.createContentForQuiz(ActivityPreview.content.quiz.contentForStudent, true, false, true));
             $states.show();
             $content.show();
             $('#activity-preview-div').show();
