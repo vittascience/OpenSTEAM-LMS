@@ -30,8 +30,7 @@ class ReadingManager {
         const vittaIframeRegex = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm;
         _interface = _interface ? vittaIframeRegex.exec(_interface.description) : false;
         if (_interface == undefined || _interface == null) {
-            correction = 2
-            Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, correction, 4).then(function (activity) {
+            Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, 2, 4).then(function (activity) {
                 if (typeof activity.errors != 'undefined') {
                     for (let error in activity.errors) {
     
@@ -40,13 +39,12 @@ class ReadingManager {
                     }
                 } else  {
                     navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
-                    actualizeStudentActivities(activity, correction);
+                    actualizeStudentActivities(activity, 2);
                     $("#activity-validate").attr("disabled", false);
                 }
             })
             window.localStorage.classroomActivity = null
         } else if (Activity.autocorrection == false) {
-            correction = 1
             const interfaceName = _interface[2];
             let project = window.localStorage[interfaceName + 'CurrentProject']
             Main.getClassroomManager().saveStudentActivity(JSON.parse(project), interfaceName, Activity.id).then(function (activity) {
@@ -56,7 +54,7 @@ class ReadingManager {
                         $("#activity-validate").attr("disabled", false);
                     }
                 } else {
-                    actualizeStudentActivities(activity, correction)
+                    actualizeStudentActivities(activity, 1)
                     $("#activity-validate").attr("disabled", false);
                     navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher')
                 }

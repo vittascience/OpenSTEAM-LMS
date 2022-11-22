@@ -16,32 +16,6 @@ function parseContent(content, className, autoWidth = false) {
     return content;
 }
 
-function deleteQcmFields() {
-    $(`div[id^="teacher-suggestion-"]`).each(function() {
-        $(this).remove();
-    })
-
-    $(`div[id^="qcm-field-"]`).each(function() {
-        $(this).remove();
-    })
-
-    $(`div[id^="qcm-not-doable-"]`).each(function() {
-        $(this).remove();
-    })
-
-    $(`div[id^="qcm-doable-"]`).each(function() {
-        $(this).remove();
-    })
-
-    $(`div[id^="quiz-group-"]`).each(function() {
-        if ($(this).attr('id') != "quiz-group-1") {
-            $(this).remove();
-        }
-    })
-    $('#quiz-suggestion-1').val('');
-    $('#quiz-checkbox-1').prop('checked', false);
-}
-
 /**
  * Visibility management
  */
@@ -85,7 +59,7 @@ function resetInputsForActivity() {
     $("#warning-text-no-evaluation").hide();
 
     // Quiz reset input
-    deleteQcmFields();
+    quizManager.deleteQcmFields();
 }
 
 function resetActivityInputs(activityType) {
@@ -122,7 +96,7 @@ function resetActivityInputs(activityType) {
         $('#quiz-hint').val("");
         $('#quiz-tolerance').val("");
         // Quiz reset input
-        deleteQcmFields();
+        quizManager.deleteQcmFields();
     }
     Main.getClassroomManager().setDefaultActivityData();
 }

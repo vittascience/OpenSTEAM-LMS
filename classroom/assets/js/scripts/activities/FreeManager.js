@@ -61,7 +61,6 @@ class FreeManager {
 
     showTeacherFreeActivity(contentParsed, Activity) {
         if (contentParsed.hasOwnProperty('description')) {
-            
             $('#activity-content').html(bbcodeToHtml(contentParsed.description));
             $('#activity-content-container').show();
         } 

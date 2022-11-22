@@ -254,6 +254,32 @@ class QuizManager {
         }
         return content;
     }
+
+    deleteQcmFields() {
+        $(`div[id^="teacher-suggestion-"]`).each(function() {
+            $(this).remove();
+        })
+    
+        $(`div[id^="qcm-field-"]`).each(function() {
+            $(this).remove();
+        })
+    
+        $(`div[id^="qcm-not-doable-"]`).each(function() {
+            $(this).remove();
+        })
+    
+        $(`div[id^="qcm-doable-"]`).each(function() {
+            $(this).remove();
+        })
+    
+        $(`div[id^="quiz-group-"]`).each(function() {
+            if ($(this).attr('id') != "quiz-group-1") {
+                $(this).remove();
+            }
+        })
+        $('#quiz-suggestion-1').val('');
+        $('#quiz-checkbox-1').prop('checked', false);
+    }
 }
 
 const quizManager = new QuizManager();
