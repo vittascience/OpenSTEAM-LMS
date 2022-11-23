@@ -233,5 +233,5 @@ The current repository only contains front elements of the LMS. The back end is 
 - [vuser](https://github.com/vittascience/vuser) : current version (1.2.8)
 - [vclassroom](https://github.com/vittascience/vclassroom) : current version (1.3.5)
 - [vutils](https://github.com/vittascience/vutils) : current version (1.2.8b)
-- vinterfaces (not public yet) : current version (1.3.3)
+- vinterfaces (not public yet) : current version (1.3.6)
 - vlearn (not public yet) : current version (1.3.2)
