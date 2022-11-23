@@ -1,11 +1,6 @@
 class FreeManager {
-    constructor() {
-        
-    }
 
     init() {
-        console.log("FreeManager init");
-
         $('body').on('click', '#free-tolerance-increase', function () {
             let tolerance = parseInt($('#free-tolerance').val());
             if (!isNaN(tolerance)) {

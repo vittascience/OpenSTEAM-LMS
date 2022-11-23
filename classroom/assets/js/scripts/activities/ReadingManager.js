@@ -1,11 +1,6 @@
 class ReadingManager {
-    constructor() {
-        
-    }
 
     init() {
-        console.log("ReadingManager init");
-
         $('body').on('click', '#free-tolerance-increase', function () {
             let tolerance = parseInt($('#free-tolerance').val());
             if (!isNaN(tolerance)) {

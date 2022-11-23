@@ -1,11 +1,4 @@
 class QuizManager {
-    constructor() {
-        
-    }
-
-    init() {
-        console.log("QuizManager init");
-    }
 
     parseQuizFieldsAndSaveThem() {
         // check empty fields
@@ -289,5 +282,4 @@ class QuizManager {
 }
 
 const quizManager = new QuizManager();
-quizManager.init();
 

@@ -234,9 +234,6 @@ function validateActivity(correction) {
 }
 
 
-
-
-// todo
 function validateDefaultResponseManagement(response) {
     $("#activity-validate").attr("disabled", false);
     if (response.note != null && response.correction > 1) {
@@ -249,10 +246,6 @@ function validateDefaultResponseManagement(response) {
         navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher')
     }
 }
-
-
-
-
 
 function responseManager(response = null, type = null) {
     if (response) {
@@ -271,7 +264,6 @@ function responseManager(response = null, type = null) {
         displayNotification('#notif-div', "classroom.notif.errorSending", "error");
     }
 }
-
 
 function activitiesCreation(apps) {
 

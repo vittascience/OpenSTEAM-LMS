@@ -1,11 +1,6 @@
 class DragAndDropManager {
-    constructor() {
-        
-    }
-
+    
     init() {
-        console.log("DragAndDropManager init");
-
         $('#dragAndDrop-add-inputs').click(() => {
             if ($("#drag-and-drop-content").getSelectText() != "") {
                 $('#drag-and-drop-content').bbcode();
@@ -62,7 +57,6 @@ class DragAndDropManager {
     }
 
     dragAndDropValidateActivity(correction = 1, isFromCourse = false) {
-
         let studentResponse = [];
         for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
             let string = document.getElementById(`dz-${i}`).children.length > 0 ? document.getElementById(`dz-${i}`).children[0].innerHTML : "";

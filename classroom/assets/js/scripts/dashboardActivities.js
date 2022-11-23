@@ -812,8 +812,6 @@ function setPluriel(number) {
 
 
 function loadCourseAndActivityForStudents(isDoable, currentCourse = null, progressBar = false, isFromCourse = false) {
-    console.log("reworked func", isDoable, currentCourse, progressBar, isFromCourse);
-    
     // Reset the inputs
     resetInputsForActivity(isFromCourse);
 

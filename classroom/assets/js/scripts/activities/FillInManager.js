@@ -1,11 +1,6 @@
 class FillInManager {
-    constructor() {
-        
-    }
-
+    
     init() {
-        console.log("FillInManager init");
-
         $('#fill-in-add-inputs').click(() => {
             if ($("#fill-in-content").getSelectText() != "") {
                 $('#fill-in-content').bbcode();
@@ -48,9 +43,8 @@ class FillInManager {
     
         Main.getClassroomManager()._createActivity.content.fillInFields.contentForTeacher = $('#fill-in-content').bbcode();
     
-        let response = $('#fill-in-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1"));
-    
-        let contentForStudent = $('#fill-in-content').bbcode();
+        let response = $('#fill-in-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1")),
+            contentForStudent = $('#fill-in-content').bbcode();
         response.forEach((e, i) => {
             contentForStudent = contentForStudent.replace(`[answer]${e}[/answer]`, `﻿`);
             if (e.includes('&&')) {
@@ -83,14 +77,14 @@ class FillInManager {
     }
 
     fillInValidateActivity(correction = 1, isFromCourse = false) {
-        let studentResponse = [];
+        let studentResponse = [],
+            activityId = isFromCourse ? coursesManager.actualCourse.activity : Activity.activity.id,
+            activityLink = isFromCourse ? coursesManager.actualCourse.link : Activity.id;
+
         for (let i = 1; i < $(`input[id^="student-fill-in-field-"]`).length+1; i++) {
             let string = document.getElementById(`student-fill-in-field-${i}`).value;
             studentResponse.push(string);
         }
-
-        let activityId = isFromCourse ? coursesManager.actualCourse.activity : Activity.activity.id;
-        let activityLink = isFromCourse ? coursesManager.actualCourse.link : Activity.id;
 
         Main.getClassroomManager().saveNewStudentActivity(activityId, correction, null, JSON.stringify(studentResponse), activityLink).then((response) => {
             if (isFromCourse) {
@@ -109,7 +103,6 @@ class FillInManager {
         $("#fill-in-tolerance").val(activity.tolerance);
         $("#fill-in-content").htmlcode(bbcodeToHtml(content.fillInFields.contentForTeacher));
         activity.isAutocorrect ? $("#fill-in-autocorrect").prop("checked", true) : $("#fill-in-autocorrect").prop("checked", false);
-    
         navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
     }
 
@@ -139,8 +132,8 @@ class FillInManager {
         
         if (correction <= 1 || correction == null) {
             if (!UserManager.getUser().isRegular) {
-                let studentContent = bbcodeToHtml(content.fillInFields.contentForStudent)
-                let nbOccu = studentContent.match(/﻿/g).length;
+                let studentContent = bbcodeToHtml(content.fillInFields.contentForStudent),
+                    nbOccu = studentContent.match(/﻿/g).length;
     
                 for (let i = 1; i < nbOccu+1; i++) {
                     studentContent = studentContent.replace(`﻿`, `<input type="text" id="student-fill-in-field-${i}" class="answer-student">`);
@@ -167,9 +160,9 @@ class FillInManager {
     }
 
     displayFillInTeacherSide(correction_div, correction, content, isFromCourse) {
-        let course = isFromCourse ? "-course" : "";
         let studentContentString = content.fillInFields.contentForStudent,
-            studentResponses = JSON.parse(Activity.response);
+            studentResponses = JSON.parse(Activity.response),
+            course = isFromCourse ? "-course" : "";
     
         if (studentResponses != null && studentResponses != "") { 
     
@@ -180,7 +173,6 @@ class FillInManager {
     
     
             Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
-    
                 for (let i = 0; i < studentResponses.length; i++) {
                     if (result.success.includes(i)) {
                         $(`#correction-student-fill-in-field-${i}`).addClass("answer-incorrect");
