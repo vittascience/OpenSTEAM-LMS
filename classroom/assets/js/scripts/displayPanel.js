@@ -384,7 +384,8 @@ DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
                     Main.activityTracker = new ActivityTracker();
                     Main.activityTracker.startActivityTracker();
                 }
-                loadActivityForStudents(isDoable)
+                //loadActivityForStudents(isDoable)
+                loadCourseAndActivityForStudents(isDoable);
             }
         }
     }

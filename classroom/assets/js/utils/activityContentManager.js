@@ -21,42 +21,38 @@ function parseContent(content, className, autoWidth = false) {
  */
 
 // Set all the inputs we need to reset
-function resetInputsForActivity() {
-    // Autocorrect note disclaimer
-    $("#activity-auto-corrected-disclaimer").hide();
-    $("#activity-auto-disclaimer").hide();
-    $("#activity-content-container").hide();
+function resetInputsForActivity(isFromCourse = false) {
 
-    // Hide all the divs
-    $('#activity-introduction').hide();
-    $('#activity-correction-container').hide();
-    $("#activity-states-container").hide();
+    let courseIndicator = isFromCourse ? '-course' : '';
     
-    // Field for free activity
-    $('#activity-input-container').hide();
-    $('#activity-student-response').hide();
-    $('#activity-student-response-content').text('');
+    $(`#activity-auto-corrected-disclaimer${courseIndicator}`).hide();
+    $(`#activity-auto-disclaimer${courseIndicator}`).hide();
+    $(`#activity-content-container${courseIndicator}`).hide();
     
-    // Fields
-    $('#activity-states').html("");
-    $('#activity-title').html("");
-    $('#activity-details').html('');
-    $('#activity-content').html("");
-    $('#activity-correction').html("");
-
-    // Hint
-    $("#activity-hint").text('');
-    $("#activity-hint-container").hide();
-
-    // Drag and drop
-    $('#activity-drag-and-drop-container').hide();
-    $('#drag-and-drop-fields').html('');
-    $('#drag-and-drop-text').html('');
-
-    // Warning message for
-    $('#warning-icon-container').hide();
-    $('#warning-text-evaluation').hide();
-    $("#warning-text-no-evaluation").hide();
+    $(`#activity-introduction${courseIndicator}`).hide();
+    $(`#activity-correction-container${courseIndicator}`).hide();
+    $(`#activity-states-container${courseIndicator}`).hide();
+    
+    $(`#activity-input-container${courseIndicator}`).hide();
+    $(`#activity-student-response${courseIndicator}`).hide();
+    $(`#activity-student-response-content${courseIndicator}`).text('');
+    
+    $(`#activity-states${courseIndicator}`).html("");
+    $(`#activity-title${courseIndicator}`).html("");
+    $(`#activity-details${courseIndicator}`).html('');
+    $(`#activity-content${courseIndicator}`).html("");
+    $(`#activity-correction${courseIndicator}`).html("");
+    
+    $(`#activity-hint${courseIndicator}`).text('');
+    $(`#activity-hint-container${courseIndicator}`).hide();
+    
+    $(`#activity-drag-and-drop-container${courseIndicator}`).hide();
+    $(`#drag-and-drop-fields${courseIndicator}`).html('');
+    $(`#drag-and-drop-text${courseIndicator}`).html('');
+    
+    $(`#warning-icon-container${courseIndicator}`).hide();
+    $(`#warning-text-evaluation${courseIndicator}`).hide();
+    $(`#warning-text-no-evaluation${courseIndicator}`).hide();
 
     // Quiz reset input
     quizManager.deleteQcmFields();

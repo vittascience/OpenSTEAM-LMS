@@ -561,89 +561,7 @@ function statusActivity(activity, state = true, formatedTimePast = '') {
 
 }
 
-function loadActivityForStudents(isDoable) {
-    // Reset the inputs
-    resetInputsForActivity();
 
-    // Check if the activity has an introduction
-    if (Activity.introduction != null && Activity.introduction != "") {
-        $('#text-introduction').html(bbcodeToHtml(Activity.introduction))
-        $('#activity-introduction').show()
-    }
-
-    let activityType = [
-        "reading",
-        "dragAndDrop",
-        "fillIn",
-        "quiz"
-    ]
-    // Disclaimer for eval
-    if (Activity.correction < 2 && (activityType.includes(Activity.activity.type))) {
-        $('#warning-icon-container').show();
-        $('#warning-icon-container > i').hide();
-        Activity.evaluation ? $('#warning-icon-evaluation').show().tooltip() : $("#warning-icon-no-evaluation").show().tooltip();
-    }
-    
-    // Check if the correction if available
-    if (Activity.correction >= 1) {
-        $('#activity-details').html(i18next.t("classroom.activities.sentOn") + formatHour(Activity.dateSend), i18next.t("classroom.activities.numberOfTries") + Activity.tries)
-    } else {
-        $('#activity-details').html(i18next.t("classroom.activities.toSend") + formatDay(Activity.dateEnd))
-    }
-
-    // Content management
-    let content = manageContentForActivity();
-    let correction = '';
-    if (!UserManager.getUser().isRegular && Activity.correction > 1) {
-        document.querySelector('#activity-correction').style.display = 'block';
-        let activityResultString, activityResultColor;
-        switch (Activity.note) {
-            case 4:
-                activityResultString = i18next.t('classroom.activities.noProficiency')
-                activityResultColor = 'var(--classroom-text-2)'
-                break;
-            case 3:
-                activityResultString = i18next.t('classroom.activities.veryGoodProficiency')
-                activityResultColor = 'var(--correction-3)'
-                break;
-            case 2:
-                activityResultString = i18next.t('classroom.activities.goodProficiency')
-                activityResultColor = 'var(--correction-2)'
-                break;
-            case 1:
-                activityResultString = i18next.t('classroom.activities.weakProficiency')
-                activityResultColor = 'var(--correction-1)'
-                break;
-            case 0:
-                activityResultString = i18next.t('classroom.activities.insufficientProficiency')
-                activityResultColor = 'var(--correction-0)'
-                break;
-            default:
-                break;
-        }
-        correction += `<div class="results-string" style="background-color:${activityResultColor}">${activityResultString}</div>`
-        
-        if (Activity.commentary != null && Activity.commentary != "") {
-            correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
-        } else {
-            correction += '<div id="commentary-panel">' + i18next.t("classroom.activities.bilan.noComment") + '</div>'
-        }
-    } else {
-        document.querySelector('#activity-correction').style.display = 'none';
-    }
-
-    injectContentForActivity(content, Activity.correction, Activity.activity.type, correction, isDoable);
-
-    if (!Activity.evaluation && correction < 2 && !isDoable) {
-        let allKnownActivity = [...activityType, "free"];
-        if (!allKnownActivity.includes(Activity.activity.type)) {
-            isDoable = false;
-        } else {
-            isDoable = true;
-        }
-    }
-    isTheActivityIsDoable(isDoable);
-}
 
 function loadActivityForTeacher() {
 
@@ -891,3 +809,233 @@ function setPluriel(number) {
         return 's'
     } else return ''
 }
+
+
+function loadCourseAndActivityForStudents(isDoable, currentCourse = null, progressBar = false, isFromCourse = false) {
+    console.log("reworked func", isDoable, currentCourse, progressBar, isFromCourse);
+    
+    // Reset the inputs
+    resetInputsForActivity(isFromCourse);
+
+    let courseIndicator = isFromCourse ? "-course" : "";
+
+    // Check if the activity has an introduction
+    if (Activity.introduction != null && Activity.introduction != "") {
+        $(`#text-introduction${courseIndicator}`).html(bbcodeToHtml(Activity.introduction))
+        $(`#activity-introduction${courseIndicator}`).show()
+    }
+
+    let activityType = [
+        "reading",
+        "dragAndDrop",
+        "fillIn",
+        "quiz"
+    ]
+
+    /* Course only */
+    document.getElementById("course-progress-bar").style.display = progressBar ? "flex" : "none";
+    if (progressBar) {
+        // Add the current course indicator on top of the given activity
+        let nbOfExercices = currentCourse.activities.length;
+        let currentActivityIndex = currentCourse.activities.findIndex(activity => activity.id == Activity.activity.id);
+
+        // add green cells to .course-state until the current activity, then add grey cells
+        let courseState = "";
+        for (let i = 0; i < nbOfExercices; i++) {
+            if (i <= currentActivityIndex) {
+                courseState += `<div class="course-state-item course-state-done"></div>`;
+            } else {
+                courseState += `<div class="course-state-item course-state-todo"></div>`;
+            }
+        }
+        $('.course-state').html(courseState);
+    }
+
+    if (!isFromCourse)
+    {
+        // Disclaimer for eval
+        if (Activity.correction < 2 && (activityType.includes(Activity.activity.type))) {
+            $('#warning-icon-container').show();
+            $('#warning-icon-container > i').hide();
+            Activity.evaluation ? $('#warning-icon-evaluation').show().tooltip() : $("#warning-icon-no-evaluation").show().tooltip();
+        }
+    }
+
+    // Check if the correction if available
+    if (Activity.correction >= 1) {
+        $(`#activity-details${courseIndicator}`).html(i18next.t("classroom.activities.sentOn") + formatHour(Activity.dateSend), i18next.t("classroom.activities.numberOfTries") + Activity.tries)
+    } else {
+        $(`#activity-details${courseIndicator}`).html(i18next.t("classroom.activities.toSend") + formatDay(Activity.dateEnd))
+    }
+
+    // Content management
+    let content = manageContentForActivity();
+    let correction = '';
+
+    if (!UserManager.getUser().isRegular && Activity.correction > 1) {
+        document.querySelector(`#activity-correction${courseIndicator}`).style.display = 'block';
+        let activityResultString, activityResultColor;
+        switch (Activity.note) {
+            case 4:
+                activityResultString = i18next.t('classroom.activities.noProficiency')
+                activityResultColor = 'var(--classroom-text-2)'
+                break;
+            case 3:
+                activityResultString = i18next.t('classroom.activities.veryGoodProficiency')
+                activityResultColor = 'var(--correction-3)'
+                break;
+            case 2:
+                activityResultString = i18next.t('classroom.activities.goodProficiency')
+                activityResultColor = 'var(--correction-2)'
+                break;
+            case 1:
+                activityResultString = i18next.t('classroom.activities.weakProficiency')
+                activityResultColor = 'var(--correction-1)'
+                break;
+            case 0:
+                activityResultString = i18next.t('classroom.activities.insufficientProficiency')
+                activityResultColor = 'var(--correction-0)'
+                break;
+            default:
+                break;
+        }
+
+        correction += `<div class="results-string" style="background-color:${activityResultColor}">${activityResultString}</div>`
+
+        if (Activity.commentary != null && Activity.commentary != "") {
+            correction += `<div id="commentary-panel${courseIndicator}"> `+ Activity.commentary + '</div>'
+        } else {
+            correction += `<div id="commentary-panel${courseIndicator}">` + i18next.t("classroom.activities.bilan.noComment") + '</div>'
+        }
+
+    } else {
+        document.querySelector(`#activity-correction${courseIndicator}`).style.display = 'none';
+    }
+
+    injectContentForActivity(content, Activity.correction, Activity.activity.type, correction, isDoable, isFromCourse);
+
+    if (!Activity.evaluation && correction < 2 && !isDoable) {
+        let allKnownActivity = [...activityType, "free"];
+        if (!allKnownActivity.includes(Activity.activity.type)) {
+            isDoable = false;
+        } else {
+            isDoable = true;
+        }
+    }
+
+
+    isTheActivityOrCourseIsDoable(isDoable, false, isFromCourse);
+}
+
+
+function isTheActivityOrCourseIsDoable(doable, hideValidationButton = false, isFromCourse = false) {
+    let courseIndicator = isFromCourse ? "-course" : "";
+    if (doable == false || UserManager.getUser().isRegular) {
+        $(`#activity-validate${courseIndicator}`).hide();
+        $(`#activity-save${courseIndicator}`).hide();
+    } else {
+        let getInterface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)
+        if (!hideValidationButton) {
+            if (!Activity.activity.isLti) {
+                $(`#activity-validate${courseIndicator}`).show();
+            }
+        }
+        
+         if (getInterface != undefined && getInterface != null) {
+            $(`#activity-save${courseIndicator}`).show()
+        }
+
+        if (!Activity.activity.isLti) { 
+            $(`#activity-validate${courseIndicator}`).show();
+            if (Activity.activity.type != 'reading') {
+                $(`#activity-save${courseIndicator}`).show();
+            }
+        }
+    }
+}
+
+
+
+/* function loadActivityForStudents(isDoable) {
+    // Reset the inputs
+    resetInputsForActivity();
+
+    // Check if the activity has an introduction
+    if (Activity.introduction != null && Activity.introduction != "") {
+        $('#text-introduction').html(bbcodeToHtml(Activity.introduction))
+        $('#activity-introduction').show()
+    }
+
+    let activityType = [
+        "reading",
+        "dragAndDrop",
+        "fillIn",
+        "quiz"
+    ]
+    // Disclaimer for eval
+    if (Activity.correction < 2 && (activityType.includes(Activity.activity.type))) {
+        $('#warning-icon-container').show();
+        $('#warning-icon-container > i').hide();
+        Activity.evaluation ? $('#warning-icon-evaluation').show().tooltip() : $("#warning-icon-no-evaluation").show().tooltip();
+    }
+    
+    // Check if the correction if available
+    if (Activity.correction >= 1) {
+        $('#activity-details').html(i18next.t("classroom.activities.sentOn") + formatHour(Activity.dateSend), i18next.t("classroom.activities.numberOfTries") + Activity.tries)
+    } else {
+        $('#activity-details').html(i18next.t("classroom.activities.toSend") + formatDay(Activity.dateEnd))
+    }
+
+    // Content management
+    let content = manageContentForActivity();
+    let correction = '';
+    if (!UserManager.getUser().isRegular && Activity.correction > 1) {
+        document.querySelector('#activity-correction').style.display = 'block';
+        let activityResultString, activityResultColor;
+        switch (Activity.note) {
+            case 4:
+                activityResultString = i18next.t('classroom.activities.noProficiency')
+                activityResultColor = 'var(--classroom-text-2)'
+                break;
+            case 3:
+                activityResultString = i18next.t('classroom.activities.veryGoodProficiency')
+                activityResultColor = 'var(--correction-3)'
+                break;
+            case 2:
+                activityResultString = i18next.t('classroom.activities.goodProficiency')
+                activityResultColor = 'var(--correction-2)'
+                break;
+            case 1:
+                activityResultString = i18next.t('classroom.activities.weakProficiency')
+                activityResultColor = 'var(--correction-1)'
+                break;
+            case 0:
+                activityResultString = i18next.t('classroom.activities.insufficientProficiency')
+                activityResultColor = 'var(--correction-0)'
+                break;
+            default:
+                break;
+        }
+        correction += `<div class="results-string" style="background-color:${activityResultColor}">${activityResultString}</div>`
+        
+        if (Activity.commentary != null && Activity.commentary != "") {
+            correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
+        } else {
+            correction += '<div id="commentary-panel">' + i18next.t("classroom.activities.bilan.noComment") + '</div>'
+        }
+    } else {
+        document.querySelector('#activity-correction').style.display = 'none';
+    }
+
+    injectContentForActivity(content, Activity.correction, Activity.activity.type, correction, isDoable);
+
+    if (!Activity.evaluation && correction < 2 && !isDoable) {
+        let allKnownActivity = [...activityType, "free"];
+        if (!allKnownActivity.includes(Activity.activity.type)) {
+            isDoable = false;
+        } else {
+            isDoable = true;
+        }
+    }
+    isTheActivityIsDoable(isDoable);
+} */
