@@ -576,26 +576,11 @@ class CoursesManager {
     }
 
     validateCourse(correction) {
-        switch(Activity.activity.type) {
-            case 'free':
-                freeManager.freeValidateActivity(correction, true);
-                break;
-            case 'quiz':
-                quizManager.quizValidateActivity(correction, true);
-                break;
-            case 'fillIn':
-                fillInManager.fillInValidateActivity(correction, true);
-                break;
-            case 'reading':
-            case 'custom':
-                defaultProcessValidateActivity(true);
-                break;
-            case 'dragAndDrop':
-                dragAndDropManager.dragAndDropValidateActivity(correction, true);
-                break;
-            default:
-                defaultProcessValidateActivity(true);
-                break;
+        const funct = customActivity.activityAndCase.filter(activityValidate => activityValidate[0] == Activity.activity.type)[0];
+        if (funct) {
+            funct[1](funct[2] ? correction : null, true);
+        } else {
+            defaultProcessValidateActivity(true);
         }
     }
 
@@ -757,31 +742,6 @@ class CoursesManager {
             loadCourseAndActivityForStudents(true, course, true, true);
             btnValidate.style.display = "block";
         });
-    }
-
-    isTheActivityIsDoable(doable, hideValidationButton = false) {
-        if (doable == false || UserManager.getUser().isRegular) {
-            $('#activity-validate-course').hide();
-            $('#activity-save-course').hide();
-        } else {
-            let getInterface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)
-            if (!hideValidationButton) {
-                if (!Activity.activity.isLti) {
-                    $('#activity-validate-course').show();
-                }
-            }
-            
-             if (getInterface != undefined && getInterface != null) {
-                $('#activity-save-course').show()
-            }
-    
-            if (!Activity.activity.isLti) { 
-                $('#activity-validate-course').show();
-                if (Activity.activity.type != 'reading') {
-                    $('#activity-save-course').show();
-                }
-            }
-        }
     }
 
     _requestUpdateState(id,state) {
