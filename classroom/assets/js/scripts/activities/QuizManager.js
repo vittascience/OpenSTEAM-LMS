@@ -100,8 +100,7 @@ class QuizManager {
         $(`#quiz-group-${number}`).remove();
     }
 
-    quizValidateActivity(correction = 1) {
-
+    quizValidateActivity(correction = 1, isFromCourse = false) {
         let studentResponse = [];
         for (let i = 1; i < $(`input[id^="student-quiz-checkbox-"]`).length+1; i++) {
             let res = {
@@ -110,9 +109,16 @@ class QuizManager {
             }
             studentResponse.push(res);
         }
+
+        let activityId = isFromCourse ? coursesManager.actualCourse.activity : Activity.activity.id;
+        let activityLink = isFromCourse ? coursesManager.actualCourse.link : Activity.id;
         
-        Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, JSON.stringify(studentResponse), Activity.id).then((response) => {
-            responseManager(response, 'quiz');
+        Main.getClassroomManager().saveNewStudentActivity(activityId, correction, null, JSON.stringify(studentResponse), activityLink).then((response) => {
+            if (isFromCourse) {
+                coursesManager.coursesResponseManager(response, 'quiz');
+            } else {
+                responseManager(response, 'quiz');
+            }
         });
     }
 

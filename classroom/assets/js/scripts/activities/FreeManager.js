@@ -24,10 +24,19 @@ class FreeManager {
     }
 
 
-    freeValidateActivity(correction = 1) {
-        let studentResponse = $('#activity-input').bbcode();
-        Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, studentResponse, Activity.id).then((response) => {
-            responseManager(response, 'free');
+    freeValidateActivity(correction = 1, isFromCourse = false) {
+        let courseIndicator = isFromCourse ? "-course" : "";
+        let studentResponse = $(`#activity-input${courseIndicator}`).bbcode();
+
+        let activityId = isFromCourse ? coursesManager.actualCourse.activity : Activity.activity.id,
+            activityLink = isFromCourse ? coursesManager.actualCourse.link : Activity.id;
+
+        Main.getClassroomManager().saveNewStudentActivity(activityId, correction, null, studentResponse, activityLink).then((response) => {
+            if (isFromCourse) {
+                coursesManager.coursesResponseManager(response, 'free');
+            } else {
+                responseManager(response, 'free');
+            }
         });
     }
 

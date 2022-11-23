@@ -82,14 +82,22 @@ class FillInManager {
         return true;
     }
 
-    fillInValidateActivity(correction = 1) {
+    fillInValidateActivity(correction = 1, isFromCourse = false) {
         let studentResponse = [];
         for (let i = 1; i < $(`input[id^="student-fill-in-field-"]`).length+1; i++) {
             let string = document.getElementById(`student-fill-in-field-${i}`).value;
             studentResponse.push(string);
         }
-        Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, JSON.stringify(studentResponse), Activity.id).then((response) => {
-            responseManager(response, 'fill-in');
+
+        let activityId = isFromCourse ? coursesManager.actualCourse.activity : Activity.activity.id;
+        let activityLink = isFromCourse ? coursesManager.actualCourse.link : Activity.id;
+
+        Main.getClassroomManager().saveNewStudentActivity(activityId, correction, null, JSON.stringify(studentResponse), activityLink).then((response) => {
+            if (isFromCourse) {
+                coursesManager.manageCourseActivity();
+            } else {
+                responseManager(response, 'fill-in');
+            }
         });
     }
 

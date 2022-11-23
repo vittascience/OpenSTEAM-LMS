@@ -600,18 +600,17 @@ function hintManager(response, courseIndicator = "") {
         }
     }
 }
-// INTERFACE_NAME si autre soluce ne fonctionne pas
+
 /* Now include course to avoid duplicate */
 function defaultProcessValidateActivity(isFromCourse = false) {
     $("#activity-validate").attr("disabled", "disabled");
+
     let getInterface = tryToParse(Activity.activity.content);
+    const vittaIframeRegex = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm;
 
     if (!getInterface) {
-        getInterface = Activity.activity.content;
+        getInterface = vittaIframeRegex.exec(Activity.activity.content);
     }
-
-    const vittaIframeRegex = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm;
-    getInterface = getInterface ? vittaIframeRegex.exec(getInterface.description) : false;
 
 
     if (getInterface == undefined || getInterface == null) {
@@ -644,7 +643,7 @@ function defaultProcessValidateActivity(isFromCourse = false) {
         }
         window.localStorage.classroomActivity = null
     } else if (Activity.autocorrection == false) {
-        let correction = 1
+        let correction = 1;
         const interfaceName = getInterface[2];
         let project = window.localStorage[interfaceName + 'CurrentProject']
 

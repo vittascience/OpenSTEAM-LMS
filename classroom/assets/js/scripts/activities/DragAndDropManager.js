@@ -61,7 +61,8 @@ class DragAndDropManager {
         return true;
     }
 
-    dragAndDropValidateActivity(correction = 1) {
+    dragAndDropValidateActivity(correction = 1, isFromCourse = false) {
+
         let studentResponse = [];
         for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
             let string = document.getElementById(`dz-${i}`).children.length > 0 ? document.getElementById(`dz-${i}`).children[0].innerHTML : "";
@@ -69,8 +70,16 @@ class DragAndDropManager {
                 string: string
             });
         }
-        Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, JSON.stringify(studentResponse), Activity.id).then((response) => {
-            responseManager(response, 'drag-and-drop');
+
+        let activityId = isFromCourse ? coursesManager.actualCourse.activity : Activity.activity.id,
+            activityLink = isFromCourse ? coursesManager.actualCourse.link : Activity.id;
+
+        Main.getClassroomManager().saveNewStudentActivity(activityId, correction, null, JSON.stringify(studentResponse), activityLink).then((response) => {
+            if (isFromCourse) {
+                coursesManager.coursesResponseManager(response, 'fill-in');
+            } else {
+                responseManager(response, 'drag-and-drop');
+            }
         });
     }
 

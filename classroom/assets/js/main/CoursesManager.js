@@ -578,71 +578,25 @@ class CoursesManager {
     validateCourse(correction) {
         switch(Activity.activity.type) {
             case 'free':
-                this.coursesFreeValidateActivity(correction);
+                freeManager.freeValidateActivity(correction, true);
                 break;
             case 'quiz':
-                this.coursesquizValidateActivity(correction);
+                quizManager.quizValidateActivity(correction, true);
                 break;
             case 'fillIn':
-                this.coursesfillInValidateActivity(correction);
+                fillInManager.fillInValidateActivity(correction, true);
                 break;
             case 'reading':
             case 'custom':
                 defaultProcessValidateActivity(true);
                 break;
             case 'dragAndDrop':
-                this.coursesdragAndDropValidateActivity(correction);
+                dragAndDropManager.dragAndDropValidateActivity(correction, true);
                 break;
             default:
                 defaultProcessValidateActivity(true);
                 break;
         }
-    }
-
-    coursesFreeValidateActivity(correction = 1) {
-        let studentResponse = $('#activity-input-course').bbcode();
-        Main.getClassroomManager().saveNewStudentActivity(coursesManager.actualCourse.activity, correction, null, studentResponse, coursesManager.actualCourse.link).then((response) => {
-            this.coursesResponseManager(response, 'free');
-        });
-    }
-
-    coursesquizValidateActivity(correction = 1) {
-        let studentResponse = [];
-        for (let i = 1; i < $(`input[id^="student-quiz-checkbox-"]`).length+1; i++) {
-            let res = {
-                inputVal: $(`#student-quiz-suggestion-${i}`).text(),
-                isCorrect: $(`#student-quiz-checkbox-${i}`).is(':checked')
-            }
-            studentResponse.push(res);
-        }
-        
-        Main.getClassroomManager().saveNewStudentActivity(coursesManager.actualCourse.activity, correction, null, JSON.stringify(studentResponse), coursesManager.actualCourse.link).then((response) => {
-            this.coursesResponseManager(response, 'quiz');
-        });
-    }
-
-    coursesdragAndDropValidateActivity(correction = 1) {
-        let studentResponse = [];
-        for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
-            let string = document.getElementById(`dz-${i}`).children.length > 0 ? document.getElementById(`dz-${i}`).children[0].innerHTML : "";
-            studentResponse.push({
-                string: string
-            });
-        }
-        Main.getClassroomManager().saveNewStudentActivity(coursesManager.actualCourse.activity, correction, null, JSON.stringify(studentResponse), coursesManager.actualCourse.link).then((response) => {
-            this.coursesResponseManager(response, 'drag-and-drop');
-        });
-    }
-
-    coursesfillInValidateActivity(correction = 1) {
-        let studentResponse = [];
-        for (let i = 1; i < $(`input[id^="student-fill-in-field-"]`).length+1; i++) {
-            let string = document.getElementById(`student-fill-in-field-${i}`).value;
-            studentResponse.push(string);
-        }
-        Main.getClassroomManager().saveNewStudentActivity(coursesManager.actualCourse.activity, correction, null, JSON.stringify(studentResponse), coursesManager.actualCourse.link).then((response) => {
-            this.coursesResponseManager(response, 'fill-in');
-        });
     }
 
     coursesResponseManager(response, type) {
