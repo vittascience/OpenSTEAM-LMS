@@ -106,3 +106,4 @@ class ReadingManager {
 
 const readingManager = new ReadingManager();
 readingManager.init();
+

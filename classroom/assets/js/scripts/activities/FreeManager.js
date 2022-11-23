@@ -109,3 +109,4 @@ class FreeManager {
 
 const freeManager = new FreeManager();
 freeManager.init();
+

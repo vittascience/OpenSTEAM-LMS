@@ -284,3 +284,4 @@ class QuizManager {
 
 const quizManager = new QuizManager();
 quizManager.init();
+

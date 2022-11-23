@@ -199,3 +199,4 @@ class DragAndDropManager {
 
 const dragAndDropManager = new DragAndDropManager();
 dragAndDropManager.init();
+
