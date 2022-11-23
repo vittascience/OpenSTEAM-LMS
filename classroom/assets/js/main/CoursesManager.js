@@ -588,13 +588,15 @@ class CoursesManager {
                 break;
             case 'reading':
             case 'custom':
-                this.coursesdefaultProcessValidateActivity();
+                //this.coursesdefaultProcessValidateActivity();
+                defaultProcessValidateActivity(true);
                 break;
             case 'dragAndDrop':
                 this.coursesdragAndDropValidateActivity(correction);
                 break;
             default:
-                this.coursesdefaultProcessValidateActivity();
+                //this.coursesdefaultProcessValidateActivity();
+                defaultProcessValidateActivity(true);
                 break;
         }
     }
@@ -684,68 +686,6 @@ class CoursesManager {
         }
     }
 
-    coursesSaveActivitiesResponseManager(activityType = null, response = null) {
-        if (activityType == 'fill-in') {
-
-            displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
-            if (response.hasOwnProperty("hint")) {
-                if (response.hint != null && response.hint != "") {
-                    $("#activity-hint-container-course").show();
-                    $("#activity-hint-course").text(response.hint);
-                }
-            }
-    
-            let lengthResponse = $(`input[id^="student-fill-in-field-"]`).length;
-            for (let i = 1; i < lengthResponse+1; i++) {
-                if (response.badResponse.includes(i-1)) {
-                    $(`#student-fill-in-field-${i}`).css("border","2px solid var(--correction-0)");
-                } else {
-                    $(`#student-fill-in-field-${i}`).css("border","2px solid var(--correction-3)");
-                }
-            }
-
-        } else if (activityType == 'drag-and-drop') {
-
-            displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
-            for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
-                $('#dz-' + i).css("border","1px solid var(--correction-3)");
-            }
-    
-            for (let i = 0; i < response.badResponse.length; i++) {
-                $('#dz-' + (response.badResponse[i])).css("border","1px solid var(--correction-0)");
-            }
-    
-            if (response.hasOwnProperty("hint")) {
-                if (response.hint != null && response.hint != "") {
-                    $("#activity-hint-container-course").show();
-                    $("#activity-hint-course").text(response.hint);
-                }
-            }
-
-        } else if (activityType == 'quiz') {
-
-            displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
-            for (let i = 1; i < $(`input[id^="student-quiz-suggestion-"]`).length+1; i++) {
-                $('#student-quiz-suggestion-' + i).parent().addClass('quiz-answer-correct');
-            }
-    
-            for (let i = 0; i < response.badResponse.length; i++) {
-                $('#student-quiz-suggestion-' + (response.badResponse[i]+1)).parent().addClass('quiz-answer-incorrect');
-            }
-    
-            if (response.hasOwnProperty("hint")) {
-                if (response.hint != null && response.hint != "") {
-                    $("#activity-hint-container-course").show();
-                    $("#activity-hint-course").text(response.hint);
-                }
-            }
-
-        } else if (activityType == 'free') {
-            displayNotification('#notif-div', "classroom.activities.wrongAnswer", "error");
-        }
-
-    }
-
 
     coursesResponseManager(response, type) {
         if (response) {
@@ -756,7 +696,7 @@ class CoursesManager {
                     return "empty";
                 }
             } else if (response.hasOwnProperty("badResponse")) {
-                this.coursesSaveActivitiesResponseManager(type, response);
+                saveActivitiesAndCoursesResponseManager(type, response, true);
                 return "bad";
             } else {
                 this.coursesValidateDefaultResponseManagement(response);

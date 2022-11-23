@@ -3,7 +3,7 @@ class CustomActivity {
         // activity added by plugins
         this.activityAndCase = [
             ["free", freeManager.freeValidateActivity, true],
-            ["reading", readingManager.defaultProcessValidateActivity, false],
+            ["reading", defaultProcessValidateActivity, false],
             ["fillIn", fillInManager.fillInValidateActivity, true],
             ["quiz", quizManager.quizValidateActivity, true],
             ["dragAndDrop", dragAndDropManager.dragAndDropValidateActivity, true],
