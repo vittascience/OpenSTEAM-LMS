@@ -588,14 +588,12 @@ class CoursesManager {
                 break;
             case 'reading':
             case 'custom':
-                //this.coursesdefaultProcessValidateActivity();
                 defaultProcessValidateActivity(true);
                 break;
             case 'dragAndDrop':
                 this.coursesdragAndDropValidateActivity(correction);
                 break;
             default:
-                //this.coursesdefaultProcessValidateActivity();
                 defaultProcessValidateActivity(true);
                 break;
         }
@@ -646,46 +644,6 @@ class CoursesManager {
             this.coursesResponseManager(response, 'fill-in');
         });
     }
-
-    coursesdefaultProcessValidateActivity() {
-        $("#activity-validate").attr("disabled", "disabled");
-        let getInterface = tryToParse(Activity.activity.content);
-        const vittaIframeRegex = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm;
-        getInterface = getInterface ? vittaIframeRegex.exec(getInterface.description) : false;
-        if (getInterface == undefined || getInterface == null) {
-            let correction = 2;
-            Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, correction, 4).then(function (activity) {
-                if (typeof activity.errors != 'undefined') {
-                    for (let error in activity.errors) {
-                        displayNotification('#notif-div', `classroom.notif.${error}`, "error");
-                        $("#activity-validate").attr("disabled", false);
-                    }
-                } else  {
-                    coursesManager.manageAllActivityResponse(activity);
-                }
-            })
-            window.localStorage.classroomActivity = null
-        } else if (Activity.autocorrection == false) {
-            let correction = 1;
-            const interfaceName = getInterface[2];
-            let project = window.localStorage[interfaceName + 'CurrentProject']
-            Main.getClassroomManager().saveStudentActivity(JSON.parse(project), interfaceName, Activity.id).then(function (activity) {
-                if (typeof activity.errors != 'undefined') {
-                    for (let error in activity.errors) {
-                        displayNotification('#notif-div', `classroom.notif.${error}`, "error");
-                        $("#activity-validate").attr("disabled", false);
-                    }
-                } else {
-                    coursesManager.manageAllActivityResponse(activity);
-                }
-            })
-        } else {
-    
-            $("#activity-validate").attr("disabled", false);
-            window.localStorage.autocorrect = true
-        }
-    }
-
 
     coursesResponseManager(response, type) {
         if (response) {
