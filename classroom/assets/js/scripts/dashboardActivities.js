@@ -739,13 +739,14 @@ function manageCorrectionDiv(correction_div, correction, isFromCourse) {
     }
 }
 
-function manageLabelForActivity(isFromCourse) {
+function manageLabelForActivity(isFromCourse = false) {
     let course = isFromCourse ? "-course" : "";
     if (UserManager.getUser().isRegular && ($_GET('panel') == "classroom-dashboard-activity-panel-teacher")) {
         $('#label-activity-student-response'+course).text(i18next.t("classroom.activities.studentAnswer"));
     } else {
         $('#label-activity-student-response'+course).text(i18next.t("classroom.activities.yourAnswer"));
     }
+    $('#label-activity-student-response'+course).localize();
 }
 
 function isTheActivityIsDoable(doable, hideValidationButton = false) {
