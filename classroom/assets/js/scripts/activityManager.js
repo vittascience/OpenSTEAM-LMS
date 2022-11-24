@@ -415,95 +415,29 @@ function ActivityPreviewBeforeCreation(type) {
     $('#activity-preview-div').hide();
 
     const $title = $('#preview-title'),
-        $states = $('#preview-states'),
         $statesText = $('#preview-activity-states'),
-        $content = $('#preview-content'),
-        $contentText = $('#preview-activity-content'),
-        $bbcodeContent = $('#preview-content-bbcode'),
-        $dragAndDrop = $('#preview-activity-drag-and-drop-container'),
-        $contentbbcode = $('#preview-activity-bbcode-content'),
-        ActivityPreview = Main.getClassroomManager()._createActivity,
-        wbbptions = Main.getClassroomManager().wbbOpt;
+        ActivityPreview = Main.getClassroomManager()._createActivity;
 
     resetPreviewViews();
-
     
     $title.html(Main.getClassroomManager()._createActivity.title);
     $statesText.html(bbcodeToHtml(Main.getClassroomManager()._createActivity.content.states));
     $title.show();
 
+    let func = customActivity.managePreviewCustom.filter(activityPreview => activityPreview[0] == type)[0];
+    if (func) {
+        func[1](ActivityPreview);
+    }
+
     switch (type) {
-        case "quiz":
-            $contentText.html(quizManager.createContentForQuiz(ActivityPreview.content.quiz.contentForStudent, true, false, true));
-            $states.show();
-            $content.show();
-            $('#activity-preview-div').show();
-            break;
-        case "free":
-            $statesText.html(bbcodeToHtml(Main.getClassroomManager()._createActivity.content.description))
-            $contentbbcode.wysibb(wbbptions);
-            $bbcodeContent.show();
-            $states.show();
-            $('#activity-preview-div').show();
-            break;
-        case "fillIn":
-            let studentContent = bbcodeToHtml(ActivityPreview.content.fillInFields.contentForStudent)
-            let nbOccu = studentContent.match(/﻿/g).length;
-            for (let i = 1; i < nbOccu+1; i++) {
-                studentContent = studentContent.replace(`﻿`, `<input type="text" id="student-fill-in-field-${i}-preview" class="answer-student">`);
-            }
-            $contentText.html(studentContent);
-            $states.show();
-            $content.show();
-            $('#activity-preview-div').show();
-            break;
-        case "reading":
-            $contentText.html(bbcodeToHtml(ActivityPreview.content.description));
-            $content.show();
-            $('#activity-preview-div').show();
-            break;
-        case "dragAndDrop":
-            let ContentString = manageDragAndDropText(ActivityPreview.content.dragAndDropFields.contentForStudent, true);
-            $('#preview-drag-and-drop-text').html(`<div>${ContentString}</div>`);
-
-            // Get the response array and shuffle it
-            let choices = shuffleArray(ActivityPreview.solution);
-            
-            choices.forEach(e => {
-                $('#preview-drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
-            });
-        
-            // init dragula if it's not already initialized
-            if (Main.getClassroomManager().dragulaGlobal == false) {
-                Main.getClassroomManager().dragulaGlobal = dragula();
-            }
-
-            // Reset the dragula fields
-            Main.getClassroomManager().dragulaGlobal.containers = [];
-            
-            Main.getClassroomManager().dragulaGlobal = dragula([document.querySelector('#preview-drag-and-drop-fields')]).on('drop', function(el, target, source) {
-                if (target.id != 'preview-drag-and-drop-fields') {
-                    let swap = $(target).find('p').not(el);
-                    swap.length > 0 ? source.append(swap[0]) : null;
-                }
-            });
-
-            $('.dropzone-preview').each((i, e) => {
-                Main.getClassroomManager().dragulaGlobal.containers.push(document.querySelector('#'+e.id));
-            });
-
-            $states.show();
-            $dragAndDrop.show();
-            $('#activity-preview-div').show();
-            break;
         case "custom":
-            $contentText.html(bbcodeToHtml(ActivityPreview.content.description));
-            $content.show();
+            $('#preview-activity-content').html(bbcodeToHtml(ActivityPreview.content.description));
+            $('#preview-content').show();
             $('#activity-preview-div').show();
             break;
         case "vittascience":
             launchLtiResource("0000", "vittascience", ActivityPreview.content.description, false, false, "#preview-activity-content");
-            $content.show();
+            $('#preview-content').show();
             $('#activity-preview-div').show();
             break;
         default:

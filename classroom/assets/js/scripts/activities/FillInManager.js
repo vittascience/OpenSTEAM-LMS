@@ -188,6 +188,18 @@ class FillInManager {
     
         manageCorrectionDiv(correction_div, correction, isFromCourse);
     }
+
+    fillInPreview(activity) {
+        let studentContent = bbcodeToHtml(activity.content.fillInFields.contentForStudent)
+        let nbOccu = studentContent.match(/﻿/g).length;
+        for (let i = 1; i < nbOccu+1; i++) {
+            studentContent = studentContent.replace(`﻿`, `<input type="text" id="student-fill-in-field-${i}-preview" class="answer-student">`);
+        }
+        $('#preview-activity-content').html(studentContent);
+        $('#preview-states').show();
+        $('#preview-content').show();
+        $('#activity-preview-div').show();
+    }
 }
 
 const fillInManager = new FillInManager();

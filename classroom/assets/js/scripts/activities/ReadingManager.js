@@ -54,6 +54,12 @@ class ReadingManager {
             $('#activity-correction-container'+course).show(); 
         }
     }
+
+    readingPreview(activity) {
+        $('#preview-activity-content').html(bbcodeToHtml(activity.content.description));
+        $('#preview-content').show();
+        $('#activity-preview-div').show();
+    }
 }
 
 const readingManager = new ReadingManager();

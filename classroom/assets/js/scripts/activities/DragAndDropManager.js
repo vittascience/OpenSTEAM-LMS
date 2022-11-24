@@ -198,6 +198,39 @@ class DragAndDropManager {
         }
         manageCorrectionDiv(correction_div, correction, isFromCourse);
     }
+
+    dragAndDropPreview(activity) {
+        let ContentString = manageDragAndDropText(activity.content.dragAndDropFields.contentForStudent, true);
+        $('#preview-drag-and-drop-text').html(`<div>${ContentString}</div>`);
+
+        // Get the response array and shuffle it
+        let choices = shuffleArray(activity.solution);
+        choices.forEach(e => {
+            $('#preview-drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
+        });
+    
+        // init dragula if it's not already initialized
+        if (Main.getClassroomManager().dragulaGlobal == false) {
+            Main.getClassroomManager().dragulaGlobal = dragula();
+        }
+
+        // Reset the dragula fields
+        Main.getClassroomManager().dragulaGlobal.containers = [];
+        Main.getClassroomManager().dragulaGlobal = dragula([document.querySelector('#preview-drag-and-drop-fields')]).on('drop', function(el, target, source) {
+            if (target.id != 'preview-drag-and-drop-fields') {
+                let swap = $(target).find('p').not(el);
+                swap.length > 0 ? source.append(swap[0]) : null;
+            }
+        });
+
+        $('.dropzone-preview').each((i, e) => {
+            Main.getClassroomManager().dragulaGlobal.containers.push(document.querySelector('#'+e.id));
+        });
+
+        $('#preview-states').show();
+        $('#preview-activity-drag-and-drop-container').show();
+        $('#activity-preview-div').show();
+    }
 }
 
 const dragAndDropManager = new DragAndDropManager();

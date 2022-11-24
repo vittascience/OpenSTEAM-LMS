@@ -48,6 +48,14 @@ class CustomActivity {
             [null, readingManager.manageUpdateForReading],
         ];
 
+        this.managePreviewCustom = [
+            ['free', freeManager.freePreview],
+            ['quiz', quizManager.quizPreview],
+            ['fillIn', fillInManager.fillInPreview],
+            ['reading', readingManager.readingPreview],
+            ['dragAndDrop', dragAndDropManager.dragAndDropPreview],
+        ];
+
         this.normalMedia = true;
         this.appName = null;
         this.mediaItems = [];

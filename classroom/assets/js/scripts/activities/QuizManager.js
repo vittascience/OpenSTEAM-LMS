@@ -279,6 +279,13 @@ class QuizManager {
         $('#quiz-suggestion-1').val('');
         $('#quiz-checkbox-1').prop('checked', false);
     }
+
+    quizPreview(activity) {
+        $('#preview-activity-content').html(quizManager.createContentForQuiz(activity.content.quiz.contentForStudent, true, false, true));
+        $('#preview-states').show();
+        $('#preview-content').show();
+        $('#activity-preview-div').show();
+    }
 }
 
 const quizManager = new QuizManager();

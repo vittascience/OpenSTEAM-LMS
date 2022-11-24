@@ -109,6 +109,14 @@ class FreeManager {
             manageCorrectionDiv(correction_div, correction, isFromCourse);
         }
     }
+
+    freePreview() {
+        $('#preview-activity-states').html(bbcodeToHtml(Main.getClassroomManager()._createActivity.content.description))
+        $('#preview-activity-bbcode-content').wysibb(Main.getClassroomManager().wbbOpt);
+        $('#preview-content-bbcode').show();
+        $('#preview-states').show();
+        $('#activity-preview-div').show();
+    }
 }
 
 const freeManager = new FreeManager();
