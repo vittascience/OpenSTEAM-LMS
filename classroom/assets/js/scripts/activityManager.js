@@ -427,21 +427,21 @@ function ActivityPreviewBeforeCreation(type) {
     let func = customActivity.managePreviewCustom.filter(activityPreview => activityPreview[0] == type)[0];
     if (func) {
         func[1](ActivityPreview);
-    }
-
-    switch (type) {
-        case "custom":
-            $('#preview-activity-content').html(bbcodeToHtml(ActivityPreview.content.description));
-            $('#preview-content').show();
-            $('#activity-preview-div').show();
-            break;
-        case "vittascience":
-            launchLtiResource("0000", "vittascience", ActivityPreview.content.description, false, false, "#preview-activity-content");
-            $('#preview-content').show();
-            $('#activity-preview-div').show();
-            break;
-        default:
-            break;
+    } else {
+        switch (type) {
+            case "custom":
+                $('#preview-activity-content').html(bbcodeToHtml(ActivityPreview.content.description));
+                $('#preview-content').show();
+                $('#activity-preview-div').show();
+                break;
+            case "vittascience":
+                launchLtiResource("0000", "vittascience", ActivityPreview.content.description, false, false, "#preview-activity-content");
+                $('#preview-content').show();
+                $('#activity-preview-div').show();
+                break;
+            default:
+                break;
+        }
     }
 }
 
