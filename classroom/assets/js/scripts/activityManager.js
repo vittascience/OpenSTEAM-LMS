@@ -229,7 +229,7 @@ function validateActivity(correction) {
     if (funct) {
         funct[1](funct[2] ? correction : null);
     } else {
-        defaultProcessValidateActivity();
+        defaultProcessValidateActivity(correction);
     }
 }
 
@@ -565,7 +565,6 @@ function saveActivitiesAndCoursesResponseManager(activityType = null, response =
         hintManager(response, courseIndicator)
     } else if (activityType == 'quiz') {
         displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
-
         document.querySelectorAll('.quiz-answer-incorrect').forEach((element) => {
             element.classList.remove('quiz-answer-incorrect');
         });
@@ -594,18 +593,20 @@ function hintManager(response, courseIndicator = "") {
 }
 
 /* Now include course to avoid duplicate */
-function defaultProcessValidateActivity(isFromCourse = false) {
+function defaultProcessValidateActivity(correction = null, isFromCourse = false) {
     $("#activity-validate").attr("disabled", "disabled");
 
-    let getInterface = tryToParse(Activity.activity.content);
-    const vittaIframeRegex = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm;
+    let getInterface = tryToParse(Activity.activity.content),
+        vittaIframeRegex = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm,
+        interfaceData = false;
 
     if (!getInterface) {
-        getInterface = vittaIframeRegex.exec(Activity.activity.content);
+        if (vittaIframeRegex.exec(Activity.activity.content) != null) {
+            interfaceData = vittaIframeRegex.exec(Activity.activity.content);
+        }
     }
 
-
-    if (getInterface == undefined || getInterface == null) {
+    if (!interfaceData) {
         let correction = 2
         if (isFromCourse) {
             Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, correction, 4).then(function (activity) {
@@ -636,11 +637,16 @@ function defaultProcessValidateActivity(isFromCourse = false) {
         window.localStorage.classroomActivity = null
     } else if (Activity.autocorrection == false) {
         let correction = 1;
-        const interfaceName = getInterface[2];
+        const interfaceName = interfaceData[2];
         let project = window.localStorage[interfaceName + 'CurrentProject']
 
+        let projectParsed = tryToParse(project);
+        if (!projectParsed) {
+            projectParsed = null;
+        }
+
         if (isFromCourse) {
-            Main.getClassroomManager().saveStudentActivity(JSON.parse(project), interfaceName, Activity.id).then(function (activity) {
+            Main.getClassroomManager().saveStudentActivity(projectParsed, interfaceName, Activity.id).then(function (activity) {
                 if (typeof activity.errors != 'undefined') {
                     for (let error in activity.errors) {
                         displayNotification('#notif-div', `classroom.notif.${error}`, "error");
@@ -651,7 +657,7 @@ function defaultProcessValidateActivity(isFromCourse = false) {
                 }
             })
         } else {
-            Main.getClassroomManager().saveStudentActivity(JSON.parse(project), interfaceName, Activity.id).then(function (activity) {
+            Main.getClassroomManager().saveStudentActivity(projectParsed, interfaceName, Activity.id).then(function (activity) {
                 if (typeof activity.errors != 'undefined') {
                     for (let error in activity.errors) {
                         displayNotification('#notif-div', `classroom.notif.${error}`, "error");

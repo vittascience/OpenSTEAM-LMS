@@ -19,6 +19,6 @@ function goToDisconnect() {
             window.location = '/classroom/';
         }
     }).catch((e)=>{
-        console.log(e);
+        console.error(e);
     });
 }

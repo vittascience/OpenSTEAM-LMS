@@ -127,7 +127,6 @@ class CustomActivity {
 
     displayItems() {
         document.getElementById("app-media-galery-container").innerHTML = "";
-        console.log(this.normalMedia);
         if (this.normalMedia) {
             this.mediaItems.forEach((element, key) => {
                 document.getElementById("app-media-galery-container").innerHTML += 

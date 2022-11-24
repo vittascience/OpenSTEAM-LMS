@@ -2612,14 +2612,14 @@
                             }
                         },
                         (reason) => {
-                            console.log("Loader failed to load: " + reason);
+                            console.error("Loader failed to load: " + reason);
                             failedToLoad();
                         }
                     );
                 })
             },
             (reason) => {
-                console.log("UserManager failed to load: " + reason);
+                console.error("UserManager failed to load: " + reason);
                 failedToLoad();
             }
         );

@@ -133,31 +133,7 @@ $('body').on('click', '.modal-activity-delete', function () {
     document.getElementById('activity-linked-to-course-message').style.display = courseArray.length > 0 ? 'block' : 'none';
 })
 
-function manageUpdateByType(activity) {
-    setTextArea();
-    const contentForwardButtonElt = document.getElementById('content-forward-button');
 
-    // Merge old activity to reading activity
-    activity.type == null ? activity.type = "reading" : activity.type;
-
-    Main.getClassroomManager()._createActivity.id = activity.type;
-    Main.getClassroomManager()._createActivity.function = "update";
-    
-    contentForwardButtonElt.style.display = 'inline-block';
-
-    $('#global_title').val(activity.title);
-    Main.getClassroomManager()._createActivity.title = activity.title;
-
-    console.log('update')
-    customActivity.manageUpdateCustom.filter((custom) => {
-        if (custom[0] == activity.type) {
-            console.log(custom);
-            custom[1](activity);
-        }
-    })
-    
-    navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
-}
 
 function activityModify(id) {
 
@@ -198,13 +174,13 @@ function manageUpdateByType(activity) {
     $('#global_title').val(activity.title);
     Main.getClassroomManager()._createActivity.title = activity.title;
 
-    console.log('update')
     customActivity.manageUpdateCustom.filter((custom) => {
         if (custom[0] == activity.type) {
-            console.log(custom);
             custom[1](activity);
         }
     })
+    
+    navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
 }
 
 
@@ -214,21 +190,6 @@ function manageUpdateForDeaultCase(activity) {
     launchLtiDeepLinkCreate(activity.type, true);
     $("#activity-custom").show();
 }
-
-
-function manageUpdateForReading(activity) {
-    let contentParsed = "";
-    if (IsJsonString(activity.content)) {
-        contentParsed = bbcodeToHtml(JSON.parse(activity.content).description);
-    } else {
-        contentParsed = activity.content;
-    }
-    $("#reading-content").htmlcode((contentParsed));
-    $("#activity-reading").show();
-
-    navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
-}
-
 
 //création activité vers attribution
 function attributeActivity(id, ref = null) {

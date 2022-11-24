@@ -99,8 +99,8 @@ class ClassroomManager {
                 success: function (response) {
                     callBack(container, JSON.parse(response));
                 },
-                error: function () {
-                    console.log('error')
+                error: function (e) {
+                    console.error(e)
                 }
             });
         })
@@ -133,8 +133,8 @@ class ClassroomManager {
                         onEnd();
                         resolve();
                     },
-                    error: function () {
-                        console.log('error');
+                    error: function (e) {
+                        console.error(e);
                         onEnd();
                     }
                 });
@@ -172,8 +172,8 @@ class ClassroomManager {
                 success: function (response) {
                     callBack(container, JSON.parse(response));
                 },
-                error: function () {
-                    console.log('error')
+                error: function (e) {
+                    console.error(e)
                 }
             });
         })
@@ -210,8 +210,8 @@ class ClassroomManager {
                             onEnd();
                         });
                     },
-                    error: function () {
-                        console.log('error')
+                    error: function (e) {
+                        console.error(e)
                         onEnd();
                     }
                 });

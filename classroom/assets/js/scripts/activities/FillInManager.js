@@ -88,7 +88,7 @@ class FillInManager {
 
         Main.getClassroomManager().saveNewStudentActivity(activityId, correction, null, JSON.stringify(studentResponse), activityLink).then((response) => {
             if (isFromCourse) {
-                coursesManager.manageCourseActivity();
+                coursesManager.coursesResponseManager(response, 'fill-in');
             } else {
                 responseManager(response, 'fill-in');
             }

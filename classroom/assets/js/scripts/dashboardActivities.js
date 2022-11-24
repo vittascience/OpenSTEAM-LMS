@@ -696,7 +696,6 @@ function manageDisplayLti(correction, content, correction_div, isDoable, activit
 }
 
 function manageDisplayOldActivities(correction, content, correction_div, isDoable, isFromCourse) {
-    console.log("manageDisplayOldActivities")
     let course = isFromCourse ? "-course" : "";
 
     document.querySelector('#activity-content'  + course).innerHTML = bbcodeToHtml(content);
