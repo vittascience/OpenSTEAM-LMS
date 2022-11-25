@@ -117,7 +117,7 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 
 		//iframe
 		genialy: "Insérer Genially",
-		vittaiframe: "Editeur",
+		vittaiframe: "Vittascience",
 		cabriiframe: "Cabri Express",
 		vittapdf: "Insérer un pdf",
 		maxWidthText: "Largeur maximale",
@@ -253,7 +253,7 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 
 		//iframe
 		genialy: "Insert Genially",
-		vittaiframe: "Editor",
+		vittaiframe: "Vittascience",
 		cabriiframe: "Cabri Express",
 		vittapdf: "Pdf",
 		maxWidthText: "Max-width",
@@ -337,7 +337,7 @@ wbbdebug = false;
 			smileConversion: true,
 
 			//END img upload config
-			buttons: "answer,bold,italic,underline,strike,sup,sub,|,img,video,peertube,vimeo,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,table,removeFormat",
+			buttons: "answer,bold,italic,underline,strike,sup,sub,math|,img,video,peertube,vimeo,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,table,removeFormat",
 			allButtons: {
 				vittaiframe: {
 					title: CURLANG.vittaiframe,
@@ -771,7 +771,6 @@ wbbdebug = false;
 						'<iframe src="https://www.youtube.com/embed/{SRC}" width="640" height="480" frameborder="0"></iframe>': '[video]{SRC}[/video]'
 					}
 				},
-
 				//select options
 				fs_verysmall: {
 					title: CURLANG.fs_verysmall,
@@ -1506,7 +1505,47 @@ wbbdebug = false;
 			smileList: [
 				//{title:CURLANG.sm1, img: '<img src="{themePrefix}{themeName}/img/smiles/sm1.png" class="sm">', bbcode:":)"},
 			],
-			attrWrap: ['src', 'color', 'href'] //use becouse FF and IE change values for this attr, modify [attr] to _[attr]
+			attrWrap: ['src', 'color', 'href'], //use becouse FF and IE change values for this attr, modify [attr] to _[attr]
+			math: {
+				title: CURLANG.video,
+				buttonHTML: '<span class="fonticon">X</span>',
+				modal: {
+					title: CURLANG.video,
+					width: "600px",
+					tabs: [{
+						title: CURLANG.video,
+						input: [{
+							param: "SRC",
+							title: CURLANG.modal_video_text
+						}]
+					}],
+					onSubmit: function (cmd, opt, queryState) {
+						var url = this.$modal.find('input[name="SRC"]').val();
+						if (url) {
+							url = url.replace(/^\s+/, "").replace(/\s+$/, "");
+						}
+						var a;
+						for (let i = 0; i < WHITELIST.length; i++) {
+							if (url.indexOf(WHITELIST[i][0]) != -1) {
+								a = url.match(WHITELIST[i][1]);
+								var iframeHtml = WHITELIST[i][2]
+							}
+						}
+						if (a && a.length == 2) {
+							var code = a[1];
+							this.insertAtCursor(this.getCodeByCommand(cmd, {
+								src: code
+							}));
+						}
+						this.closeModal();
+						this.updateUI();
+						return false;
+					}
+				},
+				transform: {
+					'<iframe src="https://www.youtube.com/embed/{SRC}" width="640" height="480" frameborder="0"></iframe>': '[video]{SRC}[/video]'
+				}
+			},
 		}
 
 		//FIX for Opera. Wait while iframe loaded
