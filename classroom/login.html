@@ -434,7 +434,7 @@
                 })
             },
             (reason) => {
-                //console.log("UserManager failed to load: " + reason);
+                console.error("UserManager failed to load: " + reason);
                 failedToLoad();
             }
         );

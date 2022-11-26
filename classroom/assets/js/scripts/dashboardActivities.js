@@ -561,89 +561,7 @@ function statusActivity(activity, state = true, formatedTimePast = '') {
 
 }
 
-function loadActivityForStudents(isDoable) {
-    // Reset the inputs
-    resetInputsForActivity();
 
-    // Check if the activity has an introduction
-    if (Activity.introduction != null && Activity.introduction != "") {
-        $('#text-introduction').html(bbcodeToHtml(Activity.introduction))
-        $('#activity-introduction').show()
-    }
-
-    let activityType = [
-        "reading",
-        "dragAndDrop",
-        "fillIn",
-        "quiz"
-    ]
-    // Disclaimer for eval
-    if (Activity.correction < 2 && (activityType.includes(Activity.activity.type))) {
-        $('#warning-icon-container').show();
-        $('#warning-icon-container > i').hide();
-        Activity.evaluation ? $('#warning-icon-evaluation').show().tooltip() : $("#warning-icon-no-evaluation").show().tooltip();
-    }
-    
-    // Check if the correction if available
-    if (Activity.correction >= 1) {
-        $('#activity-details').html(i18next.t("classroom.activities.sentOn") + formatHour(Activity.dateSend), i18next.t("classroom.activities.numberOfTries") + Activity.tries)
-    } else {
-        $('#activity-details').html(i18next.t("classroom.activities.toSend") + formatDay(Activity.dateEnd))
-    }
-
-    // Content management
-    let content = manageContentForActivity();
-    let correction = '';
-    if (!UserManager.getUser().isRegular && Activity.correction > 1) {
-        document.querySelector('#activity-correction').style.display = 'block';
-        let activityResultString, activityResultColor;
-        switch (Activity.note) {
-            case 4:
-                activityResultString = i18next.t('classroom.activities.noProficiency')
-                activityResultColor = 'var(--classroom-text-2)'
-                break;
-            case 3:
-                activityResultString = i18next.t('classroom.activities.veryGoodProficiency')
-                activityResultColor = 'var(--correction-3)'
-                break;
-            case 2:
-                activityResultString = i18next.t('classroom.activities.goodProficiency')
-                activityResultColor = 'var(--correction-2)'
-                break;
-            case 1:
-                activityResultString = i18next.t('classroom.activities.weakProficiency')
-                activityResultColor = 'var(--correction-1)'
-                break;
-            case 0:
-                activityResultString = i18next.t('classroom.activities.insufficientProficiency')
-                activityResultColor = 'var(--correction-0)'
-                break;
-            default:
-                break;
-        }
-        correction += `<div class="results-string" style="background-color:${activityResultColor}">${activityResultString}</div>`
-        
-        if (Activity.commentary != null && Activity.commentary != "") {
-            correction += '<div id="commentary-panel">' + Activity.commentary + '</div>'
-        } else {
-            correction += '<div id="commentary-panel">' + i18next.t("classroom.activities.bilan.noComment") + '</div>'
-        }
-    } else {
-        document.querySelector('#activity-correction').style.display = 'none';
-    }
-
-    injectContentForActivity(content, Activity.correction, Activity.activity.type, correction, isDoable);
-
-    if (!Activity.evaluation && correction < 2 && !isDoable) {
-        let allKnownActivity = [...activityType, "free"];
-        if (!allKnownActivity.includes(Activity.activity.type)) {
-            isDoable = false;
-        } else {
-            isDoable = true;
-        }
-    }
-    isTheActivityIsDoable(isDoable);
-}
 
 function loadActivityForTeacher() {
 
@@ -735,7 +653,7 @@ function injectContentForActivity(content, correction, type = null, correction_d
 
 
 
-function manageDisplayCustomAndReading(correction, content, correction_div, isFromCourse) {
+function manageDisplayCustom(correction, content, correction_div, isFromCourse) {
     let course = isFromCourse ? "-course" : "";
     const wbbptions = Main.getClassroomManager().wbbOpt;
     $('#activity-content'+course).html(bbcodeToHtml(content));
@@ -749,44 +667,7 @@ function manageDisplayCustomAndReading(correction, content, correction_div, isFr
     }
 }
 
-function manageDisplayFree(correction, content, correction_div, isFromCourse) {
-    let course = isFromCourse ? "-course" : "";
-    $('#activity-states'+course).html(bbcodeToHtml(content));
-    $('#activity-states-container'+course).show();
-    if (UserManager.getUser().isRegular) {
-        if (Activity.response != null && Activity.response != '') {
-            if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") { 
-                $('#activity-student-response'+course).show();
-                let parsed = tryToParse(Activity.response);
-                if (parsed != false) {
-                    $('#activity-student-response-content'+course).html(bbcodeToHtml(parsed));
-                } else if (Activity.response != null) {
-                    $('#activity-student-response-content'+course).html(bbcodeToHtml(Activity.response));
-                }
-                manageCorrectionDiv(correction_div, correction, isFromCourse);
-            }
-        }
-    }
-    if (correction <= 1 || correction == null) {
-        if (!UserManager.getUser().isRegular) {
-            const wbbptions = Main.getClassroomManager().wbbOpt;
-            $('#activity-input'+course).wysibb(wbbptions);
-            if (Activity.response != null && Activity.response != '') {
-                let parsed = tryToParse(Activity.response);
-                if (parsed != false) {
-                    $('#activity-input'+course).htmlcode(bbcodeToHtml(parsed));
-                } else {
-                    $('#activity-input'+course).htmlcode("");
-                }
-            }
-            $('#activity-input-container'+course).show();
-        }
-    } else if (correction > 1) {
-        $('#activity-student-response'+course).show();
-        $('#activity-student-response-content'+course).html(bbcodeToHtml(JSON.parse(Activity.response)));
-        manageCorrectionDiv(correction_div, correction, isFromCourse);
-    }
-}
+
 
 function manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt) {
     document.querySelector('#activity-content-container').style.display = 'block';
@@ -815,7 +696,6 @@ function manageDisplayLti(correction, content, correction_div, isDoable, activit
 }
 
 function manageDisplayOldActivities(correction, content, correction_div, isDoable, isFromCourse) {
-    console.log("manageDisplayOldActivities")
     let course = isFromCourse ? "-course" : "";
 
     document.querySelector('#activity-content'  + course).innerHTML = bbcodeToHtml(content);
@@ -828,257 +708,8 @@ function manageDisplayOldActivities(correction, content, correction_div, isDoabl
     }
 }
 
-function manageDisplayQuiz(correction, content, correction_div, isFromCourse) {
-    let course = isFromCourse ? "-course" : "";
-    $('#activity-states'+course).html(bbcodeToHtml(content.states));
-    $('#activity-states-container'+course).show();
-
-    if (UserManager.getUser().isRegular) {
-        $('#activity-content'+course).append(createContentForQuiz(JSON.parse(Activity.activity.solution), false));
-        $('#activity-content-container'+course).show();
-    }
-
-    if (correction <= 1 || correction == null) {
-        if (!UserManager.getUser().isRegular) {
-            $('#activity-student-response-content'+course).html("");
-            if (Activity.response != null && Activity.response != '') {
-                if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") {
-                    $('#activity-student-response-content'+course).append(createContentForQuiz(JSON.parse(Activity.response)));
-                }
-            } else {
-                $('#activity-student-response-content'+course).append(createContentForQuiz(content.quiz.contentForStudent));
-            }
-            $('#activity-student-response'+course).show();
-        } else {
-            displayQuizTeacherSide(isFromCourse);
-            manageCorrectionDiv(correction_div, correction, isFromCourse);
-        }
-    } else if (correction > 1) {
-        displayQuizTeacherSide(isFromCourse);
-        manageCorrectionDiv(correction_div, correction, isFromCourse);
-    }
-}
-
-function displayQuizTeacherSide(isFromCourse) {
-    let course = isFromCourse ? "-course" : "";
-    if (Activity.response != null) {
-        $('#activity-student-response-content'+course).html("");
-        let data = "";
-        if (Activity.response != null && Activity.response != "") {
-            data = JSON.parse(Activity.response);
-        }
-        $('#activity-student-response-content'+course).append(createContentForQuiz(data, false, true)); 
-        $('#activity-student-response'+course).show();
-        if (data != null && data != "") {
-            Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
-                for (let i = 1; i < $(`label[id^="correction-student-quiz-suggestion-"]`).length+1; i++) {
-                    $('#correction-student-quiz-suggestion-' + i).parent().addClass('quiz-answer-correct');
-                }
-        
-                if (result.success.length > 0) {
-                    for (let i = 0; i < result.success.length; i++) {
-                        $('#correction-student-quiz-suggestion-' + (result.success[i]+1)).parent().addClass('quiz-answer-incorrect');
-                    }
-                }
-            })
-        }
-    }
-}
-
-function createContentForQuiz(data, doable = true, correction = false, preview = false) {
-    manageLabelForActivity();
-    let previewId = preview ? '-preview' : '';
-    let correctionId = correction ? 'correction-' : '';
-
-    let content = "";
-    if (doable) {
-        for (let i = 1; i < data.length+1; i++) {
-            content += ` <div class="input-group c-checkbox quiz-answer-container" id="qcm-doable-${i}${previewId}">
-                            <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}${previewId}" ${data[i-1].isCorrect ? "checked" : ""}>
-                            <label class="form-check-label" for="student-quiz-checkbox-${i}${previewId}" id="${correctionId}student-quiz-suggestion-${i}${previewId}">${data[i-1].inputVal}</label>
-                        </div>`;
-        }
-    } else {
-        for (let i = 1; i < data.length+1; i++) {
-            content += ` <div class="input-group c-checkbox quiz-answer-container" id="qcm-not-doable-${i}">
-                            <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
-                            <label class="form-check-label" for="student-quiz-checkbox-${i}" id="${correctionId}student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
-                        </div>`;
-        }
-    }
-    return content;
-}
-
-function manageDisplayFillIn(correction, content, correction_div, isFromCourse) {
-    let course = isFromCourse ? "-course" : "";
-    $('#activity-title'+course).html(Activity.activity.title);
-    // Show the content with the response to the teacher
-    if (UserManager.getUser().isRegular) {
-        let contentForTeacher = content.fillInFields.contentForTeacher;
-        contentForTeacher = parseContent(contentForTeacher, "lms-answer fill-in-answer-teacher", true);
-        $('#activity-content'+course).html(bbcodeToHtml(contentForTeacher));
-        $('#activity-content-container'+course).show();
-    }
-
-    $('#activity-states'+course).html(bbcodeToHtml(content.states));
-    $('#activity-states-container'+course).show();
-    
-    if (correction <= 1 || correction == null) {
-        if (!UserManager.getUser().isRegular) {
-            let studentContent = bbcodeToHtml(content.fillInFields.contentForStudent)
-            let nbOccu = studentContent.match(/﻿/g).length;
-
-            for (let i = 1; i < nbOccu+1; i++) {
-                studentContent = studentContent.replace(`﻿`, `<input type="text" id="student-fill-in-field-${i}" class="answer-student">`);
-            }
-            $('#activity-content'+course).html(studentContent);
-
-            // Place the student's response if there is one
-            if (Activity.response != null && Activity.response != "") {
-                let response = JSON.parse(Activity.response);
-                for (let i = 0; i < response.length; i++) {
-                    let input = document.getElementById(`student-fill-in-field-${i+1}`);
-                    if (response[i] != "" && response[i] != null) {
-                        input.value = response[i];
-                    }
-                }
-            }
-            $('#activity-content-container'+course).show();
-        } else {
-            displayFillInTeacherSide(correction_div, correction, content, isFromCourse);
-        }
-    } else if (correction > 1) {
-        displayFillInTeacherSide(correction_div, correction, content, isFromCourse);
-    } 
-}
-
-function displayFillInTeacherSide(correction_div, correction, content, isFromCourse) {
-    let course = isFromCourse ? "-course" : "";
-    let studentContentString = content.fillInFields.contentForStudent,
-        studentResponses = JSON.parse(Activity.response);
-
-    if (studentResponses != null && studentResponses != "") { 
-
-        studentResponses.forEach((response, i) => {
-            let autoWidthStyle = 'style="width:' + (response.length + 2) + 'ch"';
-            studentContentString = studentContentString.replace('﻿', `<input type="text" id="correction-student-fill-in-field-${i}" ${autoWidthStyle} readonly class="fill-in-answer-teacher answer-student" value="${response}">`);
-        });
 
 
-        Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
-
-            for (let i = 0; i < studentResponses.length; i++) {
-                if (result.success.includes(i)) {
-                    $(`#correction-student-fill-in-field-${i}`).addClass("answer-incorrect");
-                } else {
-                    $(`#correction-student-fill-in-field-${i}`).addClass("answer-correct");
-                }
-            }
-        })
-    
-        $('#activity-student-response-content'+course).html(bbcodeToHtml(studentContentString));
-        $('#activity-student-response'+course).show();
-    }
-
-    manageCorrectionDiv(correction_div, correction, isFromCourse);
-}
-
-function manageDisplayDragAndDrop(correction, content, correction_div, isFromCourse) {
-    let course = isFromCourse ? "-course" : "";
-    $('#activity-title'+course).html(Activity.activity.title);
-    // Show the content with the response to the teacher
-    if (UserManager.getUser().isRegular) {
-
-        let contentForTeacher = content.dragAndDropFields.contentForTeacher;
-        contentForTeacher = parseContent(contentForTeacher, "drag-and-drop-answer-teacher", true);
-        $('#activity-content'+course).html(bbcodeToHtml(contentForTeacher));
-        $('#activity-content-container'+course).show();
-    }
-
-    $('#activity-states'+course).html(bbcodeToHtml(content.states));
-    $('#activity-states-container'+course).show();
-    
-    if (correction <= 1 || correction == null) {
-        if (!UserManager.getUser().isRegular) {
-
-            let ContentString = manageDragAndDropText(content.dragAndDropFields.contentForStudent);
-            $('#drag-and-drop-text'+course).html(`<div>${ContentString}</div>`);
-
-            // Get the response array and shuffle it
-            let choices = shuffleArray(JSON.parse(Activity.activity.solution));
-
-            choices.forEach(e => {
-                $('#drag-and-drop-fields'+course).append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
-            });
-            $('#activity-drag-and-drop-container'+course).show();
-        
-            // init dragula if it's not already initialized
-            if (Main.getClassroomManager().dragulaGlobal == false) {
-                Main.getClassroomManager().dragulaGlobal = dragula();
-            }
-
-            // Reset the dragula fields
-            Main.getClassroomManager().dragulaGlobal.containers = [];
-            
-            Main.getClassroomManager().dragulaGlobal = dragula([document.querySelector('#drag-and-drop-fields'+course)]).on('drop', function(el, target, source) {
-                if (target.id != 'drag-and-drop-fields'+course) {
-                    let swap = $(target).find('p').not(el);
-                    swap.length > 0 ? source.append(swap[0]) : null;
-                }
-            });
-
-            $('.dropzone').each((i, e) => {
-                Main.getClassroomManager().dragulaGlobal.containers.push(document.querySelector('#'+e.id));
-            });
-
-            // Place the student's response if there is one
-            if (Activity.response != null && Activity.response != "") {
-                let response = JSON.parse(Activity.response);
-                response.forEach((e, i) => {
-                    if (e.string.toLowerCase() != "" && e.string.toLowerCase() != null) {
-                        if ($(`#${e.string.toLowerCase()}`).length > 0) {
-                            $(`#dz-${i}`).html($(`#${e.string.toLowerCase()}`)[0]);
-                        }
-                    }
-                })
-            }
-        } else {
-            displayDragAndDropTeacherSide(correction_div, correction, content, isFromCourse);
-        }
-    } else if (correction > 1) {
-        displayDragAndDropTeacherSide(correction_div, correction, content, isFromCourse);
-    } 
-}
-
-function displayDragAndDropTeacherSide(correction_div, correction, content, isFromCourse) {
-    let course = isFromCourse ? "-course" : "";
-    let studentResponses = JSON.parse(Activity.response);
-    let studentContentString = content.dragAndDropFields.contentForStudent;
-
-    $(`input[id^="corrected-student-response-"]`).each((i, e) => {
-        $(e).remove();
-    })
-
-    if (studentResponses != "" && studentResponses != null) {
-        for (let i = 0; i < studentResponses.length; i++) {
-            let autoWidthStyle = 'style="width:' + (studentResponses[i].string.toLowerCase().length + 2) + 'ch"';
-            studentContentString = studentContentString.replace(`﻿`, `<input readonly class='drag-and-drop-answer-teacher' id="corrected-student-response-${i}" value="${studentResponses[i].string.toLowerCase()}" ${autoWidthStyle}>`);
-        }
-    
-        $('#activity-student-response-content'+course).html(bbcodeToHtml(studentContentString));
-        $('#activity-student-response'+course).show();
-        Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
-            for (let i = 0; i < $(`input[id^="corrected-student-response-"]`).length; i++) {
-                $('#corrected-student-response-' + i).addClass("answer-correct");
-            }
-        
-            for (let i = 0; i < result.success.length; i++) {
-                $('#corrected-student-response-' + (result.success[i])).addClass("answer-incorrect");
-            }
-        })
-    }
-    manageCorrectionDiv(correction_div, correction, isFromCourse);
-}
 
 function shuffleArray(array) {
     const arrayClone = [...array];
@@ -1108,13 +739,14 @@ function manageCorrectionDiv(correction_div, correction, isFromCourse) {
     }
 }
 
-function manageLabelForActivity(isFromCourse) {
+function manageLabelForActivity(isFromCourse = false) {
     let course = isFromCourse ? "-course" : "";
     if (UserManager.getUser().isRegular && ($_GET('panel') == "classroom-dashboard-activity-panel-teacher")) {
         $('#label-activity-student-response'+course).text(i18next.t("classroom.activities.studentAnswer"));
     } else {
         $('#label-activity-student-response'+course).text(i18next.t("classroom.activities.yourAnswer"));
     }
+    $('#label-activity-student-response'+course).localize();
 }
 
 function isTheActivityIsDoable(doable, hideValidationButton = false) {
@@ -1177,3 +809,146 @@ function setPluriel(number) {
         return 's'
     } else return ''
 }
+
+
+function loadCourseAndActivityForStudents(isDoable, currentCourse = null, progressBar = false, isFromCourse = false) {
+    // Reset the inputs
+    resetInputsForActivity(isFromCourse);
+
+    let courseIndicator = isFromCourse ? "-course" : "";
+
+    // Check if the activity has an introduction
+    if (Activity.introduction != null && Activity.introduction != "") {
+        $(`#text-introduction${courseIndicator}`).html(bbcodeToHtml(Activity.introduction))
+        $(`#activity-introduction${courseIndicator}`).show()
+    }
+
+    let activityType = [
+        "reading",
+        "dragAndDrop",
+        "fillIn",
+        "quiz"
+    ]
+
+    /* Course only */
+    document.getElementById("course-progress-bar").style.display = progressBar ? "flex" : "none";
+    if (progressBar) {
+        // Add the current course indicator on top of the given activity
+        let nbOfExercices = currentCourse.activities.length;
+        let currentActivityIndex = currentCourse.activities.findIndex(activity => activity.id == Activity.activity.id);
+
+        // add green cells to .course-state until the current activity, then add grey cells
+        let courseState = "";
+        for (let i = 0; i < nbOfExercices; i++) {
+            if (i <= currentActivityIndex) {
+                courseState += `<div class="course-state-item course-state-done"></div>`;
+            } else {
+                courseState += `<div class="course-state-item course-state-todo"></div>`;
+            }
+        }
+        $('.course-state').html(courseState);
+    }
+
+    if (!isFromCourse)
+    {
+        // Disclaimer for eval
+        if (Activity.correction < 2 && (activityType.includes(Activity.activity.type))) {
+            $('#warning-icon-container').show();
+            $('#warning-icon-container > i').hide();
+            Activity.evaluation ? $('#warning-icon-evaluation').show().tooltip() : $("#warning-icon-no-evaluation").show().tooltip();
+        }
+    }
+
+    // Check if the correction if available
+    if (Activity.correction >= 1) {
+        $(`#activity-details${courseIndicator}`).html(i18next.t("classroom.activities.sentOn") + formatHour(Activity.dateSend), i18next.t("classroom.activities.numberOfTries") + Activity.tries)
+    } else {
+        $(`#activity-details${courseIndicator}`).html(i18next.t("classroom.activities.toSend") + formatDay(Activity.dateEnd))
+    }
+
+    // Content management
+    let content = manageContentForActivity();
+    let correction = '';
+
+    if (!UserManager.getUser().isRegular && Activity.correction > 1) {
+        document.querySelector(`#activity-correction${courseIndicator}`).style.display = 'block';
+        let activityResultString, activityResultColor;
+        switch (Activity.note) {
+            case 4:
+                activityResultString = i18next.t('classroom.activities.noProficiency')
+                activityResultColor = 'var(--classroom-text-2)'
+                break;
+            case 3:
+                activityResultString = i18next.t('classroom.activities.veryGoodProficiency')
+                activityResultColor = 'var(--correction-3)'
+                break;
+            case 2:
+                activityResultString = i18next.t('classroom.activities.goodProficiency')
+                activityResultColor = 'var(--correction-2)'
+                break;
+            case 1:
+                activityResultString = i18next.t('classroom.activities.weakProficiency')
+                activityResultColor = 'var(--correction-1)'
+                break;
+            case 0:
+                activityResultString = i18next.t('classroom.activities.insufficientProficiency')
+                activityResultColor = 'var(--correction-0)'
+                break;
+            default:
+                break;
+        }
+
+        correction += `<div class="results-string" style="background-color:${activityResultColor}">${activityResultString}</div>`
+
+        if (Activity.commentary != null && Activity.commentary != "") {
+            correction += `<div id="commentary-panel${courseIndicator}"> `+ Activity.commentary + '</div>'
+        } else {
+            correction += `<div id="commentary-panel${courseIndicator}">` + i18next.t("classroom.activities.bilan.noComment") + '</div>'
+        }
+
+    } else {
+        document.querySelector(`#activity-correction${courseIndicator}`).style.display = 'none';
+    }
+
+    injectContentForActivity(content, Activity.correction, Activity.activity.type, correction, isDoable, isFromCourse);
+
+    if (!Activity.evaluation && correction < 2 && !isDoable) {
+        let allKnownActivity = [...activityType, "free"];
+        if (!allKnownActivity.includes(Activity.activity.type)) {
+            isDoable = false;
+        } else {
+            isDoable = true;
+        }
+    }
+
+
+    isTheActivityOrCourseIsDoable(isDoable, false, isFromCourse);
+}
+
+
+function isTheActivityOrCourseIsDoable(doable, hideValidationButton = false, isFromCourse = false) {
+    let courseIndicator = isFromCourse ? "-course" : "";
+    if (doable == false || UserManager.getUser().isRegular) {
+        $(`#activity-validate${courseIndicator}`).hide();
+        $(`#activity-save${courseIndicator}`).hide();
+    } else {
+        let getInterface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)
+        if (!hideValidationButton) {
+            if (!Activity.activity.isLti) {
+                $(`#activity-validate${courseIndicator}`).show();
+            }
+        }
+        
+         if (getInterface != undefined && getInterface != null) {
+            $(`#activity-save${courseIndicator}`).show()
+        }
+
+        if (!Activity.activity.isLti) { 
+            $(`#activity-validate${courseIndicator}`).show();
+            if (Activity.activity.type != 'reading') {
+                $(`#activity-save${courseIndicator}`).show();
+            }
+        }
+    }
+}
+

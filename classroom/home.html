@@ -1,5 +1,5 @@
     <link rel="stylesheet" href="assets/css/modal.css">
-    
+
     <script src="assets/js/scripts/classroom-lang.js"></script>
 </head>
 
@@ -1634,7 +1634,7 @@
                 <div id="quiz-suggestions-container">
                     <div class="form-group c-primary-form" id="quiz-group-1">
                         <label for="quiz-suggestion-1" id="quiz-label-suggestion-1">Proposition 1</label>
-                        <button class="btn c-btn-grey mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-1" onclick="deleteQuizSuggestion(1)">Delete</button>
+                        <button class="btn c-btn-grey mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-1" onclick="quizManager.deleteQuizSuggestion(1)">Delete</button>
 
                         <div class="input-group mt-3">
                             <input type="text" id="quiz-suggestion-1" class="form-control">
@@ -1656,7 +1656,7 @@
             </div>
 
             <div class="content m-3">
-                <button data-i18n="newActivities.addQuiz" class="btn c-btn-primary" onclick="addQuizSuggestion()">Ajouter une proposition</button>
+                <button data-i18n="newActivities.addQuiz" class="btn c-btn-primary" onclick="quizManager.addQuizSuggestion()">Ajouter une proposition</button>
             </div>
 
         </div>
@@ -2540,6 +2540,11 @@
 <!-- courses -->
 <script src="assets/js/main/CoursesManager.js"></script>
 <!-- Custom Activities -->
+<script src="assets/js/scripts/activities/FillInManager.js"></script>
+<script src="assets/js/scripts/activities/DragAndDropManager.js"></script>
+<script src="assets/js/scripts/activities/QuizManager.js"></script>
+<script src="assets/js/scripts/activities/FreeManager.js"></script>
+<script src="assets/js/scripts/activities/ReadingManager.js"></script>
 <script src="assets/js/main/CustomActivityManager.js"></script>
 <!-- Folder management -->
 <script src="assets/js/main/FoldersManager.js" defer></script>

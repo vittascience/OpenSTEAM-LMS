@@ -128,8 +128,8 @@ class GroupAdminManager {
             success: function (response) {
                 process(JSON.parse(response));
             },
-            error: function () {
-                console.log('error');
+            error: function (e) {
+                console.error(e);
             }
         });
     }
@@ -246,8 +246,8 @@ class GroupAdminManager {
             success: function (response) {
                 process(JSON.parse(response));
             },
-            error: function () {
-                console.log('error');
+            error: function (e) {
+                console.error(e);
             }
         });
     }

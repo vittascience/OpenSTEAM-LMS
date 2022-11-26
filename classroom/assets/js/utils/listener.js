@@ -19,7 +19,6 @@ var x = {
     },
     tradListener: function (val) {
         if (val != false && this._modals != false) {
-            console.log('tradListener')
             $('body').localize()
         }
     },
