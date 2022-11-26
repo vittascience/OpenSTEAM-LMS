@@ -135,7 +135,7 @@ $('body').on('click', '.modal-activity-delete', function () {
 
 
 
-function activityModify(id) {
+function activityModify(id, rename = false) {
 
     hideAllActivities();
 
@@ -146,9 +146,10 @@ function activityModify(id) {
     ClassroomSettings.activity = id
     $('#activity-form-title').val('')
     $('.wysibb-text-editor').html('')
-    Main.getClassroomManager().getActivity(ClassroomSettings.activity).then(function (activity) {
+
+    Main.getClassroomManager().getActivity(ClassroomSettings.activity).then((activity) => {
         if (activity.type != "") {
-            manageUpdateByType(activity);
+            manageUpdateByType(activity, rename);
         } else {
             $('#activity-form-title').val(activity.title)
             $('.wysibb-text-editor').html(activity.content)
@@ -159,7 +160,7 @@ function activityModify(id) {
     ClassroomSettings.status = 'edit';
 }
 
-function manageUpdateByType(activity) {
+function manageUpdateByType(activity, rename = false) {
     setTextArea();
     const contentForwardButtonElt = document.getElementById('content-forward-button');
 
@@ -179,8 +180,11 @@ function manageUpdateByType(activity) {
             custom[1](activity);
         }
     })
-    
     navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
+
+    if (rename) {
+        contentForward();
+    }
 }
 
 

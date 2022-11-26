@@ -117,7 +117,7 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 
 		//iframe
 		genialy: "Insérer Genially",
-		vittaiframe: "Editeur",
+		vittaiframe: "Vittascience",
 		cabriiframe: "Cabri Express",
 		vittapdf: "Insérer un pdf",
 		maxWidthText: "Largeur maximale",
@@ -253,7 +253,7 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 
 		//iframe
 		genialy: "Insert Genially",
-		vittaiframe: "Editor",
+		vittaiframe: "Vittascience",
 		cabriiframe: "Cabri Express",
 		vittapdf: "Pdf",
 		maxWidthText: "Max-width",

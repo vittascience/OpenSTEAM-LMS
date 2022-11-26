@@ -437,6 +437,8 @@
 		"filter": {
 			"desc": "Plus ancien",
 			"asc": "Plus récent",
+			"alph": "Alphabétique",
+			"reverseAlph": "Alphabétique inverse",
 			"placeholder": "Recherche..."
 		},
 		"sandbox": {
@@ -1072,7 +1074,8 @@
 		"password": "Mot de passe",
 		"options": "options",
 		"yes": "Oui",
-		"no": "Non"
+		"no": "Non",
+		"rename": "renommer"
 	},
 	"manager": {
 		"profil": {
@@ -1575,7 +1578,7 @@
 		"addFieldTooltip": "En cliquant sur le bouton Ajouter un champ de réponse, un texte stylisé est ajouté. Vous pouvez écrire la réponse correcte dans ce champ. Les réponses alternatives sont séparées par une double esperluette &&",
 		"ActivitiesData": {
 			"title": {
-				"reading": "Lecture simple",
+				"reading": "Exercice avec consigne",
 				"free": "Réponse libre",
 				"quiz": "QCM",
 				"fillIn": "Texte à trous",
@@ -1591,9 +1594,9 @@
 		}
 	},
 	"courses": {
-		"addActivity":"Ajouter une activité",
+		"addActivity":"Ajouter une activité existante",
 		"addActivities":"Ajouter des activités",
-		"createActivity": "Créer une activité",
+		"createActivity": "Créer une nouvelle activité",
 		"searchActivity": "Rechercher une activité",
 		"placeholderTitle": "Titre de votre activité",
 		"placeholderDescription": "Description de votre activité",
@@ -1627,6 +1630,7 @@
 		"successfullyCreated": "Parcours créé avec succès",
 		"attribution": "Attribuer le parcours <i class='fas fa-chevron-right'></i>",
 		"return": "Retour <i class='fas fa-chevron-right'></i>",
-		"update": "Modifier le parcours"
+		"update": "Modifier le parcours",
+		"informationWhenEmpty": "Cliquer sur les boutons ci-dessus pour ajouter des activités au parcours."
 	}
 }

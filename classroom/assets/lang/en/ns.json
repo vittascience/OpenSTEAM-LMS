@@ -415,7 +415,9 @@
 		"filter": {
 			"desc": "Oldest to newest",
 			"asc": "Newest to oldest",
-			"placeholder": "Search..."
+			"placeholder": "Search...",
+			"alph": "Alphabetical",
+			"reverseAlph": "Reverse alphabetical"
 		},
 		"sandbox": {
 			"mine": "My projects",
@@ -756,7 +758,8 @@
 		"password": "Password",
 		"options": "options",
 		"yes": "Yes",
-		"no": "No"
+		"no": "No",
+		"rename": "rename"
 	},
 	"manager": {
 		"profil": {
@@ -1262,7 +1265,7 @@
 		"addFieldTooltip": "By clicking on the Add answer field button, a stylized text is added. You can write the correct answer in this field. Alternative answers are separated by a double ampersand &&",
 		"ActivitiesData": {
 			"title": {
-				"reading": "Reading",
+				"reading": "Exercise with instructions",
 				"free": "Free answer",
 				"quiz": "Quiz",
 				"fillIn": "Fill in",
@@ -1278,9 +1281,9 @@
 		}
 	},
 	"courses": {
-		"addActivity":"Add an activity",
+		"addActivity":"Add an existing activity",
 		"addActivities":"Add activities",
-		"createActivity": "Create an activity",
+		"createActivity": "Create a new activity",
 		"searchActivity": "Search an activity",
 		"placeholderTitle": "Activity title",
 		"placeholderDescription": "Activity description",
@@ -1314,6 +1317,7 @@
 		"successfullyCreated": "Course created successfully",
 		"attribution": "Course attribution <i class='fas fa-chevron-right'></i>",
 		"return": "Return <i class='fas fa-chevron-right'></i>",
-		"update": "Update the course"
+		"update": "Update the course",
+		"informationWhenEmpty": "Click on the buttons above to add activities to the course."
 	}
 }

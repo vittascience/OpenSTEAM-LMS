@@ -163,11 +163,15 @@ class CoursesManager {
                     <button class="btn btn-warning btn-sm btn-delete-course" onclick="coursesManager.deleteActivityFromCourse(${course.id})">
                         <i class="fas fa-trash-alt"></i>
                     </button>
-                </div>
-            `;
+                </div>`;
             coursesDiv.appendChild(courseDiv);
         });
-        this.dragulaInit();
+        if (coursesDiv.innerHTML == '') {
+            coursesDiv.innerHTML = `<p data-i18n="courses.informationWhenEmpty" class="text-center my-2">Cliquer sur les boutons ci-dessus pour ajouter des activités au parcours.</p>`;
+        } else {
+            this.dragulaInit();
+        }
+        $("#course-activities-content").localize();
     }
 
     // Wip
@@ -337,7 +341,7 @@ class CoursesManager {
         }
     }
 
-    restoreParametersForUpdate(course) {
+    restoreParametersForUpdate(course, rename = false) {
         this.isUpdate = true;
         this.courseId = course.id;
         this.courseData.title = course.title;
@@ -352,7 +356,12 @@ class CoursesManager {
         course.activities.forEach(item => {
             this.courseData.courses.push(Main.getClassroomManager()._myTeacherActivities.find(activity => activity.id === item.id));
         });
-        this.goToCreate(false);
+
+        if (rename) {
+            this.goToTitle();
+        } else {
+            this.goToCreate(false);
+        }
     }
 
 
@@ -437,14 +446,14 @@ class CoursesManager {
         document.getElementById('validation-delete-course').value = '';
     }
 
-    updateCourse(id = null) {
+    updateCourse(id = null, rename = false) {
         if (id == null) {
             id = this.lastestCourse;
         }
         this._requestGetOneCourseById(id).then((res) => {
             if (res.hasOwnProperty('success')) {
                 if (res.success) {
-                    this.restoreParametersForUpdate(res.course);
+                    this.restoreParametersForUpdate(res.course, rename);
                 } else {
                     displayNotification('#notif-div', "classroom.notif.errorCourse", "error")
                 }
@@ -519,6 +528,7 @@ class CoursesManager {
                                                 <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="coursesManager.attributeCourse(${course.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
                                                 <li class="dropdown-item classroom-clickable col-12" href="#" onclick="coursesManager.duplicateCourse(${course.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
                                                 <li class=" classroom-clickable col-12 dropdown-item" onclick="coursesManager.updateCourse(${course.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
+                                                <li class=" classroom-clickable col-12 dropdown-item" onclick="coursesManager.updateCourse(${course.id}, true)" href="#">${capitalizeFirstLetter(i18next.t('words.rename'))}</li>
                                                 <li class="dropdown-item modal-course-delete classroom-clickable col-12" href="#" onclick="coursesManager.deleteCourse(${course.id})">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
                                                 <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="coursesManager.moveCourseToFolder(${course.id})">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
                                             </div>
@@ -559,10 +569,11 @@ class CoursesManager {
                                 </i>
                                 <div class="dropdown-menu" aria-labelledby="dropdown-list-courseItem-${course.id}" data-id="${course.id}">
                                     <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="coursesManager.attributeCourse(${course.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
-                                    <li class="dropdown-item classroom-clickable col-12" href="#" onclick="">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
-                                    <li class=" classroom-clickable col-12 dropdown-item" onclick="" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
-                                    <li class="dropdown-item modal-course-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
-                                    <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                                    <li class="dropdown-item classroom-clickable col-12" href="#" onclick="coursesManager.duplicateCourse(${course.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
+                                    <li class=" classroom-clickable col-12 dropdown-item" onclick="coursesManager.updateCourse(${course.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
+                                    <li class=" classroom-clickable col-12 dropdown-item" onclick="coursesManager.updateCourse(${course.id}, true)" href="#">${capitalizeFirstLetter(i18next.t('words.rename'))}</li>
+                                    <li class="dropdown-item modal-course-delete classroom-clickable col-12" href="#" onclick="coursesManager.deleteCourse(${course.id})">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
+                                    <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="coursesManager.moveCourseToFolder(${course.id})">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
                                 </div>
                             </div>
                         </div>

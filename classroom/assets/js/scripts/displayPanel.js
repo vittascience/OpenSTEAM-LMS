@@ -432,6 +432,10 @@ function getTeacherActivity() {
                 ${capitalizeFirstLetter(i18next.t('words.modify'))}
             </li>
 
+            <li class="dropdown-item" onclick="activityModify(${Activity.id}, true)">
+                ${capitalizeFirstLetter(i18next.t('words.rename'))}
+            </li>
+
             <li class="dropdown-item modal-activity-delete">
                 ${capitalizeFirstLetter(i18next.t('words.delete'))}
             </li>
