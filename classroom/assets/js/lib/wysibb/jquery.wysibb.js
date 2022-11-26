@@ -337,7 +337,7 @@ wbbdebug = false;
 			smileConversion: true,
 
 			//END img upload config
-			buttons: "answer,bold,italic,underline,strike,sup,sub,math|,img,video,peertube,vimeo,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,table,removeFormat",
+			buttons: "answer,bold,italic,underline,strike,sup,sub,math,|,img,video,peertube,vimeo,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,table,removeFormat",
 			allButtons: {
 				vittaiframe: {
 					title: CURLANG.vittaiframe,
@@ -1466,7 +1466,25 @@ wbbdebug = false;
 					  transform: {
 						'<embed src="{SRC}" title="{TITLE}" width=100% height=500 type="application/pdf" />': '[embed title={TITLE}]{SRC}[/embed]'
 					}
-				}
+				},
+				math: {
+					title: "Math",
+					buttonHTML: '<i class="fa fa-superscript"></i>',
+					modal: {
+						title: "Math",
+						width: "600px",
+						tabs: [{
+							title: "Math",
+							input: [{
+								param: "MATH",
+								title: "Expression mathématique (LaTeX)",
+							}]
+						}]
+					},
+					transform: {
+						'<span class="math">{MATH}</span>': '[math]{MATH}[/math]'
+					}
+				},
 			},
 			systr: {
 				'<br/>': "\n",
@@ -1506,46 +1524,6 @@ wbbdebug = false;
 				//{title:CURLANG.sm1, img: '<img src="{themePrefix}{themeName}/img/smiles/sm1.png" class="sm">', bbcode:":)"},
 			],
 			attrWrap: ['src', 'color', 'href'], //use becouse FF and IE change values for this attr, modify [attr] to _[attr]
-			math: {
-				title: CURLANG.video,
-				buttonHTML: '<span class="fonticon">X</span>',
-				modal: {
-					title: CURLANG.video,
-					width: "600px",
-					tabs: [{
-						title: CURLANG.video,
-						input: [{
-							param: "SRC",
-							title: CURLANG.modal_video_text
-						}]
-					}],
-					onSubmit: function (cmd, opt, queryState) {
-						var url = this.$modal.find('input[name="SRC"]').val();
-						if (url) {
-							url = url.replace(/^\s+/, "").replace(/\s+$/, "");
-						}
-						var a;
-						for (let i = 0; i < WHITELIST.length; i++) {
-							if (url.indexOf(WHITELIST[i][0]) != -1) {
-								a = url.match(WHITELIST[i][1]);
-								var iframeHtml = WHITELIST[i][2]
-							}
-						}
-						if (a && a.length == 2) {
-							var code = a[1];
-							this.insertAtCursor(this.getCodeByCommand(cmd, {
-								src: code
-							}));
-						}
-						this.closeModal();
-						this.updateUI();
-						return false;
-					}
-				},
-				transform: {
-					'<iframe src="https://www.youtube.com/embed/{SRC}" width="640" height="480" frameborder="0"></iframe>': '[video]{SRC}[/video]'
-				}
-			},
 		}
 
 		//FIX for Opera. Wait while iframe loaded
