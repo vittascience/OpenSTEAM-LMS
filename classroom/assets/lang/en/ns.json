@@ -202,7 +202,11 @@
 			"currentPasswordDoesNotMatch": "The entered password is not correct!",
 			"noAnswerInActivity": "You must have at least one answer field",
 			"courseMissingData": "You must enter a title and a description",
-			"courseMissingParameters": "You must set the parameters for the course"
+			"courseMissingParameters": "You must set the parameters for the course",
+			"courseDeleted": "The course has been deleted",
+			"courseNotDeleted": "The course could not be deleted",
+			"courseDuplicated": "The course has been duplicated",
+			"courseNotDuplicated": "The course could not be duplicated"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",

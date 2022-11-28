@@ -202,7 +202,11 @@
 			"currentPasswordDoesNotMatch": "Le mot de passe saisi n'est pas correct !",
 			"noAnswerInActivity": "Vous devez renseigner au moins un champ de réponse",
 			"courseMissingData": "Vous devez renseigner un titre et une description",
-			"courseMissingParameters": "Vous devez renseigner les paramètres pour continuer"
+			"courseMissingParameters": "Vous devez renseigner les paramètres pour continuer",
+			"courseDeleted": "Le parcours a bien été supprimé",
+			"courseNotDeleted": "Le parcours n'a pas pu être supprimé",
+			"courseDuplicated": "Le parcours a bien été dupliqué",
+			"courseNotDuplicated": "Le parcours n'a pas pu être dupliqué"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",

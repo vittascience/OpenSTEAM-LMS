@@ -442,6 +442,15 @@ $('body').on('click', '.activity-list, .activity-list-item, .activity-card, .act
     }
 })
 
+$('body').on('click', '.course-item, .course-item-list', function () {
+    if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
+        let id = this.dataset.id;
+        if (UserManager.getUser().isRegular) {
+            coursesManager.courseOverview(id);
+        }
+    }
+})
+
 
 function activityWatch(id) {
     navigatePanel('classroom-dashboard-activity-panel', 'dashboard-activities-teacher', 'WK' + id, '')

@@ -482,9 +482,9 @@ class CoursesManager {
             this._requestDeleteCourse(id).then((res) => {
                 if (res.hasOwnProperty("success")) {
                     if (res.success) {
-                        this.actualizeCourse(true);
                         displayNotification('#notif-div', "classroom.notif.courseDeleted", "success");
                         pseudoModal.closeModal("course-manager-modal");
+                        this.actualizeCourse(true);
                     } else {
                         displayNotification('#notif-div', "classroom.notif.courseNotDeleted", "error");
                     }
@@ -749,10 +749,73 @@ class CoursesManager {
             };
         
             navigatePanel('classroom-dashboard-course-panel', 'dashboard-activities-teacher', 'course', '');
-            //this.loadCourseForStudents(true, course);
             loadCourseAndActivityForStudents(true, course, true, true);
             btnValidate.style.display = "block";
         });
+    }
+
+    courseOverview(id = null) {
+        let activitiesResultDiv = document.getElementById("course-activities-overview");
+        activitiesResultDiv.innerHTML = "";
+        let course = coursesManager.myCourses.find(course => course.id == id);
+        for (let i = 0; i < course.activities.length; i++) {
+            let html = `<div class="course-activities-result-activity" id="course-${course.id}"> 
+                            <div class="preview-result-course-activity-title">
+                                <p onclick="">ACTVITÉ <br> N°${i+1}</p>
+                            </div>
+
+                            <div class="align-self-center"> 
+                                <p class="course-type">${course.activities[i].type}</p>
+                            </div>
+
+                            <div class="align-self-center"> 
+                                <p class="course-title">${course.activities[i].title}</p>
+                            </div>
+                        </div>`;
+
+            activitiesResultDiv.innerHTML += html;
+        }
+
+        $('#course-title-options').html(course.title + " - " + this.makeOptionsCourseForOverview(course));
+        navigatePanel('classroom-dashboard-teacher-course-panel', 'dashboard-activities-panel-teacher');
+    }
+
+    makeOptionsCourseForOverview(course) {
+        let html = "";
+        html = `
+            <div class="dropdown mx-2">
+                <button class="btn c-btn-outline-grey" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    ${capitalizeFirstLetter(i18next.t('words.options'))}
+                    <i class="fas fa-cog"></i>
+                </button>
+        
+                <ul class="dropdown-menu">
+                    <li class="dropdown-item" onclick="coursesManager.attributeCourse(${course.id})">
+                        ${capitalizeFirstLetter(i18next.t('words.attribute'))}
+                    </li>
+                
+                    <li class="dropdown-item" onclick="coursesManager.duplicateCourse(${course.id})">
+                        ${capitalizeFirstLetter(i18next.t('words.duplicate'))}
+                    </li>
+                        
+                    <li class="dropdown-item" onclick="coursesManager.updateCourse(${course.id})">
+                        ${capitalizeFirstLetter(i18next.t('words.modify'))}
+                    </li>
+        
+                    <li class="dropdown-item" onclick="coursesManager.updateCourse(${course.id}, true)">
+                        ${capitalizeFirstLetter(i18next.t('words.rename'))}
+                    </li>
+        
+                    <li class="dropdown-item" onclick="coursesManager.deleteCourse(${course.id})">
+                        ${capitalizeFirstLetter(i18next.t('words.delete'))}
+                    </li>
+
+                    <li class="dropdown-item" onclick="coursesManager.moveCourseToFolder(${course.id})">
+                        ${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}
+                    </li>
+                </ul>
+            </div>`
+        return html;
     }
 
     _requestUpdateState(id,state) {
