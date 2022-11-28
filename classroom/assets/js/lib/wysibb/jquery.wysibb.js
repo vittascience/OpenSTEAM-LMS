@@ -1529,21 +1529,22 @@ wbbdebug = false;
 										<span class="wbbclose" title="${CURLANG.close}">×</span>
 									</div>
 									<div class="wbbm-content">
+										<div class="wbbm-cont">
+											<div>
+												<math-field id="mathField"></math-field>
+											</div>
 
-									<div>
-										<math-field id="mathField"></math-field>
-									</div>
-
-									<div class="wbbm-inp-row">
-										<label for="mathFormula">${ "TEMP DEV Expression mathématique (LaTeX)"}</label>
-										<input class="inp-text modal-text" type="text" id="mathFormula" name="MATH" value="">
-									</div>
-
-											
-									</div>
-									<div class="wbbm-bottom">
-										<button id="wbbm-submit" class="wbb-button">${CURLANG.save}</button>
-										<button id="wbbm-cancel" class="wbb-cancel-button">${CURLANG.cancel}</button>
+											<div class="wbbm-inp-row">
+												<label for="mathFormula">${ "TEMP DEV Expression mathématique (LaTeX)"}</label>
+												<textarea id="mathFormula" class="form-control" name="MATH" style="height: 100px;"></textarea>
+											</div>
+													
+											</div>
+											<div class="wbbm-bottom">
+												<button id="wbbm-submit" class="wbb-button">${CURLANG.save}</button>
+												<button id="wbbm-cancel" class="wbb-cancel-button">${CURLANG.cancel}</button>
+											</div>
+										</div>
 									</div>
 								</div>
 							`).show()
