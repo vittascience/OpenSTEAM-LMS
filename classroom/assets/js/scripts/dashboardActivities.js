@@ -439,6 +439,7 @@ $('body').on('click', '.activity-list, .activity-list-item, .activity-card, .act
             navigation = 'dashboard-activities';
         }
         navigatePanel('classroom-dashboard-activity-panel', navigation, 'WK' + id, state);
+        navigatePanel('classroom-dashboard-activity-panel', 'activity-item', 'WK' + id, '');
     }
 })
 

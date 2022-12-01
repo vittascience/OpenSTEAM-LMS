@@ -759,17 +759,21 @@ class CoursesManager {
         activitiesResultDiv.innerHTML = "";
         let course = coursesManager.myCourses.find(course => course.id == id);
         for (let i = 0; i < course.activities.length; i++) {
-            let html = `<div class="course-activities-result-activity" id="course-${course.id}"> 
-                            <div class="preview-result-course-activity-title">
-                                <p onclick="">ACTVITÉ <br> N°${i+1}</p>
-                            </div>
-
-                            <div class="align-self-center"> 
-                                <p class="course-type">${course.activities[i].type}</p>
+            console.log(course.activities[i]);
+            let html = `<div class="course-activities-result-activity" id="course-${course.id}" onclick="coursesManager.simulateActivityOpen(${course.activities[i].id})"> 
+                            <div class="preview-result-course-activity-title d-flex align-items-center">
+                                <img class="list-item-img" src="${foldersManager.icons[course.activities[i].type]}" alt="reading">
+                                <p onclick="">ACTVITÉ N°${i+1}</p>
                             </div>
 
                             <div class="align-self-center"> 
                                 <p class="course-title">${course.activities[i].title}</p>
+                            </div>
+                            <div class="activity-list-info d-flex align-items-center">
+                                ${course.activities[i].isAutocorrect ? `<div class="activity-list-auto">
+                                    <img src='${_PATH}assets/media/auto-icon-grey.svg' title='Auto' onload="SVGInject(this)">
+                                </div>` 
+                                : "" }
                             </div>
                         </div>`;
 
@@ -778,6 +782,10 @@ class CoursesManager {
 
         $('#course-title-options').html(course.title + " - " + this.makeOptionsCourseForOverview(course));
         navigatePanel('classroom-dashboard-teacher-course-panel', 'dashboard-activities-panel-teacher');
+    }
+
+    simulateActivityOpen(idActivity) {
+        navigatePanel('classroom-dashboard-activity-panel', 'activity-item', 'WK' + idActivity, '');
     }
 
     makeOptionsCourseForOverview(course) {

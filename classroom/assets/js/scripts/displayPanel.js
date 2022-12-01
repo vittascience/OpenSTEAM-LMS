@@ -451,7 +451,6 @@ function getTeacherActivity() {
         if (funct) { 
             funct[1](contentParsed, Activity);
         } else {
-            
             // LTI Activity
             if (Activity.isLti) {
                 launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description);
