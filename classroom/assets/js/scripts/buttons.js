@@ -107,7 +107,7 @@ $('.classroom-navbar-button').click(function () {
     try {
         pseudoModal.closeAllModal()
     } catch (e) {
-        console.log('pseudoModal is not defined')
+        console.error('pseudoModal is not defined')
     }
 })
 $('#return-last-panel').click(function () {

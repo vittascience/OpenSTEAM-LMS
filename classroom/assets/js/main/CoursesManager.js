@@ -759,7 +759,6 @@ class CoursesManager {
         activitiesResultDiv.innerHTML = "";
         let course = coursesManager.myCourses.find(course => course.id == id);
         for (let i = 0; i < course.activities.length; i++) {
-            console.log(course.activities[i]);
             let html = `<div class="course-activities-result-activity" id="course-${course.id}" onclick="coursesManager.simulateActivityOpen(${course.activities[i].id})"> 
                             <div class="preview-result-course-activity-title d-flex align-items-center">
                                 <img class="list-item-img" src="${foldersManager.icons[course.activities[i].type]}" alt="reading">
