@@ -180,7 +180,6 @@ function manageUpdateByType(activity, rename = false) {
             custom[1](activity);
         }
     })
-    navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
 
     if (rename) {
         contentForward();
