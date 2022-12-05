@@ -175,6 +175,11 @@ Synchronize data editor and textarea
 	$("#editor").sync();
 
 
+<!-- Update @Rémi -->
+
+forceInsertBbcode() 
+Allow to insert bbcode to the editor in htmlmode
+
 
 
 ## License
