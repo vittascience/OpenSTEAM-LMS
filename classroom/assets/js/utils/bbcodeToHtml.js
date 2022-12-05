@@ -109,6 +109,7 @@ function bbcodeToHtml(html) {
     return html
 }
 
+
 function generateRandomString(length = 10) {
     let characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let randomString = '';
@@ -174,3 +175,7 @@ function getSelectionText() {
     }
     return text;
 }
+
+
+
+

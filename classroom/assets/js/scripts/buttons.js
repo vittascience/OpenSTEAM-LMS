@@ -107,7 +107,7 @@ $('.classroom-navbar-button').click(function () {
     try {
         pseudoModal.closeAllModal()
     } catch (e) {
-        console.log('pseudoModal is not defined')
+        console.error('pseudoModal is not defined')
     }
 })
 $('#return-last-panel').click(function () {
@@ -829,7 +829,15 @@ function classroomsDisplay() {
 
 function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherActivities, keyword = false, asc = false) {
     // Keep the list sorted
-    let sortedList = $("#filter-activity-select").val() != "desc" ? list.sort((a, b) => {return b.id - a.id}) : list;
+    let selectedSort = $('#filter-activity-select').val(),
+        sortedList = "";
+
+    if (selectedSort == "desc" || selectedSort == "asc") {
+        sortedList = $("#filter-activity-select").val() != "desc" ? list.sort((a, b) => {return b.id - a.id}) : list;
+    } else if (selectedSort == "alph" || selectedSort == "ralph") {
+        sortedList = $("#filter-activity-select").val() == "alph" ? list.sort((a, b) => a.title.localeCompare(b.title)) : list.sort((a, b) => -1 * a.title.localeCompare(b.title)); 
+    }
+
     let displayStyle = Main.getClassroomManager().displayMode;
 
     if (foldersManager.treeFolder.html() == "") {

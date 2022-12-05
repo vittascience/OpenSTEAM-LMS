@@ -123,6 +123,7 @@ function teacherActivityItem(activity, displayStyle) {
                                         <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
                                         <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
                                         <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
+                                        <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id}, true)" href="#">${capitalizeFirstLetter(i18next.t('words.rename'))}</li>
                                         <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
                                         <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
                                     </div>
@@ -171,6 +172,7 @@ function teacherActivityItem(activity, displayStyle) {
                             <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
                             <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
                             <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
+                            <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id}, true)" href="#">${capitalizeFirstLetter(i18next.t('words.rename'))}</li>
                             <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
                             <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
                         </div>
@@ -437,6 +439,15 @@ $('body').on('click', '.activity-list, .activity-list-item, .activity-card, .act
             navigation = 'dashboard-activities';
         }
         navigatePanel('classroom-dashboard-activity-panel', navigation, 'WK' + id, state);
+    }
+})
+
+$('body').on('click', '.course-item, .course-item-list', function () {
+    if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
+        let id = this.dataset.id;
+        if (UserManager.getUser().isRegular) {
+            coursesManager.courseOverview(id);
+        }
     }
 })
 

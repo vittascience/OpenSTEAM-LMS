@@ -22,14 +22,17 @@ class ReadingManager {
     manageUpdateForReading(activity) {
         let contentParsed = "";
         if (IsJsonString(activity.content)) {
-            contentParsed = bbcodeToHtml(JSON.parse(activity.content).description);
+            contentParsed = JSON.parse(activity.content).description;
         } else {
             contentParsed = activity.content;
         }
-        $("#reading-content").htmlcode((contentParsed));
-        $("#activity-reading").show();
-    
-        navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
+
+        if ($("#reading-content").forceInsertBbcode((contentParsed)) == true) {
+            $("#activity-reading").show();
+            navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
+        } else {
+            console.error("Error while inserting bbcode");
+        }
     }
 
 

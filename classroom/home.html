@@ -852,6 +852,9 @@
                 <select name="filter-activity-select" id="filter-activity-select" class="c-primary-form">
                     <option value="desc" data-i18n="classroom.filter.desc"></option>
                     <option value="asc" data-i18n="classroom.filter.asc"></option>
+
+                    <option value="alph" data-i18n="classroom.filter.alph"></option>
+                    <option value="ralph" data-i18n="classroom.filter.reverseAlph"></option>
                 </select>
             </div>
 
@@ -2120,8 +2123,6 @@
 
 
             <div id="course-activities-content" class="course-activities-content">
-
-
             </div>
 
         </div>
@@ -2473,6 +2474,20 @@
 
 
 </div>
+
+<div id="classroom-dashboard-teacher-course-panel" class="dashboard-block" style="display:none;">
+    <h3 id="course-title-options" class="activity-title"></h3>
+    <div class="container-fluid">
+        <div id="courses-overview">
+            <div class="d-flex flex-column align-items-center justify-content-center mt-2">
+                <div id="course-activities-overview" class="course-activities-result mt-4">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div id="classroom-dashboard-ide-panel" style="display:none;" class="dashboard-block">
     <iframe width="100%" style="height:85vh;" frameborder="0" allowfullscreen="" style="border:1px #d6d6d6 solid;" src=""></iframe>
 </div>

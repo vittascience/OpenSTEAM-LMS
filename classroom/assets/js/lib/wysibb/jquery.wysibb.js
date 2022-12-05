@@ -117,7 +117,7 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 
 		//iframe
 		genialy: "Insérer Genially",
-		vittaiframe: "Editeur",
+		vittaiframe: "Vittascience",
 		cabriiframe: "Cabri Express",
 		vittapdf: "Insérer un pdf",
 		maxWidthText: "Largeur maximale",
@@ -253,7 +253,7 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 
 		//iframe
 		genialy: "Insert Genially",
-		vittaiframe: "Editor",
+		vittaiframe: "Vittascience",
 		cabriiframe: "Cabri Express",
 		vittapdf: "Pdf",
 		maxWidthText: "Max-width",
@@ -3547,7 +3547,7 @@ wbbdebug = false;
 				this.$body.html(this.getHTML(this.$txtArea.val()));
 				this.$txtArea.hide().removeAttr("wbbsync").val("");
 				this.$body.css("min-height", this.$txtArea.height()).show().focus();
-			} else {
+			} else {		
 				//to bbcode
 				this.$txtArea.val(this.getBBCode()).css({
 					"min-height": this.$body.height(),
@@ -4253,6 +4253,59 @@ wbbdebug = false;
 	$.fn.destroy = function () {
 		this.data("wbb").destroy();
 	}
+	$.fn.switchToBbcode = function () {
+		if (this.data("wbb").options.bbmode === false) {
+			this.data("wbb").$txtArea.val(this.data("wbb").getBBCode()).css({
+				"min-height": this.data("wbb").$body.height(),
+				"background-color": "var(--bg-1)",
+				"color": "var(--text-0)"
+			});
+			this.data("wbb").$body.hide();
+			this.data("wbb").$txtArea.show().focus();
+			this.data("wbb").options.bbmode = !this.data("wbb").options.bbmode;
+		}
+	}
+	$.fn.switchToHtml = function () {
+		if (this.data("wbb").options.bbmode) {
+			this.data("wbb").$body.html(this.data("wbb").getHTML(this.data("wbb").$txtArea.val()));
+			this.data("wbb").$txtArea.hide().removeAttr("wbbsync").val("");
+			this.data("wbb").$body.css("min-height", this.data("wbb").$txtArea.height()).show().focus();
+			this.data("wbb").options.bbmode = !this.data("wbb").options.bbmode;
+		}
+	}
+	$.fn.forceInsertBbcode = function (data) {
+
+		// switch to bbcode mode if not
+		if (this.data("wbb").options.bbmode === false) {
+			this.data("wbb").$txtArea.val(this.data("wbb").getBBCode()).css({
+				"min-height": this.data("wbb").$body.height(),
+				"background-color": "var(--bg-1)",
+				"color": "var(--text-0)"
+			});
+			this.data("wbb").$body.hide();
+			this.data("wbb").$txtArea.show().focus();
+			this.data("wbb").options.bbmode = !this.data("wbb").options.bbmode;
+		}
+
+		// insert bbcode
+		if (typeof (data) != "undefined") {
+			if (this.data('wbb').options.bbmode) {
+				this.data('wbb').$txtArea.val(data);
+			} else {
+				this.data('wbb').$body.html(this.data("wbb").getHTML(data));
+			}
+		}
+		// switch to html mode
+		if (this.data("wbb").options.bbmode) {
+			this.data("wbb").$body.html(this.data("wbb").getHTML(this.data("wbb").$txtArea.val()));
+			this.data("wbb").$txtArea.hide().removeAttr("wbbsync").val("");
+			this.data("wbb").$body.css("min-height", this.data("wbb").$txtArea.height()).show().focus();
+			this.data("wbb").options.bbmode = !this.data("wbb").options.bbmode;
+		}
+		
+		return true
+	}
+
 
 
 	$.fn.queryState = function (command) {
