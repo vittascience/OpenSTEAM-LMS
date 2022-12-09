@@ -555,6 +555,8 @@ hr {
     color: var(--classroom-primary) !important;
     border-bottom: none !important;
     padding: 0 !important;
+    display: flex;
+    justify-content: space-between;
 }
 
 #wbbmodal .wbbm .wbbm-tablist ul li:hover {
@@ -596,6 +598,31 @@ hr {
     border-color: var(--classroom-cell) !important;
     color: var(--classroom-text-0) !important;
     border-radius: 100vh !important;
+}
+
+#wbbmodal .wbbm-title .wbbclose {
+    background: var(--classroom-primary) !important;
+    color: var(--classroom-white) !important;
+
+    font-size: 1.5rem !important;
+    font-weight: bold;
+    line-height: 1; 
+
+    position: relative !important;
+    top: unset !important;
+    right: unset !important;
+
+    width: 1.3em;
+    height: 1.3em;
+    border-radius: 50%;
+
+    display: grid !important;
+    justify-items: center;
+    align-items: center;
+}
+
+#wbbmodal .wbbm-title .wbbclose:hover {
+    background: var(--classroom-primary-dark) !important;
 }
 
 /* Vertical align center utility */

@@ -1512,7 +1512,7 @@ wbbdebug = false;
 				},
 				math: {
 					title: "MATH TEMP STRING DEV",
-					buttonHTML: '<i class="fa fa-superscript"></i>',
+					buttonHTML: '<span style="font-size: 18px;text-align:center;margin-top: 0.2em;font-weight: 500;font-family: serif;">Σ</span>',
 					modal: function (cmd, opt, queryState) {
 						// get the modal container
 						this.$modal = $("#wbbmodal")
@@ -1520,6 +1520,17 @@ wbbdebug = false;
 						// save the current cursor pos where to add the data
 						this.saveRange();
 
+
+						console.log(this);
+						// we need to check if we have a data atrribute on the .wbb-math button
+						let mathFieldValue = '';
+						this.$editor.find('.wbb-math').each((index, element) => {
+							// if so, we need to add it to the modal
+							if (element.dataset.math) {
+								mathFieldValue = element.dataset.math
+							}
+						})
+						
 						// append the content onto the modal
 						this.$modal.prependTo(document.body)
 							.html(`
@@ -1531,12 +1542,13 @@ wbbdebug = false;
 									<div class="wbbm-content">
 										<div class="wbbm-cont">
 											<div>
-												<math-field id="mathField"></math-field>
 											</div>
 
 											<div class="wbbm-inp-row">
 												<label for="mathFormula">${ "TEMP DEV Expression mathématique (LaTeX)"}</label>
-												<textarea id="mathFormula" class="form-control" name="MATH" style="height: 100px;"></textarea>
+												<math-field id="mathField" class="form-control mb-2">${mathFieldValue}</math-field>
+												<textarea id="mathFormula" class="form-control" name="MATH" style="height: 100px;" placeholder="TEMP Expression au format LaTeX">${mathFieldValue}</textarea>
+
 											</div>
 													
 											</div>
@@ -1566,10 +1578,45 @@ wbbdebug = false;
 							);
 						});
 
+						// bind the cancel button
+						this.$modal.find('#wbbm-cancel,.wbbclose').click($.proxy(this.closeModal, this));
+						// HANDLE MODAL CLOSE WHEN ESC KEY IS CLICKED
+						$(document).bind("keydown", $.proxy(this.escModal, this));
 
-					},
+						// bind the submit button
+						this.$modal.find('#wbbm-submit').click($.proxy(function (e) {
+							e.preventDefault();
+							// get the data
+							const mathFormula = this.$modal.find('textarea[name=MATH]').val();
+
+							// check if we have an element with the same content as mathFieldValue
+							// if so, we need to update it instead of inserting it
+							// sync the textarea with the wysibb-body
+							this.sync();
+
+							let mathFieldElement = $(this.body.children).filter((index, element) => {
+								return element.value === mathFieldValue
+							})
+							
+							if (mathFieldElement.length) {
+								mathFieldElement.val(mathFormula)
+							} else {
+								// insert the data
+								this.wbbInsertCallback(cmd, {
+									MATH: mathFormula
+								})
+							}
+
+							setTimeout(() => {
+								this.closeModal();
+								this.updateUI();
+							}, 300)
+						}
+						, this));
+					}, 
+					
 					transform: {
-						'<span class="math">{MATH}</span>': '[math]{MATH}[/math]'
+						"<math-field read-only class='wysibb-math-field' style='display:inline-block'>{MATH}</math-field>": "[math]{MATH}[/math]"
 					}
 				},
 			},
@@ -4357,12 +4404,31 @@ wbbdebug = false;
 	$.fn.destroy = function () {
 		this.data("wbb").destroy();
 	}
-
-
 	$.fn.queryState = function (command) {
 		return this.data("wbb").queryState(command);
 	}
 })(jQuery);
+
+
+// math-input better support
+// on focus of a math-input with a class of wysibb-math-field, we need to add .on to the .wbb-math element
+// and add a data attribute to the .wbb-math element with the content of the wysibb-math-field
+
+$(document).on('focus', '.wysibb-math-field', 'body', function () {
+	$(this).closest('.wysibb').find('.wbb-math').addClass('on').attr('data-math', $(this).val());
+})
+$(document).on('blur', '.wysibb-math-field', 'body', function () {
+	$(this).closest('.wysibb').find('.wbb-math').removeClass('on');
+	// we need to wait to clear the data attribute, in case the user clicks on the math button again
+	// if we clear it immediately, the math button will not be able to get the data attribute :
+	// since the element is no longer focused, the blur event will be triggered before the click event
+
+	setTimeout(function () {
+		$('.wbb-math').removeAttr('data-math');
+	}, 100);
+});
+
+
 
 
 //Drag&Drop file uploader
