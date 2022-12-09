@@ -60,6 +60,7 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 		vimeo: "Insérer vidéo Vimeo",
 		gdocs: "Insérer Google Docs, Slides ou Sheet",
 		removeFormat: "Supprimer le format",
+		math: "Insérer une formule mathématique",
 
 		modal_link_title: "Insérer lien",
 		modal_link_text: "Afficher le texte",
@@ -83,10 +84,12 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 		modal_img_tab2: "Téléverser image",
 		modal_imgsrc_text: "Saisir l'url de l'image",
 		modal_img_btn: "Choisir le fichier",
+		modal_math_title: "Insérer formule mathématique",
 		add_attach: "Ajouter pièce jointe",
 
 		modal_video_text: "Saisir l'url de la vidéo",
 		modal_peertube_text: "Saisir l'URL de la vidéo Peertube",
+		modal_math_text: "Saisir la formule mathématique (format LaTeX)",
 
 		close: "Fermer",
 		save: "Sauvegarder",
@@ -195,6 +198,7 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 		peertube: "Insert peertube",
 		vimeo: "Insert Vimeo",
 		gdocs: "Insert Google Docs, Slides or Sheet",
+		math: "Insert math formula",
 		removeFormat: "Remove Format",
 
 		modal_link_title: "Insert link",
@@ -219,10 +223,12 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 		modal_img_tab2: "Upload image",
 		modal_imgsrc_text: "Enter image URL",
 		modal_img_btn: "Choose file",
+		modal_math_title: "Insert math formula",
 		add_attach: "Add Attachment",
 
 		modal_video_text: "Enter the URL of the video",
 		modal_peertube_text: "Enter the URL of the Peertube video",
+		modal_math_text: "Enter math formula (LaTeX syntax)",
 
 		close: "Close",
 		save: "Save",
@@ -1511,7 +1517,7 @@ wbbdebug = false;
 					}
 				},
 				math: {
-					title: "MATH TEMP STRING DEV",
+					title: CURLANG.math,
 					buttonHTML: '<span style="font-size: 18px;text-align:center;margin-top: 0.2em;font-weight: 500;font-family: serif;">Σ</span>',
 					modal: function (cmd, opt, queryState) {
 						// get the modal container
@@ -1520,8 +1526,6 @@ wbbdebug = false;
 						// save the current cursor pos where to add the data
 						this.saveRange();
 
-
-						console.log(this);
 						// we need to check if we have a data atrribute on the .wbb-math button
 						let mathFieldValue = '';
 						this.$editor.find('.wbb-math').each((index, element) => {
@@ -1536,7 +1540,7 @@ wbbdebug = false;
 							.html(`
 								<div class="wbbm hastabs" hastabs"="" style="max-width: 500px; width: 600px; margin-top: 202.479px;">
 									<div class="wbbm-title">
-										<span class="wbbm-title-text">${ "MATH TEMP STRING DEV" }</span>
+										<span class="wbbm-title-text">${CURLANG.modal_math_title}</span>
 										<span class="wbbclose" title="${CURLANG.close}">×</span>
 									</div>
 									<div class="wbbm-content">
@@ -1545,9 +1549,9 @@ wbbdebug = false;
 											</div>
 
 											<div class="wbbm-inp-row">
-												<label for="mathFormula">${ "TEMP DEV Expression mathématique (LaTeX)"}</label>
+												<label for="mathFormula">${CURLANG.modal_math_text}</label>
 												<math-field id="mathField" class="form-control mb-2">${mathFieldValue}</math-field>
-												<textarea id="mathFormula" class="form-control" name="MATH" style="height: 100px;" placeholder="TEMP Expression au format LaTeX">${mathFieldValue}</textarea>
+												<textarea id="mathFormula" class="form-control" name="MATH" style="height: 100px;" placeholder="">${mathFieldValue}</textarea>
 
 											</div>
 													
