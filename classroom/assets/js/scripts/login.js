@@ -253,7 +253,7 @@ $('#create-user').click(function () {
                         displayNotification('#notif-div', "classroom.notif.cantLoginClassroomBlocked", "error");
                         break;
                     case 'reservedNickname':
-                        displayNotification('#notif-div', `classroom.notif.${result.errorType}`, "error", `'{"reservedNickname": "${demoStudentName}"}'`);
+                        displayNotification('#notif-div', `classroom.notif.${result.errorType}`, "error", `'{"reservedNickname": "${result.currentNickname}"}'`);
                         break;
                     default:
                         displayNotification('#notif-div', "classroom.notif.cantLoginLimitLearners", "error");

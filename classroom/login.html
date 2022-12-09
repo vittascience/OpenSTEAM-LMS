@@ -31,7 +31,6 @@
         <div id="open-login-menu" style="flex-grow:2;">
             <button class="btn btn-lg c-btn-primary" id="home-connexion"><span data-i18n="classroom.login.login"></span>
                 <i class="fas fa-chevron-right"></i></button></br>
-            <!--<a href="#">En savoir plus</a>-->
         </div>
 
     </div>
@@ -434,7 +433,7 @@
                 })
             },
             (reason) => {
-                //console.log("UserManager failed to load: " + reason);
+                console.error("UserManager failed to load: " + reason);
                 failedToLoad();
             }
         );

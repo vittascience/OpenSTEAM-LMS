@@ -107,7 +107,7 @@ $('.classroom-navbar-button').click(function () {
     try {
         pseudoModal.closeAllModal()
     } catch (e) {
-        console.log('pseudoModal is not defined')
+        console.error('pseudoModal is not defined')
     }
 })
 $('#return-last-panel').click(function () {
@@ -622,82 +622,6 @@ $('#dashboard-activities, .activity-panel-link').click(function () {
 // Add more validate options for the activities 
 
 
-function defaultProcessValidateActivity() {
-    $("#activity-validate").attr("disabled", "disabled");
-    let interface = tryToParse(Activity.activity.content);
-    const vittaIframeRegex = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm;
-    interface = interface 
-        ? vittaIframeRegex.exec(interface.description)
-        : false;
-    if (interface == undefined || interface == null) {
-        correction = 2
-        Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, correction, 4).then(function (activity) {
-            if (typeof activity.errors != 'undefined') {
-                for (let error in activity.errors) {
-
-                    displayNotification('#notif-div', `classroom.notif.${error}`, "error");
-                    $("#activity-validate").attr("disabled", false);
-                }
-            } else  {
-                navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
-                actualizeStudentActivities(activity, correction);
-                $("#activity-validate").attr("disabled", false);
-            }
-        })
-        window.localStorage.classroomActivity = null
-    } else if (Activity.autocorrection == false) {
-        correction = 1
-        const interfaceName = interface[2];
-        let project = window.localStorage[interfaceName + 'CurrentProject']
-        Main.getClassroomManager().saveStudentActivity(JSON.parse(project), interfaceName, Activity.id).then(function (activity) {
-            if (typeof activity.errors != 'undefined') {
-                for (let error in activity.errors) {
-                    displayNotification('#notif-div', `classroom.notif.${error}`, "error");
-                    $("#activity-validate").attr("disabled", false);
-                }
-            } else {
-                actualizeStudentActivities(activity, correction)
-                $("#activity-validate").attr("disabled", false);
-                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher')
-            }
-        })
-    } else {
-
-        $("#activity-validate").attr("disabled", false);
-        window.localStorage.autocorrect = true
-    }
-}
-
-
-/**
- * @ToBeRemoved unused method
- * last check Naser July 2022 
- */
-// function saveActivity() {
-//     $("#activity-save").attr("disabled", true);
-//     correction = 0
-
-//     let parsedActivity = tryToParse(Activity.activity.content);
-//     parsedActivity = parsedActivity ? parsedActivity : Activity.activity.content
-
-//     let interface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(parsedActivity)[2]
-//     let project = window.localStorage[interface + 'CurrentProject']
-//     Main.getClassroomManager().saveStudentActivity(JSON.parse(project), interface, Activity.id, correction).then(function (activity) {
-//         actualizeStudentActivities(activity, correction)
-//         $("#activity-save").attr("disabled", false);
-//         displayNotification('#notif-div', "classroom.notif.savedProject", "success")
-//         Main.getClassroomManager().getStudentActivities(Main.getClassroomManager()).then(() => {
-//             let navParam = {
-//                 "panel": $_GET('panel'),
-//                 "nav": $_GET('nav'),
-//                 "option": $_GET('option'),
-//                 "interface": 'savedActivities'
-//             };
-//             navigatePanel(navParam.panel, navParam.nav, navParam.option, navParam.interface);
-//         });
-//     })
-// }
-
 //sandbox-->créer une activité
 $('body').on('click', '.sandbox-action-add', function () {
     if (UserManager.getUser().isRegular) {
@@ -905,7 +829,15 @@ function classroomsDisplay() {
 
 function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherActivities, keyword = false, asc = false) {
     // Keep the list sorted
-    let sortedList = $("#filter-activity-select").val() != "desc" ? list.sort((a, b) => {return b.id - a.id}) : list;
+    let selectedSort = $('#filter-activity-select').val(),
+        sortedList = "";
+
+    if (selectedSort == "desc" || selectedSort == "asc") {
+        sortedList = $("#filter-activity-select").val() != "desc" ? list.sort((a, b) => {return b.id - a.id}) : list;
+    } else if (selectedSort == "alph" || selectedSort == "ralph") {
+        sortedList = $("#filter-activity-select").val() == "alph" ? list.sort((a, b) => a.title.localeCompare(b.title)) : list.sort((a, b) => -1 * a.title.localeCompare(b.title)); 
+    }
+
     let displayStyle = Main.getClassroomManager().displayMode;
 
     if (foldersManager.treeFolder.html() == "") {

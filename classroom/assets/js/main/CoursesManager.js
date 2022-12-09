@@ -163,11 +163,15 @@ class CoursesManager {
                     <button class="btn btn-warning btn-sm btn-delete-course" onclick="coursesManager.deleteActivityFromCourse(${course.id})">
                         <i class="fas fa-trash-alt"></i>
                     </button>
-                </div>
-            `;
+                </div>`;
             coursesDiv.appendChild(courseDiv);
         });
-        this.dragulaInit();
+        if (coursesDiv.innerHTML == '') {
+            coursesDiv.innerHTML = `<p data-i18n="courses.informationWhenEmpty" class="text-center my-2">Cliquer sur les boutons ci-dessus pour ajouter des activités au parcours.</p>`;
+        } else {
+            this.dragulaInit();
+        }
+        $("#course-activities-content").localize();
     }
 
     // Wip
@@ -337,7 +341,7 @@ class CoursesManager {
         }
     }
 
-    restoreParametersForUpdate(course) {
+    restoreParametersForUpdate(course, rename = false) {
         this.isUpdate = true;
         this.courseId = course.id;
         this.courseData.title = course.title;
@@ -352,7 +356,12 @@ class CoursesManager {
         course.activities.forEach(item => {
             this.courseData.courses.push(Main.getClassroomManager()._myTeacherActivities.find(activity => activity.id === item.id));
         });
-        this.goToCreate(false);
+
+        if (rename) {
+            this.goToTitle();
+        } else {
+            this.goToCreate(false);
+        }
     }
 
 
@@ -437,14 +446,14 @@ class CoursesManager {
         document.getElementById('validation-delete-course').value = '';
     }
 
-    updateCourse(id = null) {
+    updateCourse(id = null, rename = false) {
         if (id == null) {
             id = this.lastestCourse;
         }
         this._requestGetOneCourseById(id).then((res) => {
             if (res.hasOwnProperty('success')) {
                 if (res.success) {
-                    this.restoreParametersForUpdate(res.course);
+                    this.restoreParametersForUpdate(res.course, rename);
                 } else {
                     displayNotification('#notif-div', "classroom.notif.errorCourse", "error")
                 }
@@ -473,9 +482,9 @@ class CoursesManager {
             this._requestDeleteCourse(id).then((res) => {
                 if (res.hasOwnProperty("success")) {
                     if (res.success) {
-                        this.actualizeCourse(true);
                         displayNotification('#notif-div', "classroom.notif.courseDeleted", "success");
                         pseudoModal.closeModal("course-manager-modal");
+                        this.actualizeCourse(true);
                     } else {
                         displayNotification('#notif-div', "classroom.notif.courseNotDeleted", "error");
                     }
@@ -519,6 +528,7 @@ class CoursesManager {
                                                 <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="coursesManager.attributeCourse(${course.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
                                                 <li class="dropdown-item classroom-clickable col-12" href="#" onclick="coursesManager.duplicateCourse(${course.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
                                                 <li class=" classroom-clickable col-12 dropdown-item" onclick="coursesManager.updateCourse(${course.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
+                                                <li class=" classroom-clickable col-12 dropdown-item" onclick="coursesManager.updateCourse(${course.id}, true)" href="#">${capitalizeFirstLetter(i18next.t('words.rename'))}</li>
                                                 <li class="dropdown-item modal-course-delete classroom-clickable col-12" href="#" onclick="coursesManager.deleteCourse(${course.id})">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
                                                 <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="coursesManager.moveCourseToFolder(${course.id})">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
                                             </div>
@@ -559,10 +569,11 @@ class CoursesManager {
                                 </i>
                                 <div class="dropdown-menu" aria-labelledby="dropdown-list-courseItem-${course.id}" data-id="${course.id}">
                                     <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="coursesManager.attributeCourse(${course.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
-                                    <li class="dropdown-item classroom-clickable col-12" href="#" onclick="">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
-                                    <li class=" classroom-clickable col-12 dropdown-item" onclick="" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
-                                    <li class="dropdown-item modal-course-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
-                                    <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                                    <li class="dropdown-item classroom-clickable col-12" href="#" onclick="coursesManager.duplicateCourse(${course.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
+                                    <li class=" classroom-clickable col-12 dropdown-item" onclick="coursesManager.updateCourse(${course.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
+                                    <li class=" classroom-clickable col-12 dropdown-item" onclick="coursesManager.updateCourse(${course.id}, true)" href="#">${capitalizeFirstLetter(i18next.t('words.rename'))}</li>
+                                    <li class="dropdown-item modal-course-delete classroom-clickable col-12" href="#" onclick="coursesManager.deleteCourse(${course.id})">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
+                                    <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="coursesManager.moveCourseToFolder(${course.id})">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
                                 </div>
                             </div>
                         </div>
@@ -575,320 +586,14 @@ class CoursesManager {
         return content;
     }
 
-    resetInputsForCourse() {
-        // Autocorrect note disclaimer
-        $("#activity-auto-corrected-disclaimer-course").hide();
-        $("#activity-auto-disclaimer-course").hide();
-        $("#activity-content-container-course").hide();
-
-        // Hide all the divs
-        $('#activity-introduction-course').hide();
-        $('#activity-correction-container-course').hide();
-        $("#activity-states-container-course").hide();
-
-        // Field for free activity
-        $('#activity-input-container-course').hide();
-        $('#activity-student-response-course').hide();
-        $('#activity-student-response-content-course').text('');
-
-        // Fields
-        $('#activity-states-course').html("");
-        $('#activity-title-course').html("");
-        $('#activity-details-course').html('');
-        $('#activity-content-course').html("");
-        $('#activity-correction-course').html("");
-
-        // Hint
-        $("#activity-hint-course").text('');
-        $("#activity-hint-container-course").hide();
-
-        // Drag and drop
-        $('#activity-drag-and-drop-container-course').hide();
-        $('#drag-and-drop-fields-course').html('');
-        $('#drag-and-drop-text-course').html('');
-
-        // Warning message for
-        $('#warning-icon-container-course').hide();
-        $('#warning-text-evaluation-course').hide();
-        $("#warning-text-no-evaluation-course").hide();
-
-        // Quiz reset input
-        deleteQcmFields();
-    }
-
-
-    loadCourseForStudents(isDoable, currentCourse, progressBar = true) {
-        // Reset the inputs
-        this.resetInputsForCourse();
-    
-        // Check if the activity has an introduction
-        if (Activity.introduction != null && Activity.introduction != "") {
-            $('#text-introduction-course').html(bbcodeToHtml(Activity.introduction))
-            $('#activity-introduction-course').show()
-        }
-
-        let activityType = [
-            "reading",
-            "dragAndDrop",
-            "fillIn",
-            "quiz"
-        ]
-
-        document.getElementById("course-progress-bar").style.display = progressBar ? "flex" : "none";
-        
-        if (progressBar) {
-            // Add the current course indicator on top of the given activity
-            let nbOfExercices = currentCourse.activities.length;
-            let currentActivityIndex = currentCourse.activities.findIndex(activity => activity.id == Activity.activity.id);
-
-            // add green cells to .course-state until the current activity, then add grey cells
-            let courseState = "";
-            for (let i = 0; i < nbOfExercices; i++) {
-                if (i <= currentActivityIndex) {
-                    courseState += `<div class="course-state-item course-state-done"></div>`;
-                } else {
-                    courseState += `<div class="course-state-item course-state-todo"></div>`;
-                }
-            }
-            $('.course-state').html(courseState);
-        }
-
-
-        // Check if the correction if available
-        if (Activity.correction >= 1) {
-            $('#activity-details-course').html(i18next.t("classroom.activities.sentOn") + formatHour(Activity.dateSend), i18next.t("classroom.activities.numberOfTries") + Activity.tries)
-        } else {
-            $('#activity-details-course').html(i18next.t("classroom.activities.toSend") + formatDay(Activity.dateEnd))
-        }
-
-        // Content management
-        let content = manageContentForActivity();
-        let correction = '';
-
-        if (!UserManager.getUser().isRegular && Activity.correction > 1) {
-            document.querySelector('#activity-correction-course').style.display = 'block';
-            let activityResultString, activityResultColor;
-            switch (Activity.note) {
-                case 4:
-                    activityResultString = i18next.t('classroom.activities.noProficiency')
-                    activityResultColor = 'var(--classroom-text-2)'
-                    break;
-                case 3:
-                    activityResultString = i18next.t('classroom.activities.veryGoodProficiency')
-                    activityResultColor = 'var(--correction-3)'
-                    break;
-                case 2:
-                    activityResultString = i18next.t('classroom.activities.goodProficiency')
-                    activityResultColor = 'var(--correction-2)'
-                    break;
-                case 1:
-                    activityResultString = i18next.t('classroom.activities.weakProficiency')
-                    activityResultColor = 'var(--correction-1)'
-                    break;
-                case 0:
-                    activityResultString = i18next.t('classroom.activities.insufficientProficiency')
-                    activityResultColor = 'var(--correction-0)'
-                    break;
-                default:
-                    break;
-            }
-
-            correction += `<div class="results-string" style="background-color:${activityResultColor}">${activityResultString}</div>`
-
-            if (Activity.commentary != null && Activity.commentary != "") {
-                correction += '<div id="commentary-panel-course">' + Activity.commentary + '</div>'
-            } else {
-                correction += '<div id="commentary-panel-course">' + i18next.t("classroom.activities.bilan.noComment") + '</div>'
-            }
-
-        } else {
-            document.querySelector('#activity-correction-course').style.display = 'none';
-        }
-
-        injectContentForActivity(content, Activity.correction, Activity.activity.type, correction, isDoable, true);
-
-        if (!Activity.evaluation && correction < 2 && !isDoable) {
-            let allKnownActivity = [...activityType, "free"];
-            if (!allKnownActivity.includes(Activity.activity.type)) {
-                isDoable = false;
-            } else {
-                isDoable = true;
-            }
-        }
-        this.isTheActivityIsDoable(isDoable);
-    }
-
     validateCourse(correction) {
-        switch(Activity.activity.type) {
-            case 'free':
-                this.coursesFreeValidateActivity(correction);
-                break;
-            case 'quiz':
-                this.coursesquizValidateActivity(correction);
-                break;
-            case 'fillIn':
-                this.coursesfillInValidateActivity(correction);
-                break;
-            case 'reading':
-            case 'custom':
-                this.coursesdefaultProcessValidateActivity();
-                break;
-            case 'dragAndDrop':
-                this.coursesdragAndDropValidateActivity(correction);
-                break;
-            default:
-                this.coursesdefaultProcessValidateActivity();
-                break;
-        }
-    }
-
-    coursesFreeValidateActivity(correction = 1) {
-        let studentResponse = $('#activity-input-course').bbcode();
-        Main.getClassroomManager().saveNewStudentActivity(coursesManager.actualCourse.activity, correction, null, studentResponse, coursesManager.actualCourse.link).then((response) => {
-            this.coursesResponseManager(response, 'free');
-        });
-    }
-
-    coursesquizValidateActivity(correction = 1) {
-        let studentResponse = [];
-        for (let i = 1; i < $(`input[id^="student-quiz-checkbox-"]`).length+1; i++) {
-            let res = {
-                inputVal: $(`#student-quiz-suggestion-${i}`).text(),
-                isCorrect: $(`#student-quiz-checkbox-${i}`).is(':checked')
-            }
-            studentResponse.push(res);
-        }
-        
-        Main.getClassroomManager().saveNewStudentActivity(coursesManager.actualCourse.activity, correction, null, JSON.stringify(studentResponse), coursesManager.actualCourse.link).then((response) => {
-            this.coursesResponseManager(response, 'quiz');
-        });
-    }
-
-    coursesdragAndDropValidateActivity(correction = 1) {
-        let studentResponse = [];
-        for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
-            let string = document.getElementById(`dz-${i}`).children.length > 0 ? document.getElementById(`dz-${i}`).children[0].innerHTML : "";
-            studentResponse.push({
-                string: string
-            });
-        }
-        Main.getClassroomManager().saveNewStudentActivity(coursesManager.actualCourse.activity, correction, null, JSON.stringify(studentResponse), coursesManager.actualCourse.link).then((response) => {
-            this.coursesResponseManager(response, 'drag-and-drop');
-        });
-    }
-
-    coursesfillInValidateActivity(correction = 1) {
-        let studentResponse = [];
-        for (let i = 1; i < $(`input[id^="student-fill-in-field-"]`).length+1; i++) {
-            let string = document.getElementById(`student-fill-in-field-${i}`).value;
-            studentResponse.push(string);
-        }
-        Main.getClassroomManager().saveNewStudentActivity(coursesManager.actualCourse.activity, correction, null, JSON.stringify(studentResponse), coursesManager.actualCourse.link).then((response) => {
-            this.coursesResponseManager(response, 'fill-in');
-        });
-    }
-
-    coursesdefaultProcessValidateActivity() {
-        $("#activity-validate").attr("disabled", "disabled");
-        let getInterface = tryToParse(Activity.activity.content);
-        const vittaIframeRegex = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm;
-        getInterface = getInterface ? vittaIframeRegex.exec(getInterface.description) : false;
-        if (getInterface == undefined || getInterface == null) {
-            let correction = 2;
-            Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, correction, 4).then(function (activity) {
-                if (typeof activity.errors != 'undefined') {
-                    for (let error in activity.errors) {
-                        displayNotification('#notif-div', `classroom.notif.${error}`, "error");
-                        $("#activity-validate").attr("disabled", false);
-                    }
-                } else  {
-                    coursesManager.manageAllActivityResponse(activity);
-                }
-            })
-            window.localStorage.classroomActivity = null
-        } else if (Activity.autocorrection == false) {
-            let correction = 1;
-            const interfaceName = getInterface[2];
-            let project = window.localStorage[interfaceName + 'CurrentProject']
-            Main.getClassroomManager().saveStudentActivity(JSON.parse(project), interfaceName, Activity.id).then(function (activity) {
-                if (typeof activity.errors != 'undefined') {
-                    for (let error in activity.errors) {
-                        displayNotification('#notif-div', `classroom.notif.${error}`, "error");
-                        $("#activity-validate").attr("disabled", false);
-                    }
-                } else {
-                    coursesManager.manageAllActivityResponse(activity);
-                }
-            })
+        const funct = customActivity.activityAndCase.filter(activityValidate => activityValidate[0] == Activity.activity.type)[0];
+        if (funct) {
+            funct[1](funct[2] ? correction : null, true);
         } else {
-    
-            $("#activity-validate").attr("disabled", false);
-            window.localStorage.autocorrect = true
+            defaultProcessValidateActivity(true);
         }
     }
-
-    coursesSaveActivitiesResponseManager(activityType = null, response = null) {
-        if (activityType == 'fill-in') {
-
-            displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
-            if (response.hasOwnProperty("hint")) {
-                if (response.hint != null && response.hint != "") {
-                    $("#activity-hint-container-course").show();
-                    $("#activity-hint-course").text(response.hint);
-                }
-            }
-    
-            let lengthResponse = $(`input[id^="student-fill-in-field-"]`).length;
-            for (let i = 1; i < lengthResponse+1; i++) {
-                if (response.badResponse.includes(i-1)) {
-                    $(`#student-fill-in-field-${i}`).css("border","2px solid var(--correction-0)");
-                } else {
-                    $(`#student-fill-in-field-${i}`).css("border","2px solid var(--correction-3)");
-                }
-            }
-
-        } else if (activityType == 'drag-and-drop') {
-
-            displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
-            for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
-                $('#dz-' + i).css("border","1px solid var(--correction-3)");
-            }
-    
-            for (let i = 0; i < response.badResponse.length; i++) {
-                $('#dz-' + (response.badResponse[i])).css("border","1px solid var(--correction-0)");
-            }
-    
-            if (response.hasOwnProperty("hint")) {
-                if (response.hint != null && response.hint != "") {
-                    $("#activity-hint-container-course").show();
-                    $("#activity-hint-course").text(response.hint);
-                }
-            }
-
-        } else if (activityType == 'quiz') {
-
-            displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
-            for (let i = 1; i < $(`input[id^="student-quiz-suggestion-"]`).length+1; i++) {
-                $('#student-quiz-suggestion-' + i).parent().addClass('quiz-answer-correct');
-            }
-    
-            for (let i = 0; i < response.badResponse.length; i++) {
-                $('#student-quiz-suggestion-' + (response.badResponse[i]+1)).parent().addClass('quiz-answer-incorrect');
-            }
-    
-            if (response.hasOwnProperty("hint")) {
-                if (response.hint != null && response.hint != "") {
-                    $("#activity-hint-container-course").show();
-                    $("#activity-hint-course").text(response.hint);
-                }
-            }
-
-        } else if (activityType == 'free') {
-            displayNotification('#notif-div', "classroom.activities.wrongAnswer", "error");
-        }
-
-    }
-
 
     coursesResponseManager(response, type) {
         if (response) {
@@ -899,7 +604,7 @@ class CoursesManager {
                     return "empty";
                 }
             } else if (response.hasOwnProperty("badResponse")) {
-                this.coursesSaveActivitiesResponseManager(type, response);
+                saveActivitiesAndCoursesResponseManager(type, response, true);
                 return "bad";
             } else {
                 this.coursesValidateDefaultResponseManagement(response);
@@ -1008,7 +713,8 @@ class CoursesManager {
             btnContainer = document.getElementById("course-validate-buttons");
         Activity = course.activities.find(activity => activity.activityLinkUser.id == activityId).activityLinkUser;
         navigatePanel('classroom-dashboard-course-panel', 'dashboard-activities-teacher', 'course', '');
-        this.loadCourseForStudents(true, course, false);
+        //this.loadCourseForStudents(true, course, false);
+        loadCourseAndActivityForStudents(true, course, false, true);
         btnContainer.style.display = "none";
     }
 
@@ -1043,34 +749,80 @@ class CoursesManager {
             };
         
             navigatePanel('classroom-dashboard-course-panel', 'dashboard-activities-teacher', 'course', '');
-            this.loadCourseForStudents(true, course);
+            loadCourseAndActivityForStudents(true, course, true, true);
             btnValidate.style.display = "block";
         });
     }
 
-    isTheActivityIsDoable(doable, hideValidationButton = false) {
-        if (doable == false || UserManager.getUser().isRegular) {
-            $('#activity-validate-course').hide();
-            $('#activity-save-course').hide();
-        } else {
-            let getInterface = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm.exec(Activity.activity.content)
-            if (!hideValidationButton) {
-                if (!Activity.activity.isLti) {
-                    $('#activity-validate-course').show();
-                }
-            }
-            
-             if (getInterface != undefined && getInterface != null) {
-                $('#activity-save-course').show()
-            }
-    
-            if (!Activity.activity.isLti) { 
-                $('#activity-validate-course').show();
-                if (Activity.activity.type != 'reading') {
-                    $('#activity-save-course').show();
-                }
-            }
+    courseOverview(id = null) {
+        let activitiesResultDiv = document.getElementById("course-activities-overview");
+        activitiesResultDiv.innerHTML = "";
+        let course = coursesManager.myCourses.find(course => course.id == id);
+        for (let i = 0; i < course.activities.length; i++) {
+            let html = `<div class="course-activities-result-activity" id="course-${course.id}" onclick="coursesManager.simulateActivityOpen(${course.activities[i].id})"> 
+                            <div class="preview-result-course-activity-title d-flex align-items-center">
+                                <img class="list-item-img" src="${foldersManager.icons[course.activities[i].type]}" alt="reading">
+                                <p onclick="">ACTVITÉ N°${i+1}</p>
+                            </div>
+
+                            <div class="align-self-center"> 
+                                <p class="course-title">${course.activities[i].title}</p>
+                            </div>
+                            <div class="activity-list-info d-flex align-items-center">
+                                ${course.activities[i].isAutocorrect ? `<div class="activity-list-auto">
+                                    <img src='${_PATH}assets/media/auto-icon-grey.svg' title='Auto' onload="SVGInject(this)">
+                                </div>` 
+                                : "" }
+                            </div>
+                        </div>`;
+
+            activitiesResultDiv.innerHTML += html;
         }
+
+        $('#course-title-options').html(course.title + " - " + this.makeOptionsCourseForOverview(course));
+        navigatePanel('classroom-dashboard-teacher-course-panel', 'dashboard-activities-panel-teacher');
+    }
+
+    simulateActivityOpen(idActivity) {
+        navigatePanel('classroom-dashboard-activity-panel', 'activity-item', 'WK' + idActivity, '');
+    }
+
+    makeOptionsCourseForOverview(course) {
+        let html = "";
+        html = `
+            <div class="dropdown mx-2">
+                <button class="btn c-btn-outline-grey" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    ${capitalizeFirstLetter(i18next.t('words.options'))}
+                    <i class="fas fa-cog"></i>
+                </button>
+        
+                <ul class="dropdown-menu">
+                    <li class="dropdown-item" onclick="coursesManager.attributeCourse(${course.id})">
+                        ${capitalizeFirstLetter(i18next.t('words.attribute'))}
+                    </li>
+                
+                    <li class="dropdown-item" onclick="coursesManager.duplicateCourse(${course.id})">
+                        ${capitalizeFirstLetter(i18next.t('words.duplicate'))}
+                    </li>
+                        
+                    <li class="dropdown-item" onclick="coursesManager.updateCourse(${course.id})">
+                        ${capitalizeFirstLetter(i18next.t('words.modify'))}
+                    </li>
+        
+                    <li class="dropdown-item" onclick="coursesManager.updateCourse(${course.id}, true)">
+                        ${capitalizeFirstLetter(i18next.t('words.rename'))}
+                    </li>
+        
+                    <li class="dropdown-item" onclick="coursesManager.deleteCourse(${course.id})">
+                        ${capitalizeFirstLetter(i18next.t('words.delete'))}
+                    </li>
+
+                    <li class="dropdown-item" onclick="coursesManager.moveCourseToFolder(${course.id})">
+                        ${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}
+                    </li>
+                </ul>
+            </div>`
+        return html;
     }
 
     _requestUpdateState(id,state) {

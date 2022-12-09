@@ -2,45 +2,59 @@ class CustomActivity {
     constructor() {
         // activity added by plugins
         this.activityAndCase = [
-            ["free", freeValidateActivity, true],
+            ["free", freeManager.freeValidateActivity, true],
             ["reading", defaultProcessValidateActivity, false],
-            ["fillIn", fillInValidateActivity, true],
-            ["quiz", quizValidateActivity, true],
-            ["dragAndDrop", dragAndDropValidateActivity, true],
+            ["fillIn", fillInManager.fillInValidateActivity, true],
+            ["quiz", quizManager.quizValidateActivity, true],
+            ["dragAndDrop", dragAndDropManager.dragAndDropValidateActivity, true],
         ];
 
         this.activityAndCaseView = [
             ['free', "#activity-free", false],
-            ['quiz', "#activity-quiz", false],
-            ['fillIn', "#activity-fill-in", false],
             ['reading', "#activity-reading", false],
-            ['custom', "#activity-reading", false],
+            ['fillIn', "#activity-fill-in", false],
+            ['quiz', "#activity-quiz", false],
             ['dragAndDrop', "#activity-drag-and-drop", false],
+            ['custom', "#activity-reading", false],
         ];
 
         this.ContentForwardCustom = [];
 
         this.getTeacherActivityCustom = [
-            ["free", showTeacherReadingAndFreeActivity],
-            ["reading", showTeacherReadingAndFreeActivity],
-            ["fillIn", showTeacherFillInActivity],
-            ["quiz", showTeacherQuizActivity],
-            ["dragAndDrop", showTeacherDragAndDropActivity],
+            ["free", freeManager.showTeacherFreeActivity],
+            ["reading", readingManager.showTeacherReadingActivity],
+            ["fillIn", fillInManager.showTeacherFillInActivity],
+            ["quiz", quizManager.showTeacherQuizActivity],
+            ["dragAndDrop", dragAndDropManager.showTeacherDragAndDropActivity],
         ];
 
         this.manageDisplayCustom = [
-            ['free', manageDisplayFree],
-            ['quiz', manageDisplayQuiz],
-            ['fillIn', manageDisplayFillIn],
-            ['reading', manageDisplayCustomAndReading],
-            ['dragAndDrop', manageDisplayDragAndDrop],
-            ['custom', manageDisplayCustomAndReading],
+            ['free', freeManager.manageDisplayFree],
+            ['reading', readingManager.manageDisplayReading],
+            ['fillIn', fillInManager.manageDisplayFillIn],
+            ['quiz', quizManager.manageDisplayQuiz],
+            ['dragAndDrop', dragAndDropManager.manageDisplayDragAndDrop],
+            ['custom', manageDisplayCustom],
         ];
 
+        this.manageUpdateCustom = [
+            ['free', freeManager.manageUpdateForFree],
+            ['quiz', quizManager.manageUpdateForQuiz],
+            ['fillIn', fillInManager.manageUpdateForFillIn],
+            ['reading', readingManager.manageUpdateForReading],
+            ['dragAndDrop', dragAndDropManager.manageUpdateForDragAndDrop],
+            ['custom', manageUpdateForDeaultCase],
+            // old activity = reading
+            [null, readingManager.manageUpdateForReading],
+        ];
 
-        this.manageCustomSelectGalery = [
-            ['mathia', `https://app.mathia.education/?aid=`],
-        ]
+        this.managePreviewCustom = [
+            ['free', freeManager.freePreview],
+            ['quiz', quizManager.quizPreview],
+            ['fillIn', fillInManager.fillInPreview],
+            ['reading', readingManager.readingPreview],
+            ['dragAndDrop', dragAndDropManager.dragAndDropPreview],
+        ];
 
         this.normalMedia = true;
         this.appName = null;
@@ -51,7 +65,6 @@ class CustomActivity {
         this.totalItems = 0;
         this.paginationDiv = document.getElementById("app-media-galery-pagination");
         this.selectedItem = null;
-
     }
 
     init() {
@@ -122,7 +135,6 @@ class CustomActivity {
 
     displayItems() {
         document.getElementById("app-media-galery-container").innerHTML = "";
-        console.log(this.normalMedia);
         if (this.normalMedia) {
             this.mediaItems.forEach((element, key) => {
                 document.getElementById("app-media-galery-container").innerHTML += 
