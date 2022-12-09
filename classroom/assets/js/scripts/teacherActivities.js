@@ -163,6 +163,7 @@ function activityModify(id, rename = false) {
 function manageUpdateByType(activity, rename = false) {
     setTextArea();
     const contentForwardButtonElt = document.getElementById('content-forward-button');
+    contentForwardButtonElt.style.display = 'inline-block';
 
     // Merge old activity to reading activity
     activity.type == null ? activity.type = "reading" : activity.type;
@@ -170,7 +171,6 @@ function manageUpdateByType(activity, rename = false) {
     Main.getClassroomManager()._createActivity.id = activity.type;
     Main.getClassroomManager()._createActivity.function = "update";
     
-    contentForwardButtonElt.style.display = 'inline-block';
 
     $('#global_title').val(activity.title);
     Main.getClassroomManager()._createActivity.title = activity.title;
@@ -178,6 +178,8 @@ function manageUpdateByType(activity, rename = false) {
     customActivity.manageUpdateCustom.filter((custom) => {
         if (custom[0] == activity.type) {
             custom[1](activity);
+        } else {
+            manageUpdateForDeaultCase(activity, contentForwardButtonElt)
         }
     })
 
@@ -187,10 +189,11 @@ function manageUpdateByType(activity, rename = false) {
 }
 
 
-function manageUpdateForDeaultCase(activity) {
+function manageUpdateForDeaultCase(activity, contentForwardButtonElt) {
     contentForwardButtonElt.style.display = 'none';
     Main.getClassroomManager()._createActivity.content.description = JSON.parse(activity.content).description;
     launchLtiDeepLinkCreate(activity.type, true);
+    navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
     $("#activity-custom").show();
 }
 
