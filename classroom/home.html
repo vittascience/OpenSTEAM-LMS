@@ -1,5 +1,7 @@
     <link rel="stylesheet" href="assets/css/modal.css">
+    <!-- PLUGIN CSS-->
 
+    <!-- END PLUGIN CSS -->
     <script src="assets/js/scripts/classroom-lang.js"></script>
 </head>
 
@@ -546,7 +548,6 @@
             <span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
             <i class="fas fa-power-off"></i>
         </button>
-
     </div>
 </div>
 
@@ -2498,11 +2499,12 @@
 <script src="assets/js/lib/jquery-3.5.1/jquery-3.5.1.min.js"></script>
 <script src="assets/js/lib/wysibb/jquery.wysibb.js"></script>
 <script src="assets/js/lib/jquery_ui-1.12.0/jquery-ui.min.js"></script>
+<script src="assets/js/lib/mathlive-0.85.1/mathlive.min.js"></script>
 <link rel="stylesheet" stype="text/css" href="assets/js/lib/wysibb/theme/default/wbbtheme.css">
 <script>
     $(document).ready(function () {
         let wbbOpt = {
-            buttons: ",bold,italic,underline,|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe"
+            buttons: ",bold,italic,underline,math,|,justifyleft,justifycenter,justifyright,img,link,|,quote,bullist,|,vittaiframe,cabriiframe,vittapdf,video,peertube,vimeo,genialyiframe,gdocsiframe"
         }
         $("#activity-form-content").wysibb(wbbOpt);
     })
@@ -2677,7 +2679,9 @@
     }
 </script>
 <script src="assets/js/utils/translate.js"></script>
+<!-- PLUGIN SCRIPTS-->
 
+<!-- END PLUGIN SCRIPTS -->
 </body>
 
 </html>

@@ -60,6 +60,7 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 		vimeo: "Insérer vidéo Vimeo",
 		gdocs: "Insérer Google Docs, Slides ou Sheet",
 		removeFormat: "Supprimer le format",
+		math: "Insérer une formule mathématique",
 
 		modal_link_title: "Insérer lien",
 		modal_link_text: "Afficher le texte",
@@ -83,10 +84,12 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 		modal_img_tab2: "Téléverser image",
 		modal_imgsrc_text: "Saisir l'url de l'image",
 		modal_img_btn: "Choisir le fichier",
+		modal_math_title: "Insérer formule mathématique",
 		add_attach: "Ajouter pièce jointe",
 
 		modal_video_text: "Saisir l'url de la vidéo",
 		modal_peertube_text: "Saisir l'URL de la vidéo Peertube",
+		modal_math_text: "Saisir la formule mathématique (format LaTeX)",
 
 		close: "Fermer",
 		save: "Sauvegarder",
@@ -121,16 +124,16 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 		cabriiframe: "Cabri Express",
 		vittapdf: "Insérer un pdf",
 		maxWidthText: "Largeur maximale",
-		messages:{
+		messages: {
 			uploadSuccess: "Fichier sauvegardé avec succès",
 			dataSavedSuccessfully: "Les données ont été enregistrées avec succès",
 			unexpectedErrorOccured: "Une erreur inattendue est survenue",
-			image:{
+			image: {
 				titleIsRequired: "Le titre est requis",
 				imageIsRequired: "L'image est requise",
 				urlIsRequired: "L'url est requise",
 				imageUploadError: "Erreur durant le téléversement",
-				imageNotStored:"L'image n'a pu être sauvegardée sur le serveur",
+				imageNotStored: "L'image n'a pu être sauvegardée sur le serveur",
 				invalidUrl: "L'url ou l'extension de fichier n'est pas valide",
 				invalidImageName: "Le nom de l'image n'est pas valide",
 				invalidImageTempName: "Le nom temporaire de l'image n'est pas valide",
@@ -140,7 +143,7 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 				widthIsInvalid: "La largeur doit-être comprise entre 0 et 100",
 				fileIsValid: "Le Fichier est valide",
 			},
-			file:{
+			file: {
 				titleIsRequired: "Le nom du fichier est requis",
 				fileIsRequired: "Un Fichier est requis",
 				urlIsRequired: "L'url est requise",
@@ -195,6 +198,7 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 		peertube: "Insert peertube",
 		vimeo: "Insert Vimeo",
 		gdocs: "Insert Google Docs, Slides or Sheet",
+		math: "Insert math formula",
 		removeFormat: "Remove Format",
 
 		modal_link_title: "Insert link",
@@ -219,10 +223,12 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 		modal_img_tab2: "Upload image",
 		modal_imgsrc_text: "Enter image URL",
 		modal_img_btn: "Choose file",
+		modal_math_title: "Insert math formula",
 		add_attach: "Add Attachment",
 
 		modal_video_text: "Enter the URL of the video",
 		modal_peertube_text: "Enter the URL of the Peertube video",
+		modal_math_text: "Enter math formula (LaTeX syntax)",
 
 		close: "Close",
 		save: "Save",
@@ -257,16 +263,16 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 		cabriiframe: "Cabri Express",
 		vittapdf: "Pdf",
 		maxWidthText: "Max-width",
-		messages:{
+		messages: {
 			uploadSuccess: "File successfully uploaded",
 			dataSavedSuccessfully: "Data saved successfully",
 			unexpectedErrorOccured: "An unexpected error occured",
-			image:{
+			image: {
 				titleIsRequired: "The title is required",
 				imageIsRequired: "An image is required",
 				urlIsRequired: "The url link is required",
 				imageUploadError: "Error during the upload",
-				imageNotStored:"The image was not saved on the server",
+				imageNotStored: "The image was not saved on the server",
 				invalidUrl: "Invalid url or extension",
 				invalidImageName: "Image name invalid",
 				invalidImageTempName: "Temporary file name invalid",
@@ -276,7 +282,7 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 				widthIsInvalid: "The width has to be between 0 and 100",
 				fileIsValid: "File is valid",
 			},
-			file:{
+			file: {
 				titleIsRequired: "The title is required",
 				fileIsRequired: "A file is required",
 				urlIsRequired: "The url is required",
@@ -337,7 +343,7 @@ wbbdebug = false;
 			smileConversion: true,
 
 			//END img upload config
-			buttons: "answer,bold,italic,underline,strike,sup,sub,|,img,video,peertube,vimeo,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,table,removeFormat",
+			buttons: "answer,bold,italic,underline,strike,sup,sub,math,|,img,video,peertube,vimeo,link,|,bullist,numlist,|,fontcolor,fontsize,fontfamily,|,justifyleft,justifycenter,justifyright,|,quote,code,table,removeFormat",
 			allButtons: {
 				vittaiframe: {
 					title: CURLANG.vittaiframe,
@@ -771,7 +777,6 @@ wbbdebug = false;
 						'<iframe src="https://www.youtube.com/embed/{SRC}" width="640" height="480" frameborder="0"></iframe>': '[video]{SRC}[/video]'
 					}
 				},
-
 				//select options
 				fs_verysmall: {
 					title: CURLANG.fs_verysmall,
@@ -866,12 +871,12 @@ wbbdebug = false;
 					title: CURLANG.imgUpload,
 					buttonHTML: '<i class="far fa-file-image" style="height:27px;width:31px;font-size:20px;text-align:center;padding-top: 5px;"></i>',
 					modal: function (cmd, opt, queryState) {
-		
+
 						// save the current cursor pos where to add the image
 						this.saveRange();
-		
+
 						this.$modal = $('#wbbmodal').prependTo(document.body)
-						.html(`
+							.html(`
 							<div class="wbbm hastabs" hastabs"="" style="max-width: 500px; width: 600px; margin-top: 202.479px;">
 								<div class="wbbm-title">
 									<span class="wbbm-title-text">Image</span>
@@ -938,37 +943,43 @@ wbbdebug = false;
 								</div>
 							</div>
 						`).show()
-		
+
 						// make the submit bouton disabled by default until all is ok
 						// this.$modal.find('#uploadToServer').attr('disabled', true)
-		
+
 						// handle file input change
 						this.$modal.find('#imageToUpload').change($.proxy(function (e) {
-		
+
 							// make the submit bouton disabled each time at start
 							this.$modal.find('#uploadToServer').attr('disabled', true)
-		
+
 							// bind html elements
 							const imageToUpload = this.$modal.find('#imageToUpload')[0].files[0]
 							const fileUploadMsgBox = this.$modal.find('#fileUploadMsgBox')
-							
+
 							// get the extension from the mime type
 							const imageExtension = imageToUpload ? imageToUpload.type.split('/')[1] : null
-							const allowedExtensions = ['jpg','jpeg','png','svg','webp','gif','apng']
-							
+							const allowedExtensions = ['jpg', 'jpeg', 'png', 'svg', 'webp', 'gif', 'apng']
+
 							// reset the msg box if not empty each time at start
 							if (fileUploadMsgBox.html() != '') fileUploadMsgBox.html('')
-		
+
 							const errors = []
 							//  the user switched from 1 file to no file
-							if (typeof imageToUpload === 'undefined') errors.push({errorType: 'imageIsRequired'})
-							else{
-								if(allowedExtensions.indexOf(imageExtension) === -1) errors.push({errorType: 'invalidImageExtension'})
-								if(imageToUpload.size > 1000000) errors.push({errorType: 'imageSizeToLarge'})
+							if (typeof imageToUpload === 'undefined') errors.push({
+								errorType: 'imageIsRequired'
+							})
+							else {
+								if (allowedExtensions.indexOf(imageExtension) === -1) errors.push({
+									errorType: 'invalidImageExtension'
+								})
+								if (imageToUpload.size > 1000000) errors.push({
+									errorType: 'imageSizeToLarge'
+								})
 							}
 
 							// some errors found
-							if(errors.length > 0){
+							if (errors.length > 0) {
 								let output = ''
 								errors.map(error => {
 									output += `<p class="my-0">${CURLANG.messages.image[error.errorType]}</>`
@@ -980,7 +991,7 @@ wbbdebug = false;
 									</div>
 								`)
 								return
-							} 
+							}
 
 							// no errors, set success msg
 							fileUploadMsgBox.html(`
@@ -989,13 +1000,13 @@ wbbdebug = false;
 								</div>
 							`)
 						}, this))
-		
+
 						// HANDLE CANCEL BUTTON CLICK
 						this.$modal.find('#wbbm-cancel,.wbbclose').click($.proxy(this.closeModal, this));
-						
+
 						// HANDLE MODAL CLOSE WHEN ESC KEY IS CLICKED
 						$(document).bind("keydown", $.proxy(this.escModal, this));
-		
+
 						// HANDLE MODAL CLOSE WHEN CLICK OCCURES OUTSIDE OF THE MODAL
 						this.$modal.bind('click', $.proxy(function (e) {
 							if ($(e.target).parents(".wbbm").length == 0) {
@@ -1004,37 +1015,41 @@ wbbdebug = false;
 						}, this));
 
 						// error checking on title and width image url and upload image features
-						const checkForErrors = (title,width) =>{
+						const checkForErrors = (title, width) => {
 							const errors = []
 							let output = ''
-							if(title === '') errors.push({errorType: 'titleIsRequired'})
-							if(parseInt(width) < 0 || parseInt(width) > 100) errors.push({errorType : 'widthIsInvalid'})
+							if (title === '') errors.push({
+								errorType: 'titleIsRequired'
+							})
+							if (parseInt(width) < 0 || parseInt(width) > 100) errors.push({
+								errorType: 'widthIsInvalid'
+							})
 
 							// some errors found, display them to the user
-							if(errors.length > 0){
+							if (errors.length > 0) {
 								errors.map(error => {
 									output += `<p class="my-0">${CURLANG.messages.image[error.errorType]}</>`
 								})
 							}
 							return output
 						}
-						
+
 						// HANDLE MODAL CLOSE BUTTON IN THE MODAL FOOTER
 						this.$modal.find('#wbbm-submit').click($.proxy(function (e) {
-							let imgSrc,imgTitle,imgWidth
+							let imgSrc, imgTitle, imgWidth
 							const currentTab = this.$modal.find('.wbbm-tablist .on')[0]
 							const fileUploadMsgBox = this.$modal.find('#fileUploadMsgBox')
-							
+
 							// reset the msg box each time at start if not empty
 							if (fileUploadMsgBox.html() != '') fileUploadMsgBox.html('')
 
 							// UPLOAD IMAGE TAB
-							if(currentTab.id === 'upload'){
+							if (currentTab.id === 'upload') {
 								e.preventDefault()
-								
+
 								//const baseUrl = `${location.protocol}//${location.hostname}`
 								const uploadUrl = `/routing/Routing.php?controller=upload&action=upload_img_from_text_editor`
-			
+
 								// bind data and reset the message box
 								const uploadImgTitle = this.$modal.find('#uploadImgTitle').val()
 								const uploadImgWidth = this.$modal.find('#uploadImgWidth').val()
@@ -1043,23 +1058,22 @@ wbbdebug = false;
 
 								// get the extension from the mime type
 								const imageExtension = imageToUpload ? imageToUpload.type.split('/')[1] : null
-								const allowedExtensions = ['jpg','jpeg','png','svg','webp','gif','apng']
-								
+								const allowedExtensions = ['jpg', 'jpeg', 'png', 'svg', 'webp', 'gif', 'apng']
+
 								let errors = checkForErrors(uploadImgTitle, uploadImgWidth)
-								if (typeof imageToUpload === 'undefined'){
-									errors +=`<p class="my-0">${CURLANG.messages.image.imageIsRequired}</>`
-								} 
-								else{
-									if(allowedExtensions.indexOf(imageExtension) === -1){
-										errors +=`<p class="my-0">${CURLANG.messages.image.invalidImageExtension}</>`
+								if (typeof imageToUpload === 'undefined') {
+									errors += `<p class="my-0">${CURLANG.messages.image.imageIsRequired}</>`
+								} else {
+									if (allowedExtensions.indexOf(imageExtension) === -1) {
+										errors += `<p class="my-0">${CURLANG.messages.image.invalidImageExtension}</>`
 									}
-									if (imageToUpload.size > 1000000){
-										errors +=`<p class="my-0">${CURLANG.messages.image.imageSizeToLarge}</>`
-									} 
-								} 
+									if (imageToUpload.size > 1000000) {
+										errors += `<p class="my-0">${CURLANG.messages.image.imageSizeToLarge}</>`
+									}
+								}
 
 								// some errors found, display them to the user
-								if(errors != ''){
+								if (errors != '') {
 									fileUploadMsgBox.html(`
 										<div class="alert alert-danger">
 											${errors}
@@ -1067,34 +1081,34 @@ wbbdebug = false;
 									`)
 									return
 								}
-								
+
 								// no errors, prepare file to be submitted 
 								const dataToSend = new FormData()
 								dataToSend.append('image', imageToUpload)
-								
+
 								// inform the user that its request is loading
 								fileUploadMsgBox.html(`
 									<div class="alert alert-info">
 										<p class="my-0">${CURLANG.loading}</>
 									</div>
 								`)
-								
+
 								// IMAGE UPLOAD ON THE SERVER
-								const handleImageUploadOnServer = async () =>{
+								const handleImageUploadOnServer = async () => {
 									try {
 										const data = await (await fetch(uploadUrl, {
 											method: "POST",
 											body: dataToSend
 										})).json()
-	
+
 										// some errors received
-										if(data.errors){
+										if (data.errors) {
 											// append errors text to output
 											let output = ''
 											data.errors.map(error => {
 												output += `<p class="my-0">${CURLANG.messages.image[error.errorType]}</p>`
 											})
-											
+
 											// render errors output to the user
 											fileUploadMsgBox.html(`
 												<div class="alert alert-danger">
@@ -1103,10 +1117,10 @@ wbbdebug = false;
 											`)
 											return
 										}
-										
+
 										// no errors 
 										if (typeof data.errors === 'undefined') {
-				
+
 											// display success msg and prepare data for the bbcode 
 											fileUploadMsgBox.html(`
 												<div class="alert alert-success">
@@ -1116,12 +1130,16 @@ wbbdebug = false;
 											imgSrc = data.src
 											imgTitle = uploadImgTitle
 											imgWidth = `${uploadImgWidth}%`
-											
-											this.wbbInsertCallback(cmd, { SRC: imgSrc,TITLE: imgTitle, WIDTH: imgWidth })
-											setTimeout(()=>{	
+
+											this.wbbInsertCallback(cmd, {
+												SRC: imgSrc,
+												TITLE: imgTitle,
+												WIDTH: imgWidth
+											})
+											setTimeout(() => {
 												this.closeModal();
 												this.updateUI();
-											},1200)
+											}, 1200)
 										}
 									} catch (error) {
 										fileUploadMsgBox.html(`
@@ -1135,27 +1153,26 @@ wbbdebug = false;
 
 							}
 							// INSERT IMAGE URL TAB
-							else if(currentTab.id === 'url'){
+							else if (currentTab.id === 'url') {
 								// bind data
 								const urlRegex = /http(s)?:\/\/(\w+\.)?(\w+\.)(\w{2,14})?(.*)\.(jpg|jpeg|png|svg|webp|gif|apng)/gi;
 								imgTitle = this.$modal.find('.tab1 #urlImgTitle')[0].value
 								imgSrc = this.$modal.find('.tab1 #urlImgSrc')[0].value
-								imgWidth = this.$modal.find('.tab1 #urlImgWidth')[0]
-											? `${this.$modal.find('.tab1 #urlImgWidth')[0].value }%` 
-											: '100%'
-							
+								imgWidth = this.$modal.find('.tab1 #urlImgWidth')[0] ?
+									`${this.$modal.find('.tab1 #urlImgWidth')[0].value }%` :
+									'100%'
+
 								// check for errors
-								let errors = checkForErrors(imgTitle,imgWidth)
+								let errors = checkForErrors(imgTitle, imgWidth)
 								// check for src specifically as it is not part of custom upload
-								if(imgSrc === ''){
-									errors +=`<p class="my-0">${CURLANG.messages.image.urlIsRequired}</>`
-								} 
-								else if(!urlRegex.test(imgSrc)){
-									errors +=`<p class="my-0">${CURLANG.messages.image.invalidUrl}</>`
-								} 
+								if (imgSrc === '') {
+									errors += `<p class="my-0">${CURLANG.messages.image.urlIsRequired}</>`
+								} else if (!urlRegex.test(imgSrc)) {
+									errors += `<p class="my-0">${CURLANG.messages.image.invalidUrl}</>`
+								}
 
 								// some errors found, display them to the user
-								if(errors != ''){
+								if (errors != '') {
 									fileUploadMsgBox.html(`
 									<div class="alert alert-danger">
 										${errors}
@@ -1170,15 +1187,19 @@ wbbdebug = false;
 										<p class="my-0">${CURLANG.messages.dataSavedSuccessfully}</>
 									</div>
 								`)
-								
-								this.wbbInsertCallback(cmd, { SRC: imgSrc, TITLE: imgTitle, WIDTH: imgWidth })
-								setTimeout(()=>{	
+
+								this.wbbInsertCallback(cmd, {
+									SRC: imgSrc,
+									TITLE: imgTitle,
+									WIDTH: imgWidth
+								})
+								setTimeout(() => {
 									this.closeModal();
 									this.updateUI();
-								},1500)
-							}							
+								}, 1500)
+							}
 						}, this));
-					}, 
+					},
 					transform: {
 						'<img src="{SRC}" title="{TITLE}"  class="img-fluid" style="max-width:{WIDTH};"/>': '[img title={TITLE} max-width={WIDTH}]{SRC}[/img]'
 					}
@@ -1186,13 +1207,13 @@ wbbdebug = false;
 				custompdfupload: {
 					title: CURLANG.vittapdf,
 					buttonHTML: '<i class="far fa-file-pdf" style="height:27px;width:31px;font-size:20px;text-align:center;padding-top: 5px;"></i>',
-					modal: function(cmd,opt,queryState) {
+					modal: function (cmd, opt, queryState) {
 						// get the modal container
 						this.$modal = $("#wbbmodal")
 
 						// save the current cursor pos where to add the data
 						this.saveRange();
-						
+
 						// append the content onto the modal
 						this.$modal.prependTo(document.body)
 							.html(`
@@ -1251,7 +1272,7 @@ wbbdebug = false;
 									</div>
 								</div>
 							`).show()
-						
+
 						// HANDLE CHANGE FOR PDF FILE INPUT
 						this.$modal.find('#fileToUpload').change($.proxy(function (e) {
 							e.preventDefault()
@@ -1265,17 +1286,23 @@ wbbdebug = false;
 
 							// reset the msg box each time at start if not empty
 							if (fileUploadMsgBox.html() != '') fileUploadMsgBox.html('')
-		
+
 							const errors = []
 							//  the user switched from 1 file to no file
-							if (typeof fileToUpload === 'undefined') errors.push({errorType: 'fileIsRequired'})
-							else{
-								if(allowedExtensions.indexOf(fileExtension) === -1) errors.push({errorType: 'invalidFileExtension'})
-								if(fileToUpload.size > 5000000) errors.push({errorType: 'fileSizeToLarge'})
+							if (typeof fileToUpload === 'undefined') errors.push({
+								errorType: 'fileIsRequired'
+							})
+							else {
+								if (allowedExtensions.indexOf(fileExtension) === -1) errors.push({
+									errorType: 'invalidFileExtension'
+								})
+								if (fileToUpload.size > 5000000) errors.push({
+									errorType: 'fileSizeToLarge'
+								})
 							}
-							
+
 							// some errors found
-							if(errors.length > 0){
+							if (errors.length > 0) {
 								let output = ''
 								errors.map(error => {
 									output += `<p class="my-0">${CURLANG.messages.file[error.errorType]}</>`
@@ -1287,7 +1314,7 @@ wbbdebug = false;
 									</div>
 								`)
 								return
-							} 
+							}
 
 							// no errors, set success msg
 							fileUploadMsgBox.html(`
@@ -1299,21 +1326,21 @@ wbbdebug = false;
 
 						// HANDLE CANCEL BUTTON CLICK
 						this.$modal.find('#wbbm-cancel,.wbbclose').click($.proxy(this.closeModal, this));
-					
+
 						// HANDLE MODAL CLOSE WHEN ESC KEY IS CLICKED
 						$(document).bind("keydown", $.proxy(this.escModal, this));
-						
+
 						// HANDLE MODAL CLOSE WHEN CLICK OCCURES OUTSIDE OF THE MODAL
 						this.$modal.bind('click', $.proxy(function (e) {
 							if ($(e.target).parents(".wbbm").length == 0) {
 								this.closeModal();
 							}
 						}, this));
-		
+
 						// HANDLE MODAL CLOSE BUTTON IN THE MODAL FOOTER
 						this.$modal.find('#wbbm-submit').click($.proxy(function (e) {
 							// bind data
-							let fileSrc,fileTitle
+							let fileSrc, fileTitle
 							const currentTab = this.$modal.find('.wbbm-tablist .on')[0]
 							const fileUploadMsgBox = this.$modal.find('#fileUploadMsgBox')
 
@@ -1321,11 +1348,11 @@ wbbdebug = false;
 							if (fileUploadMsgBox.html() != '') fileUploadMsgBox.html('')
 
 							// UPLOAD FILE TAB
-							if(currentTab.id === 'upload'){
+							if (currentTab.id === 'upload') {
 								e.preventDefault()
 
 								const uploadUrl = `/routing/Routing.php?controller=upload&action=upload_file_from_text_editor`
-			
+
 								// bind data and reset the message box
 								const uploadFileTitle = this.$modal.find('#uploadFileTitle').val()
 								const fileToUpload = this.$modal.find('#fileToUpload')[0].files[0]
@@ -1334,17 +1361,25 @@ wbbdebug = false;
 								// get the extension from the mime type
 								const fileExtension = fileToUpload ? fileToUpload.type.split('/')[1] : null
 								const allowedExtensions = ['pdf']
-								
+
 								const errors = []
-								if(uploadFileTitle === '') errors.push({errorType: 'titleIsRequired'})
-								if (typeof fileToUpload === 'undefined') errors.push({errorType: 'fileIsRequired'})
+								if (uploadFileTitle === '') errors.push({
+									errorType: 'titleIsRequired'
+								})
+								if (typeof fileToUpload === 'undefined') errors.push({
+									errorType: 'fileIsRequired'
+								})
 								else {
-									if(allowedExtensions.indexOf(fileExtension) === -1) errors.push({errorType: 'invalidFileExtension'})
-									if (fileToUpload.size > 5000000) errors.push({errorType: 'fileSizeToLarge'})
+									if (allowedExtensions.indexOf(fileExtension) === -1) errors.push({
+										errorType: 'invalidFileExtension'
+									})
+									if (fileToUpload.size > 5000000) errors.push({
+										errorType: 'fileSizeToLarge'
+									})
 								}
-								
+
 								// some errors found, display them to the user
-								if(errors.length > 0){
+								if (errors.length > 0) {
 									let output = ''
 									errors.map(error => {
 										output += `<p class="my-0">${CURLANG.messages.file[error.errorType]}</>`
@@ -1356,34 +1391,34 @@ wbbdebug = false;
 									`)
 									return
 								}
-								
+
 								// prepare file to be submitted and disable submit button to avoid multiple submission
 								const dataToSend = new FormData()
 								dataToSend.append('file', fileToUpload)
-								
+
 								// inform the user that its request is loading
 								fileUploadMsgBox.html(`
 									<div class="alert alert-info">
 										<p class="my-0">${CURLANG.loading}</>
 									</div>
 								`)
-								
+
 								// FILE UPLOAD ON THE SERVER
-								const handleFileUploadOnServer  = async () =>{
+								const handleFileUploadOnServer = async () => {
 									try {
 										const data = await (await fetch(uploadUrl, {
 											method: "POST",
 											body: dataToSend
 										})).json()
-	
+
 										// some errors received
-										if(data.errors){
+										if (data.errors) {
 											// append errors text to output
 											let output = ''
 											data.errors.map(error => {
 												output += `<p class="my-0">${CURLANG.messages.file[error.errorType]}</p>`
 											})
-											
+
 											// render errors output to the user
 											fileUploadMsgBox.html(`
 												<div class="alert alert-danger">
@@ -1392,10 +1427,10 @@ wbbdebug = false;
 											`)
 											return
 										}
-			
+
 										// no errors 
 										if (typeof data.errors === 'undefined') {
-				
+
 											// display success msg and prepare data for the bbcode 
 											fileUploadMsgBox.html(`
 												<div class="alert alert-success">
@@ -1404,12 +1439,16 @@ wbbdebug = false;
 											`)
 											fileSrc = data.src
 											fileTitle = uploadFileTitle
-											
-											this.wbbInsertCallback(cmd, { SRC: fileSrc, id: id, TITLE: fileTitle})
-											setTimeout(()=>{	
+
+											this.wbbInsertCallback(cmd, {
+												SRC: fileSrc,
+												id: id,
+												TITLE: fileTitle
+											})
+											setTimeout(() => {
 												this.closeModal();
 												this.updateUI();
-											},1200)
+											}, 1200)
 										}
 									} catch (error) {
 										fileUploadMsgBox.html(`
@@ -1418,25 +1457,31 @@ wbbdebug = false;
 											</div>
 										`)
 									}
-									
+
 								}
 								handleFileUploadOnServer()
 
 							}
 							// INSERT FILE URL TAB
-							else if(currentTab.id === 'url'){
+							else if (currentTab.id === 'url') {
 								// bind data
 								const urlRegex = /http(s)?:\/\/(\w+\.)?(\w+\.)(\w{2,14})?(.*)\.pdf/gi;
 								fileTitle = this.$modal.find('.tab1 #urlFileTitle')[0].value
 								fileSrc = this.$modal.find('.tab1 #urlFileSrc')[0].value
-							
+
 								const errors = []
 								// check for src specifically as it is not part of custom upload
-								if(fileTitle === '') errors.push({errorType: 'titleIsRequired'})
-								if(fileSrc === '') errors.push({errorType: 'urlIsRequired'})
-								else if(!urlRegex.test(fileSrc)) errors.push({errorType: 'invalidUrl'})
-								
-								if(errors.length > 0){
+								if (fileTitle === '') errors.push({
+									errorType: 'titleIsRequired'
+								})
+								if (fileSrc === '') errors.push({
+									errorType: 'urlIsRequired'
+								})
+								else if (!urlRegex.test(fileSrc)) errors.push({
+									errorType: 'invalidUrl'
+								})
+
+								if (errors.length > 0) {
 									let output = ''
 									errors.map(error => {
 										output += `<p class="my-0">${CURLANG.messages.file[error.errorType]}</>`
@@ -1455,19 +1500,129 @@ wbbdebug = false;
 										<p class="my-0">${CURLANG.messages.dataSavedSuccessfully}</>
 									</div>
 								`)
-								
-								this.wbbInsertCallback(cmd, { SRC: fileSrc, TITLE: fileTitle })
-								setTimeout(()=>{	
+
+								this.wbbInsertCallback(cmd, {
+									SRC: fileSrc,
+									TITLE: fileTitle
+								})
+								setTimeout(() => {
 									this.closeModal();
 									this.updateUI();
-								},1200)
-							}							
+								}, 1200)
+							}
 						}, this));
-					  }, 
-					  transform: {
+					},
+					transform: {
 						'<embed src="{SRC}" title="{TITLE}" width=100% height=500 type="application/pdf" />': '[embed title={TITLE}]{SRC}[/embed]'
 					}
-				}
+				},
+				math: {
+					title: CURLANG.math,
+					buttonHTML: '<span style="font-size: 18px;text-align:center;margin-top: 0.2em;font-weight: 500;font-family: serif;">Σ</span>',
+					modal: function (cmd, opt, queryState) {
+						// get the modal container
+						this.$modal = $("#wbbmodal")
+
+						// save the current cursor pos where to add the data
+						this.saveRange();
+
+						// we need to check if we have a data atrribute on the .wbb-math button
+						let mathFieldValue = '';
+						this.$editor.find('.wbb-math').each((index, element) => {
+							// if so, we need to add it to the modal
+							if (element.dataset.math) {
+								mathFieldValue = element.dataset.math
+							}
+						})
+						
+						// append the content onto the modal
+						this.$modal.prependTo(document.body)
+							.html(`
+								<div class="wbbm hastabs" hastabs"="" style="max-width: 500px; width: 600px; margin-top: 202.479px;">
+									<div class="wbbm-title">
+										<span class="wbbm-title-text">${CURLANG.modal_math_title}</span>
+										<span class="wbbclose" title="${CURLANG.close}">×</span>
+									</div>
+									<div class="wbbm-content">
+										<div class="wbbm-cont">
+											<div>
+											</div>
+
+											<div class="wbbm-inp-row">
+												<label for="mathFormula">${CURLANG.modal_math_text}</label>
+												<math-field id="mathField" class="form-control mb-2">${mathFieldValue}</math-field>
+												<textarea id="mathFormula" class="form-control" name="MATH" style="height: 100px;" placeholder="">${mathFieldValue}</textarea>
+
+											</div>
+													
+											</div>
+											<div class="wbbm-bottom">
+												<button id="wbbm-submit" class="wbb-button">${CURLANG.save}</button>
+												<button id="wbbm-cancel" class="wbb-cancel-button">${CURLANG.cancel}</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							`).show()
+
+						// bind the math-field to the input and vice-versa
+						const mathField = document.getElementById('mathField');
+						const mathFormula = document.getElementById('mathFormula');
+						mathField.value = mathFormula.value;
+
+						mathField.addEventListener('input', (ev) => {
+							mathFormula.value = mathField.value;
+						});
+
+						mathFormula.addEventListener('input', (ev) => {
+							mathField.setValue(
+								ev.target.value, {
+									suppressChangeNotifications: true
+								}
+							);
+						});
+
+						// bind the cancel button
+						this.$modal.find('#wbbm-cancel,.wbbclose').click($.proxy(this.closeModal, this));
+						// HANDLE MODAL CLOSE WHEN ESC KEY IS CLICKED
+						$(document).bind("keydown", $.proxy(this.escModal, this));
+
+						// bind the submit button
+						this.$modal.find('#wbbm-submit').click($.proxy(function (e) {
+							e.preventDefault();
+							// get the data
+							const mathFormula = this.$modal.find('textarea[name=MATH]').val();
+
+							// check if we have an element with the same content as mathFieldValue
+							// if so, we need to update it instead of inserting it
+							// sync the textarea with the wysibb-body
+							this.sync();
+
+							let mathFieldElement = $(this.body.children).filter((index, element) => {
+								return element.value === mathFieldValue
+							})
+							
+							if (mathFieldElement.length) {
+								mathFieldElement.val(mathFormula)
+							} else {
+								// insert the data
+								this.wbbInsertCallback(cmd, {
+									MATH: mathFormula
+								})
+							}
+
+							setTimeout(() => {
+								this.closeModal();
+								this.updateUI();
+							}, 300)
+						}
+						, this));
+					}, 
+					
+					transform: {
+						"<math-field read-only class='wysibb-math-field' style='display:inline-block'>{MATH}</math-field>": "[math]{MATH}[/math]"
+					}
+				},
 			},
 			systr: {
 				'<br/>': "\n",
@@ -1506,7 +1661,7 @@ wbbdebug = false;
 			smileList: [
 				//{title:CURLANG.sm1, img: '<img src="{themePrefix}{themeName}/img/smiles/sm1.png" class="sm">', bbcode:":)"},
 			],
-			attrWrap: ['src', 'color', 'href'] //use becouse FF and IE change values for this attr, modify [attr] to _[attr]
+			attrWrap: ['src', 'color', 'href'], //use becouse FF and IE change values for this attr, modify [attr] to _[attr]
 		}
 
 		//FIX for Opera. Wait while iframe loaded
@@ -4312,6 +4467,27 @@ wbbdebug = false;
 		return this.data("wbb").queryState(command);
 	}
 })(jQuery);
+
+
+// math-input better support
+// on focus of a math-input with a class of wysibb-math-field, we need to add .on to the .wbb-math element
+// and add a data attribute to the .wbb-math element with the content of the wysibb-math-field
+
+$(document).on('focus', '.wysibb-math-field', 'body', function () {
+	$(this).closest('.wysibb').find('.wbb-math').addClass('on').attr('data-math', $(this).val());
+})
+$(document).on('blur', '.wysibb-math-field', 'body', function () {
+	$(this).closest('.wysibb').find('.wbb-math').removeClass('on');
+	// we need to wait to clear the data attribute, in case the user clicks on the math button again
+	// if we clear it immediately, the math button will not be able to get the data attribute :
+	// since the element is no longer focused, the blur event will be triggered before the click event
+
+	setTimeout(function () {
+		$('.wbb-math').removeAttr('data-math');
+	}, 100);
+});
+
+
 
 
 //Drag&Drop file uploader

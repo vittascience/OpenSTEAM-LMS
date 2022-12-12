@@ -1032,6 +1032,13 @@ img.btn-cabri {
     height: 26px;
 }
 
+.wysibb-math-field {
+    top: 0.5em;
+    padding: 0em 0.1em;
+}
+
+/* SANDBOX */
+
 #classroom-dashboard-sandbox-creation h3 {
     text-align: center;
     color: var(--classroom-text-0);
@@ -2267,7 +2274,7 @@ h3.section-done {
     margin: 0.5em;
 }
 
-/* ACTIVITY CORRECTION FORM */
+/* ACTIVITY VIEWING/CORRECTION FORM */
 
 .activity-title {
     font-weight: 700;
@@ -2300,6 +2307,11 @@ h3.section-done {
 
 .theme-dark .chrono-icon {
     filter: brightness(0%) invert(1);
+}
+
+#activity-content math-field {
+    display: inline-block;
+    bottom: -0.7em;
 }
 
 #activity-correction {
