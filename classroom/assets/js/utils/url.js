@@ -34,7 +34,7 @@ function setMultipleParam(paramList, url = new URL(window.location.href)) {
 function filterUrl(paramList = []) {
     var oldParam = getListParam();
     var newParam = {}
-    console.log(typeof {});
+    //console.log(typeof {});
     paramList.forEach(function (e) {
         if (oldParam[e]) {
             newParam[e] = oldParam[e];
