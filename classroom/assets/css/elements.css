@@ -534,12 +534,95 @@ hr {
     text-transform: unset;
 }
 
+/* wysibb */
+
+#wbbmodal {
+    background-color: rgb(0 0 0 / 10%) !important;
+}
+
 #wbbmodal .wbbm {
     font-family: var(--main-font);
+    background: var(--classroom-background) !important;
+    color: var(--classroom-text-0);
+    border-radius: 20px;
+    box-shadow: none !important;
+    border-color: #8e8e8ebf;
+    padding: 20px;
+}
+
+#wbbmodal .wbbm-title {
+    font-weight: bold;
+    color: var(--classroom-primary) !important;
+    border-bottom: none !important;
+    padding: 0 !important;
+    display: flex;
+    justify-content: space-between;
+}
+
+#wbbmodal .wbbm .wbbm-tablist ul li:hover {
+    background-color: var(--classroom-background-1) !important;
+    color: var(--classroom-text-0) !important;
+}
+
+#wbbmodal .wbbm .wbbm-tablist ul li.on, #wbbmodal .wbbm .wbbm-tablist ul li.on:hover {
+    background: var(--classroom-primary) !important;
+    color: var(--classroom-white) !important;
 }
 
 #wbbmodal .wbbm-cont {
-    color: var(--classroom-black);
+    color: var(--classroom-text-0) !important;
+}
+
+#wbbmodal .wbbm-inp-row label {
+    color: var(--classroom-text-0) !important;
+}
+
+#wbbmodal .wbbm-bottom {
+    border: unset !important;
+    background: unset !important;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+#wbbmodal .wbb-button {
+    background: var(--classroom-primary) !important;
+    border-color: var(--classroom-primary) !important;
+    color: var(--classroom-white) !important;
+    border-radius: 100vh !important;
+}
+
+#wbbmodal .wbb-cancel-button {
+    background: var(--classroom-cell) !important;
+    border-color: var(--classroom-cell) !important;
+    color: var(--classroom-text-0) !important;
+    border-radius: 100vh !important;
+}
+
+#wbbmodal .wbbm-title .wbbclose {
+    background: var(--classroom-primary) !important;
+    color: var(--classroom-white) !important;
+
+    font-size: 1.5rem !important;
+    font-weight: bold;
+    line-height: 1; 
+
+    position: relative !important;
+    top: unset !important;
+    right: unset !important;
+
+    width: 1.3em;
+    height: 1.3em;
+    border-radius: 50%;
+
+    display: grid !important;
+    justify-items: center;
+    align-items: center;
+}
+
+#wbbmodal .wbbm-title .wbbclose:hover {
+    background: var(--classroom-primary-dark) !important;
 }
 
 /* Vertical align center utility */

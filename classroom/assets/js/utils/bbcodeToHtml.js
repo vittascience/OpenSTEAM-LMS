@@ -106,6 +106,10 @@ function bbcodeToHtml(html) {
     html = html.replace(/\[size\=([0-9]{1,3})]/gi, "<span style='font-size:$1px;'>")
     html = html.replace(/\[\/size\]/gi, "</span>")
 
+    // exponent bbcode
+    html = html.replace(/\[math\]/gi, "<span>&nbsp;</span><math-field read-only style='display:inline-block'>")
+    html = html.replace(/\[\/math\]/gi, "</math-field>")
+
     return html
 }
 

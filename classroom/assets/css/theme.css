@@ -44,7 +44,7 @@
     --classroom-dashboard-dark: var(--classroom-primary-dark);
 
     color-scheme: light;
-
+    accent-color: var(--classroom-primary);
 }
 
 .theme-dark {
