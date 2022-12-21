@@ -153,7 +153,6 @@ function activityModify(id, rename = false) {
         } else {
             $('#activity-form-title').val(activity.title)
             $('.wysibb-text-editor').html(activity.content)
-
             navigatePanel('classroom-dashboard-new-activity-panel', 'dashboard-activities-teacher')
         }
     })
@@ -175,13 +174,12 @@ function manageUpdateByType(activity, rename = false) {
     $('#global_title').val(activity.title);
     Main.getClassroomManager()._createActivity.title = activity.title;
 
-    customActivity.manageUpdateCustom.filter((custom) => {
-        if (custom[0] == activity.type) {
-            custom[1](activity);
-        } else {
-            manageUpdateForDeaultCase(activity, contentForwardButtonElt)
-        }
-    })
+    let isDefault = customActivity.manageUpdateCustom.filter(custom => custom[0] == activity.type)[0];
+    if (isDefault != null) {
+        isDefault[1](activity);
+    } else {
+        manageUpdateForDefaultCase(activity, contentForwardButtonElt)
+    }
 
     if (rename) {
         contentForward();
@@ -189,7 +187,7 @@ function manageUpdateByType(activity, rename = false) {
 }
 
 
-function manageUpdateForDeaultCase(activity, contentForwardButtonElt) {
+function manageUpdateForDefaultCase(activity, contentForwardButtonElt) {
     contentForwardButtonElt.style.display = 'none';
     Main.getClassroomManager()._createActivity.content.description = JSON.parse(activity.content).description;
     launchLtiDeepLinkCreate(activity.type, true);

@@ -922,7 +922,7 @@ class ClassroomManager {
     }
     /**
      * Update a student's exercise with his project
-     * */
+     **/
     saveStudentActivity(project, interfac, activity, correction = 1, note = 0) {
         if (project) {
             return new Promise(function (resolve, reject) {
@@ -931,6 +931,7 @@ class ClassroomManager {
                     currentCode.manuallyModified = true
                 $.ajax({
                     type: "POST",
+                    dataType: "JSON",
                     url: "/routing/Routing.php?controller=project&action=add",
                     data: {
                         'name': project.name,
@@ -943,12 +944,11 @@ class ClassroomManager {
                         'mode': project.mode,
                         'interface': interfac,
                         'activity': true
-
                     },
-                    dataType: "JSON",
                     success: function (response) {
                         $.ajax({
                             type: "POST",
+                            dataType: "JSON",
                             url: "/routing/Routing.php?controller=activity_link_user&action=update",
                             data: {
                                 'project': response.id,
@@ -956,10 +956,9 @@ class ClassroomManager {
                                 'correction': correction,
                                 'classroomLink': ClassroomSettings.classroom,
                                 'note': note
-
                             },
                             success: function (r) {
-                                resolve(JSON.parse(r))
+                                resolve(r);
                             }
                         });
 
@@ -973,6 +972,7 @@ class ClassroomManager {
             return new Promise(function (resolve, reject) {
                 $.ajax({
                     type: "POST",
+                    dataType: "JSON",
                     url: "/routing/Routing.php?controller=activity_link_user&action=update",
                     data: {
                         'id': activity,
@@ -981,7 +981,7 @@ class ClassroomManager {
                         'note': note
                     },
                     success: function (r) {
-                        resolve(JSON.parse(r))
+                        resolve(r);
                     }
                 });
             });
@@ -998,6 +998,7 @@ class ClassroomManager {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
+                dataType: "JSON",
                 url: "/routing/Routing.php?controller=activity_link_user&action=update",
                 data: {
                     'project': activity.project,
@@ -1009,8 +1010,7 @@ class ClassroomManager {
 
                 },
                 success: function (response) {
-                    resolve(JSON.parse(response))
-
+                    resolve(response);
                 },
                 error: function () {
                     reject();
@@ -1028,10 +1028,10 @@ class ClassroomManager {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
+                dataType: "JSON",
                 url: "/routing/Routing.php?controller=classroom_link_user&action=get_changes_for_teacher",
                 success: function (response) {
-                    resolve(JSON.parse(response))
-
+                    resolve(response);
                 },
                 error: function () {
                     reject();
@@ -1050,14 +1050,14 @@ class ClassroomManager {
             if (arrayUsers.length > 0) {
                 $.ajax({
                     type: "POST",
+                    dataType: "JSON",
                     url: "/routing/Routing.php?controller=classroom_link_user&action=add_users_by_csv",
                     data: {
                         "users": arrayUsers,
                         "classroom": classroom
                     },
                     success: function (response) {
-                        resolve(JSON.parse(response))
-
+                        resolve(response);
                     },
                     error: function () {
                         reject();
@@ -1078,12 +1078,13 @@ class ClassroomManager {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "POST",
+                dataType: "JSON",
                 url: "/routing/Routing.php?controller=user&action=get_student_password",
                 data: {
                     "id": userId
                 },
                 success: function (response) {
-                    resolve(JSON.parse(response));
+                    resolve(response);
                 },
                 error: function () {
                     reject();
@@ -1100,12 +1101,13 @@ class ClassroomManager {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "POST",
+                dataType: "JSON",
                 url: "/routing/Routing.php?controller=user&action=reset_student_password",
                 data: {
                     "id": userId
                 },
                 success: function (response) {
-                    resolve(JSON.parse(response));
+                    resolve(response);
                 },
                 error: function () {
                     reject();
@@ -1122,6 +1124,7 @@ class ClassroomManager {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: 'POST',
+                dataType: "JSON",
                 url: '/routing/Routing.php?controller=user&action=update_user_infos',
                 data: {
                     'id': formData.get('teacher-id'),
@@ -1132,7 +1135,7 @@ class ClassroomManager {
                     'current_password': formData.get('current-password')
                 },
                 success: function (response) {
-                    resolve(JSON.parse(response));
+                    resolve(response);
                 },
                 error: function () {
                     reject();
@@ -1148,6 +1151,7 @@ class ClassroomManager {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: 'POST',
+                dataType: "JSON",
                 url: '/routing/Routing.php?controller=user&action=register',
                 data: {
                     'firstname': formData.get('first-name'),
@@ -1158,7 +1162,7 @@ class ClassroomManager {
                     'password_confirm': formData.get('confirm-password')
                 },
                 success: function (response) {
-                    resolve(JSON.parse(response));
+                    resolve(response);
                 },
                 error: function () {
                     reject();
@@ -1175,6 +1179,7 @@ class ClassroomManager {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: 'POST',
+                dataType: "JSON",
                 url: '/routing/Routing.php?controller=user&action=help_request_from_teacher',
                 data: {
                     'subject': formData.get('subject'),
@@ -1182,7 +1187,7 @@ class ClassroomManager {
                     'id': formData.get('id')
                 },
                 success: function (response) {
-                    resolve(JSON.parse(response));
+                    resolve(response);
                 },
                 error: function () {
                     reject();
@@ -1199,6 +1204,7 @@ class ClassroomManager {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: 'POST',
+                dataType: "JSON",
                 url: '/routing/Routing.php?controller=user&action=help_request_from_student',
                 data: {
                     'subject': formData.get('subject'),
@@ -1207,7 +1213,7 @@ class ClassroomManager {
                 },
                 success: function (response) {
                     try {
-                        resolve(JSON.parse(response));
+                        resolve(response);
                     } catch (error) {
                         console.warn(error);
                     }
@@ -1251,9 +1257,10 @@ class ClassroomManager {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
+                dataType: "JSON",
                 url: "/routing/Routing.php?controller=newActivities&action=get_all_apps",
                 success: function (response) {
-                    resolve(JSON.parse(response));
+                    resolve(response);
                 },
                 error: function () {
                     reject('error')
@@ -1277,12 +1284,13 @@ class ClassroomManager {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
+                dataType: "JSON",
                 url: "/routing/Routing.php?controller=newActivities&action=get_one_activity",
                 data: {
                     'id': id
                 },
                 success: function (response) {
-                    resolve(JSON.parse(response));
+                    resolve(response);
                 },
                 error: function () {
                     reject('error')
@@ -1296,6 +1304,7 @@ class ClassroomManager {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
+                dataType: "JSON",
                 url: "/routing/Routing.php?controller=newActivities&action=create_exercice",
                 data: {
                     'title' : $title,
@@ -1307,7 +1316,7 @@ class ClassroomManager {
                     'folder' : $folder
                 },
                 success: function (response) {
-                    resolve(JSON.parse(response));
+                    resolve(response);
                 },
                 error: function () {
                     reject('error')
@@ -1321,6 +1330,7 @@ class ClassroomManager {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
+                dataType: "JSON",
                 url: "/routing/Routing.php?controller=newActivities&action=update_activity",
                 data: {
                     'id' : $id,
@@ -1332,7 +1342,7 @@ class ClassroomManager {
                     'autocorrect' : $autocorrect
                 },
                 success: function (response) {
-                    resolve(JSON.parse(response));
+                    resolve(response);
                 },
                 error: function () {
                     reject('error')
@@ -1376,13 +1386,14 @@ class ClassroomManager {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
+                dataType: "JSON",
                 url: "/routing/Routing.php?controller=activity&action=isActivitiesLimited",
                 data: {
                     activityId: id,
                     activityType: type
                 },
                 success: function (response) {
-                    resolve(JSON.parse(response));
+                    resolve(response);
                 },
                 error: function () {
                     reject();
@@ -1396,6 +1407,7 @@ class ClassroomManager {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
+                dataType: "JSON",
                 url: "/routing/Routing.php?controller=newActivities&action=save_new_activity",
                 data: {
                     'id': activity,
@@ -1406,7 +1418,7 @@ class ClassroomManager {
                     'response': response
                 },
                 success: function (r) {
-                    resolve(JSON.parse(r))
+                    resolve(r);
                 }
             });
         });
@@ -1417,13 +1429,14 @@ class ClassroomManager {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
+                dataType: "JSON",
                 url: "/routing/Routing.php?controller=newActivities&action=get_autocorrect_result",
                 data: {
                     'activityId': activity,
                     'activityLinkId': activityLinkUserId,
                 },
                 success: function (r) {
-                    resolve(JSON.parse(r))
+                    resolve(r);
                 }
             });
         });
@@ -1433,13 +1446,14 @@ class ClassroomManager {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
+                dataType: "JSON",
                 url: "/routing/Routing.php?controller=newActivities&action=get_student_link_activity",
                 data: {
                     'studentId': studentId,
                     'activityId': activityId
                 },
                 success: function (r) {
-                    resolve(JSON.parse(r))
+                    resolve(r);
                 }
             });
         });
@@ -1449,12 +1463,13 @@ class ClassroomManager {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
+                dataType: "JSON",
                 url: "/routing/Routing.php?controller=newActivities&action=duplicate_activity",
                 data: {
                     'activityId': activityId
                 },
                 success: function (r) {
-                    resolve(JSON.parse(r))
+                    resolve(r);
                 }
             });
         });
@@ -1528,4 +1543,5 @@ class ClassroomManager {
     }
 
 }
+
 
