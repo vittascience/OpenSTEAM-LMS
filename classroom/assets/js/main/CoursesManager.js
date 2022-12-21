@@ -518,7 +518,7 @@ class CoursesManager {
             content = `<div class="course-item course-teacher" data-id="${course.id}">
                             <div>
                                 <div class="course-card">
-                                <img src="assets/media/cards/card-course.png" class="course-card-img">
+                                <img src="${_PATH}assets/media/cards/card-course.png" class="course-card-img">
                                 <div class="course-card-info">
                                     <div class="course-card-top">
                                         <div class="dropdown">

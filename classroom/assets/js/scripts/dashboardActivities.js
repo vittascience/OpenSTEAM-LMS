@@ -58,7 +58,7 @@ function courseItem(course, state) {
     let html = `<div class="course-item" onclick="coursesManager.readCourseFromStudent('${course.course.id}')">
                     <div class="course-card">
                         <div class="${activityStatus}" data-toggle="tooltip" title="${course.course.title}"><div class="ribbon__content"></div></div>
-                        <img src="assets/media/cards/card-course.png" class="course-card-img">
+                        <img src="${_PATH}assets/media/cards/card-course.png" class="course-card-img">
                         <div class="course-card-info">
                             <div class="course-card-top">
                                 
