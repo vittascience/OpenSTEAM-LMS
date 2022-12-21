@@ -43,8 +43,7 @@ class CustomActivity {
             ['fillIn', fillInManager.manageUpdateForFillIn],
             ['reading', readingManager.manageUpdateForReading],
             ['dragAndDrop', dragAndDropManager.manageUpdateForDragAndDrop],
-            ['custom', manageUpdateForDeaultCase],
-            // old activity = reading
+            ['custom', manageUpdateForDefaultCase],
             [null, readingManager.manageUpdateForReading],
         ];
 

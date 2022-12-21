@@ -71,12 +71,13 @@ function resetActivityInputs(activityType) {
         $('#free-correction').htmlcode("");
         $('#free-autocorrect').prop('checked', false);
         $("#free-correction-content").hide();
+        $('#free-tolerance').val(0);
     } else if (activityType == 'fillIn') {
         /* fill-in reset */
         $('#fill-in-states').htmlcode("");
         $('#fill-in-content').htmlcode("");
         $('#fill-in-hint').val("");
-        $('#fill-in-tolerance').val("");
+        $('#fill-in-tolerance').val(0);
     } else if (activityType == 'reading') {
         /* reading reset */
         $('#reading-content').htmlcode("");

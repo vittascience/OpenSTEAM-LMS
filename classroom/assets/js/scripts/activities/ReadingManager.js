@@ -1,24 +1,5 @@
 class ReadingManager {
 
-    init() {
-        $('body').on('click', '#free-tolerance-increase', function () {
-            let tolerance = parseInt($('#free-tolerance').val());
-            if (!isNaN(tolerance)) {
-                $(`#free-tolerance`).val(tolerance+1);
-            } else {
-                $(`#free-tolerance`).val(1);
-            }
-        })
-        
-        $('body').on('click', '#free-tolerance-decrease', function () {
-            let tolerance = parseInt($('#free-tolerance').val());
-            if (tolerance > 0) {
-                $(`#free-tolerance`).val(tolerance-1);
-            }
-        })
-    }
-
-
     manageUpdateForReading(activity) {
         let contentParsed = "";
         if (IsJsonString(activity.content)) {
