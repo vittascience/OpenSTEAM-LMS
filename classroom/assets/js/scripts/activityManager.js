@@ -201,6 +201,7 @@ function titleBackward() {
                 } else {
                     displayNotification('#notif-div', "manager.account.errorSending", "error");
                 }
+                $('#activity-title-forward').attr('disabled', false);
             });
         } else if (Main.getClassroomManager()._createActivity.function == "update") {
             Main.getClassroomManager().updateActivity(ClassroomSettings.activity, title, type, content, solution, tolerance, autocorrect).then((response) => {
@@ -211,10 +212,10 @@ function titleBackward() {
                 } else {
                     displayNotification('#notif-div', "manager.account.errorSending", "error");
                 }
+                $('#activity-title-forward').attr('disabled', false);
             });
         }
     }
-    $('#activity-title-forward').attr('disabled', false);
     document.querySelector('#preview-activity-content').innerHTML = '';
 }
 
