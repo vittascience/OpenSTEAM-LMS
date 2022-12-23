@@ -393,7 +393,8 @@ function launchLtiDeepLinkCreate(type, isUpdate) {
     document.forms["contentitem_request_form"].submit();
 }
 
-function launchLtiResource(activityId, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false, activityContentId = "#activity-content") {
+function launchLtiResource(activityId, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false, activityContentId = "#activity-content", isFromCourse = false) {
+    let course = isFromCourse ? "-course" : "";
     document.querySelector(activityContentId).innerHTML = 
         `<input id="activity-score" type="text" hidden/>
         <form name="resource_launch_form" action="${_PATH}lti/ltilaunch.php" method="post" target="lti_student_iframe">
@@ -407,7 +408,7 @@ function launchLtiResource(activityId, activityType, activityContent, isStudentL
         height: 60vh;" allowfullscreen></iframe>
         `;
     document.forms["resource_launch_form"].submit();
-    $("#activity-content-container").show();
+    $("#activity-content-container"+course).show();
 }
 
 
