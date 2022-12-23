@@ -174,7 +174,6 @@ class CoursesManager {
         $("#course-activities-content").localize();
     }
 
-    // Wip
     dragulaInit() {
         let activityFromCourses = document.getElementById('course-activities-content');
         if (this.dragula.containers.length > 0) {
@@ -714,6 +713,8 @@ class CoursesManager {
         Activity = course.activities.find(activity => activity.activityLinkUser.id == activityId).activityLinkUser;
         navigatePanel('classroom-dashboard-course-panel', 'dashboard-activities-teacher', 'course', '');
         //this.loadCourseForStudents(true, course, false);
+
+        console.log(Activity);
         loadCourseAndActivityForStudents(true, course, false, true);
         btnContainer.style.display = "none";
     }
@@ -740,7 +741,9 @@ class CoursesManager {
                 return false;
             }
             
-            Activity = course.activities[course.courseState].activityLinkUser;
+            Activity = course.activities[course.courseState];
+            
+
             this.actualCourse = {
                 id: id, 
                 state: course.courseState, 
