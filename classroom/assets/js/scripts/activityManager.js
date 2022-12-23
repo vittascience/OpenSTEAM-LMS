@@ -1,7 +1,7 @@
 /**
  * Setup the rich text editor for the activities
  */
- function setTextArea() {
+function setTextArea() {
     const options = Main.getClassroomManager().wbbOpt;
     // Free 
     $('#free-enonce').wysibb(options);
@@ -395,7 +395,7 @@ function launchLtiDeepLinkCreate(type, isUpdate) {
 
 function launchLtiResource(activityId, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false, activityContentId = "#activity-content", isFromCourse = false) {
     let course = isFromCourse ? "-course" : "";
-    document.querySelector(activityContentId).innerHTML = 
+    document.querySelector(activityContentId + course).innerHTML = 
         `<input id="activity-score" type="text" hidden/>
         <form name="resource_launch_form" action="${_PATH}lti/ltilaunch.php" method="post" target="lti_student_iframe">
             <input type="hidden" id="application_type" name="application_type" value="${activityType}">
