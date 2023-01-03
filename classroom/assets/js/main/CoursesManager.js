@@ -714,7 +714,6 @@ class CoursesManager {
         navigatePanel('classroom-dashboard-course-panel', 'dashboard-activities-teacher', 'course', '');
         //this.loadCourseForStudents(true, course, false);
 
-        console.log(Activity);
         loadCourseAndActivityForStudents(true, course, false, true);
         btnContainer.style.display = "none";
     }
