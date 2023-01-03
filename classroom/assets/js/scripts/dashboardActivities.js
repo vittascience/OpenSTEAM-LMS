@@ -682,13 +682,13 @@ function manageDisplayCustom(correction, content, correction_div, isFromCourse) 
 
 function manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt, isFromCourse = false) {
     let course = isFromCourse ? "-course" : "";
-    document.querySelector('#activity-content-container').style.display = 'block';
+    document.querySelector('#activity-content-container' + course).style.display = 'block';
     if (isDoable) {
         activityValidationButtonElt.style.display = 'none';
         if (!UserManager.getUser().isRegular) {
-            launchLtiResource(Activity.id, Activity.activity.type, content, true, isFromCourse);
+            launchLtiResource(Activity.id, Activity.activity.type, content, true, false, "#activity-content", isFromCourse);
         } else {
-            launchLtiResource(Activity.id, Activity.activity.type, content, false, isFromCourse);
+            launchLtiResource(Activity.id, Activity.activity.type, content, false, false, "#activity-content", isFromCourse);
         }
     } else {
         document.querySelector('#activity-content'+course).innerHTML = `

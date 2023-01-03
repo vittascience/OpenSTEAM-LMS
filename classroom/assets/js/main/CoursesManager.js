@@ -750,7 +750,7 @@ class CoursesManager {
                 link: Activity.id, 
                 activity: Activity.activity.id
             };
-        
+
             navigatePanel('classroom-dashboard-course-panel', 'dashboard-activities-teacher', 'course', '');
             loadCourseAndActivityForStudents(true, course, true, true);
             btnValidate.style.display = "block";
