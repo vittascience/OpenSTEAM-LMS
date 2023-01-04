@@ -536,12 +536,15 @@ function defaultProcessValidateActivity(correction = null, isFromCourse = false)
         vittaIframeRegex = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm,
         interfaceData = false;
 
+        
     if (!getInterface) {
         if (vittaIframeRegex.exec(Activity.activity.content) != null) {
             interfaceData = vittaIframeRegex.exec(Activity.activity.content);
         }
+    } else {
+        interfaceData = vittaIframeRegex.exec(JSON.parse(Activity.activity.content).description)
     }
-
+        
     if (!interfaceData) {
         let correction = 2
         if (isFromCourse) {
@@ -576,6 +579,7 @@ function defaultProcessValidateActivity(correction = null, isFromCourse = false)
         const interfaceName = interfaceData[2];
         let project = window.localStorage[interfaceName + 'CurrentProject']
 
+        
         let projectParsed = tryToParse(project);
         if (!projectParsed) {
             projectParsed = null;

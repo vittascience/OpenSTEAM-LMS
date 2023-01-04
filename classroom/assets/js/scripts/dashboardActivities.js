@@ -685,11 +685,7 @@ function manageDisplayLti(correction, content, correction_div, isDoable, activit
     document.querySelector('#activity-content-container' + course).style.display = 'block';
     if (isDoable) {
         activityValidationButtonElt.style.display = 'none';
-        if (!UserManager.getUser().isRegular) {
-            launchLtiResource(Activity.id, Activity.activity.type, content, true, false, "#activity-content", isFromCourse);
-        } else {
-            launchLtiResource(Activity.id, Activity.activity.type, content, false, false, "#activity-content", isFromCourse);
-        }
+        launchLtiResource(Activity.id, Activity.activity.type, content, !UserManager.getUser().isRegular, false, "#activity-content", isFromCourse);
     } else {
         document.querySelector('#activity-content'+course).innerHTML = `
         <iframe src="${Activity.url}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`;
