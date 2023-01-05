@@ -174,7 +174,6 @@ class CoursesManager {
         $("#course-activities-content").localize();
     }
 
-    // Wip
     dragulaInit() {
         let activityFromCourses = document.getElementById('course-activities-content');
         if (this.dragula.containers.length > 0) {
@@ -518,7 +517,7 @@ class CoursesManager {
             content = `<div class="course-item course-teacher" data-id="${course.id}">
                             <div>
                                 <div class="course-card">
-                                <img src="assets/media/cards/card-course.png" class="course-card-img">
+                                <img src="${_PATH}assets/media/cards/card-course.png" class="course-card-img">
                                 <div class="course-card-info">
                                     <div class="course-card-top">
                                         <div class="dropdown">
@@ -591,7 +590,37 @@ class CoursesManager {
         if (funct) {
             funct[1](funct[2] ? correction : null, true);
         } else {
-            defaultProcessValidateActivity(true);
+            if (Activity.activity.isLti) {
+                let messageDiv = document.getElementById("course-result-message"),
+                    endCourse = document.getElementById("course-options-course-buttons"),
+                    messageContent = document.getElementById("course-result-message-content"),
+                    validateBtn = document.getElementById("course-validate-buttons");
+
+                validateBtn.style.display = "none";
+                endCourse.style.display = "none";
+                messageDiv.style.display = "none";
+
+                this._requestUpdateState(coursesManager.actualCourse.id, coursesManager.actualCourse.state + 1).then(res => {
+                    if (res.hasOwnProperty('success')) {
+                        if (res.success) {
+                            let course = Main.getClassroomManager()._myCourses.find(course => course.course.id == coursesManager.actualCourse.id);
+                            if (course.activities.length <= coursesManager.actualCourse.state + 1) {
+                                // the course is ended
+                                this.readCourseFromStudent();
+                            } else {
+                                // the course is not ended
+                                messageDiv.style.display = "block";
+                                endCourse.style.display = "flex";
+                                messageContent.classList.add("course-text-success");
+                                messageContent.innerHTML = "BRAVO ! TU AS RÉUSSI CETTE ACTIVIÉ !";
+                            }
+                        } else {
+                            displayNotification('#notif-div', "classroom.notif.errorSending", "error");
+                        }
+                    }
+                });
+                
+            }
         }
     }
 
@@ -607,26 +636,15 @@ class CoursesManager {
                 saveActivitiesAndCoursesResponseManager(type, response, true);
                 return "bad";
             } else {
-                this.coursesValidateDefaultResponseManagement(response);
+                $("#activity-validate-course").attr("disabled", false);
+                this.manageAllActivityResponse(response);
             }
         } else {
             displayNotification('#notif-div', "classroom.notif.errorSending", "error");
         }
     }
 
-    coursesValidateDefaultResponseManagement(response) {
-        $("#activity-validate-course").attr("disabled", false);
-
-        if (response.note != null && response.correction > 1) {
-            this._requestUpdateState(coursesManager.actualCourse.id, coursesManager.actualCourse.state + 1).then(res => {
-                coursesManager.manageAllActivityResponse(response);
-            });
-        } else {
-            navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher');
-        }
-    }
-
-    manageAllActivityResponse(response) {
+    manageAllActivityResponse(response, isLti = false) {
         
         let messageDiv = document.getElementById("course-result-message"),
             endCourse = document.getElementById("course-options-course-buttons"),
@@ -637,7 +655,7 @@ class CoursesManager {
         endCourse.style.display = "none";
         messageDiv.style.display = "none";
 
-        if (response.note != null && response.correction > 1) {
+        if ((response.note != null && response.correction >= 1) || isLti) {
             this._requestUpdateState(coursesManager.actualCourse.id, coursesManager.actualCourse.state + 1).then(res => {
                 if (res.hasOwnProperty('success')) {
                     if (res.success) {
@@ -650,15 +668,13 @@ class CoursesManager {
                             messageDiv.style.display = "block";
                             endCourse.style.display = "flex";
                             messageContent.classList.add("course-text-success");
-                            messageContent.innerHTML = "BRAVO ! TU AS RÉUSSI CETTE ACTIVIÉ !";
+                            messageContent.innerHTML = i18next.t('classroom.courses.note-3');
                         }
                     } else {
                         displayNotification('#notif-div', "classroom.notif.errorSending", "error");
                     }
                 }
             });
-        } else {
-            navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-activities');
         }
     }
 
@@ -673,21 +689,25 @@ class CoursesManager {
      
         for (let i = 0; i < course.activities.length; i++) {
             let note = 0;
-            if (course.activities[i].activityLinkUser.note == 3) {
-                note = "BIEN, tu as réussi cette activité !";
-            } else if (course.activities[i].activityLinkUser.note < 3 && course.activities[i].activityLinkUser.note > 0) {
-                note = "À REVOIR, la réponse n'est pas correcte";
-            } else if (course.activities[i].activityLinkUser.note == 4) {
-                note = "NON NOTÉ";
+
+            
+            if (course.activities[i].note == 3) {
+                note = i18next.t('classroom.courses.note-3');
+            } else if (course.activities[i].note < 3 && course.activities[i].note > 0) {
+                note = i18next.t('classroom.courses.note-2');
+            } else if (course.activities[i].note == 4) {
+                note = i18next.t('classroom.courses.note-4');
+            } else if (course.activities[i].note == 0) {
+                note = i18next.t('classroom.courses.note-0');
             }
 
             let html = `<div class="course-activities-result-activity" id="course-${course.id}"> 
                             <div class="preview-result-course-activity-title">
-                                <p onclick="coursesManager.loadActivity(${course.course.id}, ${course.activities[i].activityLinkUser.id})">ACTVITÉ <br> N°${i+1}</p>
+                                <p onclick="coursesManager.loadActivity(${course.course.id}, ${course.activities[i].id})">ACTVITÉ <br> N°${i+1}</p>
                             </div>
 
                             <div>
-                                <div class="bilan-cell-course bilan-${course.activities[i].activityLinkUser.note}"></div>
+                                <div class="bilan-cell-course bilan-${course.activities[i].note}"></div>
                             </div>
 
                             <div class="align-self-center"> 
@@ -697,9 +717,9 @@ class CoursesManager {
 
             activitiesResultDiv.innerHTML += html;
 
-            if (course.activities[i].activityLinkUser.note === 3) {
+            if (course.activities[i].note === 3) {
                 courseSuccess++;
-            } else if (course.activities[i].activityLinkUser.note === 4) {
+            } else if (course.activities[i].note === 4) {
                 courseLength -= 1;
             }
         }
@@ -711,9 +731,8 @@ class CoursesManager {
     loadActivity(courseId, activityId) {
         let course = Main.getClassroomManager()._myCourses.find(course => course.course.id == courseId),
             btnContainer = document.getElementById("course-validate-buttons");
-        Activity = course.activities.find(activity => activity.activityLinkUser.id == activityId).activityLinkUser;
+        Activity = course.activities.find(activity => activity.id == activityId);
         navigatePanel('classroom-dashboard-course-panel', 'dashboard-activities-teacher', 'course', '');
-        //this.loadCourseForStudents(true, course, false);
         loadCourseAndActivityForStudents(true, course, false, true);
         btnContainer.style.display = "none";
     }
@@ -740,17 +759,24 @@ class CoursesManager {
                 return false;
             }
             
-            Activity = course.activities[course.courseState].activityLinkUser;
+            Activity = course.activities[course.courseState];
+            
+
             this.actualCourse = {
                 id: id, 
                 state: course.courseState, 
                 link: Activity.id, 
                 activity: Activity.activity.id
             };
-        
+
             navigatePanel('classroom-dashboard-course-panel', 'dashboard-activities-teacher', 'course', '');
             loadCourseAndActivityForStudents(true, course, true, true);
-            btnValidate.style.display = "block";
+
+            if (!Activity.activity.isLti) {
+                btnValidate.style.display = "block";
+            } else {
+                btnValidate.style.display = "none";
+            }
         });
     }
 

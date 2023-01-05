@@ -1,7 +1,7 @@
 /**
  * Setup the rich text editor for the activities
  */
- function setTextArea() {
+function setTextArea() {
     const options = Main.getClassroomManager().wbbOpt;
     // Free 
     $('#free-enonce').wysibb(options);
@@ -393,8 +393,9 @@ function launchLtiDeepLinkCreate(type, isUpdate) {
     document.forms["contentitem_request_form"].submit();
 }
 
-function launchLtiResource(activityId, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false, activityContentId = "#activity-content") {
-    document.querySelector(activityContentId).innerHTML = 
+function launchLtiResource(activityId, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false, activityContentId = "#activity-content", isFromCourse = false) {
+    let course = isFromCourse ? "-course" : "";
+    document.querySelector(activityContentId + course).innerHTML = 
         `<input id="activity-score" type="text" hidden/>
         <form name="resource_launch_form" action="${_PATH}lti/ltilaunch.php" method="post" target="lti_student_iframe">
             <input type="hidden" id="application_type" name="application_type" value="${activityType}">
@@ -407,7 +408,7 @@ function launchLtiResource(activityId, activityType, activityContent, isStudentL
         height: 60vh;" allowfullscreen></iframe>
         `;
     document.forms["resource_launch_form"].submit();
-    $("#activity-content-container").show();
+    $("#activity-content-container"+course).show();
 }
 
 
@@ -535,10 +536,13 @@ function defaultProcessValidateActivity(correction = null, isFromCourse = false)
         vittaIframeRegex = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm,
         interfaceData = false;
 
+        
     if (!getInterface) {
         if (vittaIframeRegex.exec(Activity.activity.content) != null) {
             interfaceData = vittaIframeRegex.exec(Activity.activity.content);
         }
+    } else {
+        interfaceData = vittaIframeRegex.exec(JSON.parse(Activity.activity.content).description)
     }
 
     if (!interfaceData) {
@@ -575,6 +579,7 @@ function defaultProcessValidateActivity(correction = null, isFromCourse = false)
         const interfaceName = interfaceData[2];
         let project = window.localStorage[interfaceName + 'CurrentProject']
 
+        
         let projectParsed = tryToParse(project);
         if (!projectParsed) {
             projectParsed = null;

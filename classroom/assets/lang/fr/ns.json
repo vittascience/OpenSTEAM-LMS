@@ -561,7 +561,11 @@
 			"next": "Suivant"
 		},
 		"courses": {
-			"coursesManager": "Suppression du parcours"
+			"coursesManager": "Suppression du parcours",
+			"note-3": "BIEN, tu as réussi cette activité !",
+			"note-2": "À REVOIR, la réponse n'est pas correcte",
+			"note-4": "NON NOTÉ",
+			"note-0": "EN ATTENTE DE CORRECTION"
 		}
 	},
 	"faqInfo": {

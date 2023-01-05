@@ -30,26 +30,32 @@ async function readEvent (event) {
                     break;
                 }
             }
-            // If the current activity needs a manual review, display the relevant panel
-            if (Activity.correction == 1) {
-                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-activities');
-            } else {
-                // Otherwise display the relevant panel for success or fail
-                switch (Activity.note) {
-                    case 0:
-                        navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities');
-                        break;
-                    case 3:
-                        navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
-                        break;
-                        
-                    default:
-                        navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
-                        break;
+
+
+            if (!Activity.isFromCourse) {
+                // If the current activity needs a manual review, display the relevant panel
+                if (Activity.correction == 1) {
+                    navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-activities');
+                } else {
+                    // Otherwise display the relevant panel for success or fail
+                    switch (Activity.note) {
+                        case 0:
+                            navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities');
+                            break;
+                        case 3:
+                            navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
+                            break;
+                            
+                        default:
+                            navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
+                            break;
+                    }
                 }
+                // Clearing the LTI content div
+                document.querySelector('#lti-loader-container').innerHTML = '';
             }
-            // Clearing the LTI content div
-            document.querySelector('#lti-loader-container').innerHTML = '';
+
+           
             break;
         // Message received when an LTI deep link has returned
         case 'end-lti-deeplink':

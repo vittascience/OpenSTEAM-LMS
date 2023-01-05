@@ -58,7 +58,7 @@ function courseItem(course, state) {
     let html = `<div class="course-item" onclick="coursesManager.readCourseFromStudent('${course.course.id}')">
                     <div class="course-card">
                         <div class="${activityStatus}" data-toggle="tooltip" title="${course.course.title}"><div class="ribbon__content"></div></div>
-                        <img src="assets/media/cards/card-course.png" class="course-card-img">
+                        <img src="${_PATH}assets/media/cards/card-course.png" class="course-card-img">
                         <div class="course-card-info">
                             <div class="course-card-top">
                                 
@@ -649,13 +649,13 @@ function injectContentForActivity(content, correction, type = null, correction_d
 
     // Things to do for every activity
     setTextArea();
-    $('#activity-title').html(Activity.activity.title);
+    $('#activity-title'+course).html(Activity.activity.title);
     const funct = customActivity.manageDisplayCustom.filter(activityValidate => activityValidate[0] == type)[0];
     if (funct) {
         funct[1](correction, content, correction_div, isFromCourse);
     } else {
         if (Activity.activity.isLti) {
-            manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt);
+            manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt, isFromCourse);
         } else {
             manageDisplayOldActivities(correction, content, correction_div, isDoable, isFromCourse);
         };
@@ -680,28 +680,25 @@ function manageDisplayCustom(correction, content, correction_div, isFromCourse) 
 
 
 
-function manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt) {
-    document.querySelector('#activity-content-container').style.display = 'block';
+function manageDisplayLti(correction, content, correction_div, isDoable, activityValidationButtonElt, isFromCourse = false) {
+    let course = isFromCourse ? "-course" : "";
+    document.querySelector('#activity-content-container' + course).style.display = 'block';
     if (isDoable) {
         activityValidationButtonElt.style.display = 'none';
-        if (!UserManager.getUser().isRegular) {
-            launchLtiResource(Activity.id, Activity.activity.type, content, true);
-        } else {
-            launchLtiResource(Activity.id, Activity.activity.type, content, false);
-        }
+        launchLtiResource(Activity.id, Activity.activity.type, content, !UserManager.getUser().isRegular, false, "#activity-content", isFromCourse);
     } else {
-        document.querySelector('#activity-content').innerHTML = `
+        document.querySelector('#activity-content'+course).innerHTML = `
         <iframe src="${Activity.url}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`;
         if (!UserManager.getUser().isRegular) {
             if (!Activity.evaluation && correction < 2) {
-                document.querySelector('#activity-content').innerHTML += `
+                document.querySelector('#activity-content'+course).innerHTML += `
                 <button onclick="launchLtiResource(${Activity.id}, '${Activity.activity.type}', '${content}', true, '${Activity.url}')">Modifier le travail</button>`;
             }
         }
         
         if (correction != 1 || UserManager.getUser().isRegular) {
-            document.querySelector('#activity-correction-container').style.display = 'block';
-            document.querySelector('#activity-correction').innerHTML = correction_div;
+            document.querySelector('#activity-correction-container'+course).style.display = 'block';
+            document.querySelector('#activity-correction'+course).innerHTML = correction_div;
         }
     }
 }
@@ -846,7 +843,7 @@ function loadCourseAndActivityForStudents(isDoable, currentCourse = null, progre
     if (progressBar) {
         // Add the current course indicator on top of the given activity
         let nbOfExercices = currentCourse.activities.length;
-        let currentActivityIndex = currentCourse.activities.findIndex(activity => activity.id == Activity.activity.id);
+        let currentActivityIndex = currentCourse.activities.findIndex(activity => activity.id == Activity.id);
 
         // add green cells to .course-state until the current activity, then add grey cells
         let courseState = "";

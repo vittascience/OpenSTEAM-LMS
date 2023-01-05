@@ -669,11 +669,11 @@ function studentActivitiesDisplay() {
 
 
     Main.getClassroomManager()._myCourses.forEach(course => {
-        if (course.courseState == 0 && course.activities[0].activityLinkUser.response == null) {
+        if (course.courseState == 0 && course.activities[0].response == null) {
             let number = $('.section-new .resource-number').html();
             $('.section-new .resource-number').html(parseInt(number) + 1)
             $('#new-activities-list').append(courseItem(course, "newActivities"));
-        } else if ((course.courseState == 0 && course.activities[0].activityLinkUser.response != null) || course.courseState > 0 && course.courseState != 999) {
+        } else if ((course.courseState == 0 && course.activities[0].response != null) || course.courseState > 0 && course.courseState != 999) {
             let number = $('.section-saved .resource-number').html();
             $('.section-saved .resource-number').html(parseInt(number) + 1)
             $('#saved-activities-list').append(courseItem(course, "currentActivities"));
