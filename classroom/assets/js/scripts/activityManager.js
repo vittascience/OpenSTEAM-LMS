@@ -544,7 +544,7 @@ function defaultProcessValidateActivity(correction = null, isFromCourse = false)
     } else {
         interfaceData = vittaIframeRegex.exec(JSON.parse(Activity.activity.content).description)
     }
-        
+
     if (!interfaceData) {
         let correction = 2
         if (isFromCourse) {

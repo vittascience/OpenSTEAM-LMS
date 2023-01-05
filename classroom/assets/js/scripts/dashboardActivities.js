@@ -843,7 +843,7 @@ function loadCourseAndActivityForStudents(isDoable, currentCourse = null, progre
     if (progressBar) {
         // Add the current course indicator on top of the given activity
         let nbOfExercices = currentCourse.activities.length;
-        let currentActivityIndex = currentCourse.activities.findIndex(activity => activity.id == Activity.activity.id);
+        let currentActivityIndex = currentCourse.activities.findIndex(activity => activity.id == Activity.id);
 
         // add green cells to .course-state until the current activity, then add grey cells
         let courseState = "";

@@ -31,9 +31,8 @@ async function readEvent (event) {
                 }
             }
 
-            if (Activity.isFromCourse) {
-                console.log("Activity is from course");
-            } else {
+
+            if (!Activity.isFromCourse) {
                 // If the current activity needs a manual review, display the relevant panel
                 if (Activity.correction == 1) {
                     navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-activities');
@@ -52,10 +51,11 @@ async function readEvent (event) {
                             break;
                     }
                 }
+                // Clearing the LTI content div
+                document.querySelector('#lti-loader-container').innerHTML = '';
             }
 
-            // Clearing the LTI content div
-            document.querySelector('#lti-loader-container').innerHTML = '';
+           
             break;
         // Message received when an LTI deep link has returned
         case 'end-lti-deeplink':

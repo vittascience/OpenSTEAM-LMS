@@ -538,7 +538,11 @@
 			"next": "Next"
 		},
 		"courses": {
-			"coursesManager": "Courses deletion"
+			"coursesManager": "Courses deletion",
+			"note-3": "GOOD, you have completed this activity!",
+			"note-2": "TO REVIEW, the answer is not correct",
+			"note-4": "NOT RATED",
+			"note-0": "PENDING CORRECTION"
 		}
 	},
 	"faqInfo": {

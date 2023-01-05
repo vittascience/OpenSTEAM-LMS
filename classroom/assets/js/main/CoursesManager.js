@@ -620,8 +620,6 @@ class CoursesManager {
                     }
                 });
                 
-            } else {
-                defaultProcessValidateActivity(true);
             }
         }
     }
@@ -657,7 +655,7 @@ class CoursesManager {
         endCourse.style.display = "none";
         messageDiv.style.display = "none";
 
-        if ((response.note != null && response.correction > 1) || isLti) {
+        if ((response.note != null && response.correction >= 1) || isLti) {
             this._requestUpdateState(coursesManager.actualCourse.id, coursesManager.actualCourse.state + 1).then(res => {
                 if (res.hasOwnProperty('success')) {
                     if (res.success) {
@@ -670,15 +668,13 @@ class CoursesManager {
                             messageDiv.style.display = "block";
                             endCourse.style.display = "flex";
                             messageContent.classList.add("course-text-success");
-                            messageContent.innerHTML = "BRAVO ! TU AS RÉUSSI CETTE ACTIVIÉ !";
+                            messageContent.innerHTML = i18next.t('classroom.courses.note-3');
                         }
                     } else {
                         displayNotification('#notif-div', "classroom.notif.errorSending", "error");
                     }
                 }
             });
-        } else {
-            navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-activities');
         }
     }
 
@@ -696,11 +692,13 @@ class CoursesManager {
 
             
             if (course.activities[i].note == 3) {
-                note = "BIEN, tu as réussi cette activité !";
+                note = i18next.t('classroom.courses.note-3');
             } else if (course.activities[i].note < 3 && course.activities[i].note > 0) {
-                note = "À REVOIR, la réponse n'est pas correcte";
+                note = i18next.t('classroom.courses.note-2');
             } else if (course.activities[i].note == 4) {
-                note = "NON NOTÉ";
+                note = i18next.t('classroom.courses.note-4');
+            } else if (course.activities[i].note == 0) {
+                note = i18next.t('classroom.courses.note-0');
             }
 
             let html = `<div class="course-activities-result-activity" id="course-${course.id}"> 
