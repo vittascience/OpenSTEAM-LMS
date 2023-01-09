@@ -194,7 +194,7 @@
 			"invalidLink": "The link you entered is not valid",
 			"noUser" : "You have to add a student",
 			"noUserUsername" : "You have to enter a username",
-			"pseudoMissingInCsvFile" : "Some students couldn't be added as their pseudo was missing",
+			"pseudoMissingInCsvFile" : "Some students couldn't be added as their pseudos were missing",
 			"backendReplyPseudoMissingInCsv" : "Check the CSV file : empty line or pseudo missing",
 			"backendReplyPseudoMissingInUsersArray" : "There is one or more error(s) in the student(s) name(s)",
 			"invalidActivityId": "Error submitting job: Invalid activity ID!",
@@ -727,7 +727,7 @@
 			"profilPictureInvalid": "The provided profile photo does not follow the format indicated.",
 			"establishementIncorrect": "The institution name is incorrect.",
 			"gradeIncorrect": "The level of education is incorrect.",
-			"subjectIncorrect": "The name of the taucht subject is incorrect."
+			"subjectIncorrect": "The name of the taught subject is incorrect."
 		},
 		"success": {
 			"main": "Your registration has been successfully registered! A confirmation link has been sent to you at <b>{{mail}}</b>",
