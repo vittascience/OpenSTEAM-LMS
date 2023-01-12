@@ -59,7 +59,8 @@
       "accountConfirmationEmail": {
         "emailSubject": "تفعيل حسابي",
         "bodyTitle": "تفعيل حسابي",
-        "textBeforeLink": "إذا كان الزر أعلاه لا يعمل ، انسخ والصق الرابط التالي في متصفحك"
+        "textBeforeLink": "إذا كان الزر أعلاه لا يعمل ، انسخ والصق الرابط التالي في متصفحك",
+				"finalWord": "<p>It is not necessary to send us a message to confirm your registration, however, you can contact us with any questions by replying to this email.</p><p>The Vittascience team thanks you for your trust and wishes you a good day.</p>"
       }
     },
     "updateUserInfos": {
@@ -805,7 +806,8 @@
           "title": "إنهاء التسجيل",
           "subject": "إنهاء التسجيل",
           "bodyTitle": "إنهاء التسجيل الخاص بك",
-          "textBeforeLink": "إذا لم يعمل الزر أعلاه ، فقم بنسخ الرابط التالي ولصقه في متصفحك"
+          "textBeforeLink": "إذا لم يعمل الزر أعلاه ، فقم بنسخ الرابط التالي ولصقه في متصفحك",
+          "finalWord": "<p>It is not necessary to send us a message to confirm your registration, however, you can contact us with any questions by replying to this email.</p><p>The Vittascience team thanks you for your trust and wishes you a good day.</p>"
         }
       },
       "showResetLinkTitle": "إعادة تعيين كلمة المرور",

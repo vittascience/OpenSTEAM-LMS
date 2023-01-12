@@ -59,7 +59,8 @@
         "accountConfirmationEmail": {
           "emailSubject": "Activar mi cuenta",
           "bodyTitle": "Activar mi cuenta",
-          "textBeforeLink": "Si el botón anterior no funciona, copie y pegue en su navegador el siguiente enlace:"
+          "textBeforeLink": "Si el botón anterior no funciona, copie y pegue en su navegador el siguiente enlace:",
+          "finalWord": "<p>No es necesario que nos envíe un mensaje para confirmar su registro, sin embargo, puede ponerse en contacto con nosotros para cualquier pregunta respondiendo a este correo electrónico.</p><p>El equipo de Vittascience le agradece su confianza y le desea un buen día.</p>"
         }
       },
       "updateUserInfos": {
@@ -794,7 +795,8 @@
             "title": "Finalización del registro",
             "subject": "Finalización del registro",
             "bodyTitle": "Finalice su inscripción.",
-            "textBeforeLink": "Si el botón anterior no funciona, copie y pegue en su navegador el siguiente enlace :"
+            "textBeforeLink": "Si el botón anterior no funciona, copie y pegue en su navegador el siguiente enlace :",
+            "finalWord": "<p>No es necesario que nos envíe un mensaje para confirmar su registro, sin embargo, puede ponerse en contacto con nosotros para cualquier pregunta respondiendo a este correo electrónico.</p><p>El equipo de Vittascience le agradece su confianza y le desea un buen día.</p>"
           }
         },
         "showResetLinkTitle": "Restablecer la contraseña.",
