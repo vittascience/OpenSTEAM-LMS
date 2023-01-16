@@ -288,6 +288,12 @@ function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = fa
     if (id == 'classroom-dashboard-activities-panel-teacher' && idNav == 'dashboard-activities-teacher') {
         foldersManager.goToFolder(foldersManager.actualFolder);
     }
+
+    //remove lti iframe
+    if (id != 'classroom-dashboard-activity-panel') {
+        $('#lti_teacher_ifram').remove();
+        $('#lti_student_ifram').remove();
+    }
 }
 
 /**
@@ -3403,7 +3409,6 @@ function setAddFieldTooltips() {
     $('#infoRetroAttribution').attr("title", i18next.t('classroom.activities.infoRetroAttribution')).tooltip();
     $('#infoAutocorrect').attr("title", i18next.t('classroom.activities.infoAutocorrect')).tooltip();
     $('#infoEvaluation').attr("title", i18next.t('classroom.activities.infoEvaluation')).tooltip();
-
 }
 setTimeout(setAddFieldTooltips, 2000);
 

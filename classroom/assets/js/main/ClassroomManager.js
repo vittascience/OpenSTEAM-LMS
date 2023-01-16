@@ -1403,7 +1403,7 @@ class ClassroomManager {
     }
 
 
-    saveNewStudentActivity(activity, correction = 1, note = 0, response, activityLinkUserId) {
+    saveNewStudentActivity(activity, correction = 1, note = 0, response, activityLinkUserId, optionalData = null) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -1415,7 +1415,8 @@ class ClassroomManager {
                     'correction': correction,
                     'classroomLink': ClassroomSettings.classroom,
                     'note': note,
-                    'response': response
+                    'response': response,
+                    'optionalData': optionalData
                 },
                 success: function (r) {
                     resolve(r);
