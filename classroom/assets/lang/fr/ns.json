@@ -59,7 +59,8 @@
 			"accountConfirmationEmail": {
 				"emailSubject": "Activer mon compte",
 				"bodyTitle": "Activer mon compte",
-				"textBeforeLink": "Si le bouton ci-dessus ne fonctionne pas, copiez et collez dans votre navigateur, le lien suivant :"
+				"textBeforeLink": "Si le bouton ci-dessus ne fonctionne pas, copiez et collez dans votre navigateur, le lien suivant :",
+				"finalWord": "<p>Il n'est pas nécessaire de nous envoyer un message pour confirmer votre inscription, toutefois, vous pouvez nous contacter pour toute question en répondant à ce courriel.</p><p>Toute l'équipe Vittascience vous remercie pour votre confiance et vous souhaite une bonne journée.</p>"
 			}
 		},
 		"updateUserInfos": {
@@ -1180,7 +1181,8 @@
 					"title": "Finalisation d'inscription",
 					"subject": "Finalisation d'inscription",
 					"bodyTitle": "Finaliser votre inscription.",
-					"textBeforeLink": "Si le bouton ci-dessus ne fonctionne pas, copiez et collez dans votre navigateur, le lien suivant :"
+					"textBeforeLink": "Si le bouton ci-dessus ne fonctionne pas, copiez et collez dans votre navigateur, le lien suivant :",
+					"finalWord": "<p>Il n'est pas nécessaire de nous envoyer un message pour confirmer votre inscription, toutefois, vous pouvez nous contacter pour toute question en répondant à ce courriel.</p><p>Toute l'équipe Vittascience vous remercie pour votre confiance et vous souhaite une bonne journée.</p>"
 				}
 			},
 			"showResetLinkTitle": "Réinitialisation de mot de passe.",
