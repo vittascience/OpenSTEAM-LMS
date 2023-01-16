@@ -289,11 +289,6 @@ function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = fa
         foldersManager.goToFolder(foldersManager.actualFolder);
     }
 
-    //remove lti iframe
-    if (id != 'classroom-dashboard-activity-panel') {
-        $('#lti_teacher_ifram').remove();
-        $('#lti_student_ifram').remove();
-    }
 }
 
 /**
