@@ -476,10 +476,13 @@ hr {
 
 .wysibb .wysibb-toolbar {
     border-bottom: 2px solid var(--classroom-primary) !important;
+    padding: 0 var(--button-toolbar-width, 115px) 0 0 !important;
 }
 
 .wysibb .wysibb-toolbar .wysibb-toolbar-container {
     border-color: var(--classroom-primary) !important;
+    margin-bottom: -1px !important;
+    border-bottom: 1px solid var(--classroom-primary) !important;
 }
 
 .wysibb .wbb-answer {
@@ -498,26 +501,26 @@ hr {
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn.on:hover {
     padding: 0.25em 0.5em !important;
     border-radius: 2em;
-    color: var(--classroom-white) !important;
     filter: brightness(1);
     height: fit-content;
     transition: all 0.2s;
     box-shadow: unset;
-    border: unset;
+    border: 1px solid var(--classroom-primary);
     max-width: 100%;
     margin-right: 0.15em;
 }
 
-
-
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn,
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn:hover {
+    color: var(--classroom-white);
+    border-color: var(--classroom-primary);
     background-color: var(--classroom-primary);
 }
 
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn.on,
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn.on:hover {
-    background-color: var(--classroom-primary-dark) !important;
+    color: var(--classroom-primary) !important;
+    border-color: var(--classroom-primary) !important;
 }
 
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn:hover,
