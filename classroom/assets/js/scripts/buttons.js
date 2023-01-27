@@ -391,6 +391,8 @@ $('#code-copy').click(function () {
 
 // .new-student-modal removed
 $('body').on('click', '#add-student-dashboard-panel', function () {
+    // enable the button
+    $('#add-student-to-classroom').prop('disabled', false);
     pseudoModal.openModal('add-student-modal');
 });
 
