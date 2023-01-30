@@ -97,7 +97,7 @@ const classroomModals = {
         },
         content: `<h4 data-i18n="classroom.modals.settingsTeacher.lang">Langue</h4>
         
-        <div id="switch-lang-list">
+        <div id="switch-lang-list-student">
             <button class="btn c-btn-secondary" onclick="changeLang('fr')">
                 Français
             </button>
@@ -1389,6 +1389,16 @@ const classroomModals = {
                             </div>
 
                         </div>
+                    </div>`,
+        footer: ``
+    },
+    'customizable-modal': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.modals.assets'
+        },
+        content: `  <div id="customizable-modal-content" class="container-fluid d-flex flex-wrap">
                     </div>`,
         footer: ``
     }

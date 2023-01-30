@@ -992,6 +992,17 @@ button {
     gap: 0.5em; 
 }
 
+#switch-lang-list-student {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin: 0.5em auto;
+    gap: 0.5em; 
+}
+
 /* END PROFILE PANEL */
 
 /* INTERACTIONS LIST */
