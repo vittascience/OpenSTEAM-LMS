@@ -923,7 +923,7 @@ class ClassroomManager {
     /**
      * Update a student's exercise with his project
      **/
-    saveStudentActivity(project, interfac, activity, correction = 1, note = 0) {
+    saveStudentActivity(project, interfac, activity, correction = 1, note = 0, optionalData = null) {
         if (project) {
             return new Promise(function (resolve, reject) {
                 let currentCode = JSON.parse(window.localStorage.currentExercise)
@@ -978,7 +978,8 @@ class ClassroomManager {
                         'id': activity,
                         'correction': correction,
                         'classroomLink': ClassroomSettings.classroom,
-                        'note': note
+                        'note': note,
+                        'optionalData': optionalData
                     },
                     success: function (r) {
                         resolve(r);

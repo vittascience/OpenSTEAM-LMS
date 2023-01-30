@@ -527,7 +527,8 @@
 				"description": "Please enter your current password to confirm changes to your profile!",
 				"placeholderInput": "Password",
 				"validateButton": "Validate"
-			}
+			},
+			"assets": "Images bank"
 		},
 		"folders": {
 			"folderManagement": "Folder management",

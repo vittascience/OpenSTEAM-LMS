@@ -346,6 +346,9 @@ document.querySelector('#classroom-update-form').addEventListener('submit', (e) 
 
 //add students to an existing classroom on the classroom dashboard
 $('body').on('click', '#add-student-to-classroom', function () {
+    // disable button to avoid multiple click
+    $('#add-student-to-classroom').prop('disabled', true);
+
     const studentName = document.querySelector('#classroom-dashboard-add-student-div .student-form-name').value;
     if (studentName != ''){
         let students = [studentName];
@@ -368,7 +371,7 @@ $('body').on('click', '#add-student-to-classroom', function () {
                 } else {
                     manageResponseOfAddUsers(response);
                 }
-            }else{
+            } else {
                 Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
                     addUserAndGetDashboard(ClassroomSettings.classroom);
                     document.querySelector('#classroom-dashboard-add-student-div').innerHTML = BASE_STUDENT_FORM;

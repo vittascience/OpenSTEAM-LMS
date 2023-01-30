@@ -549,7 +549,8 @@
 				"description": "Veuillez saisir votre mot de passe actuel afin de valider les modifications de votre profil !",
 				"placeholderInput": "Mot de passe",
 				"validateButton": "Valider"
-			}
+			},
+			"assets": "Banque d'images"
 		},
 		"folders": {
 			"folderManagement": "Gestion des dossiers",
