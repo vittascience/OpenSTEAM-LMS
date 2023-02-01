@@ -444,6 +444,9 @@ button {
 }
 
 #classroom-dashboard-container {
+    --mobile-top-bar-height: 3.5em;
+    --mobile-bottom-bar-height: 110px;
+
     display: flex;
     flex-direction: row;
     height: 100%;
@@ -524,8 +527,9 @@ button {
     }
 
     #classroom-dashboard-container {
+        display: grid;
         grid-template-columns: 100%;
-        grid-template-rows: auto 0px;
+        grid-template-rows: 1fr var(--mobile-bottom-bar-height);
     }
 
     #classroom-dashboard-sidebar,
@@ -538,7 +542,7 @@ button {
         grid-row-start: 2;
         width: 100%;
         background: var(--classroom-dashboard);
-        height: 110px;
+        height: var(--mobile-bottom-bar-height);
 
         display: flex;
         flex-direction: row;
@@ -581,7 +585,7 @@ button {
         place-items: center;
 
         width: 100%;
-        min-height: 3.5em;
+        min-height: var(--mobile-top-bar-height);
         padding: 0;
 
 
@@ -624,10 +628,16 @@ button {
     }
 
     #classroom-dashboard-content {
+        position: relative;
         border-radius: 0px;
-        height: calc(100% - 110px);
+        height: -webkit-fill-available;
+        height: fill-available;
+        
         padding-bottom: 50px;
-        margin-top: 3.2em;
+        margin-top: var(--mobile-top-bar-height);
+        
+        grid-row-end: 2;
+        
     }
 
     #a11y-dropdown {
