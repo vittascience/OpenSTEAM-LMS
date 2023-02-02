@@ -346,8 +346,11 @@ function goToActivityPanel() {
 
 // Add activity modal (Classroom management) -> Resource Bank button
 function goToCreateActivityPanel() {
-    Modal.prototype.closeAllModal();
-    navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-activities-teacher');
+    Main.getClassroomManager().getAllApps().then((apps) => {
+        activitiesCreation(apps);
+        pseudoModal.closeAllModal();
+        navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-activities-teacher');
+    })
 }
 
 //prof-->demoStudent
