@@ -42,11 +42,9 @@ class FillInManager {
         }
     
         Main.getClassroomManager()._createActivity.content.fillInFields.contentForTeacher = $('#fill-in-content').bbcode();
-    
-        let response = $('#fill-in-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1")),
-            contentForStudent = $('#fill-in-content').bbcode();
+        let response = $('#fill-in-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1"));
+        
         response.forEach((e, i) => {
-            contentForStudent = contentForStudent.replace(`[answer]${e}[/answer]`, `﻿`);
             if (e.includes('&&')) {
                 response[i] = e.split('&&').map(e => e.trim()).join(',');
             }
@@ -65,10 +63,8 @@ class FillInManager {
         Main.getClassroomManager()._createActivity.tolerance = $('#fill-in-tolerance').val();
         Main.getClassroomManager()._createActivity.autocorrect = $('#fill-in-autocorrect').is(":checked");
         Main.getClassroomManager()._createActivity.content.hint = $('#fill-in-hint').val();
-    
-    
+
         Main.getClassroomManager()._createActivity.solution = response;
-        Main.getClassroomManager()._createActivity.content.fillInFields.contentForStudent = contentForStudent;
     
         if (Main.getClassroomManager()._createActivity.content.fillInFields.contentForTeacher == "") {
             return false
@@ -132,12 +128,16 @@ class FillInManager {
         
         if (correction <= 1 || correction == null) {
             if (!UserManager.getUser().isRegular) {
-                let studentContent = bbcodeToHtml(content.fillInFields.contentForStudent),
-                    nbOccu = studentContent.match(/﻿/g).length;
+
+                let contentReplaced = content.fillInFields.contentForTeacher.replaceAll(/\[answer\]([^\[]*)\[\/answer\]/g, "_TOBEREPLACED_");
+                let studentContent = bbcodeToHtml(contentReplaced);
+                let nbOccu = studentContent.match(/_TOBEREPLACED_/g).length;
     
                 for (let i = 1; i < nbOccu+1; i++) {
-                    studentContent = studentContent.replace(`﻿`, `<input type="text" id="student-fill-in-field-${i}" class="answer-student">`);
+                    let toBeReplace = studentContent.match(/_TOBEREPLACED_/g)[0];
+                    studentContent = studentContent.replace(toBeReplace, `<input type="text" id="student-fill-in-field-${i}" class="answer-student">`);
                 }
+
                 $('#activity-content'+course).html(studentContent);
     
                 // Place the student's response if there is one
@@ -160,7 +160,7 @@ class FillInManager {
     }
 
     displayFillInTeacherSide(correction_div, correction, content, isFromCourse) {
-        let studentContentString = content.fillInFields.contentForStudent,
+        let studentContentString = content.fillInFields.contentForTeacher,
             studentResponses = JSON.parse(Activity.response),
             course = isFromCourse ? "-course" : "";
     
@@ -168,7 +168,8 @@ class FillInManager {
     
             studentResponses.forEach((response, i) => {
                 let autoWidthStyle = 'style="width:' + (response.length + 2) + 'ch"';
-                studentContentString = studentContentString.replace('﻿', `<input type="text" id="correction-student-fill-in-field-${i}" ${autoWidthStyle} readonly class="fill-in-answer-teacher answer-student" value="${response}">`);
+                let answer = studentContentString.match(/\[answer\](.*?)\[\/answer\]/g)[0];
+                studentContentString = studentContentString.replace(answer, `<input type="text" id="correction-student-fill-in-field-${i}" ${autoWidthStyle} readonly class="fill-in-answer-teacher answer-student" value="${response}">`);
             });
     
     
@@ -190,11 +191,16 @@ class FillInManager {
     }
 
     fillInPreview(activity) {
-        let studentContent = bbcodeToHtml(activity.content.fillInFields.contentForStudent)
-        let nbOccu = studentContent.match(/﻿/g).length;
+
+        let contentReplaced = activity.content.fillInFields.contentForTeacher.replaceAll(/\[answer\](.*?)\[\/answer\]/g, "_TOBEREPLACED_");
+        let studentContent = bbcodeToHtml(contentReplaced);
+        let nbOccu = studentContent.match(/_TOBEREPLACED_/g).length;
+
         for (let i = 1; i < nbOccu+1; i++) {
-            studentContent = studentContent.replace(`﻿`, `<input type="text" id="student-fill-in-field-${i}-preview" class="answer-student">`);
+            let toBeReplace = studentContent.match(/_TOBEREPLACED_/g)[0];
+            studentContent = studentContent.replace(toBeReplace, `<input type="text" id="student-fill-in-field-${i}-preview" class="answer-student">`);
         }
+
         $('#preview-activity-content').html(studentContent);
         $('#preview-states').show();
         $('#preview-content').show();

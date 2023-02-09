@@ -3463,6 +3463,10 @@ function setCaret(contentId, id) {
         }
     }
 
+    if (childNote != Object) {
+        return;
+    }
+
     range.setStart(childNote, 1)
     range.collapse(true)
     

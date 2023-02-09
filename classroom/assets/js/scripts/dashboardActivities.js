@@ -733,7 +733,11 @@ function manageDragAndDropText(studentContentString, preview = false) {
     let previewString = preview ? "-preview" : "";
     for (let i = 0; i < studentResponses.length; i++) {
         let input = `<span class="dropable-items dropzone${previewString}" id="dz-${i}${previewString}"></span>`;
-        studentContentString = studentContentString.replace(`﻿`, input);
+        // [answer]replace[/answer]
+        // get the answer
+        let answer = studentContentString.match(/\[answer\](.*?)\[\/answer\]/g)[0];
+        // replace the answer with the input
+        studentContentString = studentContentString.replace(answer, input);
     }
     return studentContentString;
 }
