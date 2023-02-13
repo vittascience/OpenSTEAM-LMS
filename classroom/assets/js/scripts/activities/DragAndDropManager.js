@@ -26,11 +26,8 @@ class DragAndDropManager {
         Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForTeacher = $('#drag-and-drop-content').bbcode();
         
         let responseDD = $('#drag-and-drop-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1"));
-        let contentForStudent = $('#drag-and-drop-content').bbcode();
-    
-    
+        
         responseDD.forEach((e, i) => {
-            contentForStudent = contentForStudent.replace(`[answer]${e}[/answer]`, `﻿`);
             responseDD[i] = e.trim();
             if (e.includes('&&')) {
                 responseDD[i] = e.split('&&').map(e => e.trim()).join(',');
@@ -48,7 +45,6 @@ class DragAndDropManager {
     
     
         Main.getClassroomManager()._createActivity.solution = responseDD;
-        Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForStudent = contentForStudent;
     
         if (Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForTeacher == "") {
             return false;
@@ -84,7 +80,6 @@ class DragAndDropManager {
         $("#drag-and-drop-states").htmlcode(bbcodeToHtml(content.states));
         $("#drag-and-drop-content").htmlcode(bbcodeToHtml(content.dragAndDropFields.contentForTeacher));
         activity.isAutocorrect ? $("#drag-and-drop-autocorrect").prop("checked", true) : $("#drag-and-drop-autocorrect").prop("checked", false);
-    
         navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
     }
 
@@ -99,8 +94,6 @@ class DragAndDropManager {
         $("#activity-content-container").show();
         $("#activity-states-container").show();
     }
-
-
 
     manageDisplayDragAndDrop(correction, content, correction_div, isFromCourse) {
         let course = isFromCourse ? "-course" : "";
@@ -120,7 +113,7 @@ class DragAndDropManager {
         if (correction <= 1 || correction == null) {
             if (!UserManager.getUser().isRegular) {
     
-                let ContentString = manageDragAndDropText(content.dragAndDropFields.contentForStudent);
+                let ContentString = manageDragAndDropText(content.dragAndDropFields.contentForTeacher);
                 $('#drag-and-drop-text'+course).html(`<div>${ContentString}</div>`);
     
                 // Get the response array and shuffle it
@@ -172,16 +165,22 @@ class DragAndDropManager {
     displayDragAndDropTeacherSide(correction_div, correction, content, isFromCourse) {
         let course = isFromCourse ? "-course" : "";
         let studentResponses = JSON.parse(Activity.response);
-        let studentContentString = content.dragAndDropFields.contentForStudent;
+        let studentContentString = content.dragAndDropFields.contentForTeacher;
     
         $(`input[id^="corrected-student-response-"]`).each((i, e) => {
             $(e).remove();
-        })
+        });
     
         if (studentResponses != "" && studentResponses != null) {
             for (let i = 0; i < studentResponses.length; i++) {
                 let autoWidthStyle = 'style="width:' + (studentResponses[i].string.toLowerCase().length + 2) + 'ch"';
-                studentContentString = studentContentString.replace(`﻿`, `<input readonly class='drag-and-drop-answer-teacher' id="corrected-student-response-${i}" value="${studentResponses[i].string.toLowerCase()}" ${autoWidthStyle}>`);
+                let answer = studentContentString.match(/\[answer\](.*?)\[\/answer\]/g)[0];
+
+                if (bbcodeToHtml(studentResponses[i].string) != studentResponses[i].string) {
+                    studentContentString = studentContentString.replace(answer, bbcodeToHtml(studentResponses[i].string));
+                } else {
+                    studentContentString = studentContentString.replace(answer, `<input readonly class='drag-and-drop-answer-teacher' id="corrected-student-response-${i}" value="${studentResponses[i].string.toLowerCase()}" ${autoWidthStyle}>`);
+                }
             }
         
             $('#activity-student-response-content'+course).html(bbcodeToHtml(studentContentString));
@@ -200,8 +199,8 @@ class DragAndDropManager {
     }
 
     dragAndDropPreview(activity) {
-        let ContentString = manageDragAndDropText(activity.content.dragAndDropFields.contentForStudent, true);
-        $('#preview-drag-and-drop-text').html(`<div>${ContentString}</div>`);
+        let ContentString = manageDragAndDropText(activity.content.dragAndDropFields.contentForTeacher, true);
+        $('#preview-drag-and-drop-text').html(`<div>${bbcodeToHtml(ContentString)}</div>`);
 
         // Get the response array and shuffle it
         let choices = shuffleArray(activity.solution);

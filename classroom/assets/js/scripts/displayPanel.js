@@ -384,7 +384,6 @@ DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
                     Main.activityTracker = new ActivityTracker();
                     Main.activityTracker.startActivityTracker();
                 }
-                //loadActivityForStudents(isDoable)
                 loadCourseAndActivityForStudents(isDoable);
             }
         }
@@ -445,7 +444,6 @@ function getTeacherActivity() {
 
 
     if (IsJsonString(Activity.content)) {
-       
         const contentParsed = JSON.parse(Activity.content);
         const funct = customActivity.getTeacherActivityCustom.filter(activityValidate => activityValidate[0] == Activity.type)[0];
         if (funct) { 

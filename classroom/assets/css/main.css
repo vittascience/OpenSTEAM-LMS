@@ -2104,10 +2104,19 @@ h3.section-done {
     margin-bottom: 0.5em;
 }
 
+.fill-in-answer-teacher {
+    background: var(--classroom-background);
+    color: var(--classroom-text-0);
+    cursor: pointer;
+    text-align: center;
+    user-select: none;
+    margin-bottom: 0.5em;
+}
+
 .dropable-items {
     display: inline-flex;
     border-radius: 256px;
-    margin: 0.25em 0.5em;
+    margin: 0.30em 0;
     min-width: none;
 }
 
