@@ -1581,7 +1581,7 @@
 		"contentTitle": "Contenu de l'activité",	
 		"tolerance1": "Ajouter une tolérance d'erreur de",
 		"tolerance2": "caractère(s) sur l'ensemble de la réponse de l'élève.",
-		"hint": "Indice <i>* s'affiche si la réponse est fausse</i>",
+		"hint": "Indice",
 		"title": "Titre de l'activité <span class=\"c-text-red\">*</span>",
 		"description": "Description de l'activité <span class=\"c-text-red\">*</span>",
 		"content": "Contenu de l'activité <span class=\"c-text-red\">*</span>",

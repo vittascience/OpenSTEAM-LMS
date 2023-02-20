@@ -14,13 +14,16 @@ function setTextArea() {
     // FillIn
     $("#fill-in-states").wysibb(options);
     $("#fill-in-content").wysibb(options);
+    $("#fill-in-hint").wysibb(options);
 
     // DragAndDrop
     $("#drag-and-drop-states").wysibb(options);
     $("#drag-and-drop-content").wysibb(options);
+    $("#drag-and-drop-hint").wysibb(options);
 
-     // Quiz
-     $("#quiz-states").wysibb(options);
+    // Quiz
+    $("#quiz-states").wysibb(options);
+    $("#quiz-hint").wysibb(options);
 }
 
 // autocorrect modification pas pris en compte
@@ -47,7 +50,9 @@ function launchCustomActivity(activityType, isUpdate = false, callback = false) 
     hideAllActivities();
     setAddFieldTooltips();
     Main.getClassroomManager()._createActivity.id = activityType;
-    Main.getClassroomManager()._createActivity.function = "create";
+    if (!isUpdate) {
+        Main.getClassroomManager()._createActivity.function = "create";
+    }
 
     Main.getClassroomManager().isActivitiesRestricted(null, activityType).then((response) => {
         if (response.Limited == false && activityType != "appOutDated") {
@@ -423,7 +428,7 @@ function ActivityPreviewBeforeCreation(type) {
     resetPreviewViews();
     
     $title.html(Main.getClassroomManager()._createActivity.title);
-    $statesText.html(bbcodeToHtml(Main.getClassroomManager()._createActivity.content.states));
+    $statesText.html(bbcodeContentIncludingMathLive(Main.getClassroomManager()._createActivity.content.states));
     $title.show();
 
     let func = customActivity.managePreviewCustom.filter(activityPreview => activityPreview[0] == type)[0];
@@ -523,7 +528,7 @@ function hintManager(response, courseIndicator = "") {
     if (response.hasOwnProperty("hint")) {
         if (response.hint != null && response.hint != "") {
             $(`#activity-hint-container${courseIndicator}`).show();
-            $(`#activity-hint${courseIndicator}`).text(response.hint);
+            $(`#activity-hint${courseIndicator}`).html(bbcodeContentIncludingMathLive(response.hint));
         }
     }
 }

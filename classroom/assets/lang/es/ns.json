@@ -1192,7 +1192,7 @@
       "contentTitle": "Contenido de la actividad",
       "tolerance1": "Añadir una tolerancia de error de",
       "tolerance2": "carácter(es) en la respuesta completa del estudiante.",
-      "hint": "Pista <i>* mostrada si la respuesta es incorrecta</i>",
+      "hint": "Pista",
       "title": "Título de la actividad <span class=\"c-text-red\">*</span>",
       "description": "Descripción de la actividad <span class=\"c-text-red\">*</span>",
       "content": "Contenido de la actividad <span class=\"c-text-red\">*</span>",
