@@ -20,25 +20,45 @@ function parseContent(content, className, autoWidth = false) {
     let values = content.match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1"));
     let autoWidthStyle = '';
     for (let i = 0; i < values.length; i++) {
-        if (autoWidth) {    
-            autoWidthStyle = 'style="width:' + (values[i].length + 2) + 'ch"';
-        } else {
-            autoWidthStyle = '';
-        }
+
+        autoWidthStyle = autoWidth ? 'style="width:' + (values[i].length + 2) + 'ch"' : autoWidthStyle = '';
 
         content = content.replace(`[answer]${values[i]}[/answer]`, `[answer][/answer]`);
+        let valueParsed = values[i].includes('[math]') ? parseMathLiveContent(values[i]) : values[i];
 
-        // update to accept html in response fields
-        if (bbcodeToHtml(values[i]) != values[i]) {
-            content = content.replace(/\[answer\]/, bbcodeToHtml(values[i]));
+        if (bbcodeToHtml(valueParsed) != valueParsed) {
+            content = content.replace(/\[answer\]/, bbcodeToHtml(valueParsed));
             content = content.replace(/\[\/answer\]/, "");
         } else {
-            content = content.replace(/\[answer\]/, `<input readonly class='${className}' value="${values[i]}" ${autoWidthStyle}>`);
-            content = content.replace(/\[\/answer\]/, "</input>");
+            if (valueParsed.includes('<math-field')) {
+                content = content.replace(/\[answer\]/, `<div readonly class='${className}' ${'style="width:' + (values[i].length / 3) + 'ch; height:6ch;"'}>` + valueParsed);
+                content = content.replace(/\[\/answer\]/, "</div>");
+            } else {
+                content = content.replace(/\[answer\]/, `<input readonly class='${className}' value="${valueParsed}" ${'style="width:' + (values[i].length + 2) + 'ch"'}>`);
+                content = content.replace(/\[\/answer\]/, "</input>");
+            }
         }
     }
     
     return content;
+}
+
+function parseMathLiveContent(content) {
+    if (!content.includes('[math]')) {
+        return false;
+    }
+    content = content.replace(/\[math\]/gi, "<span>&nbsp;</span><math-field read-only style='display:inline-block'>")
+    content = content.replace(/\[\/math\]/gi, "</math-field>") 
+    return content;
+}
+
+
+function bbcodeContentIncludingMathLive(content) {
+    if (content.includes('[math]')) {
+        content = content.replace(/\[math\]/gi, "<span>&nbsp;</span><math-field read-only style='display:inline-block'>")
+        content = content.replace(/\[\/math\]/gi, "</math-field>")
+    }
+    return bbcodeToHtml(content);
 }
 
 /**
@@ -101,7 +121,7 @@ function resetActivityInputs(activityType) {
         /* fill-in reset */
         $('#fill-in-states').htmlcode("");
         $('#fill-in-content').htmlcode("");
-        $('#fill-in-hint').val("");
+        $('#fill-in-hint').htmlcode();
         $('#fill-in-tolerance').val(0);
     } else if (activityType == 'reading') {
         /* reading reset */
@@ -110,12 +130,12 @@ function resetActivityInputs(activityType) {
         /* drag-and-drop reset */
         $('#drag-and-drop-states').htmlcode("");
         $('#drag-and-drop-content').htmlcode("");
-        $('#drag-and-drop-hint').val("");
+        $('#drag-and-drop-hint').htmlcode();
         $('#drag-and-drop-tolerance').val("");
     } else if (activityType == 'quiz') {
         /* quiz reset */
         $('#quiz-states').htmlcode("");
-        $('#quiz-hint').val("");
+        $('#quiz-hint').htmlcode();
         $('#quiz-tolerance').val("");
         // Quiz reset input
         quizManager.deleteQcmFields();

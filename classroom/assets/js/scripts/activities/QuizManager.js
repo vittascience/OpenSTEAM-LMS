@@ -28,7 +28,7 @@ class QuizManager {
             Main.getClassroomManager()._createActivity.content.quiz.contentForStudent = tempArraycontentForStudent;
             Main.getClassroomManager()._createActivity.solution = tempArraySolution;
             
-            Main.getClassroomManager()._createActivity.content.hint = $('#quiz-hint').val();
+            Main.getClassroomManager()._createActivity.content.hint = $('#quiz-hint').bbcode();
             Main.getClassroomManager()._createActivity.autocorrect = $('#quiz-autocorrect').is(":checked");
             
             if ($('#quiz-states').bbcode() != '') {
@@ -139,8 +139,8 @@ class QuizManager {
             $(`#label-quizz-${i}`).localize();
         }
     
-        $('#quiz-states').htmlcode(bbcodeToHtml(content.states));
-        $('#quiz-hint').val(content.hint);
+        $('#quiz-states').forceInsertBbcode(content.states);
+        $('#quiz-hint').forceInsertBbcode(content.hint);
     
         if (activity.isAutocorrect) {
             $("#quiz-autocorrect").prop("checked", true);
@@ -153,7 +153,7 @@ class QuizManager {
     }
 
     showTeacherQuizActivity(contentParsed, Activity) {
-        $("#activity-states").html(bbcodeToHtml(contentParsed.states));
+        $("#activity-states").html(bbcodeContentIncludingMathLive(contentParsed.states));
         $(`div[id^="teacher-suggestion-"]`).each(function() {
             $(this).remove();
         })
@@ -175,7 +175,7 @@ class QuizManager {
 
     manageDisplayQuiz(correction, content, correction_div, isFromCourse) {
         let course = isFromCourse ? "-course" : "";
-        $('#activity-states'+course).html(bbcodeToHtml(content.states));
+        $('#activity-states'+course).html(bbcodeContentIncludingMathLive(content.states));
         $('#activity-states-container'+course).show();
     
         if (UserManager.getUser().isRegular) {

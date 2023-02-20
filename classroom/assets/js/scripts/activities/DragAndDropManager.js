@@ -41,7 +41,7 @@ class DragAndDropManager {
         }
     
         Main.getClassroomManager()._createActivity.autocorrect = $('#drag-and-drop-autocorrect').is(":checked");
-        Main.getClassroomManager()._createActivity.content.hint = $('#drag-and-drop-hint').val();
+        Main.getClassroomManager()._createActivity.content.hint = $('#drag-and-drop-hint').bbcode();
     
     
         Main.getClassroomManager()._createActivity.solution = responseDD;
@@ -76,21 +76,21 @@ class DragAndDropManager {
     manageUpdateForDragAndDrop(activity) {
         $('#activity-drag-and-drop').show();
         let content = JSON.parse(activity.content);
-        $("#drag-and-drop-hint").val(content.hint);
-        $("#drag-and-drop-states").htmlcode(bbcodeToHtml(content.states));
-        $("#drag-and-drop-content").htmlcode(bbcodeToHtml(content.dragAndDropFields.contentForTeacher));
+        $("#drag-and-drop-hint").forceInsertBbcode(content.hint);
+        $("#drag-and-drop-states").forceInsertBbcode(content.states);
+        $("#drag-and-drop-content").forceInsertBbcode(content.dragAndDropFields.contentForTeacher);
         activity.isAutocorrect ? $("#drag-and-drop-autocorrect").prop("checked", true) : $("#drag-and-drop-autocorrect").prop("checked", false);
         navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
     }
 
     showTeacherDragAndDropActivity(contentParsed, Activity) {
-        $("#activity-states").html(bbcodeToHtml(contentParsed.states));
+        $("#activity-states").html(bbcodeContentIncludingMathLive(contentParsed.states));
     
         let contentForTeacher = contentParsed.dragAndDropFields.contentForTeacher;
     
         contentForTeacher = parseContent(contentForTeacher, "drag-and-drop-answer-teacher", true);
     
-        $("#activity-content").html(bbcodeToHtml(contentForTeacher));
+        $("#activity-content").html(bbcodeContentIncludingMathLive(contentForTeacher));
         $("#activity-content-container").show();
         $("#activity-states-container").show();
     }
@@ -103,11 +103,11 @@ class DragAndDropManager {
     
             let contentForTeacher = content.dragAndDropFields.contentForTeacher;
             contentForTeacher = parseContent(contentForTeacher, "drag-and-drop-answer-teacher", true);
-            $('#activity-content'+course).html(bbcodeToHtml(contentForTeacher));
+            $('#activity-content'+course).html(bbcodeContentIncludingMathLive(contentForTeacher));
             $('#activity-content-container'+course).show();
         }
     
-        $('#activity-states'+course).html(bbcodeToHtml(content.states));
+        $('#activity-states'+course).html(bbcodeContentIncludingMathLive(content.states));
         $('#activity-states-container'+course).show();
         
         if (correction <= 1 || correction == null) {
@@ -147,9 +147,14 @@ class DragAndDropManager {
                 if (Activity.response != null && Activity.response != "") {
                     let response = JSON.parse(Activity.response);
                     response.forEach((e, i) => {
-                        if (e.string.toLowerCase() != "" && e.string.toLowerCase() != null) {
-                            if ($(`#${e.string.toLowerCase()}`).length > 0) {
-                                $(`#dz-${i}`).html($(`#${e.string.toLowerCase()}`)[0]);
+                        if (bbcodeToHtml(e.string) != e.string) {
+                            $(`#dz-${i}`).html(document.getElementById(e.string));
+                        } else {
+                            if (e.string.toLowerCase() != "" && e.string.toLowerCase() != null) {
+                                let contentById = document.getElementById(e.string.toLowerCase());
+                                if (contentById != null) {
+                                    $(`#dz-${i}`).html(contentById);
+                                }
                             }
                         }
                     })
@@ -169,14 +174,17 @@ class DragAndDropManager {
     
         $(`input[id^="corrected-student-response-"]`).each((i, e) => {
             $(e).remove();
-        });
+        })
     
         if (studentResponses != "" && studentResponses != null) {
             for (let i = 0; i < studentResponses.length; i++) {
                 let autoWidthStyle = 'style="width:' + (studentResponses[i].string.toLowerCase().length + 2) + 'ch"';
                 let answer = studentContentString.match(/\[answer\](.*?)\[\/answer\]/g)[0];
+                let mathContent = parseMathLiveContent(studentResponses[i].string);
 
-                if (bbcodeToHtml(studentResponses[i].string) != studentResponses[i].string) {
+                if (mathContent) {
+                    studentContentString = studentContentString.replace(answer, `<div class='drag-and-drop-answer-teacher' id="corrected-student-response-${i}">${mathContent}</div>`);
+                } else if (bbcodeToHtml(studentResponses[i].string) != studentResponses[i].string) {
                     studentContentString = studentContentString.replace(answer, bbcodeToHtml(studentResponses[i].string));
                 } else {
                     studentContentString = studentContentString.replace(answer, `<input readonly class='drag-and-drop-answer-teacher' id="corrected-student-response-${i}" value="${studentResponses[i].string.toLowerCase()}" ${autoWidthStyle}>`);
@@ -186,12 +194,12 @@ class DragAndDropManager {
             $('#activity-student-response-content'+course).html(bbcodeToHtml(studentContentString));
             $('#activity-student-response'+course).show();
             Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
-                for (let i = 0; i < $(`input[id^="corrected-student-response-"]`).length; i++) {
-                    $('#corrected-student-response-' + i).addClass("answer-correct");
+                for (let i = 0; i < $(`[id^="corrected-student-response-"]`).length; i++) {
+                    document.getElementById('corrected-student-response-' + i).classList.add("answer-correct");
                 }
             
                 for (let i = 0; i < result.success.length; i++) {
-                    $('#corrected-student-response-' + (result.success[i])).addClass("answer-incorrect");
+                    document.getElementById('corrected-student-response-' + (result.success[i])).classList.add("answer-correct");
                 }
             })
         }
@@ -200,7 +208,7 @@ class DragAndDropManager {
 
     dragAndDropPreview(activity) {
         let ContentString = manageDragAndDropText(activity.content.dragAndDropFields.contentForTeacher, true);
-        $('#preview-drag-and-drop-text').html(`<div>${bbcodeToHtml(ContentString)}</div>`);
+        $('#preview-drag-and-drop-text').html(`<div>${bbcodeContentIncludingMathLive(ContentString)}</div>`);
 
         // Get the response array and shuffle it
         let choices = shuffleArray(activity.solution);

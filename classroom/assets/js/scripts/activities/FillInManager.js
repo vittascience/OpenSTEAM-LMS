@@ -62,7 +62,7 @@ class FillInManager {
     
         Main.getClassroomManager()._createActivity.tolerance = $('#fill-in-tolerance').val();
         Main.getClassroomManager()._createActivity.autocorrect = $('#fill-in-autocorrect').is(":checked");
-        Main.getClassroomManager()._createActivity.content.hint = $('#fill-in-hint').val();
+        Main.getClassroomManager()._createActivity.content.hint = $('#fill-in-hint').bbcode();
 
         Main.getClassroomManager()._createActivity.solution = response;
     
@@ -94,19 +94,19 @@ class FillInManager {
     manageUpdateForFillIn(activity) {
         $('#activity-fill-in').show();
         let content = JSON.parse(activity.content);
-        $("#fill-in-states").htmlcode(bbcodeToHtml(content.states));
-        $("#fill-in-hint").val(content.hint);
+        $("#fill-in-states").forceInsertBbcode(content.states);
+        $("#fill-in-hint").forceInsertBbcode(content.hint);
         $("#fill-in-tolerance").val(activity.tolerance);
-        $("#fill-in-content").htmlcode(bbcodeToHtml(content.fillInFields.contentForTeacher));
+        $("#fill-in-content").forceInsertBbcode(content.fillInFields.contentForTeacher);
         activity.isAutocorrect ? $("#fill-in-autocorrect").prop("checked", true) : $("#fill-in-autocorrect").prop("checked", false);
         navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
     }
 
     showTeacherFillInActivity(contentParsed, Activity) {
-        $("#activity-states").html(bbcodeToHtml(contentParsed.states));
+        $("#activity-states").html(bbcodeContentIncludingMathLive(contentParsed.states));
         let contentForTeacher = contentParsed.fillInFields.contentForTeacher;
         contentForTeacher = parseContent(contentForTeacher, "lms-answer fill-in-answer-teacher", true);
-        $('#activity-content').html(bbcodeToHtml(contentForTeacher));
+        $('#activity-content').html(bbcodeContentIncludingMathLive(contentForTeacher));
         $("#activity-content-container").show();
         $("#activity-states-container").show();
     }
@@ -119,7 +119,7 @@ class FillInManager {
         if (UserManager.getUser().isRegular) {
             let contentForTeacher = content.fillInFields.contentForTeacher;
             contentForTeacher = parseContent(contentForTeacher, "lms-answer fill-in-answer-teacher", true);
-            $('#activity-content'+course).html(bbcodeToHtml(contentForTeacher));
+            $('#activity-content'+course).html(bbcodeContentIncludingMathLive(contentForTeacher));
             $('#activity-content-container'+course).show();
         }
     
