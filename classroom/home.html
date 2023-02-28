@@ -6,7 +6,6 @@
 </head>
 
 <body>
-
 <div id="classroom-dashboard-background">
     <div id="classroom-dashboard-container">
         <div id="classroom-dashboard-sidebar" class="sidebar-classroom" style="display:none;">
@@ -97,6 +96,9 @@
 </div>
 
 <div id="classroom-dashboard-content">
+    <div id="spinner-loading">
+        <div></div>
+    </div>
     <div id="classroom-dashboard-top-bar">
         <!-- Breadcrumb -->
         <div id="breadcrumb" class="row ml-2 mr-auto"></div>
@@ -2651,10 +2653,13 @@
                     }, 500);
                 }
             } else {
+                $("#spinner-loading ").hide();
+                console.log($("#spinner-loading "))
                 $('#classroom-dashboard-sidebar-teacher').show()
                 navigatePanel($_GET('panel'), $_GET('nav'), $_GET('option'), $_GET('interface'));
             }
         } else {
+            $("#spinner-loading ").prop("display", "none");
             $('#classroom-dashboard-sidebar-teacher').show()
             navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher', $_GET('option'), $_GET('interface'));
         }
