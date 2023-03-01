@@ -2618,7 +2618,8 @@
                             failedToLoad();
                         }
                     ).then((resolve)=> {
-                        $("#spinner-loading ").hide();
+                        // hide spinner when load
+                        $("#spinner-loading").hide();
                     });
                 })
             },
@@ -2655,13 +2656,10 @@
                     }, 500);
                 }
             } else {
-                $("#spinner-loading ").hide();
-                console.log($("#spinner-loading "))
                 $('#classroom-dashboard-sidebar-teacher').show()
                 navigatePanel($_GET('panel'), $_GET('nav'), $_GET('option'), $_GET('interface'));
             }
         } else {
-            $("#spinner-loading ").prop("display", "none");
             $('#classroom-dashboard-sidebar-teacher').show()
             navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher', $_GET('option'), $_GET('interface'));
         }
