@@ -322,7 +322,7 @@
         "grade": "Note"
       },
       "applist": {
-        "selectApp": "Sélectionnez l'application avec laquelle vous souhaitez créer une activité",
+        "selectApp": "Sélectionnez l'application avec laquelle vous souhaitez créer une activité.",
         "apps": {
           "reading": {
             "title": "Multimédia",
