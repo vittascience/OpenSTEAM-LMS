@@ -257,7 +257,8 @@
 				"delete": "Delete",
 				"copyLink": "Copy the direct link",
 				"learnerMode": "Learner mode",
-				"dueBy":"Due by"
+				"dueBy":"Due by",
+				"timePassed": "Time passed: "
 
 			}
 		},
@@ -293,6 +294,7 @@
 			"studentAnswer": "Learner's answer",
 			"comments": "Write your comments there",
 			"return": "Return to the activities",
+			"numberOfTries": "Number of tries: ",
 			"bilan": {
 				"title": "Balance sheet",
 				"results": "Results",
@@ -477,6 +479,7 @@
 		},
 		"footer": {
 			"privacy": "Privacy Policy ",
+			"legal": "Legal information",
 			"cgu": "Terms and conditions of use",
 			"copyright": ""
 		},
@@ -1385,6 +1388,7 @@
 		"states": "Activity statement <span class=\"c-text-red\">*</span>",
 		"cancel": "Cancel",
 		"autocorrect": "Autocorrect",
+		"contentTitle": "Content of the activity",
 		"correction": "Activity correction",
 		"tolerance1": "Add an error tolerance of",
 		"tolerance2": "character(s) on the entire student response.",
@@ -1392,6 +1396,7 @@
 		"title": "Activity title <span class=\"c-text-red\">*</span>",
 		"description": "Activity description <span class=\"c-text-red\">*</span>",
 		"content": "Activity content <span class=\"c-text-red\">*</span>"
+		
 	},
 	"courses": {
 		"addActivity":"Add an activity",
