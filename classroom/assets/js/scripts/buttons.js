@@ -507,7 +507,7 @@ $('.open-ide').click(function () {
 $('body').on('click', '.sandbox-card', function () {
     if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
         ClassroomSettings.project = $(this).attr('data-href').replace(/.+link=([0-9a-z]{13}).+/, '$1')
-        ClassroomSettings.interface = $(this).attr('data-href').replace(/.+(arduino|python|microbit|adacraft|stm32|esp32).+/, '$1')
+        ClassroomSettings.interface = $(this).attr('data-href').replace(/.+(arduino|python|microbit|adacraft|wb55|esp32).+/, '$1')
         if (UserManager.getUser().isRegular) {
             navigatePanel('classroom-dashboard-ide-panel', 'dashboard-sandbox-teacher', ClassroomSettings.project, ClassroomSettings.interface)
         } else {
@@ -519,7 +519,7 @@ $('body').on('click', '.sandbox-card', function () {
 $('body').on('click', '.modal-teacherSandbox-delete', function () {
     let confirm = window.confirm("Etes vous sur de vouloir supprimer le projet?")
     if (confirm) {
-        let link = $(this).parent().parent().parent().parent().attr('data-href').replace(/\\(arduino|microbit|python|adacraft|stm32|esp32)\\\?link=([0-9a-f]{13})/, "$2")
+        let link = $(this).parent().parent().parent().parent().attr('data-href').replace(/\\(arduino|microbit|python|adacraft|wb55|esp32)\\\?link=([0-9a-f]{13})/, "$2")
         Main.getClassroomManager().deleteProject(link).then(function (project) {
             deleteSandboxInList(project.link)
             sandboxDisplay()
@@ -594,7 +594,7 @@ $('body').on('change', '.list-students-classroom', function () {
 $('body').on('click', '.modal-teacherSandbox-duplicate', function () {
     let link = $(this).parent().parent().parent().parent().attr('data-href')
     link = link.replace(/.+link=([0-9a-f]{13}).+/, '$1')
-    ClassroomSettings.interface = $(this).parent().parent().parent().parent().attr('data-href').replace(/.+(arduino|python|microbit|adacraft|stm32|esp32).+/, '$1')
+    ClassroomSettings.interface = $(this).parent().parent().parent().parent().attr('data-href').replace(/.+(arduino|python|microbit|adacraft|wb55|esp32).+/, '$1')
     Main.getClassroomManager().duplicateProject(link).then(function (project) {
         ClassroomSettings.project = project.link
         addSandboxInList(project)
