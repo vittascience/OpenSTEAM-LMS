@@ -19,7 +19,7 @@ class ReadingManager {
 
     showTeacherReadingActivity(contentParsed, Activity) {
         if (contentParsed.hasOwnProperty('description')) {
-            $('#activity-content').html(bbcodeToHtml(contentParsed.description));
+            $('#activity-content').html(bbcodeContentIncludingMathLive(contentParsed.description));
             $('#activity-content-container').show();
         } 
     }
@@ -28,7 +28,7 @@ class ReadingManager {
     manageDisplayReading(correction, content, correction_div, isFromCourse) {
         let course = isFromCourse ? "-course" : "";
         const wbbptions = Main.getClassroomManager().wbbOpt;
-        $('#activity-content'+course).html(bbcodeToHtml(content));
+        $('#activity-content'+course).html(bbcodeContentIncludingMathLive(content));
         $('#activity-content-container'+course).show();
         if (correction == 0) {
             $('#activity-input'+course).wysibb(wbbptions);
@@ -40,7 +40,7 @@ class ReadingManager {
     }
 
     readingPreview(activity) {
-        $('#preview-activity-content').html(bbcodeToHtml(activity.content.description));
+        $('#preview-activity-content').html(bbcodeContentIncludingMathLive(activity.content.description));
         $('#preview-content').show();
         $('#activity-preview-div').show();
     }
