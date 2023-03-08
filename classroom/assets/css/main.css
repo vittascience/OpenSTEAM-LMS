@@ -2084,15 +2084,16 @@ h3.section-done {
 
 .drag-and-drop-answer-teacher,
 .draggable-items {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border: 1px solid var(--classroom-text-0);
-    border-radius: 256px;
-    padding: 0px 12px;
-
+    border-radius: 1em;
+    padding: 6px 12px;
     cursor: grab;
     margin-bottom: 0;
     margin-top: 0;
     font-weight: 700;
-    display: inline-block;
     align-self: center;
 }
 
@@ -2116,7 +2117,7 @@ h3.section-done {
 
 .dropable-items {
     display: inline-flex;
-    border-radius: 256px;
+    border-radius: 1em;
     margin: 0.30em 0;
     min-width: none;
 }
@@ -2152,8 +2153,8 @@ h3.section-done {
     background-color: var(--classroom-background);
     color: var(--classroom-text-0);
 
-    border-radius: 256px;
-    padding: 2px 8px;
+    border-radius: 1em;
+    padding: 4px 8px;
     width: fit-content;
     display: inline-block;
     margin-bottom: 0.5em;
@@ -2343,7 +2344,6 @@ h3.section-done {
 
 #activity-content math-field {
     display: inline-block;
-    bottom: -0.7em;
 }
 
 #activity-correction {
@@ -3619,12 +3619,4 @@ h3.section-done {
 .activity-custom-content {
     display: flex;
     justify-content: center;
-}
-
-
-/* Center text div to align LaTeX with text */
-
-#activity-states, #preview-activity-states, #activity-hint {
-    display: flex;
-    align-items: center;
 }

@@ -36,7 +36,7 @@ class ClassroomManager {
             },
             resize_maxheight: 354,
             autoresize: false,
-            buttons: ",bold,italic,underline,math,|,justifyleft,justifycenter,justifyright,customimageupload,link,|,quote,bullist,|,vittaiframe,cabriiframe,custompdfupload,video,peertube,vimeo,genialyiframe,gdocsiframe,answer",
+            buttons: ",fontsize,bold,italic,underline,math,table,|,justifyleft,justifycenter,justifyright,customimageupload,link,|,quote,bullist,|,vittaiframe,cabriiframe,custompdfupload,video,peertube,vimeo,genialyiframe,gdocsiframe,answer",
         }
     }
 
