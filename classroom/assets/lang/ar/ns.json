@@ -612,7 +612,8 @@
     "userNotFound": "لم يتم العثور على مستخدم مرتبط بهذا البريد",
     "inactiveAccount": "حسابك غير نشط ، انقر فوق الزر الموجود أدناه لإرسال بريد تحقق جديد",
     "accountDeactivated": "تم إلغاء تنشيط حسابك ، اتصل بالمسؤول إذا استمرت المشكلة",
-    "errorBeta": "يجب أن تكون أحد مختبري الإصدار التجريبي للوصول إلى هذه الوظيفة. <a href='https://fr.vittascience.com/about#contact'>اتصل بفريق Vittascience</a> لمعرفة المزيد"
+    "errorBeta": "يجب أن تكون أحد مختبري الإصدار التجريبي للوصول إلى هذه الوظيفة. <a href='https://fr.vittascience.com/about#contact'>اتصل بفريق Vittascience</a> لمعرفة المزيد",
+		"badInput": "The email and password are required"
   },
   "signup-popup": {
     "title": "تسجيل",
