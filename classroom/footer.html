@@ -9,7 +9,7 @@
     $(() => {
         const pageName = location.href.split("/").slice(-1);
         if (pageName != "home.php") {
-            $('body').prepend('<div id="notif-div"></div>');
+            $('body').prepend('<div id="notif-div" style="position:relative;top:80px;"></div>');
         }
     })    
 </script>
