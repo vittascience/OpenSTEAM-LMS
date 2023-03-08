@@ -987,7 +987,8 @@
 		"userNotFound": "Aucun utilisateur trouvé avec ces identifiants.",
 		"accountDeactivated": "Votre compte a été désactivé, contactez un administrateur si le problème persiste.",
 		"inactiveAccount": "Votre compte n'est pas encore actif, cliquez sur le bouton ci dessous pour envoyer l'email de validation.",
-		"errorBeta": "Vous devez être bêta testeur pour accéder à cette fonctionalité. <a href='https://fr.vittascience.com/about#contact'>Contacter l'équipe Vittascience</a> pour en savoir plus."
+		"errorBeta": "Vous devez être bêta testeur pour accéder à cette fonctionalité. <a href='https://fr.vittascience.com/about#contact'>Contacter l'équipe Vittascience</a> pour en savoir plus.",
+		"badInput": "L'email et le mot de passe sont requis"
 	},
 	"signup-popup": {
 		"title": "Inscription",
