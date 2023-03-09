@@ -123,14 +123,14 @@ class FillInManager {
             $('#activity-content-container'+course).show();
         }
     
-        $('#activity-states'+course).html(bbcodeToHtml(content.states));
+        $('#activity-states'+course).html(bbcodeContentIncludingMathLive(content.states));
         $('#activity-states-container'+course).show();
         
         if (correction <= 1 || correction == null) {
             if (!UserManager.getUser().isRegular) {
 
                 let contentReplaced = content.fillInFields.contentForTeacher.replaceAll(/\[answer\]([^\[]*)\[\/answer\]/g, "_TOBEREPLACED_");
-                let studentContent = bbcodeToHtml(contentReplaced);
+                let studentContent = bbcodeContentIncludingMathLive(contentReplaced);
                 let nbOccu = studentContent.match(/_TOBEREPLACED_/g).length;
     
                 for (let i = 1; i < nbOccu+1; i++) {
@@ -183,7 +183,7 @@ class FillInManager {
                 }
             })
         
-            $('#activity-student-response-content'+course).html(bbcodeToHtml(studentContentString));
+            $('#activity-student-response-content'+course).html(bbcodeContentIncludingMathLive(studentContentString));
             $('#activity-student-response'+course).show();
         }
     
@@ -193,7 +193,7 @@ class FillInManager {
     fillInPreview(activity) {
 
         let contentReplaced = activity.content.fillInFields.contentForTeacher.replaceAll(/\[answer\](.*?)\[\/answer\]/g, "_TOBEREPLACED_");
-        let studentContent = bbcodeToHtml(contentReplaced);
+        let studentContent = bbcodeContentIncludingMathLive(contentReplaced);
         let nbOccu = studentContent.match(/_TOBEREPLACED_/g).length;
 
         for (let i = 1; i < nbOccu+1; i++) {
