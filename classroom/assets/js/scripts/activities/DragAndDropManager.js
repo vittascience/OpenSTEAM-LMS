@@ -191,7 +191,7 @@ class DragAndDropManager {
                 }
             }
         
-            $('#activity-student-response-content'+course).html(bbcodeToHtml(studentContentString));
+            $('#activity-student-response-content'+course).html(bbcodeContentIncludingMathLive(studentContentString));
             $('#activity-student-response'+course).show();
             Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
                 for (let i = 0; i < $(`[id^="corrected-student-response-"]`).length; i++) {
