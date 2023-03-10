@@ -73,9 +73,16 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
-function displayNotification(div, message, status, options = '{}') {
+function displayNotification(div, message, status, options = '{}',dataTestId=null) {
     let randId = getRandomInt(10000)
     let html = `<div id='notif-` + randId + `' class="vitta-notif status-` + status + `" data-i18n="` + message + `" data-i18n-options=` + options + `><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`
+    if(dataTestId){
+        html = `<div id='notif-${randId}' class="vitta-notif status-${status}" data-i18n="${message}" data-i18n-options=${options} data-testid=${dataTestId}>
+            <div class="vitta-notif-exit-btn">
+                <i class="fa fa-times-circle"></i>
+            </div>
+        </div>`
+    }
     $(div).append(html)
     $(div).localize()
     setTimeout(function () {
