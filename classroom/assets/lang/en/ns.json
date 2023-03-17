@@ -260,7 +260,14 @@
 				"dueBy":"Due by",
 				"timePassed": "Time passed: "
 
-			}
+			},
+			"copyDirectLink": "Copy the direct link",
+     		 "selectStudents": "Select learners",
+     		 "selectedStudents": "<span id='attribuate-student-number'>0</span> learners selected",
+      		"activationLink": "Activation link activated",
+      		"activationLinkDisabled": "Activation link disabled",
+     	 	"deleteStudent": "Delete this profil",
+      		"deleteStudentConfirm": "Do you really want to delete this profil?"
 		},
 		"activities": {
 			"title": "Activities",
@@ -281,11 +288,15 @@
 			"vgood": "Satisfactory control",
 			"good": "Fragile control",
 			"refuse": "Insufficient mastery",
+			"nnoted": "Not evaluated",
 			"instruction": "Instruction",
 			"commentary": "Comment",
 			"sendResults": "Send the comment to the learner ",
 			"noSend": "This activity has not been made",
+			"toSend": "Activity due by",
+      		"sentOn": "This activity was completed on",
 			"comments": "Enter your comments here",
+			"timePassed": "Time passed:",
       "activitySubmited2": "Activity submitted on",
 			"sentOn": "This activity was returned on ",
 			"activityOfUser": "Activity of ",
@@ -357,10 +368,11 @@
 				"retroAttribution" : "This activity will be added for every new students"
 			},
 			"toCopy": "This code allows you to easily join your class",
+			"qrCode": "Scan the QR code:",
 			"copyLink": "The link to your class has been added to the clipboard",
 			"dateBefore": "To be returned before",
-      "dateBeforeAvailable": "Available until",
-      "integrate": "Integrate into an activity",
+      		"dateBeforeAvailable": "Available until",
+      		"integrate": "Integrate into an activity",
 			"veryGoodProficiency": "Very good control",
 			"goodProficiency": "Satisfactory control",
 			"weakProficiency": "Fragile control",
@@ -515,7 +527,12 @@
 				"orSeparator": "OR",
 				"attributeActivity": {
 					"title": "View my existing activities",
-					"button": "My activities "
+					"button": "My activities"
+
+				},
+				"shareProject": {
+				  "title": "Share the projet"	
+
 				},
 				"createActivity": {
 					"title": "Create a new activity",
@@ -524,7 +541,7 @@
 				"next": "Next",
 				"limitTitle": "Exceeded limit",
 				"limitDescription": "The limit of the number of activities linked to this account has been reached.",
-        "upgradePlan": "Increase limit"
+        		"upgradePlan": "Increase limit"
       },
 			"updateActivity": {
 				"title": "Update an activity"
@@ -553,6 +570,7 @@
 			"addStudentByCsv": {
 				"title": "Add students with a .csv file",
 				"description": "You can add one or more learners at once by importing them from a .csv file. It is optional to define the password for each of them. Here are the sample .csv files: ",
+				"descriptionUpdate": "You can add one or more learners at once by importing them from a .csv file. <b>Watch out</b> Here, the passwords in the csv file are not supported! Here is the example .csv file: ",
 				"csvTemplate": "template file with password",
 				"csvTemplateNoPassword": "template file without password",
 				"importStudentByCsvButton": "Import learners"
@@ -579,8 +597,21 @@
 			},
 			"shareProject": {
 				"title": "Share project"
-			}
+			},
+			"profileUpdatePasswordConfirm": {
+			  "title": "Confirmation of the password",
+			  "description": "Please enter your current password to validate your profile changes!",
+			  "placeholderInput": "Password",
+			  "validateButton": "Validate"
 		}
+	},
+    "folders": {
+      "folderManagement": "File management",
+      "name": "Folder name <span class=\"mandatory\">*</span>",
+      "title": "Folder",
+      "image": "Folder image"
+    }
+
 	},
 	"login_popup": {
 		"title": "Login",

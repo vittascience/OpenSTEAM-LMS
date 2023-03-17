@@ -263,8 +263,8 @@
       "selectedStudents": "<span id='attribuate-student-number'>0</span> apprenants sélectionnés",
       "activationLink": "Lien d'activation activé",
       "activationLinkDisabled": "Lien d'activation désactivé",
-      "deleteStudent": "Supprimer l'élève",
-      "deleteStudentConfirm": "Voulez-vous vraiment supprimer cet élève ?"
+      "deleteStudent": "Supprimer ce profil",
+      "deleteStudentConfirm": "Voulez-vous vraiment supprimer ce profil ?"
     },
     "activities": {
       "title": "Activités",
