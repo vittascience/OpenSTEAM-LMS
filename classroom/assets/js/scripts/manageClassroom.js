@@ -1009,7 +1009,7 @@ function displayStudentsInClassroom(students, link=false) {
                 if (fromCourse && firstFromCourse) {
                     thModular = `<th data-toggle="tooltip" class="border-header-class" ${tableLength} data-placement="top" title="Course">`;
                 } else if (!fromCourse) {
-                    thModular = `<th data-toggle="tooltip" class="border-header-class" data-placement="top" title="${arrayIndexesActivities[i].title}">`;
+                    thModular = `<th data-toggle="tooltip" class="border-header-class" data-placement="top" title="${arrayIndexesActivities[i].title.replaceAll('"', " ")}">`;
                 }
 
                 if (fromCourse && firstFromCourse || !fromCourse) {
@@ -1027,7 +1027,7 @@ function displayStudentsInClassroom(students, link=false) {
                                     <li class="classroom-clickable col-12 dropdown-item " onclick="activityWatch(${arrayIndexesActivities[i].id})" ><i class="fas fa-eye"></i> <span data-i18n="classroom.classes.panel.seeActivity">Voir l'activité</span></li>
                                     <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${arrayIndexesActivities[i].id})"><i class="fas fa-pen"></i> <span data-i18n="classroom.classes.panel.editActivity">Modifier l'activité</span></li>
                                     <li class="classroom-clickable col-12 dropdown-item" onclick="attributeActivity(${arrayIndexesActivities[i].id},${arrayIndexesActivities[i].reference})"><i class="fas fa-user-alt"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span></li>
-                                    <li class="dropdown-item classroom-clickable col-12" onclick="undoAttributeActivity(${arrayIndexesActivities[i].reference},'${arrayIndexesActivities[i].title}','${Main.getClassroomManager().getClassroomIdByLink(ClassroomSettings.classroom)}')"><i class="fas fa-trash-alt"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span></li>
+                                    <li class="dropdown-item classroom-clickable col-12" onclick="undoAttributeActivity(${arrayIndexesActivities[i].reference},'${Main.getClassroomManager().getClassroomIdByLink(ClassroomSettings.classroom)}')"><i class="fas fa-trash-alt"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span></li>
                                 </div>
                             </div>
                         </th>`

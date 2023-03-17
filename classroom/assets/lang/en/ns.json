@@ -207,7 +207,9 @@
 			"courseDeleted": "The course has been deleted",
 			"courseNotDeleted": "The course could not be deleted",
 			"courseDuplicated": "The course has been duplicated",
-			"courseNotDuplicated": "The course could not be duplicated"
+			"courseNotDuplicated": "The course could not be duplicated",
+			"tagAlreadyInList": "The tag is already in the list",
+			"imageSuccessfullyDeleted": "The image has been deleted successfully"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",

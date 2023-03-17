@@ -118,6 +118,8 @@ function bbcodeToHtml(html) {
 /*     html = html.replace(/\[math\]/gi, "<span>&nbsp;</span><math-field read-only style='display:inline-block'>")
     html = html.replace(/\[\/math\]/gi, "</math-field>") */
 
+    html = html.replace(/\[imgcustom title=([a-zA-Z0-9?=&\/\\:\-,\+%._ ]*) width=([a-zA-Z0-9?=&\/\\:\-,\+%._ ]*)(\])([a-zA-Z0-9éàçèïîôâàë?=&\/\\:%.\-\+\)\(_ ]+)(\[\/imgcustom\])/gi, '<img src="$4" title="$1" style="width:$2;" class="img-fluid img-custom">');
+    
     return html
 }
 
