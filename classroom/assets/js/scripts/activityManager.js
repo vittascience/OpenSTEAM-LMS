@@ -41,7 +41,7 @@ function LtiDefaultCode(activityType, isUpdate) {
 function launchCustomActivity(activityType, isUpdate = false, callback = false) {
     setTextArea();
     // Reset the tag list
-    manageTagList([]); 
+    manageTagList([], true); 
     
     const contentForwardButtonElt = document.getElementById('content-forward-button');
     contentForwardButtonElt.style.display = 'inline-block';
@@ -687,10 +687,10 @@ function getAllTagId() {
 }
 
 
-function manageTagList(taglist) {
+function manageTagList(taglist, force = false) {
     const tagList = document.getElementById('taglist');
     // reset the tag list
-    if (tagList == null) {
+    if (tagList == null && !force) {
         return;
     }
 
