@@ -257,9 +257,9 @@ DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function (
                 }
 
                 if (tagDropdown) {
-                    tagDropdown.innerHTML += `<div class="dropdown-item c-checkbox">
+                    tagDropdown.innerHTML += `<div class="c-checkbox dropdown-item">
                         <input class="form-check-input" data-id="${tag.id}" data-name="${tag.name}" type="checkbox" id="filter-activity-type-${tag.name}">
-                        <label class="form-check-label" for="filter-activity-type-${tag.name}" id="filter-${tag.name}">${tag.name}</label>
+                        <label class="form-check-label w-100" for="filter-activity-type-${tag.name}" id="filter-${tag.name}">${tag.name}</label>
                     </div>`;
                 }
 
