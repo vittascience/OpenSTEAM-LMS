@@ -449,7 +449,7 @@ function getTeacherActivity() {
 
             // LTI Activity
             if (Activity.isLti) {
-                launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description);
+                launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description, Activity.type.toUpperCase() === "GENIUS");
             } else {
                 // Non core and non LTI Activity fallback
                 $("#activity-content").html(bbcodeToHtml(contentParsed));

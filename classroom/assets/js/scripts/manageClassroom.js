@@ -20,16 +20,33 @@ async function readEvent (event) {
     switch(msg.type) {
         // Message received when an LTI resource launch has gone to submission
         case 'end-lti-score':
-            // Update the activities from database
-            await Main.getClassroomManager().getStudentActivities(Main.getClassroomManager());
-            // Get the results of the current activity
-            for (let state in Main.getClassroomManager()._myActivities) {
-                const currentSearch = Main.getClassroomManager()._myActivities[state].filter(x => x.id == Activity.id)[0];
-                if (typeof currentSearch != 'undefined') {
-                    Activity = currentSearch;
-                    break;
+            //teacher
+            if(UserManager.getUser().isRegular && Activity.type.toUpperCase() === "GENIUS") { // TODO : refactor
+                // Update the activities from database
+                await Main.getClassroomManager().getStudentActivities(Main.getClassroomManager());
+                Main.getClassroomManager()._myTeacherActivities.forEach((activity) => {
+                    if (activity.id == Activity.id) {
+                        debugger;
+                        Activity = currentSearch; // ne possède pas la note
+                        return;
+                    }
+                })
+            }
+            // student 
+            else {
+                // Update the activities from database
+                await Main.getClassroomManager().getStudentActivities(Main.getClassroomManager());
+                // Get the results of the current activity
+                for (let state in Main.getClassroomManager()._myActivities) {
+                    const currentSearch = Main.getClassroomManager()._myActivities[state].filter(x => x.id == Activity.id)[0];
+                    if (typeof currentSearch != 'undefined') {
+                        Activity = currentSearch; // possède la note
+                        break;
+                    }
                 }
             }
+            console.log(Main.getClassroomManager())
+
             // If the current activity needs a manual review, display the relevant panel
             if (Activity.correction == 1) {
                 navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-activities');
