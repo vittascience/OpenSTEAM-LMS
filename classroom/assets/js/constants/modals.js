@@ -889,18 +889,22 @@ const classroomModals = {
             icon: '',
             title: 'manager.users.showResetLinkTitle'
         },
-        content: `  <div id="manager-show-resetlink-modal">
-                        <div class="col-12">
-                            <h3 class="font-weight-bold text-info m-auto text-center my-3" data-i18n="manager.users.showResetLink">Lien de réinitialisation de mot de passe</h3>
-                            <div class="row">
-                                    <input type="text" class="form-control col-10" id="passwordLink">
-                                    <button class="btn btn-primary mx-1 btn-lg col" onclick="copyLink('#passwordLink')" data-i18n="manager.buttons.copyLink">Copy the link</button>
-                            </div>
-                            <div class="row">
-                                <button class="btn btn-info mx-auto mt-3 btn" onclick="dismissModal()" data-i18n="manager.buttons.close">Fermer</button>
-                            </div>
-                        </div>
-                    </div>`,
+        content: `<div id="manager-show-resetlink-modal">
+        <div class="col-12">
+            <h3 class="font-weight-bold text-info mx-auto text-center my-2" data-i18n="manager.users.showResetLink">Lien de réinitialisation de mot de passe</h3>
+            <div class="row">
+              <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="passwordLink">
+                    <div class="input-group-append">
+                      <button class="btn c-btn-primary" onclick="copyLink('#passwordLink')" data-i18n="manager.buttons.copyLink">Copy the link</button>
+                    </div>
+              </div>
+            </div>
+            <div class="row">
+                <button class="btn btn-info mx-auto mt-3 btn" onclick="dismissModal()" data-i18n="manager.buttons.close">Fermer</button>
+            </div>
+        </div>
+      </div>`,
         footer: ``
     },
     'groupadmin-show-grouplink': {
