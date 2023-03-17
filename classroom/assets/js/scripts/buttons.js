@@ -834,6 +834,33 @@ function classroomsDisplay() {
 }
 
 function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherActivities, keyword = false, asc = false) {
+    
+    // get all tags selected
+    // id = filter-activity-type-
+    let selectedTags = [];
+    document.querySelectorAll('[id^="filter-activity-type-"]').forEach(element => {
+        if (element.checked) {
+            selectedTags.push(parseInt(element.dataset.id));
+        }
+    });
+
+    // filter the list
+    if (selectedTags.length > 0) {
+        list = list.filter(element => {
+            if (element.hasOwnProperty('tags') == false) return false;
+            let tags = element.tags;
+            // check if at least one tag is selected
+
+            let found = false;
+            tags.forEach(tag => {
+                if (selectedTags.includes(tag)) {
+                    found = true;
+                }
+            });
+            return found;
+        });
+    }
+    
     // Keep the list sorted
     let selectedSort = $('#filter-activity-select').val(),
         sortedList = "";

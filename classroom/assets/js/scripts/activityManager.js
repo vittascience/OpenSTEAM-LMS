@@ -40,7 +40,9 @@ function LtiDefaultCode(activityType, isUpdate) {
 
 function launchCustomActivity(activityType, isUpdate = false, callback = false) {
     setTextArea();
-
+    // Reset the tag list
+    manageTagList([]); 
+    
     const contentForwardButtonElt = document.getElementById('content-forward-button');
     contentForwardButtonElt.style.display = 'inline-block';
     if(!isUpdate) {
@@ -174,10 +176,11 @@ function titleBackward() {
     }
 }
 
+
 /**
  * Title part
  */
- function titleForward() {
+function titleForward() {
     Main.getClassroomManager()._createActivity.title = $('#global_title').val();
     $('#activity-title-forward').attr('disabled', true);
     // Check if the title is empty
@@ -191,14 +194,15 @@ function titleBackward() {
             solution = JSON.stringify(Main.getClassroomManager()._createActivity.solution),
             tolerance = Main.getClassroomManager()._createActivity.tolerance,
             autocorrect = Main.getClassroomManager()._createActivity.autocorrect,
-            folder = foldersManager.actualFolder;
+            folder = foldersManager.actualFolder,
+            tags = getAllTagId();
 
         if (type == "dragAndDrop" || type == "fillIn" || type == "quiz") {
             autocorrect = true;
         }
 
         if (Main.getClassroomManager()._createActivity.function == "create") {  
-            Main.getClassroomManager().createNewActivity(title, type, content, solution, tolerance, autocorrect, folder).then((response) => {
+            Main.getClassroomManager().createNewActivity(title, type, content, solution, tolerance, autocorrect, folder, tags).then((response) => {
                 if (response.success == true) {
                     Main.getClassroomManager()._lastCreatedActivity = response.id;
                     displayNotification('#notif-div', "classroom.notif.activityCreated", "success", `'{"activityTitle": "${title}"}'`);
@@ -209,7 +213,7 @@ function titleBackward() {
                 $('#activity-title-forward').attr('disabled', false);
             });
         } else if (Main.getClassroomManager()._createActivity.function == "update") {
-            Main.getClassroomManager().updateActivity(ClassroomSettings.activity, title, type, content, solution, tolerance, autocorrect).then((response) => {
+            Main.getClassroomManager().updateActivity(ClassroomSettings.activity, title, type, content, solution, tolerance, autocorrect, tags).then((response) => {
                 if (response.success == true) {
                     Main.getClassroomManager()._lastCreatedActivity = response.id;
                     displayNotification('#notif-div', "classroom.notif.activityChanged", "success", `'{"activityTitle": "${title}"}'`);
@@ -618,5 +622,101 @@ function defaultProcessValidateActivity(correction = null, isFromCourse = false)
     } else {
         $("#activity-validate").attr("disabled", false);
         window.localStorage.autocorrect = true
+    }
+}
+
+/* 
+    Tags management
+*/
+
+const addTagToList = document.getElementById('add-tag-to-list');
+if (addTagToList) {
+    addTagToList.addEventListener('click', () => {
+        const tagListSelect = document.getElementById('taglist-select');
+        const tagList = document.getElementById('taglist');
+        const selectedTags = tagListSelect.selectedOptions;
+
+        // check if the tag is already in the list with the dataset
+        const tagListDivs = tagList.querySelectorAll('div');
+        for (let i = 0; i < tagListDivs.length; i++) {
+            const tagListDiv = tagListDivs[i];
+            if (tagListDiv.dataset.tags == selectedTags[0].value) {
+                displayNotification('#notif-div', "classroom.notif.tagAlreadyInList", "error");
+                return;
+            }
+        }
+
+        for (let i = 0; i < selectedTags.length; i++) {
+            const tag = selectedTags[i];
+            const tagDiv = document.createElement('div');
+            tagDiv.dataset.tags = tag.value;
+            tagDiv.classList.add('tag');
+            tagDiv.classList.add('m-2');
+            tagDiv.classList.add('px-2');
+            tagDiv.classList.add('c-btn-primary');
+            tagDiv.innerHTML = tag.innerHTML + '<i class="fas fa-times ml-2"></i>';
+            tagList.appendChild(tagDiv);
+        }
+
+        // add event listener to remove the tag on the i element
+        const tagDivs = tagList.querySelectorAll('div');
+        for (let i = 0; i < tagDivs.length; i++) {
+            const tagDiv = tagDivs[i];
+            tagDiv.addEventListener('click', () => {
+                tagDiv.remove();
+            });
+        }
+
+    });
+}
+
+function getAllTagId() {
+    const tagList = document.getElementById('taglist');
+
+    if (tagList == null) {
+        return [];
+    }
+
+    const tagDivs = tagList.querySelectorAll('div');
+    let tagIds = [];
+    for (let i = 0; i < tagDivs.length; i++) {
+        const tagDiv = tagDivs[i];
+        tagIds.push(tagDiv.dataset.tags);
+    }
+    return tagIds;
+}
+
+
+function manageTagList(taglist) {
+    const tagList = document.getElementById('taglist');
+    // reset the tag list
+    if (tagList == null) {
+        return;
+    }
+
+    tagList.innerHTML = '';
+    for (let i = 0; i < taglist.length; i++) {
+        // Main.getClassroomManager().tagList find
+        const tag = Main.getClassroomManager().tagList.find((tag) => {
+            return tag.id == taglist[i];
+        });
+
+        const tagDiv = document.createElement('div');
+        tagDiv.dataset.tags = tag.id;
+        tagDiv.classList.add('tag');
+        tagDiv.classList.add('m-2');
+        tagDiv.classList.add('px-2');
+        tagDiv.classList.add('c-btn-primary');
+        tagDiv.innerHTML = tag.name + '<i class="fas fa-times ml-2"></i>';
+        tagList.appendChild(tagDiv);
+    }
+
+    // add event listener to remove the tag on the i element
+    const tagDivs = tagList.querySelectorAll('div');
+    for (let i = 0; i < tagDivs.length; i++) {
+        const tagDiv = tagDivs[i];
+        tagDiv.addEventListener('click', () => {
+            tagDiv.remove();
+        });
     }
 }

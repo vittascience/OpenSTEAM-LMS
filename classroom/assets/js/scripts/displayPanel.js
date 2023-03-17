@@ -235,6 +235,51 @@ DisplayPanel.prototype.classroom_dashboard_form_classe_panel_update = function (
 }
 
 DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function () {
+    Main.getClassroomManager().getAllTags().then((Tag) => {
+        if (Main.getClassroomManager().tagList != Tag.tags) {
+            Main.getClassroomManager().tagList = Tag.tags;
+
+            let tagDropdown = document.getElementById("dropdown-tags-filter");
+            let tagListSelect = document.getElementById("taglist-select");
+
+            if (tagDropdown) {
+                tagDropdown.innerHTML = "";
+            }
+
+            if (tagListSelect) {
+                tagListSelect.innerHTML = "";
+            }
+
+            Tag.tags.forEach((tag) => {
+
+                if (tagListSelect) {
+                    tagListSelect.innerHTML += `<option value="${tag.id}">${tag.name}</option>`;
+                }
+
+                if (tagDropdown) {
+                    tagDropdown.innerHTML += `<div class="dropdown-item c-checkbox">
+                        <input class="form-check-input" data-id="${tag.id}" data-name="${tag.name}" type="checkbox" id="filter-activity-type-${tag.name}">
+                        <label class="form-check-label" for="filter-activity-type-${tag.name}" id="filter-${tag.name}">${tag.name}</label>
+                    </div>`;
+                }
+
+            });
+
+            if (tagDropdown) {
+                document.querySelectorAll('[id^="filter-activity-type-"]').forEach((checkbox) => {
+                    // add event listener to each checkbox
+                    checkbox.addEventListener("change", (event) => {
+                        let arrayKeywords = $('#filter-activity-input').val().split(' ');
+                        if ($('#filter-activity-select').val() == 'asc') {
+                            teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false), arrayKeywords, false)
+                        } else {
+                            teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true), arrayKeywords, true)
+                        }
+                    });
+                });
+            }
+        }
+    });
     ClassroomSettings.activity = false;
     if (foldersManager) {
         if (foldersManager.actualFolder != null) {

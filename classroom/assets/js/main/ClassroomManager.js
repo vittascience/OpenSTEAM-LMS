@@ -36,8 +36,12 @@ class ClassroomManager {
             },
             resize_maxheight: 354,
             autoresize: false,
-            buttons: ",fontsize,bold,italic,underline,math,table,|,justifyleft,justifycenter,justifyright,customimageupload,link,|,quote,bullist,|,vittaiframe,cabriiframe,custompdfupload,video,peertube,vimeo,genialyiframe,gdocsiframe,answer",
+            buttons: ",fontsize,bold,italic,underline,math,table,|,justifyleft,justifycenter,justifyright,customimageupload,myimages,link,|,quote,bullist,|,vittaiframe,cabriiframe,alliframe,custompdfupload,video,peertube,vimeo,genialyiframe,gdocsiframe,answer",
         }
+        this.myImages = [];
+        this.actualEditor = null;
+        this.tagList = [];
+        this.imagesWidth = 300;
     }
 
     /**
@@ -106,6 +110,104 @@ class ClassroomManager {
             });
         })
     };
+
+    openModalWithMyImages() {
+        Main.getClassroomManager().actualEditor = this;
+        pseudoModal.openModal("customizable-modal");
+        Main.getClassroomManager().displayModalWithMyImages();
+    }
+
+    displayModalWithMyImages() {
+        $('#customizable-modal-content').html("");
+        Main.getClassroomManager().getMyImages().then((myImages) => {
+            $('#customizable-modal-content').append(`<div class="text-center d-flex flex-column col-12 ">
+                <label for="range" >Taille des images</label>
+                <input class="mt-3 btn-lg" type="range" id="custom-width-assets" value="300" min="0" max="1500" step="1">
+                <input type="number" id="custom-width-assets-number" value="300" min="0" max="1500" step="1">
+                <img src="" alt="exemple" id="width-exemple-asset" class="img-fluid mx-auto mt-3" style="width: 250px;">
+            </div>
+            <div class="col-12">
+                <hr style="border-top-width: 2px;">
+            </div>`);
+
+            Main.getClassroomManager().triggerAssetsRanges();
+
+            if (myImages.length > 0) {
+                $("#width-exemple-asset").attr("src", myImages[0].src);
+                $("#width-exemple-asset").attr("alt", myImages[0].filename);
+            }
+
+            Object.entries(myImages).forEach((value, index) => {
+                if (value[1].filename) {
+                    $('#customizable-modal-content').append(`<div class="col-4 my-2 d-flex">
+                        <div class="card" style="width: 18rem;">
+                            <img src="${value[1].src}" alt="${value[1].filename}" style="height:200px" class="img-fluid mx-auto">
+                            <div class="card-body">
+                            <h6 class="card-title">${value[1].filename.split(".")[0]}</h6>
+                            <div class="d-flex justify-content-center flex-wrap gap-2">
+                                <button class="btn-sm c-btn-primary mx-1 mt-2" data-i18n="manager.buttons.select" onclick="Main.getClassroomManager().selectImage('${value[1].src}', '${value[1].filename}')">Selectionner</button>
+                                <button class="btn-sm c-btn-secondary mx-1 mt-2" data-i18n="manager.buttons.delete" onclick="Main.getClassroomManager().deleteImagesAndRefresh('${value[1].id}')">Supprimer</button>
+                            </div>
+                        </div>
+                    </div>`);
+                }
+            });
+
+            $('#customizable-modal-content').append(`<div class="text-center col-12">
+                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="tiActivity.cancelModal()" data-i18n="manager.buttons.cancel">Annuler</button>
+            </div>`);
+        });
+    }
+
+    selectImage(src, title) {
+        Main.getClassroomManager()._selectedAsset = document.location.origin + src;
+        const htmlcode = `<img src="${Main.getClassroomManager()._selectedAsset}" title="${title}" style="width:${Main.getClassroomManager().imagesWidth}px" class="img-fluid img-custom"/>`;
+        $(`#${Main.getClassroomManager().actualEditor.txtArea.id}`).bbcode();
+        $(`#${Main.getClassroomManager().actualEditor.txtArea.id}`).htmlcode($(`#${Main.getClassroomManager().actualEditor.txtArea.id}`).htmlcode() + htmlcode);
+        pseudoModal.closeAllModal();
+    }
+
+    deleteImagesAndRefresh(id) {
+        Main.getClassroomManager().deleteImageById(id).then((r) => {
+            if (r.success) {
+                Main.getClassroomManager().displayModalWithMyImages();
+                displayNotification('#notif-div', "classroom.notif.imageSuccessfullyDeleted", "success");
+            }
+        });
+    }
+
+    deleteImageById(id) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                dataType: "JSON",
+                url: "/routing/Routing.php?controller=upload&action=delete_image",
+                data: {
+                    id: id
+                },
+                success: function (r) {
+                    resolve(r);
+                }
+            });
+        });
+    }
+
+    triggerAssetsRanges() {
+        document.getElementById("custom-width-assets").addEventListener("input", function() {
+            let value = $("#custom-width-assets").val();
+            $("#width-exemple-asset").css("width", value + "px");
+            $("#custom-width-assets-number").val(value);
+            Main.getClassroomManager().imagesWidth = value;
+        });
+
+        document.getElementById("custom-width-assets-number").addEventListener("input", function() {
+            let value = $("#custom-width-assets-number").val();
+            $("#width-exemple-asset").css("width", value + "px");
+            $("#custom-width-assets").val(value);
+            Main.getClassroomManager().imagesWidth = value;
+        });
+    }
+    
 
     /**
      * Get classrooms from the user
@@ -494,32 +596,6 @@ class ClassroomManager {
             });
         })
     }
-    /**
-     * @ToBeRemoved
-     * Last check October 2021
-     * 
-     * Get students list in the classroom
-     * @public
-     * @returns {Array}
-     */
-    // getUsersInClassroom(link) {
-    //     return new Promise(function (resolve, reject) {
-    //         $.ajax({
-    //             type: "POST",
-    //             url: "/routing/Routing.php?controller=classroom_link_user&action=get_by_classroom",
-    //             data: {
-    //                 "classroom": link
-    //             },
-    //             success: function (response) {
-    //                 resolve(JSON.parse(response))
-
-    //             },
-    //             error: function () {
-    //                 reject();
-    //             }
-    //         });
-    //     })
-    // }
 
     /**
      * Get general data about the user (activities to do, activities done, courses todo, courses done)
@@ -1301,7 +1377,7 @@ class ClassroomManager {
     }
 
     // create a new activity
-    createNewActivity($title, $type, $content, $solution, $tolerance, $autocorrect, $folder) {
+    createNewActivity($title, $type, $content, $solution, $tolerance, $autocorrect, $folder, $tags = null) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -1314,7 +1390,8 @@ class ClassroomManager {
                     'solution' : $solution,
                     'tolerance' : $tolerance,
                     'autocorrect' : $autocorrect,
-                    'folder' : $folder
+                    'folder' : $folder,
+                    'tags': $tags
                 },
                 success: function (response) {
                     resolve(response);
@@ -1327,7 +1404,7 @@ class ClassroomManager {
     }
 
     // update an activity
-    updateActivity($id, $title, $type, $content, $solution, $tolerance, $autocorrect) {
+    updateActivity($id, $title, $type, $content, $solution, $tolerance, $autocorrect, tags = null) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -1340,7 +1417,8 @@ class ClassroomManager {
                     'content' : $content,
                     'solution' : $solution,
                     'tolerance' : $tolerance,
-                    'autocorrect' : $autocorrect
+                    'autocorrect' : $autocorrect,
+                    'tags': tags
                 },
                 success: function (response) {
                     resolve(response);
@@ -1477,6 +1555,39 @@ class ClassroomManager {
         });
     }
 
+
+    getMyImages() {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                dataType: "JSON",
+                url: "/routing/Routing.php?controller=upload&action=get_all_my_images",
+                success: function (r) {
+                    resolve(r);
+                }
+            });
+        });
+    }
+
+    /**
+     * Get all tags
+     * */
+    getAllTags() {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                dataType: "JSON",
+                url: "/routing/Routing.php?controller=newActivities&action=get_all_tags",
+                success: function (response) {
+                    resolve(response)
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        })
+    }
+
     setDefaultActivityData() {
         this._createActivity = {
             function: 'create',
@@ -1543,6 +1654,8 @@ class ClassroomManager {
         }
         return false;
     }
+
+
 
 }
 

@@ -207,7 +207,9 @@
 			"courseDeleted": "Le parcours a bien été supprimé",
 			"courseNotDeleted": "Le parcours n'a pas pu être supprimé",
 			"courseDuplicated": "Le parcours a bien été dupliqué",
-			"courseNotDuplicated": "Le parcours n'a pas pu être dupliqué"
+			"courseNotDuplicated": "Le parcours n'a pas pu être dupliqué",
+			"tagAlreadyInList": "Le tag est déjà dans la liste",
+			"imageSuccessfullyDeleted": "L'image a été supprimée avec succès"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",

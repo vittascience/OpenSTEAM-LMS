@@ -70,6 +70,7 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 		modal_link_tab1: "Insérer URL",
 		modal_vitta_title: "Insérer IDE",
 		modal_vitta_title_pdf: "Insérer PDF",
+		modal_title_all_iframe: "Insérer une URL",
 		modal_vitta_url: "Insérer l'URL du projet ou <a href='/classroom/home.php?panel=classroom-dashboard-sandbox-panel&nav=dashboard-sandbox-teacher' target='blank'>créer un nouveau projet</a>.<br> Vous pouvez copier l'url du projet depuis la page du projet ou bien sélectionner l'option &#8220;intégrer dans l'activité&#8221; sur la carte du projet depuis <a href='/classroom/home.php?panel=classroom-dashboard-sandbox-panel&nav=dashboard-sandbox-teacher' target='blank'>la page sandbox</a>.",
 		modal_cabri_title: "Insérer cahier Cabri Express",
 		modal_cabri_url: "Insérer l'URL du cahier Cabri Express",
@@ -122,6 +123,7 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 		genialy: "Insérer Genially",
 		vittaiframe: "Vittascience",
 		cabriiframe: "Cabri Express",
+		alliframe: "Iframe",
 		vittapdf: "Insérer un pdf",
 		maxWidthText: "Largeur maximale",
 		messages: {
@@ -162,7 +164,8 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 		imgUpload: "Téleverser une image",
 		setFileTitle: "Titre du fichier",
 		fileUpload: "Teléverser un fichier",
-		compressFileText: "Compresser mon fichier"
+		compressFileText: "Compresser mon fichier",
+		myImages: "Mes images",
 	};
 } else {
 	WBBLANG['en'] = CURLANG = {
@@ -209,6 +212,7 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 		modal_link_tab1: "Insert URL",
 		modal_vitta_title: "Insert IDE",
 		modal_vitta_title_pdf: "Insert PDF",
+		modal_title_all_iframe: "Insert URL",
 		modal_vitta_url: "Insert project URL or <a href='/classroom/home.php?panel=classroom-dashboard-sandbox-panel&nav=dashboard-sandbox-teacher' target='blank'>create new project</a>.<br> You can copy the url from the project page or select the &#8220;integrate into activity&#8221; option on the project card within the <a href='/classroom/home.php?panel=classroom-dashboard-sandbox-panel&nav=dashboard-sandbox-teacher' target='blank'>sandbox page</a>.",
 		modal_cabri_title: "Insert Cabri Express notebook",
 		modal_cabri_url: "Insert the URL of the Cabri Express notebook",
@@ -261,6 +265,7 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 		genialy: "Insert Genially",
 		vittaiframe: "Vittascience",
 		cabriiframe: "Cabri Express",
+		alliframe: "Iframe",
 		vittapdf: "Pdf",
 		maxWidthText: "Max-width",
 		messages: {
@@ -301,7 +306,8 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 		imgUpload: "Upload image",
 		setFileTitle: "File title",
 		fileUpload: "Upload a file",
-		compressFileText: "Compress my file"
+		compressFileText: "Compress my file",
+		myImages: "My images",
 	};
 }
 
@@ -383,6 +389,25 @@ wbbdebug = false;
 						'<div>{URL}</div>': '[iframe]{URL}[/iframe]'
 					}
 				},
+				alliframe: {
+					title: CURLANG.alliframe,
+					buttonHTML: '<i class="far fa-window-maximize" style="height:27px;width:31px;font-size:20px;text-align:center;padding-top: 5px;"></i>',
+					hotkey: '',
+					modal: {
+						title: CURLANG.modal_title_all_iframe,
+						width: "500px",
+						tabs: [{
+							input: [{
+								param: "URL",
+								title: CURLANG.modal_title_all_iframe,
+								validation: '^http(s)?:\/\/.*'
+							}]
+						}]
+					},
+					transform: {
+						'<div>{URL}</div>': '[iframe]{URL}[/iframe]'
+					}
+				},
 				vittapdf: {
 					title: CURLANG.vittapdf,
 					buttonHTML: '<i class="fas fa-file-pdf" style="height:27px;width:31px;font-size:20px;text-align:center;padding-top: 5px;"></i>',
@@ -408,6 +433,16 @@ wbbdebug = false;
 						"<span class='lms-answer'>{SELTEXT}</span>": "[answer]{SELTEXT}[/answer]",
 					}
 					// button is completely hidden in the elements.css file
+				},
+				myimages: {
+					title: CURLANG.myImages,
+					buttonHTML: '<i class="far fa-images" style="height:27px;width:31px;font-size:20px;text-align:center;padding-top: 5px;"></i>',
+					hotkey: '',
+					modal: Main.getClassroomManager().openModalWithMyImages,
+					transform: {
+						'<img src="{SRC}" title="{TITLE}" style="width:{WIDTH};" class="img-fluid img-custom">': '[imgcustom title={TITLE} width={WIDTH}]{SRC}[/imgcustom]',
+						'<img src="{SRC}" title="{TITLE}" class="img-fluid img-custom">': '[imgcustom title={TITLE}]{SRC}[/imgcustom]'
+					}
 				},
 				bold: {
 					title: CURLANG.bold,

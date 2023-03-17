@@ -147,7 +147,7 @@ function activityModify(id, rename = false) {
     $('#activity-form-title').val('')
     $('.wysibb-text-editor').html('')
 
-    Main.getClassroomManager().getActivity(ClassroomSettings.activity).then((activity) => {
+    Main.getClassroomManager().getActivity(ClassroomSettings.activity).then((activity) => {     
         if (activity.type != "") {
             manageUpdateByType(activity, rename);
         } else {
@@ -161,6 +161,11 @@ function activityModify(id, rename = false) {
 
 function manageUpdateByType(activity, rename = false) {
     setTextArea();
+
+    if (activity.hasOwnProperty('tags')) {
+        manageTagList(activity.tags);
+    }
+    
     const contentForwardButtonElt = document.getElementById('content-forward-button');
     contentForwardButtonElt.style.display = 'inline-block';
 
@@ -217,7 +222,7 @@ function attributeActivity(id, ref = null) {
 
 
 
-function undoAttributeActivity(ref,title,classroomId) {
+function undoAttributeActivity(ref,classroomId) {
     Main.getClassroomManager().undoAttributeActivity(ref,classroomId).then(function (result) {
         Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(()=>{
             displayNotification('#notif-div', "classroom.notif.attributeActivityUndone", "success");
