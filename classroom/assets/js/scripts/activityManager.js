@@ -690,7 +690,6 @@ function getAllTagId() {
 function manageTagList(taglist) {
     const tagList = document.getElementById('taglist');
     // reset the tag list
-    console.log(taglist)
     if (tagList == null) {
         return;
     }

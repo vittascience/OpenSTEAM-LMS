@@ -170,7 +170,6 @@ class ClassroomManager {
     deleteImagesAndRefresh(id) {
         Main.getClassroomManager().deleteImageById(id).then((r) => {
             if (r.success) {
-                console.log("Image deleted")
                 Main.getClassroomManager().displayModalWithMyImages();
                 displayNotification('#notif-div', "classroom.notif.imageSuccessfullyDeleted", "success");
             }
