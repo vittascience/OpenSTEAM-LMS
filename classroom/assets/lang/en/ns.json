@@ -266,6 +266,7 @@
      		 "selectedStudents": "<span id='attribuate-student-number'>0</span> learners selected",
       		"activationLink": "Activation link activated",
       		"activationLinkDisabled": "Activation link disabled",
+			"fullscreen": "Marine",
      	 	"deleteStudent": "Delete this profil",
       		"deleteStudentConfirm": "Do you really want to delete this profil?"
 		},
@@ -573,7 +574,9 @@
 				"descriptionUpdate": "You can add one or more learners at once by importing them from a .csv file. <b>Watch out</b> Here, the passwords in the csv file are not supported! Here is the example .csv file: ",
 				"csvTemplate": "template file with password",
 				"csvTemplateNoPassword": "template file without password",
-				"importStudentByCsvButton": "Import learners"
+				"importStudentByCsvButton": "Import learners",
+				"fileChooser": "Choose a file",
+				"fileName": "No files chosen"
 			},
 			"exportCsv": {
 				"title": "Export in csv format",
@@ -719,6 +722,7 @@
 		"exercise": "exercise",
 		"return": "return",
 		"anonymize": "anonymize",
+		"monochrome": "Marine",
 		"days": "days",
 		"hours": "hours",
 		"minutes": "minutes",
@@ -1426,8 +1430,25 @@
 		"hint": "Hint *: displayed if the answer is wrong",
 		"title": "Activity title <span class=\"c-text-red\">*</span>",
 		"description": "Activity description <span class=\"c-text-red\">*</span>",
-		"content": "Activity content <span class=\"c-text-red\">*</span>"
-		
+		"content": "Activity content <span class=\"c-text-red\">*</span>",
+		"addField": "Marine",
+		"addFieldTooltip": "Marine",
+		"ActivitiesData": {
+		  "title": {
+			"reading": "Marine",
+			"free": "Marine",
+			"quiz": "Marine",
+			"fillIn": "Marine",
+			"dragAndDrop": "Marine"
+		  },
+		  "description": {
+			"reading": "Marine",
+			"free": "Marine",
+			"quiz": "Marine",
+			"fillIn": "Marine",
+			"dragAndDrop": "Marine"
+		  }
+		}
 	},
 	"courses": {
 		"addActivity":"Add an activity",

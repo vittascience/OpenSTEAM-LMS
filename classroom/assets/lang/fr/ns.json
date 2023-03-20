@@ -263,6 +263,7 @@
       "selectedStudents": "<span id='attribuate-student-number'>0</span> apprenants sélectionnés",
       "activationLink": "Lien d'activation activé",
       "activationLinkDisabled": "Lien d'activation désactivé",
+      "fullscreen": "Afficher en plein écran",
       "deleteStudent": "Supprimer ce profil",
       "deleteStudentConfirm": "Voulez-vous vraiment supprimer ce profil ?"
     },
@@ -608,7 +609,9 @@
         "descriptionUpdate": "Vous pouvez ajouter un ou plusieurs apprenants d'un seul coup en les important depuis un fichier .csv. <b>ATTENTION</b> : ici, les mots de passe du fichier csv ne sont pas pris en compte ! Voici le fichier .csv modèle : ",
         "csvTemplate": "fichier modèle avec mot de passe",
         "csvTemplateNoPassword": "fichier modèle sans mot de passe",
-        "importStudentByCsvButton": "Importer les apprenants"
+        "importStudentByCsvButton": "Importer les apprenants",
+        "fileChooser": "Choisir un fichier",
+        "fileName": "Aucun fichier choisi"
       },
       "exportCsv": {
         "title": "Exporter au format csv",
@@ -1151,6 +1154,7 @@
     "exercise": "exercice",
     "return": "retour",
     "anonymize": "anonymiser",
+    "monochrome": "Mode monochrome",
     "days": "jours",
     "hours": "heures",
     "minutes": "minutes",
