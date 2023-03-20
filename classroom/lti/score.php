@@ -15,9 +15,10 @@ use Firebase\JWT\JWK;
 use Firebase\JWT\JWT;
 use Lti\Controller\ControllerLtiScore;
 use Lti\Entity\LtiScore;
-use User\Entity\User;
+use User\Entity\Regular;
 use Classroom\Entity\ActivityLinkUser;
 use Classroom\Entity\LtiTool;
+use Learn\Entity\Activity;
 use phpseclib\Crypt\RSA;
 
 $headers = apache_request_headers();
@@ -64,6 +65,42 @@ $userId = $grade->userId;
 $comment = $grade->comment;
 
 try {
+  // TODO :
+  // si teacher alors 
+  // insèrer le score dans la table `learn_activity`
+  $user = null;
+  try {
+    $user = $entityManager->getRepository(Regular::class)->find($userId);
+  }
+  catch(Exception $e) {
+    echo json_encode(['Error:' => $e->getMessage()]);
+  }
+  // is teacher
+  if(isset($user)) {
+    //$activity = $entityManager->getRepository(Activity::class)->find($activityId);
+    // Create query
+    //$query = $entityManager->createQuery('UPDATE Learn\Entity\Activity la SET la.previewNote = :previewNote WHERE la.id = :id');
+    //$query->setParameter('previewNote', 1);
+    //$query->setParameter('id', $activityId);
+    //$query->execute();
+    $queryBuilder = $entityManager->createQueryBuilder();
+$queryBuilder->update('Learn\Entity\Activity', 'la')
+             ->set('la.previewNote', ':previewNote')
+             ->where('la.id = :id')
+             ->setParameter('previewNote', 2)
+             ->setParameter('id', $activityId);
+
+$query = $queryBuilder->getQuery();
+
+$sql = $query->getSQL();
+
+echo $sql;
+  }
+  
+
+  //error_log("print_r: ".print_r($userData->getEmail(), true));
+
+
   // $lineItemId is the id of the activityLinkUser (sent back from the tool)
   $activityLinkUser = $entityManager->getRepository(ActivityLinkUser::class)->find($activityId);
   $activityLinkUser->setUrl($comment);
