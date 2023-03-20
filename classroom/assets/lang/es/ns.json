@@ -1384,7 +1384,25 @@
         "hint": "Pista * : se muestra si la respuesta es incorrecta",
         "title": "Título de la actividad <span class=\"c-text-red\">*</span>",
         "description": "Descripción de la actividad <span class=\"c-text-red\">*</span>",
-        "content": "Contenido de la actividad <span class=\"c-text-red\">*</span>"
+        "content": "Contenido de la actividad <span class=\"c-text-red\">*</span>",
+        "addField": "Marine",
+		"addFieldTooltip": "Marine",
+		"ActivitiesData": {
+		  "title": {
+			"reading": "Marine",
+			"free": "Marine",
+			"quiz": "Marine",
+			"fillIn": "Marine",
+			"dragAndDrop": "Marine"
+		  },
+		  "description": {
+			"reading": "Marine",
+			"free": "Marine",
+			"quiz": "Marine",
+			"fillIn": "Marine",
+			"dragAndDrop": "Marine"
+		  }
+		}
     },
     "courses": {
         "addActivity": " Add an activity",
