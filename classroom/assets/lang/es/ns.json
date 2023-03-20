@@ -555,7 +555,9 @@
                 "description": "Puede agregar uno o más alumnos a la vez importándolos desde un archivo .csv. Opcionalmente es posible definir la contraseña para cada uno de ellos. Aquí están los archivos modelo .csv :",
                 "csvTemplate": "archivo modelo con contraseña",
                 "csvTemplateNoPassword": "archivo modelo sin contraseña",
-                "importStudentByCsvButton": "Importar alumnos"
+                "importStudentByCsvButton": "Importar alumnos",
+                "fileChooser": "Marine",
+                "fileName": "Marine"
             },
             "exportCsv": {
                 "title": "Exportar en formato csv",

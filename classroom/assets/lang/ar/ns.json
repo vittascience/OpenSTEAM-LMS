@@ -462,7 +462,9 @@
           "descriptionUpdate": "يمكنك إضافة متعلم واحد أو أكثر مرة واحدة عن طريق استيرادهم من ملف .csv. <b>تحذير</b> : هنا ، لا يتم استخدام كلمات مرور ملف csv! هنا ملف نموذج .csv",
           "csvTemplate": "ملف قالب بكلمة مرور",
           "csvTemplateNoPassword": "ملف قالب بدون كلمة مرور",
-          "importStudentByCsvButton": "استيراد المتعلمين"
+          "importStudentByCsvButton": "استيراد المتعلمين",
+          "fileChooser": "Choose a file",
+          "fileName": "No files chosen"
         },
         "exportCsv": {
           "title": "تصدير بتنسيق csv",

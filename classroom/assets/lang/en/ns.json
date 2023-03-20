@@ -574,7 +574,9 @@
 				"descriptionUpdate": "You can add one or more learners at once by importing them from a .csv file. <b>Watch out</b> Here, the passwords in the csv file are not supported! Here is the example .csv file: ",
 				"csvTemplate": "template file with password",
 				"csvTemplateNoPassword": "template file without password",
-				"importStudentByCsvButton": "Import learners"
+				"importStudentByCsvButton": "Import learners",
+				"fileChooser": "Choose a file",
+				"fileName": "No files chosen"
 			},
 			"exportCsv": {
 				"title": "Export in csv format",

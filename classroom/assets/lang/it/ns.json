@@ -555,7 +555,9 @@
                 "description": "Puoi aggiungere uno o più studenti in una volta importandoli da un file .csv. Opzionalmente, è possibile impostare la password per ciascuno di essi. Ecco i file .csv di esempio: ",
                 "csvTemplate": "file modello con password",
                 "csvTemplateNoPassword": "file modello senza password",
-                "importStudentByCsvButton": "Importare gli studenti"
+                "importStudentByCsvButton": "Importare gli studenti",
+                "fileChooser": "Marine",
+                "fileName": "Marine"
             },
             "exportCsv": {
                 "title": "Esportazione in formato csv",
