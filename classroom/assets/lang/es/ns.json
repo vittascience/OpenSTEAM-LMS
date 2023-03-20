@@ -257,7 +257,15 @@
                 "copyLink": "Copiar el link directo",
                 "learnerMode": "Modo alumno",
                 "dueBy": "A entregar por"
-            }
+            },
+            "copyDirectLink": "Marine",
+            "selectStudents": "Marine",
+            "selectedStudents": "Marine",
+            "activationLink": "Marine",
+            "activationLinkDisabled": "Marine",
+            "fullscreen": "Marine",
+            "deleteStudent": "Marine",
+            "deleteStudentConfirm": "Marine"
         },
         "activities": {
             "title": "Actividades",

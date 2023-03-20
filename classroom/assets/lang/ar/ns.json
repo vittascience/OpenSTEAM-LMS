@@ -259,6 +259,7 @@
         "selectedStudents": "تم اختيار <span id='attribuate-student-number'>0</span> طلاب",
         "activationLink": "تفعيل رابط تفعيل",
         "activationLinkDisabled": "رابط التنشيط معطل",
+        "fullscreen": "وضع ملء الشاشة",
         "deleteStudent": "احذف الطالب",
         "deleteStudentConfirm": "هل أنت متأكد أنك تريد حذف هذا الطالب؟"
       },

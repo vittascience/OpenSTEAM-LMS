@@ -263,6 +263,7 @@
       "selectedStudents": "<span id='attribuate-student-number'>0</span> apprenants sélectionnés",
       "activationLink": "Lien d'activation activé",
       "activationLinkDisabled": "Lien d'activation désactivé",
+      "fullscreen": "Afficher en plein écran",
       "deleteStudent": "Supprimer ce profil",
       "deleteStudentConfirm": "Voulez-vous vraiment supprimer ce profil ?"
     },

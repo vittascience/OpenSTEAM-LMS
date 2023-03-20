@@ -266,6 +266,7 @@
      		 "selectedStudents": "<span id='attribuate-student-number'>0</span> learners selected",
       		"activationLink": "Activation link activated",
       		"activationLinkDisabled": "Activation link disabled",
+			  "fullscreen": "Marine",
      	 	"deleteStudent": "Delete this profil",
       		"deleteStudentConfirm": "Do you really want to delete this profil?"
 		},
