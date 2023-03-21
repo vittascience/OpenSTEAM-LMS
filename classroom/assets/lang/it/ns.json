@@ -258,14 +258,14 @@
                 "learnerMode": "Passare alla modalità studente",
                 "dueBy": "Dovuto a"
             },
-            "copyDirectLink": "Marine",
-            "selectStudents": "Marine",
-            "selectedStudents": "Marine",
-            "activationLink": "Marine",
-            "activationLinkDisabled": "Marine",
-            "fullscreen": "Marine",
-            "deleteStudent": "Marine",
-            "deleteStudentConfirm": "Marine"
+            "copyDirectLink": "Copiare il link diretto",
+            "selectStudents": "Selezione degli studenti",
+            "selectedStudents": "<span id='attribuate-student-number'>0</span> studenti selezionati",
+            "activationLink": "Link di attivazione attivato",
+            "activationLinkDisabled": "Link di attivazione disabilitato",
+            "fullscreen": "Visualizza lo schermo intero",
+            "deleteStudent": "Eliminare il profilo",
+            "deleteStudentConfirm": "Vuoi davvero cancellare questo profilo?"
         },
         "activities": {
             "title": "Attività",
@@ -386,12 +386,12 @@
                     "description": " Scegliete tra una selezione di lettori per utilizzare le attività svolte con lo strumento di authoring Cabri."
                 },
                 "EXPRESS": {
-                    "title": " Espresso",
-                    "description": " Creare un'attività utilizzando strumenti di geometria dinamica e algebra, calcolatrice scientifica e grafica, ecc."
+                    "title": "Express",
+                    "description": "Strumenti di matematica dinamica"
                 },
                 "GENIUS": {
-                    "title": " Intelligente",
-                    "description": " Create un'attività con gli strumenti Express e aggiungete una valutazione automatica."
+                    "title": " Smart",
+                    "description": "Strumento di valutazione automatica per la matematica"
                 },
                 "IFRAME-CABRI3D": {
                     "title": " Cabri 3D",
@@ -556,8 +556,8 @@
                 "csvTemplate": "file modello con password",
                 "csvTemplateNoPassword": "file modello senza password",
                 "importStudentByCsvButton": "Importare gli studenti",
-                "fileChooser": "Marine",
-                "fileName": "Marine"
+                "fileChooser": "Scegliere un file",
+                "fileName": "Nessun file selezionato"
             },
             "exportCsv": {
                 "title": "Esportazione in formato csv",
@@ -570,7 +570,7 @@
                 "title": "Passare alla modalità studente",
                 "description": "Puoi facilmente testare l'interfaccia come studente e tornare al tuo profilo di insegnante in qualsiasi momento. I tuoi progressi come studente saranno salvati nel tuo account demostudent.",
                 "switchButton": "Passare alla modalità studente",
-                "noClass" : "Marine"
+                "noClass" : "Per utilizzare questa funzione, è necessario creare prima una classe"
             },
             "changePseudo": {
                 "title": "Cambia il nome utente",
@@ -691,7 +691,7 @@
         "exercise": "esercizio",
         "return": "indietro",
         "anonymize": "anonimizzare",
-        "monochrome": "Marine",
+        "monochrome": "Modo monocromatico",
         "days": "giorni",
         "hours": "ore",
         "minutes": "minuti",
@@ -741,7 +741,7 @@
                 },
                 "2": {
                     "title": "Come posso aggiungere i miei studenti alla mia classe?",
-                    "answer": "Marine Ci sono diverse opzioni:<ol><li>In classe, puoi <b>proiettare il codice sulla lavagna</b>. Per farlo, vai nella tua classe e clicca sul pulsante per ingrandire il codice qui sotto:<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image1.png\">I tuoi studenti dovranno solo registrarsi o accedere al sito inserendo il codice. Saranno anche in grado di scrivere questo codice per accedere da casa.</li><li>Puoi anche creare studenti con il pulsante \"Add Learner\" e poi <b>inviare loro la loro password individualmente</b>, questo è visibile sulla dashboard della classe qui sotto:<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image2.png\"></li></ol>"
+                    "answer": "Ci sono diverse opzioni:<ol><li>In classe, puoi <b>proiettare il codice sulla lavagna</b>. Per farlo, vai nella tua classe e clicca sul pulsante per ingrandire il codice qui sotto:<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image1.png\">I tuoi studenti dovranno solo registrarsi o accedere al sito inserendo il codice. Saranno anche in grado di scrivere questo codice per accedere da casa.</li><li>Puoi anche creare studenti con il pulsante \"Add Learner\" e poi <b>inviare loro la loro password individualmente</b>, questo è visibile sulla dashboard della classe qui sotto:<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image2.png\"></li></ol>"
                 },
                 "3": {
                     "title": "Uno studente può essere in due classi diverse?",
@@ -1397,22 +1397,22 @@
         "title": " Titolo dell'attività <span class=\"c-text-red\">*</span>",
         "description": " Descrizione dell'attività <span class=\"c-text-red\">*</span>",
         "content": " Contenuto dell'attività <span class=\"c-text-red\">*</span>",
-        "addField": "Marine",
-		"addFieldTooltip": "Marine",
+        "addField": "Aggiungere un campo di risposta",
+		"addFieldTooltip": "Facendo clic sul pulsante Aggiungi campo di risposta, viene aggiunto un testo stilizzato. In questo campo è possibile scrivere la risposta corretta. Le risposte alternative sono separate da un doppio ampersand &&.",
 		"ActivitiesData": {
 		  "title": {
-			"reading": "Marine",
-			"free": "Marine",
-			"quiz": "Marine",
-			"fillIn": "Marine",
-			"dragAndDrop": "Marine"
+			"reading": "Multimediale",
+			"free": "Risposta libera",
+			"quiz": "Questionari a scelta multipla",
+			"fillIn": "Testo da completare",
+			"dragAndDrop": "Testo di cloche"
 		  },
 		  "description": {
-			"reading": "Marine",
-			"free": "Marine",
-			"quiz": "Marine",
-			"fillIn": "Marine",
-			"dragAndDrop": "Marine"
+			"reading": "Pagina multimediale (testo, immagini, video, PDF, Genially, ...)",
+			"free": "Risposta libera a una domanda",
+			"quiz": "Questionario a scelta singola o multipla",
+			"fillIn": "Testo da completare per iscritto",
+			"dragAndDrop": "Testo da completare con le etichette"
 		  }
 		}
     },

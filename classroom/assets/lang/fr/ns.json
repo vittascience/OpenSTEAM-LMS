@@ -428,11 +428,11 @@
         },
         "EXPRESS": {
           "title": "Express",
-          "description": "Créer une activité grâce aux outils de géométrie dynamique et d’algèbre, à la calculatrice scientifique et graphique, etc."
+          "description": "Outil de mathématiques dynamiques"
         },
         "GENIUS": {
           "title": "Smart",
-          "description": "Créer une activité grâce aux outils Express et ajouter une évaluation automatique."
+          "description": "Outil d'évaluation automatique en mathématiques"
         },
         "IFRAME-CABRI3D": {
           "title": "Cabri 3D",
@@ -866,7 +866,7 @@
         },
         "2": {
           "title": "Comment ajouter des apprenants à ma classe ?",
-          "answer": "Marine Plusieurs options s’offrent à vous :<ol><li>En classe, vous pouvez <b>projeter le code au tableau</b>. Pour cela, rendez-vous dans votre classe et cliquez sur le bouton Agrandir le code ci-dessous :<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image1.png\">Vos apprenants n’auront plus qu’à s'inscrire ou se connecter sur le site en rentrant le code. Ils pourront également noter ce code pour se connecter chez eux.</li><li>Vous pouvez également créer des apprenants avec le bouton Ajouter un apprenant et leur <b>communiquer leur mot de passe individuellement</b>, celui-ci est visible sur le tableau de bord de la classe ci-dessous :<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image2.png\"></li></ol>"
+          "answer": "Plusieurs options s’offrent à vous :<ol><li>En classe, vous pouvez <b>projeter le code au tableau</b>. Pour cela, rendez-vous dans votre classe et cliquez sur le bouton Agrandir le code ci-dessous :<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image1.png\">Vos apprenants n’auront plus qu’à s'inscrire ou se connecter sur le site en rentrant le code. Ils pourront également noter ce code pour se connecter chez eux.</li><li>Vous pouvez également créer des apprenants avec le bouton Ajouter un apprenant et leur <b>communiquer leur mot de passe individuellement</b>, celui-ci est visible sur le tableau de bord de la classe ci-dessous :<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image2.png\"></li></ol>"
         },
         "3": {
           "title": "Un apprenant peut-il se trouver dans deux classes différentes ?",
@@ -1668,15 +1668,15 @@
         "reading": "Lecture simple",
         "free": "Réponse libre",
         "quiz": "QCM",
-        "fillIn": "Texte à trous",
-        "dragAndDrop": "Glisser-Déposer"
+        "fillIn": "Texte à compléter",
+        "dragAndDrop": "Texte à trous"
       },
       "description": {
-        "reading": "Cette activité permet de visualiser des images, vidéos, PDF, interfaces Vittascience ainsi que des outils externes.",
-        "free": "Cette activité permet aux élèves de répondre à un exercice par écrit.",
-        "quiz": "Cette activité permet d’évaluer les connaissances à l’aide de question à choix multiples ou simples.",
-        "fillIn": "Cette activité permet d’appliquer ses connaissances en remplissant des cases vides.",
-        "dragAndDrop": "Cette activité permet de glisser et déposer des mots dans différents espaces vides."
+        "reading": "Page multimédia (textes, images, vidéos, PDF, Genially, ...)",
+        "free": "Réponse libre à une question",
+        "quiz": "Questionnaire à choix simples ou multiples",
+        "fillIn": "Texte à compléter par écrit",
+        "dragAndDrop": "Texte à compléter par des étiquettes"
       }
     }
   },
