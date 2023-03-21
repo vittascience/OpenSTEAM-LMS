@@ -588,7 +588,8 @@
 			"listClass": {
 				"title": "Switch to learner mode",
 				"description": "You can easily test the interface as a learner and return to your teacher profile at any time. Your progress as a learner will be saved in your demostudent account.",
-				"switchButton": "Switch to learner mode"
+				"switchButton": "Switch to learner mode",
+				"noClass" : "Marine"
 			},
 			"changePseudo": {
 				"title": "Change nickname",
@@ -773,7 +774,7 @@
         },
         "2": {
           "title": "How do I add my learners to my class?",
-          "answer": "You have several options:<ol><li>In class, you can <b>project the code to the board</b>. To do this, go to your classroom and click on the button to enlarge the code below:<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image1.png\">Your learners will just have to register or log into the site by entering the code. They will also be able to write down this code to log in at home.</li><li>You can also create learners with the \"Add Learner\" button and then <b>send them their password individually</b>, this is visible on the Classroom Dashboard below:<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image2.png\"></li></ol>"
+          "answer": "Marine You have several options:<ol><li>In class, you can <b>project the code to the board</b>. To do this, go to your classroom and click on the button to enlarge the code below:<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image1.png\">Your learners will just have to register or log into the site by entering the code. They will also be able to write down this code to log in at home.</li><li>You can also create learners with the \"Add Learner\" button and then <b>send them their password individually</b>, this is visible on the Classroom Dashboard below:<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image2.png\"></li></ol>"
         },
         "3": {
           "title": "Can a learner be in two different classes?",

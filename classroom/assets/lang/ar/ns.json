@@ -476,7 +476,8 @@
         "listClass": {
           "title": "التبديل في وضع الطالب",
           "description": "يمكنك بسهولة اختبار الواجهة كمتعلم والعودة إلى ملف تعريف المعلم الخاص بك في أي وقت. سيتم حفظ التقدم كمتعلم في الحساب &quot; {{demoStudent}} &quot;",
-          "switchButton": "قم بالتبديل إلى وضع المتعلم"
+          "switchButton": "قم بالتبديل إلى وضع المتعلم",
+          "noClass" : "Vous devez d'abord créer une classe pour pouvoir utiliser cette fonctionalité"
         },
         "changePseudo": {
           "title": "تغيير الكنية ",

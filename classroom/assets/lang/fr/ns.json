@@ -623,7 +623,8 @@
       "listClass": {
         "title": "Passer en mode apprenant",
         "description": "Vous pouvez tester en toute simplicité l'interface en tant qu'apprenant et revenir à tout moment à votre profil d'enseignant. La progression en tant qu'apprenant sera sauvegardée sur le compte \"{{demoStudent}}\".",
-        "switchButton": "Passer en mode apprenant"
+        "switchButton": "Passer en mode apprenant",
+        "noClass" : "Vous devez d'abord créer une classe pour pouvoir utiliser cette fonctionalité"
       },
       "changePseudo": {
         "title": "Modifier le pseudo",
@@ -865,7 +866,7 @@
         },
         "2": {
           "title": "Comment ajouter des apprenants à ma classe ?",
-          "answer": "Plusieurs options s’offrent à vous :<ol><li>En classe, vous pouvez <b>projeter le code au tableau</b>. Pour cela, rendez-vous dans votre classe et cliquez sur le bouton Agrandir le code ci-dessous :<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image1.png\">Vos apprenants n’auront plus qu’à s'inscrire ou se connecter sur le site en rentrant le code. Ils pourront également noter ce code pour se connecter chez eux.</li><li>Vous pouvez également créer des apprenants avec le bouton Ajouter un apprenant et leur <b>communiquer leur mot de passe individuellement</b>, celui-ci est visible sur le tableau de bord de la classe ci-dessous :<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image2.png\"></li></ol>"
+          "answer": "Marine Plusieurs options s’offrent à vous :<ol><li>En classe, vous pouvez <b>projeter le code au tableau</b>. Pour cela, rendez-vous dans votre classe et cliquez sur le bouton Agrandir le code ci-dessous :<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image1.png\">Vos apprenants n’auront plus qu’à s'inscrire ou se connecter sur le site en rentrant le code. Ils pourront également noter ce code pour se connecter chez eux.</li><li>Vous pouvez également créer des apprenants avec le bouton Ajouter un apprenant et leur <b>communiquer leur mot de passe individuellement</b>, celui-ci est visible sur le tableau de bord de la classe ci-dessous :<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image2.png\"></li></ol>"
         },
         "3": {
           "title": "Un apprenant peut-il se trouver dans deux classes différentes ?",
