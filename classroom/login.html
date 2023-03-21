@@ -289,14 +289,14 @@
             </label>
             <input name='mail' style="margin-bottom:5px;"
                 data-i18n="[placeholder]login_popup.form.addressmail_placeholder" class="form-control" type="email"
-                id="login-mail-input">
+                id="login-mail-input" data-testid="classroomLoginEmailInput">
 
             <label for="login-pwd-input">
                 <span class="fa fa-key"></span> <span data-i18n="login_popup.form.password"></span><span
                     class="mandatory">*</span>
             </label>
             <input name='password' data-i18n="[placeholder]login_popup.form.password_placeholder" class="form-control"
-                type="password" id="login-pwd-input">
+                type="password" id="login-pwd-input" data-testid="classroomLoginPasswordInput">
 
             <input type="text" name="za78e-username" autocomplete="off" value="" id="za78e-username" class="za78e-field"
                 placeholder="za78e username" />
@@ -307,7 +307,7 @@
                 <a class="hint" href="/classroom/password_manager.php" data-i18n="login_popup.form.forgot_password"></a>
             </div>
             <button type='button' style="margin-top:10px;" onclick="checkLogin();" class="btn c-btn-secondary"
-                id="login-button" data-i18n="login_popup.form.btn_connect"></button>
+                id="login-button" data-i18n="login_popup.form.btn_connect" data-testid="classroomLoginSubmitBtn"></button>
             <button type='button' style="margin-top:10px; display:none;" onclick="getNewValidationMail();" class="btn c-btn-secondary"
                 id="btn-activate-account-classroom" data-i18n="login_popup.form.btn_activate">placeholder activate</button>
         </form>
