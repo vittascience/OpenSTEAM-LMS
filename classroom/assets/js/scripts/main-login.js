@@ -73,15 +73,15 @@ function checkLogin() {
             if (typeof response.canNotLoginBefore != 'undefined' ) {
                 const diffInMinutes = (response.canNotLoginBefore  - (new Date().getTime() /1000) )/ 60
                 const timeToWait = Math.ceil(diffInMinutes)
-                displayNotification('#notif-div', `login_popup.canNotLoginBefore`, "error", `'{"timeToWait": "${timeToWait} min","failedLoginAttempts":${response.failedLoginAttempts}}'`);
+                displayNotification('#notif-div', `login_popup.canNotLoginBefore`, "error", `'{"timeToWait": "${timeToWait} min","failedLoginAttempts":${response.failedLoginAttempts}}'`, "classroomLoginFailedWrongCredentials");
             } else if (response.error === "badInput") {
-                displayNotification('#notif-div', "login_popup.badInput", "error");
+                displayNotification('#notif-div', "login_popup.badInput", "error",'{}', "classroomLoginFailedBadInput");
             } 
             else if (response.error === "wrong_credentials") {
-                displayNotification('#notif-div', "login_popup.error", "error");
+                displayNotification('#notif-div', "login_popup.error", "error", '{}', "classroomLoginFailedWrongCredentials");
             } 
             else if (response.error === "user_not_found") {
-                displayNotification('#notif-div', "login_popup.userNotFound", "error");
+                displayNotification('#notif-div', "login_popup.userNotFound", "error", '{}',"classroomLoginFailedNoUserFound");
             } 
             else if (response.error === "user_not_active") {
                 displayNotification('#notif-div', "login_popup.inactiveAccount", "error");
