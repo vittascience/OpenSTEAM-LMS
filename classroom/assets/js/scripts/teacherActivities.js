@@ -164,6 +164,8 @@ function manageUpdateByType(activity, rename = false) {
 
     if (activity.hasOwnProperty('tags')) {
         manageTagList(activity.tags);
+    } else {
+        manageTagList([]);
     }
     
     const contentForwardButtonElt = document.getElementById('content-forward-button');
