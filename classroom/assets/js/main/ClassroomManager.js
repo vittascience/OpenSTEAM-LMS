@@ -103,7 +103,7 @@ class ClassroomManager {
                 error: function () {
                     console.log('error')
                 }
-            }).then((resolve) => {
+            }).always((resolve) => {
                 $("#spinner-loading").hide();
             });
         })
