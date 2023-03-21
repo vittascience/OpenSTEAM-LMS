@@ -569,7 +569,8 @@
             "listClass": {
                 "title": "Cambiar a modo alumno",
                 "description": "Puede probar fácilmente la interfaz como alumno y volver a su perfil de profesor en cualquier momento. El progreso como alumno se guardará en la cuenta de demostudent.\n\n",
-                "switchButton": "Cambiar a modo alumno"
+                "switchButton": "Cambiar a modo alumno",
+                "noClass" : "Marine"
             },
             "changePseudo": {
                 "title": "Modificar el alias",
@@ -740,7 +741,7 @@
                 },
                 "2": {
                     "title": "¿Cómo agregar mis alumnos a mi clase?",
-                    "answer": "Tiene varias opciones:<ol><li>En clase, puede<b>proyectar el código en el tablero<b>.Para hacer esto, vaya a su clase y haga clic sobre el botón para ampliar el código de aquí debajo:<br><img class=\"faq-img-center img-fluid\" \nsrc=\"assets/media/faq/image1.png\">Sus alumnos solo tendrán que registrarse o conectarse al sitio ingresando el código. Igualmente ellos podrán anotar este código para conectarse desde sus casas.</li><li>También puede crear alumnos con el botón\" Agregar un alumno\" y luego<b>comunicarle su contraseña individualmente </b>, esto es visible en el Panel de control de la clase a continuación :<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image2.png\"></li></ol>"
+                    "answer": "Marine Tiene varias opciones:<ol><li>En clase, puede<b>proyectar el código en el tablero<b>.Para hacer esto, vaya a su clase y haga clic sobre el botón para ampliar el código de aquí debajo:<br><img class=\"faq-img-center img-fluid\" \nsrc=\"assets/media/faq/image1.png\">Sus alumnos solo tendrán que registrarse o conectarse al sitio ingresando el código. Igualmente ellos podrán anotar este código para conectarse desde sus casas.</li><li>También puede crear alumnos con el botón\" Agregar un alumno\" y luego<b>comunicarle su contraseña individualmente </b>, esto es visible en el Panel de control de la clase a continuación :<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image2.png\"></li></ol>"
                 },
                 "3": {
                     "title": "¿Un alumno puede encontrarse en dos clases diferentes?",

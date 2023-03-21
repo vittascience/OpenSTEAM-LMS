@@ -569,7 +569,8 @@
             "listClass": {
                 "title": "Passare alla modalità studente",
                 "description": "Puoi facilmente testare l'interfaccia come studente e tornare al tuo profilo di insegnante in qualsiasi momento. I tuoi progressi come studente saranno salvati nel tuo account demostudent.",
-                "switchButton": "Passare alla modalità studente"
+                "switchButton": "Passare alla modalità studente",
+                "noClass" : "Marine"
             },
             "changePseudo": {
                 "title": "Cambia il nome utente",
@@ -740,7 +741,7 @@
                 },
                 "2": {
                     "title": "Come posso aggiungere i miei studenti alla mia classe?",
-                    "answer": "Ci sono diverse opzioni:<ol><li>In classe, puoi <b>proiettare il codice sulla lavagna</b>. Per farlo, vai nella tua classe e clicca sul pulsante per ingrandire il codice qui sotto:<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image1.png\">I tuoi studenti dovranno solo registrarsi o accedere al sito inserendo il codice. Saranno anche in grado di scrivere questo codice per accedere da casa.</li><li>Puoi anche creare studenti con il pulsante \"Add Learner\" e poi <b>inviare loro la loro password individualmente</b>, questo è visibile sulla dashboard della classe qui sotto:<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image2.png\"></li></ol>"
+                    "answer": "Marine Ci sono diverse opzioni:<ol><li>In classe, puoi <b>proiettare il codice sulla lavagna</b>. Per farlo, vai nella tua classe e clicca sul pulsante per ingrandire il codice qui sotto:<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image1.png\">I tuoi studenti dovranno solo registrarsi o accedere al sito inserendo il codice. Saranno anche in grado di scrivere questo codice per accedere da casa.</li><li>Puoi anche creare studenti con il pulsante \"Add Learner\" e poi <b>inviare loro la loro password individualmente</b>, questo è visibile sulla dashboard della classe qui sotto:<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image2.png\"></li></ol>"
                 },
                 "3": {
                     "title": "Uno studente può essere in due classi diverse?",

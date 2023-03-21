@@ -4,7 +4,7 @@ const BASE_STUDENT_FORM = `<div class="c-primary-form row col-12">
 <input class="col-5 student-form-name" type="text">
 </div>`;
 const LINK_REGEX = /(\[iframe\].*link=)([a-f0-9]{13})/
-const NO_CLASS = "<p class='no-classes text-center'> Vous devez d'abord créer une classe pour pouvoir utiliser cette fonctionalité"
+const NO_CLASS = "<p class='no-classes text-center' data-i18n='classroom.modals.listClass.noClass'> Vous devez d'abord créer une classe pour pouvoir utiliser cette fonctionalité"
 const capitalizedDemoStudentName = `${demoStudentName.charAt().toUpperCase()}${demoStudentName.slice(1)}`
 const cookies = document.cookie.split(';')
 const lang = cookies.filter(entry => entry.trim().startsWith('lng'))
