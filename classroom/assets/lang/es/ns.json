@@ -1405,14 +1405,18 @@
 			"free": "Respuesta libre",
 			"quiz": "Tipo test",
 			"fillIn": "Texto por completar",
-			"dragAndDrop": "Texto con huecos"
+			"dragAndDrop": "Texto con huecos",
+            "EXPRESS": "Express",
+			  "GENIUS": "Smart"
 		  },
 		  "description": {
 			"reading": "Página multimedia (textos, imágenes, vídeos, pdf, genially, ...)",
 			"free": "Respuesta libre a una pregunta",
 			"quiz": "Cuestionario de opción simple o multiple",
 			"fillIn": "Texto que debe completarse por escrito",
-			"dragAndDrop": "Texto que debe completase con etiquetas"
+			"dragAndDrop": "Texto que debe completase con etiquetas",
+            "EXPRESS": "Herramienta matemáticas dinámica",
+			"GENIUS": "Herramienta de evaluación automática de las matemáticas"
 		  }
 		}
     },
