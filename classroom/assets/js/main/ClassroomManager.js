@@ -197,7 +197,6 @@ class ClassroomManager {
                         thisInstance.errors.push(GET_PUBLIC_PROJECTS_ERROR)
                     }
                     thisInstance._myTeacherActivities = res;
-                    console.log(thisInstance)
                     resolve()
                     onEnd();
                 };
