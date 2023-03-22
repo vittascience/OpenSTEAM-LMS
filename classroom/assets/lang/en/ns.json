@@ -1440,14 +1440,19 @@
 			"free": "Open answer",
 			"quiz": "MCQS",
 			"fillIn": "Text to complete",
-			"dragAndDrop": "Fill in the blank text"
+			"dragAndDrop": "Fill in the blank text",
+			"EXPRESS": "Express",
+			"GENIUS": "Smart"
 		  },
 		  "description": {
 			"reading": "Multimedia page (text, images, videos, PDF, Genially, ...)",
 			"free": "Open answer to a question",
 			"quiz": "Single or multiple choice questionnaire",
 			"fillIn": "Text to be completed in writing",
-			"dragAndDrop": "Text to be completed with labels."
+			"dragAndDrop": "Text to be completed with labels.",
+			"EXPRESS": "Dynamic mathematics tool",
+			"GENIUS": "Automatic assessment tool for maths"
+
 		  }
 		}
 	},
