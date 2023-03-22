@@ -3583,31 +3583,3 @@ h3.section-done {
 .image-vh {
     height: 40vh !important;
 }
-
-#spinner-loading {
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 99999;
-    border-radius: inherit;
-  }
-
-  #spinner-loading div {
-    border: 16px solid #f3f3f3; /* Couleur de fond */
-    border-top: 16px solid #3498db; /* Couleur de la roue */
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    animation: spin 2s linear infinite;
-    margin: auto;
-    /*display: none; Masquer la roue de chargement par défaut */
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
