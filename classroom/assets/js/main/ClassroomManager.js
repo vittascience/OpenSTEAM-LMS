@@ -82,6 +82,7 @@ class ClassroomManager {
      */
     getStudentActivities(container) {
         return new Promise(function (resolve, reject) {
+            $("#spinner-loading").show();
             var process = function (thisInstance, response) {
                 if (response.error_message && response.error_message !== undefined) {
                     thisInstance.errors.push(GET_PUBLIC_PROJECTS_ERROR)
@@ -102,6 +103,8 @@ class ClassroomManager {
                 error: function () {
                     console.log('error')
                 }
+            }).always((resolve) => {
+                $("#spinner-loading").hide();
             });
         })
     };
@@ -187,6 +190,7 @@ class ClassroomManager {
      */
     getTeacherActivities(container) {
         return new Promise((resolve, reject) => {
+            $("#spinner-loading ").show();
             let currentTask = (onEnd) => {
                 var process = function (thisInstance, res) {
                     if (res.error_message && res.error_message !== undefined) {
@@ -214,6 +218,8 @@ class ClassroomManager {
                         console.log('error')
                         onEnd();
                     }
+                }).then((resolve)=>{
+                    $("#spinner-loading ").hide();
                 });
             }
             // Add the current task to the tasks queue
