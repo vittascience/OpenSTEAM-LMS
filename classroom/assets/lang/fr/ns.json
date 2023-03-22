@@ -1669,18 +1669,16 @@
         "free": "Réponse libre",
         "quiz": "QCM",
         "fillIn": "Texte à compléter",
-        "dragAndDrop": "Texte à trous",
-        "EXPRESS": "Express",
-			  "GENIUS": "Smart"
+        "dragAndDrop": "Texte à trous"
+        
       },
       "description": {
         "reading": "Page multimédia (textes, images, vidéos, PDF, Genially, ...)",
         "free": "Réponse libre à une question",
         "quiz": "Questionnaire à choix simples ou multiples",
         "fillIn": "Texte à compléter par écrit",
-        "dragAndDrop": "Texte à compléter par des étiquettes",
-        "EXPRESS": "Outil de mathématiques dynamiques",
-			  "GENIUS": "Outil d'évaluation automatique en mathématiques"
+        "dragAndDrop": "Texte à compléter par des étiquettes"
+        
       }
     }
   },

@@ -1405,18 +1405,15 @@
 			"free": "Risposta libera",
 			"quiz": "Questionari a scelta multipla",
 			"fillIn": "Testo da completare",
-			"dragAndDrop": "Testo di cloche",
-            "EXPRESS": "Express",
-			"GENIUS": "Smart"
+			"dragAndDrop": "Testo di cloche"
 		  },
 		  "description": {
 			"reading": "Pagina multimediale (testo, immagini, video, PDF, Genially, ...)",
 			"free": "Risposta libera a una domanda",
 			"quiz": "Questionario a scelta singola o multipla",
 			"fillIn": "Testo da completare per iscritto",
-			"dragAndDrop": "Testo da completare con le etichette",
-            "EXPRESS": "Strumento di matematica dinamica",
-			"GENIUS": "Strumento di valutazione automatica per la matematica"
+			"dragAndDrop": "Testo da completare con le etichette"
+        
 		  }
 		}
     },
