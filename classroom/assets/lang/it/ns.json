@@ -279,6 +279,7 @@
             "waiting": "Non ancora completato",
             "done": "Completato",
             "todo": "Da correggere",
+            "draft": "Bozza",
             "anonymise": "Anonimizza la tua lista di studenti in modo da poter mostrare il dashboard ai tuoi studenti",
             "save-draft": "Salva come bozza",
             "validate": "Convalidare l'attività",

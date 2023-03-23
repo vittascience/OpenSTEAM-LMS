@@ -282,6 +282,7 @@
 			"waiting": "Not yet completed",
 			"done": "Completed",
 			"todo": "To be corrected",
+			"draft": "Draft",
 			"anonymise": "Anonymize your student list so that you can display the dashboard to your learners.",
 			"save-draft": "Save as draft",
 			"validate": "Validate the activity",

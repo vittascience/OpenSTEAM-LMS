@@ -279,6 +279,7 @@
       "waiting": "Pas encore réalisée",
       "done": "Terminés",
       "todo": "À corriger",
+      "draft": "Brouillons",
       "anonymise": "Anonymiser la liste de vos élèves afin de pouvoir afficher le tableau de bord à vos apprenants.",
       "save-draft": "Sauvegarder en tant que brouillon",
       "validate": "Valider l'activité",

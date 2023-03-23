@@ -279,6 +279,7 @@
             "waiting": "Sin realizar aún",
             "done": "Terminados",
             "todo": "Para corregir",
+            "draft": "Borrador",
             "anonymise": "Proteja la lista de sus alumnos con otros nombres para que pueda mostrar el panel a sus alumnos",
             "save-draft": "Guardar como borrador",
             "validate": "Validar la actividad",
