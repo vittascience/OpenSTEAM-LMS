@@ -271,30 +271,6 @@ DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function (
                 }
 
                 if (tagDropdown) {
-<<<<<<< Updated upstream
-                    tagDropdown.innerHTML += `<div class="c-checkbox dropdown-item">
-                        <input class="form-check-input" data-id="${tag.id}" data-name="${tag.name}" type="checkbox" id="filter-activity-type-${tag.name}">
-                        <label class="form-check-label w-100" for="filter-activity-type-${tag.name}" id="filter-${tag.name}">${tag.name}</label>
-                    </div>`;
-=======
-
-
-
-                    /*                 tagDropdown.innerHTML += ; */
-
-                    /* <fieldset>
-                        <legend>Choose your monster's features:</legend>
-
-                        <div>
-                        <input type="checkbox" id="scales" name="scales" checked>
-                        <label for="scales">Scales</label>
-                        </div>
-
-                        <div>
-                        <input type="checkbox" id="horns" name="horns">
-                        <label for="horns">Horns</label>
-                        </div>
-                    </fieldset> */
                     if (tag.parentTag == null) {
                         tagDropdown.innerHTML += `<fieldset id="field-${tag.id}" class="my-2">
                         <legend class="mx-2 vitta-modal-title">${tag.name}</legend>
@@ -306,9 +282,6 @@ DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function (
                         <label class="form-check-label" for="filter-activity-type-${tag.name}" id="filter-${tag.name}">${tag.name}</label>
                         </div>`
                     }
-
-            
->>>>>>> Stashed changes
                 }
 
             });
