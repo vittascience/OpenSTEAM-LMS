@@ -88,11 +88,6 @@ else  {
   $jwt_payload['https://purl.imsglobal.org/spec/lti/claim/resource_link'] = [
     "id" => $loginHint['lineitemId']
   ];
-  $jwt_payload["https://purl.imsglobal.org/spec/lti/claim/launch_presentation"] = [
-    "locale" => "en",
-    "document_target" => "iframe",
-    "return_url" => $platform_url . "/classroom/lti/redirection.html"
-  ];
   $jwt_payload["https://purl.imsglobal.org/spec/lti/claim/target_link_uri"] = $loginHint['lineitemId'];
   $jwt_payload["https://purl.imsglobal.org/spec/lti-ags/claim/endpoint"] = [
     "scope" => [
@@ -106,12 +101,19 @@ else  {
   ];
 }
 
+$jwt_payload["https://purl.imsglobal.org/spec/lti/claim/launch_presentation"] = [
+  "locale" => htmlspecialchars($_COOKIE["lng"]) ?? "fr",
+  "document_target" => "iframe",
+  "return_url" => $platform_url . "/classroom/lti/redirection.html"
+];
+
 $token = JWT::encode(
   $jwt_payload,
   $ltiTool->getPrivateKey(),
   'RS256',
   $ltiTool->getKid()
 );
+
 ?>
 
 <form name="post_redirect" method="post" action="<?php echo $_REQUEST['redirect_uri']?>">
@@ -127,4 +129,3 @@ $token = JWT::encode(
     document.forms["post_redirect"].submit();
   }
 </script>
-
