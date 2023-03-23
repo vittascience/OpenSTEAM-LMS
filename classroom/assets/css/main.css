@@ -3620,3 +3620,9 @@ h3.section-done {
     display: flex;
     justify-content: center;
 }
+
+
+.math-field-aligned {
+    top: 0.7em;
+}
+

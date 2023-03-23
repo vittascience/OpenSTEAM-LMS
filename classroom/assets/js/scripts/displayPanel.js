@@ -253,14 +253,35 @@ DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function (
             Tag.tags.forEach((tag) => {
 
                 if (tagListSelect) {
-                    tagListSelect.innerHTML += `<option value="${tag.id}">${tag.name}</option>`;
+                    if (tag.parentTag != null) {
+                        let parentTag = tag.parentTag;
+                        let parentTagId = parentTag.id;
+                        let parentTagName = parentTag.name;
+
+                        let parentTagElement = document.getElementById(`parent-tag-${parentTagId}`);
+                        if (parentTagElement) {
+                            parentTagElement.innerHTML += `<option value="${tag.id}">${tag.name}</option>`;
+                        } else {
+                            tagListSelect.innerHTML += `<optgroup label="${parentTagName}" id="parent-tag-${parentTagId}">
+                                <option value="${tag.id}">${tag.name}</option>
+                            </optgroup>`;
+                        }
+
+                    }
                 }
 
                 if (tagDropdown) {
-                    tagDropdown.innerHTML += `<div class="c-checkbox dropdown-item">
+                    if (tag.parentTag == null) {
+                        tagDropdown.innerHTML += `<fieldset id="field-${tag.id}" class="my-2">
+                        <legend class="mx-2 vitta-modal-title">${tag.name}</legend>
+                        </fieldset>`;
+                    } else {
+                        let parentDiv = document.getElementById(`field-${tag.parentTag.id}`);
+                        parentDiv.innerHTML += `<div class="dropdown-item c-checkbox">
                         <input class="form-check-input" data-id="${tag.id}" data-name="${tag.name}" type="checkbox" id="filter-activity-type-${tag.name}">
-                        <label class="form-check-label w-100" for="filter-activity-type-${tag.name}" id="filter-${tag.name}">${tag.name}</label>
-                    </div>`;
+                        <label class="form-check-label" for="filter-activity-type-${tag.name}" id="filter-${tag.name}">${tag.name}</label>
+                        </div>`
+                    }
                 }
 
             });
