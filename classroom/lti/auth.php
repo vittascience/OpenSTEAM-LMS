@@ -100,12 +100,18 @@ else  {
 		"lineitem" => $platform_url . "/classroom/lti/score.php?activity_id=" . urlencode($loginHint['activitiesLinkUser'])
   ];
 }
-
+if(array_key_exists("lng", $_COOKIE)){
+  $lang = htmlspecialchars($_COOKIE["lng"]) ?? "fr";
+}
+else{
+  $lang = "fr";
+}
 $jwt_payload["https://purl.imsglobal.org/spec/lti/claim/launch_presentation"] = [
-  "locale" => htmlspecialchars($_COOKIE["lng"]) ?? "fr",
+  "locale" => $lang ?? "fr",
   "document_target" => "iframe",
   "return_url" => $platform_url . "/classroom/lti/redirection.html"
 ];
+
 
 $token = JWT::encode(
   $jwt_payload,
