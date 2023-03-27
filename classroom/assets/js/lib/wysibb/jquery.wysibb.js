@@ -49,11 +49,11 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 		fontcolor: "Couleur de caractère",
 		fontsize: "Taille de caractère",
 		fontfamily: "Famille de police",
-		fs_verysmall: "Très petit",
-		fs_small: "Petit",
-		fs_normal: "Normal",
-		fs_big: "Grand",
-		fs_verybig: "Très grand",
+		fs_verysmall: "x 0.8",
+		fs_small: "x 1.2",
+		fs_normal: "x 1.4",
+		fs_big: "x 1.6",
+		fs_verybig: "x 1.8",
 		smilebox: "Insérer émoticône",
 		video: "Insérer vidéo Youtube",
 		peertube: "Insérer vidéo Peertube",
@@ -191,11 +191,11 @@ if (getLangInCookie() == 'fr' || /fr\.vittascience/.test(window.location.href)) 
 		fontcolor: "Font color",
 		fontsize: "Font size",
 		fontfamily: "Font family",
-		fs_verysmall: "Very small",
-		fs_small: "Small",
-		fs_normal: "Normal",
-		fs_big: "Big",
-		fs_verybig: "Very big",
+		fs_verysmall: "x 0.8",
+		fs_small: "x 1.2",
+		fs_normal: "x 1.4",
+		fs_big: "x 1.6",
+		fs_verybig: "x 1.8",
 		smilebox: "Insert emoticon",
 		video: "Insert YouTube",
 		peertube: "Insert peertube",
@@ -819,7 +819,7 @@ wbbdebug = false;
 					excmd: 'fontSize',
 					exvalue: "1",
 					transform: {
-						'<font size="1">{SELTEXT}</font>': '[size=50]{SELTEXT}[/size]'
+						'<font size="1">{SELTEXT}</font>': '[size=0.8]{SELTEXT}[/size]'
 					}
 				},
 				fs_small: {
@@ -828,7 +828,7 @@ wbbdebug = false;
 					excmd: 'fontSize',
 					exvalue: "2",
 					transform: {
-						'<font size="2">{SELTEXT}</font>': '[size=85]{SELTEXT}[/size]'
+						'<font size="2">{SELTEXT}</font>': '[size=1.2]{SELTEXT}[/size]'
 					}
 				},
 				fs_normal: {
@@ -837,7 +837,7 @@ wbbdebug = false;
 					excmd: 'fontSize',
 					exvalue: "3",
 					transform: {
-						'<font size="3">{SELTEXT}</font>': '[size=100]{SELTEXT}[/size]'
+						'<font size="3">{SELTEXT}</font>': '[size=1.4]{SELTEXT}[/size]'
 					}
 				},
 				fs_big: {
@@ -846,7 +846,7 @@ wbbdebug = false;
 					excmd: 'fontSize',
 					exvalue: "4",
 					transform: {
-						'<font size="4">{SELTEXT}</font>': '[size=150]{SELTEXT}[/size]'
+						'<font size="4">{SELTEXT}</font>': '[size=1.6]{SELTEXT}[/size]'
 					}
 				},
 				fs_verybig: {
@@ -855,7 +855,7 @@ wbbdebug = false;
 					excmd: 'fontSize',
 					exvalue: "6",
 					transform: {
-						'<font size="6">{SELTEXT}</font>': '[size=200]{SELTEXT}[/size]'
+						'<font size="6">{SELTEXT}</font>': '[size=1.8]{SELTEXT}[/size]'
 					}
 				},
 

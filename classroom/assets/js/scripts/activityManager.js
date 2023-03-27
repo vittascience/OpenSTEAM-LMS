@@ -41,7 +41,7 @@ function LtiDefaultCode(activityType, isUpdate) {
 function launchCustomActivity(activityType, isUpdate = false, callback = false) {
     setTextArea();
     // Reset the tag list
-    manageTagList([], true); 
+    manageTagList([]); 
     
     const contentForwardButtonElt = document.getElementById('content-forward-button');
     contentForwardButtonElt.style.display = 'inline-block';
@@ -687,10 +687,9 @@ function getAllTagId() {
 }
 
 
-function manageTagList(taglist, force = false) {
-    const tagList = document.getElementById('taglist');
-    // reset the tag list
-    if (tagList == null && !force) {
+function manageTagList(taglist) {
+    const eTagList = document.getElementById('taglist');
+    if (eTagList == null) {
         return;
     }
 
@@ -708,7 +707,7 @@ function manageTagList(taglist, force = false) {
         tagDiv.classList.add('px-2');
         tagDiv.classList.add('c-btn-primary');
         tagDiv.innerHTML = tag.name + '<i class="fas fa-times ml-2"></i>';
-        tagList.appendChild(tagDiv);
+        eTagList.appendChild(tagDiv);
     }
 
     // add event listener to remove the tag on the i element
