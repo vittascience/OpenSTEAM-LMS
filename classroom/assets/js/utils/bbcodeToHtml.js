@@ -88,7 +88,7 @@ function bbcodeToHtml(html) {
     html = html.replace(/\[\/quote\]/gi, "<span style='font-size:2em;'>\"</span></p>")
 
     //size
-    html = html.replace(/\[size\=([0-9]{1,3})]/gi, "<span style='font-size:$1px;'>")
+    html = html.replace(/\[size\=([+-]?([0-9]*[.])?[0-9]+)]/gi, "<span style='font-size:$1em;'>")
     html = html.replace(/\[\/size\]/gi, "</span>")
 
     // anwser 
