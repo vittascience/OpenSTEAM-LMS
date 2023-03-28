@@ -250,6 +250,18 @@ DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function (
                 tagListSelect.innerHTML = "";
             }
 
+            // order by parent tag
+            Tag.tags.sort((a, b) => {
+                if (a.parentTag == null && b.parentTag != null) {
+                    return -1;
+                } else if (a.parentTag != null && b.parentTag == null) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
+            
+
             Tag.tags.forEach((tag) => {
 
                 if (tagListSelect) {

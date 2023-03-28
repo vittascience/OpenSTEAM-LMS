@@ -693,7 +693,7 @@ function manageTagList(taglist) {
         return;
     }
 
-    tagList.innerHTML = '';
+    eTagList.innerHTML = '';
     for (let i = 0; i < taglist.length; i++) {
         // Main.getClassroomManager().tagList find
         const tag = Main.getClassroomManager().tagList.find((tag) => {
@@ -711,7 +711,7 @@ function manageTagList(taglist) {
     }
 
     // add event listener to remove the tag on the i element
-    const tagDivs = tagList.querySelectorAll('div');
+    const tagDivs = eTagList.querySelectorAll('div');
     for (let i = 0; i < tagDivs.length; i++) {
         const tagDiv = tagDivs[i];
         tagDiv.addEventListener('click', () => {
