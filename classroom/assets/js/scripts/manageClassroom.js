@@ -20,19 +20,35 @@ async function readEvent (event) {
     switch(msg.type) {
         // Message received when an LTI resource launch has gone to submission
         case 'end-lti-score':
-            //teacher
+            //teacher preview auto-evaluate activity
             if(UserManager.getUser().isRegular && Activity.type.toUpperCase() === "GENIUS") { // TODO : refactor
-                // Update the activities from database
-                await Main.getClassroomManager().getStudentActivities(Main.getClassroomManager());
-                Main.getClassroomManager()._myTeacherActivities.forEach((activity) => {
-                    if (activity.id == Activity.id) {
-                        debugger;
-                        Activity = currentSearch; // ne possède pas la note
-                        return;
-                    }
+                // hidden all notes 
+                const possibilityNote = [0, 1, 2, 3, 4]
+                possibilityNote.forEach(note => {
+                    $(`#preview-note-${note}`).hide()
                 })
+                
+                // Update the activities from database
+                await Main.getClassroomManager().getTeacherActivities(Main.getClassroomManager());
+
+                // Refresh variable activity from database data
+                const activity = getTeacherActivityInList(Activity.id);
+                if(activity)
+                    Activity = getTeacherActivityInList(Activity.id); 
+                
+                // Show note of preview
+                const note = Activity.previewNote;
+                if(note || note === 0) {
+                    $(`#preview-note-${note}`).show()
+                } 
+                else {
+                    $("#preview-note-4").show()
+                }
+
+                // Otherwise display the relevant panel for success or fail
+                navigatePanel('classroom-dashboard-activity-panel-teacher-result', 'dashboard-activities');
             }
-            // student 
+            // student doing auto-evaluate activity
             else {
                 // Update the activities from database
                 await Main.getClassroomManager().getStudentActivities(Main.getClassroomManager());
@@ -44,29 +60,28 @@ async function readEvent (event) {
                         break;
                     }
                 }
-            }
-            console.log(Main.getClassroomManager())
 
-            // If the current activity needs a manual review, display the relevant panel
-            if (Activity.correction == 1) {
-                navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-activities');
-            } else {
-                // Otherwise display the relevant panel for success or fail
-                switch (Activity.note) {
-                    case 0:
-                        navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities');
-                        break;
-                    case 3:
-                        navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
-                        break;
+                // If the current activity needs a manual review, display the relevant panel
+                if (Activity.correction == 1) {
+                    navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-activities');
+                } else {
+                    // Otherwise display the relevant panel for success or fail
+                    switch (Activity.note) {
+                        case 0:
+                            navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities');
+                            break;
+                        case 3:
+                            navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
+                            break;
 
-                    default:
-                        navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
-                        break;
+                        default:
+                            navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
+                            break;
+                    }
                 }
+                // Clearing the LTI content div
+                document.querySelector('#lti-loader-container').innerHTML = '';
             }
-            // Clearing the LTI content div
-            document.querySelector('#lti-loader-container').innerHTML = '';
             break;
         // Message received when an LTI deep link has returned
         case 'end-lti-deeplink':
@@ -82,6 +97,7 @@ async function readEvent (event) {
             console.log(event.data);
     }
 }
+
 
 //formulaire de création de classe
 $('body').on('click', '.teacher-new-classe', function (event) {

@@ -475,6 +475,7 @@
         "12": "Décembre"
       },
       "preview": "Prévisualisation",
+      "previewNote": "L'élève aurait obtenu la note suivante : ",
       "deleteActivityDisclaimer": "Vous êtes sur le point de supprimer une activité. Cette action est irréversible.",
       "deleteConfirm": "Confirmer la suppression de l'activité",
       "deleteActivity": "Supprimer l'activité",

@@ -65,9 +65,7 @@ $userId = $grade->userId;
 $comment = $grade->comment;
 
 try {
-  // TODO :
-  // si teacher alors 
-  // insèrer le score dans la table `learn_activity`
+
   $user = null;
   try {
     $user = $entityManager->getRepository(Regular::class)->find($userId);
@@ -75,47 +73,32 @@ try {
   catch(Exception $e) {
     echo json_encode(['Error:' => $e->getMessage()]);
   }
-  // is teacher
-  if(isset($user)) {
-    //$activity = $entityManager->getRepository(Activity::class)->find($activityId);
-    // Create query
-    //$query = $entityManager->createQuery('UPDATE Learn\Entity\Activity la SET la.previewNote = :previewNote WHERE la.id = :id');
-    //$query->setParameter('previewNote', 1);
-    //$query->setParameter('id', $activityId);
-    //$query->execute();
-    $queryBuilder = $entityManager->createQueryBuilder();
-$queryBuilder->update('Learn\Entity\Activity', 'la')
-             ->set('la.previewNote', ':previewNote')
-             ->where('la.id = :id')
-             ->setParameter('previewNote', 2)
-             ->setParameter('id', $activityId);
 
-$query = $queryBuilder->getQuery();
+  // computed score
+  $convertedScore = 3 / $scoreMaximum * $scoreGiven;
 
-$sql = $query->getSQL();
+  // In case of teacher which preview auto-evaluate activity
+  if(isset($user) && $gradingProgress == "FullyGraded") {
+    $activity = $entityManager->getRepository(Activity::class)->find($activityId);
+    $activity->setNote((int) $convertedScore);
+  } 
+  else {
+      // $lineItemId is the id of the activityLinkUser (sent back from the tool)
+      $activityLinkUser = $entityManager->getRepository(ActivityLinkUser::class)->find($activityId);
+      $activityLinkUser->setUrl($comment);
 
-echo $sql;
+      if($gradingProgress == "FullyGraded") {
+        $activityLinkUser->setNote((int) $convertedScore);
+        $activityLinkUser->setCorrection(2);
+      }
+      else {
+        // set correction field to 1 (teacher must manually give score)
+        $activityLinkUser->setCorrection(1);
+      }
   }
   
-
-  //error_log("print_r: ".print_r($userData->getEmail(), true));
-
-
-  // $lineItemId is the id of the activityLinkUser (sent back from the tool)
-  $activityLinkUser = $entityManager->getRepository(ActivityLinkUser::class)->find($activityId);
-  $activityLinkUser->setUrl($comment);
-
-  if($gradingProgress == "FullyGraded") {
-    $convertedScore = 3 / $scoreMaximum * $scoreGiven;
-    $activityLinkUser->setNote((int) $convertedScore);
-    $activityLinkUser->setCorrection(2);
-  }
-  else {
-    // set correction field to 1 (teacher must manually give score)
-    $activityLinkUser->setCorrection(1);
-  }
-
   $entityManager->flush();
+
 
 } catch(Exception $e) {
   echo json_encode(['Error:' => $e->getMessage()]);
