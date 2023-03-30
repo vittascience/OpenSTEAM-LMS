@@ -453,7 +453,7 @@ function goBackToActivities() {
 }
 
 function goBackToActivitiesTeacher() {
-    navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities');
+    navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher');
 }
 
 
