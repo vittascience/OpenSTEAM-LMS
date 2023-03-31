@@ -20,12 +20,13 @@ async function readEvent (event) {
     switch(msg.type) {
         // Message received when an LTI resource launch has gone to submission
         case 'end-lti-score':
+            const possibilityNote = [0, 1, 2, 3, 4]
+
             //teacher preview auto-evaluate activity
             if(UserManager.getUser().isRegular && Activity.type.toUpperCase() === "GENIUS") { // TODO : refactor
-                // hidden all notes 
-                const possibilityNote = [0, 1, 2, 3, 4]
+                // hidden all notes
                 possibilityNote.forEach(note => {
-                    $(`#preview-note-${note}`).hide()
+                    $(`#classroom-dashboard-activity-panel-teacher-result #preview-note-${note}`).hide()
                 })
                 
                 // Update the activities from database
@@ -39,17 +40,22 @@ async function readEvent (event) {
                 // Show note of preview
                 const note = Activity.previewNote;
                 if(note || note === 0) {
-                    $(`#preview-note-${note}`).show()
+                    $(`#classroom-dashboard-activity-panel-teacher-result #preview-note-${note}`).show()
                 } 
                 else {
-                    $("#preview-note-4").show()
+                    $("#classroom-dashboard-activity-panel-teacher-result #preview-note-4").show()
                 }
 
                 // Otherwise display the relevant panel for success or fail
-                navigatePanel('classroom-dashboard-activity-panel-teacher-result', 'dashboard-activities');
+                navigatePanel('classroom-dashboard-activity-panel-teacher-result', 'dashboard-activities-teacher');
             }
             // student doing auto-evaluate activity
             else {
+                // hidden all notes
+                possibilityNote.forEach(note => {
+                    $(`#classroom-dashboard-activity-panel-student-result #preview-note-${note}`).hide()
+                })
+
                 // Update the activities from database
                 await Main.getClassroomManager().getStudentActivities(Main.getClassroomManager());
                 // Get the results of the current activity
@@ -65,19 +71,17 @@ async function readEvent (event) {
                 if (Activity.correction == 1) {
                     navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-activities');
                 } else {
-                    // Otherwise display the relevant panel for success or fail
-                    switch (Activity.note) {
-                        case 0:
-                            navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities');
-                            break;
-                        case 3:
-                            navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
-                            break;
-
-                        default:
-                            navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
-                            break;
+                    // Show note of preview
+                    const note = Activity.note;
+                    if(note || note === 0) {
+                        $(`#classroom-dashboard-activity-panel-student-result #preview-note-${note}`).show()
+                    } 
+                    else {
+                        $("#classroom-dashboard-activity-panel-student-result #preview-note-4").show()
                     }
+
+                    // Otherwise display the relevant panel for success or fail
+                    navigatePanel('classroom-dashboard-activity-panel-student-result', 'dashboard-activities');
                 }
                 // Clearing the LTI content div
                 document.querySelector('#lti-loader-container').innerHTML = '';
