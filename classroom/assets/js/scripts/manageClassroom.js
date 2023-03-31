@@ -21,9 +21,9 @@ async function readEvent (event) {
         // Message received when an LTI resource launch has gone to submission
         case 'end-lti-score':
             const possibilityNote = [0, 1, 2, 3, 4]
-
+            
             //teacher preview auto-evaluate activity
-            if(UserManager.getUser().isRegular && Activity.type.toUpperCase() === "GENIUS") { // TODO : refactor
+            if(UserManager.getUser().isRegular && Activity.isAutocorrect) {
                 // hidden all notes
                 possibilityNote.forEach(note => {
                     $(`#classroom-dashboard-activity-panel-teacher-result #preview-note-${note}`).hide()
