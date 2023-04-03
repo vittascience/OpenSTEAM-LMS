@@ -285,6 +285,8 @@
 			"sendResults": "Send the comment to the learner ",
 			"noSend": "This activity has not been made",
 			"comments": "Enter your comments here",
+			"isAutocorrected": "This exercise has been corrected automatically, you can change the score below.",
+      		"isAutocorrect": "This activity will be corrected automatically.",
       "activitySubmited2": "Activity submitted on",
 			"sentOn": "This activity was returned on ",
 			"activityOfUser": "Activity of ",
