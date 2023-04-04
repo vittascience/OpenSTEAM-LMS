@@ -425,8 +425,8 @@
                 "12": " Diciembre"
             },
             "preview": "Vista previa",
-            "previewTeacherResult": "El alumno habría recibido la siguiente nota: ",
-            "studentResult" : "Resultado obtenido:",
+            "previewTeacherResult": "El alumno habría recibido la siguiente nota :",
+            "studentResult" : "Resultado obtenido :",
             "deleteActivityDisclaimer": " Está a punto de eliminar una actividad. Esta acción es irreversible.",
             "deleteConfirm": " Confirmar la supresión de la actividad",
             "deleteActivity": " Eliminar la actividad",
