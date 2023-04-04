@@ -129,7 +129,7 @@ class FillInManager {
         if (correction <= 1 || correction == null) {
             if (!UserManager.getUser().isRegular) {
 
-                let contentReplaced = content.fillInFields.contentForTeacher.replaceAll(/\[answer\]([^\[]*)\[\/answer\]/g, "_TOBEREPLACED_");
+                let contentReplaced = content.fillInFields.contentForTeacher.replaceAll(/\[answer\](.*?)\[\/answer\]/g, "_TOBEREPLACED_");
                 let studentContent = bbcodeContentIncludingMathLive(contentReplaced);
                 let nbOccu = studentContent.match(/_TOBEREPLACED_/g).length;
     
@@ -137,8 +137,8 @@ class FillInManager {
                     let toBeReplace = studentContent.match(/_TOBEREPLACED_/g)[0];
                     studentContent = studentContent.replace(toBeReplace, `<input type="text" id="student-fill-in-field-${i}" class="answer-student">`);
                 }
-
-                $('#activity-content'+course).html(studentContent);
+                
+                $('#activity-content'+course).html(bbcodeContentIncludingMathLive(studentContent));
     
                 // Place the student's response if there is one
                 if (Activity.response != null && Activity.response != "") {

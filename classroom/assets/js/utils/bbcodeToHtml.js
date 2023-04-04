@@ -67,8 +67,9 @@ function bbcodeToHtml(html) {
     html = html.replace(/\[\/u\]/gi, "</u>")
     
     //image
-    html = html.replace(/\[img title=([a-zA-Z0-9?=&\/\\:\-,\+%._ ]*)max-width=([a-zA-Z0-9?=&\/\\:\-,\+%._ ]*)(\])([a-zA-Z0-9éàçèïîôâàë?=&\/\\:%.\-\+\)\(_ ]+)(\[\/img\])/gi, "<img src='$4' title='$1' alt='$1' style='max-width:$2 !important;' class='img-fluid'/>")
-    html = html.replace(/(\[img)([a-zA-Z0-9?=&\/\\:\-,\+%._]*)(\])([a-zA-Z0-9éàçèïîôâàë?=&\/\\:%.\-\+\)\(_]+)(\[\/img\])/gi, "<img src='$4'/>")
+    html = html.replace(/\[img title=(.*?) max-width=([a-zA-Z0-9?=&\/\\:\-,\+%._ ]*)(\])(.*?)(\[\/img\])/gi, "<img src='$4' title='$1' alt='$1' style='max-width:$2 !important;' class='img-fluid'/>")
+    html = html.replace(/(\[img)([a-zA-Z0-9?=&\/\\:\-,\+%._]*)(\])(.*?)(\[\/img\])/gi, "<img src='$4'/>")
+
     //line return
     html = html.replace(/\n/gi, "</br>")
     //exponent
@@ -118,11 +119,7 @@ function bbcodeToHtml(html) {
     html = html.replace(/\[size\=([0-9]{1,3})]/gi, "<span style='font-size:$1px;'>")
     html = html.replace(/\[\/size\]/gi, "</span>")
 
-    // exponent bbcode
-/*     html = html.replace(/\[math\]/gi, "<span>&nbsp;</span><math-field read-only style='display:inline-block'>")
-    html = html.replace(/\[\/math\]/gi, "</math-field>") */
-
-    html = html.replace(/\[imgcustom title=([a-zA-Z0-9?=&\/\\:\-,\+%._ ]*) width=([a-zA-Z0-9?=&\/\\:\-,\+%._ ]*)(\])([a-zA-Z0-9éàçèïîôâàë?=&\/\\:%.\-\+\)\(_ ]+)(\[\/imgcustom\])/gi, '<img src="$4" title="$1" style="width:$2;" class="img-fluid img-custom">');
+    html = html.replace(/\[imgcustom title=(.*?) width=([a-zA-Z0-9?=&\/\\:\-,\+%._ ]*)(\])(.*?)(\[\/imgcustom\])/gi, '<img src="$4" title="$1" style="width:$2;" class="img-fluid img-custom">');
     
     return html
 }
