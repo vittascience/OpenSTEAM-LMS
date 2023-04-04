@@ -452,9 +452,6 @@ button {
 #classroom-dashboard-top-bar {
     display: flex;
     padding: 0.5em 1em;
-    align-items: center;
-    justify-content: flex-end;
-    position: absolute;
 
     width: 100%;
     width: -webkit-fill-available;
@@ -463,12 +460,13 @@ button {
 
 #classroom-dashboard-content {
     background: var(--classroom-background);
-    flex: 0;
-    flex-shrink: 1;
-    flex-basis: auto;
+    display: flex;
+    flex-direction: column;
+    
     border-radius: 15px;
     height: 100%;
     width: 100%;
+
     position: relative;
     overflow-y: scroll;
 
@@ -511,9 +509,7 @@ button {
     padding: 1em;
 }
 
-.dashboard-block {
-    margin-top: 2.8em;
-}
+.dashboard-block {}
 
 
 @media (max-width: 768px) {
