@@ -1495,7 +1495,8 @@
 			"monitoringGroup": "Informations du groupe",
 			"appStatus0": "Inactive",
 			"appStatus1": "À jour",
-			"appStatus2": "Périmé"
+			"appStatus2": "Périmé",
+			"nameAlreadyExist": "Une application avec ce nom existe déjà"
 		},
 		"activitiesRestrictions": {
 			"updateAll": "Modifier les restrictions",

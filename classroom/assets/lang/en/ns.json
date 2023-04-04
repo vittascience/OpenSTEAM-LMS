@@ -1179,7 +1179,8 @@
 			"monitoringGroup": "Group informations",
 			"appStatus0": "Inactive",
 			"appStatus1": "Running",
-			"appStatus2": "OutDated"
+			"appStatus2": "OutDated",
+			"nameAlreadyExist": "An app with the same name already exists"
 		},
 		"activitiesRestrictions": {
 			"updateAll": "Update restrictions",
