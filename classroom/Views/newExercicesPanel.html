@@ -239,14 +239,18 @@
                 <input class="w-100" type="text" id="global_title">
             </div>
 
-<!--    TO BE UPDATED BEFORE RELEASE         
-    
-    <div class="col-xl-9 my-1 mx-auto d-flex flex-column">
+
+            <div class="col-xl-9 my-1 mx-auto d-none flex-column" id="tags-activities">
                 <label>Ajouter des tags à votre activité</label>
-                <div id="taglist" class="w-100 d-flex"></div>
-                <select id="taglist-select" class="w-100"></select>
-                <button id="add-tag-to-list" class="btn c-btn-primary mx-auto my-1">Ajouter le tag</button>
-            </div> -->
+                <div id="taglist" class="w-100 d-flex flex-wrap"></div>
+                <div class="input-group mb-3">
+                    <select id="taglist-select" class="form-control"></select>
+                    <div class="input-group-append">
+                      <button id="add-tag-to-list" class="btn c-btn-primary">Ajouter le tag</button>
+                    </div>
+                </div>
+                
+            </div>
         </div>
 
         <div class="section-preview-activity" id="activity-preview-div">

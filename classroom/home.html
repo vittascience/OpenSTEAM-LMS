@@ -544,7 +544,7 @@
             <span data-i18n="classroom.profil.switchMode" class="text-span-initial mr-1"></span>
             <i class="fas fa-exchange-alt"></i></button>
 
-        <button class="btn c-btn-red" onclick="goToDisconnect('classroom');" data-testid="classroomLogoutBtn">
+        <button class="btn c-btn-red" onclick="goToDisconnect('classroom');">
             <span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
             <i class="fas fa-power-off"></i>
         </button>
@@ -840,6 +840,15 @@
 
         <div class="col-12 col-lg-8 mt-2">
             <div class="d-flex flex-fill">
+
+                <div class="dropdown mx-2 d-none" id="tags-panel">
+                    <button class="btn c-btn-primary" style="width: auto;height: 3em;min-width: 3em;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-filter"></i>
+                        <span class="ml-1 d-none d-md-inline">Filtres</span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown-tags-filter">
+                    </div>
+                </div>
                 <input type="search" id="filter-activity-input" data-i18n="[placeholder]manager.buttons.search" class="flex-fill">
 
                 <button id="filter-activity" class="c-btn-primary" style="width: 3em;height: 3em;">
@@ -1794,14 +1803,18 @@
                 <input class="w-100" type="text" id="global_title">
             </div>
 
-<!--    TO BE UPDATED BEFORE RELEASE         
-    
-    <div class="col-xl-9 my-1 mx-auto d-flex flex-column">
+
+            <div class="col-xl-9 my-1 mx-auto d-none flex-column" id="tags-activities">
                 <label>Ajouter des tags à votre activité</label>
-                <div id="taglist" class="w-100 d-flex"></div>
-                <select id="taglist-select" class="w-100"></select>
-                <button id="add-tag-to-list" class="btn c-btn-primary mx-auto my-1">Ajouter le tag</button>
-            </div> -->
+                <div id="taglist" class="w-100 d-flex flex-wrap"></div>
+                <div class="input-group mb-3">
+                    <select id="taglist-select" class="form-control"></select>
+                    <div class="input-group-append">
+                      <button id="add-tag-to-list" class="btn c-btn-primary">Ajouter le tag</button>
+                    </div>
+                </div>
+                
+            </div>
         </div>
 
         <div class="section-preview-activity" id="activity-preview-div">

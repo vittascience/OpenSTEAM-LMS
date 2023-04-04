@@ -236,6 +236,15 @@ DisplayPanel.prototype.classroom_dashboard_form_classe_panel_update = function (
 
 DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function () {
     Main.getClassroomManager().getAllTags().then((Tag) => {
+
+        if (Tag.tags.length > 0) {
+            const tagsForActivities = document.getElementById("tags-activities");
+            const tagsForPanel = document.getElementById("tags-panel");
+            tagsForActivities.classList.remove("d-none");
+            tagsForActivities.classList.add("d-flex");
+            tagsForPanel.classList.remove("d-none");
+        }
+
         if (Main.getClassroomManager().tagList != Tag.tags) {
             Main.getClassroomManager().tagList = Tag.tags;
 

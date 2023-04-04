@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : mariadb
--- Généré le : mer. 15 mars 2023 à 01:47
+-- Généré le : mer. 29 mars 2023 à 01:14
 -- Version du serveur : 10.9.3-MariaDB-1:10.9.3+maria~ubu2204
 -- Version de PHP : 8.0.19
 
@@ -29,34 +29,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `learn_tags` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `parent_tag` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Déchargement des données de la table `learn_tags`
---
-
-INSERT INTO `learn_tags` (`id`, `name`) VALUES
-(1, 'Fonctions'),
-(2, 'Statistiques'),
-(3, 'Calculs'),
-(4, 'Algo et programmation'),
-(5, 'Entrer l\'expression d\'une fonction'),
-(6, 'Tableau de valeur'),
-(7, 'Image'),
-(8, 'Représentation graphique'),
-(9, 'Antécédent'),
-(10, 'Extrema'),
-(11, 'Intersection'),
-(12, 'Moyenne'),
-(13, 'Quartile'),
-(14, 'Médiane'),
-(15, 'Moustache'),
-(16, 'Tri'),
-(17, 'Indicateurs'),
-(18, 'Fractions'),
-(19, 'Racines'),
-(20, 'Algorithme');
 
 --
 -- Index pour les tables déchargées
@@ -76,7 +51,7 @@ ALTER TABLE `learn_tags`
 -- AUTO_INCREMENT pour la table `learn_tags`
 --
 ALTER TABLE `learn_tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -91,6 +91,10 @@ function bbcodeToHtml(html) {
     html = html.replace(/\[size\=([+-]?([0-9]*[.])?[0-9]+)]/gi, "<span style='font-size:$1em;'>")
     html = html.replace(/\[\/size\]/gi, "</span>")
 
+    //color
+    html = html.replace(/\[color\=(#[0-9a-f]{6}|#[0-9a-f]{3})\]/gi, "<span style='color:$1;'>")
+    html = html.replace(/\[\/color\]/gi, "</span>")
+
     // anwser 
 	html = html.replace(/\[answer\]/gi, "<span class='lms-answer'>");
 	html = html.replace(/\[\/answer\]/gi, "</span>");
