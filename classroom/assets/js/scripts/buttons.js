@@ -3085,7 +3085,11 @@ function persistUpdateApp() {
                 displayNotification('#notif-div', "manager.apps.updateSuccess", "success");
                 closeModalAndCleanInput(true);
             } else {
-                displayNotification('#notif-div', "manager.account.missingData", "error");
+                if (response.message == "application with the same name already exist") {
+                    displayNotification('#notif-div', "manager.apps.nameAlreadyExist", "error");
+                } else {
+                    displayNotification('#notif-div', "manager.account.missingData", "error");
+                } 
             }
         })
     }
