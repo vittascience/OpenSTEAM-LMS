@@ -1977,9 +1977,21 @@ h3.section-done {
     object-fit: contain;
 }
 
+#classroom-dashboard-classes-new-activity {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
 #activity-custom {
-    width: 100%;
-    height: 60vh;
+    flex-grow: 1;
+    margin-left: 15px;
+}
+
+#tool-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 #lti-loader-container {
@@ -3022,6 +3034,7 @@ h3.section-done {
     grid-column-start: 2;
     grid-row-start: 1;
     grid-row-end: 3;
+    padding-right: 2px;
 }
 
 
