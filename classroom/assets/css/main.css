@@ -2993,7 +2993,7 @@ h3.section-done {
 }
 
 .open-ide:hover {
-    filter: grayscale(0.70);
+    filter: contrast(200%);
 }
 
 .open-ide {
