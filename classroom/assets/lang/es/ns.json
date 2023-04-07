@@ -213,6 +213,7 @@
             "classroom-dashboard-activities-panel-teacher": "Mis actividades",
             "classroom-dashboard-classes-panel-teacher": "Mis clases",
             "classroom-dashboard-sandbox-panel": "Cajón de arena",
+            "classroom-dashboard-ressources": "Aplicaciones",
             "classroom-dashboard-profil-panel-teacher": "Perfil",
             "classroom-dashboard-activities-panel": "Mis actividades",
             "classroom-dashboard-profil-panel": "Perfil",
@@ -257,7 +258,15 @@
                 "copyLink": "Copiar el link directo",
                 "learnerMode": "Modo alumno",
                 "dueBy": "A entregar por"
-            }
+            },
+            "copyDirectLink": "Copiar el enlace directo",
+            "selectStudents": "Seleccionar alumnos",
+            "selectedStudents": "<span id='attribuate-student-number'>0</span> alumnos selectionados",
+            "activationLink": "Enlace de activación activado",
+            "activationLinkDisabled": "Enlace de activación desactivado",
+            "fullscreen": "Pantalla completa",
+            "deleteStudent": "Eliminar el perfil",
+            "deleteStudentConfirm": "¿Estás seguro de que quieres eliminar el perfil?"
         },
         "activities": {
             "title": "Actividades",
@@ -271,6 +280,7 @@
             "waiting": "Sin realizar aún",
             "done": "Terminados",
             "todo": "Para corregir",
+            "draft": "Borrador",
             "anonymise": "Proteja la lista de sus alumnos con otros nombres para que pueda mostrar el panel a sus alumnos",
             "save-draft": "Guardar como borrador",
             "validate": "Validar la actividad",
@@ -290,8 +300,6 @@
             "yourAnswer": "Su respuesta",
             "studentAnswer": "Respuesta del alumno",
             "return": "Volver a las actividades",
-            "isAutocorrected": "Este ejercicio fue evaluado automáticamente, puede cambiar la nota a continuación.",
-            "isAutocorrect": "Esta actividad será evaluada automáticamente.",
             "bilan": {
                 "title": "Balance",
                 "results": "Resultados",
@@ -381,11 +389,11 @@
                 },
                 "EXPRESS": {
                     "title": " Express",
-                    "description": " Crear una actividad utilizando herramientas de geometría dinámica y álgebra, calculadora científica y gráfica, etc."
+                    "description": "Herramienta matemáticas dinámica"
                 },
                 "GENIUS": {
-                    "title": " Inteligente",
-                    "description": " Cree una actividad con las herramientas Express y añada una evaluación automática."
+                    "title": " Smart",
+                    "description": "Herramienta de evaluación automática de las matemáticas"
                 },
                 "IFRAME-CABRI3D": {
                     "title": " Cabri 3D",
@@ -424,9 +432,7 @@
                 "11": " Noviembre",
                 "12": " Diciembre"
             },
-            "preview": "Vista previa",
-            "previewTeacherResult": "El alumno habría recibido la siguiente nota :",
-            "studentResult" : "Resultado obtenido :",
+            "preview": " Vista previa",
             "deleteActivityDisclaimer": " Está a punto de eliminar una actividad. Esta acción es irreversible.",
             "deleteConfirm": " Confirmar la supresión de la actividad",
             "deleteActivity": " Eliminar la actividad",
@@ -551,7 +557,9 @@
                 "description": "Puede agregar uno o más alumnos a la vez importándolos desde un archivo .csv. Opcionalmente es posible definir la contraseña para cada uno de ellos. Aquí están los archivos modelo .csv :",
                 "csvTemplate": "archivo modelo con contraseña",
                 "csvTemplateNoPassword": "archivo modelo sin contraseña",
-                "importStudentByCsvButton": "Importar alumnos"
+                "importStudentByCsvButton": "Importar alumnos",
+                "fileChooser": "Selectionar un archivo",
+                "fileName": "Ningún archivo seleccionado"
             },
             "exportCsv": {
                 "title": "Exportar en formato csv",
@@ -563,7 +571,8 @@
             "listClass": {
                 "title": "Cambiar a modo alumno",
                 "description": "Puede probar fácilmente la interfaz como alumno y volver a su perfil de profesor en cualquier momento. El progreso como alumno se guardará en la cuenta de demostudent.\n\n",
-                "switchButton": "Cambiar a modo alumno"
+                "switchButton": "Cambiar a modo alumno",
+                "noClass" : "Primero debe crear una clase para utilizar esta función"
             },
             "changePseudo": {
                 "title": "Modificar el alias",
@@ -684,6 +693,7 @@
         "exercise": "ejercicio",
         "return": "regresar",
         "anonymize": "dar anonimato",
+        "monochrome": "Modo monocromático",
         "days": "días",
         "hours": "horas",
         "minutes": "minutos",
@@ -733,7 +743,7 @@
                 },
                 "2": {
                     "title": "¿Cómo agregar mis alumnos a mi clase?",
-                    "answer": "Tiene varias opciones:<ol><li>En clase, puede<b>proyectar el código en el tablero<b>.Para hacer esto, vaya a su clase y haga clic sobre el botón para ampliar el código de aquí debajo:<br><img class=\"faq-img-center img-fluid\" \nsrc=\"assets/media/faq/image1.png\">Sus alumnos solo tendrán que registrarse o conectarse al sitio ingresando el código. Igualmente ellos podrán anotar este código para conectarse desde sus casas.</li><li>También puede crear alumnos con el botón\" Agregar un alumno\" y luego<b>comunicarle su contraseña individualmente </b>, esto es visible en el Panel de control de la clase a continuación :<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image2.png\"></li></ol>"
+                    "answer": "Tiene varias opciones:<ol><li>En clase, puede<b>proyectar el código en la pizarra<b>.Para hacer esto, vaya a su clase y haga clic sobre el botón para ampliar el código de aquí debajo:<br><img class=\"faq-img-center img-fluid\" \nsrc=\"assets/media/faq/image1.png\">Sus alumnos solo tendrán que registrarse o conectarse al sitio ingresando el código. Igualmente ellos podrán anotar este código para conectarse desde sus casas.</li><li>También puede crear alumnos con el botón\" Agregar un alumno\" y luego<b>comunicarle su contraseña individualmente </b>, esto es visible en el Panel de control de la clase :<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image2.png\"></li></ol>"
                 },
                 "3": {
                     "title": "¿Un alumno puede encontrarse en dos clases diferentes?",
@@ -1388,7 +1398,25 @@
         "hint": "Pista * : se muestra si la respuesta es incorrecta",
         "title": "Título de la actividad <span class=\"c-text-red\">*</span>",
         "description": "Descripción de la actividad <span class=\"c-text-red\">*</span>",
-        "content": "Contenido de la actividad <span class=\"c-text-red\">*</span>"
+        "content": "Contenido de la actividad <span class=\"c-text-red\">*</span>",
+        "addField": "Añadir un campo de respuesta",
+		"addFieldTooltip": "Al pulsar el botón Añadir un campo de respuesta, se añade un texto estilizado. En este campo puede escribir la respuesta correcta. Las respuestas alternativas se separan con un doble signo ampersand &&.",
+		"ActivitiesData": {
+		  "title": {
+			"reading": "Multimedia",
+			"free": "Respuesta libre",
+			"quiz": "Tipo test",
+			"fillIn": "Texto por completar",
+			"dragAndDrop": "Texto con huecos"
+		  },
+		  "description": {
+			"reading": "Página multimedia (textos, imágenes, vídeos, pdf, genially, ...)",
+			"free": "Respuesta libre a una pregunta",
+			"quiz": "Cuestionario de opción simple o multiple",
+			"fillIn": "Texto que debe completarse por escrito",
+			"dragAndDrop": "Texto que debe completase con etiquetas"
+		  }
+		}
     },
     "courses": {
         "addActivity": " Add an activity",

@@ -452,9 +452,6 @@ button {
 #classroom-dashboard-top-bar {
     display: flex;
     padding: 0.5em 1em;
-    align-items: center;
-    justify-content: flex-end;
-    position: absolute;
 
     width: 100%;
     width: -webkit-fill-available;
@@ -463,12 +460,13 @@ button {
 
 #classroom-dashboard-content {
     background: var(--classroom-background);
-    flex: 0;
-    flex-shrink: 1;
-    flex-basis: auto;
+    display: flex;
+    flex-direction: column;
+    
     border-radius: 15px;
     height: 100%;
     width: 100%;
+
     position: relative;
     overflow-y: scroll;
 
@@ -511,9 +509,7 @@ button {
     padding: 1em;
 }
 
-.dashboard-block {
-    margin-top: 2.8em;
-}
+.dashboard-block {}
 
 
 @media (max-width: 768px) {
@@ -625,8 +621,7 @@ button {
 
     #classroom-dashboard-content {
         border-radius: 0px;
-        height: calc(100% - 110px);
-        padding-bottom: 50px;
+        height: calc(100% - 160px);
         margin-top: 3.2em;
     }
 
@@ -1982,9 +1977,21 @@ h3.section-done {
     object-fit: contain;
 }
 
+#classroom-dashboard-classes-new-activity {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
 #activity-custom {
-    width: 100%;
-    height: 60vh;
+    flex-grow: 1;
+    margin-left: 15px;
+}
+
+#tool-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 #lti-loader-container {
@@ -3005,7 +3012,7 @@ h3.section-done {
 }
 
 .open-ide:hover {
-    filter: grayscale(0.70);
+    filter: contrast(200%);
 }
 
 .open-ide {
@@ -3046,6 +3053,7 @@ h3.section-done {
     grid-column-start: 2;
     grid-row-start: 1;
     grid-row-end: 3;
+    padding-right: 2px;
 }
 
 
@@ -3602,3 +3610,31 @@ h3.section-done {
 .image-vh {
     height: 40vh !important;
 }
+
+#spinner-loading {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    border-radius: inherit;
+  }
+
+  #spinner-loading div {
+    border-top: 8px solid var(--classroom-dashboard); /* Couleur de la roue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin: auto;
+
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+

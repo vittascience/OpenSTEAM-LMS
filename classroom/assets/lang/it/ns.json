@@ -213,6 +213,7 @@
             "classroom-dashboard-activities-panel-teacher": "Le mie attività",
             "classroom-dashboard-classes-panel-teacher": "Le mie classi",
             "classroom-dashboard-sandbox-panel": "Sandbox",
+            "classroom-dashboard-ressources": "Applicazioni",
             "classroom-dashboard-profil-panel-teacher": "Profilo",
             "classroom-dashboard-activities-panel": "Le mie attività",
             "classroom-dashboard-profil-panel": "Profilo",
@@ -257,7 +258,15 @@
                 "copyLink": "Copiare il link diretto",
                 "learnerMode": "Passare alla modalità studente",
                 "dueBy": "Dovuto a"
-            }
+            },
+            "copyDirectLink": "Copiare il link diretto",
+            "selectStudents": "Selezione degli studenti",
+            "selectedStudents": "<span id='attribuate-student-number'>0</span> studenti selezionati",
+            "activationLink": "Link di attivazione attivato",
+            "activationLinkDisabled": "Link di attivazione disabilitato",
+            "fullscreen": "Visualizza lo schermo intero",
+            "deleteStudent": "Eliminare il profilo",
+            "deleteStudentConfirm": "Vuoi davvero cancellare questo profilo?"
         },
         "activities": {
             "title": "Attività",
@@ -271,6 +280,7 @@
             "waiting": "Non ancora completato",
             "done": "Completato",
             "todo": "Da correggere",
+            "draft": "Bozza",
             "anonymise": "Anonimizza la tua lista di studenti in modo da poter mostrare il dashboard ai tuoi studenti",
             "save-draft": "Salva come bozza",
             "validate": "Convalidare l'attività",
@@ -290,8 +300,6 @@
             "yourAnswer": " La tua risposta",
             "studentAnswer": " Risposta dell'allievo",
             "return": " Torna alle attività",
-            "isAutocorrected": "Questo esercizio è stato valutato automaticamente; è possibile modificare il voto qui sotto.",
-            "isAutocorrect": "Questa attività verrà valutata automaticamente.",
             "bilan": {
                 "title": "Bilancio",
                 "results": "Risultati",
@@ -380,12 +388,12 @@
                     "description": " Scegliete tra una selezione di lettori per utilizzare le attività svolte con lo strumento di authoring Cabri."
                 },
                 "EXPRESS": {
-                    "title": " Espresso",
-                    "description": " Creare un'attività utilizzando strumenti di geometria dinamica e algebra, calcolatrice scientifica e grafica, ecc."
+                    "title": "Express",
+                    "description": "Strumenti di matematica dinamica"
                 },
                 "GENIUS": {
-                    "title": " Intelligente",
-                    "description": " Create un'attività con gli strumenti Express e aggiungete una valutazione automatica."
+                    "title": " Smart",
+                    "description": "Strumento di valutazione automatica per la matematica"
                 },
                 "IFRAME-CABRI3D": {
                     "title": " Cabri 3D",
@@ -425,8 +433,6 @@
                 "12": " Dicembre"
             },
             "preview": " Anteprima",
-            "previewTeacherResult": "L'alunno avrebbe ricevuto il seguente voto: ",
-            "studentResult" : "Risultato ottenuto: ",
             "deleteActivityDisclaimer": " Si sta per eliminare un'attività. Questa azione è irreversibile.",
             "deleteConfirm": " Confermare la cancellazione dell'attività",
             "deleteActivity": " Cancellare l'attività",
@@ -551,7 +557,9 @@
                 "description": "Puoi aggiungere uno o più studenti in una volta importandoli da un file .csv. Opzionalmente, è possibile impostare la password per ciascuno di essi. Ecco i file .csv di esempio: ",
                 "csvTemplate": "file modello con password",
                 "csvTemplateNoPassword": "file modello senza password",
-                "importStudentByCsvButton": "Importare gli studenti"
+                "importStudentByCsvButton": "Importare gli studenti",
+                "fileChooser": "Scegliere un file",
+                "fileName": "Nessun file selezionato"
             },
             "exportCsv": {
                 "title": "Esportazione in formato csv",
@@ -563,7 +571,8 @@
             "listClass": {
                 "title": "Passare alla modalità studente",
                 "description": "Puoi facilmente testare l'interfaccia come studente e tornare al tuo profilo di insegnante in qualsiasi momento. I tuoi progressi come studente saranno salvati nel tuo account demostudent.",
-                "switchButton": "Passare alla modalità studente"
+                "switchButton": "Passare alla modalità studente",
+                "noClass" : "Per utilizzare questa funzione, è necessario creare prima una classe"
             },
             "changePseudo": {
                 "title": "Cambia il nome utente",
@@ -684,6 +693,7 @@
         "exercise": "esercizio",
         "return": "indietro",
         "anonymize": "anonimizzare",
+        "monochrome": "Modo monocromatico",
         "days": "giorni",
         "hours": "ore",
         "minutes": "minuti",
@@ -1388,7 +1398,26 @@
         "hint": " Hint * : visualizzato se la risposta è sbagliata",
         "title": " Titolo dell'attività <span class=\"c-text-red\">*</span>",
         "description": " Descrizione dell'attività <span class=\"c-text-red\">*</span>",
-        "content": " Contenuto dell'attività <span class=\"c-text-red\">*</span>"
+        "content": " Contenuto dell'attività <span class=\"c-text-red\">*</span>",
+        "addField": "Aggiungere un campo di risposta",
+		"addFieldTooltip": "Facendo clic sul pulsante Aggiungi campo di risposta, viene aggiunto un testo stilizzato. In questo campo è possibile scrivere la risposta corretta. Le risposte alternative sono separate da un doppio ampersand &&.",
+		"ActivitiesData": {
+		  "title": {
+			"reading": "Multimediale",
+			"free": "Risposta libera",
+			"quiz": "Questionari a scelta multipla",
+			"fillIn": "Testo da completare",
+			"dragAndDrop": "Testo di cloche"
+		  },
+		  "description": {
+			"reading": "Pagina multimediale (testo, immagini, video, PDF, Genially, ...)",
+			"free": "Risposta libera a una domanda",
+			"quiz": "Questionario a scelta singola o multipla",
+			"fillIn": "Testo da completare per iscritto",
+			"dragAndDrop": "Testo da completare con le etichette"
+        
+		  }
+		}
     },
     "courses": {
         "addActivity": " Add an activity",

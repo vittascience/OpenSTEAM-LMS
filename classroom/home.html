@@ -6,7 +6,6 @@
 </head>
 
 <body>
-
 <div id="classroom-dashboard-background">
     <div id="classroom-dashboard-container">
         <div id="classroom-dashboard-sidebar" class="sidebar-classroom" style="display:none;">
@@ -97,6 +96,9 @@
 </div>
 
 <div id="classroom-dashboard-content">
+    <div id="spinner-loading">
+        <div></div>
+    </div>
     <div id="classroom-dashboard-top-bar">
         <!-- Breadcrumb -->
         <div id="breadcrumb" class="row ml-2 mr-auto"></div>
@@ -365,7 +367,7 @@
     <div class="section-container section-saved">
         <div class="section-header" onclick="sectionToggle('saved')">
             <i id="i-saved" class="ml-2 fas fa-lg fa-chevron-up"></i>
-            <h3 class="section-title" >Brouillons</h3>
+            <h3 class="section-title" data-i18n="classroom.activities.draft">Brouillons</h3>
             <span class="resource-number"> </span>
         </div>
         <div id="saved-activities-list" style="display: none;"></div>
@@ -895,7 +897,7 @@
                 <li class="ml-3 c-checkbox" style="height: 1.6em;">
                     <input type="checkbox" id="is-monochrome" title="" class="mr-2">
                     <label for="is-monochrome">
-                        <span class="mr-2">Mode monochrome</span>
+                        <span class="mr-2" data-i18n="words.monochrome">Mode monochrome</span>
                     </label>
                 </li>
 
@@ -921,7 +923,7 @@
             </span>
         </div>
         
-        <button class="btn c-btn-secondary" class="blocking-class" onclick="navigatePanel('classroom-table-panel-teacher-code', 'dashboard-classroom-teacher')" data-toggle="tooltip" title="Afficher en plein écran">
+        <button class="btn c-btn-secondary" class="blocking-class" id="fullscreen-class-tooltip" onclick="navigatePanel('classroom-table-panel-teacher-code', 'dashboard-classroom-teacher')" data-toggle="tooltip" title="Afficher en plein écran">
             <i class="fa fa-expand"></i>
 
         </button>
@@ -1703,7 +1705,7 @@
         </div>
     </nav>
 
-    <div class="container mb-2 part-content-index c-primary-form">
+    <div  id="tool-container" class="container mb-2 part-content-index c-primary-form">
 
         <!-- Free activity part -->
         <div id="activity-free" style="display:none;">
@@ -1712,7 +1714,7 @@
                 <textarea id="free-content" style="height:340px"></textarea>
             </div>
            
-            <div class="c-checkbox">
+            <div class="c-checkbox ml-3">
                 <input type="checkbox" name="free-autocorrect" id="free-autocorrect">
                 <label for="free-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
             </div>
@@ -2730,7 +2732,10 @@
                             console.log("Loader failed to load: " + reason);
                             failedToLoad();
                         }
-                    );
+                    ).then((resolve)=> {
+                        // hide spinner when load
+                        $("#spinner-loading").hide();
+                    });
                 })
             },
             (reason) => {
