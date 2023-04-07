@@ -300,6 +300,8 @@
             "yourAnswer": " La tua risposta",
             "studentAnswer": " Risposta dell'allievo",
             "return": " Torna alle attività",
+            "isAutocorrected": "Questo esercizio è stato valutato automaticamente; è possibile modificare il voto qui sotto.",
+            "isAutocorrect": "Questa attività verrà valutata automaticamente.",
             "bilan": {
                 "title": "Bilancio",
                 "results": "Risultati",
@@ -433,6 +435,8 @@
                 "12": " Dicembre"
             },
             "preview": " Anteprima",
+            "previewTeacherResult": "L'alunno avrebbe ricevuto il seguente voto: ",
+            "studentResult" : "Risultato ottenuto: ",
             "deleteActivityDisclaimer": " Si sta per eliminare un'attività. Questa azione è irreversibile.",
             "deleteConfirm": " Confermare la cancellazione dell'attività",
             "deleteActivity": " Cancellare l'attività",
