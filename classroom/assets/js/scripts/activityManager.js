@@ -188,7 +188,9 @@ function titleBackward() {
             autocorrect = Main.getClassroomManager()._createActivity.autocorrect,
             folder = foldersManager.actualFolder;
 
-        if (type == "dragAndDrop" || type == "fillIn" || type == "quiz") {
+        // is an activity auto evaluate    
+        const autoCorrectTypeApps = ["dragAndDrop", "fillIn", "quiz", "GENIUS"]    
+        if (autoCorrectTypeApps.includes(type)) {
             autocorrect = true;
         }
 
@@ -450,6 +452,10 @@ function sortFunctionBySort(a, b) {
 
 function goBackToActivities() {
     navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
+}
+
+function goBackToActivitiesTeacher() {
+    navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher');
 }
 
 

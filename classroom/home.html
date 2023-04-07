@@ -258,7 +258,6 @@
 
                 <!-- Used for content -->
                 <div id="activity-content-container-course" style="display:none;">
-                    <label for="activity-content-course" id="label-activity-content-course" class="vitta-modal-title mt-2" data-i18n="newActivities.contentTitle">Contenu de l'activité</label>
                     <p id="activity-content-course"></p>    
                 </div>
                 
@@ -428,7 +427,6 @@
 
                 <!-- Used for content -->
                 <div id="activity-content-container" style="display:none;">
-                    <label for="activity-content" id="label-activity-content" class="vitta-modal-title mt-2" data-i18n="newActivities.contentTitle">Contenu de l'activité</label>
                     <p id="activity-content"></p>
                 </div>
 
@@ -472,6 +470,124 @@
             </div>
         </div>
 
+    </div>
+</div>
+
+<div id="classroom-dashboard-activity-panel-teacher-result" class="dashboard-block" style="display:none;">
+    <div class="results-teacher-panel">
+        <p>
+            <span data-i18n="[html]classroom.activities.previewTeacherResult"></span>
+        </p>
+
+        <!-- Note of preview -->
+        <div id="preview-note-3" style="display: none;">
+            <div class="bilan-legend bilan-3">
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+            </div>
+            <span data-i18n="classroom.activities.veryGoodProficiency"></span>
+        </div>
+        <div id="preview-note-2" style="display: none;">
+            <div class="bilan-legend bilan-2">
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+            </div>
+            <span data-i18n="classroom.activities.goodProficiency"></span>
+        </div>
+        <div id="preview-note-1" style="display: none;">
+            <div class="bilan-legend bilan-1">
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+            </div>
+            <span data-i18n="classroom.activities.weakProficiency"></span>
+        </div>
+        <div id="preview-note-0" style="display: none;">
+            <div class="bilan-legend bilan-0">
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+            </div>
+            <span data-i18n="classroom.activities.insufficientProficiency"></span>
+        </div>
+        <div id="preview-note-4" style="display: none;">
+            <div class="bilan-legend bilan-4">
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+            </div>
+            <span data-i18n="classroom.activities.noProficiency"></span>
+        </div>
+
+        <button class="btn c-btn-primary mx-auto" onclick="goBackToActivitiesTeacher()">
+            <span data-i18n="classroom.activities.return"></span> <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</div>
+
+<div id="classroom-dashboard-activity-panel-student-result" class="dashboard-block" style="display:none;">
+    <div class="results-teacher-panel">
+        <p>
+            <span data-i18n="[html]classroom.activities.studentResult"></span>
+        </p>
+
+        <!-- Note of preview -->
+        <div id="preview-note-3" style="display: none;">
+            <div class="bilan-legend bilan-3">
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+            </div>
+            <span data-i18n="classroom.activities.veryGoodProficiency"></span>
+        </div>
+        <div id="preview-note-2" style="display: none;">
+            <div class="bilan-legend bilan-2">
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+            </div>
+            <span data-i18n="classroom.activities.goodProficiency"></span>
+        </div>
+        <div id="preview-note-1" style="display: none;">
+            <div class="bilan-legend bilan-1">
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+            </div>
+            <span data-i18n="classroom.activities.weakProficiency"></span>
+        </div>
+        <div id="preview-note-0" style="display: none;">
+            <div class="bilan-legend bilan-0">
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+            </div>
+            <span data-i18n="classroom.activities.insufficientProficiency"></span>
+        </div>
+        <div id="preview-note-4" style="display: none;">
+            <div class="bilan-legend bilan-4">
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+            </div>
+            <span data-i18n="classroom.activities.noProficiency"></span>
+        </div>
+
+        <button class="btn c-btn-primary mx-auto" onclick="goBackToActivities()">
+            <span data-i18n="classroom.activities.return"></span> <i class="fas fa-chevron-right"></i>
+        </button>
     </div>
 </div>
 
@@ -1821,7 +1937,6 @@
     
     
                 <div id="preview-content" style="display: none;">
-                    <label for="preview-activity-content" id="label-activity-content" class="vitta-modal-title mt-2" data-i18n="newActivities.contentTitle">Contenu de l'activité</label>
                     <p id="preview-activity-content"></p>   
                 </div>
     
