@@ -212,7 +212,7 @@
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Help",
 			"classroom-dashboard-activities-panel-teacher": "My activities",
-			"classroom-dashboard-classes-panel-teacher": "My classes",
+			"classroom-dashboard-classes-panel-teacher": "Classes",
 			"classroom-dashboard-sandbox-panel": "Sandbox",
 			"classroom-dashboard-ressources": "Applications",
 			"classroom-dashboard-profil-panel-teacher": "Profile",
@@ -759,11 +759,11 @@
         },
         "4": {
           "title": "How do I assign an activity?",
-          "answer": "To assign an activity, you have three options:<ol><li>Either go to the <b>My Activities</b> tab and click on the <i class=\"fas fa-cog\"></i> icon for your activity and then click on Assign. Then, all you have to do is follow the steps.</li><li>This Assign option is also available in the activity itself once opened.</li><li>Then, you go to the <b>My Classes</b> tab and click on a class. Once you get to the class dashboard, you simply click the \"Add Activity\" button.</li></ol>"
+          "answer": "To assign an activity, you have three options:<ol><li>Either go to the <b>My Activities</b> tab and click on the <i class=\"fas fa-cog\"></i> icon for your activity and then click on Assign. Then, all you have to do is follow the steps.</li><li>This Assign option is also available in the activity itself once opened.</li><li>Then, you go to the <b>Classes</b> tab and click on a class. Once you get to the class dashboard, you simply click the \"Add Activity\" button.</li></ol>"
         },
         "5": {
           "title": "How to test an activity?",
-          "answer": "To test an activity, you have two options:<ol><li>Either go to <b>Profile</b> and click on the \"Switch to Learner Mode\" button and then select the class you want to be in. You will find yourself on the fictitious account of a learner called \"demostudent\", you will be able to discover the \"Learner\" interface and perform the activities you have assigned.</li><li>Or go to <b>My classes</b> in the dashboard of a class, you will then be able to place yourself in the skin of the learner demostudent. To do this, click on the <i class=\"fas fa-exchange-alt\"></i> icon, you will have the opportunity to become a learner in the class and try out the activities.</li></ol>To return to the \"Teacher\" mode, simply go to the <b>Profile</b> tab of the demostudent account and click on \"Return to Teacher Mode.\""
+          "answer": "To test an activity, you have two options:<ol><li>Either go to <b>Profile</b> and click on the \"Switch to Learner Mode\" button and then select the class you want to be in. You will find yourself on the fictitious account of a learner called \"demostudent\", you will be able to discover the \"Learner\" interface and perform the activities you have assigned.</li><li>Or go to <b>Classes</b> in the dashboard of a class, you will then be able to place yourself in the skin of the learner demostudent. To do this, click on the <i class=\"fas fa-exchange-alt\"></i> icon, you will have the opportunity to become a learner in the class and try out the activities.</li></ol>To return to the \"Teacher\" mode, simply go to the <b>Profile</b> tab of the demostudent account and click on \"Return to Teacher Mode.\""
         },
         "6": {
           "title": "How do you remove an activity allocation without removing the activity?",
@@ -775,8 +775,8 @@
       "section_title": "Class",
       "question_list": {
         "1": {
-          "title": "What is the purpose of the My Classes tab?",
-          "answer": "In the My Classes tab, you will be able to:<ol><li>Create your own classes and add learners</li><li>Correct your learners' responses to activities,</li><li>and track their progress.</li></ol>"
+          "title": "What is the purpose of the Classes tab?",
+          "answer": "In the Classes tab, you will be able to:<ol><li>Create your own classes and add learners</li><li>Correct your learners' responses to activities,</li><li>and track their progress.</li></ol>"
         },
         "2": {
           "title": "How do I add my learners to my class?",
@@ -792,7 +792,7 @@
         },
         "5": {
           "title": "How do I assign an activity?",
-          "answer": "<p>You can assign an activity to all the classes you've created or just to a specific learner.</p><p>To assign an activity, you have three options:</p><ol><li>Either go to the <b>My Activities</b> tab and click on the <i class=\"fas fa-cog\"></i> icon for your activity and then click Assign. Then, all you have to do is follow the steps.</li><li>This Assign option is also available in the activity itself once opened.</li><li>Then, you go to the <b>My Classes</b> tab and click on a class. Once you get to the class dashboard, you simply click the \"Add Activity\" button.</li></ol>"
+          "answer": "<p>You can assign an activity to all the classes you've created or just to a specific learner.</p><p>To assign an activity, you have three options:</p><ol><li>Either go to the <b>My Activities</b> tab and click on the <i class=\"fas fa-cog\"></i> icon for your activity and then click Assign. Then, all you have to do is follow the steps.</li><li>This Assign option is also available in the activity itself once opened.</li><li>Then, you go to the <b>Classes</b> tab and click on a class. Once you get to the class dashboard, you simply click the \"Add Activity\" button.</li></ol>"
         },
         "6": {
           "title": "Can we go back on the allocation of an activity?",
@@ -808,7 +808,7 @@
         },
         "9": {
           "title": "How to change the name of a class?",
-          "answer": "To change the name of your class, you'll need to click on the <i class=\"fas fa-cog\"></i> icon from the My Classes tab, and then on edit. You will then just have to change its name."
+          "answer": "To change the name of your class, you'll need to click on the <i class=\"fas fa-cog\"></i> icon from the Classes tab, and then on edit. You will then just have to change its name."
         },
         "10": {
           "title": "How do I remove a learner from a class?",
