@@ -211,7 +211,7 @@
         "ids": {
             "classroom-dashboard-help-panel-teacher": "Aiuto",
             "classroom-dashboard-activities-panel-teacher": "Le mie attività",
-            "classroom-dashboard-classes-panel-teacher": "Le mie classi",
+            "classroom-dashboard-classes-panel-teacher": "Classi",
             "classroom-dashboard-sandbox-panel": "Sandbox",
             "classroom-dashboard-ressources": "Applicazioni",
             "classroom-dashboard-profil-panel-teacher": "Profilo",
@@ -726,11 +726,11 @@
                 },
                 "4": {
                     "title": "Come assegnare un'attività?",
-                    "answer": "Per assegnare un'attività, hai tre opzioni:<ol><li>O vai alla scheda <b>Le mie attività</b> e clicca sull'icona <i class=\"fas fa-cog\"></i> della tua attività e poi clicca su Assegna. Poi, dovrai solo seguire i passi.</li><li>Questa opzione di assegnazione è disponibile anche nell'attività stessa una volta aperta.</li><li>Oppure, vai alla scheda <b>Le mie classi</b> e clicca su una classe. Una volta arrivati al pannello di controllo della classe, tutto quello che devi fare è cliccare sul pulsante \"Aggiungi attività\".</li></ol>"
+                    "answer": "Per assegnare un'attività, hai tre opzioni:<ol><li>O vai alla scheda <b>Le mie attività</b> e clicca sull'icona <i class=\"fas fa-cog\"></i> della tua attività e poi clicca su Assegna. Poi, dovrai solo seguire i passi.</li><li>Questa opzione di assegnazione è disponibile anche nell'attività stessa una volta aperta.</li><li>Oppure, vai alla scheda <b> Classi</b> e clicca su una classe. Una volta arrivati al pannello di controllo della classe, tutto quello che devi fare è cliccare sul pulsante \"Aggiungi attività\".</li></ol>"
                 },
                 "5": {
                     "title": "Come testare un'attività?",
-                    "answer": "Per testare un'attività, hai due opzioni:<ol><li>O vai su <b>Profilo</b> e clicca sul pulsante \"Passa alla modalità studente\" e poi seleziona la classe in cui vuoi stare. Vi troverete sull'account fittizio di un allievo chiamato \"demostudent\", potrete scoprire l'interfaccia \"Learner\" e svolgere le attività che avete assegnato.</li><li>Oppure andate su <b>Le mie classi</b> nella dashboard di una classe, potrete allora mettervi nella pelle dell'allievo demostudent. Per fare questo, clicca sull'icona <i class=\"fas fa-exchange-alt\"></i>, avrai l'opportunità di diventare uno studente della classe e provare le attività.</li></ol>Per tornare alla modalità \"Insegnante\", basta andare nella scheda <b>Profilo</b> dell'account demostudent e cliccare su \"Torna alla modalità insegnante\"."
+                    "answer": "Per testare un'attività, hai due opzioni:<ol><li>O vai su <b>Profilo</b> e clicca sul pulsante \"Passa alla modalità studente\" e poi seleziona la classe in cui vuoi stare. Vi troverete sull'account fittizio di un allievo chiamato \"demostudent\", potrete scoprire l'interfaccia \"Learner\" e svolgere le attività che avete assegnato.</li><li>Oppure andate su <b>Classi</b> nella dashboard di una classe, potrete allora mettervi nella pelle dell'allievo demostudent. Per fare questo, clicca sull'icona <i class=\"fas fa-exchange-alt\"></i>, avrai l'opportunità di diventare uno studente della classe e provare le attività.</li></ol>Per tornare alla modalità \"Insegnante\", basta andare nella scheda <b>Profilo</b> dell'account demostudent e cliccare su \"Torna alla modalità insegnante\"."
                 },
                 "6": {
                     "title": "Come rimuovere l'assegnazione di un'attività senza rimuovere l'attività?",
@@ -742,8 +742,8 @@
             "section_title": "Classe",
             "question_list": {
                 "1": {
-                    "title": "Qual è lo scopo della scheda Le mie classi?",
-                    "answer": "Nella scheda Le mie classi, sarai in grado di:<ol><li>Creare le tue classi e aggiungere studenti</li><li>Correggere le risposte dei tuoi studenti alle attività,</li><li>e monitorare i loro progressi.</li></ol>"
+                    "title": "Qual è lo scopo della scheda Classi?",
+                    "answer": "Nella scheda Classi, sarai in grado di:<ol><li>Creare le tue classi e aggiungere studenti</li><li>Correggere le risposte dei tuoi studenti alle attività,</li><li>e monitorare i loro progressi.</li></ol>"
                 },
                 "2": {
                     "title": "Come posso aggiungere i miei studenti alla mia classe?",
@@ -759,7 +759,7 @@
                 },
                 "5": {
                     "title": "Come assegnare un'attività?",
-                    "answer": "<p>Puoi assegnare un'attività a tutte le classi che hai creato o solo a un particolare studente.</p><p>Per assegnare un'attività, hai tre opzioni:</p><ol><li>O vai alla scheda <b>Le mie attività</b> e clicca sull'icona <i class=\"fas fa-cog\"></i> della tua attività e poi clicca su Assegna. Poi, dovrai solo seguire i passi.</li><li>Questa opzione di assegnazione è disponibile anche nell'attività stessa una volta aperta.</li><li>Oppure, vai alla scheda <b>Le mie classi</b> e clicca su una classe. Una volta arrivati al pannello di controllo della classe, tutto quello che devi fare è cliccare sul pulsante \"Aggiungi attività\".</li></ol>"
+                    "answer": "<p>Puoi assegnare un'attività a tutte le classi che hai creato o solo a un particolare studente.</p><p>Per assegnare un'attività, hai tre opzioni:</p><ol><li>O vai alla scheda <b>Le mie attività</b> e clicca sull'icona <i class=\"fas fa-cog\"></i> della tua attività e poi clicca su Assegna. Poi, dovrai solo seguire i passi.</li><li>Questa opzione di assegnazione è disponibile anche nell'attività stessa una volta aperta.</li><li>Oppure, vai alla scheda <b>Classi</b> e clicca su una classe. Una volta arrivati al pannello di controllo della classe, tutto quello che devi fare è cliccare sul pulsante \"Aggiungi attività\".</li></ol>"
                 },
                 "6": {
                     "title": "Si può modificare l'assegnazione di un'attività?",
@@ -775,7 +775,7 @@
                 },
                 "9": {
                     "title": "Come cambiare il nome di una classe?",
-                    "answer": "Per cambiare il nome della tua classe, dovrai cliccare sull'icona <i class=\"fas fa-cog\"></i> della scheda Le mie classi, poi su modifica. Tutto quello che devi fare è cambiarne il nome."
+                    "answer": "Per cambiare il nome della tua classe, dovrai cliccare sull'icona <i class=\"fas fa-cog\"></i> della scheda Classi, poi su modifica. Tutto quello che devi fare è cambiarne il nome."
                 },
                 "10": {
                     "title": "Come posso rimuovere uno studente da una classe?",

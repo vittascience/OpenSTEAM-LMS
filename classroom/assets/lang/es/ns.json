@@ -211,7 +211,7 @@
         "ids": {
             "classroom-dashboard-help-panel-teacher": "Ayuda",
             "classroom-dashboard-activities-panel-teacher": "Mis actividades",
-            "classroom-dashboard-classes-panel-teacher": "Mis clases",
+            "classroom-dashboard-classes-panel-teacher": "Clases",
             "classroom-dashboard-sandbox-panel": "Cajón de arena",
             "classroom-dashboard-ressources": "Aplicaciones",
             "classroom-dashboard-profil-panel-teacher": "Perfil",
@@ -726,11 +726,11 @@
                 },
                 "4": {
                     "title": "¿Cómo asignar una actividad?",
-                    "answer": "Para asignar una actividad, cuenta con tres opciones:: <ol> <li> Vaya a la pestaña <b> Mis actividades </b> y haga clic en el icono <i class = \"fas fa-cog\"> </i> de su actividad y luego haga clic en Asignar. Enseguida, sólo siga los pasos. </li> <li> Esta opción de Asignar también está disponible en la propia actividad una vez abierta.</li> <li> De lo contrario, vaya a la pestaña <b> Mis clases </b> y haga clic en una clase. Una vez en el panel de control del aula, todo lo que tiene que hacer es hacer clic en el botón \"Agregar una actividad\". </li> </ol>abierta."
+                    "answer": "Para asignar una actividad, cuenta con tres opciones:: <ol> <li> Vaya a la pestaña <b> Mis actividades </b> y haga clic en el icono <i class = \"fas fa-cog\"> </i> de su actividad y luego haga clic en Asignar. Enseguida, sólo siga los pasos. </li> <li> Esta opción de Asignar también está disponible en la propia actividad una vez abierta.</li> <li> De lo contrario, vaya a la pestaña <b> Clases </b> y haga clic en una clase. Una vez en el panel de control del aula, todo lo que tiene que hacer es hacer clic en el botón \"Agregar una actividad\". </li> </ol>abierta."
                 },
                 "5": {
                     "title": "¿Cómo probar una actividad?",
-                    "answer": "Para probar una actividad, tiene dos opciones: <ol> <li> Vaya a <b> Perfil </b> y haga clic en el botón \"Cambiar al modo de alumno\" y luego seleccione la clase en la que se desea colocar. Termina en la cuenta ficticia de un alumno llamado \"demostudent\", donde puede descubrir la interfaz \"Alumno\" y llevar a cabo las actividades que ha asignado.</li> <li> Vaya a <b> Mis clases </b> en el panel de control de la clase, luego podrá ponerse en el papel del alumno demostudent. Para hacer esto, haga clic en el ícono <i class = \"fas fa-exchange-alt\"> </i>, tendrá la oportunidad de convertirse en un alumno de la clase y probar las actividades.</li> </ol> Para volver al modo \"Profesor\", simplemente vaya a la pestaña <b> Perfil </b> de la cuenta de demostudent y haga clic en \"Volver al modo profesor\"."
+                    "answer": "Para probar una actividad, tiene dos opciones: <ol> <li> Vaya a <b> Perfil </b> y haga clic en el botón \"Cambiar al modo de alumno\" y luego seleccione la clase en la que se desea colocar. Termina en la cuenta ficticia de un alumno llamado \"demostudent\", donde puede descubrir la interfaz \"Alumno\" y llevar a cabo las actividades que ha asignado.</li> <li> Vaya a <b> Clases </b> en el panel de control de la clase, luego podrá ponerse en el papel del alumno demostudent. Para hacer esto, haga clic en el ícono <i class = \"fas fa-exchange-alt\"> </i>, tendrá la oportunidad de convertirse en un alumno de la clase y probar las actividades.</li> </ol> Para volver al modo \"Profesor\", simplemente vaya a la pestaña <b> Perfil </b> de la cuenta de demostudent y haga clic en \"Volver al modo profesor\"."
                 },
                 "6": {
                     "title": "¿Como eliminar la asignación de una actividad sin eliminar la actividad?",
@@ -742,8 +742,8 @@
             "section_title": "Clase",
             "question_list": {
                 "1": {
-                    "title": "¿Para qué sirve la pestaña Mis clases?",
-                    "answer": "En la pestaña Mis clases, va a poder:<ol><li> Crear sus propias clases y agregar alumnos</li><li>Corregir las respuestas de las actividades de sus alumnos, </li><li>y seguir su progreso.</li></ol>"
+                    "title": "¿Para qué sirve la pestaña Clases?",
+                    "answer": "En la pestaña Clases, va a poder:<ol><li> Crear sus propias clases y agregar alumnos</li><li>Corregir las respuestas de las actividades de sus alumnos, </li><li>y seguir su progreso.</li></ol>"
                 },
                 "2": {
                     "title": "¿Cómo agregar mis alumnos a mi clase?",
@@ -759,7 +759,7 @@
                 },
                 "5": {
                     "title": "¿Cómo asignar una actividad?",
-                    "answer": "<p> Usted podrá atribuir una actividad a toda la clase que haya creado o solamente a un alumno en particular.</p><p>Para asignar una actividad, usted tiene tres opciones :<p><ol><li>O bien, va a la pestaña <b>Mis actividades</b> y hace clic en el icono <i class = \"fas fa-cog\"></i> de su actividad y después hace clic en Asignar. Luego, solo debe seguir los pasos.</li><li>Esta opción de Asignar también está disponible en la propia actividad una vez abierta.</li><li> De lo contrario, va a la pestaña <b>Mis clases</b> y hace clic en una clase. Una vez en el panel de control del aula, todo lo que tiene que hacer es hacer clic en el botón \"Agregar una actividad\".</li></ol>"
+                    "answer": "<p> Usted podrá atribuir una actividad a toda la clase que haya creado o solamente a un alumno en particular.</p><p>Para asignar una actividad, usted tiene tres opciones :<p><ol><li>O bien, va a la pestaña <b>Mis actividades</b> y hace clic en el icono <i class = \"fas fa-cog\"></i> de su actividad y después hace clic en Asignar. Luego, solo debe seguir los pasos.</li><li>Esta opción de Asignar también está disponible en la propia actividad una vez abierta.</li><li> De lo contrario, va a la pestaña <b>Clases</b> y hace clic en una clase. Una vez en el panel de control del aula, todo lo que tiene que hacer es hacer clic en el botón \"Agregar una actividad\".</li></ol>"
                 },
                 "6": {
                     "title": "¿Se puede volver sobre la asignación de una actividad?",
@@ -775,7 +775,7 @@
                 },
                 "9": {
                     "title": "¿Cómo modificar el nombre de una clase?",
-                    "answer": "Para cambiar el nombre ded una clase, hace falta hacer un clic sobre el ícono <i class=\"fas fa-cog\"></i> desde la pestaña Mis clases, luego en modificar. No tendrá más que cambiar el nombre."
+                    "answer": "Para cambiar el nombre ded una clase, hace falta hacer un clic sobre el ícono <i class=\"fas fa-cog\"></i> desde la pestaña Clases, luego en modificar. No tendrá más que cambiar el nombre."
                 },
                 "10": {
                     "title": "¿Cómo suprimir un alumno de una clase?",
