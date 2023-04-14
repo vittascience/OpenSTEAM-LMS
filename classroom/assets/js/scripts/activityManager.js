@@ -189,7 +189,7 @@ function titleBackward() {
             folder = foldersManager.actualFolder;
 
         // is an activity auto evaluate    
-        const autoCorrectTypeApps = ["dragAndDrop", "fillIn", "quiz", "GENIUS"]    
+        const autoCorrectTypeApps = ["dragAndDrop", "fillIn", "quiz", "GENIUS", "1,2,3... Cabri"]    
         if (autoCorrectTypeApps.includes(type)) {
             autocorrect = true;
         }
