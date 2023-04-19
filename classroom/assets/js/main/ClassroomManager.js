@@ -121,7 +121,7 @@ class ClassroomManager {
         $('#customizable-modal-content').html("");
         Main.getClassroomManager().getMyImages().then((myImages) => {
             $('#customizable-modal-content').append(`<div class="text-center d-flex flex-column col-12 ">
-                <label for="range" >Taille des images</label>
+                <label for="range" >${i18next.t("newActivities.modals.imageSize")}</label>
                 <input class="mt-3 btn-lg" type="range" id="custom-width-assets" value="300" min="0" max="1500" step="1">
                 <input type="number" id="custom-width-assets-number" value="300" min="0" max="1500" step="1">
                 <img src="" alt="exemple" id="width-exemple-asset" class="img-fluid mx-auto mt-3" style="width: 250px;">
@@ -1323,6 +1323,7 @@ class ClassroomManager {
     getLocalActivityById(activityId) {
         return this._myTeacherActivities.find(activity => activity.id === activityId)
     }
+
 
     /**
      * Get all the apps

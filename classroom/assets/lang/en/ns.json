@@ -1270,7 +1270,7 @@
 		"import" : "Import an activity",
 		"importSuccess": "Activity successfully imported",
 		"importError": "An error occured during the import",
-		"export": "Export an activity",
+		"export": "Export",
 		"exportSuccess": "Activity successfully exported",
 		"exportError": "An error occured during the export",
 		"addQuiz": "Add a suggestion",
@@ -1307,7 +1307,8 @@
 		"modals": {
 			"importActivity": "Import manager",
 			"importTitle": "Import an activity",
-			"validateMessage": "Do you want to import the activity <span id='import-activity-title' class='c-text-primary fw-bold'></span> ?"
+			"validateMessage": "Do you want to import the activity <span id='import-activity-title' class='c-text-primary fw-bold'></span> ?",
+			"imageSize": "Image size"
 		}
 	},
 	"courses": {

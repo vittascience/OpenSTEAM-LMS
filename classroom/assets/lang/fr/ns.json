@@ -1583,7 +1583,7 @@
 		"import" : "Importer une activité",
 		"importSuccess": "Activité importée avec succès",
 		"importError": "Une erreur est survenue lors de l'import de l'activité",
-		"export": "Exporter une activité",
+		"export": "Exporter",
 		"exportSuccess": "Activité exportée avec succès",
 		"exportError": "Une erreur est survenue lors de l'export de l'activité",
 		"addQuiz": "Ajouter une proposition",
@@ -1620,7 +1620,8 @@
 		"modals": {
 			"importActivity": "Gestionnaire d'import",
 			"importTitle": "Importer une activité",
-			"validateMessage": "Voulez-vous importer l'activité <span id='import-activity-title' class='c-text-primary fw-bold'></span> ?"
+			"validateMessage": "Voulez-vous importer l'activité <span id='import-activity-title' class='c-text-primary fw-bold'></span> ?",
+			"imageSize": "Taille de l'image"
 		}
 	},
 	"courses": {
