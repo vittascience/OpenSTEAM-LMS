@@ -94,63 +94,58 @@ class DragAndDropManager {
 
     showTeacherDragAndDropActivityDoable(contentParsed, Activity) {
 
-        console.log(contentParsed)
-        let ContentString = manageDragAndDropText(contentParsed.dragAndDropFields.contentForTeacher);
-        $('#drag-and-drop-text'+course).html(`<div>${ContentString}</div>`);
+        let solution = JSON.parse(Activity.solution);
+        let contentDiv = document.getElementById('activity-content');
+        contentDiv.innerHTML = "";
 
-        // Get the response array and shuffle it
-        let choices = shuffleArray(JSON.parse(Activity.activity.solution));
+        let ContentString = manageDragAndDropText(contentParsed.dragAndDropFields.contentForTeacher, true, solution);
 
-        choices.forEach(e => {
-            $('#drag-and-drop-fields'+course).append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
+        let divActivityDoable = document.createElement('div');
+        divActivityDoable.id = "activity-doable" + Activity.id;
+
+        $('#preview-drag-and-drop-text').html(`<div>${bbcodeContentIncludingMathLive(ContentString)}</div>`);
+        divActivityDoable.classList.add("activity-doable-drag-and-drop-teacher");
+
+        let divContent = document.createElement('div');
+        divContent.innerHTML = bbcodeContentIncludingMathLive(ContentString);
+        divActivityDoable.appendChild(divContent);
+
+        let divPreviewFields = document.createElement('div');
+        divPreviewFields.id = "preview-drag-and-drop-fields-teacher";
+        divPreviewFields.classList.add("m-2");
+        divPreviewFields.classList.add("drag-and-drop-fields");
+
+
+        divActivityDoable.appendChild(divPreviewFields);
+        contentDiv.appendChild(divActivityDoable);
+
+
+
+        solution.forEach(e => {
+            $('#preview-drag-and-drop-fields-teacher').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
         });
-        $('#activity-drag-and-drop-container'+course).show();
-    
-        // init dragula if it's not already initialized
+
         if (Main.getClassroomManager().dragulaGlobal == false) {
             Main.getClassroomManager().dragulaGlobal = dragula();
         }
 
-        // Reset the dragula fields
         Main.getClassroomManager().dragulaGlobal.containers = [];
-        
-        Main.getClassroomManager().dragulaGlobal = dragula([document.querySelector('#drag-and-drop-fields'+course)]).on('drop', function(el, target, source) {
-            if (target.id != 'drag-and-drop-fields'+course) {
+        Main.getClassroomManager().dragulaGlobal = dragula([document.querySelector('#preview-drag-and-drop-fields-teacher')]).on('drop', function(el, target, source) {
+            if (target.id != 'preview-drag-and-drop-fields-teacher') {
                 let swap = $(target).find('p').not(el);
                 swap.length > 0 ? source.append(swap[0]) : null;
             }
         });
+        
 
-        $('.dropzone').each((i, e) => {
+        $('.dropzone-preview').each((i, e) => {
             Main.getClassroomManager().dragulaGlobal.containers.push(document.querySelector('#'+e.id));
         });
 
-        // Place the student's response if there is one
-        if (Activity.response != null && Activity.response != "") {
-            let response = JSON.parse(Activity.response);
-            response.forEach((e, i) => {
-                if (bbcodeToHtml(e.string) != e.string) {
-                    $(`#dz-${i}`).html(document.getElementById(e.string));
-                } else {
-                    if (e.string.toLowerCase() != "" && e.string.toLowerCase() != null) {
-                        let contentById = document.getElementById(e.string.toLowerCase());
-                        if (contentById != null) {
-                            $(`#dz-${i}`).html(contentById);
-                        }
-                    }
-                }
-            })
-        }
+        $('#preview-states').show();
+        $('#preview-activity-drag-and-drop-container').show();
+        $('#activity-preview-div').show();
 
-
-
-
-/*         $("#activity-states").html(bbcodeContentIncludingMathLive(contentParsed.states));
-        let contentForTeacher = contentParsed.dragAndDropFields.contentForTeacher;
-        contentForTeacher = parseContent(contentForTeacher, "drag-and-drop-answer-teacher", true);
-        $("#activity-content").html(bbcodeContentIncludingMathLive(contentForTeacher));
-        $("#activity-content-container").show();
-        $("#activity-states-container").show(); */
     }
 
     manageDisplayDragAndDrop(correction, content, correction_div, isFromCourse) {

@@ -72,6 +72,7 @@ class CustomActivity {
         this.totalItems = 0;
         this.paginationDiv = document.getElementById("app-media-galery-pagination");
         this.selectedItem = null;
+        this.activityToImport = null;
     }
 
     init() {

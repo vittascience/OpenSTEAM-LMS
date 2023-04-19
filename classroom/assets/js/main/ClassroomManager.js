@@ -1320,10 +1320,9 @@ class ClassroomManager {
      * @example
      * const activity = activitiesManager.getActivityById('activityId')
      */
-    getActivityById(activityId) {
-        return this._allActivities.find(activity => activity.id === activityId)
+    getLocalActivityById(activityId) {
+        return this._myTeacherActivities.find(activity => activity.id === activityId)
     }
-
 
     /**
      * Get all the apps
@@ -1346,8 +1345,6 @@ class ClassroomManager {
         })
     };
 
-    //get one app by id
-    // write the commentaries
 
     /**
      * @public
@@ -1376,7 +1373,17 @@ class ClassroomManager {
         })
     }
 
-    // create a new activity
+    /* 
+    * @param {string} $title
+    * @param {string} $type
+    * @param {string} $content
+    * @param {string} $solution
+    * @param {string} $tolerance
+    * @param {string} $autocorrect
+    * @param {string} $folder
+    * @param {string} $tags
+    * @returns {Promise}
+    */
     createNewActivity($title, $type, $content, $solution, $tolerance, $autocorrect, $folder, $tags = null) {
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -1403,7 +1410,20 @@ class ClassroomManager {
         })
     }
 
-    // update an activity
+    /**
+     * @param {string} $id
+     * @param {string} $title
+     * @param {string} $type
+     * @param {string} $content
+     * @param {string} $solution
+     * @param {string} $tolerance
+     * @param {string} $autocorrect
+     * @param {string} $tags
+     * @returns {Promise}
+     * @memberof ActivitiesManager
+     * @description Update an activity
+     * @example
+    */
     updateActivity($id, $title, $type, $content, $solution, $tolerance, $autocorrect, tags = null) {
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -1431,8 +1451,11 @@ class ClassroomManager {
     }
 
 
-    // delete an activity
 
+    /* 
+    * @param {string} $id
+    * @returns {Promise}
+    */
     deleteActivity($id) {
         return new Promise(function (resolve, reject) {
             $.ajax({

@@ -111,6 +111,31 @@ class FillInManager {
         $("#activity-states-container").show();
     }
 
+    showTeacherFillInActivityDoable(contentParsed, Activity) {
+
+        let contentDiv = document.getElementById('activity-content');
+        contentDiv.innerHTML = "";
+
+        let divActivityDoable = document.createElement('div');
+        divActivityDoable.id = "activity-doable" + Activity.id;
+        divActivityDoable.classList.add("activity-doable-fill-in-teacher");
+
+        let contentReplaced = contentParsed.fillInFields.contentForTeacher.replaceAll(/\[answer\](.*?)\[\/answer\]/g, "_TOBEREPLACED_");
+        let studentContent = bbcodeContentIncludingMathLive(contentReplaced);
+        let nbOccu = studentContent.match(/_TOBEREPLACED_/g).length;
+
+        for (let i = 1; i < nbOccu+1; i++) {
+            let toBeReplace = studentContent.match(/_TOBEREPLACED_/g)[0];
+            studentContent = studentContent.replace(toBeReplace, `<input type="text" id="student-fill-in-field-${i}-preview" class="answer-student">`);
+        }
+
+        contentDiv.innerHTML = studentContent;
+
+        $('#preview-states').show();
+        $('#preview-activity-drag-and-drop-container').show();
+        $('#activity-preview-div').show();
+    }
+
 
     manageDisplayFillIn(correction, content, correction_div, isFromCourse) {
         let course = isFromCourse ? "-course" : "";

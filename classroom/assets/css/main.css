@@ -3626,3 +3626,96 @@ h3.section-done {
     top: 0.5em;
 }
 
+.switcher {
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    margin-top: 3px;
+    padding: 4px;
+    background: var(--bg-1);
+    border-radius: 2px;
+    min-width: 200px;
+    border-radius: 30px;
+    border: solid 1px #ddd;
+    position: relative;
+}
+
+.switcher__input {
+    display: none;
+}
+
+.switcher__label {
+    min-width: 95px;
+    font-size: 12px;
+    line-height: 30px;
+    color: var(--text-1);
+    text-align: center;
+    cursor: pointer;
+    position: inherit;
+    z-index: 10;
+    transition: color 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    will-change: transform;
+}
+
+.switcher__toggle {
+    position: absolute;
+    float: left;
+    height: 30px;
+    width: 95px;
+    font-size: 12px;
+    line-height: 30px;
+    cursor: pointer;
+    background-color: var(--classroom-primary);
+    border-radius: 30px;
+    left: 5px;
+    top: 4px;
+    transition: left 0.25s cubic-bezier(0.4, 0.0, 0.2, 1);
+    will-change: transform;
+}
+
+.switcher__input:checked+.switcher__label {
+    color: #fff;
+}
+
+/* Default element */
+
+.switcher__input:checked+.switcher__label {
+    color: #fff;
+}
+
+
+/* Right element */
+
+.switcher__input--right:checked~.switcher__toggle {
+    left: calc(100% - 99px);
+}
+
+
+/* If you have several "mid" elements
+   * Create a new class: switcher__input--middleX where X is the index of the element
+   */
+
+.switcher__input--middle1:checked~.switcher__toggle {
+    left: 99px;
+}
+
+
+/* 4px related to the padding
+   * If you change the padding update this value too
+   */
+
+.switcher__input--middle2:checked~.switcher__toggle {
+    left: calc((95px * 2) + 4px);
+}
+
+.switcher__input--middle3:checked~.switcher__toggle {
+    left: calc((95px * 3) + 4px);
+}
+
+.switcher__input--middle4:checked~.switcher__toggle {
+    left: calc((95px * 4) + 4px);
+}
+
+.switcher-custom-top {
+    margin-top: -2.5em;
+}

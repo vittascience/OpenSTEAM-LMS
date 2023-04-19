@@ -183,4 +183,120 @@ function setAddFieldTooltips() {
     $('#fill-in-add-inputs').attr("title", i18next.t('newActivities.addFieldTooltip')).tooltip();
 }
 
+/* 
+    * Create an HTML element with attributes and data
+    * @param {string} type - The type of the element
+    * @param {object} attributes - The attributes of the element
+    * @param {string} data - The data of the element
+*/
+function createHtmlElement(type, attributes = {}, data = "") {
+    let element = document.createElement(type);
+    for (let attribute in attributes) {
+        element.setAttribute(attribute, attributes[attribute]);
+    }
+    if (data) {
+        element.innerHTML = data;
+    }
+    return element;
+}
+
+function exportActivityToJSON(activityId) {
+
+    const Activity = Main.getClassroomManager().getLocalActivityById(activityId);
+
+    const blob = new Blob([JSON.stringify(Activity)], { type: "text/json" });
+    const link = document.createElement("a");
+
+    link.download = `activity-${slugify(Activity.title)}-${Activity.id}.json`;
+    link.href = window.URL.createObjectURL(blob);
+    link.dataset.downloadurl = ["text/json", link.download, link.href].join(":");
+
+    const evt = new MouseEvent("click", {
+        view: window,
+        bubbles: true,
+        cancelable: true,
+    });
+
+    try {
+        link.dispatchEvent(evt);
+        link.remove();
+        displayNotification('#notif-div', "newActivities.exportSuccess", "success");
+    } catch (e) {
+        displayNotification('#notif-div', "newActivities.exportError", "error");
+        console.error(e);
+    }
+}
+
+function importActivityFromJSON() {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".json";
+
+    const evt = new MouseEvent("click", {
+        view: window,
+        bubbles: true,
+        cancelable: true,
+    });
+
+    input.dispatchEvent(evt);
+    input.remove();
+
+    input.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.readAsText(file);
+        reader.onload = () => {
+            const activity = JSON.parse(reader.result);
+
+            // check activity validity
+            if (!activity.type || !activity.id || !activity.title || !activity.content) {
+                displayNotification('#notif-div', "newActivities.importError", "error");
+                return;
+            }
+
+            customActivity.activityToImport = activity;
+            pseudoModal.openModal("import-activity-modal");
+
+            let titleDiv = document.getElementById("import-activity-title");
+            titleDiv.innerHTML = activity.title;
+        };
+
+        reader.onerror = function() {
+            displayNotification('#notif-div', "newActivities.importError", "error");
+        };
+    });
+}
+
+function persistImport() {
+    const activity = customActivity.activityToImport;
+
+    const   title = activity.title,
+            type = activity.type,
+            content = activity.content,
+            solution = activity.solution,
+            tolerance = activity.tolerance,
+            autocorrect = activity.autocorrect,
+            folder = foldersManager.actualFolder,
+            tags = activity.tags;
+
+    Main.getClassroomManager().createNewActivity(title, type, content, solution, tolerance, autocorrect, folder, tags).then((response) => {
+        if (response.success == true) {
+            Main.getClassroomManager()._lastCreatedActivity = response.id;
+            displayNotification('#notif-div', "newActivities.importSuccess", "success");
+            navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher');
+            pseudoModal.closeModal("import-activity-modal");
+        } else {
+            displayNotification('#notif-div', "newActivities.importError", "error");
+        }
+    });
+}
+
+function cancelImport() {
+    customActivity.activityToImport = null;
+    pseudoModal.closeModal("import-activity-modal");
+}
+
+
+
+
 

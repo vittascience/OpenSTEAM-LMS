@@ -720,43 +720,19 @@ function manageTagList(taglist) {
     }
 }
 
-const switchPreview = document.getElementById('doable-activity-switch');
-if (switchPreview) {
-    switchPreview.addEventListener('click', () => {
-        if (switchPreview.checked) {
-            loadActivityContent(true);
-        } else {
-            loadActivityContent(false);
-        }
-    });
-}
-
-function manageBtnPreview() {
-    const btnSwitchView = document.getElementById('switch-preview-mode-teacher');
-    if (UserManager.getUser().isRegular) {
-        console.log("is regular")
-        btnSwitchView.classList.remove('d-none');
-        btnSwitchView.classList.add('d-block');
-    } else {
-        console.log("is not regular")
-        if (!btnSwitchView.classList.contains('d-none')) {
-            btnSwitchView.classList.add('d-none');
-        }
-    }
-}
-
 
 
 function loadActivityContent(doable = false) {
-
     if (IsJsonString(Activity.content)) {
         const contentParsed = JSON.parse(Activity.content);
         let funct = null;
+
         if (doable) {
             funct = customActivity.getTeacherActivityCustomDoable.filter(activityValidate => activityValidate[0] == Activity.type)[0];
         } else {
             funct = customActivity.getTeacherActivityCustom.filter(activityValidate => activityValidate[0] == Activity.type)[0];
         }
+
         if (funct) { 
             funct[1](contentParsed, Activity);
         } else {

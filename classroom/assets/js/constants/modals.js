@@ -1405,5 +1405,29 @@ const classroomModals = {
         content: `  <div id="customizable-modal-content" class="container-fluid d-flex flex-wrap">
                     </div>`,
         footer: ``
+    },
+    'import-activity-modal': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'newActivities.modals.importActivity'
+        },
+        content: `  <div id="import-activity-main-content" class="container-fluid d-flex flex-wrap">
+                        <div class="col-12">
+
+                            <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="newActivities.modals.importTitle"></h3>
+
+                            <div class="text-center c-secondary-form">
+                                <p data-i18n="newActivities.modals.validateMessage" class="text-center">Voulez-vous importer cette activité ?</p>
+                            </div>
+
+                            <div class="text-center">
+                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelImport()" data-i18n="manager.buttons.cancel">Annuler</button>
+                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistImport()" data-i18n="manager.buttons.validate">Valider</button>
+                            </div>
+
+                        </div>
+                    </div>`,
+        footer: ``
     }
 }
