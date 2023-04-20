@@ -550,7 +550,6 @@ function createSwitchViewForTeacherActivity() {
 
 
     switcherDiv.appendChild(switcher);
-
     titleDiv.appendChild(switcherDiv);
 }
 

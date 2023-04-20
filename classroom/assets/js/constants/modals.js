@@ -1418,7 +1418,7 @@ const classroomModals = {
                             <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="newActivities.modals.importTitle"></h3>
 
                             <div class="text-center c-secondary-form">
-                                <p data-i18n="newActivities.modals.validateMessage" class="text-center">Voulez-vous importer cette activité ?</p>
+                                <p data-i18n="[html]newActivities.modals.validateMessage" class="text-center">Voulez-vous importer cette activité ?</p>
                             </div>
 
                             <div class="text-center">
