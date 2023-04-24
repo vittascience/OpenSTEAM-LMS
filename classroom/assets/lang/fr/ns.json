@@ -1620,7 +1620,7 @@
 		"modals": {
 			"importActivity": "Gestionnaire d'import",
 			"importTitle": "Importer une activité",
-			"validateMessage": "Voulez-vous importer l'activité <span id='import-activity-title' class='c-text-primary font-weight-bold'></span> ?",
+			"validateMessage": "Voulez-vous importer l'activité <span id='import-activity-title'></span> ?",
 			"imageSize": "Taille de l'image"
 		}
 	},

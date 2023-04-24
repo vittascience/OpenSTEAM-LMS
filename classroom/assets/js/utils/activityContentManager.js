@@ -256,9 +256,11 @@ function importActivityFromJSON() {
 
             customActivity.activityToImport = activity;
             pseudoModal.openModal("import-activity-modal");
-
-            let titleDiv = document.getElementById("import-activity-title");
-            titleDiv.innerHTML = activity.title;
+            
+            const   titleDiv = document.getElementById("import-activity-title"),
+                    translationPath = `newActivities.ActivitiesData.title.${activity.type}`;
+            
+            titleDiv.innerHTML = `<span class="c-text-secondary">[${i18next.t(translationPath)}]</span> : <span class="c-text-primary font-weight-bold">${activity.title}</span>`;
         };
 
         reader.onerror = function() {
