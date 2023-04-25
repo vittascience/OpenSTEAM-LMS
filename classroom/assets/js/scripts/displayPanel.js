@@ -490,6 +490,69 @@ function formatDateInput(date) {
     return date.getFullYear() + "-" + addZero((Number(date.getMonth()) + 1), 2) + "-" + addZero(date.getDate(), 2)
 }
 
+function createSwitchViewForTeacherActivity() {
+
+    let titleDiv = document.getElementById('activity-views-switcher');
+    titleDiv.innerHTML = '';
+    
+    let switcherDiv = createHtmlElement('div', {    
+        'class': 'd-flex'
+    });
+
+    let switcher = createHtmlElement('div', {
+        'class': 'switcher'
+    });
+
+    let attributesForDoable = {
+        'type': 'radio',
+        'class': 'switcher__input switcher__input--left',
+        'name': 'option-doable',
+        'id': 'option-doable-true',
+        'autocomplete': 'off',
+        'value': 'right'
+    }
+
+    let attributesForDoableLabel = {
+        'class': 'switcher__label',
+        'for': 'option-doable-true'
+    }
+
+    let doableTrue = createHtmlElement('input', attributesForDoable);
+    let doableTrueLabel = createHtmlElement('label', attributesForDoableLabel, i18next.t("classroom.activities.toComplete"));
+
+    let attributesForDoableFalse = {
+        'type': 'radio',
+        'class': 'switcher__input switcher__input--right',
+        'name': 'option-doable',
+        'id': 'option-doable-false',
+        'autocomplete': 'off',
+        'checked': 'checked'
+    }
+
+    let attributesForDoableFalseLabel = {
+        'class': 'switcher__label',
+        'for': 'option-doable-false'
+    }
+
+    let doableFalse = createHtmlElement('input', attributesForDoableFalse);
+    let doableFalseLabel = createHtmlElement('label', attributesForDoableFalseLabel, i18next.t("classroom.activities.corrected"));
+
+    let span = createHtmlElement('span', {
+        'class': 'switcher__toggle'
+    });
+
+
+    switcher.appendChild(doableTrue);
+    switcher.appendChild(doableTrueLabel);
+    switcher.appendChild(doableFalse);
+    switcher.appendChild(doableFalseLabel);
+    switcher.appendChild(span);
+
+
+    switcherDiv.appendChild(switcher);
+    titleDiv.appendChild(switcherDiv);
+}
+
 function getTeacherActivity() {
     resetInputsForActivity();
     
@@ -497,6 +560,7 @@ function getTeacherActivity() {
     
     let autoCorrectionDisclaimerElt = `<img id="activity-auto-disclaimer" data-toggle="tooltip" src="${_PATH}assets/media/auto-icon.svg" title="${i18next.t("classroom.activities.isAutocorrect")}">`
     Activity.isAutocorrect ? $('#activity-title').append(autoCorrectionDisclaimerElt).tooltip() : null;
+
 
     let activityDropdownElt = `
     <div class="dropdown mx-2">
@@ -530,34 +594,24 @@ function getTeacherActivity() {
     $('#activity-title').append(activityDropdownElt);
 
 
-    if (IsJsonString(Activity.content)) {
-        const contentParsed = JSON.parse(Activity.content);
-        const funct = customActivity.getTeacherActivityCustom.filter(activityValidate => activityValidate[0] == Activity.type)[0];
-        if (funct) { 
-            funct[1](contentParsed, Activity);
-        } else {
-            // LTI Activity
-            if (Activity.isLti) {
-                launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description);
+    // Create the switch view for the teacher (doable or correction) if the activity is not a reading and not an LTI
+    if (Activity.type != "reading" && !Activity.isLti) {
+        createSwitchViewForTeacherActivity();
+    }
+    
+    const switchPreview = document.getElementsByName('option-doable');
+    for (let i = 0; i < switchPreview.length; i++) {
+        switchPreview[i].addEventListener('click', () => {
+            if (switchPreview[i].id == 'option-doable-true') {
+                loadActivityContent(true);
             } else {
-                // Non core and non LTI Activity fallback
-                $("#activity-content").html(bbcodeToHtml(contentParsed));
-                $("#activity-content-container").show();
+                loadActivityContent(false);
             }
-        }      
-    } else {
-       
-        $('#activity-content').html(bbcodeToHtml(Activity.content))
-        $("#activity-content-container").show();
+        });
     }
 
-    $('#activity-introduction').hide()
-    $('#activity-validate').hide()
+    loadActivityContent();
 }
-
-
-
-
 
 function getIntelFromClasses() {
     $('#list-classes').html('')

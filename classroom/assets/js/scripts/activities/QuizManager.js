@@ -71,7 +71,7 @@ class QuizManager {
     
         let divToAdd = `<div class="form-group c-primary-form" id="quiz-group-${i}">
                             <label for="quiz-suggestion-${i}" id="quiz-label-suggestion-${i}">Proposition ${i}</label>
-                            <button class="btn c-btn-grey mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-${i}" onclick="deleteQuizSuggestion(${i})">Delete</button>
+                            <button class="btn c-btn-grey mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-${i}" onclick="quizManager.deleteQuizSuggestion(${i})">Delete</button>
     
                             <div class="input-group mt-3">
                                 <input type="text" id="quiz-suggestion-${i}" class="form-control">
@@ -166,10 +166,24 @@ class QuizManager {
                             <label class="form-check-label" for="quiz-checkbox-${i}" id="show-quiz-label-checkbox-${i}">${data[i-1].inputVal}</label>
                         </div>`;
         }
-        $('#activity-content-container').append(htmlToPush);
+        $('#activity-content').html(htmlToPush);
     
         $("#activity-content-container").show();
         $("#activity-states-container").show();
+    }
+
+    showTeacherQuizActivityDoable(contentParsed, Activity) {
+        let contentDiv = document.getElementById('activity-content');
+        contentDiv.innerHTML = "";
+
+        let divActivityDoable = document.createElement('div');
+        divActivityDoable.id = "activity-doable" + Activity.id;
+        divActivityDoable.classList.add("activity-doable-quiz-teacher");
+
+        contentDiv.innerHTML = quizManager.createContentForQuiz(contentParsed.quiz.contentForStudent, true, false, true);
+        $('#preview-states').show();
+        $('#preview-content').show();
+        $('#activity-preview-div').show();
     }
 
 

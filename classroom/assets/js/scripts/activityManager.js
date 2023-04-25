@@ -719,3 +719,37 @@ function manageTagList(taglist) {
         });
     }
 }
+
+
+
+function loadActivityContent(doable = false) {
+    if (IsJsonString(Activity.content)) {
+        const contentParsed = JSON.parse(Activity.content);
+        let funct = null;
+
+        if (doable) {
+            funct = customActivity.getTeacherActivityCustomDoable.filter(activityValidate => activityValidate[0] == Activity.type)[0];
+        } else {
+            funct = customActivity.getTeacherActivityCustom.filter(activityValidate => activityValidate[0] == Activity.type)[0];
+        }
+
+        if (funct) { 
+            funct[1](contentParsed, Activity);
+        } else {
+            // LTI Activity
+            if (Activity.isLti) {
+                launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description);
+            } else {
+                // Non core and non LTI Activity fallback
+                $("#activity-content").html(bbcodeToHtml(contentParsed));
+                $("#activity-content-container").show();
+            }
+        }      
+    } else {
+        $('#activity-content').html(bbcodeToHtml(Activity.content))
+        $("#activity-content-container").show();
+    }
+
+    $('#activity-introduction').hide();
+    $('#activity-validate').hide();
+}

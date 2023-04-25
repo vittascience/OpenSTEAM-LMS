@@ -70,6 +70,35 @@ class FreeManager {
         } 
     }
 
+    showTeacherFreeActivityDoable(contentParsed, Activity) {
+        let activityContent = document.getElementById('activity-content');
+        activityContent.innerHTML = '';
+
+        let textAreaDiv = document.createElement('div');
+        textAreaDiv.id = 'free-preview-teachers';
+        textAreaDiv.className = 'd-flex flex-column';
+
+        let label = document.createElement('label');
+        label.className = 'vitta-modal-title mt-2';
+        label.setAttribute('for', 'free-preview-teachers-preview');
+        label.setAttribute('data-i18n', '[html]newActivities.preview');
+        textAreaDiv.appendChild(label);
+
+        let textArea = document.createElement('textarea');
+        textArea.id = 'free-preview-teachers-textarea';
+        textArea.className = 'wysibb-textarea';
+        textArea.style.height = '400px';
+        textAreaDiv.appendChild(textArea);
+
+        activityContent.appendChild(textAreaDiv);
+        
+        const wbbptions = Main.getClassroomManager().wbbOpt;
+        $('#free-preview-teachers-textarea').wysibb(wbbptions);
+
+
+        $('#activity-content-container').show();
+    }
+
 
     manageDisplayFree(correction, content, correction_div, isFromCourse) {
         let course = isFromCourse ? "-course" : "";

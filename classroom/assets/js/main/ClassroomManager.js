@@ -121,7 +121,7 @@ class ClassroomManager {
         $('#customizable-modal-content').html("");
         Main.getClassroomManager().getMyImages().then((myImages) => {
             $('#customizable-modal-content').append(`<div class="text-center d-flex flex-column col-12 ">
-                <label for="range" >Taille des images</label>
+                <label for="range" >${i18next.t("newActivities.modals.imageSize")}</label>
                 <input class="mt-3 btn-lg" type="range" id="custom-width-assets" value="300" min="0" max="1500" step="1">
                 <input type="number" id="custom-width-assets-number" value="300" min="0" max="1500" step="1">
                 <img src="" alt="exemple" id="width-exemple-asset" class="img-fluid mx-auto mt-3" style="width: 250px;">
@@ -1320,8 +1320,8 @@ class ClassroomManager {
      * @example
      * const activity = activitiesManager.getActivityById('activityId')
      */
-    getActivityById(activityId) {
-        return this._allActivities.find(activity => activity.id === activityId)
+    getLocalActivityById(activityId) {
+        return this._myTeacherActivities.find(activity => activity.id === activityId)
     }
 
 
@@ -1346,8 +1346,6 @@ class ClassroomManager {
         })
     };
 
-    //get one app by id
-    // write the commentaries
 
     /**
      * @public
@@ -1376,7 +1374,17 @@ class ClassroomManager {
         })
     }
 
-    // create a new activity
+    /* 
+    * @param {string} $title
+    * @param {string} $type
+    * @param {string} $content
+    * @param {string} $solution
+    * @param {string} $tolerance
+    * @param {string} $autocorrect
+    * @param {string} $folder
+    * @param {string} $tags
+    * @returns {Promise}
+    */
     createNewActivity($title, $type, $content, $solution, $tolerance, $autocorrect, $folder, $tags = null) {
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -1403,7 +1411,20 @@ class ClassroomManager {
         })
     }
 
-    // update an activity
+    /**
+     * @param {string} $id
+     * @param {string} $title
+     * @param {string} $type
+     * @param {string} $content
+     * @param {string} $solution
+     * @param {string} $tolerance
+     * @param {string} $autocorrect
+     * @param {string} $tags
+     * @returns {Promise}
+     * @memberof ActivitiesManager
+     * @description Update an activity
+     * @example
+    */
     updateActivity($id, $title, $type, $content, $solution, $tolerance, $autocorrect, tags = null) {
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -1431,8 +1452,11 @@ class ClassroomManager {
     }
 
 
-    // delete an activity
 
+    /* 
+    * @param {string} $id
+    * @returns {Promise}
+    */
     deleteActivity($id) {
         return new Promise(function (resolve, reject) {
             $.ajax({

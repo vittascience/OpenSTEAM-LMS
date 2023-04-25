@@ -125,6 +125,7 @@ function teacherActivityItem(activity, displayStyle) {
                                         <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
                                         <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id}, true)" href="#">${capitalizeFirstLetter(i18next.t('words.rename'))}</li>
                                         <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
+                                        <li class=" classroom-clickable col-12 dropdown-item" onclick="exportActivityToJSON(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('newActivities.export'))}</li>
                                         <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
                                     </div>
                                 </div> 
@@ -174,7 +175,8 @@ function teacherActivityItem(activity, displayStyle) {
                             <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
                             <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id}, true)" href="#">${capitalizeFirstLetter(i18next.t('words.rename'))}</li>
                             <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
-                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
+                            <li class=" classroom-clickable col-12 dropdown-item" onclick="exportActivityToJSON(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('newActivities.export'))}</li>
+                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')"></li>
                         </div>
                     </div> 
                 </div>
@@ -728,8 +730,14 @@ function shuffleArray(array) {
     return arrayClone;
 }
 
-function manageDragAndDropText(studentContentString, preview = false) {
-    let studentResponses = preview ? Main.getClassroomManager()._createActivity.solution : JSON.parse(Activity.activity.solution);
+function manageDragAndDropText(studentContentString, preview = false, solution = null) {
+    let studentResponses = null;
+    if (solution == null) {
+        studentResponses = preview ? Main.getClassroomManager()._createActivity.solution : JSON.parse(Activity.activity.solution);
+    } else {
+        studentResponses = solution;
+    }
+
     let previewString = preview ? "-preview" : "";
     for (let i = 0; i < studentResponses.length; i++) {
         let input = `<span class="dropable-items dropzone${previewString}" id="dz-${i}${previewString}"></span>`;

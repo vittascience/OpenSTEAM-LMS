@@ -141,6 +141,7 @@
 			"activityAttributed": "L'activité {{activityTitle}} a été attribuée aux apprenants listés",
 			"activityAttributionChanged": "L'attribution de l'activité {{activityTitle}} a été modifiée pour les apprenants listés",
 			"activityCreated": "L'activité {{activityTitle}} a été créée",
+			"activityImported": "L'activité {{activityTitle}} a été importée",
 			"activityChanged": "L'activité {{activityTitle}} a été modifiée",
 			"activityTitleMissing": "Vous devez renseigner le titre de l'activité",
 			"CsvFileMissing": "Vous n'avez pas choisi de fichier csv",
@@ -284,6 +285,8 @@
 			"waiting": "Pas encore réalisé",
 			"done": "Terminés",
 			"todo": "A corriger",
+			"corrected": "Corrigé",
+			"toComplete": "À compléter",
 			"anonymise": "Anonymiser la liste de vos élèves afin de pouvoir afficher le tableau de bord à vos apprenants.",
 			"save-draft": "Sauvegarder en tant que brouillon",
 			"validate": "Valider l'activité",
@@ -1577,9 +1580,16 @@
 	"newActivities": {
 		"create": "Créer une nouvelle activité",
 		"delete": "Supprimer",
+		"import" : "Importer une activité",
+		"importSuccess": "Activité importée avec succès",
+		"importError": "Une erreur est survenue lors de l'import de l'activité",
+		"export": "Exporter",
+		"exportSuccess": "Activité exportée avec succès",
+		"exportError": "Une erreur est survenue lors de l'export de l'activité",
 		"addQuiz": "Ajouter une proposition",
 		"states": "Énoncé de l'activité <span class=\"c-text-red\">*</span>",
 		"cancel": "Annuler",
+		"ok": "ok",
 		"autocorrect": "Correction automatique",
 		"correction": "Corrigé de l'activité",
 		"contentTitle": "Contenu de l'activité",	
@@ -1606,9 +1616,16 @@
 				"fillIn": "Cette activité permet d’appliquer ses connaissances en remplissant des cases vides.",
 				"dragAndDrop": "Cette activité permet de glisser et déposer des mots dans différents espaces vides."
 			}
+		},
+		"modals": {
+			"importActivity": "Gestionnaire d'import",
+			"importTitle": "Importer une activité",
+			"validateMessage": "Voulez-vous importer l'activité <span id='import-activity-title'></span> ?",
+			"imageSize": "Taille de l'image"
 		}
 	},
 	"courses": {
+		"add": "Créer un parcours",
 		"addActivity":"Ajouter une activité existante",
 		"addActivities":"Ajouter des activités",
 		"createActivity": "Créer une nouvelle activité",

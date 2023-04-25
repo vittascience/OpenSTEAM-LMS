@@ -141,6 +141,7 @@
 			"activityAttributed": "The activity {{activityTitle}} has been assigned to the listed learners",
 			"activityAttributionChanged": "The assignment of the activity {{activityTitle}} has been changed for the listed learners",
 			"activityCreated": "The activity {{activityTitle}} has been created",
+			"activityImported": "The activity {{activityTitle}} has been imported",
 			"activityChanged": "Activity {{activityTitle}} has been changed",
 			"activityTitleMissing": "You must enter the title of the activity",
 			"CsvFileMissing": "You did not choose a csv file",
@@ -284,6 +285,8 @@
 			"waiting": "Not yet completed",
 			"done": "Done",
 			"todo": "To correct",
+			"corrected": "Corrected",
+			"toComplete": "To complete",
 			"anonymise": "Anonymise your learners list, allowing you to display it for everyone.",
 			"save-draft": "Save as a draft",
 			"validate": "Validate the activity",
@@ -1263,10 +1266,17 @@
 	},
 	"newActivities": {
 		"create": "Create a new activity",
-		"delete": "Delete",
+		"deletedelete": "Delete",
+		"import" : "Import an activity",
+		"importSuccess": "Activity successfully imported",
+		"importError": "An error occured during the import",
+		"export": "Export",
+		"exportSuccess": "Activity successfully exported",
+		"exportError": "An error occured during the export",
 		"addQuiz": "Add a suggestion",
 		"states": "Activity statement <span class=\"c-text-red\">*</span>",
 		"cancel": "Cancel",
+		"ok": "ok",
 		"autocorrect": "Autocorrect",
 		"correction": "Activity correction",
 		"contentTitle": "Activity content",
@@ -1293,9 +1303,16 @@
 				"fillIn": "This activity allows you to apply your knowledge by filling in empty boxes.",
 				"dragAndDrop": "This activity allows you to drag and drop words into different empty spaces."
 			}
+		},
+		"modals": {
+			"importActivity": "Import manager",
+			"importTitle": "Import an activity",
+			"validateMessage": "Do you want to import the activity <span id='import-activity-title'></span> ?",
+			"imageSize": "Image size"
 		}
 	},
 	"courses": {
+		"add": "Create a course",
 		"addActivity":"Add an existing activity",
 		"addActivities":"Add activities",
 		"createActivity": "Create a new activity",

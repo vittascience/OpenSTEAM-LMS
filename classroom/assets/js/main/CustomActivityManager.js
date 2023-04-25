@@ -28,6 +28,14 @@ class CustomActivity {
             ["dragAndDrop", dragAndDropManager.showTeacherDragAndDropActivity],
         ];
 
+        this.getTeacherActivityCustomDoable = [
+            ["free", freeManager.showTeacherFreeActivityDoable],
+            ["reading", readingManager.showTeacherReadingActivityDoable],
+            ["fillIn", fillInManager.showTeacherFillInActivityDoable],
+            ["quiz", quizManager.showTeacherQuizActivityDoable],
+            ["dragAndDrop", dragAndDropManager.showTeacherDragAndDropActivityDoable],
+        ];
+
         this.manageDisplayCustom = [
             ['free', freeManager.manageDisplayFree],
             ['reading', readingManager.manageDisplayReading],
@@ -64,6 +72,7 @@ class CustomActivity {
         this.totalItems = 0;
         this.paginationDiv = document.getElementById("app-media-galery-pagination");
         this.selectedItem = null;
+        this.activityToImport = null;
     }
 
     init() {
