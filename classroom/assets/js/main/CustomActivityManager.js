@@ -28,6 +28,7 @@ class CustomActivity {
             ["dragAndDrop", dragAndDropManager.showTeacherDragAndDropActivity],
         ];
 
+        
         this.getTeacherActivityCustomDoable = [
             ["free", freeManager.showTeacherFreeActivityDoable],
             ["reading", readingManager.showTeacherReadingActivityDoable],
