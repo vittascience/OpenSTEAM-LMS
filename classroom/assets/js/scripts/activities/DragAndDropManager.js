@@ -122,8 +122,19 @@ class DragAndDropManager {
 
 
         solution.forEach(e => {
-            $('#preview-drag-and-drop-fields-teacher').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
+            let contentMath = parseMathLiveContent(e);
+            if (bbcodeToHtml(e) != e || contentMath) {
+                if (contentMath) {
+                    $('#preview-drag-and-drop-fields-teacher').append(`<p class="draggable draggable-items drag-drop" id="${e}">${contentMath}</p>`);
+                } else {
+                    $('#preview-drag-and-drop-fields-teacher').append(`<p class="draggable draggable-items drag-drop" id="${e}">${bbcodeToHtml(e)}</p>`);
+                }
+            } else {
+                $('#preview-drag-and-drop-fields-teacher').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
+            }
         });
+
+        
 
         if (Main.getClassroomManager().dragulaGlobal == false) {
             Main.getClassroomManager().dragulaGlobal = dragula();
@@ -264,9 +275,18 @@ class DragAndDropManager {
         $('#preview-drag-and-drop-text').html(`<div>${bbcodeContentIncludingMathLive(ContentString)}</div>`);
 
         // Get the response array and shuffle it
-        let choices = shuffleArray(activity.solution);
-        choices.forEach(e => {
-            $('#preview-drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
+        let solution = shuffleArray(activity.solution);
+        solution.forEach(e => {
+            let contentMath = parseMathLiveContent(e);
+            if (bbcodeToHtml(e) != e || contentMath) {
+                if (contentMath) {
+                    $('#preview-drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${contentMath}</p>`);
+                } else {
+                    $('#preview-drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${bbcodeToHtml(e)}</p>`);
+                }
+            } else {
+                $('#preview-drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
+            }
         });
     
         // init dragula if it's not already initialized

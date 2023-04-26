@@ -597,6 +597,8 @@ function getTeacherActivity() {
     // Create the switch view for the teacher (doable or correction) if the activity is not a reading and not an LTI
     if (Activity.type != "reading" && !Activity.isLti) {
         createSwitchViewForTeacherActivity();
+    } else {
+        $('#activity-views-switcher').html('');
     }
     
     const switchPreview = document.getElementsByName('option-doable');
