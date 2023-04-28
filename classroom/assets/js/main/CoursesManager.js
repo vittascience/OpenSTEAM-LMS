@@ -9,7 +9,8 @@ class CoursesManager {
             id: null,
             state: null,
             link: null,
-            activity: null
+            activity: null,
+            format: "standard"
         };
         this.courseId = null;
         this.isUpdate = false;
@@ -45,7 +46,8 @@ class CoursesManager {
                 id: null,
                 state: null,
                 link: null,
-                activity: null
+                activity: null,
+                format: "standard"
             };
             this.courseData = {
                 courses: [],
@@ -72,6 +74,17 @@ class CoursesManager {
             pseudoModal.openModal('attribute-activity-modal');
             $("#attribute-activity-modal").localize();
         })
+
+        const courseFormat = document.getElementsByName('course-format');
+        for (let i = 0; i < courseFormat.length; i++) {
+            courseFormat[i].addEventListener('click', () => {
+                if (courseFormat[i].id == 'course-one-page') {
+                    this.actualCourse.format = 'one-page';
+                } else {
+                    this.actualCourse.format = 'standard';
+                }
+            });
+        }
     }
 
     goToCreate(fresh = false) {
@@ -138,9 +151,11 @@ class CoursesManager {
                     }
                 });
             }
-
         }
     }
+
+    
+
 
     facultativeOptions() {
         $('#course-options').toggle()
@@ -190,6 +205,7 @@ class CoursesManager {
     showCoursePanel() {
         this.resetCourseData();
         navigatePanel('classroom-dashboard-classes-new-course', 'dashboard-activities-teacher');
+        breadcrumbManager.setCreateCourses();
     }
 
     sortActualCourseArrayFromDiv() {
@@ -223,7 +239,7 @@ class CoursesManager {
             activityDiv.setAttribute('data-activity-id', activity.id);
             // add checkbox 
             activityDiv.innerHTML = `
-                    <div class="form-check">
+                    <div class="form-check c-checkbox">
                         <input class="activity-item-checkbox-input" type="checkbox" value="${activity.id}" id="courses-activity-${activity.id}">
                         <label class="form-check-label" for="courses-activity-${activity.id}">
                             ${activityImg}    
@@ -231,6 +247,7 @@ class CoursesManager {
                         </label>
                     </div>
             `;
+
             activitiesDiv.appendChild(activityDiv);
         });
 
@@ -259,7 +276,7 @@ class CoursesManager {
                     activityDiv.setAttribute('data-activity-id', activity.id);
                     // add checkbox 
                     activityDiv.innerHTML = `
-                            <div class="form-check">
+                            <div class="form-check c-checkbox">
                                 <input class="activity-item-checkbox-input" type="checkbox" value="${activity.id}" id="courses-activity-${activity.id}">
                                 <label class="form-check-label" for="courses-activity-${activity.id}">
                                     ${activityImg}    
@@ -769,7 +786,7 @@ class CoursesManager {
                 activity: Activity.activity.id
             };
 
-            navigatePanel('classroom-dashboard-course-panel', 'dashboard-activities-teacher', 'course', '');
+            navigatePanel('classroom-dashboard-course-panel', 'dashboard-activities', 'course', '');
             loadCourseAndActivityForStudents(true, course, true, true);
 
             if (!Activity.activity.isLti) {
@@ -777,6 +794,34 @@ class CoursesManager {
             } else {
                 btnValidate.style.display = "none";
             }
+        });
+    }
+
+    readCourseOnePage(id = null) {
+        this._requestGetMyCourseStudent().then(res => {
+            Main.getClassroomManager()._myCourses = res;
+
+            if (id == null) {
+                id = coursesManager.actualCourse.id;
+            }
+
+            let course = Main.getClassroomManager()._myCourses.find(course => course.course.id == id);
+            if (course.courseState == 999) {
+                this.viewCourseActivitiesResult(id);
+                return false;
+            }
+            
+            Activity = course.activities[course.courseState];
+            this.actualCourse = {
+                id: id, 
+                state: course.courseState, 
+                link: Activity.id, 
+                activity: Activity.activity.id
+            };
+            navigatePanel('classroom-dashboard-course-panel-one-page', 'dashboard-activities', 'course', '');
+
+
+
         });
     }
 

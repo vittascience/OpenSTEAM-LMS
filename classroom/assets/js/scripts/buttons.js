@@ -227,23 +227,29 @@ function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = fa
         Main.activityTracker.saveTimePassed();
         Main.activityTracker.stopActivityTracker();
     }
+
     $('.classroom-navbar-button').removeClass("active");
     $('.dashboard-block').hide();
     $('#' + id).show();
     $('#' + idNav).addClass("active");
+
     if (id == 'resource-center-classroom') {
         $('#classroom-dashboard-activities-panel-library-teacher').html('<iframe id="resource-center-classroom" src="/learn/?use=classroom" frameborder="0" style="height:80vh;width:80vw"></iframe>');
     }
+
     ClassroomSettings.lastPage.unshift({
         history: id,
         navbar: idNav
     });
+
     if ($_GET('panel') == 'classroom-dashboard-activity-panel' && document.querySelector('#activity-content') != null) {
         document.querySelector('#activity-content').innerHTML = '';
     }
-    let state = {};
-    var title = '';
-    let endUrl = idNav;
+
+    let state = {},
+        title = '',
+        endUrl = idNav;
+
     if (option != "") {
         endUrl += '&option=' + option;
     }
@@ -258,28 +264,10 @@ function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = fa
     if (displayPanel[formateId]) {
         displayPanel[formateId](option);
     }
+
     // Breadcrumb management
-    let breadcrumbElt = document.getElementById('breadcrumb');
-    let innerBreadCrumbHtml = '';
     let currentBreadcrumbStructure = findCurrentPanelInTreeStructure(id, ClassroomSettings.treeStructure);
-    for (let i = 0; i < currentBreadcrumbStructure.length - 1; i++) {
-        // Define the last element of the breadcrumb
-        if (i == currentBreadcrumbStructure.length - 2) {
-            if ($_GET("panel") == "classroom-dashboard-activity-panel") {
-                if (UserManager.getUser().isRegular) {
-                    innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
-                } else {
-                    innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
-                }
-            } else {
-                innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary" onclick="navigatePanel('${currentBreadcrumbStructure[i]}', '${idNav}')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span></button>`;
-            }
-        } else {
-            innerBreadCrumbHtml += `<button class="btn c-btn-outline-primary last" onclick="navigatePanel('${currentBreadcrumbStructure[i]}', '${idNav}')"><span data-i18n="[html]classroom.ids.${currentBreadcrumbStructure[i]}">${currentBreadcrumbStructure[i]}</span><i class="fas fa-chevron-right ml-2"></i></button>`;
-        }
-    }
-    breadcrumbElt.innerHTML = innerBreadCrumbHtml;
-    $('#breadcrumb').localize();
+    breadcrumbManager.navigatePanelBreadcrumb(idNav, currentBreadcrumbStructure);
 
     $('.tooltip').remove()
     if (typeof Main.leaderline !== 'undefined') Main.leaderline.hide();
@@ -288,7 +276,6 @@ function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = fa
     if (id == 'classroom-dashboard-activities-panel-teacher' && idNav == 'dashboard-activities-teacher') {
         foldersManager.goToFolder(foldersManager.actualFolder);
     }
-
 }
 
 /**
@@ -344,14 +331,6 @@ function goToActivityPanel() {
     navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher');
 }
 
-// Add activity modal (Classroom management) -> Resource Bank button
-function goToCreateActivityPanel() {
-    Main.getClassroomManager().getAllApps().then((apps) => {
-        activitiesCreation(apps);
-        pseudoModal.closeAllModal();
-        navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-activities-teacher');
-    })
-}
 
 //prof-->demoStudent
 function modeApprenant() {

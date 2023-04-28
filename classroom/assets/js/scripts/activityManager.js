@@ -39,6 +39,7 @@ function LtiDefaultCode(activityType, isUpdate) {
 }
 
 function launchCustomActivity(activityType, isUpdate = false, callback = false) {
+
     setTextArea();
     // Reset the tag list
     manageTagList([]); 
@@ -96,12 +97,13 @@ function launchCustomActivity(activityType, isUpdate = false, callback = false) 
             }
         }
     });
+    breadcrumbManager.addItemCreateActivity(activityType);
 }
 
 function contentBackward() {
     Main.getClassroomManager().getAllApps().then((apps) => {
-        activitiesCreation(apps);
         navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-activities-teacher');
+        activitiesCreation(apps);
     })
 }
 
@@ -276,6 +278,8 @@ function responseManager(response = null, type = null) {
 }
 
 function activitiesCreation(apps) {
+
+    breadcrumbManager.addItemCreateActivityEmpty();
 
     let titleRoad = "newActivities.ActivitiesData.title.";
     let descriptionRoad = "newActivities.ActivitiesData.description.";
@@ -752,4 +756,5 @@ function loadActivityContent(doable = false) {
 
     $('#activity-introduction').hide();
     $('#activity-validate').hide();
+    breadcrumbManager.setActivityTitle(Activity.title, 1);
 }

@@ -610,7 +610,7 @@ function getTeacherActivity() {
         });
     }
 
-    loadActivityContent();
+    loadActivityContent(false);
 }
 
 function getIntelFromClasses() {

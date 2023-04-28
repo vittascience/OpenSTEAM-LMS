@@ -35,8 +35,9 @@ function integrateProject(link) {
 
 function showExercicePanel() {
     Main.getClassroomManager().getAllApps().then((apps) => {
-        activitiesCreation(apps);
         navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-activities-teacher');
+        activitiesCreation(apps);
+        pseudoModal.closeAllModal();
     })
 }
 

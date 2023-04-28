@@ -441,6 +441,7 @@ $('body').on('click', '.activity-list, .activity-list-item, .activity-card, .act
             navigation = 'dashboard-activities';
         }
         navigatePanel('classroom-dashboard-activity-panel', navigation, 'WK' + id, state);
+        
     }
 })
 
@@ -578,6 +579,8 @@ function statusActivity(activity, state = true, formatedTimePast = '') {
 
 function loadActivityForTeacher() {
 
+    $('#activity-views-switcher').html('');
+    breadcrumbManager.setActivityTitle(Activity.activity.title);
 
     let isDoable = Activity.correction == null ? true : false;
     // Reset the inputs

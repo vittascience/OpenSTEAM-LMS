@@ -3677,32 +3677,17 @@ h3.section-done {
     color: #fff;
 }
 
-/* Default element */
-
 .switcher__input:checked+.switcher__label {
     color: #fff;
 }
-
-
-/* Right element */
 
 .switcher__input--right:checked~.switcher__toggle {
     left: calc(100% - 99px);
 }
 
-
-/* If you have several "mid" elements
-   * Create a new class: switcher__input--middleX where X is the index of the element
-   */
-
 .switcher__input--middle1:checked~.switcher__toggle {
     left: 99px;
 }
-
-
-/* 4px related to the padding
-   * If you change the padding update this value too
-   */
 
 .switcher__input--middle2:checked~.switcher__toggle {
     left: calc((95px * 2) + 4px);
@@ -3718,4 +3703,12 @@ h3.section-done {
 
 .switcher-custom-top {
     margin-top: -2.5em;
+}
+
+.mnh-2-5 {
+    min-height: 2.5em;
+}
+
+.w-fit-content {
+    width: fit-content;
 }

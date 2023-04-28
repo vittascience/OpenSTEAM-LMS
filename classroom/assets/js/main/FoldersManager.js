@@ -206,7 +206,7 @@ class FoldersManager {
         }
     }
 
-    goToFolder(folderId) {
+    goToFolder(folderId = null) {
         this.resetDashboardList();
         this.actualFolder = folderId;
         this.resetTreeFolders();

@@ -435,7 +435,7 @@
 				"createFolder": "Créer un dossier",
 				"deleteFolder": "Confirmer la suppression du dossier",
 				"updateFolder": "Modifier le dossier",
-				"nameMandatory": "Nom du dossier <span class='mandatory'>*</span>",
+				"nameMandatory": "Nom du dossier <span class='c-text-red'>*</span>",
 				"deleteDisclaimer": "Attention, le dossier et l'ensemble de son contenu (activités et sous-dossiers) seront supprimés"
 			},
 			"facultative": "Champs facultatifs",
@@ -572,7 +572,8 @@
 			"note-3": "BIEN, tu as réussi cette activité !",
 			"note-2": "À REVOIR, la réponse n'est pas correcte",
 			"note-4": "NON NOTÉ",
-			"note-0": "EN ATTENTE DE CORRECTION"
+			"note-0": "EN ATTENTE DE CORRECTION",
+			"selectActivities": "Activités <span class='c-text-red'>*</span>"
 		}
 	},
 	"faqInfo": {
@@ -1010,7 +1011,7 @@
 		"telephonePlaceholder": "Votre numéro de téléphone (falcultatif).",
 		"passwordPlaceholder": "Minimum 8 caractères. Majuscules, minuscules et chiffres.",
 		"passwordConfirmedPlaceholder": "Répéter votre mot de passe une seconde fois.",
-		"mandatory": "Les champs marqués par un <span class=\"mandatory\">*</span> sont obligatoires.",
+		"mandatory": "Les champs marqués par un <span class='c-text-red'>*</span> sont obligatoires.",
 		"submit": "Confirmer",
 		"back": "Retour",
 		"title2nd": "Merci de nous fournir quelques informations supplémentaires",
