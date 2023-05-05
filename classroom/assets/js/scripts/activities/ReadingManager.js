@@ -39,6 +39,28 @@ class ReadingManager {
         }
     }
 
+    renderReadingActivity(activityData, htmlContainer, idActivity) {
+        const contentDiv = document.createElement('div');
+        contentDiv.id = 'activity-content' + idActivity;
+        contentDiv.innerHTML = activityData.content;
+        htmlContainer.appendChild(contentDiv);
+        coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer);
+    }
+
+    getManageDisplayReading(content, correction, correction_div) {
+        
+        const activityData = {
+            states: null,
+            content: null,
+            correction: null,
+            doable: false,
+            studentAnswer: null,
+        }
+
+        activityData.content = bbcodeContentIncludingMathLive(content);
+        return activityData;
+    }
+
     readingPreview(activity) {
         $('#preview-activity-content').html(bbcodeContentIncludingMathLive(activity.content.description));
         $('#preview-content').show();

@@ -1268,7 +1268,7 @@
 	"newActivities": {
 		"create": "Create a new activity",
 		"deletedelete": "Delete",
-		"import" : "Import an activity",
+		"import" : "Import",
 		"importSuccess": "Activity successfully imported",
 		"importError": "An error occured during the import",
 		"export": "Export",

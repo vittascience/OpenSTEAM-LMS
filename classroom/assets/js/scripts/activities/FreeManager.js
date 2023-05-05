@@ -139,6 +139,73 @@ class FreeManager {
         }
     }
 
+    renderFreeActivity(activityData, htmlContainer, idActivity) {
+        // create h3 title 
+/*         const states = document.createElement('h5');
+        states.classList.add('c-text-primary', 'mt-2');
+        states.innerHTML = i18next.t('classroom.activities.states');
+        htmlContainer.appendChild(states);
+
+        const paragraph = document.createElement('p');
+        paragraph.innerHTML = activityData.states;
+        htmlContainer.appendChild(paragraph);
+*/
+        const textArea = document.createElement('textarea');
+        textArea.style.height = '400px';
+        textArea.id = 'activity-states-content' + idActivity; 
+        coursesManager.manageStatesAndContentForOnePageCourse(idActivity, htmlContainer, activityData, false);
+
+        htmlContainer.appendChild(textArea);
+        coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer);
+
+        $('#activity-states-content'+idActivity).wysibb(Main.getClassroomManager().wbbOpt);
+    }
+
+    getManageDisplayFree(content, correction, correction_div) {
+        const activityData = {
+            states: null,
+            content: null,
+            correction: null,
+            doable: false,
+        }
+
+        activityData.states = bbcodeContentIncludingMathLive(content);
+        if (UserManager.getUser().isRegular) {
+            if (Activity.response != null && Activity.response != '') {
+                if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") { 
+                    let parsed = tryToParse(Activity.response);
+                    if (parsed != false) {
+                        activityData.content = bbcodeContentIncludingMathLive(parsed);
+                    } else if (Activity.response != null) {
+                        activityData.content = bbcodeContentIncludingMathLive(Activity.response);
+                    }
+                    activityData.correction = returnCorrectionContent(correction_div, correction);
+                }
+            }
+        }
+
+        if (correction <= 1 || correction == null) {
+            if (!UserManager.getUser().isRegular) {
+                activityData.doable = true;
+                if (Activity.response != null && Activity.response != '') {
+                    let parsed = tryToParse(Activity.response);
+                    if (parsed != false) {
+                        activityData.content = parsed;
+                    } else {
+                        activityData.content = "";
+                    }
+                }
+            }
+        } else if (correction > 1) {
+            activityData.content = bbcodeContentIncludingMathLive(JSON.parse(Activity.response));
+            activityData.correction = returnCorrectionContent(correction_div, correction);
+        }
+
+        return activityData;
+    }
+
+
+
     freePreview() {
         $('#preview-activity-states').html(bbcodeContentIncludingMathLive(Main.getClassroomManager()._createActivity.content.description))
         $('#preview-activity-bbcode-content').wysibb(Main.getClassroomManager().wbbOpt);

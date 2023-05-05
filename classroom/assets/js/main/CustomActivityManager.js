@@ -53,6 +53,14 @@ class CustomActivity {
             ['dragAndDrop', dragAndDropManager.getManageDisplayDragAndDrop],
         ];
 
+        this.renderActivities = [
+            ['free', freeManager.renderFreeActivity],
+            ['reading', readingManager.renderReadingActivity],
+            ['fillIn', fillInManager.renderFillInActivity],
+            ['quiz', quizManager.renderQuizActivity],
+            ['dragAndDrop', dragAndDropManager.renderDragAndDropActivity],
+        ];
+
         this.manageUpdateCustom = [
             ['free', freeManager.manageUpdateForFree],
             ['quiz', quizManager.manageUpdateForQuiz],

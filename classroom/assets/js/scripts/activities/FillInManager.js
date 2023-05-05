@@ -184,6 +184,61 @@ class FillInManager {
         } 
     }
 
+    renderFillInActivity(activityData, htmlContainer, idActivity, responses) {
+        coursesManager.manageStatesAndContentForOnePageCourse(idActivity, htmlContainer, activityData);
+        // place the previous student responses in the fields
+        if (responses != null && responses != "") {
+            let response = JSON.parse(responses);
+            for (let i = 0; i < response.length; i++) {
+                let input = document.getElementById(`student-fill-in-field-${i+1}`);
+                if (response[i] != "" && response[i] != null) {
+                    input.value = response[i];
+                }
+            }
+        }
+        coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer);
+    }
+
+    getManageDisplayFillIn(content, correction, correction_div) {
+        const activityData = {
+            states: null,
+            content: null,
+            correction: null,
+            doable: false,
+            studentAnswer: null,
+        }
+
+        console.log(content, " getManageDisplayFillIn content")
+
+        if (UserManager.getUser().isRegular) {
+            let contentForTeacher = content.fillInFields.contentForTeacher;
+            contentForTeacher = parseContent(contentForTeacher, "lms-answer fill-in-answer-teacher", true);
+            activityData.content = bbcodeContentIncludingMathLive(contentForTeacher);
+        }
+        activityData.states = bbcodeContentIncludingMathLive(content.states);
+        if (correction <= 1 || correction == null) {
+            if (!UserManager.getUser().isRegular) {
+
+                let contentReplaced = content.fillInFields.contentForTeacher.replaceAll(/\[answer\](.*?)\[\/answer\]/g, "_TOBEREPLACED_");
+                let studentContent = bbcodeContentIncludingMathLive(contentReplaced);
+                let nbOccu = studentContent.match(/_TOBEREPLACED_/g).length;
+    
+                for (let i = 1; i < nbOccu+1; i++) {
+                    let toBeReplace = studentContent.match(/_TOBEREPLACED_/g)[0];
+                    studentContent = studentContent.replace(toBeReplace, `<input type="text" id="student-fill-in-field-${i}" class="answer-student">`);
+                }
+                
+                activityData.content = bbcodeContentIncludingMathLive(studentContent);
+            } else {
+                fillInManager.displayFillInTeacherSide(correction_div, correction, content, isFromCourse);
+            }
+        } else if (correction > 1) {
+            fillInManager.displayFillInTeacherSide(correction_div, correction, content, isFromCourse);
+        } 
+
+        return activityData;
+    }
+
     displayFillInTeacherSide(correction_div, correction, content, isFromCourse) {
         let studentContentString = content.fillInFields.contentForTeacher,
             studentResponses = JSON.parse(Activity.response),

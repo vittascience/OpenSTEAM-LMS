@@ -762,6 +762,28 @@ function manageCorrectionDiv(correction_div, correction, isFromCourse) {
     }
 }
 
+function returnCorrectionContent(correction_div, correction) {
+    let label = "",
+        correctionContent = "";
+
+    if (correction > 1 || (UserManager.getUser().isRegular && correction >= 1)) {
+        correctionContent = correction_div;
+    }
+
+    if (UserManager.getUser().isRegular && ($_GET('panel') == "classroom-dashboard-activity-panel-teacher")) {
+        label = i18next.t("classroom.activities.studentAnswer");
+    } else {
+        label = i18next.t("classroom.activities.yourAnswer");
+    }
+
+    const correctionData = {
+        label: label,
+        correction: correctionContent
+    }
+
+    return correctionData;
+}
+
 function manageLabelForActivity(isFromCourse = false) {
     let course = isFromCourse ? "-course" : "";
     if (UserManager.getUser().isRegular && ($_GET('panel') == "classroom-dashboard-activity-panel-teacher")) {

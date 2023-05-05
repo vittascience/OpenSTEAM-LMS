@@ -3712,3 +3712,18 @@ h3.section-done {
 .w-fit-content {
     width: fit-content;
 }
+
+
+.fw7-primary {
+    font-weight: 700;
+    color: var(--classroom-primary);
+}
+
+.fw7-secondary {
+    font-weight: 700;
+    color: var(--classroom-secondary);
+}
+
+.fw7-uncolored {
+    font-weight: 700;
+}

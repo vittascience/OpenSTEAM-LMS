@@ -217,6 +217,60 @@ class QuizManager {
             manageCorrectionDiv(correction_div, correction, isFromCourse);
         }
     }
+
+    renderQuizActivity(activityData, htmlContainer, idActivity) {
+        // create h3 title 
+/*         const states = document.createElement('h5');
+        states.classList.add('c-text-primary', 'mt-2');
+        states.innerHTML = i18next.t('classroom.activities.states');
+        htmlContainer.appendChild(states);
+
+        const paragraph = document.createElement('p');
+        paragraph.innerHTML = activityData.states;
+        htmlContainer.appendChild(paragraph);
+
+        const contentDiv = document.createElement('div');
+        contentDiv.id = 'activity-content' + idActivity;
+        contentDiv.innerHTML = activityData.content;
+        htmlContainer.appendChild(contentDiv); */
+
+        coursesManager.manageStatesAndContentForOnePageCourse(idActivity, htmlContainer, activityData);
+        coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer);
+    }
+
+    getManageDisplayQuiz(content, correction, correction_div) {
+        const activityData = {
+            states: null,
+            content: null,
+            correction: null,
+            doable: false,
+        }
+
+        activityData.states = bbcodeContentIncludingMathLive(content.states);
+        if (UserManager.getUser().isRegular) {
+            activityData.content = quizManager.createContentForQuiz(JSON.parse(Activity.activity.solution), false);
+        }
+    
+        if (correction <= 1 || correction == null) {
+            if (!UserManager.getUser().isRegular) {
+                if (Activity.response != null && Activity.response != '') {
+                    if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") {
+                        activityData.content = quizManager.createContentForQuiz(JSON.parse(Activity.response));
+                    }
+                } else {
+                    activityData.content = quizManager.createContentForQuiz(content.quiz.contentForStudent);
+                }
+            } else {
+                quizManager.displayQuizTeacherSide(isFromCourse);
+                //manageCorrectionDiv(correction_div, correction, isFromCourse);
+            }
+        } else if (correction > 1) {
+            quizManager.displayQuizTeacherSide(isFromCourse);
+            //manageCorrectionDiv(correction_div, correction, isFromCourse);
+        }
+
+        return activityData;
+    }
     
     displayQuizTeacherSide(isFromCourse) {
         let course = isFromCourse ? "-course" : "";

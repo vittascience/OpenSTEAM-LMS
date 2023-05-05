@@ -1581,7 +1581,7 @@
 	"newActivities": {
 		"create": "Créer une nouvelle activité",
 		"delete": "Supprimer",
-		"import" : "Importer une activité",
+		"import" : "Importer",
 		"importSuccess": "Activité importée avec succès",
 		"importError": "Une erreur est survenue lors de l'import de l'activité",
 		"export": "Exporter",

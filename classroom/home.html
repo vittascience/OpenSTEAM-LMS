@@ -321,6 +321,12 @@
     </div>
 </div>
 
+<div id="classroom-dashboard-course-panel-one-page" class="dashboard-block" style="display:none;">
+    <div class="container-fluid d-none" id="one-page-course-student-content">
+
+    </div>
+</div>
+
 <div id="classroom-dashboard-course-panel-ended" class="dashboard-block" style="display:none;">
 
     <div class="container-fluid">
@@ -900,6 +906,10 @@
         </button>
         <button class="btn c-btn-icon-only" onclick="foldersManager.seekFolderModal()">
             <img src="assets/media/folders/folder_tree.svg" alt="arb-folders" onload="SVGInject(this)" style="height: 30px;">
+        </button>
+
+        <button id="new-activity-panel-3" onclick="importActivityFromJSON()" class="btn c-btn-no-outline-primary ml-auto">
+            <span class="mr-1" data-i18n="newActivities.import">Importer une activité</span><i class="fas fa-download"></i>
         </button>
     </div>
 

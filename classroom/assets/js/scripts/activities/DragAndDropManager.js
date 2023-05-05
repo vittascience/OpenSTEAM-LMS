@@ -125,23 +125,9 @@ class DragAndDropManager {
             $('#preview-drag-and-drop-fields-teacher').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
         });
 
-        if (Main.getClassroomManager().dragulaGlobal == false) {
-            Main.getClassroomManager().dragulaGlobal = dragula();
-        }
 
-        Main.getClassroomManager().dragulaGlobal.containers = [];
-        Main.getClassroomManager().dragulaGlobal = dragula([document.querySelector('#preview-drag-and-drop-fields-teacher')]).on('drop', function(el, target, source) {
-            if (target.id != 'preview-drag-and-drop-fields-teacher') {
-                let swap = $(target).find('p').not(el);
-                swap.length > 0 ? source.append(swap[0]) : null;
-            }
-        });
-        
 
-        $('.dropzone-preview').each((i, e) => {
-            Main.getClassroomManager().dragulaGlobal.containers.push(document.querySelector('#'+e.id));
-        });
-
+        initializeDragulaWithOneContainer('preview-drag-and-drop-fields-teacher', 'dropzone-preview');
         $('#preview-states').show();
         $('#preview-activity-drag-and-drop-container').show();
         $('#activity-preview-div').show();
@@ -177,24 +163,7 @@ class DragAndDropManager {
                 });
                 $('#activity-drag-and-drop-container'+course).show();
             
-                // init dragula if it's not already initialized
-                if (Main.getClassroomManager().dragulaGlobal == false) {
-                    Main.getClassroomManager().dragulaGlobal = dragula();
-                }
-    
-                // Reset the dragula fields
-                Main.getClassroomManager().dragulaGlobal.containers = [];
-                
-                Main.getClassroomManager().dragulaGlobal = dragula([document.querySelector('#drag-and-drop-fields'+course)]).on('drop', function(el, target, source) {
-                    if (target.id != 'drag-and-drop-fields'+course) {
-                        let swap = $(target).find('p').not(el);
-                        swap.length > 0 ? source.append(swap[0]) : null;
-                    }
-                });
-    
-                $('.dropzone').each((i, e) => {
-                    Main.getClassroomManager().dragulaGlobal.containers.push(document.querySelector('#'+e.id));
-                });
+                initializeDragulaWithOneContainer('drag-and-drop-fields'+course, 'dropzone');
     
                 // Place the student's response if there is one
                 if (Activity.response != null && Activity.response != "") {
@@ -219,6 +188,73 @@ class DragAndDropManager {
             dragAndDropManager.displayDragAndDropTeacherSide(correction_div, correction, content, isFromCourse);
         } 
     }
+
+    renderDragAndDropActivity(activityData, htmlContainer, idActivity, responses) {
+        coursesManager.manageStatesAndContentForOnePageCourse(idActivity, htmlContainer, activityData);
+
+        // create div with "drag-and-drop-fields"  class
+        const dragAndDropFieldsDiv = document.createElement('div');
+        dragAndDropFieldsDiv.classList.add('drag-and-drop-fields');
+        dragAndDropFieldsDiv.id = 'drag-and-drop-fields-one-page-course' + idActivity;
+        dragAndDropFieldsDiv.innerHTML = activityData.dragAndDropChoices;
+        htmlContainer.appendChild(dragAndDropFieldsDiv);
+        
+        initializeDragulaWithOneContainer('drag-and-drop-fields-one-page-course' + idActivity, 'dropzone');
+
+        if (responses != null && responses != "") {
+            let response = JSON.parse(responses);
+            response.forEach((e, i) => {
+                if (bbcodeToHtml(e.string) != e.string) {
+                    $(`#dz-${i}`).html(document.getElementById(e.string));
+                } else {
+                    if (e.string.toLowerCase() != "" && e.string.toLowerCase() != null) {
+                        let contentById = document.getElementById(e.string.toLowerCase());
+                        if (contentById != null) {
+                            $(`#dz-${i}`).html(contentById);
+                        }
+                    }
+                }
+            })
+        }
+
+        coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer);
+    }
+
+    getManageDisplayDragAndDrop(content, correction, correction_div, optionalData) {
+        const activityData = {
+            states: null,
+            content: null,
+            correction: null,
+            doable: false,
+            dragAndDropChoices: null,
+        }
+
+        activityData.states = bbcodeContentIncludingMathLive(content.states);
+
+        if (correction <= 1 || correction == null) {
+            if (!UserManager.getUser().isRegular) {
+                let ContentString = manageDragAndDropText(content.dragAndDropFields.contentForTeacher, false, JSON.parse(optionalData.activity.solution));
+                activityData.content = `<div>${ContentString}</div>`;
+    
+                // Get the response array and shuffle it
+                let choices = shuffleArray(JSON.parse(optionalData.activity.solution));
+                choices.forEach(e => {
+                    if (activityData.dragAndDropChoices != null) {
+                        activityData.dragAndDropChoices += `<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`;
+                    } else {
+                        activityData.dragAndDropChoices = `<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`;
+                    }
+                });
+            } else {
+                dragAndDropManager.displayDragAndDropTeacherSide(correction_div, correction, content, isFromCourse);
+            }
+        } else if (correction > 1) {
+            dragAndDropManager.displayDragAndDropTeacherSide(correction_div, correction, content, isFromCourse);
+        } 
+
+        return activityData;
+    }
+
     
     displayDragAndDropTeacherSide(correction_div, correction, content, isFromCourse) {
         let course = isFromCourse ? "-course" : "";
@@ -269,24 +305,8 @@ class DragAndDropManager {
             $('#preview-drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
         });
     
-        // init dragula if it's not already initialized
-        if (Main.getClassroomManager().dragulaGlobal == false) {
-            Main.getClassroomManager().dragulaGlobal = dragula();
-        }
 
-        // Reset the dragula fields
-        Main.getClassroomManager().dragulaGlobal.containers = [];
-        Main.getClassroomManager().dragulaGlobal = dragula([document.querySelector('#preview-drag-and-drop-fields')]).on('drop', function(el, target, source) {
-            if (target.id != 'preview-drag-and-drop-fields') {
-                let swap = $(target).find('p').not(el);
-                swap.length > 0 ? source.append(swap[0]) : null;
-            }
-        });
-
-        $('.dropzone-preview').each((i, e) => {
-            Main.getClassroomManager().dragulaGlobal.containers.push(document.querySelector('#'+e.id));
-        });
-
+        initializeDragulaWithOneContainer('preview-drag-and-drop-fields', 'dropzone-preview');
         $('#preview-states').show();
         $('#preview-activity-drag-and-drop-container').show();
         $('#activity-preview-div').show();

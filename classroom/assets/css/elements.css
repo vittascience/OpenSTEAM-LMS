@@ -455,6 +455,17 @@
     border-bottom: 0px solid transparent;
 }
 
+.c-btn-no-outline-primary {
+    color: var(--classroom-primary);
+    background: transparent;
+    border: none;
+    font-weight: 700;
+}
+
+.c-btn-no-outline-primary:hover {
+    filter: brightness(0.9);
+}
+
 /* Line separator */
 
 hr {
