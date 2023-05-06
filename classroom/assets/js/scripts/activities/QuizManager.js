@@ -219,43 +219,31 @@ class QuizManager {
     }
 
     renderQuizActivity(activityData, htmlContainer, idActivity) {
-        // create h3 title 
-/*         const states = document.createElement('h5');
-        states.classList.add('c-text-primary', 'mt-2');
-        states.innerHTML = i18next.t('classroom.activities.states');
-        htmlContainer.appendChild(states);
-
-        const paragraph = document.createElement('p');
-        paragraph.innerHTML = activityData.states;
-        htmlContainer.appendChild(paragraph);
-
-        const contentDiv = document.createElement('div');
-        contentDiv.id = 'activity-content' + idActivity;
-        contentDiv.innerHTML = activityData.content;
-        htmlContainer.appendChild(contentDiv); */
-
         coursesManager.manageStatesAndContentForOnePageCourse(idActivity, htmlContainer, activityData);
-        coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer);
+        coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer, activityData);
     }
 
-    getManageDisplayQuiz(content, correction, correction_div) {
+    getManageDisplayQuiz(content, activity, correction_div) {
         const activityData = {
             states: null,
             content: null,
             correction: null,
             doable: false,
+            type: 'quiz',
+            link: activity.id,
+            id: activity.activity.id,
         }
 
         activityData.states = bbcodeContentIncludingMathLive(content.states);
         if (UserManager.getUser().isRegular) {
-            activityData.content = quizManager.createContentForQuiz(JSON.parse(Activity.activity.solution), false);
+            activityData.content = quizManager.createContentForQuiz(JSON.parse(activity.activity.solution), false);
         }
     
-        if (correction <= 1 || correction == null) {
+        if (activity.activity.correction <= 1 || activity.activity.correction == null) {
             if (!UserManager.getUser().isRegular) {
-                if (Activity.response != null && Activity.response != '') {
-                    if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") {
-                        activityData.content = quizManager.createContentForQuiz(JSON.parse(Activity.response));
+                if (activity.activity.response != null && activity.activity.response != '') {
+                    if (JSON.parse(activity.activity.response) != null && JSON.parse(activity.activity.response) != "") {
+                        activityData.content = quizManager.createContentForQuiz(JSON.parse(activity.activity.response));
                     }
                 } else {
                     activityData.content = quizManager.createContentForQuiz(content.quiz.contentForStudent);

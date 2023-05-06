@@ -44,10 +44,10 @@ class ReadingManager {
         contentDiv.id = 'activity-content' + idActivity;
         contentDiv.innerHTML = activityData.content;
         htmlContainer.appendChild(contentDiv);
-        coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer);
+        coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer, activityData);
     }
 
-    getManageDisplayReading(content, correction, correction_div) {
+    getManageDisplayReading(content, activity, correction_div) {
         
         const activityData = {
             states: null,
@@ -55,6 +55,8 @@ class ReadingManager {
             correction: null,
             doable: false,
             studentAnswer: null,
+            type: 'reading',
+            id: activity.activity.id,
         }
 
         activityData.content = bbcodeContentIncludingMathLive(content);

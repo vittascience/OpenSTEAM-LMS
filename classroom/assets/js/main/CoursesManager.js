@@ -604,10 +604,14 @@ class CoursesManager {
         return content;
     }
 
+    callBackForCourse(activity) {
+        coursesManager.manageAllActivityResponse(activity);
+    }
+
     validateCourse(correction) {
         const funct = customActivity.activityAndCase.filter(activityValidate => activityValidate[0] == Activity.activity.type)[0];
         if (funct) {
-            funct[1](funct[2] ? correction : null, true);
+            funct[1](funct[2] ? correction : null, true, callBackForCourse);
         } else {
             if (Activity.activity.isLti) {
                 let messageDiv = document.getElementById("course-result-message"),
@@ -643,10 +647,12 @@ class CoursesManager {
         }
     }
 
-    validateCourseForOnePageCourse(correction) {
+
+
+/*     validateCourseForOnePageCourse(correction) {
         const funct = customActivity.activityAndCase.filter(activityValidate => activityValidate[0] == Activity.activity.type)[0];
         if (funct) {
-            funct[1](funct[2] ? correction : null, true);
+            funct[1](funct[2] ? correction : null, true, callBackForCourseOnePage);
         } else {
             if (Activity.activity.isLti) {
                 let messageDiv = document.getElementById("course-result-message"),
@@ -680,7 +686,7 @@ class CoursesManager {
                 
             }
         }
-    }
+    } */
 
     coursesResponseManager(response, type) {
         if (response) {
@@ -983,7 +989,8 @@ class CoursesManager {
             let correction = '';
 
             const content = this.manageContentActivitiesOnePageCourse(activity);
-            const activityData = this.returnContentForActivityInOnePageCourse(content, activity.activity.correction, activity.activity.type, correction, isDoable, activity);
+            //const activityData = this.returnContentForActivityInOnePageCourse(content, activity.activity.correction, activity.activity.type, correction, isDoable, activity);
+            const activityData = this.returnContentForActivityInOnePageCourse(content, activity, correction, isDoable);
     
             if (!activity.evaluation && correction < 2 && !isDoable) {
                 isDoable = activityType.includes(Activity.activity.type) ? true : false;
@@ -993,6 +1000,7 @@ class CoursesManager {
             if (activityType.includes(activity.activity.type)) {
                 const func = customActivity.renderActivities.filter(x => x[0] == activity.activity.type)[0];
                 if (func) {
+                    console.log(activity.response)
                     func[1](activityData, divActivity, activity.activity.id, activity.response);
                 } else if (activity.activity.isLti) {
                     this.renderLtiActivity(activityData, divActivity, activity.activity.id, activity.response);
@@ -1010,12 +1018,14 @@ class CoursesManager {
     * @return content : the content of the activity
     * @return activityData : the data of the activity
     */
-    manageValidateBtnForOnePageCourse(activityId, container) {
+    manageValidateBtnForOnePageCourse(activityId, container, activity = null) {
         const btnDiv = document.createElement('div');
         btnDiv.classList.add('d-flex', 'justify-content-end', 'mt-2');
 
         const validateBtn = document.createElement('button');
-        validateBtn.dataset.id = activityId;
+        validateBtn.dataset.id = activity.id;
+        validateBtn.dataset.link = activity.link;
+        validateBtn.dataset.type = activity.type;
         validateBtn.id = 'validate-activity-' + activityId;
         validateBtn.classList.add('btn', 'c-btn-primary', 'mx-1');
         validateBtn.innerHTML = i18next.t('classroom.activities.validate');
@@ -1029,7 +1039,13 @@ class CoursesManager {
         container.appendChild(btnDiv);
         btnDiv.appendChild(validateBtn);
         btnDiv.appendChild(saveBtn);
+
+
+        validateBtn.addEventListener('click', () => {
+            this.manageValidateByTypeForOnePageCourse(validateBtn);
+        });
     }
+
 
     /* 
     * Manage the states and content for one page course
@@ -1065,11 +1081,11 @@ class CoursesManager {
     * @param {Object} optionalData
     * @return {Object} contentData
     */
-    returnContentForActivityInOnePageCourse(content, correction, type = null, correction_div, isDoable, optionalData = null)
+    returnContentForActivityInOnePageCourse(content, activity, correction_div, isDoable)
     {
         let contentData = "";
     
-        if (type == null) {
+        if (activity.activity.type == null) {
             if (typeof correction == 'string') {
                 contentData.correction = bbcodeToHtml(correction);
             } else {
@@ -1077,14 +1093,14 @@ class CoursesManager {
             }
         }
     
-        const funct = customActivity.getManageDisplayCustom.filter(activityValidate => activityValidate[0] == type)[0];
+        const funct = customActivity.getManageDisplayCustom.filter(activityValidate => activityValidate[0] == activity.activity.type)[0];
         if (funct) {
-            contentData = funct[1](content, correction, correction_div, optionalData);
+            contentData = funct[1](content, activity, correction_div);
         } else {
             if (Activity.activity.isLti) {
-                contentData = this.manageDisplayLtiForOnePageCourse(correction, content, correction_div, isDoable, activityValidationButtonElt);
+                contentData = this.manageDisplayLtiForOnePageCourse(activity.activity.correction, content, correction_div, isDoable, activityValidationButtonElt);
             } else {
-                contentData = this.manageDisplayOldActivitiesForOnePageCourse(correction, content, correction_div, isDoable);
+                contentData = this.manageDisplayOldActivitiesForOnePageCourse(activity.activity.correction, content, correction_div, isDoable);
             };
         }
     
@@ -1096,7 +1112,8 @@ class CoursesManager {
             states: null,
             content: null,
             correction: null,
-            doable: isDoable
+            doable: isDoable,
+            type: null
         }
     
         activityData.content = content;
@@ -1150,6 +1167,81 @@ class CoursesManager {
 
         return activityData;
     }
+
+    /* TMP */
+    callBackForCourseOnePage(activity) {
+        console.log("callBackForCourseOnePage", activity);
+    }
+
+    manageValidateByTypeForOnePageCourse(btn) {
+        const   id = btn.dataset.id,
+                type = btn.dataset.type,
+                link = btn.dataset.link;
+
+        if (type == 'reading') {
+            defaultProcessValidateActivity(1, false, this.callBackForCourseOnePage);
+        } else if (type == 'dragAndDrop') {
+            this.dragAndDropValidateActivityOnePageCourse(id, link);
+        } else if (type == 'fillIn') {
+            this.fillInValidateActivityOnePageCourse(id, link);
+        } else if (type == 'quiz') {
+            this.quizValidateActivityOnePageCourse(id, link);
+        } else if (type == 'free') {
+            this.freeValidateActivityOnePageCourse(id, link);
+        }
+    }
+
+    dragAndDropValidateActivityOnePageCourse(activityId, activityLink) {
+        let studentResponse = [];
+
+        for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
+            let string = document.getElementById(`dz-${i}`).children.length > 0 ? document.getElementById(`dz-${i}`).children[0].innerHTML : "";
+            studentResponse.push({
+                string: string
+            });
+        }
+
+        Main.getClassroomManager().saveNewStudentActivity(activityId, 1, null, JSON.stringify(studentResponse), activityLink).then((response) => {
+            console.log(response);
+        });
+    }
+
+    fillInValidateActivityOnePageCourse(activityId, activityLink) {
+        let studentResponse = [];
+
+        for (let i = 1; i < $(`input[id^="student-fill-in-field-"]`).length+1; i++) {
+            let string = document.getElementById(`student-fill-in-field-${i}`).value;
+            studentResponse.push(string);
+        }
+
+        Main.getClassroomManager().saveNewStudentActivity(activityId, 1, null, JSON.stringify(studentResponse), activityLink).then((response) => {
+            console.log(response);
+        });
+    }
+
+    freeValidateActivityOnePageCourse(activityId, activityLink) {
+        let studentResponse = $(`#one-page-activity-content-${activityId}`).bbcode();
+        Main.getClassroomManager().saveNewStudentActivity(activityId, 1, null, studentResponse, activityLink).then((response) => {
+            console.log(response);
+        });
+    }
+
+    quizValidateActivityOnePageCourse(activityId, activityLink) {
+        let studentResponse = [];
+        for (let i = 1; i < $(`input[id^="student-quiz-checkbox-"]`).length+1; i++) {
+            let res = {
+                inputVal: $(`#student-quiz-suggestion-${i}`).text(),
+                isCorrect: $(`#student-quiz-checkbox-${i}`).is(':checked')
+            }
+            studentResponse.push(res);
+        }
+        
+        Main.getClassroomManager().saveNewStudentActivity(activityId, 1, null, JSON.stringify(studentResponse), activityLink).then((response) => {
+            console.log(response);
+        });
+    }
+
+
     
     launchLtiResourceOnePageCourse(activityId, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false) {
         return [`<input id="activity-score" type="text" hidden/>

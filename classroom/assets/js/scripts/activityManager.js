@@ -231,6 +231,18 @@ function titleForward() {
 }
 
 
+function defaultCallback(activity, correction, interface) {
+    if (!interface) {
+        navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
+        actualizeStudentActivities(activity, correction);
+        $("#activity-validate").attr("disabled", false);
+    } else {
+        actualizeStudentActivities(activity, correction)
+        $("#activity-validate").attr("disabled", false);
+        navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher')
+    }
+}
+
 /**
  * Validation pipeline for the new activity
  */
@@ -239,12 +251,11 @@ function validateActivity(correction) {
     // CustomActivity = Manager for the custom activity
     const funct = customActivity.activityAndCase.filter(activityValidate => activityValidate[0] == Activity.activity.type)[0];
     if (funct) {
-        funct[1](funct[2] ? correction : null);
+        funct[1](funct[2] ? correction : null, false, defaultCallback);
     } else {
-        defaultProcessValidateActivity(correction);
+        defaultProcessValidateActivity(correction, false, defaultCallback);
     }
 }
-
 
 function validateDefaultResponseManagement(response) {
     $("#activity-validate").attr("disabled", false);
@@ -541,10 +552,11 @@ function hintManager(response, courseIndicator = "") {
     }
 }
 
-/* Now include course to avoid duplicate */
-function defaultProcessValidateActivity(correction = null, isFromCourse = false) {
-    $("#activity-validate").attr("disabled", "disabled");
 
+
+/* Now include course to avoid duplicate */
+function defaultProcessValidateActivity(correction = null, isFromCourse = false, callback = null) {
+    $("#activity-validate").attr("disabled", "disabled");
     let getInterface = tryToParse(Activity.activity.content),
         vittaIframeRegex = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm,
         interfaceData = false;
@@ -560,32 +572,16 @@ function defaultProcessValidateActivity(correction = null, isFromCourse = false)
 
     if (!interfaceData) {
         let correction = 2
-        if (isFromCourse) {
-            Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, correction, 4).then(function (activity) {
-                if (typeof activity.errors != 'undefined') {
-                    for (let error in activity.errors) {
-                        displayNotification('#notif-div', `classroom.notif.${error}`, "error");
-                        $("#activity-validate").attr("disabled", false);
-                    }
-                } else  {
-                    coursesManager.manageAllActivityResponse(activity);
-                }
-            })
-        } else {
-            Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, correction, 4).then(function (activity) {
-                if (typeof activity.errors != 'undefined') {
-                    for (let error in activity.errors) {
-    
-                        displayNotification('#notif-div', `classroom.notif.${error}`, "error");
-                        $("#activity-validate").attr("disabled", false);
-                    }
-                } else  {
-                    navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
-                    actualizeStudentActivities(activity, correction);
+        Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, correction, 4).then(function (activity) {
+            if (typeof activity.errors != 'undefined') {
+                for (let error in activity.errors) {
+                    displayNotification('#notif-div', `classroom.notif.${error}`, "error");
                     $("#activity-validate").attr("disabled", false);
                 }
-            })
-        }
+            } else  {
+               callback(activity, correction, interfaceData);
+            }
+        })
         window.localStorage.classroomActivity = null
     } else if (Activity.autocorrection == false) {
         let correction = 1;
@@ -598,31 +594,16 @@ function defaultProcessValidateActivity(correction = null, isFromCourse = false)
             projectParsed = null;
         }
 
-        if (isFromCourse) {
-            Main.getClassroomManager().saveStudentActivity(projectParsed, interfaceName, Activity.id).then(function (activity) {
-                if (typeof activity.errors != 'undefined') {
-                    for (let error in activity.errors) {
-                        displayNotification('#notif-div', `classroom.notif.${error}`, "error");
-                        $("#activity-validate").attr("disabled", false);
-                    }
-                } else {
-                    coursesManager.manageAllActivityResponse(activity);
-                }
-            })
-        } else {
-            Main.getClassroomManager().saveStudentActivity(projectParsed, interfaceName, Activity.id).then(function (activity) {
-                if (typeof activity.errors != 'undefined') {
-                    for (let error in activity.errors) {
-                        displayNotification('#notif-div', `classroom.notif.${error}`, "error");
-                        $("#activity-validate").attr("disabled", false);
-                    }
-                } else {
-                    actualizeStudentActivities(activity, correction)
+        Main.getClassroomManager().saveStudentActivity(projectParsed, interfaceName, Activity.id).then(function (activity) {
+            if (typeof activity.errors != 'undefined') {
+                for (let error in activity.errors) {
+                    displayNotification('#notif-div', `classroom.notif.${error}`, "error");
                     $("#activity-validate").attr("disabled", false);
-                    navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher')
                 }
-            })
-        }
+            } else {
+                callback(activity, correction, interfaceData);
+            }
+        })
     } else {
         $("#activity-validate").attr("disabled", false);
         window.localStorage.autocorrect = true

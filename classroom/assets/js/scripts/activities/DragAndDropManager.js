@@ -217,27 +217,30 @@ class DragAndDropManager {
             })
         }
 
-        coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer);
+        coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer, activityData);
     }
 
-    getManageDisplayDragAndDrop(content, correction, correction_div, optionalData) {
+    getManageDisplayDragAndDrop(content, activity, correction_div) {
         const activityData = {
             states: null,
             content: null,
             correction: null,
             doable: false,
             dragAndDropChoices: null,
+            type: "dragAndDrop",
+            link: activity.id,
+            id: activity.activity.id,
         }
 
         activityData.states = bbcodeContentIncludingMathLive(content.states);
 
-        if (correction <= 1 || correction == null) {
+        if (activity.activity.correction <= 1 || activity.activity.correction == null) {
             if (!UserManager.getUser().isRegular) {
-                let ContentString = manageDragAndDropText(content.dragAndDropFields.contentForTeacher, false, JSON.parse(optionalData.activity.solution));
+                let ContentString = manageDragAndDropText(content.dragAndDropFields.contentForTeacher, false, JSON.parse(activity.activity.solution));
                 activityData.content = `<div>${ContentString}</div>`;
     
                 // Get the response array and shuffle it
-                let choices = shuffleArray(JSON.parse(optionalData.activity.solution));
+                let choices = shuffleArray(JSON.parse(activity.activity.solution));
                 choices.forEach(e => {
                     if (activityData.dragAndDropChoices != null) {
                         activityData.dragAndDropChoices += `<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`;
@@ -246,10 +249,10 @@ class DragAndDropManager {
                     }
                 });
             } else {
-                dragAndDropManager.displayDragAndDropTeacherSide(correction_div, correction, content, isFromCourse);
+                //dragAndDropManager.displayDragAndDropTeacherSide(correction_div, activity.activity.correction, content, isFromCourse);
             }
-        } else if (correction > 1) {
-            dragAndDropManager.displayDragAndDropTeacherSide(correction_div, correction, content, isFromCourse);
+        } else if (activity.activity.correction > 1) {
+            //dragAndDropManager.displayDragAndDropTeacherSide(correction_div, activity.activity.correction, content, isFromCourse);
         } 
 
         return activityData;

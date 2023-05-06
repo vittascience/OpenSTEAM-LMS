@@ -196,19 +196,20 @@ class FillInManager {
                 }
             }
         }
-        coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer);
+        coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer, activityData);
     }
 
-    getManageDisplayFillIn(content, correction, correction_div) {
+    getManageDisplayFillIn(content, activity, correction_div) {
         const activityData = {
             states: null,
             content: null,
             correction: null,
             doable: false,
             studentAnswer: null,
+            type: "fillIn",
+            link: activity.id,
+            id: activity.activity.id,
         }
-
-        console.log(content, " getManageDisplayFillIn content")
 
         if (UserManager.getUser().isRegular) {
             let contentForTeacher = content.fillInFields.contentForTeacher;
@@ -216,7 +217,7 @@ class FillInManager {
             activityData.content = bbcodeContentIncludingMathLive(contentForTeacher);
         }
         activityData.states = bbcodeContentIncludingMathLive(content.states);
-        if (correction <= 1 || correction == null) {
+        if (activity.activity.correction <= 1 || activity.activity.correction == null) {
             if (!UserManager.getUser().isRegular) {
 
                 let contentReplaced = content.fillInFields.contentForTeacher.replaceAll(/\[answer\](.*?)\[\/answer\]/g, "_TOBEREPLACED_");
@@ -230,10 +231,10 @@ class FillInManager {
                 
                 activityData.content = bbcodeContentIncludingMathLive(studentContent);
             } else {
-                fillInManager.displayFillInTeacherSide(correction_div, correction, content, isFromCourse);
+                fillInManager.displayFillInTeacherSide(correction_div, activity.activity.correction, content, isFromCourse);
             }
         } else if (correction > 1) {
-            fillInManager.displayFillInTeacherSide(correction_div, correction, content, isFromCourse);
+            fillInManager.displayFillInTeacherSide(correction_div, activity.activity.correction, content, isFromCourse);
         } 
 
         return activityData;

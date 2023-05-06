@@ -140,55 +140,49 @@ class FreeManager {
     }
 
     renderFreeActivity(activityData, htmlContainer, idActivity) {
-        // create h3 title 
-/*         const states = document.createElement('h5');
-        states.classList.add('c-text-primary', 'mt-2');
-        states.innerHTML = i18next.t('classroom.activities.states');
-        htmlContainer.appendChild(states);
-
-        const paragraph = document.createElement('p');
-        paragraph.innerHTML = activityData.states;
-        htmlContainer.appendChild(paragraph);
-*/
         const textArea = document.createElement('textarea');
         textArea.style.height = '400px';
-        textArea.id = 'activity-states-content' + idActivity; 
+        textArea.id = 'one-page-activity-content-' + idActivity; 
         coursesManager.manageStatesAndContentForOnePageCourse(idActivity, htmlContainer, activityData, false);
 
         htmlContainer.appendChild(textArea);
-        coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer);
+        coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer, activityData);
 
-        $('#activity-states-content'+idActivity).wysibb(Main.getClassroomManager().wbbOpt);
+        $('#one-page-activity-content-'+idActivity).wysibb(Main.getClassroomManager().wbbOpt);
     }
 
-    getManageDisplayFree(content, correction, correction_div) {
+    getManageDisplayFree(content, activity, correction_div) {
+        console.log(activity);
         const activityData = {
             states: null,
             content: null,
             correction: null,
             doable: false,
+            type: 'free',
+            link: activity.id,
+            id: activity.activity.id,
         }
 
         activityData.states = bbcodeContentIncludingMathLive(content);
         if (UserManager.getUser().isRegular) {
-            if (Activity.response != null && Activity.response != '') {
-                if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") { 
+            if (activity.response != null && activity.response != '') {
+                if (JSON.parse(activity.response) != null && JSON.parse(activity.response) != "") { 
                     let parsed = tryToParse(Activity.response);
                     if (parsed != false) {
                         activityData.content = bbcodeContentIncludingMathLive(parsed);
                     } else if (Activity.response != null) {
-                        activityData.content = bbcodeContentIncludingMathLive(Activity.response);
+                        activityData.content = bbcodeContentIncludingMathLive(activity.response);
                     }
-                    activityData.correction = returnCorrectionContent(correction_div, correction);
+                    activityData.correction = returnCorrectionContent(correction_div, activity.activity.correction);
                 }
             }
         }
 
-        if (correction <= 1 || correction == null) {
+        if (activity.activity.correction <= 1 || activity.activity.correction == null) {
             if (!UserManager.getUser().isRegular) {
                 activityData.doable = true;
-                if (Activity.response != null && Activity.response != '') {
-                    let parsed = tryToParse(Activity.response);
+                if (activity.response != null && activity.response != '') {
+                    let parsed = tryToParse(activity.response);
                     if (parsed != false) {
                         activityData.content = parsed;
                     } else {
@@ -196,9 +190,9 @@ class FreeManager {
                     }
                 }
             }
-        } else if (correction > 1) {
-            activityData.content = bbcodeContentIncludingMathLive(JSON.parse(Activity.response));
-            activityData.correction = returnCorrectionContent(correction_div, correction);
+        } else if (activity.activity.correction > 1) {
+            activityData.content = bbcodeContentIncludingMathLive(JSON.parse(activity.response));
+            activityData.correction = returnCorrectionContent(correction_div, activity.activity.correction);
         }
 
         return activityData;
