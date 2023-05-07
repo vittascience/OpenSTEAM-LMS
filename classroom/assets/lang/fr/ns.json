@@ -1633,6 +1633,10 @@
 		"searchActivity": "Rechercher une activité",
 		"placeholderTitle": "Titre de votre activité",
 		"placeholderDescription": "Description de votre activité",
+		"format": {
+			"onePage": "Une page",
+			"standart": "Standard"
+		},
 		"pagination": {
 			"create":"Création du parcours",
 			"title": "Titre",

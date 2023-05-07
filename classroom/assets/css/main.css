@@ -3727,3 +3727,10 @@ h3.section-done {
 .fw7-uncolored {
     font-weight: 700;
 }
+
+.hint-one-page-course {
+    text-align: center;
+    border: 1px solid var(--classroom-secondary);
+    border-radius: 50px;
+    padding: 0.5em;
+}

@@ -184,62 +184,6 @@ class FillInManager {
         } 
     }
 
-    renderFillInActivity(activityData, htmlContainer, idActivity, responses) {
-        coursesManager.manageStatesAndContentForOnePageCourse(idActivity, htmlContainer, activityData);
-        // place the previous student responses in the fields
-        if (responses != null && responses != "") {
-            let response = JSON.parse(responses);
-            for (let i = 0; i < response.length; i++) {
-                let input = document.getElementById(`student-fill-in-field-${i+1}`);
-                if (response[i] != "" && response[i] != null) {
-                    input.value = response[i];
-                }
-            }
-        }
-        coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer, activityData);
-    }
-
-    getManageDisplayFillIn(content, activity, correction_div) {
-        const activityData = {
-            states: null,
-            content: null,
-            correction: null,
-            doable: false,
-            studentAnswer: null,
-            type: "fillIn",
-            link: activity.id,
-            id: activity.activity.id,
-        }
-
-        if (UserManager.getUser().isRegular) {
-            let contentForTeacher = content.fillInFields.contentForTeacher;
-            contentForTeacher = parseContent(contentForTeacher, "lms-answer fill-in-answer-teacher", true);
-            activityData.content = bbcodeContentIncludingMathLive(contentForTeacher);
-        }
-        activityData.states = bbcodeContentIncludingMathLive(content.states);
-        if (activity.activity.correction <= 1 || activity.activity.correction == null) {
-            if (!UserManager.getUser().isRegular) {
-
-                let contentReplaced = content.fillInFields.contentForTeacher.replaceAll(/\[answer\](.*?)\[\/answer\]/g, "_TOBEREPLACED_");
-                let studentContent = bbcodeContentIncludingMathLive(contentReplaced);
-                let nbOccu = studentContent.match(/_TOBEREPLACED_/g).length;
-    
-                for (let i = 1; i < nbOccu+1; i++) {
-                    let toBeReplace = studentContent.match(/_TOBEREPLACED_/g)[0];
-                    studentContent = studentContent.replace(toBeReplace, `<input type="text" id="student-fill-in-field-${i}" class="answer-student">`);
-                }
-                
-                activityData.content = bbcodeContentIncludingMathLive(studentContent);
-            } else {
-                fillInManager.displayFillInTeacherSide(correction_div, activity.activity.correction, content, isFromCourse);
-            }
-        } else if (correction > 1) {
-            fillInManager.displayFillInTeacherSide(correction_div, activity.activity.correction, content, isFromCourse);
-        } 
-
-        return activityData;
-    }
-
     displayFillInTeacherSide(correction_div, correction, content, isFromCourse) {
         let studentContentString = content.fillInFields.contentForTeacher,
             studentResponses = JSON.parse(Activity.response),
@@ -286,6 +230,118 @@ class FillInManager {
         $('#preview-states').show();
         $('#preview-content').show();
         $('#activity-preview-div').show();
+    }
+
+    renderFillInActivity(activityData, htmlContainer, idActivity, responses) {
+        coursesManager.manageStatesAndContentForOnePageCourse(idActivity, htmlContainer, activityData);
+        // place the previous student responses in the fields
+
+        if (activityData.doable) {
+            if (responses != null && responses != "") {
+                let response = JSON.parse(responses);
+                for (let i = 0; i < response.length; i++) {
+                    let input = document.getElementById(`student-fill-in-field-${i+1}`);
+                    if (response[i] != "" && response[i] != null) {
+                        input.value = response[i];
+                    }
+                }
+            }
+        }
+
+        if (activityData.doable) {
+            coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer, activityData);
+        }
+    }
+
+    getManageDisplayFillIn(content, activity, correction_div) {
+        const activityData = {
+            states: null,
+            content: null,
+            correction: null,
+            doable: false,
+            studentAnswer: null,
+            type: "fillIn",
+            link: activity.id,
+            id: activity.activity.id,
+        }
+
+
+        activityData.doable = activity.correction <= 1 || activity.correction == null;
+        activityData.states = bbcodeContentIncludingMathLive(content.states);
+
+        if (activity.correction <= 1 || activity.correction == null) {
+            if (!UserManager.getUser().isRegular) {
+
+                let contentReplaced = content.fillInFields.contentForTeacher.replaceAll(/\[answer\](.*?)\[\/answer\]/g, "_TOBEREPLACED_");
+                let studentContent = bbcodeContentIncludingMathLive(contentReplaced);
+                let nbOccu = studentContent.match(/_TOBEREPLACED_/g).length;
+    
+                for (let i = 1; i < nbOccu+1; i++) {
+                    let toBeReplace = studentContent.match(/_TOBEREPLACED_/g)[0];
+                    studentContent = studentContent.replace(toBeReplace, `<input type="text" id="student-fill-in-field-${i}" class="answer-student">`);
+                }
+                
+                activityData.content = bbcodeContentIncludingMathLive(studentContent);
+            }
+        } else if (activity.correction > 1) {
+            activityData.content = fillInManager.returnCorrectedContent(activity, content);
+        } 
+
+        return activityData;
+    }
+
+    returnCorrectedContent(activity, content) {
+        let     studentContentString = content.fillInFields.contentForTeacher;
+        const   studentResponses = JSON.parse(activity.response),
+                solution = JSON.parse(activity.activity.solution);
+
+        if (studentResponses != null && studentResponses != "") { 
+            studentResponses.forEach((response, i) => {
+                const   autoWidthStyle = 'style="width:' + (response.length + 2) + 'ch"',
+                        answer = studentContentString.match(/\[answer\](.*?)\[\/answer\]/g)[0];
+
+                if (response == solution[i]) {
+                    studentContentString = studentContentString.replace(answer, `<input type="text" id="correction-student-fill-in-field-${i}" ${autoWidthStyle} readonly class="fill-in-answer-teacher answer-student answer-correct" value="${response}">`);
+                } else {
+                    studentContentString = studentContentString.replace(answer, `<input type="text" id="correction-student-fill-in-field-${i}" ${autoWidthStyle} readonly class="fill-in-answer-teacher answer-student answer-incorrect" value="${response}">`);
+                }
+
+            });
+            return bbcodeContentIncludingMathLive(studentContentString);
+        }
+    }
+
+    fillInValidateActivityOnePageCourse(activityId, activityLink) {
+        let studentResponse = [];
+
+        for (let i = 1; i < $(`input[id^="student-fill-in-field-"]`).length+1; i++) {
+            let string = document.getElementById(`student-fill-in-field-${i}`).value;
+            studentResponse.push(string);
+        }
+
+        Main.getClassroomManager().saveNewStudentActivity(activityId, 1, null, JSON.stringify(studentResponse), activityLink).then((response) => {
+            fillInManager.showErrors(response, activityId);
+            coursesManager.displayHintForOnePageCourse(response, activityId);
+            if (response.hasOwnProperty('activity')) {
+                coursesManager.manageValidateReponse(response);
+            }
+        });
+    }
+
+    showErrors(response) {
+        if (!response.hasOwnProperty('badResponse')) {
+            return;
+        }
+
+        displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
+        let lengthResponse = $(`input[id^="student-fill-in-field-"]`).length;
+        for (let i = 1; i < lengthResponse+1; i++) {
+            if (response.badResponse.includes(i-1)) {
+                $(`#student-fill-in-field-${i}`).css("border","2px solid var(--correction-0)");
+            } else {
+                $(`#student-fill-in-field-${i}`).css("border","2px solid var(--correction-3)");
+            }
+        }
     }
 }
 

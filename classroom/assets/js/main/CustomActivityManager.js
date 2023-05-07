@@ -79,6 +79,13 @@ class CustomActivity {
             ['dragAndDrop', dragAndDropManager.dragAndDropPreview],
         ];
 
+        this.activityValidateOnePageCourse = [
+            ['free', freeManager.freeValidateActivityOnePageCourse],
+            ['fillIn', fillInManager.fillInValidateActivityOnePageCourse],
+            ['quiz', quizManager.quizValidateActivityOnePageCourse],
+            ['dragAndDrop', dragAndDropManager.dragAndDropValidateActivityOnePageCourse],
+        ];
+
         this.normalMedia = true;
         this.appName = null;
         this.mediaItems = [];

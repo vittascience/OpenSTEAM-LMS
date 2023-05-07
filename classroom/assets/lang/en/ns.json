@@ -1320,6 +1320,10 @@
 		"searchActivity": "Search an activity",
 		"placeholderTitle": "Activity title",
 		"placeholderDescription": "Activity description",
+		"format": {
+			"onePage": "One page",
+			"standart": "Standart"
+		},
 		"pagination": {
 			"create":"Course's creation",
 			"title": "Title",

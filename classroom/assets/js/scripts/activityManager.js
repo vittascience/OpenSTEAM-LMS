@@ -494,49 +494,16 @@ function resetPreviewViews() {
     });
 }
 
-
-
 function saveActivitiesAndCoursesResponseManager(activityType = null, response = null, isFromCourse = false) {
     let courseIndicator = isFromCourse ? "-course" : "";
-
     if (activityType == 'fill-in') {
-        displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
-        
-        let lengthResponse = $(`input[id^="student-fill-in-field-"]`).length;
-        for (let i = 1; i < lengthResponse+1; i++) {
-            if (response.badResponse.includes(i-1)) {
-                $(`#student-fill-in-field-${i}`).css("border","2px solid var(--correction-0)");
-            } else {
-                $(`#student-fill-in-field-${i}`).css("border","2px solid var(--correction-3)");
-            }
-        }
-
+        fillInManager.showErrors(response);
         hintManager(response, courseIndicator)
     } else if (activityType == 'drag-and-drop') {
-        displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
-        for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
-            $('#dz-' + i).css("border","1px solid var(--correction-3)");
-        }
-
-        for (let i = 0; i < response.badResponse.length; i++) {
-            $('#dz-' + (response.badResponse[i])).css("border","1px solid var(--correction-0)");
-        }
-
+        dragAndDropManager.showErrors(response);
         hintManager(response, courseIndicator)
     } else if (activityType == 'quiz') {
-        displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
-        document.querySelectorAll('.quiz-answer-incorrect').forEach((element) => {
-            element.classList.remove('quiz-answer-incorrect');
-        });
-
-        for (let i = 1; i < $(`input[id^="student-quiz-suggestion-"]`).length+1; i++) {
-            $('#student-quiz-suggestion-' + i).parent().addClass('quiz-answer-correct');
-        }
-
-        for (let i = 0; i < response.badResponse.length; i++) {
-            $('#student-quiz-suggestion-' + (response.badResponse[i]+1)).parent().addClass('quiz-answer-incorrect');
-        }
-
+        quizManager.showErrors(response);
         hintManager(response, courseIndicator)
     } else if (activityType == 'free') {
         displayNotification('#notif-div', "classroom.activities.wrongAnswer", "error");
@@ -551,8 +518,6 @@ function hintManager(response, courseIndicator = "") {
         }
     }
 }
-
-
 
 /* Now include course to avoid duplicate */
 function defaultProcessValidateActivity(correction = null, isFromCourse = false, callback = null) {
