@@ -1101,7 +1101,11 @@ class CoursesManager {
             const h5 = document.createElement('h5');
             h5.id = 'h5-one-page-activity-content-' + activityId;
             h5.classList.add('c-text-primary', 'mt-2');
-            h5.innerHTML = i18next.t("classroom.activities.yourAnswer");
+            if (activityData.doable) {
+                h5.innerHTML = i18next.t("classroom.activities.content");
+            } else {
+                h5.innerHTML = i18next.t("classroom.activities.yourAnswer");
+            }
             container.appendChild(h5);
         }
 
