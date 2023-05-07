@@ -115,17 +115,12 @@ class DragAndDropManager {
         divPreviewFields.classList.add("m-2");
         divPreviewFields.classList.add("drag-and-drop-fields");
 
-
         divActivityDoable.appendChild(divPreviewFields);
         contentDiv.appendChild(divActivityDoable);
-
-
 
         solution.forEach(e => {
             $('#preview-drag-and-drop-fields-teacher').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
         });
-
-
 
         initializeDragulaWithOneContainer('preview-drag-and-drop-fields-teacher', 'dropzone-preview');
         $('#preview-states').show();
@@ -237,7 +232,6 @@ class DragAndDropManager {
         choices.forEach(e => {
             $('#preview-drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
         });
-    
 
         initializeDragulaWithOneContainer('preview-drag-and-drop-fields', 'dropzone-preview');
         $('#preview-states').show();
