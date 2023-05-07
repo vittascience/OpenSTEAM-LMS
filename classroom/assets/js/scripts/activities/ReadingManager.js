@@ -44,7 +44,11 @@ class ReadingManager {
         contentDiv.id = 'activity-content' + idActivity;
         contentDiv.innerHTML = activityData.content;
         htmlContainer.appendChild(contentDiv);
-        coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer, activityData);
+
+        
+        if (activityData.doable) {
+            coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer, activityData, true);
+        }
     }
 
     getManageDisplayReading(content, activity, correction_div) {
@@ -56,9 +60,11 @@ class ReadingManager {
             doable: false,
             studentAnswer: null,
             type: 'reading',
+            link: activity.id,
             id: activity.activity.id,
         }
 
+        activityData.doable = activity.correction <= 1 || activity.correction == null;
         activityData.content = bbcodeContentIncludingMathLive(content);
         return activityData;
     }

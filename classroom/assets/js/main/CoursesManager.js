@@ -978,14 +978,14 @@ class CoursesManager {
             divActivity.innerHTML = "";
         } else {
             divActivity.id = `activity-${activity.activity.id}-course-one-page`;
-            divActivity.classList.add('my-2', 'p-2');
+            divActivity.classList.add('one-page-course-activity-block');
             onePageCourseContent.appendChild(divActivity);
         }
 
 
         let titleH3 = document.createElement('h4');
         titleH3.id = `activity-title-${activity.activity.id}-course-one-page`;
-        titleH3.classList.add('fw7-uncolored', 'my-2');
+        titleH3.classList.add('fw7-uncolored', 'my-2', 'text-center');
         titleH3.innerHTML = activity.activity.title;
         divActivity.appendChild(titleH3);
 
@@ -1041,7 +1041,7 @@ class CoursesManager {
     * @return content : the content of the activity
     * @return activityData : the data of the activity
     */
-    manageValidateBtnForOnePageCourse(activityId, container, activity = null) {
+    manageValidateBtnForOnePageCourse(activityId, container, activity = null, onlyValidate = false) {
 
         const hint = document.createElement('p');
         hint.classList.add('c-text-primary', 'm-2', 'fw7-uncolored', 'hint-one-page-course', 'd-none');
@@ -1060,17 +1060,20 @@ class CoursesManager {
         validateBtn.classList.add('btn', 'c-btn-primary', 'mx-1');
         validateBtn.innerHTML = i18next.t('classroom.activities.validate');
 
-        const saveBtn = document.createElement('button');
-        saveBtn.id = 'save-activity-' + activityId;
-        saveBtn.dataset.id = activityId;
-        saveBtn.classList.add('btn', 'c-btn-grey', 'mx-1');
-        saveBtn.innerHTML = i18next.t('classroom.activities.save-draft');
+
 
         container.appendChild(hint);
         container.appendChild(btnDiv);
         btnDiv.appendChild(validateBtn);
-        btnDiv.appendChild(saveBtn);
 
+        if (!onlyValidate) {
+            const saveBtn = document.createElement('button');
+            saveBtn.id = 'save-activity-' + activityId;
+            saveBtn.dataset.id = activityId;
+            saveBtn.classList.add('btn', 'c-btn-grey', 'mx-1');
+            saveBtn.innerHTML = i18next.t('classroom.activities.save-draft');
+            btnDiv.appendChild(saveBtn);
+        }
 
         validateBtn.addEventListener('click', () => {
             this.manageValidateByTypeForOnePageCourse(validateBtn);
@@ -1093,6 +1096,14 @@ class CoursesManager {
         const paragraph = document.createElement('p');
         paragraph.innerHTML = activityData.states;
         container.appendChild(paragraph);
+
+        if (!activityData.isDoable) {
+            const h5 = document.createElement('h5');
+            h5.id = 'h5-one-page-activity-content-' + activityId;
+            h5.classList.add('c-text-primary', 'mt-2');
+            h5.innerHTML = i18next.t("classroom.activities.yourAnswer");
+            container.appendChild(h5);
+        }
 
         if (withContent) {
             const contentDiv = document.createElement('div');
@@ -1201,7 +1212,7 @@ class CoursesManager {
 
     /* TMP */
     callBackForCourseOnePage(activity) {
-        console.log("callBackForCourseOnePage", activity);
+        coursesManager.manageValidateReponse(activity);
     }
 
     manageValidateByTypeForOnePageCourse(btn) {
@@ -1209,12 +1220,23 @@ class CoursesManager {
                 type = btn.dataset.type,
                 link = btn.dataset.link;
 
-
         const funct = customActivity.activityValidateOnePageCourse.filter(activityValidate => activityValidate[0] == type)[0];
         if (funct && type != 'reading') {
             funct[1](id, link);
         } else if (type == 'reading') {
-            defaultProcessValidateActivity(1, false, this.callBackForCourseOnePage);
+
+            let foundActivity = Main.getClassroomManager()._myCourses.filter((course) => {
+                return course.activities.filter((activity) => {
+                    return activity.id == link && activity.activity.id == id;
+                });
+            });
+
+            if (foundActivity.length > 0) {
+                foundActivity = foundActivity[0].activities.filter((activity) => {
+                    return activity.id == link && activity.activity.id == id;
+                })[0];
+                defaultProcessValidateActivity(1, false, this.callBackForCourseOnePage, foundActivity);
+            } 
         }
     }
 

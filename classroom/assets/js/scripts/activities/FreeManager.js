@@ -152,10 +152,9 @@ class FreeManager {
             textArea.style.height = '400px';
             textArea.id = 'one-page-activity-content-' + idActivity; 
             coursesManager.manageStatesAndContentForOnePageCourse(idActivity, htmlContainer, activityData, false);
-    
+
             htmlContainer.appendChild(textArea);
-            coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer, activityData);
-    
+
             $('#one-page-activity-content-'+idActivity).wysibb(Main.getClassroomManager().wbbOpt);
     
             if (response != null && response != '') {
@@ -168,7 +167,29 @@ class FreeManager {
                     }
                 }
             }
+
+            if (activityData.correction == 1) {
+                const info = document.createElement('p');
+                info.id = 'info-one-page-activity-content-' + idActivity;
+                info.classList.add('c-text-primary', 'm-2', 'fw7-uncolored', 'hint-one-page-course');
+                info.innerHTML = i18next.t("newActivities.statusActivitySent");
+                htmlContainer.appendChild(info);
+            }
+
+            if (activityData.correction == 1) {
+                coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer, activityData, true);
+            } else {
+                coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer, activityData);
+            }
+
+
         } else {
+            const h5 = document.createElement('h5');
+            h5.id = 'h5-one-page-activity-content-' + idActivity;
+            h5.classList.add('c-text-primary', 'mt-2');
+            h5.innerHTML = i18next.t("classroom.activities.yourAnswer");
+            htmlContainer.appendChild(h5);
+
             const paragraph = document.createElement('p');
             htmlContainer.appendChild(paragraph);
             paragraph.innerHTML = activityData.content;
@@ -182,13 +203,15 @@ class FreeManager {
             content: null,
             correction: null,
             doable: false,
+            correction: 0,
             type: 'free',
             link: activity.id,
             id: activity.activity.id,
         }
 
         activityData.states = bbcodeContentIncludingMathLive(content);
-        activityData.doable = !activity.correction > 1;
+        activityData.doable = activity.correction <= 1 || activity.correction == null;
+        activityData.correction = activity.correction;
 
         if (activity.correction <= 1 || activity.correction == null) {
             if (!UserManager.getUser().isRegular) {
@@ -219,10 +242,18 @@ class FreeManager {
         }
 
         Main.getClassroomManager().saveNewStudentActivity(activityId, 1, null, studentResponse, activityLink).then((response) => {
+            freeManager.showErrors(response);
             if (response.hasOwnProperty('activity')) {
                 coursesManager.manageValidateReponse(response);
             }
         });
+    }
+
+    showErrors(response) {
+        if (!response.hasOwnProperty('badResponse')) {
+            return;
+        }
+        displayNotification('#notif-div', "classroom.activities.wrongAnswer", "error");
     }
 
     freePreview() {

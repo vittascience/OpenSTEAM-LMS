@@ -3734,3 +3734,8 @@ h3.section-done {
     border-radius: 50px;
     padding: 0.5em;
 }
+
+.one-page-course-activity-block {
+    padding: 2em 3em;
+    margin: 2em 0;
+}

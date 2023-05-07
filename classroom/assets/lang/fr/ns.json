@@ -1579,6 +1579,7 @@
 		}
 	},	
 	"newActivities": {
+		"statusActivitySent": "Ton activité a bien été envoyée et est en attente de correction, tu peux tout de même la modifier si tu le souhaites.",
 		"create": "Créer une nouvelle activité",
 		"delete": "Supprimer",
 		"import" : "Importer",

@@ -1266,6 +1266,7 @@
 		}
 	},
 	"newActivities": {
+		"statusActivitySent": "Your activity has been sent and is waiting for correction, you can still modify it if you wish.",
 		"create": "Create a new activity",
 		"deletedelete": "Delete",
 		"import" : "Import",

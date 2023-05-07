@@ -520,8 +520,13 @@ function hintManager(response, courseIndicator = "") {
 }
 
 /* Now include course to avoid duplicate */
-function defaultProcessValidateActivity(correction = null, isFromCourse = false, callback = null) {
+function defaultProcessValidateActivity(correction = null, isFromCourse = false, callback = null, activityOverride = null) {
     $("#activity-validate").attr("disabled", "disabled");
+
+    if (activityOverride != null) {
+        Activity = activityOverride;
+    }
+
     let getInterface = tryToParse(Activity.activity.content),
         vittaIframeRegex = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm,
         interfaceData = false;
