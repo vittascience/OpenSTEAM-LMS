@@ -944,7 +944,11 @@ class CoursesManager {
     }
 
 
-    loadOnePageCourseForStudent(isDoable, course) {
+    /**
+     * Load one page course for student
+     * @param {*} course 
+     */
+    loadOnePageCourseForStudent(course) {
         const onePageCourseContent = document.getElementById('one-page-course-student-content');
         onePageCourseContent.innerHTML = "";
 
@@ -969,6 +973,11 @@ class CoursesManager {
         onePageCourseContent.classList.remove('d-none');
     }
 
+    /**
+     * Parse and render activities in the one page course
+     * @param {*} activity 
+     * @param {*} onePageCourseContent 
+     */
     processForOneActivity(activity, onePageCourseContent = document.getElementById('one-page-course-student-content')) {
         const activityType = [ "reading", "dragAndDrop", "fillIn", "quiz", "free"];
 
@@ -1019,7 +1028,12 @@ class CoursesManager {
     }
 
 
-
+    /**
+     * Display the hint for the one page course activities
+     * @param {*} response 
+     * @param {*} activityId 
+     * @returns 
+     */
     displayHintForOnePageCourse(response, activityId) {
         if (!response.hasOwnProperty('hint') || !activityId) {
             return;
@@ -1214,11 +1228,19 @@ class CoursesManager {
         return activityData;
     }
 
-    /* TMP */
+    /**
+     * This function is called when the user validate an reading activity in one page course
+     * @param {*} activity 
+     */
     callBackForCourseOnePage(activity) {
         coursesManager.manageValidateReponse(activity);
     }
 
+
+    /**
+     * This function is called when the user validate an activity in one page course
+     * @param {htmlelement} btn 
+     */
     manageValidateByTypeForOnePageCourse(btn) {
         const   id = btn.dataset.id,
                 type = btn.dataset.type,
