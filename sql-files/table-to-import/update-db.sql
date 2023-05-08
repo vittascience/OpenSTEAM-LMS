@@ -1,0 +1,1 @@
+ALTER TABLE `learn_courses` ADD `format` BOOLEAN NULL AFTER `folder`;

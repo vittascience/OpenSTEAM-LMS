@@ -311,15 +311,18 @@ class FillInManager {
         }
     }
 
-    fillInValidateActivityOnePageCourse(activityId, activityLink) {
+    fillInValidateActivityOnePageCourse(activityId, activityLink, corretion) {
         let studentResponse = [];
 
-        for (let i = 1; i < $(`input[id^="student-fill-in-field-"]`).length+1; i++) {
-            let string = document.getElementById(`student-fill-in-field-${i}`).value;
-            studentResponse.push(string);
+        if (corretion == 1) {
+            for (let i = 1; i < $(`input[id^="student-fill-in-field-"]`).length+1; i++) {
+                let string = document.getElementById(`student-fill-in-field-${i}`).value;
+                studentResponse.push(string);
+            } 
         }
 
-        Main.getClassroomManager().saveNewStudentActivity(activityId, 1, null, JSON.stringify(studentResponse), activityLink).then((response) => {
+
+        Main.getClassroomManager().saveNewStudentActivity(activityId, corretion, null, JSON.stringify(studentResponse), activityLink).then((response) => {
             fillInManager.showErrors(response, activityId);
             coursesManager.displayHintForOnePageCourse(response, activityId);
             if (response.hasOwnProperty('activity')) {

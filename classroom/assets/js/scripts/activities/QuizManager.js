@@ -301,7 +301,7 @@ class QuizManager {
         $('#activity-preview-div').show();
     }
 
-    quizValidateActivityOnePageCourse(activityId, activityLink) {
+    quizValidateActivityOnePageCourse(activityId, activityLink, correction) {
         let studentResponse = [];
         for (let i = 1; i < $(`input[id^="student-quiz-checkbox-"]`).length+1; i++) {
             let res = {
@@ -311,7 +311,7 @@ class QuizManager {
             studentResponse.push(res);
         }
         
-        Main.getClassroomManager().saveNewStudentActivity(activityId, 1, null, JSON.stringify(studentResponse), activityLink).then((response) => {
+        Main.getClassroomManager().saveNewStudentActivity(activityId, correction, null, JSON.stringify(studentResponse), activityLink).then((response) => {
             quizManager.showErrors(response, activityId);
             coursesManager.displayHintForOnePageCourse(response, activityId);
             if (response.hasOwnProperty('activity')) {

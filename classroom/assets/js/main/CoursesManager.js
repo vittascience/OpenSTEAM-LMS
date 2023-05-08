@@ -10,7 +10,7 @@ class CoursesManager {
             state: null,
             link: null,
             activity: null,
-            format: "standard"
+            format: 0,
         };
         this.courseId = null;
         this.isUpdate = false;
@@ -26,6 +26,7 @@ class CoursesManager {
                 difficulty: null,
                 language: null,
                 license: null,
+                format: 0,
             }
         };
         this.dragula = null;
@@ -49,7 +50,7 @@ class CoursesManager {
                 state: null,
                 link: null,
                 activity: null,
-                format: "standard"
+                format: 0
             };
             this.courseData = {
                 courses: [],
@@ -81,9 +82,9 @@ class CoursesManager {
         for (let i = 0; i < courseFormat.length; i++) {
             courseFormat[i].addEventListener('click', () => {
                 if (courseFormat[i].id == 'course-one-page') {
-                    this.actualCourse.format = 'one-page';
+                    this.actualCourse.format = 1;
                 } else {
-                    this.actualCourse.format = 'standard';
+                    this.actualCourse.format = 0;
                 }
             });
         }
@@ -123,6 +124,14 @@ class CoursesManager {
             document.getElementById('course-license').value = this.courseData.parameters.license;
         } else {
             document.getElementById('course-license').value = '';
+        }
+
+        if (this.courseData.parameters.format != null) {
+            if (this.courseData.parameters.format == 1) {
+                document.getElementById('course-one-page').checked = true;
+            } else {
+                document.getElementById('course-standard').checked = true;
+            }
         }
         navigatePanel('classroom-dashboard-classes-new-course-parameters', 'dashboard-activities-teacher');
     }
@@ -347,12 +356,15 @@ class CoursesManager {
             difficulty = document.getElementById('course-difficulty').value,
             language = getCookie("lng") != "" ? getCookie("lng") : "fr",
             license = document.getElementById('course-license').value;
+            let format = parseInt(document.querySelector('input[name="course-format"]:checked').value);
+
 
         if (duration && difficulty && language && license) {
             this.courseData.parameters.duration = duration;
             this.courseData.parameters.difficulty = difficulty;
             this.courseData.parameters.language = language;
             this.courseData.parameters.license = license;
+            this.courseData.parameters.format = format;
             this.goToAttribution(true);
         } else {
             displayNotification('#notif-div', "classroom.notif.courseMissingParameters", "error");
@@ -369,6 +381,7 @@ class CoursesManager {
         this.courseData.parameters.difficulty = course.difficulty;
         this.courseData.parameters.language = course.lang;
         this.courseData.parameters.license = course.rights;
+        this.courseData.parameters.format = course.format;
 
         this.courseData.courses = [];
         course.activities.forEach(item => {
@@ -647,47 +660,6 @@ class CoursesManager {
         }
     }
 
-
-
-/*     validateCourseForOnePageCourse(correction) {
-        const funct = customActivity.activityAndCase.filter(activityValidate => activityValidate[0] == Activity.activity.type)[0];
-        if (funct) {
-            funct[1](funct[2] ? correction : null, true, callBackForCourseOnePage);
-        } else {
-            if (Activity.activity.isLti) {
-                let messageDiv = document.getElementById("course-result-message"),
-                    endCourse = document.getElementById("course-options-course-buttons"),
-                    messageContent = document.getElementById("course-result-message-content"),
-                    validateBtn = document.getElementById("course-validate-buttons");
-
-                validateBtn.style.display = "none";
-                endCourse.style.display = "none";
-                messageDiv.style.display = "none";
-
-                this._requestUpdateState(coursesManager.actualCourse.id, coursesManager.actualCourse.state + 1).then(res => {
-                    if (res.hasOwnProperty('success')) {
-                        if (res.success) {
-                            let course = Main.getClassroomManager()._myCourses.find(course => course.course.id == coursesManager.actualCourse.id);
-                            if (course.activities.length <= coursesManager.actualCourse.state + 1) {
-                                // the course is ended
-                                this.readCourseFromStudent();
-                            } else {
-                                // the course is not ended
-                                messageDiv.style.display = "block";
-                                endCourse.style.display = "flex";
-                                messageContent.classList.add("course-text-success");
-                                messageContent.innerHTML = "BRAVO ! TU AS RÉUSSI CETTE ACTIVIÉ !";
-                            }
-                        } else {
-                            displayNotification('#notif-div', "classroom.notif.errorSending", "error");
-                        }
-                    }
-                });
-                
-            }
-        }
-    } */
-
     coursesResponseManager(response, type) {
         if (response) {
             if (response.hasOwnProperty("message")) {
@@ -867,7 +839,7 @@ class CoursesManager {
             };
             navigatePanel('classroom-dashboard-course-panel-one-page', 'dashboard-activities', 'course', '');
 
-            this.loadOnePageCourseForStudent(true, course);
+            this.loadOnePageCourseForStudent(course);
 
         });
     }
@@ -1084,13 +1056,20 @@ class CoursesManager {
             const saveBtn = document.createElement('button');
             saveBtn.id = 'save-activity-' + activityId;
             saveBtn.dataset.id = activityId;
-            saveBtn.classList.add('btn', 'c-btn-grey', 'mx-1');
+            saveBtn.dataset.link = activity.link;
+            saveBtn.dataset.type = activity.type;
+            saveBtn.classList.add('btn', 'c-btn-grey', 'mx-1', 'd-none');
             saveBtn.innerHTML = i18next.t('classroom.activities.save-draft');
             btnDiv.appendChild(saveBtn);
+
+            
+            saveBtn.addEventListener('click', () => {
+                this.manageValidateByTypeForOnePageCourse(saveBtn, 0);
+            });
         }
 
         validateBtn.addEventListener('click', () => {
-            this.manageValidateByTypeForOnePageCourse(validateBtn);
+            this.manageValidateByTypeForOnePageCourse(validateBtn, 1);
         });
     }
 
@@ -1241,14 +1220,14 @@ class CoursesManager {
      * This function is called when the user validate an activity in one page course
      * @param {htmlelement} btn 
      */
-    manageValidateByTypeForOnePageCourse(btn) {
+    manageValidateByTypeForOnePageCourse(btn, correction) {
         const   id = btn.dataset.id,
                 type = btn.dataset.type,
                 link = btn.dataset.link;
 
         const funct = customActivity.activityValidateOnePageCourse.filter(activityValidate => activityValidate[0] == type)[0];
         if (funct && type != 'reading') {
-            funct[1](id, link);
+            funct[1](id, link, correction);
         } else if (type == 'reading') {
 
             let foundActivity = Main.getClassroomManager()._myCourses.filter((course) => {

@@ -233,7 +233,7 @@ class FreeManager {
         return activityData;
     }
 
-    freeValidateActivityOnePageCourse(activityId, activityLink) {
+    freeValidateActivityOnePageCourse(activityId, activityLink, correction) {
         let studentResponse = $(`#one-page-activity-content-${activityId}`).bbcode();
 
         if (studentResponse == null || studentResponse == '') {
@@ -241,7 +241,7 @@ class FreeManager {
             return;
         }
 
-        Main.getClassroomManager().saveNewStudentActivity(activityId, 1, null, studentResponse, activityLink).then((response) => {
+        Main.getClassroomManager().saveNewStudentActivity(activityId, correction, null, studentResponse, activityLink).then((response) => {
             freeManager.showErrors(response);
             if (response.hasOwnProperty('activity')) {
                 coursesManager.manageValidateReponse(response);

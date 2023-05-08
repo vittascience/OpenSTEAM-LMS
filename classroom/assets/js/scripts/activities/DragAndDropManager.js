@@ -257,17 +257,19 @@ class DragAndDropManager {
         $('#activity-preview-div').show();
     }
 
-    dragAndDropValidateActivityOnePageCourse(activityId, activityLink) {
+    dragAndDropValidateActivityOnePageCourse(activityId, activityLink, correction) {
         let studentResponse = [];
 
-        for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
-            let string = document.getElementById(`dz-${i}`).children.length > 0 ? document.getElementById(`dz-${i}`).children[0].innerHTML : "";
-            studentResponse.push({
-                string: string
-            });
+        if (correction == 1) {
+            for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
+                let string = document.getElementById(`dz-${i}`).children.length > 0 ? document.getElementById(`dz-${i}`).children[0].innerHTML : "";
+                studentResponse.push({
+                    string: string
+                });
+            }
         }
 
-        Main.getClassroomManager().saveNewStudentActivity(activityId, 1, null, JSON.stringify(studentResponse), activityLink).then((response) => {
+        Main.getClassroomManager().saveNewStudentActivity(activityId, correction, null, JSON.stringify(studentResponse), activityLink).then((response) => {
             dragAndDropManager.showErrors(response, activityId);
             coursesManager.displayHintForOnePageCourse(response, activityId);
             if (response.hasOwnProperty('activity')) {
