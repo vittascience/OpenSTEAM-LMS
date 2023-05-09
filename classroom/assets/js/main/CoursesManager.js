@@ -993,9 +993,9 @@ class CoursesManager {
             const func = customActivity.renderActivities.filter(x => x[0] == activity.activity.type)[0];
             if (func) {
                 func[1](activityData, divActivity, activity.activity.id, activity.response);
-            } else if (activity.activity.isLti) {
-                this.renderLtiActivity(activityData, divActivity, activity.activity.id, activity.response);
             }
+        } else if (activity.activity.isLti) {
+            this.renderLtiActivity(activityData, divActivity, activity.activity.id, activity.response);
         }
     }
 
@@ -1136,8 +1136,8 @@ class CoursesManager {
         if (funct) {
             contentData = funct[1](content, activity, correction_div);
         } else {
-            if (Activity.activity.isLti) {
-                contentData = this.manageDisplayLtiForOnePageCourse(activity.activity.correction, content, correction_div, isDoable, activityValidationButtonElt);
+            if (activity.activity.isLti) {
+                contentData = this.manageDisplayLtiForOnePageCourse(activity, content, correction_div, isDoable);
             } else {
                 contentData = this.manageDisplayOldActivitiesForOnePageCourse(activity.activity.correction, content, correction_div, isDoable);
             };
@@ -1175,13 +1175,13 @@ class CoursesManager {
         }
         container.appendChild(contentDiv);
 
-        if (!typeof activityData.content == 'string') {
+        if (typeof activityData.content == 'object') {
             document.forms[activityData.content[1]].submit();
         }
     }
     
     
-    manageDisplayLtiForOnePageCourse(correction, content, correction_div, isDoable, activityValidationButtonElt) {
+    manageDisplayLtiForOnePageCourse(activity, content, correction_div, isDoable) {
         const activityData = {
             states: null,
             content: null,
@@ -1190,13 +1190,12 @@ class CoursesManager {
         }
     
         if (isDoable) {
-            activityValidationButtonElt.style.display = 'none';
-            activityData.content = this.launchLtiResourceOnePageCourse(Activity.id, Activity.activity.type, content, !UserManager.getUser().isRegular, false);
+            activityData.content = this.launchLtiResourceOnePageCourse(activity.id, activity.activity.type, content, !UserManager.getUser().isRegular, false);
         } else {
-            activityData.content = `<iframe src="${Activity.url}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`;
+            activityData.content = `<iframe src="${activity.url}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`;
             if (!UserManager.getUser().isRegular) {
-                if (!Activity.evaluation && correction < 2) {
-                    activityData.content += `<button onclick="launchLtiResource(${Activity.id}, '${Activity.activity.type}', '${content}', true, '${Activity.url}')">Modifier le travail</button>`;
+                if (!activity.evaluation && activity.activity.correction < 2) {
+                    activityData.content += `<button onclick="launchLtiResource(${activity.id}, '${activity.activity.type}', '${content}', true, '${activity.url}')">Modifier le travail</button>`;
                 }
             }
             if (correction != 1 || UserManager.getUser().isRegular) {
@@ -1263,14 +1262,14 @@ class CoursesManager {
     
     launchLtiResourceOnePageCourse(activityId, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false) {
         return [`<input id="activity-score" type="text" hidden/>
-        <form name="resource_launch_form_${activityId}" action="${_PATH}lti/ltilaunch.php" method="post" target="lti_student_iframe">
+        <form name="resource_launch_form_${activityId}" action="${_PATH}lti/ltilaunch.php" method="post" target="lti_student_iframe_${activityId}">
             <input type="hidden" id="application_type" name="application_type" value="${activityType}">
             <input type="hidden" id="target_link_uri" name="target_link_uri" value="${activityContent.replace('&amp;', '&')}">
             <input type="hidden" id="student_launch" name="student_launch" value="${isStudentLaunch}">
             <input type="hidden" id="activities_link_user" name="activities_link_user" value="${activityId}">
             <input type="hidden" id="student_resource_url" name="student_resource_url" value="${studentResourceUrl}">
         </form>
-        <iframe id="lti_student_iframe" src="about:blank" name="lti_student_iframe" title="Tool Content" width="100%" style="
+        <iframe id="lti_student_iframe" src="about:blank" name="lti_student_iframe_${activityId}" title="Tool Content" width="100%" style="
         height: 60vh;" allowfullscreen></iframe>
         `, `resource_launch_form_${activityId}`];
     }
