@@ -40,16 +40,15 @@
 
 
         <div id="course-content" class="col-8 course-content">
-            <p>
-                <span>Activités</span><span>* Obligatoire</span>
-            </p>
 
-            <div class="col-sm mb-2">
-                <button class="btn c-btn-grey" id="course-add-activity" onclick="coursesManager.addActivityToCourse()">
+            <p data-i18n="[html]classroom.courses.selectActivities"></p>
+
+            <div class="col-sm mb-2 d-flex justify-content-center">
+                <button class="btn c-btn-grey mx-1" id="course-add-activity" onclick="coursesManager.addActivityToCourse()">
                     <span data-i18n="courses.addActivity">Ajouter une activité</span>
                 </button>
 
-                <button class="btn c-btn-secondary" id="course-create-activity">
+                <button class="btn c-btn-secondary mx-1" id="course-create-activity">
                     <span data-i18n="courses.createActivity" onclick="showExercicePanel()"><span class="mr-1" data-i18n="classroom.activities.add">Créer une activité</span><i class="fas fa-chevron-right"></i>
                 </button>
             </div>
@@ -222,7 +221,21 @@
                 </div>
             </div>
 
-           
+            <div class="form-row c-secondary-form justify-content-between mb-4">
+                <div class="d-flex">
+                    <label for="course-format" class="d-flex align-items-center mb-0" data-i18n="">Format d'affichage du parcous : </label>
+                    <div class="switcher mx-3">
+                        <input type="radio" name="course-format" class="switcher__input switcher__input--left" value="0" id="course-standard" checked=""/>
+                        <label for="course-standard" class="switcher__label text-capitalize" data-i18n="courses.format.standart"></label>
+                    
+                        <input type="radio" name="course-format" class="switcher__input switcher__input--right" value="1" id="course-one-page"/>
+                        <label for="course-one-page" class="switcher__label text-capitalize" data-i18n="courses.format.onePage"></label>
+                    
+                        <span class="switcher__toggle"></span>
+                    </div>
+                </div>
+                <!-- <button class="btn c-btn-secondary">Apercu</button> -->
+            </div>
 
         </div>
         

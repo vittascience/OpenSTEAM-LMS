@@ -414,7 +414,7 @@
 				"createFolder": "Create a folder",
 				"deleteFolder": "Confirm the deletion of the folder",
 				"updateFolder": "Update the folder",
-				"nameMandatory": "Folder name <span class='mandatory'>*</span>",
+				"nameMandatory": "Folder name <span class='c-text-red'>*</span>",
 				"deleteDisclaimer": "Be carefful, the folder and its content (activities and subfolders) will be deleted"
 			},
 			"facultative": "Optional field",
@@ -549,7 +549,8 @@
 			"note-3": "GOOD, you have completed this activity!",
 			"note-2": "TO REVIEW, the answer is not correct",
 			"note-4": "NOT RATED",
-			"note-0": "PENDING CORRECTION"
+			"note-0": "PENDING CORRECTION",
+			"selectActivities": "Activities <span class=\"c\">*</span>"
 		}
 	},
 	"faqInfo": {
@@ -694,7 +695,7 @@
 		"telephonePlaceholder": "Your phone number (optional).",
 		"passwordPlaceholder": "Minimum 8 characters. Uppercase, lowercase and numbers.",
 		"passwordConfirmedPlaceholder": "Repeat your password a second time.",
-		"mandatory": "Fields marked with a <span class=\"mandatory \"> * </span> are mandatory.",
+		"mandatory": "Fields marked with a <span class='c-text-red'> * </span> are mandatory.",
 		"submit": "Confirm",
 		"back": "Back",
 		"title2nd": "Please provide us with some additional information",
@@ -1265,9 +1266,10 @@
 		}
 	},
 	"newActivities": {
+		"statusActivitySent": "Your activity has been sent and is waiting for correction, you can still modify it if you wish.",
 		"create": "Create a new activity",
 		"deletedelete": "Delete",
-		"import" : "Import an activity",
+		"import" : "Import",
 		"importSuccess": "Activity successfully imported",
 		"importError": "An error occured during the import",
 		"export": "Export",
@@ -1319,6 +1321,10 @@
 		"searchActivity": "Search an activity",
 		"placeholderTitle": "Activity title",
 		"placeholderDescription": "Activity description",
+		"format": {
+			"onePage": "One page",
+			"standart": "Standart"
+		},
 		"pagination": {
 			"create":"Course's creation",
 			"title": "Title",

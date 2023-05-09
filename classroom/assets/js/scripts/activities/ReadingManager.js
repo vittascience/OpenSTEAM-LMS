@@ -39,6 +39,36 @@ class ReadingManager {
         }
     }
 
+    renderReadingActivity(activityData, htmlContainer, idActivity) {
+        const contentDiv = document.createElement('div');
+        contentDiv.id = 'activity-content' + idActivity;
+        contentDiv.innerHTML = activityData.content;
+        htmlContainer.appendChild(contentDiv);
+
+        
+        if (activityData.doable) {
+            coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer, activityData, true);
+        }
+    }
+
+    getManageDisplayReading(content, activity, correction_div) {
+        
+        const activityData = {
+            states: null,
+            content: null,
+            correction: null,
+            doable: false,
+            studentAnswer: null,
+            type: 'reading',
+            link: activity.id,
+            id: activity.activity.id,
+        }
+
+        activityData.doable = activity.correction <= 1 || activity.correction == null;
+        activityData.content = bbcodeContentIncludingMathLive(content);
+        return activityData;
+    }
+
     readingPreview(activity) {
         $('#preview-activity-content').html(bbcodeContentIncludingMathLive(activity.content.description));
         $('#preview-content').show();

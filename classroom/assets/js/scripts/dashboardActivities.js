@@ -55,7 +55,7 @@ function courseItem(course, state) {
 
     let activityStatus = "";
     //let dateEndNotif = activity.activity.isLti ? "style='display:none'" : "";
-    let html = `<div class="course-item" onclick="coursesManager.readCourseFromStudent('${course.course.id}')">
+    let html = `<div class="course-item" onclick="coursesManager.${course.course.format == 1 ? "readCourseOnePage" : "readCourseFromStudent"}('${course.course.id}')">
                     <div class="course-card">
                         <div class="${activityStatus}" data-toggle="tooltip" title="${course.course.title}"><div class="ribbon__content"></div></div>
                         <img src="${_PATH}assets/media/cards/card-course.png" class="course-card-img">
@@ -441,6 +441,7 @@ $('body').on('click', '.activity-list, .activity-list-item, .activity-card, .act
             navigation = 'dashboard-activities';
         }
         navigatePanel('classroom-dashboard-activity-panel', navigation, 'WK' + id, state);
+        
     }
 })
 
@@ -578,6 +579,8 @@ function statusActivity(activity, state = true, formatedTimePast = '') {
 
 function loadActivityForTeacher() {
 
+    $('#activity-views-switcher').html('');
+    breadcrumbManager.setActivityTitle(Activity.activity.title);
 
     let isDoable = Activity.correction == null ? true : false;
     // Reset the inputs
@@ -757,6 +760,28 @@ function manageCorrectionDiv(correction_div, correction, isFromCourse) {
         $('#activity-correction'+course).html(correction_div);
         $('#activity-correction-container'+course).show(); 
     }
+}
+
+function returnCorrectionContent(correction_div, correction) {
+    let label = "",
+        correctionContent = "";
+
+    if (correction > 1 || (UserManager.getUser().isRegular && correction >= 1)) {
+        correctionContent = correction_div;
+    }
+
+    if (UserManager.getUser().isRegular && ($_GET('panel') == "classroom-dashboard-activity-panel-teacher")) {
+        label = i18next.t("classroom.activities.studentAnswer");
+    } else {
+        label = i18next.t("classroom.activities.yourAnswer");
+    }
+
+    const correctionData = {
+        label: label,
+        correction: correctionContent
+    }
+
+    return correctionData;
 }
 
 function manageLabelForActivity(isFromCourse = false) {

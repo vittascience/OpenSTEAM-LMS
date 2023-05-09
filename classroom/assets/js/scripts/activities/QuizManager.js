@@ -217,7 +217,7 @@ class QuizManager {
             manageCorrectionDiv(correction_div, correction, isFromCourse);
         }
     }
-    
+
     displayQuizTeacherSide(isFromCourse) {
         let course = isFromCourse ? "-course" : "";
         if (Activity.response != null) {
@@ -299,6 +299,107 @@ class QuizManager {
         $('#preview-states').show();
         $('#preview-content').show();
         $('#activity-preview-div').show();
+    }
+
+    quizValidateActivityOnePageCourse(activityId, activityLink, correction) {
+        let studentResponse = [];
+        for (let i = 1; i < $(`input[id^="student-quiz-checkbox-"]`).length+1; i++) {
+            let res = {
+                inputVal: $(`#student-quiz-suggestion-${i}`).text(),
+                isCorrect: $(`#student-quiz-checkbox-${i}`).is(':checked')
+            }
+            studentResponse.push(res);
+        }
+        
+        Main.getClassroomManager().saveNewStudentActivity(activityId, correction, null, JSON.stringify(studentResponse), activityLink).then((response) => {
+            quizManager.showErrors(response, activityId);
+            coursesManager.displayHintForOnePageCourse(response, activityId);
+            if (response.hasOwnProperty('activity')) {
+                coursesManager.manageValidateReponse(response);
+            }
+        });
+    }
+
+    renderQuizActivity(activityData, htmlContainer, idActivity) {
+        coursesManager.manageStatesAndContentForOnePageCourse(idActivity, htmlContainer, activityData);
+
+        if (activityData.doable) {
+            coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer, activityData);
+        }
+    }
+
+    getManageDisplayQuiz(content, activity, correction_div) {
+        const activityData = {
+            states: null,
+            content: null,
+            correction: null,
+            doable: false,
+            type: 'quiz',
+            link: activity.id,
+            id: activity.activity.id,
+        }
+
+        activityData.states = bbcodeContentIncludingMathLive(content.states);
+        activityData.doable = activity.correction <= 1 || activity.correction == null;
+
+        if (activity.correction <= 1 || activity.correction == null) {
+            if (!UserManager.getUser().isRegular) {
+                if (activity.activity.response != null && activity.activity.response != '') {
+                    if (JSON.parse(activity.activity.response) != null && JSON.parse(activity.activity.response) != "") {
+                        activityData.content = quizManager.createContentForQuiz(JSON.parse(activity.activity.response));
+                    }
+                } else {
+                    activityData.content = quizManager.createContentForQuiz(content.quiz.contentForStudent);
+                }
+            }
+        } else if (activity.correction > 1) {
+            activityData.content = quizManager.returnCorrectedContent(activity);
+        }
+
+        return activityData;
+    }
+
+    returnCorrectedContent(activity) {
+        if (activity.response != null) {
+            let data = "";
+            if (activity.response != null && activity.response != "") {
+                data = JSON.parse(activity.response);
+            }
+            const solution = JSON.parse(activity.activity.solution);
+
+            let dataCorrected = "";
+            for (let i = 1; i < data.length+1; i++) {
+                
+                let correctAnswer = false;
+                if (data[i-1].isCorrect == solution[i-1].isCorrect) {
+                    correctAnswer = true;
+                }
+
+                dataCorrected += ` <div class="input-group c-checkbox quiz-answer-container ${correctAnswer ? "quiz-answer-correct" : "quiz-answer-incorrect"}" id="qcm-not-doable-${i}">
+                                <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
+                                <label class="form-check-label" for="student-quiz-checkbox-${i}" id="correction-student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
+                            </div>`;
+            }
+            return dataCorrected;
+        }
+    }
+
+    showErrors(response) {
+        if (!response.hasOwnProperty('badResponse')) {
+            return;
+        }
+        displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
+        document.querySelectorAll('.quiz-answer-incorrect').forEach((element) => {
+            element.classList.remove('quiz-answer-incorrect');
+        });
+
+        for (let i = 1; i < $(`input[id^="student-quiz-suggestion-"]`).length+1; i++) {
+            $('#student-quiz-suggestion-' + i).parent().addClass('quiz-answer-correct');
+        }
+
+        for (let i = 0; i < response.badResponse.length; i++) {
+            $('#student-quiz-suggestion-' + (response.badResponse[i]+1)).parent().addClass('quiz-answer-incorrect');
+        }
     }
 }
 

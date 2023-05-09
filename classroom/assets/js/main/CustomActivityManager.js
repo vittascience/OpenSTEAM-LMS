@@ -46,6 +46,22 @@ class CustomActivity {
             ['custom', manageDisplayCustom],
         ];
 
+        this.getManageDisplayCustom = [
+            ['free', freeManager.getManageDisplayFree],
+            ['reading', readingManager.getManageDisplayReading],
+            ['fillIn', fillInManager.getManageDisplayFillIn],
+            ['quiz', quizManager.getManageDisplayQuiz],
+            ['dragAndDrop', dragAndDropManager.getManageDisplayDragAndDrop],
+        ];
+
+        this.renderActivities = [
+            ['free', freeManager.renderFreeActivity],
+            ['reading', readingManager.renderReadingActivity],
+            ['fillIn', fillInManager.renderFillInActivity],
+            ['quiz', quizManager.renderQuizActivity],
+            ['dragAndDrop', dragAndDropManager.renderDragAndDropActivity],
+        ];
+
         this.manageUpdateCustom = [
             ['free', freeManager.manageUpdateForFree],
             ['quiz', quizManager.manageUpdateForQuiz],
@@ -62,6 +78,13 @@ class CustomActivity {
             ['fillIn', fillInManager.fillInPreview],
             ['reading', readingManager.readingPreview],
             ['dragAndDrop', dragAndDropManager.dragAndDropPreview],
+        ];
+
+        this.activityValidateOnePageCourse = [
+            ['free', freeManager.freeValidateActivityOnePageCourse],
+            ['fillIn', fillInManager.fillInValidateActivityOnePageCourse],
+            ['quiz', quizManager.quizValidateActivityOnePageCourse],
+            ['dragAndDrop', dragAndDropManager.dragAndDropValidateActivityOnePageCourse],
         ];
 
         this.normalMedia = true;

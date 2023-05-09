@@ -26,6 +26,12 @@ class FreeManager {
         let activityId = isFromCourse ? coursesManager.actualCourse.activity : Activity.activity.id,
             activityLink = isFromCourse ? coursesManager.actualCourse.link : Activity.id;
 
+
+        if (studentResponse == null || studentResponse == '') {
+            displayNotification('#notif-div', "classroom.activities.emptyAnswer", "error");
+            return;
+        }
+
         Main.getClassroomManager().saveNewStudentActivity(activityId, correction, null, studentResponse, activityLink).then((response) => {
             if (isFromCourse) {
                 coursesManager.coursesResponseManager(response, 'free');
@@ -137,6 +143,117 @@ class FreeManager {
             $('#activity-student-response-content'+course).html(bbcodeContentIncludingMathLive(JSON.parse(Activity.response)));
             manageCorrectionDiv(correction_div, correction, isFromCourse);
         }
+    }
+
+    renderFreeActivity(activityData, htmlContainer, idActivity, response) {
+
+        if (activityData.doable) {
+            const textArea = document.createElement('textarea');
+            textArea.style.height = '400px';
+            textArea.id = 'one-page-activity-content-' + idActivity; 
+            coursesManager.manageStatesAndContentForOnePageCourse(idActivity, htmlContainer, activityData, false);
+
+            htmlContainer.appendChild(textArea);
+
+            $('#one-page-activity-content-'+idActivity).wysibb(Main.getClassroomManager().wbbOpt);
+    
+            if (response != null && response != '') {
+                if (JSON.parse(response) != null && JSON.parse(response) != "") {
+                    let parsed = tryToParse(response);
+                    if (parsed != false) {
+                        $('#one-page-activity-content-'+idActivity).forceInsertBbcode(parsed);
+                    } else {
+                        $('#one-page-activity-content-'+idActivity).htmlcode(response);
+                    }
+                }
+            }
+
+            if (activityData.correction == 1) {
+                const info = document.createElement('p');
+                info.id = 'info-one-page-activity-content-' + idActivity;
+                info.classList.add('c-text-primary', 'm-2', 'fw7-uncolored', 'hint-one-page-course');
+                info.innerHTML = i18next.t("newActivities.statusActivitySent");
+                htmlContainer.appendChild(info);
+            }
+
+            if (activityData.correction == 1) {
+                coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer, activityData, true);
+            } else {
+                coursesManager.manageValidateBtnForOnePageCourse(idActivity, htmlContainer, activityData);
+            }
+
+
+        } else {
+            const h5 = document.createElement('h5');
+            h5.id = 'h5-one-page-activity-content-' + idActivity;
+            h5.classList.add('c-text-primary', 'mt-2');
+            h5.innerHTML = i18next.t("classroom.activities.yourAnswer");
+            htmlContainer.appendChild(h5);
+
+            const paragraph = document.createElement('p');
+            htmlContainer.appendChild(paragraph);
+            paragraph.innerHTML = activityData.content;
+        }
+        
+    }
+
+    getManageDisplayFree(content, activity, correction_div) {
+        const activityData = {
+            states: null,
+            content: null,
+            correction: null,
+            doable: false,
+            correction: 0,
+            type: 'free',
+            link: activity.id,
+            id: activity.activity.id,
+        }
+
+        activityData.states = bbcodeContentIncludingMathLive(content);
+        activityData.doable = activity.correction <= 1 || activity.correction == null;
+        activityData.correction = activity.correction;
+
+        if (activity.correction <= 1 || activity.correction == null) {
+            if (!UserManager.getUser().isRegular) {
+                activityData.doable = true;
+                if (activity.response != null && activity.response != '') {
+                    let parsed = tryToParse(activity.response);
+                    if (parsed != false) {
+                        activityData.content = parsed;
+                    } else {
+                        activityData.content = "";
+                    }
+                }
+            }
+        } else if (activity.correction > 1) {
+            activityData.content = bbcodeContentIncludingMathLive(JSON.parse(activity.response));
+            activityData.correction = returnCorrectionContent(correction_div, activity.activity.correction);
+        }
+
+        return activityData;
+    }
+
+    freeValidateActivityOnePageCourse(activityId, activityLink, correction) {
+        let studentResponse = $(`#one-page-activity-content-${activityId}`).bbcode();
+
+        if (studentResponse == null || studentResponse == '') {
+            displayNotification('#notif-div', "classroom.activities.emptyAnswer", "error");
+            return;
+        }
+
+        Main.getClassroomManager().saveNewStudentActivity(activityId, correction, null, studentResponse, activityLink).then((response) => {
+            freeManager.showErrors(response);
+            if (response.hasOwnProperty('activity')) {
+                coursesManager.manageValidateReponse(response);
+            }
+        });
+    }
+
+    showErrors(response) {
+        if (!response.hasOwnProperty('badResponse')) {
+            return;
+        }
+        displayNotification('#notif-div', "classroom.activities.wrongAnswer", "error");
     }
 
     freePreview() {

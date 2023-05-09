@@ -39,6 +39,7 @@ function LtiDefaultCode(activityType, isUpdate) {
 }
 
 function launchCustomActivity(activityType, isUpdate = false, callback = false) {
+
     setTextArea();
     // Reset the tag list
     manageTagList([]); 
@@ -96,12 +97,13 @@ function launchCustomActivity(activityType, isUpdate = false, callback = false) 
             }
         }
     });
+    breadcrumbManager.addItemCreateActivity(activityType);
 }
 
 function contentBackward() {
     Main.getClassroomManager().getAllApps().then((apps) => {
-        activitiesCreation(apps);
         navigatePanel('classroom-dashboard-proactivities-panel-teacher', 'dashboard-activities-teacher');
+        activitiesCreation(apps);
     })
 }
 
@@ -229,6 +231,18 @@ function titleForward() {
 }
 
 
+function defaultCallback(activity, correction, interface) {
+    if (!interface) {
+        navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
+        actualizeStudentActivities(activity, correction);
+        $("#activity-validate").attr("disabled", false);
+    } else {
+        actualizeStudentActivities(activity, correction)
+        $("#activity-validate").attr("disabled", false);
+        navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher')
+    }
+}
+
 /**
  * Validation pipeline for the new activity
  */
@@ -237,12 +251,11 @@ function validateActivity(correction) {
     // CustomActivity = Manager for the custom activity
     const funct = customActivity.activityAndCase.filter(activityValidate => activityValidate[0] == Activity.activity.type)[0];
     if (funct) {
-        funct[1](funct[2] ? correction : null);
+        funct[1](funct[2] ? correction : null, false, defaultCallback);
     } else {
-        defaultProcessValidateActivity(correction);
+        defaultProcessValidateActivity(correction, false, defaultCallback);
     }
 }
-
 
 function validateDefaultResponseManagement(response) {
     $("#activity-validate").attr("disabled", false);
@@ -276,6 +289,8 @@ function responseManager(response = null, type = null) {
 }
 
 function activitiesCreation(apps) {
+
+    breadcrumbManager.addItemCreateActivityEmpty();
 
     let titleRoad = "newActivities.ActivitiesData.title.";
     let descriptionRoad = "newActivities.ActivitiesData.description.";
@@ -479,49 +494,16 @@ function resetPreviewViews() {
     });
 }
 
-
-
 function saveActivitiesAndCoursesResponseManager(activityType = null, response = null, isFromCourse = false) {
     let courseIndicator = isFromCourse ? "-course" : "";
-
     if (activityType == 'fill-in') {
-        displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
-        
-        let lengthResponse = $(`input[id^="student-fill-in-field-"]`).length;
-        for (let i = 1; i < lengthResponse+1; i++) {
-            if (response.badResponse.includes(i-1)) {
-                $(`#student-fill-in-field-${i}`).css("border","2px solid var(--correction-0)");
-            } else {
-                $(`#student-fill-in-field-${i}`).css("border","2px solid var(--correction-3)");
-            }
-        }
-
+        fillInManager.showErrors(response);
         hintManager(response, courseIndicator)
     } else if (activityType == 'drag-and-drop') {
-        displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
-        for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
-            $('#dz-' + i).css("border","1px solid var(--correction-3)");
-        }
-
-        for (let i = 0; i < response.badResponse.length; i++) {
-            $('#dz-' + (response.badResponse[i])).css("border","1px solid var(--correction-0)");
-        }
-
+        dragAndDropManager.showErrors(response);
         hintManager(response, courseIndicator)
     } else if (activityType == 'quiz') {
-        displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
-        document.querySelectorAll('.quiz-answer-incorrect').forEach((element) => {
-            element.classList.remove('quiz-answer-incorrect');
-        });
-
-        for (let i = 1; i < $(`input[id^="student-quiz-suggestion-"]`).length+1; i++) {
-            $('#student-quiz-suggestion-' + i).parent().addClass('quiz-answer-correct');
-        }
-
-        for (let i = 0; i < response.badResponse.length; i++) {
-            $('#student-quiz-suggestion-' + (response.badResponse[i]+1)).parent().addClass('quiz-answer-incorrect');
-        }
-
+        quizManager.showErrors(response);
         hintManager(response, courseIndicator)
     } else if (activityType == 'free') {
         displayNotification('#notif-div', "classroom.activities.wrongAnswer", "error");
@@ -538,8 +520,12 @@ function hintManager(response, courseIndicator = "") {
 }
 
 /* Now include course to avoid duplicate */
-function defaultProcessValidateActivity(correction = null, isFromCourse = false) {
+function defaultProcessValidateActivity(correction = null, isFromCourse = false, callback = null, activityOverride = null) {
     $("#activity-validate").attr("disabled", "disabled");
+
+    if (activityOverride != null) {
+        Activity = activityOverride;
+    }
 
     let getInterface = tryToParse(Activity.activity.content),
         vittaIframeRegex = /\[iframe\].*?vittascience(|.com)\/([a-z0-9]{5,12})\/?/gm,
@@ -556,32 +542,16 @@ function defaultProcessValidateActivity(correction = null, isFromCourse = false)
 
     if (!interfaceData) {
         let correction = 2
-        if (isFromCourse) {
-            Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, correction, 4).then(function (activity) {
-                if (typeof activity.errors != 'undefined') {
-                    for (let error in activity.errors) {
-                        displayNotification('#notif-div', `classroom.notif.${error}`, "error");
-                        $("#activity-validate").attr("disabled", false);
-                    }
-                } else  {
-                    coursesManager.manageAllActivityResponse(activity);
-                }
-            })
-        } else {
-            Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, correction, 4).then(function (activity) {
-                if (typeof activity.errors != 'undefined') {
-                    for (let error in activity.errors) {
-    
-                        displayNotification('#notif-div', `classroom.notif.${error}`, "error");
-                        $("#activity-validate").attr("disabled", false);
-                    }
-                } else  {
-                    navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
-                    actualizeStudentActivities(activity, correction);
+        Main.getClassroomManager().saveStudentActivity(false, false, Activity.id, correction, 4).then(function (activity) {
+            if (typeof activity.errors != 'undefined') {
+                for (let error in activity.errors) {
+                    displayNotification('#notif-div', `classroom.notif.${error}`, "error");
                     $("#activity-validate").attr("disabled", false);
                 }
-            })
-        }
+            } else  {
+               callback(activity, correction, interfaceData);
+            }
+        })
         window.localStorage.classroomActivity = null
     } else if (Activity.autocorrection == false) {
         let correction = 1;
@@ -594,31 +564,16 @@ function defaultProcessValidateActivity(correction = null, isFromCourse = false)
             projectParsed = null;
         }
 
-        if (isFromCourse) {
-            Main.getClassroomManager().saveStudentActivity(projectParsed, interfaceName, Activity.id).then(function (activity) {
-                if (typeof activity.errors != 'undefined') {
-                    for (let error in activity.errors) {
-                        displayNotification('#notif-div', `classroom.notif.${error}`, "error");
-                        $("#activity-validate").attr("disabled", false);
-                    }
-                } else {
-                    coursesManager.manageAllActivityResponse(activity);
-                }
-            })
-        } else {
-            Main.getClassroomManager().saveStudentActivity(projectParsed, interfaceName, Activity.id).then(function (activity) {
-                if (typeof activity.errors != 'undefined') {
-                    for (let error in activity.errors) {
-                        displayNotification('#notif-div', `classroom.notif.${error}`, "error");
-                        $("#activity-validate").attr("disabled", false);
-                    }
-                } else {
-                    actualizeStudentActivities(activity, correction)
+        Main.getClassroomManager().saveStudentActivity(projectParsed, interfaceName, Activity.id).then(function (activity) {
+            if (typeof activity.errors != 'undefined') {
+                for (let error in activity.errors) {
+                    displayNotification('#notif-div', `classroom.notif.${error}`, "error");
                     $("#activity-validate").attr("disabled", false);
-                    navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher')
                 }
-            })
-        }
+            } else {
+                callback(activity, correction, interfaceData);
+            }
+        })
     } else {
         $("#activity-validate").attr("disabled", false);
         window.localStorage.autocorrect = true
@@ -752,4 +707,5 @@ function loadActivityContent(doable = false) {
 
     $('#activity-introduction').hide();
     $('#activity-validate').hide();
+    breadcrumbManager.setActivityTitle(Activity.title, 1);
 }

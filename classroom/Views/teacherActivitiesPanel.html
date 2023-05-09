@@ -48,9 +48,6 @@
         <button id="new-activity-panel-1" onclick="showExercicePanel()" class=" btn c-btn-outline-secondary"><span class="mr-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
         </button>
 
-        <button id="new-activity-panel-3" onclick="importActivityFromJSON()" class=" btn c-btn-outline-secondary"><span class="mr-1" data-i18n="newActivities.import">Importer une activité</span><i class="fas fa-chevron-right"></i>
-        </button>
-
         <button id="new-activity-panel-2" onclick="coursesManager.showCoursePanel()" class="btn c-btn-outline-primary"><span class="mr-1" data-i18n="courses.add">Créer un parcours</span><i class="fas fa-chevron-right"></i>
         </button>
 
@@ -59,6 +56,10 @@
         </button>
         <button class="btn c-btn-icon-only" onclick="foldersManager.seekFolderModal()">
             <img src="assets/media/folders/folder_tree.svg" alt="arb-folders" onload="SVGInject(this)" style="height: 30px;">
+        </button>
+
+        <button id="new-activity-panel-3" onclick="importActivityFromJSON()" class="btn c-btn-no-outline-primary ml-auto">
+            <span class="mr-1" data-i18n="newActivities.import">Importer une activité</span><i class="fas fa-download"></i>
         </button>
     </div>
 
@@ -172,18 +173,16 @@
                 <div class="assign-row">
                     <div>
                         <label for="isEval-activity-form" data-i18n="classroom.activities.form.nature"></label>
-                        <div class="switcher">
-                            <input type="radio" name="isEval-activity-form" value="false" id="isExo-activity-form" checked>
-                            <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes"></label>
-
-                            <input type="radio" name="isEval-activity-form" value="true" id="isEval-activity-form">
-                            <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no"></label>
-
+                        <div class="switcher w-fit-content mx-auto">
+                            <input type="radio" name="isEval-activity-form" class="switcher__input switcher__input--left" value="false" id="isExo-activity-form" checked=""/>
+                            <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes">Oui</label>
+                        
+                            <input type="radio" name="isEval-activity-form" class="switcher__input switcher__input--right" value="true" id="isEval-activity-form"/>
+                            <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no">Non</label>
+                        
                             <span class="switcher__toggle"></span>
                         </div>
                     </div>
-
-                    <!--                     <i class="fas fa-info assign-info-icon" id="infoEvaluation" data-toggle="tooltip" title=""></i> -->
                 </div>
 
                 <p id="hint-exist-disclaimer" data-i18n="[html]classroom.activities.hintExist" style="display:none;"></p>

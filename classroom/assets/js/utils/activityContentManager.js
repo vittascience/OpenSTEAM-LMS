@@ -299,6 +299,26 @@ function cancelImport() {
 }
 
 
+function initializeDragulaWithOneContainer(idContainer, classDropZone) {
+    // init dragula if it's not already initialized
+    if (Main.getClassroomManager().dragulaGlobal == false) {
+        Main.getClassroomManager().dragulaGlobal = dragula();
+    }
+
+    // Reset the dragula fields
+    Main.getClassroomManager().dragulaGlobal.containers = [];
+    Main.getClassroomManager().dragulaGlobal = dragula([document.querySelector('#' + idContainer)]).on('drop', function(el, target, source) {
+        if (target.id != idContainer) {
+            let swap = $(target).find('p').not(el);
+            swap.length > 0 ? source.append(swap[0]) : null;
+        }
+    });
+
+    $('.'+classDropZone).each((i, e) => {
+        Main.getClassroomManager().dragulaGlobal.containers.push(document.querySelector('#'+e.id));
+    });
+}
+
 
 
 
