@@ -119,16 +119,7 @@ class DragAndDropManager {
         contentDiv.appendChild(divActivityDoable);
 
         solution.forEach(e => {
-            let contentMath = parseMathLiveContent(e);
-            if (bbcodeToHtml(e) != e || contentMath) {
-                if (contentMath) {
-                    $('#preview-drag-and-drop-fields-teacher').append(`<p class="draggable draggable-items drag-drop" id="${e}">${contentMath}</p>`);
-                } else {
-                    $('#preview-drag-and-drop-fields-teacher').append(`<p class="draggable draggable-items drag-drop" id="${e}">${bbcodeToHtml(e)}</p>`);
-                }
-            } else {
-                $('#preview-drag-and-drop-fields-teacher').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
-            }
+            $('#preview-drag-and-drop-fields-teacher').append(dragAndDropManager.parseDraggableItems(e));
         });
 
         initializeDragulaWithOneContainer('preview-drag-and-drop-fields-teacher', 'dropzone-preview');
@@ -239,16 +230,7 @@ class DragAndDropManager {
         // Get the response array and shuffle it
         let solution = shuffleArray(activity.solution);
         solution.forEach(e => {
-            let contentMath = parseMathLiveContent(e);
-            if (bbcodeToHtml(e) != e || contentMath) {
-                if (contentMath) {
-                    $('#preview-drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${contentMath}</p>`);
-                } else {
-                    $('#preview-drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${bbcodeToHtml(e)}</p>`);
-                }
-            } else {
-                $('#preview-drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
-            }
+            $('#preview-drag-and-drop-fields').append(dragAndDropManager.createDragAndDropField(e));
         });
 
         initializeDragulaWithOneContainer('preview-drag-and-drop-fields', 'dropzone-preview');
