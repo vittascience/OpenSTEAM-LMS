@@ -365,7 +365,6 @@ class DragAndDropManager {
                 });
             }
         } else if (activity.correction > 1) {
-            //dragAndDropManager.displayDragAndDropTeacherSide(correction_div, activity.activity.correction, content, isFromCourse);
             activityData.content = dragAndDropManager.returnCorrectedContent(activity, content);
         } 
 
