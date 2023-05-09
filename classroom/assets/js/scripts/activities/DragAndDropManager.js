@@ -154,7 +154,7 @@ class DragAndDropManager {
                 let choices = shuffleArray(JSON.parse(Activity.activity.solution));
     
                 choices.forEach(e => {
-                    $('#drag-and-drop-fields'+course).append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
+                    $('#drag-and-drop-fields'+course).append(dragAndDropManager.parseDraggableItems(e));
                 });
                 $('#activity-drag-and-drop-container'+course).show();
             
@@ -230,7 +230,7 @@ class DragAndDropManager {
         // Get the response array and shuffle it
         let solution = shuffleArray(activity.solution);
         solution.forEach(e => {
-            $('#preview-drag-and-drop-fields').append(dragAndDropManager.createDragAndDropField(e));
+            $('#preview-drag-and-drop-fields').append(dragAndDropManager.parseDraggableItems(e));
         });
 
         initializeDragulaWithOneContainer('preview-drag-and-drop-fields', 'dropzone-preview');
@@ -338,7 +338,6 @@ class DragAndDropManager {
                 // Get the response array and shuffle it
                 let choices = shuffleArray(JSON.parse(activity.activity.solution));
                 choices.forEach(e => {
-                    let contentMath = parseMathLiveContent(e);
                     if (activityData.dragAndDropChoices != null) {
                         activityData.dragAndDropChoices += dragAndDropManager.parseDraggableItems(e);
                     } else {
