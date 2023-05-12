@@ -172,7 +172,7 @@ function titleBackward() {
 /**
  * Title part
  */
- function titleForward() {
+ function titleForward(typeTool) {
     Main.getClassroomManager()._createActivity.title = $('#global_title').val();
     $('#activity-title-forward').attr('disabled', true);
     // Check if the title is empty
@@ -199,7 +199,11 @@ function titleBackward() {
                 if (response.success == true) {
                     Main.getClassroomManager()._lastCreatedActivity = response.id;
                     displayNotification('#notif-div', "classroom.notif.activityCreated", "success", `'{"activityTitle": "${title}"}'`);
-                    navigatePanel('classroom-dashboard-classes-new-activity-attribution', 'dashboard-proactivities-teacher');
+                    if(typeTool == "collections") {
+                        navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-proactivities-teacher');
+                    } else {
+                        navigatePanel('classroom-dashboard-classes-new-activity-attribution', 'dashboard-proactivities-teacher');
+                    }
                 } else {
                     displayNotification('#notif-div', "manager.account.errorSending", "error");
                 }
