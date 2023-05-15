@@ -37,7 +37,6 @@ function LtiDefaultCode(activityType, isUpdate) {
 
 function launchCustomActivity(activityType, isUpdate = false, callback = false) {
     setTextArea();
-    $("#classroom-dashboard-classes-new-activity nav").show()
 
     const contentForwardButtonElt = document.getElementById('content-forward-button');
     contentForwardButtonElt.style.display = 'inline-block';
