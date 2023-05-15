@@ -37,6 +37,7 @@ function LtiDefaultCode(activityType, isUpdate) {
 
 function launchCustomActivity(activityType, isUpdate = false, callback = false) {
     setTextArea();
+    $("#classroom-dashboard-classes-new-activity nav").show()
 
     const contentForwardButtonElt = document.getElementById('content-forward-button');
     contentForwardButtonElt.style.display = 'inline-block';
@@ -200,7 +201,7 @@ function titleBackward() {
                     Main.getClassroomManager()._lastCreatedActivity = response.id;
                     displayNotification('#notif-div', "classroom.notif.activityCreated", "success", `'{"activityTitle": "${title}"}'`);
                     if(typeTool == "collections") {
-                        navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-proactivities-teacher');
+                        navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher');
                     } else {
                         navigatePanel('classroom-dashboard-classes-new-activity-attribution', 'dashboard-proactivities-teacher');
                     }
