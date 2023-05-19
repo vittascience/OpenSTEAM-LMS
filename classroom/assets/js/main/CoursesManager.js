@@ -38,6 +38,8 @@ class CoursesManager {
         };
 
         this.wbbptions = null;
+        this.observer = null;
+        this.observedLtiActivity = null;
     }
 
     init() {
@@ -624,7 +626,7 @@ class CoursesManager {
     validateCourse(correction) {
         const funct = customActivity.activityAndCase.filter(activityValidate => activityValidate[0] == Activity.activity.type)[0];
         if (funct) {
-            funct[1](funct[2] ? correction : null, true, callBackForCourse);
+            funct[1](funct[2] ? correction : null, true, this.callBackForCourse);
         } else {
             if (Activity.activity.isLti) {
                 let messageDiv = document.getElementById("course-result-message"),
@@ -802,7 +804,8 @@ class CoursesManager {
                 id: id, 
                 state: course.courseState, 
                 link: Activity.id, 
-                activity: Activity.activity.id
+                activity: Activity.activity.id,
+                courseLink: course.id
             };
 
             navigatePanel('classroom-dashboard-course-panel', 'dashboard-activities', 'course', '');
@@ -835,12 +838,27 @@ class CoursesManager {
                 id: id, 
                 state: course.courseState, 
                 link: Activity.id, 
-                activity: Activity.activity.id
+                activity: Activity.activity.id,
+                courseLink: course.id
             };
             navigatePanel('classroom-dashboard-course-panel-one-page', 'dashboard-activities', 'course', '');
 
             this.loadOnePageCourseForStudent(course);
 
+            // Handle the LTI activities validation
+            this.observer = new IntersectionObserver((entries) => {
+                this.observedLtiActivity = null;
+                for (const entry of entries) {
+                    if (entry.isIntersecting) {
+                        this.observedLtiActivity = entry.target.dataset.id;
+                    }
+                }
+            }, {threshold: 0.8});
+
+            let targets = document.querySelectorAll('[id^="lti_student_iframe_"]');
+            for(let i = 0; i < targets.length; i++) {
+                this.observer.observe(targets[i]);
+            }
         });
     }
 
@@ -849,9 +867,21 @@ class CoursesManager {
         activitiesResultDiv.innerHTML = "";
         let course = coursesManager.myCourses.find(course => course.id == id);
         for (let i = 0; i < course.activities.length; i++) {
+            let activityType = course.activities[i].type;
+            let imagePath = "",
+                imageAlt = "";
+            if (activityType == null || activityType == undefined) {
+                imagePath = foldersManager.icons["reading"];
+                imageAlt = "reading";
+            } else {
+                imagePath = foldersManager.icons[course.activities[i].type];
+                imageAlt = course.activities[i].type;
+            }
+
+
             let html = `<div class="course-activities-result-activity" id="course-${course.id}" onclick="coursesManager.simulateActivityOpen(${course.activities[i].id})"> 
                             <div class="preview-result-course-activity-title d-flex align-items-center">
-                                <img class="list-item-img" src="${foldersManager.icons[course.activities[i].type]}" alt="reading">
+                                <img class="list-item-img" src="${imagePath}" alt="image-${imageAlt}">
                                 <p onclick="">ACTVITÉ N°${i+1}</p>
                             </div>
 
@@ -1175,6 +1205,8 @@ class CoursesManager {
         }
         container.appendChild(contentDiv);
 
+        console.log(activityData)
+
         if (typeof activityData.content == 'object') {
             document.forms[activityData.content[1]].submit();
         }
@@ -1228,13 +1260,11 @@ class CoursesManager {
         if (funct && type != 'reading') {
             funct[1](id, link, correction);
         } else if (type == 'reading') {
-
             let foundActivity = Main.getClassroomManager()._myCourses.filter((course) => {
                 return course.activities.filter((activity) => {
                     return activity.id == link && activity.activity.id == id;
                 });
             });
-
             if (foundActivity.length > 0) {
                 foundActivity = foundActivity[0].activities.filter((activity) => {
                     return activity.id == link && activity.activity.id == id;
@@ -1244,7 +1274,23 @@ class CoursesManager {
         }
     }
 
-    manageValidateReponse(response) {
+    getOneActivityFromCourse(activityId, activityLink) {
+        let foundActivity = Main.getClassroomManager()._myCourses.filter((course) => {
+            return course.activities.filter((activity) => {
+                return activity.id == activityLink && activity.activity.id == activityId;
+            });
+        });
+
+        if (foundActivity.length > 0) {
+            foundActivity = foundActivity[0].activities.filter((activity) => {
+                return activity.id == activityLink && activity.activity.id == activityId;
+            })[0];
+            return foundActivity;
+        }  
+        return null;
+    }
+
+    manageValidateReponse(response, reValidate = false) {
         if (response) {
             if (response.hasOwnProperty("message")) {
                 if (response.message == "activitySaved") {
@@ -1253,11 +1299,39 @@ class CoursesManager {
                     displayNotification('#notif-div', "classroom.activities.emptyAnswer", "error");
                 }
             } else {
-                this.processForOneActivity(response);
+                const course = this.getParcoursFromHisActivity(response);
+                if (course) {
+                    let courseState = reValidate ? course.courseState : course.courseState + 1;
+                    this._requestUpdateState(course.course.id, courseState).then((res) => {
+                        if (res.hasOwnProperty('success')) {
+                            if (res.success) {
+                                // update the course state
+                                course.courseState = parseInt(res.courseLinkUser.courseState);
+                                if (courseState < course.activities.length) {
+                                    this.processForOneActivity(response);
+                                } else {
+                                    this.viewCourseActivitiesResult(course.course.id);
+                                }
+                            } else {
+                                displayNotification('#notif-div', "classroom.notif.errorSending", "error");
+                            }
+                        } 
+                    });
+                }
             }
         } else {
             displayNotification('#notif-div', "classroom.notif.errorSending", "error");
         }
+    }
+
+    getParcoursFromHisActivity(activity) {
+        let parcours = null;
+        Main.getClassroomManager()._myCourses.forEach((course) => {
+            if (course.activities.filter((act) => act.id == activity.id && activity.activity.id == act.activity.id).length > 0) {
+                parcours = course;
+            }
+        });
+        return parcours;
     }
     
     launchLtiResourceOnePageCourse(activityId, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false) {
@@ -1269,9 +1343,8 @@ class CoursesManager {
             <input type="hidden" id="activities_link_user" name="activities_link_user" value="${activityId}">
             <input type="hidden" id="student_resource_url" name="student_resource_url" value="${studentResourceUrl}">
         </form>
-        <iframe id="lti_student_iframe" src="about:blank" name="lti_student_iframe_${activityId}" title="Tool Content" width="100%" style="
-        height: 60vh;" allowfullscreen></iframe>
-        `, `resource_launch_form_${activityId}`];
+        <iframe id="lti_student_iframe_${activityId}" src="about:blank" data-id="${activityId}" name="lti_student_iframe_${activityId}" title="Tool Content" width="100%" style="height: 60vh;" allowfullscreen></iframe>`, 
+        `resource_launch_form_${activityId}`];
     }
     
     manageContentActivitiesOnePageCourse(activity) {
@@ -1486,25 +1559,3 @@ class CoursesManager {
 // Initialize
 const coursesManager = new CoursesManager();
 coursesManager.init();
-
-
-//let detailsP = document.createElement('p');
-//detailsP.id = `activity-details-${activity.activity.id}-course-one-page`;
-//detailsP.classList.add('activity-details');
-
-// Check if the correction if available
-//if (activity.correction >= 1) {
-//    detailsP.innerHTML = i18next.t("classroom.activities.sentOn") + formatHour(activity.dateSend), i18next.t("classroom.activities.numberOfTries") + activity.tries;
-//} else {
-//    detailsP.innerHTML = i18next.t("classroom.activities.toSend") + formatDay(activity.dateEnd);
-//}
-//divActivity.appendChild(detailsP);
-
-//let introductionP = document.createElement('p');
-//introductionP.classList.add('d-none');
-//introductionP.id = `activity-introduction-${activity.activity.id}-course-one-page`;
-//
-//let textIntroductionSpan = document.createElement('span');
-//textIntroductionSpan.id = `text-introduction-${activity.activity.id}-course-one-page`;
-//divActivity.appendChild(introductionP);
-//introductionP.appendChild(textIntroductionSpan);
