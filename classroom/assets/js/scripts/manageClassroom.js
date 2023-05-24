@@ -105,6 +105,7 @@ async function readEvent (event) {
             
             // Clear the activity content to close the LTI iframe
             document.querySelector('#activity-content').innerHTML = '';
+            document.querySelector('#activity-content-collections').innerHTML = '';
             break;
         default:
             console.warn('The current message type isn\'t supported!');
