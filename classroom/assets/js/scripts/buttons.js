@@ -290,7 +290,12 @@ function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = fa
     }
 
     // custom event to trigger click on panel
-    const event = new Event('navigatePanel');
+    const event = new CustomEvent('navigatePanel', {
+        detail: {
+            id: id,
+            idNav: idNav // (the current "tab")
+        }
+    });
     document.dispatchEvent(event);
 }
 
