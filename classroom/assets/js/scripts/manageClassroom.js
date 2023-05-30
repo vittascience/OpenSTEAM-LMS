@@ -60,6 +60,9 @@ async function readEvent (event) {
                     coursesManager.validateCourse(1);
                 } else {
                     // todo for one page course
+                    let iframeId = event.source.frameElement.dataset.id;
+                    let iframeLink = event.source.frameElement.dataset.link;
+                    coursesManager.validateLtiOnePageCourse(iframeId, iframeLink);
                 }
             }
 

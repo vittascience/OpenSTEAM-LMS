@@ -1011,7 +1011,6 @@ class CoursesManager {
             isDoable = true;
 
         const content = this.manageContentActivitiesOnePageCourse(activity);
-        //const activityData = this.returnContentForActivityInOnePageCourse(content, activity.activity.correction, activity.activity.type, correction, isDoable, activity);
         const activityData = this.returnContentForActivityInOnePageCourse(content, activity, correction, isDoable);
 
         if (!activity.evaluation && correction < 2 && !isDoable) {
@@ -1197,16 +1196,14 @@ class CoursesManager {
 
     renderLtiActivity(activityData, container, activityId, response) {
         const contentDiv = document.createElement('div');
-        contentDiv.id = 'activity-content' + activityId;
+        contentDiv.id = 'activity-content-' + activityId;
         if (typeof activityData.content == 'string') {
             contentDiv.innerHTML = activityData.content;
         } else {
             contentDiv.innerHTML = activityData.content[0];
         }
+
         container.appendChild(contentDiv);
-
-        console.log(activityData)
-
         if (typeof activityData.content == 'object') {
             document.forms[activityData.content[1]].submit();
         }
@@ -1220,9 +1217,13 @@ class CoursesManager {
             correction: null,
             doable: isDoable
         }
-    
+
+        let url = false;
+        if (activity.url) {
+            url = activity.url;
+        }
         if (isDoable) {
-            activityData.content = this.launchLtiResourceOnePageCourse(activity.id, activity.activity.type, content, !UserManager.getUser().isRegular, false);
+            activityData.content = this.launchLtiResourceOnePageCourse(activity.id, activity.activity.id, activity.activity.type, content, !UserManager.getUser().isRegular, url);
         } else {
             activityData.content = `<iframe src="${activity.url}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`;
             if (!UserManager.getUser().isRegular) {
@@ -1239,13 +1240,59 @@ class CoursesManager {
     }
 
     /**
+     * Validate an lti activity in a one page course
+     * @param {*} activityId 
+     * @param {*} activityLink 
+     */
+    async validateLtiOnePageCourse(activityId, activityLink) {
+        let activity = {
+            id: activityId,
+            activity: {
+                id: activityLink,
+            }
+        }
+
+        const activityData = await Main.getClassroomManager().getOneUserLinkActivity(activityId);
+        const course = coursesManager.getParcoursFromHisActivity(activity);
+
+        let activityDataFiltered = course.activities.filter(activity => activity.id == activityId)[0];
+        let reValidate = false;
+        if (activityDataFiltered.url) {
+            reValidate = true;
+        }
+
+        activityDataFiltered = activityData;
+
+        const content = coursesManager.manageContentActivitiesOnePageCourse(activityData);
+        const data = coursesManager.manageDisplayLtiForOnePageCourse(activityData, content, "", true);
+        const courseState = reValidate ? course.courseState : course.courseState + 1;
+
+        const res  =  await coursesManager._requestUpdateState(course.course.id, courseState);
+        if (res.hasOwnProperty('success')) {
+            if (res.success) {
+                course.courseState = parseInt(res.courseLinkUser.courseState);
+                if (courseState < course.activities.length) {
+                    let divContent = document.getElementById('activity-content-' + activityLink);
+                    if (typeof data == 'object') {
+                        divContent.innerHTML = data.content[0];
+                        document.forms[data.content[1]].submit();
+                    }
+                } else {
+                    coursesManager.viewCourseActivitiesResult(course.course.id);
+                }
+            } else {
+                displayNotification('#notif-div', "classroom.notif.errorSending", "error");
+            }
+        }
+    }
+
+    /**
      * This function is called when the user validate an reading activity in one page course
      * @param {*} activity 
      */
     callBackForCourseOnePage(activity) {
         coursesManager.manageValidateReponse(activity);
     }
-
 
     /**
      * This function is called when the user validate an activity in one page course
@@ -1315,7 +1362,7 @@ class CoursesManager {
                             } else {
                                 displayNotification('#notif-div', "classroom.notif.errorSending", "error");
                             }
-                        } 
+                        }
                     });
                 }
             }
@@ -1334,7 +1381,7 @@ class CoursesManager {
         return parcours;
     }
     
-    launchLtiResourceOnePageCourse(activityId, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false) {
+    launchLtiResourceOnePageCourse(activityId, activityLink, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false) {
         return [`<input id="activity-score" type="text" hidden/>
         <form name="resource_launch_form_${activityId}" action="${_PATH}lti/ltilaunch.php" method="post" target="lti_student_iframe_${activityId}">
             <input type="hidden" id="application_type" name="application_type" value="${activityType}">
@@ -1343,7 +1390,7 @@ class CoursesManager {
             <input type="hidden" id="activities_link_user" name="activities_link_user" value="${activityId}">
             <input type="hidden" id="student_resource_url" name="student_resource_url" value="${studentResourceUrl}">
         </form>
-        <iframe id="lti_student_iframe_${activityId}" src="about:blank" data-id="${activityId}" name="lti_student_iframe_${activityId}" title="Tool Content" width="100%" style="height: 60vh;" allowfullscreen></iframe>`, 
+        <iframe id="lti_student_iframe_${activityId}" src="about:blank" data-id="${activityId}" data-link="${activityLink}" name="lti_student_iframe_${activityId}" title="Tool Content" width="100%" style="height: 60vh;" allowfullscreen></iframe>`, 
         `resource_launch_form_${activityId}`];
     }
     
