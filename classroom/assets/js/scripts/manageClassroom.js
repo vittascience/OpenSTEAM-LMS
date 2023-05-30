@@ -89,8 +89,6 @@ async function readEvent (event) {
             break;
         // Message received when an LTI deep link has returned
         case 'end-lti-deeplink':
-            if(msg.typeTool === "collections") console.log("type lti : ", msg.typeTool);
-            if(msg.title) console.log("type lti : ", msg.title);
             // Saving the deeplink response into the activity creation data
             Main.getClassroomManager()._createActivity.content.description = msg.content;
 
@@ -101,11 +99,11 @@ async function readEvent (event) {
             else {
                 // Automatically stepping forward in the activity creation process
                 contentForward();
+                
+                // Clear the activity content to close the LTI iframe
+                document.querySelector('#activity-content').innerHTML = '';
             }
             
-            // Clear the activity content to close the LTI iframe
-            document.querySelector('#activity-content').innerHTML = '';
-            document.querySelector('#activity-content-collections').innerHTML = '';
             break;
         default:
             console.warn('The current message type isn\'t supported!');
