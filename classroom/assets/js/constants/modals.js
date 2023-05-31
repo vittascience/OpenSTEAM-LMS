@@ -116,7 +116,7 @@ const classroomModals = {
                 Español
             </button>
             <button class="btn c-btn-secondary" onclick="changeLang('nl')">
-                Belgique
+                Nederlands
             </button>  
             <button class="btn c-btn-secondary" onclick="changeLang('ar')">
                 العربية
@@ -154,7 +154,7 @@ const classroomModals = {
                             Español
                         </button>
                         <button class="btn c-btn-secondary" onclick="changeLang('nl')">
-                            Belgique
+                            Nederlands
                         </button>   
                         <button class="btn c-btn-secondary" onclick="changeLang('ar')">
                             العربية

@@ -91,7 +91,7 @@
         },
         "profil":{
             "identity":" Voornaam Achternaam",
-            "class":" KLAS : ",
+            "class":" KLAS: ",
             "todo":" Activiteiten nog te doen",
             "done":" Uitgevoerde activiteiten",
             "create":" Gecreëerde activiteiten",
@@ -364,8 +364,8 @@
                 "instructions":" Specifieke instructies voor deze leerlingen",
                 "autocorrect":" Deze activiteit heeft autocorrectie. Wil je die activeren?",
                 "nature":" Kan de leerling de activiteit meer dan eens maken?",
-                "dateBegin":" Startdatum:",
-                "dateEnd":" Einddatum :",
+                "dateBegin":" Startdatum: ",
+                "dateEnd":" Einddatum :  ",
                 "retroAttribution":" Deze activiteit zal voor elke nieuwe student worden toegevoegd."
             },
             "toCopy":" Met deze code krijg je gemakkelijk toegang tot je klas",
@@ -1190,8 +1190,8 @@
                 "groupFull":" De groep waar je bij wil, heeft zijn limiet bereikt.",
                 "onlyOneGroup":" Je maakt al deel uit van een groep en dus kan je geen lid worden van een andere.",
                 "mail":{
-                    "textBeforeName":" De gebruiker:",
-                    "textAfterName":" sloot zich aan bij de groep:",
+                    "textBeforeName":" De gebruiker: ",
+                    "textAfterName":" sloot zich aan bij de groep: ",
                     "emailSubject":" Een gebruiker is lid geworden van de groep."
                 }
             },
