@@ -115,6 +115,9 @@ const classroomModals = {
             <button class="btn c-btn-secondary" onclick="changeLang('es')">
                 Español
             </button>
+            <button class="btn c-btn-secondary" onclick="changeLang('nl')">
+                Belgique
+            </button>  
             <button class="btn c-btn-secondary" onclick="changeLang('ar')">
                 العربية
             </button>
@@ -150,9 +153,12 @@ const classroomModals = {
                         <button class="btn c-btn-secondary" onclick="changeLang('es')">
                             Español
                         </button>
+                        <button class="btn c-btn-secondary" onclick="changeLang('nl')">
+                            Belgique
+                        </button>   
                         <button class="btn c-btn-secondary" onclick="changeLang('ar')">
                             العربية
-                        </button>    
+                        </button>
                     </div>
                     <h4 data-i18n="classroom.modals.settingsTeacher.description">Pour modifier votre mot de passe ou d'autres paramètres de votre compte</h4>
                     <div class="d-flex flex-column align-items-center" style="gap: 0.5rem;">
