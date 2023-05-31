@@ -106,7 +106,8 @@ CREATE TABLE `classroom_applications` (
   `color` varchar(10) DEFAULT NULL,
   `max_per_teachers` int(11) DEFAULT NULL,
   `sort` int(11) DEFAULT NULL,
-  `background_image` varchar(255) DEFAULT NULL
+  `background_image` varchar(255) DEFAULT NULL,
+  `type` varchar(255) DEFAULT "applications",
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
