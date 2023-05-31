@@ -205,7 +205,7 @@ function teacherActivityItem(activity, displayStyle) {
 function listOfOptions(activity) {
     let modifyButton = `<li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>`;
     // TODO : automatically consider if its collections type
-    if(activity.type && activity.type === "123Cabri") {
+    if(activity.typeTool && activity.typeTool === "collections") {
         modifyButton = ""
     }
 
