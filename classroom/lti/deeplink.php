@@ -39,8 +39,18 @@ $contentItemsLabel = "https://purl.imsglobal.org/spec/lti-dl/claim/content_items
 <script>
   window.onload = function() {
     // send deeplink url to parent window
-    const msg = {type: 'end-lti-deeplink', content: '<?php echo $validatedToken->$contentItemsLabel[0]->url; ?>'};
-    window.parent.postMessage(JSON.stringify(msg), '*')
+    const msg = {
+      type: 'end-lti-deeplink', 
+      content: '<?php echo $validatedToken->$contentItemsLabel[0]->url; ?>',
+      title: "<?php echo $validatedToken->$contentItemsLabel[0]->title; ?>",
+      typeTool: "<?php
+        if (isset($validatedToken->$contentItemsLabel[0]->custom) && 
+        isset($validatedToken->$contentItemsLabel[0]->custom->type)) {
+          echo $validatedToken->$contentItemsLabel[0]->custom->type;
+        }
+      ?>",
+    };
+    window.top.postMessage(JSON.stringify(msg), '*')
   }
 </script>
 

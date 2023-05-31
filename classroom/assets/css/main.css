@@ -1977,24 +1977,24 @@ h3.section-done {
     object-fit: contain;
 }
 
-#classroom-dashboard-classes-new-activity {
+.classroom-dashboard-new-activity {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
 }
 
-#activity-custom {
+.activity-custom {
     flex-grow: 1;
     margin-left: 15px;
 }
 
-#tool-container {
+.tool-container {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
 
-#lti-loader-container {
+.lti-loader-container {
     width: 100%;
     height: 100%;
 }

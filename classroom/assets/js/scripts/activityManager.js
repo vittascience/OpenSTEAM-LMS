@@ -172,7 +172,7 @@ function titleBackward() {
 /**
  * Title part
  */
- function titleForward() {
+ function titleForward(typeTool) {
     Main.getClassroomManager()._createActivity.title = $('#global_title').val();
     $('#activity-title-forward').attr('disabled', true);
     // Check if the title is empty
@@ -188,24 +188,26 @@ function titleBackward() {
             autocorrect = Main.getClassroomManager()._createActivity.autocorrect,
             folder = foldersManager.actualFolder;
 
-        // is an activity auto evaluate    
-        const autoCorrectTypeApps = ["dragAndDrop", "fillIn", "quiz", "GENIUS", "1,2,3... Cabri"]    
+        // is an activity auto evaluate TODO : refactor it for manage more precisely    
+        const autoCorrectTypeApps = ["dragAndDrop", "fillIn", "quiz", "GENIUS", "123Cabri"]    
         if (autoCorrectTypeApps.includes(type)) {
             autocorrect = true;
         }
 
         if (Main.getClassroomManager()._createActivity.function == "create") {  
-            Main.getClassroomManager().createNewActivity(title, type, content, solution, tolerance, autocorrect, folder).then((response) => {
+            Main.getClassroomManager().createNewActivity(title, type, content, solution, tolerance, autocorrect, folder, typeTool).then((response) => {
                 if (response.success == true) {
                     Main.getClassroomManager()._lastCreatedActivity = response.id;
                     displayNotification('#notif-div', "classroom.notif.activityCreated", "success", `'{"activityTitle": "${title}"}'`);
-                    navigatePanel('classroom-dashboard-classes-new-activity-attribution', 'dashboard-proactivities-teacher');
+                    if(typeTool !== "collections") {
+                        navigatePanel('classroom-dashboard-classes-new-activity-attribution', 'dashboard-proactivities-teacher');
+                    }
                 } else {
                     displayNotification('#notif-div', "manager.account.errorSending", "error");
                 }
             });
         } else if (Main.getClassroomManager()._createActivity.function == "update") {
-            Main.getClassroomManager().updateActivity(ClassroomSettings.activity, title, type, content, solution, tolerance, autocorrect).then((response) => {
+            Main.getClassroomManager().updateActivity(ClassroomSettings.activity, title, type, content, solution, tolerance, autocorrect, typeTool).then((response) => {
                 if (response.success == true) {
                     Main.getClassroomManager()._lastCreatedActivity = response.id;
                     displayNotification('#notif-div', "classroom.notif.activityChanged", "success", `'{"activityTitle": "${title}"}'`);
