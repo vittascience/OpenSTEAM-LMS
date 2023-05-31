@@ -107,7 +107,7 @@ CREATE TABLE `classroom_applications` (
   `max_per_teachers` int(11) DEFAULT NULL,
   `sort` int(11) DEFAULT NULL,
   `background_image` varchar(255) DEFAULT NULL,
-  `type` varchar(255) DEFAULT "applications",
+  `type` varchar(255) DEFAULT "applications", -- to manage where applications will be print ("My activity" or "Ressources" tabs) possible values {"applications" or "collections"}
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -343,6 +343,7 @@ CREATE TABLE `learn_activities` (
   `folder` int(11) DEFAULT NULL,
   `is_collapsed` tinyint(4) DEFAULT 0,
   `preview_note` tinyint(1) DEFAULT NULL, -- use by teacher when he is trying an activity auto-evaluate (ex: smart) 
+  `type_tool` varchar(255) DEFAULT "applications", -- allow to manage visibility of options (delete, modify, ...) TODO : extends to classroom_applications for take "type" field
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
