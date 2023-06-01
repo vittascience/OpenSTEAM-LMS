@@ -50,7 +50,7 @@ $contentItemsLabel = "https://purl.imsglobal.org/spec/lti-dl/claim/content_items
         }
       ?>",
     };
-    window.top.postMessage(JSON.stringify(msg), '*')
+    window.parent.postMessage(JSON.stringify(msg), '*')
   }
 </script>
 
