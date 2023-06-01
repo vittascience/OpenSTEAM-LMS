@@ -4,7 +4,7 @@
  * Copyright (C) 2022 Seif-Eddine Benomar - Cabrilog
  * Contribution to OpenSTEAM Project
 */
-
+header("X-Frame-Options: ALLOW-FROM https://lti-dev.cabri.com");
 
 require_once __DIR__ . "/findrelativeroute.php";
 
