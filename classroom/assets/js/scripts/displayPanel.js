@@ -237,6 +237,9 @@ DisplayPanel.prototype.classroom_dashboard_form_classe_panel_update = function (
 DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function () {
     Main.getClassroomManager().getAllTags().then((Tag) => {
 
+        if (Tag.HasOwnProperty("tags")) {
+
+        
         if (Tag.tags.length > 0) {
             const tagsForActivities = document.getElementById("tags-activities");
             const tagsForPanel = document.getElementById("tags-panel");
@@ -320,6 +323,7 @@ DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function (
                     });
                 });
             }
+        }
         }
     });
     ClassroomSettings.activity = false;
