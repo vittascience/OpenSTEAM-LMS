@@ -241,10 +241,14 @@ class FreeManager {
             return;
         }
 
+        let activity = coursesManager.getOneActivityFromCourse(activityId, activityLink);
+        let isRevalidate = activity.correction > 0;
+
         Main.getClassroomManager().saveNewStudentActivity(activityId, correction, null, studentResponse, activityLink).then((response) => {
             freeManager.showErrors(response);
             if (response.hasOwnProperty('activity')) {
-                coursesManager.manageValidateReponse(response);
+                activity.correction = response.correction;
+                coursesManager.manageValidateReponse(response, isRevalidate);
             }
         });
     }

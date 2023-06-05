@@ -53,6 +53,17 @@ async function readEvent (event) {
                 }
                 // Clearing the LTI content div
                 document.querySelector('#lti-loader-container').innerHTML = '';
+            } else {
+                let courseId = parseInt(coursesManager.actualCourse.id);
+                let course = Main.getClassroomManager()._myCourses.filter(x => x.course.id == courseId)[0];
+                if (!course.course.format) {
+                    coursesManager.validateCourse(1);
+                } else {
+                    // todo for one page course
+                    let iframeId = event.source.frameElement.dataset.id;
+                    let iframeLink = event.source.frameElement.dataset.link;
+                    coursesManager.validateLtiOnePageCourse(iframeId, iframeLink);
+                }
             }
 
            

@@ -624,7 +624,7 @@ class CoursesManager {
     validateCourse(correction) {
         const funct = customActivity.activityAndCase.filter(activityValidate => activityValidate[0] == Activity.activity.type)[0];
         if (funct) {
-            funct[1](funct[2] ? correction : null, true, callBackForCourse);
+            funct[1](funct[2] ? correction : null, true, this.callBackForCourse);
         } else {
             if (Activity.activity.isLti) {
                 let messageDiv = document.getElementById("course-result-message"),
@@ -802,7 +802,8 @@ class CoursesManager {
                 id: id, 
                 state: course.courseState, 
                 link: Activity.id, 
-                activity: Activity.activity.id
+                activity: Activity.activity.id,
+                courseLink: course.id
             };
 
             navigatePanel('classroom-dashboard-course-panel', 'dashboard-activities', 'course', '');
@@ -835,12 +836,12 @@ class CoursesManager {
                 id: id, 
                 state: course.courseState, 
                 link: Activity.id, 
-                activity: Activity.activity.id
+                activity: Activity.activity.id,
+                courseLink: course.id
             };
             navigatePanel('classroom-dashboard-course-panel-one-page', 'dashboard-activities', 'course', '');
 
             this.loadOnePageCourseForStudent(course);
-
         });
     }
 
@@ -849,9 +850,21 @@ class CoursesManager {
         activitiesResultDiv.innerHTML = "";
         let course = coursesManager.myCourses.find(course => course.id == id);
         for (let i = 0; i < course.activities.length; i++) {
+            let activityType = course.activities[i].type;
+            let imagePath = "",
+                imageAlt = "";
+            if (activityType == null || activityType == undefined) {
+                imagePath = foldersManager.icons["reading"];
+                imageAlt = "reading";
+            } else {
+                imagePath = foldersManager.icons[course.activities[i].type];
+                imageAlt = course.activities[i].type;
+            }
+
+
             let html = `<div class="course-activities-result-activity" id="course-${course.id}" onclick="coursesManager.simulateActivityOpen(${course.activities[i].id})"> 
                             <div class="preview-result-course-activity-title d-flex align-items-center">
-                                <img class="list-item-img" src="${foldersManager.icons[course.activities[i].type]}" alt="reading">
+                                <img class="list-item-img" src="${imagePath}" alt="image-${imageAlt}">
                                 <p onclick="">ACTVITÉ N°${i+1}</p>
                             </div>
 
@@ -981,7 +994,6 @@ class CoursesManager {
             isDoable = true;
 
         const content = this.manageContentActivitiesOnePageCourse(activity);
-        //const activityData = this.returnContentForActivityInOnePageCourse(content, activity.activity.correction, activity.activity.type, correction, isDoable, activity);
         const activityData = this.returnContentForActivityInOnePageCourse(content, activity, correction, isDoable);
 
         if (!activity.evaluation && correction < 2 && !isDoable) {
@@ -1167,14 +1179,14 @@ class CoursesManager {
 
     renderLtiActivity(activityData, container, activityId, response) {
         const contentDiv = document.createElement('div');
-        contentDiv.id = 'activity-content' + activityId;
+        contentDiv.id = 'activity-content-' + activityId;
         if (typeof activityData.content == 'string') {
             contentDiv.innerHTML = activityData.content;
         } else {
             contentDiv.innerHTML = activityData.content[0];
         }
-        container.appendChild(contentDiv);
 
+        container.appendChild(contentDiv);
         if (typeof activityData.content == 'object') {
             document.forms[activityData.content[1]].submit();
         }
@@ -1188,9 +1200,13 @@ class CoursesManager {
             correction: null,
             doable: isDoable
         }
-    
+
+        let url = false;
+        if (activity.url) {
+            url = activity.url;
+        }
         if (isDoable) {
-            activityData.content = this.launchLtiResourceOnePageCourse(activity.id, activity.activity.type, content, !UserManager.getUser().isRegular, false);
+            activityData.content = this.launchLtiResourceOnePageCourse(activity.id, activity.activity.id, activity.activity.type, content, !UserManager.getUser().isRegular, url);
         } else {
             activityData.content = `<iframe src="${activity.url}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`;
             if (!UserManager.getUser().isRegular) {
@@ -1207,13 +1223,59 @@ class CoursesManager {
     }
 
     /**
+     * Validate an lti activity in a one page course
+     * @param {*} activityId 
+     * @param {*} activityLink 
+     */
+    async validateLtiOnePageCourse(activityId, activityLink) {
+        let activity = {
+            id: activityId,
+            activity: {
+                id: activityLink,
+            }
+        }
+
+        const activityData = await Main.getClassroomManager().getOneUserLinkActivity(activityId);
+        const course = coursesManager.getParcoursFromHisActivity(activity);
+
+        let activityDataFiltered = course.activities.filter(activity => activity.id == activityId)[0];
+        let reValidate = false;
+        if (activityDataFiltered.url) {
+            reValidate = true;
+        }
+
+        activityDataFiltered = activityData;
+
+        const content = coursesManager.manageContentActivitiesOnePageCourse(activityData);
+        const data = coursesManager.manageDisplayLtiForOnePageCourse(activityData, content, "", true);
+        const courseState = reValidate ? course.courseState : course.courseState + 1;
+
+        const res  =  await coursesManager._requestUpdateState(course.course.id, courseState);
+        if (res.hasOwnProperty('success')) {
+            if (res.success) {
+                course.courseState = parseInt(res.courseLinkUser.courseState);
+                if (courseState < course.activities.length) {
+                    let divContent = document.getElementById('activity-content-' + activityLink);
+                    if (typeof data == 'object') {
+                        divContent.innerHTML = data.content[0];
+                        document.forms[data.content[1]].submit();
+                    }
+                } else {
+                    coursesManager.viewCourseActivitiesResult(course.course.id);
+                }
+            } else {
+                displayNotification('#notif-div', "classroom.notif.errorSending", "error");
+            }
+        }
+    }
+
+    /**
      * This function is called when the user validate an reading activity in one page course
      * @param {*} activity 
      */
     callBackForCourseOnePage(activity) {
         coursesManager.manageValidateReponse(activity);
     }
-
 
     /**
      * This function is called when the user validate an activity in one page course
@@ -1228,13 +1290,11 @@ class CoursesManager {
         if (funct && type != 'reading') {
             funct[1](id, link, correction);
         } else if (type == 'reading') {
-
             let foundActivity = Main.getClassroomManager()._myCourses.filter((course) => {
                 return course.activities.filter((activity) => {
                     return activity.id == link && activity.activity.id == id;
                 });
             });
-
             if (foundActivity.length > 0) {
                 foundActivity = foundActivity[0].activities.filter((activity) => {
                     return activity.id == link && activity.activity.id == id;
@@ -1244,7 +1304,23 @@ class CoursesManager {
         }
     }
 
-    manageValidateReponse(response) {
+    getOneActivityFromCourse(activityId, activityLink) {
+        let foundActivity = Main.getClassroomManager()._myCourses.filter((course) => {
+            return course.activities.filter((activity) => {
+                return activity.id == activityLink && activity.activity.id == activityId;
+            });
+        });
+
+        if (foundActivity.length > 0) {
+            foundActivity = foundActivity[0].activities.filter((activity) => {
+                return activity.id == activityLink && activity.activity.id == activityId;
+            })[0];
+            return foundActivity;
+        }  
+        return null;
+    }
+
+    manageValidateReponse(response, reValidate = false) {
         if (response) {
             if (response.hasOwnProperty("message")) {
                 if (response.message == "activitySaved") {
@@ -1253,14 +1329,42 @@ class CoursesManager {
                     displayNotification('#notif-div', "classroom.activities.emptyAnswer", "error");
                 }
             } else {
-                this.processForOneActivity(response);
+                const course = this.getParcoursFromHisActivity(response);
+                if (course) {
+                    let courseState = reValidate ? course.courseState : course.courseState + 1;
+                    this._requestUpdateState(course.course.id, courseState).then((res) => {
+                        if (res.hasOwnProperty('success')) {
+                            if (res.success) {
+                                // update the course state
+                                course.courseState = parseInt(res.courseLinkUser.courseState);
+                                if (courseState < course.activities.length) {
+                                    this.processForOneActivity(response);
+                                } else {
+                                    this.viewCourseActivitiesResult(course.course.id);
+                                }
+                            } else {
+                                displayNotification('#notif-div', "classroom.notif.errorSending", "error");
+                            }
+                        }
+                    });
+                }
             }
         } else {
             displayNotification('#notif-div', "classroom.notif.errorSending", "error");
         }
     }
+
+    getParcoursFromHisActivity(activity) {
+        let parcours = null;
+        Main.getClassroomManager()._myCourses.forEach((course) => {
+            if (course.activities.filter((act) => act.id == activity.id && activity.activity.id == act.activity.id).length > 0) {
+                parcours = course;
+            }
+        });
+        return parcours;
+    }
     
-    launchLtiResourceOnePageCourse(activityId, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false) {
+    launchLtiResourceOnePageCourse(activityId, activityLink, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false) {
         return [`<input id="activity-score" type="text" hidden/>
         <form name="resource_launch_form_${activityId}" action="${_PATH}lti/ltilaunch.php" method="post" target="lti_student_iframe_${activityId}">
             <input type="hidden" id="application_type" name="application_type" value="${activityType}">
@@ -1269,9 +1373,8 @@ class CoursesManager {
             <input type="hidden" id="activities_link_user" name="activities_link_user" value="${activityId}">
             <input type="hidden" id="student_resource_url" name="student_resource_url" value="${studentResourceUrl}">
         </form>
-        <iframe id="lti_student_iframe" src="about:blank" name="lti_student_iframe_${activityId}" title="Tool Content" width="100%" style="
-        height: 60vh;" allowfullscreen></iframe>
-        `, `resource_launch_form_${activityId}`];
+        <iframe id="lti_student_iframe_${activityId}" src="about:blank" data-id="${activityId}" data-link="${activityLink}" name="lti_student_iframe_${activityId}" title="Tool Content" width="100%" style="height: 60vh;" allowfullscreen></iframe>`, 
+        `resource_launch_form_${activityId}`];
     }
     
     manageContentActivitiesOnePageCourse(activity) {
@@ -1486,25 +1589,3 @@ class CoursesManager {
 // Initialize
 const coursesManager = new CoursesManager();
 coursesManager.init();
-
-
-//let detailsP = document.createElement('p');
-//detailsP.id = `activity-details-${activity.activity.id}-course-one-page`;
-//detailsP.classList.add('activity-details');
-
-// Check if the correction if available
-//if (activity.correction >= 1) {
-//    detailsP.innerHTML = i18next.t("classroom.activities.sentOn") + formatHour(activity.dateSend), i18next.t("classroom.activities.numberOfTries") + activity.tries;
-//} else {
-//    detailsP.innerHTML = i18next.t("classroom.activities.toSend") + formatDay(activity.dateEnd);
-//}
-//divActivity.appendChild(detailsP);
-
-//let introductionP = document.createElement('p');
-//introductionP.classList.add('d-none');
-//introductionP.id = `activity-introduction-${activity.activity.id}-course-one-page`;
-//
-//let textIntroductionSpan = document.createElement('span');
-//textIntroductionSpan.id = `text-introduction-${activity.activity.id}-course-one-page`;
-//divActivity.appendChild(introductionP);
-//introductionP.appendChild(textIntroductionSpan);

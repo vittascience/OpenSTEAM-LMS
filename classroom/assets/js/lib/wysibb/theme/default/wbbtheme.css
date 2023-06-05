@@ -503,11 +503,15 @@ html {
   background: #eee;
 }
 
+.wbb-table {
+  margin: 1.5em auto;
+}
+
 .wbb-table td {
-  border: 1px dashed #DDD;
+  border: 1px solid black;
   padding: 3px;
   margin: 5px;
-  min-width: 5px;
+  min-width: 10ch;
   min-height: 15px;
 }
 

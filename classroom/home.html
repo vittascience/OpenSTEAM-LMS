@@ -552,7 +552,7 @@
             <span data-i18n="classroom.profil.switchMode" class="text-span-initial mr-1"></span>
             <i class="fas fa-exchange-alt"></i></button>
 
-        <button class="btn c-btn-red" onclick="goToDisconnect('classroom');" data-testid="classroomLogoutBtn">
+        <button class="btn c-btn-red" onclick="goToDisconnect('classroom');">
             <span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
             <i class="fas fa-power-off"></i>
         </button>
@@ -2335,11 +2335,11 @@
                 <div class="d-flex">
                     <label for="course-format" class="d-flex align-items-center mb-0" data-i18n="">Format d'affichage du parcous : </label>
                     <div class="switcher mx-3">
-                        <input type="radio" name="course-format" class="switcher__input switcher__input--left" value="false" id="course-standard" checked=""/>
-                        <label for="course-standard" class="switcher__label text-capitalize" data-i18n="courses.format.standart">pages</label>
+                        <input type="radio" name="course-format" class="switcher__input switcher__input--left" value="0" id="course-standard" checked=""/>
+                        <label for="course-standard" class="switcher__label text-capitalize" data-i18n="courses.format.standart"></label>
                     
-                        <input type="radio" name="course-format" class="switcher__input switcher__input--right" value="true" id="course-one-page"/>
-                        <label for="course-one-page" class="switcher__label text-capitalize" data-i18n="courses.format.onePage">page</label>
+                        <input type="radio" name="course-format" class="switcher__input switcher__input--right" value="1" id="course-one-page"/>
+                        <label for="course-one-page" class="switcher__label text-capitalize" data-i18n="courses.format.onePage"></label>
                     
                         <span class="switcher__toggle"></span>
                     </div>

@@ -208,6 +208,15 @@ class ClassroomManager {
         });
     }
     
+    returnCustomConfigWysibb(buttons, maxheight = 354, autoresize = false) {
+        return {
+            allButtons : {
+            },
+            resize_maxheight: maxheight,
+            autoresize: autoresize,
+            buttons: buttons,
+        }
+    }
 
     /**
      * Get classrooms from the user
