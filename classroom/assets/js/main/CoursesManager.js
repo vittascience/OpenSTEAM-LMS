@@ -38,8 +38,6 @@ class CoursesManager {
         };
 
         this.wbbptions = null;
-        this.observer = null;
-        this.observedLtiActivity = null;
     }
 
     init() {
@@ -844,21 +842,6 @@ class CoursesManager {
             navigatePanel('classroom-dashboard-course-panel-one-page', 'dashboard-activities', 'course', '');
 
             this.loadOnePageCourseForStudent(course);
-
-            // Handle the LTI activities validation
-            this.observer = new IntersectionObserver((entries) => {
-                this.observedLtiActivity = null;
-                for (const entry of entries) {
-                    if (entry.isIntersecting) {
-                        this.observedLtiActivity = entry.target.dataset.id;
-                    }
-                }
-            }, {threshold: 0.8});
-
-            let targets = document.querySelectorAll('[id^="lti_student_iframe_"]');
-            for(let i = 0; i < targets.length; i++) {
-                this.observer.observe(targets[i]);
-            }
         });
     }
 
