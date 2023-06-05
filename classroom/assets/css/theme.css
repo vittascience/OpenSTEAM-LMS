@@ -63,7 +63,7 @@
 /* Change the hue-rotate to make the icon color match your primary color */
 .sidebar-classroom div img:not(.user-picture),
 .hue-rotate-base {
-    filter: hue-rotate(320deg);
+    filter: hue-rotate(0deg) saturate(0.9);
 }
 
 /* Change the scale of your logo if it is too big */
@@ -83,7 +83,7 @@ Used when the insterface is used by a teacher */
 .theme-teacher .sidebar-classroom div img:not(.user-picture),
 .hue-rotate-teacher {
     /* Change the hue-rotate to make the icon color match your theme color */
-    filter: hue-rotate(45deg);
+    filter: hue-rotate(85deg) saturate(1.5);
 }
 
 
