@@ -1,4 +1,4 @@
-function DisplayPanel() {}
+function DisplayPanel() { }
 
 DisplayPanel.prototype.classroom_dashboard_classes_panel_teacher = function () {
     classroomsDisplay();
@@ -35,7 +35,7 @@ DisplayPanel.prototype.classroom_dashboard_profil_panel = function () {
     })
 }
 DisplayPanel.prototype.classroom_dashboard_ide_panel = function (option) {
-    if (option == "python" || option == "microbit" || option == "arduino" || option == "esp32" || option == "quickpi" || option == "adacraft" || option == "wb55" || option == "TI-83"){
+    if (option == "python" || option == "microbit" || option == "arduino" || option == "esp32" || option == "quickpi" || option == "adacraft" || option == "wb55" || option == "TI-83") {
         $('#classroom-dashboard-ide-panel').html('<iframe width="100%" style="height:85vh;" frameborder="0" allowfullscreen="" style="border:1px #d6d6d6 solid;" src="' + URLServer + '/' + option + '/?console=bottom&use=classroom&embed=1&action=new"></iframe>')
     } else if (option == "texas-instruments") {
         $('#classroom-dashboard-ide-panel').html('<iframe width="100%" style="height:85vh;" frameborder="0" allowfullscreen="" style="border:1px #d6d6d6 solid;" src="' + URLServer + '/microbit/?toolbox=texas-instruments&console=bottom&use=classroom&embed=1&action=new"></iframe>');
@@ -48,7 +48,7 @@ DisplayPanel.prototype.classroom_dashboard_ide_panel = function (option) {
     function hideShareOptionArea(iframe) {
         let shareOptAreaElt = iframe.contentWindow.document.getElementById('check_box_div');
         let shareOptDescElt = iframe.contentWindow.document.getElementById('check_box_hint');
-        if (shareOptAreaElt){
+        if (shareOptAreaElt) {
             shareOptAreaElt.style.position = 'absolute';
             shareOptAreaElt.style.top = '-9999px';
             shareOptAreaElt.style.left = '-9999px';
@@ -56,7 +56,7 @@ DisplayPanel.prototype.classroom_dashboard_ide_panel = function (option) {
             shareOptDescElt.style.top = '-9999px';
             shareOptDescElt.style.left = '-9999px';
         } else {
-            setTimeout(() => {hideShareOptionArea(iframe)}, 400);
+            setTimeout(() => { hideShareOptionArea(iframe) }, 400);
         }
     }
 
@@ -147,10 +147,10 @@ DisplayPanel.prototype.classroom_dashboard_help_panel = function () {
 DisplayPanel.prototype.classroom_dashboard_help_panel_teacher = function () {
     let html = '';
     let index = [7, 12, 5, 3, 3, 3]; // number of questions+1 per category in faq
-    
+
     // capitalize demoStudent name
     let capitalizedDemoStudentName = `${demoStudentName.charAt(0).toUpperCase()}${demoStudentName.slice(1)}`;
-    
+
     for (let i = 1; i <= index.length; i++) {
         html += "<h4 data-i18n='[html]faqTeacherNeutral." + i + ".section_title'></h4>";
         for (let j = 1; j < index[i - 1]; j++) {
@@ -231,99 +231,98 @@ DisplayPanel.prototype.classroom_dashboard_form_classe_panel_update = function (
     $('#table-students-update ul').html("");
     classroom.students.forEach(function (student) {
         $('#table-students-update ul').append(addStudentRow(student.user.pseudo, student.user.id, true));
-    }) 
+    })
 }
 
 DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function () {
     Main.getClassroomManager().getAllTags().then((Tag) => {
 
-        if (Tag.HasOwnProperty("tags")) {
+        if (Tag) {
 
-        
-        if (Tag.tags.length > 0) {
-            const tagsForActivities = document.getElementById("tags-activities");
-            const tagsForPanel = document.getElementById("tags-panel");
-            tagsForActivities.classList.remove("d-none");
-            tagsForActivities.classList.add("d-flex");
-            tagsForPanel.classList.remove("d-none");
-        }
-
-        if (Main.getClassroomManager().tagList != Tag.tags) {
-            Main.getClassroomManager().tagList = Tag.tags;
-
-            let tagDropdown = document.getElementById("dropdown-tags-filter");
-            let tagListSelect = document.getElementById("taglist-select");
-
-            if (tagDropdown) {
-                tagDropdown.innerHTML = "";
+            if (Tag.tags.length > 0) {
+                const tagsForActivities = document.getElementById("tags-activities");
+                const tagsForPanel = document.getElementById("tags-panel");
+                tagsForActivities.classList.remove("d-none");
+                tagsForActivities.classList.add("d-flex");
+                tagsForPanel.classList.remove("d-none");
             }
 
-            if (tagListSelect) {
-                tagListSelect.innerHTML = "";
-            }
+            if (Main.getClassroomManager().tagList != Tag.tags) {
+                Main.getClassroomManager().tagList = Tag.tags;
 
-            // order by parent tag
-            Tag.tags.sort((a, b) => {
-                if (a.parentTag == null && b.parentTag != null) {
-                    return -1;
-                } else if (a.parentTag != null && b.parentTag == null) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            });
-            
-
-            Tag.tags.forEach((tag) => {
-
-                if (tagListSelect) {
-                    if (tag.parentTag != null) {
-                        let parentTag = tag.parentTag;
-                        let parentTagId = parentTag.id;
-                        let parentTagName = parentTag.name;
-
-                        let parentTagElement = document.getElementById(`parent-tag-${parentTagId}`);
-                        if (parentTagElement) {
-                            parentTagElement.innerHTML += `<option value="${tag.id}">${tag.name}</option>`;
-                        } else {
-                            tagListSelect.innerHTML += `<optgroup label="${parentTagName}" id="parent-tag-${parentTagId}">
-                                <option value="${tag.id}">${tag.name}</option>
-                            </optgroup>`;
-                        }
-
-                    }
-                }
+                let tagDropdown = document.getElementById("dropdown-tags-filter");
+                let tagListSelect = document.getElementById("taglist-select");
 
                 if (tagDropdown) {
-                    if (tag.parentTag == null) {
-                        tagDropdown.innerHTML += `<fieldset id="field-${tag.id}" class="my-2">
+                    tagDropdown.innerHTML = "";
+                }
+
+                if (tagListSelect) {
+                    tagListSelect.innerHTML = "";
+                }
+
+                // order by parent tag
+                Tag.tags.sort((a, b) => {
+                    if (a.parentTag == null && b.parentTag != null) {
+                        return -1;
+                    } else if (a.parentTag != null && b.parentTag == null) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                });
+
+
+                Tag.tags.forEach((tag) => {
+
+                    if (tagListSelect) {
+                        if (tag.parentTag != null) {
+                            let parentTag = tag.parentTag;
+                            let parentTagId = parentTag.id;
+                            let parentTagName = parentTag.name;
+
+                            let parentTagElement = document.getElementById(`parent-tag-${parentTagId}`);
+                            if (parentTagElement) {
+                                parentTagElement.innerHTML += `<option value="${tag.id}">${tag.name}</option>`;
+                            } else {
+                                tagListSelect.innerHTML += `<optgroup label="${parentTagName}" id="parent-tag-${parentTagId}">
+                                <option value="${tag.id}">${tag.name}</option>
+                            </optgroup>`;
+                            }
+
+                        }
+                    }
+
+                    if (tagDropdown) {
+                        if (tag.parentTag == null) {
+                            tagDropdown.innerHTML += `<fieldset id="field-${tag.id}" class="my-2">
                         <legend class="mx-2 vitta-modal-title">${tag.name}</legend>
                         </fieldset>`;
-                    } else {
-                        let parentDiv = document.getElementById(`field-${tag.parentTag.id}`);
-                        parentDiv.innerHTML += `<div class="dropdown-item c-checkbox">
+                        } else {
+                            let parentDiv = document.getElementById(`field-${tag.parentTag.id}`);
+                            parentDiv.innerHTML += `<div class="dropdown-item c-checkbox">
                         <input class="form-check-input" data-id="${tag.id}" data-name="${tag.name}" type="checkbox" id="filter-activity-type-${tag.name}">
                         <label class="form-check-label" for="filter-activity-type-${tag.name}" id="filter-${tag.name}">${tag.name}</label>
                         </div>`
-                    }
-                }
-
-            });
-
-            if (tagDropdown) {
-                document.querySelectorAll('[id^="filter-activity-type-"]').forEach((checkbox) => {
-                    // add event listener to each checkbox
-                    checkbox.addEventListener("change", (event) => {
-                        let arrayKeywords = $('#filter-activity-input').val().split(' ');
-                        if ($('#filter-activity-select').val() == 'asc') {
-                            teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false), arrayKeywords, false)
-                        } else {
-                            teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true), arrayKeywords, true)
                         }
-                    });
+                    }
+
                 });
+
+                if (tagDropdown) {
+                    document.querySelectorAll('[id^="filter-activity-type-"]').forEach((checkbox) => {
+                        // add event listener to each checkbox
+                        checkbox.addEventListener("change", (event) => {
+                            let arrayKeywords = $('#filter-activity-input').val().split(' ');
+                            if ($('#filter-activity-select').val() == 'asc') {
+                                teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false), arrayKeywords, false)
+                            } else {
+                                teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true), arrayKeywords, true)
+                            }
+                        });
+                    });
+                }
             }
-        }
         }
     });
     ClassroomSettings.activity = false;
@@ -374,12 +373,12 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
             fullPath = currentOriginUrl + '/classroom/login.php?link=' + ClassroomSettings.classroom;
             QrCreator.render({
                 text: fullPath,
-                radius: 0.5, 
+                radius: 0.5,
                 ecLevel: 'H',
                 fill: getComputedStyle(document.documentElement).getPropertyValue('--classroom-primary'),
-                background: "white", 
+                background: "white",
                 size: 300
-              }, document.querySelector('#classroom-code-share-qr-code'));
+            }, document.querySelector('#classroom-code-share-qr-code'));
 
             // Block classroom feature
             if (getClassroomInListByLink(link)[0].classroom.isBlocked == false) {
@@ -418,7 +417,7 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) 
         }
         let attribution = getAttributionByRef(ref);
         let retroAttributionIsActive = ClassroomSettings.isRetroAttributed === true ? true : false;
-        $('#retro-attribution-activity-form').prop('checked',retroAttributionIsActive)
+        $('#retro-attribution-activity-form').prop('checked', retroAttributionIsActive)
         $('#introduction-activity-form').val(attribution.introduction)
         $('#date-begin-activity-form').val(formatDateInput(new Date(attribution.dateBegin.date)))
         $('#date-end-activity-form').val(formatDateInput(new Date(attribution.dateEnd.date)))
@@ -437,7 +436,7 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) 
         $('#date-begin-activity-form').val(formatDateInput(now))
         $('#date-end-activity-form').val(formatDateInput(future))
         $('#introduction-activity-form').val('')
-        $('#retro-attribution-activity-form').prop('checked',true)
+        $('#retro-attribution-activity-form').prop('checked', true)
     }
 }
 
@@ -498,8 +497,8 @@ function createSwitchViewForTeacherActivity() {
 
     let titleDiv = document.getElementById('activity-views-switcher');
     titleDiv.innerHTML = '';
-    
-    let switcherDiv = createHtmlElement('div', {    
+
+    let switcherDiv = createHtmlElement('div', {
         'class': 'd-flex'
     });
 
@@ -559,9 +558,9 @@ function createSwitchViewForTeacherActivity() {
 
 function getTeacherActivity() {
     resetInputsForActivity();
-    
+
     $('#activity-title').html(Activity.title);
-    
+
     let autoCorrectionDisclaimerElt = `<img id="activity-auto-disclaimer" data-toggle="tooltip" src="${_PATH}assets/media/auto-icon.svg" title="${i18next.t("classroom.activities.isAutocorrect")}">`
     Activity.isAutocorrect ? $('#activity-title').append(autoCorrectionDisclaimerElt).tooltip() : null;
 
@@ -604,7 +603,7 @@ function getTeacherActivity() {
     } else {
         $('#activity-views-switcher').html('');
     }
-    
+
     const switchPreview = document.getElementsByName('option-doable');
     for (let i = 0; i < switchPreview.length; i++) {
         switchPreview[i].addEventListener('click', () => {
