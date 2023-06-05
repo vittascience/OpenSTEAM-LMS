@@ -72,7 +72,7 @@ if($loginHint['deepLink']) {
   $jwt_payload["https://purl.imsglobal.org/spec/lti/claim/launch_presentation"] = [
     "locale" => $lang ?? "fr",
     "document_target" => "iframe",
-    "return_url" => $platform_url . "/openClassroom/classroom/lti/redirection.html"
+    "return_url" => $platform_url . "/classroom/lti/redirection.html"
   ];
   $jwt_payload["https://purl.imsglobal.org/spec/lti/claim/target_link_uri"] = $ltiTool->getDeepLinkUrl();
 }
@@ -94,7 +94,7 @@ else  {
   $jwt_payload["https://purl.imsglobal.org/spec/lti/claim/launch_presentation"] = [
     "locale" => $lang ?? "fr",
     "document_target" => "iframe",
-    "return_url" => $platform_url . "/openClassroom/classroom/lti/redirection.html"
+    "return_url" => $platform_url . "/classroom/lti/redirection.html"
   ];
   $jwt_payload["https://purl.imsglobal.org/spec/lti/claim/target_link_uri"] = $loginHint['lineitemId'];
   $jwt_payload["https://purl.imsglobal.org/spec/lti-ags/claim/endpoint"] = [
