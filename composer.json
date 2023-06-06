@@ -6,7 +6,7 @@
         "vittascience/vtinterfaces": "1.4.29",
         "vittascience/vtclassroom": "1.3.14",
         "vittascience/vtlearn": "1.4.02",
-        "vittascience/vutils": "1.2.17",
+        "vittascience/vutils": "1.2.19",
         "symfony/var-dumper": "^5.3"
     },
     "require": {
