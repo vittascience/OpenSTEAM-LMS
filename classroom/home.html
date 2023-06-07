@@ -1,6 +1,5 @@
     <link rel="stylesheet" href="assets/css/modal.css">
-    <link rel="stylesheet" href="assets/plugins/css/ImpactSurvey.css">
-<link rel="stylesheet" href="assets/plugins/css/ti83.css">
+    <link rel="stylesheet" href="assets/plugins/css/ti83.css">
 <link rel="stylesheet" href="assets/plugins/css/ti83pce-min.css">
 
     <script src="assets/js/scripts/classroom-lang.js"></script>
@@ -92,55 +91,56 @@
         <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span>
     </div>
 </div>
-<div id="classroom-dashboard-content">
-    <div id="classroom-dashboard-top-bar">
-        <!-- Breadcrumb -->
-        <div id="breadcrumb" class="row ml-2 mr-auto"></div>
+<div id="classroom-dashboard-top-bar">
+    <!-- Breadcrumb -->
+    <div id="breadcrumb" class="row ms-2 me-auto"></div>
 
-        <div id="notif-div"></div>
-        <button class="btn c-btn-secondary" type="button" id="questionMenuButton" style="display: none;">
-            <i class="fas fa-question"></i>
+    <div id="notif-div"></div>
+    <button class="btn c-btn-secondary" type="button" id="questionMenuButton" style="display: none;">
+        <i class="fas fa-question"></i>
+    </button>
+    <div id="a11y-dropdown" class="dropdown" style="align-self: flex-end;">
+        <button class="btn c-btn-primary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-low-vision"></i>
         </button>
-        <div id="a11y-dropdown" class="dropdown" style="align-self: flex-end;">
-            <button class="btn c-btn-primary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-low-vision"></i>
-            </button>
-            <div class="dropdown-menu a11y-dropdown" aria-labelledby="dropdownMenuButton">
-                <form action="javascript:void(0);" id="access-form">
-                    <h5 class="c-text-primary text-center"><i class="fas fa-low-vision"></i> <span data-i18n='switchAccessibility.title'></span></h5>
+        <div class="dropdown-menu dropdown-menu-right a11y-dropdown" aria-labelledby="dropdownMenuButton">
+            <form action="javascript:void(0);" id="access-form">
+                <h5 class="c-text-primary text-center"><i class="fas fa-low-vision"></i> <span data-i18n='switchAccessibility.title'></span></h5>
 
-                    <h5 data-i18n='switchAccessibility.theme'>Thème</h5>
-                    <div style="margin: 0 auto; width: 196px">
-                        <input type="radio" id="radio-light-theme" name="theme" value="light">
-                        <label for="radio-light-theme" data-i18n='switchAccessibility.light_theme'>Thème
-                            clair</label><br>
+                <h5 data-i18n='switchAccessibility.theme'>Thème</h5>
+                <div style="margin: 0 auto; width: 196px">
+                    <input type="radio" id="radio-light-theme" name="theme" value="light">
+                    <label for="radio-light-theme" data-i18n='switchAccessibility.light_theme'>Thème
+                        clair</label><br>
 
-                        <input type="radio" id="radio-dark-theme" name="theme" value="dark">
-                        <label for="radio-dark-theme" data-i18n='switchAccessibility.dark_theme'>Thème
-                            sombre</label><br>
-                    </div>
+                    <input type="radio" id="radio-dark-theme" name="theme" value="dark">
+                    <label for="radio-dark-theme" data-i18n='switchAccessibility.dark_theme'>Thème
+                        sombre</label><br>
+                </div>
 
-                    <h5 data-i18n='switchAccessibility.font'>Polices</h5>
-                    <div style="margin: 0 auto; width: 196px">
-                        <input type="radio" id="radio-basic-font" name="font" value="basic">
-                        <label for="radio-basic-font" style="font-family: 'Montserrat'!important" data-i18n='switchAccessibility.basic_font'>Basique</label><br>
+                <h5 data-i18n='switchAccessibility.font'>Polices</h5>
+                <div style="margin: 0 auto; width: 196px">
+                    <input type="radio" id="radio-basic-font" name="font" value="basic">
+                    <label for="radio-basic-font" style="font-family: 'Montserrat'!important" data-i18n='switchAccessibility.basic_font'>Basique</label><br>
 
-                        <input type="radio" id="radio-luciole-font" name="font" value="luciole">
-                        <label for="radio-luciole-font" style="font-family: 'Luciole'!important">Luciole</label><br>
+                    <input type="radio" id="radio-luciole-font" name="font" value="luciole">
+                    <label for="radio-luciole-font" style="font-family: 'Luciole'!important">Luciole</label><br>
 
-                        <input type="radio" id="radio-dys-font" name="font" value="dys">
-                        <label for="radio-dys-font" style="font-family: 'OpenDyslexic'!important">OpenDyslexic</label><br>
+                    <input type="radio" id="radio-dys-font" name="font" value="dys">
+                    <label for="radio-dys-font" style="font-family: 'OpenDyslexic'!important">OpenDyslexic</label><br>
 
-                        <input type="radio" id="radio-arial-font" name="font" value="arial">
-                        <label for="radio-arial-font" style="font-family: 'Arial'!important">Arial</label><br>
+                    <input type="radio" id="radio-arial-font" name="font" value="arial">
+                    <label for="radio-arial-font" style="font-family: 'Arial'!important">Arial</label><br>
 
-                        <input type="radio" id="radio-verdana-font" name="font" value="verdana">
-                        <label for="radio-verdana-font" style="font-family: 'Verdana'!important">Verdana</label><br>
-                    </div>
-                </form>
-            </div>
+                    <input type="radio" id="radio-verdana-font" name="font" value="verdana">
+                    <label for="radio-verdana-font" style="font-family: 'Verdana'!important">Verdana</label><br>
+                </div>
+            </form>
         </div>
     </div>
+</div>
+<div id="classroom-dashboard-content">
+
 <div id="classroom-dashboard-profil-panel" style="display:none;" class="dashboard-block profile-panel">
         
         <div class="d-flex flex-column text-center align-items-center">
@@ -161,8 +161,8 @@
         <!-- <div id="space-return-button"></div> -->
 
         <div class="d-flex flex-column" style="gap: 1.5em;">
-                <button class="btn mb-2 c-btn-outline-primary" id="settings-student"><span data-i18n="words.settings" class="text-capitalize mr-1 text-span-initial"></span><i class="fas fa-cog"></i></button>
-                <button id="teacherSwitchButton" class="btn  mb-2 c-btn-outline-primary" onclick="modeProf()"><span class="text-span-initial mr-1" data-i18n="[html]classroom.profil.switchModeTeacher"></span><i class="fas fa-exchange-alt"></i></button>
+                <button class="btn mb-2 c-btn-outline-primary" id="settings-student"><span data-i18n="words.settings" class="text-capitalize me-1 text-span-initial"></span><i class="fas fa-cog"></i></button>
+                <button id="teacherSwitchButton" class="btn  mb-2 c-btn-outline-primary" onclick="modeProf()"><span class="text-span-initial me-1" data-i18n="[html]classroom.profil.switchModeTeacher"></span><i class="fas fa-exchange-alt"></i></button>
                 <button class="btn mb-2 c-btn-red" onclick="goToDisconnect('classroom');"><span
                                 data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
                         <i class="fas fa-power-off"></i></button>
@@ -357,7 +357,7 @@
 <div id="classroom-dashboard-activities-panel" style="display:none;" class="dashboard-block">
     <div class="section-container section-new">
         <div class="section-header" onclick="sectionToggle('new')">
-            <i id="i-new" class="ml-2 fas fa-lg fa-chevron-down"></i>
+            <i id="i-new" class="ms-2 fas fa-lg fa-chevron-down"></i>
             <h3 class="section-title" data-i18n="classroom.activities.new"></h3>
             <span class="resource-number"> </span>
         </div>
@@ -366,7 +366,7 @@
     
     <div class="section-container section-saved">
         <div class="section-header" onclick="sectionToggle('saved')">
-            <i id="i-saved" class="ml-2 fas fa-lg fa-chevron-up"></i>
+            <i id="i-saved" class="ms-2 fas fa-lg fa-chevron-up"></i>
             <h3 class="section-title" >Brouillons</h3>
             <span class="resource-number"> </span>
         </div>
@@ -375,7 +375,7 @@
     
     <div class="section-container section-current">
         <div class="section-header" onclick="sectionToggle('current')">
-            <i id="i-current" class="ml-2 fas fa-lg fa-chevron-up"></i>
+            <i id="i-current" class="ms-2 fas fa-lg fa-chevron-up"></i>
             <h3 class="section-title" data-i18n="classroom.activities.current"></h3>
             <span class="resource-number"> </span>
         </div>
@@ -384,7 +384,7 @@
     
     <div class="section-container section-done">
         <div class="section-header" onclick="sectionToggle('done')">
-            <i id="i-done" class="ml-2 fas fa-lg fa-chevron-up"></i>
+            <i id="i-done" class="ms-2 fas fa-lg fa-chevron-up"></i>
             <h3 class="section-title" data-i18n="classroom.activities.done"></h3>
             <span class="resource-number"> </span>
         </div>
@@ -402,7 +402,7 @@
             <div id="main-div" class="col-12 col-lg mb-3" style="margin: 0 auto;overflow-wrap: break-word;">
                 <div class="d-flex flex-column align-items-center mnh-2-5" id="title-container">
                     <h3 id="activity-title" class="activity-title"></h3>
-                    <div id="activity-views-switcher" class="switcher-custom-top ml-auto p-2"></div>
+                    <div id="activity-views-switcher" class="switcher-custom-top ms-auto p-2"></div>
                 </div>
                
                 <!-- Used for status / date  -->
@@ -551,12 +551,12 @@
         </button>
 
         <button class="btn c-btn-outline-primary" onclick="listeModeApprenant()">
-            <span data-i18n="classroom.profil.switchMode" class="text-span-initial mr-1"></span>
+            <span data-i18n="classroom.profil.switchMode" class="text-span-initial me-1"></span>
             <i class="fas fa-exchange-alt"></i>
         </button>
 
         <button class="btn c-btn-outline-tertiary" id="go-to-main-site-button" onclick="goToLesTutosMaths();">
-            <span class="text-span-initial mr-1">Retourner sur MaClasseTI.fr</span>
+            <span class="text-span-initial me-1">Retourner sur MaClasseTI.fr</span>
         </button>
 
         <button class="btn c-btn-red" onclick="goToDisconnect('classroom');">
@@ -593,14 +593,14 @@
             </div>
             <div class="form-inline">
                 <input type="password" name="password" id="profile-form-password" class="form-control form-control-lg" autocomplete="off">
-                <i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
+                <i class="classroom-clickable fas fa-low-vision ms-2 password-display-toggler"></i>
             </div>
             <label for="profile-form-confirm-password" class="tutorial-label"
                 data-i18n="classroom.profil.accountSettings.confirmPassword"></label>
             <div class="form-inline">
                 <input type="password" name="confirm-password" id="profile-form-confirm-password"
                     class="form-control form-control-lg" autocomplete="off">
-                <i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
+                <i class="classroom-clickable fas fa-low-vision ms-2 password-display-toggler"></i>
             </div>
             <input type="hidden" name="teacher-id" id="profile-form-teacher-id">
             <div class="d-flex flex-column align-items-center">
@@ -645,7 +645,7 @@
                 <input type="text" id="classroom-form-school-update" class="form-control form-control-lg">
             </div>   
         </div>
-        <a href="#" id="update-classroom-student-button" class="new-student-modal btn c-btn-primary m-3"><i class="fas fa-user-plus"></i><span class="ml-1" data-i18n="classroom.classes.form.addStudent"></span></a>
+        <a href="#" id="update-classroom-student-button" class="new-student-modal btn c-btn-primary m-3"><i class="fas fa-user-plus"></i><span class="ms-1" data-i18n="classroom.classes.form.addStudent"></span></a>
         <div class="table-students" id="table-students-update">
             <ul>
                 <li id="no-student-label-update" data-i18n="classroom.classes.form.noStudent"></li>
@@ -655,7 +655,7 @@
             <input type="checkbox" name="classroom-form-is-blocked" id="classroom-form-is-blocked-update">
             <label for="classroom-form-is-blocked-update" data-i18n="classroom.classes.form.isBlockedButton"></label>
         </div>
-        <button type="submit" class="new-classroom-form btn c-btn-primary m-3"><i class="fas fa-save"></i><span class="ml-1" data-i18n="classroom.classes.form.save"></span> </button>
+        <button type="submit" class="new-classroom-form btn c-btn-primary m-3"><i class="fas fa-save"></i><span class="ms-1" data-i18n="classroom.classes.form.save"></span> </button>
     </form>
 </div>
 
@@ -673,7 +673,7 @@
                 <input type="text" id="classroom-form-school" class="form-control form-control-lg">
             </div>   
         </div>
-        <a href="#" id="create-classroom-student-button" class="new-student-modal btn c-btn-primary m-3"><i class="fas fa-user-plus"></i><span class="ml-1" data-i18n="classroom.classes.form.addStudent"></span></a>
+        <a href="#" id="create-classroom-student-button" class="new-student-modal btn c-btn-primary m-3"><i class="fas fa-user-plus"></i><span class="ms-1" data-i18n="classroom.classes.form.addStudent"></span></a>
         <div class="table-students" id="table-students">
             <ul>
                 <li id="no-student-label" data-i18n="classroom.classes.form.noStudent"></li>
@@ -683,7 +683,7 @@
             <input type="checkbox" name="classroom-form-is-blocked" id="classroom-form-is-blocked">
             <label for="classroom-form-is-blocked" data-i18n="classroom.classes.form.isBlockedButton"></label>
         </div>
-        <button type="submit" class="new-classroom-form btn c-btn-primary m-3"><i class="fas fa-save"></i><span class="ml-1" data-i18n="classroom.classes.form.save"></span> </button>
+        <button type="submit" class="new-classroom-form btn c-btn-primary m-3"><i class="fas fa-save"></i><span class="ms-1" data-i18n="classroom.classes.form.save"></span> </button>
     </form>
 </div>
 
@@ -725,12 +725,12 @@
     </div>
 
     <div id="classroom-panel-legend">
-        <div id="add-student-container" class="ml-3"></div>
-        <div id="export-class-container" class="ml-3"></div>
+        <div id="add-student-container" class="ms-3"></div>
+        <div id="export-class-container" class="ms-3"></div>
 
         <div id="legend-container">
             <ul class="row legend" style="list-style:none;">
-                <li class="ml-3">
+                <li class="ms-3">
                     <div class="bilan-legend bilan-3">
                         <div class="monochrome-grade-div"></div>
                         <div class="monochrome-grade-div"></div>
@@ -739,7 +739,7 @@
                     </div>
                     <span data-i18n="classroom.activities.veryGoodProficiency"></span>
                 </li>
-                <li class="ml-3">
+                <li class="ms-3">
                     <div class="bilan-legend bilan-2">
                         <div class="monochrome-grade-div"></div>
                         <div class="monochrome-grade-div"></div>
@@ -748,7 +748,7 @@
                     </div>
                     <span data-i18n="classroom.activities.goodProficiency"></span>
                 </li>
-                <li class="ml-3">
+                <li class="ms-3">
                     <div class="bilan-legend bilan-1">
                         <div class="monochrome-grade-div"></div>
                         <div class="monochrome-grade-div"></div>
@@ -757,7 +757,7 @@
                     </div>
                     <span data-i18n="classroom.activities.weakProficiency"></span>
                 </li>
-                <li class="ml-3">
+                <li class="ms-3">
                     <div class="bilan-legend bilan-0">
                         <div class="monochrome-grade-div"></div>
                         <div class="monochrome-grade-div"></div>
@@ -766,7 +766,7 @@
                     </div>
                     <span data-i18n="classroom.activities.insufficientProficiency"></span>
                 </li>
-                <li class="ml-3">
+                <li class="ms-3">
                     <div class="bilan-legend bilan-4">
                         <div class="monochrome-grade-div"></div>
                         <div class="monochrome-grade-div"></div>
@@ -777,26 +777,26 @@
                 </li>
             </ul>
             <ul class="row legend" style="list-style:none; align-items: flex-end">
-                <li class="ml-3">
+                <li class="ms-3">
                     <div class="bilan-legend fas fa-pen"></div>
                     <span data-i18n="classroom.activities.todo"></span>
                 </li>
-                <li class="ml-3">
+                <li class="ms-3">
                     <div class="bilan-legend fas fa-stopwatch"></div>
                     <span data-i18n="classroom.activities.waiting"></span>
                 </li>
 
-                <li class="ml-3 c-checkbox" style="height: 1.6em;">
-                    <input type="checkbox" id="is-monochrome" title="" class="mr-2">
+                <li class="ms-3 c-checkbox" style="height: 1.6em;">
+                    <input type="checkbox" id="is-monochrome" title="" class="me-2">
                     <label for="is-monochrome">
-                        <span class="mr-2">Mode monochrome</span>
+                        <span class="me-2">Mode monochrome</span>
                     </label>
                 </li>
 
-                <li class="ml-3 c-checkbox" style="height: 1.6em;">
-                    <input type="checkbox" id="is-anonymised" title="" class="mr-2">
+                <li class="ms-3 c-checkbox" style="height: 1.6em;">
+                    <input type="checkbox" id="is-anonymised" title="" class="me-2">
                     <label for="is-anonymised">
-                        <span class="text-capitalize mr-2" data-i18n="words.anonymize"></span><i data-i18n="[title]classroom.activities.anonymise" class="fas fa-question-circle"></i>
+                        <span class="text-capitalize me-2" data-i18n="words.anonymize"></span><i data-i18n="[title]classroom.activities.anonymise" class="fas fa-question-circle"></i>
                     </label>
                 </li>
             </ul>
@@ -859,7 +859,7 @@
                 <div class="dropdown mx-2 d-none" id="tags-panel">
                     <button class="btn c-btn-primary" style="width: auto;height: 3em;min-width: 3em;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-filter"></i>
-                        <span class="ml-1 d-none d-md-inline">Filtres</span>
+                        <span class="ms-1 d-none d-md-inline">Filtres</span>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown-tags-filter">
                     </div>
@@ -896,10 +896,10 @@
     </div>
 
     <div class="buttons-interactions flex-wrap d-inline-flex col-12 mt-3">
-        <button id="new-activity-panel1" onclick="showExercicePanel()" class=" btn c-btn-outline-secondary"><span class="mr-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
+        <button id="new-activity-panel1" onclick="showExercicePanel()" class=" btn c-btn-outline-secondary"><span class="me-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
         </button>
 
-        <button id="new-activity-panel1" onclick="coursesManager.showCoursePanel()" class="btn c-btn-outline-primary"><span class="mr-1">Créer un parcours</span><i class="fas fa-chevron-right"></i>
+        <button id="new-activity-panel1" onclick="coursesManager.showCoursePanel()" class="btn c-btn-outline-primary"><span class="me-1">Créer un parcours</span><i class="fas fa-chevron-right"></i>
         </button>
 
         <button class="btn c-btn-icon-only" id="new-activities-folder" onclick="foldersManager.openFolderModal()">
@@ -909,8 +909,8 @@
             <img src="assets/media/folders/folder_tree.svg" alt="arb-folders" onload="SVGInject(this)" style="height: 30px;">
         </button>
 
-        <button id="new-activity-panel-3" onclick="importActivityFromJSON()" class="btn c-btn-no-outline-primary ml-auto">
-            <span class="mr-1" data-i18n="newActivities.import">Importer une activité</span><i class="fas fa-download"></i>
+        <button id="new-activity-panel-3" onclick="importActivityFromJSON()" class="btn c-btn-no-outline-primary ms-auto">
+            <span class="me-1" data-i18n="newActivities.import">Importer une activité</span><i class="fas fa-download"></i>
         </button>
     </div>
 
@@ -1044,7 +1044,7 @@
         <div class="section-facultative-options">
 
             <div class="section-header-facultative-options" onclick="facultativeOptions()">
-                <i id="i-facultative-options" class="ml-2 fas fa-lg fa-chevron-up"></i>
+                <i id="i-facultative-options" class="ms-2 fas fa-lg fa-chevron-up"></i>
                 <h3 class="section-title-facultative-options" data-i18n="classroom.activities.facultative">Options facultatives</h3>
             </div>
 
@@ -1213,7 +1213,7 @@
         <button class="btn c-btn-outline-primary" id="settings-groupadmin"><span class="text-capitalize text-span-initial" data-i18n="words.settings" class="text-capitalize"></span> <i class="fas fa-cog"></i>
         </button>
 
-        <button class="btn c-btn-outline-primary" onclick="switchToProf()"><span data-i18n="classroom.profil.switchModeTeacher" class="text-span-initial mr-1"></span><i class="fas fa-exchange-alt"></i></button>
+        <button class="btn c-btn-outline-primary" onclick="switchToProf()"><span data-i18n="classroom.profil.switchModeTeacher" class="text-span-initial me-1"></span><i class="fas fa-exchange-alt"></i></button>
 
         <button class="btn c-btn-red" onclick="goToDisconnect('classroom');"><span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
             <i class="fas fa-power-off"></i>
@@ -1377,7 +1377,7 @@
         <button class="btn c-btn-outline-primary" id="settings-manager"><span class="text-capitalize text-span-initial" data-i18n="words.settings" class="text-capitalize"></span> <i class="fas fa-cog"></i>
         </button>
 
-        <button class="btn c-btn-outline-primary" onclick="switchToProf()"><span data-i18n="classroom.profil.switchModeTeacher" class="text-span-initial mr-1"></span><i class="fas fa-exchange-alt"></i></button>
+        <button class="btn c-btn-outline-primary" onclick="switchToProf()"><span data-i18n="classroom.profil.switchModeTeacher" class="text-span-initial me-1"></span><i class="fas fa-exchange-alt"></i></button>
 
         <button class="btn c-btn-red" onclick="goToDisconnect('classroom');"><span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
             <i class="fas fa-power-off"></i>
@@ -1989,7 +1989,7 @@
         <div class="section-preview-activity" id="activity-preview-div">
 
             <div class="section-header-preview-activity" onclick="activityPreviewToggler()">
-                <i id="i-activity-preview" class="ml-2 fas fa-lg fa-chevron-up"></i>
+                <i id="i-activity-preview" class="ms-2 fas fa-lg fa-chevron-up"></i>
                 <h3 class="section-title-preview-activity" data-i18n="classroom.activities.previewActivity">preview-activity</h3>
             </div>
 
@@ -2321,7 +2321,7 @@
                 </button>
 
                 <button class="btn c-btn-secondary mx-1" id="course-create-activity">
-                    <span data-i18n="courses.createActivity" onclick="showExercicePanel()"><span class="mr-1" data-i18n="classroom.activities.add">Créer une activité</span><i class="fas fa-chevron-right"></i>
+                    <span data-i18n="courses.createActivity" onclick="showExercicePanel()"><span class="me-1" data-i18n="classroom.activities.add">Créer une activité</span><i class="fas fa-chevron-right"></i>
                 </button>
             </div>
 
@@ -2616,7 +2616,7 @@
         <div class="section-facultative-options">
 
             <div class="section-header-facultative-options" onclick="coursesManager.facultativeOptions()">
-                <i id="i-course-options" class="ml-2 fas fa-lg fa-chevron-up"></i>
+                <i id="i-course-options" class="ms-2 fas fa-lg fa-chevron-up"></i>
                 <h3 class="section-title-facultative-options" data-i18n="classroom.activities.facultative">Options facultatives</h3>
             </div>
 
@@ -2704,7 +2704,7 @@
 </script>
 <script src="assets/js/lib/popper-1.16.0/popper.min.js">
 </script>
-<script src="assets/js/lib/bootstrap-4.4.1/bootstrap.min.js">
+<script src="assets/js/lib/bootstrap-5.3.0/bootstrap.min.js">
 </script>
 <script src="assets/js/lib/i18next.js"></script>
 <script src="assets/js/lib/jquery-i18next.min.js"></script>
@@ -2876,14 +2876,13 @@
     }
 </script>
 <script src="assets/js/utils/translate.js"></script>
-<script src="assets/plugins/js/ImpactSurveyManager.js"></script>
 <script src="assets/plugins/js/DragAndDropTI.js"></script>
 <script src="assets/plugins/js/ELG-min.js"></script>
 <script src="assets/plugins/js/FillInTI.js"></script>
 <script src="assets/plugins/js/FreeTI.js"></script>
-<script src="assets/plugins/js/loginPage.js"></script>
 <script src="assets/plugins/js/QuizTI.js"></script>
 <script src="assets/plugins/js/ReadingTI.js"></script>
+<script src="assets/plugins/js/loginPage.js"></script>
 <script src="assets/plugins/js/ti.wysibb.js"></script>
 <script src="assets/plugins/js/ticalcActivity.js"></script>
 <script src="assets/plugins/js/translationTI.js"></script>

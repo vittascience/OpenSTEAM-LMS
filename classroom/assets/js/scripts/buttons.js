@@ -1376,7 +1376,7 @@ function addGroupmanager() {
                     </div>
                     <select class="form-control" id="u_group${numberOfAddedGroup}">
                     </select>
-                    <button class="btn btn-danger ml-1" onclick="deleteGroupFromCreate(${numberOfAddedGroup})">Supprimer</button>
+                    <button class="btn btn-danger ms-1" onclick="deleteGroupFromCreate(${numberOfAddedGroup})">Supprimer</button>
                 </div>`;
     $('#group_add_sa').append(HtmlToAdd);
 
@@ -1735,7 +1735,7 @@ function updateAddGroupmanager() {
                     </div>
                     <select class="form-control" id="update_u_group${nextGroup}">
                     </select>
-                    <button class="btn btn-danger ml-1" onclick="deleteGroupFromUpdate(${nextGroup})">Supprimer</button>
+                    <button class="btn btn-danger ms-1" onclick="deleteGroupFromUpdate(${nextGroup})">Supprimer</button>
                 </div>`;
     $("#update_actualgroup_sa").append(group);
     const item_id = 'update_u_group' + nextGroup;

@@ -54,52 +54,97 @@
 }
 
 /* Buttons */
+
+.btn {
+    font-weight: 700;
+    border-radius: 256px;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-primary,
 .c-btn-primary {
-    background: var(--classroom-primary);
-    color: white;
-    border-radius: 256px;
+    --bs-btn-color: var(--classroom-white);
+    --bs-btn-bg: var(--classroom-primary);
+    --bs-btn-border-color: var(--classroom-primary);
+
+    --bs-btn-hover-color: var(--classroom-white);
+    --bs-btn-hover-bg: var(--classroom-primary-dark);
+    --bs-btn-hover-border-color: var(--classroom-primary-dark);
 }
 
+.btn-outline-primary,
 .c-btn-outline-primary {
-    border: 2px solid var(--classroom-primary);
-    color: var(--classroom-primary);
-    background: transparent;
+    --bs-btn-color: var(--classroom-primary);
+    --bs-btn-border-color: var(--classroom-primary);
+    --bs-btn-border-width: 2px;
+
+    --bs-btn-hover-color: var(--classroom-primary-dark);
+    --bs-btn-hover-border-color: var(--classroom-primary-dark);
 }
 
+.btn-secondary,
 .c-btn-secondary {
-    background: var(--classroom-secondary);
-    color: white;
-    border-radius: 256px;
+    --bs-btn-color: var(--classroom-white);
+    --bs-btn-bg: var(--classroom-secondary);
+    --bs-btn-border-color: var(--classroom-secondary);
+
+    --bs-btn-hover-color: var(--classroom-white);
+    --bs-btn-hover-bg: var(--classroom-secondary-dark);
+    --bs-btn-hover-border-color: var(--classroom-secondary-dark);
 }
 
+.btn-outline-secondary,
 .c-btn-outline-secondary {
-    border: 2px solid var(--classroom-secondary);
-    color: var(--classroom-secondary);
-    background: transparent;
+    --bs-btn-color: var(--classroom-secondary);
+    --bs-btn-border-color: var(--classroom-secondary);
+    --bs-btn-border-width: 2px;
+
+    --bs-btn-hover-color: var(--classroom-secondary-dark);
+    --bs-btn-hover-border-color: var(--classroom-secondary-dark);
 }
 
+.btn-tertiary,
 .c-btn-tertiary {
-    background: var(--classroom-tertiary);
-    color: white;
-    border-radius: 256px;
+    --bs-btn-color: var(--classroom-white);
+    --bs-btn-bg: var(--classroom-tertiary);
+    --bs-btn-border-color: var(--classroom-tertiary);
+
+    --bs-btn-hover-color: var(--classroom-white);
+    --bs-btn-hover-bg: var(--classroom-tertiary-dark);
+    --bs-btn-hover-border-color: var(--classroom-tertiary-dark);
 }
 
+.btn-outline-tertiary,
 .c-btn-outline-tertiary {
-    border: 2px solid var(--classroom-tertiary);
-    color: var(--classroom-tertiary);
-    background: transparent;
+    --bs-btn-color: var(--classroom-tertiary);
+    --bs-btn-border-color: var(--classroom-tertiary);
+    --bs-btn-border-width: 2px;
+
+    --bs-btn-hover-color: var(--classroom-tertiary-dark);
+    --bs-btn-hover-border-color: var(--classroom-tertiary-dark);
 }
 
+.btn-red,
+.btn-danger,
 .c-btn-red {
-    background: var(--classroom-red);
-    color: var(--classroom-white);
-    border-radius: 256px;
+    --bs-btn-color: var(--classroom-white);
+    --bs-btn-bg: var(--classroom-red);
+    --bs-btn-border-color: var(--classroom-red);
+
+    --bs-btn-hover-color: var(--classroom-white);
+    --bs-btn-hover-bg: var(--classroom-red-dark);
+    --bs-btn-hover-border-color: var(--classroom-red-dark);
 }
 
+.btn-outline-red,
+.btn-outline-danger,
 .c-btn-outline-red {
-    border: 2px solid var(--classroom-red);
-    color: var(--classroom-red);
-    background: transparent;
+    --bs-btn-color: var(--classroom-red);
+    --bs-btn-border-color: var(--classroom-red);
+    --bs-btn-border-width: 2px;
+
+    --bs-btn-hover-color: var(--classroom-red-dark);
+    --bs-btn-hover-border-color: var(--classroom-red-dark);
 }
 
 .c-btn-grey {

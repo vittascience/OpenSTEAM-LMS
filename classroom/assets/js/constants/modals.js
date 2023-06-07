@@ -118,7 +118,7 @@ const classroomModals = {
         <p class="text-center" data-i18n="classroom.modals.settingsTeacher.passwordDescription"></p>
         <div class="d-flex justify-content-center">
             <form class="pwd-display-stud pwd-display-stud-modal" href="#">
-                <input type="password" readonly class="modal-pwd" id="password-display-area" autocomplete="off"><i class="classroom-clickable fas fa-low-vision ml-2 password-display-toggler"></i>
+                <input type="password" readonly class="modal-pwd" id="password-display-area" autocomplete="off"><i class="classroom-clickable fas fa-low-vision ms-2 password-display-toggler"></i>
             </form>
             
             <button class="btn c-btn-secondary" id="pwd-change-modal">Réinitialiser <i class="fas fa-chevron-right"></i></button>`,
@@ -163,7 +163,7 @@ const classroomModals = {
                                 <span data-i18n="manager.profil.onlyVisibleGroupAdmin">Uniquement visible par vous en tant qu'administrateur de groupe :</span>
                             </legend>
                             <button class="theme-group-admin btn mb-2 c-btn-outline-primary c-btn-dashboard" onclick="switchToGroupAdmin()" id="groupadmin-switch-button" style="display:none;"><span
-                                    data-i18n="manager.profil.groupAdmin" class="text-span-initial mr-1"></span>
+                                    data-i18n="manager.profil.groupAdmin" class="text-span-initial me-1"></span>
                                     <i class="fas fa-chevron-right"></i>
                             </button>
                             </fieldset>
@@ -177,7 +177,7 @@ const classroomModals = {
                                         <span data-i18n="manager.profil.onlyVisiblemanager">Uniquement visible par vous en tant que super admin :</span>
                                     </legend>
                                     <button class="theme-super-admin btn mb-2 c-btn-outline-primary c-btn-dashboard" onclick="switchTomanager()" id="manager-switch-button" style="display:none;">
-                                        <span data-i18n="manager.profil.manager" class="text-span-initial mr-1"></span>
+                                        <span data-i18n="manager.profil.manager" class="text-span-initial me-1"></span>
                                         <i class="fas fa-chevron-right"></i>
                                 </button>
                             </fieldset>
@@ -209,7 +209,7 @@ const classroomModals = {
         content: `
         <p data-i18n="classroom.modals.listClass.description" data-i18n-options={"demoStudent":"${capitalizedDemoStudentName}"}>Vous pouvez tester en toute simplicité l'interface en tant qu'apprenant, et revenir à tout moment à votre profil d'enseignant. La progression en tant qu'apprenant sera sauvegardée sur le compte {{demoStudent}}.</p>
         <div id="list-classes" class="mx-5 c-primary-form"></div>
-        <button class="btn  mb-2 c-btn-primary" id="mode-student-check" onclick="modeApprenant()" > <span class="mr-1" data-i18n="classroom.modals.listClass.switchButton">Passer en mode apprenant</span> <i class="fas fa-cog"></i></button>
+        <button class="btn  mb-2 c-btn-primary" id="mode-student-check" onclick="modeApprenant()" > <span class="me-1" data-i18n="classroom.modals.listClass.switchButton">Passer en mode apprenant</span> <i class="fas fa-cog"></i></button>
                 `,
         footer: ``
     },
@@ -269,13 +269,13 @@ const classroomModals = {
                 <input class="col-5 student-form-name" type="text">
             </div>
         </div>
-        <button id="create-classroom-add-student-to-list" class="save-student-in-classroom c-btn-primary m-3"><i class="fas fa-save"></i> <span class="ml-1" data-i18n="clsave-student-in-classroomassroom.modals.addStudent.addStudentButton">Ajouter l'apprenant</span></button>
+        <button id="create-classroom-add-student-to-list" class="save-student-in-classroom c-btn-primary m-3"><i class="fas fa-save"></i> <span class="ms-1" data-i18n="clsave-student-in-classroomassroom.modals.addStudent.addStudentButton">Ajouter l'apprenant</span></button>
         <div class="d-flex flex-column justify-content-center align-items-center">
             <div class="d-flex justify-content-center modal-separator mt-4 mb-4">
                 <span data-i18n="classroom.modals.addActivity.orSeparator">OU</span>
             </div>
             <button class="btn c-btn-secondary" onclick="openCsvModal();">
-                <span data-i18n="classroom.modals.addStudent.addStudentByCsvButton">Ajouter un fichier d'apprenants (.csv)</span><i class="fas fa-chevron-right ml-1"></i>
+                <span data-i18n="classroom.modals.addStudent.addStudentByCsvButton">Ajouter un fichier d'apprenants (.csv)</span><i class="fas fa-chevron-right ms-1"></i>
             </button>
         </div>`,
         footer: ``
@@ -293,13 +293,13 @@ const classroomModals = {
                 <input class="col-5 student-form-name" type="text">
             </div>
         </div>
-        <button id="update-classroom-add-student-to-list" class="btn save-student-in-classroom c-btn-primary m-3"><i class="fas fa-save"></i> <span class="ml-1" data-i18n="classroom.modals.addStudent.addStudentButton">Ajouter l'apprenant</span></button>
+        <button id="update-classroom-add-student-to-list" class="btn save-student-in-classroom c-btn-primary m-3"><i class="fas fa-save"></i> <span class="ms-1" data-i18n="classroom.modals.addStudent.addStudentButton">Ajouter l'apprenant</span></button>
         <div class="d-flex flex-column justify-content-center align-items-center">
             <div class="d-flex justify-content-center modal-separator mt-4 mb-4">
                 <span data-i18n="classroom.modals.addActivity.orSeparator">OU</span>
             </div>
             <button class="btn c-btn-secondary" onclick="openCsvModal(true);">
-                <span data-i18n="classroom.modals.addStudent.addStudentByCsvButton">Ajouter un fichier d'apprenants (.csv)</span><i class="fas fa-chevron-right ml-1"></i>
+                <span data-i18n="classroom.modals.addStudent.addStudentByCsvButton">Ajouter un fichier d'apprenants (.csv)</span><i class="fas fa-chevron-right ms-1"></i>
             </button>
         </div>`,
         footer: ``
@@ -317,13 +317,13 @@ const classroomModals = {
                 <input class="col-5 student-form-name" type="text">
             </div>
         </div>
-        <button id="add-student-to-classroom" class="btn save-student-in-classroom c-btn-primary m-3"><i class="fas fa-save"></i> <span class="ml-1" data-i18n="classroom.modals.addStudent.addStudentButton">Ajouter l'apprenant</span></button>
+        <button id="add-student-to-classroom" class="btn save-student-in-classroom c-btn-primary m-3"><i class="fas fa-save"></i> <span class="ms-1" data-i18n="classroom.modals.addStudent.addStudentButton">Ajouter l'apprenant</span></button>
         <div class="d-flex flex-column justify-content-center align-items-center">
             <div class="d-flex justify-content-center modal-separator mt-4 mb-4">
                 <span data-i18n="classroom.modals.addActivity.orSeparator">OU</span>
             </div>
             <button class="btn c-btn-secondary" onclick="openCsvModal();">
-                <span data-i18n="classroom.modals.addStudent.addStudentByCsvButton">Ajouter un fichier d'apprenants (.csv)</span><i class="fas fa-chevron-right ml-1"></i>
+                <span data-i18n="classroom.modals.addStudent.addStudentByCsvButton">Ajouter un fichier d'apprenants (.csv)</span><i class="fas fa-chevron-right ms-1"></i>
             </button>
         </div>`,
         footer: ``
@@ -561,7 +561,7 @@ const classroomModals = {
                 </label>
             </div>
     
-            <div class="form-check form-check-inline c-checkbox ml-3">
+            <div class="form-check form-check-inline c-checkbox ms-3">
                 <input type="checkbox" id="update_u_is_admin">
                 <label class="form-check-label" for="update_u_is_admin" data-i18n="manager.users.admin">
                     Administrateur

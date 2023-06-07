@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="assets/css/public.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/modal.css">
-    <link rel="stylesheet" href="assets/css/elements.css">
+    <link rel="stylesheet" href="assets/css/components.css">
 </head>
 
 <body>

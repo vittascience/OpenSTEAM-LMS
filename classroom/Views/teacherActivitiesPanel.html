@@ -8,7 +8,7 @@
                 <div class="dropdown mx-2 d-none" id="tags-panel">
                     <button class="btn c-btn-primary" style="width: auto;height: 3em;min-width: 3em;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-filter"></i>
-                        <span class="ml-1 d-none d-md-inline">Filtres</span>
+                        <span class="ms-1 d-none d-md-inline">Filtres</span>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown-tags-filter">
                     </div>
@@ -45,10 +45,10 @@
     </div>
 
     <div class="buttons-interactions flex-wrap d-inline-flex col-12 mt-3">
-        <button id="new-activity-panel-1" onclick="showExercicePanel()" class=" btn c-btn-outline-secondary"><span class="mr-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
+        <button id="new-activity-panel-1" onclick="showExercicePanel()" class=" btn c-btn-outline-secondary"><span class="me-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
         </button>
 
-        <button id="new-activity-panel-2" onclick="coursesManager.showCoursePanel()" class="btn c-btn-outline-primary"><span class="mr-1" data-i18n="courses.add">Créer un parcours</span><i class="fas fa-chevron-right"></i>
+        <button id="new-activity-panel-2" onclick="coursesManager.showCoursePanel()" class="btn c-btn-outline-primary"><span class="me-1" data-i18n="courses.add">Créer un parcours</span><i class="fas fa-chevron-right"></i>
         </button>
 
         <button class="btn c-btn-icon-only" id="new-activities-folder" onclick="foldersManager.openFolderModal()">
@@ -58,8 +58,8 @@
             <img src="assets/media/folders/folder_tree.svg" alt="arb-folders" onload="SVGInject(this)" style="height: 30px;">
         </button>
 
-        <button id="new-activity-panel-3" onclick="importActivityFromJSON()" class="btn c-btn-no-outline-primary ml-auto">
-            <span class="mr-1" data-i18n="newActivities.import">Importer une activité</span><i class="fas fa-download"></i>
+        <button id="new-activity-panel-3" onclick="importActivityFromJSON()" class="btn c-btn-no-outline-primary ms-auto">
+            <span class="me-1" data-i18n="newActivities.import">Importer une activité</span><i class="fas fa-download"></i>
         </button>
     </div>
 
@@ -193,7 +193,7 @@
         <div class="section-facultative-options">
 
             <div class="section-header-facultative-options" onclick="facultativeOptions()">
-                <i id="i-facultative-options" class="ml-2 fas fa-lg fa-chevron-up"></i>
+                <i id="i-facultative-options" class="ms-2 fas fa-lg fa-chevron-up"></i>
                 <h3 class="section-title-facultative-options" data-i18n="classroom.activities.facultative">Options facultatives</h3>
             </div>
 
