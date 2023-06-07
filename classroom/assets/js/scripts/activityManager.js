@@ -24,6 +24,11 @@ function setTextArea() {
     // Quiz
     $("#quiz-states").wysibb(options);
     $("#quiz-hint").wysibb(options);
+
+    // quiz rework
+    const btns = "fontcolor,underline,math,customimageupload,myimages,keys,screens";
+    const optMini = Main.getClassroomManager().returnCustomConfigWysibb(btns, 100)
+    $("#quiz-suggestion-1").wysibb(optMini);
 }
 
 // autocorrect modification pas pris en compte
