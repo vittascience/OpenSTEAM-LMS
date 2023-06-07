@@ -3739,3 +3739,8 @@ h3.section-done {
     padding: 2em 3em;
     margin: 2em 0;
 }
+
+.simple-background {
+    background: var(--classroom-background);
+}
+

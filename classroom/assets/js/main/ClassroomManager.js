@@ -139,17 +139,18 @@ class ClassroomManager {
 
             Object.entries(myImages).forEach((value, index) => {
                 if (value[1].filename) {
+                    let fileWithOutTimestamp = value[1].filename.split(".")[0].split('_').slice(1).join('_');
                     $('#customizable-modal-content').append(`<div class="col-4 my-2 d-flex">
                         <div class="card" style="width: 18rem;">
                             <img src="${value[1].src}" alt="${value[1].filename}" style="height:200px" class="img-fluid mx-auto">
-                            <div class="card-body">
-                            <h6 class="card-title">${value[1].filename.split(".")[0]}</h6>
-                            <div class="d-flex justify-content-center flex-wrap gap-2">
-                                <button class="btn-sm c-btn-primary mx-1 mt-2" data-i18n="manager.buttons.select" onclick="Main.getClassroomManager().selectImage('${value[1].src}', '${value[1].filename}')">Selectionner</button>
-                                <button class="btn-sm c-btn-secondary mx-1 mt-2" data-i18n="manager.buttons.delete" onclick="Main.getClassroomManager().deleteImagesAndRefresh('${value[1].id}')">Supprimer</button>
+                            <div class="card-body simple-background">
+                                <h6 class="card-title">${fileWithOutTimestamp}</h6>
+                                <div class="d-flex justify-content-center flex-wrap gap-2">
+                                    <button class="btn-sm c-btn-primary mx-1 mt-2" data-i18n="manager.buttons.select" onclick="Main.getClassroomManager().selectImage('${value[1].src}', '${value[1].filename}')">Selectionner</button>
+                                    <button class="btn-sm c-btn-secondary mx-1 mt-2" data-i18n="manager.buttons.delete" onclick="Main.getClassroomManager().deleteImagesAndRefresh('${value[1].id}')">Supprimer</button>
+                                </div>
                             </div>
-                        </div>
-                    </div>`);
+                        </div>`);
                 }
             });
 

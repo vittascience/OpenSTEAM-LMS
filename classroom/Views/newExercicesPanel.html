@@ -84,19 +84,22 @@
             <div id="quiz-content-edit" class="content m-3">
 
                 <div id="quiz-suggestions-container">
-                    <div class="form-group c-primary-form" id="quiz-group-1">
-                        <label for="quiz-suggestion-1" id="quiz-label-suggestion-1">Proposition 1</label>
-                        <button class="btn c-btn-grey mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-1" onclick="quizManager.deleteQuizSuggestion(1)">Delete</button>
 
-                        <div class="input-group mt-3">
-                            <input type="text" id="quiz-suggestion-1" class="form-control">
-                            <div class="input-group-append">
-                                <div class="input-group-text c-checkbox c-checkbox-grey">
-                                    <input class="form-check-input" type="checkbox" id="quiz-checkbox-1">
+                    <div class="form-group c-primary-form" id="quiz-group-1">
+                        <div class="row my-1">
+                            <div class="col">
+                                <label for="quiz-suggestion-1" id="quiz-label-suggestion-1">Proposition 1</label>
+                                <button class="btn c-btn-secondary mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-1" onclick="quizManager.deleteQuizSuggestion(1)">Delete</button>
+                            </div>
+
+                            <div class="col-md-auto d-flex align-items-center">
+                                <div class="c-checkbox c-checkbox-grey">
+                                <input class="form-check-input" type="checkbox" id="quiz-checkbox-1">
                                     <label class="form-check-label" for="quiz-checkbox-1" data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
                                 </div>
                             </div>
                         </div>
+                        <textarea id="quiz-suggestion-1" style="height:100px"></textarea>
                     </div>
                 </div>
 

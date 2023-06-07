@@ -178,6 +178,7 @@ class CustomActivity {
                                 </div>`;
             });
         } else {
+
             this.mediaItems.forEach((element, key) => {
                 document.getElementById("app-media-galery-container").innerHTML += 
                                 `<div class="card m-2 app-media-galery-item" style="width: 18rem;" data-name="${element.title}" style="display:none;">

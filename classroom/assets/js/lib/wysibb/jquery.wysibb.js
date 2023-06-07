@@ -1120,6 +1120,7 @@ wbbdebug = false;
 								// no errors, prepare file to be submitted 
 								const dataToSend = new FormData()
 								dataToSend.append('image', imageToUpload)
+								dataToSend.append('title', uploadImgTitle)
 
 								// inform the user that its request is loading
 								fileUploadMsgBox.html(`
