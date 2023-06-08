@@ -12,20 +12,21 @@
   font-style: normal;
 }
 
-
-
-html {
-  height: 100% !important;
-}
-
 /* RESPONSIBLE */
+
 .wysibb {
   border: 1px solid #ddd;
   position: relative;
   background: #fff;
-  font-size: 12px;
+
   width: 100%;
   min-height: 100px;
+
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "toolbar"
+    "text";
 }
 
 .wysibb button:focus,
@@ -55,25 +56,11 @@ html {
 
 /* MOBILE DEFAULT STYLES*/
 .wysibb .wysibb-toolbar {
-  float: left;
-  width: 70px;
-  height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 0;
-  border-right: 1px solid #ccc;
-}
+  grid-area: toolbar;
+  display: flex;
+  flex-wrap: wrap;
 
-.wysibb .wysibb-text {
-  margin: 0 0 0 70px;
-}
-
-.wysibb .wysibb-toolbar .modeSwitch {
-  display: block;
-  position: relative;
-  right: 0;
-  top: 0;
-  border: 0;
+  max-height: none !important;
 }
 
 .wysibb .wysibb-toolbar .wysibb-toolbar-container {
