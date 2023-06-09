@@ -1095,7 +1095,7 @@ function displayStudentsInClassroom(students, link=false) {
     }
 
 
-    $('#export-class-container').append(`<button id="download-csv" class="btn c-btn-tertiary ms-2" onclick="openDownloadCsvModal()"><i class="fa fa-download" aria-hidden="true"></i><span class="ms-1" data-i18n="classroom.activities.exportCsv">Exporter CSV</span></button>`).localize();
+    $('#export-class-container').append(`<button id="download-csv" class="btn c-btn-tertiary" onclick="openDownloadCsvModal()"><i class="fa fa-download" aria-hidden="true"></i><span class="ms-1" data-i18n="classroom.activities.exportCsv">Exporter CSV</span></button>`).localize();
 
     $('#header-table-teach').append(`<th class="add-activity-th" colspan="7"> <button class="btn c-btn-primary dashboard-activities-teacher" onclick="pseudoModal.openModal('add-activity-modal')" data-i18n="classroom.activities.addActivity">Ajouter une activité</button></th>`).localize();
 

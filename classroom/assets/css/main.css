@@ -985,6 +985,9 @@ button {
     margin-left: auto;
     margin-right: auto;
     padding-inline-start: 0px !important;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     font-style: italic;
 }
 
