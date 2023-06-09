@@ -99,9 +99,9 @@ class GroupAdminManager {
                 if (element.hasOwnProperty('applications')) {
                     element.applications.forEach(element_2 => {
                         if (element_2.image != null && element_2.image != "") {
-                            div_img += `<img src="${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                            div_img += `<img src="${element_2.image}" data-bs-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                         } else {
-                            div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                            div_img += `<img src="assets/media/no-app-icon.svg" data-bs-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                         }
                     });
                 }
@@ -163,19 +163,19 @@ class GroupAdminManager {
                     }
                     $('#paginationButtons_users_groupadmin').html(htmlButtons);
                 } else {
-                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userNoRights') + "'></i>";
+                    let $droits = " <i class='fas fa-question fa-2x' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userNoRights') + "'></i>";
                     if (element.hasOwnProperty('rights')) {
-                        $droits = element.rights === "1" ? "<i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userAdmin') + "' ></i>" :
-                        "<i class='fas fa-user fa-2x c-text-primary' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userTeacher') + "'></i>";
+                        $droits = element.rights === "1" ? "<i class='fas fa-crown fa-2x c-text-gold' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userAdmin') + "' ></i>" :
+                        "<i class='fas fa-user fa-2x c-text-primary' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userTeacher') + "'></i>";
                     }
 
                     let div_img = ""
                     if (element.hasOwnProperty('applicationsFromGroups')) {
                         element.applicationsFromGroups.forEach(element_2 => {
                             if (element_2.image != null && element_2.image != "") {
-                                div_img += `<img src="${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="${element_2.image}" data-bs-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             } else {
-                                div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="assets/media/no-app-icon.svg" data-bs-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             }
                         });
                     }
@@ -232,7 +232,7 @@ class GroupAdminManager {
             });
             $('#table_info_group_data_groupadmin').html($data_table);
             $('#table_info_group_data_groupadmin_inactive').html($data_table_inactive);
-            $('[data-toggle="tooltip"]').tooltip()
+            $('[data-bs-toggle="tooltip"]').tooltip()
         }
         $.ajax({
             type: "POST",
@@ -283,19 +283,19 @@ class GroupAdminManager {
 
                     $('#paginationButtons_users_groupadmin').html(htmlButtons);
                 } else {
-                    let $droits = " <i class='fas fa-question fa-2x' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userNoRights') + "'></i>";
+                    let $droits = " <i class='fas fa-question fa-2x' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userNoRights') + "'></i>";
                     if (element.hasOwnProperty('rights')) {
-                        $droits = element.rights === "1" ? "<i class='fas fa-crown fa-2x c-text-gold' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userAdmin') + "' ></i>" :
-                        "<i class='fas fa-user fa-2x c-text-primary' data-toggle='tooltip' data-placement='top' title='" + i18next.t('manager.table.userTeacher') + "'></i>";
+                        $droits = element.rights === "1" ? "<i class='fas fa-crown fa-2x c-text-gold' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userAdmin') + "' ></i>" :
+                        "<i class='fas fa-user fa-2x c-text-primary' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userTeacher') + "'></i>";
                     }
 
                     let div_img = ""
                     if (element.hasOwnProperty('applicationsFromGroups')) {
                         element.applicationsFromGroups.forEach(element_2 => {
                             if (element_2.image != null && element_2.image != "") {
-                                div_img += `<img src="${element_2.image}" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="${element_2.image}" data-bs-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             } else {
-                                div_img += `<img src="assets/media/no-app-icon.svg" data-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
+                                div_img += `<img src="assets/media/no-app-icon.svg" data-bs-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
                             }
                         });
                     }
@@ -356,7 +356,7 @@ class GroupAdminManager {
             $('#table_info_group_data_groupadmin').html($data_table);
             // For inactive users
             $('#table_info_group_data_groupadmin_inactive').html($data_table_inactive);
-            $('[data-toggle="tooltip"]').tooltip()
+            $('[data-bs-toggle="tooltip"]').tooltip()
         }
 
         $.ajax({

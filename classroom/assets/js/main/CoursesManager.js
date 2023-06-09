@@ -555,7 +555,7 @@ class CoursesManager {
                                 <div class="course-card-info">
                                     <div class="course-card-top">
                                         <div class="dropdown">
-                                            <i class="fas fa-cog fa-2x" type="button" id="dropdown-courseItem-${course.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-cog fa-2x" type="button" id="dropdown-courseItem-${course.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             </i>
                                             <div class="dropdown-menu" aria-labelledby="dropdown-courseItem-${course.id}" data-id="${course.id}">
                                                 <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="coursesManager.attributeCourse(${course.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
@@ -576,7 +576,7 @@ class CoursesManager {
                                     </div>
                                 </div>
                             </div>
-                            <h3 data-toggle="tooltip" title="${course.title}" class="course-item-title">${course.title}</h3>
+                            <h3 data-bs-toggle="tooltip" title="${course.title}" class="course-item-title">${course.title}</h3>
                             </div>
                         </div>`
         } else if (displayStyle == "list") {
@@ -598,7 +598,7 @@ class CoursesManager {
         
                         <div class="course-list-options">
                             <div class="course-list-options dropdown">
-                                <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-courseItem-${course.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-courseItem-${course.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 </i>
                                 <div class="dropdown-menu" aria-labelledby="dropdown-list-courseItem-${course.id}" data-id="${course.id}">
                                     <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="coursesManager.attributeCourse(${course.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
@@ -911,7 +911,7 @@ class CoursesManager {
         let html = "";
         html = `
             <div class="dropdown mx-2">
-                <button class="btn c-btn-outline-grey" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn c-btn-outline-grey" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     ${capitalizeFirstLetter(i18next.t('words.options'))}
                     <i class="fas fa-cog"></i>
                 </button>

@@ -86,8 +86,8 @@ function Modal(modalID = "a", options = {}) {
         exit_btn.setAttribute('class', 'vitta-modal-exit-btn vitta-button btn');
         exit_btn.setAttribute('type', 'button');
         exit_btn.setAttribute('data-i18n', '[title]modals.standard.default.exit');
-        exit_btn.setAttribute('data-toggle', 'tooltip');
-        exit_btn.setAttribute('data-placement', 'top');
+        exit_btn.setAttribute('data-bs-toggle', 'tooltip');
+        exit_btn.setAttribute('data-bs-placement', 'top');
         exit_btn.addEventListener('click', function () {
             myself.closeModal(modal.id);
         });
