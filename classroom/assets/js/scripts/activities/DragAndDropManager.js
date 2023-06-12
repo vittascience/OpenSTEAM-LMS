@@ -84,16 +84,13 @@ class DragAndDropManager {
     }
 
     showTeacherDragAndDropActivity(contentParsed, Activity) {
-        $("#activity-states").html(bbcodeContentIncludingMathLive(contentParsed.states));
         let contentForTeacher = contentParsed.dragAndDropFields.contentForTeacher;
         contentForTeacher = parseContent(contentForTeacher, "drag-and-drop-answer-teacher", true);
         $("#activity-content").html(bbcodeContentIncludingMathLive(contentForTeacher));
-        $("#activity-content-container").show();
-        $("#activity-states-container").show();
+        dragAndDropManager.showTeacherCommonCode(contentParsed);
     }
 
     showTeacherDragAndDropActivityDoable(contentParsed, Activity) {
-
         let solution = JSON.parse(Activity.solution);
         let contentDiv = document.getElementById('activity-content');
         contentDiv.innerHTML = "";
@@ -123,10 +120,13 @@ class DragAndDropManager {
         });
 
         initializeDragulaWithOneContainer('preview-drag-and-drop-fields-teacher', 'dropzone-preview');
-        $('#preview-states').show();
-        $('#preview-activity-drag-and-drop-container').show();
-        $('#activity-preview-div').show();
+        dragAndDropManager.showTeacherCommonCode(contentParsed);
+    }
 
+    showTeacherCommonCode(contentParsed) {
+        $("#activity-states").html(bbcodeContentIncludingMathLive(contentParsed.states));
+        $("#activity-content-container").show();
+        $("#activity-states-container").show();
     }
 
     manageDisplayDragAndDrop(correction, content, correction_div, isFromCourse) {

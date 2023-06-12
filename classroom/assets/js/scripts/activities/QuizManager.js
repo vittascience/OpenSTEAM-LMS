@@ -77,7 +77,7 @@ class QuizManager {
                                 </div>
 
                                 <div class="col-md-auto d-flex align-items-center">
-                                    <div class="c-checkbox c-checkbox-grey">
+                                    <div class="c-checkbox">
                                     <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}">
                                         <label class="form-check-label" for="quiz-checkbox-${i}" data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
                                     </div>
@@ -139,7 +139,7 @@ class QuizManager {
                                     </div>
 
                                     <div class="col-md-auto d-flex align-items-center">
-                                        <div class="c-checkbox c-checkbox-grey">
+                                        <div class="c-checkbox">
                                             <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}" ${solution[i-1].isCorrect ? "checked" : ""}>
                                             <label class="form-check-label" for="quiz-checkbox-${i}" data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
                                         </div>
@@ -168,7 +168,6 @@ class QuizManager {
     }
 
     showTeacherQuizActivity(contentParsed, Activity) {
-        $("#activity-states").html(bbcodeContentIncludingMathLive(contentParsed.states));
         $(`div[id^="teacher-suggestion-"]`).each(function() {
             $(this).remove();
         })
@@ -183,8 +182,7 @@ class QuizManager {
         }
 
         $('#activity-content').html(htmlToPush);
-        $("#activity-content-container").show();
-        $("#activity-states-container").show();
+        quizManager.displayForShowTeacher(contentParsed);
     }
 
     showTeacherQuizActivityDoable(contentParsed, Activity) {
@@ -196,9 +194,13 @@ class QuizManager {
         divActivityDoable.classList.add("activity-doable-quiz-teacher");
 
         contentDiv.innerHTML = quizManager.createContentForQuiz(contentParsed.quiz.contentForStudent, true, false, true);
-        $('#preview-states').show();
-        $('#preview-content').show();
-        $('#activity-preview-div').show();
+        quizManager.displayForShowTeacher(contentParsed);
+    }
+
+    displayForShowTeacher(contentParsed) {
+        $("#activity-states").html(bbcodeContentIncludingMathLive(contentParsed.states));
+        $("#activity-content-container").show();
+        $("#activity-states-container").show();
     }
 
 

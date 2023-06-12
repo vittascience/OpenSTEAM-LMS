@@ -2390,7 +2390,7 @@ wbbdebug = false;
 				for (var i = 1; i <= rc[0]; i++) {
 					code += (this.options.bbmode) ? ' [tr]\n' : '<tr>';
 					for (var j = 1; j <= rc[1]; j++) {
-						code += (this.options.bbmode) ? '  [td][/td]\n' : '<td>\uFEFF</td>';
+						code += (this.options.bbmode) ? '  [td][/td]\n' : '<td></td>';
 					}
 					code += (this.options.bbmode) ? '[/tr]\n' : '</tr>';
 				}

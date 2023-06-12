@@ -512,7 +512,8 @@ function createSwitchViewForTeacherActivity() {
         'name': 'option-doable',
         'id': 'option-doable-true',
         'autocomplete': 'off',
-        'value': 'right'
+        'value': 'right',
+        'checked': 'checked'
     }
 
     let attributesForDoableLabel = {
@@ -529,7 +530,6 @@ function createSwitchViewForTeacherActivity() {
         'name': 'option-doable',
         'id': 'option-doable-false',
         'autocomplete': 'off',
-        'checked': 'checked'
     }
 
     let attributesForDoableFalseLabel = {
@@ -600,8 +600,10 @@ function getTeacherActivity() {
     // Create the switch view for the teacher (doable or correction) if the activity is not a reading and not an LTI
     if (Activity.type != "reading" && !Activity.isLti) {
         createSwitchViewForTeacherActivity();
+        loadActivityContent(true);
     } else {
         $('#activity-views-switcher').html('');
+        loadActivityContent(false);
     }
 
     const switchPreview = document.getElementsByName('option-doable');
@@ -614,8 +616,6 @@ function getTeacherActivity() {
             }
         });
     }
-
-    loadActivityContent(false);
 }
 
 function getIntelFromClasses() {
