@@ -103,12 +103,10 @@ class FillInManager {
     }
 
     showTeacherFillInActivity(contentParsed, Activity) {
-        $("#activity-states").html(bbcodeContentIncludingMathLive(contentParsed.states));
         let contentForTeacher = contentParsed.fillInFields.contentForTeacher;
         contentForTeacher = parseContent(contentForTeacher, "lms-answer fill-in-answer-teacher", true);
         $('#activity-content').html(bbcodeContentIncludingMathLive(contentForTeacher));
-        $("#activity-content-container").show();
-        $("#activity-states-container").show();
+        fillInManager.showTeacherCommonCode(contentParsed);
     }
 
     showTeacherFillInActivityDoable(contentParsed, Activity) {
@@ -130,10 +128,13 @@ class FillInManager {
         }
 
         contentDiv.innerHTML = studentContent;
+        fillInManager.showTeacherCommonCode(contentParsed);
+    }
 
-        $('#preview-states').show();
-        $('#preview-activity-drag-and-drop-container').show();
-        $('#activity-preview-div').show();
+    showTeacherCommonCode(contentParsed) {
+        $("#activity-states").html(bbcodeContentIncludingMathLive(contentParsed.states));
+        $("#activity-content-container").show();
+        $("#activity-states-container").show();
     }
 
 

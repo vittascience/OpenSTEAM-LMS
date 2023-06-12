@@ -168,7 +168,6 @@ class QuizManager {
     }
 
     showTeacherQuizActivity(contentParsed, Activity) {
-        $("#activity-states").html(bbcodeContentIncludingMathLive(contentParsed.states));
         $(`div[id^="teacher-suggestion-"]`).each(function() {
             $(this).remove();
         })
@@ -183,8 +182,7 @@ class QuizManager {
         }
 
         $('#activity-content').html(htmlToPush);
-        $("#activity-content-container").show();
-        $("#activity-states-container").show();
+        quizManager.displayForShowTeacher(contentParsed);
     }
 
     showTeacherQuizActivityDoable(contentParsed, Activity) {
@@ -196,9 +194,13 @@ class QuizManager {
         divActivityDoable.classList.add("activity-doable-quiz-teacher");
 
         contentDiv.innerHTML = quizManager.createContentForQuiz(contentParsed.quiz.contentForStudent, true, false, true);
-        $('#preview-states').show();
-        $('#preview-content').show();
-        $('#activity-preview-div').show();
+        quizManager.displayForShowTeacher(contentParsed);
+    }
+
+    displayForShowTeacher(contentParsed) {
+        $("#activity-states").html(bbcodeContentIncludingMathLive(contentParsed.states));
+        $("#activity-content-container").show();
+        $("#activity-states-container").show();
     }
 
 

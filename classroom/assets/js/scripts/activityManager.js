@@ -684,6 +684,7 @@ function manageTagList(taglist) {
 
 function loadActivityContent(doable = false) {
     if (IsJsonString(Activity.content)) {
+        
         const contentParsed = JSON.parse(Activity.content);
         let funct = null;
 
