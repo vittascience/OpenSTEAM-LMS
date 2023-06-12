@@ -51,7 +51,7 @@ function bbcodeToHtml(html) {
     html = html.replace(/\[\/\*\]/gi, "</li>")
 
     // table
-    html = html.replace(/\[table\]/gi, "<table class='table table-bordered table-striped'>")
+    html = html.replace(/\[table\]/gi, "<table class='table table-bordered'>")
     html = html.replace(/\[\/table\]/gi, "</table>")
     html = html.replace(/\[tr\]/gi, "<tr>")
     html = html.replace(/\[\/tr\]/gi, "</tr>")

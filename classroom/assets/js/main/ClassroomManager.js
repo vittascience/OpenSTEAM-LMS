@@ -142,7 +142,7 @@ class ClassroomManager {
                     let fileWithOutTimestamp = value[1].filename.split(".")[0].split('_').slice(1).join('_');
                     $('#customizable-modal-content').append(`<div class="col-4 my-2 d-flex">
                         <div class="card" style="width: 18rem;">
-                            <img src="${value[1].src}" alt="${value[1].filename}" style="height:200px" class="img-fluid mx-auto">
+                            <img src="${value[1].src}" alt="${value[1].filename}" style="height:200px; object-fit: contain;" class="img-fluid mx-auto">
                             <div class="card-body simple-background">
                                 <h6 class="card-title">${fileWithOutTimestamp}</h6>
                                 <div class="d-flex justify-content-center flex-wrap gap-2">
@@ -164,7 +164,7 @@ class ClassroomManager {
         Main.getClassroomManager()._selectedAsset = document.location.origin + src;
         const htmlcode = `<img src="${Main.getClassroomManager()._selectedAsset}" title="${title}" style="width:${Main.getClassroomManager().imagesWidth}px" class="img-fluid img-custom"/>`;
         $(`#${Main.getClassroomManager().actualEditor.txtArea.id}`).bbcode();
-        $(`#${Main.getClassroomManager().actualEditor.txtArea.id}`).htmlcode($(`#${Main.getClassroomManager().actualEditor.txtArea.id}`).htmlcode() + htmlcode);
+        $(`#${Main.getClassroomManager().actualEditor.txtArea.id}`).insertAtCursor(htmlcode);
         pseudoModal.closeAllModal();
     }
 

@@ -77,7 +77,7 @@ class QuizManager {
                                 </div>
 
                                 <div class="col-md-auto d-flex align-items-center">
-                                    <div class="c-checkbox c-checkbox-grey">
+                                    <div class="c-checkbox">
                                     <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}">
                                         <label class="form-check-label" for="quiz-checkbox-${i}" data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
                                     </div>
@@ -139,7 +139,7 @@ class QuizManager {
                                     </div>
 
                                     <div class="col-md-auto d-flex align-items-center">
-                                        <div class="c-checkbox c-checkbox-grey">
+                                        <div class="c-checkbox">
                                             <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}" ${solution[i-1].isCorrect ? "checked" : ""}>
                                             <label class="form-check-label" for="quiz-checkbox-${i}" data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
                                         </div>
