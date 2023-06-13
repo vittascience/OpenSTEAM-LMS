@@ -94,7 +94,7 @@ async function readEvent (event) {
 
             if(msg.typeTool === "collections") {
                 $('#global_title').val(msg.title);
-                titleForward(msg.typeTool);
+                titleForward(msg);
             }
             else {
                 // Automatically stepping forward in the activity creation process

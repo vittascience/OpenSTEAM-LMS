@@ -49,6 +49,12 @@ $contentItemsLabel = "https://purl.imsglobal.org/spec/lti-dl/claim/content_items
           echo $validatedToken->$contentItemsLabel[0]->custom->type;
         }
       ?>",
+      autocorrect: "<?php
+        if (isset($validatedToken->$contentItemsLabel[0]->custom) && 
+        isset($validatedToken->$contentItemsLabel[0]->custom->autocorrect)) {
+          echo $validatedToken->$contentItemsLabel[0]->custom->autocorrect;
+        }
+      ?>",
     };
     window.top.postMessage(JSON.stringify(msg), '*')
   }
