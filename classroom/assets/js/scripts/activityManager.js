@@ -198,9 +198,12 @@ function titleBackward() {
             Main.getClassroomManager().createNewActivity(title, type, content, solution, tolerance, autocorrect, folder, msg.typeTool).then((response) => {
                 if (response.success == true) {
                     Main.getClassroomManager()._lastCreatedActivity = response.id;
-                    displayNotification('#notif-div', "classroom.notif.activityCreated", "success", `'{"activityTitle": "${title}"}'`);
+                    
                     if(msg.typeTool !== "collections") {
                         navigatePanel('classroom-dashboard-classes-new-activity-attribution', 'dashboard-proactivities-teacher');
+                        displayNotification('#notif-div', "classroom.notif.activityImported", "success", `'{"activityTitle": "${title}"}'`);
+                    } else {
+                        displayNotification('#notif-div', "classroom.notif.activityCreated", "success", `'{"activityTitle": "${title}"}'`);
                     }
                 } else {
                     displayNotification('#notif-div', "manager.account.errorSending", "error");

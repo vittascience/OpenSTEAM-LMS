@@ -144,6 +144,7 @@
 			"activityAttributionChanged": "The {{activityTitle}} assignment has been changed for the learners listed",
 			"activityCreated": "The activity {{activityTitle}} has been created",
 			"activityChanged": "The {{activityTitle}} activity has been modified",
+			"activityImported": "The activity {{activityTitle}} has been imported",
 			"activityTitleMissing": "You must fill in the title of the activity",
       "activityPlayerMissing": "You must fill in the player URL",
 			"CsvFileMissing": "You did not choose a csv file",
