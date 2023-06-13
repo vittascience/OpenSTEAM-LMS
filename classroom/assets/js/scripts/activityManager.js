@@ -201,9 +201,9 @@ function titleBackward() {
                     
                     if(msg.typeTool !== "collections") {
                         navigatePanel('classroom-dashboard-classes-new-activity-attribution', 'dashboard-proactivities-teacher');
-                        displayNotification('#notif-div', "classroom.notif.activityImported", "success", `'{"activityTitle": "${title}"}'`);
-                    } else {
                         displayNotification('#notif-div', "classroom.notif.activityCreated", "success", `'{"activityTitle": "${title}"}'`);
+                    } else {
+                        displayNotification('#notif-div', "classroom.notif.activityImported", "success", `'{"activityTitle": "${title}"}'`);
                     }
                 } else {
                     displayNotification('#notif-div', "manager.account.errorSending", "error");
