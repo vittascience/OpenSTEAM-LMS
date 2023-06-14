@@ -42,8 +42,7 @@ $jwtToken = explode("Bearer ", $headers['Authorization'])[1];
 
     $validatedToken = JWT::decode(
       $jwtToken,
-      JWK::parseKeySet($jwks),
-      array('RS256')
+      JWK::parseKeySet($jwks, 'RS256'),
     );
   } catch (\Exception $e) {
     echo json_encode(['Error:' => $e->getMessage()]);

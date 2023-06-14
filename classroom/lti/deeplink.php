@@ -24,10 +24,11 @@ $clientId = $decodedToken->iss;
 $ltiTool = $entityManager->getRepository(LtiTool::class)->findOneByClientId($clientId);
 
 $jwksKeys = json_decode(file_get_contents($ltiTool->getPublicKeySet()), true);
+$algo = 'RS256';
 // decode jwt token and check signature using jwks public key
 $validatedToken = JWT::decode(
   $_REQUEST['JWT'],
-  JWK::parseKeySet($jwksKeys, "RS256")
+  JWK::parseKeySet($jwksKeys, $algo),
 );
 $contentItemsLabel = "https://purl.imsglobal.org/spec/lti-dl/claim/content_items";
 // here save activity url in db
