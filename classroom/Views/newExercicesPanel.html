@@ -83,10 +83,9 @@
 
             <div id="quiz-content-edit" class="content mt-3">
 
+
                 <div id="quiz-suggestions-container">
-
-
-                    <!--                     <div class="form-group c-primary-form" id="quiz-group-1">
+                    <div class="form-group c-primary-form" id="quiz-group-1">
                         <div class="row my-1">
                             <div class="col">
                                 <label for="quiz-suggestion-1" id="quiz-label-suggestion-1">Proposition 1</label>
@@ -94,16 +93,14 @@
                             </div>
 
                             <div class="col-md-auto d-flex align-items-center">
-                                <div class="c-checkbox c-checkbox-grey">
-                                <input class="form-check-input" type="checkbox" id="quiz-checkbox-1">
-                                    <label class="form-check-label" for="quiz-checkbox-1" data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
-                                </div> -->
-                        <div class="input-group mt-2 mb-3">
-                            <input type="text" id="quiz-suggestion-1" class="form-control">
-                            <div class="input-group-text c-checkbox c-checkbox-grey">
-                                <input class="form-check-input" type="checkbox" id="quiz-checkbox-1">
-                                <label class="form-check-label" for="quiz-checkbox-1" data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="quiz-checkbox-1">
+                                    <label class="form-check-label" for="quiz-checkbox-1" data-i18n="classroom.activities.correctAnswer">
+                                        Réponse correcte
+                                    </label>
+                                </div>
                             </div>
+
                         </div>
                         <textarea id="quiz-suggestion-1" style="height:100px"></textarea>
                     </div>
@@ -117,7 +114,7 @@
             </div>
 
             <div class="content">
-                <button data-i18n="newActivities.addQuiz" class="btn c-btn-primary" onclick="quizManager.addQuizSuggestion()">Ajouter une proposition</button>
+                <button data-i18n="newActivities.addQuiz" class="btn c-btn-primary mt-3" onclick="quizManager.addQuizSuggestion()">Ajouter une proposition</button>
             </div>
 
         </div>
@@ -254,9 +251,7 @@
                 <div id="taglist" class="w-100 d-flex flex-wrap"></div>
                 <div class="input-group mb-3">
                     <select id="taglist-select" class="form-control"></select>
-                    <div class="input-group-append">
-                      <button id="add-tag-to-list" class="btn c-btn-primary">Ajouter le tag</button>
-                    </div>
+                    <button id="add-tag-to-list" class="btn c-btn-primary">Ajouter le tag</button>
                 </div>
             </div>
         </div>
