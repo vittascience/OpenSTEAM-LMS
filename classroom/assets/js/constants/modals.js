@@ -393,7 +393,7 @@ const classroomModals = {
         },
         content: `<div class="container-fluid">
 
-        <div class="form-row c-secondary-form">
+        <div class="row c-secondary-form">
             <div class="form-group col-md">
                 <label for="u_firstname" data-i18n="[html]manager.profil.firstname">Prénom <span class="c-text-red">*</span></label>
                 <input type="text" class="form-control" id="u_firstname">
@@ -408,7 +408,7 @@ const classroomModals = {
             </div>
         </div>
     
-        <div class="form-row c-secondary-form">
+        <div class="row c-secondary-form">
             <div class="form-group col-md">
                 <label for="u_mail" data-i18n="[html]manager.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
                 <input type="email" class="form-control" id="u_mail">
@@ -419,12 +419,12 @@ const classroomModals = {
             </div>
         </div>
     
-        <div class="form-row c-secondary-form mb-2" id="manager_bio">
+        <div class="row c-secondary-form mb-2" id="manager_bio">
             <label for="u_bio" data-i18n="[html]manager.profil.bio">Bio <span class="c-text-red">*</span></label>
             <textarea class="form-control" id="u_bio" rows="3"></textarea>
         </div>
     
-        <div class="form-row c-secondary-form">
+        <div class="row c-secondary-form">
             <div class="form-check form-check-inline c-checkbox">
                 <input class="form-check-input" type="checkbox" id="u_is_admin">
                 <label class="form-check-label" for="u_is_admin" data-i18n="manager.users.admin">
@@ -433,7 +433,7 @@ const classroomModals = {
             </div>
         </div>
     
-        <div class="form-row form-group c-secondary-form">
+        <div class="row form-group c-secondary-form">
             <div class="form-check form-check-inline c-checkbox">
                 <input class="form-check-input" type="checkbox" id="u_is_teacher">
                 <label class="form-check-label" for="u_is_teacher" data-i18n="manager.users.teacher">
@@ -442,7 +442,7 @@ const classroomModals = {
             </div>
         </div>
     
-        <div class="form-row c-secondary-form" id="user_teacher_infos" style="display: none;" >
+        <div class="row c-secondary-form" id="user_teacher_infos" style="display: none;" >
             <div class="form-group col-md" id="section_teacher_grade">
                 <select class="form-control" id="user_teacher_grade">
                     <option selected value="0" data-i18n="manager.users.teacherGrades.0">Primaire</option>
@@ -522,7 +522,7 @@ const classroomModals = {
         },
         content: `<div class="container-fluid">
         <input type="hidden" class="form-control" id="update_u_id">
-        <div class="form-row c-secondary-form">
+        <div class="row c-secondary-form">
             <div class="form-group col-md">
                 <label for="update_u_firstname" data-i18n="[html]manager.profil.firstname">Prénom <span class="c-text-red">*</span></label>
                 <input type="text" class="form-control" id="update_u_firstname">
@@ -537,7 +537,7 @@ const classroomModals = {
             </div>
         </div>
     
-        <div class="form-row c-secondary-form">
+        <div class="row c-secondary-form">
             <div class="form-group col-md">
                 <label for="update_u_mail" data-i18n="[html]manager.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
                 <input type="email" class="form-control" id="update_u_mail">
@@ -548,12 +548,12 @@ const classroomModals = {
             </div>
         </div>
     
-        <div class="form-row c-secondary-form mb-2" id="manager_update_bio">
+        <div class="row c-secondary-form mb-2" id="manager_update_bio">
             <label for="update_u_bio" data-i18n="[html]manager.profil.bio">Bio <span class="c-text-red">*</span></label>
             <textarea class="form-control" id="update_u_bio" rows="3"></textarea>
         </div>
     
-        <div class="form-row c-secondary-form">
+        <div class="row c-secondary-form">
             <div class="form-check form-check-inline c-checkbox">
                 <input type="checkbox" id="update_u_is_active">
                 <label class="form-check-label" for="update_u_is_active" data-i18n="manager.account.active">
@@ -569,7 +569,7 @@ const classroomModals = {
             </div>
         </div>
     
-        <div class="form-row form-group c-secondary-form">
+        <div class="row form-group c-secondary-form">
             <div class="c-checkbox">
                 <input class="form-check-input" type="checkbox" id="update_u_is_teacher">
                 <label class="form-check-label" for="update_u_is_teacher" data-i18n="manager.users.teacher">
@@ -578,7 +578,7 @@ const classroomModals = {
             </div>
         </div>
     
-        <div class="form-row c-secondary-form" id="update_user_teacher_infos" style="display: none;">
+        <div class="row c-secondary-form" id="update_user_teacher_infos" style="display: none;">
             <div class="form-group col-md" id="section_teacher_update_grade">
                 <select class="form-control" id="update_user_teacher_grade">
                     <option selected value="0" data-i18n="manager.users.teacherGrades.0">Primaire</option>
@@ -631,7 +631,7 @@ const classroomModals = {
             title: 'manager.buttons.user.createA'
         },
         content: `<div class="container-fluid">
-        <div class="form-row c-secondary-form">
+        <div class="row c-secondary-form">
             <div class="form-group col-md">
                 <label for="u_firstname_ga" data-i18n="[html]manager.profil.firstname">Prénom <span class="c-text-red">*</span></label>
                 <input type="text" class="form-control" id="u_firstname_ga">
@@ -646,7 +646,7 @@ const classroomModals = {
             </div>
         </div>
     
-        <div class="form-row c-secondary-form">
+        <div class="row c-secondary-form">
             <div class="form-group col-md">
                 <label for="u_mail_ga" data-i18n="[html]manager.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
                 <input type="email" class="form-control" id="u_mail_ga">
@@ -662,7 +662,7 @@ const classroomModals = {
             <textarea class="form-control" id="u_bio_ga" rows="3"></textarea>
         </div>
     
-        <div class="form-row c-secondary-form" id="user_teacher_infos_ga">
+        <div class="row c-secondary-form" id="user_teacher_infos_ga">
             <div class="form-group col-md" id="section_teacher_grade_ga">
                 <label for="user_teacher_grade_ga" data-i18n="[html]manager.profil.grade">Grade <span class="c-text-red">*</span></label>
                 <select class="form-control" id="user_teacher_grade_ga">
@@ -702,7 +702,7 @@ const classroomModals = {
         },
         content: `<div class="container-fluid">
         <input type="hidden" class="form-control" id="update_u_id_ga">
-        <div class="form-row c-secondary-form">
+        <div class="row c-secondary-form">
             <div class="form-group col-md">
                 <label for="update_u_firstname_ga" data-i18n="[html]manager.profil.firstname">Prénom <span class="c-text-red">*</span></label>
                 <input type="text" class="form-control" id="update_u_firstname_ga">
@@ -717,7 +717,7 @@ const classroomModals = {
             </div>
         </div>
     
-        <div class="form-row c-secondary-form">
+        <div class="row c-secondary-form">
             <div class="form-group col-md">
                 <label for="update_u_mail_ga" data-i18n="[html]manager.profil.email">Adresse E-mail <span class="c-text-red">*</span></label>
                 <input type="email" class="form-control" id="update_u_mail_ga">
@@ -733,7 +733,7 @@ const classroomModals = {
             <textarea class="form-control" id="update_u_bio_ga" rows="3"></textarea>
         </div>
     
-        <div class="form-row c-secondary-form" id="update_user_teacher_infos_ga">
+        <div class="row c-secondary-form" id="update_user_teacher_infos_ga">
             <div class="form-group col-md" id="section_teacher_grade_update_ga">
                 <select class="form-control" id="update_user_teacher_grade_ga">
                     <option selected value="0" data-i18n="manager.users.teacherGrades.0">Primaire</option>
@@ -939,7 +939,7 @@ const classroomModals = {
         content: `  <div id="update-applications-modal">
                         <div class="container-fluid" id="update-app-manager" style="display:none;">
                             <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.group.generalInfo">Restriction d'activité</p>
-                            <div class="form-row mt-1 c-secondary-form">
+                            <div class="row mt-1 c-secondary-form">
                                 <div class="col-md">
                                     <label for="app_update_name" data-i18n="[html]manager.table.nameMandatory">Name</label>
                                     <input type="text" class="form-control" id="app_update_name">
@@ -949,7 +949,7 @@ const classroomModals = {
                                     <input type="text" class="form-control" id="app_update_description">
                                 </div>
                             </div>
-                            <div class="form-row mt-1 c-secondary-form">
+                            <div class="row mt-1 c-secondary-form">
                                 <div class="col-md">
                                     <label for="app_update_image" data-i18n="manager.table.image">Image</label>
                                     <input type="text" class="form-control" id="app_update_image">
@@ -960,7 +960,7 @@ const classroomModals = {
                                     <input type="color" class="form-control" id="app_update_color">
                                 </div>
                             </div>
-                            <div class="form-row mt-1 c-secondary-form">
+                            <div class="row mt-1 c-secondary-form">
 
                                 <div class="col-md">
                                     <label for="app_update_sort_index" data-i18n="manager.activitiesRestrictions.indexPos">Nombre</label>
@@ -970,7 +970,7 @@ const classroomModals = {
                                 <input type="hidden" class="form-control" id="app_update_id">
                             </div>
                             <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.restrictions"> Restriction d'activité </p>
-                            <div class="form-row mt-1 c-secondary-form">
+                            <div class="row mt-1 c-secondary-form">
                                 <div class="col-md">
                                     <label for="app_update_activity_restriction_value" data-i18n="manager.activitiesRestrictions.appQuantity">Nombre</label>
                                     <input type="number" class="form-control" id="app_update_activity_restriction_value">
@@ -981,7 +981,7 @@ const classroomModals = {
                                 <input type="checkbox" class="form-check-input" id="update_isLti">
                                 <label for="update_isLti" class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.apps.ltiApps">Lti apps ?</label>
                             </div>
-                            <div class="form-row mt-1 c-secondary-form">
+                            <div class="row mt-1 c-secondary-form">
                                 <div class="col-md">
                                     <div id="update_inputs-lti" style="display:none;">
                                         <label for="update_clientId" data-i18n="[html]manager.apps.clientId">Client Id</label>
@@ -1022,7 +1022,7 @@ const classroomModals = {
                             </div>
                         </div>
                         <div class="container-fluid" id="create-app-manager" style="display:none;">
-                            <div class="form-row mt-1 c-secondary-form">
+                            <div class="row mt-1 c-secondary-form">
                                 <div class="col-md">
                                     <label for="app_create_name" data-i18n="[html]manager.table.nameMandatory">Name</label>
                                     <input type="text" class="form-control" id="app_create_name">
@@ -1032,7 +1032,7 @@ const classroomModals = {
                                     <input type="text" class="form-control" id="app_create_description">
                                 </div>
                             </div>
-                            <div class="form-row mt-1 c-secondary-form">
+                            <div class="row mt-1 c-secondary-form">
                                 <div class="col-md">
                                     <label for="app_create_image" data-i18n="manager.table.image">Image</label>
                                     <input type="text" class="form-control" id="app_create_image">
@@ -1043,7 +1043,7 @@ const classroomModals = {
                                     <input type="color" class="form-control" id="app_create_color">
                                 </div>
                             </div>
-                            <div class="form-row mt-1 c-secondary-form">
+                            <div class="row mt-1 c-secondary-form">
 
                                 <div class="col-md">
                                     <label for="app_create_sort_index" data-i18n="manager.activitiesRestrictions.indexPos">Nombre</label>
@@ -1054,7 +1054,7 @@ const classroomModals = {
                             </div>
 
                             <p class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.activitiesRestrictions.restrictions"> Restriction d'activité </p>
-                            <div class="form-row mt-1 c-secondary-form">
+                            <div class="row mt-1 c-secondary-form">
                                 <div class="col-md">
                                     <label for="app_create_activity_restriction_value" data-i18n="manager.activitiesRestrictions.max">Nombre</label>
                                     <input type="number" class="form-control" id="app_create_activity_restriction_value">
@@ -1065,7 +1065,7 @@ const classroomModals = {
                                 <input type="checkbox" class="form-check-input" id="isLti">
                                 <label for="isLti" class="mt-4 mb-1 vitta-modal-title" data-i18n="manager.apps.ltiApps">Lti apps ?</label>
                             </div>
-                            <div class="form-row mt-1 c-secondary-form">
+                            <div class="row mt-1 c-secondary-form">
                                 <div class="col-md">
                                     <div id="inputs-lti" style="display:none;">
                                         <label for="clientId" data-i18n="[html]manager.apps.clientId">Client Id</label>
@@ -1219,7 +1219,7 @@ const classroomModals = {
     
             <p class="mt-4 mb-1 vitta-modal-title" data-i18n="classroom.activities.foldersMessages.updateFolder">Modification de dossier</p>
     
-            <div class="form-row mt-1 c-secondary-form">
+            <div class="row mt-1 c-secondary-form">
                 <div class="col-md">
                     <label for="folder_update_name" data-i18n="[html]classroom.activities.foldersMessages.nameMandatory">Name</label>
                     <input type="text" class="form-control" id="folder_update_name">
@@ -1255,7 +1255,7 @@ const classroomModals = {
     
             <p class="mt-4 mb-1 vitta-modal-title" data-i18n="classroom.activities.foldersMessages.createFolder">Création de dossier</p>
     
-            <div class="form-row mt-1 c-secondary-form">
+            <div class="row mt-1 c-secondary-form">
                 <div class="col-md">
                     <label for="folder_create_name" data-i18n="[html]classroom.activities.foldersMessages.nameMandatory">Name</label>
                     <input type="text" class="form-control" id="folder_create_name">

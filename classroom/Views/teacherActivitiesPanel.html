@@ -15,7 +15,7 @@
                 </div>
                 <input type="search" id="filter-activity-input" data-i18n="[placeholder]manager.buttons.search" class="flex-fill">
 
-                <button id="filter-activity" class="c-btn-primary" style="width: 3em;height: 3em;">
+                <button id="filter-activity" class="btn btn-primary" style="width: 3em;height: 3em;">
                     <i class="fas fa-search"></i>
                 </button>
             </div>
@@ -73,7 +73,7 @@
 
 <div id="classroom-dashboard-new-activity-panel2" style="display:none;" class="dashboard-block class-creation-form-step2">
 
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1"></span>
@@ -112,7 +112,7 @@
 
 
 <div id="classroom-dashboard-new-activity-panel3" style="display:none;" class="dashboard-block container">
-    <nav class="row form-activity-container mb-3" style="margin: 0 auto;">
+    <nav class="form-activity-container mb-3" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1">Application</span>
@@ -156,11 +156,9 @@
         <!-- Autocorrect activation -->
         <div class="row" id="form-autocorrect">
             <div class="col mb-5 text-center c-primary-form assign-row">
-                <div class="c-checkbox">
-                    <input type="checkbox" id="isAutocorrection-activity-form" onclick="autocorrectSwitch()">
-                    <label for="isAutocorrection-activity-form">
-                        <span data-i18n="classroom.activities.form.autocorrect"></span>
-                    </label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="isAutocorrection-activity-form" onclick="autocorrectSwitch()">
+                    <label for="isAutocorrection-activity-form" class="form-check-label" data-i18n="classroom.activities.form.autocorrect"></label>
                 </div>
                 <i class="fas fa-info assign-info-icon" id="infoAutocorrect" data-bs-toggle="tooltip" title=""></i>
             </div>
@@ -238,12 +236,11 @@
                     <!-- Activity RetroAttribution  -->
                     <div class="row" id="form-retro-attribution">
                         <div class="col mb-5 text-center c-primary-form assign-row">
-                            <div class="c-checkbox">
-                                <input type="checkbox" id="retro-attribution-activity-form">
-                                <label for="retro-attribution-activity-form">
-                                    <span data-i18n="classroom.activities.form.retroAttribution"></span>
-                                </label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="retro-attribution-activity-form">
+                                <label class="form-check-label" for="retro-attribution-activity-form" data-i18n="classroom.activities.form.retroAttribution"></label>
                             </div>
+
                             <i class="fas fa-info assign-info-icon" id="infoRetroAttribution" data-bs-toggle="tooltip" title=""></i>
                         </div>
                     </div>

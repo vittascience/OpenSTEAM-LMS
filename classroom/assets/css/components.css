@@ -56,13 +56,14 @@
 /* Buttons */
 
 .btn {
-    font-weight: 700;
-    border-radius: 256px;
-    transition: all 0.2s ease-in-out;
+    --bs-btn-focus-shadow-rgb: 126, 126, 126;
 }
 
 .btn-primary,
 .c-btn-primary {
+    --bs-btn-font-weight: 700;
+    --bs-btn-border-radius: 256px;
+
     --bs-btn-color: var(--classroom-white);
     --bs-btn-bg: var(--classroom-primary);
     --bs-btn-border-color: var(--classroom-primary);
@@ -70,20 +71,67 @@
     --bs-btn-hover-color: var(--classroom-white);
     --bs-btn-hover-bg: var(--classroom-primary-dark);
     --bs-btn-hover-border-color: var(--classroom-primary-dark);
+
+    --bs-btn-active-color: var(--classroom-white);
+    --bs-btn-active-bg: var(--classroom-primary-dark);
+    --bs-btn-active-border-color: var(--classroom-primary-dark);
+
+    --bs-btn-disabled-color: var(--classroom-white);
+    --bs-btn-disabled-bg: var(--classroom-primary);
+    --bs-btn-disabled-border-color: var(--classroom-primary);
+
 }
 
 .btn-outline-primary,
 .c-btn-outline-primary {
+    --bs-btn-font-weight: 700;
+    --bs-btn-border-radius: 256px;
+
     --bs-btn-color: var(--classroom-primary);
+    --bs-btn-bg: transparent;
     --bs-btn-border-color: var(--classroom-primary);
+
     --bs-btn-border-width: 2px;
 
     --bs-btn-hover-color: var(--classroom-primary-dark);
+    --bs-btn-hover-bg: rgba(var(--classroom-primary-rgb), 0.1);
     --bs-btn-hover-border-color: var(--classroom-primary-dark);
+
+    --bs-btn-active-color: var(--classroom-primary);
+    --bs-btn-active-bg: transparent;
+    --bs-btn-active-border-color: var(--classroom-primary-dark);
+
+    --bs-btn-disabled-color: var(--classroom-primary);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--classroom-primary);
+}
+
+.c-btn-no-outline-primary {
+    --bs-btn-font-weight: 700;
+    --bs-btn-border-radius: 256px;
+    
+    --bs-btn-color: var(--classroom-primary);
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: transparent;
+
+    --bs-btn-hover-color: var(--classroom-primary-dark);
+    --bs-btn-hover-bg: rgba(var(--classroom-primary-rgb), 0.1);
+    --bs-btn-hover-border-color: transparent;
+
+    --bs-btn-active-color: var(--classroom-primary);
+    --bs-btn-active-bg: transparent;
+    --bs-btn-active-border-color: transparent;
+
+    --bs-btn-disabled-color: var(--classroom-primary);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: transparent;
 }
 
 .btn-secondary,
 .c-btn-secondary {
+    --bs-btn-font-weight: 700;
+    --bs-btn-border-radius: 256px;
+    
     --bs-btn-color: var(--classroom-white);
     --bs-btn-bg: var(--classroom-secondary);
     --bs-btn-border-color: var(--classroom-secondary);
@@ -91,20 +139,45 @@
     --bs-btn-hover-color: var(--classroom-white);
     --bs-btn-hover-bg: var(--classroom-secondary-dark);
     --bs-btn-hover-border-color: var(--classroom-secondary-dark);
+
+    --bs-btn-active-color: var(--classroom-white);
+    --bs-btn-active-bg: var(--classroom-secondary-dark);
+    --bs-btn-active-border-color: var(--classroom-secondary-dark);
+    
+    --bs-btn-disabled-color: var(--classroom-white);
+    --bs-btn-disabled-bg: var(--classroom-secondary);
+    --bs-btn-disabled-border-color: var(--classroom-secondary);
 }
 
 .btn-outline-secondary,
 .c-btn-outline-secondary {
+    --bs-btn-font-weight: 700;
+    --bs-btn-border-radius: 256px;
+    
     --bs-btn-color: var(--classroom-secondary);
+    --bs-btn-bg: transparent;
     --bs-btn-border-color: var(--classroom-secondary);
+
     --bs-btn-border-width: 2px;
 
     --bs-btn-hover-color: var(--classroom-secondary-dark);
+    --bs-btn-hover-bg: rgba(var(--classroom-secondary-rgb), 0.1);
     --bs-btn-hover-border-color: var(--classroom-secondary-dark);
+
+    --bs-btn-active-color: var(--classroom-secondary);
+    --bs-btn-active-bg: transparent;
+    --bs-btn-active-border-color: var(--classroom-secondary-dark);
+
+    --bs-btn-disabled-color: var(--classroom-secondary);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--classroom-secondary);
 }
 
 .btn-tertiary,
 .c-btn-tertiary {
+    --bs-btn-font-weight: 700;
+    --bs-btn-border-radius: 256px;
+
     --bs-btn-color: var(--classroom-white);
     --bs-btn-bg: var(--classroom-tertiary);
     --bs-btn-border-color: var(--classroom-tertiary);
@@ -112,21 +185,47 @@
     --bs-btn-hover-color: var(--classroom-white);
     --bs-btn-hover-bg: var(--classroom-tertiary-dark);
     --bs-btn-hover-border-color: var(--classroom-tertiary-dark);
+
+    --bs-btn-active-color: var(--classroom-white);
+    --bs-btn-active-bg: var(--classroom-tertiary-dark);
+    --bs-btn-active-border-color: var(--classroom-tertiary-dark);
+
+    --bs-btn-disabled-color: var(--classroom-white);
+    --bs-btn-disabled-bg: var(--classroom-tertiary);
+    --bs-btn-disabled-border-color: var(--classroom-tertiary);
 }
 
 .btn-outline-tertiary,
 .c-btn-outline-tertiary {
+    --bs-btn-font-weight: 700;
+    --bs-btn-border-radius: 256px;
+
+
     --bs-btn-color: var(--classroom-tertiary);
+    --bs-btn-bg: transparent;
     --bs-btn-border-color: var(--classroom-tertiary);
+    
     --bs-btn-border-width: 2px;
 
     --bs-btn-hover-color: var(--classroom-tertiary-dark);
+    --bs-btn-hover-bg: rgba(var(--classroom-tertiary-rgb), 0.1);
     --bs-btn-hover-border-color: var(--classroom-tertiary-dark);
+
+    --bs-btn-active-color: var(--classroom-tertiary);
+    --bs-btn-active-bg: transparent;
+    --bs-btn-active-border-color: var(--classroom-tertiary-dark);
+
+    --bs-btn-disabled-color: var(--classroom-tertiary);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--classroom-tertiary);
 }
 
 .btn-red,
 .btn-danger,
 .c-btn-red {
+    --bs-btn-font-weight: 700;
+    --bs-btn-border-radius: 256px;
+    
     --bs-btn-color: var(--classroom-white);
     --bs-btn-bg: var(--classroom-red);
     --bs-btn-border-color: var(--classroom-red);
@@ -134,41 +233,115 @@
     --bs-btn-hover-color: var(--classroom-white);
     --bs-btn-hover-bg: var(--classroom-red-dark);
     --bs-btn-hover-border-color: var(--classroom-red-dark);
+
+    --bs-btn-active-color: var(--classroom-white);
+    --bs-btn-active-bg: var(--classroom-red-dark);
+    --bs-btn-active-border-color: var(--classroom-red-dark);
+
+    --bs-btn-disabled-color: var(--classroom-white);
+    --bs-btn-disabled-bg: var(--classroom-red);
+    --bs-btn-disabled-border-color: var(--classroom-red);
 }
 
 .btn-outline-red,
 .btn-outline-danger,
 .c-btn-outline-red {
+    --bs-btn-font-weight: 700;
+    --bs-btn-border-radius: 256px;
+
     --bs-btn-color: var(--classroom-red);
+    --bs-btn-bg: transparent;
     --bs-btn-border-color: var(--classroom-red);
+
     --bs-btn-border-width: 2px;
 
     --bs-btn-hover-color: var(--classroom-red-dark);
+    --bs-btn-hover-bg: rgba(var(--classroom-red-rgb), 0.1);
     --bs-btn-hover-border-color: var(--classroom-red-dark);
+
+    --bs-btn-active-color: var(--classroom-red);
+    --bs-btn-active-bg: transparent;
+    --bs-btn-active-border-color: var(--classroom-red-dark);
+
+    --bs-btn-disabled-color: var(--classroom-red);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--classroom-red);
 }
 
+.btn-grey,
 .c-btn-grey {
+    --bs-btn-font-weight: 700;
+    --bs-btn-border-radius: 256px;
+
+    --bs-btn-color: var(--classroom-white);
+    --bs-btn-bg: var(--classroom-grey);
+    --bs-btn-border-color: var(--classroom-grey);
+
+    --bs-btn-hover-color: var(--classroom-white);
+    --bs-btn-hover-bg: var(--classroom-grey);
+    --bs-btn-hover-border-color: var(--classroom-grey);
+
+    --bs-btn-active-color: var(--classroom-white);
+    --bs-btn-active-bg: var(--classroom-grey);
+    --bs-btn-active-border-color: var(--classroom-grey);
+
+    --bs-btn-disabled-color: var(--classroom-white);
+    --bs-btn-disabled-bg: var(--classroom-grey);
+    --bs-btn-disabled-border-color: var(--classroom-grey);
+
+
     background: var(--classroom-grey);
     color: var(--classroom-white);
     border-radius: 256px;
 }
 
 .c-btn-outline-grey {
+    --bs-btn-font-weight: 700;
+    --bs-btn-border-radius: 256px;
+
     border: 2px solid var(--classroom-grey);
     color: var(--classroom-grey);
     background: transparent;
 }
 
 .c-btn-light {
+    --bs-btn-font-weight: 700;
+    --bs-btn-border-radius: 256px;
+
+
     background: var(--classroom-cell);
     color: var(--classroom-white);
     border-radius: 256px;
 }
 
 .c-btn-outline-light {
+    --bs-btn-font-weight: 700;
+    --bs-btn-border-radius: 256px;
+
     border: 2px solid var(--classroom-cell);
     color: var(--classroom-cell);
     background: transparent;
+}
+
+.c-btn-dashboard {
+    --bs-btn-font-weight: 700;
+    --bs-btn-border-radius: 256px;
+
+    --bs-btn-color: var(--classroom-white);
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: var(--classroom-dashboard);
+
+    --bs-btn-hover-color: var(--classroom-white);
+    --bs-btn-hover-bg: rgba(var(--classroom-dashboard-rgb), 0.1);
+    --bs-btn-hover-border-color: var(--classroom-dashboard-dark);
+
+    --bs-btn-active-color: var(--classroom-white);
+    --bs-btn-active-bg: transparent;
+    --bs-btn-active-border-color: var(--classroom-dashboard-dark);
+
+    --bs-btn-disabled-color: var(--classroom-white);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--classroom-dashboard);
 }
 
 .c-btn-icon-only {
@@ -183,59 +356,11 @@
     height: 100%;
 }
 
-.c-btn-outline-primary,
-.c-btn-primary,
-.c-btn-outline-secondary,
-.c-btn-secondary,
-.c-btn-outline-tertiary,
-.c-btn-tertiary,
-.c-btn-outline-red,
-.c-btn-red,
-.c-btn-outline-grey,
-.c-btn-grey,
-.c-btn-outline-light,
-.c-btn-light {
-    font-weight: 700;
-    border-radius: 256px;
-    transition: all 0.2s ease-in-out;
-    filter: brightness(1);
-}
-
 .c-btn-icon-only {
     transition: all 0.2s ease-in-out;
     filter: brightness(1);
 }
 
-.c-btn-outline-primary:focus,
-.c-btn-primary:focus,
-.c-btn-outline-secondary:focus,
-.c-btn-secondary:focus,
-.c-btn-outline-tertiary:focus,
-.c-btn-tertiary:focus,
-.c-btn-outline-red:focus,
-.c-btn-red:focus,
-.c-btn-outline-grey:focus,
-.c-btn-grey:focus,
-.c-btn-outline-light:focus,
-.c-btn-light:focus,
-.c-btn-icon-only:focus {
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(126, 126, 126, 0.25);
-    filter: brightness(0.9);
-}
-
-.c-btn-outline-primary:hover,
-.c-btn-primary:hover,
-.c-btn-outline-secondary:hover,
-.c-btn-secondary:hover,
-.c-btn-outline-tertiary:hover,
-.c-btn-tertiary:hover,
-.c-btn-outline-red:hover,
-.c-btn-red:hover,
-.c-btn-outline-grey:hover,
-.c-btn-grey:hover,
-.c-btn-outline-light:hover,
-.c-btn-light:hover,
 .c-btn-icon-only:hover {
     filter: brightness(0.9);
 }
@@ -454,6 +579,12 @@
 
 /* Table */
 
+.c-table {
+    --bs-table-border-color: var(--classroom-cell);
+    --bs-table-bg: transparent;
+    --bs-border-width: 2px;
+}
+
 .c-table thead th {
     border-bottom: 0px solid transparent;
     border-top: 0px solid transparent;
@@ -470,18 +601,18 @@
     right: 0;
     top: 25%;
 
-    background-color: var(--classroom-cell);
+    background-color: var(--bs-table-border-color);
 }
 
 .c-table tbody {
-    box-shadow: 0 0 0 1.5px var(--classroom-cell);
+    box-shadow: 0 0 0 1px var(--bs-table-border-color);
     border-radius: 15px;
     border-top: 5px solid transparent;
 }
 
 .c-table tbody th,
 .c-table tbody td {
-    border: 1px solid var(--classroom-cell);
+    border: 1px solid var(--bs-table-border-color);
     vertical-align: middle;
 }
 
@@ -498,17 +629,6 @@
 .c-table tbody tr:last-child th,
 .c-table tbody tr:last-child td {
     border-bottom: 0px solid transparent;
-}
-
-.c-btn-no-outline-primary {
-    color: var(--classroom-primary);
-    background: transparent;
-    border: none;
-    font-weight: 700;
-}
-
-.c-btn-no-outline-primary:hover {
-    filter: brightness(0.9);
 }
 
 /* Line separator */
@@ -704,6 +824,36 @@ hr {
 }
 
 /* CHECKBOXES */
+
+.form-check-input {
+    background-color: var(--classroom-background);
+    border-color: var(--classroom-text-1);
+}
+
+.form-check-input:focus {
+    border-color: var(--classroom-cell);
+    box-shadow: 0px 0px 10px rgb(126 126 126 / 25%);
+}
+
+.form-check-input:checked {
+    background-color: var(--classroom-grey);
+    border-color: var(--classroom-grey);
+}
+
+.c-primary-form .form-check-input:checked {
+    background-color: var(--classroom-primary);
+    border-color: var(--classroom-primary);
+}
+
+.c-secondary-form .form-check-input:checked {
+    background-color: var(--classroom-secondary);
+    border-color: var(--classroom-secondary);
+}
+
+.c-tertiary-form .form-check-input:checked {
+    background-color: var(--classroom-tertiary);
+    border-color: var(--classroom-tertiary);
+}
 
 /* Base for label styling */
 .c-checkbox {

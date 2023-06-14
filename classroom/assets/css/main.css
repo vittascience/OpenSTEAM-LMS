@@ -323,6 +323,7 @@ button {
     background: var(--classroom-dashboard);
     height: 100vh;
     scroll-behavior: unset;
+    transition: background-color 0.5s ease;
 }
 
 .sidebar-classroom {
@@ -475,6 +476,7 @@ button {
 
     grid-area: navbar;
     background: var(--classroom-dashboard);
+    transition: background-color 0.5s ease;
 
     width: 100%;
     width: -webkit-fill-available;
@@ -530,9 +532,21 @@ button {
 }
 
 #dropdownMenuButton {
+    --bs-btn-color: var(--classroom-white);
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: transparent;
+
+    --bs-btn-hover-color: var(--classroom-white);
+    --bs-btn-hover-bg: rgba(255, 255, 255, 0.1);
+    --bs-btn-hover-border-color: transparent;
+
+    --bs-btn-active-color: var(--classroom-white);
+    --bs-btn-active-bg: transparent;
+    --bs-btn-active-border-color: var(--classroom-white);
+
+    --bs-btn-padding-x: 1em;
+    --bs-btn-padding-y: 0.2em;
     height: 100%;
-    background-color: transparent;
-    padding: 0.2em 1em;
 }
 
 .a11y-dropdown {
@@ -2089,6 +2103,7 @@ h3.section-done {
     display: block;
     border-radius: 0px 0px 1em 1em;
     margin-top: -2px;
+    width: auto;
 }
 
 #fill-in-tolerance,
@@ -2251,6 +2266,7 @@ h3.section-done {
 
 
 .quiz-answer-container label {
+    display: block;
     margin: 0.5em auto;
     width: 100%;
     max-width: 250px;

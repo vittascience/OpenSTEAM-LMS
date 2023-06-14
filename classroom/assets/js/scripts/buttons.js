@@ -3245,7 +3245,7 @@ function updateDefaultUsersLimitation() {
     mainManager.getmanagerManager().getDefaultUsersRestrictions().then((response) => {
         pseudoModal.openModal('update-default-restrictions-manager');
         Object.keys(response.restrictions).forEach(function (key) {
-            html += `<div class="form-row mt-1 c-secondary-form">`
+            html += `<div class="row mt-1 c-secondary-form">`
             html += `<div class="col-md">`
             html += `<label for="default-users-restrictions-value">${i18next.t(`manager.table.${key}`)}</label>`;
             html += `<input type="number" class="form-control" id="default-users-restrictions-value-${key}" value="${response.restrictions[key]}">`;
@@ -3264,7 +3264,7 @@ function updateDefaultGroupsLimitation() {
     mainManager.getmanagerManager().getDefaultGroupsRestrictions().then((response) => {
         pseudoModal.openModal('update-default-restrictions-manager');
         Object.keys(response.restrictions).forEach(function (key) {
-            html += `<div class="form-row mt-1 c-secondary-form">`
+            html += `<div class="row mt-1 c-secondary-form">`
             html += `<div class="col-md">`
             html += `<label for="default-groups-restrictions-value-${key}">${i18next.t(`manager.table.${key}`)}</label>`;
             html += `<input type="number" class="form-control" id="default-groups-restrictions-value-${key}" value="${response.restrictions[key]}">`;
@@ -3288,7 +3288,7 @@ function updateDefaultActivitiesLimitation() {
         html += `<button class="btn c-btn-primary my-3 btn" onclick="addDefaultActivitiesRestriction()">${i18next.t(`manager.defaultRestrictions.add`)}</button>`;
         Object.keys(response.restrictions).forEach(function (key) {
             allActualType.push(key);
-            html += `<div class="form-row mt-1 c-secondary-form">`
+            html += `<div class="row mt-1 c-secondary-form">`
             html += `<div class="col-md">`
             html += `<label for="default-activity-restriction-type-${key}">${i18next.t('manager.defaultRestrictions.type')}</label>`;
             html += `<input type="text" class="form-control" id="default-activity-restriction-type-${key}" value="${key}">`;

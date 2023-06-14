@@ -1,7 +1,5 @@
     <link rel="stylesheet" href="assets/css/modal.css">
-    <link rel="stylesheet" href="assets/plugins/css/ti83.css">
-<link rel="stylesheet" href="assets/plugins/css/ti83pce-min.css">
-
+    
     <script src="assets/js/scripts/classroom-lang.js"></script>
 </head>
 
@@ -100,7 +98,7 @@
         <i class="fas fa-question"></i>
     </button>
     <div id="a11y-dropdown" class="dropdown" style="align-self: flex-end;">
-        <button class="btn c-btn-primary" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="btn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-low-vision"></i>
         </button>
         <div class="dropdown-menu dropdown-menu-right a11y-dropdown" aria-labelledby="dropdownMenuButton">
@@ -175,20 +173,16 @@
 
         <div id="about-contact-info-student">
             <form class="c-primary-form" id="about-contact-form-student">
-                <div class="form-row">
-                    <div class="form-group col-md-9">
-                        <select id="help-student-select" class="form-control form-control-lg">
-                        </select>
-                    </div>
+                <div class="input-group mb-3">
+                    <select id="help-student-select" class="form-control form-control-lg">
+                    </select>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group col-md-9">
-                        <input type="text" name="subject" class="form-control" id="learner-contact-subject-input" data-i18n="[placeholder]classroom.help.student.title" placeholder="Objet">
-                    </div>
+                <div class="input-group mb-3">
+                    <input type="text" name="subject" class="form-control" id="learner-contact-subject-input" data-i18n="[placeholder]classroom.help.student.title" placeholder="Objet">
                 </div>
 
-                <div class="form-group">
+                <div class="input-group mb-3">
                     <textarea name="message" class="form-control" id="learner-contact-message-input" rows="15" cols="25" style="resize: none; width: 100%;" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder" placeholder="Écrivez votre message ici. (Maximum 800 caractères)"></textarea>
                 </div>
 
@@ -397,9 +391,8 @@
 <div id="classroom-dashboard-activity-panel" class="dashboard-block" style="display:none;">
     <div class="container-fluid">
         <div class="row">
-
-
             <div id="main-div" class="col-12 col-lg mb-3" style="margin: 0 auto;overflow-wrap: break-word;">
+
                 <div class="d-flex flex-column align-items-center mnh-2-5" id="title-container">
                     <h3 id="activity-title" class="activity-title"></h3>
                     <div id="activity-views-switcher" class="switcher-custom-top ms-auto p-2"></div>
@@ -433,7 +426,7 @@
                 <!-- Used for content -->
                 <div id="activity-content-container" style="display:none;">
                     <label for="activity-content" id="label-activity-content" class="vitta-modal-title mt-2" data-i18n="newActivities.contentTitle">Contenu de l'activité</label>
-                    <div id="activity-content"></div>
+                    <div id="activity-content"></div>    
                 </div>
                 
                 <div id="activity-input-container" style="display:none;">
@@ -552,18 +545,12 @@
 
         <button class="btn c-btn-outline-primary" onclick="listeModeApprenant()">
             <span data-i18n="classroom.profil.switchMode" class="text-span-initial me-1"></span>
-            <i class="fas fa-exchange-alt"></i>
-        </button>
-
-        <button class="btn c-btn-outline-tertiary" id="go-to-main-site-button" onclick="goToLesTutosMaths();">
-            <span class="text-span-initial me-1">Retourner sur MaClasseTI.fr</span>
-        </button>
+            <i class="fas fa-exchange-alt"></i></button>
 
         <button class="btn c-btn-red" onclick="goToDisconnect('classroom');">
             <span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
             <i class="fas fa-power-off"></i>
         </button>
-
     </div>
 </div>
 
@@ -572,17 +559,17 @@
     <h3 data-i18n="classroom.profil.accountSettings.title"></h3>
     <form action="#" id="update-teacher-account-form">
         <div class="form-group part-content-index part-row c-primary-form">
-            <div class="form-row">
+            <div class="row">
                 <label for="profile-form-first-name" class="tutorial-label"
                     data-i18n="classroom.profil.accountSettings.firstname"></label>
                 <input type="text" name="first-name" id="profile-form-first-name" class="form-control form-control-lg">
             </div>
-            <div class="form-row">
+            <div class="row">
                 <label for="profile-form-last-name" class="tutorial-label"
                     data-i18n="classroom.profil.accountSettings.lastname"></label>
                 <input type="text" name="last-name" id="profile-form-last-name" class="form-control form-control-lg">
             </div>
-            <div class="form-row">
+            <div class="row">
                 <label for="profile-form-email" class="tutorial-label"
                     data-i18n="classroom.profil.accountSettings.email"></label>
                 <input type="email" name="email" id="profile-form-email" class="form-control form-control-lg">
@@ -635,11 +622,11 @@
     <h3 data-i18n="classroom.classes.form.updateTitle"></h3>
     <form id="classroom-update-form">
         <div class="form-group part-content-index part-row c-primary-form">
-            <div class="form-row">
+            <div class="row">
                 <label for="classroom-form-name-update" class="tutorial-label" data-i18n="classroom.classes.form.name"></label>
                 <input type="text" id="classroom-form-name-update" class="form-control form-control-lg">
             </div>
-            <div class="form-row">
+            <div class="row">
                 <label for="classroom-form-school-update" class="tutorial-label" data-i18n="classroom.classes.form.school">
                 </label>
                 <input type="text" id="classroom-form-school-update" class="form-control form-control-lg">
@@ -663,11 +650,11 @@
     <h3 data-i18n="classroom.classes.form.title"></h3>
     <form id="classroom-create-form">
         <div class="form-group part-content-index part-row c-primary-form">
-            <div class="form-row">
+            <div class="row">
                 <label for="classroom-form-name" class="tutorial-label" data-i18n="classroom.classes.form.name"></label>
                 <input type="text" id="classroom-form-name" class="form-control form-control-lg">
             </div>
-            <div class="form-row">
+            <div class="row">
                 <label for="classroom-form-school" class="tutorial-label" data-i18n="classroom.classes.form.school">
                 </label>
                 <input type="text" id="classroom-form-school" class="form-control form-control-lg">
@@ -726,7 +713,7 @@
 
     <div id="classroom-panel-legend">
         <div id="add-student-container" class="ms-3"></div>
-        <div id="export-class-container" class="ms-3"></div>
+        <div id="export-class-container"></div>
 
         <div id="legend-container">
             <ul class="legend" style="list-style:none;">
@@ -856,6 +843,7 @@
 
         <div class="col-12 col-lg-8 mt-2">
             <div class="d-flex flex-fill">
+
                 <div class="dropdown mx-2 d-none" id="tags-panel">
                     <button class="btn c-btn-primary" style="width: auto;height: 3em;min-width: 3em;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-filter"></i>
@@ -864,9 +852,9 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown-tags-filter">
                     </div>
                 </div>
-
                 <input type="search" id="filter-activity-input" data-i18n="[placeholder]manager.buttons.search" class="flex-fill">
-                <button id="filter-activity" class="c-btn-primary" style="width: 3em;height: 3em;">
+
+                <button id="filter-activity" class="btn btn-primary" style="width: 3em;height: 3em;">
                     <i class="fas fa-search"></i>
                 </button>
             </div>
@@ -896,10 +884,10 @@
     </div>
 
     <div class="buttons-interactions flex-wrap d-inline-flex col-12 mt-3">
-        <button id="new-activity-panel1" onclick="showExercicePanel()" class=" btn c-btn-outline-secondary"><span class="me-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
+        <button id="new-activity-panel-1" onclick="showExercicePanel()" class=" btn c-btn-outline-secondary"><span class="me-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
         </button>
 
-        <button id="new-activity-panel1" onclick="coursesManager.showCoursePanel()" class="btn c-btn-outline-primary"><span class="me-1">Créer un parcours</span><i class="fas fa-chevron-right"></i>
+        <button id="new-activity-panel-2" onclick="coursesManager.showCoursePanel()" class="btn c-btn-outline-primary"><span class="me-1" data-i18n="courses.add">Créer un parcours</span><i class="fas fa-chevron-right"></i>
         </button>
 
         <button class="btn c-btn-icon-only" id="new-activities-folder" onclick="foldersManager.openFolderModal()">
@@ -924,7 +912,7 @@
 
 <div id="classroom-dashboard-new-activity-panel2" style="display:none;" class="dashboard-block class-creation-form-step2">
 
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1"></span>
@@ -963,7 +951,7 @@
 
 
 <div id="classroom-dashboard-new-activity-panel3" style="display:none;" class="dashboard-block container">
-    <nav class="row form-activity-container mb-3" style="margin: 0 auto;">
+    <nav class="form-activity-container mb-3" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1">Application</span>
@@ -1007,11 +995,9 @@
         <!-- Autocorrect activation -->
         <div class="row" id="form-autocorrect">
             <div class="col mb-5 text-center c-primary-form assign-row">
-                <div class="c-checkbox">
-                    <input type="checkbox" id="isAutocorrection-activity-form" onclick="autocorrectSwitch()">
-                    <label for="isAutocorrection-activity-form">
-                        <span data-i18n="classroom.activities.form.autocorrect"></span>
-                    </label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="isAutocorrection-activity-form" onclick="autocorrectSwitch()">
+                    <label for="isAutocorrection-activity-form" class="form-check-label" data-i18n="classroom.activities.form.autocorrect"></label>
                 </div>
                 <i class="fas fa-info assign-info-icon" id="infoAutocorrect" data-bs-toggle="tooltip" title=""></i>
             </div>
@@ -1089,12 +1075,11 @@
                     <!-- Activity RetroAttribution  -->
                     <div class="row" id="form-retro-attribution">
                         <div class="col mb-5 text-center c-primary-form assign-row">
-                            <div class="c-checkbox">
-                                <input type="checkbox" id="retro-attribution-activity-form">
-                                <label for="retro-attribution-activity-form">
-                                    <span data-i18n="classroom.activities.form.retroAttribution"></span>
-                                </label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="retro-attribution-activity-form">
+                                <label class="form-check-label" for="retro-attribution-activity-form" data-i18n="classroom.activities.form.retroAttribution"></label>
                             </div>
+
                             <i class="fas fa-info assign-info-icon" id="infoRetroAttribution" data-bs-toggle="tooltip" title=""></i>
                         </div>
                     </div>
@@ -1243,7 +1228,7 @@
                 </div>
 
                 <!-- View filter -->
-                <div class="col-md form-row">
+                <div class="col-md row">
                     <div class="col-12">
                         <select class="form-select  w-100" id="sort_users_filter_groupadmin">
                             <option selected value="0" data-i18n="manager.sort.user.bylastname">Trier par nom</option>
@@ -1406,7 +1391,7 @@
                 </div>
 
                 <div class="col-12" id="all-applications">
-                    <div class="row">
+                    <div>
                         <button class="btn c-btn-outline-primary mx-1" onclick="createApp()">
                             <span data-i18n="manager.apps.create"></span>
                             <i class="fas fa-chevron-right"></i>
@@ -1446,7 +1431,7 @@
                 </div>
 
                 <!-- View filter -->
-                <div class="col-md form-row">
+                <div class="col-md  d-flex flex-column">
                     <div class="col-12">
                         <select class="form-select w-100" id="sort_groups_filter">
                             <option selected value="0" data-i18n="manager.sort.group.byname">Trier par nom</option>
@@ -1454,7 +1439,7 @@
                         </select>
                     </div>
 
-                    <div class="col-12">
+                    <div class="d-flex">
                         <label for="groups_per_page" data-i18n="manager.group.groupsPerPage">Groupes par page</label>
                         <select name="groups_per_page" id="groups_per_page" class="my-1 form-select">
                             <option value="100">100</option>
@@ -1465,7 +1450,7 @@
                 </div>
             </div>
 
-            <div class="row mb-2" id="btn-create-manager">
+            <div class="mb-2" id="btn-create-manager">
                 <button class="btn c-btn-outline-primary mx-1" id="create_group_manager">
                     <span data-i18n="manager.group.create">Créer un groupe</span> <i class="fas fa-chevron-right"></i>
                 </button>
@@ -1474,7 +1459,7 @@
                 </button>
             </div>
 
-            <div class="row" id="table_details_admins">
+            <div id="table_details_admins">
                 <table class="table c-table">
                     <thead>
                         <tr>
@@ -1503,7 +1488,7 @@
                     </div>
                 
                     <!-- View filter -->
-                    <div class="col-md form-row">
+                    <div class="col-md d-flex flex-column">
                         <div class="col-12">
                             <select class="form-select w-100" id="sort_users_filter">
                                 <option selected value="0" data-i18n="manager.sort.user.bylastname">Trier par nom</option>
@@ -1511,7 +1496,7 @@
                             </select>
                         </div>
                 
-                        <div class="col-12">
+                        <div class="d-flex">
                             <label for="users_per_page" data-i18n="manager.users.usersPerPage">Utilisateurs par page</label>
                             <select name="users_per_page" id="users_per_page" class="my-1 form-select">
                                 <option value="100">100</option>
@@ -1581,7 +1566,7 @@
 </div>
 <!-- content part -->
 <div id="classroom-dashboard-classes-new-activity" style="display:none;" class="dashboard-block classes-panel">
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1">Application</span>
@@ -1609,181 +1594,85 @@
         </div>
     </nav>
 
-    <div class="container-fluid mb-2 mx-auto part-content-index c-primary-form m-auto">
+    <div class="container mb-2 mx-auto part-content-index c-primary-form">
 
         <!-- Free activity part -->
         <div id="activity-free" style="display:none;">
+            <div class="content">
+                <label for="free-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
+                <textarea id="free-content" style="height:340px"></textarea>
+            </div>
+           
+            <div class="c-checkbox mt-2">
+                <input type="checkbox" name="free-autocorrect" id="free-autocorrect">
+                <label for="free-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
+            </div>
 
-            <div class="content m-3">
-                <div class="container-fluid d-flex m-auto"> 
-                    <div class="row col d-block">
-                        <div class="form-group">
-                            <label for="free-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
-                            <textarea id="free-content" style="height:340px"></textarea>
-                        
-                            <div class="c-checkbox mt-2">
-                                <input type="checkbox" name="free-autocorrect" id="free-autocorrect">
-                                <label for="free-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
-                            </div>
-                
-                            <div class="content" id="free-correction-content" style="display: none;">
-                                <label for="free-correction" data-i18n="newActivities.correction">Correction de l'activité</label>
-                                <textarea id="free-correction" style="height:340px"></textarea>
-                
-                                <div class="content m-3">
-                                    <p>
-                                        <span data-i18n="newActivities.tolerance1"></span>
-                                        <button id="free-tolerance-decrease" class="tolerance-btn">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <input type="number" id="free-tolerance" value="0">
-                                        <button id="free-tolerance-increase" class="tolerance-btn">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                        <span data-i18n="newActivities.tolerance2"></span>
-                                    </p>
-                                </div>
-                            </div>
-                        
-                        </div> 
+            <div class="content" id="free-correction-content" style="display: none;">
+                <label for="free-correction" data-i18n="newActivities.correction">Correction de l'activité</label>
+                <textarea id="free-correction" style="height:340px"></textarea>
 
-                        
-                    </div>
-                    <div class="row col col-md-auto">
-                        <div class="container my-4">
-                            <div class="row">
-                                <div class="col-12 d-flex justify-content-center c-checkbox">
-                                    <input type="checkbox" name="" id="free-calculator-checkbox" checked>
-                                    <label for="free-calculator-checkbox" class="mx-auto vitta-modal-title my-2 row">Activer la calculatrice ?</label>
-                                </div>
-                            </div> 
-                            <div class="row">
-                                <div class="col-12 d-flex justify-content-center" id="free-calculator">
-                                    
-                                </div>
-                            </div>
-                
-                            <div class="col-12 d-flex justify-content-center row">
-                                <div class="row col-12">
-                                    <p class="mx-auto vitta-modal-title my-2">Options de touches :</p>
-                                </div>
-                                <div class="row" id="free-calculator-btn">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="content">
+                    <p>
+                        <span data-i18n="newActivities.tolerance1"></span>
+                        <button id="free-tolerance-decrease" class="tolerance-btn">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <input type="number" id="free-tolerance" value="0">
+                        <button id="free-tolerance-increase" class="tolerance-btn">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <span data-i18n="newActivities.tolerance2"></span></p>
                 </div>
             </div>
 
+
         </div>
 
+        <!-- Reading activity part -->
+        <div id="activity-reading" style="display:none;">
+            <div class="content mb-3">
+                <label for="reading-content" class="tutorial-label">
+                    <span data-i18n="[html]newActivities.content"></span>
+                </label>
+                <textarea id="reading-content" class='part-content' style="height:400px"></textarea>
+            </div>
+        </div>
 
         <!-- Quiz activity part -->
         <div id="activity-quiz" style="display:none;">
 
-            <div class="container-fluid d-flex m-auto"> 
-                <div class="row col d-block">
-                    <div class="content m-3">
-                        <label for="quiz-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
-                        <textarea id="quiz-states" style="height:150px"></textarea>
-                    </div>
-        
-                    <div id="quiz-content-edit" class="content m-3">
-        
-                        <div id="quiz-suggestions-container">
-                            <div class="form-group c-primary-form" id="quiz-group-1">
-                                <label for="quiz-suggestion-1" id="quiz-label-suggestion-1">Proposition 1</label>
-                                <button class="btn c-btn-grey mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-1" onclick="quizManager.deleteQuizSuggestion(1)">Delete</button>
-        
-                                <div class="input-group mt-3">
-                                    <input type="text" id="quiz-suggestion-1" class="form-control">
-                                    <div class="input-group-append">
-                                        <div class="input-group-text c-checkbox c-checkbox-grey">
-                                            <input class="form-check-input" type="checkbox" id="quiz-checkbox-1">
-                                            <label class="form-check-label" for="quiz-checkbox-1" data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-        
-                        <div class="form-group mt-3">
-                            <label for="quiz-hint" data-i18n="[html]newActivities.hint">Indice</label>
-                            <!-- <input type="text" class="form-control" id="quiz-hint"> -->
-                            <textarea id="quiz-hint" class="form-control" style="height:140px"></textarea>
-                        </div>
-        
-                    </div>
-        
-                    <div class="content m-3">
-                        <button data-i18n="newActivities.addQuiz" class="btn c-btn-primary" onclick="quizManager.addQuizSuggestion()">Ajouter une proposition</button>
-                    </div>
-                </div>
-                <div class="row col col-md-auto">
-                    <div class="container my-4"> 
-                        <div class="row">
-                            <div class="col-12 d-flex justify-content-center c-checkbox">
-                                <input type="checkbox" name="" id="quiz-calculator-checkbox" checked>
-                                <label for="quiz-calculator-checkbox" class="mx-auto vitta-modal-title my-2 row">Activer la calculatrice ?</label>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12 d-flex justify-content-center" id="quiz-calculator">
-                            </div>
-                        </div>
-            
-                        <div class="col-12 d-flex justify-content-center row">
-                            <div class="row col-12">
-                                <p class="mx-auto vitta-modal-title my-2">Options de touches :</p>
-                            </div>
-                            <div class="row" id="quiz-calculator-btn">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="content">
+                <label for="quiz-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
+                <textarea id="quiz-states" style="height:150px"></textarea>
             </div>
 
-        </div>
+            <div id="quiz-content-edit" class="content mt-3">
 
-        <!-- Quiz activity part -->
-        <div id="activity-reading" style="display:none;">
+                <div id="quiz-suggestions-container">
+                    <div class="form-group c-primary-form" id="quiz-group-1">
+                        <label for="quiz-suggestion-1" id="quiz-label-suggestion-1">Proposition 1</label>
+                        <button class="btn c-btn-grey mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-1" onclick="quizManager.deleteQuizSuggestion(1)">Delete</button>
 
-            <div class="container-fluid d-flex m-auto"> 
-                <div class="row col d-block">
-                    <div class="content m-3">
-                        <label for="reading-content" class="tutorial-label">
-                            <span data-i18n="[html]newActivities.content"></span>
-                        </label>
-                        <textarea id="reading-content" class='part-content' style="height:400px"></textarea>
-                    </div>
-                </div>
-                <div class="row col col-md-auto">
-                    <div class="container my-4"> 
-                        <div class="row">
-                            <div class="col-12 d-flex justify-content-center c-checkbox">
-                                <input type="checkbox" name="" id="reading-calculator-checkbox" checked>
-                                <label for="reading-calculator-checkbox" class="mx-auto vitta-modal-title my-2 row">Activer la calculatrice ?</label>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12 d-flex justify-content-center" id="reading-calculator">
-                            </div>
-                        </div>
-            
-                        <div class="col-12 d-flex justify-content-center row">
-                            <div class="row col-12">
-                                <p class="mx-auto vitta-modal-title my-2">Options de touches :</p>
-                            </div>
-                            <div class="row" id="reading-calculator-btn">
-
+                        <div class="input-group mt-2 mb-3">
+                            <input type="text" id="quiz-suggestion-1" class="form-control">
+                            <div class="input-group-text c-checkbox c-checkbox-grey">
+                                <input class="form-check-input" type="checkbox" id="quiz-checkbox-1">
+                                <label class="form-check-label" for="quiz-checkbox-1" data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="form-group mt-3">
+                    <label for="quiz-hint" data-i18n="[html]newActivities.hint">Indice</label>
+                    <textarea id="quiz-hint" class="form-control" style="height:140px"></textarea>
+                </div>
+
+            </div>
+
+            <div class="content">
+                <button data-i18n="newActivities.addQuiz" class="btn c-btn-primary" onclick="quizManager.addQuizSuggestion()">Ajouter une proposition</button>
             </div>
 
         </div>
@@ -1791,123 +1680,64 @@
 
         <!-- FillIn activity part -->
         <div id="activity-fill-in" style="display:none;">
-            <div class="content m-3">
-                <div class="container-fluid d-flex m-auto"> 
-                    <div class="row col d-block">
-                        <div class="content m-3">
-                            <label for="fill-in-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
-                            <textarea id="fill-in-states" style="height:150px"></textarea>
-                        </div>
-            
-                        <div class="content mx-3 mt-3 mb-0">
-                            <label for="fill-in-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
-                            <textarea id="fill-in-content" style="height:400px"></textarea>
-                        </div>
-            
-                        <button class="btn c-btn-primary" id="fill-in-add-inputs" data-bs-toggle="tooltip" title="">
-                            <i class="fas fa-pen-alt"></i>
-                            <span data-i18n="[html]newActivities.addField"></span>
-                        </button>
-            
-                        <div class="content m-3">
-                            <p>
-                                <span data-i18n="newActivities.tolerance1"></span>
-                                <button id="fill-in-tolerance-decrease" class="tolerance-btn">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <input type="number" id="fill-in-tolerance" value="0">
-                                <button id="fill-in-tolerance-increase" class="tolerance-btn">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                                <span data-i18n="newActivities.tolerance2"></span>
-                            </p>
-                        </div>
-            
-                        <div class="content form-group m-3">
-                            <label for="fill-in-hint" data-i18n="[html]newActivities.hint">Indice</label>
-                            <textarea id="fill-in-hint"  class="form-control" style="height:140px"></textarea>
-                            <!-- <input type="text" class="form-control" id="fill-in-hint"> -->
-                        </div>
-                    </div>
-                    <div class="row col col-md-auto">
-                        <div class="container my-4"> 
 
-                            <div class="row">
-                                <div class="col-12 d-flex justify-content-center c-checkbox">
-                                    <input type="checkbox" name="" id="fillIn-calculator-checkbox" checked>
-                                    <label for="fillIn-calculator-checkbox" class="mx-auto vitta-modal-title my-2 row">Activer la calculatrice ?</label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-12 d-flex justify-content-center" id="fillIn-calculator">
-                                    
-                                </div>
-                            </div>
-                
-                            <div class="col-12 d-flex justify-content-center row">
-                                <div class="row col-12">
-                                    <p class="mx-auto vitta-modal-title my-2">Options de touches :</p>
-                                </div>
-                                <div class="row" id="fillIn-calculator-btn">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="content">
+                <label for="fill-in-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
+                <textarea id="fill-in-states" style="height:150px"></textarea>
             </div>
+
+            <div class="content mt-3 mb-0">
+                <label for="fill-in-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
+                <textarea id="fill-in-content" style="height:400px"></textarea>
+            </div>
+
+            <button class="btn c-btn-primary mb-3" id="fill-in-add-inputs" data-bs-toggle="tooltip" title="">
+                <i class="fas fa-pen-alt"></i>
+                <span data-i18n="[html]newActivities.addField"></span>
+            </button>
+
+            <div class="content">
+                <p>
+                    <span data-i18n="newActivities.tolerance1"></span>
+                    <button id="fill-in-tolerance-decrease" class="tolerance-btn">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <input type="number" id="fill-in-tolerance" value="0">
+                    <button id="fill-in-tolerance-increase" class="tolerance-btn">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <span data-i18n="newActivities.tolerance2"></span>
+                </p>
+            </div>
+
+            <div class="content form-group mb-3">
+                <label for="fill-in-hint" data-i18n="[html]newActivities.hint">Indice</label>
+                <textarea id="fill-in-hint"  class="form-control" style="height:140px"></textarea>
+            </div>
+
         </div>
 
         <!-- DragAndDrop activity part -->
         <div id="activity-drag-and-drop" style="display:none;">
-            <div class="container-fluid d-flex m-auto"> 
-                <div class="row col d-block">
-                    <div class="content m-3">
-                        <label for="drag-and-drop-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
-                        <textarea id="drag-and-drop-states" style="height:150px"></textarea>
-                    </div>
-        
-                    <div class="content mx-3 mt-3 mb-0">
-                        <label for="drag-and-drop-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
-                        <textarea id="drag-and-drop-content" style="height:400px"></textarea>
-                    </div>
-        
-                    <button class="btn c-btn-primary" id="dragAndDrop-add-inputs" data-bs-toggle="tooltip" title="">
-                        <i class="fas fa-pen-alt"></i>
-                        <span data-i18n="newActivities.addField">Add field</span>
-                    </button>
-        
-                    <div class="content form-group m-3">
-                        <label for="drag-and-drop-hint" data-i18n="[html]newActivities.hint">Indice</label>
-                        <textarea id="drag-and-drop-hint" class="form-control" style="height:140px"></textarea>
-                        <!-- <input type="text" class="form-control" id="drag-and-drop-hint"> -->
-                    </div>
-                </div>
-                <div class="row col col-md-auto">
-                    <div class="container my-4 "> 
-                        <div class="row">
-                            <div class="col-12 d-flex justify-content-center c-checkbox">
-                                <input type="checkbox" name="" id="dragAndDrop-calculator-checkbox" checked>
-                                <label for="dragAndDrop-calculator-checkbox" class="mx-auto vitta-modal-title my-2 row">Activer la calculatrice ?</label>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-12 d-flex justify-content-center" id="dragAndDrop-calculator">
-                            </div>
-                        </div>
-            
-                        <div class="col-12 d-flex justify-content-center row">
-                            <div class="row col-12">
-                                <p class="mx-auto vitta-modal-title my-2">Options de touches :</p>
-                            </div>
-                            <div class="row" id="dragAndDrop-calculator-btn">
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="content">
+                <label for="drag-and-drop-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
+                <textarea id="drag-and-drop-states" style="height:150px"></textarea>
+            </div>
+
+            <div class="content mt-3 mb-0">
+                <label for="drag-and-drop-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
+                <textarea id="drag-and-drop-content" style="height:400px"></textarea>
+            </div>
+
+            <button class="btn c-btn-primary" id="dragAndDrop-add-inputs" data-bs-toggle="tooltip" title="">
+                <i class="fas fa-pen-alt"></i>
+                <span data-i18n="newActivities.addField">Add field</span>
+            </button>
+
+            <div class="content form-group mb-3">
+                <label for="drag-and-drop-hint" data-i18n="[html]newActivities.hint">Indice</label>
+                <textarea id="drag-and-drop-hint"  class="form-control" style="height:140px"></textarea>
             </div>
 
         </div>
@@ -1938,7 +1768,7 @@
 
 <!-- title part -->
 <div id="classroom-dashboard-classes-new-activity-title" style="display:none;" class="dashboard-block ">
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1">Application</span>
@@ -1967,7 +1797,7 @@
     </nav>
 
     <div class="container">
-        <div class="form-row mx-auto my-2 c-primary-form">
+        <div class="row mx-auto my-2 c-primary-form">
             <div class="col-xl-9 my-1 mx-auto">
                 <label data-i18n="classroom.activities.form.title.label">Titre : </label>
                 <input class="w-100" type="text" id="global_title">
@@ -2049,7 +1879,7 @@
 <!-- Attribution part -->
 <div id="classroom-dashboard-classes-new-activity-attribution" style="display:none;" class="dashboard-block class-creation-form-step2">
 
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1">Application</span>
@@ -2103,7 +1933,7 @@
 
 
 <div id="classroom-dashboard-proactivities-panel-teacher" style="display:none;" class="dashboard-block ">
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-activate">1</span>
             <span data-i18n="classroom.activities.form.1">Application</span>
@@ -2133,7 +1963,6 @@
     </nav>
     <div id="activity-creation-grid"></div>
 
-
     <div class="row text-center" style="margin: 0 auto;">
         <div class="col">
             <button class="btn c-btn-grey" onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')">
@@ -2143,12 +1972,11 @@
         <!-- just here to keep the same space as the other return btn -->
         <div class="col"></div>
     </div>
-
 </div>
 
 
 <div id="classroom-dashboard-classes-new-activity-title" style="display:none;" class="dashboard-block ">
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1">Application</span>
@@ -2178,7 +2006,7 @@
 </div>
 <div id="app-media-galery" class="dashboard-block" style="display: none;">
 
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1">Application</span>
@@ -2220,7 +2048,7 @@
 
 
 <div id="classroom-dashboard-classes-custom-activity" style="display:none;" class="dashboard-block classes-panel">
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1">Application</span>
@@ -2275,7 +2103,7 @@
     
     
     <!-- Top progress bar  -->
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <!-- Step 1 -->
         <div class="col text-center">
             <span class="form-activity form-activity-activate">1</span>
@@ -2350,7 +2178,7 @@
     
     
     <!-- Top progress bar  -->
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <!-- Step 1 -->
         <div class="col text-center">
             <span class="form-activity form-activity-activate"><i class="fas fa-check"></i></span>
@@ -2422,7 +2250,7 @@
     
     
     <!-- Top progress bar  -->
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <!-- Step 1 -->
         <div class="col text-center">
             <span class="form-activity form-activity-activate"><i class="fas fa-check"></i></span>
@@ -2458,7 +2286,7 @@
 
         <div id="course-title-content" class="col-8 course-content">
             
-            <div class="form-row c-secondary-form">
+            <div class="row c-secondary-form">
                 <div class="form-group col-md">
                     <label for="course-difficulty" data-i18n="[html]courses.parameters.difficulty"></label>
                     <select class="form-control" id="course-difficulty" aria-label="Default select example">
@@ -2471,7 +2299,7 @@
                 </div>
             </div>
             
-            <div class="form-row c-secondary-form">
+            <div class="row c-secondary-form">
 
                 <div class="form-group col-md">
                     <label for="course-duration" data-i18n="[html]courses.parameters.duration"></label>
@@ -2480,7 +2308,7 @@
 
             </div>
 
-            <div class="form-row c-secondary-form">
+            <div class="row c-secondary-form">
                 <div class="form-group col-md">
                     <label for="course-license" data-i18n="[html]courses.parameters.license"></label>
                     <select class="form-control" id="course-license" aria-label="Default select example">
@@ -2493,7 +2321,7 @@
                 </div>
             </div>
 
-            <div class="form-row c-secondary-form justify-content-between mb-4">
+            <div class="row c-secondary-form justify-content-between mb-4">
                 <div class="d-flex">
                     <label for="course-format" class="d-flex align-items-center mb-0" data-i18n="">Format d'affichage du parcous : </label>
                     <div class="switcher mx-3">
@@ -2534,7 +2362,7 @@
 
 <div id="classroom-dashboard-classes-new-course-attribution" style="display:none;" class="dashboard-block container">
     <!-- Top progress bar  -->
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <!-- Step 1 -->
         <div class="col text-center">
             <span class="form-activity form-activity-activate"><i class="fas fa-check"></i></span>
@@ -2876,16 +2704,6 @@
     }
 </script>
 <script src="assets/js/utils/translate.js"></script>
-<script src="assets/plugins/js/DragAndDropTI.js"></script>
-<script src="assets/plugins/js/ELG-min.js"></script>
-<script src="assets/plugins/js/FillInTI.js"></script>
-<script src="assets/plugins/js/FreeTI.js"></script>
-<script src="assets/plugins/js/QuizTI.js"></script>
-<script src="assets/plugins/js/ReadingTI.js"></script>
-<script src="assets/plugins/js/loginPage.js"></script>
-<script src="assets/plugins/js/ti.wysibb.js"></script>
-<script src="assets/plugins/js/ticalcActivity.js"></script>
-<script src="assets/plugins/js/translationTI.js"></script>
 
 </body>
 
