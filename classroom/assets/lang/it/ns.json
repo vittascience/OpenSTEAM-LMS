@@ -143,6 +143,7 @@
             "activityAttributionChanged": "L'assegnazione dell'attività {{attivitàTitolo}} è stata cambiata per gli studenti elencati",
             "activityCreated": "L'attività {{attivitàTitolo}} è stata creata",
             "activityChanged": "L'attività {{attivitàTitolo}} è stata modificata",
+            "activityImported": "L'attività {{activityTitle}} è stata importata",
             "activityTitleMissing": "Devi compilare il titolo dell'attività",
             "activityPlayerMissing": " È necessario inserire un URL del giocatore.",
             "CsvFileMissing": "Non hai scelto un file csv",

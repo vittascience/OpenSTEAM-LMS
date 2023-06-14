@@ -422,21 +422,7 @@ function getTeacherActivity() {
         </button>
 
         <ul class="dropdown-menu">
-            <li class="dropdown-item" onclick="attributeActivity(${Activity.id})">
-                ${capitalizeFirstLetter(i18next.t('words.attribute'))}
-            </li>
-        
-            <li class="dropdown-item" onclick="createActivity(null,${Activity.id})">
-                ${capitalizeFirstLetter(i18next.t('words.duplicate'))}
-            </li>
-                
-            <li class="dropdown-item" onclick="activityModify(${Activity.id})">
-                ${capitalizeFirstLetter(i18next.t('words.modify'))}
-            </li>
-
-            <li class="dropdown-item modal-activity-delete">
-                ${capitalizeFirstLetter(i18next.t('words.delete'))}
-            </li>
+            ${listOfOptions(Activity)}
         </ul>
     </div>`
     $('#activity-title').append(activityDropdownElt);

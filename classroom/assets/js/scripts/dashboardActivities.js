@@ -189,7 +189,7 @@ function teacherActivityItem(activity, displayStyle) {
                         <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         </i>
                         <div class="dropdown-menu" aria-labelledby="dropdown-list-activityItem-${activity.id}" data-id="${activity.id}">
-                        ${listOfOptions(activity)}
+                            ${listOfOptions(activity)}
                         </div>
                     </div> 
                 </div>
@@ -204,7 +204,7 @@ function teacherActivityItem(activity, displayStyle) {
 
 function listOfOptions(activity) {
     let modifyButton = `<li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>`;
-    // TODO : automatically consider if its collections type
+    
     if(activity.typeTool && activity.typeTool === "collections") {
         modifyButton = ""
     }

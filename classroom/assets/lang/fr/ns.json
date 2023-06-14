@@ -142,6 +142,7 @@
       "activityAttributionChanged": "L'attribution de l'activité {{activityTitle}} a été modifiée pour les apprenants listés",
       "activityCreated": "L'activité {{activityTitle}} a été créée",
       "activityChanged": "L'activité {{activityTitle}} a été modifiée",
+      "activityImported": "L'activité {{activityTitle}} a été importée",
       "activityTitleMissing": "Vous devez renseigner le titre de l'activité",
       "CsvFileMissing": "Vous n'avez pas choisi de fichier csv",
       "errorWithCsv": "Erreur lors de l'ouverture du fichier csv : {{error}}",
