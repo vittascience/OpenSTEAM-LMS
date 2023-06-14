@@ -5,13 +5,15 @@ fieldset.switch-to-admin {
     border: 1px solid var(--classroom-text-2);
     border-radius: 10px;
     text-align: center;
+    margin: revert;
+    min-width: revert;
 }
 
 fieldset.switch-to-admin legend {
     color: var(--classroom-text-2);
     width: auto;
     font-size: 0.75em;
-
+    float: none;
 }
 
 .c-btn-dashboard {

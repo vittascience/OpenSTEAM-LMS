@@ -1,6 +1,6 @@
 <!-- content part -->
 <div id="classroom-dashboard-classes-new-activity" style="display:none;" class="dashboard-block classes-panel">
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1">Application</span>
@@ -32,7 +32,7 @@
 
         <!-- Free activity part -->
         <div id="activity-free" style="display:none;">
-            <div class="content m-3">
+            <div class="content">
                 <label for="free-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
                 <textarea id="free-content" style="height:340px"></textarea>
             </div>
@@ -46,7 +46,7 @@
                 <label for="free-correction" data-i18n="newActivities.correction">Correction de l'activité</label>
                 <textarea id="free-correction" style="height:340px"></textarea>
 
-                <div class="content m-3">
+                <div class="content">
                     <p>
                         <span data-i18n="newActivities.tolerance1"></span>
                         <button id="free-tolerance-decrease" class="tolerance-btn">
@@ -65,7 +65,7 @@
 
         <!-- Reading activity part -->
         <div id="activity-reading" style="display:none;">
-            <div class="content m-3">
+            <div class="content mb-3">
                 <label for="reading-content" class="tutorial-label">
                     <span data-i18n="[html]newActivities.content"></span>
                 </label>
@@ -76,16 +76,17 @@
         <!-- Quiz activity part -->
         <div id="activity-quiz" style="display:none;">
 
-            <div class="content m-3">
+            <div class="content">
                 <label for="quiz-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
                 <textarea id="quiz-states" style="height:150px"></textarea>
             </div>
 
-            <div id="quiz-content-edit" class="content m-3">
+            <div id="quiz-content-edit" class="content mt-3">
 
                 <div id="quiz-suggestions-container">
 
-                    <div class="form-group c-primary-form" id="quiz-group-1">
+
+                    <!--                     <div class="form-group c-primary-form" id="quiz-group-1">
                         <div class="row my-1">
                             <div class="col">
                                 <label for="quiz-suggestion-1" id="quiz-label-suggestion-1">Proposition 1</label>
@@ -96,7 +97,12 @@
                                 <div class="c-checkbox c-checkbox-grey">
                                 <input class="form-check-input" type="checkbox" id="quiz-checkbox-1">
                                     <label class="form-check-label" for="quiz-checkbox-1" data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
-                                </div>
+                                </div> -->
+                        <div class="input-group mt-2 mb-3">
+                            <input type="text" id="quiz-suggestion-1" class="form-control">
+                            <div class="input-group-text c-checkbox c-checkbox-grey">
+                                <input class="form-check-input" type="checkbox" id="quiz-checkbox-1">
+                                <label class="form-check-label" for="quiz-checkbox-1" data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
                             </div>
                         </div>
                         <textarea id="quiz-suggestion-1" style="height:100px"></textarea>
@@ -110,7 +116,7 @@
 
             </div>
 
-            <div class="content m-3">
+            <div class="content">
                 <button data-i18n="newActivities.addQuiz" class="btn c-btn-primary" onclick="quizManager.addQuizSuggestion()">Ajouter une proposition</button>
             </div>
 
@@ -120,22 +126,22 @@
         <!-- FillIn activity part -->
         <div id="activity-fill-in" style="display:none;">
 
-            <div class="content m-3">
+            <div class="content">
                 <label for="fill-in-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
                 <textarea id="fill-in-states" style="height:150px"></textarea>
             </div>
 
-            <div class="content mx-3 mt-3 mb-0">
+            <div class="content mt-3 mb-0">
                 <label for="fill-in-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
                 <textarea id="fill-in-content" style="height:400px"></textarea>
             </div>
 
-            <button class="btn c-btn-primary" id="fill-in-add-inputs" data-toggle="tooltip" title="">
+            <button class="btn c-btn-primary mb-3" id="fill-in-add-inputs" data-bs-toggle="tooltip" title="">
                 <i class="fas fa-pen-alt"></i>
                 <span data-i18n="[html]newActivities.addField"></span>
             </button>
 
-            <div class="content m-3">
+            <div class="content">
                 <p>
                     <span data-i18n="newActivities.tolerance1"></span>
                     <button id="fill-in-tolerance-decrease" class="tolerance-btn">
@@ -149,7 +155,7 @@
                 </p>
             </div>
 
-            <div class="content form-group m-3">
+            <div class="content form-group mb-3">
                 <label for="fill-in-hint" data-i18n="[html]newActivities.hint">Indice</label>
                 <textarea id="fill-in-hint"  class="form-control" style="height:140px"></textarea>
             </div>
@@ -159,22 +165,22 @@
         <!-- DragAndDrop activity part -->
         <div id="activity-drag-and-drop" style="display:none;">
 
-            <div class="content m-3">
+            <div class="content">
                 <label for="drag-and-drop-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
                 <textarea id="drag-and-drop-states" style="height:150px"></textarea>
             </div>
 
-            <div class="content mx-3 mt-3 mb-0">
+            <div class="content mt-3 mb-0">
                 <label for="drag-and-drop-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
                 <textarea id="drag-and-drop-content" style="height:400px"></textarea>
             </div>
 
-            <button class="btn c-btn-primary" id="dragAndDrop-add-inputs" data-toggle="tooltip" title="">
+            <button class="btn c-btn-primary" id="dragAndDrop-add-inputs" data-bs-toggle="tooltip" title="">
                 <i class="fas fa-pen-alt"></i>
                 <span data-i18n="newActivities.addField">Add field</span>
             </button>
 
-            <div class="content form-group m-3">
+            <div class="content form-group mb-3">
                 <label for="drag-and-drop-hint" data-i18n="[html]newActivities.hint">Indice</label>
                 <textarea id="drag-and-drop-hint"  class="form-control" style="height:140px"></textarea>
             </div>
@@ -207,7 +213,7 @@
 
 <!-- title part -->
 <div id="classroom-dashboard-classes-new-activity-title" style="display:none;" class="dashboard-block ">
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1">Application</span>
@@ -236,7 +242,7 @@
     </nav>
 
     <div class="container">
-        <div class="form-row mx-auto my-2 c-primary-form">
+        <div class="row mx-auto my-2 c-primary-form">
             <div class="col-xl-9 my-1 mx-auto">
                 <label data-i18n="classroom.activities.form.title.label">Titre : </label>
                 <input class="w-100" type="text" id="global_title">
@@ -258,7 +264,7 @@
         <div class="section-preview-activity" id="activity-preview-div">
 
             <div class="section-header-preview-activity" onclick="activityPreviewToggler()">
-                <i id="i-activity-preview" class="ml-2 fas fa-lg fa-chevron-up"></i>
+                <i id="i-activity-preview" class="ms-2 fas fa-lg fa-chevron-up"></i>
                 <h3 class="section-title-preview-activity" data-i18n="classroom.activities.previewActivity">preview-activity</h3>
             </div>
 
@@ -318,7 +324,7 @@
 <!-- Attribution part -->
 <div id="classroom-dashboard-classes-new-activity-attribution" style="display:none;" class="dashboard-block class-creation-form-step2">
 
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1">Application</span>
@@ -372,7 +378,7 @@
 
 
 <div id="classroom-dashboard-proactivities-panel-teacher" style="display:none;" class="dashboard-block ">
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-activate">1</span>
             <span data-i18n="classroom.activities.form.1">Application</span>
@@ -415,7 +421,7 @@
 
 
 <div id="classroom-dashboard-classes-new-activity-title" style="display:none;" class="dashboard-block ">
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1">Application</span>

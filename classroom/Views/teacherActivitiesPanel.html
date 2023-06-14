@@ -6,16 +6,16 @@
             <div class="d-flex flex-fill">
 
                 <div class="dropdown mx-2 d-none" id="tags-panel">
-                    <button class="btn c-btn-primary" style="width: auto;height: 3em;min-width: 3em;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn c-btn-primary" style="width: auto;height: 3em;min-width: 3em;" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-filter"></i>
-                        <span class="ml-1 d-none d-md-inline">Filtres</span>
+                        <span class="ms-1 d-none d-md-inline">Filtres</span>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown-tags-filter">
                     </div>
                 </div>
                 <input type="search" id="filter-activity-input" data-i18n="[placeholder]manager.buttons.search" class="flex-fill">
 
-                <button id="filter-activity" class="c-btn-primary" style="width: 3em;height: 3em;">
+                <button id="filter-activity" class="btn btn-primary" style="width: 3em;height: 3em;">
                     <i class="fas fa-search"></i>
                 </button>
             </div>
@@ -45,10 +45,10 @@
     </div>
 
     <div class="buttons-interactions flex-wrap d-inline-flex col-12 mt-3">
-        <button id="new-activity-panel-1" onclick="showExercicePanel()" class=" btn c-btn-outline-secondary"><span class="mr-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
+        <button id="new-activity-panel-1" onclick="showExercicePanel()" class=" btn c-btn-outline-secondary"><span class="me-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
         </button>
 
-        <button id="new-activity-panel-2" onclick="coursesManager.showCoursePanel()" class="btn c-btn-outline-primary"><span class="mr-1" data-i18n="courses.add">Créer un parcours</span><i class="fas fa-chevron-right"></i>
+        <button id="new-activity-panel-2" onclick="coursesManager.showCoursePanel()" class="btn c-btn-outline-primary"><span class="me-1" data-i18n="courses.add">Créer un parcours</span><i class="fas fa-chevron-right"></i>
         </button>
 
         <button class="btn c-btn-icon-only" id="new-activities-folder" onclick="foldersManager.openFolderModal()">
@@ -58,8 +58,8 @@
             <img src="assets/media/folders/folder_tree.svg" alt="arb-folders" onload="SVGInject(this)" style="height: 30px;">
         </button>
 
-        <button id="new-activity-panel-3" onclick="importActivityFromJSON()" class="btn c-btn-no-outline-primary ml-auto">
-            <span class="mr-1" data-i18n="newActivities.import">Importer une activité</span><i class="fas fa-download"></i>
+        <button id="new-activity-panel-3" onclick="importActivityFromJSON()" class="btn c-btn-no-outline-primary ms-auto">
+            <span class="me-1" data-i18n="newActivities.import">Importer une activité</span><i class="fas fa-download"></i>
         </button>
     </div>
 
@@ -73,7 +73,7 @@
 
 <div id="classroom-dashboard-new-activity-panel2" style="display:none;" class="dashboard-block class-creation-form-step2">
 
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1"></span>
@@ -112,7 +112,7 @@
 
 
 <div id="classroom-dashboard-new-activity-panel3" style="display:none;" class="dashboard-block container">
-    <nav class="row form-activity-container mb-3" style="margin: 0 auto;">
+    <nav class="form-activity-container mb-3" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1">Application</span>
@@ -156,13 +156,11 @@
         <!-- Autocorrect activation -->
         <div class="row" id="form-autocorrect">
             <div class="col mb-5 text-center c-primary-form assign-row">
-                <div class="c-checkbox">
-                    <input type="checkbox" id="isAutocorrection-activity-form" onclick="autocorrectSwitch()">
-                    <label for="isAutocorrection-activity-form">
-                        <span data-i18n="classroom.activities.form.autocorrect"></span>
-                    </label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="isAutocorrection-activity-form" onclick="autocorrectSwitch()">
+                    <label for="isAutocorrection-activity-form" class="form-check-label" data-i18n="classroom.activities.form.autocorrect"></label>
                 </div>
-                <i class="fas fa-info assign-info-icon" id="infoAutocorrect" data-toggle="tooltip" title=""></i>
+                <i class="fas fa-info assign-info-icon" id="infoAutocorrect" data-bs-toggle="tooltip" title=""></i>
             </div>
         </div>
 
@@ -193,7 +191,7 @@
         <div class="section-facultative-options">
 
             <div class="section-header-facultative-options" onclick="facultativeOptions()">
-                <i id="i-facultative-options" class="ml-2 fas fa-lg fa-chevron-up"></i>
+                <i id="i-facultative-options" class="ms-2 fas fa-lg fa-chevron-up"></i>
                 <h3 class="section-title-facultative-options" data-i18n="classroom.activities.facultative">Options facultatives</h3>
             </div>
 
@@ -203,10 +201,10 @@
                     <div class="row">
                         <div class="col-12 col-xl-6 c-primary-form assign-activity-calendar">
                             <div class="row">
-                                <div class="col-6 text-right align-middle">
+                                <div class="col-6 text-end align-middle">
                                     <label for="date-begin-activity-form" data-i18n="classroom.activities.form.dateBegin"></label>
                                 </div>
-                                <div class="col-6 text-left">
+                                <div class="col-6 text-start">
                                     <input type="date" id="date-begin-activity-form">
                                 </div>
                             </div>
@@ -214,10 +212,10 @@
 
                         <div class="col-12 col-xl-6 c-primary-form assign-activity-calendar">
                             <div class="row">
-                                <div class="col-6 text-right align-middle">
+                                <div class="col-6 text-end align-middle">
                                     <label for="date-end-activity-form" data-i18n="classroom.activities.form.dateEnd"></label>
                                 </div>
-                                <div class="col-6 text-left">
+                                <div class="col-6 text-start">
                                     <input type="date" id="date-end-activity-form">
                                 </div>
                             </div>
@@ -238,13 +236,12 @@
                     <!-- Activity RetroAttribution  -->
                     <div class="row" id="form-retro-attribution">
                         <div class="col mb-5 text-center c-primary-form assign-row">
-                            <div class="c-checkbox">
-                                <input type="checkbox" id="retro-attribution-activity-form">
-                                <label for="retro-attribution-activity-form">
-                                    <span data-i18n="classroom.activities.form.retroAttribution"></span>
-                                </label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="retro-attribution-activity-form">
+                                <label class="form-check-label" for="retro-attribution-activity-form" data-i18n="classroom.activities.form.retroAttribution"></label>
                             </div>
-                            <i class="fas fa-info assign-info-icon" id="infoRetroAttribution" data-toggle="tooltip" title=""></i>
+
+                            <i class="fas fa-info assign-info-icon" id="infoRetroAttribution" data-bs-toggle="tooltip" title=""></i>
                         </div>
                     </div>
 

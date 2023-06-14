@@ -934,7 +934,7 @@ function displayStudentsInClassroom(students, link=false) {
     // Display the classroom name
     const classroomName = getClassroomInListByLink(ClassroomSettings.classroom)[0].classroom.name;
     const reducedclassroomName = classroomName.length > 16 ? `${classroomName.substring(0, 16)}...` : classroomName;
-    document.querySelector('#header-table-teach').innerHTML = `<th class="table-title" style="max-width: 250px; font-size: 14pt; text-align: left; height: 3em;" data-toggle="tooltip" title="${classroomName}">${reducedclassroomName}</th>`;
+    document.querySelector('#header-table-teach').innerHTML = `<th class="table-title" style="max-width: 250px; font-size: 14pt; text-align: left; height: 3em;" data-bs-toggle="tooltip" title="${classroomName}">${reducedclassroomName}</th>`;
 
     $('#is-monochrome').attr('data-link', link);
     $('#is-anonymised').attr('data-link', link);
@@ -958,7 +958,7 @@ function displayStudentsInClassroom(students, link=false) {
                         <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil">
                         <div class="user-cell-username" title="${element.user.pseudo}">${pseudo}</div>
                         <div class="dropdown">
-                            <i class="classroom-clickable line_height34 fas fa-exchange-alt" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                            <i class="classroom-clickable line_height34 fas fa-exchange-alt" type="button" id="dropdown-studentItem-${element.user.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                             <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
                                 <li id="mode-apprenant" class="dropdown-item classroom-clickable col-12" href="#" onclick="modeApprenant()" data-i18n="classroom.classes.panel.learnerMode">Mode apprenant</li>
                             </div>
@@ -973,9 +973,9 @@ function displayStudentsInClassroom(students, link=false) {
                         <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil">
                         <div class="user-cell-username" title="${element.user.pseudo}">${pseudo}</div>`
             if (!UserManager.getUser().isFromGar) {
-                html += /**/`<div class="dropdown"><i class="classroom-clickable line_height34 fas fa-cog" type="button" id="dropdown-studentItem-${element.user.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                html += /**/`<div class="dropdown"><i class="classroom-clickable line_height34 fas fa-cog" type="button" id="dropdown-studentItem-${element.user.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                 <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
-                <li class="col-12 pwd-display-stud" href="#"><div data-i18n="classroom.classes.panel.password">Votre mot de passe :</div> <span class="masked" id="masked">${element.pwd}</span><i class="classroom-clickable fas fa-low-vision switch-pwd ml-2"></i></li>
+                <li class="col-12 pwd-display-stud" href="#"><div data-i18n="classroom.classes.panel.password">Votre mot de passe :</div> <span class="masked" id="masked">${element.pwd}</span><i class="classroom-clickable fas fa-low-vision switch-pwd ms-2"></i></li>
                 <li class="modal-student-password classroom-clickable col-12 dropdown-item" href="#" data-student-id="${element.user.id}" data-i18n="classroom.classes.panel.resetPassword">Régenérer le mot de passe</li>
                 <li class="classroom-clickable col-12 dropdown-item" href="#"><span class="classroom-clickable" data-i18n="classroom.classes.panel.editNickname" onclick="changePseudoModal(${element.user.id})">Modifier le pseudo</span></li>
                 <li class="dropdown-item modal-student-delete classroom-clickable col-12" href="#" data-i18n="classroom.classes.panel.delete" data-student-id="${element.user.id}">Supprimer</li>
@@ -1018,9 +1018,9 @@ function displayStudentsInClassroom(students, link=false) {
 
                 let thModular = "";
                 if (fromCourse && firstFromCourse) {
-                    thModular = `<th data-toggle="tooltip" class="border-header-class" ${tableLength} data-placement="top" title="Course">`;
+                    thModular = `<th data-bs-toggle="tooltip" class="border-header-class" ${tableLength} data-bs-placement="top" title="Course">`;
                 } else if (!fromCourse) {
-                    thModular = `<th data-toggle="tooltip" class="border-header-class" data-placement="top" title="${arrayIndexesActivities[i].title.replaceAll('"', " ")}">`;
+                    thModular = `<th data-bs-toggle="tooltip" class="border-header-class" data-bs-placement="top" title="${arrayIndexesActivities[i].title.replaceAll('"', " ")}">`;
                 }
 
                 if (fromCourse && firstFromCourse || !fromCourse) {
@@ -1028,11 +1028,11 @@ function displayStudentsInClassroom(students, link=false) {
                         ${thModular}
                         ${!fromCourse ? `` : `<span class="span-act">Par.</br>n°${ activityNumber }</span>`}
                         <div class="dropdown dropdown-act" style="width:30px;">
-                            <div id="dropdown-act-${activityNumber}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div id="dropdown-act-${activityNumber}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     ${!fromCourse ? `<span class="span-act">Act.</br>n°${ activityNumber }</span>` : ``}
                                     <i style="display:none;font-size:2em;" class="fa fa-cog i-act" aria-hidden="true"></i>
                                     <div class="dropdown-menu" aria-labelledby="dropdown-act-${activityNumber}" data-id="${arrayIndexesActivities[i].id}" style="text-transform: none;">
-                                    <li class="ml-5" style="border-bottom:solid 2px black;">
+                                    <li class="ms-5" style="border-bottom:solid 2px black;">
                                         <b>${ arrayIndexesActivities[i].title }</b>
                                     </li>
                                     <li class="classroom-clickable col-12 dropdown-item " onclick="activityWatch(${arrayIndexesActivities[i].id})" ><i class="fas fa-eye"></i> <span data-i18n="classroom.classes.panel.seeActivity">Voir l'activité</span></li>
@@ -1052,7 +1052,7 @@ function displayStudentsInClassroom(students, link=false) {
             if (currentActivity) {
                 const formatedTimePast = 
                 typeof currentActivity.timePassed == 'undefined' ? '' : currentActivity.timePassed == 0 ? '' : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em><br><em>${i18next.t("classroom.activities.numberOfTries")} ${currentActivity.tries}</em>`;
-                html += `<td class=" ${statusActivity(currentActivity, true, formatedTimePast)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-toggle="tooltip" data-html="true" data-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${getTranslatedActivityName(currentActivity.activity.type)}</em></br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>${formatedTimePast}"></td>`;
+                html += `<td class=" ${statusActivity(currentActivity, true, formatedTimePast)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${getTranslatedActivityName(currentActivity.activity.type)}</em></br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>${formatedTimePast}"></td>`;
             } else {
                 html += `<td class="no-activity bilan-cell"></td>`;
             }
@@ -1064,7 +1064,7 @@ function displayStudentsInClassroom(students, link=false) {
         // end of the current table row
         html += '</tr>';
         $('#body-table-teach').append(html).localize();
-        $('[data-toggle="tooltip"]').tooltip()
+        $('[data-bs-toggle="tooltip"]').tooltip()
     });
 
 
@@ -1095,7 +1095,7 @@ function displayStudentsInClassroom(students, link=false) {
     }
 
 
-    $('#export-class-container').append(`<button id="download-csv" class="btn c-btn-tertiary ml-2" onclick="openDownloadCsvModal()"><i class="fa fa-download" aria-hidden="true"></i><span class="ml-1" data-i18n="classroom.activities.exportCsv">Exporter CSV</span></button>`).localize();
+    $('#export-class-container').append(`<button id="download-csv" class="btn c-btn-tertiary" onclick="openDownloadCsvModal()"><i class="fa fa-download" aria-hidden="true"></i><span class="ms-1" data-i18n="classroom.activities.exportCsv">Exporter CSV</span></button>`).localize();
 
     $('#header-table-teach').append(`<th class="add-activity-th" colspan="7"> <button class="btn c-btn-primary dashboard-activities-teacher" onclick="pseudoModal.openModal('add-activity-modal')" data-i18n="classroom.activities.addActivity">Ajouter une activité</button></th>`).localize();
 
@@ -1170,7 +1170,7 @@ function addStudentRow(pseudo, studentId = false, isNotDeletable) {
     <li data-pseudo="${pseudo}" data-id="${studentId}" class="row align-items-center my-1 ">
         <img class="col-2 propic" src="${_PATH}assets/media/alphabet/` + pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil">
         <div class="col">` + pseudo + `</div>
-        ${isNotDeletable ? '' : `<button type=\"button\" class=\"btn btn-danger remove-student h-50\" data-toggle=\"tooltip\" data-placement=\"top\"  >
+        ${isNotDeletable ? '' : `<button type=\"button\" class=\"btn btn-danger remove-student h-50\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\"  >
             <i class=\"fas fa-times\"></i>
         </button>`}
     </li>`;
@@ -1236,7 +1236,7 @@ deletionObserver.observe(document.querySelector("body"), { subtree: true, childL
  * @param {DOM Element} removed_node - The DOM Element to browse
  */
 function browseRemovedNodes(removed_node) {
-    if (removed_node.getAttribute && removed_node.getAttribute('data-toggle') == 'tooltip') {
+    if (removed_node.getAttribute && removed_node.getAttribute('data-bs-toggle') == 'tooltip') {
         const toolTipId = removed_node.getAttribute('aria-describedby');
         document.getElementById(toolTipId) !== null ? document.getElementById(toolTipId).remove() : false;
     }

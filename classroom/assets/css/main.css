@@ -318,14 +318,16 @@ button {
 }
 
 #classroom-dashboard-background {
-    padding: 2em;
-    padding-left: 1em;
+    padding: 1em;
+    padding-top: 0.15em;
     background: var(--classroom-dashboard);
     height: 100vh;
     scroll-behavior: unset;
+    transition: background-color 0.5s ease;
 }
 
 .sidebar-classroom {
+    grid-area: sidebar;
     height: 98%;
     max-height: 98vh;
     display: flex;
@@ -334,7 +336,7 @@ button {
     align-items: center;
     flex: 0;
     flex-shrink: 0;
-    flex-basis: 150px;
+    flex-basis: var(--sidebar-size);
     flex-direction: column;
     justify-content: flex-start;
     gap: 15px;
@@ -343,7 +345,7 @@ button {
 .sidebar-classroom #classroom-sidebar-logo {
     background: var(--classroom-logo);
 
-    max-height: 150px;
+    max-height: var(--sidebar-size);
     height: 100%;
     width: 100%;
 
@@ -362,17 +364,21 @@ button {
 
     width: 100%;
     height: 100%;
-    max-height: 150px;
+    max-height: var(--sidebar-size);
+    max-width: var(--sidebar-size);
+    width: 100%;
     height: -webkit-fill-available;
 
 
-    display: grid;
-    grid-template-rows: auto 20%;
-    grid-template-columns: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     justify-content: center;
     justify-self: end;
 
     border-radius: 1em 0 0 1em;
+    padding: 0 0.5em;
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -395,8 +401,8 @@ button {
 
 
 .sidebar-classroom div img {
-    width: 6em;
-    height: 6em;
+    width: 65%;
+    height: auto;
     background-color: white;
 
     justify-self: center;
@@ -405,6 +411,10 @@ button {
     border-radius: 50%;
     border: 3px solid transparent;
 
+}
+
+.sidebar-classroom div span {
+    margin-top: 0.5em;
 }
 
 .sidebar-classroom .active::before {
@@ -447,17 +457,26 @@ button {
     --mobile-top-bar-height: 3.5em;
     --mobile-bottom-bar-height: 110px;
 
-    display: flex;
-    flex-direction: row;
+    --sidebar-size: 150px;
+    --topbar-size: 3rem;
+
+    display: grid;
+    grid-template-columns: var(--sidebar-size) 1fr;
+    grid-template-rows: var(--topbar-size) 1fr;
+    grid-template-areas: "sidebar navbar"
+                         "sidebar content";
     height: 100%;
 }
 
 #classroom-dashboard-top-bar {
     display: flex;
-    padding: 0.5em 1em;
+    padding: 0.5em 0em;
     align-items: center;
     justify-content: flex-end;
-    position: absolute;
+
+    grid-area: navbar;
+    background: var(--classroom-dashboard);
+    transition: background-color 0.5s ease;
 
     width: 100%;
     width: -webkit-fill-available;
@@ -466,12 +485,12 @@ button {
 
 #classroom-dashboard-content {
     background: var(--classroom-background);
-    flex: 0;
-    flex-shrink: 1;
-    flex-basis: auto;
+    grid-area: content;
     border-radius: 15px;
+
     height: 100%;
     width: 100%;
+
     position: relative;
     overflow-y: scroll;
 
@@ -506,20 +525,69 @@ button {
     cursor: pointer;
 }
 
+/* A11Y BUTTON/DROPDOWN */
+
+#a11y-dropdown {
+    max-height: 100%;
+}
+
+#dropdownMenuButton {
+    --bs-btn-color: var(--classroom-white);
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: transparent;
+
+    --bs-btn-hover-color: var(--classroom-white);
+    --bs-btn-hover-bg: rgba(255, 255, 255, 0.1);
+    --bs-btn-hover-border-color: transparent;
+
+    --bs-btn-active-color: var(--classroom-white);
+    --bs-btn-active-bg: transparent;
+    --bs-btn-active-border-color: var(--classroom-white);
+
+    --bs-btn-padding-x: 1em;
+    --bs-btn-padding-y: 0.2em;
+    height: 100%;
+}
+
 .a11y-dropdown {
-    left: -50px;
     width: 18em;
     background: var(--classroom-background);
     color: var(--classroom-text-0);
     padding: 1em;
 }
 
+/* DEFAULT DASHBOARD PAGE ELT. */
+
 .dashboard-block {
-    margin-top: 2.8em;
+    min-height: 100%;
+    padding: 0 0.5em;
+    padding-top: 1em;
+}
+
+.dashboard-block.full-block {
+    padding: 0;
+}
+
+@media (max-width: 1199.98px) {
+
+    #classroom-dashboard-container {
+        --sidebar-size: 100px;
+    }
+
+    .sidebar-classroom div img {
+        width: 80%;
+    }
+
+    .sidebar-classroom div:not(:first-child) span {
+        display: none;
+    }
+
 }
 
 
-@media (max-width: 768px) {
+
+
+@media (max-width: 767.98px) {
 
     #classroom-dashboard-background {
         padding: 0px;
@@ -527,9 +595,9 @@ button {
     }
 
     #classroom-dashboard-container {
-        display: grid;
         grid-template-columns: 100%;
-        grid-template-rows: 1fr var(--mobile-bottom-bar-height);
+        grid-template-rows: 3rem 1fr var(--mobile-bottom-bar-height);
+        grid-template-areas: "navbar" "content" "sidebar";
     }
 
     #classroom-dashboard-sidebar,
@@ -580,26 +648,6 @@ button {
         border-radius: 0em 0em 15px 15px;
     }
 
-    .sidebar-classroom .active:not(:first-child) span {
-        display: grid;
-        place-items: center;
-
-        width: 100%;
-        min-height: var(--mobile-top-bar-height);
-        padding: 0;
-
-
-        line-height: unset;
-        cursor: auto;
-
-        position: fixed;
-        top: 0;
-        left: 0;
-
-        background: var(--classroom-dashboard);
-        color: var(--classroom-white);
-    }
-
     .sidebar-classroom .active::before {
         content: "";
         position: absolute;
@@ -632,10 +680,7 @@ button {
         border-radius: 0px;
         height: -webkit-fill-available;
         height: fill-available;
-        
-        padding-bottom: 50px;
-        margin-top: var(--mobile-top-bar-height);
-        
+                
         grid-row-end: 2;
         
     }
@@ -647,22 +692,43 @@ button {
 
 }
 
-/* BREADCRUMB */
+/* BREADCRUMBS */
+
+#breadcrumb {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    margin-inline-start: 0.5em;
+    margin-inline-end: auto;
+}
+
 #breadcrumb button {
     text-transform: uppercase;
     padding: 0.1rem 0.8rem;
     font-weight: 600;
     font-size: 0.8rem;
-    background-color: var(--classroom-background);
+    background-color: transparent;
+    border-color: var(--classroom-white);
+    color: var(--classroom-white);
 
 }
 
-#breadcrumb button.last {
-    background-color: var(--classroom-background);
+#breadcrumb button:last-child {
+    background-color: var(--classroom-white);
     border-color: var(--classroom-primary);
     color: var(--classroom-primary);
 
 }
+
+.chevron-breadcrumb {
+    margin: 0 0.5em;
+    color: var(--classroom-white);
+    font-size: 14px;
+    align-self: center;
+}
+
 
 /* NO CONTENT DIV */
 
@@ -749,8 +815,12 @@ button {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: calc(100% - 6em);
-    min-height: 500px;
+    
+    height: 100%;
+    height: fill-available;
+    height: --webkit-fill-available;
+    min-height: 700px;
+
     justify-content: space-evenly;
     align-content: center;
     align-items: center;
@@ -929,6 +999,9 @@ button {
     margin-left: auto;
     margin-right: auto;
     padding-inline-start: 0px !important;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     font-style: italic;
 }
 
@@ -1020,11 +1093,12 @@ button {
 .buttons-interactions {
     display: flex;
     flex-direction: row;
+    flex-direction: row;
+    gap: 0.35em 1em;
 }
 
 .buttons-interactions button {
     padding: 0.25em 0.5em;
-    margin: 0px 1em;
 }
 
 /* START SANDBOX CREATION */
@@ -1489,15 +1563,6 @@ h3.section-done {
 #folders-tree-content-modal ul,
 #folders-tree-content-modal li {
     list-style-type: none;
-}
-
-
-
-.chevron-breadcrumb {
-    margin: 0 0.5em;
-    color: var(--classroom-primary);
-    font-size: 14px;
-    align-self: center;
 }
 
 .folder-breadcrumb {
@@ -2038,6 +2103,7 @@ h3.section-done {
     display: block;
     border-radius: 0px 0px 1em 1em;
     margin-top: -2px;
+    width: auto;
 }
 
 #fill-in-tolerance,
@@ -2200,6 +2266,7 @@ h3.section-done {
 
 
 .quiz-answer-container label {
+    display: block;
     margin: 0.5em auto;
     width: 100%;
     max-width: 250px;

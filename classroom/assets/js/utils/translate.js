@@ -15,9 +15,9 @@ i18next.use(window.i18nextXHRBackend)
             parseDefaultValueFromContent: true
         });
         $(document).localize();
-        if($("[data-toggle='tooltip']")[0]){
-            $("[data-toggle='tooltip']").tooltip('dispose');
-            $("[data-toggle='tooltip']").tooltip();
+        if($("[data-bs-toggle='tooltip']")[0]){
+            $("[data-bs-toggle='tooltip']").tooltip('dispose');
+            $("[data-bs-toggle='tooltip']").tooltip();
         }
     });
 

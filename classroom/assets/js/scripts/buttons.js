@@ -685,7 +685,7 @@ function studentActivitiesDisplay() {
         $('#bilan-student').show();
     }
 
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-bs-toggle="tooltip"]').tooltip();
 }
 
 function manageToggleForStudentPanel() {
@@ -892,7 +892,7 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
     });
 
     foldersManager.dragulaInitObjects();
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-bs-toggle="tooltip"]').tooltip();
 }
 
 
@@ -1057,16 +1057,16 @@ $('#create_group_manager').click(function () {
             <label class="form-check-label" for="groupe_create_end_date"><i class="far fa-calendar-alt"></i>  ${i18next.t('classroom.activities.form.dateEnd')}</label>
             <input type="date" id="groupe_create_end_date" name="trip-start" max="2100-12-31">
 
-            <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerTeachers')}" for="groupe_create_max_students_per_teachers"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.studentsPerTeacher')}</label>
+            <label class="form-check-label" data-bs-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerTeachers')}" for="groupe_create_max_students_per_teachers"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.studentsPerTeacher')}</label>
             <input type="number" id="groupe_create_max_students_per_teachers" value="${mainManager.getmanagerManager()._defaultRestrictions[1].restrictions.maxStudentsPerTeacher}">
 
-            <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerGroups')}" for="groupe_create_max_students_per_groups"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.studentsPerGroup')}</label>
+            <label class="form-check-label" data-bs-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerGroups')}" for="groupe_create_max_students_per_groups"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.studentsPerGroup')}</label>
             <input type="number" id="groupe_create_max_students_per_groups" value="${mainManager.getmanagerManager()._defaultRestrictions[1].restrictions.maxStudents}">
 
-            <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxTeachers')}" for="groupe_create_max_teachers_per_groups"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.teachersPerGroup')}</label>
+            <label class="form-check-label" data-bs-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxTeachers')}" for="groupe_create_max_teachers_per_groups"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.teachersPerGroup')}</label>
             <input type="number" id="groupe_create_max_teachers_per_groups" value="${mainManager.getmanagerManager()._defaultRestrictions[1].restrictions.maxTeachers}">
             
-            <label class="form-check-label" data-toggle="tooltip" title="" for="groupe_create_max_class_per_teachers"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.classroomPerTeacher')}</label>
+            <label class="form-check-label" data-bs-toggle="tooltip" title="" for="groupe_create_max_class_per_teachers"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.classroomPerTeacher')}</label>
             <input type="number" id="groupe_create_max_class_per_teachers" value="${mainManager.getmanagerManager()._defaultRestrictions[1].restrictions.maxClassroomsPerTeacher}">
             
             </div>`);
@@ -1150,16 +1150,16 @@ function showupdateGroupModal(id) {
             <label class="form-check-label" for="end_date"><i class="far fa-calendar-alt"></i>  ${i18next.t('classroom.activities.form.dateEnd')}</label>
             <input type="date" id="end_date" name="trip-start" value="${dateEnd}" max="2100-12-31">
 
-            <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerTeachers')}" for="max_students_per_teachers"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.studentsPerTeacher')}</label>
+            <label class="form-check-label" data-bs-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerTeachers')}" for="max_students_per_teachers"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.studentsPerTeacher')}</label>
             <input type="number" id="max_students_per_teachers" value="${maxStudentsPerTeachers}">
 
-            <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerGroups')}" for="max_students_per_groups"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.studentsPerGroup')}</label>
+            <label class="form-check-label" data-bs-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxStudentsPerGroups')}" for="max_students_per_groups"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.studentsPerGroup')}</label>
             <input type="number" id="max_students_per_groups" value="${maxStudents}">
 
-            <label class="form-check-label" data-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxTeachers')}" for="max_teachers_per_groups"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.teachersPerGroup')}</label>
+            <label class="form-check-label" data-bs-toggle="tooltip" title="${i18next.t('manager.apps.infoMaxTeachers')}" for="max_teachers_per_groups"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.teachersPerGroup')}</label>
             <input type="number" id="max_teachers_per_groups" value="${maxTeachers}">
 
-            <label class="form-check-label" data-toggle="tooltip" title="" for="max_class_per_teachers"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.classroomPerTeacher')}</label>
+            <label class="form-check-label" data-bs-toggle="tooltip" title="" for="max_class_per_teachers"><i class="fas fa-user-alt"></i>  ${i18next.t('manager.group.classroomPerTeacher')}</label>
             <input type="number" id="max_class_per_teachers" value="${maxClassroomPerTeachers}">
             </div>`);
         $('#upd_group_link').val(url);
@@ -1376,7 +1376,7 @@ function addGroupmanager() {
                     </div>
                     <select class="form-control" id="u_group${numberOfAddedGroup}">
                     </select>
-                    <button class="btn btn-danger ml-1" onclick="deleteGroupFromCreate(${numberOfAddedGroup})">Supprimer</button>
+                    <button class="btn btn-danger ms-1" onclick="deleteGroupFromCreate(${numberOfAddedGroup})">Supprimer</button>
                 </div>`;
     $('#group_add_sa').append(HtmlToAdd);
 
@@ -1735,7 +1735,7 @@ function updateAddGroupmanager() {
                     </div>
                     <select class="form-control" id="update_u_group${nextGroup}">
                     </select>
-                    <button class="btn btn-danger ml-1" onclick="deleteGroupFromUpdate(${nextGroup})">Supprimer</button>
+                    <button class="btn btn-danger ms-1" onclick="deleteGroupFromUpdate(${nextGroup})">Supprimer</button>
                 </div>`;
     $("#update_actualgroup_sa").append(group);
     const item_id = 'update_u_group' + nextGroup;
@@ -3245,7 +3245,7 @@ function updateDefaultUsersLimitation() {
     mainManager.getmanagerManager().getDefaultUsersRestrictions().then((response) => {
         pseudoModal.openModal('update-default-restrictions-manager');
         Object.keys(response.restrictions).forEach(function (key) {
-            html += `<div class="form-row mt-1 c-secondary-form">`
+            html += `<div class="row mt-1 c-secondary-form">`
             html += `<div class="col-md">`
             html += `<label for="default-users-restrictions-value">${i18next.t(`manager.table.${key}`)}</label>`;
             html += `<input type="number" class="form-control" id="default-users-restrictions-value-${key}" value="${response.restrictions[key]}">`;
@@ -3264,7 +3264,7 @@ function updateDefaultGroupsLimitation() {
     mainManager.getmanagerManager().getDefaultGroupsRestrictions().then((response) => {
         pseudoModal.openModal('update-default-restrictions-manager');
         Object.keys(response.restrictions).forEach(function (key) {
-            html += `<div class="form-row mt-1 c-secondary-form">`
+            html += `<div class="row mt-1 c-secondary-form">`
             html += `<div class="col-md">`
             html += `<label for="default-groups-restrictions-value-${key}">${i18next.t(`manager.table.${key}`)}</label>`;
             html += `<input type="number" class="form-control" id="default-groups-restrictions-value-${key}" value="${response.restrictions[key]}">`;
@@ -3288,7 +3288,7 @@ function updateDefaultActivitiesLimitation() {
         html += `<button class="btn c-btn-primary my-3 btn" onclick="addDefaultActivitiesRestriction()">${i18next.t(`manager.defaultRestrictions.add`)}</button>`;
         Object.keys(response.restrictions).forEach(function (key) {
             allActualType.push(key);
-            html += `<div class="form-row mt-1 c-secondary-form">`
+            html += `<div class="row mt-1 c-secondary-form">`
             html += `<div class="col-md">`
             html += `<label for="default-activity-restriction-type-${key}">${i18next.t('manager.defaultRestrictions.type')}</label>`;
             html += `<input type="text" class="form-control" id="default-activity-restriction-type-${key}" value="${key}">`;

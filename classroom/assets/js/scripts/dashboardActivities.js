@@ -32,7 +32,7 @@ function activityItem(activity, state) {
     let dateEndNotif = activity.activity.isLti ? "style='display:none'" : "";
     let html = `<div class="activity-item">
                     <div class="activity-card ${activityType} ">
-                        <div class="${activityStatus}" data-toggle="tooltip" title="${activityStatusTitle}"><div class="ribbon__content"></div></div>
+                        <div class="${activityStatus}" data-bs-toggle="tooltip" title="${activityStatusTitle}"><div class="ribbon__content"></div></div>
                         <div class="activity-card-top">
                             ${activity.activity.isAutocorrect ? `<img src='${_PATH}assets/media/auto-icon.svg' title='Auto'>` : "" }
                         </div>
@@ -45,7 +45,7 @@ function activityItem(activity, state) {
     }
 
     html += `</div></div></div>`
-    html += `<h3 data-toggle="tooltip" title="${activity.activity.title}" class="activity-item-title">${activity.activity.title}</h3>`
+    html += `<h3 data-bs-toggle="tooltip" title="${activity.activity.title}" class="activity-item-title">${activity.activity.title}</h3>`
     html += `</div>`
 
     return html;
@@ -57,7 +57,7 @@ function courseItem(course, state) {
     //let dateEndNotif = activity.activity.isLti ? "style='display:none'" : "";
     let html = `<div class="course-item" onclick="coursesManager.${course.course.format == 1 ? "readCourseOnePage" : "readCourseFromStudent"}('${course.course.id}')">
                     <div class="course-card">
-                        <div class="${activityStatus}" data-toggle="tooltip" title="${course.course.title}"><div class="ribbon__content"></div></div>
+                        <div class="${activityStatus}" data-bs-toggle="tooltip" title="${course.course.title}"><div class="ribbon__content"></div></div>
                         <img src="${_PATH}assets/media/cards/card-course.png" class="course-card-img">
                         <div class="course-card-info">
                             <div class="course-card-top">
@@ -74,7 +74,7 @@ function courseItem(course, state) {
     }
 
     html += `</div></div></div></div>`
-    html += `<h3 data-toggle="tooltip" title="${course.course.title}" class="activity-item-title">${course.course.title}</h3>`
+    html += `<h3 data-bs-toggle="tooltip" title="${course.course.title}" class="activity-item-title">${course.course.title}</h3>`
     html += `</div>`
 
     return html;
@@ -86,7 +86,7 @@ function teacherSandboxItem(json) {
                     <div class="sandbox-card sandbox-card-` + json.interface + `" data-id="${json.id}" data-href="/` + json.interface + `/?link=` + json.link + `&embed=1">
                         <div class="sandbox-card-top">
                         <i class="fas fa-share fa-2x" style="grid-column-start: 1; grid-column-end: 1;" data-link="${json.link}" ></i>      
-                            <div class="dropdown"><i class="fas fa-cog fa-2x" style="grid-column-start: 3; grid-column-end: 3;" type="button" id="dropdown-teacherSandboxItem-${json.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                            <div class="dropdown"><i class="fas fa-cog fa-2x" style="grid-column-start: 3; grid-column-end: 3;" type="button" id="dropdown-teacherSandboxItem-${json.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                     <div class="dropdown-menu" aria-labelledby="dropdown-teacherSandboxItem-${json.id}">`
     if (UserManager.getUser().isRegular) {
         html += `<li class="classroom-clickable col-12 dropdown-item" onclick="integrateProject('${location.origin}/${json.interface}/?link=${json.link}&embed=1')" href="#">` + i18next.t('classroom.activities.integrate') + `</li>`
@@ -117,7 +117,7 @@ function teacherActivityItem(activity, displayStyle) {
                                 <div class="activity-card-top">
                                 ${activity.isAutocorrect ? `<img src='${_PATH}assets/media/auto-icon.svg' title='Auto'>` : "" }
                                 <div class="dropdown">
-                                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     </i>
                                     <div class="dropdown-menu" aria-labelledby="dropdown-activityItem-${activity.id}" data-id="${activity.id}">
                                         <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
@@ -137,7 +137,7 @@ function teacherActivityItem(activity, displayStyle) {
                                 </div>
                             </div>
                             </div>
-                            <h3 data-toggle="tooltip" title="${activity.title}" class="activity-item-title">${activity.title}</h3>
+                            <h3 data-bs-toggle="tooltip" title="${activity.title}" class="activity-item-title">${activity.title}</h3>
                         </div>
                     </div>`
     } else if (displayStyle == "list") {
@@ -167,7 +167,7 @@ function teacherActivityItem(activity, displayStyle) {
                 
                 <div class="activity-list-options">
                     <div class="activity-list-options dropdown">
-                        <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-activityItem-${activity.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-activityItem-${activity.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         </i>
                         <div class="dropdown-menu" aria-labelledby="dropdown-list-activityItem-${activity.id}" data-id="${activity.id}">
                             <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
@@ -199,7 +199,7 @@ function teacherFolder(folder, displayStyle) {
                             <img class="folder-open-icon" src="${_PATH}assets/media/folders/folder_open_icon.svg" onload="SVGInject(this)">
                             <div class="folder-card-top">
                                 <div class="dropdown">
-                                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-folder-${folder.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     </i>
                                     <div class="dropdown-menu" aria-labelledby="dropdown-folder-${folder.id}" data-id="${folder.id}">
                                         <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.updateFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.update'))}</li>
@@ -215,7 +215,7 @@ function teacherFolder(folder, displayStyle) {
                                 </div>
                             </div>
                         </div>
-                        <h3 data-toggle="tooltip" title="${folder.name}" class="activity-item-title">${folder.name}</h3>
+                        <h3 data-bs-toggle="tooltip" title="${folder.name}" class="activity-item-title">${folder.name}</h3>
                     </div>
                 </div>`
     } else if (displayStyle == "list") {
@@ -232,7 +232,7 @@ function teacherFolder(folder, displayStyle) {
 
                                 <div class="folder-list-options ">
                                     <div class="folder-list-options dropdown">
-                                        <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-folder-${folder.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-folder-${folder.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         </i>
                                         <div class="dropdown-menu" aria-labelledby="dropdown-list-folder-${folder.id}" data-id="${folder.id}">
                                             <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.updateFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.update'))}</li>
@@ -266,7 +266,7 @@ function classeItem(classe, nbStudents, students) {
                 <div class="class-card-top"  data-id="${classe.id}" data-link="${classe.link}">
                 <span><i class="fas fa-user fa-2x"></i></i> ${nbStudents}</span>
                 ${remainingCorrectionsSpanElt}
-                <div class="dropdown"><i class="fas fa-cog fa-2x" type="button" id="dropdown-classeItem-${classe.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                <div class="dropdown"><i class="fas fa-cog fa-2x" type="button" id="dropdown-classeItem-${classe.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                     <div class="dropdown-menu" aria-labelledby="dropdown-classeItem-${classe.id}">
                 <li class="modal-classroom-modify classroom-clickable col-12 dropdown-item" href="#">` + capitalizeFirstLetter(i18next.t('words.modify')) + `</li>
                 <li class="dropdown-item modal-classroom-delete classroom-clickable col-12" href="#">` + capitalizeFirstLetter(i18next.t('words.delete')) + `</li>
@@ -339,10 +339,10 @@ function classeList(classe, ref = null) {
             ClassroomSettings.studentCount++
         }
 
-        html += `<div class="c-checkbox ml-3 student-attribute-form-row">
+        html += `<div class="c-checkbox ms-3 student-attribute-form-row">
             <input type="checkbox" id="student-${student.user.id}" value="${student.user.id}" class="student-id" ${checked}>
             <label class="mb-0" for="student-${student.user.id}">
-                <img class="ml-1" src="${_PATH}assets/media/alphabet/${student.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil"></img>
+                <img class="ms-1" src="${_PATH}assets/media/alphabet/${student.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil"></img>
                 <span>${student.user.pseudo}</span>
             </label>
         </div>`

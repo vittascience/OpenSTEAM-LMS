@@ -13,7 +13,7 @@
                 </div>
 
                 <!-- View filter -->
-                <div class="col-md form-row">
+                <div class="col-md  d-flex flex-column">
                     <div class="col-12">
                         <select class="form-select w-100" id="sort_groups_filter">
                             <option selected value="0" data-i18n="manager.sort.group.byname">Trier par nom</option>
@@ -21,7 +21,7 @@
                         </select>
                     </div>
 
-                    <div class="col-12">
+                    <div class="d-flex">
                         <label for="groups_per_page" data-i18n="manager.group.groupsPerPage">Groupes par page</label>
                         <select name="groups_per_page" id="groups_per_page" class="my-1 form-select">
                             <option value="100">100</option>
@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-            <div class="row mb-2" id="btn-create-manager">
+            <div class="mb-2" id="btn-create-manager">
                 <button class="btn c-btn-outline-primary mx-1" id="create_group_manager">
                     <span data-i18n="manager.group.create">Créer un groupe</span> <i class="fas fa-chevron-right"></i>
                 </button>
@@ -41,7 +41,7 @@
                 </button>
             </div>
 
-            <div class="row" id="table_details_admins">
+            <div id="table_details_admins">
                 <table class="table c-table">
                     <thead>
                         <tr>
@@ -70,7 +70,7 @@
                     </div>
                 
                     <!-- View filter -->
-                    <div class="col-md form-row">
+                    <div class="col-md d-flex flex-column">
                         <div class="col-12">
                             <select class="form-select w-100" id="sort_users_filter">
                                 <option selected value="0" data-i18n="manager.sort.user.bylastname">Trier par nom</option>
@@ -78,7 +78,7 @@
                             </select>
                         </div>
                 
-                        <div class="col-12">
+                        <div class="d-flex">
                             <label for="users_per_page" data-i18n="manager.users.usersPerPage">Utilisateurs par page</label>
                             <select name="users_per_page" id="users_per_page" class="my-1 form-select">
                                 <option value="100">100</option>
