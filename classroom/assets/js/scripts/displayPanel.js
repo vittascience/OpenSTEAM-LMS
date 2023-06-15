@@ -486,8 +486,7 @@ function showTeacherQuizActivity(contentParsed, Activity) {
                         <label class="form-check-label" for="quiz-checkbox-${i}" id="show-quiz-label-checkbox-${i}">${data[i-1].inputVal}</label>
                     </div>`;
     }
-    $('#activity-content-container').append(htmlToPush);
-
+    $('#activity-content').append(htmlToPush);
     $("#activity-content-container").show();
     $("#activity-states-container").show();
 }

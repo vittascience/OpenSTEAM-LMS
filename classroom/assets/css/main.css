@@ -3638,3 +3638,22 @@ h3.section-done {
     100% { transform: rotate(360deg); }
   }
 
+/* TEACHER PREVIEW ACTIVITY VIEW */
+  #activity-content {
+    height: 100%;
+  }
+
+  #activity-content-container {
+    height: 100%;
+    position: relative;
+  }
+
+  #classroom-dashboard-activity-panel {
+    flex-grow: 1;
+  }
+  #classroom-dashboard-activity-panel .row {
+    height: 100%;
+  }
+  #classroom-dashboard-activity-panel .container-fluid {
+    height: 100%;
+  }
