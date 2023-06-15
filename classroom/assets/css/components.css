@@ -652,13 +652,8 @@ hr {
 
 .wysibb .wysibb-toolbar {
     border-bottom: 2px solid var(--classroom-primary) !important;
-    padding: 0 var(--button-toolbar-width, 115px) 0 0 !important;
-}
-
-.wysibb .wysibb-toolbar .wysibb-toolbar-container {
-    border-color: var(--classroom-primary) !important;
-    margin-bottom: -1px !important;
-    border-bottom: 1px solid var(--classroom-primary) !important;
+    position: relative;
+    padding: 0 !important;
 }
 
 .wysibb .wbb-answer {
@@ -669,6 +664,7 @@ hr {
     display: grid;
     place-items: center;
     height: 100%;
+    margin-inline-start: auto;
 }
 
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn,
