@@ -80,6 +80,12 @@ class FreeManager {
         let activityContent = document.getElementById('activity-content');
         activityContent.innerHTML = '';
 
+
+        let state = document.createElement('div');
+        state.id = 'free-preview-activity-states';
+        state.className = 'd-flex flex-column';
+
+
         let textAreaDiv = document.createElement('div');
         textAreaDiv.id = 'free-preview-teachers';
         textAreaDiv.className = 'd-flex flex-column';
