@@ -328,7 +328,7 @@ class QuizManager {
         let studentResponse = [];
         for (let i = 1; i < $(`input[id^="student-quiz-checkbox-"]`).length+1; i++) {
             let res = {
-                inputVal: $(`#student-quiz-suggestion-${i}`).text(),
+                inputVal: $(`#student-quiz-suggestion-${i}`).attr("data-raw"),
                 isCorrect: $(`#student-quiz-checkbox-${i}`).is(':checked')
             }
             studentResponse.push(res);
