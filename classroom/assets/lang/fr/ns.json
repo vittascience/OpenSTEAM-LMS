@@ -1635,6 +1635,7 @@
 		"placeholderTitle": "Titre de votre activité",
 		"placeholderDescription": "Description de votre activité",
 		"format": {
+			"label": "Format d'affichage du parcours : ",
 			"onePage": "Une page",
 			"standart": "Standard"
 		},
