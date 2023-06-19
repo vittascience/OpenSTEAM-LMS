@@ -71,14 +71,29 @@ class FreeManager {
 
     showTeacherFreeActivity(contentParsed, Activity) {
         if (contentParsed.hasOwnProperty('description')) {
-            $('#activity-content').html(bbcodeContentIncludingMathLive(contentParsed.description));
-            $('#activity-content-container').show();
+
+            let state = document.getElementById('activity-states');
+            state.innerHTML = '';
+            state.innerHTML = bbcodeContentIncludingMathLive(contentParsed.description);
+            
+            let stateContainer = document.getElementById('activity-states-container');
+            stateContainer.style.display = 'block';
+
+            let divContainer = document.getElementById('activity-content-container');
+            divContainer.style.display = 'none';
         } 
     }
 
     showTeacherFreeActivityDoable(contentParsed, Activity) {
         let activityContent = document.getElementById('activity-content');
         activityContent.innerHTML = '';
+
+        let state = document.getElementById('activity-states');
+        state.innerHTML = '';
+        state.innerHTML = bbcodeContentIncludingMathLive(contentParsed.description);
+
+        let stateContainer = document.getElementById('activity-states-container');
+        stateContainer.style.display = 'block';
 
         let textAreaDiv = document.createElement('div');
         textAreaDiv.id = 'free-preview-teachers';

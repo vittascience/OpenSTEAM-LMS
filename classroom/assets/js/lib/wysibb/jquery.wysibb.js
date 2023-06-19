@@ -432,7 +432,7 @@ wbbdebug = false;
 					transform: {
 						"<span class='lms-answer'>{SELTEXT}</span>": "[answer]{SELTEXT}[/answer]",
 					}
-					// button is completely hidden in the elements.css file
+					// button is completely hidden in the components.css file
 				},
 				myimages: {
 					title: CURLANG.myImages,

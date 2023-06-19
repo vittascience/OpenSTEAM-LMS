@@ -77,14 +77,17 @@ class QuizManager {
                                 </div>
 
                                 <div class="col-md-auto d-flex align-items-center">
-                                    <div class="c-checkbox">
-                                    <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}">
-                                        <label class="form-check-label" for="quiz-checkbox-${i}" data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}">
+                                        <label class="form-check-label" for="quiz-checkbox-${i}" data-i18n="classroom.activities.correctAnswer">
+                                            Réponse correcte
+                                        </label>
                                     </div>
                                 </div>
                             </div>
                             <textarea id="quiz-suggestion-${i}" style="height:100px"></textarea>
                         </div>`;
+
         $('#quiz-suggestions-container').append(divToAdd);
         quizManager.enableTextArea(`#quiz-suggestion-${i}`);
         $(`#quiz-button-suggestion-${i}`).localize();
@@ -131,22 +134,25 @@ class QuizManager {
         content = JSON.parse(activity.content);
         $('#quiz-suggestions-container').html('');
         for (let i = 1; i < solution.length+1; i++) {
-            let divToAdd = `<div class="form-group c-primary-form" id="quiz-group-${i}">
-                                <div class="row my-1">
-                                    <div class="col">
-                                        <label for="quiz-suggestion-${i}" id="quiz-label-suggestion-${i}">Proposition ${i}</label>
-                                        <button class="btn c-btn-secondary mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-${i}" onclick="quizManager.deleteQuizSuggestion(${i})">Delete</button>
-                                    </div>
 
-                                    <div class="col-md-auto d-flex align-items-center">
-                                        <div class="c-checkbox">
-                                            <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}" ${solution[i-1].isCorrect ? "checked" : ""}>
-                                            <label class="form-check-label" for="quiz-checkbox-${i}" data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
-                                        </div>
+        let divToAdd = `<div class="form-group c-primary-form" id="quiz-group-${i}">
+                            <div class="row my-1">
+                                <div class="col">
+                                    <label for="quiz-suggestion-${i}" id="quiz-label-suggestion-${i}">Proposition ${i}</label>
+                                    <button class="btn c-btn-secondary mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-${i}" onclick="quizManager.deleteQuizSuggestion(${i})">Delete</button>
+                                </div>
+
+                                <div class="col-md-auto d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}" ${solution[i-1].isCorrect ? "checked" : ""}>
+                                        <label class="form-check-label" for="quiz-checkbox-${i}" data-i18n="classroom.activities.correctAnswer">
+                                            Réponse correcte
+                                        </label>
                                     </div>
                                 </div>
-                                <textarea id="quiz-suggestion-${i}" style="height:100px"></textarea>
-                            </div>`;
+                            </div>
+                            <textarea id="quiz-suggestion-${i}" style="height:100px"></textarea>
+                        </div>`;
 
             $('#quiz-suggestions-container').append(divToAdd);
             quizManager.enableTextArea(`#quiz-suggestion-${i}`, solution[i-1].inputVal);
@@ -175,7 +181,7 @@ class QuizManager {
         let data = JSON.parse(Activity.solution);
         let htmlToPush = '';
         for (let i = 1; i < data.length+1; i++) {
-            htmlToPush += `<div class="input-group c-checkbox quiz-answer-container" id="qcm-field-${i}">
+            htmlToPush += `<div class="c-checkbox quiz-answer-container" id="qcm-field-${i}">
                             <input class="form-check-input" type="checkbox" id="show-quiz-checkbox-${i}" ${data[i-1].isCorrect ? 'checked' : ''} onclick="return false;">
                             <label class="form-check-label" for="quiz-checkbox-${i}" id="show-quiz-label-checkbox-${i}">${bbcodeContentIncludingMathLive(data[i-1].inputVal)}</label>
                         </div>`;
@@ -269,14 +275,14 @@ class QuizManager {
         let content = "";
         if (doable) {
             for (let i = 1; i < data.length+1; i++) {
-                content += ` <div class="input-group c-checkbox quiz-answer-container" id="qcm-doable-${i}${previewId}">
+                content += ` <div class="c-checkbox quiz-answer-container" id="qcm-doable-${i}${previewId}">
                                 <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}${previewId}" ${data[i-1].isCorrect ? "checked" : ""}>
                                 <label class="form-check-label" data-raw="${data[i-1].inputVal}" for="student-quiz-checkbox-${i}${previewId}" id="${correctionId}student-quiz-suggestion-${i}${previewId}">${bbcodeContentIncludingMathLive(data[i-1].inputVal)}</label>
                             </div>`;
             }
         } else {
             for (let i = 1; i < data.length+1; i++) {
-                content += ` <div class="input-group c-checkbox quiz-answer-container" id="qcm-not-doable-${i}">
+                content += ` <div class="c-checkbox quiz-answer-container" id="qcm-not-doable-${i}">
                                 <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
                                 <label class="form-check-label" data-raw="${data[i-1].inputVal}" for="student-quiz-checkbox-${i}" id="${correctionId}student-quiz-suggestion-${i}">${bbcodeContentIncludingMathLive(data[i-1].inputVal)}</label>
                             </div>`;
@@ -322,7 +328,7 @@ class QuizManager {
         let studentResponse = [];
         for (let i = 1; i < $(`input[id^="student-quiz-checkbox-"]`).length+1; i++) {
             let res = {
-                inputVal: $(`#student-quiz-suggestion-${i}`).text(),
+                inputVal: $(`#student-quiz-suggestion-${i}`).attr("data-raw"),
                 isCorrect: $(`#student-quiz-checkbox-${i}`).is(':checked')
             }
             studentResponse.push(res);
@@ -392,7 +398,7 @@ class QuizManager {
                     correctAnswer = true;
                 }
 
-                dataCorrected += ` <div class="input-group c-checkbox quiz-answer-container ${correctAnswer ? "quiz-answer-correct" : "quiz-answer-incorrect"}" id="qcm-not-doable-${i}">
+                dataCorrected += ` <div class="c-checkbox quiz-answer-container ${correctAnswer ? "quiz-answer-correct" : "quiz-answer-incorrect"}" id="qcm-not-doable-${i}">
                                 <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
                                 <label class="form-check-label" for="student-quiz-checkbox-${i}" id="correction-student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
                             </div>`;

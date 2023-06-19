@@ -614,7 +614,7 @@ if (addTagToList) {
             tagDiv.classList.add('m-2');
             tagDiv.classList.add('px-2');
             tagDiv.classList.add('c-btn-primary');
-            tagDiv.innerHTML = tag.innerHTML + '<i class="fas fa-times ml-2"></i>';
+            tagDiv.innerHTML = tag.innerHTML + '<i class="fas fa-times ms-2"></i>';
             tagList.appendChild(tagDiv);
         }
 
@@ -666,7 +666,7 @@ function manageTagList(taglist) {
         tagDiv.classList.add('m-2');
         tagDiv.classList.add('px-2');
         tagDiv.classList.add('c-btn-primary');
-        tagDiv.innerHTML = tag.name + '<i class="fas fa-times ml-2"></i>';
+        tagDiv.innerHTML = tag.name + '<i class="fas fa-times ms-2"></i>';
         eTagList.appendChild(tagDiv);
     }
 

@@ -1322,6 +1322,7 @@
 		"placeholderTitle": "Activity title",
 		"placeholderDescription": "Activity description",
 		"format": {
+			"label": "Course's display format",
 			"onePage": "One page",
 			"standart": "Standart"
 		},

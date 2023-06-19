@@ -3,7 +3,7 @@
     
     
     <!-- Top progress bar  -->
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <!-- Step 1 -->
         <div class="col text-center">
             <span class="form-activity form-activity-activate">1</span>
@@ -49,7 +49,7 @@
                 </button>
 
                 <button class="btn c-btn-secondary mx-1" id="course-create-activity">
-                    <span data-i18n="courses.createActivity" onclick="showExercicePanel()"><span class="mr-1" data-i18n="classroom.activities.add">Créer une activité</span><i class="fas fa-chevron-right"></i>
+                    <span data-i18n="courses.createActivity" onclick="showExercicePanel()"><span class="me-1" data-i18n="classroom.activities.add">Créer une activité</span><i class="fas fa-chevron-right"></i>
                 </button>
             </div>
 
@@ -78,7 +78,7 @@
     
     
     <!-- Top progress bar  -->
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <!-- Step 1 -->
         <div class="col text-center">
             <span class="form-activity form-activity-activate"><i class="fas fa-check"></i></span>
@@ -150,7 +150,7 @@
     
     
     <!-- Top progress bar  -->
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <!-- Step 1 -->
         <div class="col text-center">
             <span class="form-activity form-activity-activate"><i class="fas fa-check"></i></span>
@@ -186,7 +186,7 @@
 
         <div id="course-title-content" class="col-8 course-content">
             
-            <div class="form-row c-secondary-form">
+            <div class="row c-secondary-form">
                 <div class="form-group col-md">
                     <label for="course-difficulty" data-i18n="[html]courses.parameters.difficulty"></label>
                     <select class="form-control" id="course-difficulty" aria-label="Default select example">
@@ -199,7 +199,7 @@
                 </div>
             </div>
             
-            <div class="form-row c-secondary-form">
+            <div class="row c-secondary-form">
 
                 <div class="form-group col-md">
                     <label for="course-duration" data-i18n="[html]courses.parameters.duration"></label>
@@ -208,7 +208,7 @@
 
             </div>
 
-            <div class="form-row c-secondary-form">
+            <div class="row c-secondary-form">
                 <div class="form-group col-md">
                     <label for="course-license" data-i18n="[html]courses.parameters.license"></label>
                     <select class="form-control" id="course-license" aria-label="Default select example">
@@ -221,9 +221,9 @@
                 </div>
             </div>
 
-            <div class="form-row c-secondary-form justify-content-between mb-4">
+            <div class="row c-secondary-form justify-content-between mb-4">
                 <div class="d-flex">
-                    <label for="course-format" class="d-flex align-items-center mb-0" data-i18n="">Format d'affichage du parcous : </label>
+                    <label for="course-format" class="d-flex align-items-center mb-0" data-i18n="">Format d'affichage du parcours : </label>
                     <div class="switcher mx-3">
                         <input type="radio" name="course-format" class="switcher__input switcher__input--left" value="0" id="course-standard" checked=""/>
                         <label for="course-standard" class="switcher__label text-capitalize" data-i18n="courses.format.standart"></label>
@@ -262,7 +262,7 @@
 
 <div id="classroom-dashboard-classes-new-course-attribution" style="display:none;" class="dashboard-block container">
     <!-- Top progress bar  -->
-    <nav class="row form-activity-container" style="margin: 0 auto;">
+    <nav class="form-activity-container" style="margin: 0 auto;">
         <!-- Step 1 -->
         <div class="col text-center">
             <span class="form-activity form-activity-activate"><i class="fas fa-check"></i></span>
@@ -310,7 +310,7 @@
                 </div>
 
                 <div class="col-sm mb-2">
-                    <button class="btn c-btn-primary" data-i18n="[html]courses.return">
+                    <button class="btn c-btn-primary" data-i18n="[html]courses.return" onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')">
                     </button>
                 </div>
             </div>
@@ -344,7 +344,7 @@
         <div class="section-facultative-options">
 
             <div class="section-header-facultative-options" onclick="coursesManager.facultativeOptions()">
-                <i id="i-course-options" class="ml-2 fas fa-lg fa-chevron-up"></i>
+                <i id="i-course-options" class="ms-2 fas fa-lg fa-chevron-up"></i>
                 <h3 class="section-title-facultative-options" data-i18n="classroom.activities.facultative">Options facultatives</h3>
             </div>
 
@@ -354,10 +354,10 @@
                     <div class="row">
                         <div class="col-12 col-xl-6 c-primary-form assign-activity-calendar">
                             <div class="row">
-                                <div class="col-6 text-right align-middle">
+                                <div class="col-6 text-end align-middle">
                                     <label for="date-begin-course-form" data-i18n="classroom.activities.form.dateBegin"></label>
                                 </div>
-                                <div class="col-6 text-left">
+                                <div class="col-6 text-start">
                                     <input type="date" id="date-begin-course-form">
                                 </div>
                             </div>
@@ -365,10 +365,10 @@
     
                         <div class="col-12 col-xl-6 c-primary-form assign-activity-calendar">
                             <div class="row">
-                                <div class="col-6 text-right align-middle">
+                                <div class="col-6 text-end align-middle">
                                     <label for="date-end-course-form" data-i18n="classroom.activities.form.dateEnd"></label>
                                 </div>
-                                <div class="col-6 text-left">
+                                <div class="col-6 text-start">
                                     <input type="date" id="date-end-course-form">
                                 </div>
                             </div>
