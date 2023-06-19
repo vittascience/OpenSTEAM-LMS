@@ -596,9 +596,9 @@ function getTeacherActivity() {
     </div>`
     $('#activity-title').append(activityDropdownElt);
 
-
+    const doableActivities = ['fillIn', 'dragAndDrop', 'free', 'quiz'];
     // Create the switch view for the teacher (doable or correction) if the activity is not a reading and not an LTI
-    if (Activity.type != "reading" && !Activity.isLti) {
+    if (doableActivities.includes(Activity.type) && Activity.type != 'lti') {
         createSwitchViewForTeacherActivity();
         loadActivityContent(true);
     } else {

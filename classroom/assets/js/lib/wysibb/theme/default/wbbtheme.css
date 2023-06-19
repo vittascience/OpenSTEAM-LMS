@@ -38,6 +38,7 @@
 
 .wysibb-body {
   overflow-x: auto !important;
+  padding: 0.2em;
 }
 
 .wysibb-body ul,
@@ -482,16 +483,16 @@
   background: #eee;
 }
 
-/* .wbb-table {
-  margin: 1.5em;
-} */
+.wbb-table {
+  margin: .5em;
+}
 
 .wbb-table td {
   border: 1px solid black;
   padding: 3px;
   margin: 5px;
   min-width: 10ch;
-  height: 24px;
+  height: 30px;
 }
 
 /* TABLE PICKER */
