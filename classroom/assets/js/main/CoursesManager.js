@@ -1305,18 +1305,19 @@ class CoursesManager {
     }
 
     getOneActivityFromCourse(activityId, activityLink) {
-        let foundActivity = Main.getClassroomManager()._myCourses.filter((course) => {
+
+        let activityFound = null;
+        Main.getClassroomManager()._myCourses.filter((course) => {
             return course.activities.filter((activity) => {
-                return activity.id == activityLink && activity.activity.id == activityId;
+                if (activity.id == activityLink && activity.activity.id == activityId) {
+                    activityFound = activity;
+                }
             });
         });
 
-        if (foundActivity.length > 0) {
-            foundActivity = foundActivity[0].activities.filter((activity) => {
-                return activity.id == activityLink && activity.activity.id == activityId;
-            })[0];
-            return foundActivity;
-        }  
+        if (activityFound) {
+            return activityFound;
+        }
         return null;
     }
 
