@@ -12,6 +12,7 @@ class CoursesManager {
             activity: null,
             format: 0,
         };
+        this.courseOrder = [];
         this.courseId = null;
         this.isUpdate = false;
         this.lastestCourse = null;
@@ -45,6 +46,7 @@ class CoursesManager {
         this.resetCourseData = () => {
             this.isUpdate = false;
             this.courseId = null;
+            this.courseOrder = [];
             this.actualCourse = {
                 id: null,
                 state: null,
@@ -222,9 +224,12 @@ class CoursesManager {
     sortActualCourseArrayFromDiv() {
         const courseItems = document.querySelectorAll('div[class^=course-item-draggable]');
         this.courseData.courses = [];
+        this.courseOrder = [];
         courseItems.forEach(item => {
             const courseId = parseInt(item.getAttribute('data-course-id'));
-            this.courseData.courses.push(Main.getClassroomManager()._myTeacherActivities.find(activity => activity.id === courseId));
+            let activity = Main.getClassroomManager()._myTeacherActivities.find(activity => activity.id === courseId);
+            this.courseData.courses.push(activity);
+            this.courseOrder.push(activity.id);
         });
     }
 
@@ -243,25 +248,9 @@ class CoursesManager {
         activitiesDiv.innerHTML = '';
         // create the list of activities
         activitiesToAdd.forEach(activity => {
-            const activityImg = foldersManager.icons.hasOwnProperty(activity.type) ? `<img class="list-item-img d-inline" src="${foldersManager.icons[activity.type]}" alt="${activity.type}" class="folder-icons">` : "<span class='list-item-img'> <div class='list-item-no-icon'><i class='fas fa-laptop'></i></div></span>",
-                activityDiv = document.createElement('div');
-            activityDiv.classList.add('activity-item-courses');
-            activityDiv.classList.add('mt-3');
-            activityDiv.setAttribute('data-activity-id', activity.id);
-            // add checkbox 
-            activityDiv.innerHTML = `
-                    <div class="form-check c-checkbox">
-                        <input class="activity-item-checkbox-input" type="checkbox" value="${activity.id}" id="courses-activity-${activity.id}">
-                        <label class="form-check-label" for="courses-activity-${activity.id}">
-                            ${activityImg}    
-                            ${activity.title}
-                        </label>
-                    </div>
-            `;
-
-            activitiesDiv.appendChild(activityDiv);
+            this.createCheckboxElements(activitiesDiv, activity);
         });
-
+        this.bindChangeCheckbox();
         this.bindEventsToSearch();
         pseudoModal.openModal('add-activity-to-course');
     }
@@ -281,23 +270,53 @@ class CoursesManager {
             activitiesDiv.innerHTML = '';
             activitiesToAdd.forEach(activity => {
                 if (activity.title.toLowerCase().includes(search.toLowerCase())) {
-                    let activityImg = foldersManager.icons.hasOwnProperty(activity.type) ? `<img class="list-item-img d-inline" src="${foldersManager.icons[activity.type]}" alt="${activity.type}" class="folder-icons">` : "<span class='list-item-img'> <div class='list-item-no-icon'><i class='fas fa-laptop'></i></div></span>";
-                    const activityDiv = document.createElement('div');
-                    activityDiv.classList.add('activity-item-courses');
-                    activityDiv.setAttribute('data-activity-id', activity.id);
-                    // add checkbox 
-                    activityDiv.innerHTML = `
-                            <div class="form-check c-checkbox">
-                                <input class="activity-item-checkbox-input" type="checkbox" value="${activity.id}" id="courses-activity-${activity.id}">
-                                <label class="form-check-label" for="courses-activity-${activity.id}">
-                                    ${activityImg}    
-                                    ${activity.title}
-                                </label>
-                            </div>
-                    `;
-                    activitiesDiv.appendChild(activityDiv);
+                    this.createCheckboxElements(activitiesDiv, activity);
                 }
             });
+            this.bindChangeCheckbox();
+        });
+    }
+
+    createCheckboxElements(target = null, activity = null) {
+        let activityImg = foldersManager.icons.hasOwnProperty(activity.type) ? `<img class="list-item-img d-inline" src="${foldersManager.icons[activity.type]}" alt="${activity.type}" class="folder-icons">` : "<span class='list-item-img'> <div class='list-item-no-icon'><i class='fas fa-laptop'></i></div></span>";
+        const activityDiv = document.createElement('div');
+        activityDiv.classList.add('activity-item-courses');
+        activityDiv.setAttribute('data-activity-id', activity.id);
+        // add checkbox 
+        activityDiv.innerHTML = `
+                <div class="form-check c-checkbox">
+                    <input class="activity-item-checkbox-input" type="checkbox" value="${activity.id}" id="courses-activity-${activity.id}">
+                    <label class="form-check-label" for="courses-activity-${activity.id}">
+                        ${activityImg}    
+                        ${activity.title}
+                    </label>
+                </div>`;
+
+        target.appendChild(activityDiv);
+    }
+
+    bindChangeCheckbox() {
+        let checkboxes = document.querySelectorAll('.activity-item-checkbox-input');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => {
+                this.manageActivitiesOrder(e.target.checked, e.target.value);
+            });
+        });
+    }
+
+    manageActivitiesOrder(checked, activityId) {
+        if (checked) {
+            this.courseOrder.push(parseInt(activityId));
+        } else {
+            if (this.courseOrder.indexOf(parseInt(activityId)) > -1) {
+                this.courseOrder.splice(this.courseOrder.indexOf(parseInt(activityId)), 1);
+            }
+        }
+    }
+
+    orderCourseActivities() {
+        this.courseData.courses.sort((a, b) => {
+            return this.courseOrder.indexOf(a.id) - this.courseOrder.indexOf(b.id);
         });
     }
 
@@ -314,6 +333,8 @@ class CoursesManager {
             }
         }
 
+        this.orderCourseActivities();
+
         this.refreshCourses();
         this.emptyDivFromActivityToCourse();
         pseudoModal.closeModal('add-activity-to-course');
@@ -323,6 +344,7 @@ class CoursesManager {
         this.courseData.courses = this.courseData.courses.filter(course => {
             return course.id !== activityId;
         });
+        this.courseOrder.splice(this.courseOrder.indexOf(activityId), 1);
         this.refreshCourses();
     }
 
@@ -384,8 +406,12 @@ class CoursesManager {
         this.courseData.parameters.format = course.format;
 
         this.courseData.courses = [];
+        this.courseOrder = [];
+
         course.activities.forEach(item => {
-            this.courseData.courses.push(Main.getClassroomManager()._myTeacherActivities.find(activity => activity.id === item.id));
+            let activity = Main.getClassroomManager()._myTeacherActivities.find(activity => activity.id === item.id);
+            this.courseData.courses.push(activity);
+            this.courseOrder.push(activity.id);
         });
 
         if (rename) {
@@ -1305,10 +1331,9 @@ class CoursesManager {
     }
 
     getOneActivityFromCourse(activityId, activityLink) {
-
         let activityFound = null;
-        Main.getClassroomManager()._myCourses.filter((course) => {
-            return course.activities.filter((activity) => {
+        Main.getClassroomManager()._myCourses.forEach((course) => {
+            course.activities.forEach((activity) => {
                 if (activity.id == activityLink && activity.activity.id == activityId) {
                     activityFound = activity;
                 }

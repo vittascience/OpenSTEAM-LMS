@@ -791,7 +791,6 @@ function manageLabelForActivity(isFromCourse = false) {
     } else {
         $('#label-activity-student-response'+course).text(i18next.t("classroom.activities.yourAnswer"));
     }
-    $('#label-activity-student-response'+course).localize();
 }
 
 function isTheActivityIsDoable(doable, hideValidationButton = false) {

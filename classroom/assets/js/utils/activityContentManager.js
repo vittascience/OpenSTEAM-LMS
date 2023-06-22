@@ -80,7 +80,7 @@ function resetInputsForActivity(isFromCourse = false) {
     
     $(`#activity-input-container${courseIndicator}`).hide();
     $(`#activity-student-response${courseIndicator}`).hide();
-    $(`#activity-student-response-content${courseIndicator}`).text('');
+    $(`#activity-student-response-content${courseIndicator}`).html('');
     
     $(`#activity-states${courseIndicator}`).html("");
     $(`#activity-title${courseIndicator}`).html("");

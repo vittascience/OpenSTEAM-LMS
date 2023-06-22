@@ -1167,7 +1167,7 @@
 			"errorActivation": "Une erreur est survenue lors de l'activation du compte.",
 			"create": "Créer un utilisateur",
 			"delete": "Supprimer un utilisateur",
-			"deleteConfirmation": "Veuillez écrire \"supprimer\" dans le champ si dessous pour valider l'action.",
+			"deleteConfirmation": "Veuillez écrire \"supprimer\" dans le champ ci-dessous pour valider l'action.",
 			"deleteIntentionSA": "Vous vous apprêtez à supprimer l'utilisateur : <span id=\"mdi_firstnameSA\"></span>",
 			"disableIntention": "Vous vous apprêtez à désactiver l'utilisateur : <span id=\"mde_firstnameSA\"></span>",
 			"deleteConfirmationTitle": "Confirmer la suppression",
@@ -1176,7 +1176,7 @@
 			"updateAppUser": "Modifier les applications de l'utilisateur",
 			"updateApp": "Modifier les applications",
 			"disable": {
-				"message": "Veuillez écrire 'supprimer' dans le champ si dessous pour valider l'action.",
+				"message": "Veuillez écrire 'supprimer' dans le champ ci-dessous pour valider l'action.",
 				"intention": "Vous vous apprêtez à supprimer l'utilisateur : <span id=\"md_firstnameGA\"></span>"
 			},
 			"mail": {
@@ -1317,7 +1317,7 @@
 				"signinSubtitle": "Entrez vos identifiants pour accèder à votre compte",
 				"addressMail": "Adresse mail",
 				"disclaimer": "En rejoignant ce groupe, vous autorisez l'admin du groupe à mofidier et / ou désactiver votre compte. Vous disposerez aussi des applications que le groupe possède.",
-				"lastStep": "Il ne reste plus qu'une étape ! Cliquez sur le bouton si dessous pour finaliser la liaison.",
+				"lastStep": "Il ne reste plus qu'une étape ! Cliquez sur le bouton ci-dessous pour finaliser la liaison.",
 				"joinGroup": "Vous vous apprêtez à rejoindre le groupe \"<span id='groupNameConfirmLink'></span>\"",
 				"notfound": "Groupe introuvable !",
 				"notfoundDetails": "Nous ne trouvons aucun groupe lié au code <span id='gourpName3'></span>.",
