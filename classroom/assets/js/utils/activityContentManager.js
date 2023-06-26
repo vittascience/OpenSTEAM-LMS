@@ -55,7 +55,7 @@ function parseMathLiveContent(content) {
 
 function bbcodeContentIncludingMathLive(content) {
     if (content.includes('[math]')) {
-        content = content.replace(/\[math\]/gi, "<span>&nbsp;</span><math-field class='math-field-aligned' default-mode='inline-math' read-only style='display:inline-block'>")
+        content = content.replace(/\[math\]/gi, "<math-field class='math-field-aligned' default-mode='inline-math' read-only style='display:inline-block'>")
         content = content.replace(/\[\/math\]/gi, "</math-field>")
     }
     return bbcodeToHtml(content);
