@@ -25,6 +25,7 @@ class BreadcrumbManager {
     setActivityTitle(title = null, delay = 0) {
         setTimeout(() => {
             title = title == null ? Activity.activity.title : title;
+
             UserManager.getUser().isRegular ? this.setMyActivities() : this.setMyActivitiesStudent();
             const btnBC = document.createElement('button');
             btnBC.classList.add('btn', 'c-btn-outline-primary');

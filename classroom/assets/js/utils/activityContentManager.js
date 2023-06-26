@@ -55,7 +55,7 @@ function parseMathLiveContent(content) {
 
 function bbcodeContentIncludingMathLive(content) {
     if (content.includes('[math]')) {
-        content = content.replace(/\[math\]/gi, "<span>&nbsp;</span><math-field class='math-field-aligned' default-mode='inline-math' read-only style='display:inline-block'>")
+        content = content.replace(/\[math\]/gi, "<math-field class='math-field-aligned' default-mode='inline-math' read-only style='display:inline-block'>")
         content = content.replace(/\[\/math\]/gi, "</math-field>")
     }
     return bbcodeToHtml(content);
@@ -80,7 +80,7 @@ function resetInputsForActivity(isFromCourse = false) {
     
     $(`#activity-input-container${courseIndicator}`).hide();
     $(`#activity-student-response${courseIndicator}`).hide();
-    $(`#activity-student-response-content${courseIndicator}`).text('');
+    $(`#activity-student-response-content${courseIndicator}`).html('');
     
     $(`#activity-states${courseIndicator}`).html("");
     $(`#activity-title${courseIndicator}`).html("");

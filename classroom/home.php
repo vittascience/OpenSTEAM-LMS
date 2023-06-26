@@ -35,3 +35,4 @@ $demoStudent = str_replace('"', '', $demoStudent);
 echo "<script>const demoStudentName = `{$demoStudent}`</script>";
 
 require_once(__DIR__ . "/home.html");
+

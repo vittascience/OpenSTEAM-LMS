@@ -1,5 +1,7 @@
     <link rel="stylesheet" href="assets/css/modal.css">
-    
+    <!-- PLUGIN CSS-->
+
+    <!-- END PLUGIN CSS -->
     <script src="assets/js/scripts/classroom-lang.js"></script>
 </head>
 
@@ -240,7 +242,7 @@
                 <!-- @Update Rémi -->
                 <div id="activity-student-response-course" style="display:none;">
                     <label id="label-activity-student-response-course" for="activity-student-response-content-course" class="vitta-modal-title mt-2" data-i18n="classroom.activities.studentAnswer">Réponse de l'élève</label>
-                    <p id="activity-student-response-content-course"> </p>
+                    <div id="activity-student-response-content-course" class="d-flex row"></div>
                 </div>
 
                 <!-- Used for content -->
@@ -395,7 +397,7 @@
 
                 <div class="d-flex flex-column align-items-center mnh-2-5" id="title-container">
                     <h3 id="activity-title" class="activity-title"></h3>
-                    <div id="activity-views-switcher" class="switcher-custom-top ms-auto p-2"></div>
+                    <div id="activity-views-switcher" class="switcher-custom-top ms-auto p-2 mt-2"></div>
                 </div>
                
                 <!-- Used for status / date  -->
@@ -420,7 +422,7 @@
                 <!-- @Update Rémi -->
                 <div id="activity-student-response" style="display:none;">
                     <label id="label-activity-student-response" for="activity-student-response-content" class="vitta-modal-title mt-2" data-i18n="classroom.activities.studentAnswer">Réponse de l'élève</label>
-                    <p id="activity-student-response-content"> </p>
+                    <div id="activity-student-response-content" class="d-flex row"></div>
                 </div>
 
                 <!-- Used for content -->
@@ -450,7 +452,7 @@
                     <p id="activity-hint"></p>
                 </div>
 
-                <div class="d-flex justify-content-center mt-2">
+                <div class="d-flex justify-content-center mt-2 flex-wrap gap-3">
                     <button class="btn c-btn-primary mx-1" id="activity-validate" data-i18n="classroom.activities.validate" onclick="validateActivity(1)"> 
                         <i class="fas fa-chevron-right"></i>
                     </button>
@@ -1649,18 +1651,26 @@
 
             <div id="quiz-content-edit" class="content mt-3">
 
+
                 <div id="quiz-suggestions-container">
                     <div class="form-group c-primary-form" id="quiz-group-1">
-                        <label for="quiz-suggestion-1" id="quiz-label-suggestion-1">Proposition 1</label>
-                        <button class="btn c-btn-grey mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-1" onclick="quizManager.deleteQuizSuggestion(1)">Delete</button>
-
-                        <div class="input-group mt-2 mb-3">
-                            <input type="text" id="quiz-suggestion-1" class="form-control">
-                            <div class="input-group-text c-checkbox c-checkbox-grey">
-                                <input class="form-check-input" type="checkbox" id="quiz-checkbox-1">
-                                <label class="form-check-label" for="quiz-checkbox-1" data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
+                        <div class="row my-1">
+                            <div class="col">
+                                <label for="quiz-suggestion-1" id="quiz-label-suggestion-1">Proposition 1</label>
+                                <button class="btn c-btn-secondary mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-1" onclick="quizManager.deleteQuizSuggestion(1)">Delete</button>
                             </div>
+
+                            <div class="col-md-auto d-flex align-items-center">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="quiz-checkbox-1">
+                                    <label class="form-check-label" for="quiz-checkbox-1" data-i18n="classroom.activities.correctAnswer">
+                                        Réponse correcte
+                                    </label>
+                                </div>
+                            </div>
+
                         </div>
+                        <textarea id="quiz-suggestion-1" style="height:100px"></textarea>
                     </div>
                 </div>
 
@@ -1672,7 +1682,7 @@
             </div>
 
             <div class="content">
-                <button data-i18n="newActivities.addQuiz" class="btn c-btn-primary" onclick="quizManager.addQuizSuggestion()">Ajouter une proposition</button>
+                <button data-i18n="newActivities.addQuiz" class="btn c-btn-primary mt-3" onclick="quizManager.addQuizSuggestion()">Ajouter une proposition</button>
             </div>
 
         </div>
@@ -1809,9 +1819,7 @@
                 <div id="taglist" class="w-100 d-flex flex-wrap"></div>
                 <div class="input-group mb-3">
                     <select id="taglist-select" class="form-control"></select>
-                    <div class="input-group-append">
-                      <button id="add-tag-to-list" class="btn c-btn-primary">Ajouter le tag</button>
-                    </div>
+                    <button id="add-tag-to-list" class="btn c-btn-primary">Ajouter le tag</button>
                 </div>
             </div>
         </div>
@@ -2161,7 +2169,7 @@
         
 
 
-        <div class="row text-center w-100">
+        <div class="row text-center w-100 mt-1">
             <div class="col-sm order-first order-sm-last mb-2">
                 <button class="btn c-btn-secondary" onclick="coursesManager.goToTitle(true)" id="course-validate">
                     <span data-i18n="manager.buttons.validate">Valider</span> <i class="fas fa-check"></i>
@@ -2227,7 +2235,7 @@
         </div>
         
 
-        <div class="row text-center w-100">
+        <div class="row text-center w-100 mt-1">
             <div class="col-sm mb-2">
                 <button class="btn c-btn-grey" onclick="coursesManager.goToCreate()">
                     <span data-i18n="">Retour</span>
@@ -2341,7 +2349,7 @@
         
 
 
-        <div class="row text-center w-100">
+        <div class="row text-center w-100 mt-1">
             <div class="col-sm mb-2">
                 <button class="btn c-btn-grey" onclick="coursesManager.goToTitle()">
                     <span data-i18n="words.return">Retour</span>
@@ -2704,7 +2712,9 @@
     }
 </script>
 <script src="assets/js/utils/translate.js"></script>
+<!-- PLUGIN SCRIPTS-->
 
+<!-- END PLUGIN SCRIPTS -->
 </body>
 
 </html>
