@@ -1,4 +1,9 @@
 <?php
+if(!empty($_COOKIE["isFromGar"]) && empty($_SESSION['phpCAS']['user'])){
+    setcookie("isFromGar","",time()-1);
+    setcookie("isGarTest","",time()-1);
+    return header("Location:/classroom/gar_user_disconnect.php");
+}
 session_start();
 require_once(__DIR__ . "/../vendor/autoload.php");
 
