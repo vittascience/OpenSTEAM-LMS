@@ -483,16 +483,21 @@
   background: #eee;
 }
 
-.wbb-table {
+.wbb-table, .wbb-borderless {
   margin: .5em;
 }
 
-.wbb-table td {
+.wbb-table td, .wbb-borderless td {
   border: 1px solid black;
   padding: 3px;
   margin: 5px;
   min-width: 10ch;
   height: 30px;
+}
+
+
+.wbb-borderless td {
+  border-style: dotted;
 }
 
 /* TABLE PICKER */
