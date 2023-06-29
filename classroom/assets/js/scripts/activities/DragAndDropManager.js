@@ -195,7 +195,7 @@ class DragAndDropManager {
     
         if (studentResponses != "" && studentResponses != null) {
             for (let i = 0; i < studentResponses.length; i++) {
-                let autoWidthStyle = 'style="width:' + (studentResponses[i].string.toLowerCase().length + 2) + 'ch"';
+                let autoWidthStyle = 'style="width:' + (studentResponses[i].string.toLowerCase().length + 4) + 'ch"';
                 let answer = studentContentString.match(/\[answer\](.*?)\[\/answer\]/g)[0];
                 let mathContent = parseMathLiveContent(studentResponses[i].string);
 
@@ -208,7 +208,7 @@ class DragAndDropManager {
                 }
             }
         
-            $('#activity-student-response-content'+course).html(bbcodeContentIncludingMathLive(studentContentString));
+            $('#activity-student-response-content'+course).html(`<div>${bbcodeContentIncludingMathLive(studentContentString)}</div>`);
             $('#activity-student-response'+course).show();
             Main.getClassroomManager().getActivityAutocorrectionResult(Activity.activity.id, Activity.id).then(result => {
                 for (let i = 0; i < $(`[id^="corrected-student-response-"]`).length; i++) {
@@ -376,7 +376,7 @@ class DragAndDropManager {
     
         if (studentResponses != "" && studentResponses != null) {
             for (let i = 0; i < studentResponses.length; i++) {
-                let autoWidthStyle = 'style="width:' + (studentResponses[i].string.toLowerCase().length + 2) + 'ch"';
+                let autoWidthStyle = 'style="width:' + (studentResponses[i].string.toLowerCase().length + 4) + 'ch"';
                 let answer = studentContentString.match(/\[answer\](.*?)\[\/answer\]/g)[0];
                 let mathContent = parseMathLiveContent(studentResponses[i].string);
 

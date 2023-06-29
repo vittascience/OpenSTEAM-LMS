@@ -2155,7 +2155,7 @@ h3.section-done {
     justify-content: center;
     border: 1px solid var(--classroom-text-0);
     border-radius: 1em;
-    padding: 6px 12px;
+    padding: 6px 1.5ch;
     cursor: grab;
     margin-bottom: 0;
     margin-top: 0;

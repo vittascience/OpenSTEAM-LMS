@@ -21,7 +21,7 @@ function parseContent(content, className, autoWidth = false) {
     let autoWidthStyle = '';
     for (let i = 0; i < values.length; i++) {
 
-        autoWidthStyle = autoWidth ? 'style="width:' + (values[i].length + 2) + 'ch"' : autoWidthStyle = '';
+        autoWidthStyle = autoWidth ? 'style="width:' + (values[i].length + 4) + 'ch"' : autoWidthStyle = '';
 
         content = content.replace(`[answer]${values[i]}[/answer]`, `[answer][/answer]`);
         let valueParsed = values[i].includes('[math]') ? parseMathLiveContent(values[i]) : values[i];
@@ -31,10 +31,10 @@ function parseContent(content, className, autoWidth = false) {
             content = content.replace(/\[\/answer\]/, "");
         } else {
             if (valueParsed.includes('<math-field')) {
-                content = content.replace(/\[answer\]/, `<div readonly class='${className}' ${'style="width:' + (values[i].length / 3) + 'ch; height:6ch;"'}>` + valueParsed);
+                content = content.replace(/\[answer\]/, `<div readonly class='${className}' ${'style="width:' + (values[i].length / 5) + 'ch; height:6ch;"'}>` + valueParsed);
                 content = content.replace(/\[\/answer\]/, "</div>");
             } else {
-                content = content.replace(/\[answer\]/, `<input readonly class='${className}' value="${valueParsed}" ${'style="width:' + (values[i].length + 2) + 'ch"'}>`);
+                content = content.replace(/\[answer\]/, `<input readonly class='${className}' value="${valueParsed}" ${'style="width:' + (values[i].length + 4) + 'ch"'}>`);
                 content = content.replace(/\[\/answer\]/, "</input>");
             }
         }
