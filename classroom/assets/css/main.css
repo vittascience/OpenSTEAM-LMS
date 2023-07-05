@@ -678,11 +678,12 @@ button {
     #classroom-dashboard-content {
         position: relative;
         border-radius: 0px;
-        height: -webkit-fill-available;
+        height: auto;
         height: fill-available;
                 
         grid-row-end: 2;
         
+        padding-bottom: 50px;
     }
 
     #a11y-dropdown {
