@@ -1,6 +1,5 @@
 <?php
 
-
 require_once '../bootstrap.php';
 
 use Dotenv\Dotenv;
@@ -212,11 +211,11 @@ try {
             echo (json_encode($controller->action($action, $_POST)));
             $log->info($action, OK);
             break;
-        case 'upload': 
+        case 'upload':
             $action = lcfirst(str_replace('_', '', ucwords($action, '_')));
             $controllerUpload = new ControllerUpload($entityManager, $user);
             echo json_encode(call_user_func(
-                array($controllerUpload,$action)
+                array($controllerUpload, $action)
             ));
             break;
         case 'user_link_course':

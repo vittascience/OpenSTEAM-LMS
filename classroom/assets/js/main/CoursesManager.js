@@ -214,6 +214,16 @@ class CoursesManager {
         });
     }
 
+    undoAttribution(id) {
+        this._requestUsersUnlinkCourse(id).then((res) => {
+            if (res.hasOwnProperty('success')) {
+                this.actualizeCourse();
+            } else {
+                displayNotification('error', res.message);
+            }
+        });
+    }
+
 
     showCoursePanel() {
         this.resetCourseData();
@@ -1555,6 +1565,25 @@ class CoursesManager {
                     courseId: courseId,
                     students: students,
                     classrooms: classrooms
+                },
+                success: function (response) {
+                    resolve(JSON.parse(response));
+                },
+                error: function () {
+                    reject('error')
+                }
+            });
+        })
+    }
+
+    _requestUsersUnlinkCourse(courseId, isDeletion = false) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=user_link_course&action=unlink_course_to_users",
+                data: {
+                    courseId: courseId,
+                    isDeletion: isDeletion
                 },
                 success: function (response) {
                     resolve(JSON.parse(response));
