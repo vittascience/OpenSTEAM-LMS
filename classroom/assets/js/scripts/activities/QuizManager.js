@@ -276,20 +276,20 @@ class QuizManager {
         let content = "";
         if (doable) {
             for (let i = 1; i < data.length+1; i++) {
-                content += ` <div class="col-12 col-lg-6 c-checkbox quiz-answer-container d-flex" id="qcm-doable-${i}${previewId}">
+                content += ` <div class="col-12 col-lg-5 c-checkbox quiz-answer-container d-flex" id="qcm-doable-${i}${previewId}">
                                 <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}${previewId}" ${data[i-1].isCorrect ? "checked" : ""}>
                                 <label class="form-check-label d-flex justify-content-center" data-raw="${data[i-1].inputVal}" for="student-quiz-checkbox-${i}${previewId}" id="${correctionId}student-quiz-suggestion-${i}${previewId}">${bbcodeContentIncludingMathLive(data[i-1].inputVal)}</label>
                             </div>`;
             }
         } else {
             for (let i = 1; i < data.length+1; i++) {
-                content += ` <div class="col-12 col-lg-6 c-checkbox quiz-answer-container d-flex" id="qcm-not-doable-${i}">
+                content += ` <div class="col-12 col-lg-5 c-checkbox quiz-answer-container d-flex" id="qcm-not-doable-${i}">
                                 <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
                                 <label class="form-check-label d-flex justify-content-center" data-raw="${data[i-1].inputVal}" for="student-quiz-checkbox-${i}" id="${correctionId}student-quiz-suggestion-${i}">${bbcodeContentIncludingMathLive(data[i-1].inputVal)}</label>
                             </div>`;
             }
         }
-        return content;
+        return `<div class="d-flex flex-row flex-wrap justify-content-around">${content}</div>`;
     }
 
     deleteQcmFields() {

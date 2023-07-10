@@ -217,7 +217,10 @@ class CoursesManager {
     undoAttribution(id) {
         this._requestUsersUnlinkCourse(id).then((res) => {
             if (res.hasOwnProperty('success')) {
-                this.actualizeCourse();
+                Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(()=>{
+                    displayNotification('#notif-div', "classroom.notif.attributeActivityUndone", "success");
+                    navigatePanel('classroom-table-panel-teacher', 'dashboard-classes-teacher', ClassroomSettings.classroom);
+                });
             } else {
                 displayNotification('error', res.message);
             }
