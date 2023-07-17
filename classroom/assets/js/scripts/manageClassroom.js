@@ -1017,28 +1017,41 @@ function displayStudentsInClassroom(students, link=false) {
                 }
 
                 let thModular = "";
+                let optionContent = "";
                 if (fromCourse && firstFromCourse) {
                     thModular = `<th data-bs-toggle="tooltip" class="border-header-class" ${tableLength} data-bs-placement="top" title="Course">`;
+                    optionContent = `<li class="ms-5" style="border-bottom:solid 2px black;">
+                                        <b>${ course.title }</b>
+                                    </li>
+                                    
+                                    <li class="classroom-clickable col-12 dropdown-item " onclick="coursesManager.courseOverview(${course.id})" ><i class="fas fa-eye"></i> <span data-i18n="classroom.classes.panel.seeActivity">Voir l'activité</span></li>
+                                    <li class=" classroom-clickable col-12 dropdown-item" onclick="coursesManager.updateCourse(${course.id})"><i class="fas fa-pen"></i> <span data-i18n="classroom.classes.panel.editActivity">Modifier l'activité</span></li>
+                                    <li class="classroom-clickable col-12 dropdown-item" onclick="coursesManager.attributeCourse(${course.id})"><i class="fas fa-user-alt"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span></li>
+                                    <li class="dropdown-item classroom-clickable col-12" onclick="coursesManager.undoAttribution(${course.id})"><i class="fas fa-trash-alt"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span></li>`;
+
                 } else if (!fromCourse) {
                     thModular = `<th data-bs-toggle="tooltip" class="border-header-class" data-bs-placement="top" title="${arrayIndexesActivities[i].title.replaceAll('"', " ")}">`;
-                }
-
-                if (fromCourse && firstFromCourse || !fromCourse) {
-                    $('#header-table-teach').append(`
-                        ${thModular}
-                        ${!fromCourse ? `` : `<span class="span-act">Par.</br>n°${ activityNumber }</span>`}
-                        <div class="dropdown dropdown-act" style="width:30px;">
-                            <div id="dropdown-act-${activityNumber}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    ${!fromCourse ? `<span class="span-act">Act.</br>n°${ activityNumber }</span>` : ``}
-                                    <i style="display:none;font-size:2em;" class="fa fa-cog i-act" aria-hidden="true"></i>
-                                    <div class="dropdown-menu" aria-labelledby="dropdown-act-${activityNumber}" data-id="${arrayIndexesActivities[i].id}" style="text-transform: none;">
-                                    <li class="ms-5" style="border-bottom:solid 2px black;">
+                    optionContent = `<li class="ms-5" style="border-bottom:solid 2px black;">
                                         <b>${ arrayIndexesActivities[i].title }</b>
                                     </li>
                                     <li class="classroom-clickable col-12 dropdown-item " onclick="activityWatch(${arrayIndexesActivities[i].id})" ><i class="fas fa-eye"></i> <span data-i18n="classroom.classes.panel.seeActivity">Voir l'activité</span></li>
                                     <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${arrayIndexesActivities[i].id})"><i class="fas fa-pen"></i> <span data-i18n="classroom.classes.panel.editActivity">Modifier l'activité</span></li>
                                     <li class="classroom-clickable col-12 dropdown-item" onclick="attributeActivity(${arrayIndexesActivities[i].id},${arrayIndexesActivities[i].reference})"><i class="fas fa-user-alt"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span></li>
-                                    <li class="dropdown-item classroom-clickable col-12" onclick="undoAttributeActivity(${arrayIndexesActivities[i].reference},'${Main.getClassroomManager().getClassroomIdByLink(ClassroomSettings.classroom)}')"><i class="fas fa-trash-alt"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span></li>
+                                    <li class="dropdown-item classroom-clickable col-12" onclick="undoAttributeActivity(${arrayIndexesActivities[i].reference},'${Main.getClassroomManager().getClassroomIdByLink(ClassroomSettings.classroom)}')"><i class="fas fa-trash-alt"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span></li>`;
+                }
+
+
+
+                if (fromCourse && firstFromCourse || !fromCourse) {
+                    $('#header-table-teach').append(`
+                        ${thModular}
+                        
+                        <div class="dropdown dropdown-act m-auto" style="width:30px;">
+                            <div id="dropdown-act-${activityNumber}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    ${!fromCourse ? `<span class="span-act">Act.</br>n°${ activityNumber }</span>` : `<span class="span-act">Par.</br>n°${ activityNumber }</span>`}
+                                    <i style="display:none;font-size:2em;" class="fa fa-cog i-act" aria-hidden="true"></i>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-act-${activityNumber}" data-id="${arrayIndexesActivities[i].id}" style="text-transform: none;">
+                                    ${optionContent}
                                 </div>
                             </div>
                         </th>`
