@@ -482,7 +482,7 @@
       "preview": "Prévisualisation",
       "previewTeacherResult": "L'élève aurait obtenu la note suivante : ",
       "studentResult" : "Résultat obtenu :",
-      "deleteActivityDisclaimer": "Vous êtes sur le point de supprimer une activité. Cette action est irréversible.",
+      "deleteActivityDisclaimer": "L'activité \"{{activityName}}\" sera définitivement supprimée de même que les travaux de vos élèves s’y référant. ",
       "deleteConfirm": "Confirmer la suppression de l'activité",
       "deleteActivity": "Supprimer l'activité",
       "correctAnswer": "Réponse correcte",
@@ -1452,7 +1452,7 @@
     },
     "buttons": {
       "continue": "Continuer",
-      "validate": "Valider",
+      "validate": "Confirmer",
       "cancel": "Annuler",
       "activate": "Activer",
       "finalize": "Finaliser",

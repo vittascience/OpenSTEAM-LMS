@@ -1197,16 +1197,15 @@ const classroomModals = {
         content: `  <div id="delete-activities-modal">
                         <div class="col-12">
                             <div class="alert" id="alertDisableUserGA" role="alert" style="display:none;"></div>
-                            <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="classroom.activities.deleteConfirm">Confirmer la désactivation</h3>
+        
                             <p id="activity-linked-to-course-message" class="text-center mt-2"> Cette activité est liée à un ou plusieurs parcours.  </p>
-                            <p class="text-center" data-i18n="classroom.activities.deleteActivityDisclaimer"></p>
-                            <div class="text-center c-secondary-form">
-                                <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ si dessous pour valider l'action.</p>
-                                <input type="text" name="validation-delete-activity" id="validation-delete-activity" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                            <div class="d-flex flex-row justify-content-center align-items-center align-content-around">
+                                <i class="fas fa-exclamation-triangle fa-3x mr-3" style="color: #ffb636;"></i>                   
+                                <p id="delete-activity-text" class="m-0" data-i18n="classroom.activities.deleteActivityDisclaimer"></p>
                             </div>
-                            <div class="text-center">
+                            <div class="text-right">
+                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteActivity()" data-i18n="manager.buttons.validate">Confirmer</button>
                                 <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelDeleteActivity()" data-i18n="manager.buttons.cancel">Annuler</button>
-                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteActivity()" data-i18n="manager.buttons.validate">Valider</button>
                             </div>
                         </div>
                     </div>`,
