@@ -729,8 +729,8 @@ function launchLtiResource(activityId, activityType, activityContent, isStudentL
             <input type="hidden" id="activities_link_user" name="activities_link_user" value="${activityId}">
             <input type="hidden" id="student_resource_url" name="student_resource_url" value="${studentResourceUrl}">
         </form>
-        <iframe id="lti_student_iframe" src="about:blank" name="lti_student_iframe" title="Tool Content" width="100%" style="
-        height: 60vh;" allowfullscreen></iframe>
+        <iframe id="lti_student_iframe" src="about:blank" name="lti_student_iframe" title="Tool Content" width="100%" style=""
+         allowfullscreen></iframe>
         `;
     document.forms["resource_launch_form"].submit();
     $("#activity-content-container").show();
