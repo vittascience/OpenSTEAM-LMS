@@ -482,7 +482,7 @@
       "preview": "Prévisualisation",
       "previewTeacherResult": "L'élève aurait obtenu la note suivante : ",
       "studentResult" : "Résultat obtenu :",
-      "deleteActivityDisclaimer": "L'activité \"{{activityName}}\" sera définitivement supprimée de même que les travaux de vos élèves s’y référant. ",
+      "deleteActivityDisclaimer": "L'activité \"{{activityName}}\" et les travaux des élèves qui y sont associés seront définitivement supprimés.",
       "deleteConfirm": "Confirmer la suppression de l'activité",
       "deleteActivity": "Supprimer l'activité",
       "correctAnswer": "Réponse correcte",
@@ -501,7 +501,7 @@
         "updated": "Dossier modifié avec succès",
         "deleted": "Dossier supprimé avec succès",
         "createFolder": "Créer un dossier",
-        "deleteFolder": "Confirmer la suppression du dossier",
+        "deleteFolder": "Le dossier \"{{folderName}}\" avec son contenu sera définitivement supprimé. ",
         "updateFolder": "Modifier le dossier",
         "nameMandatory": "Nom du dossier <span class='mandatory'>*</span>",
         "deleteDisclaimer": "Attention, le dossier et l'ensemble de son contenu (activités et sous-dossiers) seront supprimés"
@@ -652,6 +652,7 @@
     },
     "folders": {
       "folderManagement": "Gestion des dossiers",
+      "folderDelete": "Supprimer le dossier",
       "name": "Nom du dossier <span class=\"mandatory\">*</span>",
       "title": "Dossier",
       "image": "Image du dossier"

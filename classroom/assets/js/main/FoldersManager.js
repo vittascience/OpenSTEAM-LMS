@@ -118,8 +118,13 @@ class FoldersManager {
     deleteFolder(folderId) {
         this.resetInputs();
         this.actualFolder = folderId;
-        pseudoModal.openModal("folder-manager-modal");
-        $("#delete-folder-manager").show();
+        
+        // display title of folder in deleting message
+        const folderTitle = this.getFolderById(folderId).name;
+        const options = `{"folderName": "${folderTitle}"}`;
+        document.getElementById('delete-folder-text').setAttribute("data-i18n-options", options);
+
+        pseudoModal.openModal("folder-delete-modal");
     }
 
     updateFolder(folderId) {
