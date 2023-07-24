@@ -445,7 +445,7 @@
             "preview":"  Voorbeeld",
             "previewTeacherResult":" De leerling zou het volgende resultaat hebben gekregen:",
             "studentResult":" Verkregen resultaat:",
-            "deleteActivityDisclaimer":"  Je staat op het punt een activiteit te verwijderen. Deze actie is onomkeerbaar.",
+            "deleteActivityDisclaimer":"De activiteit \"{{activityName}}\" en het bijbehorende werk van de leerling worden permanent verwijderd.",
             "deleteConfirm":"  De verwijdering van de activiteit bevestigen",
             "deleteActivity":"  De activiteit verwijderen",
             "correctAnswer":"  Correct antwoord",
@@ -464,7 +464,7 @@
                 "updated":"  Succesvol gewijzigd bestand",
                 "deleted":"  Bestand succesvol verwijderd",
                 "createFolder":"  Een map aanmaken",
-                "deleteFolder":"  Bevestig de verwijdering van het bestand",
+                "deleteFolder":"De map \"{{folderName}}\" en de inhoud ervan wordt permanent verwijderd.",
                 "updateFolder":"  Wijzig het bestand",
                 "nameMandatory":"  Mapnaam <span class='mandatory'>*</span>",
                 "deleteDisclaimer":"  Let op: de map en al zijn inhoud (activiteiten en submappen) worden verwijderd."
@@ -611,6 +611,7 @@
         },
         "folders":{
             "folderManagement":" Bestandsbeheer",
+            "folderDelete": "Verwijder de map",
             "name":" Mapnaam <span class=\"mandatory\">*</span>",
             "title":" Map",
             "image":" Coverafbeelding"
