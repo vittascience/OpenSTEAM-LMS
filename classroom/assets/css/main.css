@@ -604,7 +604,7 @@ button {
     #classroom-dashboard-sidebar-teacher,
     #manager-dashboard-sidebar,
     #groupadmin-dashboard-sidebar {
-        z-index: 3;
+        z-index: 1500;
         position: fixed;
         bottom: 0;
         grid-row-start: 2;

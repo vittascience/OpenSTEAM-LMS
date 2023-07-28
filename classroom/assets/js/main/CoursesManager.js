@@ -39,6 +39,8 @@ class CoursesManager {
         };
 
         this.wbbptions = null;
+
+        this.activityType = [ "reading", "dragAndDrop", "fillIn", "quiz", "free"];
     }
 
     init() {
@@ -1040,7 +1042,7 @@ class CoursesManager {
         }
 
         // proc the adequat function to render the activity
-        if (activityType.includes(activity.activity.type)) {
+        if (coursesManageractivityType.includes(activity.activity.type)) {
             const func = customActivity.renderActivities.filter(x => x[0] == activity.activity.type)[0];
             if (func) {
                 func[1](activityData, divActivity, activity.activity.id, activity.response);
