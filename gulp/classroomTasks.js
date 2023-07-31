@@ -31,7 +31,6 @@ class AutoBuildManager {
             'studentProfilePanel.html',
             'studentHelpPanel.html',
             'studentCoursePanel.html',
-            'sandboxPanel.html',
             'studentActivitiesPanel.html',
             'teacherProfilePanel.html',
             'teacherClassesPanel.html',
@@ -159,6 +158,52 @@ class AutoBuildManager {
     }
 
     /**
+     * Tasks related to the static files
+     */
+    async pluginJson() {
+        return new Promise(async (resolve, reject) => {
+            if (this.pluginsList.length) {
+                // check if there aren't js filename duplicate
+                if (this.checkForDuplicateInArray(this.pluginsList.json)) {
+                    console.error('Error: there is a duplicate in the plugin(s) js filenames')
+                    return reject();
+                }
+                // copy static files into the plugins folder in classroom folder
+                await this.copyJsonFilesToClassroom();
+
+                resolve();
+            } else {
+                resolve();
+            }
+        });
+    }
+
+    /**
+     * Copy all the static files in the plugins folder to the js folder in the plugins folder which is in classroom folder
+     */
+    copyJsonFilesToClassroom() {
+        return new Promise((resolve, reject) => {
+            let promises = [];
+            this.pluginsList.forEach((plugin) => {
+                if (plugin.json) {
+                    plugin.json.forEach((jsonFile) => {
+                        promises.push(
+                            new Promise((resolve, reject) => {
+                                gulp.src(`${this.pluginFolder}/${plugin.name}/public/json/${jsonFile}`).pipe(gulp.dest(`${this.pluginsFolderInClassroom}/json/`)).on('finish', () => {
+                                    resolve();
+                                });
+                            })
+                        );
+                    });
+                }
+            });
+            Promise.all(promises).then(() => {
+                resolve();
+            });
+        });
+    }
+
+    /**
      * Create the temporary Views folder
      */
     createTemporaryViewsFolder() {
@@ -198,6 +243,7 @@ class AutoBuildManager {
             await this.createFolder(`${this.pluginsFolderInClassroom}/css`);
             await this.createFolder(`${this.pluginsFolderInClassroom}/js`);
             await this.createFolder(`${this.pluginsFolderInClassroom}/images`);
+            await this.createFolder(`${this.pluginsFolderInClassroom}/json`);
             await this.createFolder(`${this.pluginsFolderInClassroom}/media/`);
             this.pluginsList.forEach(element => {
                 //this.createFolder(`${this.pluginsFolderInClassroom}/media/${element.name}`);
@@ -295,6 +341,31 @@ class AutoBuildManager {
     }
 
     /**
+     * Copy all the static files in the plugins folder to the js folder in the plugins folder which is in classroom folder
+     */
+    copyJsonFilesToClassroom() {
+        return new Promise((resolve, reject) => {
+            let promises = [];
+            this.pluginsList.forEach((plugin) => {
+                if (plugin.json) {
+                    plugin.json.forEach((jsonFile) => {
+                        promises.push(
+                            new Promise((resolve, reject) => {
+                                gulp.src(`${this.pluginFolder}/${plugin.name}/public/json/${jsonFile}`).pipe(gulp.dest(`${this.pluginsFolderInClassroom}/json/`)).on('finish', () => {
+                                    resolve();
+                                });
+                            })
+                        );
+                    });
+                }
+            });
+            Promise.all(promises).then(() => {
+                resolve();
+            });
+        });
+    }
+
+    /**
      * Add all the plugins css links in the head (header.html)
      */
     addCssLinksInHead() {
@@ -303,7 +374,7 @@ class AutoBuildManager {
             this.pluginsList.forEach((plugin) => {
                 plugin.css.forEach((cssFile) => {
                     cssLinks.push(
-                        `<link rel="stylesheet" href="assets/plugins/css/${cssFile}">\n`
+                        `<link rel="stylesheet" href="assets/plugins/css/${cssFile}?version=VERSIONNUM">\n`
                     );
                 });
             });
@@ -312,11 +383,11 @@ class AutoBuildManager {
             gulp.src(`${this.temporaryViewsFolder}/header.html`, {
                 base: './'
             })
-            .pipe(replace(headerCssPattern, cssLinksString))
-            .pipe(gulp.dest(`./`))
-            .on('finish', () => {
-                resolve();
-            });
+                .pipe(replace(headerCssPattern, cssLinksString))
+                .pipe(gulp.dest(`./`))
+                .on('finish', () => {
+                    resolve();
+                });
         });
     }
 
@@ -329,7 +400,7 @@ class AutoBuildManager {
             this.pluginsList.forEach((plugin) => {
                 plugin.js.forEach((jsFile) => {
                     jsLinks.push(
-                        `<script src="assets/plugins/js/${jsFile}"></script>\n`
+                        `<script src="assets/plugins/js/${jsFile}?version=VERSIONNUM"></script>\n`
                     );
                 });
             });
@@ -338,11 +409,11 @@ class AutoBuildManager {
             gulp.src(`${this.temporaryViewsFolder}/home_footer.html`, {
                 base: './'
             })
-            .pipe(replace(headerJsPattern, jsLinksString))
-            .pipe(gulp.dest(`./`))
-            .on('finish', () => {
-                resolve();
-            });
+                .pipe(replace(headerJsPattern, jsLinksString))
+                .pipe(gulp.dest(`./`))
+                .on('finish', () => {
+                    resolve();
+                });
         });
     }
 
@@ -384,6 +455,7 @@ class AutoBuildManager {
             await this.loadPluginsFilesList('public/js', 'js');
             await this.loadPluginsFilesList('public/media/', 'media');
             await this.loadPluginsFilesList('public/images', 'images');
+            await this.loadPluginsFilesList('public/json', 'json');
             resolve();
         });
     }
@@ -415,6 +487,8 @@ class AutoBuildManager {
                 if (files) {
                     console.table(files);
                     try {
+                        if (!this.pluginsList[this.pluginsList.indexOf(plugin)][list])
+                            this.pluginsList[this.pluginsList.indexOf(plugin)][list] = [];
                         files.forEach(file => {
                             if (file != '.gitkeep') {
                                 this.pluginsList[this.pluginsList.indexOf(plugin)][list].push(file);
@@ -534,7 +608,7 @@ class AutoBuildManager {
     /**
      * MEDIA UPDATE
      */
-     async pluginMedia() {
+    async pluginMedia() {
         return new Promise(async (resolve, reject) => {
             if (this.pluginsList.length) {
                 // check if there aren't css filename duplicate
@@ -577,7 +651,7 @@ class AutoBuildManager {
         });
     }
 
-    
+
     /**
      * MEDIA UPDATE
      */
@@ -597,7 +671,6 @@ class AutoBuildManager {
                 'gulp/temp-views/studentProfilePanel.html',
                 'gulp/temp-views/studentHelpPanel.html',
                 'gulp/temp-views/studentCoursePanel.html',
-                'gulp/temp-views/sandboxPanel.html',
                 'gulp/temp-views/studentActivitiesPanel.html',
                 'gulp/temp-views/teacherProfilePanel.html',
                 'gulp/temp-views/teacherClassesPanel.html',
@@ -631,7 +704,6 @@ class AutoBuildManager {
                 'classroom/Views/studentProfilePanel.html',
                 'classroom/Views/studentHelpPanel.html',
                 'classroom/Views/studentCoursePanel.html',
-                'classroom/Views/sandboxPanel.html',
                 'classroom/Views/studentActivitiesPanel.html',
                 'classroom/Views/teacherProfilePanel.html',
                 'classroom/Views/teacherClassesPanel.html',
@@ -671,12 +743,12 @@ class AutoBuildManager {
             }
         });
     }
-    
+
     /**
      * Manage custom build if necessary
      */
     manageCustomBuild() {
-        return new Promise( async (resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             const customBuildPromises = [];
             for (let plugin of this.pluginsList) {
                 customBuildPromises.push(new Promise((resolve, reject) => {
@@ -723,6 +795,9 @@ pluginCss.displayName = 'plugin css';
 const pluginJs = () => { return autoBuildManager.pluginJs() };
 pluginJs.displayName = 'plugin js';
 
+const pluginJson = () => { return autoBuildManager.pluginJson() };
+pluginJson.displayName = 'plugin json';
+
 const pluginMedia = () => { return autoBuildManager.pluginMedia() };
 pluginMedia.displayName = 'plugin media';
 
@@ -743,6 +818,7 @@ autoBuild = gulp.series(
     pluginImages,
     pluginCss,
     pluginJs,
+    pluginJson,
     pluginMedia,
     homeConcat,
     removeTemporaryViewsFolder,

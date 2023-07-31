@@ -92,11 +92,11 @@ try {
     // get and scan the entire plugins folder
     $pluginsDir = '../plugins';
     if (is_dir($pluginsDir)) {
-        $pluginsFound = array_diff(scandir($pluginsDir), array('..', '.'));
+        $pluginsFound = array_diff(scandir($pluginsDir), array('..', '.', '.DS_Store'));
 
         // scan each single plugin folder
         foreach ($pluginsFound as $singlePlugin) {
-            $singlePluginFolders = array_diff(scandir("../plugins/$singlePlugin"), array('..', '.'));
+            $singlePluginFolders = array_diff(scandir("../plugins/$singlePlugin"), array('..', '.', '.DS_Store'));
 
             // convert snake_case from url param into PascalCase to find the right controller file to instanciate
             $ControllerToInstanciate = "Controller" . str_replace('_', '', ucwords($controller, '_'));

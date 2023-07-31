@@ -63,7 +63,7 @@ if ($studentResourceUrl == null) {
 	exit;
 }
 
-$platform_url = "https://{$_SERVER["HTTP_HOST"]}";
+$platform_url = $_ENV['VS_HOST'];
 
 $ltiApplication = $entityManager->getRepository(Applications::class)->findOneBy(["name" => $applicationType])->getId();
 $ltiTool = $entityManager->getRepository(LtiTool::class)->findOneBy(["application" => $ltiApplication]);

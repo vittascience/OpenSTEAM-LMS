@@ -30,10 +30,10 @@ if ($user) {
 
 require_once(__DIR__ . "/header.html");
 ?>
-<link rel="stylesheet" href="/classroom/assets/css/main.css">
+<link rel="stylesheet" href="/classroom/assets/css/main.css?version=VERSIONNUM">
 
-<script src="./assets/js/lib/rotate.js"></script>
-<link rel="stylesheet" type="text/css" href="assets/js/lib/slick-1.8.1/slick/slick.css" />
+<script src="./assets/js/lib/rotate.js?version=VERSIONNUM"></script>
+<link rel="stylesheet" type="text/css" href="assets/css/slick.css?version=VERSIONNUM">
 </head>
 
 <body>

@@ -19,7 +19,7 @@ $dotenv->safeLoad();
 
 
 $token = isset($_GET['token']) ? trim(htmlspecialchars(preg_replace('/<[^>]*>[^<]*<[^>]*>/', '',$_GET['token']))) : null;
-$urlhome = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]"."/classroom/home.php";
+$urlhome = ("{$_ENV['VS_HOST']}/classroom/home.php");
 setcookie("token", $token, time()+300);
 
 if (isset($_SESSION['id'])) {
@@ -31,9 +31,9 @@ showPasswordPage();
 function showPasswordPage() {
     require_once(__DIR__ . "/header.html");
     ?>
-        <link rel="stylesheet" href="/classroom/assets/css/main.css">
-        <script src="./assets/js/lib/rotate.js"></script>
-        <link rel="stylesheet" type="text/css" href="assets/js/lib/slick-1.8.1/slick/slick.css"/>
+        <link rel="stylesheet" href="/classroom/assets/css/main.css?version=VERSIONNUM">
+        <script src="./assets/js/lib/rotate.js?version=VERSIONNUM"></script>
+        <link rel="stylesheet" type="text/css" href="assets/css/slick.css?version=VERSIONNUM">
         </head>
         <body>
     <?php

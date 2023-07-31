@@ -2,17 +2,11 @@
     --classroom-logo: url('../media/no-logo.png');
 
     --classroom-primary: #59C07C;
-    --classroom-primary-rgb: 89, 192, 124;
     --classroom-primary-dark: #5AA26D;
-    --classroom-primary-dark-rgb: 90, 162, 109;
     --classroom-secondary: #F58246;
-    --classroom-secondary-rgb: 245, 130, 70;
     --classroom-secondary-dark: #EC684C;
-    --classroom-secondary-dark-rgb: 236, 104, 76;
     --classroom-tertiary: #62CAE0;
-    --classroom-tertiary-rgb: 98, 202, 224;
     --classroom-tertiary-dark: #50afc2;
-    --classroom-tertiary-dark-rgb: 80, 175, 194;
 
     --correction-0: #ffc152;
     --correction-0-rgb: 255, 193, 82;
@@ -31,37 +25,26 @@
     --classroom-text-0: black;
     --classroom-text-0-rgb: 0, 0, 0;
     --classroom-text-1: #333;
-    --classroom-text-1-rgb: 51, 51, 51;
     --classroom-text-2: #666;
-    --classroom-text-2-rgb: 102, 102, 102;
 
     --classroom-shadow-1: rgba(0, 0, 0, 0.2);
     --classroom-cell: #E6E6E6;
-    --classroom-cell-rgb: 230, 230, 230;
 
     --classroom-white: #fff;
     --classroom-black: #000;
     --classroom-grey: #AAA;
-    --classroom-grey-rgb: 170, 170, 170;
     --classroom-green: #22b573;
-    --classroom-green-rgb: 34, 183, 115;
     --classroom-red: #dc3545;
-    --classroom-red-rgb: 220, 53, 69;
     --classroom-red-dark: #ad242c;
-    --classroom-red-dark-rgb: 173, 36, 44;
     --classroom-blue: #3fa9f5;
-    --classroom-blue-rgb: 63, 169, 245;
     --classroom-gold: #f0af39;
-    --classroom-gold-rgb: 240, 175, 57;
 
     /* Default dashboard colors (used for students) */
     --classroom-dashboard: var(--classroom-primary);
-    --classroom-dashboard-rgb: var(--classroom-primary-rgb);
     --classroom-dashboard-dark: var(--classroom-primary-dark);
-    --classroom-dashboard-dark-rgb: var(--classroom-primary-dark-rgb);
 
     color-scheme: light;
-    accent-color: var(--classroom-primary);
+
 }
 
 .theme-dark {
@@ -70,9 +53,7 @@
     --classroom-text-0: rgb(255, 255, 255);
     --classroom-text-0-rgb: 255, 255, 255;
     --classroom-text-1: rgb(205, 205, 205);
-    --classroom-text-1-rgb: 205, 205, 205;
     --classroom-text-2: rgb(153, 153, 153);
-    --classroom-text-2-rgb: 153, 153, 153;
     --classroom-shadow-1: rgba(0, 0, 0, 1);
     --classroom-cell: #4e4e4e;
 
@@ -82,7 +63,7 @@
 /* Change the hue-rotate to make the icon color match your primary color */
 .sidebar-classroom div img:not(.user-picture),
 .hue-rotate-base {
-    filter: hue-rotate(0deg) saturate(0.9);
+    filter: hue-rotate(320deg);
 }
 
 /* Change the scale of your logo if it is too big */
@@ -96,15 +77,13 @@
 Used when the insterface is used by a teacher */
 .theme-teacher {
     --classroom-dashboard: #1976d2;
-    --classroom-dashboard-rgb: 25, 118, 210;
     --classroom-dashboard-dark: #1260ad;
-    --classroom-dashboard-dark-rgb: 18, 96, 173;
 }
 
 .theme-teacher .sidebar-classroom div img:not(.user-picture),
 .hue-rotate-teacher {
     /* Change the hue-rotate to make the icon color match your theme color */
-    filter: hue-rotate(85deg) saturate(1.5);
+    filter: hue-rotate(45deg);
 }
 
 
@@ -112,9 +91,7 @@ Used when the insterface is used by a teacher */
 Used when the insterface is used by a group administrator */
 .theme-group-admin {
     --classroom-dashboard: #F1CA3F;
-    --classroom-dashboard-rgb: 241, 202, 63;
     --classroom-dashboard-dark: #DEB421;
-    --classroom-dashboard-dark-rgb: 222, 180, 33;
 }
 
 .theme-group-admin .sidebar-classroom div img:not(.user-picture),
@@ -128,9 +105,7 @@ Used when the insterface is used by a super administrator */
 .theme-super-admin,
 .hue-rotate-super-admin {
     --classroom-dashboard: #BB5D5D;
-    --classroom-dashboard-rgb: 187, 93, 93;
     --classroom-dashboard-dark: #A84D4D;
-    --classroom-dashboard-dark-rgb: 168, 77, 77;
 }
 
 .theme-super-admin .sidebar-classroom div img:not(.user-picture) {

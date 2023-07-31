@@ -3,4 +3,9 @@
 .env 
 composer.lock
 /plugins
-classroom/assets/plugins
+classroom/assets/plugins/EmailTemplates
+.idea/
+
+classroom/cookie.php
+
+classroom/legalnotice.css

@@ -86,6 +86,7 @@ class ClassroomManager {
      */
     getStudentActivities(container) {
         return new Promise(function (resolve, reject) {
+            $("#spinner-loading").show();
             var process = function (thisInstance, response) {
                 if (response.error_message && response.error_message !== undefined) {
                     thisInstance.errors.push(GET_PUBLIC_PROJECTS_ERROR)
@@ -107,6 +108,8 @@ class ClassroomManager {
                 error: function (e) {
                     console.error(e)
                 }
+            }).always((resolve) => {
+                $("#spinner-loading").hide();
             });
         })
     };
@@ -300,7 +303,9 @@ class ClassroomManager {
      * @returns {Array}
      */
     getTeacherActivities(container) {
+        if(window.matomoManager &&  !window.matomoManager.startTime) window.matomoManager.startTimer()
         return new Promise((resolve, reject) => {
+            $("#spinner-loading ").show();
             let currentTask = (onEnd) => {
                 var process = function (thisInstance, res) {
                     if (res.error_message && res.error_message !== undefined) {
@@ -324,11 +329,15 @@ class ClassroomManager {
                             process(container, response);
                             onEnd();
                         });
+                        if(window.matomoManager)
+                            window.matomoManager.stopTimer(false)
                     },
-                    error: function (e) {
-                        console.error(e)
+                    error: function () {
+                        console.log('error')
                         onEnd();
                     }
+                }).then((resolve)=>{
+                    $("#spinner-loading ").hide();
                 });
             }
             // Add the current task to the tasks queue
@@ -348,11 +357,10 @@ class ClassroomManager {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
-                dataType: "JSON",
                 url: "/routing/Routing.php?controller=classroom&action=add",
                 data: payload,
                 success: function (response) {
-                    resolve(response)
+                    resolve(JSON.parse(response))
 
                 },
                 error: function () {
@@ -371,11 +379,10 @@ class ClassroomManager {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
-                dataType: "JSON",
                 url: "/routing/Routing.php?controller=classroom&action=update",
                 data: payload,
                 success: function (response) {
-                    resolve(response)
+                    resolve(JSON.parse(response))
 
                 },
                 error: function () {

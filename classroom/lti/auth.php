@@ -17,10 +17,16 @@ use Classroom\Entity\LtiTool;
 
 $nonce = base64_encode(random_bytes(16));
 
-$platform_url = "https://{$_SERVER['HTTP_HOST']}";
-
+//$platform_url = isset($_SERVER['HTTPS']) ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'];
+$platform_url = $_ENV['VS_HOST'];
 $loginHint = json_decode($_REQUEST['login_hint'], true);
+$activityType = $loginHint['activityType'];
 
+if(isset($activityType)) {
+    $ltiApplication = $entityManager->getRepository(Applications::class)->findOneBy(["name" => $activityType])->getId();
+    $ltiTool = $entityManager->getRepository(LtiTool::class)->findOneBy(["application" => $ltiApplication]);
+} else {
+    error_log("Warning: only finding app by client_id.");
 $ltiTool = $entityManager->getRepository(LtiTool::class)->findOneByClientId($_REQUEST['client_id']);
 
 if (!$ltiTool) {
@@ -90,11 +96,6 @@ else  {
   $jwt_payload['https://purl.imsglobal.org/spec/lti/claim/message_type'] = 'LtiResourceLinkRequest';
   $jwt_payload['https://purl.imsglobal.org/spec/lti/claim/resource_link'] = [
     "id" => $loginHint['lineitemId']
-  ];
-  $jwt_payload["https://purl.imsglobal.org/spec/lti/claim/launch_presentation"] = [
-    "locale" => $lang ?? "fr",
-    "document_target" => "iframe",
-    "return_url" => $platform_url . "/classroom/lti/redirection.html"
   ];
   $jwt_payload["https://purl.imsglobal.org/spec/lti/claim/target_link_uri"] = $loginHint['lineitemId'];
   $jwt_payload["https://purl.imsglobal.org/spec/lti-ags/claim/endpoint"] = [

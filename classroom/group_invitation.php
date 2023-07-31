@@ -26,9 +26,9 @@ $token = isset($_GET['token']) ? trim(htmlspecialchars(preg_replace('/<[^>]*>[^<
 $page = isset($_GET['page']) ? trim(htmlspecialchars(preg_replace('/<[^>]*>[^<]*<[^>]*>/', '',$_GET['page']))) : null;
 $uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
 
-$url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . $uri_parts[0];
-$urlgc = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . $uri_parts[0] . "?gc=" . $groupCode;
-$urlhome = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . "/classroom/home.php";
+$url = $_ENV['VS_HOST'] . $uri_parts[0];
+$urlgc = $_ENV['VS_HOST'] . $uri_parts[0] . "?gc=" . $groupCode;
+$urlhome = $_ENV['VS_HOST'] . "/classroom/home.php";
 
 $group = $entityManager->getRepository(Groups::class)->findOneBy(['link' => $groupCode]);
 
@@ -112,7 +112,7 @@ if (isset($_SESSION['id']) && ($page != "confirm" && $page != "success" && $page
 
 require_once(__DIR__ . "/header.html");
 ?>
-    <link rel="stylesheet" href="/classroom/assets/css/main.css">
+    <link rel="stylesheet" href="/classroom/assets/css/main.css?version=VERSIONNUM">
     </head>
 
     <body>

@@ -157,7 +157,7 @@ function teacherActivityItem(activity, displayStyle) {
                     </div>
                     <div class="activity-list-info">
                             ${activity.isAutocorrect ? `<div class="activity-list-auto">
-                                <img src='${_PATH}assets/media/auto-icon-grey.svg' title='Auto' onload="SVGInject(this)">
+                                <img src='${_PATH}assets/media/auto-icon-grey.svg?version=VERSIONNUM' title='Auto' onload="SVGInject(this)">
                             </div>` 
                             : "" }
                     </div>
@@ -262,14 +262,17 @@ function classeItem(classe, nbStudents, students) {
     let maxAct = maxLength(students)
     let remainingCorrections = getRemainingCorrections(students);
     let remainingCorrectionsSpanElt = remainingCorrections ? `<span class="results-correcting c-text-secondary"><i class="fas fa-pen"></i></i> ${remainingCorrections}</span>` : '';
+    let isFromGar = UserManager.getUser().isFromGar, isFromCanope = document.cookie.indexOf("isFromCanope")>-1;
     let html = `<div class="class-item"><div class="class-card">
                 <div class="class-card-top"  data-id="${classe.id}" data-link="${classe.link}">
                 <span><i class="fas fa-user fa-2x"></i></i> ${nbStudents}</span>
                 ${remainingCorrectionsSpanElt}
-                <div class="dropdown"><i class="fas fa-cog fa-2x" type="button" id="dropdown-classeItem-${classe.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                    <div class="dropdown-menu" aria-labelledby="dropdown-classeItem-${classe.id}">
-                <li class="modal-classroom-modify classroom-clickable col-12 dropdown-item" href="#">` + capitalizeFirstLetter(i18next.t('words.modify')) + `</li>
-                <li class="dropdown-item modal-classroom-delete classroom-clickable col-12" href="#">` + capitalizeFirstLetter(i18next.t('words.delete')) + `</li>
+                <div class="dropdown"><i class="fas fa-cog fa-2x" type="button" id="dropdown-classeItem-${classe.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                    <div class="dropdown-menu" aria-labelledby="dropdown-classeItem-${classe.id}">`
+                + `<li class="modal-classroom-modify classroom-clickable col-12 dropdown-item" href="#">` +
+                    (!isFromGar ? capitalizeFirstLetter(i18next.t('words.modify')) : "") + `</li>`  +
+                `<li class="dropdown-item modal-classroom-delete classroom-clickable col-12" href="#">` +
+                    (!isFromCanope? capitalizeFirstLetter(i18next.t('words.delete')) : "") + `</li>
               </div>
               </div>
                 </div>`

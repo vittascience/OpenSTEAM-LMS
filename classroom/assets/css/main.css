@@ -647,6 +647,7 @@ button {
     .sidebar-classroom .active:not(:first-child) {
         border-radius: 0em 0em 15px 15px;
     }
+    /* bring back .active:not(:first-child) ?? */
 
     .sidebar-classroom .active::before {
         content: "";
@@ -712,12 +713,12 @@ button {
     font-size: 0.8rem;
     background-color: transparent;
     border-color: var(--classroom-white);
-    color: var(--classroom-white);
+    color: var(--classroom-background);
 
 }
 
 #breadcrumb button:last-child {
-    background-color: var(--classroom-white);
+    background-color: var(--classroom-background);
     border-color: var(--classroom-primary);
     color: var(--classroom-primary);
 
@@ -817,7 +818,7 @@ button {
     flex-direction: column;
     width: 100%;
     
-    height: 100%;
+    height: 100% - 6em;
     height: fill-available;
     height: --webkit-fill-available;
     min-height: 700px;
@@ -1093,7 +1094,6 @@ button {
 
 .buttons-interactions {
     display: flex;
-    flex-direction: row;
     flex-direction: row;
     gap: 0.35em 1em;
 }
@@ -2065,9 +2065,21 @@ h3.section-done {
     object-fit: contain;
 }
 
+#classroom-dashboard-classes-new-activity {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
 #activity-custom {
-    width: 100%;
-    height: 60vh;
+    flex-grow: 1;
+    margin-left: 15px;
+}
+
+#tool-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 #lti-loader-container {
@@ -2377,7 +2389,7 @@ h3.section-done {
 
 /* ACTIVITY VIEWING/CORRECTION FORM */
 
-.activity-title {
+.activity-title,#activity-title {
     font-weight: 700;
     text-align: center;
 
@@ -2512,6 +2524,22 @@ h3.section-done {
 
 .results-correcting p i {
     color: var(--classroom-secondary);
+}
+
+.results-teacher-panel {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+
+    font-size: 1.5em;
+    color: var(--classroom-text-1);
+    text-align: center;
+    font-weight: 400;
+}
+
+.results-teacher-panel button {
+    margin-top: 15px;
 }
 
 
@@ -3087,6 +3115,8 @@ h3.section-done {
 
 .open-ide:hover {
     filter: grayscale(0.70);
+    filter: contrast(200%);
+
 }
 
 .open-ide {
@@ -3693,6 +3723,34 @@ h3.section-done {
 .math-field-aligned {
     top: 0.5em;
 }
+
+#spinner-loading {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    border-radius: inherit;
+}
+
+#spinner-loading div {
+    border-top: 8px solid var(--classroom-dashboard); /* Couleur de la roue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin: auto;
+    
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 
 .switcher {
     display: flex;

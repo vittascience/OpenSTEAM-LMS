@@ -10,8 +10,8 @@
     
     <div class="section-container section-saved">
         <div class="section-header" onclick="sectionToggle('saved')">
-            <i id="i-saved" class="ms-2 fas fa-lg fa-chevron-up"></i>
-            <h3 class="section-title" >Brouillons</h3>
+            <i id="i-saved" class="ml-2 fas fa-lg fa-chevron-up"></i>
+            <h3 class="section-title" data-i18n="classroom.activities.draft">Brouillons</h3>
             <span class="resource-number"> </span>
         </div>
         <div id="saved-activities-list" style="display: none;"></div>
@@ -122,9 +122,68 @@
     </div>
 </div>
 
+<div id="classroom-dashboard-activity-panel-student-result" class="dashboard-block" style="display:none;">
+    <div class="results-teacher-panel">
+        <p>
+            <span data-i18n="[html]classroom.activities.studentResult"></span>
+        </p>
+
+        <!-- Note of preview -->
+        <div id="preview-note-3" style="display: none;">
+            <div class="bilan-legend bilan-3">
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+            </div>
+            <span data-i18n="classroom.activities.veryGoodProficiency"></span>
+        </div>
+        <div id="preview-note-2" style="display: none;">
+            <div class="bilan-legend bilan-2">
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+            </div>
+            <span data-i18n="classroom.activities.goodProficiency"></span>
+        </div>
+        <div id="preview-note-1" style="display: none;">
+            <div class="bilan-legend bilan-1">
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+            </div>
+            <span data-i18n="classroom.activities.weakProficiency"></span>
+        </div>
+        <div id="preview-note-0" style="display: none;">
+            <div class="bilan-legend bilan-0">
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+            </div>
+            <span data-i18n="classroom.activities.insufficientProficiency"></span>
+        </div>
+        <div id="preview-note-4" style="display: none;">
+            <div class="bilan-legend bilan-4">
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+                <div class="monochrome-grade-div"></div>
+            </div>
+            <span data-i18n="classroom.activities.noProficiency"></span>
+        </div>
+
+        <button class="btn c-btn-primary mx-auto" onclick="goBackToActivities()">
+            <span data-i18n="classroom.activities.return"></span> <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</div>
+
 <div id="classroom-dashboard-activity-panel-success" class="dashboard-block" style="display:none;">
     <div class="results-panel results-success">
-        <img src="assets/media/activity_results/success.png" class="image-vh" alt="Image de succès">
+        <img src="assets/media/activity_results/success.png?version=VERSIONNUM" alt="Image de succès">
         <p>
             <span data-i18n="[html]classroom.successPanel"></span>
             <i class="fas fa-check"></i>
@@ -137,7 +196,7 @@
 
 <div id="classroom-dashboard-activity-panel-fail" class="dashboard-block" style="display:none;">
     <div class="results-panel results-fail">
-        <img src="assets/media/activity_results/fail.png" class="image-vh" alt="Image d'erreur">
+        <img src="assets/media/activity_results/fail.png?version=VERSIONNUM" alt="Image d'erreur">
         <p>
             <span data-i18n="[html]classroom.failPanel"></span>
             <i class="fas fa-times"></i>
@@ -150,7 +209,7 @@
 
 <div id="classroom-dashboard-activity-panel-correcting" class="dashboard-block" style="display:none;">
     <div class="results-panel results-correcting">
-        <img src="assets/media/activity_results/correcting.png" class="image-vh" alt="Image d'erreur">
+        <img src="assets/media/activity_results/correcting.png?version=VERSIONNUM" alt="Image d'erreur">
         <p>
             <span data-i18n="[html]classroom.toCorrectPanel"></span>
             <i class="fas fa-pen"></i>
