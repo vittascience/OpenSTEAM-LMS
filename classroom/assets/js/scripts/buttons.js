@@ -285,6 +285,9 @@ function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = fa
     if (typeof Main.leaderline !== 'undefined') Main.leaderline.hide();
     $('[data-toggle="tooltip"]').tooltip()
 
+    // make visible accessibility dropdown
+    $("#dropdownMenuButton").css('visibility', 'visible');
+
     if (id == 'classroom-dashboard-activities-panel-teacher' && idNav == 'dashboard-activities-teacher') {
         foldersManager.goToFolder(foldersManager.actualFolder);
     }
