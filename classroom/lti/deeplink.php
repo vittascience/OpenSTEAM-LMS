@@ -43,10 +43,16 @@ $contentItemsLabel = "https://purl.imsglobal.org/spec/lti-dl/claim/content_items
       type: 'end-lti-deeplink', 
       content: '<?php echo $validatedToken->$contentItemsLabel[0]->url; ?>',
       title: "<?php echo $validatedToken->$contentItemsLabel[0]->title; ?>",
+      typeLtiTool: "<?php
+        if (isset($validatedToken->$contentItemsLabel[0]->custom) && 
+        isset($validatedToken->$contentItemsLabel[0]->custom->typeLtiTool)) {
+          echo $validatedToken->$contentItemsLabel[0]->custom->typeLtiTool;
+        }
+      ?>",
       typeTool: "<?php
         if (isset($validatedToken->$contentItemsLabel[0]->custom) && 
-        isset($validatedToken->$contentItemsLabel[0]->custom->type)) {
-          echo $validatedToken->$contentItemsLabel[0]->custom->type;
+        isset($validatedToken->$contentItemsLabel[0]->custom->typeTool)) {
+          echo $validatedToken->$contentItemsLabel[0]->custom->typeTool;
         }
       ?>",
       autocorrect: "<?php

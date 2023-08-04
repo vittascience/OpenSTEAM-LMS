@@ -92,7 +92,7 @@ async function readEvent (event) {
             // Saving the deeplink response into the activity creation data
             Main.getClassroomManager()._createActivity.content.description = msg.content;
 
-            if(msg.typeTool === "collections") {
+            if(msg.typeLtiTool === "collections" || msg.typeTool !== "") {
                 $('#global_title').val(msg.title);
                 titleForward(msg);
             }
