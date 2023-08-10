@@ -172,7 +172,7 @@ function titleBackward() {
 /**
  * Title part
  */
- function titleForward(msg = {typeTool: "applications", autocorrect: "false"}) {
+ function titleForward(msg = {typeLtiTool: "applications", typeTool: "", autocorrect: "false"}) {
     Main.getClassroomManager()._createActivity.title = $('#global_title').val();
     $('#activity-title-forward').attr('disabled', true);
     // Check if the title is empty
@@ -181,7 +181,7 @@ function titleBackward() {
         $('#activity-title-forward').attr('disabled', false);
     } else {
         let title = Main.getClassroomManager()._createActivity.title,
-            type = Main.getClassroomManager()._createActivity.id,
+            type = msg.typeTool !== "" ? msg.typeTool : Main.getClassroomManager()._createActivity.id,
             content = JSON.stringify(Main.getClassroomManager()._createActivity.content),
             solution = JSON.stringify(Main.getClassroomManager()._createActivity.solution),
             tolerance = Main.getClassroomManager()._createActivity.tolerance,
@@ -195,22 +195,22 @@ function titleBackward() {
         }
 
         if (Main.getClassroomManager()._createActivity.function == "create") {  
-            Main.getClassroomManager().createNewActivity(title, type, content, solution, tolerance, autocorrect, folder, msg.typeTool).then((response) => {
+            Main.getClassroomManager().createNewActivity(title, type, content, solution, tolerance, autocorrect, folder, msg.typeLtiTool).then((response) => {
                 if (response.success == true) {
                     Main.getClassroomManager()._lastCreatedActivity = response.id;
                     
-                    if(msg.typeTool !== "collections") {
+                    if(msg.typeLtiTool === "collections" || msg.typeTool !== "") {
+                        displayNotification('#notif-div', "classroom.notif.activityImported", "success", `'{"activityTitle": "${title}"}'`);
+                    } else {
                         navigatePanel('classroom-dashboard-classes-new-activity-attribution', 'dashboard-proactivities-teacher');
                         displayNotification('#notif-div', "classroom.notif.activityCreated", "success", `'{"activityTitle": "${title}"}'`);
-                    } else {
-                        displayNotification('#notif-div', "classroom.notif.activityImported", "success", `'{"activityTitle": "${title}"}'`);
                     }
                 } else {
                     displayNotification('#notif-div', "manager.account.errorSending", "error");
                 }
             });
         } else if (Main.getClassroomManager()._createActivity.function == "update") {
-            Main.getClassroomManager().updateActivity(ClassroomSettings.activity, title, type, content, solution, tolerance, autocorrect, msg.typeTool).then((response) => {
+            Main.getClassroomManager().updateActivity(ClassroomSettings.activity, title, type, content, solution, tolerance, autocorrect, msg.typeLtiTool).then((response) => {
                 if (response.success == true) {
                     Main.getClassroomManager()._lastCreatedActivity = response.id;
                     displayNotification('#notif-div', "classroom.notif.activityChanged", "success", `'{"activityTitle": "${title}"}'`);
