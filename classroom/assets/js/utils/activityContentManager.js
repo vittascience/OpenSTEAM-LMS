@@ -305,6 +305,10 @@ function initializeDragulaWithOneContainer(idContainer, classDropZone) {
         Main.getClassroomManager().dragulaGlobal = dragula();
     }
 
+    if (Main.getClassroomManager().autoScrollGlobal != false) {
+        Main.getClassroomManager().autoScrollGlobal = false;
+    }
+
     // Reset the dragula fields
     Main.getClassroomManager().dragulaGlobal.containers = [];
     Main.getClassroomManager().dragulaGlobal = dragula([document.querySelector('#' + idContainer)]).on('drop', function(el, target, source) {
@@ -317,6 +321,24 @@ function initializeDragulaWithOneContainer(idContainer, classDropZone) {
     $('.'+classDropZone).each((i, e) => {
         Main.getClassroomManager().dragulaGlobal.containers.push(document.querySelector('#'+e.id));
     });
+
+    let divParent = document.querySelector('#'+idContainer),
+        dropeZone = document.querySelector('.'+classDropZone);
+    dropeZone.parentElement.id = 'dropeZoneParent'+idContainer;
+
+    Main.getClassroomManager().autoScrollGlobal = autoScroll([
+            window,
+            divParent.parentElement,
+            dropeZone.parentElement,
+            document.querySelector('#classroom-dashboard-activity-panel'),
+            document.querySelector('#classroom-dashboard-content')
+        ],{
+            margin: 300,
+            autoScroll: function(){
+                return this.down && Main.getClassroomManager().dragulaGlobal.dragging;
+            }
+        }
+    );
 }
 
 

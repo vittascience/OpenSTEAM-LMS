@@ -30,6 +30,7 @@ class ClassroomManager {
         this._idActivityOnAttribution = 0;
         this.setDefaultActivityData();
         this.dragulaGlobal = false;
+        this.autoScrollGlobal = false;
         this.displayMode = localStorage.getItem('classroomViewMode') != null ? localStorage.getItem('classroomViewMode') : 'card';
         this.wbbOpt = {
             allButtons : {

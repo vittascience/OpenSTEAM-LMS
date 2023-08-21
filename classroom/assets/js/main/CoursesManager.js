@@ -38,6 +38,9 @@ class CoursesManager {
             courseId: null,
         };
 
+        this.onePageCourseActivitiesLimit = [];
+        
+
         this.wbbptions = null;
 
         this.activityType = [ "reading", "dragAndDrop", "fillIn", "quiz", "free"];
@@ -339,13 +342,42 @@ class CoursesManager {
         const activities = Main.getClassroomManager()._myTeacherActivities;
         const activitiesChecked = document.getElementsByClassName('activity-item-checkbox-input');
 
+
+        let tempLimit = new Map(),
+            limited = false;
+        
+
         for (let i = 0; i < activitiesChecked.length; i++) {
             let id = parseInt(activitiesChecked[i].value);
             if (activitiesChecked[i].checked && id) {
-                this.courseData.courses.push(activities.find(activity => {
+
+                let acti = activities.find(activity => {
                     return activity.id === id;
-                }));
+                })
+                this.courseData.courses.push(acti);
+                tempLimit.set(acti.type, tempLimit.get(acti.type) ? tempLimit.get(acti.type) + 1 : 1);
             }
+        }
+
+
+        for(let i = 0; i < this.courseData.courses.length; i++) {
+            let acti = this.courseData.courses[i];
+            let type = acti.type;
+            if (this.onePageCourseActivitiesLimit.length > 0 && this.onePageCourseActivitiesLimit.some(limit => limit[0] == type)) {
+                let limitArray = this.onePageCourseActivitiesLimit.find(limit => limit[0] == type);
+                if (limitArray[1] > 0) {
+                    if (tempLimit.get(type) > limitArray[1]) {
+                        displayNotification('#notif-div', limitArray[2], "error");
+                        this.courseData.courses = [];
+                        limited = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (limited) {
+            return;
         }
 
         this.orderCourseActivities();

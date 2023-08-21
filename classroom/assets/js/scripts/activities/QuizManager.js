@@ -181,11 +181,13 @@ class QuizManager {
         let data = JSON.parse(Activity.solution);
         let htmlToPush = '';
         for (let i = 1; i < data.length+1; i++) {
-            htmlToPush += `<div class="col-12 col-lg-6 c-checkbox quiz-answer-container d-flex" id="qcm-field-${i}">
+            htmlToPush += `<div class="col-12 col-lg-6 form-check quiz-form-check" id="qcm-field-${i}">
                             <input class="form-check-input" type="checkbox" id="show-quiz-checkbox-${i}" ${data[i-1].isCorrect ? 'checked' : ''} onclick="return false;">
-                            <label class="form-check-label d-flex justify-content-center" for="quiz-checkbox-${i}" id="show-quiz-label-checkbox-${i}">${bbcodeContentIncludingMathLive(data[i-1].inputVal)}</label>
+                            <label class="form-check-label" for="quiz-checkbox-${i}" id="show-quiz-label-checkbox-${i}">${bbcodeContentIncludingMathLive(data[i-1].inputVal)}</label>
                         </div>`;
         }
+
+
 
         $('#activity-content').html(htmlToPush);
         quizManager.displayForShowTeacher(contentParsed);
@@ -274,18 +276,19 @@ class QuizManager {
         let correctionId = correction ? 'correction-' : '';
     
         let content = "";
+
         if (doable) {
             for (let i = 1; i < data.length+1; i++) {
-                content += ` <div class="col-12 col-lg-5 c-checkbox quiz-answer-container d-flex" id="qcm-doable-${i}${previewId}">
+                content += ` <div class="col-12 col-lg-5 form-check quiz-form-check" id="qcm-doable-${i}${previewId}">
                                 <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}${previewId}" ${data[i-1].isCorrect ? "checked" : ""}>
-                                <label class="form-check-label d-flex justify-content-center" data-raw="${data[i-1].inputVal}" for="student-quiz-checkbox-${i}${previewId}" id="${correctionId}student-quiz-suggestion-${i}${previewId}">${bbcodeContentIncludingMathLive(data[i-1].inputVal)}</label>
+                                <label class="form-check-label" data-raw="${data[i-1].inputVal}" for="student-quiz-checkbox-${i}${previewId}" id="${correctionId}student-quiz-suggestion-${i}${previewId}">${bbcodeContentIncludingMathLive(data[i-1].inputVal)}</label>
                             </div>`;
             }
         } else {
             for (let i = 1; i < data.length+1; i++) {
-                content += ` <div class="col-12 col-lg-5 c-checkbox quiz-answer-container d-flex" id="qcm-not-doable-${i}">
+                content += ` <div class="col-12 col-lg-5 form-check quiz-form-check" id="qcm-not-doable-${i}">
                                 <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
-                                <label class="form-check-label d-flex justify-content-center" data-raw="${data[i-1].inputVal}" for="student-quiz-checkbox-${i}" id="${correctionId}student-quiz-suggestion-${i}">${bbcodeContentIncludingMathLive(data[i-1].inputVal)}</label>
+                                <label class="form-check-label" data-raw="${data[i-1].inputVal}" for="student-quiz-checkbox-${i}" id="${correctionId}student-quiz-suggestion-${i}">${bbcodeContentIncludingMathLive(data[i-1].inputVal)}</label>
                             </div>`;
             }
         }
@@ -399,9 +402,9 @@ class QuizManager {
                     correctAnswer = true;
                 }
 
-                dataCorrected += ` <div class="col-12 col-lg-6 d-flex c-checkbox quiz-answer-container ${correctAnswer ? "quiz-answer-correct" : "quiz-answer-incorrect"}" id="qcm-not-doable-${i}">
+                dataCorrected += ` <div class="col-12 col-lg-6 d-flex form-check quiz-form-check ${correctAnswer ? "quiz-answer-correct" : "quiz-answer-incorrect"}" id="qcm-not-doable-${i}">
                                 <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
-                                <label class="form-check-label d-flex justify-content-center" for="student-quiz-checkbox-${i}" id="correction-student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
+                                <label class="form-check-label" for="student-quiz-checkbox-${i}" id="correction-student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
                             </div>`;
             }
             return dataCorrected;
