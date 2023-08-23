@@ -604,7 +604,7 @@ button {
     #classroom-dashboard-sidebar-teacher,
     #manager-dashboard-sidebar,
     #groupadmin-dashboard-sidebar {
-        z-index: 3;
+        z-index: 1500;
         position: fixed;
         bottom: 0;
         grid-row-start: 2;
@@ -2265,45 +2265,77 @@ h3.section-done {
     padding: 0.5em 1em;
 }
 
-
-.quiz-answer-container label {
-    display: block;
-    margin: 0.5em auto;
-    width: 100%;
-    /* max-width: 250px; */
-
-    border: 1px solid var(--classroom-text-2);
-    box-shadow: 0px 0px 6px var(--classroom-shadow-1);
-
-    padding: 1em 1.5em;
-    padding-left: 3em !important;
-
+.quiz-form-check {
+    --_color: 128,128,128;
+    --_bg-opacity: 0;
+    
+    position: relative; 
+    overflow: hidden;
+    
+    margin: 0.5em;
+    padding: 0;
+    /* width: 100%; */
+    
+    border: 1px solid rgb(var(--_color));
     border-radius: 1.25em;
+    box-shadow: 0px 0px 6px var(--classroom-shadow-1);
+    background-color: rgba(var(--_color), var(--_bg-opacity)); 
+    
+ 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
 }
 
-.quiz-answer-container label::before {
-    left: 1.5em !important;
+.quiz-form-check > input.form-check-input {
+    position: absolute;
+    top: 50%;
+    margin-top: 0;
+    transform: translateY(-50%);
+    left: 3rem;
 }
 
-.quiz-answer-container label::after {
-    top: 40% !important;
-    left: 1em !important;
+.quiz-form-check > input.form-check-input:checked {
+    background-color:rgb(var(--_color));
+    border-color: rgb(var(--_color));
 }
 
-.answer-correct,
-.quiz-answer-container.quiz-answer-correct label {
+.quiz-form-check > input.form-check-input:focus {
+    border-color:rgb(var(--_color));
+    box-shadow: 0 0 0 0.25rem rgba(var(--_color),0.25);
+}
+
+.quiz-form-check > label.form-check-label {
+    padding: 1em 1.5em;
+    padding-left: 3rem;
+    user-select: none;
+    flex: 1;
+}
+
+.quiz-form-check > label.form-check-label > img {
+    max-width: 100%;
+    height: auto;
+}
+
+.quiz-form-check.quiz-answer-correct {
+    --_color: var(--correction-3-rgb);
+    --_bg-opacity: 0.1;
+}
+
+.quiz-form-check.quiz-answer-incorrect {
+    --_color: var(--correction-0-rgb);
+    --_bg-opacity: 0.1;
+}
+
+.answer-correct {
     border-color: var(--correction-3);
     background-color: rgba(var(--correction-3-rgb), 0.1);
 }
 
-.answer-incorrect,
-.quiz-answer-container.quiz-answer-incorrect label {
+.answer-incorrect {
     border-color: var(--correction-0);
     background-color: rgba(var(--correction-0-rgb), 0.1);
-}
-
-.quiz-answer-container.quiz-answer-incorrect label::after {
-    color: var(--correction-0) !important;
 }
 
 .answer-incorrect,

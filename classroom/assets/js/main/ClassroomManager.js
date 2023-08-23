@@ -30,6 +30,7 @@ class ClassroomManager {
         this._idActivityOnAttribution = 0;
         this.setDefaultActivityData();
         this.dragulaGlobal = false;
+        this.autoScrollGlobal = false;
         this.displayMode = localStorage.getItem('classroomViewMode') != null ? localStorage.getItem('classroomViewMode') : 'card';
         this.wbbOpt = {
             allButtons : {
@@ -316,11 +317,16 @@ class ClassroomManager {
                     url: "/routing/Routing.php?controller=activity&action=get_mine_for_classroom",
                     success: function (response) {
                         Main.getClassroomManager().getAllApps().then(res => {
-                            for (let i = 0; i < res.length; i++) {
-                                if (!foldersManager.icons.hasOwnProperty(res[i].name)) {
-                                    foldersManager.icons[res[i].name] = res[i].image;
+                            const intervalForFolders = setInterval(() => {
+                                if (typeof foldersManager !== 'undefined') {
+                                    clearInterval(intervalForFolders);
+                                    for (let i = 0; i < res.length; i++) {
+                                        if (!foldersManager.icons.hasOwnProperty(res[i].name)) {
+                                            foldersManager.icons[res[i].name] = res[i].image;
+                                        }
+                                    }
                                 }
-                            }
+                            }, 100);
                             process(container, response);
                             onEnd();
                         });
