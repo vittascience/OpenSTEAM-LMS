@@ -1,9 +1,8 @@
 {
-    "config": {         "platform": {             "php": "7.3.14"         }     }, 
     "require-dev": {
         "phpunit/phpunit": "8.0.0",
-        "vittascience/vtuser": "1.2.11",
-        "vittascience/vtinterfaces": "1.4.35",
+        "vittascience/vtuser": "1.2.16",
+        "vittascience/vtinterfaces": "1.4.36",
         "vittascience/vtclassroom": "1.3.16",
         "vittascience/vtlearn": "1.4.05",
         "vittascience/vutils": "1.2.22",
