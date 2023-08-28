@@ -2,10 +2,10 @@
  * Listener for direct communications from iframes in LTI application interoperability context
  */
 window.addEventListener(
-    "message", 
+    "message",
     (event) => {
-        readEvent(event).catch((error) => {console.log(error)});
-    }, 
+        readEvent(event).catch((error) => { console.log(error) });
+    },
     false
 );
 
@@ -20,49 +20,13 @@ async function readEvent (event) {
     switch(msg.type) {
         // Message received when an LTI resource launch has gone to submission
         case 'end-lti-score':
-            const possibilityNote = [0, 1, 2, 3, 4]
-
-            //teacher preview auto-evaluate activity
-            if(UserManager.getUser().isRegular && Activity.isAutocorrect) {
-                // hidden all notes
-                possibilityNote.forEach(note => {
-                    $(`#classroom-dashboard-activity-panel-teacher-result #preview-note-${note}`).hide()
-                })
-
-                // Update the activities from database
-                await Main.getClassroomManager().getTeacherActivities(Main.getClassroomManager());
-
-                // Refresh variable activity from database data
-                const activity = getTeacherActivityInList(Activity.id);
-                if(activity)
-                    Activity = getTeacherActivityInList(Activity.id);
-
-                // Show note of preview
-                const note = Activity.previewNote;
-                if(note || note === 0) {
-                    $(`#classroom-dashboard-activity-panel-teacher-result #preview-note-${note}`).show()
-                }
-                else {
-                    $("#classroom-dashboard-activity-panel-teacher-result #preview-note-4").show()
-                }
-
-                // Otherwise display the relevant panel for success or fail
-                navigatePanel('classroom-dashboard-activity-panel-teacher-result', 'dashboard-activities-teacher');
-            }
-            // student doing auto-evaluate activity
-            else {
-                // hidden all notes
-                possibilityNote.forEach(note => {
-                    $(`#classroom-dashboard-activity-panel-student-result #preview-note-${note}`).hide()
-                })
-
             // Update the activities from database
             await Main.getClassroomManager().getStudentActivities(Main.getClassroomManager());
             // Get the results of the current activity
             for (let state in Main.getClassroomManager()._myActivities) {
                 const currentSearch = Main.getClassroomManager()._myActivities[state].filter(x => x.id == Activity.id)[0];
                 if (typeof currentSearch != 'undefined') {
-                        Activity = currentSearch; // possède la note
+                    Activity = currentSearch;
                     break;
                 }
             }
@@ -73,15 +37,6 @@ async function readEvent (event) {
                 if (Activity.correction == 1) {
                     navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-activities');
                 } else {
-                    // Show note of preview
-                    const note = Activity.note;
-                    if(note || note === 0) {
-                        $(`#classroom-dashboard-activity-panel-student-result #preview-note-${note}`).show()
-                    }
-                    else {
-                        $("#classroom-dashboard-activity-panel-student-result #preview-note-4").show()
-                    }
-
                     // Otherwise display the relevant panel for success or fail
                     switch (Activity.note) {
                         case 0:
@@ -305,37 +260,37 @@ document.querySelector('#classroom-create-form').addEventListener('submit', (e) 
         'isBlocked': document.querySelector('#classroom-form-is-blocked').checked
     }).then((classroom) => {
         // handle specific error
-        if(classroom.errorType){
+        if (classroom.errorType) {
             displayNotification('#notif-div', `classroom.notif.${classroom.errorType}`, "error", `'{"ClassroomNameInvalid": "${classroom.errorType}"}'`)
             e.submitter.disabled = false;
             return;
-        } 
+        }
         // If the backend detects that the user is not a premium user and that he already has one classroom
-        else if(classroom.isClassroomAdded == false){
+        else if (classroom.isClassroomAdded == false) {
             displayNotification('#notif-div', "classroom.notif.classNotCreated", "error", `'{"classroomNumberLimit": "${classroom.classroomNumberLimit}"}'`);
             e.submitter.disabled = false;
-        }else{
+        } else {
             const students = [];
             const existingStudents = [];
-            for (let studentRowElt of document.querySelectorAll('#table-students ul li')){
+            for (let studentRowElt of document.querySelectorAll('#table-students ul li')) {
                 if (studentRowElt.id != 'no-student-label') {
                     students.push(studentRowElt.getAttribute('data-pseudo'));
                 }
             }
-            if(students.length){
+            if (students.length) {
                 Main.getClassroomManager().addUsersToGroup(students, existingStudents, classroom.link).then((response) => {
-                    if(!response.isUsersAdded){
-                        if(response.errorType){
+                    if (!response.isUsersAdded) {
+                        if (response.errorType) {
                             displayNotification('#notif-div', `classroom.notif.${response.errorType}`, "error");
-                        } else{
-                            displayNotification('#notif-div', "classroom.notif.classCreatedButNotUsers", "error", `'{"classroomName": "${classroom.name}", "learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
+                        } else {
+                            displayNotification('#notif-div', "classroom.notif.classCreatedButNotUsers", "error", `'{"classroomName": "${classroom.name}", "learnerNumber": "${response.currentLearnerCount + response.addedLearnerNumber}"}'`);
                         }
-                        
+
                         Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
                             e.submitter.disabled = false;
                             navigatePanel('classroom-table-panel-teacher', 'dashboard-classes-teacher', classroom.link);
                         });
-                    } else{
+                    } else {
                         Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
                             ClassroomSettings.classroom = classroom.link;
                             addUserAndGetDashboard(classroom.link);
@@ -344,7 +299,7 @@ document.querySelector('#classroom-create-form').addEventListener('submit', (e) 
                         });
                     }
                 });
-            }else{
+            } else {
                 Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
                     ClassroomSettings.classroom = classroom.link;
                     addUserAndGetDashboard(classroom.link);
@@ -366,14 +321,14 @@ document.querySelector('#classroom-update-form').addEventListener('submit', (e) 
         'link': ClassroomSettings.classroom,
         'isBlocked': document.querySelector('#classroom-form-is-blocked-update').checked
     }).then((classroom) => {
-        if(classroom.errorType){
+        if (classroom.errorType) {
             displayNotification('#notif-div', `classroom.notif.${classroom.errorType}`, "error", `'{"ClassroomNameInvalid": "${classroom.errorType}"}'`);
             e.submitter.disabled = false;
             return;
         }
         const students = [];
         const existingStudents = [];
-        for (let studentRowElt of document.querySelectorAll('#table-students-update ul li')){
+        for (let studentRowElt of document.querySelectorAll('#table-students-update ul li')) {
             if (studentRowElt.getAttribute('data-id') != 'false') {
                 existingStudents.push({
                     'pseudo': studentRowElt.getAttribute('data-pseudo'),
@@ -385,11 +340,11 @@ document.querySelector('#classroom-update-form').addEventListener('submit', (e) 
         }
         Main.getClassroomManager().addUsersToGroup(students, existingStudents, classroom.link).then((response) => {
             let noAdditionError = response.isUsersAdded ? response.isUsersAdded : response.noUser;
-            if(!noAdditionError){
-                displayNotification('#notif-div', "classroom.notif.classUpdatedButNotUsers", "error", `'{"classroomName": "${classroom.name}", "learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
+            if (!noAdditionError) {
+                displayNotification('#notif-div', "classroom.notif.classUpdatedButNotUsers", "error", `'{"classroomName": "${classroom.name}", "learnerNumber": "${response.currentLearnerCount + response.addedLearnerNumber}"}'`);
                 e.submitter.disabled = false;
             }
-            else{
+            else {
                 Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
                     addUserAndGetDashboard(classroom.link)
                     displayNotification('#notif-div', "classroom.notif.classroomUpdated", "success", `'{"classroomName": "${classroom.name}"}'`)
@@ -406,13 +361,13 @@ $('body').on('click', '#add-student-to-classroom', function () {
     $('#add-student-to-classroom').prop('disabled', true);
 
     const studentName = document.querySelector('#classroom-dashboard-add-student-div .student-form-name').value;
-    if (studentName != ''){
+    if (studentName != '') {
         let students = [studentName];
         let existingStudents = [];
 
         Main.getClassroomManager().addUsersToGroup(students, existingStudents, ClassroomSettings.classroom).then((response) => {
-            if(!response.isUsersAdded){
-                if(response.noUser){
+            if (!response.isUsersAdded) {
+                if (response.noUser) {
                     displayNotification('#notif-div', "classroom.notif.noUserUsername", "error");
                     return;
                 }
@@ -420,7 +375,7 @@ $('body').on('click', '#add-student-to-classroom', function () {
                  * Update Rémi : Users limitation by group 
                  * possible return : personalLimit, personalLimitAndGroupOutDated, bothLimitReached
                  */
-                if(response.errorType){
+                if (response.errorType) {
                     // a specific error has been returned, display it
                     displayNotification('#notif-div', `classroom.notif.${response.errorType}`, "error", `'{"reservedNickname": "${demoStudentName}"}'`);
                     return;
@@ -443,7 +398,7 @@ $('body').on('click', '#add-student-to-classroom', function () {
 
 //add students to an existing classroom on the update classroom panel
 $('body').on('click', '#update-classroom-add-student-to-list', function () {
-    if ($('#update-classroom-add-student-div .student-form-name').val() != ''){
+    if ($('#update-classroom-add-student-div .student-form-name').val() != '') {
         $('#table-students-update ul').append(addStudentRow($('#update-classroom-add-student-div .student-form-name').val()));
         pseudoModal.closeModal('update-classroom-student-modal');
         // Reset the input field
@@ -456,7 +411,7 @@ $('body').on('click', '#update-classroom-add-student-to-list', function () {
 
 // Add students to a new classroom on the create classroom panel (select by ID -> add id to button in modal)
 $('body').on('click', '#create-classroom-add-student-to-list', () => {
-    if ($('#add-student-div .student-form-name').val() != ''){
+    if ($('#add-student-div .student-form-name').val() != '') {
         $('#no-student-label').remove();
         $('#table-students ul').append(addStudentRow($('#add-student-div .student-form-name').val()))
         pseudoModal.closeModal('create-classroom-student-modal');
@@ -472,19 +427,19 @@ $('body').on('click', '#create-classroom-add-student-to-list', () => {
  * @param {*} response 
  */
 function manageResponseOfAddUsers(response) {
-    if (response.hasOwnProperty('message')) { 
+    if (response.hasOwnProperty('message')) {
         if (response.message == "personalLimit") {
             displayNotification('#notif-div', "classroom.notif.personalLimitationsReached", "error", `'{"max": "${response.teacherInfo.maxStudents}"}'`);
             // Show upgrade modal
         } else if (response.message == "personalLimitAndGroupOutDated") {
-            displayNotification('#notif-div', "classroom.notif.groupLimitationsTeacher", "error", `'{"learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
-           // Show upgrade modal
+            displayNotification('#notif-div', "classroom.notif.groupLimitationsTeacher", "error", `'{"learnerNumber": "${response.currentLearnerCount + response.addedLearnerNumber}"}'`);
+            // Show upgrade modal
         } else if (response.message == "bothLimitReached") {
             // Teacher's and Group's limits reached
-            displayNotification('#notif-div', "classroom.notif.bothLimitationsReached", "error", `'{"maxP": "${response.teacherInfo.maxStudents}", "maxG": "${response.groupInfo.maxStudents}"}'`);;  
+            displayNotification('#notif-div', "classroom.notif.bothLimitationsReached", "error", `'{"maxP": "${response.teacherInfo.maxStudents}", "maxG": "${response.groupInfo.maxStudents}"}'`);;
         }
     } else {
-        displayNotification('#notif-div', "classroom.notif.usersNotAdded", "error", `'{"learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
+        displayNotification('#notif-div', "classroom.notif.usersNotAdded", "error", `'{"learnerNumber": "${response.currentLearnerCount + response.addedLearnerNumber}"}'`);
     }
 }
 
@@ -492,10 +447,10 @@ function manageResponseOfAddUsers(response) {
  * Opens the modal which allows to add users using a csv file
  * @param {boolean} update - Gives the context to open the relevant modal
  */
-function openCsvModal(update = false){
+function openCsvModal(update = false) {
     if (update) {
         pseudoModal.openModal('import-csv-update-classroom');
-    } else if (ClassroomSettings.classroom !== null){
+    } else if (ClassroomSettings.classroom !== null) {
         pseudoModal.openModal('import-csv');
     } else {
         pseudoModal.openModal('import-csv-create-classroom');
@@ -507,11 +462,11 @@ function openCsvModal(update = false){
  * Add students to a classroom using a csv file
  * @param {boolean} update - Gives the context to operate on the relevant elements
  */
-function importLearnerCsv(update = false){
+function importLearnerCsv(update = false) {
     if (update) {
         // If the current call is in the context of a classroom modification
         importLearnerCsvCreateUpdateClassroom(document.getElementById('importcsv-fileinput-classroom-update'), document.querySelector('#table-students-update ul'), 'import-csv-update-classroom');
-    } else if(ClassroomSettings.classroom){
+    } else if (ClassroomSettings.classroom) {
         // If the current call is directly from the classroom dashboard
         csvToClassroom(ClassroomSettings.classroom).then((response) => {
             /**
@@ -526,18 +481,18 @@ function importLearnerCsv(update = false){
                     displayNotification('#notif-div', "classroom.notif.usersAddedFromCsv", "success");
                 });
             } else {
-                if(response.errorType){
-                  // a specific error has been returned, display it
-                  displayNotification('#notif-div', `classroom.notif.${response.errorType}`, "error", `'{"reservedNickname": "${demoStudentName}"}'`);
-                  return;
+                if (response.errorType) {
+                    // a specific error has been returned, display it
+                    displayNotification('#notif-div', `classroom.notif.${response.errorType}`, "error", `'{"reservedNickname": "${demoStudentName}"}'`);
+                    return;
                 } else {
-                  manageResponseOfAddUsers(response);
-                }  
+                    manageResponseOfAddUsers(response);
+                }
             }
         })
-        .catch((response) => {
-            //console.warn(response);
-        });
+            .catch((response) => {
+                //console.warn(response);
+            });
     } else {
         // import the students before the class creation
         importLearnerCsvCreateUpdateClassroom(document.getElementById('importcsv-fileinput-classroom-create'), document.querySelector('#table-students ul'), 'import-csv-create-classroom');
@@ -552,7 +507,7 @@ function importLearnerCsv(update = false){
  */
 function importLearnerCsvCreateUpdateClassroom(fileInputElt, tableStudentUlElt, modalId) {
     const csvFile = fileInputElt.files[0];
-    if (csvFile){
+    if (csvFile) {
         const reader = new FileReader();
         try {
             reader.readAsText(csvFile);
@@ -561,29 +516,29 @@ function importLearnerCsvCreateUpdateClassroom(fileInputElt, tableStudentUlElt, 
                 let lines = csv.split("\n");
                 let headers = lines[0].split(/[,;]/);
 
-                for(let i = 0; i < headers.length; i++) {
-                    headers[i] = headers[i].replace("\r","");
+                for (let i = 0; i < headers.length; i++) {
+                    headers[i] = headers[i].replace("\r", "");
                 }
-                
+
                 let missingPseudoError = false;
                 for (let i = 1; i < lines.length; i++) {
                     // sanitize the current line
                     lines[i] = lines[i].replace(/(\r\n|\n|\r)/gm, "")
                     // ignore current empty line
                     // NOTE : EXCEL return a single character for an empty line when we use the "pseudo;password" example file
-                    if(lines[i] == '' || lines[i] ==';') continue;
+                    if (lines[i] == '' || lines[i] == ';') continue;
 
                     let currentline = lines[i].split(/[,;]/);
-                    
+
                     // set the error flag to true if the pseudo is missing in the csv
-                    if(currentline[0].trim() == '') missingPseudoError = true;
+                    if (currentline[0].trim() == '') missingPseudoError = true;
 
                     // add the student into the students table
                     else tableStudentUlElt.innerHTML += addStudentRow(currentline[0]);
                 }
 
                 // display the missing pseudo error
-                if(missingPseudoError == true) displayNotification('#notif-div', 'classroom.notif.pseudoMissingInCsvFile', 'error');
+                if (missingPseudoError == true) displayNotification('#notif-div', 'classroom.notif.pseudoMissingInCsvFile', 'error');
 
                 if (document.querySelectorAll('#table-students ul li .col').length > 1) {
                     if (document.querySelector('#no-student-label') !== null)
@@ -611,7 +566,7 @@ function importLearnerCsvCreateUpdateClassroom(fileInputElt, tableStudentUlElt, 
 function csvToClassroom(link) {
     return new Promise((resolve, reject) => {
         let csvFile = document.getElementById('importcsv-fileinput').files[0];
-        if(csvFile){
+        if (csvFile) {
             const reader = new FileReader();
             try {
                 reader.readAsText(csvFile);
@@ -619,15 +574,15 @@ function csvToClassroom(link) {
                     const csv = event.target.result;
                     let json = csvJSON(csv);
                     Main.getClassroomManager().addUsersToGroupByCsv(JSON.parse(json), link, "csv")
-                    .then((response) => {
-                        resolve(response);
-                    });
+                        .then((response) => {
+                            resolve(response);
+                        });
                 }
             } catch (error) {
                 reject(`Error while opening the csv file! Reason: ${error}`);
                 displayNotification('#notif-div', "classroom.notif.errorWithCsv", "error", `'{"error": "${error}"}'`);
             }
-        }else{
+        } else {
             reject('No csv file given!');
             displayNotification('#notif-div', "classroom.notif.CsvFileMissing", "error");
         }
@@ -646,7 +601,7 @@ function csvJSON(csv) {
      * to replace incoming headers 
      * following this format => student|password
      */
-    const internalHeaders = ["apprenant","mot_de_passe"]
+    const internalHeaders = ["apprenant", "mot_de_passe"]
     let lines = csv.split("\n");
     const result = [];
 
@@ -655,8 +610,8 @@ function csvJSON(csv) {
     // (you might convert them to &&& or something, then convert them back later)
     // jsfiddle showing the issue https://jsfiddle.net/
     let headers = lines[0].split(/[,;]/);
-    
-    for(let i=0; i< headers.length; i++){
+
+    for (let i = 0; i < headers.length; i++) {
         headers[i] = internalHeaders[i]
         // headers[i] = headers[i].replace("\r","")
     }
@@ -665,16 +620,16 @@ function csvJSON(csv) {
         lines[i] = lines[i].replace(/(\r\n|\n|\r)/gm, "")
         // ignore current empty line
         // NOTE : EXCEL return a single character for an empty line when we use the "pseudo;password" example file
-        if(lines[i] == '' || lines[i] ==';') continue 
+        if (lines[i] == '' || lines[i] == ';') continue
 
         // create empty object to fill and split line data
         let obj = {};
         let currentline = lines[i].split(/[,;]/);
 
         for (let j = 0; j < headers.length; j++) {
-            if(typeof currentline[j] != 'undefined' ){
+            if (typeof currentline[j] != 'undefined') {
                 // fill the object with data 
-                obj[headers[j]] = currentline[j].replace("\r","").trim();
+                obj[headers[j]] = currentline[j].replace("\r", "").trim();
             }
         }
         result.push(obj);
@@ -687,15 +642,15 @@ function csvJSON(csv) {
 /**
  * Open the modal which allows to download csv files
  */
-function openDownloadCsvModal(){
+function openDownloadCsvModal() {
     pseudoModal.openModal('export-csv');
 }
 
 /**
  * Download the current classroom list of learners and close the export-csv modal
  */
-function exportLearnerCsv(){
-    if(ClassroomSettings.classroom){
+function exportLearnerCsv() {
+    if (ClassroomSettings.classroom) {
         classroomToCsv(ClassroomSettings.classroom);
         pseudoModal.closeModal('export-csv');
     }
@@ -704,8 +659,8 @@ function exportLearnerCsv(){
 /**
  * Download the current classroom dashboard and close the export-csv modal
  */
-function exportDashboardCsv(){
-    if(ClassroomSettings.classroom){
+function exportDashboardCsv() {
+    if (ClassroomSettings.classroom) {
         dashboardToCsv(ClassroomSettings.classroom);
         pseudoModal.closeModal('export-csv');
     }
@@ -719,7 +674,7 @@ function classroomToCsv(link) {
     let html = "apprenant;mot_de_passe \n"
     let classroom = getClassroomInListByLink(link)[0]
     for (let i = 0; i < classroom.students.length; i++) {
-        if(classroom.students[i].user.pseudo != demoStudentName){
+        if (classroom.students[i].user.pseudo != demoStudentName) {
             html += classroom.students[i].user.pseudo + ";" + classroom.students[i].pwd + "\n";
         }
     }
@@ -749,7 +704,7 @@ function dashboardToCsv(link) {
     }
     headHtml += "\n"
     for (let i = 0; i < classroom.students.length; i++) {
-        if(classroom.students[i].user.pseudo != demoStudentName){
+        if (classroom.students[i].user.pseudo != demoStudentName) {
             let arrayActivities = reorderActivities(classroom.students[i].activities, index)
             html += classroom.students[i].user.pseudo + ";"
             for (let j = 0; j < arrayActivities.length; j++) {
@@ -781,8 +736,8 @@ function dashboardToCsv(link) {
  */
 function reorderActivities(activities, indexes) {
     let orderedActivities = [];
-    for(let i=0; i<indexes.length; i++){
-        for(activity of activities){
+    for (let i = 0; i < indexes.length; i++) {
+        for (activity of activities) {
             if (activity.reference == indexes[i].reference) {
                 orderedActivities[i] = activity;
                 break;
@@ -966,7 +921,7 @@ function filterSandboxInList(keywords = [], orderBy = 'id', asc = true) {
  * Display the teacher dashboard in the classroom tab
  * @param {array} students - Array of students in a classroom
  */
-function displayStudentsInClassroom(students, link=false) {
+function displayStudentsInClassroom(students, link = false) {
 
     if (link && link != $_GET('option')) {
         return;
@@ -975,7 +930,7 @@ function displayStudentsInClassroom(students, link=false) {
     document.querySelector('#body-table-teach').innerHTML = '';
     document.querySelector('#add-student-container').innerHTML = '';
     document.querySelector('#export-class-container').innerHTML = '';
-    
+
     // Display the classroom name
     const classroomName = getClassroomInListByLink(ClassroomSettings.classroom)[0].classroom.name;
     const reducedclassroomName = classroomName.length > 16 ? `${classroomName.substring(0, 16)}...` : classroomName;
@@ -1010,7 +965,7 @@ function displayStudentsInClassroom(students, link=false) {
                         </div>
                     </div>
                 </th>`;
-        // Add the current student head table cell
+            // Add the current student head table cell
         } else {
             html = /*html*/`<tr>
                 <th class="username" data-student-id="${element.user.id}">
@@ -1034,7 +989,7 @@ function displayStudentsInClassroom(students, link=false) {
         // Display the current student activities in the dashboard
 
         // Loop in the classroom activities index (with ids) to generate the dashboard table header and body
-        for (let i=0; i<arrayIndexesActivities.length; i++) {
+        for (let i = 0; i < arrayIndexesActivities.length; i++) {
             if (element.user.pseudo == demoStudentName) {
                 let fromCourse = false,
                     firstFromCourse = false,
@@ -1047,7 +1002,7 @@ function displayStudentsInClassroom(students, link=false) {
                         courseId = arrayIndexesActivities[i].course.id;
                     }
                 }
-  
+
                 let course = coursesManager.myCourses.find(course => course.id == courseId)
                 if (course != null) {
                     courseLength = course.activities.length;
@@ -1066,7 +1021,7 @@ function displayStudentsInClassroom(students, link=false) {
                 if (fromCourse && firstFromCourse) {
                     thModular = `<th data-bs-toggle="tooltip" class="border-header-class" ${tableLength} data-bs-placement="top" title="Course">`;
                     optionContent = `<li class="ms-5" style="border-bottom:solid 2px black;">
-                                        <b>${ course.title }</b>
+                                        <b>${course.title}</b>
                                     </li>
                                     
                                     <li class="classroom-clickable col-12 dropdown-item " onclick="coursesManager.courseOverview(${course.id})" ><i class="fas fa-eye"></i> <span data-i18n="classroom.classes.panel.seeActivity">Voir l'activité</span></li>
@@ -1077,7 +1032,7 @@ function displayStudentsInClassroom(students, link=false) {
                 } else if (!fromCourse) {
                     thModular = `<th data-bs-toggle="tooltip" class="border-header-class" data-bs-placement="top" title="${arrayIndexesActivities[i].title.replaceAll('"', " ")}">`;
                     optionContent = `<li class="ms-5" style="border-bottom:solid 2px black;">
-                                        <b>${ arrayIndexesActivities[i].title }</b>
+                                        <b>${arrayIndexesActivities[i].title}</b>
                                     </li>
                                     <li class="classroom-clickable col-12 dropdown-item " onclick="activityWatch(${arrayIndexesActivities[i].id})" ><i class="fas fa-eye"></i> <span data-i18n="classroom.classes.panel.seeActivity">Voir l'activité</span></li>
                                     <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${arrayIndexesActivities[i].id})"><i class="fas fa-pen"></i> <span data-i18n="classroom.classes.panel.editActivity">Modifier l'activité</span></li>
@@ -1093,7 +1048,7 @@ function displayStudentsInClassroom(students, link=false) {
                         
                         <div class="dropdown dropdown-act m-auto" style="width:30px;">
                             <div id="dropdown-act-${activityNumber}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    ${!fromCourse ? `<span class="span-act">Act.</br>n°${ activityNumber }</span>` : `<span class="span-act">Par.</br>n°${ activityNumber }</span>`}
+                                    ${!fromCourse ? `<span class="span-act">Act.</br>n°${activityNumber}</span>` : `<span class="span-act">Par.</br>n°${activityNumber}</span>`}
                                     <i style="display:none;font-size:2em;" class="fa fa-cog i-act" aria-hidden="true"></i>
                                     <div class="dropdown-menu" aria-labelledby="dropdown-act-${activityNumber}" data-id="${arrayIndexesActivities[i].id}" style="text-transform: none;">
                                     ${optionContent}
@@ -1108,9 +1063,9 @@ function displayStudentsInClassroom(students, link=false) {
             let currentActivity = arrayActivities[i];
 
             if (currentActivity) {
-                const formatedTimePast = 
-                typeof currentActivity.timePassed == 'undefined' ? '' : currentActivity.timePassed == 0 ? '' : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em><br><em>${i18next.t("classroom.activities.numberOfTries")} ${currentActivity.tries}</em>`;
-                html += `<td class=" ${statusActivity(currentActivity, true, formatedTimePast)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${ currentActivity.id}" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${getTranslatedActivityName(currentActivity.activity.type)}</em></br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>${formatedTimePast}"></td>`;
+                const formatedTimePast =
+                    typeof currentActivity.timePassed == 'undefined' ? '' : currentActivity.timePassed == 0 ? '' : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em><br><em>${i18next.t("classroom.activities.numberOfTries")} ${currentActivity.tries}</em>`;
+                html += `<td class=" ${statusActivity(currentActivity, true, formatedTimePast)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${currentActivity.id}" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${getTranslatedActivityName(currentActivity.activity.type)}</em></br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>${formatedTimePast}"></td>`;
             } else {
                 html += `<td class="no-activity bilan-cell"></td>`;
             }
@@ -1130,22 +1085,22 @@ function displayStudentsInClassroom(students, link=false) {
 
     }
 
-    if(! UserManager.getUser().isFromGar)
+    if (!UserManager.getUser().isFromGar)
         appendAddStudentButton()
-    
+
     // get classroom settings from localstorage
     let settings = getClassroomDisplaySettings(link);
 
     if (settings['monochrome']) {
         $('#body-table-teach').addClass('is-monochrome')
         $('#legend-container').addClass('is-monochrome')
-        $('#is-monochrome').prop('checked', true);          
+        $('#is-monochrome').prop('checked', true);
     } else {
         $('#body-table-teach').removeClass('is-monochrome')
         $('#legend-container').removeClass('is-monochrome')
         $('#is-monochrome').prop('checked', false);
     }
-    
+
     if (settings['anonymised']) {
         anonymizeStudents()
         $('#is-anonymised').prop('checked', true);
@@ -1167,7 +1122,7 @@ function displayStudentsInClassroom(students, link=false) {
         $(classroomTable).find('tr').addClass('non-dropdown');
         event.target.closest('tr').classList.remove('non-dropdown');
     });
-    
+
     $('#classroom-panel-table-container table .dropdown').on('hidden.bs.dropdown', (event) => {
         let classroomTable = event.target.closest('table');
         classroomTable.classList.remove('dropdowns-opened');
@@ -1176,7 +1131,7 @@ function displayStudentsInClassroom(students, link=false) {
 
 }
 
-function appendAddStudentButton(){
+function appendAddStudentButton() {
     $('#body-table-teach').append('<button id="add-student-dashboard-panel" class="btn c-btn-primary"><span data-i18n="classroom.activities.addLearners">Ajouter des apprenants</span> <i class="fas fa-plus"></i></button>').localize();
 }
 
@@ -1248,29 +1203,29 @@ function formatDuration(secs) {
     const displayedUnits = ['h', 'm', 's'];
     let firstFilled = false;
 
-    return [hours,minutes,seconds]
-    .map((v, i) => {
-        if (!firstFilled) {
-            firstFilled = v > 0 ? true : false;
-            return v > 0 ? v + displayedUnits[i] : '';
-        } else {
-            return ` ${v + displayedUnits[i]}`;
-        }
-    })
-    .join('');
+    return [hours, minutes, seconds]
+        .map((v, i) => {
+            if (!firstFilled) {
+                firstFilled = v > 0 ? true : false;
+                return v > 0 ? v + displayedUnits[i] : '';
+            } else {
+                return ` ${v + displayedUnits[i]}`;
+            }
+        })
+        .join('');
 }
 
 /**
  * Password display toggler : if an element that has the class password-display-toggler is clicked, it show/hide the password in the adjacent input element
  */
 document.getElementsByTagName('body')[0].addEventListener('click', (e) => {
-    if(e.target.classList.contains('password-display-toggler')){
+    if (e.target.classList.contains('password-display-toggler')) {
         e.stopPropagation();
-        for(let childElt of e.target.parentNode.childNodes){
-            if(childElt.tagName == 'INPUT'){
-                if(childElt.getAttribute('type') == 'password'){
+        for (let childElt of e.target.parentNode.childNodes) {
+            if (childElt.tagName == 'INPUT') {
+                if (childElt.getAttribute('type') == 'password') {
                     childElt.setAttribute('type', 'text');
-                }else{
+                } else {
                     childElt.setAttribute('type', 'password');
                 }
             }
@@ -1281,12 +1236,12 @@ document.getElementsByTagName('body')[0].addEventListener('click', (e) => {
 /**
  * Mutation observer that remove a tooltip from the dom if its related element is deleted (to avoid an issue where the tooltip remains in place and never disappears)
  */
-const deletionObserver = new MutationObserver(function(mutations_list) {
-	mutations_list.forEach(function(mutation) {
-		mutation.removedNodes.forEach(function(removed_node) {
-			browseRemovedNodes(removed_node);
-		});
-	});
+const deletionObserver = new MutationObserver(function (mutations_list) {
+    mutations_list.forEach(function (mutation) {
+        mutation.removedNodes.forEach(function (removed_node) {
+            browseRemovedNodes(removed_node);
+        });
+    });
 });
 deletionObserver.observe(document.querySelector("body"), { subtree: true, childList: true });
 
@@ -1309,7 +1264,7 @@ function browseRemovedNodes(removed_node) {
 /**
  * Open teacher account panel
  */
-function openTeacherAccountPanel(){
+function openTeacherAccountPanel() {
     pseudoModal.closeModal('settings-teacher-modal');
     getAndPopulateAccountInfo();
     navigatePanel('classroom-dashboard-account-panel-teacher', 'dashboard-profil-teacher', null);
@@ -1318,7 +1273,7 @@ function openTeacherAccountPanel(){
 /**
  * Get all the relevant teacher info and fill the associated form fields in teacher account panel
  */
-function getAndPopulateAccountInfo(){
+function getAndPopulateAccountInfo() {
     let userInfo = {
         firstname: UserManager.getUser().firstname ?? '',
         lastname: UserManager.getUser().surname ?? '',
@@ -1332,11 +1287,11 @@ function getAndPopulateAccountInfo(){
  * Fill all the account form fields with the provided datas
  * @param {object} data - fields data from the database
  */
-function populateAccountInfo(data){
+function populateAccountInfo(data) {
     let firstNameInputElt = document.getElementById('profile-form-first-name'),
-    lastNameInputElt = document.getElementById('profile-form-last-name'),
-    emailInputElt = document.getElementById('profile-form-email'),
-    teacherIdInputElt = document.getElementById('profile-form-teacher-id');
+        lastNameInputElt = document.getElementById('profile-form-last-name'),
+        emailInputElt = document.getElementById('profile-form-email'),
+        teacherIdInputElt = document.getElementById('profile-form-teacher-id');
 
     firstNameInputElt.value = data.firstname;
     lastNameInputElt.value = data.lastname;
@@ -1367,30 +1322,30 @@ document.querySelector('body').addEventListener('click', (e) => {
 document.querySelector('#update-teacher-account-form').addEventListener('submit', (e) => {
     e.preventDefault();
     let data = new FormData(e.target);
-    if(teacherAccountUpdateFormCheck(data)){
+    if (teacherAccountUpdateFormCheck(data)) {
         Main.getClassroomManager().updateTeacherAccount(data).then((response) => {
-            if(response.isUserUpdated){
+            if (response.isUserUpdated) {
                 document.getElementById('profile-form-password').value = '';
                 document.getElementById('profile-form-confirm-password').value = '';
                 displayNotification('#notif-div', "classroom.notif.accountUpdated", "success");
-                if(data.get('email') != UserManager.getUser().isRegular){
+                if (data.get('email') != UserManager.getUser().isRegular) {
                     displayNotification('#notif-div', "classroom.notif.emailUpdated", "success");
                 }
                 pseudoModal.closeModal('profile-update-password-confirm');
                 UserManager.init();
-            }else{
-                if(response.errorType){
+            } else {
+                if (response.errorType) {
                     switch (response.errorType) {
                         case 'unknownUser':
                             displayNotification('#notif-div', "classroom.notif.unknownUser", "error");
                             break;
-                    
+
                         default:
                             break;
                     }
                 }
-                if(response.errors){
-                    for(let error in response.errors){
+                if (response.errors) {
+                    for (let error in response.errors) {
                         displayNotification('#notif-div', `classroom.notif.${error}`, "error");
                     }
                 }
@@ -1405,8 +1360,8 @@ document.querySelector('#update-teacher-account-form').addEventListener('submit'
  * Check if the teacher's account update form values are correct
  * @returns {boolean} - true if check ok, false otherwise
  */
-function teacherAccountUpdateFormCheck(formData){
-    
+function teacherAccountUpdateFormCheck(formData) {
+
     let formValues = {
         'firstname': {
             value: formData.get('first-name'),
@@ -1429,47 +1384,47 @@ function teacherAccountUpdateFormCheck(formData){
             id: 'profile-form-confirm-password'
         }
     },
-    errors = [];
-    
-    for(let input in formValues){
+        errors = [];
+
+    for (let input in formValues) {
         let currentElt = document.getElementById(formValues[input].id);
-        if(currentElt.classList.contains('form-input-error')){
+        if (currentElt.classList.contains('form-input-error')) {
             currentElt.classList.remove('form-input-error');
         }
     }
 
-    if(!formValues.firstname.value.length == 0 && formValues.firstname.value.length < 2){
+    if (!formValues.firstname.value.length == 0 && formValues.firstname.value.length < 2) {
         errors.push('firstNameTooShort');
         showFormInputError(formValues.firstname.id);
     }
-    
-    if(!formValues.surname.value.length == 0 && formValues.surname.value.length < 2){
+
+    if (!formValues.surname.value.length == 0 && formValues.surname.value.length < 2) {
         errors.push('lastNameTooShort');
         showFormInputError(formValues.surname.id);
     }
 
-    if(!formValues.email.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)){
+    if (!formValues.email.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
         errors.push('invalidEmail');
         showFormInputError(formValues.email.id);
     }
 
-    if(!formValues.password.value.length == 0 && !formValues.password.value.length > 7){
+    if (!formValues.password.value.length == 0 && !formValues.password.value.length > 7) {
         errors.push('invalidPassword');
         showFormInputError(formValues.password.id);
     }
 
-    if(formValues.password.value != formValues.confirmPassword.value){
+    if (formValues.password.value != formValues.confirmPassword.value) {
         errors.push('passwordAndConfirmMismatch');
         showFormInputError(formValues.password.id);
         showFormInputError(formValues.confirmPassword.id);
     }
 
-    if(errors.length){
-        for(let error of errors){
+    if (errors.length) {
+        for (let error of errors) {
             displayNotification('#notif-div', `classroom.notif.${error}`, "error");
         }
         return false;
-    }else{
+    } else {
         return true;
     }
 }
@@ -1478,7 +1433,7 @@ function teacherAccountUpdateFormCheck(formData){
  * Add the error class on input form
  * @param {string} id - the id of the form input
  */
-function showFormInputError(id){
+function showFormInputError(id) {
     document.getElementById(id).classList.add('form-input-error');
 }
 
@@ -1492,7 +1447,7 @@ class DashboardAutoRefresh {
     }
 
     refresh() {
-        if($_GET('panel') == 'classroom-table-panel-teacher' && $_GET('option')){
+        if ($_GET('panel') == 'classroom-table-panel-teacher' && $_GET('option')) {
             this.isRefreshing = true;
             let previousClassroomState, newClassroomState;
             if (getClassroomInListByLink($_GET('option'))[0]) {
@@ -1507,7 +1462,7 @@ class DashboardAutoRefresh {
                         newClassroomState = JSON.stringify(getClassroomInListByLink($_GET('option'))[0].students);
                     }
                     // Only refresh the classroom if it has changed
-                    if (previousClassroomState.data != newClassroomState){
+                    if (previousClassroomState.data != newClassroomState) {
                         if (getClassroomInListByLink($_GET('option'))[0]) {
                             let students = getClassroomInListByLink($_GET('option'))[0].students;
                             displayStudentsInClassroom(students);
@@ -1522,7 +1477,7 @@ class DashboardAutoRefresh {
     }
 
     refreshLater() {
-        if (!this.isRefreshing){
+        if (!this.isRefreshing) {
             this.isRefreshing = true;
             setTimeout(() => { this.refresh() }, this.refreshInterval);
         }
