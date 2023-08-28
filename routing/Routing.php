@@ -2,11 +2,6 @@
 
 require_once '../bootstrap.php';
 
-// show errors
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 use Dotenv\Dotenv;
 use Monolog\Logger;
 use VittaLogger\Log;
