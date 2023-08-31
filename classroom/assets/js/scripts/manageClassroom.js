@@ -269,6 +269,10 @@ document.querySelector('#classroom-create-form').addEventListener('submit', (e) 
         else if(classroom.isClassroomAdded == false){
             displayNotification('#notif-div', "classroom.notif.classNotCreated", "error", `'{"classroomNumberLimit": "${classroom.classroomNumberLimit}"}'`);
             e.submitter.disabled = false;
+
+            // fire an event to display the premium modal
+            let event = new CustomEvent('displayPremiumModal', {detail: 'classroomAddition'});
+            document.dispatchEvent(event);
         }else{
             const students = [];
             const existingStudents = [];
@@ -431,6 +435,8 @@ function manageResponseOfAddUsers(response) {
         if (response.message == "personalLimit") {
             displayNotification('#notif-div', "classroom.notif.personalLimitationsReached", "error", `'{"max": "${response.teacherInfo.maxStudents}"}'`);
             // Show upgrade modal
+            let event = new CustomEvent('displayPremiumModal', {detail: 'learnerAddition', isGar: UserManager.getUser().isFromGar});
+            document.dispatchEvent(event);
         } else if (response.message == "personalLimitAndGroupOutDated") {
             displayNotification('#notif-div', "classroom.notif.groupLimitationsTeacher", "error", `'{"learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
            // Show upgrade modal

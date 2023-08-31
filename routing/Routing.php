@@ -10,6 +10,7 @@ use Doctrine\ORM\ORMException;
 use Doctrine\DBAL\DBALException;
 
 use User\Controller\ControllerUser;
+use User\Entity\UserPremium;
 
 use Doctrine\DBAL\Driver\PDOException;
 use Learn\Controller\ControllerCourse;
@@ -70,6 +71,19 @@ try {
         } catch (error $e) {
             $user['isRegular'] = false;
         }
+
+        try {
+            $user["premium"] = false;
+            $premium = $entityManager->getRepository(UserPremium::class)->findOneBy(['user' => $_SESSION["id"]]);
+            if ($premium) {
+                if ($premium->getDateEnd() > new DateTime() || $premium->getDateEnd() == null) {
+                    $user["premium"] = true;
+                }
+            }
+        } catch (error $e) {
+            $user['premium'] = false;
+        }
+
 
         $isFromGar = $entityManager->getRepository('User\Entity\ClassroomUser')
             ->find(intval($_SESSION["id"]));
