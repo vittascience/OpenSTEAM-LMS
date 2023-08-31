@@ -44,13 +44,13 @@ class FreeManager {
 
     manageUpdateForFree(activity) {
         $('#activity-free').show();
-        let content = JSON.parse(activity.content);
-        if (content.description != "" && content.description != null) {
-            $('#free-content').forceInsertBbcode(content.description);
+        let contentParsed = tryToParse(activity.content) == false ? activity.content : tryToParse(activity.content);
+        if (contentParsed.description != "" && contentParsed.description != null) {
+            $('#free-content').forceInsertBbcode(contentParsed.description);
         }
     
         // set tolerance 
-        if (content.tolerance != null) {
+        if (contentParsed.tolerance != null) {
             $('#free-tolerance').val(activity.tolerance);
         }
     
@@ -62,8 +62,9 @@ class FreeManager {
             $("#free-correction-content").hide();
         }
         if (activity.solution != "") {
-            if (JSON.parse(activity.solution) != null && JSON.parse(activity.solution) != "") {
-                $('#free-correction').forceInsertBbcode(JSON.parse(activity.solution));
+            let solutionParsed = tryToParse(activity.solution) == false ? activity.solution : tryToParse(activity.solution);
+            if (solutionParsed != null && solutionParsed != "") {
+                $('#free-correction').forceInsertBbcode(solutionParsed);
             }
         }
         navigatePanel('classroom-dashboard-classes-new-activity', 'dashboard-activities-teacher');
@@ -125,14 +126,14 @@ class FreeManager {
         let course = isFromCourse ? "-course" : "";
         $('#activity-states'+course).html(bbcodeContentIncludingMathLive(content));
         $('#activity-states-container'+course).show();
+        let parsed = tryToParse(Activity.response) == false ? Activity.response : tryToParse(Activity.response);
         if (UserManager.getUser().isRegular) {
             if (Activity.response != null && Activity.response != '') {
-                if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") { 
+                if (parsed != null && parsed != "") { 
                     $('#activity-student-response'+course).show();
-                    let parsed = tryToParse(Activity.response);
                     if (parsed != false) {
                         $('#activity-student-response-content'+course).html(bbcodeContentIncludingMathLive(parsed));
-                    } else if (Activity.response != null) {
+                    } else if (parsed != null) {
                         $('#activity-student-response-content'+course).html(bbcodeContentIncludingMathLive(Activity.response));
                     }
                     manageCorrectionDiv(correction_div, correction, isFromCourse);
@@ -143,8 +144,8 @@ class FreeManager {
             if (!UserManager.getUser().isRegular) {
                 const wbbptions = Main.getClassroomManager().wbbOpt;
                 $('#activity-input'+course).wysibb(wbbptions);
-                if (Activity.response != null && Activity.response != '') {
-                    let parsed = tryToParse(Activity.response);
+                $('#activity-input').htmlcode("");
+                if (parsed != null && parsed != '') {
                     if (parsed != false) {
                         $('#activity-input'+course).forceInsertBbcode(parsed);
                     } else {
@@ -155,7 +156,7 @@ class FreeManager {
             }
         } else if (correction > 1) {
             $('#activity-student-response'+course).show();
-            $('#activity-student-response-content'+course).html(bbcodeContentIncludingMathLive(JSON.parse(Activity.response)));
+            $('#activity-student-response-content'+course).html(bbcodeContentIncludingMathLive(parsed));
             manageCorrectionDiv(correction_div, correction, isFromCourse);
         }
     }
@@ -173,8 +174,9 @@ class FreeManager {
             $('#one-page-activity-content-'+idActivity).wysibb(Main.getClassroomManager().wbbOpt);
     
             if (response != null && response != '') {
-                if (JSON.parse(response) != null && JSON.parse(response) != "") {
-                    let parsed = tryToParse(response);
+
+                let parsed = tryToParse(response) == false ? response : tryToParse(response);
+                if (parsed != null && parsed != "") {
                     if (parsed != false) {
                         $('#one-page-activity-content-'+idActivity).forceInsertBbcode(parsed);
                     } else {
@@ -241,7 +243,8 @@ class FreeManager {
                 }
             }
         } else if (activity.correction > 1) {
-            activityData.content = bbcodeContentIncludingMathLive(JSON.parse(activity.response));
+            let responseParsed = tryToParse(activity.response) == false ? activity.response : tryToParse(activity.response);
+            activityData.content = bbcodeContentIncludingMathLive(responseParsed);
             activityData.correction = returnCorrectionContent(correction_div, activity.activity.correction);
         }
 

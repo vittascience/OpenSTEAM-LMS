@@ -224,7 +224,6 @@ class QuizManager {
     
         if (correction <= 1 || correction == null) {
             if (!UserManager.getUser().isRegular) {
-                $('#label-activity-student-response'+course).text(i18next.t("classroom.activities.yourAnswer"));
                 $('#activity-student-response-content'+course).html("");
                 if (Activity.response != null && Activity.response != '') {
                     if (JSON.parse(Activity.response) != null && JSON.parse(Activity.response) != "") {
@@ -242,6 +241,8 @@ class QuizManager {
             quizManager.displayQuizTeacherSide(isFromCourse);
             manageCorrectionDiv(correction_div, correction, isFromCourse);
         }
+
+        manageLabelForActivity();
     }
 
     displayQuizTeacherSide(isFromCourse) {

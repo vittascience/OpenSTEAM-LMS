@@ -786,7 +786,7 @@ function returnCorrectionContent(correction_div, correction) {
 
 function manageLabelForActivity(isFromCourse = false) {
     let course = isFromCourse ? "-course" : "";
-    if (UserManager.getUser().isRegular && ($_GET('panel') == "classroom-dashboard-activity-panel-teacher")) {
+    if (UserManager.getUser().isRegular && ($_GET('panel') == "classroom-dashboard-activity-panel-teacher" || $_GET('panel') == "classroom-dashboard-activity-panel")) {
         $('#label-activity-student-response'+course).text(i18next.t("classroom.activities.studentAnswer"));
     } else {
         $('#label-activity-student-response'+course).text(i18next.t("classroom.activities.yourAnswer"));
