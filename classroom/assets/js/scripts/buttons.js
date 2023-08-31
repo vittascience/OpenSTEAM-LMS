@@ -953,7 +953,8 @@ function toggleBlockClass() {
 function formatDay(da) {
     let d = new Date(da.date)
     let translatedMonth = i18next.t("classroom.activities.month." + parseInt(d.getMonth() + 1) );
-    return d.getDate() + " " + (translatedMonth) + " " + d.getFullYear();
+    let numericMonth = d.getMonth() + 1 < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1;
+    return d.getDate() + "." + numericMonth + "." + d.getFullYear();
 }
 
 

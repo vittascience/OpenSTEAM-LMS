@@ -27,8 +27,7 @@ $jwksKeys = json_decode(file_get_contents($ltiTool->getPublicKeySet()), true);
 // decode jwt token and check signature using jwks public key
 $validatedToken = JWT::decode(
   $_REQUEST['JWT'], 
-  JWK::parseKeySet($jwksKeys), 
-  array('RS256')
+  JWK::parseKeySet($jwksKeys)
 );
 $contentItemsLabel = "https://purl.imsglobal.org/spec/lti-dl/claim/content_items";
 // here save activity url in db
