@@ -529,9 +529,10 @@ function importLearnerCsvCreateUpdateClassroom(fileInputElt, tableStudentUlElt, 
 
                 
                 if (!checkMaxStudentsWhenImportingCsv(csv)) {
-                    // SHOW THE PREMIUM MODAL HERE
                     pseudoModal.closeAllModal();
-                    console.log("SHOW THE PREMIUM MODAL HERE")
+                    // Show upgrade modal
+                    let event = new CustomEvent('displayPremiumModal', {detail: 'learnerAddition', isGar: UserManager.getUser().isFromGar});
+                    document.dispatchEvent(event);
                     return;
                 }
 
@@ -594,10 +595,10 @@ function csvToClassroom(link) {
                     let json = csvJSON(csv);
 
                     if (!checkMaxStudentsWhenImportingCsv(csv)) {
-                        // SHOW THE PREMIUM MODAL HERE
                         pseudoModal.closeAllModal();
-                        
-                        console.log("SHOW THE PREMIUM MODAL HERE")
+                        // Show upgrade modal
+                        let event = new CustomEvent('displayPremiumModal', {detail: 'learnerAddition', isGar: UserManager.getUser().isFromGar});
+                        document.dispatchEvent(event);
                         return;
                     }
 
