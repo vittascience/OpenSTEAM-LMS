@@ -480,7 +480,7 @@ button {
 
     width: 100%;
     width: -webkit-fill-available;
-    z-index: 9999;
+    z-index: 900;
 }
 
 #classroom-dashboard-content {
