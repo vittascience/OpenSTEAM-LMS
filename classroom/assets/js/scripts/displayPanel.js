@@ -342,7 +342,7 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
 
         // restore the add student div to its default content to remove potential changes from the update classroom modal
         $('#classroom-form-name').val(''),
-            $('#classroom-form-school').val('')
+        $('#classroom-form-school').val('')
         $('#add-student-div').html(BASE_STUDENT_FORM);
         if (!Main.getClassroomManager()._myClasses) {
             Main.getClassroomManager().getClasses().then(function () {
