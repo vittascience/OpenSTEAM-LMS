@@ -72,19 +72,6 @@ try {
             $user['isRegular'] = false;
         }
 
-        try {
-            $user["premium"] = false;
-            $premium = $entityManager->getRepository(UserPremium::class)->findOneBy(['user' => $_SESSION["id"]]);
-            if ($premium) {
-                if ($premium->getDateEnd() > new DateTime() || $premium->getDateEnd() == null) {
-                    $user["premium"] = true;
-                }
-            }
-        } catch (error $e) {
-            $user['premium'] = false;
-        }
-
-
         $isFromGar = $entityManager->getRepository('User\Entity\ClassroomUser')
             ->find(intval($_SESSION["id"]));
         if ($isFromGar) {
@@ -103,13 +90,17 @@ try {
         }
     }
 
-    // get and scan the entire plugins folder
+    // get and scan the entire plugins folder for PHP files
     $pluginsDir = '../plugins';
     if (is_dir($pluginsDir)) {
         $pluginsFound = array_diff(scandir($pluginsDir), array('..', '.'));
 
         // scan each single plugin folder
         foreach ($pluginsFound as $singlePlugin) {
+            if (!is_dir("../plugins/$singlePlugin")) {
+                continue;
+            }
+
             $singlePluginFolders = array_diff(scandir("../plugins/$singlePlugin"), array('..', '.'));
 
             // convert snake_case from url param into PascalCase to find the right controller file to instanciate
