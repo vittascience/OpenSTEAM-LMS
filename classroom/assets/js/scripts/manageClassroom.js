@@ -86,10 +86,12 @@ async function readEvent (event) {
 //formulaire de création de classe
 $('body').on('click', '.teacher-new-classe', function (event) {
     ClassroomSettings.classroom = null;
-
     let classCount = Main.getClassroomManager()._myClasses.length;
-
-
+    if (classCount >= UserManager.getUser().restrictions.maxClasses) {
+        let event = new CustomEvent('displayPremiumModal', {detail: 'classroomAddition'});
+        document.dispatchEvent(event);
+        return;
+    }
     navigatePanel('classroom-dashboard-form-classe-panel', 'dashboard-classes-teacher');
     $('#table-students ul').html('<li id="no-student-label" data-i18n="classroom.classes.form.noStudent"></li>').localize();
 
