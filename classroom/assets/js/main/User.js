@@ -7,7 +7,7 @@ var UserManager = (function () {
             $.ajax({
                 type: "GET",
                 url: "/routing/Routing.php?controller=session",
-                success: function (response) {
+                success: async function (response) {
                     if (response != "null") {
                         try {
                             Manager.user = JSON.parse(response);
@@ -16,6 +16,7 @@ var UserManager = (function () {
                         }
                     }
                     resolve("done");
+                    Manager.user.restrictions = await getUserRestrictions();
                 },
                 error: function (response) {
                     reject(response.status);
@@ -23,6 +24,22 @@ var UserManager = (function () {
             });
         });
         return promiseToGetUser;
+    }
+
+    async function getUserRestrictions() {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: 'POST',
+                dataType: "JSON",
+                url: '/routing/Routing.php?controller=user&action=get_user_restriction',
+                success: function (response) {
+                    resolve(response);
+                },
+                error: function () {
+                    reject();
+                }
+            });
+        });
     }
 
     return {

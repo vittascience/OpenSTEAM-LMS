@@ -244,6 +244,7 @@ class ClassroomManager {
                             }
                         }
                         container._myClasses = response;
+                        Main.getClassroomManager().countClassroomAndStudents(response);
                         onEnd();
                         resolve();
                     },
@@ -256,6 +257,19 @@ class ClassroomManager {
             // Add the current task to the tasks queue
             this._addTaskToQueue(currentTask);
         });
+    }
+
+
+    countClassroomAndStudents(data) {
+        let teacherData = {
+            classrooms: 0,
+            students: 0
+        };
+        data.forEach((classroom) => {
+            teacherData.classrooms++;
+            teacherData.students += classroom.students.length;
+        });
+        UserManager.getUser().teacherData = teacherData;
     }
 
     /**

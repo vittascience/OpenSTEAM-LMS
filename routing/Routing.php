@@ -72,19 +72,6 @@ try {
             $user['isRegular'] = false;
         }
 
-        try {
-            $user["premium"] = false;
-            $premium = $entityManager->getRepository(UserPremium::class)->findOneBy(['user' => $_SESSION["id"]]);
-            if ($premium) {
-                if ($premium->getDateEnd() > new DateTime() || $premium->getDateEnd() == null) {
-                    $user["premium"] = true;
-                }
-            }
-        } catch (error $e) {
-            $user['premium'] = false;
-        }
-
-
         $isFromGar = $entityManager->getRepository('User\Entity\ClassroomUser')
             ->find(intval($_SESSION["id"]));
         if ($isFromGar) {

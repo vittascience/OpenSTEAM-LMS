@@ -86,7 +86,10 @@ async function readEvent (event) {
 //formulaire de création de classe
 $('body').on('click', '.teacher-new-classe', function (event) {
     ClassroomSettings.classroom = null;
-    // $('#classroom-classes-title').text(`${i18next.t('classroom.classes.form.title')}`)
+
+    let classCount = Main.getClassroomManager()._myClasses.length;
+
+
     navigatePanel('classroom-dashboard-form-classe-panel', 'dashboard-classes-teacher');
     $('#table-students ul').html('<li id="no-student-label" data-i18n="classroom.classes.form.noStudent"></li>').localize();
 
@@ -522,6 +525,14 @@ function importLearnerCsvCreateUpdateClassroom(fileInputElt, tableStudentUlElt, 
                 let lines = csv.split("\n");
                 let headers = lines[0].split(/[,;]/);
 
+                
+                if (!checkMaxStudentsWhenImportingCsv(csv)) {
+                    // SHOW THE PREMIUM MODAL HERE
+                    pseudoModal.closeAllModal();
+                    console.log("SHOW THE PREMIUM MODAL HERE")
+                    return;
+                }
+
                 for(let i = 0; i < headers.length; i++) {
                     headers[i] = headers[i].replace("\r","");
                 }
@@ -579,8 +590,16 @@ function csvToClassroom(link) {
                 reader.onload = function (event) {
                     const csv = event.target.result;
                     let json = csvJSON(csv);
-                    Main.getClassroomManager().addUsersToGroupByCsv(JSON.parse(json), link, "csv")
-                    .then((response) => {
+
+                    if (!checkMaxStudentsWhenImportingCsv(csv)) {
+                        // SHOW THE PREMIUM MODAL HERE
+                        pseudoModal.closeAllModal();
+                        
+                        console.log("SHOW THE PREMIUM MODAL HERE")
+                        return;
+                    }
+
+                    Main.getClassroomManager().addUsersToGroupByCsv(JSON.parse(json), link, "csv").then((response) => {
                         resolve(response);
                     });
                 }
@@ -593,6 +612,16 @@ function csvToClassroom(link) {
             displayNotification('#notif-div', "classroom.notif.CsvFileMissing", "error");
         }
     });
+}
+
+function checkMaxStudentsWhenImportingCsv(csvFile) {
+    let maxStudents = UserManager.getUser().restrictions.maxStudents,
+    currentLearnerCount = UserManager.getUser().teacherData.students;
+    if (csvFile.split("\n").length + currentLearnerCount > maxStudents) {
+        displayNotification('#notif-div', "classroom.notif.personalLimitationsReached", "error", `'{"max": "${maxStudents}"}'`);
+        return false;
+    }
+    return true;
 }
 
 /**
@@ -1197,9 +1226,9 @@ function actualizeStudentActivities(activity, correction) {
 }
 
 function addStudentRow(pseudo, studentId = false, isNotDeletable) {
-    return `
-    <li data-pseudo="${pseudo}" data-id="${studentId}" class="row align-items-center my-1 ">
-        <img class="col-2 propic" src="${_PATH}assets/media/alphabet/` + pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil">
+    console.log(isNotDeletable)
+    return `<li data-pseudo="${pseudo}" data-id="${studentId}" class="row align-items-center my-1 ">
+        <img class="col-2 propic pic-width" src="${_PATH}assets/media/alphabet/` + pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil">
         <div class="col">` + pseudo + `</div>
         ${isNotDeletable ? '' : `<button type=\"button\" class=\"btn btn-danger remove-student h-50\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\"  >
             <i class=\"fas fa-times\"></i>

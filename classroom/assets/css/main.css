@@ -857,6 +857,10 @@ button {
     padding-right: 0 !important;
 }
 
+.pic-width {
+    width: 8%;
+}
+
 @media (max-width: 768px) {
     .profile-panel .user-picture {
         width: 7.5em;
@@ -3842,5 +3846,13 @@ h3.section-done {
 
 .simple-background {
     background: var(--classroom-background);
+}
+
+.tooltip {
+    z-index: 30000;
+}
+
+.dropdown-menu.show {
+    transform: translate(0px, 50px) !important;
 }
 
