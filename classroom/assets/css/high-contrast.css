@@ -1,0 +1,98 @@
+/* Temporary variables */
+
+:root {
+    --classroom-logo: url('../media/no-logo.png');
+
+    --classroom-primary: #59C07C;
+    --classroom-primary-rgb: 89, 192, 124;
+    --classroom-primary-dark: #5AA26D;
+    --classroom-primary-dark-rgb: 90, 162, 109;
+    --classroom-secondary: #F58246;
+    --classroom-secondary-rgb: 245, 130, 70;
+    --classroom-secondary-dark: #EC684C;
+    --classroom-secondary-dark-rgb: 236, 104, 76;
+    --classroom-tertiary: #62CAE0;
+    --classroom-tertiary-rgb: 98, 202, 224;
+    --classroom-tertiary-dark: #50afc2;
+    --classroom-tertiary-dark-rgb: 80, 175, 194;
+
+    --correction-0: #ffc152;
+    --correction-0-rgb: 255, 193, 82;
+    --correction-1: #ffda97;
+    --correction-1-rgb: 255, 218, 151;
+    --correction-2: #7cc6a5;
+    --correction-2-rgb: 124, 198, 165;
+    --correction-3: #22b573;
+    --correction-3-rgb: 34, 183, 115;
+    --correction-success: var(--classroom-green);
+    --correction-fail: var(--classroom-red);
+
+
+    --classroom-background: #fff;
+    --classroom-background-1: #f6f6f6;
+    --classroom-text-0: black;
+    --classroom-text-0-rgb: 0, 0, 0;
+    --classroom-text-1: #333;
+    --classroom-text-1-rgb: 51, 51, 51;
+    --classroom-text-2: #666;
+    --classroom-text-2-rgb: 102, 102, 102;
+
+    --classroom-shadow-1: rgba(0, 0, 0, 0.2);
+    --classroom-cell: #E6E6E6;
+    --classroom-cell-rgb: 230, 230, 230;
+
+    --classroom-white: #fff;
+    --classroom-black: #000;
+    --classroom-grey: #AAA;
+    --classroom-grey-rgb: 170, 170, 170;
+    --classroom-green: #22b573;
+    --classroom-green-rgb: 34, 183, 115;
+    --classroom-red: #dc3545;
+    --classroom-red-rgb: 220, 53, 69;
+    --classroom-red-dark: #ad242c;
+    --classroom-red-dark-rgb: 173, 36, 44;
+    --classroom-blue: #3fa9f5;
+    --classroom-blue-rgb: 63, 169, 245;
+    --classroom-gold: #f0af39;
+    --classroom-gold-rgb: 240, 175, 57;
+
+    /* Default dashboard colors (used for students) */
+    --classroom-dashboard: var(--classroom-primary);
+    --classroom-dashboard-rgb: var(--classroom-primary-rgb);
+    --classroom-dashboard-dark: var(--classroom-primary-dark);
+    --classroom-dashboard-dark-rgb: var(--classroom-primary-dark-rgb);
+
+    color-scheme: light;
+    accent-color: var(--classroom-primary);
+
+    /*.theme-dark {
+        --classroom-background: #181818;
+        --classroom-background-1: #0a0a0a;
+        --classroom-text-0: rgb(255, 255, 255);
+        --classroom-text-0-rgb: 255, 255, 255;
+        --classroom-text-1: rgb(205, 205, 205);
+        --classroom-text-1-rgb: 205, 205, 205;
+        --classroom-text-2: rgb(153, 153, 153);
+        --classroom-text-2-rgb: 153, 153, 153;
+        --classroom-shadow-1: rgba(0, 0, 0, 1);
+        --classroom-cell: #4e4e4e;
+    
+        color-scheme: dark;
+    }*/
+
+    /* Modified variables */
+}
+
+/* MY ACTIVITIES */
+
+#classroom-dashboard-content {
+    background-color: var(--classroom-background);
+}
+
+#filter-activity {
+    background-color: var(--classroom-background);
+}
+
+#filter-activity .fa-search {
+    color: var(--classroom-text-0);
+}
