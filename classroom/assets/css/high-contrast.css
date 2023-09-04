@@ -80,13 +80,44 @@
         color-scheme: dark;
     }*/
 
-    /* Modified variables */
+    .theme-teacher {
+        --classroom-dashboard: #abd5ff;
+        --classroom-dashboard-rgb: 171, 213, 255;
+        --classroom-dashboard-dark: #436e99;
+        --classroom-dashboard-dark-rgb: 67, 110, 153;
+    }
+    
+    .theme-teacher .sidebar-classroom div img:not(.user-picture),
+    .hue-rotate-teacher {
+        /* Change the hue-rotate to make the icon color match your theme color */
+        filter: hue-rotate(85deg) saturate(1.5);
+    }
+
+    /* SUPER ADMIN THEMING
+Used when the insterface is used by a super administrator */
+    .theme-super-admin,
+    .hue-rotate-super-admin {
+        --classroom-dashboard: #d69898;
+        --classroom-dashboard-rgb: 214, 152, 152;
+        --classroom-dashboard-dark: #975e5e;
+        --classroom-dashboard-dark-rgb: 151, 94, 94;
+    }
+
+    .theme-super-admin .sidebar-classroom div img:not(.user-picture) {
+        /* Change the hue-rotate to make the icon color match your theme color */
+        filter: hue-rotate(210deg);
+    }
+
+    /* Bootstrap */
+
+    --bs-btn-hover-bg : var(--classroom-background);
 }
 
 /* MY ACTIVITIES */
 
 #classroom-dashboard-content {
     background-color: var(--classroom-background);
+    border: 2px solid var(--classroom-text-0);
 }
 
 #filter-activity {
@@ -95,4 +126,21 @@
 
 #filter-activity .fa-search {
     color: var(--classroom-text-0);
+}
+
+#classroom-dashboard-profil-panel-teacher button {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+}
+
+#classroom-dashboard-profil-panel-teacher button:hover {
+    background-color: var(--classroom-primary);
+}
+
+#classroom-dashboard-profil-panel-teacher #help-teacher:hover {
+    background-color: var(--classroom-secondary);
+}
+
+#classroom-dashboard-profil-panel-teacher #disconnect:hover  {
+    background-color: var(--classroom-red-dark);
 }
