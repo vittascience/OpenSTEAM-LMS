@@ -144,3 +144,30 @@ Used when the insterface is used by a super administrator */
 #classroom-dashboard-profil-panel-teacher #disconnect:hover  {
     background-color: var(--classroom-red-dark);
 }
+
+.form-activity-primary, .stats-primary,
+.form-activity-secondary, .stats-secondary {
+    border-color: var(--classroom-text-0);
+    color: var(--classroom-text-0);
+}
+
+.classroom-navbar-button {
+    border: 2px solid black;
+    border-right: none;
+}
+
+.sidebar-classroom .active::after {
+    filter: drop-shadow(0 2px 0 var(--classroom-text-0));
+}
+
+.sidebar-classroom .active::before {
+    filter: drop-shadow(0 -2px 0 var(--classroom-text-0));
+}
+
+.sidebar-classroom .active img {
+    border-color: var(--classroom-text-0);
+}
+
+.classroom-navbar-button img {
+    filter: saturate(0) brightness(0.7) contrast(3) !important;
+}
