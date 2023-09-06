@@ -168,6 +168,29 @@ Used when the insterface is used by a super administrator */
     border-color: var(--classroom-text-0);
 }
 
-.classroom-navbar-button img {
+.classroom-navbar-button img,
+.no-content-div img {
     filter: saturate(0) brightness(0.7) contrast(3) !important;
+}
+
+.classroom-navbar-button > span {
+    color: var(--classroom-text-0);
+}
+
+#classroom-dashboard-sidebar-teacher .active > span {
+    color: var(--classroom-dashboard-dark) !important;
+}
+
+#teacher-new-classroom-btn {
+    color: var(--classroom-text-0) !important;
+    --classroom-primary: var(--classroom-text-0) !important;
+}
+
+#dropdownMenuButton {
+    --bs-btn-color : var(--classroom-text-0) !important;
+    --bs-btn-hover-color : var(--classroom-text-0) !important;
+    --bs-btn-active-color : var(--classroom-text-0) !important;
+    --bs-btn-focus-color : var(--classroom-text-0) !important;
+    --bs-btn-active-border-color : var(--classroom-text-0) !important;
+    --bs-btn-border-width : 2px !important;
 }
