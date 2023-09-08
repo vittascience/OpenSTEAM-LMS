@@ -124,24 +124,45 @@ Used when the insterface is used by a super administrator */
     background-color: var(--classroom-background);
 }
 
-#filter-activity .fa-search {
+.fa-search {
     color: var(--classroom-text-0);
 }
 
-#classroom-dashboard-profil-panel-teacher button {
+/*#classroom-dashboard-profil-panel-teacher button,
+#settings-teacher-modal button {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+}*/
+
+button.btn.c-btn-outline-primary {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
+}
+
+button.btn.c-btn-outline-primary:hover {
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-primary);
+}
+
+button.btn.c-btn-outline-secondary {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
+}
+
+button.btn.c-btn-outline-secondary:hover {
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-secondary);
+}
+
+button.btn.c-btn-red {
     border: 2px solid var(--classroom-text-0);
     color: var(--classroom-text-0);
 }
 
-#classroom-dashboard-profil-panel-teacher button:hover {
-    background-color: var(--classroom-primary);
-}
-
-#classroom-dashboard-profil-panel-teacher #help-teacher:hover {
-    background-color: var(--classroom-secondary);
-}
-
-#classroom-dashboard-profil-panel-teacher #disconnect:hover  {
+button.btn.c-btn-red:hover {
+    color: var(--classroom-text-0);
     background-color: var(--classroom-red-dark);
 }
 
@@ -151,6 +172,8 @@ Used when the insterface is used by a super administrator */
     color: var(--classroom-text-0);
 }
 
+
+/* SIDEBAR */
 .classroom-navbar-button {
     border: 2px solid black;
     border-right: none;
@@ -164,13 +187,12 @@ Used when the insterface is used by a super administrator */
     filter: drop-shadow(0 -2px 0 var(--classroom-text-0));
 }
 
-.sidebar-classroom .active img {
-    border-color: var(--classroom-text-0);
+.sidebar-classroom .classroom-navbar-button img {
+    border: 3px solid var(--classroom-text-0);
 }
 
-.classroom-navbar-button img,
-.no-content-div img {
-    filter: saturate(0) brightness(0.7) contrast(3) !important;
+.sidebar-classroom .classroom-navbar-button img.user-picture {
+    border: transparent !important;
 }
 
 .classroom-navbar-button > span {
@@ -181,16 +203,83 @@ Used when the insterface is used by a super administrator */
     color: var(--classroom-dashboard-dark) !important;
 }
 
-#teacher-new-classroom-btn {
-    color: var(--classroom-text-0) !important;
-    --classroom-primary: var(--classroom-text-0) !important;
+#dropdownMenuButton {
+    color: var(--classroom-text-0);
+    border: 2px solid transparent;
 }
 
-#dropdownMenuButton {
-    --bs-btn-color : var(--classroom-text-0) !important;
-    --bs-btn-hover-color : var(--classroom-text-0) !important;
-    --bs-btn-active-color : var(--classroom-text-0) !important;
-    --bs-btn-focus-color : var(--classroom-text-0) !important;
-    --bs-btn-active-border-color : var(--classroom-text-0) !important;
-    --bs-btn-border-width : 2px !important;
+#dropdownMenuButton:hover {
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-background-1);
+}
+
+#dropdownMenuButton:focus {
+    color: var(--classroom-text-0);
+    border-color: var(--classroom-text-0);
+    background-color: var(--classroom-background-1);
+}
+
+#dropdownMenuButton:active {
+    color: var(--classroom-text-0);
+    border-color: var(--classroom-text-0);
+    background-color: var(--classroom-background-1);
+}
+
+#classroom-dashboard-profil-panel-teacher span.text-span-initial.stats-description {
+    font-weight: bold !important;
+}
+
+.dropdown-menu.dropdown-menu-right.a11y-dropdown.show {
+    border: 2px solid var(--classroom-text-0);
+}
+
+#settings-teacher-modal {
+    border: 2px solid var(--classroom-text-0);
+}
+
+#settings-teacher-modal .vitta-modal-title span {
+    color: var(--classroom-text-0);
+}
+
+#settings-teacher-modal .vitta-modal-exit-btn.vitta-button.btn {
+    color: var(--classroom-text-0) !important;
+    background-color: var(--classroom-background) !important;
+    border: 2px solid var(--classroom-text-0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vitta-modal-exit-btn.vitta-button.btn:hover {
+    background-color: var(--classroom-primary) !important;
+}
+
+button.btn.c-btn-secondary {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
+}
+
+button.btn.c-btn-secondary:hover {
+    background-color: var(--classroom-secondary);
+}
+
+button.btn.c-btn-primary {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
+}
+
+button.btn.c-btn-primary:hover {
+    background-color: var(--classroom-primary);
+}
+
+.theme-super-admin.btn.c-btn-outline-primary.c-btn-dashboard {
+    border: 2px solid var(--classroom-text-0) !important;
+    color: var(--classroom-text-0) !important;
+    background-color: var(--classroom-dashboard) !important;
+}
+
+.theme-super-admin.btn.c-btn-outline-primary.c-btn-dashboard:hover {
+    background-color: var(--classroom-dashboard-dark) !important;
 }
