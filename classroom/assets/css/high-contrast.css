@@ -107,10 +107,6 @@ Used when the insterface is used by a super administrator */
         /* Change the hue-rotate to make the icon color match your theme color */
         filter: hue-rotate(210deg);
     }
-
-    /* Bootstrap */
-
-    --bs-btn-hover-bg : var(--classroom-background);
 }
 
 /* MY ACTIVITIES */
@@ -127,12 +123,6 @@ Used when the insterface is used by a super administrator */
 .fa-search {
     color: var(--classroom-text-0);
 }
-
-/*#classroom-dashboard-profil-panel-teacher button,
-#settings-teacher-modal button {
-    border: 2px solid var(--classroom-text-0);
-    color: var(--classroom-text-0);
-}*/
 
 button.btn.c-btn-outline-primary {
     border: 2px solid var(--classroom-text-0);
@@ -282,4 +272,64 @@ button.btn.c-btn-primary:hover {
 
 .theme-super-admin.btn.c-btn-outline-primary.c-btn-dashboard:hover {
     background-color: var(--classroom-dashboard-dark) !important;
+}
+
+/* Profile */
+
+#breadcrumb button.btn.c-btn-outline-primary {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
+}
+
+#classroom-dashboard-account-panel-teacher h3 {
+    color: var(--classroom-text-0);
+}
+
+#classroom-dashboard-account-panel-teacher input {
+    border: 2px solid var(--classroom-text-0) !important;
+}
+
+a#validate-profile-update {
+    border: 2px solid var(--classroom-text-0) !important;
+    color: var(--classroom-text-0) !important;
+    background-color: var(--classroom-background) !important;
+}
+
+a#validate-profile-update:hover {
+    background-color: var(--classroom-primary) !important;
+}
+
+
+/* Help */
+
+.faq-panel {
+    border-color: var(--classroom-text-0);
+}
+
+#about-contact-form .form-control {
+    border-color: var(--classroom-text-0) !important;
+}
+
+#about-contact-info input.btn.c-btn-primary {
+    border: 2px solid var(--classroom-text-0) !important;
+    color: var(--classroom-text-0) !important;
+    background-color: var(--classroom-background) !important;
+}
+
+#about-contact-info input.btn.c-btn-primary:hover {
+    background-color: var(--classroom-primary) !important;
+}
+
+.faq-panel .faq-box-dropdown {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+}
+
+.kit-faq-box {
+    border: 2px solid var(--classroom-text-0) !important;
+}
+
+.faq-panel h2 {
+    color: var(--classroom-text-0);
 }
