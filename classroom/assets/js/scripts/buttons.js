@@ -662,18 +662,18 @@ function studentActivitiesDisplay() {
             }
         });
 
-        if (course.courseState == 0 || !saveCourse) {
-            let number = $('.section-new .resource-number').html();
-            $('.section-new .resource-number').html(parseInt(number) + 1)
-            $('#new-activities-list').append(courseItem(course, "newActivities"));
+        if (course.courseState == 999) {
+            let number = $('.section-done .resource-number').html();
+            $('.section-done .resource-number').html(parseInt(number) + 1);
+            $('#done-activities-list').append(courseItem(course, "doneActivities"));
         } else if ((course.courseState == 0 && course.activities[0].response != null) || course.courseState > 0 && course.courseState != 999 && saveCourse) {
             let number = $('.section-saved .resource-number').html();
             $('.section-saved .resource-number').html(parseInt(number) + 1)
             $('#saved-activities-list').append(courseItem(course, "currentActivities"));
-        } else if (course.courseState == 999) {
-            let number = $('.section-done .resource-number').html();
-            $('.section-done .resource-number').html(parseInt(number) + 1);
-            $('#done-activities-list').append(courseItem(course, "doneActivities"));
+        } else if (course.courseState == 0 || !saveCourse) {
+            let number = $('.section-new .resource-number').html();
+            $('.section-new .resource-number').html(parseInt(number) + 1)
+            $('#new-activities-list').append(courseItem(course, "newActivities"));
         }
     });
 
