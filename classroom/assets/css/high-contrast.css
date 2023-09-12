@@ -109,8 +109,6 @@ Used when the insterface is used by a super administrator */
     }
 }
 
-/* MY ACTIVITIES */
-
 #classroom-dashboard-content {
     background-color: var(--classroom-background);
     border: 2px solid var(--classroom-text-0);
@@ -156,12 +154,29 @@ button.btn.c-btn-red:hover {
     background-color: var(--classroom-red-dark);
 }
 
+button.btn.btn-danger {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+}
+
+button.btn.btn-danger:hover {
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-red-dark);
+}
+
+h3 {
+    color: var(--classroom-text-0) !important;
+}
+
+h5 {
+    color: var(--classroom-text-0) !important;
+}
+
 .form-activity-primary, .stats-primary,
 .form-activity-secondary, .stats-secondary {
     border-color: var(--classroom-text-0);
     color: var(--classroom-text-0);
 }
-
 
 /* SIDEBAR */
 .classroom-navbar-button {
@@ -223,7 +238,7 @@ button.btn.c-btn-red:hover {
     border: 2px solid var(--classroom-text-0);
 }
 
-#settings-teacher-modal {
+.vitta-modal.ui-draggable.ui-draggable-handle {
     border: 2px solid var(--classroom-text-0);
 }
 
@@ -231,7 +246,7 @@ button.btn.c-btn-red:hover {
     color: var(--classroom-text-0);
 }
 
-#settings-teacher-modal .vitta-modal-exit-btn.vitta-button.btn {
+.vitta-modal-exit-btn.vitta-button.btn {
     color: var(--classroom-text-0) !important;
     background-color: var(--classroom-background) !important;
     border: 2px solid var(--classroom-text-0);
@@ -254,13 +269,15 @@ button.btn.c-btn-secondary:hover {
     background-color: var(--classroom-secondary);
 }
 
-button.btn.c-btn-primary {
+button.btn.c-btn-primary,
+a.btn.c-btn-primary {
     border: 2px solid var(--classroom-text-0);
     color: var(--classroom-text-0);
     background-color: var(--classroom-background);
 }
 
-button.btn.c-btn-primary:hover {
+button.btn.c-btn-primary:hover,
+a.btn.c-btn-primary:hover {
     background-color: var(--classroom-primary);
 }
 
@@ -280,10 +297,6 @@ button.btn.c-btn-primary:hover {
     border: 2px solid var(--classroom-text-0);
     color: var(--classroom-text-0);
     background-color: var(--classroom-background);
-}
-
-#classroom-dashboard-account-panel-teacher h3 {
-    color: var(--classroom-text-0);
 }
 
 #classroom-dashboard-account-panel-teacher input {
@@ -333,3 +346,50 @@ a#validate-profile-update:hover {
 .faq-panel h2 {
     color: var(--classroom-text-0);
 }
+
+/* MY CLASSES */
+
+#classroom-dashboard-form-classe-panel input.form-control {
+    border: 2px solid var(--classroom-text-0) !important;
+}
+
+.table-students {
+    border: 2px solid var(--classroom-text-0) !important;
+}
+
+.vitta-modal-title span {
+    color: var(--classroom-text-0);
+}
+
+.c-primary-form input[type="text"] {
+    border-color: var(--classroom-text-0) !important;
+}
+
+.class-card {
+    border-color: var(--classroom-text-0);
+    color: var(--classroom-text-0);
+}
+
+.dropdown-menu.show {
+    border-color: var(--classroom-text-0);
+}
+
+.c-secondary-form input[type="text"] {
+    border-color: var(--classroom-text-0) !important;
+}
+
+button.btn.c-btn-light {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+}
+
+button.btn.c-btn-light:hover {
+    background-color: var(--classroom-background-1);
+}
+
+#notif-div .vitta-notif.status-error {
+    border: 2px solid var(--classroom-text-0) !important;
+}
+
+/* Classes */
+
