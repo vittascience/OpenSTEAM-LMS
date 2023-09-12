@@ -1189,7 +1189,11 @@ class CoursesManager {
 
         if (withContent) {
             const contentDiv = document.createElement('div');
-            contentDiv.id = 'activity-content' + activityId;
+            contentDiv.id = 'activity-content-' + activityId;
+
+            if (activityData.type == "quiz") {
+                contentDiv.classList.add('d-flex', 'flex-wrap', 'justify-content-center', 'align-items-center');
+            }
             contentDiv.innerHTML = activityData.content;
             container.appendChild(contentDiv);
         }

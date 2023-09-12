@@ -251,9 +251,11 @@ class DragAndDropManager {
         })
         
         if (correction == 1) {
-            for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
-                let string = document.getElementById(`dz-${i}`).children.length > 0 ? document.getElementById(`dz-${i}`).children[0].innerHTML : "";
-                let childId = document.getElementById(`dz-${i}`).children.length > 0 ? document.getElementById(`dz-${i}`).children[0].id : "";
+            for (let i = 0; i < $(`span[id^="dz${"-"+activityId}"]`).length; i++) {
+
+                let string = document.getElementById(`dz${"-"+activityId}-${i}`).children.length > 0 ? document.getElementById(`dz${"-"+activityId}-${i}`).children[0].innerHTML : "";
+                let childId = document.getElementById(`dz${"-"+activityId}-${i}`).children.length > 0 ? document.getElementById(`dz${"-"+activityId}-${i}`).children[0].id : "";
+
                 const soluce = JSON.parse(foundActivity.activity.solution);
                 soluce.forEach(r => {
                     if (bbcodeToHtml(r) == string) {
@@ -288,7 +290,7 @@ class DragAndDropManager {
             dragAndDropFieldsDiv.innerHTML = activityData.dragAndDropChoices;
             htmlContainer.appendChild(dragAndDropFieldsDiv);
             
-            initializeDragulaWithOneContainer('drag-and-drop-fields-one-page-course' + idActivity, 'dropzone');
+            initializeDragulaWithOneContainer('drag-and-drop-fields-one-page-course' + idActivity, 'dropzone-' + idActivity, false, idActivity);
     
             if (responses != null && responses != "") {
                 let response = JSON.parse(responses);
@@ -327,7 +329,7 @@ class DragAndDropManager {
 
         if (activity.correction <= 1 || activity.correction == null) {
             if (!UserManager.getUser().isRegular) {
-                let ContentString = manageDragAndDropText(content.dragAndDropFields.contentForTeacher, false, JSON.parse(activity.activity.solution));
+                let ContentString = manageDragAndDropText(content.dragAndDropFields.contentForTeacher, false, JSON.parse(activity.activity.solution), activity.activity.id);
 
                 if (bbcodeContentIncludingMathLive(ContentString) != ContentString) {
                     activityData.content = `<div>${bbcodeContentIncludingMathLive(ContentString)}</div>`;
@@ -400,17 +402,21 @@ class DragAndDropManager {
         return correctedContent;
     }
 
-    showErrors(response) {
+    showErrors(response, activityId = null) {
         if (!response.hasOwnProperty('badResponse')) {
             return;
         }
+
+        let activityTag = activityId != null ? `-${activityId}` : "";
+
+
         displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
-        for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
-            $('#dz-' + i).css("border","1px solid var(--correction-3)");
+        for (let i = 0; i < $(`span[id^="dz${activityTag}"]`).length; i++) {
+            $('#dz' + activityTag + "-" + i).css("border","1px solid var(--correction-3)");
         }
 
         for (let i = 0; i < response.badResponse.length; i++) {
-            $('#dz-' + (response.badResponse[i])).css("border","1px solid var(--correction-0)");
+            $('#dz' + activityTag +  "-" + (response.badResponse[i])).css("border","1px solid var(--correction-0)");
         }
     }
 }

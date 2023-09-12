@@ -79,7 +79,6 @@ async function readEvent (event) {
             break;
         default:
             console.warn('The current message type isn\'t supported!');
-            console.log(event.data);
     }
 }
 
@@ -1230,7 +1229,6 @@ function actualizeStudentActivities(activity, correction) {
 }
 
 function addStudentRow(pseudo, studentId = false, isNotDeletable) {
-    console.log(isNotDeletable)
     return `<li data-pseudo="${pseudo}" data-id="${studentId}" class="row align-items-center my-1 ">
         <img class="col-2 propic pic-width" src="${_PATH}assets/media/alphabet/` + pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil">
         <div class="col">` + pseudo + `</div>

@@ -733,7 +733,7 @@ function shuffleArray(array) {
     return arrayClone;
 }
 
-function manageDragAndDropText(studentContentString, preview = false, solution = null) {
+function manageDragAndDropText(studentContentString, preview = false, solution = null, activityId) {
     let studentResponses = null;
     if (solution == null) {
         studentResponses = preview ? Main.getClassroomManager()._createActivity.solution : JSON.parse(Activity.activity.solution);
@@ -742,8 +742,10 @@ function manageDragAndDropText(studentContentString, preview = false, solution =
     }
 
     let previewString = preview ? "-preview" : "";
+    let id = activityId ? "-"+activityId : "";
+    
     for (let i = 0; i < studentResponses.length; i++) {
-        let input = `<span class="dropable-items dropzone${previewString}" id="dz-${i}${previewString}"></span>`;
+        let input = `<span class="dropable-items dropzone${id}${previewString}" id="dz${id}-${i}${previewString}"></span>`;
         // [answer]replace[/answer]
         // get the answer
         let answer = studentContentString.match(/\[answer\](.*?)\[\/answer\]/g)[0];

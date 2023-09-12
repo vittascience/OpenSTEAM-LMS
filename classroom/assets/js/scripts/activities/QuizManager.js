@@ -108,6 +108,9 @@ class QuizManager {
     }
 
     quizValidateActivity(correction = 1, isFromCourse = false) {
+        let activityId = isFromCourse ? coursesManager.actualCourse.activity : Activity.activity.id;
+        let activityLink = isFromCourse ? coursesManager.actualCourse.link : Activity.id;
+
         let studentResponse = [];
         for (let i = 1; i < $(`input[id^="student-quiz-checkbox-"]`).length+1; i++) {
             let res = {
@@ -116,9 +119,6 @@ class QuizManager {
             }
             studentResponse.push(res);
         }
-
-        let activityId = isFromCourse ? coursesManager.actualCourse.activity : Activity.activity.id;
-        let activityLink = isFromCourse ? coursesManager.actualCourse.link : Activity.id;
         
         Main.getClassroomManager().saveNewStudentActivity(activityId, correction, null, JSON.stringify(studentResponse), activityLink).then((response) => {
             if (isFromCourse) {
@@ -181,7 +181,7 @@ class QuizManager {
         let data = JSON.parse(Activity.solution);
         let htmlToPush = '';
         for (let i = 1; i < data.length+1; i++) {
-            htmlToPush += `<div class="col-12 col-lg-6 form-check quiz-form-check" id="qcm-field-${i}">
+            htmlToPush += `<div class="col-12 col-lg-5 form-check quiz-form-check" id="qcm-field-${i}">
                             <input class="form-check-input" type="checkbox" id="show-quiz-checkbox-${i}" ${data[i-1].isCorrect ? 'checked' : ''} onclick="return false;">
                             <label class="form-check-label" for="quiz-checkbox-${i}" id="show-quiz-label-checkbox-${i}">${bbcodeContentIncludingMathLive(data[i-1].inputVal)}</label>
                         </div>`;
@@ -271,7 +271,7 @@ class QuizManager {
         }
     }
     
-    createContentForQuiz(data, doable = true, correction = false, preview = false) {
+    createContentForQuiz(data, doable = true, correction = false, preview = false, id = null) {
         manageLabelForActivity();
         let previewId = preview ? '-preview' : '';
         let correctionId = correction ? 'correction-' : '';
@@ -281,19 +281,19 @@ class QuizManager {
         if (doable) {
             for (let i = 1; i < data.length+1; i++) {
                 content += ` <div class="col-12 col-lg-5 form-check quiz-form-check" id="qcm-doable-${i}${previewId}">
-                                <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}${previewId}" ${data[i-1].isCorrect ? "checked" : ""}>
-                                <label class="form-check-label" data-raw="${data[i-1].inputVal}" for="student-quiz-checkbox-${i}${previewId}" id="${correctionId}student-quiz-suggestion-${i}${previewId}">${bbcodeContentIncludingMathLive(data[i-1].inputVal)}</label>
+                                <input class="form-check-input" type="checkbox" id="student-quiz-checkbox${id != null ? "-"+id : ""}-${i}${previewId}" ${data[i-1].isCorrect ? "checked" : ""}>
+                                <label class="form-check-label" data-raw="${data[i-1].inputVal}" for="student-quiz-checkbox${id != null ? "-"+id : ""}-${i}${previewId}" id="${correctionId}student-quiz-suggestion${id != null ? "-"+id : ""}-${i}${previewId}">${bbcodeContentIncludingMathLive(data[i-1].inputVal)}</label>
                             </div>`;
             }
         } else {
             for (let i = 1; i < data.length+1; i++) {
                 content += ` <div class="col-12 col-lg-5 form-check quiz-form-check" id="qcm-not-doable-${i}">
-                                <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
-                                <label class="form-check-label" data-raw="${data[i-1].inputVal}" for="student-quiz-checkbox-${i}" id="${correctionId}student-quiz-suggestion-${i}">${bbcodeContentIncludingMathLive(data[i-1].inputVal)}</label>
+                                <input class="form-check-input" type="checkbox" id="student-quiz-checkbox${id != null ? "-"+id : ""}-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
+                                <label class="form-check-label" data-raw="${data[i-1].inputVal}" for="student-quiz-checkbox${id != null ? "-"+id : ""}-${i}" id="${correctionId}student-quiz-suggestion${id != null ? "-"+id : ""}-${i}">${bbcodeContentIncludingMathLive(data[i-1].inputVal)}</label>
                             </div>`;
             }
         }
-        return `<div class="d-flex flex-row flex-wrap justify-content-around">${content}</div>`;
+        return `<div class="d-flex flex-row flex-wrap justify-content-around w-100">${content}</div>`;
     }
 
     deleteQcmFields() {
@@ -331,10 +331,10 @@ class QuizManager {
 
     quizValidateActivityOnePageCourse(activityId, activityLink, correction) {
         let studentResponse = [];
-        for (let i = 1; i < $(`input[id^="student-quiz-checkbox-"]`).length+1; i++) {
+        for (let i = 1; i < $(`input[id^="student-quiz-checkbox-${activityId}"]`).length+1; i++) {
             let res = {
-                inputVal: $(`#student-quiz-suggestion-${i}`).attr("data-raw"),
-                isCorrect: $(`#student-quiz-checkbox-${i}`).is(':checked')
+                inputVal: $(`#student-quiz-suggestion${"-"+activityId}-${i}`).attr("data-raw"),
+                isCorrect: $(`#student-quiz-checkbox${"-"+activityId}-${i}`).is(':checked')
             }
             studentResponse.push(res);
         }
@@ -374,10 +374,10 @@ class QuizManager {
             if (!UserManager.getUser().isRegular) {
                 if (activity.activity.response != null && activity.activity.response != '') {
                     if (JSON.parse(activity.activity.response) != null && JSON.parse(activity.activity.response) != "") {
-                        activityData.content = quizManager.createContentForQuiz(JSON.parse(activity.activity.response));
+                        activityData.content = quizManager.createContentForQuiz(JSON.parse(activity.activity.response), true, false, false, activity.activity.id);
                     }
                 } else {
-                    activityData.content = quizManager.createContentForQuiz(content.quiz.contentForStudent);
+                    activityData.content = quizManager.createContentForQuiz(content.quiz.contentForStudent, true, false, false, activity.activity.id);
                 }
             }
         } else if (activity.correction > 1) {
@@ -396,37 +396,41 @@ class QuizManager {
             const solution = JSON.parse(activity.activity.solution);
 
             let dataCorrected = "";
-            for (let i = 1; i < data.length+1; i++) {
+            for (let i = 1; i < solution.length+1; i++) {
                 
                 let correctAnswer = false;
                 if (data[i-1].isCorrect == solution[i-1].isCorrect) {
                     correctAnswer = true;
                 }
 
-                dataCorrected += ` <div class="col-12 col-lg-6 d-flex form-check quiz-form-check ${correctAnswer ? "quiz-answer-correct" : "quiz-answer-incorrect"}" id="qcm-not-doable-${i}">
+                dataCorrected += ` <div class="col-12 col-lg-5 d-flex form-check quiz-form-check ${correctAnswer ? "quiz-answer-correct" : "quiz-answer-incorrect"}" id="qcm-not-doable-${i}">
                                 <input class="form-check-input" type="checkbox" id="student-quiz-checkbox-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
-                                <label class="form-check-label" for="student-quiz-checkbox-${i}" id="correction-student-quiz-suggestion-${i}">${data[i-1].inputVal}</label>
+                                <label class="form-check-label" for="student-quiz-checkbox-${i}" id="correction-student-quiz-suggestion-${i}">${bbcodeContentIncludingMathLive(data[i-1].inputVal)}</label>
                             </div>`;
             }
             return dataCorrected;
         }
     }
 
-    showErrors(response) {
+    showErrors(response, activityId = null) {
         if (!response.hasOwnProperty('badResponse')) {
             return;
         }
+
+        let activityTag = activityId != null ? `-${activityId}` : "";
+
         displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
         document.querySelectorAll('.quiz-answer-incorrect').forEach((element) => {
             element.classList.remove('quiz-answer-incorrect');
         });
 
-        for (let i = 1; i < $(`input[id^="student-quiz-suggestion-"]`).length+1; i++) {
-            $('#student-quiz-suggestion-' + i).parent().addClass('quiz-answer-correct');
+        for (let i = 1; i < $(`input[id^="student-quiz-suggestion${activityTag}-"]`).length+1; i++) {
+            $(`#student-quiz-suggestion${activityTag}-'${i}`).parent().addClass('quiz-answer-correct');
         }
 
         for (let i = 0; i < response.badResponse.length; i++) {
-            $('#student-quiz-suggestion-' + (response.badResponse[i]+1)).parent().addClass('quiz-answer-incorrect');
+            //$('#student-quiz-suggestion-' + (response.badResponse[i]+1)).parent().addClass('quiz-answer-incorrect');
+            $(`#student-quiz-suggestion${activityTag}-${response.badResponse[i]+1}`).parent().addClass('quiz-answer-incorrect');
         }
     }
 }
