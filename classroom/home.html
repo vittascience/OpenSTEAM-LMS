@@ -119,6 +119,19 @@
                         sombre</label><br>
                 </div>
 
+                <h5 data-i18n='switchAccessibility.contrast'>Contraste</h5>
+                <div style="margin: 0 auto; width: 196px">
+                    <input type="radio"  name="contrast" value="normal" id="radio-normal-contrast">
+                    <label for="radio-normal-contrast" data-i18n='switchAccessibility.normal_contrast'>
+                        Contraste normal
+                    </label><br>
+
+                    <input type="radio" name="contrast" value="high" id="radio-high-contrast">
+                    <label for="radio-high-contrast" data-i18n='switchAccessibility.high_contrast'>
+                        Contraste élevé
+                    </label><br>
+                </div>
+
                 <h5 data-i18n='switchAccessibility.font'>Polices</h5>
                 <div style="margin: 0 auto; width: 196px">
                     <input type="radio" id="radio-basic-font" name="font" value="basic">
@@ -550,7 +563,7 @@
             <span data-i18n="classroom.profil.switchMode" class="text-span-initial me-1"></span>
             <i class="fas fa-exchange-alt"></i></button>
 
-        <button class="btn c-btn-red" id="disconnect" onclick="goToDisconnect('classroom');">
+        <button class="btn c-btn-red" onclick="goToDisconnect('classroom');">
             <span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
             <i class="fas fa-power-off"></i>
         </button>
