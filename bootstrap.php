@@ -19,14 +19,6 @@ $config = Setup::createAnnotationMetadataConfiguration(
         __DIR__ . "/vendor/vittascience/vtclassroom/src/Entity",
         __DIR__ . "/vendor/vittascience/vtinterfaces/src/Entity",
         __DIR__ . "/vendor/vittascience/vtlearn/Entity",
-       /*  __DIR__ . "/classroom/Entity",
-        __DIR__ . "/python/Entity",
-        __DIR__ . "/interfaces/Entity",
-        __DIR__ . "/vittamapE/Entity",
-        __DIR__ . "/shop/Entity",
-        __DIR__ . "/tables/Entity",
-        __DIR__ . "/api/Entity",
-        __DIR__ . "/learn/Entity" */
     ),
     $isDevMode,
     $proxyDir,
@@ -53,7 +45,8 @@ $connectionParams = array(
     'port' => $_ENV['VS_DB_PORT'],
     'password' => $_ENV['VS_DB_PWD'],
     'host' => $_ENV['VS_DB_HOST'],
-    'driver' => 'pdo_mysql'
+    'driver' => 'pdo_mysql',
+    'charset' => 'utf8',
 );
 
 $conn = DriverManager::getConnection($connectionParams);

@@ -299,7 +299,7 @@ function cancelImport() {
 }
 
 
-function initializeDragulaWithOneContainer(idContainer, classDropZone) {
+function initializeDragulaWithOneContainer(idContainer, classDropZone, reset = true, activityId = null) {
     // init dragula if it's not already initialized
     if (Main.getClassroomManager().dragulaGlobal == false) {
         Main.getClassroomManager().dragulaGlobal = dragula();
@@ -310,8 +310,13 @@ function initializeDragulaWithOneContainer(idContainer, classDropZone) {
     }
 
     // Reset the dragula fields
-    Main.getClassroomManager().dragulaGlobal.containers = [];
-    Main.getClassroomManager().dragulaGlobal = dragula([document.querySelector('#' + idContainer)]).on('drop', function(el, target, source) {
+    if (reset) {
+        //Main.getClassroomManager().dragulaGlobal.containers = [];
+        Main.getClassroomManager().dragulaGlobal = {};
+
+    }
+
+    Main.getClassroomManager().dragulaGlobal[idContainer] = dragula([document.querySelector('#' + idContainer)]).on('drop', function(el, target, source) {
         if (target.id != idContainer) {
             let swap = $(target).find('p').not(el);
             swap.length > 0 ? source.append(swap[0]) : null;
@@ -319,7 +324,7 @@ function initializeDragulaWithOneContainer(idContainer, classDropZone) {
     });
 
     $('.'+classDropZone).each((i, e) => {
-        Main.getClassroomManager().dragulaGlobal.containers.push(document.querySelector('#'+e.id));
+        Main.getClassroomManager().dragulaGlobal[idContainer].containers.push(document.querySelector('#'+e.id));
     });
 
     let divParent = document.querySelector('#'+idContainer),

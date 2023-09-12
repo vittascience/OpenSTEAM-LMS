@@ -241,7 +241,7 @@ class FillInManager {
             if (responses != null && responses != "") {
                 let response = JSON.parse(responses);
                 for (let i = 0; i < response.length; i++) {
-                    let input = document.getElementById(`student-fill-in-field-${i+1}`);
+                    let input = document.getElementById(`student-fill-in-field-${idActivity}-${i+1}`);
                     if (response[i] != "" && response[i] != null) {
                         input.value = response[i];
                     }
@@ -279,7 +279,7 @@ class FillInManager {
     
                 for (let i = 1; i < nbOccu+1; i++) {
                     let toBeReplace = studentContent.match(/_TOBEREPLACED_/g)[0];
-                    studentContent = studentContent.replace(toBeReplace, `<input type="text" id="student-fill-in-field-${i}" class="answer-student">`);
+                    studentContent = studentContent.replace(toBeReplace, `<input type="text" id="student-fill-in-field-${activity.activity.id}-${i}" class="answer-student">`);
                 }
                 
                 activityData.content = bbcodeContentIncludingMathLive(studentContent);
@@ -316,12 +316,11 @@ class FillInManager {
         let studentResponse = [];
 
         if (corretion == 1) {
-            for (let i = 1; i < $(`input[id^="student-fill-in-field-"]`).length+1; i++) {
-                let string = document.getElementById(`student-fill-in-field-${i}`).value;
+            for (let i = 1; i < $(`input[id^="student-fill-in-field-${activityId}"]`).length+1; i++) {
+                let string = document.getElementById(`student-fill-in-field-${activityId}-${i}`).value;
                 studentResponse.push(string);
             } 
         }
-
 
         Main.getClassroomManager().saveNewStudentActivity(activityId, corretion, null, JSON.stringify(studentResponse), activityLink).then((response) => {
             fillInManager.showErrors(response, activityId);
@@ -332,18 +331,20 @@ class FillInManager {
         });
     }
 
-    showErrors(response) {
+    showErrors(response, activityId = null) {
         if (!response.hasOwnProperty('badResponse')) {
             return;
         }
 
+        let activityTag = activityId != null ? `-${activityId}` : "";
+
         displayNotification('#notif-div', "classroom.activities.wrongAnswerLarge", "error");
-        let lengthResponse = $(`input[id^="student-fill-in-field-"]`).length;
+        let lengthResponse = $(`input[id^="student-fill-in-field${activityTag}"]`).length;
         for (let i = 1; i < lengthResponse+1; i++) {
             if (response.badResponse.includes(i-1)) {
-                $(`#student-fill-in-field-${i}`).css("border","2px solid var(--correction-0)");
+                $(`#student-fill-in-field${activityTag}-${i}`).css("border","2px solid var(--correction-0)");
             } else {
-                $(`#student-fill-in-field-${i}`).css("border","2px solid var(--correction-3)");
+                $(`#student-fill-in-field${activityTag}-${i}`).css("border","2px solid var(--correction-3)");
             }
         }
     }

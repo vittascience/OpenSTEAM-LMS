@@ -1571,6 +1571,7 @@ wbbdebug = false;
 							}
 						})
 
+
 						// append the content onto the modal
 						this.$modal.prependTo(document.body)
 							.html(`
@@ -2761,7 +2762,7 @@ wbbdebug = false;
 			};
 			$.log("wbbInsertCallback: " + command);
 			var data = this.getCodeByCommand(command, paramobj);
-			this.insertAtCursor(data);
+			this.insertAtCursor(data + "&nbsp;");
 
 			if (this.seltextID && data.indexOf(this.seltextID) != -1) {
 				var snode = this.$body.find("#" + this.seltextID)[0];
