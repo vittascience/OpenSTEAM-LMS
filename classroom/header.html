@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/modal.css">
     <link rel="stylesheet" href="assets/css/components.css">
-    <link rel="stylesheet" href="assets/css/high-contrast.css">
+    <link rel="stylesheet" href="assets/css/high-contrast.css" id="hc-css-stylesheet" disabled>
     <!-- theme detection -->
     <script>
         function updateWebsiteAcessibility(formElement) {
@@ -31,11 +31,16 @@
             // first value is theme
             var theme = accesibilityInputs[0].value;
 
-            // second value is font
+            // second value is contrast
             if (accesibilityInputs[1])
-                var font = accesibilityInputs[1].value;
+                var contrast = accesibilityInputs[1].value;
+
+            // third value is font
+            if (accesibilityInputs[2])
+                var font = accesibilityInputs[2].value;
 
             setTheme(theme);
+            setContrast(contrast);
             setFont(font);
 
             const arInteraces = ['arduino', 'microbit', 'python', 'esp32'];
@@ -68,6 +73,9 @@
                 $(".navbar-logo").attr("src", "/public/content/img/vittascience-logo.png");
             }
 
+            $('#radio-' + givenThemeName + '-theme').prop("checked", true);
+            $('[data-ally-theme-' + givenThemeName + ']').prop("checked", true);
+
             var codeMirrorContainer = $('.CodeMirror');
             switch (givenThemeName) {
                 case "dark":
@@ -89,6 +97,33 @@
             }
 
         }
+
+
+        // function to set a given contrast
+
+        function setContrast(givenContrastSetting) {
+            let contrastOptions = ['normal', 'high'];
+
+            localStorage.setItem('contrast', givenContrastSetting);
+
+            contrastOptions.forEach(contrast => {
+                if (givenContrastSetting == contrast) {
+                    $('html').addClass("contrast-" + contrast);
+                } else {
+                    $('html').removeClass("contrast-" + contrast)
+                }
+            });
+
+            if (localStorage.getItem('contrast') === 'high') {
+                $("#hc-css-stylesheet").prop("disabled", false)
+            } else {
+                $("#hc-css-stylesheet").prop("disabled", true)
+            }
+
+            $('#radio-' + givenContrastSetting + '-contrast').prop("checked", true);
+            $('[data-ally-contrast-' + givenContrastSetting + ']').prop("checked", true);
+        }
+
 
         // function to set a given font
         function setFont(givenFontName) {
@@ -127,6 +162,19 @@
 
                     }
                 }
+
+                // set contrast at initial load
+
+                if (localStorage.getItem('contrast') === 'high') {
+                    setContrast(localStorage.getItem('contrast'));
+                } else {
+                    if (window.matchMedia && window.matchMedia('(prefers-contrast: high)').matches) {
+                        setContrast('high');
+                    } else {
+                        setContrast('normal');
+                    }
+                }
+
 
                 if (localStorage.getItem('font') === 'dys') {
                     setFont('dys');
