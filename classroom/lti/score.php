@@ -13,12 +13,8 @@ require_once $rootPath . 'bootstrap.php';
 
 use Firebase\JWT\JWK;
 use Firebase\JWT\JWT;
-use Lti\Controller\ControllerLtiScore;
-use Lti\Entity\LtiScore;
-use User\Entity\User;
-use Classroom\Entity\ActivityLinkUser;
-use Classroom\Entity\LtiTool;
-use phpseclib\Crypt\RSA;
+use Vittascience\Entity\Vclassroom\ActivityLinkUser;
+use Vittascience\Entity\Vclassroom\LtiTool;
 
 $headers = apache_request_headers();
 $jwtToken = explode("Bearer ", $headers['Authorization'])[1];

@@ -10,8 +10,6 @@ if(is_dir($openClassroomDir)){
 }
 
 use Dotenv\Dotenv;
-use User\Entity\Regular;
-
 
 // Load env variables 
 $dotenv = Dotenv::createImmutable(__DIR__."/../");

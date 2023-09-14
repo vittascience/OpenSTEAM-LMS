@@ -10,8 +10,8 @@ if(is_dir($openClassroomDir)){
 }
 
 use Dotenv\Dotenv;
-use User\Entity\Regular;
-use User\Entity\User;
+use Vittascience\Entity\Vuser\Regular;
+use Vittascience\Entity\Vuser\User;
 
 $confirm_account = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]"."/classroom/confirm_account.php?page=";
 $page = isset($_GET['page']) ? htmlspecialchars($_GET['page']) : null;

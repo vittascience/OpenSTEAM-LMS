@@ -13,7 +13,7 @@ require_once $rootPath . 'bootstrap.php';
 
 use phpseclib\Crypt\RSA;
 use Firebase\JWT\JWT;
-use Classroom\Entity\LtiTool;
+use Vittascience\Entity\Vclassroom\LtiTool;
 
 $ltiTools = $entityManager->getRepository(LtiTool::class)->findAll();
 

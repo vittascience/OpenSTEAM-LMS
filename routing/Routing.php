@@ -5,42 +5,49 @@ require_once '../bootstrap.php';
 use Dotenv\Dotenv;
 use Monolog\Logger;
 use VittaLogger\Log;
-use Utils\Backend\Errors;
+
 use Doctrine\ORM\ORMException;
 use Doctrine\DBAL\DBALException;
-
-use User\Controller\ControllerUser;
-use User\Entity\UserPremium;
-
 use Doctrine\DBAL\Driver\PDOException;
-use Learn\Controller\ControllerCourse;
-
-use Learn\Controller\ControllerLesson;
-use Learn\Controller\ControllerChapter;
-use Learn\Controller\ControllerComment;
 
 
-use Learn\Controller\ControllerActivity;
-use Learn\Controller\ControllerFavorite;
-use Learn\Controller\ControllerCollection;
-use Interfaces\Controller\ControllerProject;
-use Classroom\Controller\ControllerClassroom;
-use Learn\Controller\ControllerNewActivities;
+use Vittascience\Entity\Vuser\User;
+use Vittascience\Entity\Vuser\Regular;
+use Vittascience\Entity\Vuser\ClassroomUser;
+use Vittascience\Entity\Vuser\UserPremium;
+use Vittascience\Controller\Vuser\Controller;
+use Vittascience\Controller\Vuser\ControllerUser;
 
 
+use Vittascience\Controller\Vinterfaces\ControllerProject;
+use Vittascience\Controller\Vinterfaces\ControllerProjectLinkUser;
 
-use Utils\Exceptions\EntityOperatorException;
-use Classroom\Controller\ControllerGroupAdmin;
 
-use Classroom\Controller\ControllerSuperAdmin;
+use Vittascience\Backend\Errors;
+use Vittascience\Controller\Vutils\ControllerUpload;
+use Vittascience\Exceptions\Vutils\EntityOperatorException;
+use Vittascience\Exceptions\Vutils\EntityDataIntegrityException;
 
-use Classroom\Controller\ControllerCourseLinkUser;
-use Learn\Controller\ControllerCourseLinkCourse;
-use Utils\Exceptions\EntityDataIntegrityException;
-use Classroom\Controller\ControllerActivityLinkUser;
-use Interfaces\Controller\ControllerProjectLinkUser;
-use Classroom\Controller\ControllerClassroomLinkUser;
-use Utils\Controller\ControllerUpload;
+
+use Vittascience\Entity\Vclassroom\ClassroomLinkUser;
+use Vittascience\Controller\Vclassroom\ControllerClassroom;
+use Vittascience\Controller\Vclassroom\ControllerGroupAdmin;
+use Vittascience\Controller\Vclassroom\ControllerSuperAdmin;
+use Vittascience\Controller\Vclassroom\ControllerCourseLinkUser;
+use Vittascience\Controller\Vclassroom\ControllerActivityLinkUser;
+use Vittascience\Controller\Vclassroom\ControllerClassroomLinkUser;
+
+
+use Vittascience\Controller\Vlearn\ControllerCourse;
+use Vittascience\Controller\Vlearn\ControllerLesson;
+use Vittascience\Controller\Vlearn\ControllerChapter;
+use Vittascience\Controller\Vlearn\ControllerComment;
+use Vittascience\Controller\Vlearn\ControllerActivity;
+use Vittascience\Controller\Vlearn\ControllerFavorite;
+use Vittascience\Controller\Vlearn\ControllerCollection;
+use Vittascience\Controller\Vlearn\ControllerNewActivities;
+use Vittascience\Controller\Vlearn\ControllerCourseLinkCourse;
+
 
 $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
 $dotenv->safeLoad();
@@ -58,22 +65,20 @@ try {
     session_start();
     $user = null;
     if (isset($_SESSION["id"])) {
-        $user = $entityManager->getRepository('User\Entity\User')->find(intval($_SESSION["id"]))->jsonSerialize();
-        $storedClassroom = $entityManager->getRepository('Classroom\Entity\ClassroomLinkUser')->findOneBy(['user' => $_SESSION["id"]]);
+        $user = $entityManager->getRepository(User::class)->find(intval($_SESSION["id"]))->jsonSerialize();
+        $storedClassroom = $entityManager->getRepository(ClassroomLinkUser::class)->findOneBy(['user' => $_SESSION["id"]]);
         if ($storedClassroom) {
             $classroom = $storedClassroom->jsonSerialize();
             $user["classroom"] = $classroom["classroom"]["id"];
         }
         try {
-            $regular = $entityManager->getRepository('User\Entity\Regular')
-                ->find(intval($_SESSION["id"]))->jsonSerialize();
+            $regular = $entityManager->getRepository(Regular::class)->find(intval($_SESSION["id"]))->jsonSerialize();
             $user['isRegular'] = $regular['email'];
         } catch (error $e) {
             $user['isRegular'] = false;
         }
 
-        $isFromGar = $entityManager->getRepository('User\Entity\ClassroomUser')
-            ->find(intval($_SESSION["id"]));
+        $isFromGar = $entityManager->getRepository(ClassroomUser::class)->find(intval($_SESSION["id"]));
         if ($isFromGar) {
             $garUser = $isFromGar->jsonSerialize();
 
@@ -125,6 +130,7 @@ try {
         }
     }
 
+    
     switch ($controller) {
         case 'user':
             $controller = new ControllerUser($entityManager, $user);

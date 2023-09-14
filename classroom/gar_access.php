@@ -1,7 +1,7 @@
 <?php session_start();
 require_once(__DIR__ . "/../vendor/autoload.php");
 
-use Utils\ConnectionManager;
+use Vittascience\ConnectionManager;
 
 require_once(__DIR__ . "/CAS.php");
 $user = ConnectionManager::getSharedInstance()->checkConnected(); ?>

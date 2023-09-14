@@ -11,10 +11,11 @@ if(is_dir($openClassroomDir)){
 }
 
 use Dotenv\Dotenv;
-use User\Entity\Regular;
-use Classroom\Entity\Groups;
-use Classroom\Entity\UsersLinkGroups;
-use User\Entity\User;
+
+use Vittascience\Entity\Vuser\Regular;
+use Vittascience\Entity\Vclassroom\Groups;
+use Vittascience\Entity\Vclassroom\UsersLinkGroups;
+use Vittascience\Entity\Vuser\User;
 
 // Load env variables 
 $dotenv = Dotenv::createImmutable(__DIR__."/../");

@@ -1,11 +1,8 @@
 {
+    "config": {         "platform": {             "php": "7.3.14"         }     },
     "require-dev": {
         "phpunit/phpunit": "8.0.0",
-        "vittascience/vtuser": "1.2.18",
-        "vittascience/vtinterfaces": "1.4.37",
-        "vittascience/vtclassroom": "1.3.18",
-        "vittascience/vtlearn": "1.4.08",
-        "vittascience/vutils": "1.2.27",
+        "vittascience/vpackages": "1.01",
         "symfony/var-dumper": "^5.3"
     },
     "require": {
@@ -32,13 +29,9 @@
             "models\\": "models/",
             "Database\\": "database/src/",
             "VittaLogger\\": "vitta_logger/src/",
-            "Interfaces\\": "vendor/vittascience/vtinterface/src",
-            "User\\": "vendor/vittascience/vtuser/src",
+            "Vittascience\\": "vendor/vittascience/vpackages/src",
             "Python\\": "python/",
             "Esp\\": "esp/",
-            "Learn\\": "vendor/vittascience/vtlearn",
-            "Utils\\": "vendor/vittascience/vutils/src",
-            "Classroom\\": "vendor/vittascience/vtclassroom/src",
             "Plugins\\": "plugins"
         }
     },

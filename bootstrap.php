@@ -3,7 +3,6 @@
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\DriverManager;
-use Dotenv\Dotenv;
 
 require_once "vendor/autoload.php";
 
@@ -15,20 +14,13 @@ $useSimpleAnnotationReader = false;
 // Array of all namespaces containing entities with annotations.
 $config = Setup::createAnnotationMetadataConfiguration(
     array(
-        __DIR__ . "/vendor/vittascience/vtuser/src/Entity",
-        __DIR__ . "/vendor/vittascience/vtclassroom/src/Entity",
-        __DIR__ . "/vendor/vittascience/vtinterfaces/src/Entity",
-        __DIR__ . "/vendor/vittascience/vtlearn/Entity",
+        __DIR__ . "/vendor/vittascience/vpackages/src/Entity",
     ),
     $isDevMode,
     $proxyDir,
     $cache,
     $useSimpleAnnotationReader
 );
-
-// Load env variables 
-/* $dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load(); */
 
 $dataLines = file(__DIR__.'/.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 

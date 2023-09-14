@@ -11,8 +11,8 @@ if (is_dir($openClassroomDir)) {
 }
 
 use Dotenv\Dotenv;
-use User\Entity\Regular;
-use Utils\ConnectionManager;
+use Vittascience\Entity\Vuser\Regular;
+use Vittascience\ConnectionManager;
 
 // Load env variables 
 $dotenv = Dotenv::createImmutable(__DIR__ . "/../");

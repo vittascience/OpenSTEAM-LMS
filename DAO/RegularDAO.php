@@ -5,7 +5,7 @@ namespace DAO;
 use Database\DataBaseManager;
 use models\Regular;
 use DAO\UserDAO;
-use Utils\ImageManager;
+use Vittascience\ImageManager;
 
 class RegularDAO
 {

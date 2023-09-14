@@ -16,7 +16,7 @@ require_once $rootPath . 'bootstrap.php';
 
 use Firebase\JWT\JWK;
 use Firebase\JWT\JWT;
-use Classroom\Entity\LtiTool;
+use Vittascience\Entity\Vclassroom\LtiTool;
 
 // decode token without validation
 $decodedToken = json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $_REQUEST['client_assertion'])[1]))));

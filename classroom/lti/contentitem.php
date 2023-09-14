@@ -11,8 +11,8 @@ require_once $rootPath . 'vendor/autoload.php';
 
 require_once $rootPath . 'bootstrap.php';
 
-use Classroom\Entity\Applications;
-use Classroom\Entity\LtiTool;
+use Vittascience\Entity\Vclassroom\Applications;
+use Vittascience\Entity\Vclassroom\LtiTool;
 
 if (empty($_SESSION["id"])) {
 	echo "You must be logged in to use this file";

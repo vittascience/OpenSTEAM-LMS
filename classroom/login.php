@@ -8,11 +8,7 @@ session_start();
 require_once(__DIR__ . "/../vendor/autoload.php");
 
 use Dotenv\Dotenv;
-use DAO\RegularDAO;
-use models\Regular;
-use DAO\SettingsDAO;
-use Utils\ConnectionManager;
-use Database\DatabaseManager;
+use Vittascience\ConnectionManager;
 
 // load data from .env file
 $dotenv = Dotenv::createImmutable(__DIR__."/../");

@@ -13,7 +13,7 @@ require_once $rootPath . 'vendor/autoload.php';
 require_once $rootPath . 'bootstrap.php';
 
 use \Firebase\JWT\JWT;
-use Classroom\Entity\LtiTool;
+use Vittascience\Entity\Vclassroom\LtiTool;
 
 $nonce = base64_encode(random_bytes(16));
 
