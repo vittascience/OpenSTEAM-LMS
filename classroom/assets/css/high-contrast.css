@@ -1,21 +1,6 @@
-/* Temporary variables */
-
-:root {
-    /* SUPER ADMIN THEMING
-Used when the insterface is used by a super administrator */
-    .theme-super-admin,
-    .hue-rotate-super-admin {
-        --classroom-dashboard: #d69898;
-        --classroom-dashboard-rgb: 214, 152, 152;
-        --classroom-dashboard-dark: #975e5e;
-        --classroom-dashboard-dark-rgb: 151, 94, 94;
-    }
-}
-
-.theme-light#classroom-dashboard-background {
+#classroom-dashboard-background, #classroom-dashboard-top-bar {
     background: linear-gradient(rgba(var(--classroom-dashboard-rgb),0.5),rgba(var(--classroom-dashboard-rgb),0.5)), linear-gradient(var(--classroom-background),var(--classroom-background));
 }
-
 
 
 #classroom-dashboard-content {
@@ -89,7 +74,7 @@ h5 {
 
 /* SIDEBAR */
 .classroom-navbar-button {
-    border: 2px solid black;
+    border: 2px solid var(--classroom-text-0);
     border-right: none;
 }
 
