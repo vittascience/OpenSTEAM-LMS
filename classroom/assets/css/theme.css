@@ -80,9 +80,25 @@
 }
 
 .theme-light.contrast-high {
+    --classroom-text-0: #000000;
+    --classroom-text-0-rgb: rgb(0, 0, 0);
+    --classroom-background: #ffffff;
+    --classroom-background-rgb: rgb(255, 255, 255);
+
+    color-scheme: light;
 }
 
 .theme-dark.contrast-high {
+    --classroom-text-0: #ffffff;
+    --classroom-text-0-rgb: rgb(255, 255, 255);
+    --classroom-background: #000000;
+    --classroom-background-rgb: rgb(0, 0, 0);
+
+    /* css variable for a blue background at 25% opacity with a 100% white background underneath */
+
+
+
+    color-scheme: dark;
 }
 
 /* Change the hue-rotate to make the icon color match your primary color */
