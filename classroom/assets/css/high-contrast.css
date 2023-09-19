@@ -1,7 +1,8 @@
+/* Dashboard, search and buttons */
+
 #classroom-dashboard-background, #classroom-dashboard-top-bar {
     background: linear-gradient(rgba(var(--classroom-dashboard-rgb),0.5),rgba(var(--classroom-dashboard-rgb),0.5)), linear-gradient(var(--classroom-background),var(--classroom-background));
 }
-
 
 #classroom-dashboard-content {
     background-color: var(--classroom-background);
@@ -13,6 +14,10 @@
 }
 
 .fa-search {
+    color: var(--classroom-text-0);
+}
+
+.form-control::placeholder {
     color: var(--classroom-text-0);
 }
 
@@ -36,6 +41,17 @@ button.btn.c-btn-outline-secondary {
 button.btn.c-btn-outline-secondary:hover {
     color: var(--classroom-text-0);
     background-color: var(--classroom-secondary);
+}
+
+button.btn.c-btn-tertiary {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
+}
+
+button.btn.c-btn-tertiary:hover {
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-tertiary);
 }
 
 button.btn.c-btn-red {
@@ -71,6 +87,8 @@ h5 {
     border-color: var(--classroom-text-0);
     color: var(--classroom-text-0);
 }
+
+
 
 /* SIDEBAR */
 .classroom-navbar-button {
@@ -185,6 +203,8 @@ a.btn.c-btn-primary:hover {
     background-color: var(--classroom-dashboard-dark) !important;
 }
 
+
+
 /* Profile */
 
 #breadcrumb button.btn.c-btn-outline-primary {
@@ -206,6 +226,7 @@ a#validate-profile-update {
 a#validate-profile-update:hover {
     background-color: var(--classroom-primary) !important;
 }
+
 
 
 /* Help */
@@ -240,6 +261,10 @@ a#validate-profile-update:hover {
 .faq-panel h2 {
     color: var(--classroom-text-0);
 }
+
+
+
+
 
 /* MY CLASSES */
 
@@ -285,5 +310,33 @@ button.btn.c-btn-light:hover {
     border: 2px solid var(--classroom-text-0) !important;
 }
 
+.modal-separator > span {
+    background-color: var(--classroom-background) !important;
+}
+
 /* Classes */
 
+#body-table-teach div.user-cell-container, .bilan-cell {
+    border: 2px solid var(--classroom-text-0);
+}
+
+.dropdown i {
+    color: var(--classroom-text-0);
+}
+
+#classroom-info {
+    border: 2px solid var(--classroom-text-0);
+}
+
+#classroom-info .classroom-link {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-secondary);
+}
+
+#legend-container.is-monochrome .legend:first-of-type .bilan-legend {
+    outline: 1px solid var(--classroom-text-0) !important;
+}
+
+#legend-container.is-monochrome .monochrome-grade-div {
+    /*background-color: var(--classroom-background) !important;*/
+}
