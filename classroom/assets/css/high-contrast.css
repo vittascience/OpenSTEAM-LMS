@@ -74,6 +74,14 @@ button.btn.btn-danger:hover {
     background-color: var(--classroom-red-dark);
 }
 
+button.btn.c-btn-no-outline-primary {
+    color: var(--classroom-text-0);
+}
+
+button.btn.c-btn-no-outline-primary:hover {
+    background-color: var(--classroom-primary);
+}
+
 h3 {
     color: var(--classroom-text-0) !important;
 }
@@ -188,6 +196,14 @@ a.btn.c-btn-primary {
     background-color: var(--classroom-background);
 }
 
+button.btn.btn-primary {
+    border: 2px solid var(--classroom-text-0);
+}
+
+button.btn.btn-primary:hover {
+    background-color: var(--classroom-primary) !important;
+}
+
 button.btn.c-btn-primary:hover,
 a.btn.c-btn-primary:hover {
     background-color: var(--classroom-primary);
@@ -293,6 +309,7 @@ a#validate-profile-update:hover {
     border-color: var(--classroom-text-0);
 }
 
+.c-primary-form input[type="search"],
 .c-secondary-form input[type="text"] {
     border-color: var(--classroom-text-0) !important;
 }
@@ -337,6 +354,29 @@ button.btn.c-btn-light:hover {
     outline: 1px solid var(--classroom-text-0) !important;
 }
 
-#legend-container.is-monochrome .monochrome-grade-div {
-    /*background-color: var(--classroom-background) !important;*/
+.is-monochrome .bilan-4 .monochrome-grade-div, 
+.is-monochrome .status-4 .monochrome-grade-div, 
+.is-monochrome .bilan-3 .monochrome-grade-div, 
+.is-monochrome .status-3 .monochrome-grade-div, 
+.is-monochrome .bilan-2 .monochrome-grade-div, 
+.is-monochrome .status-2 .monochrome-grade-div, 
+.is-monochrome .bilan-1 .monochrome-grade-div, 
+.is-monochrome .status-1 .monochrome-grade-div, 
+.is-monochrome .bilan-0 .monochrome-grade-div, 
+.is-monochrome .status-0 .monochrome-grade-div {
+    background: var(--classroom-background);
+}
+
+/* Activities */
+
+.theme-dark svg {
+    filter: brightness(0) invert(1);
+}
+
+.theme-light svg {
+    filter: brightness(0) invert(0);
+}
+
+select.c-primary-form {
+    border-color: var(--classroom-text-0) !important;
 }
