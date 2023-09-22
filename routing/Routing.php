@@ -14,8 +14,6 @@ use Doctrine\DBAL\Driver\PDOException;
 use Vittascience\Entity\Vuser\User;
 use Vittascience\Entity\Vuser\Regular;
 use Vittascience\Entity\Vuser\ClassroomUser;
-use Vittascience\Entity\Vuser\UserPremium;
-use Vittascience\Controller\Vuser\Controller;
 use Vittascience\Controller\Vuser\ControllerUser;
 
 
