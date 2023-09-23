@@ -84,6 +84,9 @@
     --classroom-text-0-rgb: rgb(0, 0, 0);
     --classroom-background: #ffffff;
     --classroom-background-rgb: rgb(255, 255, 255);
+    --classroom-cell : var(--classroom-text-0);
+
+    --bs-table-border-color : var(--classroom-text-0);
 
     color-scheme: light;
 }
@@ -93,8 +96,7 @@
     --classroom-text-0-rgb: rgb(255, 255, 255);
     --classroom-background: #000000;
     --classroom-background-rgb: rgb(0, 0, 0);
-
-
+    --classroom-cell : var(--classroom-text-0);
 
     color-scheme: dark;
 }

@@ -82,11 +82,7 @@ button.btn.c-btn-no-outline-primary:hover {
     background-color: var(--classroom-primary);
 }
 
-h3 {
-    color: var(--classroom-text-0) !important;
-}
-
-h5 {
+h3, h5, h6 {
     color: var(--classroom-text-0) !important;
 }
 
@@ -209,6 +205,10 @@ a.btn.c-btn-primary:hover {
     background-color: var(--classroom-primary);
 }
 
+button.btn.c-btn-outline-grey:hover {
+    border-color: var(--classroom-text-0);
+}
+
 .theme-super-admin.btn.c-btn-outline-primary.c-btn-dashboard {
     border: 2px solid var(--classroom-text-0) !important;
     color: var(--classroom-text-0) !important;
@@ -292,6 +292,10 @@ a#validate-profile-update:hover {
     border: 2px solid var(--classroom-text-0) !important;
 }
 
+.vitta-modal-title {
+    color: var(--classroom-text-0) !important;
+}
+
 .vitta-modal-title span {
     color: var(--classroom-text-0);
 }
@@ -316,14 +320,22 @@ a#validate-profile-update:hover {
 
 button.btn.c-btn-light {
     border: 2px solid var(--classroom-text-0);
-    color: var(--classroom-text-0);
 }
+
+.theme-dark button.btn.c-btn-light {
+    border-color: var(--classroom-background);
+    color: var(--classroom-background);
+}
+
 
 button.btn.c-btn-light:hover {
     background-color: var(--classroom-background-1);
+    border-color: var(--classroom-text-0);
+    color: var(--classroom-text-0);
 }
 
-#notif-div .vitta-notif.status-error {
+#notif-div .vitta-notif.status-error,
+#notif-div .vitta-notif.status-success {
     border: 2px solid var(--classroom-text-0) !important;
 }
 
@@ -367,6 +379,10 @@ button.btn.c-btn-light:hover {
     background: var(--classroom-background);
 }
 
+#header-table-teach .border-header-class {
+    border: none;
+}
+
 /* Activities */
 
 .theme-dark svg {
@@ -379,4 +395,165 @@ button.btn.c-btn-light:hover {
 
 select.c-primary-form {
     border-color: var(--classroom-text-0) !important;
+}
+
+.folder-card {
+    border: 2px solid var(--classroom-text-0);
+    background-color: var(--classroom-background-1);
+}
+
+.form-activity-activate {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
+}
+
+#activity-creation-grid .app-card {
+    background-color: var(--classroom-background-1);
+}
+
+#activity-creation-grid .app-card:nth-child(3):hover {
+    border-color: var(--classroom-text-0) !important;
+}
+
+.wysibb .wysibb-toolbar {
+    border-bottom: 2px solid var(--classroom-background) !important;
+}
+
+.theme-light .wysibb .wysibb-toolbar {
+    border-bottom: 2px solid var(--classroom-text-0) !important;
+}
+
+.wysibb .wysibb-toolbar 
+.wysibb-toolbar-container 
+.mswitch.wysibb-toolbar-btn {
+    color: var(--classroom-background);
+    background-color: var(--classroom-text-0);
+    border-color: var(--classroom-background);
+}
+
+.theme-light 
+.wysibb .wysibb-toolbar 
+.wysibb-toolbar-container 
+.mswitch.wysibb-toolbar-btn {
+    border-color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
+    color: var(--classroom-text-0);
+}
+
+.wysibb .wysibb-toolbar 
+.wysibb-toolbar-container 
+.mswitch.wysibb-toolbar-btn:hover {
+    color: var(--classroom-background) !important;
+    border-color: var(--classroom-background) !important;
+}
+
+.theme-light
+.wysibb .wysibb-toolbar 
+.wysibb-toolbar-container 
+.mswitch.wysibb-toolbar-btn:hover {
+    color: var(--classroom-text-0) !important;
+    border-color: var(--classroom-text-0) !important;
+}
+
+.section-preview-activity {
+    border: 2px solid var(--classroom-text-0);
+}
+
+.preview-container {
+    border-color: var(--classroom-text-0);
+}
+
+#facultative textarea {
+    border-color: var(--classroom-text-0) !important;
+}
+
+.c-primary-form.assign-activity-calendar input[type="date"] {
+    border-color: var(--classroom-text-0) !important;
+}
+
+.theme-dark #course-activity-search::placeholder,
+.theme-dark #course-title-content #course-title::placeholder,
+.theme-dark #course-title-content #course-description::placeholder {
+    color: var(--classroom-background) !important;
+}
+
+.activity-item-courses,
+.preview-activity-in-courses {
+    border-color: var(--classroom-text-0);
+}
+
+button.btn.btn-warning.btn-delete-course {
+    border-color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
+}
+
+button.btn.btn-warning.btn-delete-course:hover {
+    background-color: var(--classroom-background-1);
+}
+
+i.fas.fa-trash-alt {
+    color: var(--classroom-text-0);
+}
+
+.course-activities-content {
+    border-color: var(--classroom-text-0);
+}
+
+.course-content .form-control,
+#course-duration {
+    border-color: var(--classroom-text-0) !important;
+}
+
+.switcher.mx-3 {
+    border: 2px solid var(--classroom-text-0);
+}
+
+
+
+/* Help - Student */
+
+#about-contact-form-student .form-control {
+    border-color: var(--classroom-text-0) !important;
+}
+
+
+
+/* Admin */
+
+.fas.fa-pencil-alt {
+    color: var(--classroom-text-0);
+}
+
+.vitta-modal.ui-draggable.ui-draggable-handle .container-fluid input.form-control[type="number"] {
+    border-color: var(--classroom-text-0) !important;
+}
+
+.container-fluid .table>:not(caption)>*>* {
+    color: var(--classroom-text-0) !important;
+}
+
+input[type="color"].form-control,
+textarea.form-control {
+    border-color: var(--classroom-text-0) !important;
+}
+
+select.form-select {
+    border-color: var(--classroom-text-0) !important;
+}
+
+.c-primary-form input[type="search"]::placeholder {
+    color: var(--classroom-text-0) !important;
+}
+
+.modal-content-div input[type="date"],
+.modal-content-div input[type="number"],
+.modal-content-div input[type="email"],
+.modal-content-div select {
+    border-color: var(--classroom-text-0) !important;
+}
+
+.c-secondary-form .input-group-text {
+    border-color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
 }
