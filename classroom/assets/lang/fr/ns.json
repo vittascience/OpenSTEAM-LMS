@@ -1064,6 +1064,9 @@
 		"theme": "Thème",
 		"light_theme": "Thème clair",
 		"dark_theme": "Thème sombre",
+		"contrast": "Contraste",
+		"normal_contrast": "Contraste normal",
+		"high_contrast": "Contraste élevé",
 		"font": "Police",
 		"basic_font": "Basique",
 		"know_more": "En savoir plus"
