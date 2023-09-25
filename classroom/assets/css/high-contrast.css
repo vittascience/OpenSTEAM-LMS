@@ -117,11 +117,11 @@ h3, h5, h6 {
 }
 
 .classroom-navbar-button > span {
-    color: var(--classroom-text-0);
+    color: white;
 }
 
-#classroom-dashboard-sidebar-teacher .active > span {
-    color: var(--classroom-dashboard-dark) !important;
+.theme-light .classroom-navbar-button.active > span {
+    color: black;
 }
 
 #dropdownMenuButton {
@@ -207,6 +207,16 @@ a.btn.c-btn-primary:hover {
 
 button.btn.c-btn-outline-grey:hover {
     border-color: var(--classroom-text-0);
+}
+
+button.btn.c-btn-grey {
+    background-color: var(--classroom-background);
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+}
+
+button.btn.c-btn-grey:hover {
+    background-color: var(--classroom-grey);
 }
 
 .theme-super-admin.btn.c-btn-outline-primary.c-btn-dashboard {
@@ -343,6 +353,10 @@ button.btn.c-btn-light:hover {
     background-color: var(--classroom-background) !important;
 }
 
+.c-text-secondary {
+    color: var(--classroom-text-0);
+}
+
 /* Classes */
 
 #body-table-teach div.user-cell-container, .bilan-cell {
@@ -376,7 +390,19 @@ button.btn.c-btn-light:hover {
 .is-monochrome .status-1 .monochrome-grade-div, 
 .is-monochrome .bilan-0 .monochrome-grade-div, 
 .is-monochrome .status-0 .monochrome-grade-div {
-    background: var(--classroom-background);
+    background: black;
+}
+
+.bilan-4, .status-4 {
+    background-color: white;
+}
+
+.is-monochrome .bilan-4 .monochrome-grade-div {
+    background-color: white;
+}
+
+.theme-dark .bilan-4, .status-4, .is-monochrome .bilan-4 .monochrome-grade-div {
+    background-color: white;
 }
 
 #header-table-teach .border-header-class {
@@ -509,6 +535,14 @@ i.fas.fa-trash-alt {
     border: 2px solid var(--classroom-text-0);
 }
 
+.switcher {
+    border: 2px solid var(--classroom-text-0);
+}
+
+.course-activities-result {
+    border: 2px solid var(--classroom-text-0);
+}
+
 
 
 /* Help - Student */
@@ -517,7 +551,9 @@ i.fas.fa-trash-alt {
     border-color: var(--classroom-text-0) !important;
 }
 
-
+.faq-panel {
+    background-color: var(--classroom-background);
+}
 
 /* Admin */
 
