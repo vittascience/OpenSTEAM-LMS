@@ -913,7 +913,7 @@ class CoursesManager {
                 courseLink: course.id
             };
             navigatePanel('classroom-dashboard-course-panel-one-page', 'dashboard-activities', 'course', '');
-
+            breadcrumbManager.setCourseTitle(course.course.title, course.course.id);
             this.loadOnePageCourseForStudent(course);
         });
     }
@@ -956,10 +956,13 @@ class CoursesManager {
         }
 
         $('#course-title-options').html(course.title + " - " + this.makeOptionsCourseForOverview(course));
-        navigatePanel('classroom-dashboard-teacher-course-panel', 'dashboard-activities-panel-teacher');
+
+        navigatePanel('classroom-dashboard-teacher-course-panel', 'dashboard-activities-teacher');
+        breadcrumbManager.setCourseTitle(course.title, course.id);
     }
 
     simulateActivityOpen(idActivity) {
+        breadcrumbManager.setCourseOpening();
         navigatePanel('classroom-dashboard-activity-panel', 'activity-item', 'WK' + idActivity, '');
     }
 
@@ -1036,7 +1039,7 @@ class CoursesManager {
      * @param {*} activity 
      * @param {*} onePageCourseContent 
      */
-    processForOneActivity(activity, onePageCourseContent = document.getElementById('one-page-course-student-content')) {
+    processForOneActivity(activity, onePageCourseContent = document.getElementById('one-page-course-student-content'), course = null) {
         const activityType = [ "reading", "dragAndDrop", "fillIn", "quiz", "free"];
 
         let divActivity = document.createElement('div');

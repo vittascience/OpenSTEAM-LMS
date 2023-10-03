@@ -222,6 +222,8 @@ function backToClassroomFromCode() {
  * @param {boolean} isOnpopstate - If set to true, the current navigation won't be saved in history (dedicated to onpopstate events)
  */
 function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = false) {
+
+    breadcrumbManager.navigatePanelBreadcrumb(idNav, id, $_GET('nav'), $_GET('panel'));
     // If there is any working activity tracker, send the tracking data and stop it
     if (typeof Main.activityTracker != 'undefined' && Main.activityTracker.getIsTracking()) {
         Main.activityTracker.saveTimePassed();
@@ -265,10 +267,6 @@ function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = fa
         displayPanel[formateId](option);
     }
 
-    // Breadcrumb management
-    let currentBreadcrumbStructure = findCurrentPanelInTreeStructure(id, ClassroomSettings.treeStructure);
-    breadcrumbManager.navigatePanelBreadcrumb(idNav, currentBreadcrumbStructure);
-
     $('.tooltip').remove()
     if (typeof Main.leaderline !== 'undefined') Main.leaderline.hide();
     $('[data-toggle="tooltip"]').tooltip()
@@ -286,38 +284,6 @@ window.onpopstate = () => {
         navigatePanel($_GET('panel'), $_GET('nav'), option = $_GET('option'), interface = $_GET('interface'), true);
     }
 };
-
-/**
- * Browse the tree structure to find the path to the current panel
- * @param {string} searchedPanel - The current panel id
- * @param {object} treeStructure - The tree structure (ClassroomSettings.treeStructure)
- * @param {string} currentPanel - Don't give any argument to this parameter (it's used by the recursion)
- * @param {array} history - Don't give any argument to this parameter (it's used by the recursion)
- * @returns {array} - Returns the array containing the path to the current panel
- */
-function findCurrentPanelInTreeStructure(searchedPanel, treeStructure = null, currentPanel = null, history = []) {
-    // Init
-    if (currentPanel == null) {
-        currentPanel = treeStructure;
-    }
-
-    // Loop with recursivity
-    for (let child in currentPanel) {
-        history.push(child);
-        if (searchedPanel == child) {
-            return history;
-        } else {
-            if (typeof (currentPanel[child]) === 'object') {
-                let result = findCurrentPanelInTreeStructure(searchedPanel, currentPanel, currentPanel[child], history);
-                if (result != false) {
-                    return result;
-                }
-            }
-            history.pop();
-        }
-    }
-    return false;
-}
 
 // Add activity modal (Classroom management) -> Resource Bank button
 function goToResourceBank() {
