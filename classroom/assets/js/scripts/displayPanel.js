@@ -451,7 +451,6 @@ DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
                 });
             }
         } else {
-            console.log("student")
             if ($_GET('option') != "course") {
                 if ($_GET('interface') == 'newActivities' || $_GET('interface') == 'savedActivities') {
                     var isDoable = true
