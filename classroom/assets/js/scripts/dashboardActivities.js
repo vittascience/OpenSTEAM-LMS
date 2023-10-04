@@ -463,6 +463,7 @@ function activityWatch(id) {
 $('body').on('click', '.bilan-cell', function () {
     let self = $(this)
     if (!self.hasClass('no-activity')) {
+        breadcrumbManager.setClassroomOpening();
         navigatePanel('classroom-dashboard-activity-panel', 'dashboard-activities-teacher', 'AC' + parseInt(self.attr('data-id')), self.attr("data-state"))
     }
 })
@@ -578,7 +579,6 @@ function statusActivity(activity, state = true, formatedTimePast = '') {
 
 
 function loadActivityForTeacher() {
-
     $('#activity-views-switcher').html('');
     breadcrumbManager.setActivityTitle(Activity.activity.title);
 
@@ -860,7 +860,7 @@ function setPluriel(number) {
 function loadCourseAndActivityForStudents(isDoable, currentCourse = null, progressBar = false, isFromCourse = false) {
     // Reset the inputs
     resetInputsForActivity(isFromCourse);
-
+    breadcrumbManager.setActivityTitle(Activity.activity.title);
     let courseIndicator = isFromCourse ? "-course" : "";
 
     // Check if the activity has an introduction

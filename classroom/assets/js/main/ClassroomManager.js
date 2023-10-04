@@ -317,7 +317,7 @@ class ClassroomManager {
     getTeacherActivities(container) {
         return new Promise((resolve, reject) => {
             let currentTask = (onEnd) => {
-                var process = function (thisInstance, res) {
+                let process = function (thisInstance, res) {
                     if (res.error_message && res.error_message !== undefined) {
                         thisInstance.errors.push(GET_PUBLIC_PROJECTS_ERROR)
                     }

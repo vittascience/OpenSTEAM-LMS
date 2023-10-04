@@ -339,7 +339,9 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
             document.getElementById('add-student-container').style.display = 'none';
             document.getElementById('classroom-info').style.display = 'none';
         }
-
+        
+        resetDisplayClassroom();
+        breadcrumbManager.setSpecificClass(getClassroomInListByLink(ClassroomSettings.classroom)[0].classroom.name, link);
         // restore the add student div to its default content to remove potential changes from the update classroom modal
         $('#classroom-form-name').val(''),
         $('#classroom-form-school').val('')
@@ -350,7 +352,6 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
                 displayStudentsInClassroom(students, link)
                 $('.classroom-link').html(ClassroomSettings.classroom)
             })
-
         } else {
             if (link == null || link == '') {
                 if (ClassroomSettings.classroom != null) {
@@ -360,11 +361,6 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
                     return;
                 }
             }
-            // Load the classroom with the current cache data
-            // seems to be duplicate call for displayStudentsInClassroom with the code below -> 309 - 310 updated by @Rémi C. October 2022
-            /* let students = getClassroomInListByLink(link)[0].students
-            displayStudentsInClassroom(students, link) */
-
 
             $('.classroom-link').html(ClassroomSettings.classroom)
             $('#classroom-code-share-qr-code').html('');
@@ -403,7 +399,7 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
         dashboardAutoRefresh.refreshLater();
     } else {
         navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher', 'WK' + id, '')
-        displayNotification('#notif-div', "classroom.login.noClass", "warning")
+        displayNotification('#notif-div', "classroom.login.noClass", "error")
     }
 }
 DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) {

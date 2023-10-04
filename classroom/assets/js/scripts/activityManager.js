@@ -713,5 +713,6 @@ function loadActivityContent(doable = false) {
 
     $('#activity-introduction').hide();
     $('#activity-validate').hide();
-    breadcrumbManager.setActivityTitle(Activity.title, 1);
+
+    breadcrumbManager.setActivityTitle(Activity.title);
 }

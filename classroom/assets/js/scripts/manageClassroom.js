@@ -86,7 +86,7 @@ async function readEvent (event) {
 $('body').on('click', '.teacher-new-classe', function (event) {
     ClassroomSettings.classroom = null;
     let classCount = Main.getClassroomManager()._myClasses.length;
-    if (classCount >= UserManager.getUser().restrictions.maxClassrooms) {
+    if (classCount >= UserManager.getUser().restrictions.maxClassrooms && UserManager.getUser().restrictions.maxClassrooms != -1) {
         displayNotification('#notif-div', "classroom.notif.classNotCreated", "error", `'{"classroomNumberLimit": "${UserManager.getUser().restrictions.maxClassrooms}"}'`);
         let event = new CustomEvent('displayPremiumModal', {detail: 'classroomAddition'});
         document.dispatchEvent(event);
@@ -94,7 +94,6 @@ $('body').on('click', '.teacher-new-classe', function (event) {
     }
     navigatePanel('classroom-dashboard-form-classe-panel', 'dashboard-classes-teacher');
     $('#table-students ul').html('<li id="no-student-label" data-i18n="classroom.classes.form.noStudent"></li>').localize();
-
 });
 
 
@@ -620,7 +619,7 @@ function csvToClassroom(link) {
 function checkMaxStudentsWhenImportingCsv(csvFile) {
     let maxStudents = UserManager.getUser().restrictions.maxStudents,
     currentLearnerCount = UserManager.getUser().teacherData.students;
-    if (csvFile.split("\n").length + currentLearnerCount > maxStudents) {
+    if (csvFile.split("\n").length + currentLearnerCount > maxStudents && maxStudents != -1) {
         displayNotification('#notif-div', "classroom.notif.personalLimitationsReached", "error", `'{"max": "${maxStudents}"}'`);
         return false;
     }
@@ -953,6 +952,14 @@ function filterSandboxInList(keywords = [], orderBy = 'id', asc = true) {
         })
     }
 
+}
+
+function resetDisplayClassroom() {
+    // Clean the display
+    document.querySelector('#body-table-teach').innerHTML = '';
+    document.querySelector('#add-student-container').innerHTML = '';
+    document.querySelector('#export-class-container').innerHTML = '';
+    document.querySelector('#header-table-teach').innerHTML = '';
 }
 
 /**
