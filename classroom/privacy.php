@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="assets/css/jquery-ui.css?version=VERSIONNUM">
     <link rel="stylesheet" href="assets/css/bootstrap.css?version=VERSIONNUM">
-    <link rel="stylesheet" href="assets/css/fontawesome.css?version=VERSIONNUM">
+    <link rel="stylesheet" href="assets/css/lib/fontawesome-free-6.4.2-web/css/all.min.css?version=VERSIONNUM">
     <!-- Material icon -->
     <script src="assets/js/lib/jquery.js?version=VERSIONNUM"></script>
     <script src="assets/js/lib/popper.js?version=VERSIONNUM"></script>
