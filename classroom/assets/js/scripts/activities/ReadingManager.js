@@ -29,6 +29,9 @@ class ReadingManager {
         let course = isFromCourse ? "-course" : "";
         const wbbptions = Main.getClassroomManager().wbbOpt;
         $('#activity-content'+course).html(bbcodeContentIncludingMathLive(content));
+        $('#activity-content'+course).removeClass('d-flex');
+        $('#activity-content'+course).addClass('d-block');
+        
         $('#activity-content-container'+course).show();
         if (correction == 0) {
             $('#activity-input'+course).wysibb(wbbptions);

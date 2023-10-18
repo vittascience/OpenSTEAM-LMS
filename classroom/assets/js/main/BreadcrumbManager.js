@@ -5,6 +5,7 @@ class BreadcrumbManager {
         this.chrevron = `<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span>`;
         this.courseOpening = false;
         this.classroomOpening = false;
+        this.folderOpening = false;
     }
 
     reset() {

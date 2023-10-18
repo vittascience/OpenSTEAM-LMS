@@ -1671,6 +1671,7 @@
 		"attribution": "Attribuer le parcours <i class='fas fa-chevron-right'></i>",
 		"return": "Retour <i class='fas fa-chevron-right'></i>",
 		"update": "Modifier le parcours",
+		"show": "Afficher le parcours",
 		"informationWhenEmpty": "Cliquer sur les boutons ci-dessus pour ajouter des activités au parcours."
 	}
 }

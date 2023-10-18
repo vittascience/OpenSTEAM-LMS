@@ -55,7 +55,7 @@ function courseItem(course, state) {
 
     let activityStatus = "";
     //let dateEndNotif = activity.activity.isLti ? "style='display:none'" : "";
-    let html = `<div class="course-item" onclick="coursesManager.${course.course.format == 1 ? "readCourseOnePage" : "readCourseFromStudent"}('${course.course.id}')">
+    let html = `<div class="course-item" onclick="coursesManager.${course.course.format == 1 ? "readCourseOnePage" : "readCourseFromStudent"}('${course.course.id}', '${course.id}')">
                     <div class="course-card">
                         <div class="${activityStatus}" data-bs-toggle="tooltip" title="${course.course.title}"><div class="ribbon__content"></div></div>
                         <img src="${_PATH}assets/media/cards/card-course.png" class="course-card-img">
@@ -733,7 +733,7 @@ function shuffleArray(array) {
     return arrayClone;
 }
 
-function manageDragAndDropText(studentContentString, preview = false, solution = null, activityId) {
+function manageDragAndDropText(studentContentString, preview = false, solution = null, activityId = false) {
     let studentResponses = null;
     if (solution == null) {
         studentResponses = preview ? Main.getClassroomManager()._createActivity.solution : JSON.parse(Activity.activity.solution);

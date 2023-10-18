@@ -5,6 +5,7 @@ class CoursesManager {
      */
     constructor() {
         this.myCourses = [];
+        this.attriReference = null;
         this.actualCourse = {
             id: null,
             state: null,
@@ -145,7 +146,6 @@ class CoursesManager {
 
     goToAttribution(fromParameters = false) {
         if (fromParameters) {
-
             if (!this.isUpdate) {
                 this._requestAddCourse().then((res) => {
                     if (res.hasOwnProperty('success')) {
@@ -219,8 +219,8 @@ class CoursesManager {
         });
     }
 
-    undoAttribution(id) {
-        this._requestUsersUnlinkCourse(id).then((res) => {
+    undoAttribution(id, references = [], classId = null) {
+        this._requestUsersUnlinkCourse(id, references, classId).then((res) => {
             if (res.hasOwnProperty('success')) {
                 Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(()=>{
                     displayNotification('#notif-div', "classroom.notif.attributeActivityUndone", "success");
@@ -469,7 +469,7 @@ class CoursesManager {
     }
 
 
-    attributeCourse(id = null) {
+    attributeCourse(id = null, reference = null) {
         $("#assign-total-student-number-course").text(0);
 
         if (id) {
@@ -709,7 +709,7 @@ class CoursesManager {
                 endCourse.style.display = "none";
                 messageDiv.style.display = "none";
 
-                this._requestUpdateState(coursesManager.actualCourse.id, coursesManager.actualCourse.state + 1).then(res => {
+                this._requestUpdateState(coursesManager.actualCourse.id, coursesManager.actualCourse.state + 1, coursesManager.actualCourse.courseLink).then(res => {
                     if (res.hasOwnProperty('success')) {
                         if (res.success) {
                             let course = Main.getClassroomManager()._myCourses.find(course => course.course.id == coursesManager.actualCourse.id);
@@ -765,7 +765,7 @@ class CoursesManager {
         messageDiv.style.display = "none";
 
         if ((response.note != null && response.correction >= 1) || isLti) {
-            this._requestUpdateState(coursesManager.actualCourse.id, coursesManager.actualCourse.state + 1).then(res => {
+            this._requestUpdateState(coursesManager.actualCourse.id, coursesManager.actualCourse.state + 1, coursesManager.actualCourse.courseLink).then(res => {
                 if (res.hasOwnProperty('success')) {
                     if (res.success) {
                         let course = Main.getClassroomManager()._myCourses.find(course => course.course.id == coursesManager.actualCourse.id);
@@ -787,12 +787,12 @@ class CoursesManager {
         }
     }
 
-    viewCourseActivitiesResult(id = null) {
+    viewCourseActivitiesResult(id = null, courseLink = null) {
         let activitiesResultDiv = document.getElementById("course-activities-result"),
             courseResultNote = document.getElementById("course-result-note");
 
         activitiesResultDiv.innerHTML = "";
-        let course = id == null ? Main.getClassroomManager()._myCourses.find(course => course.course.id == this.actualCourse.id) : Main.getClassroomManager()._myCourses.find(course => course.course.id == id);
+        let course = id == null ? Main.getClassroomManager()._myCourses.find(course => course.course.id == this.actualCourse.id && course.id == courseLink) : Main.getClassroomManager()._myCourses.find(course => course.course.id == id && course.id == courseLink);
         let courseLength = course.activities.length,
             courseSuccess = 0;
      
@@ -812,7 +812,7 @@ class CoursesManager {
 
             let html = `<div class="course-activities-result-activity" id="course-${course.id}"> 
                             <div class="preview-result-course-activity-title">
-                                <p onclick="coursesManager.loadActivity(${course.course.id}, ${course.activities[i].id})">ACTVITÉ <br> N°${i+1}</p>
+                                <p onclick="coursesManager.loadActivity(${course.course.id}, ${course.activities[i].id}, ${course.id})">ACTVITÉ <br> N°${i+1}</p>
                             </div>
 
                             <div>
@@ -837,8 +837,8 @@ class CoursesManager {
         navigatePanel('classroom-dashboard-course-panel-ended', 'dashboard-activities');
     }
 
-    loadActivity(courseId, activityId) {
-        let course = Main.getClassroomManager()._myCourses.find(course => course.course.id == courseId),
+    loadActivity(courseId, activityId, courseLink = null) {
+        let course = Main.getClassroomManager()._myCourses.find(course => course.course.id == courseId && course.id == courseLink),
             btnContainer = document.getElementById("course-validate-buttons");
         Activity = course.activities.find(activity => activity.id == activityId);
         navigatePanel('classroom-dashboard-course-panel', 'dashboard-activities-teacher', 'course', '');
@@ -846,7 +846,7 @@ class CoursesManager {
         btnContainer.style.display = "none";
     }
 
-    readCourseFromStudent(id = null) {
+    readCourseFromStudent(id = null, courseLink = null) {
         let resMessage = document.getElementById("course-result-message"),
             btnNext = document.getElementById("course-options-course-buttons"),
             btnValidate = document.getElementById("course-validate-buttons");
@@ -860,14 +860,19 @@ class CoursesManager {
             if (id == null) {
                 id = coursesManager.actualCourse.id;
             }
-    
-            let course = Main.getClassroomManager()._myCourses.find(course => course.course.id == id);
 
+            if (courseLink == null) {
+                courseLink = coursesManager.actualCourse.courseLink;
+            } else {
+                coursesManager.actualCourse.courseLink = courseLink;
+            }
+    
+            let course = Main.getClassroomManager()._myCourses.find(course => course.course.id == id && course.id == courseLink);
             if (course.courseState == 999) {
-                this.viewCourseActivitiesResult(id);
+                this.viewCourseActivitiesResult(id, courseLink);
                 return false;
             }
-            
+
             Activity = course.activities[course.courseState];
             
 
@@ -890,7 +895,7 @@ class CoursesManager {
         });
     }
 
-    readCourseOnePage(id = null) {
+    readCourseOnePage(id = null, courseLink = null) {
         this._requestGetMyCourseStudent().then(res => {
             Main.getClassroomManager()._myCourses = res;
 
@@ -898,9 +903,9 @@ class CoursesManager {
                 id = coursesManager.actualCourse.id;
             }
 
-            let course = Main.getClassroomManager()._myCourses.find(course => course.course.id == id);
+            let course = Main.getClassroomManager()._myCourses.find(course => course.course.id == id && course.id == courseLink);
             if (course.courseState == 999) {
-                this.viewCourseActivitiesResult(id);
+                this.viewCourseActivitiesResult(id, courseLink);
                 return false;
             }
             
@@ -1330,7 +1335,7 @@ class CoursesManager {
         const data = coursesManager.manageDisplayLtiForOnePageCourse(activityData, content, "", true);
         const courseState = reValidate ? course.courseState : course.courseState + 1;
 
-        const res  =  await coursesManager._requestUpdateState(course.course.id, courseState);
+        const res  =  await coursesManager._requestUpdateState(course.course.id, courseState, course.id);
         if (res.hasOwnProperty('success')) {
             if (res.success) {
                 course.courseState = parseInt(res.courseLinkUser.courseState);
@@ -1341,7 +1346,7 @@ class CoursesManager {
                         document.forms[data.content[1]].submit();
                     }
                 } else {
-                    coursesManager.viewCourseActivitiesResult(course.course.id);
+                    coursesManager.viewCourseActivitiesResult(course.course.id, course.id);
                 }
             } else {
                 displayNotification('#notif-div', "classroom.notif.errorSending", "error");
@@ -1412,7 +1417,7 @@ class CoursesManager {
                 const course = this.getParcoursFromHisActivity(response);
                 if (course) {
                     let courseState = reValidate ? course.courseState : course.courseState + 1;
-                    this._requestUpdateState(course.course.id, courseState).then((res) => {
+                    this._requestUpdateState(course.course.id, courseState, course.id).then((res) => {
                         if (res.hasOwnProperty('success')) {
                             if (res.success) {
                                 // update the course state
@@ -1420,7 +1425,7 @@ class CoursesManager {
                                 if (courseState < course.activities.length) {
                                     this.processForOneActivity(response);
                                 } else {
-                                    this.viewCourseActivitiesResult(course.course.id);
+                                    this.viewCourseActivitiesResult(course.course.id, course.id);
                                 }
                             } else {
                                 displayNotification('#notif-div', "classroom.notif.errorSending", "error");
@@ -1487,13 +1492,14 @@ class CoursesManager {
     }
 
 
-    _requestUpdateState(id,state) {
+    _requestUpdateState(id, state, courseLink) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "POST",
                 url: "/routing/Routing.php?controller=course&action=set_state_from_course",
                 data: {
                     courseId: id,
+                    courseLinkUserId: courseLink,
                     state: state
                 },
                 success: function (response) {
@@ -1600,7 +1606,7 @@ class CoursesManager {
         })
     }
 
-    _requestUsersLinkCourse(courseId, students, classrooms) {
+    _requestUsersLinkCourse(courseId, students, classrooms, ) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "POST",
@@ -1620,14 +1626,15 @@ class CoursesManager {
         })
     }
 
-    _requestUsersUnlinkCourse(courseId, isDeletion = false) {
+    _requestUsersUnlinkCourse(courseId, references = [], classId = null) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "POST",
                 url: "/routing/Routing.php?controller=user_link_course&action=unlink_course_to_users",
                 data: {
                     courseId: courseId,
-                    isDeletion: isDeletion
+                    classId: classId,
+                    references: references
                 },
                 success: function (response) {
                     resolve(JSON.parse(response));

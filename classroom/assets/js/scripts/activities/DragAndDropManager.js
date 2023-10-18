@@ -130,6 +130,8 @@ class DragAndDropManager {
     }
 
     manageDisplayDragAndDrop(correction, content, correction_div, isFromCourse) {
+
+        console.log("here")
         let course = isFromCourse ? "-course" : "";
         $('#activity-title'+course).html(Activity.activity.title);
         // Show the content with the response to the teacher
@@ -146,7 +148,11 @@ class DragAndDropManager {
         
         if (correction <= 1 || correction == null) {
             if (!UserManager.getUser().isRegular) {
-    
+
+                // reset both div course and normal to avoid id duplication
+                $('#drag-and-drop-text').html("");
+                $('#drag-and-drop-text-course').html("");
+
                 let ContentString = manageDragAndDropText(content.dragAndDropFields.contentForTeacher);
                 $('#drag-and-drop-text'+course).html(`<div>${ContentString}</div>`);
     
