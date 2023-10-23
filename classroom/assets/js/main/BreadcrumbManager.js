@@ -34,11 +34,15 @@ class BreadcrumbManager {
         if (!this.courseOpening && !this.classroomOpening) {
             UserManager.getUser().isRegular ? this.setMyActivities() : this.setMyActivitiesStudent();
         }
+
+        if (foldersManager.actualFolder && !this.courseOpening) {
+            foldersManager.createTreeFolders();
+        }
         
         const btnBC = document.createElement('button');
         btnBC.classList.add('btn', 'c-btn-outline-primary');
         btnBC.setAttribute('type', 'button');
-        btnBC.innerHTML = title;
+        btnBC.innerHTML = "📃" + title;
         
         this.breadcrumb.append(this.chrevron);
         this.breadcrumb.append(btnBC);
@@ -50,16 +54,21 @@ class BreadcrumbManager {
             UserManager.getUser().isRegular ? this.setMyActivities() : this.setMyActivitiesStudent();
         }
 
+        if (foldersManager.actualFolder) {
+            foldersManager.createTreeFolders();
+        }
+
         const btnBC = document.createElement('button');
         btnBC.classList.add('btn', 'c-btn-outline-primary');
         btnBC.setAttribute('type', 'button');
-        btnBC.innerHTML = title;
+        btnBC.innerHTML = "📚 " + title;
 
         btnBC.addEventListener('click', () => {
             coursesManager.courseOverview(courseId)
         });
         
         this.breadcrumb.append(this.chrevron);
+        
         this.breadcrumb.append(btnBC);
         this.unlockEverything();
     }
@@ -75,6 +84,7 @@ class BreadcrumbManager {
     unlockEverything() {
         this.courseOpening = false;
         this.classroomOpening = false;
+        this.folderOpening = false;
     }
 
     removeTwoLastItems() {
@@ -121,7 +131,6 @@ class BreadcrumbManager {
         this.reset();
         const   translation = i18next.t("classroom.ids.classroom-dashboard-classes-panel-teacher"),
                 btnBC = document.createElement('button');
-
         btnBC.classList.add('btn', 'c-btn-outline-primary');
         btnBC.setAttribute('type', 'button');
         btnBC.setAttribute('onclick', "navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher')");
@@ -152,6 +161,7 @@ class BreadcrumbManager {
         if (this.courseOpening || this.classroomOpening) {
             return;
         }
+
         this.breadcrumb[0].innerHTML = '';
         if (idNav == "dashboard-classes-teacher" && idPanel == "classroom-dashboard-classes-panel-teacher") {
             this.setMyClass();

@@ -300,7 +300,8 @@ function getRemainingCorrections(students) {
 
 function hasAttribution(student, ref) {
     let attribution = student.activities.filter(x => x.reference == ref)
-    if (attribution.length > 0) {
+    let attributionCourse = student.courses.filter(x => x.reference == ref)
+    if (attribution.length > 0 || attributionCourse.length > 0) {
         return true;
     }
     return false;
@@ -349,6 +350,7 @@ function classeList(classe, ref = null) {
     });
     html += `</div></div>`
     $('.student-number').html(ClassroomSettings.studentCount)
+    $("#assign-total-student-number-course").text(ClassroomSettings.studentCount)
 
     return html;
 }
@@ -435,7 +437,9 @@ $('body').on('click', '.activity-list, .activity-list-item, .activity-card, .act
             id = parseInt($(this).find(".info-tutorials").attr("data-id"));
             state = $(this).find(".info-tutorials").attr("data-state");
         }
-        if (this.parentElement.parentElement.id == 'list-activities-teacher') {
+
+        // add !this.parentElement.parentElement.id for the teacher dashboard
+        if (this.parentElement.parentElement.id == 'list-activities-teacher' || !this.parentElement.parentElement.id) {
             navigation = 'dashboard-activities-teacher';
         } else {
             navigation = 'dashboard-activities';

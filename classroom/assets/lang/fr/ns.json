@@ -374,6 +374,7 @@
 				"success": "Bravo, vous avez créé une activité !",
 				"attribute": "Attribuer l'activité dès maintenant",
 				"attribute2": "Attribuer l'activité ",
+				"attributeCourse": "Attribuer le parcours ",
 				"return": "Retourner à Mes activités",
 				"hint": "Vous pourrez toujours attribuer plus tard cette activité depuis le tableau de bord.",
 				"modify": "Modifier l'activité",

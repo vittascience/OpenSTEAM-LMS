@@ -619,7 +619,7 @@ function csvToClassroom(link) {
 function checkMaxStudentsWhenImportingCsv(csvFile) {
     let maxStudents = UserManager.getUser().restrictions.maxStudents,
     currentLearnerCount = UserManager.getUser().teacherData.students;
-    if (csvFile.split("\n").length + currentLearnerCount > maxStudents && maxStudents != -1) {
+    if (csvFile.split("\n").length + currentLearnerCount > maxStudents && maxStudents != -1 && !UserManager.getUser().isFromGar) {
         displayNotification('#notif-div', "classroom.notif.personalLimitationsReached", "error", `'{"max": "${maxStudents}"}'`);
         return false;
     }
@@ -1011,7 +1011,7 @@ function displayStudentsInClassroom(students, link=false) {
 
         // reorder the current student activities to fit to the classroom index of activities
         let arrayActivities = reorderActivities([...element.activities, ...element.courses], arrayIndexesActivities);
-        const pseudo = element.user.pseudo;
+        let pseudo = element.user.pseudo;
         let html = '';
 
         // shorten the current student nickname to fit in the table
@@ -1057,7 +1057,6 @@ function displayStudentsInClassroom(students, link=false) {
 
 
         let activityNumber = 1;
-        let courseActiRef = {};
         // Display the current student activities in the dashboard
 
         // Loop in the classroom activities index (with ids) to generate the dashboard table header and body
@@ -1104,8 +1103,8 @@ function displayStudentsInClassroom(students, link=false) {
                     </li>
                     
                     <li class="classroom-clickable col-12 dropdown-item " onclick="coursesManager.courseOverview(${currentActivity.course.id})" ><i class="fas fa-eye"></i> <span data-i18n="courses.show">Voir le parcours</span></li>
-                    <li class=" classroom-clickable col-12 dropdown-item" onclick="coursesManager.updateCourse(${currentActivity.course.id})"><i class="fas fa-pen"></i> <span data-i18n="courses.update">Modifier le parcours</span></li>
-                    <li class="classroom-clickable col-12 dropdown-item" onclick="coursesManager.attributeCourse(${currentActivity.course.id})"><i class="fas fa-user-alt"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span></li>
+                    <li class="classroom-clickable col-12 dropdown-item" onclick="coursesManager.updateCourse(${currentActivity.course.id})"><i class="fas fa-pen"></i> <span data-i18n="courses.update">Modifier le parcours</span></li>
+                    <li class="classroom-clickable col-12 dropdown-item" onclick="coursesManager.attributeCourse(${currentActivity.course.id}, ${currentActivity.reference})"><i class="fas fa-user-alt"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span></li>
                     <li class="dropdown-item classroom-clickable col-12" onclick="coursesManager.undoAttribution(${currentActivity.course.id}, ${currentActivity.reference}, ${classroomId})"><i class="fas fa-trash-alt"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span></li>`;
                 
                     $('#header-table-teach').append(`
@@ -1134,10 +1133,17 @@ function displayStudentsInClassroom(students, link=false) {
                         if (tempActivity) {
                             html += renderActivityDashboard(tempActivity);
                         }
+                        
                     }
                 }
             } else {
-                html += `<td class="no-activity bilan-cell"></td>`;
+                if (arrayIndexesActivities[i].isCourse) {
+                    for (let k = 0; k < arrayIndexesActivities[i].courseLength; k++) {
+                        html += `<td class="no-activity bilan-cell"></td>`;
+                    }
+                } else {
+                    html += `<td class="no-activity bilan-cell"></td>`;
+                }
             }
         }
 

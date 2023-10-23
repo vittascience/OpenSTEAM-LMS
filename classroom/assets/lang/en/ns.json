@@ -352,6 +352,7 @@
 				"success": "Congratulations, you created an activity!",
 				"attribute": "Attribute the activity right now",
 				"attribute2": "Attribute the activity ",
+				"attributeCourse": "Attribute the course ",
 				"return": "Return to My activities",
 				"hint": "You can still attribute this activity later from your dashboard.",
 				"modify": "Modify the activity",

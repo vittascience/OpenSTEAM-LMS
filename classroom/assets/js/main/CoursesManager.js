@@ -478,6 +478,12 @@ class CoursesManager {
             this.courseId = this.lastestCourse;
         }
 
+        if (reference) {
+            this.attriReference = reference;
+        } else {
+            this.attriReference = null;
+        }
+
         if (this.courseId < 1) {
             return displayNotification('#notif-div', "Id de parcours manquant", "error");
         }
@@ -485,7 +491,7 @@ class CoursesManager {
         document.getElementsByClassName('student-number')[0].textContent = '0';
 
         $('#list-student-attribute-modal').html('');
-        this.listStudentsToAttributeForCouse();
+        this.listStudentsToAttributeForCouse(reference);
 
         navigatePanel('classroom-dashboard-classes-new-course-attribution-select', 'dashboard-activities-teacher');
     }
@@ -512,7 +518,7 @@ class CoursesManager {
             displayNotification('#notif-div', "classroom.notif.mustAttributeToStudent", "error")
         }
 
-        this._requestUsersLinkCourse(this.courseId, students, classrooms).then((res) => {
+        this._requestUsersLinkCourse(this.courseId, students, classrooms, this.attriReference).then((res) => {
             if (res == true) {
                 displayNotification('#notif-div', "classroom.notif.courseAttributed", "success")
                 $('#attribute-course-to-students').attr('disabled', false)
@@ -523,7 +529,7 @@ class CoursesManager {
         });
     }
 
-    listStudentsToAttributeForCouse() {
+    listStudentsToAttributeForCouse(ref = null) {
         let classes = Main.getClassroomManager()._myClasses;
         if (classes.length == 0) {
             $('#attribute-activity-to-students-close').after(NO_CLASS);
@@ -531,7 +537,7 @@ class CoursesManager {
 
         } else {
             classes.forEach(element => {
-                $('#list-student-attribute-modal').append(classeList(element));
+                $('#list-student-attribute-modal').append(classeList(element, ref));
             });
             $('.no-classes').remove();
             $('#attribute-activity-to-students-close').show();
@@ -1606,7 +1612,7 @@ class CoursesManager {
         })
     }
 
-    _requestUsersLinkCourse(courseId, students, classrooms, ) {
+    _requestUsersLinkCourse(courseId, students, classrooms, reference = null) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "POST",
@@ -1614,7 +1620,8 @@ class CoursesManager {
                 data: {
                     courseId: courseId,
                     students: students,
-                    classrooms: classrooms
+                    classrooms: classrooms,
+                    reference: reference
                 },
                 success: function (response) {
                     resolve(JSON.parse(response));
@@ -1684,6 +1691,22 @@ class CoursesManager {
                         }
                     });
                     resolve(courses);
+                }
+            });
+        })
+    }
+
+
+    _requestCourseDebug() {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: "POST",
+                url: "/routing/Routing.php?controller=course&action=debug_course",
+                success: function () {
+                    resolve();
+                },
+                error: function () {
+                    reject('error')
                 }
             });
         })
