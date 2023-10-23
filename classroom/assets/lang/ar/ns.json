@@ -683,6 +683,9 @@
     "theme": "مظهر ",
     "light_theme": "مظهر لامع",
     "dark_theme": "مظهر داكن",
+    "contrast": "مقابلة",
+		"normal_contrast": "التباين الطبيعي",
+		"high_contrast": "تباين عالي",
     "font": "الخطوط",
     "basic_font": "أساسي",
     "know_more": "تعرف أكثر"

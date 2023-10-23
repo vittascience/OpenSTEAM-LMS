@@ -1,0 +1,595 @@
+/* Dashboard, search and buttons */
+
+#classroom-dashboard-background, #classroom-dashboard-top-bar {
+    background: linear-gradient(rgba(var(--classroom-dashboard-rgb),0.5),rgba(var(--classroom-dashboard-rgb),0.5)), linear-gradient(var(--classroom-background),var(--classroom-background));
+}
+
+#classroom-dashboard-content {
+    background-color: var(--classroom-background);
+    border: 2px solid var(--classroom-text-0);
+}
+
+#filter-activity {
+    background-color: var(--classroom-background);
+}
+
+.fa-search {
+    color: var(--classroom-text-0);
+}
+
+.form-control::placeholder {
+    color: var(--classroom-text-0);
+}
+
+button.btn.c-btn-outline-primary {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
+}
+
+button.btn.c-btn-outline-primary:hover {
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-primary);
+}
+
+button.btn.c-btn-outline-secondary {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
+}
+
+button.btn.c-btn-outline-secondary:hover {
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-secondary);
+}
+
+button.btn.c-btn-tertiary {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
+}
+
+button.btn.c-btn-tertiary:hover {
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-tertiary);
+}
+
+button.btn.c-btn-red {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+}
+
+button.btn.c-btn-red:hover {
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-red-dark);
+}
+
+button.btn.btn-danger {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+}
+
+button.btn.btn-danger:hover {
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-red-dark);
+}
+
+button.btn.c-btn-no-outline-primary {
+    color: var(--classroom-text-0);
+}
+
+button.btn.c-btn-no-outline-primary:hover {
+    background-color: var(--classroom-primary);
+}
+
+h3, h5, h6 {
+    color: var(--classroom-text-0) !important;
+}
+
+.form-activity-primary, .stats-primary,
+.form-activity-secondary, .stats-secondary {
+    border-color: var(--classroom-text-0);
+    color: var(--classroom-text-0);
+}
+
+
+
+/* SIDEBAR */
+.classroom-navbar-button {
+    border: 2px solid var(--classroom-text-0);
+    border-right: none;
+}
+
+.sidebar-classroom .active::after {
+    filter: drop-shadow(0 2px 0 var(--classroom-text-0));
+}
+
+.sidebar-classroom .active::before {
+    filter: drop-shadow(0 -2px 0 var(--classroom-text-0));
+}
+
+.sidebar-classroom .classroom-navbar-button img {
+    border: 3px solid var(--classroom-text-0);
+}
+
+.sidebar-classroom .classroom-navbar-button img.user-picture {
+    border: transparent !important;
+}
+
+.classroom-navbar-button > span {
+    color: white;
+}
+
+.theme-light .classroom-navbar-button.active > span {
+    color: black;
+}
+
+#dropdownMenuButton {
+    color: var(--classroom-text-0);
+    border: 2px solid transparent;
+}
+
+#dropdownMenuButton:hover {
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-background-1);
+}
+
+#dropdownMenuButton:focus {
+    color: var(--classroom-text-0);
+    border-color: var(--classroom-text-0);
+    background-color: var(--classroom-background-1);
+}
+
+#dropdownMenuButton:active {
+    color: var(--classroom-text-0);
+    border-color: var(--classroom-text-0);
+    background-color: var(--classroom-background-1);
+}
+
+#classroom-dashboard-profil-panel-teacher span.text-span-initial.stats-description {
+    font-weight: bold !important;
+}
+
+.dropdown-menu.dropdown-menu-right.a11y-dropdown.show {
+    border: 2px solid var(--classroom-text-0);
+}
+
+.vitta-modal.ui-draggable.ui-draggable-handle {
+    border: 2px solid var(--classroom-text-0);
+}
+
+#settings-teacher-modal .vitta-modal-title span {
+    color: var(--classroom-text-0);
+}
+
+.vitta-modal-exit-btn.vitta-button.btn {
+    color: var(--classroom-text-0) !important;
+    background-color: var(--classroom-background) !important;
+    border: 2px solid var(--classroom-text-0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vitta-modal-exit-btn.vitta-button.btn:hover {
+    background-color: var(--classroom-primary) !important;
+}
+
+button.btn.c-btn-secondary {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
+}
+
+button.btn.c-btn-secondary:hover {
+    background-color: var(--classroom-secondary);
+}
+
+button.btn.c-btn-primary,
+a.btn.c-btn-primary {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
+}
+
+button.btn.btn-primary {
+    border: 2px solid var(--classroom-text-0);
+}
+
+button.btn.btn-primary:hover {
+    background-color: var(--classroom-primary) !important;
+}
+
+button.btn.c-btn-primary:hover,
+a.btn.c-btn-primary:hover {
+    background-color: var(--classroom-primary);
+}
+
+button.btn.c-btn-outline-grey:hover {
+    border-color: var(--classroom-text-0);
+}
+
+button.btn.c-btn-grey {
+    background-color: var(--classroom-background);
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+}
+
+button.btn.c-btn-grey:hover {
+    background-color: var(--classroom-grey);
+}
+
+.theme-super-admin.btn.c-btn-outline-primary.c-btn-dashboard {
+    border: 2px solid var(--classroom-text-0) !important;
+    color: var(--classroom-text-0) !important;
+    background-color: var(--classroom-dashboard) !important;
+}
+
+.theme-super-admin.btn.c-btn-outline-primary.c-btn-dashboard:hover {
+    background-color: var(--classroom-dashboard-dark) !important;
+}
+
+
+
+/* Profile */
+
+#breadcrumb button.btn.c-btn-outline-primary {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
+}
+
+#classroom-dashboard-account-panel-teacher input {
+    border: 2px solid var(--classroom-text-0) !important;
+}
+
+a#validate-profile-update {
+    border: 2px solid var(--classroom-text-0) !important;
+    color: var(--classroom-text-0) !important;
+    background-color: var(--classroom-background) !important;
+}
+
+a#validate-profile-update:hover {
+    background-color: var(--classroom-primary) !important;
+}
+
+
+
+/* Help */
+
+.faq-panel {
+    border-color: var(--classroom-text-0);
+}
+
+#about-contact-form .form-control {
+    border-color: var(--classroom-text-0) !important;
+}
+
+#about-contact-info input.btn.c-btn-primary {
+    border: 2px solid var(--classroom-text-0) !important;
+    color: var(--classroom-text-0) !important;
+    background-color: var(--classroom-background) !important;
+}
+
+#about-contact-info input.btn.c-btn-primary:hover {
+    background-color: var(--classroom-primary) !important;
+}
+
+.faq-panel .faq-box-dropdown {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+}
+
+.kit-faq-box {
+    border: 2px solid var(--classroom-text-0) !important;
+}
+
+.faq-panel h2 {
+    color: var(--classroom-text-0);
+}
+
+
+
+
+
+/* MY CLASSES */
+
+#classroom-dashboard-form-classe-panel input.form-control {
+    border: 2px solid var(--classroom-text-0) !important;
+}
+
+.table-students {
+    border: 2px solid var(--classroom-text-0) !important;
+}
+
+.vitta-modal-title {
+    color: var(--classroom-text-0) !important;
+}
+
+.vitta-modal-title span {
+    color: var(--classroom-text-0);
+}
+
+.c-primary-form input[type="text"] {
+    border-color: var(--classroom-text-0) !important;
+}
+
+.class-card {
+    border-color: var(--classroom-text-0);
+    color: var(--classroom-text-0);
+}
+
+.dropdown-menu.show {
+    border-color: var(--classroom-text-0);
+}
+
+.c-primary-form input[type="search"],
+.c-secondary-form input[type="text"] {
+    border-color: var(--classroom-text-0) !important;
+}
+
+button.btn.c-btn-light {
+    border: 2px solid var(--classroom-text-0);
+}
+
+.theme-dark button.btn.c-btn-light {
+    border-color: var(--classroom-background);
+    color: var(--classroom-background);
+}
+
+
+button.btn.c-btn-light:hover {
+    background-color: var(--classroom-background-1);
+    border-color: var(--classroom-text-0);
+    color: var(--classroom-text-0);
+}
+
+#notif-div .vitta-notif.status-error,
+#notif-div .vitta-notif.status-success {
+    border: 2px solid var(--classroom-text-0) !important;
+}
+
+.modal-separator > span {
+    background-color: var(--classroom-background) !important;
+}
+
+.c-text-secondary {
+    color: var(--classroom-text-0);
+}
+
+/* Classes */
+
+#body-table-teach div.user-cell-container, .bilan-cell {
+    border: 2px solid var(--classroom-text-0);
+}
+
+.dropdown i {
+    color: var(--classroom-text-0);
+}
+
+#classroom-info {
+    border: 2px solid var(--classroom-text-0);
+}
+
+#classroom-info .classroom-link {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-secondary);
+}
+
+#legend-container.is-monochrome .legend:first-of-type .bilan-legend {
+    outline: 1px solid var(--classroom-text-0) !important;
+}
+
+.is-monochrome .bilan-4 .monochrome-grade-div, 
+.is-monochrome .status-4 .monochrome-grade-div, 
+.is-monochrome .bilan-3 .monochrome-grade-div, 
+.is-monochrome .status-3 .monochrome-grade-div, 
+.is-monochrome .bilan-2 .monochrome-grade-div, 
+.is-monochrome .status-2 .monochrome-grade-div, 
+.is-monochrome .bilan-1 .monochrome-grade-div, 
+.is-monochrome .status-1 .monochrome-grade-div, 
+.is-monochrome .bilan-0 .monochrome-grade-div, 
+.is-monochrome .status-0 .monochrome-grade-div {
+    background: black;
+}
+
+.bilan-4, .status-4 {
+    background-color: white;
+}
+
+.is-monochrome .bilan-4 .monochrome-grade-div {
+    background-color: white;
+}
+
+.theme-dark .bilan-4, .status-4, .is-monochrome .bilan-4 .monochrome-grade-div {
+    background-color: white;
+}
+
+#header-table-teach .border-header-class {
+    border: none;
+}
+
+/* Activities */
+
+.theme-dark svg {
+    filter: brightness(0) invert(1);
+}
+
+.theme-light svg {
+    filter: brightness(0) invert(0);
+}
+
+select.c-primary-form {
+    border-color: var(--classroom-text-0) !important;
+}
+
+.folder-card {
+    border: 2px solid var(--classroom-text-0);
+    background-color: var(--classroom-background-1);
+}
+
+.form-activity-activate {
+    border: 2px solid var(--classroom-text-0);
+    color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
+}
+
+#activity-creation-grid .app-card {
+    background-color: var(--classroom-background-1);
+}
+
+#activity-creation-grid .app-card:nth-child(3):hover {
+    border-color: var(--classroom-text-0) !important;
+}
+
+.wysibb .wysibb-toolbar {
+    border-bottom: 2px solid var(--classroom-background) !important;
+}
+
+.theme-light .wysibb .wysibb-toolbar {
+    border-bottom: 2px solid var(--classroom-text-0) !important;
+}
+
+.wysibb .wysibb-toolbar 
+.wysibb-toolbar-container 
+.mswitch.wysibb-toolbar-btn {
+    color: var(--classroom-background);
+    background-color: var(--classroom-text-0);
+    border-color: var(--classroom-background);
+}
+
+.theme-light 
+.wysibb .wysibb-toolbar 
+.wysibb-toolbar-container 
+.mswitch.wysibb-toolbar-btn {
+    border-color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
+    color: var(--classroom-text-0);
+}
+
+.wysibb .wysibb-toolbar 
+.wysibb-toolbar-container 
+.mswitch.wysibb-toolbar-btn:hover {
+    color: var(--classroom-background) !important;
+    border-color: var(--classroom-background) !important;
+}
+
+.theme-light
+.wysibb .wysibb-toolbar 
+.wysibb-toolbar-container 
+.mswitch.wysibb-toolbar-btn:hover {
+    color: var(--classroom-text-0) !important;
+    border-color: var(--classroom-text-0) !important;
+}
+
+.section-preview-activity {
+    border: 2px solid var(--classroom-text-0);
+}
+
+.preview-container {
+    border-color: var(--classroom-text-0);
+}
+
+#facultative textarea {
+    border-color: var(--classroom-text-0) !important;
+}
+
+.c-primary-form.assign-activity-calendar input[type="date"] {
+    border-color: var(--classroom-text-0) !important;
+}
+
+.theme-dark #course-activity-search::placeholder,
+.theme-dark #course-title-content #course-title::placeholder,
+.theme-dark #course-title-content #course-description::placeholder {
+    color: var(--classroom-background) !important;
+}
+
+.activity-item-courses,
+.preview-activity-in-courses {
+    border-color: var(--classroom-text-0);
+}
+
+button.btn.btn-warning.btn-delete-course {
+    border-color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
+}
+
+button.btn.btn-warning.btn-delete-course:hover {
+    background-color: var(--classroom-background-1);
+}
+
+i.fas.fa-trash-alt {
+    color: var(--classroom-text-0);
+}
+
+.course-activities-content {
+    border-color: var(--classroom-text-0);
+}
+
+.course-content .form-control,
+#course-duration {
+    border-color: var(--classroom-text-0) !important;
+}
+
+.switcher.mx-3 {
+    border: 2px solid var(--classroom-text-0);
+}
+
+.switcher {
+    border: 2px solid var(--classroom-text-0);
+}
+
+.course-activities-result {
+    border: 2px solid var(--classroom-text-0);
+}
+
+
+
+/* Help - Student */
+
+#about-contact-form-student .form-control {
+    border-color: var(--classroom-text-0) !important;
+}
+
+.faq-panel {
+    background-color: var(--classroom-background);
+}
+
+/* Admin */
+
+.fas.fa-pencil-alt {
+    color: var(--classroom-text-0);
+}
+
+.vitta-modal.ui-draggable.ui-draggable-handle .container-fluid input.form-control[type="number"] {
+    border-color: var(--classroom-text-0) !important;
+}
+
+.container-fluid .table>:not(caption)>*>* {
+    color: var(--classroom-text-0) !important;
+}
+
+input[type="color"].form-control,
+textarea.form-control {
+    border-color: var(--classroom-text-0) !important;
+}
+
+select.form-select {
+    border-color: var(--classroom-text-0) !important;
+}
+
+.c-primary-form input[type="search"]::placeholder {
+    color: var(--classroom-text-0) !important;
+}
+
+.modal-content-div input[type="date"],
+.modal-content-div input[type="number"],
+.modal-content-div input[type="email"],
+.modal-content-div select {
+    border-color: var(--classroom-text-0) !important;
+}
+
+.c-secondary-form .input-group-text {
+    border-color: var(--classroom-text-0);
+    background-color: var(--classroom-background);
+}

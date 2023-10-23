@@ -672,6 +672,9 @@
       "theme": "Tema",
       "light_theme": "Tema de la luz",
       "dark_theme": "Tema oscuro",
+      "contrast": "Contraste",
+      "normal_contrast": "Contraste normal",
+      "high_contrast": "Alto contraste",
       "font": "Fuentes",
       "basic_font": "Básico",
       "know_more": "Saber más"
