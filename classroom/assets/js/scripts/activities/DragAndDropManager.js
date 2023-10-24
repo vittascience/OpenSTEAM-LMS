@@ -130,8 +130,6 @@ class DragAndDropManager {
     }
 
     manageDisplayDragAndDrop(correction, content, correction_div, isFromCourse) {
-
-        console.log("here")
         let course = isFromCourse ? "-course" : "";
         $('#activity-title'+course).html(Activity.activity.title);
         // Show the content with the response to the teacher
