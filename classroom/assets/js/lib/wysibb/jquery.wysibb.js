@@ -1571,7 +1571,6 @@ wbbdebug = false;
 							}
 						})
 
-
 						// append the content onto the modal
 						this.$modal.prependTo(document.body)
 							.html(`
@@ -1639,8 +1638,10 @@ wbbdebug = false;
 								return element.value === mathFieldValue
 							})
 
+							
 							if (mathFieldElement.length) {
 								mathFieldElement.val(mathFormula)
+								this.$editor.find('textarea').forceInsertBbcode(this.$editor.find('textarea').bbcode().replace(mathFieldValue, mathFormula));
 							} else {
 								// insert the data
 								this.wbbInsertCallback(cmd, {

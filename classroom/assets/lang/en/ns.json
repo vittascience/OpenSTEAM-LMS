@@ -352,6 +352,7 @@
 				"success": "Congratulations, you created an activity!",
 				"attribute": "Attribute the activity right now",
 				"attribute2": "Attribute the activity ",
+				"attributeCourse": "Attribute the course ",
 				"return": "Return to My activities",
 				"hint": "You can still attribute this activity later from your dashboard.",
 				"modify": "Modify the activity",
@@ -1360,6 +1361,7 @@
 		"attribution": "Course attribution <i class='fas fa-chevron-right'></i>",
 		"return": "Return <i class='fas fa-chevron-right'></i>",
 		"update": "Update the course",
+		"show": "Show course",
 		"informationWhenEmpty": "Click on the buttons above to add activities to the course."
 	}
 }

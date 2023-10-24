@@ -22,28 +22,28 @@ class FoldersManager {
         this.getAllUserFolders().then(res => {
             this.userFolders = res;
             this.dragulaInitObjects();
-        })
+        });
 
         $('#dashboard-activities-teacher').on('click', () => {
             this.resetTreeFolders();
             if ($_GET('panel') == "classroom-dashboard-activities-panel-teacher") {
                 this.createTreeFolders();
             }
-        })
+        });
 
         $('body').on('click', '.folder-card', function () {
             if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
                 let id = $(this).attr('data-id');
                 foldersManager.openFolder(id);
             }
-        })
+        });
 
         $('body').on('click', '.folder-list', function () {
             if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
                 let id = $(this).attr('data-id');
                 foldersManager.openFolder(id);
             }
-        })
+        });
     }
 
 
@@ -192,15 +192,8 @@ class FoldersManager {
             this.resetTreeFolders();
         }
 
-        let breadCrumbFolderItems = document.querySelectorAll(".folder-breadcrumb-item"),
-            alreadyExist = false;
+        let alreadyExist = this.returnIfFolderExist(folder.id);
 
-        breadCrumbFolderItems.forEach(e => {
-            if (e.dataset.id == folder.id) {
-                alreadyExist = true;
-            }
-        });
-        
         if (!alreadyExist) {
             this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span> <button class="btn c-btn-outline-primary folder-breadcrumb-item" data-id="${folder.id}" onclick="foldersManager.goToFolder(${folder.id})"><i class="fas fa-folder-open folder-breadcrumb"></i> ${folder.name}</button>`);  
         }
@@ -210,10 +203,31 @@ class FoldersManager {
         this.resetDashboardList();
         this.actualFolder = folderId;
         this.resetTreeFolders();
+
+        // switch the panel if we're not on the activity panel without procing the navigatePanel function
+        if ($_GET('panel') != 'classroom-dashboard-activities-panel-teacher') {
+            $('.classroom-navbar-button').removeClass("active");
+            $('.dashboard-block').hide();
+            $('#classroom-dashboard-activities-panel-teacher').show();
+            $('#dashboard-activities-teacher').addClass("active");
+        }
+
         if (folderId != null) {
             this.createTreeFolders();
         }
         this.displayAndDragulaInitObjects();
+    }
+
+    returnIfFolderExist(folderId) {
+        let breadCrumbFolderItems = document.querySelectorAll(".folder-breadcrumb-item"),
+            alreadyExist = false;
+
+        breadCrumbFolderItems.forEach(e => {
+            if (e.dataset.id == folderId) {
+                alreadyExist = true;
+            }
+        });
+        return alreadyExist;
     }
 
     resetDashboardList() {
@@ -440,7 +454,7 @@ class FoldersManager {
         if (viewMode == "list") {
             dragableObjects = [...foldersListArray, ...activitiesListArray, ...coursesListArray];
         } else {
-            dragableObjects = [...foldersArray, ...activitiesArray, ...coursesArray, ];
+            dragableObjects = [...foldersArray, ...activitiesArray, ...coursesArray];
         }
 
 
@@ -506,6 +520,19 @@ class FoldersManager {
                     }
                 }
             })
+
+
+        Main.getClassroomManager().autoScrollGlobal = autoScroll([
+            window,
+            document.querySelector('#list-activities-teacher'),
+            document.querySelector('#classroom-dashboard-activities-panel-teacher'),
+            document.querySelector('#classroom-dashboard-content'),
+        ],{
+            margin: 350,
+            autoScroll: function(){
+                return this.down
+            }
+        });
     }
 
 

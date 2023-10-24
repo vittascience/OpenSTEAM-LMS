@@ -154,7 +154,7 @@ class FillInManager {
         
         if (correction <= 1 || correction == null) {
             if (!UserManager.getUser().isRegular) {
-
+                fillInManager.removeFillInFields();
                 let contentReplaced = content.fillInFields.contentForTeacher.replaceAll(/\[answer\](.*?)\[\/answer\]/g, "_TOBEREPLACED_");
                 let studentContent = bbcodeContentIncludingMathLive(contentReplaced);
                 let nbOccu = studentContent.match(/_TOBEREPLACED_/g).length;
@@ -183,6 +183,13 @@ class FillInManager {
         } else if (correction > 1) {
             fillInManager.displayFillInTeacherSide(correction_div, correction, content, isFromCourse);
         } 
+    }
+
+    removeFillInFields() {
+        let fields = document.querySelectorAll(`input[id^="student-fill-in-field-"]`);
+        for(let field of fields) {
+            field.remove();
+        }
     }
 
     displayFillInTeacherSide(correction_div, correction, content, isFromCourse) {

@@ -312,8 +312,11 @@ function initializeDragulaWithOneContainer(idContainer, classDropZone, reset = t
     // Reset the dragula fields
     if (reset) {
         //Main.getClassroomManager().dragulaGlobal.containers = [];
-        Main.getClassroomManager().dragulaGlobal = {};
+        //Main.getClassroomManager().dragulaGlobal = {};
+    }
 
+    if (Main.getClassroomManager().dragulaGlobal[idContainer] != undefined) {
+        Main.getClassroomManager().dragulaGlobal[idContainer].destroy();
     }
 
     Main.getClassroomManager().dragulaGlobal[idContainer] = dragula([document.querySelector('#' + idContainer)]).on('drop', function(el, target, source) {
@@ -329,6 +332,7 @@ function initializeDragulaWithOneContainer(idContainer, classDropZone, reset = t
 
     let divParent = document.querySelector('#'+idContainer),
         dropeZone = document.querySelector('.'+classDropZone);
+
     dropeZone.parentElement.id = 'dropeZoneParent'+idContainer;
 
     Main.getClassroomManager().autoScrollGlobal = autoScroll([
@@ -336,11 +340,12 @@ function initializeDragulaWithOneContainer(idContainer, classDropZone, reset = t
             divParent.parentElement,
             dropeZone.parentElement,
             document.querySelector('#classroom-dashboard-activity-panel'),
-            document.querySelector('#classroom-dashboard-content')
+            document.querySelector('#classroom-dashboard-course-panel'),
+            document.querySelector('#classroom-dashboard-content'),
         ],{
             margin: 300,
             autoScroll: function(){
-                return this.down && Main.getClassroomManager().dragulaGlobal.dragging;
+                return this.down
             }
         }
     );
