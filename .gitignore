@@ -7,5 +7,5 @@ classroom/assets/plugins/EmailTemplates
 .idea/
 
 classroom/cookie.php
-
+classroom/assets/plugins
 classroom/legalnotice.css

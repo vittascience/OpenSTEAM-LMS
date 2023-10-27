@@ -336,8 +336,11 @@ class ClassroomManager {
                         console.log('error')
                         onEnd();
                     }
-                }).then((resolve)=>{
-                    $("#spinner-loading ").hide();
+                }).then((resolve) => {
+                    // add little delay to avoid the spinner to blink
+                    setTimeout(function(){
+                        $("#spinner-loading ").hide();
+                    }, 200);
                 });
             }
             // Add the current task to the tasks queue

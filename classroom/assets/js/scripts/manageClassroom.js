@@ -9,15 +9,15 @@ window.addEventListener(
     false
 );
 
-async function readEvent (event) {
-    if(event.data.type === "" || event.data.type === "loaded") return; // ignore msg
+async function readEvent(event) {
+    if (event.data.type === "" || event.data.type === "loaded") return; // ignore msg
     try {
         JSON.parse(event.data);
-    } catch(error) {
+    } catch (error) {
         return false;
     }
     const msg = event.data.type ? event.data.type : JSON.parse(event.data);
-    switch(msg.type) {
+    switch (msg.type) {
         // Message received when an LTI resource launch has gone to submission
         case 'end-lti-score':
             // Update the activities from database
@@ -45,7 +45,7 @@ async function readEvent (event) {
                         case 3:
                             navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
                             break;
-                            
+
                         default:
                             navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
                             break;
@@ -66,7 +66,7 @@ async function readEvent (event) {
                 }
             }
 
-           
+
             break;
         // Message received when an LTI deep link has returned
         case 'end-lti-deeplink':
@@ -86,7 +86,13 @@ async function readEvent (event) {
 //formulaire de création de classe
 $('body').on('click', '.teacher-new-classe', function (event) {
     ClassroomSettings.classroom = null;
-    // $('#classroom-classes-title').text(`${i18next.t('classroom.classes.form.title')}`)
+    let classCount = Main.getClassroomManager()._myClasses.length;
+    if (classCount >= UserManager.getUser().restrictions.maxClassrooms && UserManager.getUser().restrictions.maxClassrooms != -1) {
+        displayNotification('#notif-div', "classroom.notif.classNotCreated", "error", `'{"classroomNumberLimit": "${UserManager.getUser().restrictions.maxClassrooms}"}'`);
+        let event = new CustomEvent('displayPremiumModal', { detail: 'classroomAddition' });
+        document.dispatchEvent(event);
+        return;
+    }
     navigatePanel('classroom-dashboard-form-classe-panel', 'dashboard-classes-teacher');
     $('#table-students ul').html('<li id="no-student-label" data-i18n="classroom.classes.form.noStudent"></li>').localize();
 
@@ -269,6 +275,10 @@ document.querySelector('#classroom-create-form').addEventListener('submit', (e) 
         else if (classroom.isClassroomAdded == false) {
             displayNotification('#notif-div', "classroom.notif.classNotCreated", "error", `'{"classroomNumberLimit": "${classroom.classroomNumberLimit}"}'`);
             e.submitter.disabled = false;
+
+            // fire an event to display the premium modal
+            let event = new CustomEvent('displayPremiumModal', { detail: 'classroomAddition' });
+            document.dispatchEvent(event);
         } else {
             const students = [];
             const existingStudents = [];
@@ -431,6 +441,8 @@ function manageResponseOfAddUsers(response) {
         if (response.message == "personalLimit") {
             displayNotification('#notif-div', "classroom.notif.personalLimitationsReached", "error", `'{"max": "${response.teacherInfo.maxStudents}"}'`);
             // Show upgrade modal
+            let event = new CustomEvent('displayPremiumModal', { detail: 'learnerAddition', isGar: UserManager.getUser().isFromGar });
+            document.dispatchEvent(event);
         } else if (response.message == "personalLimitAndGroupOutDated") {
             displayNotification('#notif-div', "classroom.notif.groupLimitationsTeacher", "error", `'{"learnerNumber": "${response.currentLearnerCount + response.addedLearnerNumber}"}'`);
             // Show upgrade modal
@@ -491,7 +503,7 @@ function importLearnerCsv(update = false) {
             }
         })
             .catch((response) => {
-                //console.warn(response);
+                console.error(response);
             });
     } else {
         // import the students before the class creation
@@ -516,6 +528,14 @@ function importLearnerCsvCreateUpdateClassroom(fileInputElt, tableStudentUlElt, 
                 let lines = csv.split("\n");
                 let headers = lines[0].split(/[,;]/);
 
+
+                if (!checkMaxStudentsWhenImportingCsv(csv)) {
+                    pseudoModal.closeAllModal();
+                    // Show upgrade modal
+                    let event = new CustomEvent('displayPremiumModal', { detail: 'learnerAddition', isGar: UserManager.getUser().isFromGar });
+                    document.dispatchEvent(event);
+                    return;
+                }
                 for (let i = 0; i < headers.length; i++) {
                     headers[i] = headers[i].replace("\r", "");
                 }
@@ -573,6 +593,15 @@ function csvToClassroom(link) {
                 reader.onload = function (event) {
                     const csv = event.target.result;
                     let json = csvJSON(csv);
+
+                    if (!checkMaxStudentsWhenImportingCsv(csv)) {
+                        pseudoModal.closeAllModal();
+                        // Show upgrade modal
+                        let event = new CustomEvent('displayPremiumModal', { detail: 'learnerAddition', isGar: UserManager.getUser().isFromGar });
+                        document.dispatchEvent(event);
+                        return;
+                    }
+
                     Main.getClassroomManager().addUsersToGroupByCsv(JSON.parse(json), link, "csv")
                         .then((response) => {
                             resolve(response);
@@ -589,6 +618,15 @@ function csvToClassroom(link) {
     });
 }
 
+function checkMaxStudentsWhenImportingCsv(csvFile) {
+    let maxStudents = UserManager.getUser().restrictions.maxStudents,
+        currentLearnerCount = UserManager.getUser().teacherData.students;
+    if (csvFile.split("\n").length + currentLearnerCount > maxStudents && maxStudents != -1 && !UserManager.getUser().isFromGar) {
+        displayNotification('#notif-div', "classroom.notif.personalLimitationsReached", "error", `'{"max": "${maxStudents}"}'`);
+        return false;
+    }
+    return true;
+}
 /**
  * Convert a csv file into data to be sent to the server
  * @param {*} csv 
@@ -756,23 +794,41 @@ function listIndexesActivities(students) {
     let indexArraybis = new Array()
     students.forEach(element => {
         element.activities.forEach(element => {
-            if (!indexArray.includes(element.reference)) {
+            if (!indexArray.includes(element.reference) && !element.isFromCourse) {
                 indexArray.push(element.reference)
                 indexArraybis.push({
                     id: element.activity.id,
                     title: element.activity.title,
                     reference: element.reference,
-                    isFromCourse: element.isFromCourse,
-                    course: element.hasOwnProperty('course') ? element.course : null
+                    isCourse: false,
+                    //isFromCourse: element.isFromCourse,
+                    //course: element.hasOwnProperty('course') ? element.course : null
                 })
                 ClassroomSettings.indexRef.push(element)
             }
         })
+
+        for (let course of element.courses) {
+            if (!indexArray.includes(course.reference)) {
+                indexArray.push(course.reference)
+                indexArraybis.push({
+                    id: course.id,
+                    courseId: course.course.id,
+                    title: course.course.title,
+                    reference: course.reference,
+                    activitiesReference: course.activitiesReferences,
+                    isCourse: true,
+                    courseLength: course.activitiesReferences.length,
+                })
+                ClassroomSettings.indexRef.push(course)
+            }
+        }
     });
     // sorting the index array by date
     indexArraybis.sort((a, b) => {
         return (a.reference > b.reference) ? 1 : -1;
     });
+
     return indexArraybis;
 }
 
@@ -916,6 +972,14 @@ function filterSandboxInList(keywords = [], orderBy = 'id', asc = true) {
     }
 
 }
+function resetDisplayClassroom() {
+    // Clean the display
+    document.querySelector('#body-table-teach').innerHTML = '';
+    document.querySelector('#add-student-container').innerHTML = '';
+    document.querySelector('#export-class-container').innerHTML = '';
+    document.querySelector('#header-table-teach').innerHTML = '';
+}
+
 
 /**
  * Display the teacher dashboard in the classroom tab
@@ -933,7 +997,9 @@ function displayStudentsInClassroom(students, link = false) {
 
     // Display the classroom name
     const classroomName = getClassroomInListByLink(ClassroomSettings.classroom)[0].classroom.name;
+    const classroomId = getClassroomInListByLink(ClassroomSettings.classroom)[0].classroom.id;
     const reducedclassroomName = classroomName.length > 16 ? `${classroomName.substring(0, 16)}...` : classroomName;
+
     document.querySelector('#header-table-teach').innerHTML = `<th class="table-title" style="max-width: 250px; font-size: 14pt; text-align: left; height: 3em;" data-bs-toggle="tooltip" title="${classroomName}">${reducedclassroomName}</th>`;
 
     $('#is-monochrome').attr('data-link', link);
@@ -941,18 +1007,22 @@ function displayStudentsInClassroom(students, link = false) {
 
     // get the current classroom index of activities
     let arrayIndexesActivities = listIndexesActivities(students);
+
     students.forEach(element => {
+
         // reorder the current student activities to fit to the classroom index of activities
-        let arrayActivities = reorderActivities(element.activities, arrayIndexesActivities);
-        let html = '';
+        let arrayActivities = reorderActivities([...element.activities, ...element.courses], arrayIndexesActivities);
         let pseudo = element.user.pseudo;
+        let html = '';
+
         // shorten the current student nickname to fit in the table
         if (element.user.pseudo.length > 10) {
             pseudo = element.user.pseudo.slice(0, 9) + "&#8230;";
         }
+
         // Add demoStudent's head table cell if it's the current student
         if (element.user.pseudo == demoStudentName) {
-            html = /* html */`<tr>
+            html = `<tr>
                 <th class="username" data-student-id="${element.user.id}">
                     <div class="user-cell-container">
                         <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil">
@@ -967,13 +1037,13 @@ function displayStudentsInClassroom(students, link = false) {
                 </th>`;
             // Add the current student head table cell
         } else {
-            html = /*html*/`<tr>
+            html = `<tr>
                 <th class="username" data-student-id="${element.user.id}">
                     <div class="user-cell-container">
                         <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil">
                         <div class="user-cell-username" title="${element.user.pseudo}">${pseudo}</div>`
             if (!UserManager.getUser().isFromGar) {
-                html += /**/`<div class="dropdown"><i class="classroom-clickable line_height34 fas fa-cog" type="button" id="dropdown-studentItem-${element.user.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                html += `<div class="dropdown"><i class="classroom-clickable line_height34 fas fa-cog" type="button" id="dropdown-studentItem-${element.user.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                 <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
                 <li class="col-12 pwd-display-stud" href="#"><div data-i18n="classroom.classes.panel.password">Votre mot de passe :</div> <span class="masked" id="masked">${element.pwd}</span><i class="classroom-clickable fas fa-low-vision switch-pwd ms-2"></i></li>
                 <li class="modal-student-password classroom-clickable col-12 dropdown-item" href="#" data-student-id="${element.user.id}" data-i18n="classroom.classes.panel.resetPassword">Régenérer le mot de passe</li>
@@ -985,51 +1055,23 @@ function displayStudentsInClassroom(students, link = false) {
             }
             html += `</th>`;
         }
+
+
         let activityNumber = 1;
         // Display the current student activities in the dashboard
 
         // Loop in the classroom activities index (with ids) to generate the dashboard table header and body
         for (let i = 0; i < arrayIndexesActivities.length; i++) {
+            const currentActivity = arrayActivities[i];
+            let isCourse = false;
+            if (currentActivity.hasOwnProperty('courseState')) {
+                isCourse = true;
+            }
+
             if (element.user.pseudo == demoStudentName) {
-                let fromCourse = false,
-                    firstFromCourse = false,
-                    courseLength = 0,
-                    courseId = null;
-
-                if (arrayIndexesActivities[i].isFromCourse) {
-                    fromCourse = true;
-                    if (arrayIndexesActivities[i].course != null) {
-                        courseId = arrayIndexesActivities[i].course.id;
-                    }
-                }
-
-                let course = coursesManager.myCourses.find(course => course.id == courseId)
-                if (course != null) {
-                    courseLength = course.activities.length;
-                    if (course.activities[0].id == arrayIndexesActivities[i].id) {
-                        firstFromCourse = true;
-                    }
-                }
-
-                let tableLength = null;
-                if (firstFromCourse) {
-                    tableLength = `colspan="${courseLength}"`;
-                }
-
                 let thModular = "";
                 let optionContent = "";
-                if (fromCourse && firstFromCourse) {
-                    thModular = `<th data-bs-toggle="tooltip" class="border-header-class" ${tableLength} data-bs-placement="top" title="Course">`;
-                    optionContent = `<li class="ms-5" style="border-bottom:solid 2px black;">
-                                        <b>${course.title}</b>
-                                    </li>
-                                    
-                                    <li class="classroom-clickable col-12 dropdown-item " onclick="coursesManager.courseOverview(${course.id})" ><i class="fas fa-eye"></i> <span data-i18n="classroom.classes.panel.seeActivity">Voir l'activité</span></li>
-                                    <li class=" classroom-clickable col-12 dropdown-item" onclick="coursesManager.updateCourse(${course.id})"><i class="fas fa-pen"></i> <span data-i18n="classroom.classes.panel.editActivity">Modifier l'activité</span></li>
-                                    <li class="classroom-clickable col-12 dropdown-item" onclick="coursesManager.attributeCourse(${course.id})"><i class="fas fa-user-alt"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span></li>
-                                    <li class="dropdown-item classroom-clickable col-12" onclick="coursesManager.undoAttribution(${course.id})"><i class="fas fa-trash-alt"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span></li>`;
-
-                } else if (!fromCourse) {
+                if (!isCourse) {
                     thModular = `<th data-bs-toggle="tooltip" class="border-header-class" data-bs-placement="top" title="${arrayIndexesActivities[i].title.replaceAll('"', " ")}">`;
                     optionContent = `<li class="ms-5" style="border-bottom:solid 2px black;">
                                         <b>${arrayIndexesActivities[i].title}</b>
@@ -1038,17 +1080,13 @@ function displayStudentsInClassroom(students, link = false) {
                                     <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${arrayIndexesActivities[i].id})"><i class="fas fa-pen"></i> <span data-i18n="classroom.classes.panel.editActivity">Modifier l'activité</span></li>
                                     <li class="classroom-clickable col-12 dropdown-item" onclick="attributeActivity(${arrayIndexesActivities[i].id},${arrayIndexesActivities[i].reference})"><i class="fas fa-user-alt"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span></li>
                                     <li class="dropdown-item classroom-clickable col-12" onclick="undoAttributeActivity(${arrayIndexesActivities[i].reference},'${Main.getClassroomManager().getClassroomIdByLink(ClassroomSettings.classroom)}')"><i class="fas fa-trash-alt"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span></li>`;
-                }
 
 
-
-                if (fromCourse && firstFromCourse || !fromCourse) {
                     $('#header-table-teach').append(`
                         ${thModular}
-                        
                         <div class="dropdown dropdown-act m-auto" style="width:30px;">
                             <div id="dropdown-act-${activityNumber}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    ${!fromCourse ? `<span class="span-act">Act.</br>n°${activityNumber}</span>` : `<span class="span-act">Par.</br>n°${activityNumber}</span>`}
+                                    <span class="span-act">Act.</br>n°${activityNumber}</span>
                                     <i style="display:none;font-size:2em;" class="fa fa-cog i-act" aria-hidden="true"></i>
                                     <div class="dropdown-menu" aria-labelledby="dropdown-act-${activityNumber}" data-id="${arrayIndexesActivities[i].id}" style="text-transform: none;">
                                     ${optionContent}
@@ -1057,19 +1095,59 @@ function displayStudentsInClassroom(students, link = false) {
                         </th>`
                     );
                     activityNumber++;
+                } else {
+                    let tableLength = `colspan="${currentActivity.activitiesReferences.length}"`;
+                    let thModular = `<th data-bs-toggle="tooltip" class="border-header-class" ${tableLength} data-bs-placement="top" title="${currentActivity.course.title}">`;
+                    optionContent = `
+                    <li class="ms-5" style="border-bottom:solid 2px black;">
+                        <b>${currentActivity.course.title}</b>
+                    </li>
+                    
+                    <li class="classroom-clickable col-12 dropdown-item " onclick="coursesManager.courseOverview(${currentActivity.course.id})" ><i class="fas fa-eye"></i> <span data-i18n="courses.show">Voir le parcours</span></li>
+                    <li class="classroom-clickable col-12 dropdown-item" onclick="coursesManager.updateCourse(${currentActivity.course.id})"><i class="fas fa-pen"></i> <span data-i18n="courses.update">Modifier le parcours</span></li>
+                    <li class="classroom-clickable col-12 dropdown-item" onclick="coursesManager.attributeCourse(${currentActivity.course.id}, ${currentActivity.reference})"><i class="fas fa-user-alt"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span></li>
+                    <li class="dropdown-item classroom-clickable col-12" onclick="coursesManager.undoAttribution(${currentActivity.course.id}, ${currentActivity.reference}, ${classroomId})"><i class="fas fa-trash-alt"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span></li>`;
+
+                    $('#header-table-teach').append(`
+                        ${thModular}
+                        <div class="dropdown dropdown-act m-auto" style="width:30px;">
+                            <div id="dropdown-act-${activityNumber}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    ${`<span class="span-act">Par.</br>n°${activityNumber}</span>`}
+                                    <i style="display:none;font-size:2em;" class="fa fa-cog i-act" aria-hidden="true"></i>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-act-${activityNumber}" data-id="" style="text-transform: none;">
+                                    ${optionContent}
+                                </div>
+                            </div>
+                        </th>`
+                    );
+                    activityNumber++;
                 }
             }
-            // Display the current student activities in the dashboard
-            let currentActivity = arrayActivities[i];
 
-            if (currentActivity) {
-                const formatedTimePast =
-                    typeof currentActivity.timePassed == 'undefined' ? '' : currentActivity.timePassed == 0 ? '' : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em><br><em>${i18next.t("classroom.activities.numberOfTries")} ${currentActivity.tries}</em>`;
-                html += `<td class=" ${statusActivity(currentActivity, true, formatedTimePast)} bilan-cell classroom-clickable" data-state=" ${statusActivity(currentActivity, false)}" data-id="${currentActivity.id}" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title="<b>${currentActivity.activity.title}</b><br><em>${getTranslatedActivityName(currentActivity.activity.type)}</em></br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>${formatedTimePast}"></td>`;
+            // Display the current student activities in the dashboard
+            if (currentActivity && !isCourse) {
+                html += renderActivityDashboard(currentActivity);
+            } else if (isCourse) {
+                if (currentActivity.activitiesReferences) {
+                    for (let j = 0; j < currentActivity.activitiesReferences.length; j++) {
+                        let tempActivity = findOneActivityLinkUserByReference(currentActivity.activitiesReferences[j], element);
+                        if (tempActivity) {
+                            html += renderActivityDashboard(tempActivity);
+                        }
+
+                    }
+                }
             } else {
-                html += `<td class="no-activity bilan-cell"></td>`;
+                if (arrayIndexesActivities[i].isCourse) {
+                    for (let k = 0; k < arrayIndexesActivities[i].courseLength; k++) {
+                        html += `<td class="no-activity bilan-cell"></td>`;
+                    }
+                } else {
+                    html += `<td class="no-activity bilan-cell"></td>`;
+                }
             }
         }
+
         // addition of 6 "empty" cells at the end of the current table row
         for (let i = 0; i < 6; i++) {
             html += '<td class="no-activity bilan-cell"></td>';
@@ -1081,12 +1159,28 @@ function displayStudentsInClassroom(students, link = false) {
     });
 
 
-    function manageHeaderTableStudents() {
-
+    function renderActivityDashboard(currentActivity) {
+        const formatedTimePast = typeof currentActivity.timePassed == 'undefined' ? '' : currentActivity.timePassed == 0 ? '' : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em><br><em>${i18next.t("classroom.activities.numberOfTries")} ${currentActivity.tries}</em>`;
+        let html = `<td class=" ${statusActivity(currentActivity, true, formatedTimePast)} bilan-cell classroom-clickable" data-state="${statusActivity(currentActivity, false)}" data-id="${currentActivity.id}" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title="<b>${currentActivity.activity.title}</b>
+                <br>
+                <em>${getTranslatedActivityName(currentActivity.activity.type)}</em></br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>${formatedTimePast}"></td>`;
+        return html;
     }
 
-    if (!UserManager.getUser().isFromGar)
-        appendAddStudentButton()
+
+    function findOneActivityLinkUserByReference(reference, student) {
+        let activity = null;
+        student.activities.forEach(act => {
+            if (act.reference == reference) {
+                activity = act;
+            }
+        })
+        return activity;
+    }
+
+    // i do not know why this is here..
+    //if (!UserManager.getUser().isFromGar)
+        //appendAddStudentButton()
 
     // get classroom settings from localstorage
     let settings = getClassroomDisplaySettings(link);
@@ -1145,14 +1239,26 @@ function getRandomInt(max) {
 }
 
 function displayNotification(div, message, status, options = '{}') {
-    let randId = getRandomInt(10000)
-    let html = `<div id='notif-` + randId + `' class="vitta-notif status-` + status + `" data-i18n="` + message + `" data-i18n-options=` + options + `><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`
+    let randId = Math.floor(Math.random() * Math.floor(10000))
+    // get i18n text
+    let html = "";
+    let i18nText = i18next.t(message);
+
+    if (i18nText == message) {
+        html = `<div id='notif-${randId}' class="vitta-notif status-${status}">${message}<div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`;
+    } else {
+        html = `<div id='notif-${randId}' class="vitta-notif status-${status}" data-i18n="${message}" data-i18n-options=${options}><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`
+    }
+
+    //let html = `<div id='notif-` + randId + `' class="vitta-notif status-` + status + `" data-i18n="` + message + `" data-i18n-options=` + options + `><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`
     $(div).append(html)
     $(div).localize()
     setTimeout(function () {
         $('#notif-' + randId).remove()
     }, 15000);
 }
+
+
 $('body').on('click', '.vitta-notif-exit-btn', function () {
     $(this).parent().remove()
 })
