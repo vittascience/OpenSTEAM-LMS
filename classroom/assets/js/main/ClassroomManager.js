@@ -336,7 +336,7 @@ class ClassroomManager {
                         console.log('error')
                         onEnd();
                     }
-                }).then((resolve) => {
+                }).then((resolve)=> {
                     // add little delay to avoid the spinner to blink
                     setTimeout(function(){
                         $("#spinner-loading ").hide();
