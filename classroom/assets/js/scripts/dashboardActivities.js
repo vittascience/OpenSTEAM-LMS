@@ -267,7 +267,7 @@ function classeItem(classe, nbStudents, students) {
                 <div class="class-card-top"  data-id="${classe.id}" data-link="${classe.link}">
                 <span><i class="fas fa-user fa-2x"></i></i> ${nbStudents}</span>
                 ${remainingCorrectionsSpanElt}
-                <div class="dropdown"><i class="fas fa-cog fa-2x" type="button" id="dropdown-classeItem-${classe.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                <div class="dropdown"><i class="fas fa-cog fa-2x" type="button" id="dropdown-classeItem-${classe.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                     <div class="dropdown-menu" aria-labelledby="dropdown-classeItem-${classe.id}">`
                 + `<li class="modal-classroom-modify classroom-clickable col-12 dropdown-item" href="#">` +
                     (!isFromGar ? capitalizeFirstLetter(i18next.t('words.modify')) : "") + `</li>`  +
