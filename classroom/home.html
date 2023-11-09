@@ -1,5 +1,4 @@
     <link rel="stylesheet" href="assets/css/modal.css">
-    <script>const _PATH = "/classroom/"</script>
     <!-- PLUGIN CSS-->
 
     <!-- END PLUGIN CSS -->
@@ -1380,7 +1379,7 @@
 
         <button class="btn c-btn-outline-primary" onclick="switchToProf()"><span data-i18n="classroom.profil.switchModeTeacher" class="text-span-initial me-1"></span><i class="fas fa-exchange-alt"></i></button>
 
-        <button class="btn c-btn-red" onclick="goToDisconnect('classroom');"><span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
+        <button class="btn c-btn-red" onclick="goToDisconnect('classroom');"  data-testid="classroomLogoutBtn"><span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
             <i class="fas fa-power-off"></i>
         </button>
     </div>
@@ -2728,7 +2727,9 @@
     }
 </script>
 <script src="assets/js/utils/translate.js" defer></script>
+<!-- PLUGIN SCRIPTS-->
 
+<!-- END PLUGIN SCRIPTS -->
 </body>
 
 </html>
