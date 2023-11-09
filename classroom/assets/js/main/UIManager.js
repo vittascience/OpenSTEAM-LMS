@@ -17,54 +17,54 @@ var UIManager = (function () {
     };
     UI.closeAllModals = function () {
         for (let idModal in UI.modalsHtml) {
-            $(idForJquery(idModal)).hide();
+            $("#" + (idModal)).hide();
         }
         UI.modalStack = [];
     };
     UI.showModal = function (idModal) {
-        $(idForJquery(idModal)).show();
-        $(idForJquery(idModal)).localize()
+        $("#" + (idModal)).show();
+        $("#" + (idModal)).localize()
         UI.modalStack.push(idModal);
     };
     UI.closeModal = function (idModal = null) {
         if (idModal === null) {
             var currentModal = UI.modalStack.pop();
-            $(idForJquery(currentModal)).hide();
+            $("#" + (currentModal)).hide();
         } else {
-            $(idForJquery(idModal)).hide();
+            $("#" + (idModal)).hide();
             UI.modalStack.pop();
         }
     };
 
     // Binders
     UI.unbindAllEvent = function (elementId) {
-        $(idForJquery(elementId)).unbind();
+        $("#" + (elementId)).unbind();
     };
     UI.bindClick = function (elementId, action) {
         UI.unbindAllEvent(elementId);
-        $(idForJquery(elementId)).click(action);
+        $("#" + (elementId)).click(action);
     };
 
     // Messages
     UI.cleanMessage = function (messageDivId) {
-        $(idForJquery(messageDivId)).attr("class", "");
-        $(idForJquery(messageDivId)).html("");
+        $("#" + (messageDivId)).attr("class", "");
+        $("#" + (messageDivId)).html("");
     };
     UI.cleanMessages = function (messageDivIds) {
         messageDivIds.forEach(messageDivId => {
-            $(idForJquery(messageDivId)).attr("class", "");
-            $(idForJquery(messageDivId)).html("");
+            $("#" + (messageDivId)).attr("class", "");
+            $("#" + (messageDivId)).html("");
         });
     };
     UI.successMessage = function (messageDivId, message) {
         UI.cleanMessage(messageDivId);
-        $(idForJquery(messageDivId)).attr("class", "alert alert-success");
-        $(idForJquery(messageDivId)).html(message);
+        $("#" + (messageDivId)).attr("class", "alert alert-success");
+        $("#" + (messageDivId)).html(message);
     };
     UI.errorMessage = function (messageDivId, message) {
         UI.cleanMessage(messageDivId);
-        $(idForJquery(messageDivId)).attr("class", "alert alert-danger");
-        $(idForJquery(messageDivId)).html(message);
+        $("#" + (messageDivId)).attr("class", "alert alert-danger");
+        $("#" + (messageDivId)).html(message);
     };
 
     UI.init = function () {

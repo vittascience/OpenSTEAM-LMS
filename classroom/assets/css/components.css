@@ -1,3 +1,11 @@
+:root {
+    --bs-primary: var(--classroom-primary);
+    --bs-primary-rgb: var(--classroom-primary-rgb);
+    --bs-secondary: var(--classroom-secondary);
+    --bs-secondary-rgb: var(--classroom-secondary-rgb);
+
+}
+
 /* Text */
 .c-text-primary {
     color: var(--classroom-primary);
