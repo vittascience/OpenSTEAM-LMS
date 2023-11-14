@@ -825,6 +825,8 @@ hr {
 
 .masked {
     font-family: "password";
+    filter: blur(4px);
+    user-select: none;
 }
 
 /* CHECKBOXES */
