@@ -3,11 +3,10 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : mariadb
--- Généré le : lun. 07 nov. 2022 à 07:59
+-- Généré le : mar. 14 nov. 2023 à 18:52
 -- Version du serveur : 10.9.3-MariaDB-1:10.9.3+maria~ubu2204
 -- Version de PHP : 8.0.19
 
-SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -88,7 +87,8 @@ CREATE TABLE `classroom_activities_link_classroom_users` (
   `is_evaluation` tinyint(1) NOT NULL DEFAULT 0,
   `url` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `response` text COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `is_from_course` tinyint(1) NOT NULL DEFAULT 0
+  `is_from_course` tinyint(1) NOT NULL DEFAULT 0,
+  `optional_data` text COLLATE utf8mb3_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
@@ -114,11 +114,13 @@ CREATE TABLE `classroom_applications` (
 --
 
 INSERT INTO `classroom_applications` (`id`, `name`, `description`, `image`, `is_lti`, `color`, `max_per_teachers`, `sort`, `background_image`) VALUES
-(1, 'reading', 'reading', './assets/media/activity/reading.png', 0, '#12acb1', -1, 7, ''),
+(1, 'reading', 'reading', './assets/media/activity/reading.png', 0, '#12acb1', -1, 9, ''),
 (2, 'free', 'free', './assets/media/activity/free.png', 0, '#3fa9f5', -1, 3, ''),
 (3, 'dragAndDrop', 'dragAndDrop', './assets/media/activity/dragAndDrop.png', 0, '#24a069', -1, 2, ''),
 (4, 'quiz', 'quiz', './assets/media/activity/quiz.png', 0, '#ff931e', -1, 5, ''),
-(5, 'fillIn', 'fillIn', './assets/media/activity/fillIn.png', 0, '#5c947a', -1, 4, '');
+(5, 'fillIn', 'fillIn', './assets/media/activity/fillIn.png', 0, '#5c947a', -1, 4, ''),
+(59, 'TI-83-CE', 'Émulez la calculatrice TI-83 Premium CE Edition Python.', './assets/media/activity/reading.png', 0, '#d12323', -1, 0, NULL),
+(60, 'Calculatrice', 'Émulez la calculatrice TI-83 Premium CE Edition Python.', './assets/plugins/media/ti-83/ti-calc-1.png', 0, '#000000', -1, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -170,8 +172,22 @@ CREATE TABLE `classroom_restrictions` (
 --
 
 INSERT INTO `classroom_restrictions` (`id`, `name`, `restrictions`) VALUES
-(1, 'userDefaultRestrictions', '\"{\\\"maxStudents\\\":5,\\\"maxClassrooms\\\":0}\"'),
-(2, 'groupDefaultRestrictions', '\"{\\\"maxStudents\\\":15,\\\"maxTeachers\\\":1,\\\"maxStudentsPerTeacher\\\":5,\\\"maxClassroomsPerTeacher\\\":0}\"');
+(1, 'userDefaultRestrictions', '\"{\\\"maxStudents\\\":7,\\\"maxClassrooms\\\":8}\"'),
+(2, 'groupDefaultRestrictions', '\"{\\\"maxStudents\\\":151,\\\"maxTeachers\\\":100,\\\"maxStudentsPerTeacher\\\":500,\\\"maxClassroomsPerTeacher\\\":141}\"');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `classroom_state_storage`
+--
+
+CREATE TABLE `classroom_state_storage` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `activity_id` int(11) DEFAULT NULL,
+  `key_url` varchar(255) DEFAULT NULL,
+  `inserted_at` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -224,7 +240,9 @@ CREATE TABLE `classroom_users_link_courses` (
   `activities_data` text DEFAULT NULL,
   `date_begin` datetime DEFAULT NULL,
   `date_end` datetime DEFAULT NULL,
-  `course_state` int(11) NOT NULL
+  `course_state` int(11) NOT NULL,
+  `reference` varchar(15) DEFAULT NULL,
+  `activities_references` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -253,6 +271,20 @@ CREATE TABLE `classroom_users_restrictions` (
   `max_students` int(11) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `max_classrooms` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `classroom_user_link_survey`
+--
+
+CREATE TABLE `classroom_user_link_survey` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `survey_name` varchar(255) DEFAULT NULL,
+  `survey_data` varchar(10000) DEFAULT NULL,
+  `next_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -291,10 +323,7 @@ CREATE TABLE `interfaces_projects` (
   `link` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
   `mode` varchar(20) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
-  `is_activity_solve` tinyint(1) NOT NULL DEFAULT 0,
-  `is_exercise_creator` tinyint(1) NOT NULL DEFAULT 0,
-  `id_exercise` int(11) DEFAULT NULL,
-  `exercise_statement` longtext COLLATE utf8mb3_unicode_ci DEFAULT NULL
+  `is_activity_solve` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
@@ -342,6 +371,17 @@ CREATE TABLE `learn_activities` (
   `folder` int(11) DEFAULT NULL,
   `is_collapsed` tinyint(4) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `learn_activities_link_tags`
+--
+
+CREATE TABLE `learn_activities_link_tags` (
+  `id_activity` int(11) NOT NULL,
+  `id_tag` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -418,7 +458,9 @@ CREATE TABLE `learn_courses` (
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   `rights` int(11) NOT NULL DEFAULT 0,
   `views` int(11) NOT NULL DEFAULT 0,
-  `folder` int(11) DEFAULT NULL
+  `folder` int(11) DEFAULT NULL,
+  `format` tinyint(1) DEFAULT NULL,
+  `optional_data` text COLLATE utf8mb3_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
@@ -455,6 +497,18 @@ CREATE TABLE `learn_folders` (
   `name` varchar(255) NOT NULL,
   `user` int(11) NOT NULL,
   `parent_folder` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `learn_tags`
+--
+
+CREATE TABLE `learn_tags` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `parent_tag` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -502,7 +556,8 @@ CREATE TABLE `users` (
   `password` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
   `insert_date` timestamp NULL DEFAULT current_timestamp(),
   `update_date` timestamp NULL DEFAULT current_timestamp(),
-  `picture` varchar(250) COLLATE utf8mb3_unicode_ci DEFAULT NULL
+  `picture` varchar(250) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `totp_secret` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 -- --------------------------------------------------------
@@ -532,6 +587,19 @@ CREATE TABLE `user_classroom_users` (
   `mail_teacher` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `canope_id` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `user_images`
+--
+
+CREATE TABLE `user_images` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `img` varchar(255) NOT NULL,
+  `is_public` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -637,6 +705,12 @@ ALTER TABLE `classroom_restrictions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `classroom_state_storage`
+--
+ALTER TABLE `classroom_state_storage`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `classroom_users_link_applications`
 --
 ALTER TABLE `classroom_users_link_applications`
@@ -676,6 +750,12 @@ ALTER TABLE `classroom_users_link_groups`
 -- Index pour la table `classroom_users_restrictions`
 --
 ALTER TABLE `classroom_users_restrictions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `classroom_user_link_survey`
+--
+ALTER TABLE `classroom_user_link_survey`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -779,6 +859,12 @@ ALTER TABLE `learn_folders`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `learn_tags`
+--
+ALTER TABLE `learn_tags`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `learn_tutorials_link_tutorials`
 --
 ALTER TABLE `learn_tutorials_link_tutorials`
@@ -811,6 +897,12 @@ ALTER TABLE `users_login_attempts`
 --
 ALTER TABLE `user_classroom_users`
   ADD PRIMARY KEY (`user`);
+
+--
+-- Index pour la table `user_images`
+--
+ALTER TABLE `user_images`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `user_premium`
@@ -858,7 +950,7 @@ ALTER TABLE `classroom_activities_link_classroom_users`
 -- AUTO_INCREMENT pour la table `classroom_applications`
 --
 ALTER TABLE `classroom_applications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT pour la table `classroom_groups`
@@ -877,6 +969,12 @@ ALTER TABLE `classroom_groups_link_applications`
 --
 ALTER TABLE `classroom_restrictions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT pour la table `classroom_state_storage`
+--
+ALTER TABLE `classroom_state_storage`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `classroom_users_link_applications`
@@ -906,6 +1004,12 @@ ALTER TABLE `classroom_users_link_groups`
 -- AUTO_INCREMENT pour la table `classroom_users_restrictions`
 --
 ALTER TABLE `classroom_users_restrictions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `classroom_user_link_survey`
+--
+ALTER TABLE `classroom_user_link_survey`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -963,6 +1067,12 @@ ALTER TABLE `learn_folders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT pour la table `learn_tags`
+--
+ALTER TABLE `learn_tags`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT pour la table `lti_tools`
 --
 ALTER TABLE `lti_tools`
@@ -978,6 +1088,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `users_login_attempts`
 --
 ALTER TABLE `users_login_attempts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `user_images`
+--
+ALTER TABLE `user_images`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -1045,7 +1161,6 @@ ALTER TABLE `learn_activities`
 --
 ALTER TABLE `learn_chapters`
   ADD CONSTRAINT `FK_B130E3A7514956FD` FOREIGN KEY (`collection_id`) REFERENCES `learn_collections` (`id`);
-SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

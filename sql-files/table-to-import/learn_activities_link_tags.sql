@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : mariadb
--- Généré le : mer. 15 mars 2023 à 01:48
+-- Généré le : sam. 11 nov. 2023 à 13:26
 -- Version du serveur : 10.9.3-MariaDB-1:10.9.3+maria~ubu2204
 -- Version de PHP : 8.0.19
 
