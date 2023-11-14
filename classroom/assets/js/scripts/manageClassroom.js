@@ -1281,12 +1281,16 @@ function actualizeStudentActivities(activity, correction) {
 }
 
 function addStudentRow(pseudo, studentId = false, isNotDeletable) {
-    return `<li data-pseudo="${pseudo}" data-id="${studentId}" class="row align-items-center my-1 ">
-        <img class="col-2 propic pic-width" src="${_PATH}assets/media/alphabet/` + pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil">
+    return `<li data-pseudo="${pseudo}" data-id="${studentId}" class="row align-items-center my-1">
+        <div class="col-2">
+            <img class="w-100 propic pic-width" src="${_PATH}assets/media/alphabet/` + pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil">
+        </div>
         <div class="col">` + pseudo + `</div>
-        ${isNotDeletable ? '' : `<button type=\"button\" class=\"btn btn-danger remove-student h-50\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\"  >
-            <i class=\"fas fa-times\"></i>
-        </button>`}
+        ${isNotDeletable ? '' : `<div class="col-2">
+            <button type="button" class="btn btn-danger remove-student h-50" data-bs-toggle="tooltip" data-bs-placement="top">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>`}
     </li>`;
 }
 
