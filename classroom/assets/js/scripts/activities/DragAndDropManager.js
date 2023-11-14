@@ -111,7 +111,7 @@ class DragAndDropManager {
         divPreviewFields.id = "preview-drag-and-drop-fields-teacher";
         divPreviewFields.classList.add("m-2");
         divPreviewFields.classList.add("drag-and-drop-fields");
-        divPreviewFields.classList.add("dropable-items");
+        divPreviewFields.classList.add("dropzone-preview");
 
 
         divActivityDoable.appendChild(divPreviewFields);
@@ -121,7 +121,7 @@ class DragAndDropManager {
             $('#preview-drag-and-drop-fields-teacher').append(dragAndDropManager.parseDraggableItems(e));
         });
 
-        initializeDragulaWithOneContainer('preview-drag-and-drop-fields-teacher', 'dropzone-preview');
+        initializeDragulaWithOneContainer('activity-content', 'dropzone-preview', Activity.id);
         dragAndDropManager.showTeacherCommonCode(contentParsed);
     }
 
@@ -163,8 +163,11 @@ class DragAndDropManager {
                     $('#drag-and-drop-fields'+course).append(dragAndDropManager.parseDraggableItems(e));
                 });
                 $('#activity-drag-and-drop-container'+course).show();
+
+                let dropContainer = document.getElementById('drag-and-drop-fields'+course);
+                dropContainer.classList.add('dropzone');
             
-                initializeDragulaWithOneContainer('drag-and-drop-fields'+course, 'dropzone');
+                initializeDragulaWithOneContainer('activity-drag-and-drop-container'+course, 'dropzone', Activity.activity.id);
     
                 // Place the student's response if there is one
                 if (Activity.response != null && Activity.response != "") {
@@ -239,7 +242,7 @@ class DragAndDropManager {
             $('#preview-drag-and-drop-fields').append(dragAndDropManager.parseDraggableItems(e));
         });
 
-        initializeDragulaWithOneContainer('preview-drag-and-drop-fields', 'dropzone-preview');
+        initializeDragulaWithOneContainer('activity-doable'+activity.id, 'dropzone-preview');
         $('#preview-states').show();
         $('#preview-activity-drag-and-drop-container').show();
         $('#activity-preview-div').show();
@@ -292,11 +295,12 @@ class DragAndDropManager {
         if (activityData.doable) {
             const dragAndDropFieldsDiv = document.createElement('div');
             dragAndDropFieldsDiv.classList.add('drag-and-drop-fields');
+            dragAndDropFieldsDiv.classList.add('dropzone-' + idActivity);
             dragAndDropFieldsDiv.id = 'drag-and-drop-fields-one-page-course' + idActivity;
             dragAndDropFieldsDiv.innerHTML = activityData.dragAndDropChoices;
             htmlContainer.appendChild(dragAndDropFieldsDiv);
             
-            initializeDragulaWithOneContainer('drag-and-drop-fields-one-page-course' + idActivity, 'dropzone-' + idActivity, false, idActivity);
+            initializeDragulaWithOneContainer(`activity-${idActivity}-course-one-page`, 'dropzone-' + idActivity, idActivity);
     
             if (responses != null && responses != "") {
                 let response = JSON.parse(responses);

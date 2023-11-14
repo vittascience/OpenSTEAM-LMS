@@ -299,13 +299,9 @@ function cancelImport() {
 }
 
 
-function initializeDragulaWithOneContainer(idContainer, classDropZone, reset = true, activityId = null) {
-
-
-    console.log(idContainer, classDropZone, reset, activityId)
-
+function initializeDragulaWithOneContainer(idContainer, classDropZone, activityId = null) {
     let droppableName = 'droppable'
-    if (activityId == null) {
+    if (activityId != null) {
         droppableName += '-'+activityId;
     }
 
@@ -313,72 +309,21 @@ function initializeDragulaWithOneContainer(idContainer, classDropZone, reset = t
         Main.getClassroomManager().droppable[droppableName].destroy();
     }
 
-    Main.getClassroomManager().droppable[droppableName] = droppable = new Draggable.Droppable(
-        document.querySelectorAll('#classroom-dashboard-content'),
+    Main.getClassroomManager().droppable[droppableName] = new Draggable.Droppable(
+        document.querySelectorAll(`#${idContainer}`),
         {
             draggable: '.draggable-items',
-            dropzone: `.dropable-items`,
+            dropzone: '.'+classDropZone,
         },
     );
 
-    droppable.on('droppable:stop', (evt) => {
-        if (evt.dropzone.id == "preview-drag-and-drop-fields-teacher") {
+    Main.getClassroomManager().droppable[droppableName].on('droppable:stop', (evt) => {
+        if (evt.dropzone.classList.contains('drag-and-drop-fields')) {
             if (evt.dropzone.classList.contains("draggable-dropzone--occupied")) {
                 evt.dropzone.classList.remove("draggable-dropzone--occupied");
             }
         }
     });
-
-
-/*     // init dragula if it's not already initialized
-    if (Main.getClassroomManager().dragulaGlobal == false) {
-        Main.getClassroomManager().dragulaGlobal = dragula();
-    }
-
-    if (Main.getClassroomManager().autoScrollGlobal != false) {
-        Main.getClassroomManager().autoScrollGlobal = false;
-    }
-
-    // Reset the dragula fields
-    if (reset) {
-        //Main.getClassroomManager().dragulaGlobal.containers = [];
-        //Main.getClassroomManager().dragulaGlobal = {};
-    }
-
-    if (Main.getClassroomManager().dragulaGlobal[idContainer] != undefined) {
-        Main.getClassroomManager().dragulaGlobal[idContainer].destroy();
-    }
-
-    Main.getClassroomManager().dragulaGlobal[idContainer] = dragula([document.querySelector('#' + idContainer)]).on('drop', function(el, target, source) {
-        if (target.id != idContainer) {
-            let swap = $(target).find('p').not(el);
-            swap.length > 0 ? source.append(swap[0]) : null;
-        }
-    });
-
-    $('.'+classDropZone).each((i, e) => {
-        Main.getClassroomManager().dragulaGlobal[idContainer].containers.push(document.querySelector('#'+e.id));
-    });
-
-    let divParent = document.querySelector('#'+idContainer),
-        dropeZone = document.querySelector('.'+classDropZone);
-
-    dropeZone.parentElement.id = 'dropeZoneParent'+idContainer;
-
-    Main.getClassroomManager().autoScrollGlobal = autoScroll([
-            window,
-            divParent.parentElement,
-            dropeZone.parentElement,
-            document.querySelector('#classroom-dashboard-activity-panel'),
-            document.querySelector('#classroom-dashboard-course-panel'),
-            document.querySelector('#classroom-dashboard-content'),
-        ],{
-            margin: 300,
-            autoScroll: function(){
-                return this.down
-            }
-        }
-    ); */
 }
 
 

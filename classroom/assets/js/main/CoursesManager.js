@@ -31,7 +31,6 @@ class CoursesManager {
                 format: 0,
             }
         };
-        this.dragula = null;
         this.resetCourseData = null;
         this.attributeData = {
             students: [],
@@ -45,10 +44,11 @@ class CoursesManager {
         this.wbbptions = null;
 
         this.activityType = [ "reading", "dragAndDrop", "fillIn", "quiz", "free"];
+
+        this.sortable = null;
     }
 
     init() {
-        //this.dragula = dragula();
         this.resetCourseData = () => {
             this.isUpdate = false;
             this.courseId = null;
@@ -208,11 +208,10 @@ class CoursesManager {
     }
 
     dragulaInit() {
-        let activityFromCourses = document.getElementById('course-activities-content');
-        if (this.dragula.containers.length > 0) {
-            this.dragula.containers = [];
-        }
-        this.dragula = dragula([activityFromCourses]).on('drop', () => {
+        this.sortable = new Draggable.Sortable(document.querySelectorAll('.course-activities-content'), {
+            draggable: '.course-item-draggable',
+        });
+        this.sortable.on('sortable:stop', () => {
             setTimeout(() => {
                 this.sortActualCourseArrayFromDiv();
             }, 150);

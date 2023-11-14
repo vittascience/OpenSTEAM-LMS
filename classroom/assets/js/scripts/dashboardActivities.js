@@ -749,7 +749,7 @@ function manageDragAndDropText(studentContentString, preview = false, solution =
     let id = activityId ? "-"+activityId : "";
     
     for (let i = 0; i < studentResponses.length; i++) {
-        let input = `<span class="dropable-items dropzone${id}${previewString}" id="dz${id}-${i}${previewString}"></span>`;
+        let input = `<span class="droppable-items dropzone${id}${previewString}" id="dz${id}-${i}${previewString}"></span>`;
         // [answer]replace[/answer]
         // get the answer
         let answer = studentContentString.match(/\[answer\](.*?)\[\/answer\]/g)[0];

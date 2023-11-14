@@ -1320,7 +1320,7 @@ img.btn-cabri {
 #list-activities-teacher > div {
     border-radius: 1em;
     outline: 3px solid transparent;
-    transition: .2s;
+    transition: outline .2s;
     outline-offset: 3px;
 }
 
@@ -2202,14 +2202,14 @@ h3.section-done {
     margin-bottom: 0.5em;
 }
 
-.dropable-items {
+.droppable-items {
     display: inline-flex;
     border-radius: 1em;
     margin: 0.30em 0;
     min-width: none;
 }
 
-.dropable-items:empty {
+.droppable-items:empty {
     border: 1px solid var(--classroom-text-0);
     transform: translateY(50%);
     min-width: 5em;
