@@ -1315,6 +1315,24 @@ img.btn-cabri {
     padding: 1.2em;
 }
 
+/* DRAG AND DROP IN ACTIVITY LIST */
+
+#list-activities-teacher > div {
+    border-radius: 1em;
+    outline: 3px solid transparent;
+    transition: .2s;
+    outline-offset: 3px;
+}
+
+#list-activities-teacher .draggable-source--is-dragging {
+    opacity: 0.5;
+}
+
+#list-activities-teacher .draggable--over {
+    outline-color: var(--classroom-primary);
+}
+
+
 #classroom-dashboard-sandbox-panel h3.section-title,
 #classroom-dashboard-activities-panel h3.section-title,
 #classroom-dashboard-activities-panel-teacher h3.section-title {
@@ -1417,9 +1435,9 @@ h3.section-done {
     border-color: var(--classroom-primary);
 }
 
-.sandbox-item,
-.activity-item,
-.course-item {
+.sandbox-item > div,
+.activity-item > div,
+.course-item > div {
     cursor: pointer;
     display: grid;
     grid-template-columns: 100%;
@@ -1427,7 +1445,6 @@ h3.section-done {
     width: 300px;
     padding: 0.25em;
     justify-items: stretch;
-    margin-top: 3em;
 }
 
 .sandbox-item-title,
@@ -1536,14 +1553,13 @@ h3.section-done {
 
 }
 
-.folder-item {
+.folder-item > div {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 170px auto;
     width: 300px;
     padding: 0.25em;
     justify-items: stretch;
-    margin-top: 3em;
     cursor: pointer;
 }
 
@@ -1798,10 +1814,10 @@ h3.section-done {
 
 @media (max-width: 768px) {
 
-    .sandbox-item,
-    .activity-item,
-    .folder-item,
-    .course-item {
+    .sandbox-item > div,
+    .activity-item > div,
+    .folder-item > div,
+    .course-item > div {
         grid-template-rows: 90px auto;
         width: 160px;
         padding: 0.1em;

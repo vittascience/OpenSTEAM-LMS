@@ -44,6 +44,7 @@ class ClassroomManager {
         this.actualEditor = null;
         this.tagList = [];
         this.imagesWidth = 300;
+        this.droppable = {};
     }
 
     /**
