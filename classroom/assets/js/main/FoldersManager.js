@@ -50,7 +50,7 @@ class FoldersManager {
         pseudoModal.openModal("folder-manager-modal");
         $("#create-folder-manager").show();
     }
-    
+
     persistCreateFolder() {
         let name = $("#folder_create_name").val(),
             parent = this.actualFolder;
@@ -71,9 +71,9 @@ class FoldersManager {
             })
         } else {
             displayNotification('#notif-div', "classroom.activities.foldersMessages.errorLenght", "error");
-        } 
+        }
     }
-    
+
     persistDeleteFolder() {
         let id = this.actualFolder,
             parent = this.getFolderById(this.actualFolder).parentFolder;
@@ -96,11 +96,11 @@ class FoldersManager {
             displayNotification('#notif-div', "manager.input.writeDelete", "error");
         }
     }
-    
+
     persistUpdateFolder() {
         let id = this.actualFolder,
             name = $("#folder_update_name").val();
-            
+
         this.updateFolderById(id, name).then(res => {
             if (!res.hasOwnProperty("error")) {
                 this.replaceFolderData(res);
@@ -112,7 +112,7 @@ class FoldersManager {
             }
         })
     }
-    
+
     deleteFolder(folderId) {
         this.resetInputs();
         this.actualFolder = folderId;
@@ -193,7 +193,7 @@ class FoldersManager {
         let alreadyExist = this.returnIfFolderExist(folder.id);
 
         if (!alreadyExist) {
-            this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span> <button class="btn c-btn-outline-primary folder-breadcrumb-item" data-id="${folder.id}" onclick="foldersManager.goToFolder(${folder.id})"><i class="fas fa-folder-open folder-breadcrumb"></i> ${folder.name}</button>`);  
+            this.treeFolder.append(`<span class="chevron-breadcrumb"> <i class="fas fa-chevron-right"></i> </span> <button class="btn c-btn-outline-primary folder-breadcrumb-item" data-id="${folder.id}" onclick="foldersManager.goToFolder(${folder.id})"><i class="fas fa-folder-open folder-breadcrumb"></i> ${folder.name}</button>`);
         }
     }
 
@@ -254,7 +254,7 @@ class FoldersManager {
         if (actualFolder != null && actualFolder.parentFolder != undefined) {
             parent = actualFolder.parentFolder;
         }
-        
+
         while (parent) {
             idOfParents.push(parent);
             parent = this.getFolderById(parent.id).parentFolder;
@@ -291,7 +291,7 @@ class FoldersManager {
         let folderTreeContent = !seek ? $("#folders-tree-content-modal") : $("#folders-seek-tree-content-modal"),
             content = "",
             rootFolderTranslation = i18next.t("classroom.activities.rootFolder");
-        
+
         folderTreeContent.html("");
         if (foldersWithoutParent.length > 0) {
             let randomString = this.createRandomString();
@@ -413,7 +413,7 @@ class FoldersManager {
         }
         this.resetInputs();
     }
-    
+
 
     // WARNING
     manageResponseFromMoved(res) {
@@ -429,6 +429,7 @@ class FoldersManager {
     }
 
     dragulaInitObjects() {
+        console.log("dragulaInitObjects");
         // Reset the dragula fields
         //this.dragula.containers = [];
 
@@ -445,7 +446,7 @@ class FoldersManager {
 
         // sometime classroomManager is not loader
         if (Main.getClassroomManager() != null) {
-            viewMode = Main.getClassroomManager().displayMode; 
+            viewMode = Main.getClassroomManager().displayMode;
         } else {
             viewMode = localStorage.getItem('classroomViewMode') != null ? localStorage.getItem('classroomViewMode') : 'card'
         }
@@ -457,80 +458,107 @@ class FoldersManager {
         }
 
 
-        const draggable = new Draggable.Draggable(document.querySelectorAll('#list-activities-teacher'), {
-            draggable: '.activity-item, .folder-item',
-        });
-    
-/*         droppable.on('droppable:stop', (evt) => {
-            if (evt.dropzone.classList.contains("item-folder")) {
-                console.log(evt);
+
+        var isHoveringFolder = false;
+
+        let droppableName = 'droppable-activityList'
+        if (Main.getClassroomManager().droppable[droppableName] != undefined) {
+            Main.getClassroomManager().droppable[droppableName].destroy();
+        }
+        Main.getClassroomManager().droppable[droppableName] = new Draggable.Draggable(document.querySelectorAll("#list-activities-teacher"), {
+            draggable: "#list-activities-teacher>div",
+            delay: {
+                drag: 50,
+                mouse: 50,
+                touch: 100
             }
-        }); */
-        
+        });
+        Main.getClassroomManager().droppable[droppableName].on("drag:over", (evt) => {
+            console.log("over");
+            console.log(evt.over);
+            isHoveringFolder = true;
+        });
+        Main.getClassroomManager().droppable[droppableName].on("drag:out", (evt) => {
+            console.log("out");
+            isHoveringFolder = false;
+        });
+        Main.getClassroomManager().droppable[droppableName].on("drag:stop", (evt) => {
+            console.log("stop",evt);
+            console.log("stop", isHoveringFolder);
+            evt.cancel();
+        });
 
 
-/*         this.dragula = dragula(dragableObjects)
-            .on('drop', function(el, target, source) {
-                if (target != undefined && source != undefined) {
-                    if ($(target).hasClass("folder-item") || $(target).hasClass("folder-item-list")) {
-                        let elId = source.getAttribute('data-id'),
-                            targetId = target.getAttribute('data-id');
-                        
-                        if ($(source).hasClass("folder-item") || $(source).hasClass("folder-item-list")) {
-                            foldersManager.moveFolderToFolder(elId, targetId).then(res => {
-                                foldersManager.manageResponseFromMoved(res);
-                            })
-                        } else if ($(source).hasClass("activity-item") || $(source).hasClass("activity-item-list")) {
-                            foldersManager.moveActivityToFolder(elId, targetId).then(res => {
-                                foldersManager.manageResponseFromMoved(res);
-                            })
-                        } else if ($(source).hasClass("course-item") || $(source).hasClass("course-item-list")) {
-                            foldersManager.moveCourseToFolder(elId, targetId).then(resMove => {
-                                coursesManager._requestGetMyCourseTeacher().then((res) => {
-                                    coursesManager.myCourses = res;
-                                    foldersManager.manageResponseFromMoved(resMove);
-                                });
-                            })
+        /*         droppable.on('droppable:stop', (evt) => {
+                    if (evt.dropzone.classList.contains("item-folder")) {
+                        console.log(evt);
+                    }
+                }); */
+
+
+
+        /*         this.dragula = dragula(dragableObjects)
+                    .on('drop', function(el, target, source) {
+                        if (target != undefined && source != undefined) {
+                            if ($(target).hasClass("folder-item") || $(target).hasClass("folder-item-list")) {
+                                let elId = source.getAttribute('data-id'),
+                                    targetId = target.getAttribute('data-id');
+                                
+                                if ($(source).hasClass("folder-item") || $(source).hasClass("folder-item-list")) {
+                                    foldersManager.moveFolderToFolder(elId, targetId).then(res => {
+                                        foldersManager.manageResponseFromMoved(res);
+                                    })
+                                } else if ($(source).hasClass("activity-item") || $(source).hasClass("activity-item-list")) {
+                                    foldersManager.moveActivityToFolder(elId, targetId).then(res => {
+                                        foldersManager.manageResponseFromMoved(res);
+                                    })
+                                } else if ($(source).hasClass("course-item") || $(source).hasClass("course-item-list")) {
+                                    foldersManager.moveCourseToFolder(elId, targetId).then(resMove => {
+                                        coursesManager._requestGetMyCourseTeacher().then((res) => {
+                                            coursesManager.myCourses = res;
+                                            foldersManager.manageResponseFromMoved(resMove);
+                                        });
+                                    })
+                                }
+                            } else {
+                                foldersManager.displayAndDragulaInitObjects();
+                            }
+                        } else {
+                            foldersManager.displayAndDragulaInitObjects();
                         }
-                    } else {
+                    }).on('shadow', function(el) { 
+                        document.querySelectorAll('.gu-transit').forEach(element => {
+                            element.style.display = "none";
+                        })
+                    }).on('cancel', function() {
                         foldersManager.displayAndDragulaInitObjects();
-                    }
-                } else {
-                    foldersManager.displayAndDragulaInitObjects();
-                }
-            }).on('shadow', function(el) { 
-                document.querySelectorAll('.gu-transit').forEach(element => {
-                    element.style.display = "none";
-                })
-            }).on('cancel', function() {
-                foldersManager.displayAndDragulaInitObjects();
-            }).on('over', function(el, container) {
-                if (Main.getClassroomManager().displayMode == "list") {
-                    if ($(container).hasClass("folder-item-list")) {
-                        $(container).find(".folder-list").find(".list-folder-img-manager").attr("src", `${_PATH}assets/media/folders/folder_open_icon.svg`);
-                        SVGInject($(container).find(".folder-list").find(".list-folder-img-manager"));
-                    }
-                } else {
-                    if ($(container).hasClass("folder-item")) {
-                        $(container).find(".folder-card").addClass('folder-open');
-                    }
-                }
-            }).on('out', function(el, container) {
-                if (Main.getClassroomManager().displayMode == "list") {
-                    if ($(container).hasClass("folder-item-list")) {
-                        $(container).find(".folder-list").find(".list-folder-img-manager").attr("src", `${_PATH}assets/media/folders/folder_close_icon.svg`);
-                        SVGInject($(container).find(".folder-list").find(".list-folder-img-manager"));
-                    }
-                } else {
-                    if ($(container).hasClass("folder-item")) {
-                        $(container).find(".folder-card").removeClass('folder-open');
-                    }
-                }
-            }) */
+                    }).on('over', function(el, container) {
+                        if (Main.getClassroomManager().displayMode == "list") {
+                            if ($(container).hasClass("folder-item-list")) {
+                                $(container).find(".folder-list").find(".list-folder-img-manager").attr("src", `${_PATH}assets/media/folders/folder_open_icon.svg`);
+                                SVGInject($(container).find(".folder-list").find(".list-folder-img-manager"));
+                            }
+                        } else {
+                            if ($(container).hasClass("folder-item")) {
+                                $(container).find(".folder-card").addClass('folder-open');
+                            }
+                        }
+                    }).on('out', function(el, container) {
+                        if (Main.getClassroomManager().displayMode == "list") {
+                            if ($(container).hasClass("folder-item-list")) {
+                                $(container).find(".folder-list").find(".list-folder-img-manager").attr("src", `${_PATH}assets/media/folders/folder_close_icon.svg`);
+                                SVGInject($(container).find(".folder-list").find(".list-folder-img-manager"));
+                            }
+                        } else {
+                            if ($(container).hasClass("folder-item")) {
+                                $(container).find(".folder-card").removeClass('folder-open');
+                            }
+                        }
+                    }) */
     }
 
 
-    displayModeSwitch(display)  {
+    displayModeSwitch(display) {
         if (display == "list") {
             Main.getClassroomManager().displayMode = "list";
             localStorage.setItem('classroomViewMode', "list");

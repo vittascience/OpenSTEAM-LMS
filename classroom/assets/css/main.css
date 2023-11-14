@@ -1315,6 +1315,24 @@ img.btn-cabri {
     padding: 1.2em;
 }
 
+/* DRAG AND DROP IN ACTIVITY LIST */
+
+#list-activities-teacher > div {
+    border-radius: 1em;
+    outline: 3px solid transparent;
+    transition: .2s;
+    outline-offset: 3px;
+}
+
+#list-activities-teacher .draggable-source--is-dragging {
+    opacity: 0.5;
+}
+
+#list-activities-teacher .draggable--over {
+    outline-color: var(--classroom-primary);
+}
+
+
 #classroom-dashboard-sandbox-panel h3.section-title,
 #classroom-dashboard-activities-panel h3.section-title,
 #classroom-dashboard-activities-panel-teacher h3.section-title {
