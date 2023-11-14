@@ -1640,6 +1640,7 @@ h3.section-done {
     top: -1px;
     right: -1px;
     border-radius: 0 13% 13% 0;
+    min-width: 90px;
 }
 
 .course-card .course-card-info .course-card-mid {
