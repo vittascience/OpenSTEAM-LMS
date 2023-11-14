@@ -261,7 +261,7 @@
 				"delete": "Supprimer",
 				"copyLink": "Copier le lien direct",
 				"copyImage": "Copier l'image",
-				"downloadImage": "Télécharcher l'image",
+				"downloadImage": "Télécharger l'image",
 				"learnerMode": "Mode apprenant",
 				"dueBy": "À rendre avant le",
 				"timePassed": "Temps passé : "
@@ -530,7 +530,7 @@
 			},
 			"exportCsv": {
 				"title": "Exporter au format csv",
-				"exportLearnersDescription": "Télécharcher la liste des apprenants pour cette classe ainsi que leur mot de passe. Le fichier téléchargé est au format .csv.",
+				"exportLearnersDescription": "Télécharger la liste des apprenants pour cette classe ainsi que leur mot de passe. Le fichier téléchargé est au format .csv.",
 				"exportLearners": "Télécharger la liste des apprenants",
 				"exportDashboardDescription": "Télécharger la liste des apprenants pour cette classe ainsi que, pour chacun d'entre eux, leur activités attribuées ainsi que l'état de chaque activité (pas encore réalisée, à corriger, complétée). Le fichier téléchargé est au format .csv.",
 				"exportDashboard": "Télécharger le tableau de bord"

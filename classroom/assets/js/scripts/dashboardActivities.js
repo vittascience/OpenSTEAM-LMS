@@ -31,7 +31,9 @@ function activityItem(activity, state) {
 
     let dateEndNotif = activity.activity.isLti ? "style='display:none'" : "";
     let html = `<div class="activity-item">
+    <div>
                     <div class="activity-card ${activityType} ">
+                        
                         <div class="${activityStatus}" data-bs-toggle="tooltip" title="${activityStatusTitle}"><div class="ribbon__content"></div></div>
                         <div class="activity-card-top">
                             ${activity.activity.isAutocorrect ? `<img src='${_PATH}assets/media/auto-icon.svg' title='Auto'>` : "" }
@@ -46,7 +48,7 @@ function activityItem(activity, state) {
 
     html += `</div></div></div>`
     html += `<h3 data-bs-toggle="tooltip" title="${activity.activity.title}" class="activity-item-title">${activity.activity.title}</h3>`
-    html += `</div>`
+    html += `</div></div>`
 
     return html;
 }
@@ -56,7 +58,8 @@ function courseItem(course, state) {
     let activityStatus = "";
     //let dateEndNotif = activity.activity.isLti ? "style='display:none'" : "";
     let html = `<div class="course-item" onclick="coursesManager.${course.course.format == 1 ? "readCourseOnePage" : "readCourseFromStudent"}('${course.course.id}', '${course.id}')">
-                    <div class="course-card">
+                <div>
+                    <div class="course-card">        
                         <div class="${activityStatus}" data-bs-toggle="tooltip" title="${course.course.title}"><div class="ribbon__content"></div></div>
                         <img src="${_PATH}assets/media/cards/card-course.png" class="course-card-img">
                         <div class="course-card-info">
@@ -75,7 +78,7 @@ function courseItem(course, state) {
 
     html += `</div></div></div></div>`
     html += `<h3 data-bs-toggle="tooltip" title="${course.course.title}" class="activity-item-title">${course.course.title}</h3>`
-    html += `</div>`
+    html += `</div></div>`
 
     return html;
 }
@@ -749,7 +752,7 @@ function manageDragAndDropText(studentContentString, preview = false, solution =
     let id = activityId ? "-"+activityId : "";
     
     for (let i = 0; i < studentResponses.length; i++) {
-        let input = `<span class="dropable-items dropzone${id}${previewString}" id="dz${id}-${i}${previewString}"></span>`;
+        let input = `<span class="droppable-items dropzone${id}${previewString}" id="dz${id}-${i}${previewString}"></span>`;
         // [answer]replace[/answer]
         // get the answer
         let answer = studentContentString.match(/\[answer\](.*?)\[\/answer\]/g)[0];

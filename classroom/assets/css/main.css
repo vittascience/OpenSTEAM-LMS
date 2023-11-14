@@ -321,7 +321,12 @@ button {
     padding: 1em;
     padding-top: 0.15em;
     background: var(--classroom-dashboard);
+    height: 100%;
+    height: -webkit-fill-available;
+    height: -moz-fill-available;
+    height: fill-available;
     height: 100vh;
+    height: 100dvh;
     scroll-behavior: unset;
     transition: background-color 0.5s ease;
 }
@@ -472,7 +477,7 @@ button {
     display: flex;
     padding: 0.5em 0em;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
 
     grid-area: navbar;
     background: var(--classroom-dashboard);
@@ -480,6 +485,9 @@ button {
 
     width: 100%;
     width: -webkit-fill-available;
+    width: calc(calc(100vw - var(--sidebar-size) - 2em));
+    /* screen - sidebar - 1em padding on both sides */
+
     z-index: 900;
 }
 
@@ -554,6 +562,8 @@ button {
     background: var(--classroom-background);
     color: var(--classroom-text-0);
     padding: 1em;
+
+    --bs-dropdown-border-color: var(--classroom-cell);
 }
 
 /* DEFAULT DASHBOARD PAGE ELT. */
@@ -673,6 +683,7 @@ button {
 
     #classroom-dashboard-top-bar {
         width: 100%;
+        padding: 0.25em 0.5em;
     }
 
     #classroom-dashboard-content {
@@ -686,11 +697,6 @@ button {
         padding-bottom: 50px;
     }
 
-    #a11y-dropdown {
-        position: fixed;
-        top: 0.5em;
-    }
-
 }
 
 /* BREADCRUMBS */
@@ -701,8 +707,8 @@ button {
     align-items: center;
     justify-content: flex-start;
 
-    margin-inline-start: 0.5em;
     margin-inline-end: auto;
+    overflow: hidden;
 }
 
 #breadcrumb button {
@@ -713,6 +719,11 @@ button {
     background-color: transparent;
     border-color: var(--classroom-white);
     color: var(--classroom-white);
+
+    max-height: inherit;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
 }
 
@@ -1315,6 +1326,23 @@ img.btn-cabri {
     padding: 1.2em;
 }
 
+/* DRAG AND DROP IN ACTIVITY LIST */
+
+#list-activities-teacher > div {
+    outline: 3px solid transparent;
+    transition: outline .2s;
+    outline-offset: 1.5px;
+}
+
+#list-activities-teacher .draggable-source--is-dragging {
+    opacity: 0.5;
+}
+
+#list-activities-teacher .draggable--over {
+    outline-color: var(--classroom-primary);
+}
+
+
 #classroom-dashboard-sandbox-panel h3.section-title,
 #classroom-dashboard-activities-panel h3.section-title,
 #classroom-dashboard-activities-panel-teacher h3.section-title {
@@ -1417,9 +1445,9 @@ h3.section-done {
     border-color: var(--classroom-primary);
 }
 
-.sandbox-item,
-.activity-item,
-.course-item {
+.sandbox-item > div,
+.activity-item > div,
+.course-item > div {
     cursor: pointer;
     display: grid;
     grid-template-columns: 100%;
@@ -1427,7 +1455,6 @@ h3.section-done {
     width: 300px;
     padding: 0.25em;
     justify-items: stretch;
-    margin-top: 3em;
 }
 
 .sandbox-item-title,
@@ -1536,14 +1563,13 @@ h3.section-done {
 
 }
 
-.folder-item {
+.folder-item > div {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 170px auto;
     width: 300px;
     padding: 0.25em;
     justify-items: stretch;
-    margin-top: 3em;
     cursor: pointer;
 }
 
@@ -1599,7 +1625,7 @@ h3.section-done {
 .course-card .course-card-img {
     height: 100%;
     width: 100%;
-    border-radius: 1.2em;
+    border-radius: inherit;
     object-fit: cover;
 }
 
@@ -1614,6 +1640,7 @@ h3.section-done {
     top: -1px;
     right: -1px;
     border-radius: 0 13% 13% 0;
+    min-width: 90px;
 }
 
 .course-card .course-card-info .course-card-mid {
@@ -1624,6 +1651,13 @@ h3.section-done {
     font-weight: bold;
 
     padding: 0.5em;
+}
+
+/* on small screens we want to reduce the font size of the course card info */
+@media (max-width: 768px) {
+    .course-card .course-card-info .course-card-mid {
+        font-size: 0.5em;
+    }
 }
 
 .course-card .course-card-info .course-card-mid .course-card-activities-count {
@@ -1798,10 +1832,10 @@ h3.section-done {
 
 @media (max-width: 768px) {
 
-    .sandbox-item,
-    .activity-item,
-    .folder-item,
-    .course-item {
+    .sandbox-item > div,
+    .activity-item > div,
+    .folder-item > div,
+    .course-item > div {
         grid-template-rows: 90px auto;
         width: 160px;
         padding: 0.1em;
@@ -2186,14 +2220,14 @@ h3.section-done {
     margin-bottom: 0.5em;
 }
 
-.dropable-items {
+.droppable-items {
     display: inline-flex;
     border-radius: 1em;
     margin: 0.30em 0;
     min-width: none;
 }
 
-.dropable-items:empty {
+.droppable-items:empty {
     border: 1px solid var(--classroom-text-0);
     transform: translateY(50%);
     min-width: 5em;
@@ -2421,6 +2455,10 @@ h3.section-done {
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
+    text-wrap: balance;
+    
+    gap: 0.5em;
+    margin-bottom: 0px;
 }
 
 #activity-auto-disclaimer {
@@ -3803,10 +3841,6 @@ h3.section-done {
 
 .switcher__input--middle4:checked~.switcher__toggle {
     left: calc((95px * 4) + 4px);
-}
-
-.switcher-custom-top {
-    margin-top: -2.5em;
 }
 
 .mnh-2-5 {
