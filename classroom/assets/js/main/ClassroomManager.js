@@ -18,6 +18,7 @@ class ClassroomManager {
      */
     constructor() {
         this._myActivities = [];
+        this.droppable = {};
         this._myClasses = [];
         this._selectedClassroomToDelete = null;
         this._myTeacherActivities = [];

@@ -457,9 +457,9 @@ class FoldersManager {
         }
 
 
-        const draggable = new Draggable.Draggable(document.querySelectorAll('#list-activities-teacher'), {
+/*         const draggable = new Draggable.Draggable(document.querySelectorAll('#list-activities-teacher'), {
             draggable: '.activity-item, .folder-item',
-        });
+        }); */
     
 /*         droppable.on('droppable:stop', (evt) => {
             if (evt.dropzone.classList.contains("item-folder")) {

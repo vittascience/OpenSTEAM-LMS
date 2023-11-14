@@ -111,6 +111,8 @@ class DragAndDropManager {
         divPreviewFields.id = "preview-drag-and-drop-fields-teacher";
         divPreviewFields.classList.add("m-2");
         divPreviewFields.classList.add("drag-and-drop-fields");
+        divPreviewFields.classList.add("dropable-items");
+
 
         divActivityDoable.appendChild(divPreviewFields);
         contentDiv.appendChild(divActivityDoable);

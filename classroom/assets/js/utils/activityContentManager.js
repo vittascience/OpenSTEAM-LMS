@@ -303,21 +303,31 @@ function initializeDragulaWithOneContainer(idContainer, classDropZone, reset = t
 
 
     console.log(idContainer, classDropZone, reset, activityId)
-    const droppable = new Draggable.Droppable(
+
+    let droppableName = 'droppable'
+    if (activityId == null) {
+        droppableName += '-'+activityId;
+    }
+
+    if (Main.getClassroomManager().droppable[droppableName] != undefined) {
+        Main.getClassroomManager().droppable[droppableName].destroy();
+    }
+
+    Main.getClassroomManager().droppable[droppableName] = droppable = new Draggable.Droppable(
         document.querySelectorAll('#classroom-dashboard-content'),
         {
             draggable: '.draggable-items',
-            dropzone: '.dropable-items',
+            dropzone: `.dropable-items`,
         },
     );
 
-/*     droppable.on('droppable:stop', (evt) => {
+    droppable.on('droppable:stop', (evt) => {
         if (evt.dropzone.id == "preview-drag-and-drop-fields-teacher") {
             if (evt.dropzone.classList.contains("draggable-dropzone--occupied")) {
                 evt.dropzone.classList.remove("draggable-dropzone--occupied");
             }
         }
-    }); */
+    });
 
 
 /*     // init dragula if it's not already initialized
