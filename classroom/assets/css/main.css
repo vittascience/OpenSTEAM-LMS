@@ -2455,6 +2455,10 @@ h3.section-done {
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
+    text-wrap: balance;
+    
+    gap: 0.5em;
+    margin-bottom: 0px;
 }
 
 #activity-auto-disclaimer {
@@ -3837,10 +3841,6 @@ h3.section-done {
 
 .switcher__input--middle4:checked~.switcher__toggle {
     left: calc((95px * 4) + 4px);
-}
-
-.switcher-custom-top {
-    margin-top: -2.5em;
 }
 
 .mnh-2-5 {
