@@ -9,7 +9,6 @@ class FoldersManager {
         this.viewModal = ["#create-folder-manager", "#delete-folder-manager", "#update-folder-manager"];
         this.actualFolder = null;
         this.treeFolder = $("#breadcrumb");
-        this.dragula = null;
         this.parent = null;
         this.objectToMove = null;
         this.objectId = null;
@@ -18,7 +17,6 @@ class FoldersManager {
     }
 
     init() {
-        this.dragula = dragula();
         this.getAllUserFolders().then(res => {
             this.userFolders = res;
             this.dragulaInitObjects();
@@ -432,7 +430,7 @@ class FoldersManager {
 
     dragulaInitObjects() {
         // Reset the dragula fields
-        this.dragula.containers = [];
+        //this.dragula.containers = [];
 
         let foldersArray = document.querySelectorAll('.folder-item'),
             activitiesArray = document.querySelectorAll('.activity-item'),
@@ -442,6 +440,7 @@ class FoldersManager {
             coursesArray = document.querySelectorAll('.course-item'),
             dragableObjects = [],
             viewMode = null;
+
 
 
         // sometime classroomManager is not loader
@@ -458,11 +457,19 @@ class FoldersManager {
         }
 
 
-        dragableObjects.forEach(object => {
-            object.style.touchAction = "none";
+        const draggable = new Draggable.Draggable(document.querySelectorAll('#list-activities-teacher'), {
+            draggable: '.activity-item, .folder-item',
         });
+    
+/*         droppable.on('droppable:stop', (evt) => {
+            if (evt.dropzone.classList.contains("item-folder")) {
+                console.log(evt);
+            }
+        }); */
+        
 
-        this.dragula = dragula(dragableObjects)
+
+/*         this.dragula = dragula(dragableObjects)
             .on('drop', function(el, target, source) {
                 if (target != undefined && source != undefined) {
                     if ($(target).hasClass("folder-item") || $(target).hasClass("folder-item-list")) {
@@ -519,20 +526,7 @@ class FoldersManager {
                         $(container).find(".folder-card").removeClass('folder-open');
                     }
                 }
-            })
-
-
-        Main.getClassroomManager().autoScrollGlobal = autoScroll([
-            window,
-            document.querySelector('#list-activities-teacher'),
-            document.querySelector('#classroom-dashboard-activities-panel-teacher'),
-            document.querySelector('#classroom-dashboard-content'),
-        ],{
-            margin: 350,
-            autoScroll: function(){
-                return this.down
-            }
-        });
+            }) */
     }
 
 

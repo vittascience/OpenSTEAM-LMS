@@ -300,7 +300,27 @@ function cancelImport() {
 
 
 function initializeDragulaWithOneContainer(idContainer, classDropZone, reset = true, activityId = null) {
-    // init dragula if it's not already initialized
+
+
+    console.log(idContainer, classDropZone, reset, activityId)
+    const droppable = new Draggable.Droppable(
+        document.querySelectorAll('#classroom-dashboard-content'),
+        {
+            draggable: '.draggable-items',
+            dropzone: '.dropable-items',
+        },
+    );
+
+/*     droppable.on('droppable:stop', (evt) => {
+        if (evt.dropzone.id == "preview-drag-and-drop-fields-teacher") {
+            if (evt.dropzone.classList.contains("draggable-dropzone--occupied")) {
+                evt.dropzone.classList.remove("draggable-dropzone--occupied");
+            }
+        }
+    }); */
+
+
+/*     // init dragula if it's not already initialized
     if (Main.getClassroomManager().dragulaGlobal == false) {
         Main.getClassroomManager().dragulaGlobal = dragula();
     }
@@ -348,7 +368,7 @@ function initializeDragulaWithOneContainer(idContainer, classDropZone, reset = t
                 return this.down
             }
         }
-    );
+    ); */
 }
 
 

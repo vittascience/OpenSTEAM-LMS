@@ -48,7 +48,7 @@ class CoursesManager {
     }
 
     init() {
-        this.dragula = dragula();
+        //this.dragula = dragula();
         this.resetCourseData = () => {
             this.isUpdate = false;
             this.courseId = null;
