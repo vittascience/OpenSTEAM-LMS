@@ -105,7 +105,9 @@ if (/[0-9a-z]{13}/.test($_GET('option'))) {
 
 $('.classroom-navbar-button').click(function () {
     try {
-        pseudoModal.closeAllModal()
+        if (!new ActivityTracker().getIsCheckingLti()) {
+            pseudoModal.closeAllModal();
+        }
     } catch (e) {
         console.error('pseudoModal is not defined')
     }
@@ -212,6 +214,35 @@ function backToClassroomFromCode() {
     }
 }
 
+function askQuitLtiWithoutSaving() {
+    return new Promise((resolve, reject) => {
+        const modalElt = document.querySelector('#quit-lti-activity-modal'),
+        modalCloseButtonElt = modalElt.querySelector('.vitta-modal-exit-btn'),
+        modalYesButtonElt = document.querySelector('#quit-lti-yes-button'),
+        modalNoButtonElt = document.querySelector('#quit-lti-no-button');
+        pseudoModal.openModal('quit-lti-activity-modal');
+        new ActivityTracker().setIsCheckingLti(true);
+        const removeListeners = () => {
+            modalYesButtonElt.removeEventListener('click', quitCallback);
+            modalNoButtonElt.removeEventListener('click', stayCallback);
+            modalCloseButtonElt.removeEventListener('click', stayCallback);
+            pseudoModal.closeModal('quit-lti-activity-modal');
+            new ActivityTracker().setIsCheckingLti(false);
+        }
+        const quitCallback = () => { 
+            resolve(true); 
+            removeListeners();
+        };
+        const stayCallback = () => { 
+            resolve(false); 
+            removeListeners();
+        };
+        modalYesButtonElt.addEventListener('click', quitCallback);
+        modalNoButtonElt.addEventListener('click', stayCallback);
+        modalCloseButtonElt.addEventListener('click', stayCallback);
+    });
+}
+
 /**
  * Navigate trough panels
  * @param {string} id - The destination panel
@@ -221,7 +252,25 @@ function backToClassroomFromCode() {
  * @param {boolean} skipConfirm - If set to true, the exit confirmation prompt won't be displayed
  * @param {boolean} isOnpopstate - If set to true, the current navigation won't be saved in history (dedicated to onpopstate events)
  */
-function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = false) {
+async function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = false) {
+    // If we are on the activity panel, in LTI context and the LTI resource isn't up to date
+    const isActivityPanel = $_GET('panel') === 'classroom-dashboard-activity-panel',
+    isNewActivityPanel = $_GET('panel') === 'classroom-dashboard-classes-new-activity';
+
+    const isLtiActivity = isActivityPanel && Activity.isLti,
+    isLtiNewActivity = isNewActivityPanel && Main.getClassroomManager().getActivityIsLti(),
+    isStudentLtiActivity = UserManager.getUser().isRegular 
+        ? false
+        : Activity.activity
+            ? isActivityPanel && Activity.activity.isLti
+            : false;
+
+    const isLti = isLtiActivity || isLtiNewActivity || isStudentLtiActivity;
+
+    if (isLti && !(new ActivityTracker().getIsUpToDate())) {
+        const quitLti = await askQuitLtiWithoutSaving();
+        if (!quitLti) return;
+    }
 
     breadcrumbManager.navigatePanelBreadcrumb(idNav, id, $_GET('nav'), $_GET('panel'));
     // If there is any working activity tracker, send the tracking data and stop it

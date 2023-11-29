@@ -12,6 +12,8 @@ class ActivityTracker{
 		this._activityStartTime = false;
 		this._isTracking = false;
 		this._eventListenerCallback = false;
+		this._isUpToDate = true;
+		this._isCheckingLti = false;
 	}
 
 	/**
@@ -49,5 +51,29 @@ class ActivityTracker{
 
 	getIsTracking() {
 		return this._isTracking;
+	}
+
+	setIsUpToDate(boolean) {
+		if (typeof boolean !== 'boolean') {
+			console.error(`The provided argument must be a boolean!`);
+			return;
+		}
+		this._isUpToDate = boolean;
+	}
+
+	getIsUpToDate() {
+		return this._isUpToDate;
+	}
+
+	setIsCheckingLti(boolean) {
+		if (typeof boolean !== 'boolean') {
+			console.error(`The provided argument must be a boolean!`);
+			return;
+		}
+		this._isCheckingLti = boolean;
+	}
+
+	getIsCheckingLti() {
+		return this._isCheckingLti;
 	}
 }

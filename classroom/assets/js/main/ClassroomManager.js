@@ -1665,6 +1665,7 @@ class ClassroomManager {
                 }
             }, 
             type: '', 
+            isLti: false,
             solution: [],
             tolerance: ''
         }
@@ -1672,6 +1673,18 @@ class ClassroomManager {
         if (globalTitle != null) {
             document.querySelector('#global_title').value = '';
         } 
+    }
+
+    setActivityIsLti(boolean) {
+        const paramType = typeof boolean;
+        if (paramType !== 'boolean') {
+            return console.error(`The argument must be a boolean: ${paramType} provided!`);
+        }
+        this._createActivity.isLti = boolean;
+    }
+
+    getActivityIsLti() {
+        return this._createActivity.isLti;
     }
 
     /**
