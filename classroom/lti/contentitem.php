@@ -10,6 +10,7 @@ $rootPath = findRelativeRoute();
 require_once $rootPath . 'vendor/autoload.php';
 
 require_once $rootPath . 'bootstrap.php';
+require_once __DIR__ . "/traits.php";
 
 use Classroom\Entity\Applications;
 use Classroom\Entity\LtiTool;
@@ -33,7 +34,7 @@ if ($applicationType == null) {
 	exit;
 }
 
-$platform_url = "https://{$_SERVER["HTTP_HOST"]}";
+$platform_url = "https://" . getCurrentLtiDomain();
 
 $ltiApplication = $entityManager->getRepository(Applications::class)->findOneBy(["name" => $applicationType])->getId();
 $ltiTool = $entityManager->getRepository(LtiTool::class)->findOneBy(["application" => $ltiApplication]);

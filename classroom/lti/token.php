@@ -12,6 +12,7 @@ $rootPath = findRelativeRoute();
 
 require_once $rootPath . 'vendor/autoload.php';
 require_once $rootPath . 'bootstrap.php';
+require_once __DIR__ . "/traits.php";
 
 
 use Firebase\JWT\JWK;
@@ -26,7 +27,7 @@ $subjectKey = "sub";
 $subjectValue = $decodedToken->$subjectKey;
 
 // todo HTTP_HOST is insecure (controlled by the client)
-$platform_url = "https://{$_SERVER['HTTP_HOST']}";
+$platform_url = "https://" . getCurrentLtiDomain();
 
 // decode jwt token and check signature using jwks public key
 $ltiTool = $entityManager->getRepository(LtiTool::class)->findOneByClientId($subjectValue);

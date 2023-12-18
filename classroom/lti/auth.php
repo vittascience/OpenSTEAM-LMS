@@ -11,13 +11,14 @@ $rootPath = findRelativeRoute();
 require_once $rootPath . 'vendor/autoload.php';
 
 require_once $rootPath . 'bootstrap.php';
+require_once __DIR__ . "/traits.php";
 
 use \Firebase\JWT\JWT;
 use Classroom\Entity\LtiTool;
 
-$nonce = base64_encode(random_bytes(16));
+$nonce = $_REQUEST['nonce'];
 
-$platform_url = "https://{$_SERVER['HTTP_HOST']}";
+$platform_url = "https://" . getCurrentLtiDomain();
 
 $loginHint = json_decode($_REQUEST['login_hint'], true);
 
