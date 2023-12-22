@@ -82,7 +82,7 @@ VS_SET_FROM=your_website.com
 VS_DEMOSTUDENT=vittademo
 
 # path to use for the activity logger(ie: routing/Routing.php)
-VS_LOG_PATHH=/logs/log.log
+VS_LOG_PATH=/logs/log.log
 
 # setup the new admin data
 ADMIN_PSEUDO=PSEUDO
