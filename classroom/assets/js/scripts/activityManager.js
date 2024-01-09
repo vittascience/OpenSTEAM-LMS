@@ -34,6 +34,7 @@ function setTextArea() {
 // autocorrect modification pas pris en compte
 
 function LtiDefaultCode(activityType, isUpdate) {
+    Main.getClassroomManager().setActivityIsLti(true);
     document.getElementById('content-forward-button').style.display = 'none';
     $("#activity-custom").show();
     if (isUpdate) {

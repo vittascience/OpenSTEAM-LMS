@@ -534,7 +534,13 @@
 				"placeholderInput": "Password",
 				"validateButton": "Validate"
 			},
-			"assets": "Images bank"
+			"/openClassroom/classroom/assets": "Images bank",
+			"quitLtiActivity": {
+				"title": "Exit current activity",
+				"description": "You're about to quit the current activity, but your changes haven't been saved. Do you still want to quit and lose the unsaved changes?",
+				"yesButton": "Yes, quit",
+				"noButton": "No, stay"
+			}
 		},
 		"folders": {
 			"folderManagement": "Folder management",

@@ -557,7 +557,13 @@
 				"placeholderInput": "Mot de passe",
 				"validateButton": "Valider"
 			},
-			"assets": "Banque d'images"
+			"/openClassroom/classroom/assets": "Banque d'images",
+			"quitLtiActivity": {
+				"title": "Quitter l'activité en cours",
+				"description": "Vous vous apprêtez à quitter l'activité en cours alors que vos changements n'ont pas été sauvegardés. Voulez vous tout de même quitter et perdre les changements non sauvegardés ?",
+				"yesButton": "Oui, quitter",
+				"noButton": "Non, rester"
+			}
 		},
 		"folders": {
 			"folderManagement": "Gestion des dossiers",

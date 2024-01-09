@@ -77,6 +77,12 @@ async function readEvent (event) {
             // Clear the activity content to close the LTI iframe
             document.querySelector('#activity-content').innerHTML = '';
             break;
+        case 'lti-edited':
+            new ActivityTracker().setIsUpToDate(false);
+            break;
+        case 'lti-saved':
+            new ActivityTracker().setIsUpToDate(true);
+            break;
         default:
             console.warn('The current message type isn\'t supported!');
     }
@@ -1281,7 +1287,7 @@ function actualizeStudentActivities(activity, correction) {
 }
 
 function addStudentRow(pseudo, studentId = false, isNotDeletable) {
-    return `<li data-pseudo="${pseudo}" data-id="${studentId}" class="row align-items-center my-1">
+    return `<li data-pseudo="${pseudo}" data-id="${studentId}" class="row align-items-center my-1 ">
         <div class="col-2">
             <img class="w-100 propic pic-width" src="${_PATH}assets/media/alphabet/` + pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil">
         </div>

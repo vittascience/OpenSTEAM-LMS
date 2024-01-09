@@ -1429,5 +1429,27 @@ const classroomModals = {
                         </div>
                     </div>`,
         footer: ``
+    },
+    'quit-lti-activity-modal': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.modals.quitLtiActivity.title'
+        },
+        content: `  <div class="container-fluid d-flex flex-wrap">
+                        <div class="col-12">
+
+                            <div class="text-center c-secondary-form">
+                                <p data-i18n="[html]classroom.modals.quitLtiActivity.description" class="text-center"></p>
+                            </div>
+
+                            <div class="text-center">
+                                <button id="quit-lti-yes-button" class="btn c-btn-red mx-auto mt-3 btn-lg" data-i18n="classroom.modals.quitLtiActivity.yesButton"></button>
+                                <button id="quit-lti-no-button" class="btn c-btn-primary mx-auto mt-3 btn-lg" data-i18n="classroom.modals.quitLtiActivity.noButton"></button>
+                            </div>
+
+                        </div>
+                    </div>`,
+        footer: ``
     }
 }
