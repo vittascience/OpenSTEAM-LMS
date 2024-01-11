@@ -512,69 +512,6 @@ class FoldersManager {
             this.lastElementOver = null;
             evt.cancel();
         });
-
-
-
-
-
-/*         this.dragula = dragula(dragableObjects)
-                    .on('drop', function(el, target, source) {
-                        if (target != undefined && source != undefined) {
-                            if ($(target).hasClass("folder-item") || $(target).hasClass("folder-item-list")) {
-                                let elId = source.getAttribute('data-id'),
-                                    targetId = target.getAttribute('data-id');
-                                
-                                if ($(source).hasClass("folder-item") || $(source).hasClass("folder-item-list")) {
-                                    foldersManager.moveFolderToFolder(elId, targetId).then(res => {
-                                        foldersManager.manageResponseFromMoved(res);
-                                    })
-                                } else if ($(source).hasClass("activity-item") || $(source).hasClass("activity-item-list")) {
-                                    foldersManager.moveActivityToFolder(elId, targetId).then(res => {
-                                        foldersManager.manageResponseFromMoved(res);
-                                    })
-                                } else if ($(source).hasClass("course-item") || $(source).hasClass("course-item-list")) {
-                                    foldersManager.moveCourseToFolder(elId, targetId).then(resMove => {
-                                        coursesManager._requestGetMyCourseTeacher().then((res) => {
-                                            coursesManager.myCourses = res;
-                                            foldersManager.manageResponseFromMoved(resMove);
-                                        });
-                                    })
-                                }
-                            } else {
-                                foldersManager.displayAndDragulaInitObjects();
-                            }
-                        } else {
-                            foldersManager.displayAndDragulaInitObjects();
-                        }
-                    }).on('shadow', function(el) { 
-                        document.querySelectorAll('.gu-transit').forEach(element => {
-                            element.style.display = "none";
-                        })
-                    }).on('cancel', function() {
-                        foldersManager.displayAndDragulaInitObjects();
-                    }).on('over', function(el, container) {
-                        if (Main.getClassroomManager().displayMode == "list") {
-                            if ($(container).hasClass("folder-item-list")) {
-                                $(container).find(".folder-list").find(".list-folder-img-manager").attr("src", `${_PATH}assets/media/folders/folder_open_icon.svg`);
-                                SVGInject($(container).find(".folder-list").find(".list-folder-img-manager"));
-                            }
-                        } else {
-                            if ($(container).hasClass("folder-item")) {
-                                $(container).find(".folder-card").addClass('folder-open');
-                            }
-                        }
-                    }).on('out', function(el, container) {
-                        if (Main.getClassroomManager().displayMode == "list") {
-                            if ($(container).hasClass("folder-item-list")) {
-                                $(container).find(".folder-list").find(".list-folder-img-manager").attr("src", `${_PATH}assets/media/folders/folder_close_icon.svg`);
-                                SVGInject($(container).find(".folder-list").find(".list-folder-img-manager"));
-                            }
-                        } else {
-                            if ($(container).hasClass("folder-item")) {
-                                $(container).find(".folder-card").removeClass('folder-open');
-                            }
-                        }
-                    }) */
     }
 
 

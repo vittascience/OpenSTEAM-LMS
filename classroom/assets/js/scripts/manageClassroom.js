@@ -1162,26 +1162,6 @@ function displayStudentsInClassroom(students, link=false) {
         $('#body-table-teach').append(html).localize();
         $('[data-bs-toggle="tooltip"]').tooltip()
     });
-
-
-    function renderActivityDashboard(currentActivity) {
-        const formatedTimePast = typeof currentActivity.timePassed == 'undefined' ? '' : currentActivity.timePassed == 0 ? '' : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em><br><em>${i18next.t("classroom.activities.numberOfTries")} ${currentActivity.tries}</em>`;
-        let html = `<td class=" ${statusActivity(currentActivity, true, formatedTimePast)} bilan-cell classroom-clickable" data-state="${statusActivity(currentActivity, false)}" data-id="${currentActivity.id}" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title="<b>${currentActivity.activity.title}</b>
-                <br>
-                <em>${getTranslatedActivityName(currentActivity.activity.type)}</em></br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>${formatedTimePast}"></td>`;
-        return html;
-    }
-
-
-    function findOneActivityLinkUserByReference(reference, student) {
-        let activity = null;
-        student.activities.forEach(act => {
-            if (act.reference == reference) {
-                activity = act;
-            }
-        })
-        return activity;
-    }
     
     // get classroom settings from localstorage
     let settings = getClassroomDisplaySettings(link);
@@ -1224,6 +1204,25 @@ function displayStudentsInClassroom(students, link=false) {
         $(classroomTable).find('tr').removeClass('non-dropdown');
     });
 
+}
+
+function renderActivityDashboard(currentActivity) {
+    const formatedTimePast = typeof currentActivity.timePassed == 'undefined' ? '' : currentActivity.timePassed == 0 ? '' : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em><br><em>${i18next.t("classroom.activities.numberOfTries")} ${currentActivity.tries}</em>`;
+    let html = `<td class=" ${statusActivity(currentActivity, true, formatedTimePast)} bilan-cell classroom-clickable" data-state="${statusActivity(currentActivity, false)}" data-id="${currentActivity.id}" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title="<b>${currentActivity.activity.title}</b>
+            <br>
+            <em>${getTranslatedActivityName(currentActivity.activity.type)}</em></br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>${formatedTimePast}"></td>`;
+    return html;
+}
+
+
+function findOneActivityLinkUserByReference(reference, student) {
+    let activity = null;
+    student.activities.forEach(act => {
+        if (act.reference == reference) {
+            activity = act;
+        }
+    })
+    return activity;
 }
 
 function appendAddStudentButton(){

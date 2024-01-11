@@ -194,7 +194,7 @@
 			"bothLimitationsReached": "Vous avez atteint les limitations d'apprenants que vous et votre groupe pouvez avoir. ({{maxG}} maximum par groupe, {{maxP}} maximum personnel)",
 			"ClassroomNameInvalid": "Le nom de la classe est requis",
 			"reservedNickname": "Le nom : \"{{reservedNickname}}\" ne peut être attribué.",
-			"invalidLink": "Le lien que vous avez entrer n'est pas valide",
+			"invalidLink": "Le lien que vous avez entré n'est pas valide",
 			"noUser" : "Vous devez renseigner un élève",
 			"noUserUsername" : "Vous devez rentrer un nom d'utilisateur",
 			"pseudoMissingInCsvFile" : "Certains élèves n'ont pu être ajouter car leur pseudo était manquant",
