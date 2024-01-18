@@ -1163,6 +1163,7 @@ function displayStudentsInClassroom(students, link=false) {
         $('[data-bs-toggle="tooltip"]').tooltip()
     });
     
+    appendAddStudentButton();
     // get classroom settings from localstorage
     let settings = getClassroomDisplaySettings(link);
 
@@ -1225,7 +1226,7 @@ function findOneActivityLinkUserByReference(reference, student) {
     return activity;
 }
 
-function appendAddStudentButton(){
+function appendAddStudentButton() {
     $('#body-table-teach').append('<button id="add-student-dashboard-panel" class="btn c-btn-primary"><span data-i18n="classroom.activities.addLearners">Ajouter des apprenants</span> <i class="fas fa-plus"></i></button>').localize();
 }
 
