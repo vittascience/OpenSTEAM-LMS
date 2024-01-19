@@ -257,8 +257,12 @@
                 "editNickname": "Cambiare il sopranome",
                 "delete": "Ritirare",
                 "copyLink": "Copiare il link diretto",
+		"copyImage": "Copia dell'immagine",
+            	"downloadImage": "Scarica l'immagine",
                 "learnerMode": "Passare alla modalità studente",
                 "dueBy": "Dovuto a"
+		"dueBy": "Da consegnare entro",
+          	"timePassed": "Tempo trascorso :"
             },
             "copyDirectLink": "Copiare il link diretto",
             "selectStudents": "Selezione degli studenti",
@@ -291,6 +295,10 @@
             "refuse": "Insufficiente",
             "instruction": "Consegna",
             "commentary": "Commento",
+		"numberOfTries": "Numero di test : ",
+   		"sendResults": "Inviare",
+    	  	"noSend": "Questa attività non è stata resa",
+ 		"toSend": "Attività dovuta entro ",
             "sendResults": "Invia il commento allo studente ",
             "noSend": "Questa attività non è stata fatta",
             "comments": "Inserisci i tuoi commenti qui",
@@ -365,6 +373,7 @@
                 "retroAttribution": " Questa attività sarà assegnata ai nuovi studenti"
             },
             "toCopy": "Questo codice rende facile unirsi alla tua classe\n",
+		"qrCode": "Scansione del codice QR :",
             "copyLink": "Il link alla tua classe è stato aggiunto negli appunti\n",
             "dateBefore": "Termine di scadenza della consegna",
             "dateBeforeAvailable": " Disponibile fino a",
