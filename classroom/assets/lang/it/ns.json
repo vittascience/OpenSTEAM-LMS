@@ -373,9 +373,10 @@
             "goodProficiency": "Soddisfacente",
             "weakProficiency": "Fragile",
             "insufficientProficiency": "Insufficiente",
+		"noProficiency": "Non valutato",
             "addLearner": "Aggiungere uno studente",
-            "addLearners": " Add learners",
-            "addActivity": " Add an activity",
+            "addLearners": "Aggiungere uno studente",
+            "addActivity": " Aggiungere un'attività",
             "exportCsv": "Esportazione csv",
             "players": {
                 "STANDARD": {
