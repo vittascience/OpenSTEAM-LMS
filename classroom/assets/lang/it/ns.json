@@ -299,6 +299,8 @@
    		"sendResults": "Inviare",
     	  	"noSend": "Questa attività non è stata resa",
  		"toSend": "Attività dovuta entro ",
+		 "qrCode": "Scansionare il codice QR :",
+		"noProficiency": "Non valutato",
             "sendResults": "Invia il commento allo studente ",
             "noSend": "Questa attività non è stata fatta",
             "comments": "Inserisci i tuoi commenti qui",
