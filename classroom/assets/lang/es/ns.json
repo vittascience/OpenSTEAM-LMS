@@ -262,7 +262,6 @@
 	     	"downloadImage": "Descargar imagen",
                 "learnerMode": "Modo alumno",
                 "dueBy": "A entregar por",
-		    "qrCode": "Escanear el código QR :",
 		"timePassed": "Tiempo empleado: "
             },
             "copyDirectLink": "Copiar el enlace directo",
@@ -303,6 +302,7 @@
 		"toSend": "Actividad prevista para ",
             "sendResults": "Enviar el comentario al alumno",
             "noSend": "Ésta actividad no ha sido retroalimentada",
+		"qrCode": "Escanear el código QR :",
             "comments": "Ingrese sus observaciones",
             "activitySubmited2": " Activity submitted on",
             "sentOn": "Esta actividad fue devuelta el",
@@ -383,6 +383,7 @@
             "goodProficiency": "Competencia satisfactoria",
             "weakProficiency": "Competencia frágil",
             "insufficientProficiency": "Competencia insuficiente",
+		"noProficiency": "Non valutato",
             "addLearner": "Agregar un alumno",
             "addLearners": " Agregar un alumno",
             "addActivity": " Agregar una actividad",
