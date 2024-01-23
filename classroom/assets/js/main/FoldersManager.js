@@ -272,11 +272,11 @@ class FoldersManager {
         });
     }
 
-    displayAndDragulaInitObjects() {
-        Main.getClassroomManager().getTeacherActivities(Main.getClassroomManager()).then(() => {
-            teacherActivitiesDisplay();
-            this.dragulaInitObjects();
-        });
+    async displayAndDragulaInitObjects() {
+        let activities = await Main.getClassroomManager().getTeacherActivities(Main.getClassroomManager());
+        coursesManager.myCourses = await coursesManager._requestGetMyCourseTeacher();
+        teacherActivitiesDisplay();
+        this.dragulaInitObjects();
     }
 
     createRandomString() {
