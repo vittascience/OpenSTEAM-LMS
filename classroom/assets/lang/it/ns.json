@@ -261,7 +261,7 @@
 		"copyImage": "Copia dell'immagine",
             	"downloadImage": "Scarica l'immagine",
                 "learnerMode": "Passare alla modalità studente",
-                "dueBy": "Dovuto a"
+                "dueBy": "Dovuto a",
 		"dueBy": "Da consegnare entro",
           	"timePassed": "Tempo trascorso :"
             },
