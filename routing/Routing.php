@@ -59,10 +59,13 @@ try {
     $user = null;
     if (isset($_SESSION["id"])) {
         $user = $entityManager->getRepository('User\Entity\User')->find(intval($_SESSION["id"]))->jsonSerialize();
-        $storedClassroom = $entityManager->getRepository('Classroom\Entity\ClassroomLinkUser')->findOneBy(['user' => $_SESSION["id"]]);
+        $storedClassroom = $entityManager->getRepository('Classroom\Entity\ClassroomLinkUser')->findBy(['user' => $_SESSION["id"]]);
         if ($storedClassroom) {
-            $classroom = $storedClassroom->jsonSerialize();
-            $user["classroom"] = $classroom["classroom"]["id"];
+            $user["classroom"] = [];
+            foreach ($storedClassroom as $classroom) {
+                $classroom = $classroom->jsonSerialize();
+                $user["classroom"][] = $classroom["classroom"]["id"];
+            }
         }
         try {
             $regular = $entityManager->getRepository('User\Entity\Regular')
