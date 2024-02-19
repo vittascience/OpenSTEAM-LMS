@@ -1,0 +1,27 @@
+name: Crowdin — Upload translations
+
+on:
+  push:
+    paths:
+      - '/classroom/assets/lang/**/**.json'
+    branches:
+      - master
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Upload translations to Crowdin
+        uses: crowdin/github-action@v1
+        with:
+          upload_sources: true
+          upload_translations: true
+          download_translations: false
+        env:
+          CROWDIN_PROJECT_ID: ${{ secrets.GH_ACT_CROWDIN_PROJECT_ID }}
+          CROWDIN_API_TOKEN: ${{ secrets.GH_ACT_PERSONAL_TOKEN }}
+
+    
