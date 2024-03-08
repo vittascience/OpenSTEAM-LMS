@@ -281,29 +281,38 @@
         <p><a data-i18n="login-page.createAccount" href='#' onclick="displaySignupClass();"></a></p>
         <div id="info-div-classroom"></div>
         <form id="login-form">
-            <label for="login-mail-input">
-                <span class="fa fa-at"></span> <span data-i18n="login_popup.form.addressmail"></span><span
-                    class="mandatory">*</span>
-            </label>
-            <input name='mail' style="margin-bottom:5px;"
-                data-i18n="[placeholder]login_popup.form.addressmail_placeholder" class="form-control" type="email"
-                id="login-mail-input" data-testid="classroomLoginEmailInput">
+            <div class="mt-2 d-none" id="login-div-classroom">
+                <label for="login-mail-input">
+                    <span class="fa fa-at"></span> <span data-i18n="login_popup.form.addressmail"></span><span
+                        class="mandatory">*</span>
+                </label>
+                <input name='mail' style="margin-bottom:5px;"
+                    data-i18n="[placeholder]login_popup.form.addressmail_placeholder" class="form-control" type="email"
+                    id="login-mail-input" data-testid="classroomLoginEmailInput">
 
-            <label for="login-pwd-input">
-                <span class="fa fa-key"></span> <span data-i18n="login_popup.form.password"></span><span
-                    class="mandatory">*</span>
-            </label>
-            <input name='password' data-i18n="[placeholder]login_popup.form.password_placeholder" class="form-control"
-                type="password" id="login-pwd-input" data-testid="classroomLoginPasswordInput">
+                <label for="login-pwd-input">
+                    <span class="fa fa-key"></span> <span data-i18n="login_popup.form.password"></span><span
+                        class="mandatory">*</span>
+                </label>
+                <input name='password' data-i18n="[placeholder]login_popup.form.password_placeholder" class="form-control"
+                    type="password" id="login-pwd-input" data-testid="classroomLoginPasswordInput">
 
-            <input type="text" name="za78e-username" autocomplete="off" value="" id="za78e-username" class="za78e-field"
-                placeholder="za78e username" />
-            <input type="number" name="za78e-number" autocomplete="off" max="10" min="0" id="za78e-number"
-                class="za78e-field" placeholder="za78e number" />
+                <input type="text" name="za78e-username" autocomplete="off" value="" id="za78e-username" class="za78e-field"
+                    placeholder="za78e username" />
+                <input type="number" name="za78e-number" autocomplete="off" max="10" min="0" id="za78e-number"
+                    class="za78e-field" placeholder="za78e number" />
 
-            <div>
-                <a class="hint" href="/classroom/password_manager.php" data-i18n="login_popup.form.forgot_password"></a>
+                <div>
+                    <a class="hint" href="/classroom/password_manager.php" data-i18n="login_popup.form.forgot_password"></a>
+                </div>
             </div>
+
+            <div class="mt-2 d-none" id="login-totp-div-classroom">
+                <label for="totp_code-login-page">Votre compte est protégé par une authentification à deux facteurs, veuillez entrer le code ci dessous :</label>
+                <input id="totp_code-login-page" name="totp_code" placeholder="code Authenticator" class="form-control">
+            </div>
+
+
             <button type='button' style="margin-top:10px;" onclick="checkLogin();" class="btn c-btn-secondary"
                 id="login-button" data-i18n="login_popup.form.btn_connect" data-testid="classroomLoginSubmitBtn"></button>
             <button type='button' style="margin-top:10px; display:none;" onclick="getNewValidationMail();" class="btn c-btn-secondary"

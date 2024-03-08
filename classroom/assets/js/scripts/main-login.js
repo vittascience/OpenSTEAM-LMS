@@ -146,8 +146,8 @@ function returnInfoDiv() {
  * @param {boolean} fromLoginPage 
  */
 function showTotpState() {
-    document.getElementById("login-main-div-login-page").classList.add("d-none");
-    document.getElementById("login-totp-div-login-page").classList.remove("d-none");
+    document.getElementById("login-div-classroom").classList.add("d-none");
+    document.getElementById("login-totp-div-classroom").classList.remove("d-none");
 }
 
 /**
