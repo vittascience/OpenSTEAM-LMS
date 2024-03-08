@@ -702,7 +702,8 @@
       "password": "Contraseña",
       "options": "opciones",
       "yes": "Sí",
-      "no": "No"
+      "no": "No",
+      "link": "enlace"
     },
     "manager": {
       "profil": {

@@ -1103,7 +1103,8 @@
 		"options": "options",
 		"yes": "Oui",
 		"no": "Non",
-		"rename": "renommer"
+		"rename": "renommer",
+		"link": "lien"
 	},
 	"manager": {
 		"profil": {

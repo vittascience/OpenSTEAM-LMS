@@ -46,17 +46,17 @@ function checkLogin() {
                 infoBox = document.createElement("div");
                 infoBox.className = "alert alert-success";
                 infoBox.innerHTML = i18next.t('login_popup.success');
-                document.getElementById("info-div").innerHTML = "";
-                document.getElementById("info-div").style.display = "none";
-                document.getElementById("info-div").appendChild(infoBox);
-                $("#info-div").fadeIn("slow");
+                document.getElementById("info-div-classroom").innerHTML = "";
+                document.getElementById("info-div-classroom").style.display = "none";
+                document.getElementById("info-div-classroom").appendChild(infoBox);
+                $("#info-div-classroom").fadeIn("slow");
             } else {
-                document.getElementById("info-div").style.display = "none";
+                document.getElementById("info-div-classroom").style.display = "none";
                 infoBox.className = "alert alert-success";
                 infoBox.innerHTML = i18next.t('login_popup.success');
-                $("#info-div").fadeIn("slow");
+                $("#info-div-classroom").fadeIn("slow");
             }
-            setTimeout(function () {
+            setTimeout(() => {
                 var redirect = $_GET("redirect");
                 if (redirect == null) {
                     if (/classroom/.test(window.location.pathname)) {
@@ -65,46 +65,37 @@ function checkLogin() {
                 } else {
                     document.location = decodeURIComponent(redirect);
                 }
-            });
+            }, 1500);
         } else {
             button.removeAttribute("disabled");
             button.style.cursor = "pointer";
-
             if (typeof response.canNotLoginBefore != 'undefined' ) {
                 const diffInMinutes = (response.canNotLoginBefore  - (new Date().getTime() /1000) )/ 60
                 const timeToWait = Math.ceil(diffInMinutes)
-                displayNotification('#notif-div', `login_popup.canNotLoginBefore`, "error", `'{"timeToWait": "${timeToWait} min","failedLoginAttempts":${response.failedLoginAttempts}}'`, "classroomLoginFailedWrongCredentials");
+                return setUpInfoDivNav("danger", "login_popup.canNotLoginBefore", { failedLoginAttempts: response.failedLoginAttempts, timeToWait: timeToWait }, false, "navbarLoginFailedWrongCredentials");               
             } else if (response.error === "badInput") {
-                displayNotification('#notif-div', "login_popup.badInput", "error",'{}', "classroomLoginFailedBadInput");
+                return setUpInfoDivNav("danger", "login_popup.badInput", false, "navbarLoginFailedBadInput");
             } 
             else if (response.error === "wrong_credentials") {
-                displayNotification('#notif-div', "login_popup.error", "error", '{}', "classroomLoginFailedWrongCredentials");
+                return setUpInfoDivNav("danger", "login_popup.error", false, "navbarLoginFailedWrongCredentials");
             } 
             else if (response.error === "user_not_found") {
-                displayNotification('#notif-div', "login_popup.userNotFound", "error", '{}',"classroomLoginFailedNoUserFound");
+                return setUpInfoDivNav("danger", "login_popup.userNotFound", false, "navbarLoginFailedNoUserFound");
             } 
             else if (response.error === "user_not_active") {
-                displayNotification('#notif-div', "login_popup.inactiveAccount", "error");
-                $('#btn-activate-account-classroom').show();
+                let linkWorkd = i18next.t("words.link");
+                let opt = {"link": `<span class='font-weight-bold text-decoration-underline pe-auto' style='cursor: pointer;' onclick='getNewValidationMail()'>${linkWorkd}</span>`};;
+                return setUpInfoDivNav("danger", "login_popup.inactiveAccount", opt, "loginFailedUserNotActive");
+            } else if (response.error === "totp_code_required") {
+                clearDivErrorNav();
+                showTotpState();
+                return;
+            } else if (response.error === "wrong_totp_code") {
+                return setUpInfoDivNav("danger", "login_popup.wrongTotpCode", false, "navbarLoginFailedWrongTotpCode");
             }
-
         }
     })
 }
-
-/* function setUpInfoDivNav(type, messageID) {
-    let infoBox = "";
-    if (document.getElementById("info-div") === undefined || document.getElementById("info-div") === null) {
-        infoBox = document.createElement("div");
-    } else {
-        infoBox = document.getElementById("info-div");
-    }
-    // Create the info box and the message with the right class
-    infoBox.className = `alert alert-${type}`;
-    infoBox.innerHTML = i18next.t(messageID);
-    // Fade in the info div
-    $("#info-div").fadeIn("slow");
-} */
 
 function getNewValidationMail() {
     let mail = $('#login-mail-input').val();
@@ -122,17 +113,66 @@ function getNewValidationMail() {
         success: function (res) {
             let response = JSON.parse(res);
             if (response.success === true) {
-                displayNotification('#notif-div', "login_popup.mailSuccess", "success");
+                setUpInfoDivNav("success", "login_popup.mailSuccess", {});
             } else if (response.message === "mail_not_sent") {
-                displayNotification('#notif-div', "login_popup.mailError", "error");
+                setUpInfoDivNav("error", "login_popup.mailError", {});
             } else if (response.message === "no_token") {
-                displayNotification('#notif-div', "login_popup.accountDeactivated", "error");
+                setUpInfoDivNav("error", "login_popup.accountDeactivated", {});
             } else if (response.message === "user_not_found") {
-                displayNotification('#notif-div', "login_popup.userNotFound", "error");
+                setUpInfoDivNav("error", "login_popup.userNotFound", {});
             }
         },
         error: function () {
-            displayNotification('#notif-div', "login_popup.mailError", "error");
+            setUpInfoDivNav("error", "login_popup.mailError", {});
         }
     });
+}
+
+/**
+ * @param {boolean} fromLoginPage
+ */
+function clearDivErrorNav() {
+    let infoBox = returnInfoDiv() 
+    infoBox.innerHTML = "";
+    infoBox.className = "";
+}
+
+function returnInfoDiv() {
+    return document.getElementById("info-div-classroom");
+}
+
+/**
+ * Show the TOTP state according to the page
+ * @param {boolean} fromLoginPage 
+ */
+function showTotpState() {
+    document.getElementById("login-main-div-login-page").classList.add("d-none");
+    document.getElementById("login-totp-div-login-page").classList.remove("d-none");
+}
+
+/**
+ * @param {HTMLElement} button 
+ * @returns {string}
+ */
+function decodeHtml(stringEncoded) {
+    const txt = document.createElement("textarea");
+    txt.innerHTML = stringEncoded;
+    return txt.value;
+}
+
+/**
+ * @param {string} type 
+ * @param {string} messageID 
+ * @param {?object} options 
+ * @param {?string} dataTestId 
+ * @param {boolean} fromLoginPage 
+ */
+function setUpInfoDivNav(type, messageID, options = false, dataTestId = null) {
+    let infoBox = returnInfoDiv();
+    // Create the info box and the message with the right class
+    infoBox.className = "alert alert-" + type;
+    if (dataTestId) infoBox.setAttribute('data-testid', dataTestId)
+
+    const messageText = options ? i18next.t(messageID, options) : i18next.t(messageID);
+    infoBox.innerHTML = decodeHtml(messageText);
 }

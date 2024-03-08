@@ -786,7 +786,8 @@
 		"options": "options",
 		"yes": "Yes",
 		"no": "No",
-		"rename": "rename"
+		"rename": "rename",
+		"link": "link"
 	},
 	"manager": {
 		"profil": {
