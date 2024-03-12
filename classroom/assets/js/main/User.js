@@ -11,12 +11,12 @@ var UserManager = (function () {
                     if (response != "null") {
                         try {
                             Manager.user = JSON.parse(response);
+                            Manager.user.restrictions = await getUserRestrictions();
                         } catch (e) {
                             Manager.user = null
                         }
                     }
                     resolve("done");
-                    Manager.user.restrictions = await getUserRestrictions();
                 },
                 error: function (response) {
                     reject(response.status);
