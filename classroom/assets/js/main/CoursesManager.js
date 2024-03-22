@@ -576,7 +576,7 @@ class CoursesManager {
         this._requestGetMyCourseTeacher().then((res) => {
             this.myCourses = res;
             if (fromDeletion) {
-                teacherActivitiesDisplay();
+                processDisplay();
             }
         });
     }
