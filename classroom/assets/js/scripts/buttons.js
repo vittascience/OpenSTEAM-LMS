@@ -420,11 +420,10 @@ window.addEventListener('storage', () => {
                 for (let i = 0; i < response.length; i++) {
                     addTeacherActivityInList(response[i])
                 }
-                teacherActivitiesDisplay()
+                processDisplay();
                 displayNotification('#notif-div', "classroom.notif.addActivities", "success")
             })
         } else {
-            /* i18next.t("classroom.notif.saveProject") */
             Main.getClassroomManager().addActivity(Activity).then(function (response) {
                 if (response.errors) {
                     for (let error in response.errors) {
@@ -432,7 +431,7 @@ window.addEventListener('storage', () => {
                     }
                 } else {
                     addTeacherActivityInList(response);
-                    teacherActivitiesDisplay();
+                    processDisplay();
                     displayNotification('#notif-div', "classroom.notif.addActivity", "success");
                 }
             })
@@ -835,34 +834,7 @@ function classroomsDisplay() {
     });
 }
 
-function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherActivities, keyword = false, asc = false) {
-    
-    // get all tags selected
-    // id = filter-activity-type-
-    let selectedTags = [];
-    document.querySelectorAll('[id^="filter-activity-type-"]').forEach(element => {
-        if (element.checked) {
-            selectedTags.push(parseInt(element.dataset.id));
-        }
-    });
-
-    // filter the list
-    if (selectedTags.length > 0) {
-        list = list.filter(element => {
-            if (element.hasOwnProperty('tags') == false) return false;
-            let tags = element.tags;
-            // check if at least one tag is selected
-
-            let found = false;
-            tags.forEach(tag => {
-                if (selectedTags.includes(tag)) {
-                    found = true;
-                }
-            });
-            return found;
-        });
-    }
-    
+function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherActivities, keyword = false, asc = false, excludedObjects = [], tags = []) {
     // Keep the list sorted
     let selectedSort = $('#filter-activity-select').val(),
         sortedList = "";
@@ -884,15 +856,17 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
 
     // Add sorting to the folders
     let foldersZ = keyword ? filterTeacherFolderInList(keyword, asc) : foldersManager.userFolders;
-    foldersZ.forEach(folder => {
-        if (folder.parentFolder == null && foldersManager.actualFolder == null) {
-            $('#list-activities-teacher').append(teacherFolder(folder, displayStyle));
-        } else if (folder.parentFolder != null) {
-            if (folder.parentFolder.id == foldersManager.actualFolder) {
+    if (!excludedObjects.includes("folders")){
+        foldersZ.forEach(folder => {
+            if (folder.parentFolder == null && foldersManager.actualFolder == null) {
                 $('#list-activities-teacher').append(teacherFolder(folder, displayStyle));
+            } else if (folder.parentFolder != null) {
+                if (folder.parentFolder.id == foldersManager.actualFolder) {
+                    $('#list-activities-teacher').append(teacherFolder(folder, displayStyle));
+                }
             }
-        }
-    });
+        });
+    }
     
     sortedList.forEach(element => {
         if (element.folder == null && foldersManager.actualFolder == null) {
@@ -904,15 +878,17 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
         }
     });
 
-    coursesManager.myCourses.forEach(course => {
-        if (course.folder == null && foldersManager.actualFolder == null) {
-            $('#list-activities-teacher').append(coursesManager.teacherCourseItem(course, displayStyle)); 
-        } else if (course.folder != null) {
-            if (course.folder.id == foldersManager.actualFolder) {
+    if (!excludedObjects.includes("courses")) {
+        coursesManager.myCourses.forEach(course => {
+            if (course.folder == null && foldersManager.actualFolder == null) {
                 $('#list-activities-teacher').append(coursesManager.teacherCourseItem(course, displayStyle)); 
+            } else if (course.folder != null) {
+                if (course.folder.id == foldersManager.actualFolder) {
+                    $('#list-activities-teacher').append(coursesManager.teacherCourseItem(course, displayStyle)); 
+                }
             }
-        }
-    });
+        });
+    }
 
     foldersManager.dragulaInitObjects();
     $('[data-bs-toggle="tooltip"]').tooltip();

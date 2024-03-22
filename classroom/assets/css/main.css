@@ -1111,6 +1111,7 @@ button {
     flex-direction: row;
     flex-direction: row;
     gap: 0.35em 1em;
+    margin-top: 1em;
 }
 
 .buttons-interactions button {

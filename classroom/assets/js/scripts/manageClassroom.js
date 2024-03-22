@@ -934,7 +934,7 @@ function addProjectInList(project) {
     Main.getClassroomManager()._myProjects.push(project)
 }
 
-function filterTeacherActivityInList(keywords = [], orderBy = 'id', asc = true) {
+function filterTeacherActivityInList(keywords = [], orderBy = 'id', asc = true, excludedTypes = [], tagsList = []) {
 
     let expression = ''
     for (let i = 0; i < keywords.length; i++) {
@@ -942,14 +942,40 @@ function filterTeacherActivityInList(keywords = [], orderBy = 'id', asc = true) 
         expression += keywords[i].toUpperCase()
         expression += ')'
     }
-    regExp = new RegExp(expression)
-    let list = Main.getClassroomManager()._myTeacherActivities.filter(x => regExp.test(x.title.toUpperCase()))
+
+    let regExp = new RegExp(expression);
+    let list = Main.getClassroomManager()._myTeacherActivities.filter(x => regExp.test(x.title.toUpperCase()));
+
+    // filter the list
+    if (tagsList.length > 0) {
+        list = list.filter(element => {
+            if (element.hasOwnProperty('tags') == false) return false;
+            let elementsTag = element.tags;
+            // check if at least one tag is selected
+
+            let found = false;
+
+            // check if all taglist's tag are in the element tags
+            for (let i = 0; i < tagsList.length; i++) {
+                if (elementsTag.includes(tagsList[i])) {
+                    found = true;
+                } else {
+                    found = false;
+                    break;
+                }
+            }
+            return found;
+        });
+    }
+
+    let listFiltered = list.filter(x => !excludedTypes.includes(x.type))
+
     if (asc) {
-        return list.sort(function (a, b) {
+        return listFiltered.sort(function (a, b) {
             return a[orderBy] - b[orderBy];
         })
     } else {
-        return list.sort(function (a, b) {
+        return listFiltered.sort(function (a, b) {
             return b[orderBy] - a[orderBy];
         })
     }

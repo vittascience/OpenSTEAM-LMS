@@ -234,101 +234,103 @@ DisplayPanel.prototype.classroom_dashboard_form_classe_panel_update = function (
 }
 
 DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function () {
-    Main.getClassroomManager().getAllTags().then((Tag) => {
-
-        if (Tag) {
-
-            if (Tag.tags.length > 0) {
-                const tagsForActivities = document.getElementById("tags-activities");
-                const tagsForPanel = document.getElementById("tags-panel");
-                tagsForActivities.classList.remove("d-none");
-                tagsForActivities.classList.add("d-flex");
-                tagsForPanel.classList.remove("d-none");
-            }
-
-            if (Main.getClassroomManager().tagList != Tag.tags) {
-                Main.getClassroomManager().tagList = Tag.tags;
-
-                let tagDropdown = document.getElementById("dropdown-tags-filter");
-                let tagListSelect = document.getElementById("taglist-select");
-
-                if (tagDropdown) {
-                    tagDropdown.innerHTML = "";
-                }
-
-                if (tagListSelect) {
-                    tagListSelect.innerHTML = "";
-                }
-
-                // order by parent tag
-                Tag.tags.sort((a, b) => {
-                    if (a.parentTag == null && b.parentTag != null) {
-                        return -1;
-                    } else if (a.parentTag != null && b.parentTag == null) {
-                        return 1;
-                    } else {
-                        return 0;
-                    }
-                });
-
-
-                Tag.tags.forEach((tag) => {
-
-                    if (tagListSelect) {
-                        if (tag.parentTag != null) {
-                            let parentTag = tag.parentTag;
-                            let parentTagId = parentTag.id;
-                            let parentTagName = parentTag.name;
-
-                            let parentTagElement = document.getElementById(`parent-tag-${parentTagId}`);
-                            if (parentTagElement) {
-                                parentTagElement.innerHTML += `<option value="${tag.id}">${tag.name}</option>`;
-                            } else {
-                                tagListSelect.innerHTML += `<optgroup label="${parentTagName}" id="parent-tag-${parentTagId}">
-                                <option value="${tag.id}">${tag.name}</option>
-                            </optgroup>`;
-                            }
-
-                        }
-                    }
-
-                    if (tagDropdown) {
-                        if (tag.parentTag == null) {
-                            tagDropdown.innerHTML += `<fieldset id="field-${tag.id}" class="my-2">
-                        <legend class="mx-2 vitta-modal-title">${tag.name}</legend>
-                        </fieldset>`;
-                        } else {
-                            let parentDiv = document.getElementById(`field-${tag.parentTag.id}`);
-                            parentDiv.innerHTML += `<div class="dropdown-item c-checkbox">
-                        <input class="form-check-input" data-id="${tag.id}" data-name="${tag.name}" type="checkbox" id="filter-activity-type-${tag.name}">
-                        <label class="form-check-label" for="filter-activity-type-${tag.name}" id="filter-${tag.name}">${tag.name}</label>
-                        </div>`
-                        }
-                    }
-
-                });
-
-                if (tagDropdown) {
-                    document.querySelectorAll('[id^="filter-activity-type-"]').forEach((checkbox) => {
-                        // add event listener to each checkbox
-                        checkbox.addEventListener("change", (event) => {
-                            let arrayKeywords = $('#filter-activity-input').val().split(' ');
-                            if ($('#filter-activity-select').val() == 'asc') {
-                                teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false), arrayKeywords, false)
-                            } else {
-                                teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true), arrayKeywords, true)
-                            }
-                        });
-                    });
-                }
-            }
-        }
-    });
+    tagManagement();
     ClassroomSettings.activity = false;
     if (foldersManager) {
         if (foldersManager.actualFolder != null) {
             foldersManager.goToFolder(null)
         }
+    }
+}
+
+async function tagManagement() {
+
+    const tags = await Main.getClassroomManager().getAllTags();
+    if (!tags) {
+        return;
+    }
+
+    if (tags.tags.length > 0) {
+        const tagsForActivities = document.getElementById("tags-activities");
+        const tagsForPanel = document.getElementById("tags-panel");
+        tagsForActivities.classList.remove("d-none");
+        tagsForActivities.classList.add("d-flex");
+        tagsForPanel.classList.remove("d-none");
+    }
+
+    if (Main.getClassroomManager().tagList == tags.tags) {
+        return;
+    }
+
+
+    Main.getClassroomManager().tagList = tags.tags;
+
+    let tagDropdown = document.getElementById("dropdown-tags-filter");
+    let tagListSelect = document.getElementById("taglist-select");
+
+    if (tagDropdown) {
+        tagDropdown.innerHTML = "";
+    }
+
+    if (tagListSelect) {
+        tagListSelect.innerHTML = "";
+    }
+
+    // order by parent tag
+    tags.tags.sort((a, b) => {
+        if (a.parentTag == null && b.parentTag != null) {
+            return -1;
+        } else if (a.parentTag != null && b.parentTag == null) {
+            return 1;
+        } else {
+            return 0;
+        }
+    });
+
+
+    tags.tags.forEach((tag) => {
+
+        if (tagListSelect) {
+            if (tag.parentTag != null) {
+                let parentTag = tag.parentTag;
+                let parentTagId = parentTag.id;
+                let parentTagName = parentTag.name;
+
+                let parentTagElement = document.getElementById(`parent-tag-${parentTagId}`);
+                if (parentTagElement) {
+                    parentTagElement.innerHTML += `<option value="${tag.id}">${tag.name}</option>`;
+                } else {
+                    tagListSelect.innerHTML += `<optgroup label="${parentTagName}" id="parent-tag-${parentTagId}">
+                            <option value="${tag.id}">${tag.name}</option>
+                        </optgroup>`;
+                }
+
+            }
+        }
+
+        if (tagDropdown) {
+            if (tag.parentTag == null) {
+                tagDropdown.innerHTML += `<fieldset id="field-${tag.id}" class="my-2">
+                    <legend class="mx-2 vitta-modal-title">${tag.name}</legend>
+                    </fieldset>`;
+            } else {
+                let parentDiv = document.getElementById(`field-${tag.parentTag.id}`);
+                parentDiv.innerHTML += `<div class="dropdown-item c-checkbox">
+                    <input class="form-check-input" data-id="${tag.id}" data-name="${tag.name}" type="checkbox" id="filter-activity-type-${tag.name}">
+                    <label class="form-check-label" for="filter-activity-type-${tag.name}" id="filter-${tag.name}">${tag.name}</label>
+                    </div>`
+            }
+        }
+
+    });
+
+    if (tagDropdown) {
+        document.querySelectorAll('[id^="filter-activity-type-"]').forEach((checkbox) => {
+            // add event listener to each checkbox
+            checkbox.addEventListener("change", (event) => {
+                processDisplay();
+            });
+        });
     }
 }
 
@@ -339,12 +341,12 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
             document.getElementById('add-student-container').style.display = 'none';
             document.getElementById('classroom-info').style.display = 'none';
         }
-        
+
         resetDisplayClassroom();
         breadcrumbManager.setSpecificClass(getClassroomInListByLink(ClassroomSettings.classroom)[0].classroom.name, link);
         // restore the add student div to its default content to remove potential changes from the update classroom modal
         $('#classroom-form-name').val(''),
-        $('#classroom-form-school').val('')
+            $('#classroom-form-school').val('')
         $('#add-student-div').html(BASE_STUDENT_FORM);
         if (!Main.getClassroomManager()._myClasses) {
             Main.getClassroomManager().getClasses().then(function () {
