@@ -3891,3 +3891,11 @@ h3.section-done {
     transform: translate(0px, 50px) !important;
 }
 
+.half-opacity {
+    opacity: 0.5;
+}
+
+.full-opacity {
+    opacity: 1;
+}
+
