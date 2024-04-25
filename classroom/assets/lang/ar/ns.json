@@ -1229,5 +1229,32 @@
         "dragAndDrop": "يتيح لك هذا النشاط سحب الكلمات وإفلاتها في مساحات فارغة مختلفة"
       }
     }
+  }, 
+  "statistics": {
+      "total": "الإجمالي {{entity}}",
+      "average": "المتوسط",
+      "totalTimeSpent": "إجمالي الوقت المستغرق",
+      "averageTimeSpent": "متوسط الوقت المستغرق",
+      "averageOfTotalTimeSpent": "متوسط الوقت الإجمالي المستغرق",
+      "totalConnections": "إجمالي الاتصالات",
+      "averageOfTotalConnections": "متوسط الاتصالات",
+      "eligibleOfStatistics": "إجمالي {{entity}} المؤهل للإحصاءات",
+      "activityViewed": "النشاط المشاهد",
+      "averageOfActivityViewed": "متوسط النشاط المشاهد",
+      "statisticsFor": "الإحصائيات لـ {{entity}}",
+      "statistics": "الإحصائيات",
+      "students": "الطلاب",
+      "teachers": "المعلمين",
+      "ofStudents": "من الطلاب",
+      "ofTeachers": "من المعلمين",
+      "activityCreated": "النشاط المنشأ",
+      "noDataFor": "لا توجد بيانات لـ {{entity}}",
+      "days": "أيام",
+      "hours": "ساعات",
+      "minutes": "دقائق",
+      "seconds": "ثواني",
+      "totalActivities" : "إجمالي الأنشطة",
+      "totalCourses" : "إجمالي الدورات",
+      "globalStatistics": "الإحصائيات العامة"
   }
 }

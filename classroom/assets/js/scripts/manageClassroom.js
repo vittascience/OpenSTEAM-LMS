@@ -1012,6 +1012,20 @@ function resetDisplayClassroom() {
     document.querySelector('#header-table-teach').innerHTML = '';
 }
 
+function getFirstLetterOfPseudo(pseudo) {
+    let firstLetter = pseudo.match(/[a-zA-Z]/);
+    try {
+        if (firstLetter) {
+            return firstLetter[0].toUpperCase();
+        } else {
+            let firstNumber = pseudo.match(/[0-9]/);
+            return 'abcdefghij'[firstNumber];
+        }
+    } catch (error) {
+        return 'A';
+    }
+}
+
 /**
  * Display the teacher dashboard in the classroom tab
  * @param {array} students - Array of students in a classroom
@@ -1056,7 +1070,7 @@ function displayStudentsInClassroom(students, link=false) {
             html = `<tr>
                 <th class="username" data-student-id="${element.user.id}">
                     <div class="user-cell-container">
-                        <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil">
+                        <img class="propic" src="${_PATH}assets/media/alphabet/${getFirstLetterOfPseudo(element.user.pseudo)}.png" alt="Photo de profil">
                         <div class="user-cell-username" title="${element.user.pseudo}">${pseudo}</div>
                         <div class="dropdown">
                             <i class="classroom-clickable line_height34 fas fa-exchange-alt" type="button" id="dropdown-studentItem-${element.user.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
@@ -1071,7 +1085,7 @@ function displayStudentsInClassroom(students, link=false) {
             html = `<tr>
                 <th class="username" data-student-id="${element.user.id}">
                     <div class="user-cell-container">
-                        <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil">
+                        <img class="propic" src="${_PATH}assets/media/alphabet/${getFirstLetterOfPseudo(element.user.pseudo)}.png" alt="Photo de profil">
                         <div class="user-cell-username" title="${element.user.pseudo}">${pseudo}</div>`
             if (!UserManager.getUser().isFromGar) {
                 html += `<div class="dropdown"><i class="classroom-clickable line_height34 fas fa-cog" type="button" id="dropdown-studentItem-${element.user.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
@@ -1272,7 +1286,7 @@ function displayNotification(div, message, status, options = '{}') {
     let i18nText = i18next.t(message);
 
     if (i18nText == message) {
-        html = `<div id='notif-${randId}' class="vitta-notif status-${status}">${message}<div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`;
+        html = `<div id='notif-${randId}' onclick="closeOnClick('notif-${randId}')" class="vitta-notif status-${status}">${message}<div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`;
     } else {
         html = `<div id='notif-${randId}' class="vitta-notif status-${status}" data-i18n="${message}" data-i18n-options=${options}><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`
     }
@@ -1281,8 +1295,14 @@ function displayNotification(div, message, status, options = '{}') {
     $(div).append(html)
     $(div).localize()
     setTimeout(function () {
-        $('#notif-' + randId).remove()
-    }, 15000);
+        if ($('#notif-' + randId).length > 0) {
+            $('#notif-' + randId).remove()
+        }
+    }, 20000);
+}
+
+function closeOnClick(id) {
+    document.getElementById(id).remove()
 }
 
 
@@ -1315,7 +1335,7 @@ function actualizeStudentActivities(activity, correction) {
 function addStudentRow(pseudo, studentId = false, isNotDeletable) {
     return `<li data-pseudo="${pseudo}" data-id="${studentId}" class="row align-items-center my-1 ">
         <div class="col-2">
-            <img class="w-100 propic pic-width" src="${_PATH}assets/media/alphabet/` + pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil">
+            <img class="w-100 propic pic-width" src="${_PATH}assets/media/alphabet/` + getFirstLetterOfPseudo(pseudo) + `.png" alt="Photo de profil">
         </div>
         <div class="col">` + pseudo + `</div>
         ${isNotDeletable ? '' : `<div class="col-2">

@@ -4,7 +4,7 @@
         "vittascience/vtuser": "1.2.28",
         "vittascience/vtinterfaces": "1.4.40",
         "vittascience/vtclassroom": "1.3.26",
-        "vittascience/vtlearn": "1.4.24",
+        "vittascience/vtlearn": "dev-arz-folders-import",
         "vittascience/vutils": "1.2.29",
         "symfony/var-dumper": "^5.3"
     },

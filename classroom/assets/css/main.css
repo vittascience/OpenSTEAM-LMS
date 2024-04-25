@@ -504,6 +504,8 @@ button {
 
     scrollbar-width: thin;
     scrollbar-color: var(--classroom-cell) transparent;
+
+    padding-top: 0.5em;
 }
 
 #classroom-dashboard-content::-webkit-scrollbar,
@@ -818,6 +820,11 @@ button {
 
 .status-error {
     background-color: var(--classroom-red);
+    margin: 5px;
+}
+
+.status-info {
+    background-color: #ff9403;
     margin: 5px;
 }
 
@@ -3899,3 +3906,6 @@ h3.section-done {
     opacity: 1;
 }
 
+th, td {
+    color: var(--classroom-text-0) !important;
+}

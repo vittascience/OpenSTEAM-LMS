@@ -1683,5 +1683,32 @@
 		"update": "Modifier le parcours",
 		"show": "Afficher le parcours",
 		"informationWhenEmpty": "Cliquer sur les boutons ci-dessus pour ajouter des activités au parcours."
+	},
+	"statistics": {
+		"total": "Total {{entity}}",
+		"average": "Moyenne",
+		"totalTimeSpent": "Temps total passé",
+		"averageTimeSpent": "Moyenne du temps passé",
+		"averageOfTotalTimeSpent": "Moyenne du temps total passé",
+		"totalConnections": "Total de connexions",
+		"averageOfTotalConnections": "Moyenne de connexions",
+		"eligibleOfStatistics": "Total {{entity}} éligibles pour les statistiques",
+		"activityViewed": "Activité vue",
+		"averageOfActivityViewed": "Moyenne d'activité vue",
+		"statisticsFor": "Statistiques pour les {{entity}}",
+		"statistics": "Statistiques",
+		"students": "Élèves",
+		"teachers": "Enseignants",
+		"ofStudents": "d'élèves",
+		"ofTeachers": "d'enseignants",
+		"activityCreated": "Activité créée",
+		"noDataFor": "Pas de données pour les {{entity}}",
+		"days": "jours",
+		"hours": "heures",
+		"minutes": "minutes",
+		"seconds": "secondes",
+		"totalActivities" : "Total d'activités",
+		"totalCourses" : "Total de parcours",
+		"globalStatistics": "Statistiques globales"
 	}
 }

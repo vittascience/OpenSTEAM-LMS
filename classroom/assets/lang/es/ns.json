@@ -1218,6 +1218,33 @@
           "dragAndDrop": "Esta actividad permite arrastrar y soltar palabras en diferentes espacios vacíos."
         }
       }
+    },
+    "statistics": {
+      "total": "Total {{entity}}",
+      "average": "Promedio",
+      "totalTimeSpent": "Tiempo total invertido",
+      "averageTimeSpent": "Promedio del tiempo invertido",
+      "averageOfTotalTimeSpent": "Promedio del tiempo total invertido",
+      "totalConnections": "Total de conexiones",
+      "averageOfTotalConnections": "Promedio de conexiones",
+      "eligibleOfStatistics": "Total {{entity}} elegible para estadísticas",
+      "activityViewed": "Actividad vista",
+      "averageOfActivityViewed": "Promedio de actividad vista",
+      "statisticsFor": "Estadísticas para {{entity}}",
+      "statistics": "Estadísticas",
+      "students": "Estudiantes",
+      "teachers": "Profesores",
+      "ofStudents": "de estudiantes",
+      "ofTeachers": "de profesores",
+		  "activityCreated": "Actividad creada",
+      "noDataFor": "No hay datos para {{entity}}",
+      "days": "días",
+      "hours": "horas",
+      "minutes": "minutos",
+      "seconds": "segundos",
+      "totalActivities" : "Total de actividades",
+      "totalCourses" : "Total de cursos",
+      "globalStatistics": "Estadísticas globales"
     }
   }
   
