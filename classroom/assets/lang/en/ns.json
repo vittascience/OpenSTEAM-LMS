@@ -1395,6 +1395,11 @@
 		"seconds": "seconds",
 		"totalActivities" : "Total activities",
 		"totalCourses" : "Total courses",
-		"globalStatistics": "Global statistics"
+		"globalStatistics": "Global statistics",
+		"medianAverageTimeSpent": "Median of average time spent",
+		"medianTotalTimeSpent": "Median of total time spent",
+		"exportToCSV" : "Export to CSV",
+		"exportToPDF" : "Export to PDF",
+		"exportToXLS" : "Export to XLS"
 	}
 }

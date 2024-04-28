@@ -1689,6 +1689,7 @@
 		"average": "Moyenne",
 		"totalTimeSpent": "Temps total passé",
 		"averageTimeSpent": "Moyenne du temps passé",
+		"medianTimeSpend": "Médiane du temps passé",
 		"averageOfTotalTimeSpent": "Moyenne du temps total passé",
 		"totalConnections": "Total de connexions",
 		"averageOfTotalConnections": "Moyenne de connexions",
@@ -1709,6 +1710,11 @@
 		"seconds": "secondes",
 		"totalActivities" : "Total d'activités",
 		"totalCourses" : "Total de parcours",
-		"globalStatistics": "Statistiques globales"
+		"globalStatistics": "Statistiques globales",
+		"medianAverageTimeSpent": "Médiane de la moyenne du temps passé",
+		"medianTotalTimeSpent": "Médiane du temps total passé",
+		"exportToCSV" : "Exporter en CSV",
+		"exportToPDF" : "Exporter en PDF",
+		"exportToXLS" : "Exporter en XLS"
 	}
 }

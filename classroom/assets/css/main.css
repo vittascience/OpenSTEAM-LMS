@@ -801,6 +801,7 @@ button {
     grid-template-areas: ". .";
     padding: 0.5em;
     margin: 0em 0.5em;
+    cursor: pointer;
 }
 
 .vitta-notif-exit-btn {

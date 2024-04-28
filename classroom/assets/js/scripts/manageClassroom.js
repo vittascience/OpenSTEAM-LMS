@@ -1288,7 +1288,7 @@ function displayNotification(div, message, status, options = '{}') {
     if (i18nText == message) {
         html = `<div id='notif-${randId}' onclick="closeOnClick('notif-${randId}')" class="vitta-notif status-${status}">${message}<div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`;
     } else {
-        html = `<div id='notif-${randId}' class="vitta-notif status-${status}" data-i18n="${message}" data-i18n-options=${options}><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`
+        html = `<div id='notif-${randId}' onclick="closeOnClick('notif-${randId}')" class="vitta-notif status-${status}" data-i18n="${message}" data-i18n-options=${options}><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`
     }
 
     //let html = `<div id='notif-` + randId + `' class="vitta-notif status-` + status + `" data-i18n="` + message + `" data-i18n-options=` + options + `><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`

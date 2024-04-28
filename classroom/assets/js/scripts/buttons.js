@@ -1913,6 +1913,7 @@ function switchTomanager() {
     $('#classroom-dashboard-sidebar-teacher').hide();
     $('#groupadmin-dashboard-sidebar').hide();
     $('#manager-dashboard-sidebar').show();
+    navigatePanel('classroom-dashboard-profil-panel-manager', 'dashboard-profil-manager');
     pseudoModal.closeAllModal();
     mainManager.getmanagerManager().getDefaultRestrictions().then(function (res2) {
         mainManager.getmanagerManager()._defaultRestrictions = res2;

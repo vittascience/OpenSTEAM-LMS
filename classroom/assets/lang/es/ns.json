@@ -1244,7 +1244,12 @@
       "seconds": "segundos",
       "totalActivities" : "Total de actividades",
       "totalCourses" : "Total de cursos",
-      "globalStatistics": "Estadísticas globales"
+      "globalStatistics": "Estadísticas globales",
+      "medianAverageTimeSpent": "Mediana del tiempo promedio invertido",
+      "medianTotalTimeSpent": "Mediana del tiempo total invertido",
+      "exportToCSV" : "Exportar en CSV",
+      "exportToPDF" : "Exportar en PDF",
+      "exportToXLS" : "Exportar en XLS"
     }
   }
   

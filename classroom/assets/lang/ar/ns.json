@@ -1255,6 +1255,11 @@
       "seconds": "ثواني",
       "totalActivities" : "إجمالي الأنشطة",
       "totalCourses" : "إجمالي الدورات",
-      "globalStatistics": "الإحصائيات العامة"
+      "globalStatistics": "الإحصائيات العامة",
+      "medianAverageTimeSpent": "متوسط الوقت المستغرق",
+      "medianTotalTimeSpent": "الوقت المستغرق",
+      "exportToCSV" : "تصدير إلى CSV",
+      "exportToPDF" : "تصدير إلى PDF",
+      "exportToXLS" : "تصدير إلى XLS"
   }
 }
