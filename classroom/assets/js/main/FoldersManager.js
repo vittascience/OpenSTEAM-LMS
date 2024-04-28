@@ -281,6 +281,8 @@ class FoldersManager {
 
     async displayAndDragulaInitObjects() {
         let activities = await Main.getClassroomManager().getTeacherActivities(Main.getClassroomManager());
+        let folders = await this.getAllUserFolders();
+        this.userFolders = folders;
         coursesManager.myCourses = await coursesManager._requestGetMyCourseTeacher();
         processDisplay();
         this.dragulaInitObjects();

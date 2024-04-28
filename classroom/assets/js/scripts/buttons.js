@@ -253,6 +253,8 @@ function askQuitLtiWithoutSaving() {
  * @param {boolean} isOnpopstate - If set to true, the current navigation won't be saved in history (dedicated to onpopstate events)
  */
 async function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = false) {
+    document.title = $('#' + idNav).find('span').html() + ' - ' + location.hostname.charAt(0).toUpperCase() + location.hostname.slice(1);
+
     // If we are on the activity panel, in LTI context and the LTI resource isn't up to date
     const isActivityPanel = $_GET('panel') === 'classroom-dashboard-activity-panel',
     isNewActivityPanel = $_GET('panel') === 'classroom-dashboard-classes-new-activity';
@@ -1911,6 +1913,7 @@ function switchTomanager() {
     $('#classroom-dashboard-sidebar-teacher').hide();
     $('#groupadmin-dashboard-sidebar').hide();
     $('#manager-dashboard-sidebar').show();
+    navigatePanel('classroom-dashboard-profil-panel-manager', 'dashboard-profil-manager');
     pseudoModal.closeAllModal();
     mainManager.getmanagerManager().getDefaultRestrictions().then(function (res2) {
         mainManager.getmanagerManager()._defaultRestrictions = res2;

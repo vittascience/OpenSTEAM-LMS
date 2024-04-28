@@ -28,14 +28,14 @@
         </div>
 <div id="classroom-dashboard-sidebar-teacher" class="sidebar-classroom" style="display:none;">
     <div id="classroom-sidebar-logo"></div>
-    <div class="classroom-navbar-button" id="dashboard-activities-teacher"
-        onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')">
-        <img src="assets/media/my_activities.svg" alt="Icône activités">
-        <span data-i18n="classroom.ids.classroom-dashboard-activities-panel-teacher"></span> </div>
     <div class=" classroom-navbar-button" id="dashboard-classes-teacher"
         onclick="navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher')">
         <img src="assets/media/my_classes.svg" alt="Icône classe">
         <span data-i18n="classroom.ids.classroom-dashboard-classes-panel-teacher"></span> </div>
+    <div class="classroom-navbar-button" id="dashboard-activities-teacher"
+        onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')">
+        <img src="assets/media/my_activities.svg" alt="Icône activités">
+        <span data-i18n="classroom.ids.classroom-dashboard-activities-panel-teacher"></span> </div>
     <div id="dashboard-profil-teacher" class="active classroom-navbar-button"
         onclick="navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher')"><img
             class="user-picture" src="assets/media/profile_picture.svg" alt="Photo de profil">
@@ -558,7 +558,7 @@
             <i class="fas fa-question-circle"></i>
         </button>
 
-        <button class="btn c-btn-outline-primary" onclick="listeModeApprenant()">
+        <button class="btn c-btn-outline-primary" onclick="listeModeApprenant()" id="switch-student">
             <span data-i18n="classroom.profil.switchMode" class="text-span-initial me-1"></span>
             <i class="fas fa-exchange-alt"></i></button>
 
@@ -2629,7 +2629,7 @@
 
                             if (user.isRegular) {
                                 $('body').addClass('theme-teacher')
-                                $('.user-picture').attr('src',`/classroom/assets/media/alphabet/${UserManager.getUser().firstname.slice(0, 1).toUpperCase()}.png`)
+                                $('.user-picture').attr('src',`/classroom/assets/media/alphabet/${getFirstLetterOfPseudo(UserManager.getUser().firstname)}.png`)
 
                                 let administration = [];
                                 // Init the super and group admin
@@ -2653,7 +2653,7 @@
                                 // nav => dashboard-activities-teacher
                                 $('#classroom-dashboard-sidebar').show()
                                 $('body').addClass('theme-student')
-                                $('.user-picture').attr('src', '/classroom/assets/media/alphabet/' + UserManager.getUser().pseudo.slice(0, 1).toUpperCase() + '.png')
+                                $('.user-picture').attr('src',`/classroom/assets/media/alphabet/${getFirstLetterOfPseudo(UserManager.getUser().pseudo)}.png`)
                                 Main.getClassroomManager().getMyClassroom(UserManager.getUser().id).then(function (classroom) {
                                     $('#classroom-name').html(classroom.name)
                                     ClassroomSettings.classroom = classroom.link
