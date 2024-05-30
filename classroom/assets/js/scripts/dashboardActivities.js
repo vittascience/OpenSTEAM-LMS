@@ -346,7 +346,7 @@ function classeList(classe, ref = null) {
         html += `<div class="c-checkbox ms-3 student-attribute-form-row">
             <input type="checkbox" id="student-${student.user.id}" value="${student.user.id}" class="student-id" ${checked}>
             <label class="mb-0" for="student-${student.user.id}">
-                <img class="ms-1" src="${_PATH}assets/media/alphabet/${student.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil"></img>
+                <img class="ms-1" src="${_PATH}assets/media/alphabet/${getFirstLetterOfPseudo(student.user.pseudo)}.png" alt="Photo de profil"></img>
                 <span>${student.user.pseudo}</span>
             </label>
         </div>`

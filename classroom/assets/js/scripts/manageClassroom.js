@@ -1279,7 +1279,7 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
-function displayNotification(div, message, status, options = '{}') {
+function displayNotification(div, message, status, options = '{}', timer = 20000) {
     let randId = Math.floor(Math.random() * Math.floor(10000))
     // get i18n text
     let html = "";
@@ -1298,7 +1298,7 @@ function displayNotification(div, message, status, options = '{}') {
         if ($('#notif-' + randId).length > 0) {
             $('#notif-' + randId).remove()
         }
-    }, 20000);
+    }, timer);
 }
 
 function closeOnClick(id) {
