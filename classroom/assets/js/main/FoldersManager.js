@@ -47,8 +47,10 @@ class FoldersManager {
         let showType = localStorage.getItem('classroomViewMode') ? localStorage.getItem('classroomViewMode') : "card";
         if (showType == "list") {
             $("#switcherCard").addClass("half-opacity");
+            $("#switcherList").addClass("selected-display");
         } else {
             $("#switcherList").addClass("half-opacity");
+            $("#switcherCard").addClass("selected-display");
         }
     }
 
@@ -529,13 +531,21 @@ class FoldersManager {
             switcherList =  document.getElementById("switcherList");
         if (display == "list") {
             switcherCard.classList.add("half-opacity");
+            switcherCard.classList.remove("selected-display");
+
             switcherList.classList.remove("half-opacity");
+            switcherList.classList.add("selected-display");
+
+
+
             Main.getClassroomManager().displayMode = "list";
             localStorage.setItem('classroomViewMode', "list");
             this.displayAndDragulaInitObjects();
         } else {
             switcherList.classList.add("half-opacity");
+            switcherList.classList.remove("selected-display");
             switcherCard.classList.remove("half-opacity");
+            switcherCard.classList.add("selected-display");
             Main.getClassroomManager().displayMode = "card";
             localStorage.setItem('classroomViewMode', "card");
             this.displayAndDragulaInitObjects();
