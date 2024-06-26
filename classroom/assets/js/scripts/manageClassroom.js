@@ -1109,10 +1109,10 @@ function displayStudentsInClassroom(students, link=false) {
         for (let i = 0; i < arrayIndexesActivities.length; i++) {
             const currentActivity = arrayActivities[i];
             let isCourse = false;
-            if (currentActivity.hasOwnProperty('courseState')) {
+            if (currentActivity && currentActivity.hasOwnProperty('courseState')) {
                 isCourse = true;
             }
-
+            
             if (element.user.pseudo == demoStudentName) {
                 let thModular = "";
                 let optionContent = "";
