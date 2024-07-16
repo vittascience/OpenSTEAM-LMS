@@ -44,6 +44,9 @@ class ClassroomManager {
         this.tagList = [];
         this.imagesWidth = 300;
         this.droppable = {};
+        
+        this.excludedActivityType = [];
+        this.excludedObjectFromDashboard = [];
     }
 
     /**

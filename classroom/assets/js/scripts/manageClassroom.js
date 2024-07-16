@@ -934,7 +934,7 @@ function addProjectInList(project) {
     Main.getClassroomManager()._myProjects.push(project)
 }
 
-function filterTeacherActivityInList(keywords = [], orderBy = 'id', asc = true) {
+function filterTeacherActivityInList(keywords = [], orderBy = 'id', asc = true, excludedTypes = [], tagsList = []) {
 
     let expression = ''
     for (let i = 0; i < keywords.length; i++) {
@@ -942,14 +942,40 @@ function filterTeacherActivityInList(keywords = [], orderBy = 'id', asc = true) 
         expression += keywords[i].toUpperCase()
         expression += ')'
     }
-    regExp = new RegExp(expression)
-    let list = Main.getClassroomManager()._myTeacherActivities.filter(x => regExp.test(x.title.toUpperCase()))
+
+    let regExp = new RegExp(expression);
+    let list = Main.getClassroomManager()._myTeacherActivities.filter(x => regExp.test(x.title.toUpperCase()));
+
+    // filter the list
+    if (tagsList.length > 0) {
+        list = list.filter(element => {
+            if (element.hasOwnProperty('tags') == false) return false;
+            let elementsTag = element.tags;
+            // check if at least one tag is selected
+
+            let found = false;
+
+            // check if all taglist's tag are in the element tags
+            for (let i = 0; i < tagsList.length; i++) {
+                if (elementsTag.includes(tagsList[i])) {
+                    found = true;
+                } else {
+                    found = false;
+                    break;
+                }
+            }
+            return found;
+        });
+    }
+
+    let listFiltered = list.filter(x => !excludedTypes.includes(x.type))
+
     if (asc) {
-        return list.sort(function (a, b) {
+        return listFiltered.sort(function (a, b) {
             return a[orderBy] - b[orderBy];
         })
     } else {
-        return list.sort(function (a, b) {
+        return listFiltered.sort(function (a, b) {
             return b[orderBy] - a[orderBy];
         })
     }
@@ -984,6 +1010,20 @@ function resetDisplayClassroom() {
     document.querySelector('#add-student-container').innerHTML = '';
     document.querySelector('#export-class-container').innerHTML = '';
     document.querySelector('#header-table-teach').innerHTML = '';
+}
+
+function getFirstLetterOfPseudo(pseudo) {
+    let firstLetter = pseudo.match(/[a-zA-Z]/);
+    try {
+        if (firstLetter) {
+            return firstLetter[0].toUpperCase();
+        } else {
+            let firstNumber = pseudo.match(/[0-9]/);
+            return 'abcdefghij'[firstNumber];
+        }
+    } catch (error) {
+        return 'A';
+    }
 }
 
 /**
@@ -1030,7 +1070,7 @@ function displayStudentsInClassroom(students, link=false) {
             html = `<tr>
                 <th class="username" data-student-id="${element.user.id}">
                     <div class="user-cell-container">
-                        <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil">
+                        <img class="propic" src="${_PATH}assets/media/alphabet/${getFirstLetterOfPseudo(element.user.pseudo)}.png" alt="Photo de profil">
                         <div class="user-cell-username" title="${element.user.pseudo}">${pseudo}</div>
                         <div class="dropdown">
                             <i class="classroom-clickable line_height34 fas fa-exchange-alt" type="button" id="dropdown-studentItem-${element.user.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
@@ -1045,7 +1085,7 @@ function displayStudentsInClassroom(students, link=false) {
             html = `<tr>
                 <th class="username" data-student-id="${element.user.id}">
                     <div class="user-cell-container">
-                        <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil">
+                        <img class="propic" src="${_PATH}assets/media/alphabet/${getFirstLetterOfPseudo(element.user.pseudo)}.png" alt="Photo de profil">
                         <div class="user-cell-username" title="${element.user.pseudo}">${pseudo}</div>`
             if (!UserManager.getUser().isFromGar) {
                 html += `<div class="dropdown"><i class="classroom-clickable line_height34 fas fa-cog" type="button" id="dropdown-studentItem-${element.user.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
@@ -1069,10 +1109,10 @@ function displayStudentsInClassroom(students, link=false) {
         for (let i = 0; i < arrayIndexesActivities.length; i++) {
             const currentActivity = arrayActivities[i];
             let isCourse = false;
-            if (currentActivity.hasOwnProperty('courseState')) {
+            if (currentActivity && currentActivity.hasOwnProperty('courseState')) {
                 isCourse = true;
             }
-
+            
             if (element.user.pseudo == demoStudentName) {
                 let thModular = "";
                 let optionContent = "";
@@ -1239,24 +1279,30 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
-function displayNotification(div, message, status, options = '{}') {
+function displayNotification(div, message, status, options = '{}', timer = 20000) {
     let randId = Math.floor(Math.random() * Math.floor(10000))
     // get i18n text
     let html = "";
     let i18nText = i18next.t(message);
 
     if (i18nText == message) {
-        html = `<div id='notif-${randId}' class="vitta-notif status-${status}">${message}<div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`;
+        html = `<div id='notif-${randId}' onclick="closeOnClick('notif-${randId}')" class="vitta-notif status-${status}">${message}<div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`;
     } else {
-        html = `<div id='notif-${randId}' class="vitta-notif status-${status}" data-i18n="${message}" data-i18n-options=${options}><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`
+        html = `<div id='notif-${randId}' onclick="closeOnClick('notif-${randId}')" class="vitta-notif status-${status}" data-i18n="${message}" data-i18n-options=${options}><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`
     }
 
     //let html = `<div id='notif-` + randId + `' class="vitta-notif status-` + status + `" data-i18n="` + message + `" data-i18n-options=` + options + `><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`
     $(div).append(html)
     $(div).localize()
     setTimeout(function () {
-        $('#notif-' + randId).remove()
-    }, 15000);
+        if ($('#notif-' + randId).length > 0) {
+            $('#notif-' + randId).remove()
+        }
+    }, timer);
+}
+
+function closeOnClick(id) {
+    document.getElementById(id).remove()
 }
 
 
@@ -1289,7 +1335,7 @@ function actualizeStudentActivities(activity, correction) {
 function addStudentRow(pseudo, studentId = false, isNotDeletable) {
     return `<li data-pseudo="${pseudo}" data-id="${studentId}" class="row align-items-center my-1 ">
         <div class="col-2">
-            <img class="w-100 propic pic-width" src="${_PATH}assets/media/alphabet/` + pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil">
+            <img class="w-100 propic pic-width" src="${_PATH}assets/media/alphabet/` + getFirstLetterOfPseudo(pseudo) + `.png" alt="Photo de profil">
         </div>
         <div class="col">` + pseudo + `</div>
         ${isNotDeletable ? '' : `<div class="col-2">

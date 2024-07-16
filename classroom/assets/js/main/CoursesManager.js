@@ -576,7 +576,7 @@ class CoursesManager {
         this._requestGetMyCourseTeacher().then((res) => {
             this.myCourses = res;
             if (fromDeletion) {
-                teacherActivitiesDisplay();
+                processDisplay();
             }
         });
     }
@@ -1463,7 +1463,7 @@ class CoursesManager {
             <input type="hidden" id="activities_link_user" name="activities_link_user" value="${activityId}">
             <input type="hidden" id="student_resource_url" name="student_resource_url" value="${studentResourceUrl}">
         </form>
-        <iframe id="lti_student_iframe_${activityId}" src="about:blank" data-id="${activityId}" data-link="${activityLink}" name="lti_student_iframe_${activityId}" title="Tool Content" width="100%" style="height: 60vh;" allowfullscreen></iframe>`, 
+        <iframe id="lti_student_iframe_${activityId}" src="about:blank" data-id="${activityId}" data-link="${activityLink}" name="lti_student_iframe_${activityId}" title="Tool Content" width="100%" style="height: 60vh;" allow="fullscreen *; microphone *; camera *; serial *; usb *"></iframe>`, 
         `resource_launch_form_${activityId}`];
     }
     
