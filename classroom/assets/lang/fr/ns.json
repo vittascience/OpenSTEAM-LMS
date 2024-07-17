@@ -10,11 +10,11 @@
 			"neutralTitle": "Open STEAM LMS",
 			"subtitle": "Découvrir - Apprendre - Partager",
 			"login": "Se connecter",
-			"activities": "Créez facilement </br> vos activités",
-			"attribute": "Attribuez les </br> à vos apprenants",
+			"activities": "Créez facilement </br> vos ressources",
+			"attribute": "Attribuez les </br> à vos élèves",
 			"visualize": "Visualisez </br> leurs résultats",
 			"helpers": " A nos côtés pour vous <span>accompagner.</span>",
-			"student": "APPRENANT",
+			"student": "ÉLÈVE",
 			"codeInput": " Rentrez ici votre code classe",
 			"teacher": "ENSEIGNANT",
 			"hasAccount": "Vous avez déja un compte ?",
@@ -36,16 +36,16 @@
 			},
 			"carousel": {
 				"activities": {
-					"title": "Créez facilement vos activités",
-					"content": "L'éditeur d'activité permet de créer du contenu pédagogique en toute simplicité, en incluant du texte, des images, des vidéos, des interfaces de programmation Vittascience, des présentations Genially et bien d'autres outils.</br></br>Parcourez la banque de ressources collaboratives Vittascience, qui regroupe plusieurs centaines d'activités libres et réutilisables. Si l'auteur de la ressourcel'autorise, vous pouvez même apporter des modifications pour adapter le contenu à vos apprenants !"
+					"title": "Créez facilement vos ressources",
+					"content": "L'éditeur d'activité permet de créer du contenu pédagogique en toute simplicité, en incluant du texte, des images, des vidéos, des interfaces de programmation Vittascience, des présentations Genially et bien d'autres outils.</br></br>Parcourez la banque de ressources collaboratives Vittascience, qui regroupe plusieurs centaines de ressources libres et réutilisables. Si l'auteur de la ressourcel'autorise, vous pouvez même apporter des modifications pour adapter le contenu à vos élèves !"
 				},
 				"attribute": {
-					"title": "Attribuez les à vos apprenants",
-					"content": "Une fois vos activités créées, vous pouvez les attribuer à vos apprenants. Il est possible d'attribuer individuellement ou bien à des groupes entiers, par exemple une classe ou un club scientifique.</br></br>Les apprenants peuvent se connecter en toute sécurité à l'aide d'un code classe, d'un lien, d'un QRcode ou du GAR, et réaliser les activités qui leurs ont été attribuées."
+					"title": "Attribuez les à vos élèves",
+					"content": "Une fois vos ressources créées, vous pouvez les attribuer à vos élèves. Il est possible d'attribuer individuellement ou bien à des groupes entiers, par exemple une classe ou un club scientifique.</br></br>Les élèves peuvent se connecter en toute sécurité à l'aide d'un code classe, d'un lien, d'un QRcode ou du GAR, et réaliser les ressources qui leurs ont été attribuées."
 				},
 				"visualize": {
 					"title": "Visualisez leurs résultats",
-					"content": "Le tableau de bord permet de suivre la progression des apprenants à mesure qu'ils avancent dans les activités et parcours. Retrouvez le travail de vos apprenants en un clic avec possibilité de commenter le rendu.</br></br>Grâce au système de correction automatique pour blocs et Python, le tableau de bord se remplit directement avec les résultats des élèves. Identifiez rapidement les apprenants en difficulté et gagnez un temps précieux pour les accompagner."
+					"content": "Le tableau de bord permet de suivre la progression des élèves à mesure qu'ils avancent dans les ressources et activités. Retrouvez le travail de vos élèves en un clic avec possibilité de commenter le rendu.</br></br>Grâce au système de correction automatique pour blocs et Python, le tableau de bord se remplit directement avec les résultats des élèves. Identifiez rapidement les élèves en difficulté et gagnez un temps précieux pour les accompagner."
 				}
 			},
 			"register": {
@@ -73,9 +73,9 @@
 		"pdfPreview": "prévisualisation de PDF",
 		"successPanel": "Bravo, tu as réussi cette activité !",
 		"failPanel": "La réponse n'est pas correcte",
-		"toCorrectPanel": "L'activité à été transmise à ton enseignant,</br>qui reviendra vers toi bientôt !",
+		"toCorrectPanel": "La ressource à été transmise à ton enseignant,</br>qui reviendra vers toi bientôt !",
 		"bank": {
-			"helpTooltip": "La banque de ressource contient de nombreuses activités sur lesquelles tu peux t'entraîner en autonomie ! Ton enseignant n'aura pas accès aux résultats de ces activités."
+			"helpTooltip": "La banque de ressource contient de nombreuses ressources sur lesquelles tu peux t'entraîner en autonomie ! Ton enseignant n'aura pas accès aux résultats de ces ressources."
 		},
 		"help": {
 			"student": {
@@ -90,11 +90,11 @@
 		"profil": {
 			"identity": "Prénom Nom",
 			"class": "CLASSE : ",
-			"todo": "Activités </br> à faire",
-			"done": "Activités </br> réalisées",
-			"create": "Activités </br> créées",
+			"todo": "Ressources </br> à faire",
+			"done": "Ressources </br> réalisées",
+			"create": "Ressources </br> créées",
 			"correctionToDo": "Corrections </br> à faire",
-			"switchMode": "Passer en mode apprenant",
+			"switchMode": "Passer en mode élève",
 			"switchModeTeacher": "Retour au mode enseignant",
 			"accountSettings": {
 				"title": "Mon compte",
@@ -112,39 +112,39 @@
 			"emptyTitle": "Le titre ne peut pas être vide.",
 			"activityRestricted": "Vous ne pouvez pas créer plus d'activité de ce type.",
 			"shareProjectTeacher": "Le projet a été partagé avec votre enseignant",
-			"addActivities": "Les activités sélectionnées ont été ajoutées à votre liste",
-			"addActivity": "L'activité a été ajoutée à votre liste",
+			"addActivities": "Les ressources sélectionnées ont été ajoutées à votre liste",
+			"addActivity": "La ressource a été ajoutée à votre liste",
 			"saveProject": "Avez vous pensé à sauver votre activité?",
 			"savedProject": "Le brouillon de votre activité a été sauvé.",
 			"deleteProject": "Le projet a été supprimé.",
 			"shareProject": "Le projet a été partagé",
 			"corrections": "Un exercice a été rendu dans vos classes",
-			"deleteAccount": "Etes vous sur de vouloir supprimer le compte de l'apprenant?",
-			"accountIsDelete": "Le compte de l'apprenant  a été supprimé",
-			"newPwd": "Le nouveau mot de passe de l'apprenant {{pseudo}} est {{pwd}}",
-			"classCreatedButNotUsers": "La classe {{classroomName}} a bien été crée, mais pas les comptes associés (Votre compte ne vous permet pas d'avoir {{learnerNumber}} apprenants)",
-			"classUpdatedButNotUsers": "La classe {{classroomName}} a bien été mise à jour, mais pas les comptes associés (Votre compte ne vous permet pas d'avoir {{learnerNumber}} apprenants)",
-			"usersNotAdded": "L'apprenant n'a pas pu être ajouté (Votre compte ne vous permet pas d'avoir {{learnerNumber}} apprenants)",
-			"cantLoginLimitLearners": "Vous ne pouvez pas rejoindre la classe. Votre professeur a atteint son nombre maximum d'apprenants.",
+			"deleteAccount": "Etes vous sur de vouloir supprimer le compte de l'élève?",
+			"accountIsDelete": "Le compte de l'élève  a été supprimé",
+			"newPwd": "Le nouveau mot de passe de l'élève {{pseudo}} est {{pwd}}",
+			"classCreatedButNotUsers": "La classe {{classroomName}} a bien été crée, mais pas les comptes associés (Votre compte ne vous permet pas d'avoir {{learnerNumber}} élèves)",
+			"classUpdatedButNotUsers": "La classe {{classroomName}} a bien été mise à jour, mais pas les comptes associés (Votre compte ne vous permet pas d'avoir {{learnerNumber}} élèves)",
+			"usersNotAdded": "L'élève n'a pas pu être ajouté (Votre compte ne vous permet pas d'avoir {{learnerNumber}} élèves)",
+			"cantLoginLimitLearners": "Vous ne pouvez pas rejoindre la classe. Votre professeur a atteint son nombre maximum d'élèves.",
 			"cantLoginClassroomBlocked": "Vous ne pouvez pas rejoindre la classe, votre professeur en a verrouillé l'accès.",
 			"classNotCreated": "Vous ne pouvez pas avoir plus de {{classroomNumberLimit}} classe(s).",
-			"attributeActivityUndone": "L'activité a été désattribuée",
-			"pseudoUpdated": "Le nouveau pseudo de l'apprenant est {{newPseudo}}",
+			"attributeActivityUndone": "La ressource a été désattribuée",
+			"pseudoUpdated": "Le nouveau pseudo de l'élève est {{newPseudo}}",
 			"classroomDeleted": "La classe {{classroomName}} a été supprimée",
 			"classroomCreated": "La classe {{classroomName}} a été créée, ainsi que tous les comptes associés",
 			"classroomUpdated": "La classe {{classroomName}} a été mise à jour, ainsi que tous les comptes associés",
 			"usersAdded": "Les comptes ont été créés",
 			"usersAddedFromCsv": "Les comptes ont été créés d'après le fichier csv",
-			"activityDeleted": "L'activité {{activityName}} a été supprimée",
-			"activityDuplicated": "L'activité {{activityName}} a été dupliquée",
-			"mustAttributeToStudent": "Vous devez attribuer l'activité à des étudiants",
-			"activityAttributed": "L'activité {{activityTitle}} a été attribuée aux apprenants listés",
-			"courseAttributed": "Le parcours a été attribué aux apprenants listés",
-			"activityAttributionChanged": "L'attribution de l'activité {{activityTitle}} a été modifiée pour les apprenants listés",
-			"activityCreated": "L'activité {{activityTitle}} a été créée",
-			"activityImported": "L'activité {{activityTitle}} a été importée",
-			"activityChanged": "L'activité {{activityTitle}} a été modifiée",
-			"activityTitleMissing": "Vous devez renseigner le titre de l'activité",
+			"activityDeleted": "La ressource {{activityName}} a été supprimée",
+			"activityDuplicated": "La ressource {{activityName}} a été dupliquée",
+			"mustAttributeToStudent": "Vous devez attribuer la ressource à des étudiants",
+			"activityAttributed": "La ressource {{activityTitle}} a été attribuée aux élèves listés",
+			"courseAttributed": "L'activité a été attribuée aux élèves listés",
+			"activityAttributionChanged": "L'attribution de la ressource {{activityTitle}} a été modifiée pour les élèves listés",
+			"activityCreated": "La ressource {{activityTitle}} a été créée",
+			"activityImported": "La ressource {{activityTitle}} a été importée",
+			"activityChanged": "La ressource {{activityTitle}} a été modifiée",
+			"activityTitleMissing": "Vous devez renseigner le titre de la ressource",
 			"CsvFileMissing": "Vous n'avez pas choisi de fichier csv",
 			"errorWithCsv": "Erreur lors de l'ouverture du fichier csv : {{error}}",
 			"cantGetPassword": "Erreur, vous ne pouvez pas voir votre mot de passe",
@@ -162,7 +162,7 @@
 			"emailInvalid": "L'adresse e-mail envoyée est invalide",
 			"emailExists": "L'adresse e-mail est déjà attribuée à un autre compte",
 			"UserNotExists": "Erreur lors du chargement / de la réinitialisation du mot de passe : utilisateur incorrect !",
-			"RegularUserNotAllowed": "Erreur lors du chargement / de la réinitialisation du mot de passe : seul les apprenants peuvent afficher / réinitialiser leur mot de passe !",
+			"RegularUserNotAllowed": "Erreur lors du chargement / de la réinitialisation du mot de passe : seul les élèves peuvent afficher / réinitialiser leur mot de passe !",
 			"PasswordLengthInvalid": "Impossible de récupérer le mot de passe : mot de passe erroné !",
 			"accountCreated": "Le compte a été créé. Veuillez vous rendre sur le lien de confirmation qui vient de vous être communiqué par e-mail pour finaliser l'inscription et pouvoir vous connecter.",
 			"firstnameMissing": "Vous devez renseigner votre prénom",
@@ -184,14 +184,14 @@
 			"invalidUserIdLearnerHelpForm": "Erreur lors de l'envoi du message : ton identifiant est invalide",
 			"unknownUserLearnerHelpForm": "Erreur lors de l'envoi du message : ton identifiant est inconnu",
 			"unknownEmailLearnerHelpForm": "Erreur lors de l'envoi du message : l'adresse e-mail de ton enseignant est inconnue",
-			"activityTitleInvalid": "L'activité n'a pas pu être créée : titre invalide",
-			"activityContentInvalid": "L'activité n'a pas pu être créée : contenu invalide",
-			"activityIsFromClassroomInvalid": "L'activité n'a pas pu être créée : erreur de contexte",
-			"activityUserIdInvalid": "L'activité n'a pas pu être créée : utilisateur invalide",
-			"personalLimitationsReached": "Vous avez atteint votre nombre maximum d'apprenants ({{max}} maximum)",
-			"groupLimitationsGroup": "Votre groupe ne peut plus accueillir d'apprenants",
-			"groupLimitationsTeacher": "Vous avez atteint la limite d'apprenants que votre groupe vous octroie",
-			"bothLimitationsReached": "Vous avez atteint les limitations d'apprenants que vous et votre groupe pouvez avoir. ({{maxG}} maximum par groupe, {{maxP}} maximum personnel)",
+			"activityTitleInvalid": "La ressource n'a pas pu être créée : titre invalide",
+			"activityContentInvalid": "La ressource n'a pas pu être créée : contenu invalide",
+			"activityIsFromClassroomInvalid": "La ressource n'a pas pu être créée : erreur de contexte",
+			"activityUserIdInvalid": "La ressource n'a pas pu être créée : utilisateur invalide",
+			"personalLimitationsReached": "Vous avez atteint votre nombre maximum d'élèves ({{max}} maximum)",
+			"groupLimitationsGroup": "Votre groupe ne peut plus accueillir d'élèves",
+			"groupLimitationsTeacher": "Vous avez atteint la limite d'élèves que votre groupe vous octroie",
+			"bothLimitationsReached": "Vous avez atteint les limitations d'élèves que vous et votre groupe pouvez avoir. ({{maxG}} maximum par groupe, {{maxP}} maximum personnel)",
 			"ClassroomNameInvalid": "Le nom de la classe est requis",
 			"reservedNickname": "Le nom : \"{{reservedNickname}}\" ne peut être attribué.",
 			"invalidLink": "Le lien que vous avez entré n'est pas valide",
@@ -199,31 +199,31 @@
 			"noUserUsername" : "Vous devez rentrer un nom d'utilisateur",
 			"pseudoMissingInCsvFile" : "Certains élèves n'ont pu être ajouter car leur pseudo était manquant",
 			"backendReplyPseudoMissingInCsv" : "Vérifier le fichier CSV : ligne vide ou pseudo manquant",
-			"backendReplyPseudoMissingInUsersArray" : "Il y a une erreur dans un ou plusieurs nom d'apprenant(s)",
+			"backendReplyPseudoMissingInUsersArray" : "Il y a une erreur dans un ou plusieurs nom d'élève(s)",
 			"invalidActivityId": "Erreur lors de la soumission du travail : identifiant d'activité non valide !",
 			"invalidCorrection": "Erreur lors de la soumission du travail : statut d'activité non valide !",
 			"currentPasswordDoesNotMatch": "Le mot de passe saisi n'est pas correct !",
 			"noAnswerInActivity": "Vous devez renseigner au moins un champ de réponse",
 			"courseMissingData": "Vous devez renseigner un titre et une description",
 			"courseMissingParameters": "Vous devez renseigner les paramètres pour continuer",
-			"courseDeleted": "Le parcours a bien été supprimé",
-			"courseNotDeleted": "Le parcours n'a pas pu être supprimé",
-			"courseDuplicated": "Le parcours a bien été dupliqué",
-			"courseNotDuplicated": "Le parcours n'a pas pu être dupliqué",
+			"courseDeleted": "L'activité a bien été supprimée",
+			"courseNotDeleted": "L'activité n'a pas pu être supprimée",
+			"courseDuplicated": "L'activité a bien été dupliquée",
+			"courseNotDuplicated": "L'activité n'a pas pu être dupliquée",
 			"tagAlreadyInList": "Le tag est déjà dans la liste",
 			"imageSuccessfullyDeleted": "L'image a été supprimée avec succès"
 		},
 		"ids": {
 			"classroom-dashboard-help-panel-teacher": "Aide",
-			"classroom-dashboard-activities-panel-teacher": "Mes activités",
+			"classroom-dashboard-activities-panel-teacher": "Mes ressources",
 			"classroom-dashboard-classes-panel-teacher": "Mes classes",
 			"classroom-dashboard-sandbox-panel": "Bac à sable",
 			"classroom-dashboard-profil-panel-teacher": "Profil",
-			"classroom-dashboard-activities-panel": "Mes activités",
+			"classroom-dashboard-activities-panel": "Mes ressources",
 			"classroom-dashboard-profil-panel": "Profil",
 			"classroom-dashboard-help-panel": "Aide",
 			"classroom-dashboard-activities-panel-library-teacher": "Banque de ressources",
-			"classroom-dashboard-new-activity-panel": "Création de l'activité",
+			"classroom-dashboard-new-activity-panel": "Création de la ressource",
 			"classroom-dashboard-new-activity-panel2": "Intermédiaire",
 			"classroom-dashboard-new-activity-panel3": "Attribution",
 			"classroom-table-panel-teacher": "Classe {{name}}",
@@ -233,7 +233,7 @@
 		},
 		"displayCode": "Projeter le code",
 		"navbar": {
-			"activities": "Activités"
+			"activities": "Ressources"
 		},
 		"classes": {
 			"add": "Ajouter une classe",
@@ -244,15 +244,15 @@
 				"name": "Nom de la classe",
 				"updateTitle": "Modifier une classe",
 				"school": "Nom de l'établissement",
-				"addStudent": "Ajouter un apprenant",
-				"noStudent": "Pas encore d'apprenants dans cette classe",
-				"isBlockedButton": "Limiter à ces apprenants, personne d'autre ne pourra rejoindre la classe.",
+				"addStudent": "Ajouter un élève",
+				"noStudent": "Pas encore d'élèves dans cette classe",
+				"isBlockedButton": "Limiter à ces élèves, personne d'autre ne pourra rejoindre la classe.",
 				"save": "Sauvegarder la classe",
 				"return": "Retour à la classe"
 			},
 			"panel": {
-				"seeActivity":"Voir l'activité",
-				"editActivity":"Modifier l'activité",
+				"seeActivity":"Voir la ressource",
+				"editActivity":"Modifier la ressource",
 				"editAttribution":"Modifier l'attribution",
 				"removeAttribution":"Retirer l'attribution",
 				"password": "Votre mot de passe :",
@@ -261,13 +261,13 @@
 				"delete": "Supprimer",
 				"copyLink": "Copier le lien direct",
 				"copyImage": "Copier l'image",
-				"downloadImage": "Télécharger l'image",
-				"learnerMode": "Mode apprenant",
+				"downloadImage": "Télécharcher l'image",
+				"learnerMode": "Mode élève",
 				"dueBy": "À rendre avant le",
 				"timePassed": "Temps passé : "
 			},
-			"selectStudents": "Sélectionner des apprenants",
-			"selectedStudents": "<span id='attribuate-student-number'>0</span> apprenants sélectionnés",
+			"selectStudents": "Sélectionner des élèves",
+			"selectedStudents": "<span id='attribuate-student-number'>0</span> élèves sélectionnés",
 			"activationLink": "Lien d'activation activé",
 			"activationLinkDisabled": "Lien d'activation désactivé",
 			"deleteStudent": "Supprimer l'élève",
@@ -278,9 +278,9 @@
 			}
 		},
 		"activities": {
-			"title": "Activités",
+			"title": "Ressources",
 			"save": "Sauver le brouillon ",
-			"add": "Créer une activité",
+			"add": "Créer une ressource",
 			"new": "Nouveaux",
 			"current": "En attente de correction",
 			"waiting": "Pas encore réalisé",
@@ -288,11 +288,11 @@
 			"todo": "A corriger",
 			"corrected": "Corrigé",
 			"toComplete": "À compléter",
-			"anonymise": "Anonymiser la liste de vos élèves afin de pouvoir afficher le tableau de bord à vos apprenants.",
+			"anonymise": "Anonymiser la liste de vos élèves afin de pouvoir afficher le tableau de bord à vos élèves.",
 			"save-draft": "Sauvegarder en tant que brouillon",
-			"validate": "Valider l'activité",
-			"validateWarning": "Attention, tu ne pourras soumettre cette activité qu'une seule fois !",
-			"validateNoEval": "Tu peux soumettre cette activité autant de fois que tu le souhaites.",
+			"validate": "Valider la ressource",
+			"validateWarning": "Attention, tu ne pourras soumettre cette ressource qu'une seule fois !",
+			"validateNoEval": "Tu peux soumettre cette ressource autant de fois que tu le souhaites.",
 			"accept": "Très bonne maîtrise",
 			"vgood": "Maîtrise satisfaisante",
 			"good": "Maîtrise fragile",
@@ -300,22 +300,22 @@
 			"nnoted": "Non-noté",
 			"instruction": "Consigne",
 			"commentary": "Commentaire",
-			"sendResults": "Envoyer le commentaire ",
-			"noSend": "Cette activité n'a pas été rendue",
+			"sendResults": "Valider la correction",
+			"noSend": "Cette ressource n'a pas été rendue",
 			"toSend": "Activité à rendre pour le ",
-			"sentOn": "Cette activité a été rendue le ",
+			"sentOn": "Cette ressource a été rendue le ",
 			"activityOfUser": "Activité de ",
 			"userSentOn" : " rendue le ",
-			"timePassed" : "Temps passé sur l'activité :",
+			"timePassed" : "Temps passé sur la ressource :",
 			"yourAnswer": "Votre réponse",
-			"studentAnswer": "Réponse de l'apprenant",
+			"studentAnswer": "Réponse de l'élève",
 			"comments": "Entrez ici vos remarques",
-			"return": "Retour aux activités",
+			"return": "Retour aux ressources",
 			"numberOfTries": "Nombre d'essais : ",
 			"isAutocorrected": "Cet exercice a été corrigé automatiquement, vous pouvez modifier la note ci dessous.",
-			"isAutocorrect": "Cette activité sera corrigée automatiquement.",
-			"states": "Énoncé de l'activité",
-			"content": "Contenu de l'activité",
+			"isAutocorrect": "Cette ressource sera corrigée automatiquement.",
+			"states": "Énoncé de la ressource",
+			"content": "Contenu de la ressource",
 			"correction": "Corrigé",
 			"putYourAnswer": "Entrez votre réponse",
 			"hint": "Indice",
@@ -323,7 +323,7 @@
 			"wrongAnswer": "Mauvaise réponse",
 			"emptyAnswer": "La réponse ne peut pas être vide",
 			"wrongAnswerLarge": "Mauvaise réponse, tu peux essayer à nouveau !",
-			"hintExist": "<i class='fas fa-info-circle'></i> Cet exercice possède un indice, il ne peut s'afficher que si l'élève peut soumettre l'activité plusieurs fois",
+			"hintExist": "<i class='fas fa-info-circle'></i> Cet exercice possède un indice, il ne peut s'afficher que si l'élève peut soumettre la ressource plusieurs fois",
 			"anoStudent": "Élève",
 			"bilan": {
 				"title": "Bilan",
@@ -331,27 +331,27 @@
 				"noComment": "Aucun commentaire"
 			},
 			"applist":{
-				"selectApp":"Sélectionnez l'application avec laquelle vous souhaitez créer une activité",
+				"selectApp":"Sélectionnez l'application avec laquelle vous souhaitez créer une ressource",
 				"apps":{
 					"reading":{
 						"title": "Multimédia",
-						"desc": "Cette activité permet de visualiser des textes, images, vidéos, PDF, ainsi que des outils externes."
+						"desc": "Cette ressource permet de visualiser des textes, images, vidéos, PDF, ainsi que des outils externes."
 					},
 					"quiz":{
 						"title": "QCM",
-						"desc": "Cette activité permet d'évaluer les connaissances à l'aide de question à choix multiples ou simples."
+						"desc": "Cette ressource permet d'évaluer les connaissances à l'aide de question à choix multiples ou simples."
 					},
 					"free":{
 						"title": "Réponse libre",
-						"desc": "Cette activité permet aux élèves de répondre à un énoncé par écrit."
+						"desc": "Cette ressource permet aux élèves de répondre à un énoncé par écrit."
 					},
 					"fillIn":{
 						"title": "Texte à trous",
-						"desc": "Cette activité permet d'évaluer les connaissances en remplissant des cases vides."
+						"desc": "Cette ressource permet d'évaluer les connaissances en remplissant des cases vides."
 					},
 					"dragAndDrop":{
 						"title": "Glisser-Déposer",
-						"desc": "Cette activité permet de glisser et déposer des mots dans différents espaces vides."
+						"desc": "Cette ressource permet de glisser et déposer des mots dans différents espaces vides."
 					}
 				}
 			},
@@ -361,45 +361,45 @@
 				"3": "Titre",
 				"4": "Attribution",
 				"title": {
-					"label": "Titre de l'activité",
+					"label": "Titre de la ressource",
 					"placeholder": "Titre de la partie"
 				},
 				"content": {
-					"label": "Contenu de l'activité"
+					"label": "Contenu de la ressource"
 				},
 				"back": "Retour",
 				"validate": "Valider",
 				"buttonContinue": "Sauvegarder et continuer",
 				"button": "Sauvegarder et Valider",
-				"success": "Bravo, vous avez créé une activité !",
-				"attribute": "Attribuer l'activité dès maintenant",
-				"attribute2": "Attribuer l'activité ",
-				"attributeCourse": "Attribuer le parcours ",
-				"return": "Retourner à Mes activités",
-				"hint": "Vous pourrez toujours attribuer plus tard cette activité depuis le tableau de bord.",
-				"modify": "Modifier l'activité",
-				"select1": "Sélectionner les apprenants",
+				"success": "Bravo, vous avez créé une ressource !",
+				"attribute": "Attribuer la ressource dès maintenant",
+				"attribute2": "Attribuer la ressource ",
+				"attributeCourse": "Attribuer l'activité ",
+				"return": "Retourner à Mes ressources",
+				"hint": "Vous pourrez toujours attribuer plus tard cette ressource depuis le tableau de bord.",
+				"modify": "Modifier la ressource",
+				"select1": "Sélectionner les élèves",
 				"select2": " sélectionnés.",
-				"instructions": "Consigne spécifique pour ces apprenants",
-				"autocorrect": "Cette activité dispose de correction automatique, souhaitez-vous l'activer ?",
-				"nature": "L’élève peut-il soumettre plusieurs fois l’activité ?",
+				"instructions": "Consigne spécifique pour ces élèves",
+				"autocorrect": "Cette ressource dispose de correction automatique, souhaitez-vous l'activer ?",
+				"nature": "L’élève peut-il soumettre plusieurs fois la ressource ?",
 				"dateBegin": "Date de début :",
 				"dateEnd": "Date de fin :",
-				"retroAttribution" : "Cette activité sera attribuée aux nouveaux apprenants"
+				"retroAttribution" : "Cette activité sera attribuée aux nouveaux élèves"
 			},
 			"toCopy": "Ce code permet de rejoindre en toute simplicité votre classe :",
 			"qrCode": "Scanner le QR code :",
 			"copyLink": "Le lien vers votre classe a été ajouté au presse-papier",
 			"dateBefore": "A rendre avant le",
-			"integrate": "Intégrer dans une activité",
+			"integrate": "Intégrer dans une ressource",
 			"veryGoodProficiency": "Très bonne maîtrise",
 			"goodProficiency": "Maîtrise satisfaisante",
 			"weakProficiency": "Maîtrise fragile",
 			"insufficientProficiency": "Maîtrise insuffisante",
 			"noProficiency": "Non-noté",
-			"addLearner": "Ajouter un apprenant",
-			"addLearners": "Ajouter des apprenants",
-			"addActivity": "Ajouter une activité",
+			"addLearner": "Ajouter un élève",
+			"addLearners": "Ajouter des élèves",
+			"addActivity": "Ajouter une ressource",
 			"exportCsv": "Exporter csv",
 			"month": {
 				"1": "Jan.",
@@ -416,11 +416,11 @@
 				"12": "Déc."
 			},
 			"preview": "Prévisualisation",
-			"deleteActivityDisclaimer": "Vous êtes sur le point de supprimer une activité. Cette action est irréversible.",
-			"deleteConfirm": "Confirmer la suppression de l'activité",
-			"deleteActivity": "Supprimer l'activité",
+			"deleteActivityDisclaimer": "Vous êtes sur le point de supprimer une ressource. Cette action est irréversible.",
+			"deleteConfirm": "Confirmer la suppression de la ressource",
+			"deleteActivity": "Supprimer la ressource",
 			"correctAnswer": "Réponse correcte",
-			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Activités </p>",
+			"nbActivities": "<span class='nb-activities'>{{ nbActi }}</span> Ressources </p>",
 			"moveToFolder": "Déplacer vers",
 			"rootFolder": "Dossier racine",
 			"seekFolder": "Aller dans le dossier",
@@ -438,13 +438,13 @@
 				"deleteFolder": "Confirmer la suppression du dossier",
 				"updateFolder": "Modifier le dossier",
 				"nameMandatory": "Nom du dossier <span class='c-text-red'>*</span>",
-				"deleteDisclaimer": "Attention, le dossier et l'ensemble de son contenu (activités et sous-dossiers) seront supprimés"
+				"deleteDisclaimer": "Attention, le dossier et l'ensemble de son contenu (ressources et sous-dossiers) seront supprimés"
 			},
 			"facultative": "Champs facultatifs",
-			"previewActivity": "Prévisualisation de l'activité",
-			"infoRetroAttribution": "Cette activité sera attribuée aux nouveaux apprenants, quand ils seront ajoutés à votre classe.",
-			"infoAutocorrect": "Cette activité dispose de correction automatique",
-			"infoEvaluation": "En cliquant sur non, les apprenants ne peuvent soumettre l’activité qu'une seule fois et n'ont pas accès aux indices et aux aides."
+			"previewActivity": "Prévisualisation de la ressource",
+			"infoRetroAttribution": "Cette ressource sera attribuée aux nouveaux élèves, quand ils seront ajoutés à votre classe.",
+			"infoAutocorrect": "Cette ressource dispose de correction automatique",
+			"infoEvaluation": "En cliquant sur non, les élèves ne peuvent soumettre la ressource qu'une seule fois et n'ont pas accès aux indices et aux aides."
 		},
 		"filter": {
 			"desc": "Plus ancien",
@@ -490,19 +490,19 @@
 		},
 		"modals": {
 			"addActivity": {
-				"title": "Ajouter une activité",
+				"title": "Ajouter une ressource",
 				"resourceBank": {
 					"title": "Parcourir la banque de ressources collaborative",
 					"button": "Banque de ressources "
 				},
 				"orSeparator": "OU",
 				"attributeActivity": {
-					"title": "Consulter mes activités existantes",
-					"button": "Mes activités "
+					"title": "Consulter mes ressources existantes",
+					"button": "Mes ressources "
 				},
 				"createActivity": {
-					"title": "Créer une nouvelle activité",
-					"button": "Créer une activité "
+					"title": "Créer une nouvelle ressource",
+					"button": "Créer une ressource "
 				}
 			},
 			"settingsTeacher": {
@@ -517,28 +517,28 @@
 			"addStudent": {
 				"title": "Ajouter des étudiants",
 				"pseudo": "Pseudonyme",
-				"addStudentButton": "Ajouter l'apprenant",
-				"addStudentByCsvButton": "Ajouter un fichier d'apprenants (.csv)"
+				"addStudentButton": "Ajouter l'élève",
+				"addStudentByCsvButton": "Ajouter un fichier d'élèves (.csv)"
 			},
 			"addStudentByCsv": {
 				"title": "Ajouter des étudiants avec un fichier .csv",
-				"description": "Vous pouvez ajouter un ou plusieurs apprenants d'un seul coup en les important depuis un fichier .csv. Il est facultativement possible de définir le mot de passe pour chacun d'entre eux. Voici les fichiers .csv modèles : ",
-				"descriptionUpdate": "Vous pouvez ajouter un ou plusieurs apprenants d'un seul coup en les important depuis un fichier .csv. <b>ATTENTION</b> : ici, les mots de passe du fichier csv ne sont pas pris en compte ! Voici le fichier .csv modèle : ",
+				"description": "Vous pouvez ajouter un ou plusieurs élèves d'un seul coup en les important depuis un fichier .csv. Il est facultativement possible de définir le mot de passe pour chacun d'entre eux. Voici les fichiers .csv modèles : ",
+				"descriptionUpdate": "Vous pouvez ajouter un ou plusieurs élèves d'un seul coup en les important depuis un fichier .csv. <b>ATTENTION</b> : ici, les mots de passe du fichier csv ne sont pas pris en compte ! Voici le fichier .csv modèle : ",
 				"csvTemplate": "fichier modèle avec mot de passe",
 				"csvTemplateNoPassword": "fichier modèle sans mot de passe",
-				"importStudentByCsvButton": "Importer les apprenants"
+				"importStudentByCsvButton": "Importer les élèves"
 			},
 			"exportCsv": {
 				"title": "Exporter au format csv",
-				"exportLearnersDescription": "Télécharger la liste des apprenants pour cette classe ainsi que leur mot de passe. Le fichier téléchargé est au format .csv.",
-				"exportLearners": "Télécharger la liste des apprenants",
-				"exportDashboardDescription": "Télécharger la liste des apprenants pour cette classe ainsi que, pour chacun d'entre eux, leur activités attribuées ainsi que l'état de chaque activité (pas encore réalisée, à corriger, complétée). Le fichier téléchargé est au format .csv.",
+				"exportLearnersDescription": "Télécharcher la liste des élèves pour cette classe ainsi que leur mot de passe. Le fichier téléchargé est au format .csv.",
+				"exportLearners": "Télécharger la liste des élèves",
+				"exportDashboardDescription": "Télécharger la liste des élèves pour cette classe ainsi que, pour chacun d'entre eux, leur ressources attribuées ainsi que l'état de chaque ressource (pas encore réalisée, à corriger, complétée). Le fichier téléchargé est au format .csv.",
 				"exportDashboard": "Télécharger le tableau de bord"
 			},
 			"listClass": {
-				"title": "Passer en mode apprenant",
-				"description": "Vous pouvez tester en toute simplicité l'interface en tant qu'apprenant, et revenir à tout moment à votre profil d'enseignant. La progression en tant qu'apprenant sera sauvegardée sur le compte \"{{demoStudent}}\".",
-				"switchButton": "Passer en mode apprenant"
+				"title": "Passer en mode élève",
+				"description": "Vous pouvez tester en toute simplicité l'interface en tant qu'élève, et revenir à tout moment à votre profil d'enseignant. La progression en tant qu'élève sera sauvegardée sur le compte \"{{demoStudent}}\".",
+				"switchButton": "Passer en mode élève"
 			},
 			"changePseudo": {
 				"title": "Modifier le pseudo",
@@ -546,7 +546,7 @@
 				"validateButton": "Valider"
 			},
 			"attributeActivity": {
-				"title": "Attribuer l'activité"
+				"title": "Attribuer la ressource"
 			},
 			"shareProject": {
 				"title": "Partager le projet"
@@ -557,7 +557,7 @@
 				"placeholderInput": "Mot de passe",
 				"validateButton": "Valider"
 			},
-			"/openClassroom/classroom/assets": "Banque d'images",
+			"assets": "Banque d'images",
 			"quitLtiActivity": {
 				"title": "Quitter l'activité en cours",
 				"description": "Vous vous apprêtez à quitter l'activité en cours alors que vos changements n'ont pas été sauvegardés. Voulez vous tout de même quitter et perdre les changements non sauvegardés ?",
@@ -576,12 +576,12 @@
 			"next": "Suivant"
 		},
 		"courses": {
-			"coursesManager": "Suppression du parcours",
+			"coursesManager": "Suppression de l'activité",
 			"note-3": "BIEN, tu as réussi cette activité !",
 			"note-2": "À REVOIR, la réponse n'est pas correcte",
 			"note-4": "NON NOTÉ",
 			"note-0": "EN ATTENTE DE CORRECTION",
-			"selectActivities": "Activités <span class='c-text-red'>*</span>"
+			"selectActivities": "Ressources <span class='c-text-red'>*</span>"
 		}
 	},
 	"faqInfo": {
@@ -590,11 +590,11 @@
 			"question_list": {
 				"1": {
 					"title": "Qu’est-ce que le module Classe ?",
-					"answer": "Le module Classe facilite l'attribution de contenus pédagogiques et le suivi des apprenants. Les enseignants peuvent utiliser les contenus de la communauté, ou bien créer leurs propres activités et les partager."
+					"answer": "Le module Classe facilite l'attribution de contenus pédagogiques et le suivi des élèves. Les enseignants peuvent utiliser les contenus de la communauté, ou bien créer leurs propres ressources et les partager."
 				},
 				"2": {
 					"title": "Qui utilise le module Classe ?",
-					"answer": "En cours comme à la maison ou en atelier périscolaire, le module classe est utilisé par des enseignants (professeurs, animateurs, formateurs, etc.) et leurs apprenants (élèves, étudiants, apprentis, etc.). Le module Classe a été pensé pour le niveau secondaire (~10 à 18 ans), mais peut s'adapter à d'autres contextes."
+					"answer": "En cours comme à la maison ou en atelier périscolaire, le module classe est utilisé par des enseignants (professeurs, animateurs, formateurs, etc.) et leurs élèves (élèves, étudiants, apprentis, etc.). Le module Classe a été pensé pour le niveau secondaire (~10 à 18 ans), mais peut s'adapter à d'autres contextes."
 				},
 				"3": {
 					"title": "Quelle est la nature du soutien du Ministère de l'Éducation Nationale ?",
@@ -624,11 +624,11 @@
 				"question_list": {
 					"1": {
 						"title": "Peut-on faire une description ou présentation du module Classe ?",
-						"answer": "Oui, vous pouvez réutiliser les visuels pour module Classe pour créer une description, présentation, formation, tutoriel, cours ou autre. Si vous souhaitez inclure des images ou contenus d'activités, veuillez mentionner l'auteur (voir question suivante)."
+						"answer": "Oui, vous pouvez réutiliser les visuels pour module Classe pour créer une description, présentation, formation, tutoriel, cours ou autre. Si vous souhaitez inclure des images ou contenus de ressources, veuillez mentionner l'auteur (voir question suivante)."
 					},
 					"2": {
-						"title": "Peut-on réutiliser les activités de la communauté Vittascience ?",
-						"answer": "Oui, toutes les activités visibles dans la banque de ressources Vittascience sont sous licence Creative Commons. Deux cas sont possibles :<ul><li>CC BY-NC-SA : l'auteur souhaite que le contenu soit partagé dans un usage non-commercial uniquement et à condition de mentionner son nom. Le contenu peut être modifié.</li><li>CC BY-NC-ND : l'auteur souhaite que le contenu soit partagé dans un usage non-commercial uniquement et à condition de mentionner son nom. Le contenu ne peut pas être modifié.</li></ul>"
+						"title": "Peut-on réutiliser les ressources de la communauté Vittascience ?",
+						"answer": "Oui, toutes les ressources visibles dans la banque de ressources Vittascience sont sous licence Creative Commons. Deux cas sont possibles :<ul><li>CC BY-NC-SA : l'auteur souhaite que le contenu soit partagé dans un usage non-commercial uniquement et à condition de mentionner son nom. Le contenu peut être modifié.</li><li>CC BY-NC-ND : l'auteur souhaite que le contenu soit partagé dans un usage non-commercial uniquement et à condition de mentionner son nom. Le contenu ne peut pas être modifié.</li></ul>"
 					},
 					"3": {
 						"title": "Où peut-on trouver le code source du module Classe ?",
@@ -640,27 +640,27 @@
 			"question_list": {
 				"1": {
 					"title": "Comment se connecter au module Classe ?",
-					"answer": "Il est possible de se connecter au module Classe de trois façons :<ul><li>Code classe : permet aux apprenants de s'inscrire ou se connecter rapidement avec seulement un pseudonyme (sans renseigner d'adresse courriel). Un code classe est généré automatiquement pour chaque classe créée par l'enseignant.</li><li>Compte Vittascience : permet à l'enseignant de se connecter grâce à un compte Vittascience (adresse courriel et mot de passe). Cette méthode est réservée aux enseignants et ne convient pas aux apprenants (RGPD).</li><li>Compte GAR : le gestionnaire d’accès aux ressources (« GAR ») a pour objectif de simplifier et sécuriser les accès authentifiés entre les usagers des ENT et leurs ressources numériques. Plus de renseignements sont disponibles sur la page <a href=\"/gar\">accéder à Vittascience par le GAR</a>.</li></ul>Le respect de la vie privée est primordial pour Vittascience, pour en savoir plus retrouvez la <a href=\"/privacy\">page dédiée à la protection des données personnelles</a>."
+					"answer": "Il est possible de se connecter au module Classe de trois façons :<ul><li>Code classe : permet aux élèves de s'inscrire ou se connecter rapidement avec seulement un pseudonyme (sans renseigner d'adresse courriel). Un code classe est généré automatiquement pour chaque classe créée par l'enseignant.</li><li>Compte Vittascience : permet à l'enseignant de se connecter grâce à un compte Vittascience (adresse courriel et mot de passe). Cette méthode est réservée aux enseignants et ne convient pas aux élèves (RGPD).</li><li>Compte GAR : le gestionnaire d’accès aux ressources (« GAR ») a pour objectif de simplifier et sécuriser les accès authentifiés entre les usagers des ENT et leurs ressources numériques. Plus de renseignements sont disponibles sur la page <a href=\"/gar\">accéder à Vittascience par le GAR</a>.</li></ul>Le respect de la vie privée est primordial pour Vittascience, pour en savoir plus retrouvez la <a href=\"/privacy\">page dédiée à la protection des données personnelles</a>."
 				},
 				"2": {
 					"title": "Peut-on utiliser Vittascience sans compte ?",
-					"answer": "Sans compte, il est possible d’utiliser la page Programmer et d'accéder aux Ressources pédagogiques de Vittascience. Cependant, vous aurez besoin d’un compte pour réaliser des activités de classe, sauvegarder vos réalisations et partager vos contenus. Vos apprenants n'ont pas besoin de créer de compte Vittascience si vous les invitez via le module Classe."
+					"answer": "Sans compte, il est possible d’utiliser la page Programmer et d'accéder aux Ressources pédagogiques de Vittascience. Cependant, vous aurez besoin d’un compte pour réaliser des ressources de classe, sauvegarder vos réalisations et partager vos contenus. Vos élèves n'ont pas besoin de créer de compte Vittascience si vous les invitez via le module Classe."
 				},
 				"3": {
 					"title": "Comment créer un compte ?",
-					"answer": "Cliquez simplement sur « S’abonner » de la page d’accueil du module Classe. Vous devrez choisir l’offre qui vous correspond et fournir quelques informations.<ul><li>Si vous avez opté pour l’offre gratuite, un e-mail vous sera envoyé pour confirmer votre compte. Cliquez simplement sur le lien pour confirmer votre compte. Une fois votre compte confirmé, vous pourrez explorer l’interface, créer vos activités et les partager.</li><li>Si vous avez opté pour une offre payante, vous pourrez procéder à la création d’un devis pour votre établissement ou à son achat, puis votre compte sera activé.</li></ul>"
+					"answer": "Cliquez simplement sur « S’abonner » de la page d’accueil du module Classe. Vous devrez choisir l’offre qui vous correspond et fournir quelques informations.<ul><li>Si vous avez opté pour l’offre gratuite, un e-mail vous sera envoyé pour confirmer votre compte. Cliquez simplement sur le lien pour confirmer votre compte. Une fois votre compte confirmé, vous pourrez explorer l’interface, créer vos ressources et les partager.</li><li>Si vous avez opté pour une offre payante, vous pourrez procéder à la création d’un devis pour votre établissement ou à son achat, puis votre compte sera activé.</li></ul>"
 				},
 				"4": {
 					"title": "Qu’est-ce qu’un compte enseignant ?",
-					"answer": "Tout compte Vittascience créé à partir d'une adresse courriel ou du GAR peut être utilisé comme compte enseignant. Un compte enseignant possède des fonctionnalités pour créer des comptes apprenants, organiser les activités et échanger des commentaires avec ses apprenants."
+					"answer": "Tout compte Vittascience créé à partir d'une adresse courriel ou du GAR peut être utilisé comme compte enseignant. Un compte enseignant possède des fonctionnalités pour créer des comptes élèves, organiser les ressources et échanger des commentaires avec ses élèves."
 				},
 				"5": {
-					"title": "Qu’est-ce qu’un compte apprenant ?",
-					"answer": "Un compte apprenant permet de réaliser les activités demandées par des enseignants, d’explorer les interfaces de programmation Vittascience et de partager ses propres réalisations. Seul un pseudonyme est requis pour la création d'un compte apprenant. Un code à 4 chiffres est généré automatiquement pour sécuriser l'accès des apprenants, seul l'enseignant peut modifier celui-ci."
+					"title": "Qu’est-ce qu’un compte élève ?",
+					"answer": "Un compte élève permet de réaliser les ressources demandées par des enseignants, d’explorer les interfaces de programmation Vittascience et de partager ses propres réalisations. Seul un pseudonyme est requis pour la création d'un compte élève. Un code à 4 chiffres est généré automatiquement pour sécuriser l'accès des élèves, seul l'enseignant peut modifier celui-ci."
 				},
 				"6": {
 					"title": "Nom d’utilisateur ou mot de passe oublié ?",
-					"answer": "Si vous avez un compte Vittascience (enseignant), vous pouvez recevoir un courriel de récupération de mot de passe via <a href=\"/passwordRecovery\">ce lien</a>. En tant qu'apprenant, vous devez demander à votre enseignant de réinitialiser votre code à 4 chiffres."
+					"answer": "Si vous avez un compte Vittascience (enseignant), vous pouvez recevoir un courriel de récupération de mot de passe via <a href=\"/passwordRecovery\">ce lien</a>. En tant qu'élève, vous devez demander à votre enseignant de réinitialiser votre code à 4 chiffres."
 				},
 				"7": {
 					"title": "Comment changer de mot de passe ou d’autres paramètres de compte ?",
@@ -673,11 +673,11 @@
 			"question_list": {
 				"1": {
 					"title": "Peut-on faire une description ou présentation du module Classe ?",
-					"answer": "Oui, vous pouvez réutiliser les visuels pour module Classe pour créer une description, présentation, formation, tutoriel, cours ou autre. Si vous souhaitez inclure des images ou contenus d'activités, veuillez mentionner l'auteur (voir question suivante)."
+					"answer": "Oui, vous pouvez réutiliser les visuels pour module Classe pour créer une description, présentation, formation, tutoriel, cours ou autre. Si vous souhaitez inclure des images ou contenus de ressources, veuillez mentionner l'auteur (voir question suivante)."
 				},
 				"2": {
-					"title": "Peut-on réutiliser les activités de la communauté Vittascience ?",
-					"answer": "Oui, toutes les activités visibles dans la banque de ressources Vittascience sont sous licence Creative Commons. Deux cas sont possibles :<ul><li>CC BY-NC-SA : l'auteur souhaite que le contenu soit partagé dans un usage non-commercial uniquement et à condition de mentionner son nom. Le contenu peut être modifié.</li><li>CC BY-NC-ND : l'auteur souhaite que le contenu soit partagé dans un usage non-commercial uniquement et à condition de mentionner son nom. Le contenu ne peut pas être modifié.</li></ul>"
+					"title": "Peut-on réutiliser les ressources de la communauté Vittascience ?",
+					"answer": "Oui, toutes les ressources visibles dans la banque de ressources Vittascience sont sous licence Creative Commons. Deux cas sont possibles :<ul><li>CC BY-NC-SA : l'auteur souhaite que le contenu soit partagé dans un usage non-commercial uniquement et à condition de mentionner son nom. Le contenu peut être modifié.</li><li>CC BY-NC-ND : l'auteur souhaite que le contenu soit partagé dans un usage non-commercial uniquement et à condition de mentionner son nom. Le contenu ne peut pas être modifié.</li></ul>"
 				},
 				"3": {
 					"title": "Où peut-on trouver le code source du module Classe ?",
@@ -694,11 +694,11 @@
 			"question_list": {
 				"1": {
 					"title": "Qu’est-ce que le module Classe ?",
-					"answer": "Le module Classe facilite l'attribution de contenus pédagogiques et le suivi des apprenants. Les enseignants peuvent utiliser les contenus de la communauté, ou bien créer leurs propres activités et les partager."
+					"answer": "Le module Classe facilite l'attribution de contenus pédagogiques et le suivi des élèves. Les enseignants peuvent utiliser les contenus de la communauté, ou bien créer leurs propres ressources et les partager."
 				},
 				"2": {
 					"title": "Qui utilise le module Classe ?",
-					"answer": "En cours comme à la maison ou en atelier périscolaire, le module classe est utilisé par des enseignants (professeurs, animateurs, formateurs, etc.) et leurs apprenants (élèves, étudiants, apprentis, etc.). Le module Classe a été pensé pour le niveau secondaire (~10 à 18 ans), mais peut s'adapter à d'autres contextes."
+					"answer": "En cours comme à la maison ou en atelier périscolaire, le module classe est utilisé par des enseignants (professeurs, animateurs, formateurs, etc.) et leurs élèves (élèves, étudiants, apprentis, etc.). Le module Classe a été pensé pour le niveau secondaire (~10 à 18 ans), mais peut s'adapter à d'autres contextes."
 				},
 				"3": {
 					"title": "Sur quels supports peut-on utiliser le module Classe ?",
@@ -719,23 +719,23 @@
 			"question_list": {
 				"1": {
 					"title": "Comment se connecter au module Classe ?",
-					"answer": "Il est possible de se connecter au module Classe de trois façons :<ul><li>Code classe : permet aux apprenants de s'inscrire ou se connecter rapidement avec seulement un pseudonyme (sans renseigner d'adresse courriel). Un code classe est généré automatiquement pour chaque classe créée par l'enseignant.</li><li>Compte Open STEAM LMS : permet à l'enseignant de se connecter grâce à un compte Open STEAM LMS (adresse courriel et mot de passe). Cette méthode est réservée aux enseignants et ne convient pas aux apprenants (RGPD).</li><li>Compte GAR : le gestionnaire d’accès aux ressources (« GAR ») a pour objectif de simplifier et sécuriser les accès authentifiés entre les usagers des ENT et leurs ressources numériques. Plus de renseignements sont disponibles sur la page <a href=\"/gar\">accéder à Open STEAM LMS par le GAR</a>.</li></ul>Le respect de la vie privée est primordial pour Open STEAM LMS, pour en savoir plus retrouvez la <a href=\"/privacy\">page dédiée à la protection des données personnelles</a>."
+					"answer": "Il est possible de se connecter au module Classe de trois façons :<ul><li>Code classe : permet aux élèves de s'inscrire ou se connecter rapidement avec seulement un pseudonyme (sans renseigner d'adresse courriel). Un code classe est généré automatiquement pour chaque classe créée par l'enseignant.</li><li>Compte Open STEAM LMS : permet à l'enseignant de se connecter grâce à un compte Open STEAM LMS (adresse courriel et mot de passe). Cette méthode est réservée aux enseignants et ne convient pas aux élèves (RGPD).</li><li>Compte GAR : le gestionnaire d’accès aux ressources (« GAR ») a pour objectif de simplifier et sécuriser les accès authentifiés entre les usagers des ENT et leurs ressources numériques. Plus de renseignements sont disponibles sur la page <a href=\"/gar\">accéder à Open STEAM LMS par le GAR</a>.</li></ul>Le respect de la vie privée est primordial pour Open STEAM LMS, pour en savoir plus retrouvez la <a href=\"/privacy\">page dédiée à la protection des données personnelles</a>."
 				},
 				"2": {
 					"title": "Comment créer un compte ?",
-					"answer": "Cliquez simplement sur « Créer un compte » de la page d’accueil du module Classe. Vous devrez fournir quelques informations. Un e-mail vous sera envoyé pour confirmer votre compte. Cliquez simplement sur le lien pour confirmer votre compte. Une fois votre compte confirmé, vous pourrez explorer l’interface, créer vos activités et les partager."
+					"answer": "Cliquez simplement sur « Créer un compte » de la page d’accueil du module Classe. Vous devrez fournir quelques informations. Un e-mail vous sera envoyé pour confirmer votre compte. Cliquez simplement sur le lien pour confirmer votre compte. Une fois votre compte confirmé, vous pourrez explorer l’interface, créer vos ressources et les partager."
 				},
 				"3": {
 					"title": "Qu’est-ce qu’un compte enseignant ?",
-					"answer": "Tout compte Open STEAM LMS créé à partir d'une adresse courriel ou du GAR peut être utilisé comme compte enseignant. Un compte enseignant possède des fonctionnalités pour créer des comptes apprenants, organiser les activités et échanger des commentaires avec ses apprenants."
+					"answer": "Tout compte Open STEAM LMS créé à partir d'une adresse courriel ou du GAR peut être utilisé comme compte enseignant. Un compte enseignant possède des fonctionnalités pour créer des comptes élèves, organiser les ressources et échanger des commentaires avec ses élèves."
 				},
 				"4": {
-					"title": "Qu’est-ce qu’un compte apprenant ?",
-					"answer": "Un compte apprenant permet de réaliser les activités demandées par des enseignants et de partager ses propres réalisations. Seul un pseudonyme est requis pour la création d'un compte apprenant. Un code à 4 chiffres est généré automatiquement pour sécuriser l'accès des apprenants, seul l'enseignant peut modifier manuellement celui-ci. L'apprenant peut toutefois effectuer une réinitialisation pour en obtenir un nouveau."
+					"title": "Qu’est-ce qu’un compte élève ?",
+					"answer": "Un compte élève permet de réaliser les ressources demandées par des enseignants et de partager ses propres réalisations. Seul un pseudonyme est requis pour la création d'un compte élève. Un code à 4 chiffres est généré automatiquement pour sécuriser l'accès des élèves, seul l'enseignant peut modifier manuellement celui-ci. L'élève peut toutefois effectuer une réinitialisation pour en obtenir un nouveau."
 				},
 				"5": {
 					"title": "Nom d’utilisateur ou mot de passe oublié ?",
-					"answer": "Si vous avez un compte Open STEAM LMS (enseignant), vous pouvez recevoir un courriel de récupération de mot de passe via <a href=\"/passwordRecovery\">ce lien</a>. En tant qu'apprenant, vous devez demander à votre enseignant de réinitialiser votre code à 4 chiffres."
+					"answer": "Si vous avez un compte Open STEAM LMS (enseignant), vous pouvez recevoir un courriel de récupération de mot de passe via <a href=\"/passwordRecovery\">ce lien</a>. En tant qu'élève, vous devez demander à votre enseignant de réinitialiser votre code à 4 chiffres."
 				},
 				"6": {
 					"title": "Comment changer de mot de passe ou d’autres paramètres de compte ?",
@@ -748,7 +748,7 @@
 			"question_list": {
 				"1": {
 					"title": "Peut-on faire une description ou présentation du module Classe ?",
-					"answer": "Oui, vous pouvez réutiliser les visuels pour module Classe pour créer une description, présentation, formation, tutoriel, cours ou autre. Si vous souhaitez inclure des images ou contenus d'activités, veuillez mentionner l'auteur (voir question suivante)."
+					"answer": "Oui, vous pouvez réutiliser les visuels pour module Classe pour créer une description, présentation, formation, tutoriel, cours ou autre. Si vous souhaitez inclure des images ou contenus de ressources, veuillez mentionner l'auteur (voir question suivante)."
 				},
 				"2": {
 					"title": "Où peut-on trouver le code source du module Classe ?",
@@ -762,11 +762,11 @@
 	"faqTeacherNeutral": {
 		"title": "FAQ",
 		"1": {
-			"section_title": "Activités",
+			"section_title": "Ressources",
 			"question_list": {
 				"1": {
-					"title": "À quoi sert l’onglet Mes activités ?",
-					"answer": "Dans l’onglet <b>Mes activités</b>, vous allez pouvoir :<ol><li>Créer vos propres activités et parcours,</li><li>Puis les attribuer à vos apprenants !</li></ol>"
+					"title": "À quoi sert l’onglet Mes ressources ?",
+					"answer": "Dans l’onglet <b>Mes ressources</b>, vous allez pouvoir :<ol><li>Créer vos propres ressources et activités,</li><li>Puis les attribuer à vos élèves !</li></ol>"
 				},
 				"2": {
 					"title": "Qu’est-ce qu’une activité ?",
@@ -774,19 +774,19 @@
 				},
 				"3": {
 					"title": "Comment créer ou modifier une activité ?",
-					"answer": "<p>Le format de sauvegarde des activités s'appelle BBcode, un langage très simple à manipuler, qu'on retrouve également sur des sites comme WordPress. Vous pouvez donc facilement créer ou modifier des activités.</p><p>Pour modifier une activité, rendez-vous dans l’onglet <b>Mes activités</b> et cliquez sur l’icône <i class=\"fas fa-cog\"></i> de votre activité puis cliquez sur Modifier. N’oubliez pas de sauvegarder vos modifications.</p>"
+					"answer": "<p>Le format de sauvegarde des ressources s'appelle BBcode, un langage très simple à manipuler, qu'on retrouve également sur des sites comme WordPress. Vous pouvez donc facilement créer ou modifier des ressources.</p><p>Pour modifier une activité, rendez-vous dans l’onglet <b>Mes ressources</b> et cliquez sur l’icône <i class=\"fas fa-cog\"></i> de votre activité puis cliquez sur Modifier. N’oubliez pas de sauvegarder vos modifications.</p>"
 				},
 				"4": {
 					"title": "Comment attribuer une activité ?",
-					"answer": "Pour attribuer une activité, vous avez trois options :<ol><li>Soit, vous vous rendez dans l’onglet <b>Mes activités</b> et cliquez sur l’icône <i class=\"fas fa-cog\"></i> de votre activité puis cliquez sur Attribuer. Ensuite, vous n’aurez plus qu’à suivre les étapes.</li><li>Cette option Attribuer est également disponible dans l’activité elle-même une fois ouverte.</li><li>Sinon, vous allez dans l’onglet <b>Mes classes</b> et cliquez sur une classe. Une fois arrivé sur le tableau de bord de la classe, vous n’avez plus qu’à cliquer sur le bouton “Ajouter une activité”.</li></ol>"
+					"answer": "Pour attribuer une activité, vous avez trois options :<ol><li>Soit, vous vous rendez dans l’onglet <b>Mes ressources</b> et cliquez sur l’icône <i class=\"fas fa-cog\"></i> de votre activité puis cliquez sur Attribuer. Ensuite, vous n’aurez plus qu’à suivre les étapes.</li><li>Cette option Attribuer est également disponible dans l’activité elle-même une fois ouverte.</li><li>Sinon, vous allez dans l’onglet <b>Mes classes</b> et cliquez sur une classe. Une fois arrivé sur le tableau de bord de la classe, vous n’avez plus qu’à cliquer sur le bouton “Ajouter une activité”.</li></ol>"
 				},
 				"5": {
 					"title": "Comment tester une activité ?",
-					"answer": "Pour tester une activité, vous avez deux options :<ol><li>Soit aller dans <b>Profil</b> et cliquer sur le bouton “Passer en mode apprenant” puis sélectionner la classe dans laquelle vous souhaitez vous placer. Vous vous retrouvez sur le compte fictif d’un apprenant appelé \"{{demoStudent}}\", vous pourrez y découvrir l’interface “Apprenant” et réaliser les activités que vous avez attribuées.</li><li>Soit aller sur <b>Mes classes</b> dans le tableau de bord d’une classe, vous pourrez alors vous placer dans la peau de l’apprenant \"{{demoStudent}}\". Pour cela, cliquer sur l’icône <i class=\"fas fa-exchange-alt\"></i>, vous aurez la possibilité de devenir un apprenant de la classe et d’essayer les activités.</li></ol>Pour revenir au mode “Enseignant”, il suffit d’aller dans l’onglet <b>Profil</b> du compte \"{{demoStudent}}\" et de cliquer sur “Retourner au mode enseignant”"
+					"answer": "Pour tester une activité, vous avez deux options :<ol><li>Soit aller dans <b>Profil</b> et cliquer sur le bouton “Passer en mode élève” puis sélectionner la classe dans laquelle vous souhaitez vous placer. Vous vous retrouvez sur le compte fictif d’un élève appelé \"{{demoStudent}}\", vous pourrez y découvrir l’interface “Élève” et réaliser les ressources que vous avez attribuées.</li><li>Soit aller sur <b>Mes classes</b> dans le tableau de bord d’une classe, vous pourrez alors vous placer dans la peau de l’élève \"{{demoStudent}}\". Pour cela, cliquer sur l’icône <i class=\"fas fa-exchange-alt\"></i>, vous aurez la possibilité de devenir un élève de la classe et d’essayer les ressources.</li></ol>Pour revenir au mode “Enseignant”, il suffit d’aller dans l’onglet <b>Profil</b> du compte \"{{demoStudent}}\" et de cliquer sur “Retourner au mode enseignant”"
 				},
 				"6": {
 					"title": "Comment supprimer l’attribution d’une activité sans supprimer l’activité ?",
-					"answer": "Pour supprimer l’attribution d’une activité, aller dans l’onglet <b>Classe</b>, ouvrir le tableau de bord d’une des classes, puis cliquez sur l’activité (l’icône devient <i class=\"fas fa-cog\"></i> quand on passe dessus) puis sur Modifier l’attribution. Vous n’avez plus qu’à modifier les paramètres, sélectionner ou désélectionner les apprenants."
+					"answer": "Pour supprimer l’attribution d’une activité, aller dans l’onglet <b>Classe</b>, ouvrir le tableau de bord d’une des classes, puis cliquez sur l’activité (l’icône devient <i class=\"fas fa-cog\"></i> quand on passe dessus) puis sur Modifier l’attribution. Vous n’avez plus qu’à modifier les paramètres, sélectionner ou désélectionner les élèves."
 				}
 			}
 		},
@@ -795,47 +795,47 @@
 			"question_list": {
 				"1": {
 					"title": "À quoi sert l’onglet Mes classes ?",
-					"answer": "Dans l’onglet Mes Classes, vous allez pouvoir :<ol><li>Créer vos propres classes et ajouter des apprenants</li><li>Corriger les réponses de vos apprenants aux activités,</li><li>et suivre leur progression.</li></ol>"
+					"answer": "Dans l’onglet Mes Classes, vous allez pouvoir :<ol><li>Créer vos propres classes et ajouter des élèves</li><li>Corriger les réponses de vos élèves aux ressources,</li><li>et suivre leur progression.</li></ol>"
 				},
 				"2": {
-					"title": "Comment ajouter mes apprenants à ma classe ?",
-					"answer": "Plusieurs options s’offrent à vous :<ol><li>En classe, vous pouvez <b>projeter le code au tableau</b>. Pour cela, rendez-vous dans votre classe et cliquez sur le bouton agrandir le code ci-dessous :<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image1.png\">Vos apprenants n’auront plus qu’à s'inscrire ou se connecter sur le site en rentrant le code. Ils pourront également noter ce code pour se connecter chez eux.</li><li>Vous pouvez également créer des apprenants avec le bouton “Ajouter un apprenant” et ensuite leur <b>communiquer leur mot de passe individuellement</b>, celui-ci est visible sur le Tableau de bord de la classe ci-dessous :<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image2.png\"></li></ol>"
+					"title": "Comment ajouter mes élèves à ma classe ?",
+					"answer": "Plusieurs options s’offrent à vous :<ol><li>En classe, vous pouvez <b>projeter le code au tableau</b>. Pour cela, rendez-vous dans votre classe et cliquez sur le bouton agrandir le code ci-dessous :<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image1.png\">Vos élèves n’auront plus qu’à s'inscrire ou se connecter sur le site en rentrant le code. Ils pourront également noter ce code pour se connecter chez eux.</li><li>Vous pouvez également créer des élèves avec le bouton “Ajouter un élève” et ensuite leur <b>communiquer leur mot de passe individuellement</b>, celui-ci est visible sur le Tableau de bord de la classe ci-dessous :<br><img class=\"faq-img-center img-fluid\" src=\"assets/media/faq/image2.png\"></li></ol>"
 				},
 				"3": {
-					"title": "Un apprenant peut-il se trouver dans deux classes différentes ?",
+					"title": "Un élève peut-il se trouver dans deux classes différentes ?",
 					"answer": "Non, ce n’est actuellement pas possible."
 				},
 				"4": {
-					"title": "Comment bloquer l’arrivée d’autres apprenants dans une classe ?",
-					"answer": "Cette option sera bientôt disponible ! Cela permettra notamment d’éviter que les apprenants s'inscrivent plusieurs fois dans une même classe par erreur, et également d’éviter que des personnes externes entrent dans la classe sans autorisation."
+					"title": "Comment bloquer l’arrivée d’autres élèves dans une classe ?",
+					"answer": "Cette option sera bientôt disponible ! Cela permettra notamment d’éviter que les élèves s'inscrivent plusieurs fois dans une même classe par erreur, et également d’éviter que des personnes externes entrent dans la classe sans autorisation."
 				},
 				"5": {
 					"title": "Comment attribuer une activité ?",
-					"answer": "<p>Vous pouvez attribuer une activité à toutes les classes que vous avez créées ou seulement à un apprenant en particulier.</p><p>Pour attribuer une activité, vous avez trois options :</p><ol><li>Soit, vous vous rendez dans l’onglet <b>Mes activités</b> et cliquez sur l’icône <i class=\"fas fa-cog\"></i> de votre activité puis cliquez sur Attribuer. Ensuite, vous n’aurez plus qu’à suivre les étapes.</li><li>Cette option Attribuer est également disponible dans l’activité elle-même une fois ouverte.</li><li>Sinon, vous allez dans l’onglet <b>Mes classes</b> et cliquez sur une classe. Une fois arrivé sur le tableau de bord de la classe, vous n’avez plus qu’à cliquer sur le bouton “Ajouter une activité”.</li></ol>"
+					"answer": "<p>Vous pouvez attribuer une activité à toutes les classes que vous avez créées ou seulement à un élève en particulier.</p><p>Pour attribuer une activité, vous avez trois options :</p><ol><li>Soit, vous vous rendez dans l’onglet <b>Mes ressources</b> et cliquez sur l’icône <i class=\"fas fa-cog\"></i> de votre activité puis cliquez sur Attribuer. Ensuite, vous n’aurez plus qu’à suivre les étapes.</li><li>Cette option Attribuer est également disponible dans l’activité elle-même une fois ouverte.</li><li>Sinon, vous allez dans l’onglet <b>Mes classes</b> et cliquez sur une classe. Une fois arrivé sur le tableau de bord de la classe, vous n’avez plus qu’à cliquer sur le bouton “Ajouter une activité”.</li></ol>"
 				},
 				"6": {
 					"title": "Peut-on revenir sur l'attribution d’une activité ?",
-					"answer": "Pour revenir sur l’attribution d’une activité, aller dans l’onglet <b>Classe</b>, ouvrir la tableau de bord d’une des classes, puis cliquez sur l’activité (l’icône devient <i class=\"fas fa-cog\"></i> quand on passe dessus) puis sur Modifier l’attribution. Vous n’avez plus qu’à modifier les paramètres, sélectionner ou désélectionner les apprenants."
+					"answer": "Pour revenir sur l’attribution d’une activité, aller dans l’onglet <b>Classe</b>, ouvrir la tableau de bord d’une des classes, puis cliquez sur l’activité (l’icône devient <i class=\"fas fa-cog\"></i> quand on passe dessus) puis sur Modifier l’attribution. Vous n’avez plus qu’à modifier les paramètres, sélectionner ou désélectionner les élèves."
 				},
 				"7": {
-					"title": "Comment l’évaluation des activités se fait-elle ?",
-					"answer": "Les évaluations sont :<ul><li>soit manuellement sur 4 niveaux : Très bonne maîtrise ; Maîtrise suffisante ; Maîtrise faible et Maîtrise insuffisante</li><li>Soit automatique sur 2 niveaux : Très bonne maîtrise et Maîtrise faible.<br>Ce type d’évaluation permet à l’apprenant d’obtenir sa correction immédiatement et pour l’enseignant de bénéficier d’un gain de temps non négligeable.</li></ul><p>Une fois que l’apprenant a terminé son activité, il a la possibilité de la recommencer si l’enseignant a sélectionné le mode “Exercice” lors de l’attribution. Dans le mode “Évaluation”, l’élève ne peut pas recommencer une fois l’activité validée.</p><p>Pour visualiser les résultats, il vous suffit de vous rendre dans le Tableau de bord de la classe.</p><p>Une activité non corrigée est symbolisée par un crayon dans le Tableau de bord. Pour la corriger, cliquer sur le crayon, ensuite il vous suffit d’évaluer et commenter le travail de l’apprenant.<br>Pour aller plus vite, vous avez également la possibilité d’enregistrer vocalement votre commentaire grâce au microphone.</p>"
+					"title": "Comment l’évaluation des ressources se fait-elle ?",
+					"answer": "Les évaluations sont :<ul><li>soit manuellement sur 4 niveaux : Très bonne maîtrise ; Maîtrise suffisante ; Maîtrise faible et Maîtrise insuffisante</li><li>Soit automatique sur 2 niveaux : Très bonne maîtrise et Maîtrise faible.<br>Ce type d’évaluation permet à l’élève d’obtenir sa correction immédiatement et pour l’enseignant de bénéficier d’un gain de temps non négligeable.</li></ul><p>Une fois que l’élève a terminé son activité, il a la possibilité de la recommencer si l’enseignant a sélectionné le mode “Exercice” lors de l’attribution. Dans le mode “Évaluation”, l’élève ne peut pas recommencer une fois l’activité validée.</p><p>Pour visualiser les résultats, il vous suffit de vous rendre dans le Tableau de bord de la classe.</p><p>Une activité non corrigée est symbolisée par un crayon dans le Tableau de bord. Pour la corriger, cliquer sur le crayon, ensuite il vous suffit d’évaluer et commenter le travail de l’élève.<br>Pour aller plus vite, vous avez également la possibilité d’enregistrer vocalement votre commentaire grâce au microphone.</p>"
 				},
 				"8": {
-					"title": "Comment sait-on lorsque les apprenants ont terminé leurs activités ?",
-					"answer": "Lorsqu’un apprenant a terminé son activité, vous recevrez une notification par e-mail.<br>Ce paramètre sera ajustable à l’avenir, pour l’instant ce n’est pas paramétrable."
+					"title": "Comment sait-on lorsque les élèves ont terminé leurs ressources ?",
+					"answer": "Lorsqu’un élève a terminé son activité, vous recevrez une notification par e-mail.<br>Ce paramètre sera ajustable à l’avenir, pour l’instant ce n’est pas paramétrable."
 				},
 				"9": {
 					"title": "Comment modifier le nom d’une classe ?",
 					"answer": "Pour changer le nom de votre classe, il faudra cliquer sur l’icône <i class=\"fas fa-cog\"></i> depuis l’onglet Mes classes, puis sur modifier. Vous n’aurez plus qu’à changer son nom."
 				},
 				"10": {
-					"title": "Comment supprimer un apprenant d’une classe ?",
-					"answer": "<p>Pour supprimer un apprenant, il suffit de cliquer sur l’icône <i class=\"fas fa-cog\"></i> à côté du nom de l’apprenant sur le Tableau de bord de la classe.</p><p>Attention, cette action est irréversible et clôture le compte de l’apprenant.</p>"
+					"title": "Comment supprimer un élève d’une classe ?",
+					"answer": "<p>Pour supprimer un élève, il suffit de cliquer sur l’icône <i class=\"fas fa-cog\"></i> à côté du nom de l’élève sur le Tableau de bord de la classe.</p><p>Attention, cette action est irréversible et clôture le compte de l’élève.</p>"
 				},
 				"11": {
 					"title": "À quoi sert le bouton anonymiser dans le Tableau de bord ?",
-					"answer": "Ce bouton remplace le nom des apprenants par des numéros. Cela permet de projeter les résultats des élèves au tableau anonymement pour ne pas stigmatiser certains élèves."
+					"answer": "Ce bouton remplace le nom des élèves par des numéros. Cela permet de projeter les résultats des élèves au tableau anonymement pour ne pas stigmatiser certains élèves."
 				}
 			}
 		},
@@ -844,7 +844,7 @@
 			"question_list": {
 				"1": {
 					"title": "À quoi sert l’onglet Profil ?",
-					"answer": "Dans l’onglet Profil, vous allez pouvoir :<ol><li>Gérer vos paramètres de compte,</li><li>Visualiser vos statistiques,</li><li>et échanger des messages avec vos apprenants ainsi que l’équipe Vittascience si vous avez besoin d’aide.</li></ol>"
+					"answer": "Dans l’onglet Profil, vous allez pouvoir :<ol><li>Gérer vos paramètres de compte,</li><li>Visualiser vos statistiques,</li><li>et échanger des messages avec vos élèves ainsi que l’équipe Vittascience si vous avez besoin d’aide.</li></ol>"
 				},
 				"2": {
 					"title": "Comment changer de mot de passe ou d’autres paramètres de compte ?",
@@ -855,8 +855,8 @@
 					"answer": "Le module Classe est actuellement disponible en français et en anglais. Pour changer de langue, allez dans l'onglet profil, cliquez sur le bouton “Paramètres”, puis sélectionnez la langue qui vous convient."
 				},
 				"4": {
-					"title": "Qu’est-ce que le mode apprenant ?",
-					"answer": "<p>Dans votre profil, vous pouvez cliquer sur le bouton “Passer en mode apprenant”. Après avoir choisi une classe, vous vous retrouvez sur le compte fictif d’un apprenant appelé \"{{demoStudent}}\", dans lequel vous pourrez découvrir l’interface Apprenant et réaliser les activités que vous avez attribuées.</p><p>Pour revenir au mode “Enseignant”, il suffit d’aller dans l’onglet <b>Profil</b> du compte \"{{demoStudent}}\" et de cliquer sur “Retourner au mode enseignant”.</p>"
+					"title": "Qu’est-ce que le mode élève ?",
+					"answer": "<p>Dans votre profil, vous pouvez cliquer sur le bouton “Passer en mode élève”. Après avoir choisi une classe, vous vous retrouvez sur le compte fictif d’un élève appelé \"{{demoStudent}}\", dans lequel vous pourrez découvrir l’interface Élève et réaliser les ressources que vous avez attribuées.</p><p>Pour revenir au mode “Enseignant”, il suffit d’aller dans l’onglet <b>Profil</b> du compte \"{{demoStudent}}\" et de cliquer sur “Retourner au mode enseignant”.</p>"
 				}
 			}
 		},
@@ -891,7 +891,7 @@
 			"question_list": {
 				"1": {
 					"title": "Peut-on faire une description ou présentation du module Classe ?",
-					"answer": "Oui, vous pouvez réutiliser les visuels pour module Classe pour créer une description, présentation, formation, tutoriel, cours ou autre. Si vous souhaitez inclure des images ou contenus d'activités, veuillez mentionner l'auteur (voir question suivante)."
+					"answer": "Oui, vous pouvez réutiliser les visuels pour module Classe pour créer une description, présentation, formation, tutoriel, cours ou autre. Si vous souhaitez inclure des images ou contenus de ressources, veuillez mentionner l'auteur (voir question suivante)."
 				},
 				"2": {
 					"title": "Où peut-on trouver le code source du module Classe ?",
@@ -903,11 +903,11 @@
 	"faqStudentNeutral": {
 		"title": "FAQ",
 		"1": {
-			"section_title": "Activités",
+			"section_title": "Ressources",
 			"question_list": {
 				"1": {
-					"title": "À quoi sert l’onglet Mes activités ?",
-					"answer": "Dans l’onglet Mes Activités, tu vas pouvoir :<ol><li>Réaliser les nouvelles activités de tes enseignants.</li><li>Sauvegarder celles que tu n’as pas encore terminées.</li><li>Et revoir celles que tu as faites !</li></ol>"
+					"title": "À quoi sert l’onglet Mes ressources ?",
+					"answer": "Dans l’onglet Mes Ressources, tu vas pouvoir :<ol><li>Réaliser les nouvelles ressources de tes enseignants.</li><li>Sauvegarder celles que tu n’as pas encore terminées.</li><li>Et revoir celles que tu as faites !</li></ol>"
 				},
 				"2": {
 					"title": "Qu’est-ce qu’une activité ?",
@@ -1368,14 +1368,14 @@
 			"groupFull": "Le groupe est complet.",
 			"groupFullAdminMessage": "Le groupe est complet, vous ne pouvez pas ajouter d'autres utilisateurs.",
 			"toManyStudentsFromTheTeacher": "Le professeur que vous souhaitez ajouter au groupe possède trop d'élève",
-			"toManyStudentsInGroup": "Le groupe ne peut pas accueillir autant d'apprenants, le professeur possède trop d'apprenants.",
+			"toManyStudentsInGroup": "Le groupe ne peut pas accueillir autant d'élèves, le professeur possède trop d'élèves.",
 			"teachersPerGroup": "Enseignant par groupe",
 			"activitiesPerGroup": "Activité(s) par groupe",
 			"activitiesPerTeacher": "Activité(s) par enseignant",
-			"studentsPerGroup": "Apprenants par groupe",
-			"studentsPerTeacher": "Apprenants par enseignant",
-			"maxStudents": "Maximum d'apprenants",
-			"maxActivities": "Maximum d'activités",
+			"studentsPerGroup": "Élèves par groupe",
+			"studentsPerTeacher": "Élèves par enseignant",
+			"maxStudents": "Maximum d'élèves",
+			"maxActivities": "Maximum de ressources",
 			"groupsRestrictions": "Restriction du groupe",
 			"classroomPerTeacher": "Classe(s) par enseignant"
 		},
@@ -1457,16 +1457,16 @@
 			"dateEnd": "Date de fin",
 			"outDated": "Périmé",
 			"status": "Statut",
-			"maxStudents": "Maximum d'apprenants",
-			"actualStudents": "Apprenants actuels",
+			"maxStudents": "Maximum d'élèves",
+			"actualStudents": "Élèves actuels",
 			"maxTeachers": "Maximum d'enseignants",
 			"actualTeachers": "Enseignants actuels",
-			"maxStudentsPerTeachers": "Maximum d'apprenants par enseignant",
-			"maxStudentsPerTeacher": "Maximum d'apprenants par enseignant",
+			"maxStudentsPerTeachers": "Maximum d'élèves par enseignant",
+			"maxStudentsPerTeacher": "Maximum d'élèves par enseignant",
 			"maxClassroomsPerTeacher": "Maximum de classes par enseignant",
 			"activityType": "Type d'activité",
-			"maxActivitiesPerGroup": "Maximum d'activités par groupe",
-			"maxActivitiesPerTeacher": "Maximum d'activités par enseignant",
+			"maxActivitiesPerGroup": "Maximum de ressources par groupe",
+			"maxActivitiesPerTeacher": "Maximum de ressources par enseignant",
 			"monitoring": "Suveillance des applications",
 			"image": "Image",
 			"backgroundImage": "Image de fond",
@@ -1478,7 +1478,7 @@
 			"restriction": "Restriction",
 			"dateBeginFA": "<i class='far fa-calendar-alt'></i>  Date début",
 			"dateEndFA": "<i class='far fa-calendar-alt'></i>  Date de fin",
-			"maxStudentsFA": "<i class='fas fa-user-alt'></i>  Maximum d'apprenants",
+			"maxStudentsFA": "<i class='fas fa-user-alt'></i>  Maximum d'élèves",
 			"maxClassroomsFA": "<i class='fas fa-chalkboard'></i>  Maximum de classes",
 			"maxClassrooms": "Maximum de classes"
 		},
@@ -1490,8 +1490,8 @@
 			"deleteSuccess": "Application supprimée avec succès",
 			"deleteIntention": "Vous vous apprêtez à supprimer l'application : <span id=\"application_delete_name\"></span>",
 			"outDatedApp": "L'application que vous souhaitez attribuer est périmé.",
-			"infoMaxStudentsPerTeachers": "Détermine le nombre d'apprenants qu'un enseignant faisant partie du groupe pourra avoir au maximum.",
-			"infoMaxStudentsPerGroups": "Détermine le nombre d'apprenants que le groupe pourra avoir au maximum (En additionnant le total d'apprenants des professeurs disposant de cette application)",
+			"infoMaxStudentsPerTeachers": "Détermine le nombre d'élèves qu'un enseignant faisant partie du groupe pourra avoir au maximum.",
+			"infoMaxStudentsPerGroups": "Détermine le nombre d'élèves que le groupe pourra avoir au maximum (En additionnant le total d'élèves des professeurs disposant de cette application)",
 			"infoMaxTeachers": "Détermine le nombre maximum de professeurs pouvant disposer de l'application dans ce groupe",
 			"usersLimitation": "Limitation par utilisateur",
 			"groupsLimitation": "Limitations de groupe",
@@ -1526,17 +1526,17 @@
 			"maxActivity": "Maximum d'activité",
 			"closeDetail": "Fermer le détail",
 			"restrictions": "Restrictions d'activité",
-			"appRestricted" : "Créez plus d'activités !",
+			"appRestricted" : "Créez plus de ressources !",
 			"appOutDated" : "L'abonnement de l'application est périmé.",
 			"appOutDatedUL1": "Votre abonnement donnant accès à cette application est périmé.",
 			"appOutDatedUL2": "Pour continuer à utiliser cette application, veuillez prendre contact avec votre administrateur.",
 			"appOutDatedSubtitle3": "Contacter le support",
-			"appRestrictedUL1": "Vous avez atteint la limite de {{activities}} activités associés à votre compte.",
-			"appRestrictedUL2": "Pour ajouter des activités sumpplémentaires, veuillez prendre contact avec votre administrateur.",
+			"appRestrictedUL1": "Vous avez atteint la limite de {{activities}} ressources associés à votre compte.",
+			"appRestrictedUL2": "Pour ajouter des ressources sumpplémentaires, veuillez prendre contact avec votre administrateur.",
 			"appRestrictedSubtitle2": "Un problème avec votre abonnement ?",
 			"appRestrictedSubtitle3": "Contacter le support",
-			"appRestrictedGarContent1": "Vous avez atteint la limite de {{activities}} activités associés à votre compte.",
-			"appRestrictedGarContent2": "Pour ajouter des activités sumpplémentaires, veuillez prendre contact avec le.la responsable d'affectation GAR de votre établissement.",
+			"appRestrictedGarContent1": "Vous avez atteint la limite de {{activities}} ressources associés à votre compte.",
+			"appRestrictedGarContent2": "Pour ajouter des ressources sumpplémentaires, veuillez prendre contact avec le.la responsable d'affectation GAR de votre établissement.",
 			"indexPos": "Index de position",
 			"appQuantity": "Quantité"
 		},
@@ -1547,7 +1547,7 @@
 			"add": "Ajouter une restiction",
 			"updateUsersRestrictionsSuccess": "Restrictions utilisateur modifiées avec succès",
 			"updateGroupsRestrictionsSuccess": "Restrictions de groupe modifiées avec succès",
-			"updateActivitiesRestrictionsSuccess": "Restrictions d'activités modifiées avec succès",
+			"updateActivitiesRestrictionsSuccess": "Restrictions de ressources modifiées avec succès",
 			"deleteActivitiesRestrictionsSuccess": "Restriction d'activité supprimée avec succès",
 			"getDefaultRestrictions": "Voir les restrictions par défaut",
 			"restrictionAlreadyExist": "La restriction existe déjà"
@@ -1595,23 +1595,23 @@
 		"delete": "Supprimer",
 		"import" : "Importer",
 		"importSuccess": "Activité importée avec succès",
-		"importError": "Une erreur est survenue lors de l'import de l'activité",
+		"importError": "Une erreur est survenue lors de l'import de la ressource",
 		"export": "Exporter",
 		"exportSuccess": "Activité exportée avec succès",
-		"exportError": "Une erreur est survenue lors de l'export de l'activité",
+		"exportError": "Une erreur est survenue lors de l'export de la ressource",
 		"addQuiz": "Ajouter une proposition",
-		"states": "Énoncé de l'activité <span class=\"c-text-red\">*</span>",
+		"states": "Énoncé de la ressource <span class=\"c-text-red\">*</span>",
 		"cancel": "Annuler",
 		"ok": "ok",
 		"autocorrect": "Correction automatique",
-		"correction": "Corrigé de l'activité",
-		"contentTitle": "Contenu de l'activité",	
+		"correction": "Corrigé de la ressource",
+		"contentTitle": "Contenu de la ressource",	
 		"tolerance1": "Ajouter une tolérance d'erreur de",
 		"tolerance2": "caractère(s) sur l'ensemble de la réponse de l'élève.",
 		"hint": "Indice",
-		"title": "Titre de l'activité <span class=\"c-text-red\">*</span>",
-		"description": "Description de l'activité <span class=\"c-text-red\">*</span>",
-		"content": "Contenu de l'activité <span class=\"c-text-red\">*</span>",
+		"title": "Titre de la ressource <span class=\"c-text-red\">*</span>",
+		"description": "Description de la ressource <span class=\"c-text-red\">*</span>",
+		"content": "Contenu de la ressource <span class=\"c-text-red\">*</span>",
 		"addField": "Ajouter un champ de réponse",
 		"addFieldTooltip": "En cliquant sur le bouton Ajouter un champ de réponse, un texte stylisé est ajouté. Vous pouvez écrire la réponse correcte dans ce champ. Les réponses alternatives sont séparées par une double esperluette &&",
 		"ActivitiesData": {
@@ -1620,7 +1620,8 @@
 				"free": "Réponse libre",
 				"quiz": "QCM",
 				"fillIn": "Texte à trous",
-				"dragAndDrop": "Glisser-Déposer"
+				"dragAndDrop": "Glisser-Déposer",
+				"Éditeur-Python": "Éditeur Python"
 			},
 			"description": {
 				"reading": "Cette activité permet de visualiser des images, vidéos, PDF, interfaces Vittascience ainsi que des outils externes.",
@@ -1633,32 +1634,32 @@
 		"modals": {
 			"importActivity": "Gestionnaire d'import",
 			"importTitle": "Importer une activité",
-			"validateMessage": "Voulez-vous importer l'activité <span id='import-activity-title'></span> ?",
+			"validateMessage": "Voulez-vous importer la ressource <span id='import-activity-title'></span> ?",
 			"imageSize": "Taille de l'image"
 		}
 	},
 	"courses": {
-		"add": "Créer un parcours",
-		"addActivity":"Ajouter une activité existante",
-		"addActivities":"Ajouter des activités",
-		"createActivity": "Créer une nouvelle activité",
-		"searchActivity": "Rechercher une activité",
+		"add": "Créer une activité",
+		"addActivity":"Ajouter une ressource existante",
+		"addActivities":"Ajouter des ressources",
+		"createActivity": "Créer une nouvelle ressource",
+		"searchActivity": "Rechercher une ressource",
 		"placeholderTitle": "Titre de votre activité",
 		"placeholderDescription": "Description de votre activité",
 		"format": {
-			"label": "Format d'affichage du parcours : ",
+			"label": "Format d'affichage de l'activité : ",
 			"onePage": "Une page",
 			"standart": "Standard"
 		},
 		"pagination": {
-			"create":"Création du parcours",
+			"create":"Création de l'activité",
 			"title": "Titre",
 			"parameters": "Paramètres",
 			"attribution": "Attribution"
 		},
 		"parameters": {
-			"title":"Titre du parcours <span class=\"c-text-red\">*</span>",
-			"description": "Description du parcours <span class=\"c-text-red\">*</span>",
+			"title":"Titre de l'activité <span class=\"c-text-red\">*</span>",
+			"description": "Description de l'activité <span class=\"c-text-red\">*</span>",
 			"difficulty": "Difficulté <span class=\"c-text-red\">*</span>",
 			"difficultyLevel": {
 				"choose": "Choisissez une difficulté",
@@ -1677,12 +1678,12 @@
 				"4": "Publique CC-BY-NC-ND (ressource libre, non-commerciale et non-modifiable)"
 			}
 		},
-		"successfullyCreated": "Parcours créé avec succès",
-		"attribution": "Attribuer le parcours <i class='fas fa-chevron-right'></i>",
+		"successfullyCreated": "Activité créé avec succès",
+		"attribution": "Attribuer l'activité <i class='fas fa-chevron-right'></i>",
 		"return": "Retour <i class='fas fa-chevron-right'></i>",
-		"update": "Modifier le parcours",
-		"show": "Afficher le parcours",
-		"informationWhenEmpty": "Cliquer sur les boutons ci-dessus pour ajouter des activités au parcours."
+		"update": "Modifier l'activité",
+		"show": "Afficher l'activité'",
+		"informationWhenEmpty": "Cliquer sur les boutons ci-dessus pour ajouter des ressources à l'activité."
 	},
 	"statistics": {
 		"total": "Total {{entity}}",
