@@ -58,7 +58,7 @@ document.querySelector(`link[href="assets/css/login.css"]`).disabled = true;
 
 <style>
 input.placeholder-update::placeholder {
-    opacity: 0.5;
+    opacity: 0.8;
 }
 </style>
 
