@@ -121,13 +121,6 @@ try {
     }
 
     switch ($controller) {
-        case 'session':
-            $session_id = session_id();
-            $sessionRepository = $entityManager->getRepository(Session::class);
-            $sessionRepository->createSession($session_id, $user['id']);
-            echo (json_encode(["session_id" => $session_id]));
-            $log->info($action, OK);
-            break;
         case 'user':
             $controller = new ControllerUser($entityManager, $user);
             echo (json_encode($controller->action($action, $_POST)));
@@ -201,6 +194,11 @@ try {
             break;
         case 'session':
             echo (json_encode($user));
+            $log->info($action, OK);
+            $session_id = session_id();
+            $sessionRepository = $entityManager->getRepository(Session::class);
+            $sessionRepository->createSession($session_id, $user['id']);
+            echo (json_encode(["session_id" => $session_id]));
             $log->info($action, OK);
             break;
         case 'superadmin':

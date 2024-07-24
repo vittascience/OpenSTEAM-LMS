@@ -55,7 +55,7 @@ $jwt_payload = [
       "updateUrl" => $loginHint['updateUrl'] ?? '',
       "redirectionUrl" => $platform_url . '/lti/redirection.html',
       "studentResourceUrl" => isset($loginHint['studentResourceUrl']) ? $loginHint['studentResourceUrl'] : false,
-      "sessionId" => $session_id // Ajout de l'identifiant de session
+      "sessionId" => $session_id
   ]
 ];
 
