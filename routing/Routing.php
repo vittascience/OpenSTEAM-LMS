@@ -41,6 +41,8 @@ use Classroom\Controller\ControllerActivityLinkUser;
 use Interfaces\Controller\ControllerProjectLinkUser;
 use Classroom\Controller\ControllerClassroomLinkUser;
 
+use Classroom\Entity\Session;
+
 
 $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
 $dotenv->safeLoad();
@@ -119,6 +121,13 @@ try {
     }
 
     switch ($controller) {
+        case 'session':
+            $session_id = session_id();
+            $sessionRepository = $entityManager->getRepository(Session::class);
+            $sessionRepository->createSession($session_id, $user['id']);
+            echo (json_encode(["session_id" => $session_id]));
+            $log->info($action, OK);
+            break;
         case 'user':
             $controller = new ControllerUser($entityManager, $user);
             echo (json_encode($controller->action($action, $_POST)));
