@@ -58,23 +58,30 @@ $log = Log::createSharedInstance($controller, $logPath, Logger::NOTICE);
 try {
     // Get User.
     session_start();
+    error_log("Session started.");
     $user = null;
     if (isset($_SESSION["id"])) {
-        $user = $entityManager->getRepository('User\Entity\User')
-            ->find(intval($_SESSION["id"]))->jsonSerialize();
+        error_log("User ID in session: " . $_SESSION["id"]);
+        $userEntity = $entityManager->getRepository('User\Entity\User')->find(intval($_SESSION["id"]));
+        if ($userEntity) {
+            $user = $userEntity->jsonSerialize();
+            error_log("User found: " . print_r($user, true));
+        } else {
+            error_log("User not found in the database.");
+        }
 
         try {
-            $regular = $entityManager->getRepository('User\Entity\Regular')
-                ->find(intval($_SESSION["id"]))->jsonSerialize();
-            $user['isRegular']  = $regular['email'];
-        } catch (error $e) {
+            $regular = $entityManager->getRepository('User\Entity\Regular')->find(intval($_SESSION["id"]))->jsonSerialize();
+            $user['isRegular'] = $regular['email'];
+        } catch (Exception $e) {
+            error_log("Regular user not found: " . $e->getMessage());
             $user['isRegular'] = false;
         }
 
-        $isFromGar = $entityManager->getRepository('User\Entity\ClassroomUser')
-            ->find(intval($_SESSION["id"]));
+        $isFromGar = $entityManager->getRepository('User\Entity\ClassroomUser')->find(intval($_SESSION["id"]));
         if ($isFromGar) {
             $garUser = $isFromGar->jsonSerialize();
+            error_log("GAR user found: " . print_r($garUser, true));
 
             if ($garUser['garId'] != null) {
                 $user['isFromGar'] = true;
@@ -87,6 +94,14 @@ try {
                 }
             }
         }
+    } else {
+        error_log("User ID is not set in session.");
+    }
+
+    if (!$user) {
+        error_log("User is null. Cannot proceed.");
+        echo json_encode(["error" => "User not authenticated"]);
+        exit;
     }
 
     // get and scan the entire plugins folder
@@ -123,6 +138,11 @@ try {
     switch ($controller) {
         case 'session':
             $session_id = session_id();
+            if (!isset($user['id'])) {
+                error_log("User ID is not set. User: " . print_r($user, true));
+                throw new Exception("User ID is not set.");
+            }
+            error_log("Creating session with session_id: $session_id and user_id: " . $user['id']);
             $sessionRepository = $entityManager->getRepository(Session::class);
             $sessionRepository->createSession($session_id, $user['id']);
             echo (json_encode(["session_id" => $session_id]));
