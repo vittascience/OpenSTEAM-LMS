@@ -193,18 +193,7 @@ try {
             $log->info($action, OK);
             break;
         case 'session':
-            $log->info('Starting session case');
-            if ($user) {
-                $log->info('User data:', ['user' => json_encode($user)]);
-            } else {
-                $log->info('No user data found');
-            }
             echo (json_encode($user));
-            $log->info($action, OK);
-            $session_id = session_id();
-            $sessionRepository = $entityManager->getRepository(Session::class);
-            $sessionRepository->createSession($session_id, $user['id']);
-            echo (json_encode(["session_id" => $session_id]));
             $log->info($action, OK);
             break;
         case 'superadmin':
