@@ -60,8 +60,11 @@ try {
     session_start();
     $user = null;
     if (isset($_SESSION["id"])) {
+        $log->info('User ID in session: ' . $_SESSION["id"]);
         $user = $entityManager->getRepository('User\Entity\User')
             ->find(intval($_SESSION["id"]))->jsonSerialize();
+
+        $log->info('User data retrieved: ' . json_encode($user));
 
         try {
             $regular = $entityManager->getRepository('User\Entity\Regular')
