@@ -193,6 +193,12 @@ try {
             $log->info($action, OK);
             break;
         case 'session':
+            $log->info('Starting session case');
+            if ($user) {
+                $log->info('User data:', ['user' => json_encode($user)]);
+            } else {
+                $log->info('No user data found');
+            }
             echo (json_encode($user));
             $log->info($action, OK);
             $session_id = session_id();
