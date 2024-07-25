@@ -43,7 +43,7 @@ CREATE TABLE `classrooms` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sessions`
+-- Structure de la table `sessions`, ce n'est pas testé
 --
 
 CREATE TABLE `sessions` (
