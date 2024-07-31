@@ -504,8 +504,6 @@ button {
 
     scrollbar-width: thin;
     scrollbar-color: var(--classroom-cell) transparent;
-
-    padding-top: 0.5em;
 }
 
 #classroom-dashboard-content::-webkit-scrollbar,
@@ -2114,7 +2112,7 @@ h3.section-done {
 
 #activity-custom {
     width: 100%;
-    height: 60vh;
+    height: max-content
 }
 
 #lti-loader-container {
@@ -3186,6 +3184,15 @@ h3.section-done {
     font-weight: 800;
 }
 
+.complete-classroom-link {
+    border: 2px solid var(--classroom-secondary);
+    padding: .5em;
+    margin: .5em 0em;
+    border-radius: 15px;
+    text-wrap: balance;
+    font-size: small !important;
+}
+
 #classroom-panel-legend {
     display: grid;
     overflow-x: auto;
@@ -3364,7 +3371,7 @@ h3.section-done {
     object-fit: contain;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1180px) {
     #classroom-code-share-container {
         grid-template-columns: 1fr;;
     }
@@ -3441,15 +3448,14 @@ h3.section-done {
     flex: 1;
     overflow-y: auto;
     max-height: 100%;
+    width: 100%;
 }
 
 .faq-panel {
-    background: var(--classroom-cell);
-    border: 2px solid var(--classroom-secondary);
+    border-left: 2px solid var(--classroom-secondary);
     flex: 1;
     overflow: auto;
-    height: 90%;
-    border-radius: 2em 0 0 2em;
+    height: 100%;
 }
 
 .faq-panel::-webkit-scrollbar {
@@ -3909,4 +3915,11 @@ h3.section-done {
 
 th, td {
     color: var(--classroom-text-0) !important;
+}
+
+
+.import-multiple-activities {
+    width: 32px;
+    border-radius: 3px;
+    margin: 0 0.3em;
 }

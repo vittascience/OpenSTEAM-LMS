@@ -780,11 +780,11 @@ const classroomModals = {
                             <p class="text-center" data-i18n="[html]manager.users.disableIntention">Vous vous apprêtez à désactiver l'utilisateur : <span id="mde_firstnameSA"></span></p>
                             <div class="text-center c-secondary-form">
                                 <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ ci dessous pour valider l'action.</p>
-                                <input type="text" name="validation_disableGroupAdmin" id="validation_disableGroupAdmin" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                                <input type="text" name="validation_disableGroupAdmin" id="validation_disableGroupAdmin" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
                             </div>
                             <div class="text-center">
-                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelDisableGroupAdmin()" data-i18n="manager.buttons.cancel">Annuler</button>
-                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDisableGroupAdmin()" data-i18n="manager.buttons.validate">Valider</button>
+                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDisableGroupAdmin()" data-i18n="manager.buttons.disable">Valider</button>
+                                <button class="btn c-btn-primary mx-auto mt-3 btn-lg" onclick="cancelDisableGroupAdmin()" data-i18n="manager.buttons.cancel">Annuler</button>
                             </div>
                         </div>
                     </div>`,
@@ -804,11 +804,11 @@ const classroomModals = {
                             <div class="text-center c-secondary-form">
 
                                 <p data-i18n="manager.users.disable.message" class="text-center"></p>
-                                <input type="text" name="validation_deleteGroupAdmin" id="validation_deleteGroupAdmin" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                                <input type="text" name="validation_deleteGroupAdmin" id="validation_deleteGroupAdmin" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
                             </div>
                             <div class="text-center">
-                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelDeleteGroupAdmin()" data-i18n="manager.buttons.cancel">Annuler</button>
-                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteGroupAdmin()" data-i18n="manager.buttons.validate">Valider</button>
+                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteGroupAdmin()" data-i18n="manager.buttons.delete">Supprimer</button>
+                                <button class="btn c-btn-c-btn-primary mx-auto mt-3 btn-lg" onclick="cancelDeleteGroupAdmin()" data-i18n="manager.buttons.cancel">Annuler</button>
                             </div>
                         </div>
                     </div>`,
@@ -827,11 +827,11 @@ const classroomModals = {
                             <p class="text-center" data-i18n="[html]manager.users.deleteIntentionSA">Vous vous apprêtez à supprimer l'utilisateur : <span id="mdi_firstnameSA"></span></p>
                             <div class="text-center c-secondary-form">
                                 <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ ci-dessous pour valider l'action.</p>
-                                <input type="text" name="validation_delete" id="validation_delete" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                                <input type="text" name="validation_delete" id="validation_delete" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
                             </div>
                             <div class="text-center">
-                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelDelete()" data-i18n="manager.buttons.cancel">Annuler</button>
-                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDelete()" data-i18n="manager.buttons.validate">Valider</button>
+                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDelete()" data-i18n="manager.buttons.delete">Supprimer</button>
+                                <button class="btn c-btn-primary mx-auto mt-3 btn-lg" onclick="cancelDelete()" data-i18n="manager.buttons.cancel">Annuler</button>
                             </div>
                         </div>
                     </div>`,
@@ -850,11 +850,11 @@ const classroomModals = {
                             <p class="text-center" data-i18n="[html]manager.users.disableIntention">Vous vous apprêtez à désactiver l'utilisateur : <span id="mde_firstnameSA"></span></p>
                             <div class="text-center c-secondary-form">
                                 <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ ci-dessous pour valider l'action.</p>
-                                <input type="text" name="validation_disable" id="validation_disable" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                                <input type="text" name="validation_disable" id="validation_disable" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
                             </div>
                             <div class="text-center">
-                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelDisable()" data-i18n="manager.buttons.cancel">Annuler</button>
-                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDisable()" data-i18n="manager.buttons.validate">Valider</button>
+                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDisable()" data-i18n="manager.buttons.disable">Valider</button>
+                                <button class="btn c-btn-primary mx-auto mt-3 btn-lg" onclick="cancelDisable()" data-i18n="manager.buttons.cancel">Annuler</button>
                             </div>
                         </div>
                     </div>`,
@@ -873,11 +873,11 @@ const classroomModals = {
                             <p class="text-center" data-i18n="[html]manager.group.deleteIntention">Vous vous apprêtez à suppression le groupe : <span id="md_group"></span></p>
                             <div class="text-center c-secondary-form">
                                 <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ ci-dessous pour valider l'action.</p>
-                                <input type="text" name="validation_delete_group" id="validation_delete_group" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                                <input type="text" name="validation_delete_group" id="validation_delete_group" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
                             </div>
                             <div class="text-center">
-                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelDeleteGroup()" data-i18n="manager.buttons.cancel">Annuler</button>
-                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteGroup()" data-i18n="manager.buttons.validate">Valider</button>
+                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteGroup()" data-i18n="manager.buttons.delete">Valider</button>
+                                <button class="btn c-btn-primary mx-auto mt-3 btn-lg" onclick="cancelDeleteGroup()" data-i18n="manager.buttons.cancel">Annuler</button>
                             </div>
                         </div>
                     </div>`,
@@ -924,7 +924,7 @@ const classroomModals = {
                             </div>
 
                             <div class="row">
-                                <button class="btn c-btn-light mx-auto mt-3 btn" onclick="dismissModal()" data-i18n="manager.buttons.close">Fermer</button>
+                                <button class="btn c-btn-primary mx-auto mt-3 btn" onclick="dismissModal()" data-i18n="manager.buttons.close">Fermer</button>
                             </div>
                         </div>
                     </div>`,
@@ -1006,7 +1006,7 @@ const classroomModals = {
 
 
                             <button class="btn c-btn-secondary my-3 btn" onclick="persistUpdateApp()" data-i18n="manager.buttons.update">Modifier</button>
-                            <button class="btn c-btn-light my-3 btn" onclick="closeModalAndCleanInput()" data-i18n="manager.buttons.cancel">Annuler</button>
+                            <button class="btn c-btn-primary my-3 btn" onclick="closeModalAndCleanInput()" data-i18n="manager.buttons.cancel">Annuler</button>
                         </div>
                         <div class="col-12" id="delete-app-manager" style="display:none;">
                             <h3 class="font-weight-bold text-danger m-auto text-center" data-i18n="manager.users.deleteConfirmationTitle">Confirmer la suppression</h3>
@@ -1014,11 +1014,11 @@ const classroomModals = {
                             <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ ci-dessous pour valider l'action.</p>
                             <div class="text-center c-secondary-form">
                                 <input type="hidden" name="validation_delete_application_id" id="validation_delete_application_id">
-                                <input type="text" name="validation_delete_application" id="validation_delete_application" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                                <input type="text" name="validation_delete_application" id="validation_delete_application" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
                             </div>
                             <div class="text-center">
-                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInput()" data-i18n="manager.buttons.cancel">Annuler</button>
                                 <button class="btn c-btn-red mx-auto mt-3 btn-lg" onclick="persistDeleteApp()" data-i18n="manager.buttons.validate">Valider</button>
+                                <button class="btn c-btn-primary mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInput()" data-i18n="manager.buttons.cancel">Annuler</button>
                             </div>
                         </div>
                         <div class="container-fluid" id="create-app-manager" style="display:none;">
@@ -1089,7 +1089,7 @@ const classroomModals = {
                             </div>
 
                             <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistCreateApp()" data-i18n="manager.buttons.validate">Valider</button>
-                            <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInput()" data-i18n="manager.buttons.cancel">Annuler</button>
+                            <button class="btn c-btn-primary mx-auto mt-3 btn-lg" onclick="closeModalAndCleanInput()" data-i18n="manager.buttons.cancel">Annuler</button>
                         </div>
                     </div>`,
         footer: ``
@@ -1196,11 +1196,11 @@ const classroomModals = {
                             <p class="text-center" data-i18n="classroom.activities.deleteActivityDisclaimer"></p>
                             <div class="text-center c-secondary-form">
                                 <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ ci-dessous pour valider l'action.</p>
-                                <input type="text" name="validation-delete-activity" id="validation-delete-activity" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                                <input type="text" name="validation-delete-activity" id="validation-delete-activity" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
                             </div>
                             <div class="text-center">
-                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelDeleteActivity()" data-i18n="manager.buttons.cancel">Annuler</button>
-                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteActivity()" data-i18n="manager.buttons.validate">Valider</button>
+                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteActivity()" data-i18n="manager.buttons.delete">Valider</button>
+                                <button class="btn c-btn-primary mx-auto mt-3 btn-lg" onclick="cancelDeleteActivity()" data-i18n="manager.buttons.cancel">Annuler</button>
                             </div>
                         </div>
                     </div>`,
@@ -1227,7 +1227,7 @@ const classroomModals = {
             </div>
            
             <button class="btn c-btn-secondary my-3 btn" onclick="foldersManager.persistUpdateFolder()" data-i18n="manager.buttons.update">Modifier</button>
-            <button class="btn c-btn-light my-3 btn" onclick="foldersManager.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
+            <button class="btn c-btn-primary my-3 btn" onclick="foldersManager.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
         </div>
     
     
@@ -1240,12 +1240,12 @@ const classroomModals = {
     
             <div class="text-center c-secondary-form">
                 <input type="hidden" name="validation-delete-folder_id" id="validation-delete-folder_id">
-                <input type="text" name="validation-delete-folder" id="validation-delete-folder" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                <input type="text" name="validation-delete-folder" id="validation-delete-folder" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
             </div>
     
             <div class="text-center">
-                <button class="btn c-btn-red mx-auto mt-3 btn-lg" onclick="foldersManager.persistDeleteFolder()" data-i18n="manager.buttons.validate">Valider</button>
-                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="foldersManager.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
+                <button class="btn c-btn-red mx-auto mt-3 btn-lg" onclick="foldersManager.persistDeleteFolder()" data-i18n="manager.buttons.delete">Valider</button>
+                <button class="btn c-btn-primary mx-auto mt-3 btn-lg" onclick="foldersManager.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
             </div>
         </div>
         
@@ -1262,8 +1262,8 @@ const classroomModals = {
                 </div>
             </div>
     
-            <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="foldersManager.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
             <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="foldersManager.persistCreateFolder()" data-i18n="manager.buttons.validate">Valider</button>
+            <button class="btn c-btn-primary mx-auto mt-3 btn-lg" onclick="foldersManager.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
         </div>
     </div>`,
         footer: ``
@@ -1277,8 +1277,8 @@ const classroomModals = {
         content: `  <div id="folders-move-to-content" class="container-fluid">
                         <div id="folders-tree-content-modal">
                         </div>
-                        <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="foldersManager.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
                         <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="foldersManager.persistMoveToFolder()" data-i18n="manager.buttons.validate">Valider</button>
+                        <button class="btn c-btn-primary mx-auto mt-3 btn-lg" onclick="foldersManager.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
                     </div>`,
         footer: ``
     },
@@ -1291,8 +1291,8 @@ const classroomModals = {
         content: `  <div id="folders-move-to-content" class="container-fluid">
                         <div id="folders-seek-tree-content-modal">
                         </div>
-                        <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="foldersManager.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
                         <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="foldersManager.persistGoToSelected()" data-i18n="manager.buttons.validate">Valider</button>
+                        <button class="btn c-btn-primary mx-auto mt-3 btn-lg" onclick="foldersManager.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
                     </div>`,
         footer: ``
     },
@@ -1308,11 +1308,11 @@ const classroomModals = {
                             <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="classroom.classes.deleteStudentConfirm"></h3>
                             <div class="text-center c-secondary-form">
                                 <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ ci-dessous pour valider l'action.</p>
-                                <input type="text" name="validation-delete-student" id="validation-delete-student" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                                <input type="text" name="validation-delete-student" id="validation-delete-student" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
                             </div>
                             <div class="text-center">
-                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelDeleteStudent()" data-i18n="manager.buttons.cancel">Annuler</button>
-                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteStudent()" data-i18n="manager.buttons.validate">Valider</button>
+                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteStudent()" data-i18n="manager.buttons.delete">Valider</button>
+                                <button class="btn c-btn-primary mx-auto mt-3 btn-lg" onclick="cancelDeleteStudent()" data-i18n="manager.buttons.cancel">Annuler</button>
                             </div>
                         </div>
                     </div>`,
@@ -1341,8 +1341,8 @@ const classroomModals = {
 
                         </div>
 
-                        <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="coursesManager.cancelActivityToCourse()" data-i18n="manager.buttons.cancel">Annuler</button>
                         <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="coursesManager.persistActivityToCourse()" data-i18n="manager.buttons.validate">Valider</button>
+                        <button class="btn c-btn-primary mx-auto mt-3 btn-lg" onclick="coursesManager.cancelActivityToCourse()" data-i18n="manager.buttons.cancel">Annuler</button>
                     </div>`,
         footer: ``
     },
@@ -1360,12 +1360,12 @@ const classroomModals = {
                     
                             <div class="text-center c-secondary-form">
                                 <input type="hidden" name="validation-delete-course-id" id="validation-delete-course-id">
-                                <input type="text" name="validation-delete-course" id="validation-delete-course" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                                <input type="text" name="validation-delete-course" id="validation-delete-course" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
                             </div>
                     
                             <div class="text-center">
                                 <button class="btn c-btn-red mx-auto mt-3 btn-lg" onclick="coursesManager.persistDeleteCourse()" data-i18n="manager.buttons.validate">Valider</button>
-                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="coursesManager.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
+                                <button class="btn c-btn-primary mx-auto mt-3 btn-lg" onclick="coursesManager.resetInputs()" data-i18n="manager.buttons.cancel">Annuler</button>
                             </div>
                         </div>
                     </div>`,
@@ -1384,12 +1384,12 @@ const classroomModals = {
 
                             <div class="text-center c-secondary-form">
                                 <p data-i18n="manager.users.disable.message" class="text-center"></p>
-                                <input type="text" name="validation-delete-classroom" id="validation-delete-classroom" data-i18n="[placeholder]manager.input.placeholder.delete" placeholder="supprimer">
+                                <input type="text" name="validation-delete-classroom" id="validation-delete-classroom" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
                             </div>
 
                             <div class="text-center">
-                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelDeleteClassroom()" data-i18n="manager.buttons.cancel">Annuler</button>
-                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteClassroom()" data-i18n="manager.buttons.validate">Valider</button>
+                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistDeleteClassroom()" data-i18n="manager.buttons.delete">Supprimer</button>
+                                <button class="btn c-btn-primary mx-auto mt-3 btn-lg" onclick="cancelDeleteClassroom()" data-i18n="manager.buttons.cancel">Annuler</button>
                             </div>
 
                         </div>
@@ -1422,10 +1422,24 @@ const classroomModals = {
                             </div>
 
                             <div class="text-center">
-                                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="cancelImport()" data-i18n="manager.buttons.cancel">Annuler</button>
-                                <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistImport()" data-i18n="manager.buttons.validate">Valider</button>
+                            <button class="btn c-btn-secondary mx-auto mt-3 btn-lg" onclick="persistImport()" data-i18n="manager.buttons.validate">Valider</button>
+                            <button class="btn c-btn-primary mx-auto mt-3 btn-lg" onclick="cancelImport()" data-i18n="manager.buttons.cancel">Annuler</button>
                             </div>
 
+                        </div>
+                    </div>`,
+        footer: ``
+    },
+    'import-activities-multiple-modal': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'newActivities.modals.importActivity'
+        },
+        content: `  <div id="import-activities-main-content" class="container-fluid d-flex flex-wrap">
+
+                        <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="newActivities.modals.importTitles"></h3>
+                        <div class="text-center c-secondary-form d-flex flex-wrap col-12" id="activities-import-modal-content">     
                         </div>
                     </div>`,
         footer: ``
@@ -1451,5 +1465,15 @@ const classroomModals = {
                         </div>
                     </div>`,
         footer: ``
-    }
+    },
+    'activities-multiple-export': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.modals.exportMultipleTitle'
+        },
+        content: `  <div id="customizable-modal-export-content" class="container-fluid d-flex flex-wrap">
+                    </div>`,
+        footer: ``
+    },
 }

@@ -92,7 +92,8 @@ async function readEvent (event) {
 $('body').on('click', '.teacher-new-classe', function (event) {
     ClassroomSettings.classroom = null;
     let classCount = Main.getClassroomManager()._myClasses.length;
-    if (classCount >= UserManager.getUser().restrictions.maxClassrooms && UserManager.getUser().restrictions.maxClassrooms != -1) {
+    let maxClass = getMaxClass();
+    if (classCount >= maxClass && maxClass != -1) {
         displayNotification('#notif-div', "classroom.notif.classNotCreated", "error", `'{"classroomNumberLimit": "${UserManager.getUser().restrictions.maxClassrooms}"}'`);
         let event = new CustomEvent('displayPremiumModal', {detail: 'classroomAddition'});
         document.dispatchEvent(event);
@@ -101,6 +102,15 @@ $('body').on('click', '.teacher-new-classe', function (event) {
     navigatePanel('classroom-dashboard-form-classe-panel', 'dashboard-classes-teacher');
     $('#table-students ul').html('<li id="no-student-label" data-i18n="classroom.classes.form.noStudent"></li>').localize();
 });
+
+
+function getMaxClass() {
+    if (UserManager.getUser().restrictions.premium) {
+        return 20
+    } else {
+        return UserManager.getUser().restrictions.maxClassrooms
+    }
+}
 
 
 //student modal-->supprimer
@@ -267,7 +277,7 @@ document.querySelector('#classroom-create-form').addEventListener('submit', (e) 
     Main.getClassroomManager().addClassroom({
         'name': document.querySelector('#classroom-form-name').value,
         'school': document.querySelector('#classroom-form-school').value,
-        'isBlocked': document.querySelector('#classroom-form-is-blocked').checked
+        'isBlocked': false
     }).then((classroom) => {
         // handle specific error
         if(classroom.errorType){
@@ -276,7 +286,7 @@ document.querySelector('#classroom-create-form').addEventListener('submit', (e) 
             return;
         } 
         // If the backend detects that the user is not a premium user and that he already has one classroom
-        else if(classroom.isClassroomAdded == false){
+        else if (classroom.isClassroomAdded == false) {
             displayNotification('#notif-div', "classroom.notif.classNotCreated", "error", `'{"classroomNumberLimit": "${classroom.classroomNumberLimit}"}'`);
             e.submitter.disabled = false;
 
@@ -1075,7 +1085,7 @@ function displayStudentsInClassroom(students, link=false) {
                         <div class="dropdown">
                             <i class="classroom-clickable line_height34 fas fa-exchange-alt" type="button" id="dropdown-studentItem-${element.user.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                             <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
-                                <li id="mode-apprenant" class="dropdown-item classroom-clickable col-12" href="#" onclick="modeApprenant()" data-i18n="classroom.classes.panel.learnerMode">Mode apprenant</li>
+                                <li id="mode-apprenant" class="dropdown-item classroom-clickable col-12" href="#" onclick="modeApprenant()" data-i18n="classroom.profil.switchMode">Mode apprenant</li>
                             </div>
                         </div>
                     </div>
@@ -1091,6 +1101,7 @@ function displayStudentsInClassroom(students, link=false) {
                 html += `<div class="dropdown"><i class="classroom-clickable line_height34 fas fa-cog" type="button" id="dropdown-studentItem-${element.user.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                 <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
                 <li class="col-12 pwd-display-stud" href="#"><div data-i18n="classroom.classes.panel.password">Votre mot de passe :</div> <span class="masked" id="masked">${element.pwd}</span><i class="classroom-clickable fas fa-low-vision switch-pwd ms-2"></i></li>
+                <li class="classroom-clickable col-12 dropdown-item" onclick="copyPinToClipboard('${element.pwd}')" data-i18n="classroom.profil.copyPinStudent">Copier le mot de passe</li> 
                 <li class="modal-student-password classroom-clickable col-12 dropdown-item" href="#" data-student-id="${element.user.id}" data-i18n="classroom.classes.panel.resetPassword">Régenérer le mot de passe</li>
                 <li class="classroom-clickable col-12 dropdown-item" href="#"><span class="classroom-clickable" data-i18n="classroom.classes.panel.editNickname" onclick="changePseudoModal(${element.user.id})">Modifier le pseudo</span></li>
                 <li class="dropdown-item modal-student-delete classroom-clickable col-12" href="#" data-i18n="classroom.classes.panel.delete" data-student-id="${element.user.id}">Supprimer</li>
@@ -1245,6 +1256,12 @@ function displayStudentsInClassroom(students, link=false) {
         $(classroomTable).find('tr').removeClass('non-dropdown');
     });
 
+}
+
+function copyPinToClipboard(pin) {
+    navigator.clipboard.writeText(pin).then(function() {
+        displayNotification('#notif-div', "classroom.profil.codeCopied", "success");
+    });
 }
 
 function renderActivityDashboard(currentActivity) {

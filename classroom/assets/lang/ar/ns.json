@@ -105,7 +105,9 @@
         "password": "كلمة المرور",
         "confirmPassword": "تأكيد كلمة المرور",
         "updateButton": "تحديث"
-      }
+      },
+			"copyPinStudent": "انسخ الرمز",
+      "codeCopied": "تم نسخ الرمز"
     },
     "notif": {
       "emptyContent": "لا يمكن أن يكون المحتوى فارغًا",
@@ -258,6 +260,10 @@
       },
       "selectStudents": "حدد الطلاب",
       "selectedStudents": "تم اختيار <span id='attribuate-student-number'>0</span> طلاب",
+      "classroomLocked": "الفصل مغلق: اضغط لفتح القفل",
+      "classroomUnlocked": "الفصل مفتوح: اضغط لقفل",
+			"unlockClassroom": "افتح الفصل الدراسي",
+			"lockClassroom": "أغلق الفصل الدراسي",
       "activationLink": "تفعيل رابط تفعيل",
       "activationLinkDisabled": "رابط التنشيط معطل",
       "deleteStudent": "احذف الطالب",
@@ -492,7 +498,8 @@
         "description": "الرجاء إدخال كلمة المرور الحالية لتأكيد التغييرات في ملف التعريف الخاص بك",
         "placeholderInput": "كلمة المرور",
         "validateButton": "تحقق"
-      }
+      },
+      "exportMultipleTitle": "تصدير النشاطات"
     },
     "folders": {
       "folderManagement": "إدارة المجلد",
@@ -788,7 +795,7 @@
       "errorActivation": "حدث خطأ أثناء التنشيط",
       "create": "إنشاء مستخدم",
       "delete": "مسح المستخدم",
-      "deleteConfirmation": "الرجاء كتابة \"حذف\" في الحقل أدناه للتحقق من صحة الإجراء",
+      "deleteConfirmation": "الرجاء كتابة \"ok\" في الحقل أدناه للتحقق من صحة الإجراء",
       "deleteIntentionSA": "أنت على وشك حذف المستخدم:<span id=\"mdi_firstnameSA\"></span>",
       "disableIntention": "أنت على وشك تعطيل المستخدم:<span id=\"mde_firstnameSA\"></span>",
       "deleteConfirmationTitle": "تأكيد الحذف",
@@ -797,7 +804,7 @@
       "updateAppUser": "تحديث تطبيقات المستخدم",
       "updateApp": "تحديث التطبيقات",
       "disable": {
-        "message": "الرجاء كتابة \"حذف\" في الحقل أدناه للتحقق من صحة الإجراء",
+        "message": "الرجاء كتابة \"ok\" في الحقل أدناه للتحقق من صحة الإجراء",
         "intention": "أنت على وشك حذف المستخدم:<span id=\"md_firstnameGA\"></span>"
       },
       "mail": {
@@ -1012,6 +1019,8 @@
       "copyLink": "انسخ الرابط",
       "show": "عرض",
       "manage": "إدارة",
+      "selectAll": "تحديد الكل",
+			"unselectAll": "إلغاء تحديد الكل",
       "user": {
         "add": "إضافة مستخدم",
         "create": "إنشاء مستخدم",
@@ -1043,7 +1052,8 @@
     },
     "input": {
       "placeholder": {
-        "delete": "حذف"
+        "delete": "حذف",
+        "ok": "ok"
       },
       "writeDelete": "يجب عليك كتابة حذف للتحقق من صحة الإجراء",
       "writeDisable": "يجب أن تكتب تعطيل للتحقق من صحة الإجراء"
@@ -1213,6 +1223,7 @@
     "content": "محتوى النشاط <span class=\"c-text-red\">*</span>",
     "addField": "أضف حقل الإجابة",
     "addFieldTooltip": "بالنقر فوق الزر \"إضافة حقل إجابة\" ، تتم إضافة نص منمنم. يمكنك كتابة الإجابة الصحيحة في هذا المجال. الإجابات البديلة مفصولة بعلامة العطف المزدوجة &&",
+    "exportNoActivitySelected": "لم يتم تحديد أي نشاط للتصدير",
     "ActivitiesData": {
       "title": {
         "reading": "قراءة",
@@ -1230,6 +1241,53 @@
       }
     }
   }, 
+  "courses": {
+		"add": "Create a course",
+		"addActivity":"Add an existing activity",
+		"addActivities":"Add activities",
+		"createActivity": "Create a new activity",
+		"searchActivity": "Search an activity",
+		"placeholderTitle": "Activity title",
+		"placeholderDescription": "Activity description",
+		"format": {
+			"label": "Course's display format",
+			"onePage": "One page",
+			"standart": "Slide"
+		},
+		"pagination": {
+			"create":"Course's creation",
+			"title": "Title",
+			"parameters": "Parameters",
+			"attribution": "Attribution"
+		},
+		"parameters": {
+			"title":"Course title <span class=\"c-text-red\">*</span>",
+			"description": "Course's description <span class=\"c-text-red\">*</span>",
+			"difficulty": "Difficulty <span class=\"c-text-red\">*</span>",
+			"difficultyLevel": {
+				"choose": "Choose a difficulty level",
+				"easy": "Easy",
+				"medium": "Medium",
+				"advanced": "Advanced",
+				"expert": "Expert"
+			},
+			"duration": "Duration (minutes) <span class=\"c-text-red\">*</span>",
+			"license": "User license <span class=\"c-text-red\">*</span>",
+			"licenseType": {
+				"choose": "Choose a license",
+				"1": "Private (only you can see this resource)",
+				"2": "Unreferenced (shareable resource by link but not findable on the Resources page)",
+				"3": "Public CC-BY-NC-SA (free, non-commercial and modifiable resource)",
+				"4": "Public CC-BY-NC-ND (free, non-commercial and non-modifiable resource)"
+			}
+		},
+		"successfullyCreated": "Course created successfully",
+		"attribution": "Course attribution <i class='fas fa-chevron-right'></i>",
+		"return": "Return <i class='fas fa-chevron-right'></i>",
+		"update": "Update the course",
+		"show": "Show course",
+		"informationWhenEmpty": "Click on the buttons above to add activities to the course."
+	},
   "statistics": {
       "total": "الإجمالي {{entity}}",
       "average": "المتوسط",

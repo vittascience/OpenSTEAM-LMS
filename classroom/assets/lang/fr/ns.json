@@ -105,7 +105,9 @@
 				"password": "Mot de passe",
 				"confirmPassword": "Confirmer le mot de passe",
 				"updateButton": "Mettre à jour"
-			}
+			},
+			"copyPinStudent": "Copier le code",
+			"codeCopied": "Code copié"
 		},
 		"notif": {
 			"emptyContent": "Le contenu ne peut pas être vide.",
@@ -122,6 +124,7 @@
 			"deleteAccount": "Etes vous sur de vouloir supprimer le compte de l'apprenant?",
 			"accountIsDelete": "Le compte de l'apprenant  a été supprimé",
 			"newPwd": "Le nouveau mot de passe de l'apprenant {{pseudo}} est {{pwd}}",
+			"studentPwdChanged": "Ton mot de passe a été changé",
 			"classCreatedButNotUsers": "La classe {{classroomName}} a bien été crée, mais pas les comptes associés (Votre compte ne vous permet pas d'avoir {{learnerNumber}} apprenants)",
 			"classUpdatedButNotUsers": "La classe {{classroomName}} a bien été mise à jour, mais pas les comptes associés (Votre compte ne vous permet pas d'avoir {{learnerNumber}} apprenants)",
 			"usersNotAdded": "L'apprenant n'a pas pu être ajouté (Votre compte ne vous permet pas d'avoir {{learnerNumber}} apprenants)",
@@ -268,6 +271,10 @@
 			},
 			"selectStudents": "Sélectionner des apprenants",
 			"selectedStudents": "<span id='attribuate-student-number'>0</span> apprenants sélectionnés",
+			"classroomLocked": "Classe verrouillée",
+			"classroomUnlocked": "Classe déverrouillée",
+			"unlockClassroom": "Déverrouiller la classe",
+			"lockClassroom": "Verrouiller la classe",
 			"activationLink": "Lien d'activation activé",
 			"activationLinkDisabled": "Lien d'activation désactivé",
 			"deleteStudent": "Supprimer l'élève",
@@ -563,7 +570,8 @@
 				"description": "Vous vous apprêtez à quitter l'activité en cours alors que vos changements n'ont pas été sauvegardés. Voulez vous tout de même quitter et perdre les changements non sauvegardés ?",
 				"yesButton": "Oui, quitter",
 				"noButton": "Non, rester"
-			}
+			},
+			"exportMultipleTitle": "Exporter les activités"
 		},
 		"folders": {
 			"folderManagement": "Gestion des dossiers",
@@ -1178,7 +1186,7 @@
 			"errorActivation": "Une erreur est survenue lors de l'activation du compte.",
 			"create": "Créer un utilisateur",
 			"delete": "Supprimer un utilisateur",
-			"deleteConfirmation": "Veuillez écrire \"supprimer\" dans le champ ci-dessous pour valider l'action.",
+			"deleteConfirmation": "Veuillez écrire \"ok\" dans le champ ci-dessous pour valider l'action.",
 			"deleteIntentionSA": "Vous vous apprêtez à supprimer l'utilisateur : <span id=\"mdi_firstnameSA\"></span>",
 			"disableIntention": "Vous vous apprêtez à désactiver l'utilisateur : <span id=\"mde_firstnameSA\"></span>",
 			"deleteConfirmationTitle": "Confirmer la suppression",
@@ -1187,7 +1195,7 @@
 			"updateAppUser": "Modifier les applications de l'utilisateur",
 			"updateApp": "Modifier les applications",
 			"disable": {
-				"message": "Veuillez écrire 'supprimer' dans le champ ci-dessous pour valider l'action.",
+				"message": "Veuillez écrire 'ok' dans le champ ci-dessous pour valider l'action.",
 				"intention": "Vous vous apprêtez à supprimer l'utilisateur : <span id=\"md_firstnameGA\"></span>"
 			},
 			"mail": {
@@ -1404,6 +1412,8 @@
 			"copyLink": "Copier le lien",
 			"show": "Afficher",
 			"manage": "Gérer",
+			"selectAll": "Tout sélectionner",
+			"unselectAll": "Tout désélectionner",
 			"user": {
 				"add": "Ajouter l'utilisateur",
 				"create": "Créer l'utilisateur",
@@ -1435,7 +1445,8 @@
 		},
 		"input": {
 			"placeholder": {
-				"delete": "supprimer"
+				"delete": "supprimer",
+				"ok": "ok"
 			},
 			"writeDelete": "Vous devez écrire supprimer pour valider l'action.",
 			"writeDisable": "Vous devez écrire désactiver pour valider l'action."
@@ -1614,6 +1625,7 @@
 		"content": "Contenu de l'activité <span class=\"c-text-red\">*</span>",
 		"addField": "Ajouter un champ de réponse",
 		"addFieldTooltip": "En cliquant sur le bouton Ajouter un champ de réponse, un texte stylisé est ajouté. Vous pouvez écrire la réponse correcte dans ce champ. Les réponses alternatives sont séparées par une double esperluette &&",
+		"exportNoActivitySelected": "Aucune activité n'a été sélectionnée",
 		"ActivitiesData": {
 			"title": {
 				"reading": "Exercice avec consigne",
@@ -1633,6 +1645,7 @@
 		"modals": {
 			"importActivity": "Gestionnaire d'import",
 			"importTitle": "Importer une activité",
+			"importTitles": "Importer des activités",
 			"validateMessage": "Voulez-vous importer l'activité <span id='import-activity-title'></span> ?",
 			"imageSize": "Taille de l'image"
 		}
@@ -1648,7 +1661,7 @@
 		"format": {
 			"label": "Format d'affichage du parcours : ",
 			"onePage": "Une page",
-			"standart": "Standard"
+			"standart": "Diapositi"
 		},
 		"pagination": {
 			"create":"Création du parcours",

@@ -60,7 +60,7 @@
                 <input type="text" id="classroom-form-school" class="form-control form-control-lg">
             </div>   
         </div>
-        <a href="#" id="create-classroom-student-button" class="new-student-modal btn c-btn-primary m-3"><i class="fas fa-user-plus"></i><span class="ms-1" data-i18n="classroom.classes.form.addStudent"></span></a>
+<!--         <a href="#" id="create-classroom-student-button" class="new-student-modal btn c-btn-primary m-3"><i class="fas fa-user-plus"></i><span class="ms-1" data-i18n="classroom.classes.form.addStudent"></span></a>
         <div class="table-students" id="table-students">
             <ul>
                 <li id="no-student-label" data-i18n="classroom.classes.form.noStudent"></li>
@@ -69,7 +69,7 @@
         <div class="c-checkbox mt-2">
             <input type="checkbox" name="classroom-form-is-blocked" id="classroom-form-is-blocked">
             <label for="classroom-form-is-blocked" data-i18n="classroom.classes.form.isBlockedButton"></label>
-        </div>
+        </div> -->
         <button type="submit" class="new-classroom-form btn c-btn-primary m-3"><i class="fas fa-save"></i><span class="ms-1" data-i18n="classroom.classes.form.save"></span> </button>
     </form>
 </div>
@@ -190,7 +190,8 @@
         </div>
     </div>
     <div id="classroom-info">
-        <button class="btn c-btn-secondary" id="blocking-class-tooltip" class="blocking-class" onclick="toggleBlockClass()" data-bs-toggle="tooltip" title="Lien d'activation activé">
+        <!-- title="Lien d'activation activé" -->
+        <button class="btn c-btn-secondary" id="blocking-class-tooltip" class="blocking-class" onclick="toggleBlockClass()" data-bs-toggle="tooltip" data-i18n="[title]words.anonymize" >
             <i class="fa fa-lock-open"></i>
         </button>
 
@@ -202,7 +203,7 @@
             </span>
         </div>
         
-        <button class="btn c-btn-secondary" class="blocking-class" onclick="navigatePanel('classroom-table-panel-teacher-code', 'dashboard-classroom-teacher')" data-bs-toggle="tooltip" title="Afficher en plein écran">
+        <button class="btn c-btn-secondary" class="blocking-class" onclick="navigatePanel('classroom-table-panel-teacher-code', 'dashboard-classes-teacher')" data-bs-toggle="tooltip" title="Afficher en plein écran">
             <i class="fa fa-expand"></i>
 
         </button>
@@ -221,7 +222,7 @@
         <div>
             <span data-i18n="classroom.activities.toCopy"></span>
             <span class="classroom-link" id="classroom-link-share"></span>
-            
+            <span id="complete-classroom-link" class="complete-classroom-link"></span>
             <button id="code-copy" class="btn c-btn-secondary" title="Copier le lien direct" class="js-copy" data-target="#classroom-link-tocopy" data-i18n="classroom.classes.panel.copyLink">Copier le lien direct</button>
         </div>
 

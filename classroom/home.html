@@ -1,7 +1,20 @@
     <link rel="stylesheet" href="assets/css/modal.css">
-    <!-- PLUGIN CSS-->
+    <link rel="stylesheet" href="assets/plugins/css/dashboard.css">
+<link rel="stylesheet" href="assets/plugins/css/calculator.css">
+<link rel="stylesheet" href="assets/plugins/css/falseFullscreen.css">
+<link rel="stylesheet" href="assets/plugins/css/statisticsManager.css">
+<link rel="stylesheet" href="assets/plugins/css/lato-v23-latin-700.woff">
+<link rel="stylesheet" href="assets/plugins/css/lato-v23-latin-700.woff2">
+<link rel="stylesheet" href="assets/plugins/css/lato-v23-latin-900.woff">
+<link rel="stylesheet" href="assets/plugins/css/lato-v23-latin-900.woff2">
+<link rel="stylesheet" href="assets/plugins/css/lato-v23-latin-regular.woff">
+<link rel="stylesheet" href="assets/plugins/css/lato-v23-latin-regular.woff2">
+<link rel="stylesheet" href="assets/plugins/css/ti.main.css">
+<link rel="stylesheet" href="assets/plugins/css/ti.theme.css">
+<link rel="stylesheet" href="assets/plugins/css/calculator-mobile-display.css">
+<link rel="stylesheet" href="assets/plugins/css/ti83.css">
+<link rel="stylesheet" href="assets/plugins/css/ti83pce-min.css">
 
-    <!-- END PLUGIN CSS -->
     <script src="assets/js/scripts/classroom-lang.js"></script>
 </head>
 
@@ -10,36 +23,58 @@
     <div id="classroom-dashboard-container">
         <div id="classroom-dashboard-sidebar" class="sidebar-classroom" style="display:none;">
             <div id="classroom-sidebar-logo"></div>
-            <div class="classroom-navbar-button" id="dashboard-activities"><img src="assets/media/my_activities.svg"
-                    alt="Icône activités">
+
+
+            <div class="classroom-navbar-button" id="dashboard-activities"><img src="assets/media/my_activities.svg" alt="Icône activités">
                 <span data-i18n="classroom.ids.classroom-dashboard-activities-panel-teacher"></span>
             </div>
-            <div class=" classroom-navbar-button" id="dashboard-help"
-                onclick="navigatePanel('classroom-dashboard-help-panel', 'dashboard-help')"><img
-                    src="assets/media/call_for_help.svg" alt="Icône Appel à l'aide">
+
+
+            <div id="realtime-calculator-student" class="active classroom-navbar-button" onclick="navigatePanel('classroom-dashboard-realtime-calculator-student', 'realtime-calculator-student')">
+                <img src="assets/plugins/images/calculator.svg" alt="Icône calculatrice">
+                <span data-i18n="">Calculatrice</span>
+            </div>
+
+
+            <div class=" classroom-navbar-button" id="dashboard-help" onclick="navigatePanel('classroom-dashboard-help-panel', 'dashboard-help')">
+                <img src="assets/media/call_for_help.svg" alt="Icône Appel à l'aide">
                 <span data-i18n="classroom.ids.classroom-dashboard-help-panel"></span>
             </div>
-            <div id="dashboard-profil" class="classroom-navbar-button"
-                onclick="navigatePanel('classroom-dashboard-profil-panel', 'dashboard-profil')"><img
-                    class="user-picture" src="assets/media/profile_picture.svg" alt="Photo de profil">
+
+
+            <div id="dashboard-profil" class="classroom-navbar-button" onclick="navigatePanel('classroom-dashboard-profil-panel', 'dashboard-profil')">
+                <img class="user-picture" src="assets/media/profile_picture.svg" alt="Photo de profil">
                 <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span>
             </div>
+
 
         </div>
 <div id="classroom-dashboard-sidebar-teacher" class="sidebar-classroom" style="display:none;">
     <div id="classroom-sidebar-logo"></div>
-    <div class=" classroom-navbar-button" id="dashboard-classes-teacher"
+
+    <div class="classroom-navbar-button" id="dashboard-classes-teacher"
         onclick="navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher')">
         <img src="assets/media/my_classes.svg" alt="Icône classe">
-        <span data-i18n="classroom.ids.classroom-dashboard-classes-panel-teacher"></span> </div>
+        <span data-i18n="classroom.ids.classroom-dashboard-classes-panel-teacher"></span> 
+    </div>
+
     <div class="classroom-navbar-button" id="dashboard-activities-teacher"
         onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')">
         <img src="assets/media/my_activities.svg" alt="Icône activités">
-        <span data-i18n="classroom.ids.classroom-dashboard-activities-panel-teacher"></span> </div>
+        <span data-i18n="classroom.ids.classroom-dashboard-activities-panel-teacher"></span> 
+    </div>
+
+    <div id="realtime-calculator" class="active classroom-navbar-button"
+        onclick="navigatePanel('classroom-dashboard-realtime-calculator', 'realtime-calculator')">
+        <img src="assets/plugins/images/calculator.svg" alt="Icône calculatrice">
+        <span data-i18n="">Calculatrices</span>
+    </div>
+    
     <div id="dashboard-profil-teacher" class="active classroom-navbar-button"
         onclick="navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher')"><img
             class="user-picture" src="assets/media/profile_picture.svg" alt="Photo de profil">
-        <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span></div>
+        <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span>
+    </div>
 </div>
 <div id="manager-dashboard-sidebar" class="sidebar-classroom" style="display:none;">
     <!-- set your logo here -->
@@ -232,7 +267,7 @@
         </div>
 
 
-        <div class="row">
+        <div class="d-flex">
             <div id="main-div-course" class="col-12 col-lg-8 mb-3" style="margin: 0 auto;overflow-wrap: break-word;">
                 
                 <h3 id="activity-title-course" class="activity-title"></h3>
@@ -320,19 +355,23 @@
                     </div>
 
                 </div>
-
             </div>
 
             <div id="activity-correction-container-course" class="col-12 col-lg-4" style="display:none">
                 <div id="activity-correction-course"></div>
             </div>
+
+            <div class="calculatrice mx-auto calculator-display-legaly-course" id="student-calculator-course">
+            </div>
+
+            <button id="calculator-course-legacy-btn" class="btn c-btn-primary calculator-btn"><img src="assets/plugins/images/calculator.svg" class="calculator-switcher" alt="Icône calculatrice"></button>
         </div>
 
     </div>
 </div>
 
 <div id="classroom-dashboard-course-panel-one-page" class="dashboard-block" style="display:none;">
-    <div class="container-fluid d-none" id="one-page-course-student-content">
+    <div class="container-fluid d-none is-visible" id="one-page-course-student-content">
 
     </div>
 </div>
@@ -406,11 +445,12 @@
 <div id="classroom-dashboard-activity-panel" class="dashboard-block" style="display:none;">
     <div class="container-fluid">
         <div class="row">
-            <div id="main-div" class="col-12 col-lg mb-3" style="margin: 0 auto;overflow-wrap: break-word;">
 
-                <div class="d-flex flex-column flex-wrap align-items-center justify-content-center mnh-2-5" id="title-container">
+
+            <div id="main-div" class="col-12 col-lg mb-3" style="margin: 0 auto;overflow-wrap: break-word;">
+                <div class="d-flex flex-column align-items-center mt-2 mnh-2-5" id="title-container">
                     <h3 id="activity-title" class="activity-title"></h3>
-                    <div id="activity-views-switcher" class="p-2"></div>
+                    <div id="activity-views-switcher" class="switcher-custom-top ms-auto p-2"></div>
                 </div>
                
                 <!-- Used for status / date  -->
@@ -421,65 +461,76 @@
                     <span data-i18n="classroom.activities.isAutocorrected"></span>
                 </div>
 
-                <!-- Used for subtitle -->
-                <p id="activity-introduction">
-                    <span id="text-introduction"></span>
-                </p>
 
-                <!-- Used for states -->
-                <div id="activity-states-container" style="display:none;">
-                    <label for="activity-states" class="vitta-modal-title mt-2" data-i18n="classroom.activities.states">Énoncé de l'activité</label>
-                    <p id="activity-states"></p>
-                </div>
+                <div class="d-flex">
 
-                <!-- @Update Rémi -->
-                <div id="activity-student-response" style="display:none;">
-                    <label id="label-activity-student-response" for="activity-student-response-content" class="vitta-modal-title mt-2" data-i18n="classroom.activities.studentAnswer">Réponse de l'élève</label>
-                    <div id="activity-student-response-content"></div>
-                </div>
+                    <div class="col" id="main-div-legacy-container">
+                        <!-- Used for subtitle -->
+                        <p id="activity-introduction">
+                            <span id="text-introduction"></span>
+                        </p>
 
-                <!-- Used for content -->
-                <div id="activity-content-container" style="display:none;">
-                    <label for="activity-content" id="label-activity-content" class="vitta-modal-title mt-2" data-i18n="newActivities.contentTitle">Contenu de l'activité</label>
-                    <div id="activity-content"></div>    
-                </div>
-                
-                <div id="activity-input-container" style="display:none;">
-                    <label for="activity-input" class="vitta-modal-title mt-2" data-i18n="classroom.activities.putYourAnswer">Entrez votre réponse</label>
-                    <textarea id="activity-input" style="height:400px"></textarea>
-                </div>
+                        <!-- Used for states -->
+                        <div id="activity-states-container" style="display:none;">
+                            <label for="activity-states" class="vitta-modal-title mt-2" data-i18n="classroom.activities.states">Énoncé de l'activité</label>
+                            <p id="activity-states"></p>
+                        </div>
 
-                <div id="activity-drag-and-drop-container" style="display: none;">
-                    <label class="vitta-modal-title mt-2" data-i18n="newActivities.ActivitiesData.title.dragAndDrop">Drag & drop</label>
-                    <div id="drag-and-drop-text">
+                        <!-- @Update Rémi -->
+                        <div id="activity-student-response" style="display:none;">
+                            <label id="label-activity-student-response" for="activity-student-response-content" class="vitta-modal-title mt-2" data-i18n="classroom.activities.studentAnswer">Réponse de l'élève</label>
+                            <div id="activity-student-response-content"></div>
+                        </div>
 
+                        <!-- Used for content -->
+                        <div id="activity-content-container" style="display:none;">
+                            <label for="activity-content" id="label-activity-content" class="vitta-modal-title mt-2" data-i18n="newActivities.contentTitle">Contenu de l'activité</label>
+                            <div id="activity-content"></div>
+                        </div>
+                        
+                        <div id="activity-input-container" style="display:none;">
+                            <label for="activity-input" class="vitta-modal-title mt-2" data-i18n="classroom.activities.putYourAnswer">Entrez votre réponse</label>
+                            <textarea id="activity-input" style="height:400px"></textarea>
+                        </div>
+
+                        <div id="activity-drag-and-drop-container" style="display: none;">
+                            <label class="vitta-modal-title mt-2" data-i18n="newActivities.ActivitiesData.title.dragAndDrop">Drag & drop</label>
+                            <div id="drag-and-drop-text">
+
+                            </div>
+                            <div id="drag-and-drop-fields" class="drag-and-drop-fields">
+
+                            </div>
+                        </div>
+
+                        <div id="activity-hint-container" style="display:none;">
+                            <label for="activity-hint" class="vitta-modal-title mt-2" data-i18n="classroom.activities.hint">Indice</label>
+                            <p id="activity-hint"></p>
+                        </div>
+
+                        <div class="d-flex justify-content-center my-2 flex-wrap gap-3">
+                            <button class="btn c-btn-primary mx-1" id="activity-validate" data-i18n="classroom.activities.validate" onclick="validateActivity(1)"> 
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+
+                            <button class="btn c-btn-grey mx-2" id="activity-save" style="display:none;" onclick="validateActivity(0)" data-i18n="classroom.activities.save-draft">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+
+                            <div class="btn" id="activity-instruction" style="display:none">
+                                <span data-i18n="classroom.activities.instruction"></span> <i class="fas fa-pen"></i>
+                            </div>
+                        </div>
                     </div>
-                     <div id="drag-and-drop-fields" class="drag-and-drop-fields">
 
+                    <div class="calculatrice legacy-calculator-activity mx-auto d-none" id="student-calculator">
                     </div>
 
-                </div>
-
-                <div id="activity-hint-container" style="display:none;">
-                    <label for="activity-hint" class="vitta-modal-title mt-2" data-i18n="classroom.activities.hint">Indice</label>
-                    <p id="activity-hint"></p>
-                </div>
-
-                <div class="d-flex justify-content-center mt-2 flex-wrap gap-3">
-                    <button class="btn c-btn-primary mx-1" id="activity-validate" data-i18n="classroom.activities.validate" onclick="validateActivity(1)"> 
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-
-                    <button class="btn c-btn-grey mx-2" id="activity-save" style="display:none;" onclick="validateActivity(0)" data-i18n="classroom.activities.save-draft">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-
-                    <div class="btn" id="activity-instruction" style="display:none">
-                        <span data-i18n="classroom.activities.instruction"></span> <i class="fas fa-pen"></i>
-                    </div>
+                    <button id="calculator-legacy-btn" class="btn c-btn-primary calculator-btn"><img src="assets/plugins/images/calculator.svg" class="calculator-switcher" alt="Icône calculatrice"></button>
                 </div>
             </div>
-            <div id="activity-correction-container" class="col-12 col-lg-4" style="display:none">
+
+            <div id="activity-correction-container" class="col-12 col-lg-3" style="display:none">
                 <div id="activity-correction"></div>
             </div>
         </div>
@@ -560,12 +611,18 @@
 
         <button class="btn c-btn-outline-primary" onclick="listeModeApprenant()" id="switch-student">
             <span data-i18n="classroom.profil.switchMode" class="text-span-initial me-1"></span>
-            <i class="fas fa-exchange-alt"></i></button>
+            <i class="fas fa-exchange-alt"></i>
+        </button>
 
-        <button class="btn c-btn-red" onclick="goToDisconnect('classroom');" data-testid="classroomLogoutBtn">
+        <button class="btn c-btn-outline-red" id="go-to-main-site-button" onclick="goToLesTutosMaths();">
+            <span class="text-span-initial me-1">Retourner sur MaClasseTI.fr</span>
+        </button>
+
+        <button class="btn c-btn-red" onclick="goToDisconnect('classroom');">
             <span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
             <i class="fas fa-power-off"></i>
         </button>
+
     </div>
 </div>
 
@@ -574,17 +631,17 @@
     <h3 data-i18n="classroom.profil.accountSettings.title"></h3>
     <form action="#" id="update-teacher-account-form">
         <div class="form-group part-content-index part-row c-primary-form">
-            <div class="row">
+            <div class="form-row">
                 <label for="profile-form-first-name" class="tutorial-label"
                     data-i18n="classroom.profil.accountSettings.firstname"></label>
                 <input type="text" name="first-name" id="profile-form-first-name" class="form-control form-control-lg">
             </div>
-            <div class="row">
+            <div class="form-row">
                 <label for="profile-form-last-name" class="tutorial-label"
                     data-i18n="classroom.profil.accountSettings.lastname"></label>
                 <input type="text" name="last-name" id="profile-form-last-name" class="form-control form-control-lg">
             </div>
-            <div class="row">
+            <div class="form-row">
                 <label for="profile-form-email" class="tutorial-label"
                     data-i18n="classroom.profil.accountSettings.email"></label>
                 <input type="email" name="email" id="profile-form-email" class="form-control form-control-lg">
@@ -675,7 +732,7 @@
                 <input type="text" id="classroom-form-school" class="form-control form-control-lg">
             </div>   
         </div>
-        <a href="#" id="create-classroom-student-button" class="new-student-modal btn c-btn-primary m-3"><i class="fas fa-user-plus"></i><span class="ms-1" data-i18n="classroom.classes.form.addStudent"></span></a>
+<!--         <a href="#" id="create-classroom-student-button" class="new-student-modal btn c-btn-primary m-3"><i class="fas fa-user-plus"></i><span class="ms-1" data-i18n="classroom.classes.form.addStudent"></span></a>
         <div class="table-students" id="table-students">
             <ul>
                 <li id="no-student-label" data-i18n="classroom.classes.form.noStudent"></li>
@@ -684,7 +741,7 @@
         <div class="c-checkbox mt-2">
             <input type="checkbox" name="classroom-form-is-blocked" id="classroom-form-is-blocked">
             <label for="classroom-form-is-blocked" data-i18n="classroom.classes.form.isBlockedButton"></label>
-        </div>
+        </div> -->
         <button type="submit" class="new-classroom-form btn c-btn-primary m-3"><i class="fas fa-save"></i><span class="ms-1" data-i18n="classroom.classes.form.save"></span> </button>
     </form>
 </div>
@@ -805,7 +862,8 @@
         </div>
     </div>
     <div id="classroom-info">
-        <button class="btn c-btn-secondary" id="blocking-class-tooltip" class="blocking-class" onclick="toggleBlockClass()" data-bs-toggle="tooltip" title="Lien d'activation activé">
+        <!-- title="Lien d'activation activé" -->
+        <button class="btn c-btn-secondary" id="blocking-class-tooltip" class="blocking-class" onclick="toggleBlockClass()" data-bs-toggle="tooltip" data-i18n="[title]words.anonymize" >
             <i class="fa fa-lock-open"></i>
         </button>
 
@@ -817,7 +875,7 @@
             </span>
         </div>
         
-        <button class="btn c-btn-secondary" class="blocking-class" onclick="navigatePanel('classroom-table-panel-teacher-code', 'dashboard-classroom-teacher')" data-bs-toggle="tooltip" title="Afficher en plein écran">
+        <button class="btn c-btn-secondary" class="blocking-class" onclick="navigatePanel('classroom-table-panel-teacher-code', 'dashboard-classes-teacher')" data-bs-toggle="tooltip" title="Afficher en plein écran">
             <i class="fa fa-expand"></i>
 
         </button>
@@ -836,7 +894,7 @@
         <div>
             <span data-i18n="classroom.activities.toCopy"></span>
             <span class="classroom-link" id="classroom-link-share"></span>
-            
+            <span id="complete-classroom-link" class="complete-classroom-link"></span>
             <button id="code-copy" class="btn c-btn-secondary" title="Copier le lien direct" class="js-copy" data-target="#classroom-link-tocopy" data-i18n="classroom.classes.panel.copyLink">Copier le lien direct</button>
         </div>
 
@@ -853,78 +911,99 @@
     </div>
 </div>
 <div id="classroom-dashboard-activities-panel-teacher" style="display:none;" class="dashboard-block">
-    <div class="d-flex justify-content-center c-primary-form row" style="margin: 0 auto;">
+    
+    <div class="dashboard-panel-glass-button" id="show-dashboard-panel">
+        <button id="filter-dashboard-panel" onclick="showDashboardPanel()" class="btn btn-primary btn-display-dashboard">
+            <svg xmlns="http://www.w3.org/2000/svg" height="1em" fill="currentColor" id="icon-navigation-menu" width="24" height="24" viewBox="0 0 24 24">
+                <rect id="Boundary" width="24" height="24" transform="translate(0)" fill="none"/>
+                <path id="icon-navigation" d="M23,13.333H1a1,1,0,0,1-1-1v-.667a1,1,0,0,1,1-1H23a1,1,0,0,1,1,1v.667A1,1,0,0,1,23,13.333ZM23,8H1A1,1,0,0,1,0,7V6.333a1,1,0,0,1,1-1H23a1,1,0,0,1,1,1V7A1,1,0,0,1,23,8Zm0-5.333H1a1,1,0,0,1-1-1V1A1,1,0,0,1,1,0H23a1,1,0,0,1,1,1v.667A1,1,0,0,1,23,2.667Z" transform="translate(0 5.333)"/>
+              </svg>
+        </button>
+    </div>
 
+    
+    <div class="container-dashboard-updated">
+        <div class="left-panel p-4">
+            <div class="sticky">
+                <div class="row my-1 c-primary-form c-primary-form-updated" id="dashboard-rework-search">   
+                    <div class="d-inline-flex">
+                        <input type="search" id="filter-activity-input" data-i18n="[placeholder]manager.buttons.search" class="flex-fill">
 
-        <div class="col-12 col-lg-8 mt-2">
-            <div class="d-flex flex-fill">
-
-                <div class="dropdown mx-2 d-none" id="tags-panel">
-                    <button class="btn c-btn-primary" style="width: auto;height: 3em;min-width: 3em;" type="button" id="dropdownTag" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-filter"></i>
-                        <span class="ms-1 d-none d-md-inline">Filtres</span>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownTag" id="dropdown-tags-filter">
+                        <button id="filter-activity" class="btn btn-primary" style="width: 3em;height: 3em;">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </div>
                 </div>
-                <input type="search" id="filter-activity-input" data-i18n="[placeholder]manager.buttons.search" class="flex-fill">
 
-                <button id="filter-activity" class="btn btn-primary" style="width: 3em;height: 3em;">
-                    <i class="fas fa-search"></i>
-                </button>
+
+
+                <div class="row my-1" id="dashboard-rework-sort">
+                    <div class="col-auto mx-auto my-2 w-100">
+                        <select name="filter-activity-select" id="filter-activity-select" class="c-primary-form form-select form-select-sm form-control-rounded">
+                            <option value="desc" data-i18n="classroom.filter.desc"></option>
+                            <option value="asc" data-i18n="classroom.filter.asc"></option>
+        
+                            <option value="alph" data-i18n="classroom.filter.alph"></option>
+                            <option value="ralph" data-i18n="classroom.filter.reverseAlph"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="buttons-interactions row d-flex my-1" id="dashboard-rework-buttons">
+                    <button id="new-activity-panel-1" onclick="showExercicePanel()" class="btn c-btn-outline-secondary col-12"><span class="me-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
+                    </button>
+            
+                    <button id="new-activity-panel-2" onclick="coursesManager.showCoursePanel()" class="btn c-btn-outline-primary col-12"><span class="me-1" data-i18n="courses.add">Créer un parcours</span><i class="fas fa-chevron-right"></i>
+                    </button>
+
+                    <button id="new-activity-panel-3" onclick="importActivityFromJSON()" class="btn c-btn-no-outline-primary col-12">
+                        <span class="me-1">Importer une ressource</span><i class="fas fa-download"></i>
+                    </button>
+                    <hr class="themed-hr">
+                </div>
+
+                
+                <div class="row" id="dashboard-rework-filters">
+                    <p class="fw-bold text-center mb-2">Filtres</p>
+                    <div class="dropdown d-none" id="tags-panel">
+                    </div>
+                    <p class="text-decoration-underline text-center mt-1 mb-2 cursor-pointer" id="dashboard-rework-reset-filters" onclick="resetAllFiltersByDefault()">Réinitialiser les filtres</p>
+                    <hr class="themed-hr">
+                </div>
+                
+                <div class="row">
+                    <p class="fw-bold text-center">Affichage et dossiers</p>
+                    <div class="col-12 mt-2 d-flex justify-content-center">
+                        <button class="btn c-btn-icon-only mx-2" onclick="foldersManager.displayModeSwitch('card')" id="switcherCard">
+                            <img src="assets/media/folders/cadrillage.svg" alt="arb-folders" onload="SVGInject(this)">
+                        </button>
+                        <button class="btn c-btn-icon-only mx-2" onclick="foldersManager.displayModeSwitch('list')" id="switcherList">
+                            <img src="assets/media/folders/arborescence.svg" alt="arb-folders" onload="SVGInject(this)">
+                        </button>
+                        <button class="btn c-btn-icon-only mx-2" id="new-activities-folder" onclick="foldersManager.openFolderModal()">
+                            <img src="assets/media/folders/createFolder.svg" alt="folders" onload="SVGInject(this)">
+                        </button>
+                        <button class="btn c-btn-icon-only mx-2" onclick="foldersManager.seekFolderModal()">
+                            <img src="assets/media/folders/folder_tree.svg" alt="arb-folders" onload="SVGInject(this)" style="height: 30px;">
+                        </button>
+                    </div>
+                    <hr class="themed-hr">
+                </div>
+
             </div>
+
         </div>
 
-        <div class="col-12 col-md-auto vertical-align-center mt-2 space-evenly">
-
-            <div class="col-auto mx-auto mt-2">
-                <select name="filter-activity-select" id="filter-activity-select" class="c-primary-form">
-                    <option value="desc" data-i18n="classroom.filter.desc"></option>
-                    <option value="asc" data-i18n="classroom.filter.asc"></option>
-
-                    <option value="alph" data-i18n="classroom.filter.alph"></option>
-                    <option value="ralph" data-i18n="classroom.filter.reverseAlph"></option>
-                </select>
-            </div>
-
-            <div class="col-auto mt-2">
-                <button class="btn c-btn-icon-only mx-1" onclick="foldersManager.displayModeSwitch('card')" id="switcherCard">
-                    <img src="assets/media/folders/cadrillage.svg" alt="arb-folders" onload="SVGInject(this)">
-                </button>
-                <button class="btn c-btn-icon-only mx-1" onclick="foldersManager.displayModeSwitch('list')" id="switchList">
-                    <img src="assets/media/folders/arborescence.svg" alt="arb-folders" onload="SVGInject(this)">
-                </button>
-            </div>
+        <div class="content-panel">
+            <div id="list-activities-teacher"></div>
         </div>
-    </div>
-
-    <div class="buttons-interactions flex-wrap d-inline-flex col-12 mt-3">
-        <button id="new-activity-panel-1" onclick="showExercicePanel()" class=" btn c-btn-outline-secondary"><span class="me-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
-        </button>
-
-        <button id="new-activity-panel-2" onclick="coursesManager.showCoursePanel()" class="btn c-btn-outline-primary"><span class="me-1" data-i18n="courses.add">Créer un parcours</span><i class="fas fa-chevron-right"></i>
-        </button>
-
-        <button class="btn c-btn-icon-only" id="new-activities-folder" onclick="foldersManager.openFolderModal()">
-            <img src="assets/media/folders/createFolder.svg" alt="folders" onload="SVGInject(this)">
-        </button>
-        <button class="btn c-btn-icon-only" onclick="foldersManager.seekFolderModal()">
-            <img src="assets/media/folders/folder_tree.svg" alt="arb-folders" onload="SVGInject(this)" style="height: 30px;">
-        </button>
-
-        <button id="new-activity-panel-3" onclick="importActivityFromJSON()" class="btn c-btn-no-outline-primary ms-auto">
-            <span class="me-1" data-i18n="newActivities.import">Importer une activité</span><i class="fas fa-download"></i>
-        </button>
-    </div>
-
-    <div id="list-activities-teacher">
-
     </div>
 </div>
+
 
 <div id="classroom-dashboard-activities-panel-library-teacher" style="display:none;" class="dashboard-block">
 </div>
-
+    
 <div id="classroom-dashboard-new-activity-panel2" style="display:none;" class="dashboard-block class-creation-form-step2">
 
     <nav class="form-activity-container" style="margin: 0 auto;">
@@ -963,8 +1042,8 @@
         <button class="btn c-btn-outline-primary" onclick="showExercicePanel()" data-i18n="classroom.activities.form.modify"></button>
     </div>
 </div>
-
-
+    
+    
 <div id="classroom-dashboard-new-activity-panel3" style="display:none;" class="dashboard-block container">
     <nav class="form-activity-container mb-3" style="margin: 0 auto;">
         <div class="col text-center">
@@ -1007,36 +1086,12 @@
         </div>
 
 
-        <!-- Autocorrect activation -->
-        <div class="row" id="form-autocorrect">
-            <div class="col mb-5 text-center c-primary-form assign-row">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="isAutocorrection-activity-form" onclick="autocorrectSwitch()">
-                    <label for="isAutocorrection-activity-form" class="form-check-label" data-i18n="classroom.activities.form.autocorrect"></label>
-                </div>
-                <i class="fas fa-info assign-info-icon" id="infoAutocorrect" data-bs-toggle="tooltip" title=""></i>
-            </div>
-        </div>
+
 
 
         <!-- Submit multiple times -->
         <div class="row">
             <div class="col mb-5 text-center c-primary-form">
-                <div class="assign-row">
-                    <div>
-                        <label for="isEval-activity-form" data-i18n="classroom.activities.form.nature"></label>
-                        <div class="switcher w-fit-content mx-auto">
-                            <input type="radio" name="isEval-activity-form" class="switcher__input switcher__input--left" value="false" id="isExo-activity-form" checked=""/>
-                            <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes">Oui</label>
-                        
-                            <input type="radio" name="isEval-activity-form" class="switcher__input switcher__input--right" value="true" id="isEval-activity-form"/>
-                            <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no">Non</label>
-                        
-                            <span class="switcher__toggle"></span>
-                        </div>
-                    </div>
-                </div>
-
                 <p id="hint-exist-disclaimer" data-i18n="[html]classroom.activities.hintExist" style="display:none;"></p>
             </div>
         </div>
@@ -1051,6 +1106,8 @@
 
             <div id="facultative-options" style="display: none;">
                 <div class="container mt-3 pt-1" id="facultative">
+
+
 
                     <div class="row">
                         <div class="col-12 col-xl-6 c-primary-form assign-activity-calendar">
@@ -1087,6 +1144,32 @@
                         </div>
                     </div>
 
+                    <div class="assign-row">
+                        <div>
+                            <label for="isEval-activity-form" data-i18n="classroom.activities.form.nature"></label>
+                            <div class="switcher w-fit-content mx-auto">
+                                <input type="radio" name="isEval-activity-form" class="switcher__input switcher__input--left" value="false" id="isExo-activity-form" checked=""/>
+                                <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes">Oui</label>
+                            
+                                <input type="radio" name="isEval-activity-form" class="switcher__input switcher__input--right" value="true" id="isEval-activity-form"/>
+                                <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no">Non</label>
+                            
+                                <span class="switcher__toggle"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Autocorrect activation -->
+                    <div class="row" id="form-autocorrect">
+                        <div class="col mb-5 text-center c-primary-form assign-row">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="isAutocorrection-activity-form" onclick="autocorrectSwitch()">
+                                <label for="isAutocorrection-activity-form" class="form-check-label" data-i18n="classroom.activities.form.autocorrect"></label>
+                            </div>
+                            <i class="fas fa-info assign-info-icon" id="infoAutocorrect" data-bs-toggle="tooltip" title=""></i>
+                        </div>
+                    </div>
+
                     <!-- Activity RetroAttribution  -->
                     <div class="row" id="form-retro-attribution">
                         <div class="col mb-5 text-center c-primary-form assign-row">
@@ -1117,11 +1200,20 @@
                 </button>
             </div>
         </div>
-
-
-
     </div>
 </div>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
 <div id="classroom-dashboard-help-panel-teacher" style="display:none;" class="dashboard-block help-panel">
     <div class="contact-panel">
 
@@ -1135,7 +1227,7 @@
                 </div>
 
                 <div class="form-group">
-                    <textarea name="message" id="contact-message-input" class="form-control" rows="8" cols="25" style="resize: none;" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder" placeholder="Écrivez votre message ici. (Maximum 800 caractères)"></textarea>
+                    <textarea name="message" id="contact-message-input" class="form-control my-2" rows="8" cols="25" style="resize: none;" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder" placeholder="Écrivez votre message ici. (Maximum 800 caractères)"></textarea>
                 </div>
 
                 <input type="submit" class="btn c-btn-primary" data-i18n="[value]classroom.teacherHelpPanel.contactForm.sendButton" disabled="disabled" style="cursor:not-allowed;float: right;">
@@ -1472,6 +1564,14 @@
                 <button class="btn c-btn-outline-secondary mx-1" id="create_user_link_to_group_manager">
                     <span data-i18n="manager.users.create">Créer un utilisateur</span> <i class="fas fa-chevron-right"></i>
                 </button>
+
+                <button class="btn c-btn-outline-secondary mx-1" id="get_newsletter_members" onclick="tiActivity.getNewsletterMembersCSV()">
+                    <span>Membres newsletter</span> <i class="fas fa-chevron-right"></i>
+                </button>
+
+                <button class="btn c-btn-outline-secondary mx-1" id="get_members" onclick="tiActivity.getMembersCSV()">
+                    <span>Tous les Membres</span> <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
 
             <div id="table_details_admins">
@@ -1581,7 +1681,7 @@
 </div>
 <!-- content part -->
 <div id="classroom-dashboard-classes-new-activity" style="display:none;" class="dashboard-block classes-panel">
-    <nav class="form-activity-container" style="margin: 0 auto;">
+    <nav class="row form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1">Application</span>
@@ -1609,158 +1709,303 @@
         </div>
     </nav>
 
-    <div class="container mb-2 mx-auto part-content-index c-primary-form">
+    <div class="container-fluid mb-2 mx-auto part-content-index c-primary-form">
 
         <!-- Free activity part -->
         <div id="activity-free" style="display:none;">
-            <div class="content">
-                <label for="free-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
-                <textarea id="free-content" style="height:340px"></textarea>
-            </div>
-           
-            <div class="c-checkbox mt-2">
-                <input type="checkbox" name="free-autocorrect" id="free-autocorrect">
-                <label for="free-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
-            </div>
+            <div class="content row">
 
-            <div class="content" id="free-correction-content" style="display: none;">
-                <label for="free-correction" data-i18n="newActivities.correction">Correction de l'activité</label>
-                <textarea id="free-correction" style="height:340px"></textarea>
-
-                <div class="content">
-                    <p>
-                        <span data-i18n="newActivities.tolerance1"></span>
-                        <button id="free-tolerance-decrease" class="tolerance-btn">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <input type="number" id="free-tolerance" value="0">
-                        <button id="free-tolerance-increase" class="tolerance-btn">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                        <span data-i18n="newActivities.tolerance2"></span></p>
+                <div class="col d-block">
+                    <div class="form-group">
+                        <label for="free-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
+                        <textarea id="free-content" style="height:340px"></textarea>
+                    
+                        <div class="c-checkbox mt-2">
+                            <input type="checkbox" name="free-autocorrect" id="free-autocorrect">
+                            <label for="free-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
+                        </div>
+            
+                        <div class="content" id="free-correction-content" style="display: none;">
+                            <label for="free-correction" data-i18n="newActivities.correction">Correction de l'activité</label>
+                            <textarea id="free-correction" style="height:340px"></textarea>
+            
+                            <div class="content m-3">
+                                <p>
+                                    <span data-i18n="newActivities.tolerance1"></span>
+                                    <button id="free-tolerance-decrease" class="tolerance-btn">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="number" id="free-tolerance" value="0">
+                                    <button id="free-tolerance-increase" class="tolerance-btn">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                    <span data-i18n="newActivities.tolerance2"></span>
+                                </p>
+                            </div>
+                        </div>
+                    
+                    </div>  
                 </div>
-            </div>
 
+                <div class="col col-md-auto">
+                    <div class="d-flex flex-column justify-content-center">
+                        <div class="w-100 d-flex justify-content-center c-checkbox">
+                            <input type="checkbox" name="" id="free-calculator-checkbox" checked>
+                            <label for="free-calculator-checkbox" class="mx-auto vitta-modal-title my-2 row">Activer la calculatrice ?</label>
+                        </div>
+                        <button class="btn c-btn-primary mx-auto my-1" onclick="stateStorage.getCalculatorStateAndSaveIt()">Sauvegarder l'état</button>
+                    </div> 
+
+                    <div>
+                        <div class="w-100 d-flex justify-content-center" id="free-calculator">
+                            
+                        </div>
+                    </div>
+        
+                    <div class="w-100 d-flex flex-column justify-content-center">
+                        <p class="mx-auto vitta-modal-title my-1">Options de touches :</p>
+                        <div id="free-calculator-btn">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
         </div>
 
-        <!-- Reading activity part -->
-        <div id="activity-reading" style="display:none;">
-            <div class="content mb-3">
-                <label for="reading-content" class="tutorial-label">
-                    <span data-i18n="[html]newActivities.content"></span>
-                </label>
-                <textarea id="reading-content" class='part-content' style="height:400px"></textarea>
-            </div>
-        </div>
 
         <!-- Quiz activity part -->
         <div id="activity-quiz" style="display:none;">
 
-            <div class="content">
-                <label for="quiz-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
-                <textarea id="quiz-states" style="height:150px"></textarea>
-            </div>
+            <div class="content row">
 
-            <div id="quiz-content-edit" class="content mt-3">
+                <div class="col d-block">
 
+                    <div class="form-group">
+                        <label for="quiz-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
+                        <textarea id="quiz-states" style="height:150px"></textarea>
+            
+                        <div id="quiz-content-edit" class="my-3">
 
-                <div id="quiz-suggestions-container">
-                    <div class="form-group c-primary-form" id="quiz-group-1">
-                        <div class="row my-1">
-                            <div class="col">
-                                <label for="quiz-suggestion-1" id="quiz-label-suggestion-1">Proposition 1</label>
-                                <button class="btn c-btn-secondary mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-1" onclick="quizManager.deleteQuizSuggestion(1)">Delete</button>
-                            </div>
-
-                            <div class="col-md-auto d-flex align-items-center">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="quiz-checkbox-1">
-                                    <label class="form-check-label" for="quiz-checkbox-1" data-i18n="classroom.activities.correctAnswer">
-                                        Réponse correcte
-                                    </label>
+                            <div id="quiz-suggestions-container">
+                                <div class="form-group c-primary-form" id="quiz-group-1">
+                                    <div class="row my-1">
+                                        <div class="col">
+                                            <label for="quiz-suggestion-1" id="quiz-label-suggestion-1">Proposition 1</label>
+                                            <button class="btn c-btn-secondary mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-1" onclick="quizManager.deleteQuizSuggestion(1)">Delete</button>
+                                        </div>
+            
+                                        <div class="col-md-auto d-flex align-items-center">
+                                            <div class="c-checkbox c-checkbox-grey">
+                                            <input class="form-check-input" type="checkbox" id="quiz-checkbox-1">
+                                                <label class="form-check-label" for="quiz-checkbox-1" data-i18n="classroom.activities.correctAnswer">Réponse correcte</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <textarea id="quiz-suggestion-1" style="height:100px"></textarea>
                                 </div>
                             </div>
-
+            
+                            <div class="form-group mt-3">
+                                <label for="quiz-hint" data-i18n="[html]newActivities.hint">Indice</label>
+                                <textarea id="quiz-hint" class="form-control" style="height:140px"></textarea>
+                            </div>
                         </div>
-                        <textarea id="quiz-suggestion-1" style="height:100px"></textarea>
+            
+                        <div class="content m-3">
+                            <button data-i18n="newActivities.addQuiz" class="btn c-btn-primary" onclick="quizManager.addQuizSuggestion()">Ajouter une proposition</button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group mt-3">
-                    <label for="quiz-hint" data-i18n="[html]newActivities.hint">Indice</label>
-                    <textarea id="quiz-hint" class="form-control" style="height:140px"></textarea>
+
+                <div class="col col-md-auto">
+                    <div class="d-flex flex-column justify-content-center">
+                        <div class="w-100 d-flex justify-content-center c-checkbox">
+                            <input type="checkbox" name="" id="quiz-calculator-checkbox" checked>
+                            <label for="quiz-calculator-checkbox" class="mx-auto vitta-modal-title my-2 row">Activer la calculatrice ?</label>
+                        </div>
+                        <button class="btn c-btn-primary mx-auto my-1" onclick="stateStorage.getCalculatorStateAndSaveIt()">Sauvegarder l'état</button>
+                    </div>
+
+                    <div>
+                        <div class="w-100 d-flex justify-content-center" id="quiz-calculator">
+
+                        </div>
+                    </div>
+        
+                    <div class="w-100 d-flex flex-column justify-content-center">
+                        <p class="mx-auto vitta-modal-title my-2">Options de touches :</p>
+                        <div id="quiz-calculator-btn">
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <div id="activity-reading" style="display:none;">
+            <div class="content row"> 
+
+                <div class="col d-block">
+                    <label for="reading-content" class="tutorial-label">
+                        <span data-i18n="[html]newActivities.content"></span>
+                    </label>
+                    <textarea id="reading-content" class='part-content' style="height:400px"></textarea>
+                </div>
+
+
+                <div class="col col-md-auto">
+                    <div class="d-flex flex-column justify-content-center">
+                        <div class="col-12 d-flex justify-content-center c-checkbox">
+                            <input type="checkbox" name="" id="reading-calculator-checkbox" checked>
+                            <label for="reading-calculator-checkbox" class="mx-auto vitta-modal-title my-2 row">Activer la calculatrice ?</label>
+                        </div>
+                        <button class="btn c-btn-primary mx-auto my-1" onclick="stateStorage.getCalculatorStateAndSaveIt()">Sauvegarder l'état</button>
+                    </div>
+
+                    <div>
+                        <div class="w-100 d-flex justify-content-center" id="reading-calculator">
+                        </div>
+                    </div>
+        
+                    <div class="w-100 d-flex flex-column justify-content-center">
+                        <p class="mx-auto vitta-modal-title my-2">Options de touches :</p>
+                        <div id="reading-calculator-btn">
+
+                        </div>
+                    </div>
                 </div>
 
             </div>
-
-            <div class="content">
-                <button data-i18n="newActivities.addQuiz" class="btn c-btn-primary mt-3" onclick="quizManager.addQuizSuggestion()">Ajouter une proposition</button>
-            </div>
-
         </div>
 
 
         <!-- FillIn activity part -->
         <div id="activity-fill-in" style="display:none;">
 
-            <div class="content">
-                <label for="fill-in-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
-                <textarea id="fill-in-states" style="height:150px"></textarea>
-            </div>
+                <div class="content row"> 
 
-            <div class="content mt-3 mb-0">
-                <label for="fill-in-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
-                <textarea id="fill-in-content" style="height:400px"></textarea>
-            </div>
+                    <div class="col d-block">
 
-            <button class="btn c-btn-primary mb-3" id="fill-in-add-inputs" data-bs-toggle="tooltip" title="">
-                <i class="fas fa-pen-alt"></i>
-                <span data-i18n="[html]newActivities.addField"></span>
-            </button>
+                        <div class="my-3">
+                            <label for="fill-in-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
+                            <textarea id="fill-in-states" style="height:150px"></textarea>
+                        </div>
+            
+                        <div class="mt-3 mb-0">
+                            <label for="fill-in-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
+                            <textarea id="fill-in-content" style="height:400px"></textarea>
+                        </div>
+            
+                        <button class="btn c-btn-primary" id="fill-in-add-inputs" data-toggle="tooltip" title="">
+                            <i class="fas fa-pen-alt"></i>
+                            <span data-i18n="[html]newActivities.addField"></span>
+                        </button>
+            
+                        <div class="mx-3">
+                            <p>
+                                <span data-i18n="newActivities.tolerance1"></span>
+                                <button id="fill-in-tolerance-decrease" class="tolerance-btn">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="number" id="fill-in-tolerance" value="0">
+                                <button id="fill-in-tolerance-increase" class="tolerance-btn">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <span data-i18n="newActivities.tolerance2"></span>
+                            </p>
+                        </div>
+            
+                        <div class="form-group my-3">
+                            <label for="fill-in-hint" data-i18n="[html]newActivities.hint">Indice</label>
+                            <textarea id="fill-in-hint"  class="form-control" style="height:140px"></textarea>
+                        </div>
+                    </div>
 
-            <div class="content">
-                <p>
-                    <span data-i18n="newActivities.tolerance1"></span>
-                    <button id="fill-in-tolerance-decrease" class="tolerance-btn">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <input type="number" id="fill-in-tolerance" value="0">
-                    <button id="fill-in-tolerance-increase" class="tolerance-btn">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                    <span data-i18n="newActivities.tolerance2"></span>
-                </p>
-            </div>
+                    <div class="col col-md-auto">
+                        <div class="d-flex flex-column justify-content-center">
+                            <div class="w-100 d-flex justify-content-center c-checkbox">
+                                <input type="checkbox" name="" id="fillIn-calculator-checkbox" checked>
+                                <label for="fillIn-calculator-checkbox" class="mx-auto vitta-modal-title my-2 row">Activer la calculatrice ?</label>
+                            </div>
+                            <button class="btn c-btn-primary mx-auto my-1" onclick="stateStorage.getCalculatorStateAndSaveIt()">Sauvegarder l'état</button>
+                        </div>
 
-            <div class="content form-group mb-3">
-                <label for="fill-in-hint" data-i18n="[html]newActivities.hint">Indice</label>
-                <textarea id="fill-in-hint"  class="form-control" style="height:140px"></textarea>
-            </div>
+                        <div>
+                            <div class="w-100 d-flex justify-content-center" id="fillIn-calculator">
+                                
+                            </div>
+                        </div>
+            
+                        <div class="w-100 d-flex flex-column justify-content-center">
+                            <p class="mx-auto vitta-modal-title my-2">Options de touches :</p>
+                            <div id="fillIn-calculator-btn">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
 
         </div>
 
         <!-- DragAndDrop activity part -->
         <div id="activity-drag-and-drop" style="display:none;">
 
-            <div class="content">
-                <label for="drag-and-drop-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
-                <textarea id="drag-and-drop-states" style="height:150px"></textarea>
-            </div>
+            <div class="content row"> 
+                <div class="col d-block">
 
-            <div class="content mt-3 mb-0">
-                <label for="drag-and-drop-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
-                <textarea id="drag-and-drop-content" style="height:400px"></textarea>
-            </div>
+                    <div class="my-3">
+                        <label for="drag-and-drop-states" data-i18n="[html]newActivities.states">Énoncé de l'activité</label>
+                        <textarea id="drag-and-drop-states" style="height:150px"></textarea>
+                    </div>
+        
+                    <div class="mt-3 mb-0">
+                        <label for="drag-and-drop-content" data-i18n="[html]newActivities.content">Contenu de l'activité</label>
+                        <textarea id="drag-and-drop-content" style="height:400px"></textarea>
+                    </div>
+        
+                    <button class="btn c-btn-primary" id="dragAndDrop-add-inputs" data-toggle="tooltip" title="">
+                        <i class="fas fa-pen-alt"></i>
+                        <span data-i18n="newActivities.addField">Add field</span>
+                    </button>
+        
+                    <div class="content form-group my-3">
+                        <label for="drag-and-drop-hint" data-i18n="[html]newActivities.hint">Indice</label>
+                        <textarea id="drag-and-drop-hint" class="form-control" style="height:140px"></textarea>
+                    </div>
+                </div>
 
-            <button class="btn c-btn-primary" id="dragAndDrop-add-inputs" data-bs-toggle="tooltip" title="">
-                <i class="fas fa-pen-alt"></i>
-                <span data-i18n="newActivities.addField">Add field</span>
-            </button>
+                <div class="col col-md-auto">
 
-            <div class="content form-group mb-3">
-                <label for="drag-and-drop-hint" data-i18n="[html]newActivities.hint">Indice</label>
-                <textarea id="drag-and-drop-hint"  class="form-control" style="height:140px"></textarea>
+
+                        <div class="d-flex flex-column justify-content-center">
+                            <div class="w-100 d-flex justify-content-center c-checkbox">
+                                <input type="checkbox" name="" id="dragAndDrop-calculator-checkbox" checked>
+                                <label for="dragAndDrop-calculator-checkbox" class="mx-auto vitta-modal-title my-2 row">Activer la calculatrice ?</label>
+                            </div>
+                            <button class="btn c-btn-primary mx-auto my-1" onclick="stateStorage.getCalculatorStateAndSaveIt()">Sauvegarder l'état</button>
+                        </div>
+
+                        <div>
+                            <div class="w-100 d-flex justify-content-center" id="dragAndDrop-calculator">
+                            </div>
+                        </div>
+            
+                        <div class="w-100 d-flex flex-column justify-content-center">
+                            <p class="mx-auto vitta-modal-title my-2">Options de touches :</p>
+                            <div id="dragAndDrop-calculator-btn">
+                                
+                            </div>
+                        </div>
+
+                </div>
+
             </div>
 
         </div>
@@ -1772,7 +2017,7 @@
         </div>
 
         <div class="container">
-            <div class="row text-center w-100 mt-1">
+            <div class="row text-center w-100 mt-2">
                 <div class="col-sm mb-2">
                     <button class="btn c-btn-grey" onclick="contentBackward()">
                         <i class="fas fa-chevron-left"></i> <span data-i18n="classroom.activities.form.back"></span>
@@ -1791,7 +2036,7 @@
 
 <!-- title part -->
 <div id="classroom-dashboard-classes-new-activity-title" style="display:none;" class="dashboard-block ">
-    <nav class="form-activity-container" style="margin: 0 auto;">
+    <nav class="row form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1">Application</span>
@@ -1820,7 +2065,7 @@
     </nav>
 
     <div class="container">
-        <div class="row mx-auto my-2 c-primary-form">
+        <div class="form-row mx-auto my-2 c-primary-form">
             <div class="col-xl-9 my-1 mx-auto">
                 <label data-i18n="classroom.activities.form.title.label">Titre : </label>
                 <input class="w-100" type="text" id="global_title">
@@ -1882,7 +2127,7 @@
         
 
 
-        <div class="row text-center w-100 mt-1">
+        <div class="row text-center w-100">
             <div class="col-sm mb-2">
                 <button class="btn c-btn-grey" onclick="titleBackward()">
                     <i class="fas fa-chevron-left"></i> <span data-i18n="classroom.activities.form.back"></span>
@@ -1900,7 +2145,7 @@
 <!-- Attribution part -->
 <div id="classroom-dashboard-classes-new-activity-attribution" style="display:none;" class="dashboard-block class-creation-form-step2">
 
-    <nav class="form-activity-container" style="margin: 0 auto;">
+    <nav class="row form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1">Application</span>
@@ -1954,7 +2199,7 @@
 
 
 <div id="classroom-dashboard-proactivities-panel-teacher" style="display:none;" class="dashboard-block ">
-    <nav class="form-activity-container" style="margin: 0 auto;">
+    <nav class="row form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-activate">1</span>
             <span data-i18n="classroom.activities.form.1">Application</span>
@@ -1984,6 +2229,7 @@
     </nav>
     <div id="activity-creation-grid"></div>
 
+
     <div class="row text-center" style="margin: 0 auto;">
         <div class="col">
             <button class="btn c-btn-grey" onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')">
@@ -1993,11 +2239,12 @@
         <!-- just here to keep the same space as the other return btn -->
         <div class="col"></div>
     </div>
+
 </div>
 
 
 <div id="classroom-dashboard-classes-new-activity-title" style="display:none;" class="dashboard-block ">
-    <nav class="form-activity-container" style="margin: 0 auto;">
+    <nav class="row form-activity-container" style="margin: 0 auto;">
         <div class="col text-center">
             <span class="form-activity form-activity-secondary"><i class="fas fa-check"></i></span>
             <span data-i18n="classroom.activities.form.1">Application</span>
@@ -2342,7 +2589,8 @@
                 </div>
             </div>
 
-            <div class="row c-secondary-form justify-content-between mb-4">
+
+            <div class="row c-secondary-form justify-content-between">
                 <div class="d-flex">
                     <label for="course-format" class="d-flex align-items-center mb-0" data-i18n="">Format d'affichage du parcours : </label>
                     <div class="switcher mx-3">
@@ -2355,7 +2603,20 @@
                         <span class="switcher__toggle"></span>
                     </div>
                 </div>
-                <!-- <button class="btn c-btn-secondary">Apercu</button> -->
+            </div>
+
+            <div class="row c-secondary-form">
+                <div class="hide-title-activities d-none" id="hide-title-activities-div">
+                    <input type="checkbox" name="hide-activities-title" class="form-check-input mr-2" id="hide-activities-title">
+                    <label for="hide-activities-title" class="form-check-label" for="hide-activities-title" >Masquer les titres des activités</label>
+                </div>
+            </div>
+
+            <div class="row c-secondary-form mb-4">
+                <div class="calculatrice-course-checkbox d-none" id="calculatrice-course-checkbox">
+                    <input type="checkbox" name="calculatrice-course" class="form-check-input mr-2" id="calculatrice-course">
+                    <label for="calculatrice-course" class="form-check-label" for="calculatrice-course" >Ajouter la calculatrice au parcours ?</label>
+                </div>
             </div>
 
         </div>
@@ -2722,9 +2983,23 @@
     }
 </script>
 <script src="assets/js/utils/translate.js" defer></script>
-<!-- PLUGIN SCRIPTS-->
+<script src="assets/plugins/js/ActivitiesPanelMaclasseti.js"></script>
+<script src="assets/plugins/js/realtimeCalculator.js"></script>
+<script src="assets/plugins/js/statisticsManager.js"></script>
+<script src="assets/plugins/js/DragAndDropTI.js"></script>
+<script src="assets/plugins/js/ELG-min.js"></script>
+<script src="assets/plugins/js/FillInTI.js"></script>
+<script src="assets/plugins/js/FreeTI.js"></script>
+<script src="assets/plugins/js/listerners.js"></script>
+<script src="assets/plugins/js/loginPage.js"></script>
+<script src="assets/plugins/js/ObserverClass.js"></script>
+<script src="assets/plugins/js/overrideFunctions.js"></script>
+<script src="assets/plugins/js/QuizTI.js"></script>
+<script src="assets/plugins/js/ReadingTI.js"></script>
+<script src="assets/plugins/js/ti.wysibb.js"></script>
+<script src="assets/plugins/js/ticalcActivity.js"></script>
+<script src="assets/plugins/js/translationTI.js"></script>
 
-<!-- END PLUGIN SCRIPTS -->
 </body>
 
 </html>

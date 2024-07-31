@@ -487,6 +487,14 @@ class CoursesManager {
             return displayNotification('#notif-div', "Id de parcours manquant", "error");
         }
 
+        let dateBginPicker = document.getElementById('date-begin-course-form'),
+            dateEndPicker = document.getElementById('date-end-course-form');
+
+        if (dateBginPicker && dateEndPicker) {
+            dateBginPicker.value = '';
+            dateEndPicker.value = '';
+        }
+
         document.getElementsByClassName('student-number')[0].textContent = '0';
 
         $('#list-student-attribute-modal').html('');
@@ -501,6 +509,12 @@ class CoursesManager {
             studentId = $('#attribute-activity-modal .student-attribute-form-row');
 
         const retroAttribution = $('#retro-attribution-activity-form').prop('checked')
+
+        let dateBeginPicker = document.getElementById('date-begin-course-form'),
+            dateEndPicker = document.getElementById('date-end-course-form');
+
+        const dateBegin = dateBeginPicker.value,
+            dateEnd = dateEndPicker.value;
 
         for (let i = 0; i < studentId.length; i++) {
             if ($(studentId[i]).find(".student-id").is(':checked')) {
@@ -517,7 +531,7 @@ class CoursesManager {
             displayNotification('#notif-div', "classroom.notif.mustAttributeToStudent", "error")
         }
 
-        this._requestUsersLinkCourse(this.courseId, students, classrooms, this.attriReference).then((res) => {
+        this._requestUsersLinkCourse(this.courseId, students, classrooms, this.attriReference, dateBegin, dateEnd).then((res) => {
             if (res == true) {
                 displayNotification('#notif-div', "classroom.notif.courseAttributed", "success")
                 $('#attribute-course-to-students').attr('disabled', false)
@@ -1455,6 +1469,7 @@ class CoursesManager {
     }
     
     launchLtiResourceOnePageCourse(activityId, activityLink, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false) {
+        let height = window.innerHeight - 220;
         return [`<input id="activity-score" type="text" hidden/>
         <form name="resource_launch_form_${activityId}" action="${_PATH}lti/ltilaunch.php" method="post" target="lti_student_iframe_${activityId}">
             <input type="hidden" id="application_type" name="application_type" value="${activityType}">
@@ -1463,7 +1478,7 @@ class CoursesManager {
             <input type="hidden" id="activities_link_user" name="activities_link_user" value="${activityId}">
             <input type="hidden" id="student_resource_url" name="student_resource_url" value="${studentResourceUrl}">
         </form>
-        <iframe id="lti_student_iframe_${activityId}" src="about:blank" data-id="${activityId}" data-link="${activityLink}" name="lti_student_iframe_${activityId}" title="Tool Content" width="100%" style="height: 60vh;" allow="fullscreen *; microphone *; camera *; serial *; usb *"></iframe>`, 
+        <iframe id="lti_student_iframe_${activityId}" src="about:blank" data-id="${activityId}" data-link="${activityLink}" name="lti_student_iframe_${activityId}" title="Tool Content" width="100%" style="height: ${height}px" allow="fullscreen *; microphone *; camera *; serial *; usb *"></iframe>`, 
         `resource_launch_form_${activityId}`];
     }
     
@@ -1611,7 +1626,7 @@ class CoursesManager {
         })
     }
 
-    _requestUsersLinkCourse(courseId, students, classrooms, reference = null) {
+    _requestUsersLinkCourse(courseId, students, classrooms, reference = null, dateBegin = null, dateEnd = null) {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "POST",
@@ -1620,7 +1635,9 @@ class CoursesManager {
                     courseId: courseId,
                     students: students,
                     classrooms: classrooms,
-                    reference: reference
+                    reference: reference,
+                    dateBegin: dateBegin,
+                    dateEnd: dateEnd
                 },
                 success: function (response) {
                     resolve(JSON.parse(response));

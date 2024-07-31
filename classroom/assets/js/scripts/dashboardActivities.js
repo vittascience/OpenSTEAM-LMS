@@ -442,6 +442,7 @@ $('body').on('click', '.list-students-classroom', function () {
 })
 
 $('body').on('click', '.activity-list, .activity-list-item, .activity-card, .activity-item .activity-item-title', function () {
+    console.log('clickqzd')
     if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
         let id, state, navigation;
         if (this.classList.contains('activity-item-title')) {

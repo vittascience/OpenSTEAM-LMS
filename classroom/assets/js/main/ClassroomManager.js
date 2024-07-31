@@ -160,7 +160,7 @@ class ClassroomManager {
             });
 
             $('#customizable-modal-content').append(`<div class="text-center col-12">
-                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="tiActivity.cancelModal()" data-i18n="manager.buttons.cancel">Annuler</button>
+                <button class="btn c-btn-primary mx-auto mt-3 btn-lg" onclick="tiActivity.cancelModal()" data-i18n="manager.buttons.cancel">Annuler</button>
             </div>`);
         });
     }
@@ -1485,7 +1485,28 @@ class ClassroomManager {
         })
     }
 
-
+    /**
+     *  @param {string} $activities
+     * @returns {Promise}
+     */
+    importMultiplesActivities($activities) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                dataType: "JSON",
+                url: "/routing/Routing.php?controller=newActivities&action=import_multiples_activities",
+                data: {
+                    'activities' : $activities
+                },
+                success: function (response) {
+                    resolve(response);
+                },
+                error: function () {
+                    reject('error')
+                }
+            });
+        })
+    }
 
     /* 
     * @param {string} $id
