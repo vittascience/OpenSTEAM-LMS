@@ -16,6 +16,12 @@ use \Firebase\JWT\JWT;
 use Classroom\Entity\LtiTool;
 use Classroom\Entity\Applications;
 use Classroom\Entity\Session;
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable($rootPath);
+$dotenv->load();
+$versionNum = $_ENV['VERSIONNUM'];
+$traceLrsEndpoint = $_ENV['TRACE_LRS_ENDPOINT'];
 
 session_start();
 $session_id = session_id();
@@ -55,7 +61,9 @@ $jwt_payload = [
       "updateUrl" => $loginHint['updateUrl'] ?? '',
       "redirectionUrl" => $platform_url . '/lti/redirection.html',
       "studentResourceUrl" => isset($loginHint['studentResourceUrl']) ? $loginHint['studentResourceUrl'] : false,
-      "sessionId" => $session_id
+      "sessionId" => $session_id,
+      "versionNum" => $versionNum,  
+      "traceLrsEndpoint" => $traceLrsEndpoint 
   ]
 ];
 
