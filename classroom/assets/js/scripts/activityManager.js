@@ -3,7 +3,7 @@
  */
  function setTextArea() {
     const options = Main.getClassroomManager().wbbOpt;
-    // Free 
+    // Free
     $('#free-enonce').wysibb(options);
     $('#free-content').wysibb(options);
     $('#free-correction').wysibb(options);
@@ -101,7 +101,7 @@ function contentBackward() {
 
 // Get the content
 function contentForward() {
-    
+
     let isCheckPassed = true;
     if (Main.getClassroomManager()._createActivity.id == 'free') {
         Main.getClassroomManager()._createActivity.content.description = $('#free-content').bbcode();
@@ -133,7 +133,7 @@ function contentForward() {
         }
     }
     // Check if the content if empty
-    if (Main.getClassroomManager()._createActivity.content.description == '' && !isCheckPassed) { 
+    if (Main.getClassroomManager()._createActivity.content.description == '' && !isCheckPassed) {
         displayNotification('#notif-div', "classroom.notif.emptyContent", "error");
     } else {
         navigatePanel('classroom-dashboard-classes-new-activity-title', 'dashboard-proactivities-teacher');
@@ -275,7 +275,7 @@ function quizValidateActivity(correction = 1) {
         }
         studentResponse.push(res);
     }
-    
+
     Main.getClassroomManager().saveNewStudentActivity(Activity.activity.id, correction, null, JSON.stringify(studentResponse), Activity.id).then((response) => {
         responseManager(response, 'quiz');
     });
@@ -415,7 +415,7 @@ function activitiesCreation(apps) {
         } else {
             descriptionField = `<p class="app-card-description">${app.description}</p>`;
         }
-        
+
 
 
         let restrict = app.name != "" ? `launchCustomActivity('${app.name}')` : `launchCustomActivity('custom')`;
@@ -430,7 +430,7 @@ function activitiesCreation(apps) {
             ${descriptionField}
         </div>`
     });
-    
+
     $('#activity-creation-grid').html(htmlContent);
     $('#activity-creation-grid').localize();
 }
@@ -505,7 +505,7 @@ $('#fill-in-add-inputs').click(() => {
 
 
 function parseFillInFieldsAndSaveThem() {
-    
+
     if ($('#fill-in-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi) == null) {
         displayNotification('#notif-div', "classroom.notif.noAnswerInActivity", "error");
         return false;
@@ -567,9 +567,9 @@ function parseDragAndDropFieldsAndSaveThem() {
         displayNotification('#notif-div', "classroom.notif.noAnswerInActivity", "error");
         return false;
     }
-    
+
     Main.getClassroomManager()._createActivity.content.dragAndDropFields.contentForTeacher = $('#drag-and-drop-content').bbcode();
-    
+
     let responseDD = $('#drag-and-drop-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1"));
     let contentForStudent = $('#drag-and-drop-content').bbcode();
 
@@ -604,7 +604,7 @@ function parseDragAndDropFieldsAndSaveThem() {
 
 function addQuizSuggestion() {
     let i = 0;
-    
+
     do {
         i++;
     } while ($(`#quiz-suggestion-${i}`).length > 0);
@@ -623,7 +623,7 @@ function addQuizSuggestion() {
                             </div>
                         </div>
                     </div>`;
-              
+
     $('#quiz-suggestions-container').append(divToAdd);
     $(`#quiz-button-suggestion-${i}`).localize();
     $(`#label-quiz-${i}`).localize();
@@ -640,8 +640,8 @@ function parseQuizFieldsAndSaveThem() {
         displayNotification('error', 'newActivities.checkBox');
         return false;
     } else {
-        let tempArraySolution = []; 
-        let tempArraycontentForStudent = []; 
+        let tempArraySolution = [];
+        let tempArraycontentForStudent = [];
         for (let i = 1; i < $(`input[id^="quiz-suggestion-"]`).length+1; i++) {
             let res = {
                 inputVal: $(`#quiz-suggestion-${i}`).val(),
@@ -656,10 +656,10 @@ function parseQuizFieldsAndSaveThem() {
 
         Main.getClassroomManager()._createActivity.content.quiz.contentForStudent = tempArraycontentForStudent;
         Main.getClassroomManager()._createActivity.solution = tempArraySolution;
-        
+
         Main.getClassroomManager()._createActivity.content.hint = $('#quiz-hint').val();
         Main.getClassroomManager()._createActivity.autocorrect = $('#quiz-autocorrect').is(":checked");
-        
+
         if ($('#quiz-states').bbcode() != '') {
             Main.getClassroomManager()._createActivity.content.states = $('#quiz-states').bbcode();
         } else {
@@ -705,8 +705,8 @@ function launchLtiDeepLinkCreate(type, isUpdate) {
         updateInput = `<input type="hidden" id="is_update" name="is_update" value="true">
         <input type="hidden" id="update_url" name="update_url" value="${Main.getClassroomManager()._createActivity.content.description}">`;
     }
-    
-    document.querySelector('#lti-loader-container').innerHTML = 
+
+    document.querySelector('#lti-loader-container').innerHTML =
     `<input id="activity-form-content-lti" type="text" hidden/>
     <form name="contentitem_request_form" action="${_PATH}lti/contentitem.php" method="post" target="lti_teacher_iframe">
         <input type="hidden" id="application_type" name="application_type" value="${type}">
@@ -721,7 +721,12 @@ function launchLtiDeepLinkCreate(type, isUpdate) {
 }
 
 function launchLtiResource(activityId, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false, activityContentId = "#activity-content") {
-    document.querySelector(activityContentId).innerHTML = 
+
+    const clmcUrl = (isStudentLaunch && studentResourceUrl) ? studentResourceUrl.replace(/.*[&?]clmc=([^&]*)(&.*|$)/,"$1") : ""
+    const playerUrl = (isStudentLaunch && studentResourceUrl) ? studentResourceUrl.replace(/(.*)\?.*/,"$1") : ""
+    if(clmcUrl && playerUrl)
+        activityContent = activityContent.replace(/([&?]clmc=)(.*)(&.*|$)/,"$1" + clmcUrl+ "&player=" + playerUrl + "$3")
+    document.querySelector(activityContentId).innerHTML =
         `<input id="activity-score" type="text" hidden/>
         <form name="resource_launch_form" action="${_PATH}lti/ltilaunch.php" method="post" target="lti_student_iframe">
             <input type="hidden" id="application_type" name="application_type" value="${activityType}">
@@ -788,7 +793,7 @@ function ActivityPreviewBeforeCreation(type) {
 
     resetPreviewViews();
 
-    
+
     $title.html(Main.getClassroomManager()._createActivity.title);
     $statesText.html(bbcodeToHtml(Main.getClassroomManager()._createActivity.content.states));
     $title.show();
@@ -830,11 +835,11 @@ function ActivityPreviewBeforeCreation(type) {
 
             // Get the response array and shuffle it
             let choices = shuffleArray(ActivityPreview.solution);
-            
+
             choices.forEach(e => {
                 $('#preview-drag-and-drop-fields').append(`<p class="draggable draggable-items drag-drop" id="${e}">${e.trim()}</p>`);
             });
-        
+
             // init dragula if it's not already initialized
             if (Main.getClassroomManager().dragulaGlobal == false) {
                 Main.getClassroomManager().dragulaGlobal = dragula();
@@ -842,7 +847,7 @@ function ActivityPreviewBeforeCreation(type) {
 
             // Reset the dragula fields
             Main.getClassroomManager().dragulaGlobal.containers = [];
-            
+
             Main.getClassroomManager().dragulaGlobal = dragula([document.querySelector('#preview-drag-and-drop-fields')]).on('drop', function(el, target, source) {
                 if (target.id != 'preview-drag-and-drop-fields') {
                     let swap = $(target).find('p').not(el);
@@ -878,15 +883,15 @@ $("#global_title").keyup(function() {
 })
 
 function resetPreviewViews() {
-    const Views = [ $('#preview-title'), 
-                    $('#preview-states'), 
-                    $('#preview-content'), 
-                    $('#preview-content-bbcode'), 
+    const Views = [ $('#preview-title'),
+                    $('#preview-states'),
+                    $('#preview-content'),
+                    $('#preview-content-bbcode'),
                     $('#preview-activity-drag-and-drop-container')];
-    const ContentViews = [  $('#preview-activity-content'), 
-                            $('#preview-activity-states'), 
-                            $('#preview-activity-bbcode-content'), 
-                            $('#preview-drag-and-drop-text'), 
+    const ContentViews = [  $('#preview-activity-content'),
+                            $('#preview-activity-states'),
+                            $('#preview-activity-bbcode-content'),
+                            $('#preview-drag-and-drop-text'),
                             $('#preview-drag-and-drop-fields')];
     Views.forEach(e => {
         e.hide();
