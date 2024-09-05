@@ -321,7 +321,7 @@ button {
     padding: 2em;
     padding-left: 1em;
     background: var(--classroom-dashboard);
-    height: 100vh;
+    height: 100dvh;
     scroll-behavior: unset;
 }
 
