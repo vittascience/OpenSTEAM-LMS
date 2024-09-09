@@ -116,7 +116,8 @@ function getMaxClass() {
 //student modal-->supprimer
 $('body').on('click', '.modal-student-delete', function () {
     pseudoModal.openModal('delete-student-modal');
-
+    let inputValidation = document.getElementById("validation-delete-student");
+    inputValidation.focus();
     $("#student-to-delete-id").val($(this).attr('data-student-id'));
 })
 
@@ -188,6 +189,8 @@ $('body').on('click', '.modal-classroom-delete', function (e) {
     Main.getClassroomManager()._selectedClassroomToDelete = $(this).parent().parent().parent().attr('data-link');
     $('#validation-delete-classroom').val("");
     pseudoModal.openModal("delete-classroom");
+    let inputInModal = document.getElementById("validation-delete-classroom")
+    inputInModal.focus();
 })
 
 function persistDeleteClassroom() {

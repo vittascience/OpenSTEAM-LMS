@@ -682,6 +682,7 @@ function studentActivitiesDisplay() {
 
     $('.section-new .resource-number').html(activities.newActivities.length)
     activities.newActivities.forEach(element => {
+        console.log(element.dateBegin.date, element.dateEnd.date);
         if (checkDateForActivities(element.dateBegin.date, element.dateEnd.date)) {
             $('#new-activities-list').append(activityItem(element, "newActivities"));
             index++;
@@ -710,15 +711,12 @@ function studentActivitiesDisplay() {
         index++;
     });
 
-
-
     Main.getClassroomManager()._myCourses.forEach(course => {
-
         let today = new Date(),
             dateBegin = new Date(course.dateBegin.date),
             dateEnd = new Date(course.dateEnd.date);
 
-        if (dateBegin && (today < dateBegin || dateEnd < today)) {
+        if (dateBegin && (today < dateBegin || dateEnd < today) && dateBegin != null && dateEnd != null) {
             return;
         }
 
@@ -995,6 +993,9 @@ function toggleBlockClass() {
 
 // Show the month in string format
 function formatDay(da) {
+    if (da == null) {
+        return "";
+    }
     let d = new Date(da.date)
     let translatedMonth = i18next.t("classroom.activities.month." + parseInt(d.getMonth() + 1) );
     let numericMonth = d.getMonth() + 1 < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1;

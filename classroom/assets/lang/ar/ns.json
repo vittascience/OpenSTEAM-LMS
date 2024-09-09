@@ -1095,6 +1095,7 @@
       "restriction": "تقييد",
       "dateBeginFA": "<i class='far fa-calendar-alt'></i>موعد البدء",
       "dateEndFA": "<i class='far fa-calendar-alt'></i>تاريخ الانتهاء",
+      "addDateActivity": "هل تريد إضافة تاريخ لهذا النشاط ؟",
       "maxStudentsFA": "<i class=fas fa-user-alt'></i>الحد الأقصى لعدد الطلاب"
     },
     "apps": {

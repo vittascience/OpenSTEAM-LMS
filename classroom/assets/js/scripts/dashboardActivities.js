@@ -442,7 +442,6 @@ $('body').on('click', '.list-students-classroom', function () {
 })
 
 $('body').on('click', '.activity-list, .activity-list-item, .activity-card, .activity-item .activity-item-title', function () {
-    console.log('clickqzd')
     if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
         let id, state, navigation;
         if (this.classList.contains('activity-item-title')) {
@@ -459,8 +458,7 @@ $('body').on('click', '.activity-list, .activity-list-item, .activity-card, .act
         } else {
             navigation = 'dashboard-activities';
         }
-        navigatePanel('classroom-dashboard-activity-panel', navigation, 'WK' + id, state);
-        
+        navigatePanel('classroom-dashboard-activity-panel', navigation, 'WK' + id, state);   
     }
 })
 
@@ -928,7 +926,9 @@ function loadCourseAndActivityForStudents(isDoable, currentCourse = null, progre
     if (Activity.correction >= 1) {
         $(`#activity-details${courseIndicator}`).html(i18next.t("classroom.activities.sentOn") + formatHour(Activity.dateSend), i18next.t("classroom.activities.numberOfTries") + Activity.tries)
     } else {
-        $(`#activity-details${courseIndicator}`).html(i18next.t("classroom.activities.toSend") + formatDay(Activity.dateEnd))
+        if (Activity.dateEnd != null) { 
+            $(`#activity-details${courseIndicator}`).html(i18next.t("classroom.activities.toSend") + formatDay(Activity.dateEnd))
+        }
     }
 
     // Content management

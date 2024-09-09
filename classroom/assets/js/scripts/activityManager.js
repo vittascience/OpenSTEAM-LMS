@@ -425,7 +425,7 @@ function launchLtiDeepLinkCreate(type, isUpdate) {
 
 function launchLtiResource(activityId, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false, activityContentId = "#activity-content", isFromCourse = false) {
     let course = isFromCourse ? "-course" : "";
-    let height = window.innerHeight - 220;
+    let height = window.innerHeight - 330;
     document.querySelector(activityContentId + course).innerHTML = 
         `<input id="activity-score" type="text" hidden/>
         <form name="resource_launch_form" action="${_PATH}lti/ltilaunch.php" method="post" target="lti_student_iframe">

@@ -107,22 +107,9 @@ function cancelDeleteActivity() {
 //activité modal-->supprimer
 $('body').on('click', '.modal-activity-delete', function () {
     pseudoModal.openModal('delete-activity-modal');
-    let activityId = ClassroomSettings.activity,
-        courseArray = [];
-    coursesManager.myCourses.forEach(course => {
-        if (course.activities.find(c => c.id == activityId)) {
-            courseArray.push(course.title);
-        }
-    });
-    document.getElementById('activity-linked-to-course-message').style.display = courseArray.length > 0 ? 'block' : 'none';
-})
-
-
-///
-
-//activité modal-->supprimer
-$('body').on('click', '.modal-activity-delete', function () {
-    pseudoModal.openModal('delete-activity-modal');
+    let inputModal = document.getElementById('validation-delete-activity');
+    inputModal.focus();
+    
     let activityId = ClassroomSettings.activity,
         courseArray = [];
     coursesManager.myCourses.forEach(course => {
@@ -268,18 +255,20 @@ $('body').on('click', '#attribute-activity-to-students', function () {
             navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')
             $('.student-number').html(0)
 
-            /** @ToBeDeleted last check Novembre 2021 */
-            /* if (ClassroomSettings.ref != null) {
-                Main.getClassroomManager().undoAttributeActivity(ClassroomSettings.ref)
-            } */
-
-            
+            let dateBegin = null,
+                dateEnd = null;
+                
+            if (document.getElementById('isDate-activity-form').checked) {
+                dateBegin = $("#date-begin-activity-form").val()
+                dateEnd = $("#date-end-activity-form").val
+            }
+        
             Main.getClassroomManager().attributeActivity({
                 'activity': activity,
                 'students': students,
                 'classrooms': classrooms,
-                "dateBegin": $("#date-begin-activity-form").val(),
-                "dateEnd": $("#date-end-activity-form").val(),
+                "dateBegin": dateBegin,
+                "dateEnd": dateEnd,
                 "evaluation": ClassroomSettings.isEvaluation,
                 "autocorrection": ClassroomSettings.willAutocorrect,
                 "introduction": $("#introduction-activity-form").val(),

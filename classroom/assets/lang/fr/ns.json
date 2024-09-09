@@ -392,6 +392,7 @@
 				"nature": "L’élève peut-il soumettre plusieurs fois l’activité ?",
 				"dateBegin": "Date de début :",
 				"dateEnd": "Date de fin :",
+				"addDateActivity": "Voulez vous ajouter des dates à cette activité ?",
 				"retroAttribution" : "Cette activité sera attribuée aux nouveaux apprenants"
 			},
 			"toCopy": "Ce code permet de rejoindre en toute simplicité votre classe :",

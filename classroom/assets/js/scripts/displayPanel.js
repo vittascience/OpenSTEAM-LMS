@@ -434,7 +434,7 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) 
     } else {
         let now = new Date()
         let future = new Date()
-        future.setDate(future.getDate() + 365);
+        future.setDate(future.getMonth() + 1);
         $('#date-begin-activity-form').val(formatDateInput(now))
         $('#date-end-activity-form').val(formatDateInput(future))
         $('#introduction-activity-form').val('')
@@ -598,6 +598,7 @@ function getTeacherActivity() {
     </div>`
     $('#activity-title').append(activityDropdownElt);
 
+    console.log(Activity.type);
     const doableActivities = ['fillIn', 'dragAndDrop', 'free', 'quiz'];
     // Create the switch view for the teacher (doable or correction) if the activity is not a reading and not an LTI
     if (doableActivities.includes(Activity.type) && Activity.type != 'lti') {

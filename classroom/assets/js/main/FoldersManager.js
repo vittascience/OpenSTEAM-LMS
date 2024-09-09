@@ -128,6 +128,8 @@ class FoldersManager {
         this.actualFolder = folderId;
         pseudoModal.openModal("folder-manager-modal");
         $("#delete-folder-manager").show();
+        let inputValidate = document.getElementById("validation-delete-folder");
+        inputValidate.focus();
     }
 
     updateFolder(folderId) {
