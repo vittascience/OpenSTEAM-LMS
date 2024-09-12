@@ -441,6 +441,28 @@ function launchLtiResource(activityId, activityType, activityContent, isStudentL
     $("#activity-content-container"+course).show();
 }
 
+function showLtiContentAsSimpleIframe(description = false) {
+    let height = window.innerHeight - 330;
+    console.log(description);
+
+    const urlParams = new URLSearchParams(description);
+
+    console.log(urlParams);
+
+    let projectLink = urlParams.get('project_link'),
+        consoleState = urlParams.get('console'),
+        mode = urlParams.get('mode'),
+        board = urlParams.get('board'),
+        toolbox = urlParams.get('toolbox');
+
+    let interfaceName = description.substring(description.indexOf('interface=') + 10, description.indexOf('&', description.indexOf('interface=')));
+
+    let url = `https://fr.vittascience.com/${interfaceName}/?link=${projectLink}&console=${consoleState}&mode=${mode}&board=${board}&toolbox=${toolbox}`;
+    document.querySelector("#activity-content").innerHTML = 
+        `<iframe id="lti_student_iframe" src="${url}" title="Tool Content" width="100%" style="height: ${height}px" allow="fullscreen *; microphone *; camera *; serial *; usb *" ></iframe>`;
+    $("#activity-content-container").show();
+}
+
 
 function ActivityPreviewBeforeCreation(type) {
 
@@ -700,7 +722,8 @@ function loadActivityContent(doable = false) {
         } else {
             // LTI Activity
             if (Activity.isLti) {
-                launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description);
+                //launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description);
+                showLtiContentAsSimpleIframe(JSON.parse(Activity.content).description);
             } else {
                 // Non core and non LTI Activity fallback
                 $("#activity-content").html(bbcodeToHtml(contentParsed));
