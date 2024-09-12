@@ -262,6 +262,8 @@
       "selectedStudents": "تم اختيار <span id='attribuate-student-number'>0</span> طلاب",
       "classroomLocked": "الفصل مغلق: اضغط لفتح القفل",
       "classroomUnlocked": "الفصل مفتوح: اضغط لقفل",
+      "classroomLockedClickToUnlock": "الفصل مغلق: اضغط لفتح القفل",
+			"classroomUnlockedClickToLock": "الفصل مفتوح: اضغط لقفل",
 			"unlockClassroom": "افتح الفصل الدراسي",
 			"lockClassroom": "أغلق الفصل الدراسي",
       "activationLink": "تفعيل رابط تفعيل",
@@ -1096,6 +1098,7 @@
       "dateBeginFA": "<i class='far fa-calendar-alt'></i>موعد البدء",
       "dateEndFA": "<i class='far fa-calendar-alt'></i>تاريخ الانتهاء",
       "addDateActivity": "هل تريد إضافة تاريخ لهذا النشاط ؟",
+      "addDateCourse": "هل تريد إضافة تاريخ لهذا الدورة ؟",
       "maxStudentsFA": "<i class=fas fa-user-alt'></i>الحد الأقصى لعدد الطلاب"
     },
     "apps": {

@@ -388,14 +388,14 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
                 $('#blocking-class-tooltip > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
                 $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '1');
                 $('#blocking-class-tooltip').tooltip("dispose");
-                $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.classroomUnlocked')).tooltip();
+                $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.classroomUnlockedClickToLock')).tooltip();
 
             } else {
                 $('#blocking-class-tooltip').addClass('greyscale')
                 $('#blocking-class-tooltip > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
                 $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '0.5');
                 $('#blocking-class-tooltip').tooltip("dispose");
-                $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.classroomLocked')).tooltip();
+                $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.classroomLockedClickToUnlock')).tooltip();
             }
 
             Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
@@ -410,6 +410,7 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
     }
 }
 DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) {
+    console.log(ref);
     document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');
     if (ref != null && ref != 'null') {
         // If the user don't come in this panel from the classroom dashboard and with the ref attribute (using the browser history or a simple refresh), we need to skip this panel
@@ -433,7 +434,8 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) 
         }
     } else {
         let now = new Date()
-        let future = new Date()
+        let future = new Date();
+        future.setMonth(future.getMonth() + 1);
         future.setDate(future.getMonth() + 1);
         $('#date-begin-activity-form').val(formatDateInput(now))
         $('#date-end-activity-form').val(formatDateInput(future))

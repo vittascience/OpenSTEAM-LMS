@@ -632,6 +632,13 @@ $('body').on('click', '.sandbox-action-add', function () {
     }
 })
 
+function isDateNull(dateBegin = null, dateEnd = null) {
+    if (dateBegin == null || dateEnd == null) {
+        return true;
+    }
+    return false;
+}
+
 function checkDateForActivities(dateBegin, dateEnd) {
     let today = new Date();
 
@@ -662,6 +669,9 @@ function countCourseDoable() {
 function countActivityDoable() {
     let today = new Date();
     let doableActivity = Main.getClassroomManager()._myActivities.newActivities.filter(activity => {
+        if (activity.dateBegin == null || activity.dateEnd == null) {
+            return true;
+        }
         let dateBegin = new Date(activity.dateBegin.date);
         let dateEnd = new Date(activity.dateEnd.date);
         return today >= dateBegin && today <= dateEnd;
@@ -682,8 +692,7 @@ function studentActivitiesDisplay() {
 
     $('.section-new .resource-number').html(activities.newActivities.length)
     activities.newActivities.forEach(element => {
-        console.log(element.dateBegin.date, element.dateEnd.date);
-        if (checkDateForActivities(element.dateBegin.date, element.dateEnd.date)) {
+        if (isDateNull(element.dateBegin, element.dateEnd) || checkDateForActivities(element.dateBegin.date, element.dateEnd.date)) {
             $('#new-activities-list').append(activityItem(element, "newActivities"));
             index++;
         }
@@ -691,7 +700,7 @@ function studentActivitiesDisplay() {
 
     $('.section-saved .resource-number').html(activities.savedActivities.length)
     activities.savedActivities.forEach(element => {
-        if (checkDateForActivities(element.dateBegin.date, element.dateEnd.date)) {
+        if (isDateNull(element.dateBegin, element.dateEnd) || checkDateForActivities(element.dateBegin.date, element.dateEnd.date)) {
             $('#saved-activities-list').append(activityItem(element, "savedActivities"));
             index++;
         }
@@ -699,7 +708,7 @@ function studentActivitiesDisplay() {
 
     $('.section-current .resource-number').html(activities.currentActivities.length)
     activities.currentActivities.forEach(element => {
-        if (checkDateForActivities(element.dateBegin.date, element.dateEnd.date)) {
+        if (isDateNull(element.dateBegin, element.dateEnd) || checkDateForActivities(element.dateBegin.date, element.dateEnd.date)) {
             $('#current-activities-list').append(activityItem(element, "currentActivities"));
             index++;
         }

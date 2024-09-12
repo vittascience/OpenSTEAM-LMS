@@ -263,6 +263,8 @@
         "selectedStudents": "<span id='attribute-student-number'>0</span> estudiantes seleccionados",
         "classroomLocked": "Aula bloqueada: haz clic para desbloquear",
         "classroomUnlocked": "Aula desbloqueada: haz clic para bloquear",
+        "classroomLockedClickToUnlock": "Aula bloqueada: haz clic para desbloquear",
+        "classroomUnlockedClickToLock": "Aula desbloqueada: haz clic para bloquear",
         "unlockClassroom": "Desbloquear la clase",
         "lockClassroom": "Bloquear la clase",
         "activationLink": "Enlace de activación activado",

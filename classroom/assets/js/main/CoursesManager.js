@@ -490,10 +490,13 @@ class CoursesManager {
         let dateBginPicker = document.getElementById('date-begin-course-form'),
             dateEndPicker = document.getElementById('date-end-course-form');
 
-        if (dateBginPicker && dateEndPicker) {
-            dateBginPicker.value = '';
-            dateEndPicker.value = '';
-        }
+        let now = new Date()
+        let future = new Date();
+        future.setMonth(future.getMonth() + 1);
+        future.setDate(future.getMonth() + 1);
+
+        dateBginPicker.value = now.toISOString().split('T')[0];
+        dateEndPicker.value = future.toISOString().split('T')[0];
 
         document.getElementsByClassName('student-number')[0].textContent = '0';
 
@@ -508,13 +511,19 @@ class CoursesManager {
             classrooms = [],
             studentId = $('#attribute-activity-modal .student-attribute-form-row');
 
-        const retroAttribution = $('#retro-attribution-activity-form').prop('checked')
+        //const retroAttribution = $('#retro-attribution-activity-form').prop('checked')
 
         let dateBeginPicker = document.getElementById('date-begin-course-form'),
             dateEndPicker = document.getElementById('date-end-course-form');
 
-        const dateBegin = dateBeginPicker.value,
+        const dateBegin = null,
+            dateEnd = null;
+
+        let isDateSelected = document.getElementById('isDate-course-form');
+        if (isDateSelected && isDateSelected.checked) {
+            dateBegin = dateBeginPicker.value;
             dateEnd = dateEndPicker.value;
+        }
 
         for (let i = 0; i < studentId.length; i++) {
             if ($(studentId[i]).find(".student-id").is(':checked')) {

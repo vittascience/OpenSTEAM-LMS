@@ -272,6 +272,8 @@
 			"selectedStudents": "<span id='attribuate-student-number'>0</span> students selected",
 			"classroomLocked": "Classroom locked: click to unlock",
 			"classroomUnlocked": "Classroom unlocked: click to lock",
+			"classroomLockedClickToUnlock": "Classroom locked: click to unlock",
+			"classroomUnlockedClickToLock": "Classroom unlocked: click to lock",
 			"unlockClassroom": "Unlock the classroom",
 			"lockClassroom": "Lock the classroom",
 			"activationLink": "Activation link enabled",
@@ -371,6 +373,7 @@
 				"dateBegin": "Begin date :",
 				"dateEnd": "End date :",
 				"addDateActivity": "Do you want to add a date for this activity ?",
+				"addDateCourse": "Do you want to add a date for this course ?",
 				"retroAttribution" : "This activity will be added for every new students"
 			},
 			"toCopy": "This code allow you to join the classroom at ease :",

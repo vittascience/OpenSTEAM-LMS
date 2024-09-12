@@ -273,6 +273,8 @@
 			"selectedStudents": "<span id='attribuate-student-number'>0</span> apprenants sélectionnés",
 			"classroomLocked": "Classe verrouillée",
 			"classroomUnlocked": "Classe déverrouillée",
+			"classroomLockedClickToUnlock": "Classe verrouillée : cliquez pour déverrouiller",
+			"classroomUnlockedClickToLock": "Classe déverrouillée : cliquez pour verrouiller",
 			"unlockClassroom": "Déverrouiller la classe",
 			"lockClassroom": "Verrouiller la classe",
 			"activationLink": "Lien d'activation activé",
@@ -393,6 +395,7 @@
 				"dateBegin": "Date de début :",
 				"dateEnd": "Date de fin :",
 				"addDateActivity": "Voulez vous ajouter des dates à cette activité ?",
+				"addDateCourse": "Voulez vous ajouter des dates à ce parcours ?",
 				"retroAttribution" : "Cette activité sera attribuée aux nouveaux apprenants"
 			},
 			"toCopy": "Ce code permet de rejoindre en toute simplicité votre classe :",
@@ -523,7 +526,7 @@
 				"resetPassword": "Réinitialiser"
 			},
 			"addStudent": {
-				"title": "Ajouter des étudiants",
+				"title": "Ajouter des apprenants",
 				"pseudo": "Pseudonyme",
 				"addStudentButton": "Ajouter l'apprenant",
 				"addStudentByCsvButton": "Ajouter un fichier d'apprenants (.csv)"
