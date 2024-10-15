@@ -27,6 +27,7 @@ error_log("VERSIONNUM: $versionNum");
 error_log("TRACE_LRS_ENDPOINT: $traceLrsEndpoint");
 
 session_start();
+session_regenerate_id(true);
 $session_id = session_id();
 
 $nonce = $_REQUEST['nonce'];
