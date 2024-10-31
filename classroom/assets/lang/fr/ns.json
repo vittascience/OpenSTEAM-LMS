@@ -529,7 +529,12 @@
 				"title": "Ajouter des apprenants",
 				"pseudo": "Pseudonyme",
 				"addStudentButton": "Ajouter l'apprenant",
-				"addStudentByCsvButton": "Ajouter un fichier d'apprenants (.csv)"
+				"addStudentByCsvButton": "Ajouter un fichier d'apprenants (.csv)",
+				"addStudentByCsvButtonWithImg": "<i class='fas fa-file-csv me-2'></i>Ajouter un fichier d'apprenants (.csv)",
+				"createStudentProfile": "Créer le profil d'un l'élève",
+				"displayQrCodeAndLink": "<i class='fas fa-qrcode me-2'></i>Afficher le lien et le QR code",
+				"OptionByCSV": "Vous pouvez ajouter vos élèves via un fichier CSV",
+				"ShowQrCodeRecommended": "Vous pouvez faire rejoindre vos élèves par le lien de la classe ou par QR code"
 			},
 			"addStudentByCsv": {
 				"title": "Ajouter des étudiants avec un fichier .csv",
@@ -1115,7 +1120,8 @@
 		"options": "options",
 		"yes": "Oui",
 		"no": "Non",
-		"rename": "renommer"
+		"rename": "renommer",
+		"recommanded": "recommandé"
 	},
 	"manager": {
 		"profil": {

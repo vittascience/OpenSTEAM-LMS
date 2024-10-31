@@ -462,7 +462,12 @@
         "title": "أضف الطلاب",
         "pseudo": "اسم مستعار",
         "addStudentButton": "أضف طالبًا",
-        "addStudentByCsvButton": "إضافة ملف متعلم (.csv)"
+        "addStudentByCsvButton": "إضافة ملف متعلم (.csv)",
+        "addStudentByCsvButtonWithImg": "<i class='fas fa-file-csv me-2'></i>إضافة ملف المتعلمين (.csv)",
+        "createStudentProfile": "إنشاء ملف تعريف الطالب",
+        "displayQrCodeAndLink": "<i class='fas fa-qrcode me-2'></i>عرض الرابط ورمز الاستجابة السريعة (QR)",
+        "OptionByCSV": "يمكنك إضافة المتعلمين عبر ملف CSV",
+        "ShowQrCodeRecommended": "يمكنك السماح للمتعلمين بالانضمام من خلال رابط الصف أو رمز الاستجابة السريعة (QR)"
       },
       "addStudentByCsv": {
         "title": "أضف الطلاب باستخدام ملف .csv",
@@ -722,7 +727,8 @@
     "password": "كلمة المرور",
     "options": "والخيارات",
     "yes": "نعم",
-    "no": "رقم"
+    "no": "رقم",
+    "recommanded": "موصى به"
   },
   "manager": {
     "profil": {

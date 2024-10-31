@@ -384,16 +384,18 @@ document.querySelector('#classroom-update-form').addEventListener('submit', (e) 
 
 //add students to an existing classroom on the classroom dashboard
 $('body').on('click', '#add-student-to-classroom', function () {
-    // disable button to avoid multiple click
-    $('#add-student-to-classroom').prop('disabled', true);
 
-    const studentName = document.querySelector('#classroom-dashboard-add-student-div .student-form-name').value;
+    // disable button to avoid multiple click
+    document.querySelector('#add-student-to-classroom').disabled = true;
+    const studentNameInput = document.querySelector('#add-student-input-from-modal');
+    const studentName = studentNameInput.value;
+
     if (studentName != ''){
         let students = [studentName];
         let existingStudents = [];
 
         Main.getClassroomManager().addUsersToGroup(students, existingStudents, ClassroomSettings.classroom).then((response) => {
-            if(!response.isUsersAdded){
+            if (!response.isUsersAdded) {
                 if(response.noUser){
                     displayNotification('#notif-div', "classroom.notif.noUserUsername", "error");
                     return;
@@ -402,7 +404,7 @@ $('body').on('click', '#add-student-to-classroom', function () {
                  * Update Rémi : Users limitation by group 
                  * possible return : personalLimit, personalLimitAndGroupOutDated, bothLimitReached
                  */
-                if(response.errorType){
+                if (response.errorType) {
                     // a specific error has been returned, display it
                     displayNotification('#notif-div', `classroom.notif.${response.errorType}`, "error", `'{"reservedNickname": "${demoStudentName}"}'`);
                     return;
@@ -412,7 +414,8 @@ $('body').on('click', '#add-student-to-classroom', function () {
             } else {
                 Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
                     addUserAndGetDashboard(ClassroomSettings.classroom);
-                    document.querySelector('#classroom-dashboard-add-student-div').innerHTML = BASE_STUDENT_FORM;
+                    //document.querySelector('#classroom-dashboard-add-student-div').innerHTML = BASE_STUDENT_FORM;
+                    studentNameInput.value = '';
                     pseudoModal.closeModal('add-student-modal');
                     displayNotification('#notif-div', "classroom.notif.usersAdded", "success");
                 });

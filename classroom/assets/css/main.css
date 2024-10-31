@@ -3329,7 +3329,12 @@ h3.section-done {
     top: 0;
     right: 0;
     transform: translate(50%, -50%);
-    background-color: var(--classroom-cell);
+    background-color: var(--classroom-background);
+    border: var(--bs-btn-border-width) solid var(--classroom-cell);
+}
+
+#code-share-close-btn i {
+    color: var(--classroom-text-2);
 }
 
 #classroom-code-share-container > div{
@@ -3922,4 +3927,21 @@ th, td {
     width: 32px;
     border-radius: 3px;
     margin: 0 0.3em;
+}
+
+.top-left-return-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0.5em;
+}
+
+@media (max-width: 1280px) {
+    .mobile-mt-2 {
+        margin-top: 2em;
+    }
+}
+
+.fs-large {
+    font-size: large;
 }

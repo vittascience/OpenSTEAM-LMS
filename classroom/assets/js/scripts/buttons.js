@@ -400,11 +400,6 @@ if (document.querySelector('#update-classroom-student-button')) {
         e.preventDefault();
         pseudoModal.openModal('update-classroom-student-modal');
     });
-
-/*     document.querySelector('#create-classroom-student-button').addEventListener('click', (e) => {
-        e.preventDefault();
-        pseudoModal.openModal('create-classroom-student-modal');
-    }); */
 }
 
 
@@ -3485,7 +3480,6 @@ function setAddFieldTooltips() {
     $('#infoEvaluation').attr("title", i18next.t('classroom.activities.infoEvaluation')).tooltip();
 }
 setTimeout(setAddFieldTooltips, 2000);
-
 
 
 function facultativeOptions() {

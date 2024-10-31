@@ -19,6 +19,7 @@ const classroomModals = {
         },
         content: `<div class="text-center mx-auto w-100 mh-100 mb-2">
                     <p> <span data-i18n="classroom.modals.addStudentByCsv.description"></span>
+                        <br>
                         <a data-i18n="classroom.modals.addStudentByCsv.csvTemplate;[download]classroom.modals.addStudentByCsv.csvTemplate" href="${_PATH}assets/media/lang/${langValue}/csv_template.csv"></a>
                          - 
                         <a data-i18n="classroom.modals.addStudentByCsv.csvTemplateNoPassword;[download]classroom.modals.addStudentByCsv.csvTemplateNoPassword" href="${_PATH}assets/media/lang/${langValue}/csv_template_nopw.csv"></a>.
@@ -310,22 +311,40 @@ const classroomModals = {
             icon: '',
             title: 'classroom.modals.addStudent.title'
         },
-        content: `
-        <div id="classroom-dashboard-add-student-div">
-            <div class="c-primary-form row col-12">
-                <label class="col-5" data-i18n="classroom.modals.addStudent.pseudo">Pseudonyme</label>
-                <input class="col-5 student-form-name" type="text">
-            </div>
-        </div>
-        <button id="add-student-to-classroom" class="btn save-student-in-classroom c-btn-primary m-3"><i class="fas fa-save"></i> <span class="ms-1" data-i18n="classroom.modals.addStudent.addStudentButton">Ajouter l'apprenant</span></button>
-        <div class="d-flex flex-column justify-content-center align-items-center">
-            <div class="d-flex justify-content-center modal-separator mt-4 mb-4">
-                <span data-i18n="classroom.modals.addActivity.orSeparator">OU</span>
-            </div>
-            <button class="btn c-btn-secondary" onclick="openCsvModal();">
-                <span data-i18n="classroom.modals.addStudent.addStudentByCsvButton">Ajouter un fichier d'apprenants (.csv)</span><i class="fas fa-chevron-right ms-1"></i>
-            </button>
-        </div>`,
+        content: `<div class="m-4 p-4">
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        <p data-i18n="[html]classroom.modals.addStudent.ShowQrCodeRecommended" class="fw-bold fs-large">Vous pouvez faire rejoindre vos élèves par le lien de la classe ou par QR code</p>
+                        <button class="btn c-btn-secondary mb-3" onclick="Main.getClassroomManager().showLinkAndQrPanel();">
+                            <span data-i18n="[html]classroom.modals.addStudent.displayQrCodeAndLink"><i class="fas fa-qrcode me-2"></i>Afficher le lien et le QR code</span>
+                        </button>
+                    </div>
+
+                    <div class="d-flex justify-content-center modal-separator mt-4 mb-4">
+                        <span data-i18n="classroom.modals.addActivity.orSeparator">OU</span>
+                    </div>
+
+                    <div class="d-flex flex-column align-items-center mx-3">
+                        <span data-i18n="classroom.modals.addStudent.createStudentProfile" class="fw-bold mb-3 fs-large">Créer le profil d'un l'élève</span>
+                        <div class="c-primary-form row col-12 mb-3 mx-3">
+                            <input class="w-75 mx-auto student-form-name" type="text" id="add-student-input-from-modal" data-i18n="[placeholder]classroom.modals.addStudent.pseudo" placeholder="Pseudonyme">
+                        </div>
+                        <button id="add-student-to-classroom" class="btn save-student-in-classroom c-btn-primary mb-3">
+                            <i class="fas fa-save me-2"></i> <span data-i18n="classroom.modals.addStudent.addStudentButton">Ajouter l'apprenant</span>
+                        </button>
+                    </div>
+
+                    <div class="d-flex justify-content-center modal-separator mt-4 mb-4">
+                        <span data-i18n="classroom.modals.addActivity.orSeparator">OU</span>
+                    </div>
+
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        <p class="fw-bold mb-3 fs-large"><span data-i18n="classroom.modals.addStudent.OptionByCSV" >Vous pouvez ajouter vos élèves via un fichier CSV</span></p>
+                        <button class="btn c-btn-primary" onclick="openCsvModal();">
+                            <span data-i18n="[html]classroom.modals.addStudent.addStudentByCsvButtonWithImg"><i class="fas fa-file-csv me-2"></i>Ajouter un fichier d'apprenants (.csv)</span>
+                        </button>
+                    </div>
+                </div>
+                    `,
         footer: ``
     },
     'manager-create-group': {

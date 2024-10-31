@@ -205,7 +205,6 @@
         
         <button class="btn c-btn-secondary" class="blocking-class" onclick="navigatePanel('classroom-table-panel-teacher-code', 'dashboard-classes-teacher')" data-bs-toggle="tooltip" title="Afficher en plein écran">
             <i class="fa fa-expand"></i>
-
         </button>
 
     </div>
@@ -220,7 +219,10 @@
         </button>
 
         <div>
-            <span data-i18n="classroom.activities.toCopy"></span>
+            <button id="return-to-add-student-modal" onclick="Main.getClassroomManager().returnToAddStudentModal()" class="btn c-btn-primary top-left-return-btn d-none">
+                <span data-i18n="words.return">Retour</span>
+            </button>
+            <span data-i18n="classroom.activities.toCopy" class="mobile-mt-2"></span>
             <span class="classroom-link" id="classroom-link-share"></span>
             <span id="complete-classroom-link" class="complete-classroom-link"></span>
             <button id="code-copy" class="btn c-btn-secondary" title="Copier le lien direct" class="js-copy" data-target="#classroom-link-tocopy" data-i18n="classroom.classes.panel.copyLink">Copier le lien direct</button>
