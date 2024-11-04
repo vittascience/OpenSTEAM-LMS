@@ -28,9 +28,39 @@ if ($user) {
     die();
 }
 
-require_once(__DIR__ . "/header.html");
-?>
-<link rel="stylesheet" href="/classroom/assets/css/main.css">
+
+include_once(__DIR__ . "/../public/header.php");?>
+<script src="assets/js/utils/listener.js"></script>
+<script src="/path.js"></script>
+<?php require_once(__DIR__ . "/header.html"); ?>
+<script>
+document.querySelector("#bs4-css-import").disabled = true;
+document.querySelector(`link[href="assets/css/main.css"]`).disabled = true;
+document.querySelector(`link[href="assets/css/login.css"]`).disabled = true;
+</script>
+
+<link rel="stylesheet" href="assets/css/theme-import.css">
+<script src="assets/js/import/theme-import.js"></script>
+
+<title>MaClasseTI - Texas Instruments | Classe</title>
+<meta property="og:title" content="MaClasseTI.fr, classe" />
+
+<!-- schema markup -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "MaClasseTI.fr",
+    "url": "https://www.maclasseti.fr/classroom",
+    "description": "Gérez vos classes avec MaClasseTI.fr",
+}
+</script>
+
+<style>
+input.placeholder-update::placeholder {
+    opacity: 0.8;
+}
+</style>
 
 <script src="./assets/js/lib/rotate.js"></script>
 <link rel="stylesheet" type="text/css" href="assets/js/lib/slick-1.8.1/slick/slick.css" />
