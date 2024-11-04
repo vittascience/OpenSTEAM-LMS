@@ -443,11 +443,7 @@ function launchLtiResource(activityId, activityType, activityContent, isStudentL
 
 function showLtiContentAsSimpleIframe(description = false) {
     let height = window.innerHeight - 330;
-    console.log(description);
-
     const urlParams = new URLSearchParams(description);
-
-    console.log(urlParams);
 
     let projectLink = urlParams.get('project_link'),
         consoleState = urlParams.get('console'),

@@ -410,7 +410,6 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
     }
 }
 DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) {
-    console.log(ref);
     document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');
     if (ref != null && ref != 'null') {
         // If the user don't come in this panel from the classroom dashboard and with the ref attribute (using the browser history or a simple refresh), we need to skip this panel
@@ -600,7 +599,6 @@ function getTeacherActivity() {
     </div>`
     $('#activity-title').append(activityDropdownElt);
 
-    console.log(Activity.type);
     const doableActivities = ['fillIn', 'dragAndDrop', 'free', 'quiz'];
     // Create the switch view for the teacher (doable or correction) if the activity is not a reading and not an LTI
     if (doableActivities.includes(Activity.type) && Activity.type != 'lti') {
