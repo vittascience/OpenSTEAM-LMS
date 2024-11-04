@@ -309,10 +309,10 @@ function validateExportMultipleActivities() {
         return;
     }
 
-    explortMultipleActivitiesToJSON(activities);
+    exportMultipleActivitiesToJSON(activities);
 }
 
-function explortMultipleActivitiesToJSON(activities) {
+function exportMultipleActivitiesToJSON(activities) {
     const blob = new Blob([JSON.stringify(activities)], { type: "text/json" });
     const link = document.createElement("a");
 
