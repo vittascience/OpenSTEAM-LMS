@@ -408,7 +408,7 @@
         <div class="row">
             <div id="main-div" class="col-12 col-lg mb-3" style="margin: 0 auto;overflow-wrap: break-word;">
 
-                <div class="d-flex flex-column flex-wrap align-items-center justify-content-center mnh-2-5" id="title-container">
+                <div class="d-flex flex-column flex-wrap align-items-center justify-content-center mt-2 mnh-2-5" id="title-container">
                     <h3 id="activity-title" class="activity-title"></h3>
                     <div id="activity-views-switcher" class="p-2"></div>
                 </div>
@@ -675,7 +675,7 @@
                 <input type="text" id="classroom-form-school" class="form-control form-control-lg">
             </div>   
         </div>
-        <a href="#" id="create-classroom-student-button" class="new-student-modal btn c-btn-primary m-3"><i class="fas fa-user-plus"></i><span class="ms-1" data-i18n="classroom.classes.form.addStudent"></span></a>
+<!--         <a href="#" id="create-classroom-student-button" class="new-student-modal btn c-btn-primary m-3"><i class="fas fa-user-plus"></i><span class="ms-1" data-i18n="classroom.classes.form.addStudent"></span></a>
         <div class="table-students" id="table-students">
             <ul>
                 <li id="no-student-label" data-i18n="classroom.classes.form.noStudent"></li>
@@ -684,7 +684,7 @@
         <div class="c-checkbox mt-2">
             <input type="checkbox" name="classroom-form-is-blocked" id="classroom-form-is-blocked">
             <label for="classroom-form-is-blocked" data-i18n="classroom.classes.form.isBlockedButton"></label>
-        </div>
+        </div> -->
         <button type="submit" class="new-classroom-form btn c-btn-primary m-3"><i class="fas fa-save"></i><span class="ms-1" data-i18n="classroom.classes.form.save"></span> </button>
     </form>
 </div>
@@ -805,7 +805,8 @@
         </div>
     </div>
     <div id="classroom-info">
-        <button class="btn c-btn-secondary" id="blocking-class-tooltip" class="blocking-class" onclick="toggleBlockClass()" data-bs-toggle="tooltip" title="Lien d'activation activé">
+        <!-- title="Lien d'activation activé" -->
+        <button class="btn c-btn-secondary" id="blocking-class-tooltip" class="blocking-class" onclick="toggleBlockClass()" data-bs-toggle="tooltip" data-i18n="[title]words.anonymize" >
             <i class="fa fa-lock-open"></i>
         </button>
 
@@ -817,9 +818,8 @@
             </span>
         </div>
         
-        <button class="btn c-btn-secondary" class="blocking-class" onclick="navigatePanel('classroom-table-panel-teacher-code', 'dashboard-classroom-teacher')" data-bs-toggle="tooltip" title="Afficher en plein écran">
+        <button class="btn c-btn-secondary" class="blocking-class" onclick="navigatePanel('classroom-table-panel-teacher-code', 'dashboard-classes-teacher')" data-bs-toggle="tooltip" title="Afficher en plein écran">
             <i class="fa fa-expand"></i>
-
         </button>
 
     </div>
@@ -834,9 +834,12 @@
         </button>
 
         <div>
-            <span data-i18n="classroom.activities.toCopy"></span>
+            <button id="return-to-add-student-modal" onclick="Main.getClassroomManager().returnToAddStudentModal()" class="btn c-btn-primary top-left-return-btn d-none">
+                <span data-i18n="words.return">Retour</span>
+            </button>
+            <span data-i18n="classroom.activities.toCopy" class="mobile-mt-2"></span>
             <span class="classroom-link" id="classroom-link-share"></span>
-            
+            <span id="complete-classroom-link" class="complete-classroom-link"></span>
             <button id="code-copy" class="btn c-btn-secondary" title="Copier le lien direct" class="js-copy" data-target="#classroom-link-tocopy" data-i18n="classroom.classes.panel.copyLink">Copier le lien direct</button>
         </div>
 
@@ -1006,37 +1009,9 @@
             </div>
         </div>
 
-
-        <!-- Autocorrect activation -->
-        <div class="row" id="form-autocorrect">
-            <div class="col mb-5 text-center c-primary-form assign-row">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="isAutocorrection-activity-form" onclick="autocorrectSwitch()">
-                    <label for="isAutocorrection-activity-form" class="form-check-label" data-i18n="classroom.activities.form.autocorrect"></label>
-                </div>
-                <i class="fas fa-info assign-info-icon" id="infoAutocorrect" data-bs-toggle="tooltip" title=""></i>
-            </div>
-        </div>
-
-
         <!-- Submit multiple times -->
         <div class="row">
             <div class="col mb-5 text-center c-primary-form">
-                <div class="assign-row">
-                    <div>
-                        <label for="isEval-activity-form" data-i18n="classroom.activities.form.nature"></label>
-                        <div class="switcher w-fit-content mx-auto">
-                            <input type="radio" name="isEval-activity-form" class="switcher__input switcher__input--left" value="false" id="isExo-activity-form" checked=""/>
-                            <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes">Oui</label>
-                        
-                            <input type="radio" name="isEval-activity-form" class="switcher__input switcher__input--right" value="true" id="isEval-activity-form"/>
-                            <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no">Non</label>
-                        
-                            <span class="switcher__toggle"></span>
-                        </div>
-                    </div>
-                </div>
-
                 <p id="hint-exist-disclaimer" data-i18n="[html]classroom.activities.hintExist" style="display:none;"></p>
             </div>
         </div>
@@ -1051,6 +1026,16 @@
 
             <div id="facultative-options" style="display: none;">
                 <div class="container mt-3 pt-1" id="facultative">
+
+                                        <!-- Autocorrect activation -->
+                    <div class="row" id="form-add-date">
+                        <div class="col mb-5 text-center c-primary-form assign-row">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="isDate-activity-form">
+                                <label for="isDate-activity-form" class="form-check-label" data-i18n="classroom.activities.form.addDateActivity"></label>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-12 col-xl-6 c-primary-form assign-activity-calendar">
@@ -1084,6 +1069,35 @@
                                 <i data-i18n="words.optional"></i>
                             </label></br>
                             <textarea rows="4" id="introduction-activity-form"></textarea>
+                        </div>
+                    </div>
+
+
+                    
+                    <div class="assign-row">
+                        <div>
+                            <label for="isEval-activity-form" data-i18n="classroom.activities.form.nature"></label>
+                            <div class="switcher w-fit-content mx-auto">
+                                <input type="radio" name="isEval-activity-form" class="switcher__input switcher__input--left" value="false" id="isExo-activity-form" checked=""/>
+                                <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes">Oui</label>
+                            
+                                <input type="radio" name="isEval-activity-form" class="switcher__input switcher__input--right" value="true" id="isEval-activity-form"/>
+                                <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no">Non</label>
+                            
+                                <span class="switcher__toggle"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Autocorrect activation -->
+                    <div class="row" id="form-autocorrect">
+                        <div class="col mb-5 text-center c-primary-form assign-row">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="isAutocorrection-activity-form" onclick="autocorrectSwitch()">
+                                <label for="isAutocorrection-activity-form" class="form-check-label" data-i18n="classroom.activities.form.autocorrect"></label>
+                            </div>
+                            <i class="fas fa-info assign-info-icon" id="infoAutocorrect" data-bs-toggle="tooltip" title=""></i>
                         </div>
                     </div>
 
@@ -1135,7 +1149,7 @@
                 </div>
 
                 <div class="form-group">
-                    <textarea name="message" id="contact-message-input" class="form-control" rows="8" cols="25" style="resize: none;" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder" placeholder="Écrivez votre message ici. (Maximum 800 caractères)"></textarea>
+                    <textarea name="message" id="contact-message-input" class="form-control my-2" rows="8" cols="25" style="resize: none;" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder" placeholder="Écrivez votre message ici. (Maximum 800 caractères)"></textarea>
                 </div>
 
                 <input type="submit" class="btn c-btn-primary" data-i18n="[value]classroom.teacherHelpPanel.contactForm.sendButton" disabled="disabled" style="cursor:not-allowed;float: right;">
@@ -2251,7 +2265,7 @@
         <div class="row text-center w-100 mt-1">
             <div class="col-sm mb-2">
                 <button class="btn c-btn-grey" onclick="coursesManager.goToCreate()">
-                    <span data-i18n="">Retour</span>
+                    <span data-i18n="words.return">Retour</span>
                 </button>
             </div>
             <div class="col-sm order-first order-sm-last mb-2">
@@ -2471,6 +2485,15 @@
 
             <div id="course-options" style="display: none;">
                 <div class="container mt-3 pt-1" id="facultative">
+
+                    <div class="row" id="form-add-date">
+                        <div class="col mb-5 text-center c-primary-form assign-row">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="isDate-course-form">
+                                <label for="isDate-course-form" class="form-check-label" data-i18n="classroom.activities.form.addDateCourse"></label>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-12 col-xl-6 c-primary-form assign-activity-calendar">

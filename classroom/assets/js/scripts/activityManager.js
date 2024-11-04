@@ -425,6 +425,7 @@ function launchLtiDeepLinkCreate(type, isUpdate) {
 
 function launchLtiResource(activityId, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false, activityContentId = "#activity-content", isFromCourse = false) {
     let course = isFromCourse ? "-course" : "";
+    let height = window.innerHeight - 330;
     document.querySelector(activityContentId + course).innerHTML = 
         `<input id="activity-score" type="text" hidden/>
         <form name="resource_launch_form" action="${_PATH}lti/ltilaunch.php" method="post" target="lti_student_iframe">
@@ -434,11 +435,28 @@ function launchLtiResource(activityId, activityType, activityContent, isStudentL
             <input type="hidden" id="activities_link_user" name="activities_link_user" value="${activityId}">
             <input type="hidden" id="student_resource_url" name="student_resource_url" value="${studentResourceUrl}">
         </form>
-        <iframe id="lti_student_iframe" src="about:blank" name="lti_student_iframe" title="Tool Content" width="100%" style="
-        height: 60vh;" allow="fullscreen *; microphone *; camera *; serial *; usb *" ></iframe>
+        <iframe id="lti_student_iframe" src="about:blank" name="lti_student_iframe" title="Tool Content" width="100%" style="height: ${height}px" allow="fullscreen *; microphone *; camera *; serial *; usb *" ></iframe>
         `;
     document.forms["resource_launch_form"].submit();
     $("#activity-content-container"+course).show();
+}
+
+function showLtiContentAsSimpleIframe(description = false) {
+    let height = window.innerHeight - 330;
+    const urlParams = new URLSearchParams(description);
+
+    let projectLink = urlParams.get('project_link'),
+        consoleState = urlParams.get('console'),
+        mode = urlParams.get('mode'),
+        board = urlParams.get('board'),
+        toolbox = urlParams.get('toolbox');
+
+    let interfaceName = description.substring(description.indexOf('interface=') + 10, description.indexOf('&', description.indexOf('interface=')));
+
+    let url = `https://fr.vittascience.com/${interfaceName}/?link=${projectLink}&console=${consoleState}&mode=${mode}&board=${board}&toolbox=${toolbox}`;
+    document.querySelector("#activity-content").innerHTML = 
+        `<iframe id="lti_student_iframe" src="${url}" title="Tool Content" width="100%" style="height: ${height}px" allow="fullscreen *; microphone *; camera *; serial *; usb *" ></iframe>`;
+    $("#activity-content-container").show();
 }
 
 
@@ -700,7 +718,8 @@ function loadActivityContent(doable = false) {
         } else {
             // LTI Activity
             if (Activity.isLti) {
-                launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description);
+                //launchLtiResource(Activity.id, Activity.type, JSON.parse(Activity.content).description);
+                showLtiContentAsSimpleIframe(JSON.parse(Activity.content).description);
             } else {
                 // Non core and non LTI Activity fallback
                 $("#activity-content").html(bbcodeToHtml(contentParsed));

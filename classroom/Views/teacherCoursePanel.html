@@ -130,7 +130,7 @@
         <div class="row text-center w-100 mt-1">
             <div class="col-sm mb-2">
                 <button class="btn c-btn-grey" onclick="coursesManager.goToCreate()">
-                    <span data-i18n="">Retour</span>
+                    <span data-i18n="words.return">Retour</span>
                 </button>
             </div>
             <div class="col-sm order-first order-sm-last mb-2">
@@ -350,6 +350,15 @@
 
             <div id="course-options" style="display: none;">
                 <div class="container mt-3 pt-1" id="facultative">
+
+                    <div class="row" id="form-add-date">
+                        <div class="col mb-5 text-center c-primary-form assign-row">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="isDate-course-form">
+                                <label for="isDate-course-form" class="form-check-label" data-i18n="classroom.activities.form.addDateCourse"></label>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-12 col-xl-6 c-primary-form assign-activity-calendar">

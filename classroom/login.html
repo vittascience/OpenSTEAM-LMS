@@ -287,9 +287,17 @@
                 <span class="fa fa-at"></span> <span data-i18n="login_popup.form.addressmail"></span><span
                     class="mandatory">*</span>
             </label>
-            <input name='mail' style="margin-bottom:5px;"
-                data-i18n="[placeholder]login_popup.form.addressmail_placeholder" class="form-control" type="email"
-                id="login-mail-input" data-testid="classroomLoginEmailInput">
+
+            <input 
+                type="email" 
+                name='email' 
+                style="margin-bottom:5px;"
+                data-i18n="[placeholder]login_popup.form.addressmail_placeholder" 
+                autocomplete="email" 
+                class="form-control" 
+                id="login-mail-input" 
+                data-testid="classroomLoginEmailInput"
+            >
 
             <label for="login-pwd-input">
                 <span class="fa fa-key"></span> <span data-i18n="login_popup.form.password"></span><span
