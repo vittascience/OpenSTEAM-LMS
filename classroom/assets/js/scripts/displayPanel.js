@@ -28,12 +28,14 @@ DisplayPanel.prototype.classroom_dashboard_profil_panel_manager = function () {
 DisplayPanel.prototype.classroom_dashboard_profil_panel = function () {
     $('#user-name').html(UserManager.getUser().pseudo)
     Main.getClassroomManager().getStudentActivity().then(function (data) {
-        $('.todo-activities').html(data.todoActivities)
+        $('.todo-activities').html(countActivityDoable())
         $('.todo-courses').html(data.todoCourses)
         $('.done-activities').html(data.doneActivities)
         $('.done-courses').html(data.doneCourses)
     })
 }
+
+
 DisplayPanel.prototype.classroom_dashboard_ide_panel = function (option) {
     if (option == "python" || option == "microbit" || option == "arduino" || option == "esp32" || option == "quickpi" || option == "adacraft" || option == "wb55" || option == "TI-83") {
         $('#classroom-dashboard-ide-panel').html('<iframe width="100%" style="height:85vh;" frameborder="0" allowfullscreen="" style="border:1px #d6d6d6 solid;" src="' + URLServer + '/' + option + '/?console=bottom&use=classroom&embed=1&action=new"></iframe>')
@@ -211,10 +213,10 @@ DisplayPanel.prototype.classroom_dashboard_sandbox_panel = function () {
 }
 
 DisplayPanel.prototype.classroom_dashboard_form_classe_panel = function () {
-    document.querySelector('#classroom-form-is-blocked').checked = false;
+    //document.querySelector('#classroom-form-is-blocked').checked = false;
     $('#classroom-form-name').val('');
     $('#classroom-form-school').val('');
-    $('#add-student-div').html(BASE_STUDENT_FORM);
+    //$('#add-student-div').html(BASE_STUDENT_FORM);
 }
 
 DisplayPanel.prototype.classroom_dashboard_form_classe_panel_update = function () {
@@ -341,7 +343,7 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
             document.getElementById('add-student-container').style.display = 'none';
             document.getElementById('classroom-info').style.display = 'none';
         }
-
+        let realCode = document.getElementById('complete-classroom-link');
         resetDisplayClassroom();
         breadcrumbManager.setSpecificClass(getClassroomInListByLink(ClassroomSettings.classroom)[0].classroom.name, link);
         // restore the add student div to its default content to remove potential changes from the update classroom modal
@@ -353,6 +355,8 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
                 let students = getClassroomInListByLink(link)[0].students
                 displayStudentsInClassroom(students, link)
                 $('.classroom-link').html(ClassroomSettings.classroom)
+                let realCode = document.getElementById('complete-classroom-link');
+                realCode.innerHTML = document.location.origin + '/classroom/login.php?link=' + ClassroomSettings.classroom;
             })
         } else {
             if (link == null || link == '') {
@@ -365,6 +369,7 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
             }
 
             $('.classroom-link').html(ClassroomSettings.classroom)
+            realCode.innerHTML = document.location.origin + '/classroom/login.php?link=' + ClassroomSettings.classroom;
             $('#classroom-code-share-qr-code').html('');
             currentOriginUrl = new URL(window.location.href).origin;
             fullPath = currentOriginUrl + '/classroom/login.php?link=' + ClassroomSettings.classroom;
@@ -383,14 +388,14 @@ DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
                 $('#blocking-class-tooltip > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
                 $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '1');
                 $('#blocking-class-tooltip').tooltip("dispose");
-                $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.activationLink')).tooltip();
+                $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.classroomUnlockedClickToLock')).tooltip();
 
             } else {
                 $('#blocking-class-tooltip').addClass('greyscale')
                 $('#blocking-class-tooltip > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
                 $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '0.5');
                 $('#blocking-class-tooltip').tooltip("dispose");
-                $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.activationLinkDisabled')).tooltip();
+                $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.classroomLockedClickToUnlock')).tooltip();
             }
 
             Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
@@ -428,8 +433,9 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) 
         }
     } else {
         let now = new Date()
-        let future = new Date()
-        future.setDate(future.getDate() + 365);
+        let future = new Date();
+        future.setMonth(future.getMonth() + 1);
+        future.setDate(future.getMonth() + 1);
         $('#date-begin-activity-form').val(formatDateInput(now))
         $('#date-end-activity-form').val(formatDateInput(future))
         $('#introduction-activity-form').val('')

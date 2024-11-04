@@ -105,7 +105,9 @@
 				"password": "Password",
 				"confirmPassword": "Confirm password",
 				"updateButton": "Update"
-			}
+			},
+			"copyPinStudent": "Copy the code",
+			"codeCopied": "The code has been copied"
 		},
 		"notif": {
 			"emptyContent": "The content can not be empty",
@@ -122,6 +124,7 @@
 			"deleteAccount": "Are you sure you want to delete the learner's account?",
 			"accountIsDelete": "The learner's account has been deleted",
 			"newPwd": "The learner's new password is {{pwd}} for {{pseudo}}",
+			"studentPwdChanged": "Your password has been changed",
 			"classCreatedButNotUsers": "The classroom {{classroomName}} has been created, but not the associated accounts (Your account does not allow you to have {{learnerNumber}} learners)",
 			"classUpdatedButNotUsers": "The classroom {{classroomName}} has been updated, but not the associated accounts (Your account does not allow you to have {{learnerNumber}} learners)",
 			"usersNotAdded": "The learner could not be added (Your account does not allow you to have {{learnerNumber}} learners)",
@@ -267,6 +270,12 @@
 			},	
 			"selectStudents": "Select the students",
 			"selectedStudents": "<span id='attribuate-student-number'>0</span> students selected",
+			"classroomLocked": "Classroom locked: click to unlock",
+			"classroomUnlocked": "Classroom unlocked: click to lock",
+			"classroomLockedClickToUnlock": "Classroom locked: click to unlock",
+			"classroomUnlockedClickToLock": "Classroom unlocked: click to lock",
+			"unlockClassroom": "Unlock the classroom",
+			"lockClassroom": "Lock the classroom",
 			"activationLink": "Activation link enabled",
 			"activationLinkDisabled": "Activation link disabled",
 			"deleteStudent": "Delete the student",
@@ -363,6 +372,8 @@
 				"nature": "Can the student submit the activity multiple times?",
 				"dateBegin": "Begin date :",
 				"dateEnd": "End date :",
+				"addDateActivity": "Do you want to add a date for this activity ?",
+				"addDateCourse": "Do you want to add a date for this course ?",
 				"retroAttribution" : "This activity will be added for every new students"
 			},
 			"toCopy": "This code allow you to join the classroom at ease :",
@@ -495,7 +506,12 @@
 				"title": "Add students",
 				"pseudo": "Pseudonym",
 				"addStudentButton": "Add student",
-				"addStudentByCsvButton": "Add a learner file (.csv)"
+				"addStudentByCsvButton": "Add a learner file (.csv)",
+				"addStudentByCsvButtonWithImg": "<i class='fas fa-file-csv me-2'></i>Add a learner file (.csv)",
+				"createStudentProfile": "Create a student profile",
+				"displayQrCodeAndLink": "<i class='fas fa-qrcode me-2'></i>Display the link and QR code",
+				"OptionByCSV": "You can add your learners via a CSV file",
+				"ShowQrCodeRecommended": "You can have your learners join via the class link or QR code"
 			},
 			"addStudentByCsv": {
 				"title": "Add students with a .csv file",
@@ -540,7 +556,8 @@
 				"description": "You're about to quit the current activity, but your changes haven't been saved. Do you still want to quit and lose the unsaved changes?",
 				"yesButton": "Yes, quit",
 				"noButton": "No, stay"
-			}
+			},
+			"exportMultipleTitle": "Export multiple activities" 
 		},
 		"folders": {
 			"folderManagement": "Folder management",
@@ -786,7 +803,8 @@
 		"options": "options",
 		"yes": "Yes",
 		"no": "No",
-		"rename": "rename"
+		"rename": "rename",
+		"recommanded": "recommended"
 	},
 	"manager": {
 		"profil": {
@@ -861,7 +879,7 @@
 			"errorActivation": "An error occurred during activation.",
 			"create": "Create user",
 			"delete": "Delete user",
-			"deleteConfirmation": "Please write \"delete\" in the field below to validate the action.",
+			"deleteConfirmation": "Please write \"ok\" in the field below to validate the action.",
 			"deleteIntentionSA": "You are about to delete the user : <span id=\"mdi_firstnameSA\"></span>",
 			"disableIntention": "You are about to disable the user : <span id=\"mde_firstnameSA\"></span>",
 			"deleteConfirmationTitle": "Confirm deletion",
@@ -870,7 +888,7 @@
 			"updateAppUser": "Update user apps",
 			"updateApp": "Update apps",
 			"disable": {
-				"message": "Please write \"delete\" in the field below to validate the action.",
+				"message": "Please write \"ok\" in the field below to validate the action.",
 				"intention": "You are about to delete the user : <span id=\"md_firstnameGA\"></span>"
 			},
 			"mail": {
@@ -1087,6 +1105,8 @@
 			"copyLink": "Copy link",
 			"show": "Show",
 			"manage": "Manage",
+			"selectAll": "Select all",
+			"unselectAll": "Unselect all",
 			"user": {
 				"add": "Add user",
 				"create": "Create user",
@@ -1118,7 +1138,8 @@
 		},
 		"input": {
 			"placeholder": {
-				"delete": "delete"
+				"delete": "delete",
+				"ok": "ok"
 			},
 			"writeDelete": "You must write delete to validate the action.",
 			"writeDisable": "You must write disable to validate the action."
@@ -1300,6 +1321,7 @@
 		"content": "Activity content <span class=\"c-text-red\">*</span>",
 		"addField": "Add answer field",
 		"addFieldTooltip": "By clicking on the Add answer field button, a stylized text is added. You can write the correct answer in this field. Alternative answers are separated by a double ampersand &&",
+		"exportNoActivitySelected": "No activity selected",
 		"ActivitiesData": {
 			"title": {
 				"reading": "Exercise with instructions",
@@ -1319,6 +1341,7 @@
 		"modals": {
 			"importActivity": "Import manager",
 			"importTitle": "Import an activity",
+			"importTitles": "Import activities",
 			"validateMessage": "Do you want to import the activity <span id='import-activity-title'></span> ?",
 			"imageSize": "Image size"
 		}
@@ -1334,7 +1357,7 @@
 		"format": {
 			"label": "Course's display format",
 			"onePage": "One page",
-			"standart": "Standart"
+			"standart": "Slide"
 		},
 		"pagination": {
 			"create":"Course's creation",

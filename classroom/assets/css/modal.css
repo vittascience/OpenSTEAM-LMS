@@ -229,9 +229,9 @@ div#modal-gpsmap .vitta-modal-content {
     color: #ccc;
 }
 
-.modal-separator span{
-    background-color: #fff;
-    color: #ccc;
+.modal-separator span {
+    background-color: var(--classroom-background);
+    color: var(--classroom-text-2);
     font-weight: bold;
     font-size: 1.7rem;
     z-index: 1002;

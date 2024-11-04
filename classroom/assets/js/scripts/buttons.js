@@ -349,7 +349,6 @@ function goToActivityPanel() {
 }
 
 
-//prof-->demoStudent
 function modeApprenant() {
     window.localStorage.showSwitchTeacherButton = 'true';
     Main.getClassroomManager().getDemoStudent(ClassroomSettings.classroom)
@@ -400,11 +399,6 @@ if (document.querySelector('#update-classroom-student-button')) {
     document.querySelector('#update-classroom-student-button').addEventListener('click', (e) => {
         e.preventDefault();
         pseudoModal.openModal('update-classroom-student-modal');
-    });
-
-    document.querySelector('#create-classroom-student-button').addEventListener('click', (e) => {
-        e.preventDefault();
-        pseudoModal.openModal('create-classroom-student-modal');
     });
 }
 
@@ -467,6 +461,7 @@ $('#settings-student').click(function () {
 
 document.getElementsByTagName('body')[0].addEventListener('click', (e) => {
     if (e.target.id == 'pwd-change-modal') {
+        displayNotification('#notif-div', "classroom.notif.studentPwdChanged", "success");
         e.stopPropagation();
         resetStudentPassword('#password-display-area');
     }
@@ -632,12 +627,59 @@ $('body').on('click', '.sandbox-action-add', function () {
     }
 })
 
+function isDateNull(dateBegin = null, dateEnd = null) {
+    if (dateBegin == null || dateEnd == null) {
+        return true;
+    }
+    return false;
+}
+
+function checkDateForActivities(dateBegin, dateEnd) {
+    let today = new Date();
+
+    if (dateBegin == null || dateEnd == null) {
+        return true;
+    }
+
+    let begin = new Date(dateBegin);
+    let end = new Date(dateEnd);
+    if (today < begin || today > end) {
+        return false;
+    }
+    return true;
+}
+
+function countCourseDoable() {
+    let today = new Date();
+    let doableCourse = Main.getClassroomManager()._myCourses.filter(course => {
+        let dateBegin = new Date(course.dateBegin.date);
+        let dateEnd = new Date(course.dateEnd.date);
+        return today >= dateBegin && today <= dateEnd;
+    }).length;
+
+    return doableCourse;
+}
+
+
+function countActivityDoable() {
+    let today = new Date();
+    let doableActivity = Main.getClassroomManager()._myActivities.newActivities.filter(activity => {
+        if (activity.dateBegin == null || activity.dateEnd == null) {
+            return true;
+        }
+        let dateBegin = new Date(activity.dateBegin.date);
+        let dateEnd = new Date(activity.dateEnd.date);
+        return today >= dateBegin && today <= dateEnd;
+    }).length;
+
+    return doableActivity;
+}
+
 function studentActivitiesDisplay() {
 
     let activities = Main.getClassroomManager()._myActivities;
-    
-
     let index = 1;
+
     document.querySelector('#new-activities-list').innerHTML = '';
     document.querySelector('#current-activities-list').innerHTML = '';
     document.querySelector('#saved-activities-list').innerHTML = '';
@@ -645,20 +687,26 @@ function studentActivitiesDisplay() {
 
     $('.section-new .resource-number').html(activities.newActivities.length)
     activities.newActivities.forEach(element => {
-        $('#new-activities-list').append(activityItem(element, "newActivities"));
-        index++;
+        if (isDateNull(element.dateBegin, element.dateEnd) || checkDateForActivities(element.dateBegin.date, element.dateEnd.date)) {
+            $('#new-activities-list').append(activityItem(element, "newActivities"));
+            index++;
+        }
     });
 
     $('.section-saved .resource-number').html(activities.savedActivities.length)
     activities.savedActivities.forEach(element => {
-        $('#saved-activities-list').append(activityItem(element, "savedActivities"));
-        index++;
+        if (isDateNull(element.dateBegin, element.dateEnd) || checkDateForActivities(element.dateBegin.date, element.dateEnd.date)) {
+            $('#saved-activities-list').append(activityItem(element, "savedActivities"));
+            index++;
+        }
     });
 
     $('.section-current .resource-number').html(activities.currentActivities.length)
     activities.currentActivities.forEach(element => {
-        $('#current-activities-list').append(activityItem(element, "currentActivities"));
-        index++;
+        if (isDateNull(element.dateBegin, element.dateEnd) || checkDateForActivities(element.dateBegin.date, element.dateEnd.date)) {
+            $('#current-activities-list').append(activityItem(element, "currentActivities"));
+            index++;
+        }
     });
 
     $('.section-done .resource-number').html(activities.doneActivities.length)
@@ -667,9 +715,14 @@ function studentActivitiesDisplay() {
         index++;
     });
 
-
-
     Main.getClassroomManager()._myCourses.forEach(course => {
+        let today = new Date(),
+            dateBegin = new Date(course.dateBegin.date),
+            dateEnd = new Date(course.dateEnd.date);
+
+        if (dateBegin && (today < dateBegin || dateEnd < today) && dateBegin != null && dateEnd != null) {
+            return;
+        }
 
         let saveCourse = false;
         course.activities.forEach(a => {
@@ -929,7 +982,7 @@ function toggleBlockClass() {
         $('#blocking-class-tooltip > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
         $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '1');
         $('#blocking-class-tooltip').tooltip("dispose");
-        $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.activationLink')).tooltip();
+        $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.classroomUnlocked')).tooltip();
         
     } else {
         classroom.isBlocked = true;
@@ -937,13 +990,16 @@ function toggleBlockClass() {
         $('#blocking-class-tooltip > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
         $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '0.5');
         $('#blocking-class-tooltip').tooltip("dispose");
-        $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.activationLinkDisabled')).tooltip();
+        $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.classroomLocked')).tooltip();
     }
     Main.getClassroomManager().updateClassroom(classroom);
 }
 
 // Show the month in string format
 function formatDay(da) {
+    if (da == null) {
+        return "";
+    }
     let d = new Date(da.date)
     let translatedMonth = i18next.t("classroom.activities.month." + parseInt(d.getMonth() + 1) );
     let numericMonth = d.getMonth() + 1 < 10 ? '0' + (d.getMonth() + 1) : d.getMonth() + 1;
@@ -3256,7 +3312,7 @@ function updateDefaultUsersLimitation() {
             html += `</div>`;
         });
         html += `<button class="btn c-btn-secondary my-3 btn" onclick="persistUpdateDefaultUsersRestriction()">${i18next.t(`manager.buttons.update`)}</button>`;
-        html += `<button class="btn c-btn-light my-3 btn" onclick="closeDefault()">${i18next.t(`manager.buttons.cancel`)}</button>`;
+        html += `<button class="btn c-btn-primary my-3 btn" onclick="closeDefault()">${i18next.t(`manager.buttons.cancel`)}</button>`;
         $('#update-default-restrictions').html(html);
     })
 }
@@ -3275,7 +3331,7 @@ function updateDefaultGroupsLimitation() {
             html += `</div>`;
         });
         html += `<button class="btn c-btn-secondary my-3 btn" onclick="persistUpdateDefaultGroupsRestriction()">${i18next.t(`manager.buttons.update`)}</button>`;
-        html += `<button class="btn c-btn-light my-3 btn" onclick="closeDefault()">${i18next.t(`manager.buttons.cancel`)}</button>`;
+        html += `<button class="btn c-btn-primary my-3 btn" onclick="closeDefault()">${i18next.t(`manager.buttons.cancel`)}</button>`;
         $('#update-default-restrictions').html(html);
     })
 }
@@ -3304,7 +3360,7 @@ function updateDefaultActivitiesLimitation() {
             html += `</div>`;
         });
         html += `<button class="btn c-btn-secondary my-3 btn" onclick="persistUpdateDefaultActivitiesRestriction()">${i18next.t(`manager.buttons.update`)}</button>`;
-        html += `<button class="btn c-btn-light my-3 btn" onclick="closeDefault()">${i18next.t(`manager.buttons.cancel`)}</button>`;
+        html += `<button class="btn c-btn-primary my-3 btn" onclick="closeDefault()">${i18next.t(`manager.buttons.cancel`)}</button>`;
         $('#update-default-restrictions').html(html);
     })
 }
@@ -3424,7 +3480,6 @@ function setAddFieldTooltips() {
     $('#infoEvaluation').attr("title", i18next.t('classroom.activities.infoEvaluation')).tooltip();
 }
 setTimeout(setAddFieldTooltips, 2000);
-
 
 
 function facultativeOptions() {

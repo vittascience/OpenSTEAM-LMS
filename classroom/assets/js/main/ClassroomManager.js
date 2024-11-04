@@ -47,6 +47,7 @@ class ClassroomManager {
         
         this.excludedActivityType = [];
         this.excludedObjectFromDashboard = [];
+        this.classLinkBeforeNewPanel = null;
     }
 
     /**
@@ -160,7 +161,7 @@ class ClassroomManager {
             });
 
             $('#customizable-modal-content').append(`<div class="text-center col-12">
-                <button class="btn c-btn-light mx-auto mt-3 btn-lg" onclick="tiActivity.cancelModal()" data-i18n="manager.buttons.cancel">Annuler</button>
+                <button class="btn c-btn-primary mx-auto mt-3 btn-lg" onclick="tiActivity.cancelModal()" data-i18n="manager.buttons.cancel">Annuler</button>
             </div>`);
         });
     }
@@ -224,13 +225,45 @@ class ClassroomManager {
         }
     }
 
+    /* 
+    * Show the link and QR code panel with return button for the actual classroom
+    */
+    showLinkAndQrPanel() {
+        const btnReturn = document.getElementById('return-to-add-student-modal');
+        pseudoModal.closeAllModal();
+        this.classLinkBeforeNewPanel = this.returnClassroomLinkFromUrl();
+        !this.classLinkBeforeNewPanel ? btnReturn.classList.add('d-none') : btnReturn.classList.remove('d-none');
+        navigatePanel('classroom-table-panel-teacher-code', 'dashboard-classes-teacher');
+    }
+    
+    
+    returnToAddStudentModal() {
+        navigatePanel('classroom-table-panel-teacher', 'dashboard-classes-teacher', this.classLinkBeforeNewPanel)
+        $('#add-student-to-classroom').prop('disabled', false);
+        pseudoModal.openModal('add-student-modal');
+    }
+
+    returnClassroomLinkFromUrl() {
+        let isClassroomLinkInUrl = window.location.search.includes('option=');
+        if (!isClassroomLinkInUrl) {
+            return
+        }
+
+        let link = window.location.search.split('option=')[1];
+        if (link.length != 5) {
+            return
+        }
+
+        return link;
+    }
+
     /**
      * Get classrooms from the user
      * Access with Main.getClassroomManager()._myClasses
      * @public
      * @returns {Array}
      */
-    getClasses(container) {
+    async getClasses(container) {
         return new Promise((resolve, reject) => {
             // Wrap the current action into a task function
             let currentTask = (onEnd) => {
@@ -1485,7 +1518,28 @@ class ClassroomManager {
         })
     }
 
-
+    /**
+     *  @param {string} $activities
+     * @returns {Promise}
+     */
+    importMultiplesActivities($activities) {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "POST",
+                dataType: "JSON",
+                url: "/routing/Routing.php?controller=newActivities&action=import_multiples_activities",
+                data: {
+                    'activities' : $activities
+                },
+                success: function (response) {
+                    resolve(response);
+                },
+                error: function () {
+                    reject('error')
+                }
+            });
+        })
+    }
 
     /* 
     * @param {string} $id
