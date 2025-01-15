@@ -243,6 +243,38 @@ function askQuitLtiWithoutSaving() {
     });
 }
 
+
+function askQuitSandboxWithoutSaving() {
+    return new Promise((resolve, reject) => {
+        const modalElt = document.querySelector('#quit-sandbox-activity-modal'),
+        modalCloseButtonElt = modalElt.querySelector('.vitta-modal-exit-btn'),
+        modalYesButtonElt = document.querySelector('#quit-sandbox-yes-button'),
+        modalNoButtonElt = document.querySelector('#quit-sandbox-no-button');
+        new Modal("a").openModal('quit-sandbox-activity-modal').openModal('quit-sandbox-activity-modal');
+
+        const removeListeners = () => {
+            modalYesButtonElt.removeEventListener('click', quitCallback);
+            modalNoButtonElt.removeEventListener('click', stayCallback);
+            modalCloseButtonElt.removeEventListener('click', stayCallback);
+            new Modal("a").openModal('quit-sandbox-activity-modal').closeModal('quit-sandbox-activity-modal');
+        }
+
+        const quitCallback = () => { 
+            resolve(true); 
+            removeListeners();
+        };
+
+        const stayCallback = () => { 
+            resolve(false); 
+            removeListeners();
+        };
+
+        modalYesButtonElt.addEventListener('click', quitCallback);
+        modalNoButtonElt.addEventListener('click', stayCallback);
+        modalCloseButtonElt.addEventListener('click', stayCallback);
+    });
+}
+
 /**
  * Navigate trough panels
  * @param {string} id - The destination panel
@@ -273,6 +305,16 @@ async function navigatePanel(id, idNav, option = "", interface = '', isOnpopstat
         const quitLti = await askQuitLtiWithoutSaving();
         if (!quitLti) return;
     }
+
+    /*     
+    const isIDEPanel = $_GET('panel') === 'classroom-dashboard-ide-panel';
+    const isNavInludesInterface = $_GET('interface') !== undefined;
+
+    if (isIDEPanel && isNavInludesInterface) {
+        const quitSandbox = await askQuitSandboxWithoutSaving();
+        if (!quitSandbox) return;
+    } 
+    */
 
     breadcrumbManager.navigatePanelBreadcrumb(idNav, id, $_GET('nav'), $_GET('panel'));
     // If there is any working activity tracker, send the tracking data and stop it

@@ -1485,6 +1485,28 @@ const classroomModals = {
                     </div>`,
         footer: ``
     },
+    'quit-sandbox-activity-modal': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.modals.quitSandboxActivity.title'
+        },
+        content: `  <div class="container-fluid d-flex flex-wrap">
+                        <div class="col-12">
+
+                            <div class="text-center c-secondary-form">
+                                <p data-i18n="[html]classroom.modals.quitSandboxActivity.description" class="text-center"></p>
+                            </div>
+
+                            <div class="text-center">
+                                <button id="quit-sandbox-yes-button" class="btn c-btn-red mx-auto mt-3 btn-lg" data-i18n="classroom.modals.quitSandboxActivity.yesButton"></button>
+                                <button id="quit-sandbox-no-button" class="btn c-btn-primary mx-auto mt-3 btn-lg" data-i18n="classroom.modals.quitSandboxActivity.noButton"></button>
+                            </div>
+
+                        </div>
+                    </div>`,
+        footer: ``
+    },
     'activities-multiple-export': {
         selector: '',
         header: {
