@@ -3945,3 +3945,29 @@ th, td {
 .fs-large {
     font-size: large;
 }
+
+
+/* break point height > 870 */
+.lti-iframe-height {
+    min-height: 80vh;
+}
+@media (max-height: 1150px) {
+    .lti-iframe-height {
+        min-height: 78vh;
+    }
+}
+@media (max-height: 950px) {
+    .lti-iframe-height {
+        min-height: 74vh;
+    }
+}
+@media (max-height: 780px) {
+    .lti-iframe-height {
+        min-height: 70vh;
+    }
+}
+@media (max-height: 600px) {
+    .lti-iframe-height {
+        min-height: 63vh;
+    }
+}
