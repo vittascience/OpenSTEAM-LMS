@@ -491,7 +491,7 @@ const classroomModals = {
             <select class="form-control" id="u_group">
             </select>
             <div class="input-group-append">
-                <div class="input-group-text c-checkbox c-checkbox-grey">
+                <div class="input-group-text c-checkbox c-checkbox-grey input-group-selector">
                     <input class="form-check-input" type="checkbox" id="u_is_group_admin">
                     <label class="form-check-label" for="u_is_group_admin" data-i18n="manager.users.groupAdmin">
                         Administrateur du groupe
@@ -933,16 +933,16 @@ const classroomModals = {
             title: 'manager.group.showLinkTitle'
         },
         content: `  <div id="groupadmin-show-grouplink-modal">
-                        <div class="col-12">
-                            <h3 class="font-weight-bold text-info m-auto text-center my-3" data-i18n="manager.group.showLinkTitle">Lien du groupe</h3>
+                        <div class="col-10 mx-auto">
+                            <h3 class="font-weight-bold text-primary m-auto text-center my-3" data-i18n="manager.group.showLinkTitle">Lien du groupe</h3>
                             <div class="input-group c-secondary-form">
                                 <input type="text" class="form-control" id="groupLink">
-                                <div class="input-group-append">
-                                    <button class="btn c-btn-secondary" onclick="copyLink('#groupLink')" data-i18n="manager.buttons.copyLink">Copy the link</button>
+                                <div class="input-group-append ">
+                                    <button class="btn c-btn-secondary input-group-selector" onclick="copyLink('#groupLink')" data-i18n="manager.buttons.copyLink">Copy the link</button>
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row col-12 mx-auto">
                                 <button class="btn c-btn-primary mx-auto mt-3 btn" onclick="dismissModal()" data-i18n="manager.buttons.close">Fermer</button>
                             </div>
                         </div>

@@ -1166,7 +1166,7 @@
 				"newsletter": "Souhaitez-vous recevoir notre newsletter par mail ?",
 				"mailAlert": "Souhaitez-vous recevoir des alertes par mail lors de la réception de nouveaux messages sur le site ?",
 				"allowContact": "Souhaitez-vous pouvoir être contacté par les autres utilisateurs du site ?",
-				"confirmAdult": "Je confirme avoir plus de 18 ans (article 1124 du code civil)*",
+				"confirmAdult": "Je confirme avoir plus de 18 ans (article 1124 du code civil) <span class='c-text-red'>*</span>",
 				"disclaimerVittascience": "Vittascience place la sécurité et la confidentialité des données personnelles de ses utilisateurs au coeur de ses préoccupations. Découvrez<a href=\"http://vittascience.com/privacy\"> notre politique de protection des données personnelles</a> ",
 				"mandatory": "Les champs marqués par un <span class=\"c-text-red\">*</span> sont obligatoires.",
 				"cguVittascience": "En validant ce formulaire, vous acceptez les <a href=\"http://vittascience.com/\"> conditions générales d'utilisation</a>.",
