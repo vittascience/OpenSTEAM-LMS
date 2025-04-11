@@ -831,9 +831,9 @@ function manageDisplayLti(correction, content, correction_div, isDoable, activit
     if (isDoable) {
         activityValidationButtonElt.style.display = 'none';
         if (!UserManager.getUser().isRegular) {
-            launchLtiResource(Activity.id, Activity.activity.type, content, true);
+            launchLtiResource(Activity.id, Activity.activity.type, content, true, Activity.url);
         } else {
-            launchLtiResource(Activity.id, Activity.activity.type, content, false);
+            launchLtiResource(Activity.id, Activity.activity.type, content, false, Activity.url);
         }
     } else {
         document.querySelector('#activity-content').innerHTML = `
