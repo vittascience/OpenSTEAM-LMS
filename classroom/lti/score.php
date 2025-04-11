@@ -58,7 +58,7 @@ $activityId = $_REQUEST['activity_id'];
 $scoreGiven = $grade->scoreGiven ?? null;
 $scoreMaximum = $grade->scoreMaximum ?? null;
 $activityProgress = $grade->activityProgress;
-$gradingProgress = $grade->gradingProgress;
+if(isset($grade->gradingProgress)) $gradingProgress = $grade->gradingProgress; else $gradingProgress = "";
 $timestamp = $grade->timestamp;
 $userId = $grade->userId;
 $comment = $grade->comment;
@@ -105,5 +105,6 @@ try {
 
 
 } catch(Exception $e) {
-  echo json_encode(['Error:' => $e->getMessage()]);
+    error_log("Error at score saving".$e);
+    echo json_encode(['Error:' => $e->getMessage()]);
 }
