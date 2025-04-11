@@ -84,13 +84,16 @@ try {
     $activity->setNote((int) $convertedScore);
   }
   else {
-      // $lineItemId is the id of the activityLinkUser (sent back from the tool)
       $activityLinkUser = $entityManager->getRepository(ActivityLinkUser::class)->find($activityId);
       $activityLinkUser->setUrl($comment);
 
       if($gradingProgress == "FullyGraded") {
         $activityLinkUser->setNote((int) $convertedScore);
         $activityLinkUser->setCorrection(2);
+      }
+      elseif ($activityProgress == "InProgress") {
+          $activityLinkUser->setCorrection(0);
+          $activityLinkUser->setResponse("-");
       }
       else {
         // set correction field to 1 (teacher must manually give score)
