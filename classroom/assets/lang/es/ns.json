@@ -614,7 +614,7 @@
       "mailSuccess": "Se ha enviado un correo electrónico de activación a su dirección de correo electrónico.",
       "mailError": "Se ha producido un error. Por favor, verifique su dirección de correo electrónico.",
       "userNotFound": "No se ha encontrado ningún usuario vinculado con este correo.",
-      "inactiveAccount": "Su cuenta no está activa, haga clic en el botón de abajo para enviar un nuevo correo de validación.",
+      "inactiveAccount": "Su cuenta no está activa, haga clic en este {{link}} para enviar un nuevo correo de validación.",
       "accountDeactivated": "Su cuenta ha sido desactivada, contacte con un administrador si el problema persiste.",
       "errorBeta": "Para acceder a esta funcionalidad debe ser un beta tester.<a href='https://fr.vittascience.com/about#contact'>Contacte con el equipo de Vittascience</a> para saber más.",
       "badInput": "Correo electrónico y contraseña obligatorios"
@@ -718,6 +718,7 @@
       "options": "opciones",
       "yes": "Sí",
       "no": "No",
+      "link": "enlace",
       "recommanded": "recomendado"
     },
     "manager": {

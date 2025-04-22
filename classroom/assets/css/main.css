@@ -1483,7 +1483,7 @@ h3.section-done {
 
 .sandbox-card,
 .activity-card {
-    height: 100%;
+    height: auto;
     width: 100%;
     background-color: var(--classroom-primary);
     background: url("../media/cards/card-default.jpg");

@@ -1017,7 +1017,7 @@
 		"mailError": "Une erreur est survenue. Veuillez vérifier votre adresse mail.",
 		"userNotFound": "Aucun utilisateur trouvé avec ces identifiants.",
 		"accountDeactivated": "Votre compte a été désactivé, contactez un administrateur si le problème persiste.",
-		"inactiveAccount": "Votre compte n'est pas encore actif, cliquez sur le bouton ci dessous pour envoyer l'email de validation.",
+		"inactiveAccount": "Votre compte n'est pas actif, cliquez sur ce {{link}} pour envoyer un nouveau mail de validation.",
 		"errorBeta": "Vous devez être bêta testeur pour accéder à cette fonctionalité. <a href='https://fr.vittascience.com/about#contact'>Contacter l'équipe Vittascience</a> pour en savoir plus.",
 		"badInput": "L'email et le mot de passe sont requis"
 	},
@@ -1121,6 +1121,7 @@
 		"yes": "Oui",
 		"no": "Non",
 		"rename": "renommer",
+		"link": "lien",
 		"recommanded": "recommandé"
 	},
 	"manager": {
