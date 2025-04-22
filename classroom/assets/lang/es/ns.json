@@ -105,7 +105,9 @@
           "password": "Contraseña",
           "confirmPassword": "Confirmar contraseña",
           "updateButton": "Actualización"
-        }
+        },
+			  "copyPinStudent": "Copiar código",
+        "codeCopied": "Código copiado"
       },
       "notif": {
         "emptyContent": "El contenido no puede estar vacío",
@@ -122,6 +124,7 @@
         "deleteAccount": "¿Estás seguro de que quieres eliminar la cuenta del alumno?",
         "accountIsDelete": "La cuenta del alumno ha sido eliminada",
         "newPwd": "La nueva contraseña del alumno es {{pwd}} para {{pseudo}}",
+        "studentPwdChanged": "La contraseña del alumno ha sido cambiada",
         "classCreatedButNotUsers": "Se ha creado el aula {{classroomName}}, pero no las cuentas asociadas (Su cuenta no permite tener {{learnerNumber}} alumnos)",
         "classUpdatedButNotUsers": "El aula {{classroomName}} ha sido actualizada, pero no las cuentas asociadas (Su cuenta no permite tener {{learnerNumber}} alumnos)",
         "usersNotAdded": "El alumno no ha podido ser añadido (Su cuenta no le permite tener {{learnerNumber}} alumnos)",
@@ -258,6 +261,12 @@
         },
         "selectStudents": "Seleccionar a los estudiantes",
         "selectedStudents": "<span id='attribute-student-number'>0</span> estudiantes seleccionados",
+        "classroomLocked": "Aula bloqueada: haz clic para desbloquear",
+        "classroomUnlocked": "Aula desbloqueada: haz clic para bloquear",
+        "classroomLockedClickToUnlock": "Aula bloqueada: haz clic para desbloquear",
+        "classroomUnlockedClickToLock": "Aula desbloqueada: haz clic para bloquear",
+        "unlockClassroom": "Desbloquear la clase",
+        "lockClassroom": "Bloquear la clase",
         "activationLink": "Enlace de activación activado",
         "activationLinkDisabled": "Enlace de activación desactivado",
         "deleteStudent": "Borrar al estudiante",
@@ -454,7 +463,12 @@
           "title": "Añadir estudiantes",
           "pseudo": "Seudónimo",
           "addStudentButton": "Añadir estudiante",
-          "addStudentByCsvButton": "Añadir un archivo de aprendizaje (.csv)"
+          "addStudentByCsvButton": "Añadir un archivo de aprendizaje (.csv)",
+          "addStudentByCsvButtonWithImg": "<i class='fas fa-file-csv me-2'></i>Agregar un archivo de estudiantes (.csv)",
+          "createStudentProfile": "Crear un perfil de estudiante",
+          "displayQrCodeAndLink": "<i class='fas fa-qrcode me-2'></i>Mostrar el enlace y el código QR",
+          "OptionByCSV": "Puedes agregar a tus estudiantes mediante un archivo CSV",
+          "ShowQrCodeRecommended": "Puedes hacer que tus estudiantes se unan mediante el enlace de clase o el código QR"
         },
         "addStudentByCsv": {
           "title": "Añadir estudiantes con un archivo .csv",
@@ -492,7 +506,8 @@
           "description": "Introduzca su contraseña actual para confirmar los cambios en su perfil.",
           "placeholderInput": "Contraseña",
           "validateButton": "Validar"
-        }
+        },
+        "exportMultipleTitle": "Exportar múltiples actividades"
       },
       "folders": {
         "folderManagement": "Gestión de carpetas",
@@ -703,7 +718,8 @@
       "options": "opciones",
       "yes": "Sí",
       "no": "No",
-      "link": "enlace"
+      "link": "enlace",
+      "recommanded": "recomendado"
     },
     "manager": {
       "profil": {
@@ -778,7 +794,7 @@
         "errorActivation": "Se ha producido un error durante la activación.",
         "create": "Crear usuario",
         "delete": "Borrar usuario",
-        "deleteConfirmation": "Por favor, escriba \"borrar\" en el campo de abajo para validar la acción.",
+        "deleteConfirmation": "Por favor, escriba \"ok\" en el campo de abajo para validar la acción.",
         "deleteIntentionSA": "Está a punto de eliminar el usuario: <span id=\"mdi_firstnameSA\"></span>",
         "disableIntention": "Está a punto de desactivar el usuario: <span id=\"mde_firstnameSA\"></span>",
         "deleteConfirmationTitle": "Confirmar el borrado",
@@ -787,7 +803,7 @@
         "updateAppUser": "Actualizar las aplicaciones de los usuarios",
         "updateApp": "Actualizar las aplicaciones",
         "disable": {
-          "message": "Por favor, escriba \"borrar\" en el campo de abajo para validar la acción.",
+          "message": "Por favor, escriba \"ok\" en el campo de abajo para validar la acción.",
           "intention": "Está a punto de eliminar el usuario: <span id=\"md_firstnameGA\"></span>"
         },
         "mail": {
@@ -1002,6 +1018,8 @@
         "copyLink": "Copiar enlace",
         "show": "Mostrar",
         "manage": "Gestionar",
+        "selectAll": "Seleccionar todo",
+        "unselectAll": "Deseleccionar todo",
         "user": {
           "add": "Añadir usuario",
           "create": "Crear usuario",
@@ -1033,7 +1051,8 @@
       },
       "input": {
         "placeholder": {
-          "delete": "borrar"
+          "delete": "borrar",
+          "ok": "ok"
         },
         "writeDelete": "Debes escribir \"delete\" para validar la acción.",
         "writeDisable": "Debe escribir deshabilitar para validar la acción."
@@ -1203,6 +1222,7 @@
       "content": "Contenido de la actividad <span class=\"c-text-red\">*</span>",
       "addField": "Añadir campo de respuesta",
       "addFieldTooltip": "Haciendo clic en el botón Añadir campo de respuesta, se añade un texto estilizado. Puede escribir la respuesta correcta en este campo. Las respuestas alternativas están separadas por un doble amperio &&.",
+      "exportNoActivitySelected": "No se ha seleccionado ninguna actividad para exportar.",
       "ActivitiesData": {
         "title": {
           "reading": "Leer",
@@ -1219,6 +1239,85 @@
           "dragAndDrop": "Esta actividad permite arrastrar y soltar palabras en diferentes espacios vacíos."
         }
       }
+    },
+    "courses": {
+      "add": "Create a course",
+      "addActivity":"Add an existing activity",
+      "addActivities":"Add activities",
+      "createActivity": "Create a new activity",
+      "searchActivity": "Search an activity",
+      "placeholderTitle": "Activity title",
+      "placeholderDescription": "Activity description",
+      "format": {
+        "label": "Course's display format",
+        "onePage": "One page",
+        "standart": "Slide"
+      },
+      "pagination": {
+        "create":"Course's creation",
+        "title": "Title",
+        "parameters": "Parameters",
+        "attribution": "Attribution"
+      },
+      "parameters": {
+        "title":"Course title <span class=\"c-text-red\">*</span>",
+        "description": "Course's description <span class=\"c-text-red\">*</span>",
+        "difficulty": "Difficulty <span class=\"c-text-red\">*</span>",
+        "difficultyLevel": {
+          "choose": "Choose a difficulty level",
+          "easy": "Easy",
+          "medium": "Medium",
+          "advanced": "Advanced",
+          "expert": "Expert"
+        },
+        "duration": "Duration (minutes) <span class=\"c-text-red\">*</span>",
+        "license": "User license <span class=\"c-text-red\">*</span>",
+        "licenseType": {
+          "choose": "Choose a license",
+          "1": "Private (only you can see this resource)",
+          "2": "Unreferenced (shareable resource by link but not findable on the Resources page)",
+          "3": "Public CC-BY-NC-SA (free, non-commercial and modifiable resource)",
+          "4": "Public CC-BY-NC-ND (free, non-commercial and non-modifiable resource)"
+        }
+      },
+      "successfullyCreated": "Course created successfully",
+      "attribution": "Course attribution <i class='fas fa-chevron-right'></i>",
+      "return": "Return <i class='fas fa-chevron-right'></i>",
+      "update": "Update the course",
+      "show": "Show course",
+      "informationWhenEmpty": "Click on the buttons above to add activities to the course."
+    },
+    "statistics": {
+      "total": "Total {{entity}}",
+      "average": "Promedio",
+      "totalTimeSpent": "Tiempo total invertido",
+      "averageTimeSpent": "Promedio del tiempo invertido",
+      "averageOfTotalTimeSpent": "Promedio del tiempo total invertido",
+      "totalConnections": "Total de conexiones",
+      "averageOfTotalConnections": "Promedio de conexiones",
+      "eligibleOfStatistics": "Total {{entity}} elegible para estadísticas",
+      "activityViewed": "Actividad vista",
+      "averageOfActivityViewed": "Promedio de actividad vista",
+      "statisticsFor": "Estadísticas para {{entity}}",
+      "statistics": "Estadísticas",
+      "students": "Estudiantes",
+      "teachers": "Profesores",
+      "ofStudents": "de estudiantes",
+      "ofTeachers": "de profesores",
+		  "activityCreated": "Actividad creada",
+      "noDataFor": "No hay datos para {{entity}}",
+      "days": "días",
+      "hours": "horas",
+      "minutes": "minutos",
+      "seconds": "segundos",
+      "totalActivities" : "Total de actividades",
+      "totalCourses" : "Total de cursos",
+      "globalStatistics": "Estadísticas globales",
+      "medianAverageTimeSpent": "Mediana del tiempo promedio invertido",
+      "medianTotalTimeSpent": "Mediana del tiempo total invertido",
+      "exportToCSV" : "Exportar en CSV",
+      "exportToPDF" : "Exportar en PDF",
+      "exportToXLS" : "Exportar en XLS"
     }
   }
   

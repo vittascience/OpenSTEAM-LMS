@@ -92,7 +92,7 @@
 
                             if (user.isRegular) {
                                 $('body').addClass('theme-teacher')
-                                $('.user-picture').attr('src',`/classroom/assets/media/alphabet/${UserManager.getUser().firstname.slice(0, 1).toUpperCase()}.png`)
+                                $('.user-picture').attr('src',`/classroom/assets/media/alphabet/${getFirstLetterOfPseudo(UserManager.getUser().firstname)}.png`)
 
                                 let administration = [];
                                 // Init the super and group admin
@@ -116,7 +116,7 @@
                                 // nav => dashboard-activities-teacher
                                 $('#classroom-dashboard-sidebar').show()
                                 $('body').addClass('theme-student')
-                                $('.user-picture').attr('src', '/classroom/assets/media/alphabet/' + UserManager.getUser().pseudo.slice(0, 1).toUpperCase() + '.png')
+                                $('.user-picture').attr('src',`/classroom/assets/media/alphabet/${getFirstLetterOfPseudo(UserManager.getUser().pseudo)}.png`)
                                 Main.getClassroomManager().getMyClassroom(UserManager.getUser().id).then(function (classroom) {
                                     $('#classroom-name').html(classroom.name)
                                     ClassroomSettings.classroom = classroom.link

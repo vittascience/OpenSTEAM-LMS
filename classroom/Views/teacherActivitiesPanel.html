@@ -34,10 +34,10 @@
             </div>
 
             <div class="col-auto mt-2">
-                <button class="btn c-btn-icon-only mx-1" onclick="foldersManager.displayModeSwitch('card')">
+                <button class="btn c-btn-icon-only mx-1" onclick="foldersManager.displayModeSwitch('card')" id="switcherCard">
                     <img src="assets/media/folders/cadrillage.svg" alt="arb-folders" onload="SVGInject(this)">
                 </button>
-                <button class="btn c-btn-icon-only mx-1" onclick="foldersManager.displayModeSwitch('list')">
+                <button class="btn c-btn-icon-only mx-1" onclick="foldersManager.displayModeSwitch('list')" id="switchList">
                     <img src="assets/media/folders/arborescence.svg" alt="arb-folders" onload="SVGInject(this)">
                 </button>
             </div>
@@ -152,37 +152,9 @@
             </div>
         </div>
 
-
-        <!-- Autocorrect activation -->
-        <div class="row" id="form-autocorrect">
-            <div class="col mb-5 text-center c-primary-form assign-row">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="isAutocorrection-activity-form" onclick="autocorrectSwitch()">
-                    <label for="isAutocorrection-activity-form" class="form-check-label" data-i18n="classroom.activities.form.autocorrect"></label>
-                </div>
-                <i class="fas fa-info assign-info-icon" id="infoAutocorrect" data-bs-toggle="tooltip" title=""></i>
-            </div>
-        </div>
-
-
         <!-- Submit multiple times -->
         <div class="row">
             <div class="col mb-5 text-center c-primary-form">
-                <div class="assign-row">
-                    <div>
-                        <label for="isEval-activity-form" data-i18n="classroom.activities.form.nature"></label>
-                        <div class="switcher w-fit-content mx-auto">
-                            <input type="radio" name="isEval-activity-form" class="switcher__input switcher__input--left" value="false" id="isExo-activity-form" checked=""/>
-                            <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes">Oui</label>
-                        
-                            <input type="radio" name="isEval-activity-form" class="switcher__input switcher__input--right" value="true" id="isEval-activity-form"/>
-                            <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no">Non</label>
-                        
-                            <span class="switcher__toggle"></span>
-                        </div>
-                    </div>
-                </div>
-
                 <p id="hint-exist-disclaimer" data-i18n="[html]classroom.activities.hintExist" style="display:none;"></p>
             </div>
         </div>
@@ -197,6 +169,16 @@
 
             <div id="facultative-options" style="display: none;">
                 <div class="container mt-3 pt-1" id="facultative">
+
+                                        <!-- Autocorrect activation -->
+                    <div class="row" id="form-add-date">
+                        <div class="col mb-5 text-center c-primary-form assign-row">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="isDate-activity-form">
+                                <label for="isDate-activity-form" class="form-check-label" data-i18n="classroom.activities.form.addDateActivity"></label>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-12 col-xl-6 c-primary-form assign-activity-calendar">
@@ -230,6 +212,35 @@
                                 <i data-i18n="words.optional"></i>
                             </label></br>
                             <textarea rows="4" id="introduction-activity-form"></textarea>
+                        </div>
+                    </div>
+
+
+                    
+                    <div class="assign-row">
+                        <div>
+                            <label for="isEval-activity-form" data-i18n="classroom.activities.form.nature"></label>
+                            <div class="switcher w-fit-content mx-auto">
+                                <input type="radio" name="isEval-activity-form" class="switcher__input switcher__input--left" value="false" id="isExo-activity-form" checked=""/>
+                                <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes">Oui</label>
+                            
+                                <input type="radio" name="isEval-activity-form" class="switcher__input switcher__input--right" value="true" id="isEval-activity-form"/>
+                                <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no">Non</label>
+                            
+                                <span class="switcher__toggle"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Autocorrect activation -->
+                    <div class="row" id="form-autocorrect">
+                        <div class="col mb-5 text-center c-primary-form assign-row">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="isAutocorrection-activity-form" onclick="autocorrectSwitch()">
+                                <label for="isAutocorrection-activity-form" class="form-check-label" data-i18n="classroom.activities.form.autocorrect"></label>
+                            </div>
+                            <i class="fas fa-info assign-info-icon" id="infoAutocorrect" data-bs-toggle="tooltip" title=""></i>
                         </div>
                     </div>
 

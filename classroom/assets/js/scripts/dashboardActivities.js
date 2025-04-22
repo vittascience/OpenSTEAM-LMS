@@ -346,7 +346,7 @@ function classeList(classe, ref = null) {
         html += `<div class="c-checkbox ms-3 student-attribute-form-row">
             <input type="checkbox" id="student-${student.user.id}" value="${student.user.id}" class="student-id" ${checked}>
             <label class="mb-0" for="student-${student.user.id}">
-                <img class="ms-1" src="${_PATH}assets/media/alphabet/${student.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil"></img>
+                <img class="ms-1" src="${_PATH}assets/media/alphabet/${getFirstLetterOfPseudo(student.user.pseudo)}.png" alt="Photo de profil"></img>
                 <span>${student.user.pseudo}</span>
             </label>
         </div>`
@@ -357,35 +357,46 @@ function classeList(classe, ref = null) {
 
     return html;
 }
+
 //filter activity
 $('body').on('click', '#filter-activity', function () {
-    let arrayKeywords = $('#filter-activity-input').val().split(' ')
-    if ($('#filter-activity-select').val() == 'asc') {
-        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false), arrayKeywords, false)
-    } else {
-        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true), arrayKeywords, true)
-    }
+    processDisplay();
 })
 
 $('body').on('change', '#filter-activity-select', function () {
-    let arrayKeywords = $('#filter-activity-input').val().split(' ')
-    if ($('#filter-activity-select').val() == 'asc') {
-        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false), arrayKeywords, false)
-    } else {
-        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true), arrayKeywords, true)
-    }
+    processDisplay();
 })
 
 $(document).on('keyup', function (e) {
     if ($("#filter-activity-input").is(":focus") || $("#filter-activity").is(":focus") || $("#filter-activity-select").is(":focus")) {
-        let arrayKeywords = $('#filter-activity-input').val().split(' ')
-        if ($('#filter-activity-select').val() == 'asc') {
-            teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false), arrayKeywords, false)
-        } else {
-            teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true), arrayKeywords, true)
-        }
+        processDisplay();
     }
 });
+
+function processDisplay() {
+    const excludedType = Main.getClassroomManager().excludedActivityType;
+    const excludedObject = Main.getClassroomManager().excludedObjectFromDashboard;
+    const tags = getTagsSelected();
+
+    let arrayKeywords = $('#filter-activity-input').val().split(' ')
+    if ($('#filter-activity-select').val() == 'asc') {
+        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", false, excludedType, tags), arrayKeywords, false, excludedObject)
+    } else {
+        teacherActivitiesDisplay(filterTeacherActivityInList(arrayKeywords, "id", true, excludedType, tags), arrayKeywords, true, excludedObject)
+    }
+}
+
+function getTagsSelected() {
+    let selectedTags = [];
+
+    // get checked elements filter-activity-type-
+    const checkedTags = document.querySelectorAll('[id^="filter-activity-type-"]:checked');
+    checkedTags.forEach(element => {
+        selectedTags.push(parseInt(element.dataset.id));
+    });
+
+    return selectedTags;
+}
 
 //filter sandbox
 $('body').on('click', '#filter-sandbox', function () {
@@ -447,8 +458,7 @@ $('body').on('click', '.activity-list, .activity-list-item, .activity-card, .act
         } else {
             navigation = 'dashboard-activities';
         }
-        navigatePanel('classroom-dashboard-activity-panel', navigation, 'WK' + id, state);
-        
+        navigatePanel('classroom-dashboard-activity-panel', navigation, 'WK' + id, state);   
     }
 })
 
@@ -916,7 +926,9 @@ function loadCourseAndActivityForStudents(isDoable, currentCourse = null, progre
     if (Activity.correction >= 1) {
         $(`#activity-details${courseIndicator}`).html(i18next.t("classroom.activities.sentOn") + formatHour(Activity.dateSend), i18next.t("classroom.activities.numberOfTries") + Activity.tries)
     } else {
-        $(`#activity-details${courseIndicator}`).html(i18next.t("classroom.activities.toSend") + formatDay(Activity.dateEnd))
+        if (Activity.dateEnd != null) { 
+            $(`#activity-details${courseIndicator}`).html(i18next.t("classroom.activities.toSend") + formatDay(Activity.dateEnd))
+        }
     }
 
     // Content management

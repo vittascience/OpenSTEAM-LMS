@@ -60,7 +60,7 @@ function checkLogin() {
                 var redirect = $_GET("redirect");
                 if (redirect == null) {
                     if (/classroom/.test(window.location.pathname)) {
-                        document.location = "/classroom/home.php?link=aaaaa";
+                        document.location = "/classroom/home.php";
                     }
                 } else {
                     document.location = decodeURIComponent(redirect);

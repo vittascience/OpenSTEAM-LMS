@@ -227,6 +227,115 @@ function exportActivityToJSON(activityId) {
     }
 }
 
+function openModalWithActivitiesChoise() {
+    const activities = Main.getClassroomManager()._myTeacherActivities;
+    // open customizable-modal
+    pseudoModal.openModal("activities-multiple-export");
+    let modalContent = document.getElementById("customizable-modal-export-content");
+    modalContent.innerHTML = "";
+
+    let btnCheckDiv = document.createElement("div");
+    btnCheckDiv.id = "btn-check-div";
+    btnCheckDiv.classList.add("d-flex", "justify-content-center", "col-12");
+    modalContent.appendChild(btnCheckDiv);
+
+    let btnCheckAll = document.createElement("button");
+    btnCheckAll.classList.add("btn", "btn-sm", "c-btn-primary", "mt-3", "btn-lg", "col-5", "me-2");
+    btnCheckAll.setAttribute("onclick", "checkAllActivities()");
+    btnCheckAll.innerHTML = i18next.t("manager.buttons.selectAll");
+    btnCheckDiv.appendChild(btnCheckAll);
+
+    let btnUncheckAll = document.createElement("button");
+    btnUncheckAll.classList.add("btn", "btn-sm", "c-btn-primary", "mt-3", "btn-lg", "col-5", "ms-2");
+    btnUncheckAll.setAttribute("onclick", "uncheckAllActivities()");
+    btnUncheckAll.innerHTML = i18next.t("manager.buttons.unselectAll");
+    btnCheckDiv.appendChild(btnUncheckAll);
+
+    activities.forEach(activity => {
+        let activityDiv = document.createElement("div");
+        let title = textToLowerCase(truncateTextByLength(activity.title, 25));
+        if (!title) {return;}
+        activityDiv.classList.add("col-6", "my-2", "d-flex");
+        activityDiv.innerHTML = `<input type="checkbox" id="import-activity-${activity.id}" name="import-activity-${activity.id}" value="${activity.id}">
+                                    <label for="import-activity-${activity.id}"><img src="assets/media/activity/${activity.type}.png" class="import-multiple-activities" alt="${activity.type}">${title}</label>`;
+        modalContent.appendChild(activityDiv);
+    });
+
+    let btnDiv = document.createElement("div");
+    btnDiv.classList.add("d-flex", "justify-content-center", "mt-3", "col-12");
+    modalContent.appendChild(btnDiv);
+
+    let validateBtn = document.createElement("button");
+    validateBtn.classList.add("btn", "c-btn-secondary", "mx-auto", "mt-3", "btn-lg");
+    validateBtn.setAttribute("onclick", "validateExportMultipleActivities()");
+    validateBtn.innerHTML = i18next.t("manager.buttons.validate");
+    modalContent.appendChild(validateBtn);
+
+    let cancelBtn = document.createElement("button");
+    cancelBtn.classList.add("btn", "c-btn-primary", "mx-auto", "mt-3", "btn-lg");
+    cancelBtn.setAttribute("onclick", "pseudoModal.closeModal('activities-multiple-export')");
+    cancelBtn.innerHTML = i18next.t("manager.buttons.cancel");
+    modalContent.appendChild(cancelBtn);
+}
+
+function checkAllActivities() {
+    // name like import-activity-
+    const checkboxes = document.querySelectorAll("input[name^='import-activity-']");
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = true;
+    });
+}
+
+function uncheckAllActivities() {
+    const checkboxes = document.querySelectorAll("input[name^='import-activity-']");
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+    });
+}
+
+function validateExportMultipleActivities() {
+    let activities = [];
+    const checkboxes = document.querySelectorAll("input[type=checkbox]:checked");
+    Main.getClassroomManager()._myTeacherActivities.filter(activity => {
+        checkboxes.forEach(checkbox => {
+            if (activity.id == checkbox.value) {
+                activities.push(activity);
+            }
+        });
+    });
+
+    if (activities.length == 0) {
+        displayNotification('#notif-div', "newActivities.exportNoActivitySelected", "error");
+        return;
+    }
+
+    exportMultipleActivitiesToJSON(activities);
+}
+
+function exportMultipleActivitiesToJSON(activities) {
+    const blob = new Blob([JSON.stringify(activities)], { type: "text/json" });
+    const link = document.createElement("a");
+
+    link.download = `activities-${Date.now()}.json`;
+    link.href = window.URL.createObjectURL(blob);
+    link.dataset.downloadurl = ["text/json", link.download, link.href].join(":");
+
+    const evt = new MouseEvent("click", {
+        view: window,
+        bubbles: true,
+        cancelable: true,
+    });
+
+    try {
+        link.dispatchEvent(evt);
+        link.remove();
+        displayNotification('#notif-div', "newActivities.exportSuccess", "success");
+    } catch (e) {
+        displayNotification('#notif-div', "newActivities.exportError", "error");
+        console.error(e);
+    }
+}
+
 function importActivityFromJSON() {
     const input = document.createElement("input");
     input.type = "file";
@@ -269,6 +378,70 @@ function importActivityFromJSON() {
     });
 }
 
+function importMultipleActivitiesFromJSON() {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".json";
+
+    const evt = new MouseEvent("click", {
+        view: window,
+        bubbles: true,
+        cancelable: true,
+    });
+
+    input.dispatchEvent(evt);
+    input.remove();
+
+    input.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.readAsText(file);
+        reader.onload = () => {
+            const activities = JSON.parse(reader.result);
+
+            // check activity validity
+            if (activities.length == 0) {
+                displayNotification('#notif-div', "newActivities.importError", "error");
+                return;
+            }
+
+            customActivity.activitiesToImport = activities;
+            pseudoModal.openModal("import-activities-multiple-modal");
+            modalContent = document.getElementById("activities-import-modal-content");
+            modalContent.innerHTML = "";
+            
+            customActivity.activitiesToImport.forEach(activity => {
+                let activityDiv = document.createElement("div");
+                let title = textToLowerCase(truncateTextByLength(activity.title, 25));
+                if (!title) {return;}
+                activityDiv.classList.add("col-6", "my-2", "d-flex");
+                activityDiv.innerHTML = `<div for="import-activity-${activity.id}"><img src="assets/media/activity/${activity.type}.png" class="import-multiple-activities" alt="${activity.type}">${title}</div>`;
+                modalContent.appendChild(activityDiv);
+            });
+
+            let divBtnValidate = document.createElement("div");
+            divBtnValidate.classList.add("d-flex", "justify-content-center", "mt-3", "col-12");
+            modalContent.appendChild(divBtnValidate);
+
+            let validateBtn = document.createElement("button");
+            validateBtn.classList.add("btn", "c-btn-secondary", "mx-auto", "mt-3", "btn-lg");
+            validateBtn.setAttribute("onclick", "persistMultipleImport()");
+            validateBtn.innerHTML = i18next.t("manager.buttons.validate");
+            divBtnValidate.appendChild(validateBtn);
+
+            let cancelBtn = document.createElement("button");
+            cancelBtn.classList.add("btn", "c-btn-primary", "mx-auto", "mt-3", "btn-lg");
+            cancelBtn.setAttribute("onclick", "pseudoModal.closeModal('import-activities-multiple-modal')");
+            cancelBtn.innerHTML = i18next.t("manager.buttons.cancel");
+            divBtnValidate.appendChild(cancelBtn);
+        };
+
+        reader.onerror = function() {
+            displayNotification('#notif-div', "newActivities.importError", "error");
+        };
+    });
+}
+
 function persistImport() {
     const activity = customActivity.activityToImport;
 
@@ -287,6 +460,20 @@ function persistImport() {
             displayNotification('#notif-div', "newActivities.importSuccess", "success");
             navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher');
             pseudoModal.closeModal("import-activity-modal");
+        } else {
+            displayNotification('#notif-div', "newActivities.importError", "error");
+        }
+    });
+}
+
+function persistMultipleImport() {
+    const activities = customActivity.activitiesToImport;
+    Main.getClassroomManager().importMultiplesActivities(activities).then((response) => {
+        if (response.success == true) {
+            Main.getClassroomManager()._lastCreatedActivity = response.id;
+            displayNotification('#notif-div', "newActivities.importSuccess", "success");
+            navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher');
+            pseudoModal.closeModal("import-activities-multiple-modal");
         } else {
             displayNotification('#notif-div', "newActivities.importError", "error");
         }

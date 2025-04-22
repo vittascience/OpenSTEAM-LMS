@@ -110,7 +110,7 @@ function findClassroomToConnect(linkC) {
                 let blockedClassDivElt = document.createElement("div");
                 blockedClassDivElt.id = "blocked-class";
                 blockedClassDivElt.innerHTML =
-                    "Cette classe a été bloquée par l'enseignant.e qui l'a crée, tu ne peux donc pas créer de nouveau compte.<br>Si tu as déja un compte, essaye plutot de te connecter.";
+                    "Cette classe a été bloquée par l'enseignant.e qui l'a créée, tu ne peux donc pas créer de nouveau compte.<br>Si tu as déja un compte, essaye plutôt de te connecter.";
     
                 $('#classroom-create-account').hide();
                 document.getElementById('classroom-desc').append(blockedClassDivElt);

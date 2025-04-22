@@ -43,6 +43,15 @@ class FoldersManager {
                 foldersManager.openFolder(id);
             }
         });
+
+        let showType = localStorage.getItem('classroomViewMode') ? localStorage.getItem('classroomViewMode') : "card";
+        if (showType == "list") {
+            $("#switcherCard").addClass("half-opacity");
+            $("#switcherList").addClass("selected-display");
+        } else {
+            $("#switcherList").addClass("half-opacity");
+            $("#switcherCard").addClass("selected-display");
+        }
     }
 
 
@@ -119,6 +128,8 @@ class FoldersManager {
         this.actualFolder = folderId;
         pseudoModal.openModal("folder-manager-modal");
         $("#delete-folder-manager").show();
+        let inputValidate = document.getElementById("validation-delete-folder");
+        inputValidate.focus();
     }
 
     updateFolder(folderId) {
@@ -274,8 +285,10 @@ class FoldersManager {
 
     async displayAndDragulaInitObjects() {
         let activities = await Main.getClassroomManager().getTeacherActivities(Main.getClassroomManager());
+        let folders = await this.getAllUserFolders();
+        this.userFolders = folders;
         coursesManager.myCourses = await coursesManager._requestGetMyCourseTeacher();
-        teacherActivitiesDisplay();
+        processDisplay();
         this.dragulaInitObjects();
     }
 
@@ -516,11 +529,25 @@ class FoldersManager {
 
 
     displayModeSwitch(display) {
+        let switcherCard = document.getElementById("switcherCard"), 
+            switcherList =  document.getElementById("switcherList");
         if (display == "list") {
+            switcherCard.classList.add("half-opacity");
+            switcherCard.classList.remove("selected-display");
+
+            switcherList.classList.remove("half-opacity");
+            switcherList.classList.add("selected-display");
+
+
+
             Main.getClassroomManager().displayMode = "list";
             localStorage.setItem('classroomViewMode', "list");
             this.displayAndDragulaInitObjects();
         } else {
+            switcherList.classList.add("half-opacity");
+            switcherList.classList.remove("selected-display");
+            switcherCard.classList.remove("half-opacity");
+            switcherCard.classList.add("selected-display");
             Main.getClassroomManager().displayMode = "card";
             localStorage.setItem('classroomViewMode', "card");
             this.displayAndDragulaInitObjects();

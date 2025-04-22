@@ -799,6 +799,7 @@ button {
     grid-template-areas: ". .";
     padding: 0.5em;
     margin: 0em 0.5em;
+    cursor: pointer;
 }
 
 .vitta-notif-exit-btn {
@@ -818,6 +819,11 @@ button {
 
 .status-error {
     background-color: var(--classroom-red);
+    margin: 5px;
+}
+
+.status-info {
+    background-color: #ff9403;
     margin: 5px;
 }
 
@@ -1111,6 +1117,7 @@ button {
     flex-direction: row;
     flex-direction: row;
     gap: 0.35em 1em;
+    margin-top: 1em;
 }
 
 .buttons-interactions button {
@@ -2105,7 +2112,7 @@ h3.section-done {
 
 #activity-custom {
     width: 100%;
-    height: 60vh;
+    height: max-content
 }
 
 #lti-loader-container {
@@ -3177,6 +3184,15 @@ h3.section-done {
     font-weight: 800;
 }
 
+.complete-classroom-link {
+    border: 2px solid var(--classroom-secondary);
+    padding: .5em;
+    margin: .5em 0em;
+    border-radius: 15px;
+    text-wrap: balance;
+    font-size: small !important;
+}
+
 #classroom-panel-legend {
     display: grid;
     overflow-x: auto;
@@ -3313,7 +3329,12 @@ h3.section-done {
     top: 0;
     right: 0;
     transform: translate(50%, -50%);
-    background-color: var(--classroom-cell);
+    background-color: var(--classroom-background);
+    border: var(--bs-btn-border-width) solid var(--classroom-cell);
+}
+
+#code-share-close-btn i {
+    color: var(--classroom-text-2);
 }
 
 #classroom-code-share-container > div{
@@ -3355,7 +3376,7 @@ h3.section-done {
     object-fit: contain;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1180px) {
     #classroom-code-share-container {
         grid-template-columns: 1fr;;
     }
@@ -3432,15 +3453,14 @@ h3.section-done {
     flex: 1;
     overflow-y: auto;
     max-height: 100%;
+    width: 100%;
 }
 
 .faq-panel {
-    background: var(--classroom-cell);
-    border: 2px solid var(--classroom-secondary);
+    border-left: 2px solid var(--classroom-secondary);
     flex: 1;
     overflow: auto;
-    height: 90%;
-    border-radius: 2em 0 0 2em;
+    height: 100%;
 }
 
 .faq-panel::-webkit-scrollbar {
@@ -3889,4 +3909,71 @@ h3.section-done {
 .dropdown-menu.show {
     transform: translate(0px, 50px) !important;
 }
+
+.half-opacity {
+    opacity: 0.5;
+}
+
+.full-opacity {
+    opacity: 1;
+}
+
+th, td {
+    color: var(--classroom-text-0) !important;
+}
+
+
+.import-multiple-activities {
+    width: 32px;
+    border-radius: 3px;
+    margin: 0 0.3em;
+}
+
+.top-left-return-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0.5em;
+}
+
+@media (max-width: 1280px) {
+    .mobile-mt-2 {
+        margin-top: 2em;
+    }
+}
+
+.fs-large {
+    font-size: large;
+}
+
+/* break point height > 870 */
+.lti-iframe-height {
+    min-height: 80vh;
+}
+
+@media (max-height: 1150px) {
+    .lti-iframe-height {
+        min-height: 78vh;
+    }
+}
+
+@media (max-height: 950px) {
+    .lti-iframe-height {
+        min-height: 74vh;
+    }
+}
+
+@media (max-height: 780px) {
+    .lti-iframe-height {
+        min-height: 70vh;
+    }
+}
+
+@media (max-height: 600px) {
+    .lti-iframe-height {
+        min-height: 63vh;
+    }
+}
+
+
 

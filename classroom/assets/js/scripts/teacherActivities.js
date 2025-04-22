@@ -16,7 +16,6 @@ function createActivity(link = null, id = null) {
         Main.getClassroomManager().duplicateActivity(id).then(function (response) {
             if (response.success == true) {
                 displayNotification('#notif-div', "classroom.notif.activityDuplicated", "success", `'{"activityName": "${activityTitle}"}'`);
-                teacherActivitiesDisplay();
                 DisplayActivities();
             }
         })
@@ -90,7 +89,7 @@ function persistDeleteActivity() {
         Main.getClassroomManager().deleteActivity(ClassroomSettings.activity).then(function (activity) {
             displayNotification('#notif-div', "classroom.notif.activityDeleted", "success", `'{"activityName": "${activityTitle}"}'`);
             deleteTeacherActivityInList(activity.id);
-            teacherActivitiesDisplay();
+            //teacherActivitiesDisplay();
             DisplayActivities();
             pseudoModal.closeModal('delete-activity-modal');
             $('#validation-delete-activity').val("");
@@ -108,22 +107,9 @@ function cancelDeleteActivity() {
 //activité modal-->supprimer
 $('body').on('click', '.modal-activity-delete', function () {
     pseudoModal.openModal('delete-activity-modal');
-    let activityId = ClassroomSettings.activity,
-        courseArray = [];
-    coursesManager.myCourses.forEach(course => {
-        if (course.activities.find(c => c.id == activityId)) {
-            courseArray.push(course.title);
-        }
-    });
-    document.getElementById('activity-linked-to-course-message').style.display = courseArray.length > 0 ? 'block' : 'none';
-})
-
-
-///
-
-//activité modal-->supprimer
-$('body').on('click', '.modal-activity-delete', function () {
-    pseudoModal.openModal('delete-activity-modal');
+    let inputModal = document.getElementById('validation-delete-activity');
+    inputModal.focus();
+    
     let activityId = ClassroomSettings.activity,
         courseArray = [];
     coursesManager.myCourses.forEach(course => {
@@ -269,18 +255,20 @@ $('body').on('click', '#attribute-activity-to-students', function () {
             navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')
             $('.student-number').html(0)
 
-            /** @ToBeDeleted last check Novembre 2021 */
-            /* if (ClassroomSettings.ref != null) {
-                Main.getClassroomManager().undoAttributeActivity(ClassroomSettings.ref)
-            } */
-
-            
+            let dateBegin = null,
+                dateEnd = null;
+                
+            if (document.getElementById('isDate-activity-form').checked) {
+                dateBegin = $("#date-begin-activity-form").val()
+                dateEnd = $("#date-end-activity-form").val
+            }
+        
             Main.getClassroomManager().attributeActivity({
                 'activity': activity,
                 'students': students,
                 'classrooms': classrooms,
-                "dateBegin": $("#date-begin-activity-form").val(),
-                "dateEnd": $("#date-end-activity-form").val(),
+                "dateBegin": dateBegin,
+                "dateEnd": dateEnd,
                 "evaluation": ClassroomSettings.isEvaluation,
                 "autocorrection": ClassroomSettings.willAutocorrect,
                 "introduction": $("#introduction-activity-form").val(),
@@ -336,7 +324,8 @@ $('.new-activity-panel2').click(function () {
                 displayNotification('#notif-div', "classroom.notif.activityCreated", "success", `'{"activityTitle": "${activity.title}"}'`);
                 navigatePanel('classroom-dashboard-new-activity-panel2', 'dashboard-activities-teacher', ClassroomSettings.activity);
                 addTeacherActivityInList(activity);
-                teacherActivitiesDisplay();
+                //teacherActivitiesDisplay();
+                processDisplay();
                 ClassroomSettings.activityInWriting = false;
             }
         });
@@ -359,7 +348,8 @@ $('.new-activity-panel2').click(function () {
 
 function DisplayActivities() {
     Main.getClassroomManager().getTeacherActivities(Main.getClassroomManager()).then(function () {
-        teacherActivitiesDisplay()
+        //teacherActivitiesDisplay()
+        processDisplay();
         ClassroomSettings.activityInWriting = false
     })
 }

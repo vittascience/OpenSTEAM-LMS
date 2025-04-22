@@ -92,7 +92,8 @@ async function readEvent (event) {
 $('body').on('click', '.teacher-new-classe', function (event) {
     ClassroomSettings.classroom = null;
     let classCount = Main.getClassroomManager()._myClasses.length;
-    if (classCount >= UserManager.getUser().restrictions.maxClassrooms && UserManager.getUser().restrictions.maxClassrooms != -1) {
+    let maxClass = getMaxClass();
+    if (classCount >= maxClass && maxClass != -1) {
         displayNotification('#notif-div', "classroom.notif.classNotCreated", "error", `'{"classroomNumberLimit": "${UserManager.getUser().restrictions.maxClassrooms}"}'`);
         let event = new CustomEvent('displayPremiumModal', {detail: 'classroomAddition'});
         document.dispatchEvent(event);
@@ -103,10 +104,20 @@ $('body').on('click', '.teacher-new-classe', function (event) {
 });
 
 
+function getMaxClass() {
+    if (UserManager.getUser().restrictions.premium) {
+        return 20
+    } else {
+        return UserManager.getUser().restrictions.maxClassrooms
+    }
+}
+
+
 //student modal-->supprimer
 $('body').on('click', '.modal-student-delete', function () {
     pseudoModal.openModal('delete-student-modal');
-
+    let inputValidation = document.getElementById("validation-delete-student");
+    inputValidation.focus();
     $("#student-to-delete-id").val($(this).attr('data-student-id'));
 })
 
@@ -178,6 +189,8 @@ $('body').on('click', '.modal-classroom-delete', function (e) {
     Main.getClassroomManager()._selectedClassroomToDelete = $(this).parent().parent().parent().attr('data-link');
     $('#validation-delete-classroom').val("");
     pseudoModal.openModal("delete-classroom");
+    let inputInModal = document.getElementById("validation-delete-classroom")
+    inputInModal.focus();
 })
 
 function persistDeleteClassroom() {
@@ -267,7 +280,7 @@ document.querySelector('#classroom-create-form').addEventListener('submit', (e) 
     Main.getClassroomManager().addClassroom({
         'name': document.querySelector('#classroom-form-name').value,
         'school': document.querySelector('#classroom-form-school').value,
-        'isBlocked': document.querySelector('#classroom-form-is-blocked').checked
+        'isBlocked': false
     }).then((classroom) => {
         // handle specific error
         if(classroom.errorType){
@@ -276,7 +289,7 @@ document.querySelector('#classroom-create-form').addEventListener('submit', (e) 
             return;
         } 
         // If the backend detects that the user is not a premium user and that he already has one classroom
-        else if(classroom.isClassroomAdded == false){
+        else if (classroom.isClassroomAdded == false) {
             displayNotification('#notif-div', "classroom.notif.classNotCreated", "error", `'{"classroomNumberLimit": "${classroom.classroomNumberLimit}"}'`);
             e.submitter.disabled = false;
 
@@ -371,16 +384,18 @@ document.querySelector('#classroom-update-form').addEventListener('submit', (e) 
 
 //add students to an existing classroom on the classroom dashboard
 $('body').on('click', '#add-student-to-classroom', function () {
-    // disable button to avoid multiple click
-    $('#add-student-to-classroom').prop('disabled', true);
 
-    const studentName = document.querySelector('#classroom-dashboard-add-student-div .student-form-name').value;
+    // disable button to avoid multiple click
+    document.querySelector('#add-student-to-classroom').disabled = true;
+    const studentNameInput = document.querySelector('#add-student-input-from-modal');
+    const studentName = studentNameInput.value;
+
     if (studentName != ''){
         let students = [studentName];
         let existingStudents = [];
 
         Main.getClassroomManager().addUsersToGroup(students, existingStudents, ClassroomSettings.classroom).then((response) => {
-            if(!response.isUsersAdded){
+            if (!response.isUsersAdded) {
                 if(response.noUser){
                     displayNotification('#notif-div', "classroom.notif.noUserUsername", "error");
                     return;
@@ -389,7 +404,7 @@ $('body').on('click', '#add-student-to-classroom', function () {
                  * Update Rémi : Users limitation by group 
                  * possible return : personalLimit, personalLimitAndGroupOutDated, bothLimitReached
                  */
-                if(response.errorType){
+                if (response.errorType) {
                     // a specific error has been returned, display it
                     displayNotification('#notif-div', `classroom.notif.${response.errorType}`, "error", `'{"reservedNickname": "${demoStudentName}"}'`);
                     return;
@@ -399,7 +414,8 @@ $('body').on('click', '#add-student-to-classroom', function () {
             } else {
                 Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
                     addUserAndGetDashboard(ClassroomSettings.classroom);
-                    document.querySelector('#classroom-dashboard-add-student-div').innerHTML = BASE_STUDENT_FORM;
+                    //document.querySelector('#classroom-dashboard-add-student-div').innerHTML = BASE_STUDENT_FORM;
+                    studentNameInput.value = '';
                     pseudoModal.closeModal('add-student-modal');
                     displayNotification('#notif-div', "classroom.notif.usersAdded", "success");
                 });
@@ -934,7 +950,7 @@ function addProjectInList(project) {
     Main.getClassroomManager()._myProjects.push(project)
 }
 
-function filterTeacherActivityInList(keywords = [], orderBy = 'id', asc = true) {
+function filterTeacherActivityInList(keywords = [], orderBy = 'id', asc = true, excludedTypes = [], tagsList = []) {
 
     let expression = ''
     for (let i = 0; i < keywords.length; i++) {
@@ -942,14 +958,40 @@ function filterTeacherActivityInList(keywords = [], orderBy = 'id', asc = true) 
         expression += keywords[i].toUpperCase()
         expression += ')'
     }
-    regExp = new RegExp(expression)
-    let list = Main.getClassroomManager()._myTeacherActivities.filter(x => regExp.test(x.title.toUpperCase()))
+
+    let regExp = new RegExp(expression);
+    let list = Main.getClassroomManager()._myTeacherActivities.filter(x => regExp.test(x.title.toUpperCase()));
+
+    // filter the list
+    if (tagsList.length > 0) {
+        list = list.filter(element => {
+            if (element.hasOwnProperty('tags') == false) return false;
+            let elementsTag = element.tags;
+            // check if at least one tag is selected
+
+            let found = false;
+
+            // check if all taglist's tag are in the element tags
+            for (let i = 0; i < tagsList.length; i++) {
+                if (elementsTag.includes(tagsList[i])) {
+                    found = true;
+                } else {
+                    found = false;
+                    break;
+                }
+            }
+            return found;
+        });
+    }
+
+    let listFiltered = list.filter(x => !excludedTypes.includes(x.type))
+
     if (asc) {
-        return list.sort(function (a, b) {
+        return listFiltered.sort(function (a, b) {
             return a[orderBy] - b[orderBy];
         })
     } else {
-        return list.sort(function (a, b) {
+        return listFiltered.sort(function (a, b) {
             return b[orderBy] - a[orderBy];
         })
     }
@@ -984,6 +1026,20 @@ function resetDisplayClassroom() {
     document.querySelector('#add-student-container').innerHTML = '';
     document.querySelector('#export-class-container').innerHTML = '';
     document.querySelector('#header-table-teach').innerHTML = '';
+}
+
+function getFirstLetterOfPseudo(pseudo) {
+    let firstLetter = pseudo.match(/[a-zA-Z]/);
+    try {
+        if (firstLetter) {
+            return firstLetter[0].toUpperCase();
+        } else {
+            let firstNumber = pseudo.match(/[0-9]/);
+            return 'abcdefghij'[firstNumber];
+        }
+    } catch (error) {
+        return 'A';
+    }
 }
 
 /**
@@ -1030,12 +1086,12 @@ function displayStudentsInClassroom(students, link=false) {
             html = `<tr>
                 <th class="username" data-student-id="${element.user.id}">
                     <div class="user-cell-container">
-                        <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil">
+                        <img class="propic" src="${_PATH}assets/media/alphabet/${getFirstLetterOfPseudo(element.user.pseudo)}.png" alt="Photo de profil">
                         <div class="user-cell-username" title="${element.user.pseudo}">${pseudo}</div>
                         <div class="dropdown">
                             <i class="classroom-clickable line_height34 fas fa-exchange-alt" type="button" id="dropdown-studentItem-${element.user.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                             <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
-                                <li id="mode-apprenant" class="dropdown-item classroom-clickable col-12" href="#" onclick="modeApprenant()" data-i18n="classroom.classes.panel.learnerMode">Mode apprenant</li>
+                                <li id="mode-apprenant" class="dropdown-item classroom-clickable col-12" href="#" onclick="modeApprenant()" data-i18n="classroom.profil.switchMode">Mode apprenant</li>
                             </div>
                         </div>
                     </div>
@@ -1045,12 +1101,13 @@ function displayStudentsInClassroom(students, link=false) {
             html = `<tr>
                 <th class="username" data-student-id="${element.user.id}">
                     <div class="user-cell-container">
-                        <img class="propic" src="${_PATH}assets/media/alphabet/${element.user.pseudo.slice(0, 1).toUpperCase()}.png" alt="Photo de profil">
+                        <img class="propic" src="${_PATH}assets/media/alphabet/${getFirstLetterOfPseudo(element.user.pseudo)}.png" alt="Photo de profil">
                         <div class="user-cell-username" title="${element.user.pseudo}">${pseudo}</div>`
             if (!UserManager.getUser().isFromGar) {
                 html += `<div class="dropdown"><i class="classroom-clickable line_height34 fas fa-cog" type="button" id="dropdown-studentItem-${element.user.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                 <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
                 <li class="col-12 pwd-display-stud" href="#"><div data-i18n="classroom.classes.panel.password">Votre mot de passe :</div> <span class="masked" id="masked">${element.pwd}</span><i class="classroom-clickable fas fa-low-vision switch-pwd ms-2"></i></li>
+                <li class="classroom-clickable col-12 dropdown-item" onclick="copyPinToClipboard('${element.pwd}')" data-i18n="classroom.profil.copyPinStudent">Copier le mot de passe</li> 
                 <li class="modal-student-password classroom-clickable col-12 dropdown-item" href="#" data-student-id="${element.user.id}" data-i18n="classroom.classes.panel.resetPassword">Régenérer le mot de passe</li>
                 <li class="classroom-clickable col-12 dropdown-item" href="#"><span class="classroom-clickable" data-i18n="classroom.classes.panel.editNickname" onclick="changePseudoModal(${element.user.id})">Modifier le pseudo</span></li>
                 <li class="dropdown-item modal-student-delete classroom-clickable col-12" href="#" data-i18n="classroom.classes.panel.delete" data-student-id="${element.user.id}">Supprimer</li>
@@ -1069,10 +1126,10 @@ function displayStudentsInClassroom(students, link=false) {
         for (let i = 0; i < arrayIndexesActivities.length; i++) {
             const currentActivity = arrayActivities[i];
             let isCourse = false;
-            if (currentActivity.hasOwnProperty('courseState')) {
+            if (currentActivity && currentActivity.hasOwnProperty('courseState')) {
                 isCourse = true;
             }
-
+            
             if (element.user.pseudo == demoStudentName) {
                 let thModular = "";
                 let optionContent = "";
@@ -1207,6 +1264,12 @@ function displayStudentsInClassroom(students, link=false) {
 
 }
 
+function copyPinToClipboard(pin) {
+    navigator.clipboard.writeText(pin).then(function() {
+        displayNotification('#notif-div', "classroom.profil.codeCopied", "success");
+    });
+}
+
 function renderActivityDashboard(currentActivity) {
     const formatedTimePast = typeof currentActivity.timePassed == 'undefined' ? '' : currentActivity.timePassed == 0 ? '' : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em><br><em>${i18next.t("classroom.activities.numberOfTries")} ${currentActivity.tries}</em>`;
     let html = `<td class=" ${statusActivity(currentActivity, true, formatedTimePast)} bilan-cell classroom-clickable" data-state="${statusActivity(currentActivity, false)}" data-id="${currentActivity.id}" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title="<b>${currentActivity.activity.title}</b>
@@ -1239,24 +1302,30 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
-function displayNotification(div, message, status, options = '{}') {
+function displayNotification(div, message, status, options = '{}', timer = 20000) {
     let randId = Math.floor(Math.random() * Math.floor(10000))
     // get i18n text
     let html = "";
     let i18nText = i18next.t(message);
 
     if (i18nText == message) {
-        html = `<div id='notif-${randId}' class="vitta-notif status-${status}">${message}<div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`;
+        html = `<div id='notif-${randId}' onclick="closeOnClick('notif-${randId}')" class="vitta-notif status-${status}">${message}<div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`;
     } else {
-        html = `<div id='notif-${randId}' class="vitta-notif status-${status}" data-i18n="${message}" data-i18n-options=${options}><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`
+        html = `<div id='notif-${randId}' onclick="closeOnClick('notif-${randId}')" class="vitta-notif status-${status}" data-i18n="${message}" data-i18n-options=${options}><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`
     }
 
     //let html = `<div id='notif-` + randId + `' class="vitta-notif status-` + status + `" data-i18n="` + message + `" data-i18n-options=` + options + `><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`
     $(div).append(html)
     $(div).localize()
     setTimeout(function () {
-        $('#notif-' + randId).remove()
-    }, 15000);
+        if ($('#notif-' + randId).length > 0) {
+            $('#notif-' + randId).remove()
+        }
+    }, timer);
+}
+
+function closeOnClick(id) {
+    document.getElementById(id).remove()
 }
 
 
@@ -1289,7 +1358,7 @@ function actualizeStudentActivities(activity, correction) {
 function addStudentRow(pseudo, studentId = false, isNotDeletable) {
     return `<li data-pseudo="${pseudo}" data-id="${studentId}" class="row align-items-center my-1 ">
         <div class="col-2">
-            <img class="w-100 propic pic-width" src="${_PATH}assets/media/alphabet/` + pseudo.slice(0, 1).toUpperCase() + `.png" alt="Photo de profil">
+            <img class="w-100 propic pic-width" src="${_PATH}assets/media/alphabet/` + getFirstLetterOfPseudo(pseudo) + `.png" alt="Photo de profil">
         </div>
         <div class="col">` + pseudo + `</div>
         ${isNotDeletable ? '' : `<div class="col-2">
