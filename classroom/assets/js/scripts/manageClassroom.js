@@ -830,7 +830,7 @@ function listIndexesActivities(students) {
         })
 
         for(let course of element.courses) {
-            if (!indexArray.includes(course.reference)) {
+            if (!indexArray.includes(course.reference) && course.activitiesReferences != null) {
                 indexArray.push(course.reference)
                 indexArraybis.push({
                     id: course.id,
