@@ -1457,6 +1457,7 @@ h3.section-done {
 .course-item > div {
     cursor: pointer;
     display: grid;
+    height: auto;
     grid-template-columns: 100%;
     grid-template-rows: 170px auto;
     width: 300px;

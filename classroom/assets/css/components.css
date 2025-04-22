@@ -522,6 +522,11 @@
     background: var(--classroom-secondary);
 }
 
+.input-group-selector {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
 .c-tertiary-form .input-group-text {
     border-color: var(--classroom-tertiary);
     background: var(--classroom-tertiary);

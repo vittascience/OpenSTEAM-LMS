@@ -1223,6 +1223,14 @@ function displayStudentsInClassroom(students, link=false) {
     appendAddStudentButton();
     // get classroom settings from localstorage
     let settings = getClassroomDisplaySettings(link);
+    
+    if (!settings) {
+        settings = {}; // Initialisez settings comme un objet vide s'il est undefined
+    }
+
+    if (!('monochrome' in settings)) {
+        settings['monochrome'] = false;
+    }
 
     if (settings['monochrome']) {
         $('#body-table-teach').addClass('is-monochrome')

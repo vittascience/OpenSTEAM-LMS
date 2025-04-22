@@ -557,6 +557,12 @@
 				"yesButton": "Yes, quit",
 				"noButton": "No, stay"
 			},
+			"quitSandboxActivity": {
+				"title": "Exit current activity",
+				"description": "Please remember to save your changes if you haven't already before quitting.",
+				"yesButton": "Yes, quit",
+				"noButton": "No, stay"
+			},
 			"exportMultipleTitle": "Export multiple activities" 
 		},
 		"folders": {

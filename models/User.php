@@ -138,7 +138,7 @@ class User implements \JsonSerializable
     // vérification de la cohérence du nom/prénom
     public static function checkName($name)
     {
-        if (preg_match("#^[a-zA-Z\-\'àâçèéêîôùû\s]{" . self::SURNAME_MIN_LENGTH . "," . self::SURNAME_MAX_LENGTH . "}$#", $name))
+        if (preg_match("#^[a-zA-ZÀ-ÖØ-öø-ÿ\-\'\s]{" . self::SURNAME_MIN_LENGTH . "," . self::SURNAME_MAX_LENGTH . "}$#", $name))
             return true;
         return false;
     }

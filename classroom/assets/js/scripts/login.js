@@ -218,6 +218,23 @@ function loginFaq() {
     }
 }
 
+$('.faq-box-header').on('click keydown', function (event) {
+    if (event.type === 'click' || event.key === 'Enter' || event.key === ' ') {
+        let isExpanded = $(this).attr('aria-expanded') === 'true';
+        let content = $(this).next('.faq-box-content');
+
+        if (isExpanded) {
+            $(this).attr('aria-expanded', 'false');
+            content.css('display', 'none'); 
+            $(this).find('.fa').removeClass('fa-chevron-down').addClass('fa-chevron-right');
+        } else {
+            $(this).attr('aria-expanded', 'true');
+            content.css('display', 'block');
+            $(this).find('.fa').removeClass('fa-chevron-right').addClass('fa-chevron-down');
+        }
+    }
+});
+
 function loginFaqNeutral() {
     let html = ''
     let index = [6, 7, 3]
