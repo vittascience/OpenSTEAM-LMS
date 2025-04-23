@@ -128,9 +128,6 @@ function getNewValidationMail() {
     });
 }
 
-/**
- * @param {boolean} fromLoginPage
- */
 function clearDivErrorNav() {
     let infoBox = returnInfoDiv() 
     infoBox.innerHTML = "";
@@ -143,11 +140,17 @@ function returnInfoDiv() {
 
 /**
  * Show the TOTP state according to the page
- * @param {boolean} fromLoginPage 
  */
 function showTotpState() {
-    document.getElementById("login-div-classroom").classList.add("d-none");
-    document.getElementById("login-totp-div-classroom").classList.remove("d-none");
+    const loginMainDiv = document.getElementById("login-main-div-login-page");
+    const loginTotpDiv = document.getElementById("login-totp-div-login-page");
+    const loginDivClassroom = document.getElementById("login-div-classroom");
+    const loginTotpDivClassroom = document.getElementById("login-totp-div-classroom");
+
+    if (loginMainDiv) loginMainDiv.classList.add("d-none");
+    if (loginTotpDiv) loginTotpDiv.classList.remove("d-none");
+    if (loginDivClassroom) loginDivClassroom.classList.add("d-none");
+    if (loginTotpDivClassroom) loginTotpDivClassroom.classList.remove("d-none");
 }
 
 /**

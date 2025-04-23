@@ -1,4 +1,7 @@
-const Informations = JSON.parse(getCookie('info'));
+
+const raw      = getCookie('info');
+const decoded  = decodeURIComponent(raw);
+const Informations    = JSON.parse(decoded);
 Informations.groupName = Informations.groupName.split('+').join(' ');
 
 if ($_GET('page')) {

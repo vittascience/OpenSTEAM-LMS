@@ -96,7 +96,9 @@ $informations = ['url' => $url,
                 'groupId' => $groupId, 
                 'userId' => $userId];
                 
-setcookie('info', json_encode($informations), time()+600);
+setcookie('info', rawurlencode(json_encode($informations)), time() + 600);
+
+
 
 if (strlen($groupCode) != 5 || !preg_match("/^[a-zA-Z0-9]+$/", $groupCode)) {
     return header("Location: $url?gc=00000&page=invalidlink");

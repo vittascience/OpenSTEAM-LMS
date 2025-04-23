@@ -68,9 +68,10 @@ try {
             }
         }
         try {
-            $regular = $entityManager->getRepository('User\Entity\Regular')
-                ->find(intval($_SESSION["id"]))->jsonSerialize();
+            $regular = $entityManager->getRepository('User\Entity\Regular')->find(intval($_SESSION["id"]))->jsonSerialize();
             $user['isRegular'] = $regular['email'];
+            $user['sso'] = $regular['fromSSO'] ?? 'google';
+            
         } catch (error $e) {
             $user['isRegular'] = false;
         }
