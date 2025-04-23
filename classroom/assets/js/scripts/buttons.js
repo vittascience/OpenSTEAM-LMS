@@ -3679,12 +3679,7 @@ function setCaret(contentId, id) {
     sel.addRange(range)
 }
 
-// Set the zindex for the virtual keyboard
 document.body.style.setProperty("--keyboard-zindex", "3000");
-
-
-
-
 
 
 
