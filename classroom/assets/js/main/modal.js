@@ -85,6 +85,7 @@ function Modal(modalID = "a", options = {}) {
         let exit_btn = document.createElement('div');
         exit_btn.setAttribute('class', 'vitta-modal-exit-btn vitta-button btn');
         exit_btn.setAttribute('type', 'button');
+        exit_btn.setAttribute('tabindex', '0');
         exit_btn.setAttribute('data-i18n', '[title]modals.standard.default.exit');
         exit_btn.setAttribute('data-bs-toggle', 'tooltip');
         exit_btn.setAttribute('data-bs-placement', 'top');
@@ -150,6 +151,11 @@ function Modal(modalID = "a", options = {}) {
  * @param {string} modal ID of the modal element 
  */
 Modal.prototype.openModal = function (modal) {
+    const backdrop = document.getElementById('modal-backdrop');
+    if (backdrop)
+        backdrop.style.display = 'block';
+
+    this.trapFocusInModal(document.getElementById(modal));
     $(`#${modal}`).localize();
     this.closeAllModal();
     var zIndex = ModalsOpenedModals.length + 1000
@@ -168,6 +174,10 @@ Modal.prototype.openModal = function (modal) {
  * Close the modal and reset his message
  */
 Modal.prototype.closeModal = function (modal) {
+    const backdrop = document.getElementById('modal-backdrop');
+    if (backdrop)
+        backdrop.style.display = 'block';
+
     if (ModalsOpenedModals.includes(modal)) {
         this.resetMessage(modal);
         document.getElementById(modal).removeAttribute('style');
@@ -387,7 +397,59 @@ Modal.prototype.setWarningModal = function (content = '', footer = '') {
     Modal.openModal('warning-modal');
 }
 
+Modal.prototype.trapFocusInModal = async function(modalElement) {
+    const focusableSelectors = [
+        'a[href]', 'area[href]', 'input:not([disabled])', 'select:not([disabled])',
+        'textarea:not([disabled])', 'button:not([disabled])', 'iframe', 'object', 'embed',
+        '[contenteditable]', '[tabindex]:not([tabindex="-1"])'
+    ];
 
+    await wait(100);
+
+    const exitButton = modalElement.querySelector('.vitta-modal-exit-btn');
+    const allFocusable = modalElement.querySelectorAll(focusableSelectors.join(', '));
+
+    const focusableElements = Array.from(allFocusable).filter(el => {
+        const style = window.getComputedStyle(el);
+        return style.display !== 'none'
+            && style.visibility !== 'hidden'
+            && el !== exitButton;
+    });
+
+    if (!exitButton || focusableElements.length === 0) return;
+
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    modalElement.addEventListener('keydown', (e) => {
+        if (e.key !== 'Tab') return;
+
+        const activeElement = document.activeElement;
+        if (e.shiftKey) {
+            if (activeElement === firstElement) {
+                e.preventDefault();
+                exitButton.focus();
+            }
+        } else {
+            if (activeElement === lastElement) {
+                e.preventDefault();
+                setTimeout(() => {
+                    exitButton.focus();
+                }, 10)
+            } else if (activeElement === exitButton) {
+                e.preventDefault();
+                firstElement.focus();
+            }
+        }
+    });
+
+    firstElement.focus();
+};
+
+
+function wait(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 
 /*    class ErrorModal extends Modal {

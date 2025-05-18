@@ -2,6 +2,9 @@
 <html lang="fr">
 
 <head>
+    <script src="accessibility/accessibility.js" type="module"></script>
+    <script src="accessibility/utils.js"></script>
+    <script src="assets/js/scripts/validate-forms.js"></script>
     <script src="assets/js/utils/listener.js"></script>
     <script src="/path.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -195,6 +198,15 @@
                 }
 
             }, 1000);
+
+            // Invisible aria live (for speech feedbacks)
+            const ariaLiveElement = document.createElement("div");
+            ariaLiveElement.id = "a11y-notifier";
+            ariaLiveElement.className = "visually-hidden";
+            ariaLiveElement.setAttribute("aria-live", "polite");
+            ariaLiveElement.setAttribute("aria-atomic", "true");
+
+            document.body.appendChild(ariaLiveElement);
         });
     </script>
     <script src="assets/js/lib/mobile_detect-1.4.2/mobile-detect.min.js"></script>

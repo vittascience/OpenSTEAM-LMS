@@ -285,6 +285,7 @@ function askQuitSandboxWithoutSaving() {
  * @param {boolean} isOnpopstate - If set to true, the current navigation won't be saved in history (dedicated to onpopstate events)
  */
 async function navigatePanel(id, idNav, option = "", interface = '', isOnpopstate = false) {
+    notifyA11y("Navigation");
     document.title = $('#' + idNav).find('span').html() + ' - ' + location.hostname.charAt(0).toUpperCase() + location.hostname.slice(1);
 
     // If we are on the activity panel, in LTI context and the LTI resource isn't up to date

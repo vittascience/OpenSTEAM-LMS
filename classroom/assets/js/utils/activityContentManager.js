@@ -20,21 +20,22 @@ function parseContent(content, className, autoWidth = false) {
     let values = content.match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1"));
     let autoWidthStyle = '';
     for (let i = 0; i < values.length; i++) {
-
+        const rawValue = values[i];
         autoWidthStyle = autoWidth ? 'style="width:' + (values[i].length + 4) + 'ch"' : autoWidthStyle = '';
 
         content = content.replace(`[answer]${values[i]}[/answer]`, `[answer][/answer]`);
         let valueParsed = values[i].includes('[math]') ? parseMathLiveContent(values[i]) : values[i];
+        const aria = `aria-label="La bonne réponse était : ${rawValue}"`;
 
         if (bbcodeToHtml(valueParsed) != valueParsed) {
             content = content.replace(/\[answer\]/, bbcodeToHtml(valueParsed));
             content = content.replace(/\[\/answer\]/, "");
         } else {
             if (valueParsed.includes('<math-field')) {
-                content = content.replace(/\[answer\]/, `<div readonly class='${className}' ${'style="width:' + (values[i].length / 5) + 'ch; height:6ch;"'}>` + valueParsed);
+                content = content.replace(/\[answer\]/, `<div readonly class='${className}' ${aria} ${'style="width:' + (values[i].length / 5) + 'ch; height:6ch;"'}>` + valueParsed);
                 content = content.replace(/\[\/answer\]/, "</div>");
             } else {
-                content = content.replace(/\[answer\]/, `<input readonly class='${className}' value="${valueParsed}" ${'style="width:' + (values[i].length + 4) + 'ch"'}>`);
+                content = content.replace(/\[answer\]/, `<input readonly class='${className}' value="${valueParsed}" ${aria} ${'style="width:' + (values[i].length + 4) + 'ch"'}>`);
                 content = content.replace(/\[\/answer\]/, "</input>");
             }
         }
@@ -512,7 +513,3 @@ function initializeDragulaWithOneContainer(idContainer, classDropZone, activityI
         }
     });
 }
-
-
-
-

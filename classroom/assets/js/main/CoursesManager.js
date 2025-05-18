@@ -647,13 +647,15 @@ class CoursesManager {
     teacherCourseItem(course, displayStyle) {
         let content = "";
         if (displayStyle == "card") {
-            content = `<div class="course-item course-teacher" data-id="${course.id}">
+            content = `<div class="course-item course-teacher" data-id="${course.id}" aria-label="Activité ${course.title}" tabindex="-1">
                             <div>
-                                <div class="course-card">
+                                <div class="course-card"
+                                    onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.target.click(); }" tabindex="0"
+                                >
                                 <img src="${_PATH}assets/media/cards/card-course.png" class="course-card-img">
                                 <div class="course-card-info">
                                     <div class="course-card-top">
-                                        <div class="dropdown">
+                                        <div class="dropdown" onkeydown="if(event.key==='Enter'||event.key===' '){event.stopPropagation();}" tabindex="0">
                                             <i class="fas fa-cog fa-2x" type="button" id="dropdown-courseItem-${course.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             </i>
                                             <div class="dropdown-menu" aria-labelledby="dropdown-courseItem-${course.id}" data-id="${course.id}">

@@ -3804,7 +3804,8 @@ h3.section-done {
 }
 
 .switcher__input {
-    display: none;
+    position: absolute;
+    clip: rect(0 0 0 0);
 }
 
 .switcher__label {

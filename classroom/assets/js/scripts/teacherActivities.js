@@ -132,7 +132,7 @@ function activityModify(id, rename = false) {
 
     ClassroomSettings.activity = id
     $('#activity-form-title').val('')
-    $('.wysibb-text-editor').html('')
+    // $('.wysibb-text-editor').html('')
 
     Main.getClassroomManager().getActivity(ClassroomSettings.activity).then((activity) => {     
         if (activity.type != "") {

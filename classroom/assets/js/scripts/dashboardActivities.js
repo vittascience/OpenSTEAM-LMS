@@ -54,7 +54,6 @@ function activityItem(activity, state) {
 }
 
 function courseItem(course, state) {
-
     let activityStatus = "";
     //let dateEndNotif = activity.activity.isLti ? "style='display:none'" : "";
     let html = `<div class="course-item" onclick="coursesManager.${course.course.format == 1 ? "readCourseOnePage" : "readCourseFromStudent"}('${course.course.id}', '${course.id}')">
@@ -84,7 +83,6 @@ function courseItem(course, state) {
 }
 
 function teacherSandboxItem(json) {
-
     let html = `<div class="sandbox-item sandbox-teacher">
                     <div class="sandbox-card sandbox-card-` + json.interface + `" data-id="${json.id}" data-href="/` + json.interface + `/?link=` + json.link + `&embed=1">
                         <div class="sandbox-card-top">
@@ -114,12 +112,14 @@ function teacherActivityItem(activity, displayStyle) {
     }
     let content = "";
     if (displayStyle == "card") {
-        content = `<div class="activity-item activity-teacher" data-id="${activity.id}">
+        content = `<div class="activity-item activity-teacher" data-id="${activity.id}" aria-label="Activité ${activity.title}" tabindex="-1">
                         <div>
-                            <div class="activity-card ${activityType}">
+                            <div class="activity-card ${activityType}" tabindex="0"
+                                onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.target.click(); }"
+                            >
                                 <div class="activity-card-top">
                                 ${activity.isAutocorrect ? `<img src='${_PATH}assets/media/auto-icon.svg' title='Auto'>` : "" }
-                                <div class="dropdown">
+                                <div class="dropdown" onkeydown="if(event.key==='Enter'||event.key===' '){event.stopPropagation();}" tabindex="0">
                                     <i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     </i>
                                     <div class="dropdown-menu" aria-labelledby="dropdown-activityItem-${activity.id}" data-id="${activity.id}">
@@ -176,7 +176,6 @@ function teacherActivityItem(activity, displayStyle) {
                             <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
                             <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
                             <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
-                            <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id}, true)" href="#">${capitalizeFirstLetter(i18next.t('words.rename'))}</li>
                             <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
                             <li class=" classroom-clickable col-12 dropdown-item" onclick="exportActivityToJSON(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('newActivities.export'))}</li>
                             <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')"></li>
@@ -195,13 +194,16 @@ function teacherActivityItem(activity, displayStyle) {
 function teacherFolder(folder, displayStyle) {
     let content = "";
     if (displayStyle == "card") {
-        content = `<div class="folder-item" data-id="${folder.id}">
-                    <div> 
-                        <div class="folder-card" data-id="${folder.id}">
+        content = `
+                <div class="folder-item" data-id="${folder.id}" aria-label="Dossier ${folder.name}" tabindex="-1">
+                    <div>
+                        <div class="folder-card" role="button" data-id="${folder.id}" tabindex="0"
+                            onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.target.click(); }"            
+                        >
                             <img class="folder-close-icon" src="${_PATH}assets/media/folders/folder_close_icon.svg" onload="SVGInject(this)">
                             <img class="folder-open-icon" src="${_PATH}assets/media/folders/folder_open_icon.svg" onload="SVGInject(this)">
                             <div class="folder-card-top">
-                                <div class="dropdown">
+                                <div class="dropdown" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.stopPropagation();}">
                                     <i class="fas fa-cog fa-2x" type="button" id="dropdown-folder-${folder.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     </i>
                                     <div class="dropdown-menu" aria-labelledby="dropdown-folder-${folder.id}" data-id="${folder.id}">
@@ -265,7 +267,7 @@ function classeItem(classe, nbStudents, students) {
     let maxAct = maxLength(students)
     let remainingCorrections = getRemainingCorrections(students);
     let remainingCorrectionsSpanElt = remainingCorrections ? `<span class="results-correcting c-text-secondary"><i class="fas fa-pen"></i></i> ${remainingCorrections}</span>` : '';
-    let html = `<div class="class-item"><div class="class-card">
+    let html = `<div class="class-item"><div class="class-card" tabindex="0">
                 <div class="class-card-top"  data-id="${classe.id}" data-link="${classe.link}">
                 <span><i class="fas fa-user fa-2x"></i></i> ${nbStudents}</span>
                 ${remainingCorrectionsSpanElt}
