@@ -295,19 +295,51 @@ class CoursesManager {
     }
 
     createCheckboxElements(target = null, activity = null) {
-        let activityImg = foldersManager.icons.hasOwnProperty(activity.type) ? `<img class="list-item-img d-inline" src="${foldersManager.icons[activity.type]}" alt="${activity.type}" class="folder-icons">` : "<span class='list-item-img'> <div class='list-item-no-icon'><i class='fas fa-laptop'></i></div></span>";
+        // Activity icon with proper alt text
+        let activityImg = foldersManager.icons.hasOwnProperty(activity.type) 
+            ? `<img class="list-item-img d-inline" 
+                    src="${foldersManager.icons[activity.type]}" 
+                    alt="${i18next.t('words.activity')} ${activity.type}" 
+                    class="folder-icons">` 
+            : `<span class='list-item-img' aria-hidden="true"> 
+                <div class='list-item-no-icon'>
+                    <i class='fas fa-laptop'></i>
+                </div>
+               </span>`;
+
         const activityDiv = document.createElement('div');
         activityDiv.classList.add('activity-item-courses');
         activityDiv.setAttribute('data-activity-id', activity.id);
-        // add checkbox 
+        activityDiv.setAttribute('role', 'listitem');
+        activityDiv.setAttribute('aria-label', `${i18next.t('words.activity')}: ${activity.title}`);
+        activityDiv.setAttribute('tabindex', '0');
+
+        // Checkbox with improved accessibility
         activityDiv.innerHTML = `
-                <div class="form-check c-checkbox">
-                    <input class="activity-item-checkbox-input" type="checkbox" value="${activity.id}" id="courses-activity-${activity.id}">
-                    <label class="form-check-label" for="courses-activity-${activity.id}">
-                        ${activityImg}    
-                        ${activity.title}
-                    </label>
-                </div>`;
+            <div class="form-check c-checkbox" role="group" aria-labelledby="activity-label-${activity.id}">
+                <input class="activity-item-checkbox-input" 
+                       type="checkbox" 
+                       value="${activity.id}" 
+                       id="courses-activity-${activity.id}"
+                       aria-label="${activity.title}"
+                       aria-describedby="activity-type-${activity.id}">
+                <label class="form-check-label" 
+                       id="activity-label-${activity.id}" 
+                       for="courses-activity-${activity.id}">
+                    ${activityImg}    
+                    <span id="activity-type-${activity.id}" class="sr-only">${i18next.t('words.activity')} ${activity.type}</span>
+                    ${activity.title}
+                </label>
+            </div>`;
+
+        activityDiv.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const checkbox = activityDiv.querySelector('.activity-item-checkbox-input');
+                checkbox.checked = !checkbox.checked;
+                checkbox.dispatchEvent(new Event('change'));
+            }
+        });
 
         target.appendChild(activityDiv);
     }

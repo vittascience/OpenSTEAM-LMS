@@ -102,3 +102,14 @@ function monochromeStudents() {
         $('#legend-container').removeClass('is-monochrome')
     }
 }
+
+document.addEventListener('keydown', function(event) {
+    if (event.code === 'Space' && document.activeElement.classList.contains('c-checkbox')) {
+        event.preventDefault();
+        const checkbox = document.activeElement.querySelector('input[type="checkbox"]');
+        if (checkbox) {
+            checkbox.checked = !checkbox.checked;
+
+        }
+    }
+});
