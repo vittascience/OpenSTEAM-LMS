@@ -65,6 +65,12 @@ function Modal(modalID = "a", options = {}) {
         let modal = document.createElement('div');
         modal.setAttribute('id', modalID);
         modal.setAttribute('class', `vitta-modal${modalClass}`);
+        modal.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            e.preventDefault();
+            myself.closeModal(modalID);
+          }
+        });
 
         // Header creation
         let header = document.createElement('div');
@@ -86,11 +92,17 @@ function Modal(modalID = "a", options = {}) {
         exit_btn.setAttribute('class', 'vitta-modal-exit-btn vitta-button btn');
         exit_btn.setAttribute('type', 'button');
         exit_btn.setAttribute('tabindex', '0');
-        exit_btn.setAttribute('data-i18n', '[title]modals.standard.default.exit');
+        exit_btn.setAttribute('data-i18n', '[title]modals.standard.default.exit;[aria-label]manager.buttons.close');
         exit_btn.setAttribute('data-bs-toggle', 'tooltip');
         exit_btn.setAttribute('data-bs-placement', 'top');
         exit_btn.addEventListener('click', function () {
             myself.closeModal(modal.id);
+        });
+        exit_btn.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                myself.closeModal(modal.id);
+            }
         });
         let exit_icon = document.createElement('i');
         exit_icon.setAttribute('class', 'fa fa-times-circle');
@@ -151,18 +163,37 @@ function Modal(modalID = "a", options = {}) {
  * @param {string} modal ID of the modal element 
  */
 Modal.prototype.openModal = function (modal) {
-    const backdrop = document.getElementById('modal-backdrop');
-    if (backdrop)
-        backdrop.style.display = 'block';
+    let backdrop = document.getElementById('modal-backdrop');    
+    if (!backdrop) {
+        backdrop = document.createElement('div');
+        backdrop.id = 'modal-backdrop';
+        backdrop.setAttribute('role', 'presentation');
+        backdrop.setAttribute('aria-hidden', 'true');
+        document.body.appendChild(backdrop);
+    }
+    
+    backdrop.style.display = 'block';
+    
+    // Prevent focus on the overlay
+    backdrop.setAttribute('tabindex', '-1');
+    backdrop.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        const modalElement = document.getElementById(modal);
+        if (modalElement) {
+            modalElement.focus();
+        }
+    });
 
     this.trapFocusInModal(document.getElementById(modal));
     $(`#${modal}`).localize();
     this.closeAllModal();
     var zIndex = ModalsOpenedModals.length + 1000
     if (ModalsListModals.includes(modal)) {
-        document.getElementById(modal).setAttribute('style', `display: block; z-index: ${zIndex}`);
+        const modalElement = document.getElementById(modal);
+        modalElement.setAttribute('style', `display: block; z-index: ${zIndex}`);
+        modalElement.setAttribute('tabindex', '-1');
+        modalElement.focus();
         ModalsOpenedModals.push(modal);
-
     } else {
         throw 'Cannot open this modal, modal not included';
     }
@@ -175,14 +206,19 @@ Modal.prototype.openModal = function (modal) {
  */
 Modal.prototype.closeModal = function (modal) {
     const backdrop = document.getElementById('modal-backdrop');
-    if (backdrop)
-        backdrop.style.display = 'block';
-
+    const modalElement = document.getElementById(modal);
+    
     if (ModalsOpenedModals.includes(modal)) {
         this.resetMessage(modal);
-        document.getElementById(modal).removeAttribute('style');
+        this.removeFocusTrap(modalElement);
+        modalElement.removeAttribute('style');
         var index = ModalsOpenedModals.indexOf(modal);
         ModalsOpenedModals.splice(index, 1);
+        
+        // Hide backdrop if no more modals are open
+        if (ModalsOpenedModals.length === 0 && backdrop) {
+            backdrop.style.display = 'none';
+        }
     }
 }
 
@@ -413,39 +449,65 @@ Modal.prototype.trapFocusInModal = async function(modalElement) {
         const style = window.getComputedStyle(el);
         return style.display !== 'none'
             && style.visibility !== 'hidden'
-            && el !== exitButton;
+            && el.offsetParent !== null;
     });
 
-    if (!exitButton || focusableElements.length === 0) return;
+    if (focusableElements.length === 0) return;
+
+    if (exitButton) {
+        focusableElements.unshift(exitButton);
+    }
 
     const firstElement = focusableElements[0];
     const lastElement = focusableElements[focusableElements.length - 1];
 
-    modalElement.addEventListener('keydown', (e) => {
+    const handleKeyDown = (e) => {
         if (e.key !== 'Tab') return;
 
         const activeElement = document.activeElement;
+        
         if (e.shiftKey) {
+            // Backward navigation (Shift+Tab)
             if (activeElement === firstElement) {
                 e.preventDefault();
-                exitButton.focus();
+                lastElement.focus();
             }
         } else {
+            // Forward navigation (Tab)
             if (activeElement === lastElement) {
-                e.preventDefault();
-                setTimeout(() => {
-                    exitButton.focus();
-                }, 10)
-            } else if (activeElement === exitButton) {
                 e.preventDefault();
                 firstElement.focus();
             }
         }
-    });
+    };
+
+    const handleFocusOut = (e) => {
+        // Check if the focus has left the modal
+        if (!modalElement.contains(e.relatedTarget)) {
+            e.preventDefault();
+            firstElement.focus();
+        }
+    };
+
+    modalElement.addEventListener('keydown', handleKeyDown);
+    modalElement.addEventListener('focusout', handleFocusOut);
+
+    // Store listeners for later deletion
+    modalElement._focusTrapHandlers = {
+        keydown: handleKeyDown,
+        focusout: handleFocusOut
+    };
 
     firstElement.focus();
 };
 
+Modal.prototype.removeFocusTrap = function(modalElement) {
+    if (modalElement._focusTrapHandlers) {
+        modalElement.removeEventListener('keydown', modalElement._focusTrapHandlers.keydown);
+        modalElement.removeEventListener('focusout', modalElement._focusTrapHandlers.focusout);
+        delete modalElement._focusTrapHandlers;
+    }
+};
 
 function wait(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
