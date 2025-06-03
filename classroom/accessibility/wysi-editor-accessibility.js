@@ -5,6 +5,10 @@ function makeWysiBBEditorAccessible(editorContainer) {
 
     if (!wysibbEditor || wysibbEditor.getAttribute('data-a11y-setup') === 'true') return;
 
+    // Get the label text from parent content div
+    const contentDiv = editorContainer.closest('.content');
+    const labelText = contentDiv?.querySelector('label')?.textContent || '';
+
     // Editable zone configuration
     wysibbEditor.setAttribute('role', 'textbox');
     wysibbEditor.setAttribute('aria-multiline', 'true');
@@ -28,15 +32,16 @@ function makeWysiBBEditorAccessible(editorContainer) {
 
     // Invisible keyboard input button
     const toggleButton = document.createElement('button');
-    toggleButton.textContent = 'Éditer le contenu (appuyez sur Entrée)';
+    toggleButton.textContent = `Éditer le contenu (appuyez sur Entrée). ${labelText}. Zone d'édition activée. Appuyez sur Alt + F10 pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`;
     toggleButton.className = 'sr-only';
     toggleButton.setAttribute('aria-controls', textarea?.id || '');
+    
     toggleButton.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
             wysibbEditor.setAttribute('tabindex', '0');
             wysibbEditor.focus();
-            liveRegionAnnounce('Zone d’édition activée. Appuyez sur Alt + F10 pour accéder à la barre d’outils. Appuyez sur Échap pour quitter.');
+            liveRegionAnnounce(`Éditer le contenu (appuyez sur Entrée). ${labelText}. Zone d'édition activée. Appuyez sur Alt + F10 pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`);
         }
     });
     wysibbEditor.parentNode.insertBefore(toggleButton, wysibbEditor);
@@ -47,11 +52,17 @@ function makeWysiBBEditorAccessible(editorContainer) {
             e.preventDefault();
             wysibbEditor.setAttribute('tabindex', '-1');
             toggleButton.focus();
-            liveRegionAnnounce('Vous avez quitté la zone d’édition.');
+            liveRegionAnnounce("Vous avez quitté la zone d'édition.");
         }else if (e.code === 'F10' && e.altKey){
             e.preventDefault();
             enableToolbarNavigation(toolbar, wysibbEditor, liveRegion);
         }
+    });
+
+    toggleButton.addEventListener('click', () => {
+      wysibbEditor.setAttribute('tabindex', '0');
+      wysibbEditor.focus();
+      liveRegionAnnounce(`Éditer le contenu (appuyez sur Entrée). ${labelText}. Zone d'édition activée. Appuyez sur Alt + F10 pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`);
     });
 
     // If you exit without Esc (click, tab...), the keyboard input is locked again.
@@ -98,14 +109,14 @@ function enableToolbarNavigation(toolbar, returnFocusEl, liveRegion) {
                 e.preventDefault();
                 disableToolbarNavigation(toolbar);
                 returnFocusEl.focus();
-                liveRegionAnnounce('Retour dans la zone d’édition.');
+                liveRegionAnnounce("Retour dans la zone d'édition.");
             }
         }, { once: true });
     });
 
     if (buttons.length) {
         buttons[0].focus();
-        liveRegionAnnounce('Barre d’outils activée. Utilisez les flèches gauche/droite pour naviguer. Appuyez sur Échap pour revenir.');
+        liveRegionAnnounce("Barre d'outils activée. Utilisez les flèches gauche/droite pour naviguer. Appuyez sur Échap pour revenir.");
     }
 }
 
