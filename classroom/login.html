@@ -61,39 +61,45 @@
 
 </div>
 <!-- page de login à choix multiple -->
-<div id="classroom-login-container" style="display:none;">
-    <div class="inner-login-container">
-        <div id="classroom-login-code" class="container-border-left">
-
-            <h3 class="font-weight-bold c-text-secondary" data-i18n="classroom.login.student"></h3>
-            <div class="c-secondary-form mb-3">
-                <img src="assets/media/orange_lock.png" class="icon-label">
-                <label for="secret_code" data-i18n="classroom.login.codeInput"></label></br>
-                <input type="text" placeholder="123ABC" name="secret_code" id="class-code" required>
-            </div>
-            <button class="btn c-btn-secondary text-capitalize" id="class-connexion" type="submit"><span
-                    data-i18n="words.confirm"></span>
-                <i class="fas fa-chevron-right"></i></button>
-        </div>
-        <div id="classroom-login-vittascience-account" class="container-border-center">
-            <h3 class="font-weight-bold c-text-primary" data-i18n="classroom.login.teacher"></h3>
-            <p data-i18n="classroom.login.hasAccount"></p>
-            <span id="login-vittascience" class="btn c-btn-primary" role="button">
-                <span data-i18n="classroom.login.login"></span> <i class="fas fa-chevron-down"></i>
-            </span>
-            <span class="btn c-btn-primary mt-3"  id="register-link">
-                <span class="text-white" data-i18n="classroom.login.registerLink"></span>
-                <i class="fas fa-chevron-down"></i>
-            </span>
-        </div>
-        <div id="classroom-login-gar" class="container-border-right">
-            <img src="assets/media/logoGAR.png" alt="Logo GAR">
-            <span class="gar-presentation-text my-3" data-i18n="[html]classroom.login.gar"></span>
-        </div>
-        <button onclick="navigateLight('', 1)" class="btn close-login-classroom"><i class="fas fa-times"></i></button>
-
+<div id="classroom-login-container" style="display: none;" aria-hidden="true">
+  <section class="inner-login-container" role="region" aria-labelledby="login-title">
+    <div id="classroom-login-code" class="container-border-left" role="form" aria-labelledby="student-login-title">
+      <h3 id="student-login-title" class="font-weight-bold c-text-secondary" data-i18n="classroom.login.student">Connexion élève</h3>
+      <div class="c-secondary-form mb-3">
+        <img src="assets/media/orange_lock.png" class="icon-label" alt="" role="presentation">
+        <label for="class-code" data-i18n="classroom.login.codeInput">Code d'accès</label><br>
+        <input type="text" placeholder="123ABC" name="secret_code" id="class-code" required aria-required="true">
+      </div>
+      <button class="btn c-btn-secondary text-capitalize" id="class-connexion" type="submit" aria-label="Confirmer la connexion élève">
+        <span data-i18n="words.confirm">Confirmer</span>
+        <i class="fas fa-chevron-right" aria-hidden="true"></i>
+      </button>
     </div>
+
+    <div id="classroom-login-vittascience-account" class="container-border-center" role="region" aria-labelledby="teacher-login-title">
+      <h3 id="teacher-login-title" class="font-weight-bold c-text-primary" data-i18n="classroom.login.teacher">Connexion enseignant</h3>
+      <p data-i18n="classroom.login.hasAccount">Vous avez déjà un compte ?</p>
+      <button id="login-vittascience" class="btn c-btn-primary" type="button">
+        <span data-i18n="classroom.login.login">Connexion</span>
+        <i class="fas fa-chevron-down" aria-hidden="true"></i>
+      </button>
+      <button class="btn c-btn-primary mt-3" id="register-link" type="button">
+        <span class="text-white" data-i18n="classroom.login.registerLink">Créer un compte</span>
+        <i class="fas fa-chevron-down" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <div id="classroom-login-gar" class="container-border-right" role="complementary" aria-labelledby="gar-title">
+      <img src="assets/media/logoGAR.png" alt="Logo du Gestionnaire d'Accès aux Ressources (GAR)">
+      <span id="gar-title" class="gar-presentation-text my-3" data-i18n="[html]classroom.login.gar">Connexion via GAR</span>
+    </div>
+
+    <button onclick="navigateLight('', 1)" class="btn close-login-classroom" type="button" aria-label="Fermer le formulaire de connexion">
+      <i class="fas fa-times" aria-hidden="true"></i>
+    </button>
+  </section>
 </div>
+
 <!-- Register page -->
 <div id="classroom-register-container" style="display:none;">
     <div class="inner-register-container">
@@ -272,53 +278,98 @@
 
 
 <div id="login-container" style="display:none;position:relative;">
-    <div class="login-form" id="signupin-div">
-        <h1><span class="fa fa-sign-in-alt"></span><span data-i18n="login_popup.title"></span> <button
-                onclick="navigateLight('login-choice')" class="btn close-login-classroom"><i
-                    class="fas fa-times"></i></button></h1>
+<div class="login-form" id="signupin-div" role="region" aria-labelledby="login-title">
+  <h1 id="login-title">
+    <i class="fa fa-sign-in-alt" aria-hidden="true"></i>
+    <span data-i18n="login_popup.title"></span>
+    <button onclick="navigateLight('login-choice')" class="btn close-login-classroom" type="button" aria-label="Fermer la fenêtre de connexion">
+      <i class="fas fa-times" aria-hidden="true"></i>
+    </button>
+  </h1>
 
-        <p data-i18n="login_popup.details"></p>
-        <p><a data-i18n="login-page.createAccount" href='#' onclick="displaySignupClass();"></a></p>
-        <div id="info-div-classroom"></div>
-        <form id="login-form">
-            <div id="login-div-classroom">
-                <label for="login-mail-input">
-                    <span class="fa fa-at"></span> <span data-i18n="login_popup.form.addressmail"></span><span
-                        class="mandatory">*</span>
-                </label>
-                <input name='mail' style="margin-bottom:5px;"
-                    data-i18n="[placeholder]login_popup.form.addressmail_placeholder" class="form-control" type="email"
-                    id="login-mail-input" data-testid="classroomLoginEmailInput">
+  <p data-i18n="login_popup.details"></p>
+  <p>
+    <a data-i18n="login-page.createAccount" href="#" onclick="displaySignupClass();" role="link"></a>
+  </p>
 
-                <label for="login-pwd-input">
-                    <span class="fa fa-key"></span> <span data-i18n="login_popup.form.password"></span><span
-                        class="mandatory">*</span>
-                </label>
-                <input name='password' data-i18n="[placeholder]login_popup.form.password_placeholder" class="form-control"
-                    type="password" id="login-pwd-input" data-testid="classroomLoginPasswordInput">
+  <div id="info-div-classroom" aria-live="polite" aria-atomic="true"></div>
 
-                <input type="text" name="za78e-username" autocomplete="off" value="" id="za78e-username" class="za78e-field"
-                    placeholder="za78e username" />
-                <input type="number" name="za78e-number" autocomplete="off" max="10" min="0" id="za78e-number"
-                    class="za78e-field" placeholder="za78e number" />
+  <form id="login-form" aria-labelledby="login-title">
+    <div id="login-div-classroom">
+      <label for="login-mail-input">
+        <i class="fa fa-at" aria-hidden="true"></i>
+        <span data-i18n="login_popup.form.addressmail"></span>
+        <span class="mandatory" aria-hidden="true">*</span>
+      </label>
+      <input name="mail"
+             style="margin-bottom:5px;"
+             data-i18n="[placeholder]login_popup.form.addressmail_placeholder"
+             class="form-control"
+             type="email"
+             id="login-mail-input"
+             required
+             aria-required="true"
+             autocomplete="email"
+             data-testid="classroomLoginEmailInput">
 
-                <div>
-                    <a class="hint" href="/classroom/password_manager.php" data-i18n="login_popup.form.forgot_password"></a>
-                </div>
-            </div>
+      <label for="login-pwd-input">
+        <i class="fa fa-key" aria-hidden="true"></i>
+        <span data-i18n="login_popup.form.password"></span>
+        <span class="mandatory" aria-hidden="true">*</span>
+      </label>
+      <input name="password"
+             data-i18n="[placeholder]login_popup.form.password_placeholder"
+             class="form-control"
+             type="password"
+             id="login-pwd-input"
+             required
+             aria-required="true"
+             autocomplete="current-password"
+             data-testid="classroomLoginPasswordInput">
 
-            <div class="mt-2 d-none" id="login-totp-div-classroom">
-                <label for="totp_code-login-page">Votre compte est protégé par une authentification à deux facteurs, veuillez entrer le code ci dessous :</label>
-                <input id="totp_code-login-page" name="totp_code" placeholder="code Authenticator" class="form-control">
-            </div>
+      <div style="display: none;" aria-hidden="true">
+        <input type="text" name="za78e-username" autocomplete="off" value="" id="za78e-username" class="za78e-field" placeholder="za78e username">
+        <input type="number" name="za78e-number" autocomplete="off" max="10" min="0" id="za78e-number" class="za78e-field" placeholder="za78e number">
+      </div>
 
-
-            <button type='button' style="margin-top:10px;" onclick="checkLogin();" class="btn c-btn-secondary"
-                id="login-button" data-i18n="login_popup.form.btn_connect" data-testid="classroomLoginSubmitBtn"></button>
-            <button type='button' style="margin-top:10px; display:none;" onclick="getNewValidationMail();" class="btn c-btn-secondary"
-                id="btn-activate-account-classroom" data-i18n="login_popup.form.btn_activate">placeholder activate</button>
-        </form>
+      <div>
+        <a class="hint" href="/classroom/password_manager.php" data-i18n="login_popup.form.forgot_password"></a>
+      </div>
     </div>
+
+    <div class="mt-2 d-none" id="login-totp-div-classroom">
+      <label for="totp_code-login-page">Votre compte est protégé par une authentification à deux facteurs, veuillez entrer le code ci-dessous :</label>
+      <input id="totp_code-login-page"
+             name="totp_code"
+             placeholder="Code Authenticator"
+             class="form-control"
+             type="text"
+             inputmode="numeric"
+             aria-describedby="login-title">
+    </div>
+
+    <button type="submit"
+            style="margin-top:10px;"
+            onclick="checkLogin();"
+            class="btn c-btn-secondary"
+            id="login-button"
+            data-i18n="login_popup.form.btn_connect"
+            data-testid="classroomLoginSubmitBtn"
+            aria-label="Connexion">
+    </button>
+
+    <button type="button"
+            style="margin-top:10px; display:none;"
+            onclick="getNewValidationMail();"
+            class="btn c-btn-secondary"
+            id="btn-activate-account-classroom"
+            data-i18n="login_popup.form.btn_activate"
+            aria-label="Renvoyer l’e-mail d’activation">
+      placeholder activate
+    </button>
+  </form>
+</div>
+
 </div>
 
 <!-- page de login via un lien -->
