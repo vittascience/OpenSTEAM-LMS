@@ -171,8 +171,10 @@ function hideAllActivities() {
 $("#free-autocorrect").change(function () {
     if ($(this).is(":checked")) {
         $("#free-correction-content").show();
+        notifyA11y("Autocorrection activée");
     } else {
         $("#free-correction-content").hide();
+        notifyA11y("Autocorrection désactivée");
     }
 })
 
@@ -513,3 +515,35 @@ function initializeDragulaWithOneContainer(idContainer, classDropZone, activityI
         }
     });
 }
+
+function updateToleranceValue(value, inputId) {
+    const input = document.getElementById(inputId);
+    input.value = value;
+    input.setAttribute('aria-valuenow', value);
+    notifyA11y(`Tolérance définie à ${value}`);
+}
+
+$('body').on('click', '#free-tolerance-increase', function () {
+    let tolerance = parseInt($('#free-tolerance').val());
+    if (!isNaN(tolerance)) {
+        updateToleranceValue(tolerance + 1, 'free-tolerance');
+    } else {
+        updateToleranceValue(1, 'free-tolerance');
+    }
+});
+
+$('body').on('click', '#free-tolerance-decrease', function () {
+    let tolerance = parseInt($('#free-tolerance').val());
+    if (tolerance > 0) {
+        updateToleranceValue(tolerance - 1, 'free-tolerance');
+    }
+});
+
+$('#free-tolerance').on('change', function() {
+    let value = parseInt($(this).val());
+    if (value < 0) {
+        value = 0;
+        $(this).val(0);
+    }
+    updateToleranceValue(value, 'free-tolerance');
+});
