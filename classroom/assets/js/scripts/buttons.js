@@ -759,8 +759,8 @@ function studentActivitiesDisplay() {
 
     Main.getClassroomManager()._myCourses.forEach(course => {
         let today = new Date(),
-            dateBegin = new Date(course.dateBegin.date),
-            dateEnd = new Date(course.dateEnd.date);
+            dateBegin = course.dateBegin ? new Date(course.dateBegin.date) : null,
+            dateEnd = course.dateEnd ? new Date(course.dateEnd.date) : null;
 
         if (dateBegin && (today < dateBegin || dateEnd < today) && dateBegin != null && dateEnd != null) {
             return;
@@ -774,17 +774,17 @@ function studentActivitiesDisplay() {
         });
 
         if (course.courseState == 999) {
-            let number = $('.section-done .resource-number').html();
-            $('.section-done .resource-number').html(parseInt(number) + 1);
-            $('#done-activities-list').append(courseItem(course, "doneActivities"));
+            let doneNumberElement = document.querySelector('.section-done .resource-number');
+            doneNumberElement.textContent = (parseInt(doneNumberElement.textContent) + 1).toString();
+            document.querySelector('#done-activities-list').innerHTML += courseItem(course, "doneActivities");
         } else if ((course.courseState == 0 && course.activities[0].response != null) || course.courseState > 0 && course.courseState != 999 && saveCourse) {
-            let number = $('.section-saved .resource-number').html();
-            $('.section-saved .resource-number').html(parseInt(number) + 1)
-            $('#saved-activities-list').append(courseItem(course, "currentActivities"));
+            let savedNumberElement = document.querySelector('.section-saved .resource-number');
+            savedNumberElement.textContent = (parseInt(savedNumberElement.textContent) + 1).toString();
+            document.querySelector('#saved-activities-list').innerHTML += courseItem(course, "currentActivities");
         } else if (course.courseState == 0 || !saveCourse) {
-            let number = $('.section-new .resource-number').html();
-            $('.section-new .resource-number').html(parseInt(number) + 1)
-            $('#new-activities-list').append(courseItem(course, "newActivities"));
+            let newNumberElement = document.querySelector('.section-new .resource-number');
+            newNumberElement.textContent = (parseInt(newNumberElement.textContent) + 1).toString();
+            document.querySelector('#new-activities-list').innerHTML += courseItem(course, "newActivities");
         }
     });
 

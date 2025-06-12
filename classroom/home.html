@@ -2796,7 +2796,7 @@ function navigateDefault(option, iface) {
 }
 
 function handleManager(panel, nav, option, iface) {
-    switchToManager();
+    switchToManagerHome();
     navigatePanel(panel, nav, option, iface);
 
     if (panel === "manager-dashboard-main") {
@@ -2804,6 +2804,22 @@ function handleManager(panel, nav, option, iface) {
     } else if (panel === "manager-apps-main") {
         getAndShowApps();
     }
+}
+
+function switchToManagerHome() {
+    document.body.classList.add('theme-super-admin');
+    document.body.classList.remove('theme-group-admin', 'theme-teacher');
+    
+    document.getElementById('classroom-dashboard-sidebar-teacher').style.display = 'none';
+    document.getElementById('groupadmin-dashboard-sidebar').style.display = 'none';
+    document.getElementById('manager-dashboard-sidebar').style.display = 'block';
+    
+    navigatePanel('classroom-dashboard-profil-panel-manager', 'dashboard-profil-manager');
+    pseudoModal.closeAllModal();
+    
+    mainManager.getmanagerManager().getDefaultRestrictions().then(function(res) {
+        mainManager.getmanagerManager()._defaultRestrictions = res;
+    });
 }
 
 function handleGroupAdmin(panel, nav, option, iface) {

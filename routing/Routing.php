@@ -70,7 +70,7 @@ try {
         try {
             $regular = $entityManager->getRepository('User\Entity\Regular')->find(intval($_SESSION["id"]))->jsonSerialize();
             $user['isRegular'] = $regular['email'];
-            $user['sso'] = $regular['fromSSO'] ?? 'google';
+            $user['sso'] = $regular['fromSSO'] ?? false;
             
         } catch (error $e) {
             $user['isRegular'] = false;
