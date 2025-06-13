@@ -611,7 +611,7 @@ a.forgot-password {
 }
 
 
-.input-group-text.password-display-toggler {
+.input-group-text.password-display-toggler, .input-group-text.password-display-toggler-updated {
     border-top-right-radius: 0.5rem !important;
     border-bottom-right-radius: 0.5rem !important;
     border-top-left-radius: 0 !important;
