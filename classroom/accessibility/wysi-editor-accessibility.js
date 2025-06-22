@@ -5,21 +5,52 @@ function makeWysiBBEditorAccessible(editorContainer) {
 
     if (!wysibbEditor || wysibbEditor.getAttribute('data-a11y-setup') === 'true') return;
 
-    // Get the label text from parent content div
     const contentDiv = editorContainer.closest('.content');
-    const labelText = contentDiv?.querySelector('label')?.textContent || '';
+    let labelText = '';
+    
+    const associatedLabel = contentDiv?.querySelector('label');
+    const parentHeading = editorContainer.closest('[role="dialog"], .modal')?.querySelector('h1, h2, h3, h4, h5, h6');
+    const nearbyText = editorContainer.previousElementSibling?.textContent || 
+                      editorContainer.parentElement?.querySelector('label, .label-text, [data-i18n]')?.textContent;
 
-    // Editable zone configuration
+    if (associatedLabel) {
+        labelText = associatedLabel.textContent.trim();
+    } else if (parentHeading) {
+        labelText = parentHeading.textContent.trim();
+    } else if (nearbyText) {
+        labelText = nearbyText.trim();
+    } else if (textarea?.id) {
+        // Generate a descriptive label based on the textarea ID
+        const idParts = textarea.id.split('-');
+        labelText = idParts.join(' ').replace(/([A-Z])/g, ' $1').trim();
+    } else {
+        labelText = 'Éditeur de texte';
+    }
+
     wysibbEditor.setAttribute('role', 'textbox');
     wysibbEditor.setAttribute('aria-multiline', 'true');
     wysibbEditor.setAttribute('tabindex', '-1');
     wysibbEditor.setAttribute('contenteditable', 'true');
     wysibbEditor.setAttribute('data-a11y-setup', 'true');
-    if (textarea?.id) wysibbEditor.setAttribute('aria-labelledby', `${textarea.id}_label`);
+    
+    if (textarea?.id) {
+        const labelId = `${textarea.id}_label`;
+        const labelElement = document.getElementById(labelId);
+        
+        if (labelElement && labelElement.textContent.trim()) {
+            wysibbEditor.setAttribute('aria-labelledby', labelId);
+        } else {
+            wysibbEditor.removeAttribute('aria-labelledby');
+            wysibbEditor.setAttribute('aria-label', labelText || 'Éditeur de texte enrichi');
+        }
+    } else {
+        wysibbEditor.setAttribute('aria-label', labelText || 'Éditeur de texte enrichi');
+    }
 
     disableToolbarNavigation(toolbar);
+    
+    fixToolbarImages(toolbar);
 
-    // Live region
     let liveRegion = document.getElementById('wysibb-live-region');
     if (!liveRegion) {
         liveRegion = document.createElement('div');
@@ -32,7 +63,8 @@ function makeWysiBBEditorAccessible(editorContainer) {
 
     // Invisible keyboard input button
     const toggleButton = document.createElement('button');
-    toggleButton.textContent = `Éditer le contenu (appuyez sur Entrée). ${labelText}. Zone d'édition activée. Appuyez sur Alt + F10 pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`;
+    const finalLabelText = wysibbEditor.getAttribute('aria-label') || labelText || 'Éditeur de texte';
+    toggleButton.textContent = `Éditer le contenu (appuyez sur Entrée). ${finalLabelText}. Zone d'édition activée. Appuyez sur Alt + F10 pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`;
     toggleButton.className = 'sr-only';
     toggleButton.setAttribute('aria-controls', textarea?.id || '');
     
@@ -41,12 +73,11 @@ function makeWysiBBEditorAccessible(editorContainer) {
             e.preventDefault();
             wysibbEditor.setAttribute('tabindex', '0');
             wysibbEditor.focus();
-            liveRegionAnnounce(`Éditer le contenu (appuyez sur Entrée). ${labelText}. Zone d'édition activée. Appuyez sur Alt + F10 pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`);
+            liveRegionAnnounce(`Éditer le contenu (appuyez sur Entrée). ${finalLabelText}. Zone d'édition activée. Appuyez sur Alt + F10 pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`);
         }
     });
     wysibbEditor.parentNode.insertBefore(toggleButton, wysibbEditor);
 
-    // Keyboard management in editing area
     wysibbEditor.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             e.preventDefault();
@@ -62,7 +93,7 @@ function makeWysiBBEditorAccessible(editorContainer) {
     toggleButton.addEventListener('click', () => {
       wysibbEditor.setAttribute('tabindex', '0');
       wysibbEditor.focus();
-      liveRegionAnnounce(`Éditer le contenu (appuyez sur Entrée). ${labelText}. Zone d'édition activée. Appuyez sur Alt + F10 pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`);
+      liveRegionAnnounce(`Éditer le contenu (appuyez sur Entrée). ${finalLabelText}. Zone d'édition activée. Appuyez sur Alt + F10 pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`);
     });
 
     // If you exit without Esc (click, tab...), the keyboard input is locked again.
@@ -128,16 +159,138 @@ function liveRegionAnnounce(msg) {
     }
 }
 
-// Initialize all editors
+function fixExistingWysiBBLabels() {
+    const editorsWithBrokenLabels = document.querySelectorAll('.wysibb-text-editor[aria-labelledby]');
+    
+    editorsWithBrokenLabels.forEach(editor => {
+        const labelledById = editor.getAttribute('aria-labelledby');
+        if (labelledById) {
+            const labelElement = document.getElementById(labelledById);
+            
+            if (!labelElement || !labelElement.textContent.trim()) {
+                editor.removeAttribute('aria-labelledby');
+                
+                const container = editor.closest('.wysibb, .content, .form-group');
+                let labelText = '';
+                
+                const nearbyLabel = container?.querySelector('label');
+                const parentHeading = editor.closest('[role="dialog"], .modal')?.querySelector('h1, h2, h3, h4, h5, h6');
+                
+                if (nearbyLabel) {
+                    labelText = nearbyLabel.textContent.trim();
+                } else if (parentHeading) {
+                    labelText = parentHeading.textContent.trim();
+                } else {
+                    const idParts = labelledById.replace('_label', '').split('-');
+                    labelText = idParts.join(' ').replace(/([A-Z])/g, ' $1').trim() || 'Éditeur de texte enrichi';
+                }
+                
+                editor.setAttribute('aria-label', labelText);
+            }
+        }
+        
+        const toolbar = editor.closest('.wysibb')?.querySelector('.wysibb-toolbar');
+        if (toolbar) {
+            fixToolbarImages(toolbar);
+        }
+    });
+    
+    document.querySelectorAll('.wysibb-toolbar').forEach(fixToolbarImages);
+}
+
 document.querySelectorAll('.wysibb').forEach(makeWysiBBEditorAccessible);
+
+fixExistingWysiBBLabels();
 
 const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
         mutation.addedNodes.forEach((node) => {
-            if (node.nodeType === 1 && node.classList.contains('wysibb')) {
-                makeWysiBBEditorAccessible(node);
+            if (node.nodeType === 1) {
+                if (node.classList.contains('wysibb')) {
+                    makeWysiBBEditorAccessible(node);
+                }
+                
+                const wysiBBEditors = node.querySelectorAll ? node.querySelectorAll('.wysibb') : [];
+                wysiBBEditors.forEach(makeWysiBBEditorAccessible);
+                
+                setTimeout(() => {
+                    const newEditorsWithBrokenLabels = (node.querySelectorAll ? node.querySelectorAll('.wysibb-text-editor[aria-labelledby]') : []);
+                    newEditorsWithBrokenLabels.forEach(editor => {
+                        const labelledById = editor.getAttribute('aria-labelledby');
+                        if (labelledById && !document.getElementById(labelledById)) {
+                            const container = editor.closest('.wysibb, .content, .form-group');
+                            let labelText = '';
+                            
+                            const nearbyLabel = container?.querySelector('label');
+                            if (nearbyLabel) {
+                                labelText = nearbyLabel.textContent.trim();
+                            } else {
+                                const idParts = labelledById.replace('_label', '').split('-');
+                                labelText = idParts.join(' ').replace(/([A-Z])/g, ' $1').trim() || 'Éditeur de texte enrichi';
+                            }
+                            
+                            editor.removeAttribute('aria-labelledby');
+                            editor.setAttribute('aria-label', labelText);
+                        }
+                    });
+                    
+                    const newToolbars = (node.querySelectorAll ? node.querySelectorAll('.wysibb-toolbar') : []);
+                    newToolbars.forEach(fixToolbarImages);
+                }, 100);
             }
         });
     });
 });
 observer.observe(document.body, { childList: true, subtree: true });
+
+function fixToolbarImages(toolbar) {
+    if (!toolbar) return;
+    
+    const imageAltTexts = {
+        'SigleVittascience.svg': 'VittaScience',
+        'SigleVittascience.png': 'VittaScience',
+        
+        'cabri_logo.png': 'Cabri',
+        
+        'peertube_logo.svg': 'PeerTube',
+        
+        'SigleGenially.png': 'Genially',
+        'SigleGenially.svg': 'Genially'
+    };
+    
+    const toolbarImages = toolbar.querySelectorAll('.wysibb-toolbar-btn img');
+    
+    toolbarImages.forEach(img => {
+        if (img.getAttribute('alt') !== null) return;
+        
+        const src = img.getAttribute('src') || '';
+        const filename = src.split('/').pop();
+        if (imageAltTexts[filename]) {
+            img.setAttribute('alt', imageAltTexts[filename]);
+        } else {
+            const button = img.closest('.wysibb-toolbar-btn');
+            let altText = '';
+            
+            if (button?.classList.contains('wbb-vittaiframe')) {
+                altText = 'VittaScience';
+            } else if (button?.classList.contains('wbb-cabriiframe')) {
+                altText = 'Cabri';
+            } else if (button?.classList.contains('wbb-peertube')) {
+                altText = 'PeerTube';
+            } else if (button?.classList.contains('wbb-genialyiframe')) {
+                altText = 'Genially';
+            } else {
+                const buttonClasses = Array.from(button?.classList || []);
+                const relevantClass = buttonClasses.find(cls => cls.startsWith('wbb-'));
+                if (relevantClass) {
+                    altText = relevantClass.replace('wbb-', '').replace('iframe', '');
+                    altText = altText.charAt(0).toUpperCase() + altText.slice(1);
+                } else {
+                    altText = 'Outil d\'édition';
+                }
+            }
+            
+            img.setAttribute('alt', altText);
+        }
+    });
+}
