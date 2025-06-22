@@ -91,6 +91,7 @@ function Modal(modalID = "a", options = {}) {
         let exit_btn = document.createElement('div');
         exit_btn.setAttribute('class', 'vitta-modal-exit-btn vitta-button btn');
         exit_btn.setAttribute('type', 'button');
+        exit_btn.setAttribute('role', 'button');
         exit_btn.setAttribute('tabindex', '0');
         exit_btn.setAttribute('data-i18n', '[title]modals.standard.default.exit;[aria-label]manager.buttons.close');
         exit_btn.setAttribute('data-bs-toggle', 'tooltip');
@@ -163,27 +164,6 @@ function Modal(modalID = "a", options = {}) {
  * @param {string} modal ID of the modal element 
  */
 Modal.prototype.openModal = function (modal) {
-    let backdrop = document.getElementById('modal-backdrop');    
-    if (!backdrop) {
-        backdrop = document.createElement('div');
-        backdrop.id = 'modal-backdrop';
-        backdrop.setAttribute('role', 'presentation');
-        backdrop.setAttribute('aria-hidden', 'true');
-        document.body.appendChild(backdrop);
-    }
-    
-    backdrop.style.display = 'block';
-    
-    // Prevent focus on the overlay
-    backdrop.setAttribute('tabindex', '-1');
-    backdrop.addEventListener('mousedown', (e) => {
-        e.preventDefault();
-        const modalElement = document.getElementById(modal);
-        if (modalElement) {
-            modalElement.focus();
-        }
-    });
-
     this.trapFocusInModal(document.getElementById(modal));
     $(`#${modal}`).localize();
     this.closeAllModal();
@@ -205,7 +185,6 @@ Modal.prototype.openModal = function (modal) {
  * Close the modal and reset his message
  */
 Modal.prototype.closeModal = function (modal) {
-    const backdrop = document.getElementById('modal-backdrop');
     const modalElement = document.getElementById(modal);
     
     if (ModalsOpenedModals.includes(modal)) {
@@ -214,11 +193,6 @@ Modal.prototype.closeModal = function (modal) {
         modalElement.removeAttribute('style');
         var index = ModalsOpenedModals.indexOf(modal);
         ModalsOpenedModals.splice(index, 1);
-        
-        // Hide backdrop if no more modals are open
-        if (ModalsOpenedModals.length === 0 && backdrop) {
-            backdrop.style.display = 'none';
-        }
     }
 }
 
@@ -513,6 +487,86 @@ function wait(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+$(document).ready(function() {
+    
+    function checkAndUpdateBackdrop() {
+        const visibleModals = $('[id$="-modal"]:visible, .vitta-modal:visible, .modal:visible').length;
+        let backdrop = document.getElementById('modal-backdrop');
+        
+        if (visibleModals > 0) {
+            if (!backdrop) {
+                backdrop = document.createElement('div');
+                backdrop.id = 'modal-backdrop';
+                backdrop.setAttribute('role', 'presentation');
+                backdrop.setAttribute('aria-hidden', 'true');
+                backdrop.setAttribute('tabindex', '-1');
+                
+                backdrop.addEventListener('mousedown', (e) => {
+                    e.preventDefault();
+                    const visibleModal = document.querySelector('[id$="-modal"]:not([style*="display: none"]), .vitta-modal:not([style*="display: none"]), .modal:not([style*="display: none"])');
+                    if (visibleModal) {
+                        visibleModal.focus();
+                    }
+                });
+                
+                document.body.appendChild(backdrop);
+            }
+            backdrop.style.display = 'block';
+            console.log('Backdrop shown - visible modals:', visibleModals);
+        } else {
+            if (backdrop) {
+                backdrop.style.display = 'none';
+                console.log('Backdrop hidden - no visible modals');
+            }
+        }
+    }
+    
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                const target = mutation.target;
+                if (target.id && target.id.endsWith('-modal')) {
+                    console.log('Modal style changed:', target.id, 'display:', window.getComputedStyle(target).display);
+                    checkAndUpdateBackdrop();
+                }
+            }
+        });
+    });
+    
+    function startObserving() {
+        document.querySelectorAll('[id$="-modal"], .vitta-modal, .modal').forEach(function(modal) {
+            observer.observe(modal, {
+                attributes: true,
+                attributeFilter: ['style', 'class']
+            });
+        });
+    }
+    
+    startObserving();
+    
+    const bodyObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            mutation.addedNodes.forEach(function(node) {
+                if (node.nodeType === 1) { // Element node
+                    if ((node.id && node.id.endsWith('-modal')) || 
+                        node.classList.contains('vitta-modal') || 
+                        node.classList.contains('modal')) {
+                        observer.observe(node, {
+                            attributes: true,
+                            attributeFilter: ['style', 'class']
+                        });
+                        console.log('Started observing new modal:', node.id);
+                    }
+                }
+            });
+        });
+    });
+    
+    bodyObserver.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+});
 
 /*    class ErrorModal extends Modal {
 

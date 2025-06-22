@@ -266,8 +266,8 @@ const classroomModals = {
         content: `
         <div id="add-student-div">
             <div class="c-primary-form row col-12">
-                <label class="col-5" data-i18n="classroom.modals.addStudent.pseudo">Pseudonyme</label>
-                <input class="col-5 student-form-name" type="text">
+                <label class="col-5" for="create-classroom-student-pseudo" data-i18n="classroom.modals.addStudent.pseudo">Pseudonyme</label>
+                <input class="col-5 student-form-name" type="text" id="create-classroom-student-pseudo">
             </div>
         </div>
         <button id="create-classroom-add-student-to-list" class="save-student-in-classroom c-btn-primary m-3"><i class="fas fa-save"></i> <span class="ms-1" data-i18n="clsave-student-in-classroomassroom.modals.addStudent.addStudentButton">Ajouter l'apprenant</span></button>
@@ -290,8 +290,8 @@ const classroomModals = {
         content: `
         <div id="update-classroom-add-student-div">
             <div class="c-primary-form row col-12">
-                <label class="col-5" data-i18n="classroom.modals.addStudent.pseudo">Pseudonyme</label>
-                <input class="col-5 student-form-name" type="text">
+                <label class="col-5" for="update-classroom-student-pseudo" data-i18n="classroom.modals.addStudent.pseudo">Pseudonyme</label>
+                <input class="col-5 student-form-name" type="text" id="update-classroom-student-pseudo">
             </div>
         </div>
         <button id="update-classroom-add-student-to-list" class="btn save-student-in-classroom c-btn-primary m-3"><i class="fas fa-save"></i> <span class="ms-1" data-i18n="classroom.modals.addStudent.addStudentButton">Ajouter l'apprenant</span></button>

@@ -11,7 +11,18 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel2 = function (id) {
 DisplayPanel.prototype.classroom_dashboard_profil_panel_teacher = function () {
     $('#user-name-teacher').html(UserManager.getUser().firstname + " " + UserManager.getUser().surname)
     Main.getClassroomManager().getTeacherActivity().then(function (data) {
-        $('.owned-activities').html(data.ownedActivities)
+        const ownedActivitiesElement = $('.owned-activities');
+        ownedActivitiesElement.html(data.ownedActivities);
+        
+        ownedActivitiesElement.attr('aria-label', `${data.ownedActivities} activités créées`);
+        
+        const activitiesButton = $('.activity-panel-link-t');
+        activitiesButton.attr('aria-label', `Accéder au panneau des activités - ${data.ownedActivities} activités créées`);
+        activitiesButton.attr('title', `Gérer vos activités - ${data.ownedActivities} activités créées`);
+        
+        if (typeof notifyA11y !== 'undefined') {
+            notifyA11y(`Nombre d'activités créées : ${data.ownedActivities}`, "info");
+        }
 
     })
     getIntelFromClasses()
@@ -600,21 +611,21 @@ function getTeacherActivity() {
             </button>
     
             <ul id="activity-options-list" class="dropdown-menu" role="menu" aria-label="${i18next.t('words.options')}">
-                <li class="dropdown-item" role="menuitem" tabindex="-1" onclick="attributeActivity(${Activity.id})">
+                <button class="dropdown-item" role="menuitem" tabindex="-1" onclick="attributeActivity(${Activity.id})">
                     ${capitalizeFirstLetter(i18next.t('words.attribute'))}
-                </li>
-                <li class="dropdown-item" role="menuitem" tabindex="-1" onclick="createActivity(null,${Activity.id})">
+                </button>
+                <button class="dropdown-item" role="menuitem" tabindex="-1" onclick="createActivity(null,${Activity.id})">
                     ${capitalizeFirstLetter(i18next.t('words.duplicate'))}
-                </li>
-                <li class="dropdown-item" role="menuitem" tabindex="-1" onclick="activityModify(${Activity.id})">
+                </button>
+                <button class="dropdown-item" role="menuitem" tabindex="-1" onclick="activityModify(${Activity.id})">
                     ${capitalizeFirstLetter(i18next.t('words.modify'))}
-                </li>
-                <li class="dropdown-item" role="menuitem" tabindex="-1" onclick="activityModify(${Activity.id}, true)">
+                </button>
+                <button class="dropdown-item" role="menuitem" tabindex="-1" onclick="activityModify(${Activity.id}, true)">
                     ${capitalizeFirstLetter(i18next.t('words.rename'))}
-                </li>
-                <li class="dropdown-item modal-activity-delete" role="menuitem" tabindex="-1">
+                </button>
+                <button class="dropdown-item modal-activity-delete" role="menuitem" tabindex="-1">
                     ${capitalizeFirstLetter(i18next.t('words.delete'))}
-                </li>
+                </button>
             </ul>
         </div>`;
     titleContainer.append(activityDropdownElt);
@@ -650,7 +661,18 @@ function getIntelFromClasses() {
     $('#list-classes').html('')
     let classes = Main.getClassroomManager()._myClasses
     if (classes.length == 0) {
-        $('.tocorrect-activities').html('0')
+        const tocorrectElement = $('.tocorrect-activities');
+        tocorrectElement.html('0');
+        tocorrectElement.attr('aria-label', '0 activités à corriger');
+        
+        const classesButton = $('.classroom-panel-link');
+        classesButton.attr('aria-label', 'Accéder au panneau des classes - 0 activités à corriger');
+        classesButton.attr('title', 'Gérer vos classes - 0 activités à corriger');
+        
+        if (typeof notifyA11y !== 'undefined') {
+            notifyA11y("Aucune activité à corriger", "info");
+        }
+        
         if (document.querySelector('#mode-student-check').parentElement.querySelector('p.no-classes') === null) {
             $('#mode-student-check').after(NO_CLASS);
         }
@@ -678,6 +700,23 @@ function getIntelFromClasses() {
         });
         $('.no-classes').remove()
         $('#mode-student-check').show()
-        $('.tocorrect-activities').html(correctionCount)
+        
+        const tocorrectElement = $('.tocorrect-activities');
+        tocorrectElement.html(correctionCount);
+        tocorrectElement.attr('aria-label', `${correctionCount} activités à corriger`);
+        
+        const classesButton = $('.classroom-panel-link');
+        const correctionText = correctionCount > 0 
+            ? `${correctionCount} activité${correctionCount > 1 ? 's' : ''} à corriger`
+            : 'aucune activité à corriger';
+        classesButton.attr('aria-label', `Accéder au panneau des classes - ${correctionText}`);
+        classesButton.attr('title', `Gérer vos classes - ${correctionText}`);
+        
+        if (typeof notifyA11y !== 'undefined') {
+            const message = correctionCount > 0 
+                ? `${correctionCount} activité${correctionCount > 1 ? 's' : ''} à corriger`
+                : "Aucune activité à corriger";
+            notifyA11y(message, "info");
+        }
     }
 }
