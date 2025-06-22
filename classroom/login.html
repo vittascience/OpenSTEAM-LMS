@@ -17,7 +17,7 @@
                             d="M76.9 23a1.9 1.9 0 01.8 1.5 2.27 2.27 0 01-.6 1.6 2.17 2.17 0 01-3 0 1.82 1.82 0 01-.6-1.4 2.72 2.72 0 01.6-1.7l1.8-2.6H78L76.9 23zm6 0a1.9 1.9 0 01.8 1.5 2.27 2.27 0 01-.6 1.6 2.17 2.17 0 01-3 0 1.82 1.82 0 01-.6-1.4 2.72 2.72 0 01.6-1.7l1.8-2.6H84L82.9 23zM173.9 24.1a1.9 1.9 0 01-.8-1.5 2.11 2.11 0 01.6-1.6 2.17 2.17 0 013 0 1.82 1.82 0 01.6 1.4 2.72 2.72 0 01-.6 1.7l-1.8 2.6h-2.1zm-6 0a1.9 1.9 0 01-.8-1.5 2.11 2.11 0 01.6-1.6 2.17 2.17 0 013 0 1.82 1.82 0 01.6 1.4 2.72 2.72 0 01-.6 1.7l-1.8 2.6h-2.1z" />
                     </g>
                 </svg>
-                <input type="text" id="fake-blockly-input" name="name" maxlength="20" data-i18n="[value]classroom.login.hello" autocomplete="off" data-lpignore="true">
+                <input type="text" id="fake-blockly-input" name="name" maxlength="20" data-i18n="[value]classroom.login.hello" autocomplete="off" data-lpignore="true" aria-label="Texte à afficher dans l'exemple de code">
             </div>
             <span id="fake-code"><span style="color: #AC00B1;">print</span><span>(</span><span id="fake-code-text"
                     style="color:#009651;" data-i18n="classroom.login.hello"></span><span>)</span></span>
@@ -61,7 +61,7 @@
 
 </div>
 <!-- page de login à choix multiple -->
-<div id="classroom-login-container" style="display: none;" aria-hidden="true">
+<div id="classroom-login-container" style="display: none;">
   <section class="inner-login-container" role="region" aria-labelledby="login-title">
     <div id="classroom-login-code" class="container-border-left" role="form" aria-labelledby="student-login-title">
       <h3 id="student-login-title" class="font-weight-bold c-text-secondary" data-i18n="classroom.login.student">Connexion élève</h3>
@@ -289,7 +289,8 @@
 
   <p data-i18n="login_popup.details"></p>
   <p>
-    <a data-i18n="login-page.createAccount" href="#" onclick="displaySignupClass();" role="link"></a>
+    <a data-i18n="login-page.createAccount" href="#" onclick="displaySignupClass();"></a>
+    
   </p>
 
   <div id="info-div-classroom" aria-live="polite" aria-atomic="true"></div>
