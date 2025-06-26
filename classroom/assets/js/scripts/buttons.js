@@ -330,7 +330,7 @@ async function navigatePanel(id, idNav, option = "", interface = '', isOnpopstat
     $('#' + idNav).addClass("active");
 
     if (id == 'resource-center-classroom') {
-        $('#classroom-dashboard-activities-panel-library-teacher').html('<iframe id="resource-center-classroom" src="/learn/?use=classroom" frameborder="0" style="height:80vh;width:80vw"></iframe>');
+        $('#classroom-dashboard-activities-panel-library-teacher').html('<iframe id="resource-center-classroom" src="/learn/?use=classroom" frameborder="0" style="height:80vh;width:80vw" title="Centre de ressources - Bibliothèque d\'activités"></iframe>');
     }
 
     ClassroomSettings.lastPage.unshift({
@@ -3064,7 +3064,7 @@ function getAndShowApps() {
 
             let divImg = "";
             if (application.image != null && application.image != "") {
-                divImg = `<img src="${application.image}" class="app_image_preview">`
+                divImg = `<img src="${application.image}" class="app_image_preview" alt="Icône de l'application ${application.name}">`
             } else {
                 divImg = "None";
             }
@@ -3075,10 +3075,10 @@ function getAndShowApps() {
                             <td>${application.description}</td>
                             <td>${application.max_per_teachers}</td>
                             <td>
-                                <a class="c-link-secondary" href="javascript:void(0)" onclick="updateApp(${application.id})"><i class="fas fa-pencil-alt fa-2x"></i></a>
+                                <a class="c-link-secondary" href="javascript:void(0)" onclick="updateApp(${application.id})" aria-label="Modifier l'application ${application.name}"><i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i></a>
                             </td>
                             <td>
-                                <a class="c-link-red" href="javascript:void(0)" onclick="deleteApp(${application.id}, '${application.name}')"><i class="fas fa-trash-alt fa-2x"></i></a>
+                                <a class="c-link-red" href="javascript:void(0)" onclick="deleteApp(${application.id}, '${application.name}')" aria-label="Supprimer l'application ${application.name}"><i class="fas fa-trash-alt fa-2x" aria-hidden="true"></i></a>
                             </td>
                         </tr>`;
         });
@@ -3391,7 +3391,7 @@ function getAllrestrictions() {
                         limitation += `<li> <span class="font-weight-bold">${i18next.t(`manager.table.${key}`)}</span> : ${restriction.restrictions[key]}</li>`;
                     });
                     limitation += `</ul>`;
-                    update = `<a class="c-link-secondary d-inline-block" href="javascript:void(0)" onclick="updateDefaultUsersLimitation()"><i class="fas fa-pencil-alt fa-2x"></i></a>`;
+                    update = `<a class="c-link-secondary d-inline-block" href="javascript:void(0)" onclick="updateDefaultUsersLimitation()" aria-label="Modifier les limitations par défaut des utilisateurs"><i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i></a>`;
                     break;
                 case 'groupDefaultRestrictions':
                     name = i18next.t(`manager.apps.groupsLimitation`);
@@ -3400,7 +3400,7 @@ function getAllrestrictions() {
                         limitation += `<li> <span class="font-weight-bold">${i18next.t(`manager.table.${key}`)}</span> : ${restriction.restrictions[key]}</li>`;
                     });
                     limitation += `</ul>`;
-                    update = `<a class="c-link-secondary d-inline-block" href="javascript:void(0)" onclick="updateDefaultGroupsLimitation()"><i class="fas fa-pencil-alt fa-2x"></i></a>`;
+                    update = `<a class="c-link-secondary d-inline-block" href="javascript:void(0)" onclick="updateDefaultGroupsLimitation()" aria-label="Modifier les limitations par défaut des groupes"><i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i></a>`;
                     break;
                 default:
                     break;
@@ -3424,8 +3424,8 @@ function updateDefaultUsersLimitation() {
         Object.keys(response.restrictions).forEach(function (key) {
             html += `<div class="row mt-1 c-secondary-form">`
             html += `<div class="col-md">`
-            html += `<label for="default-users-restrictions-value">${i18next.t(`manager.table.${key}`)}</label>`;
-            html += `<input type="number" class="form-control" id="default-users-restrictions-value-${key}" value="${response.restrictions[key]}">`;
+            html += `<label for="default-users-restrictions-value-${key}">${i18next.t(`manager.table.${key}`)}</label>`;
+            html += `<input type="number" class="form-control" id="default-users-restrictions-value-${key}" value="${response.restrictions[key]}" aria-required="true">`;
             html += `</div>`;
             html += `</div>`;
         });

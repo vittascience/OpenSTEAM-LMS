@@ -80,7 +80,7 @@ $('body').on('change', '#is-anonymised', function () {
 function anonymizeStudents() {
     $('.username').each(function (index,el) {
         $(el).children().children('img').attr('src', _PATH + 'assets/media/alphabet/E.png')
-        $(el).children().children('img').attr('alt', '')
+        $(el).children().children('img').attr('alt', 'Photo de profil anonymisée - Étudiant ' + (index + 1))
         $(el).children().children('img').attr('anonymized', 'true')
         $(el).children().children('.user-cell-username').text(i18next.t('classroom.activities.anoStudent') + " " + index)
         $(el).children().children('.user-cell-username').attr('title', '')
@@ -119,7 +119,6 @@ function updateCheckboxAccessibility(container, checkbox) {
     const isChecked = checkbox.checked;
     const checkboxId = checkbox.id;
     
-    container.setAttribute('aria-checked', isChecked);
     let statusElement;
     if (checkboxId.includes('-checkbox')) {
         statusElement = container.querySelector(`#${checkboxId.replace('-checkbox', '-status')}`);
@@ -150,4 +149,10 @@ document.addEventListener('click', function(event) {
             }, 10);
         }
     }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.c-checkbox[aria-checked]').forEach(function(element) {
+        element.removeAttribute('aria-checked');
+    });
 });

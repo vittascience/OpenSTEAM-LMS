@@ -37,16 +37,16 @@
     <div class="container">
         <div id="classroom-flow" class="row py-5 justify-content-md-center">
             <div class="col-sm col-lg-3 text-center">
-                <img class="img-fluid" src="assets/media/create_activities.png" alt=""></br>
+                <img class="img-fluid" src="assets/media/create_activities.png" alt="Créer des activités"></br>
                 <span data-i18n="[html]classroom.login.activities"></span>
             </div>
             <div class="col-sm col-lg-3 text-center">
-                <img class="img-fluid" src="assets/media/assign_activities.png" alt=""></br>
+                <img class="img-fluid" src="assets/media/assign_activities.png" alt="Assigner des activités"></br>
                 <span data-i18n="[html]classroom.login.attribute"></span>
                 
             </div>
             <div class="col-sm col-lg-3 text-center">
-                <img class="img-fluid" src="assets/media/visualise_activities.png" alt=""></br>
+                <img class="img-fluid" src="assets/media/visualise_activities.png" alt="Visualiser les activités"></br>
                 <span data-i18n="[html]classroom.login.visualize"></span>
             </div>
         </div>
@@ -269,8 +269,8 @@
             </div>
 
         </form>
-        <button onclick="navigateLight('login-choice')" class="btn close-login-classroom mt-3 me-3">
-            <i class="fas fa-times"></i>
+        <button onclick="navigateLight('login-choice')" class="btn close-login-classroom mt-3 me-3" type="button" aria-label="Fermer la fenêtre d'inscription">
+            <i class="fas fa-times" aria-hidden="true"></i>
         </button>
     </div>
 </div>
@@ -289,8 +289,9 @@
 
   <p data-i18n="login_popup.details"></p>
   <p>
-    <a data-i18n="login-page.createAccount" href="#" onclick="displaySignupClass();"></a>
-    
+    <a href="#" onclick="displaySignupClass();" aria-label="Créer un compte" role="button">
+      <span data-i18n="classroom.login.registerLink">S'inscrire</span>
+    </a>
   </p>
 
   <div id="info-div-classroom" aria-live="polite" aria-atomic="true"></div>
@@ -409,8 +410,9 @@
             <button class="btn c-btn-primary" id="connect-nongar-user"><span data-i18n="words.confirm"
                     class="text-capitalize"></span> <i class="fas fa-chevron-right"></i></button>
         </div>
-        <button onclick="navigateLight('login-choice')" class="btn close-login-classroom"><i
-                class="fas fa-times"></i></button>
+        <button onclick="navigateLight('login-choice')" class="btn close-login-classroom" type="button" aria-label="Fermer la fenêtre de connexion">
+            <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
     </div>
 </div>
 

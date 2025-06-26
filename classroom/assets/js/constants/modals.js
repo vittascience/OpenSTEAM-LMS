@@ -973,7 +973,7 @@ const classroomModals = {
                                 <div class="col-md">
                                     <label for="app_update_image" data-i18n="manager.table.image">Image</label>
                                     <input type="text" class="form-control" id="app_update_image">
-                                    <img src="" class="app_image_preview" id="app_update_image_preview">
+                                    <img src="" class="app_image_preview" id="app_update_image_preview" alt="Aperçu de l'image de l'application à modifier">
                                 </div>
                                 <div class="col-md">
                                     <label for="app_update_color" data-i18n="manager.table.color">Color</label>
@@ -1056,7 +1056,7 @@ const classroomModals = {
                                 <div class="col-md">
                                     <label for="app_create_image" data-i18n="manager.table.image">Image</label>
                                     <input type="text" class="form-control" id="app_create_image">
-                                    <img src="" class="app_image_preview" id="app_create_image_preview">
+                                    <img src="" class="app_image_preview" id="app_create_image_preview" alt="Aperçu de l'image de la nouvelle application">
                                 </div>
                                 <div class="col-md">
                                     <label for="app_create_color" data-i18n="manager.table.color">Color</label>

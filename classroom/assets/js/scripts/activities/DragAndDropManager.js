@@ -313,7 +313,7 @@ class DragAndDropManager {
                 } else if (bbcodeToHtml(studentResponses[i].string) != studentResponses[i].string) {
                     studentContentString = studentContentString.replace(answer, bbcodeToHtml(studentResponses[i].string));
                 } else {
-                    studentContentString = studentContentString.replace(answer, `<input readonly class='drag-and-drop-answer-teacher' id="corrected-student-response-${i}" value="${studentResponses[i].string.toLowerCase()}" ${autoWidthStyle}>`);
+                    studentContentString = studentContentString.replace(answer, `<input readonly class='drag-and-drop-answer-teacher' id="corrected-student-response-${i}" value="${studentResponses[i].string.toLowerCase()}" aria-label="Réponse de l'élève ${i + 1}: ${studentResponses[i].string.toLowerCase()}" ${autoWidthStyle}>`);
                 }
             }
         
@@ -502,7 +502,7 @@ class DragAndDropManager {
                 } else if (bbcodeToHtml(studentResponses[i].string) != studentResponses[i].string) {
                     studentContentString = studentContentString.replace(answer, bbcodeToHtml(studentResponses[i].string));
                 } else {
-                    studentContentString = studentContentString.replace(answer, `<input readonly class='drag-and-drop-answer-teacher ${correctAnswer ? "answer-correct" : ""}' id="corrected-student-response-${i}" value="${studentResponses[i].string.toLowerCase()}" ${autoWidthStyle}>`);
+                    studentContentString = studentContentString.replace(answer, `<input readonly class='drag-and-drop-answer-teacher ${correctAnswer ? "answer-correct" : ""}' id="corrected-student-response-${i}" value="${studentResponses[i].string.toLowerCase()}" aria-label="Réponse de l'élève ${i + 1}: ${studentResponses[i].string.toLowerCase()} ${correctAnswer ? '(correcte)' : '(incorrecte)'}" ${autoWidthStyle}>`);
                 }
             }
             

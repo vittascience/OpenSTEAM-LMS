@@ -263,6 +263,9 @@ class CoursesManager {
         });
 
         activitiesDiv.innerHTML = '';
+        activitiesDiv.setAttribute('role', 'list');
+        activitiesDiv.setAttribute('aria-label', 'Liste des activités disponibles');
+        
         // create the list of activities
         activitiesToAdd.forEach(activity => {
             this.createCheckboxElements(activitiesDiv, activity);
@@ -285,6 +288,9 @@ class CoursesManager {
             });
 
             activitiesDiv.innerHTML = '';
+            activitiesDiv.setAttribute('role', 'list');
+            activitiesDiv.setAttribute('aria-label', 'Liste des activités disponibles');
+            
             activitiesToAdd.forEach(activity => {
                 if (activity.title.toLowerCase().includes(search.toLowerCase())) {
                     this.createCheckboxElements(activitiesDiv, activity);
@@ -312,7 +318,6 @@ class CoursesManager {
         activityDiv.setAttribute('data-activity-id', activity.id);
         activityDiv.setAttribute('role', 'listitem');
         activityDiv.setAttribute('aria-label', `${i18next.t('words.activity')}: ${activity.title}`);
-        activityDiv.setAttribute('tabindex', '0');
 
         // Checkbox with improved accessibility
         activityDiv.innerHTML = `
