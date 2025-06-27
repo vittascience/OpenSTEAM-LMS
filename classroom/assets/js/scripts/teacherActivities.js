@@ -132,7 +132,7 @@ function activityModify(id, rename = false) {
 
     ClassroomSettings.activity = id
     $('#activity-form-title').val('')
-    $('.wysibb-text-editor').html('')
+    // $('.wysibb-text-editor').html('')
 
     Main.getClassroomManager().getActivity(ClassroomSettings.activity).then((activity) => {     
         if (activity.type != "") {
@@ -294,9 +294,22 @@ $('body').on('click', '#attribute-activity-to-students', function () {
 
 //déplie/replie la liste des étudiants
 $('body').on('click', '.student-list-button', function () {
-    $(this).next().toggle()
-    $(this).find('i').toggleClass('fa-chevron-right')
-    $(this).find('i').toggleClass('fa-chevron-down')
+    const $button = $(this);
+    const $list = $button.next();
+    const isExpanded = $button.attr('aria-expanded') === 'true';
+    
+    $list.toggle();
+    $button.find('i').toggleClass('fa-chevron-right fa-chevron-down');
+    $button.attr('aria-expanded', !isExpanded);
+    
+    const className = $button.data('id');
+    const showText = i18next.t('words.show');
+    const hideText = i18next.t('words.hide');
+    const studentsText = i18next.t('words.students');
+    const newLabel = !isExpanded ? 
+        `${hideText} ${studentsText}` : 
+        `${showText} ${studentsText}`;
+    $button.attr('aria-label', newLabel);
 })
 
 //création/modification de l'activité

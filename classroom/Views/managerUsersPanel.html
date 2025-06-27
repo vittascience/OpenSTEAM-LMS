@@ -7,15 +7,15 @@
                 <!-- Search bar -->
                 <div class="col col-md-6 col-lg-8 d-flex align-items-center">
                     <input class="flex-fill" type="search" id="name_group_search" placeholder="Rechercher" aria-label="Search" data-i18n="[placeholder]manager.buttons.search">
-                    <button class="btn c-btn-primary" id="search_group" style="width: 3em; height: 3em;">
-                        <i class="fas fa-search"></i>
+                    <button class="btn c-btn-primary" id="search_group" style="width: 3em; height: 3em;" aria-label="Rechercher des groupes">
+                        <i class="fas fa-search" aria-hidden="true"></i>
                     </button>
                 </div>
 
                 <!-- View filter -->
                 <div class="col-md  d-flex flex-column">
                     <div class="col-12">
-                        <select class="form-select w-100" id="sort_groups_filter">
+                        <select class="form-select w-100" id="sort_groups_filter" aria-label="Trier les groupes">
                             <option selected value="0" data-i18n="manager.sort.group.byname">Trier par nom</option>
                             <option value="1" data-i18n="manager.sort.group.bydesc">Trier par description</option>
                         </select>
@@ -64,15 +64,15 @@
                     <!-- Search bar -->
                     <div class="col col-md-6 col-lg-8 d-flex align-items-center">
                         <input class="flex-fill" type="search" id="name_user_search" data-i18n="[placeholder]manager.buttons.search" placeholder="Rechercher" aria-label="Search">
-                        <button class="btn c-btn-primary" id="search_user" style="width: 3em; height: 3em;">
-                            <i class="fas fa-search"></i>
+                        <button class="btn c-btn-primary" id="search_user" style="width: 3em; height: 3em;" aria-label="Rechercher des utilisateurs">
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </button>
                     </div>
                 
                     <!-- View filter -->
                     <div class="col-md d-flex flex-column">
                         <div class="col-12">
-                            <select class="form-select w-100" id="sort_users_filter">
+                            <select class="form-select w-100" id="sort_users_filter" aria-label="Trier les utilisateurs">
                                 <option selected value="0" data-i18n="manager.sort.user.bylastname">Trier par nom</option>
                                 <option value="1" data-i18n="manager.sort.user.byfirstname">Trier par prénom</option>
                             </select>
@@ -89,8 +89,8 @@
                     </div>
                 </div>
                 <div class="row my-2 group-header">
-                    <button class="btn btn-sm c-btn-grey" id="table_back_to_users">
-                        <i class="fas fa-arrow-left"></i>
+                    <button class="btn btn-sm c-btn-grey" id="table_back_to_users" aria-label="Retour à la liste des groupes">
+                        <i class="fas fa-arrow-left" aria-hidden="true"></i>
                     </button>
                     <h2 id="group_name_from_table"></h2>
                 </div>

@@ -10,17 +10,24 @@
     <div id="classroom-dashboard-container">
         <div id="classroom-dashboard-sidebar" class="sidebar-classroom" style="display:none;">
             <div id="classroom-sidebar-logo"></div>
-            <div class="classroom-navbar-button" id="dashboard-activities"><img src="assets/media/my_activities.svg"
+            <div class="classroom-navbar-button" id="dashboard-activities" 
+                 onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"
+                 onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');}"
+                 role="button" tabindex="0"><img src="assets/media/my_activities.svg"
                     alt="Icône activités">
                 <span data-i18n="classroom.ids.classroom-dashboard-activities-panel-teacher"></span>
             </div>
             <div class=" classroom-navbar-button" id="dashboard-help"
-                onclick="navigatePanel('classroom-dashboard-help-panel', 'dashboard-help')"><img
+                onclick="navigatePanel('classroom-dashboard-help-panel', 'dashboard-help')" 
+                onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('classroom-dashboard-help-panel', 'dashboard-help');}"
+                role="button" tabindex="0"><img
                     src="assets/media/call_for_help.svg" alt="Icône Appel à l'aide">
                 <span data-i18n="classroom.ids.classroom-dashboard-help-panel"></span>
             </div>
             <div id="dashboard-profil" class="classroom-navbar-button"
-                onclick="navigatePanel('classroom-dashboard-profil-panel', 'dashboard-profil')"><img
+                onclick="navigatePanel('classroom-dashboard-profil-panel', 'dashboard-profil')" 
+                onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('classroom-dashboard-profil-panel', 'dashboard-profil');}"
+                role="button" tabindex="0"><img
                     class="user-picture" src="assets/media/profile_picture.svg" alt="Photo de profil">
                 <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span>
             </div>
@@ -29,15 +36,21 @@
 <div id="classroom-dashboard-sidebar-teacher" class="sidebar-classroom" style="display:none;">
     <div id="classroom-sidebar-logo"></div>
     <div class=" classroom-navbar-button" id="dashboard-classes-teacher"
-        onclick="navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher')">
+        onclick="navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher')" 
+        onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher');}"
+        role="button" tabindex="0">
         <img src="assets/media/my_classes.svg" alt="Icône classe">
         <span data-i18n="classroom.ids.classroom-dashboard-classes-panel-teacher"></span> </div>
     <div class="classroom-navbar-button" id="dashboard-activities-teacher"
-        onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')">
+        onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')" 
+        onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher');}"
+        role="button" tabindex="0">
         <img src="assets/media/my_activities.svg" alt="Icône activités">
         <span data-i18n="classroom.ids.classroom-dashboard-activities-panel-teacher"></span> </div>
     <div id="dashboard-profil-teacher" class="active classroom-navbar-button"
-        onclick="navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher')"><img
+        onclick="navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher')" 
+        onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher');}"
+        role="button" tabindex="0"><img
             class="user-picture" src="assets/media/profile_picture.svg" alt="Photo de profil">
         <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span></div>
 </div>
@@ -46,19 +59,25 @@
     <div id="classroom-sidebar-logo"></div>
 
     <div class="classroom-navbar-button" id="dashboard-manager-groups"
-        onclick="navigatePanel('manager-dashboard-main', 'dashboard-manager-groups')">
+        onclick="navigatePanel('manager-dashboard-main', 'dashboard-manager-groups')" 
+        onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('manager-dashboard-main', 'dashboard-manager-groups');}"
+        role="button" tabindex="0">
         <img src="assets/media/my_classes.svg" alt="Icône classe">
         <span data-i18n="manager.users.users">Utilisateurs</span>
     </div>
 
     <div class="classroom-navbar-button" id="dashboard-manager-apps"
-        onclick="navigatePanel('manager-apps-main', 'dashboard-manager-apps')">
+        onclick="navigatePanel('manager-apps-main', 'dashboard-manager-apps')" 
+        onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('manager-apps-main', 'dashboard-manager-apps');}"
+        role="button" tabindex="0">
         <img src="assets/media/my_apps.svg" alt="Icône Apps">
         <span data-i18n="manager.apps.apps">Applications</span>
     </div>
 
     <div id="dashboard-profil-manager" class="classroom-navbar-button"
-        onclick="navigatePanel('classroom-dashboard-profil-panel-manager', 'dashboard-profil-manager')">
+        onclick="navigatePanel('classroom-dashboard-profil-panel-manager', 'dashboard-profil-manager')" 
+        onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('classroom-dashboard-profil-panel-manager', 'dashboard-profil-manager');}"
+        role="button" tabindex="0">
         <img class="user-picture" src="assets/media/profile_picture.svg" alt="Photo de profil">
         <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span>
     </div>
@@ -68,25 +87,25 @@
     <div id="classroom-sidebar-logo"></div>
 
     <div class="classroom-navbar-button" id="dashboard-groupadmin-users-side"
-        onclick="navigatePanel('groupadmin-dashboard-users', 'dashboard-groupadmin-users-side')">
+        onclick="navigatePanel('groupadmin-dashboard-users', 'dashboard-groupadmin-users-side')" role="button" tabindex="0">
         <img src="assets/media/my_classes.svg" alt="Icône classe">
         <span data-i18n="manager.users.users">Utilisateurs</span>
     </div>
 
     <div class="classroom-navbar-button" id="dashboard-groupadmin-apps"
-        onclick="navigatePanel('groupadmin-apps-main', 'dashboard-groupadmin-apps')">
+        onclick="navigatePanel('groupadmin-apps-main', 'dashboard-groupadmin-apps')" role="button" tabindex="0">
         <img src="assets/media/my_apps.svg" alt="Icône classe">
         <span data-i18n="manager.apps.apps">Applications</span>
     </div>
 
     <div class="classroom-navbar-button" id="dashboard-groupadmin-help-side"
-        onclick="navigatePanel('groupadmin-dashboard-help', 'dashboard-groupadmin-help-side')">
+        onclick="navigatePanel('groupadmin-dashboard-help', 'dashboard-groupadmin-help-side')" role="button" tabindex="0">
         <img src="assets/media/call_for_help.svg" alt="Icône Appel à l'aide">
         <span data-i18n="manager.profil.help">Appel à l'aide</span>
     </div>
 
     <div id="dashboard-profil-groupadmin" class="classroom-navbar-button"
-        onclick="navigatePanel('classroom-dashboard-profil-panel-groupadmin', 'dashboard-profil-groupadmin')">
+        onclick="navigatePanel('classroom-dashboard-profil-panel-groupadmin', 'dashboard-profil-groupadmin')" role="button" tabindex="0">
         <img class="user-picture" src="assets/media/profile_picture.svg" alt="Photo de profil">
         <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span>
     </div>
@@ -100,8 +119,8 @@
         <i class="fas fa-question"></i>
     </button>
     <div id="a11y-dropdown" class="dropdown">
-        <button class="btn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-low-vision"></i>
+        <button class="btn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  aria-label="Options d'accessibilité" title="Options d'accessibilité">
+            <i class="fas fa-low-vision" aria-hidden="true"></i>
         </button>
         <div class="dropdown-menu dropdown-menu-right a11y-dropdown" aria-labelledby="dropdownMenuButton">
             <form action="javascript:void(0);" id="access-form">
@@ -152,7 +171,7 @@
         </div>
     </div>
 </div>
-<div id="classroom-dashboard-content">
+<div id="classroom-dashboard-content" tabindex="0" role="main" aria-label="Contenu principal du tableau de bord de la classe">
 
 <div id="classroom-dashboard-profil-panel" style="display:none;" class="dashboard-block profile-panel">
         
@@ -189,16 +208,16 @@
         <div id="about-contact-info-student">
             <form class="c-primary-form" id="about-contact-form-student">
                 <div class="input-group mb-3">
-                    <select id="help-student-select" class="form-control form-control-lg">
+                    <select id="help-student-select" class="form-control form-control-lg" aria-label="Sélectionner un enseignant pour demander de l'aide">
                     </select>
                 </div>
 
                 <div class="input-group mb-3">
-                    <input type="text" name="subject" class="form-control" id="learner-contact-subject-input" data-i18n="[placeholder]classroom.help.student.title" placeholder="Objet">
+                    <input type="text" name="subject" class="form-control" id="learner-contact-subject-input" data-i18n="[placeholder]classroom.help.student.title" placeholder="Objet" aria-label="Objet de votre demande d'aide">
                 </div>
 
                 <div class="input-group mb-3">
-                    <textarea name="message" class="form-control" id="learner-contact-message-input" rows="15" cols="25" style="resize: none; width: 100%;" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder" placeholder="Écrivez votre message ici. (Maximum 800 caractères)"></textarea>
+                    <textarea name="message" class="form-control" id="learner-contact-message-input" rows="15" cols="25" style="resize: none; width: 100%;" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder" placeholder="Écrivez votre message ici. (Maximum 800 caractères)" aria-label="Message de votre demande d'aide (maximum 800 caractères)"></textarea>
                 </div>
 
                 <input type="submit" class="btn c-btn-primary" data-i18n="[value]classroom.teacherHelpPanel.contactForm.sendButton" disabled="disabled" style="cursor:not-allowed;float: right;">
@@ -234,9 +253,9 @@
 
         <div class="row">
             <div id="main-div-course" class="col-12 col-lg-8 mb-3" style="margin: 0 auto;overflow-wrap: break-word;">
-                
+
                 <h3 id="activity-title-course" class="activity-title"></h3>
-               
+
                 <!-- Used for status / date  -->
                 <p id="activity-details-course" class="activity-details"></p>
 
@@ -261,9 +280,9 @@
                 <!-- Used for content -->
                 <div id="activity-content-container-course" style="display:none;">
                     <label for="activity-content-course" id="label-activity-content-course" class="vitta-modal-title mt-2" data-i18n="newActivities.contentTitle">Contenu de l'activité</label>
-                    <p id="activity-content-course"></p>    
+                    <p id="activity-content-course"></p>
                 </div>
-                
+
                 <div id="activity-input-container-course" style="display:none;">
                     <label for="activity-input-course" class="vitta-modal-title mt-2" data-i18n="classroom.activities.putYourAnswer">Entrez votre réponse</label>
                     <textarea id="activity-input-course" style="height:400px"></textarea>
@@ -294,10 +313,10 @@
                 <div class="d-flex justify-content-center mt-2" id="course-btn-container" style="display:none;">
 
                     <div id="course-validate-buttons">
-                        <button class="btn c-btn-primary mx-1" id="course-validate-course" data-i18n="classroom.activities.validate" onclick="coursesManager.validateCourse(1)"> 
+                        <button class="btn c-btn-primary mx-1" id="course-validate-course" data-i18n="classroom.activities.validate" onclick="coursesManager.validateCourse(1)">
                             <i class="fas fa-chevron-right"></i>
                         </button>
-    
+
                         <button class="btn c-btn-grey mx-2" id="course-save-course" onclick="coursesManager.validateCourse(0)" data-i18n="classroom.activities.save-draft">
                             <i class="fas fa-chevron-right"></i>
                         </button>
@@ -306,11 +325,11 @@
                     <div id="course-options-course-buttons" style="display:none;">
 
                         <div class="row my-1 mx-3">
-                            <button class="btn c-btn-primary mx-1" id="course-next-course" onclick="coursesManager.readCourseFromStudent()"> 
+                            <button class="btn c-btn-primary mx-1" id="course-next-course" onclick="coursesManager.readCourseFromStudent()">
                                 Continuer le parcours >
                             </button>
                         </div>
-                        
+
                         <div class="row my-1 mx-3">
                             <button class="btn c-btn-grey mx-2" id="course-return" onclick="goBackToActivities()">
                                 Retourner au menu des activités
@@ -365,7 +384,11 @@
 </div>
 <div id="classroom-dashboard-activities-panel" style="display:none;" class="dashboard-block">
     <div class="section-container section-new">
-        <div class="section-header" onclick="sectionToggle('new')">
+        <div class="section-header" onclick="sectionToggle('new')" 
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); sectionToggle('new');}"
+             role="button" tabindex="0" aria-expanded="true" 
+             aria-controls="new-activities-list" 
+             aria-label="Basculer l'affichage des nouvelles activités">
             <i id="i-new" class="ms-2 fas fa-lg fa-chevron-down"></i>
             <h3 class="section-title" data-i18n="classroom.activities.new"></h3>
             <span class="resource-number"> </span>
@@ -374,7 +397,11 @@
     </div>
     
     <div class="section-container section-saved">
-        <div class="section-header" onclick="sectionToggle('saved')">
+        <div class="section-header" onclick="sectionToggle('saved')" 
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); sectionToggle('saved');}"
+             role="button" tabindex="0" aria-expanded="false" 
+             aria-controls="saved-activities-list" 
+             aria-label="Basculer l'affichage des brouillons">
             <i id="i-saved" class="ms-2 fas fa-lg fa-chevron-up"></i>
             <h3 class="section-title" >Brouillons</h3>
             <span class="resource-number"> </span>
@@ -383,7 +410,11 @@
     </div>
     
     <div class="section-container section-current">
-        <div class="section-header" onclick="sectionToggle('current')">
+        <div class="section-header" onclick="sectionToggle('current')" 
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); sectionToggle('current');}"
+             role="button" tabindex="0" aria-expanded="false" 
+             aria-controls="current-activities-list" 
+             aria-label="Basculer l'affichage des activités en cours">
             <i id="i-current" class="ms-2 fas fa-lg fa-chevron-up"></i>
             <h3 class="section-title" data-i18n="classroom.activities.current"></h3>
             <span class="resource-number"> </span>
@@ -392,7 +423,11 @@
     </div>
     
     <div class="section-container section-done">
-        <div class="section-header" onclick="sectionToggle('done')">
+        <div class="section-header" onclick="sectionToggle('done')" 
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); sectionToggle('done');}"
+             role="button" tabindex="0" aria-expanded="false" 
+             aria-controls="done-activities-list" 
+             aria-label="Basculer l'affichage des activités terminées">
             <i id="i-done" class="ms-2 fas fa-lg fa-chevron-up"></i>
             <h3 class="section-title" data-i18n="classroom.activities.done"></h3>
             <span class="resource-number"> </span>
@@ -412,7 +447,7 @@
                     <h3 id="activity-title" class="activity-title"></h3>
                     <div id="activity-views-switcher" class="p-2 align-self-end"></div>
                 </div>
-               
+
                 <!-- Used for status / date  -->
                 <p id="activity-details" class="activity-details"></p>
 
@@ -441,9 +476,9 @@
                 <!-- Used for content -->
                 <div id="activity-content-container" style="display:none;">
                     <label for="activity-content" id="label-activity-content" class="vitta-modal-title mt-2" data-i18n="newActivities.contentTitle">Contenu de l'activité</label>
-                    <div id="activity-content"></div>    
+                    <div id="activity-content"></div>
                 </div>
-                
+
                 <div id="activity-input-container" style="display:none;">
                     <label for="activity-input" class="vitta-modal-title mt-2" data-i18n="classroom.activities.putYourAnswer">Entrez votre réponse</label>
                     <textarea id="activity-input" style="height:400px"></textarea>
@@ -466,7 +501,7 @@
                 </div>
 
                 <div class="d-flex justify-content-center mt-2 flex-wrap gap-3">
-                    <button class="btn c-btn-primary mx-1" id="activity-validate" data-i18n="classroom.activities.validate" onclick="validateActivity(1)"> 
+                    <button class="btn c-btn-primary mx-1" id="activity-validate" data-i18n="classroom.activities.validate" onclick="validateActivity(1)">
                         <i class="fas fa-chevron-right"></i>
                     </button>
 
@@ -623,7 +658,7 @@
     </div>
 
 
-    <div class="list-classes mt-3">
+    <div class="list-classes mt-3" role="list">
         <div class="class-item">
             <div class="class-card-action action-new-class teacher-new-classe">
                 <i class="fas fa-plus fa-5x"></i>
@@ -870,10 +905,11 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownTag" id="dropdown-tags-filter">
                     </div>
                 </div>
+                <label for="filter-activity-input" class="visually-hidden">Rechercher une activité</label>
                 <input type="search" id="filter-activity-input" data-i18n="[placeholder]manager.buttons.search" class="flex-fill">
 
-                <button id="filter-activity" class="btn btn-primary" style="width: 3em;height: 3em;">
-                    <i class="fas fa-search"></i>
+                <button id="filter-activity" class="btn btn-primary" style="width: 3em;height: 3em;" aria-label="Lancer la recherche">
+                    <i class="fas fa-search" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
@@ -1251,18 +1287,18 @@
                 <!-- Search bar -->
                 <div class="col col-md-6 col-lg-8 d-flex align-items-center">
                     <input class="flex-fill" type="search" id="name_user_search_groupadmin" placeholder="Rechercher" aria-label="Search" data-i18n="[placeholder]manager.buttons.search">
-                    <button class="btn c-btn-primary" id="search_user_groupadmin" style="width: 3em; height: 3em;">
-                        <i class="fas fa-search"></i>
+                    <button class="btn c-btn-primary" id="search_user_groupadmin" style="width: 3em; height: 3em;" aria-label="Rechercher des utilisateurs">
+                        <i class="fas fa-search" aria-hidden="true"></i>
                     </button>
                 </div>
 
                 <!-- View filter -->
                 <div class="col-md row">
                     <div class="col-12">
-                        <select class="form-select  w-100" id="sort_users_filter_groupadmin">
-                            <option selected value="0" data-i18n="manager.sort.user.bylastname">Trier par nom</option>
-                            <option value="1" data-i18n="manager.sort.user.byfirstname">Trier par prénom</option>
-                        </select>
+                      <select class="form-select  w-100" id="sort_users_filter_groupadmin" aria-label="Trier les utilisateurs">
+                        <option selected value="0" data-i18n="manager.sort.user.bylastname">Trier par nom</option>
+                        <option value="1" data-i18n="manager.sort.user.byfirstname">Trier par prénom</option>
+                      </select>
                     </div>
 
                     <div class="col-12">
@@ -1454,15 +1490,15 @@
                 <!-- Search bar -->
                 <div class="col col-md-6 col-lg-8 d-flex align-items-center">
                     <input class="flex-fill" type="search" id="name_group_search" placeholder="Rechercher" aria-label="Search" data-i18n="[placeholder]manager.buttons.search">
-                    <button class="btn c-btn-primary" id="search_group" style="width: 3em; height: 3em;">
-                        <i class="fas fa-search"></i>
+                    <button class="btn c-btn-primary" id="search_group" style="width: 3em; height: 3em;" aria-label="Rechercher des groupes">
+                        <i class="fas fa-search" aria-hidden="true"></i>
                     </button>
                 </div>
 
                 <!-- View filter -->
                 <div class="col-md  d-flex flex-column">
                     <div class="col-12">
-                        <select class="form-select w-100" id="sort_groups_filter">
+                        <select class="form-select w-100" id="sort_groups_filter" aria-label="Trier les groupes">
                             <option selected value="0" data-i18n="manager.sort.group.byname">Trier par nom</option>
                             <option value="1" data-i18n="manager.sort.group.bydesc">Trier par description</option>
                         </select>
@@ -1511,15 +1547,15 @@
                     <!-- Search bar -->
                     <div class="col col-md-6 col-lg-8 d-flex align-items-center">
                         <input class="flex-fill" type="search" id="name_user_search" data-i18n="[placeholder]manager.buttons.search" placeholder="Rechercher" aria-label="Search">
-                        <button class="btn c-btn-primary" id="search_user" style="width: 3em; height: 3em;">
-                            <i class="fas fa-search"></i>
+                        <button class="btn c-btn-primary" id="search_user" style="width: 3em; height: 3em;" aria-label="Rechercher des utilisateurs">
+                            <i class="fas fa-search" aria-hidden="true"></i>
                         </button>
                     </div>
                 
                     <!-- View filter -->
                     <div class="col-md d-flex flex-column">
                         <div class="col-12">
-                            <select class="form-select w-100" id="sort_users_filter">
+                            <select class="form-select w-100" id="sort_users_filter" aria-label="Trier les utilisateurs">
                                 <option selected value="0" data-i18n="manager.sort.user.bylastname">Trier par nom</option>
                                 <option value="1" data-i18n="manager.sort.user.byfirstname">Trier par prénom</option>
                             </select>
@@ -1536,8 +1572,8 @@
                     </div>
                 </div>
                 <div class="row my-2 group-header">
-                    <button class="btn btn-sm c-btn-grey" id="table_back_to_users">
-                        <i class="fas fa-arrow-left"></i>
+                    <button class="btn btn-sm c-btn-grey" id="table_back_to_users" aria-label="Retour à la liste des groupes">
+                        <i class="fas fa-arrow-left" aria-hidden="true"></i>
                     </button>
                     <h2 id="group_name_from_table"></h2>
                 </div>
@@ -1632,9 +1668,11 @@
                 <textarea id="free-content" style="height:340px"></textarea>
             </div>
            
-            <div class="c-checkbox mt-2">
-                <input type="checkbox" name="free-autocorrect" id="free-autocorrect">
-                <label for="free-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
+            <div class="c-checkbox mt-2" tabindex="0" aria-labelledby="free-autocorrect-label" aria-describedby="free-autocorrect-description">
+                <input type="checkbox" name="free-autocorrect" id="free-autocorrect" aria-describedby="free-autocorrect-description">
+                <label for="free-autocorrect" id="free-autocorrect-label" data-i18n="newActivities.autocorrect">Autocorrection</label>
+                <span id="free-autocorrect-description" class="sr-only">Cochez cette case pour activer l'autocorrection de cette activité</span>
+                <span id="free-autocorrect-status" class="sr-only" aria-live="polite">Désactivée</span>
             </div>
 
             <div class="content" id="free-correction-content" style="display: none;">
@@ -1644,12 +1682,12 @@
                 <div class="content">
                     <p>
                         <span data-i18n="newActivities.tolerance1"></span>
-                        <button id="free-tolerance-decrease" class="tolerance-btn">
-                            <i class="fas fa-minus"></i>
+                        <button id="free-tolerance-decrease" class="tolerance-btn" aria-label="Diminuer la tolérance">
+                            <i class="fas fa-minus" aria-hidden="true"></i>
                         </button>
                         <input type="number" id="free-tolerance" value="0">
-                        <button id="free-tolerance-increase" class="tolerance-btn">
-                            <i class="fas fa-plus"></i>
+                        <button id="free-tolerance-increase" class="tolerance-btn" aria-label="Augmenter la tolérance">
+                            <i class="fas fa-plus" aria-hidden="true"></i>
                         </button>
                         <span data-i18n="newActivities.tolerance2"></span></p>
                 </div>
@@ -1688,11 +1726,13 @@
                             </div>
 
                             <div class="col-md-auto d-flex align-items-center">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="quiz-checkbox-1">
-                                    <label class="form-check-label" for="quiz-checkbox-1" data-i18n="classroom.activities.correctAnswer">
+                                <div class="form-check" tabindex="0" aria-labelledby="quiz-checkbox-1-label" aria-describedby="quiz-checkbox-1-description">
+                                    <input class="form-check-input" type="checkbox" id="quiz-checkbox-1" aria-describedby="quiz-checkbox-1-description">
+                                    <label class="form-check-label" for="quiz-checkbox-1" id="quiz-checkbox-1-label" data-i18n="classroom.activities.correctAnswer">
                                         Réponse correcte
                                     </label>
+                                    <span id="quiz-checkbox-1-description" class="sr-only">Cochez cette case pour marquer cette proposition comme réponse correcte</span>
+                                    <span id="quiz-checkbox-1-status" class="sr-only" aria-live="polite">Désactivée</span>
                                 </div>
                             </div>
 
@@ -1736,12 +1776,12 @@
             <div class="content">
                 <p>
                     <span data-i18n="newActivities.tolerance1"></span>
-                    <button id="fill-in-tolerance-decrease" class="tolerance-btn">
-                        <i class="fas fa-minus"></i>
+                    <button id="fill-in-tolerance-decrease" class="tolerance-btn" aria-label="Diminuer la tolérance">
+                        <i class="fas fa-minus" aria-hidden="true"></i>
                     </button>
                     <input type="number" id="fill-in-tolerance" value="0">
-                    <button id="fill-in-tolerance-increase" class="tolerance-btn">
-                        <i class="fas fa-plus"></i>
+                    <button id="fill-in-tolerance-increase" class="tolerance-btn" aria-label="Augmenter la tolérance">
+                        <i class="fas fa-plus" aria-hidden="true"></i>
                     </button>
                     <span data-i18n="newActivities.tolerance2"></span>
                 </p>
@@ -2362,10 +2402,10 @@
                     <div class="switcher mx-3">
                         <input type="radio" name="course-format" class="switcher__input switcher__input--left" value="0" id="course-standard" checked=""/>
                         <label for="course-standard" class="switcher__label text-capitalize" data-i18n="courses.format.standart"></label>
-                    
+
                         <input type="radio" name="course-format" class="switcher__input switcher__input--right" value="1" id="course-one-page"/>
                         <label for="course-one-page" class="switcher__label text-capitalize" data-i18n="courses.format.onePage"></label>
-                    
+
                         <span class="switcher__toggle"></span>
                     </div>
                 </div>

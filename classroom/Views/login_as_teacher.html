@@ -1,11 +1,15 @@
 <div id="login-container" style="display:none;position:relative;">
     <div class="login-form" id="signupin-div">
         <h1><span class="fa fa-sign-in-alt"></span><span data-i18n="login_popup.title"></span> <button
-                onclick="returnToConnectionPanel('#login-container')" class="btn close-login-classroom"><i
-                    class="fas fa-times"></i></button></h1>
+                onclick="returnToConnectionPanel('#login-container')" class="btn close-login-classroom" type="button" aria-label="Fermer la fenêtre de connexion"><i
+                    class="fas fa-times" aria-hidden="true"></i></button></h1>
 
         <p data-i18n="login_popup.details"></p>
-        <p><a data-i18n="login-page.createAccount" href='#' onclick="displaySignupClass();"></a></p>
+        <p>
+          <a href='#' onclick="displaySignupClass();" aria-label="Créer un compte" role="button">
+            <span data-i18n="classroom.login.registerLink">S'inscrire</span>
+          </a>
+        </p>
         <div id="info-div">
 
         </div>

@@ -5,7 +5,7 @@
         <div id="classroom-create-account" class="container-border-left container-border-left-enable">
             <div class="c-primary-form">
                 <p>Première viste ? Veuillez choisir un identifiant.</p>
-                <img src="./assets/media/green_user.png" class="icon-label">
+                <img src="./assets/media/green_user.png" class="icon-label" alt="Icône utilisateur">
                 <label for="username">Pseudonyme</label></br>
                 <input type="text" placeholder="Vitta" name="username" id="new-user-pseudo-form" required>
             </div>
@@ -19,11 +19,11 @@
 
                 <p>De retour dans cette classe ?</p>
 
-                <img src="./assets/media/green_user.png" class="icon-label">
+                <img src="./assets/media/green_user.png" class="icon-label" alt="Icône utilisateur">
                 <label for="username">Pseudonyme</label></br>
                 <input type="text" placeholder="Vitta" id="user-pseudo-form" name="secret_code" required></br>
 
-                <img src="./assets/media/green_lock.png" class="icon-label">
+                <img src="./assets/media/green_lock.png" class="icon-label" alt="Icône de sécurité">
                 <label for="username">Mot de passe</label></br>
                 <input type="password" placeholder="••••••••••" name="secret_code" id="user-password-form"
                     required></br>
@@ -34,7 +34,8 @@
             <button class="btn login-button c-btn-primary" id="connect-nongar-user">Confirmer <i
                     class="fas fa-chevron-right"></i></button>
         </div>
-        <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom"><i
-                class="fas fa-times"></i></button>
+        <button onclick="returnToConnectionPanel('#classroom-login-container-bis')" class="btn close-login-classroom" type="button" aria-label="Fermer la fenêtre de connexion">
+            <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
     </div>
 </div>

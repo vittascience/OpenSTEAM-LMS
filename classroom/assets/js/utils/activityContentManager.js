@@ -20,21 +20,22 @@ function parseContent(content, className, autoWidth = false) {
     let values = content.match(/\[answer\](.*?)\[\/answer\]/gi).map(match => match.replace(/\[answer\](.*?)\[\/answer\]/gi, "$1"));
     let autoWidthStyle = '';
     for (let i = 0; i < values.length; i++) {
-
+        const rawValue = values[i];
         autoWidthStyle = autoWidth ? 'style="width:' + (values[i].length + 4) + 'ch"' : autoWidthStyle = '';
 
         content = content.replace(`[answer]${values[i]}[/answer]`, `[answer][/answer]`);
         let valueParsed = values[i].includes('[math]') ? parseMathLiveContent(values[i]) : values[i];
+        const aria = `aria-label="La bonne réponse était : ${rawValue}"`;
 
         if (bbcodeToHtml(valueParsed) != valueParsed) {
             content = content.replace(/\[answer\]/, bbcodeToHtml(valueParsed));
             content = content.replace(/\[\/answer\]/, "");
         } else {
             if (valueParsed.includes('<math-field')) {
-                content = content.replace(/\[answer\]/, `<div readonly class='${className}' ${'style="width:' + (values[i].length / 5) + 'ch; height:6ch;"'}>` + valueParsed);
+                content = content.replace(/\[answer\]/, `<div readonly class='${className}' ${aria} ${'style="width:' + (values[i].length / 5) + 'ch; height:6ch;"'}>` + valueParsed);
                 content = content.replace(/\[\/answer\]/, "</div>");
             } else {
-                content = content.replace(/\[answer\]/, `<input readonly class='${className}' value="${valueParsed}" ${'style="width:' + (values[i].length + 4) + 'ch"'}>`);
+                content = content.replace(/\[answer\]/, `<input readonly class='${className}' value="${valueParsed}" ${aria} ${'style="width:' + (values[i].length + 4) + 'ch"'}>`);
                 content = content.replace(/\[\/answer\]/, "</input>");
             }
         }
@@ -170,8 +171,10 @@ function hideAllActivities() {
 $("#free-autocorrect").change(function () {
     if ($(this).is(":checked")) {
         $("#free-correction-content").show();
+        notifyA11y("Autocorrection activée");
     } else {
         $("#free-correction-content").hide();
+        notifyA11y("Autocorrection désactivée");
     }
 })
 
@@ -513,6 +516,34 @@ function initializeDragulaWithOneContainer(idContainer, classDropZone, activityI
     });
 }
 
+function updateToleranceValue(value, inputId) {
+    const input = document.getElementById(inputId);
+    input.value = value;
+    input.setAttribute('aria-valuenow', value);
+    notifyA11y(`Tolérance définie à ${value}`);
+}
 
+$('body').on('click', '#free-tolerance-increase', function () {
+    let tolerance = parseInt($('#free-tolerance').val());
+    if (!isNaN(tolerance)) {
+        updateToleranceValue(tolerance + 1, 'free-tolerance');
+    } else {
+        updateToleranceValue(1, 'free-tolerance');
+    }
+});
 
+$('body').on('click', '#free-tolerance-decrease', function () {
+    let tolerance = parseInt($('#free-tolerance').val());
+    if (tolerance > 0) {
+        updateToleranceValue(tolerance - 1, 'free-tolerance');
+    }
+});
 
+$('#free-tolerance').on('change', function() {
+    let value = parseInt($(this).val());
+    if (value < 0) {
+        value = 0;
+        $(this).val(0);
+    }
+    updateToleranceValue(value, 'free-tolerance');
+});
