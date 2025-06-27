@@ -252,7 +252,8 @@ class FoldersManager {
     resetTreeFolders() {
         // only feed the breadcrumb when we're on the activity panel
         if ($_GET('nav') == 'dashboard-activities-teacher') {
-            this.treeFolder.html(`<button class="btn c-btn-outline-primary" onclick="foldersManager.goToFolder(null)">Mes activités</button>`);
+            let translation = i18next.t("classroom.ids.classroom-dashboard-activities-panel-teacher");
+            this.treeFolder.html(`<button class="btn c-btn-outline-primary" onclick="foldersManager.goToFolder(null)">${translation}</button>`);
         } else {
             this.treeFolder.html();
         }
@@ -531,6 +532,9 @@ class FoldersManager {
     displayModeSwitch(display) {
         let switcherCard = document.getElementById("switcherCard"), 
             switcherList =  document.getElementById("switcherList");
+
+        console.log("Display mode switch to: ", display);
+        console.log(switcherCard, switcherList);
         if (display == "list") {
             switcherCard.classList.add("half-opacity");
             switcherCard.classList.remove("selected-display");

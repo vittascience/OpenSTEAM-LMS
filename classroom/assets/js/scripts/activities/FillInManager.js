@@ -124,7 +124,7 @@ class FillInManager {
 
         for (let i = 1; i < nbOccu+1; i++) {
             let toBeReplace = studentContent.match(/_TOBEREPLACED_/g)[0];
-            studentContent = studentContent.replace(toBeReplace, `<input type="text" id="student-fill-in-field-${i}-preview" class="answer-student">`);
+            studentContent = studentContent.replace(toBeReplace, `<input type="text" id="student-fill-in-field-${i}-preview" class="answer-student" aria-label="Texte à trou à remplir ${i}">`);
         }
 
         contentDiv.innerHTML = studentContent;
@@ -202,7 +202,7 @@ class FillInManager {
             studentResponses.forEach((response, i) => {
                 let autoWidthStyle = 'style="width:' + (response.length + 2) + 'ch"';
                 let answer = studentContentString.match(/\[answer\](.*?)\[\/answer\]/g)[0];
-                studentContentString = studentContentString.replace(answer, `<input type="text" id="correction-student-fill-in-field-${i}" ${autoWidthStyle} readonly class="fill-in-answer-teacher answer-student" value="${response}">`);
+                studentContentString = studentContentString.replace(answer, `<input type="text" id="correction-student-fill-in-field-${i}" ${autoWidthStyle} readonly class="fill-in-answer-teacher answer-student" value="${response}" aria-label="La bonne réponse est : ${response}">`);
             });
     
     
@@ -309,9 +309,9 @@ class FillInManager {
                         answer = studentContentString.match(/\[answer\](.*?)\[\/answer\]/g)[0];
 
                 if (response == solution[i]) {
-                    studentContentString = studentContentString.replace(answer, `<input type="text" id="correction-student-fill-in-field-${i}" ${autoWidthStyle} readonly class="fill-in-answer-teacher answer-student answer-correct" value="${response}">`);
+                    studentContentString = studentContentString.replace(answer, `<input type="text" id="correction-student-fill-in-field-${i}" ${autoWidthStyle} readonly class="fill-in-answer-teacher answer-student answer-correct" value="${response}" aria-label="La bonne réponse est : ${response}. Vous aviez eu bon.">`);
                 } else {
-                    studentContentString = studentContentString.replace(answer, `<input type="text" id="correction-student-fill-in-field-${i}" ${autoWidthStyle} readonly class="fill-in-answer-teacher answer-student answer-incorrect" value="${response}">`);
+                    studentContentString = studentContentString.replace(answer, `<input type="text" id="correction-student-fill-in-field-${i}" ${autoWidthStyle} readonly class="fill-in-answer-teacher answer-student answer-incorrect" value="${response}" aria-label="La bonne réponse est : ${response}. Vous n'aviez pas eu bon.">`);
                 }
 
             });

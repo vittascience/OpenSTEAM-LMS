@@ -1,58 +1,57 @@
 :root {
     --classroom-logo: url('../media/no-logo.png');
 
-    --classroom-primary: #59C07C;
-    --classroom-primary-rgb: 89, 192, 124;
-    --classroom-primary-dark: #5AA26D;
-    --classroom-primary-dark-rgb: 90, 162, 109;
-    --classroom-secondary: #F58246;
-    --classroom-secondary-rgb: 245, 130, 70;
-    --classroom-secondary-dark: #EC684C;
-    --classroom-secondary-dark-rgb: 236, 104, 76;
-    --classroom-tertiary: #62CAE0;
-    --classroom-tertiary-rgb: 98, 202, 224;
-    --classroom-tertiary-dark: #50afc2;
-    --classroom-tertiary-dark-rgb: 80, 175, 194;
+    --classroom-primary: #187A52;
+    --classroom-primary-rgb: 24, 122, 82;
+    --classroom-primary-dark: #197146;
+    --classroom-primary-dark-rgb: 25, 113, 70;
+    --classroom-secondary: #C2372D;
+    --classroom-secondary-rgb: 194, 55, 45;
+    --classroom-secondary-dark: #9A4A41;
+    --classroom-secondary-dark-rgb: 154, 74, 65;
+    --classroom-tertiary: #1B6DA9;
+    --classroom-tertiary-rgb: 27, 109, 169;
+    --classroom-tertiary-dark: #206189;
+    --classroom-tertiary-dark-rgb: 32, 97, 137;
 
-    --correction-0: #ffc152;
-    --correction-0-rgb: 255, 193, 82;
+    --correction-0: #f9d142;
+    --correction-0-rgb: 249, 209, 66;
     --correction-1: #ffda97;
     --correction-1-rgb: 255, 218, 151;
-    --correction-2: #7cc6a5;
-    --correction-2-rgb: 124, 198, 165;
-    --correction-3: #22b573;
-    --correction-3-rgb: 34, 183, 115;
+    --correction-2: #187A52;
+    --correction-2-rgb: 24, 122, 82;
+    --correction-3: #197146;
+    --correction-3-rgb: 25, 113, 70;
     --correction-success: var(--classroom-green);
     --correction-fail: var(--classroom-red);
 
-
-    --classroom-background: #fff;
-    --classroom-background-1: #f6f6f6;
-    --classroom-text-0: black;
-    --classroom-text-0-rgb: 0, 0, 0;
-    --classroom-text-1: #333;
-    --classroom-text-1-rgb: 51, 51, 51;
+    --classroom-background: #ffffff;
+    --classroom-background-1: #fdfdfd;
+    --classroom-text-0: #2B2B2B;
+    --classroom-text-0-rgb: 43, 43, 43;
+    --classroom-text-1: #565656;
+    --classroom-text-1-rgb: 86, 86, 86;
     --classroom-text-2: #666;
     --classroom-text-2-rgb: 102, 102, 102;
 
     --classroom-shadow-1: rgba(0, 0, 0, 0.2);
-    --classroom-cell: #E6E6E6;
-    --classroom-cell-rgb: 230, 230, 230;
+    --classroom-cell: #e3e3e3;
+    --classroom-cell-rgb: 227, 227, 227;
 
-    --classroom-white: #fff;
-    --classroom-black: #000;
-    --classroom-grey: #AAA;
-    --classroom-grey-rgb: 170, 170, 170;
-    --classroom-green: #22b573;
-    --classroom-green-rgb: 34, 183, 115;
-    --classroom-red: #dc3545;
-    --classroom-red-rgb: 220, 53, 69;
-    --classroom-red-dark: #ad242c;
-    --classroom-red-dark-rgb: 173, 36, 44;
-    --classroom-blue: #3fa9f5;
-    --classroom-blue-rgb: 63, 169, 245;
-    --classroom-gold: #f0af39;
-    --classroom-gold-rgb: 240, 175, 57;
+    --classroom-white: #FEFEFE;
+    --classroom-black: #2B2B2B;
+    --classroom-grey: #757575;
+    --classroom-grey-rgb: 117, 117, 117;
+    --classroom-green: #187A52;
+    --classroom-green-rgb: 24, 122, 82;
+    --classroom-red: #C2372D;
+    --classroom-red-rgb: 194, 55, 45;
+    --classroom-red-dark: #9A4A41;
+    --classroom-red-dark-rgb: 154, 74, 65;
+    --classroom-blue: #1B6DA9;
+    --classroom-blue-rgb: 27, 109, 169;
+    --classroom-gold: #f9d142;
+    --classroom-gold-rgb: 249, 209, 66;
 
     /* Default dashboard colors (used for students) */
     --classroom-dashboard: var(--classroom-primary);
@@ -65,16 +64,37 @@
 }
 
 .theme-dark {
-    --classroom-background: #181818;
-    --classroom-background-1: #0a0a0a;
-    --classroom-text-0: rgb(255, 255, 255);
+    --classroom-background: #000000;
+    --classroom-background-1: #202020;
+    --classroom-text-0: #ffffff;
     --classroom-text-0-rgb: 255, 255, 255;
-    --classroom-text-1: rgb(205, 205, 205);
-    --classroom-text-1-rgb: 205, 205, 205;
-    --classroom-text-2: rgb(153, 153, 153);
-    --classroom-text-2-rgb: 153, 153, 153;
+    --classroom-text-1: #fdfdfd;
+    --classroom-text-1-rgb: 253, 253, 253;
+    --classroom-text-2: #f5f5f5;
+    --classroom-text-2-rgb: 245, 245, 245;
     --classroom-shadow-1: rgba(0, 0, 0, 1);
-    --classroom-cell: #4e4e4e;
+    --classroom-cell: #2e2e2e;
+
+    --classroom-primary: #2CC987;
+    --classroom-primary-rgb: 44, 201, 135;
+    --classroom-primary-dark: #23A26E;
+    --classroom-primary-dark-rgb: 35, 162, 110;
+    --classroom-secondary: #EF8881;
+    --classroom-secondary-rgb: 239, 136, 129;
+    --classroom-secondary-dark: #EA645A;
+    --classroom-secondary-dark-rgb: 234, 100, 90;
+    --classroom-tertiary: #4AA6E8;
+    --classroom-tertiary-rgb: 74, 166, 232;
+    --classroom-tertiary-dark: #2894E3;
+    --classroom-tertiary-dark-rgb: 40, 148, 227;
+    --classroom-green: #2CC987;
+    --classroom-green-rgb: 44, 201, 135;
+    --classroom-red: #EF8881;
+    --classroom-red-rgb: 239, 136, 129;
+    --classroom-red-dark: #EA645A;
+    --classroom-red-dark-rgb: 234, 100, 90;
+    --classroom-blue: #4AA6E8;
+    --classroom-blue-rgb: 74, 166, 232;
 
     color-scheme: dark;
 }

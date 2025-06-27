@@ -17,7 +17,6 @@ class DragAndDropManager {
     }
 
     parseDragAndDropFieldsAndSaveThem() {
-
         if ($('#drag-and-drop-content').bbcode().match(/\[answer\](.*?)\[\/answer\]/gi) == null) {
             displayNotification('#notif-div', "classroom.notif.noAnswerInActivity", "error");
             return false;
@@ -120,10 +119,104 @@ class DragAndDropManager {
         solution.forEach(e => {
             $('#preview-drag-and-drop-fields-teacher').append(dragAndDropManager.parseDraggableItems(e));
         });
-
         initializeDragulaWithOneContainer('activity-content', 'dropzone-preview', Activity.id);
+
+        dragAndDropManager.initKeyboardAccessibleDragDrop();
         dragAndDropManager.showTeacherCommonCode(contentParsed);
     }
+
+    initKeyboardAccessibleDragDrop() {
+        let selectedWord = null;
+        const liveRegion = document.getElementById('a11y-notifier');
+        const wordBank = document.querySelector('#preview-drag-and-drop-fields-teacher');
+
+        document.querySelectorAll('.draggable-items').forEach(item => {
+            const wordText = item.textContent.trim();
+            item.setAttribute('data-word', wordText);
+            item.setAttribute('role', 'button');
+            item.setAttribute('aria-pressed', 'false');
+            item.setAttribute('aria-grabbed', 'false');
+            item.setAttribute('tabindex', '0');
+
+            item.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    selectedWord = wordText;
+
+                    document.querySelectorAll('.draggable-items').forEach(i => {
+                        i.setAttribute('aria-pressed', 'false');
+                        i.setAttribute('aria-grabbed', 'false');
+                    });
+
+                    item.setAttribute('aria-pressed', 'true');
+                    item.setAttribute('aria-grabbed', 'true');
+
+                    if (liveRegion) {
+                        liveRegion.textContent = `Mot "${selectedWord}" sélectionné.`;
+                    }
+
+                    e.preventDefault();
+                }
+            });
+        });
+
+        const dropzones = Array.from(document.querySelectorAll('.dropzone-preview'))
+            .filter(zone => zone.id.startsWith('dz-') && zone.parentElement.id !== 'preview-drag-and-drop-fields-teacher');
+
+        dropzones.forEach((zone, index) => {
+            zone.setAttribute('role', 'textbox');
+            zone.setAttribute('tabindex', '0');
+            if (!zone.hasAttribute('aria-label')) {
+                zone.setAttribute('aria-label', `Zone à remplir ${index + 1}`);
+            }
+
+            zone.addEventListener('keydown', e => {
+                if ((e.key === 'Enter' || e.key === ' ') && selectedWord) {
+                    const wordElement = document.querySelector(`.draggable-items[data-word="${selectedWord}"]`);
+                    if (wordElement) {
+                        zone.innerHTML = '';
+                        zone.appendChild(wordElement);
+                        zone.setAttribute('aria-label', `Zone remplie avec "${selectedWord}"`);
+
+                        if (liveRegion) {
+                            liveRegion.textContent = `Mot "${selectedWord}" déposé dans la zone.`;
+                        }
+
+                        document.querySelectorAll('.draggable-items').forEach(i => {
+                            i.setAttribute('aria-pressed', 'false');
+                            i.setAttribute('aria-grabbed', 'false');
+                        });
+
+                        selectedWord = null;
+                    } else {
+                        console.warn("Mot non trouvé parmi les éléments draggable.");
+                    }
+
+                    e.preventDefault();
+                }
+
+                else if ((e.key === 'Backspace' || e.key === 'Delete') && zone.firstChild) {
+                    const wordElement = zone.firstChild;
+                    const word = wordElement.getAttribute('data-word') || wordElement.textContent.trim();
+
+                    zone.innerHTML = '';
+                    zone.setAttribute('aria-label', `Zone à remplir ${index + 1}`);
+
+                    wordElement.setAttribute('aria-pressed', 'false');
+                    wordElement.setAttribute('aria-grabbed', 'false');
+                    wordElement.setAttribute('tabindex', '0');
+                    wordBank.appendChild(wordElement);
+
+                    if (liveRegion) {
+                        liveRegion.textContent = `Mot "${word}" retiré de la zone.`;
+                    }
+
+                    e.preventDefault();
+                }
+            });
+        });
+    }
+
+
 
     showTeacherCommonCode(contentParsed) {
         $("#activity-states").html(bbcodeContentIncludingMathLive(contentParsed.states));
@@ -155,7 +248,7 @@ class DragAndDropManager {
 
                 let ContentString = manageDragAndDropText(content.dragAndDropFields.contentForTeacher);
                 $('#drag-and-drop-text'+course).html(`<div>${ContentString}</div>`);
-    
+
                 // Get the response array and shuffle it
                 let choices = shuffleArray(JSON.parse(Activity.activity.solution));
     
@@ -192,7 +285,7 @@ class DragAndDropManager {
             dragAndDropManager.displayDragAndDropTeacherSide(correction_div, correction, content, isFromCourse);
         } 
     }
-    
+
     displayDragAndDropTeacherSide(correction_div, correction, content, isFromCourse) {
         let course = isFromCourse ? "-course" : "";
         let studentResponses = JSON.parse(Activity.response);
@@ -213,7 +306,7 @@ class DragAndDropManager {
                 } else if (bbcodeToHtml(studentResponses[i].string) != studentResponses[i].string) {
                     studentContentString = studentContentString.replace(answer, bbcodeToHtml(studentResponses[i].string));
                 } else {
-                    studentContentString = studentContentString.replace(answer, `<input readonly class='drag-and-drop-answer-teacher' id="corrected-student-response-${i}" value="${studentResponses[i].string.toLowerCase()}" ${autoWidthStyle}>`);
+                    studentContentString = studentContentString.replace(answer, `<input readonly class='drag-and-drop-answer-teacher' id="corrected-student-response-${i}" value="${studentResponses[i].string.toLowerCase()}" aria-label="Réponse de l'élève ${i + 1}: ${studentResponses[i].string.toLowerCase()}" ${autoWidthStyle}>`);
                 }
             }
         
@@ -402,7 +495,7 @@ class DragAndDropManager {
                 } else if (bbcodeToHtml(studentResponses[i].string) != studentResponses[i].string) {
                     studentContentString = studentContentString.replace(answer, bbcodeToHtml(studentResponses[i].string));
                 } else {
-                    studentContentString = studentContentString.replace(answer, `<input readonly class='drag-and-drop-answer-teacher ${correctAnswer ? "answer-correct" : ""}' id="corrected-student-response-${i}" value="${studentResponses[i].string.toLowerCase()}" ${autoWidthStyle}>`);
+                    studentContentString = studentContentString.replace(answer, `<input readonly class='drag-and-drop-answer-teacher ${correctAnswer ? "answer-correct" : ""}' id="corrected-student-response-${i}" value="${studentResponses[i].string.toLowerCase()}" aria-label="Réponse de l'élève ${i + 1}: ${studentResponses[i].string.toLowerCase()} ${correctAnswer ? '(correcte)' : '(incorrecte)'}" ${autoWidthStyle}>`);
                 }
             }
             

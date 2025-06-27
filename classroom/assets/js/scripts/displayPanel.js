@@ -11,7 +11,18 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel2 = function (id) {
 DisplayPanel.prototype.classroom_dashboard_profil_panel_teacher = function () {
     $('#user-name-teacher').html(UserManager.getUser().firstname + " " + UserManager.getUser().surname)
     Main.getClassroomManager().getTeacherActivity().then(function (data) {
-        $('.owned-activities').html(data.ownedActivities)
+        const ownedActivitiesElement = $('.owned-activities');
+        ownedActivitiesElement.html(data.ownedActivities);
+        
+        ownedActivitiesElement.attr('aria-label', `${data.ownedActivities} activités créées`);
+        
+        const activitiesButton = $('.activity-panel-link-t');
+        activitiesButton.attr('aria-label', `Accéder au panneau des activités - ${data.ownedActivities} activités créées`);
+        activitiesButton.attr('title', `Gérer vos activités - ${data.ownedActivities} activités créées`);
+        
+        if (typeof notifyA11y !== 'undefined') {
+            notifyA11y(`Nombre d'activités créées : ${data.ownedActivities}`, "info");
+        }
 
     })
     getIntelFromClasses()
@@ -81,7 +92,7 @@ DisplayPanel.prototype.classroom_dashboard_activities_panel = function () {
 
 DisplayPanel.prototype.classroom_dashboard_activities_panel_library_teacher = function () {
     if (!$("#resource-center-classroom").length) {
-        $('#classroom-dashboard-activities-panel-library-teacher').html('<iframe id="resource-center-classroom" src="/learn/?use=classroom" frameborder="0" style="height:80vh;width:80vw"></iframe>')
+        $('#classroom-dashboard-activities-panel-library-teacher').html('<iframe id="resource-center-classroom" src="/learn/?use=classroom" frameborder="0" style="height:80vh;width:80vw" title="Centre de ressources - Bibliothèque d\'activités"></iframe>')
     }
 }
 
@@ -150,56 +161,58 @@ DisplayPanel.prototype.classroom_dashboard_help_panel_teacher = function () {
     let html = '';
     let index = [7, 12, 5, 3, 3, 3]; // number of questions+1 per category in faq
 
-    // capitalize demoStudent name
     let capitalizedDemoStudentName = `${demoStudentName.charAt(0).toUpperCase()}${demoStudentName.slice(1)}`;
+
     for (let i = 1; i <= index.length; i++) {
-        html += "<h4 data-i18n='[html]faqTeacherNeutral." + i + ".section_title'></h4>";
+        const sectionTitle = i18next.t(`faqTeacherNeutral.${i}.section_title`);
+        html += `<section class="faq-section" aria-label="${sectionTitle}">
+            <h2 data-i18n='[html]faqTeacherNeutral.${i}.section_title'></h2>`;
+
         for (let j = 1; j < index[i - 1]; j++) {
-            html += `<div class="kit-faq-box">
-            <div class="faq-box-header" style="transform: rotate(0deg); transform-origin: 50% 50% 0px;">
-                <div class="faq-box-dropdown">
-                    <span class="fa fa-chevron-right" style="line-height:40px; font-size:16px;"></span>
+            let id = `faq${i}-${j}`;
+            html += `
+            <div class="kit-faq-box">
+                <div class="faq-box-header" style="cursor: pointer;" role="button" tabindex="0"
+                    aria-expanded="false"
+                    aria-controls="${id}-panel"
+                    id="${id}-button"
+                >
+                    <div class="faq-box-dropdown">
+                        <span class="fa fa-chevron-right" aria-hidden="true" style="line-height:40px; font-size:16px;"></span>
+                    </div>
+                    <p style="font-size:16px; margin:0; padding:0;">
+                        <b data-i18n='[html]faqTeacherNeutral.${i}.question_list.${j}.title'></b>
+                    </p>
                 </div>
-                <p style="font-size:16px; margin:0; padding:0;">
-                    <b data-i18n='[html]faqTeacherNeutral.` + i + `.question_list.` + j + `.title'></b>
-                </p>
-            </div>
-            <div class="faq-box-content">
-            <p data-i18n='[html]faqTeacherNeutral.` + i + `.question_list.` + j + `.answer' data-i18n-options={"demoStudent":"${capitalizedDemoStudentName}"}></p>
-            </div>
-        </div>`;
+                <div class="faq-box-content" id="${id}-panel" role="region" aria-labelledby="${id}-button" style="display: none;">
+                    <p data-i18n='[html]faqTeacherNeutral.${i}.question_list.${j}.answer'
+                       data-i18n-options='{"demoStudent":"${capitalizedDemoStudentName}"}'></p>
+                </div>
+            </div>`;
         }
+
+        html += `</section>`;
     }
+
     $('#teacher-faq-container').html(html);
     $("#teacher-faq-container").localize();
 
-    var headers = document.getElementsByClassName("faq-box-header");
-    $(headers).rotate({
-        bind: {
-            click: function () {
-                var drop = $(this).find(".faq-box-dropdown");
-                var content = $(this).parent().find(".faq-box-content");
-                if (drop.hasClass("dropped")) {
-                    drop.rotate({
-                        angle: drop.getRotateAngle(),
-                        animateTo: 0
-                    });
-                    content.fadeOut("slow", function () {
-                        drop.removeClass("dropped");
-                    });
-                } else {
-                    drop.rotate({
-                        angle: drop.getRotateAngle(),
-                        animateTo: 90
-                    });
-                    content.fadeIn("slow", function () {
-                        drop.addClass("dropped");
-                    });
-                }
-            }
+    $(document).on('click keydown', '.faq-box-header', function (e) {
+        if (e.type === 'click' || (e.type === 'keydown' && (e.key === 'Enter' || e.key === ' '))) {
+            e.preventDefault();
+            const header = $(this);
+            const panelId = header.attr('aria-controls');
+            const panel = $('#' + panelId);
+            const icon = header.find('.fa');
+            const expanded = header.attr('aria-expanded') === 'true';
+
+            header.attr('aria-expanded', String(!expanded));
+            icon.toggleClass('fa-chevron-right fa-chevron-down');
+            panel.stop(true, true).slideToggle(300);
         }
     });
-}
+};
+
 
 DisplayPanel.prototype.classroom_dashboard_sandbox_panel = function () {
     ClassroomSettings.activity = false
@@ -497,111 +510,137 @@ function formatDateInput(date) {
 }
 
 function createSwitchViewForTeacherActivity() {
-
-    let titleDiv = document.getElementById('activity-views-switcher');
+    const titleDiv = document.getElementById('activity-views-switcher');
     titleDiv.innerHTML = '';
 
-    let switcherDiv = createHtmlElement('div', {
-        'class': 'd-flex'
+    const switcherDiv = createHtmlElement('div', {
+        'class': 'd-flex',
+        'role': 'group',
+        'aria-labelledby': 'activity-views-label'
     });
 
-    let switcher = createHtmlElement('div', {
+    const legend = createHtmlElement('span', {
+        'id': 'activity-views-label',
+        'class': 'sr-only'
+    }, i18next.t("classroom.activities.switch.view.label"));
+
+    const switcher = createHtmlElement('div', {
         'class': 'switcher'
     });
 
-    let attributesForDoable = {
+    const doableTrue = createHtmlElement('input', {
         'type': 'radio',
         'class': 'switcher__input switcher__input--left',
         'name': 'option-doable',
         'id': 'option-doable-true',
         'autocomplete': 'off',
-        'value': 'right',
+        'value': 'to-complete',
         'checked': 'checked'
-    }
+    });
 
-    let attributesForDoableLabel = {
+    const doableTrueLabel = createHtmlElement('label', {
         'class': 'switcher__label',
         'for': 'option-doable-true'
-    }
+    }, i18next.t("classroom.activities.toComplete"));
 
-    let doableTrue = createHtmlElement('input', attributesForDoable);
-    let doableTrueLabel = createHtmlElement('label', attributesForDoableLabel, i18next.t("classroom.activities.toComplete"));
-
-    let attributesForDoableFalse = {
+    const doableFalse = createHtmlElement('input', {
         'type': 'radio',
         'class': 'switcher__input switcher__input--right',
         'name': 'option-doable',
         'id': 'option-doable-false',
         'autocomplete': 'off',
-    }
-
-    let attributesForDoableFalseLabel = {
-        'class': 'switcher__label',
-        'for': 'option-doable-false'
-    }
-
-    let doableFalse = createHtmlElement('input', attributesForDoableFalse);
-    let doableFalseLabel = createHtmlElement('label', attributesForDoableFalseLabel, i18next.t("classroom.activities.corrected"));
-
-    let span = createHtmlElement('span', {
-        'class': 'switcher__toggle'
+        'value': 'corrected'
     });
 
+    const doableFalseLabel = createHtmlElement('label', {
+        'class': 'switcher__label',
+        'for': 'option-doable-false'
+    }, i18next.t("classroom.activities.corrected"));
+
+    const toggleSpan = createHtmlElement('span', {
+        'class': 'switcher__toggle',
+        'aria-hidden': 'true'
+    });
 
     switcher.appendChild(doableTrue);
     switcher.appendChild(doableTrueLabel);
     switcher.appendChild(doableFalse);
     switcher.appendChild(doableFalseLabel);
-    switcher.appendChild(span);
+    switcher.appendChild(toggleSpan);
 
-
+    switcherDiv.appendChild(legend);
     switcherDiv.appendChild(switcher);
     titleDiv.appendChild(switcherDiv);
 }
 
+
 function getTeacherActivity() {
     resetInputsForActivity();
 
-    $('#activity-title').html(Activity.title);
+    const titleContainer = $('#activity-title');
+    titleContainer.html(Activity.title);
 
-    let autoCorrectionDisclaimerElt = `<img id="activity-auto-disclaimer" data-bs-toggle="tooltip" src="${_PATH}assets/media/auto-icon.svg" title="${i18next.t("classroom.activities.isAutocorrect")}">`
-    Activity.isAutocorrect ? $('#activity-title').append(autoCorrectionDisclaimerElt).tooltip() : null;
+    if (Activity.isAutocorrect) {
+        const disclaimerElt = `
+            <img 
+                id="activity-auto-disclaimer"
+                src="${_PATH}assets/media/auto-icon.svg"
+                alt="${i18next.t('classroom.activities.isAutocorrect')}"
+                role="img"
+                aria-describedby="auto-desc"
+                tabindex="0"
+            >
+            <span id="auto-desc" class="sr-only">
+                ${i18next.t('classroom.activities.isAutocorrect')}
+            </span>
+        `;
+        titleContainer.append(disclaimerElt);
+    }
 
+    const activityDropdownElt = `
+        <div class="dropdown mx-2">
+            <button 
+                class="btn c-btn-outline-grey"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-controls="activity-options-list"
+            >
+                ${capitalizeFirstLetter(i18next.t('words.options'))}
+                <i class="fas fa-cog" aria-hidden="true"></i>
+            </button>
+    
+            <ul id="activity-options-list" class="dropdown-menu" role="menu" aria-label="${i18next.t('words.options')}">
+                <button class="dropdown-item" role="menuitem" tabindex="-1" onclick="attributeActivity(${Activity.id})">
+                    ${capitalizeFirstLetter(i18next.t('words.attribute'))}
+                </button>
+                <button class="dropdown-item" role="menuitem" tabindex="-1" onclick="createActivity(null,${Activity.id})">
+                    ${capitalizeFirstLetter(i18next.t('words.duplicate'))}
+                </button>
+                <button class="dropdown-item" role="menuitem" tabindex="-1" onclick="activityModify(${Activity.id})">
+                    ${capitalizeFirstLetter(i18next.t('words.modify'))}
+                </button>
+                <button class="dropdown-item" role="menuitem" tabindex="-1" onclick="activityModify(${Activity.id}, true)">
+                    ${capitalizeFirstLetter(i18next.t('words.rename'))}
+                </button>
+                <button class="dropdown-item modal-activity-delete" role="menuitem" tabindex="-1">
+                    ${capitalizeFirstLetter(i18next.t('words.delete'))}
+                </button>
+            </ul>
+        </div>`;
+    titleContainer.append(activityDropdownElt);
 
-    let activityDropdownElt = `
-    <div class="dropdown mx-2">
-        <button class="btn c-btn-outline-grey" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            ${capitalizeFirstLetter(i18next.t('words.options'))}
-            <i class="fas fa-cog"></i>
-        </button>
-
-        <ul class="dropdown-menu">
-            <li class="dropdown-item" onclick="attributeActivity(${Activity.id})">
-                ${capitalizeFirstLetter(i18next.t('words.attribute'))}
-            </li>
-        
-            <li class="dropdown-item" onclick="createActivity(null,${Activity.id})">
-                ${capitalizeFirstLetter(i18next.t('words.duplicate'))}
-            </li>
-                
-            <li class="dropdown-item" onclick="activityModify(${Activity.id})">
-                ${capitalizeFirstLetter(i18next.t('words.modify'))}
-            </li>
-
-            <li class="dropdown-item" onclick="activityModify(${Activity.id}, true)">
-                ${capitalizeFirstLetter(i18next.t('words.rename'))}
-            </li>
-
-            <li class="dropdown-item modal-activity-delete">
-                ${capitalizeFirstLetter(i18next.t('words.delete'))}
-            </li>
-        </ul>
-    </div>`
-    $('#activity-title').append(activityDropdownElt);
+    document.querySelectorAll('#activity-options-list .dropdown-item').forEach(item => {
+        item.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                item.click();
+            }
+        });
+    });
 
     const doableActivities = ['fillIn', 'dragAndDrop', 'free', 'quiz'];
-    // Create the switch view for the teacher (doable or correction) if the activity is not a reading and not an LTI
-    if (doableActivities.includes(Activity.type) && Activity.type != 'lti') {
+    if (doableActivities.includes(Activity.type) && Activity.type !== 'lti') {
         createSwitchViewForTeacherActivity();
         loadActivityContent(true);
     } else {
@@ -610,22 +649,30 @@ function getTeacherActivity() {
     }
 
     const switchPreview = document.getElementsByName('option-doable');
-    for (let i = 0; i < switchPreview.length; i++) {
-        switchPreview[i].addEventListener('click', () => {
-            if (switchPreview[i].id == 'option-doable-true') {
-                loadActivityContent(true);
-            } else {
-                loadActivityContent(false);
-            }
+    switchPreview.forEach(input => {
+        input.addEventListener('click', () => {
+            const isDoable = input.id === 'option-doable-true';
+            loadActivityContent(isDoable);
         });
-    }
+    });
 }
 
 function getIntelFromClasses() {
     $('#list-classes').html('')
     let classes = Main.getClassroomManager()._myClasses
     if (classes.length == 0) {
-        $('.tocorrect-activities').html('0')
+        const tocorrectElement = $('.tocorrect-activities');
+        tocorrectElement.html('0');
+        tocorrectElement.attr('aria-label', '0 activités à corriger');
+        
+        const classesButton = $('.classroom-panel-link');
+        classesButton.attr('aria-label', 'Accéder au panneau des classes - 0 activités à corriger');
+        classesButton.attr('title', 'Gérer vos classes - 0 activités à corriger');
+        
+        if (typeof notifyA11y !== 'undefined') {
+            notifyA11y("Aucune activité à corriger", "info");
+        }
+        
         if (document.querySelector('#mode-student-check').parentElement.querySelector('p.no-classes') === null) {
             $('#mode-student-check').after(NO_CLASS);
         }
@@ -653,6 +700,23 @@ function getIntelFromClasses() {
         });
         $('.no-classes').remove()
         $('#mode-student-check').show()
-        $('.tocorrect-activities').html(correctionCount)
+        
+        const tocorrectElement = $('.tocorrect-activities');
+        tocorrectElement.html(correctionCount);
+        tocorrectElement.attr('aria-label', `${correctionCount} activités à corriger`);
+        
+        const classesButton = $('.classroom-panel-link');
+        const correctionText = correctionCount > 0 
+            ? `${correctionCount} activité${correctionCount > 1 ? 's' : ''} à corriger`
+            : 'aucune activité à corriger';
+        classesButton.attr('aria-label', `Accéder au panneau des classes - ${correctionText}`);
+        classesButton.attr('title', `Gérer vos classes - ${correctionText}`);
+        
+        if (typeof notifyA11y !== 'undefined') {
+            const message = correctionCount > 0 
+                ? `${correctionCount} activité${correctionCount > 1 ? 's' : ''} à corriger`
+                : "Aucune activité à corriger";
+            notifyA11y(message, "info");
+        }
     }
 }

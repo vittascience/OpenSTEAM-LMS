@@ -25,6 +25,7 @@
 			"registerLink": "S'inscrire",
 			"hasReturned": "De retour dans cette classe ?",
 			"forgot": "J'ai oublié mon mot de passe",
+			"orSso": "Ou identifiez-vous avec",
 			"error": {
 				"used": "Ce pseudo est déja utilisé, veuillez en choisir un autre",
 				"badInput": "Votre pseudo ou mot de passe est erroné."
@@ -291,6 +292,7 @@
 			"save": "Sauver le brouillon ",
 			"add": "Créer une activité",
 			"new": "Nouveaux",
+			"draft": "Brouillons",
 			"current": "En attente de correction",
 			"waiting": "Pas encore réalisé",
 			"done": "Terminés",
@@ -1144,9 +1146,9 @@
 			"lastname": "Nom <span class=\"c-text-red\">*</span>",
 			"firstname": "Prénom <span class=\"c-text-red\">*</span>",
 			"phone": "Numéro de téléphone",
-			"grade": "Niveau de formation <span class=\"c-text-red\">*</span>",
-			"subject": "Matière enseignée <span class=\"c-text-red\">*</span>",
-			"school": "Établissement <span class=\"c-text-red\">*</span>",
+			"grade": "Niveau de formation",
+			"subject": "Matière enseignée",
+			"school": "Établissement",
 			"password": "Mot de passe <span class=\"c-text-red\">*</span>",
 			"confirmPassword": "Confirmer le mot de passe <span class=\"c-text-red\">*</span>",
 			"help": "Appel à l'aide",

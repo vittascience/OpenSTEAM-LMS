@@ -7,8 +7,8 @@
         <i class="fas fa-question"></i>
     </button>
     <div id="a11y-dropdown" class="dropdown">
-        <button class="btn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-low-vision"></i>
+        <button class="btn" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  aria-label="Options d'accessibilité" title="Options d'accessibilité">
+            <i class="fas fa-low-vision" aria-hidden="true"></i>
         </button>
         <div class="dropdown-menu dropdown-menu-right a11y-dropdown" aria-labelledby="dropdownMenuButton">
             <form action="javascript:void(0);" id="access-form">
@@ -59,4 +59,4 @@
         </div>
     </div>
 </div>
-<div id="classroom-dashboard-content">
+<div id="classroom-dashboard-content" tabindex="0" role="main" aria-label="Contenu principal du tableau de bord de la classe">
