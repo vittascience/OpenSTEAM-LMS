@@ -3,6 +3,7 @@
 .env 
 composer.lock
 /plugins
+/_plugins
 classroom/assets/plugins
 /.idea
 /dev
