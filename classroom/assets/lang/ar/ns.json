@@ -624,7 +624,7 @@
     "mailSuccess": "تم إرسال بريد إلكتروني للتفعيل إلى عنوان بريدك الإلكتروني",
     "mailError": "حدث خطأ. يرجى التحقق من عنوان البريد الإلكتروني الخاص بك",
     "userNotFound": "لم يتم العثور على مستخدم مرتبط بهذا البريد",
-    "inactiveAccount": "حسابك غير نشط ، انقر فوق الزر الموجود أدناه لإرسال بريد تحقق جديد",
+    "inactiveAccount": "حسابك غير نشط، انقر على هذا {{link}} لإرسال بريد تحقق جديد",
     "accountDeactivated": "تم إلغاء تنشيط حسابك ، اتصل بالمسؤول إذا استمرت المشكلة",
     "errorBeta": "يجب أن تكون أحد مختبري الإصدار التجريبي للوصول إلى هذه الوظيفة. <a href='https://fr.vittascience.com/about#contact'>اتصل بفريق Vittascience</a> لمعرفة المزيد",
 		"badInput": "The email and password are required"
@@ -728,6 +728,7 @@
     "options": "والخيارات",
     "yes": "نعم",
     "no": "رقم",
+    "link": "رابط",
     "recommanded": "موصى به"
   },
   "manager": {

@@ -103,11 +103,13 @@ class managerManager {
                     groupspp: $groupspp
                 },
                 success: function (response) {
-                    mainManager.getmanagerManager()._allGroups = JSON.parse(response);
+                    let groupsRes = JSON.parse(response);
+                    mainManager.getmanagerManager()._allGroups = groupsRes;
                     mainManager.getmanagerManager().showGroupsInTable((JSON.parse(response)));
-                    mainManager.getmanagerManager().getAllGroups().then((data) => {
-                        mainManager.getmanagerManager()._comboGroups = data;
-                    });
+
+                    // do not do another request to get the groups for the combo box
+                    groupsRes.pop();
+                    mainManager.getmanagerManager()._comboGroups = groupsRes;
                 },
                 error: function () {
                     reject();

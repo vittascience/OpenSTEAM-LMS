@@ -557,6 +557,12 @@
 				"yesButton": "Yes, quit",
 				"noButton": "No, stay"
 			},
+			"quitSandboxActivity": {
+				"title": "Exit current activity",
+				"description": "Please remember to save your changes if you haven't already before quitting.",
+				"yesButton": "Yes, quit",
+				"noButton": "No, stay"
+			},
 			"exportMultipleTitle": "Export multiple activities" 
 		},
 		"folders": {
@@ -699,7 +705,7 @@
 		"mailSuccess": "An activation email has been sent to your email address.",
 		"mailError": "An error has occurred. Please verify your email address.",
 		"userNotFound": "No linked user found with this mail.",
-		"inactiveAccount": "Your account is not active, click on the button just below to send a new validation mail.",
+		"inactiveAccount": "Your account is not active, click on this {{link}} to send a new validation mail.",
 		"accountDeactivated": "Your account has been deactivated, contact an administrator if the problem persists.",
 		"errorBeta": "You must be a beta tester to access this functionality.<a href='https://fr.vittascience.com/about#contact'>Contact the Vittascience team</a> to find out more.",
 		"badInput": "The email and password are required"
@@ -804,6 +810,7 @@
 		"yes": "Yes",
 		"no": "No",
 		"rename": "rename",
+		"link": "link",
 		"recommanded": "recommended"
 	},
 	"manager": {

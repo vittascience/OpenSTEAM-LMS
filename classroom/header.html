@@ -127,7 +127,7 @@
 
         // function to set a given font
         function setFont(givenFontName) {
-            let fontTypes = ['lato', 'dys', 'luciole', 'arial', 'verdana'];
+            let fontTypes = ['basic', 'dys', 'luciole', 'arial', 'verdana'];
 
             localStorage.setItem('font', givenFontName);
 
@@ -189,7 +189,7 @@
                     setFont('verdana');
                     $("#radio-verdana-font, #ide-radio-verdana-font").prop("checked", true);
                 } else {
-                    setFont('lato');
+                    setFont('basic');
                     $("#radio-basic-font, #ide-radio-basic-font").prop("checked", true);
 
                 }
