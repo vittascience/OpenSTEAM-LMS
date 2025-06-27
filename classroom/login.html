@@ -17,7 +17,8 @@
                             d="M76.9 23a1.9 1.9 0 01.8 1.5 2.27 2.27 0 01-.6 1.6 2.17 2.17 0 01-3 0 1.82 1.82 0 01-.6-1.4 2.72 2.72 0 01.6-1.7l1.8-2.6H78L76.9 23zm6 0a1.9 1.9 0 01.8 1.5 2.27 2.27 0 01-.6 1.6 2.17 2.17 0 01-3 0 1.82 1.82 0 01-.6-1.4 2.72 2.72 0 01.6-1.7l1.8-2.6H84L82.9 23zM173.9 24.1a1.9 1.9 0 01-.8-1.5 2.11 2.11 0 01.6-1.6 2.17 2.17 0 013 0 1.82 1.82 0 01.6 1.4 2.72 2.72 0 01-.6 1.7l-1.8 2.6h-2.1zm-6 0a1.9 1.9 0 01-.8-1.5 2.11 2.11 0 01.6-1.6 2.17 2.17 0 013 0 1.82 1.82 0 01.6 1.4 2.72 2.72 0 01-.6 1.7l-1.8 2.6h-2.1z" />
                     </g>
                 </svg>
-                <input type="text" id="fake-blockly-input" name="name" maxlength="20" data-i18n="[value]classroom.login.hello" autocomplete="off" data-lpignore="true" aria-label="Texte à afficher dans l'exemple de code">
+                <input type="text" id="fake-blockly-input" name="name" maxlength="20"
+                    data-i18n="[value]classroom.login.hello" autocomplete="off" data-lpignore="true">
             </div>
             <span id="fake-code"><span style="color: #AC00B1;">print</span><span>(</span><span id="fake-code-text"
                     style="color:#009651;" data-i18n="classroom.login.hello"></span><span>)</span></span>
@@ -37,16 +38,16 @@
     <div class="container">
         <div id="classroom-flow" class="row py-5 justify-content-md-center">
             <div class="col-sm col-lg-3 text-center">
-                <img class="img-fluid" src="assets/media/create_activities.png" alt="Créer des activités"></br>
+                <img class="img-fluid" src="assets/media/create_activities.png" alt=""></br>
                 <span data-i18n="[html]classroom.login.activities"></span>
             </div>
             <div class="col-sm col-lg-3 text-center">
-                <img class="img-fluid" src="assets/media/assign_activities.png" alt="Assigner des activités"></br>
+                <img class="img-fluid" src="assets/media/assign_activities.png" alt=""></br>
                 <span data-i18n="[html]classroom.login.attribute"></span>
 
             </div>
             <div class="col-sm col-lg-3 text-center">
-                <img class="img-fluid" src="assets/media/visualise_activities.png" alt="Visualiser les activités"></br>
+                <img class="img-fluid" src="assets/media/visualise_activities.png" alt=""></br>
                 <span data-i18n="[html]classroom.login.visualize"></span>
             </div>
         </div>
@@ -61,20 +62,9 @@
 
 
 <!-- page de login à choix multiple -->
-<div id="classroom-login-container" style="display: none;">
-  <section class="inner-login-container" role="region" aria-labelledby="login-title">
-    <div id="classroom-login-code" class="container-border-left" role="form" aria-labelledby="student-login-title">
-      <h3 id="student-login-title" class="font-weight-bold c-text-secondary" data-i18n="classroom.login.student">Connexion élève</h3>
-      <div class="c-secondary-form mb-3">
-        <img src="assets/media/orange_lock.png" class="icon-label" alt="" role="presentation">
-        <label for="class-code" data-i18n="classroom.login.codeInput">Code d'accès</label><br>
-        <input type="text" placeholder="123ABC" name="secret_code" id="class-code" required aria-required="true">
-      </div>
-      <button class="btn c-btn-secondary text-capitalize" id="class-connexion" type="submit" aria-label="Confirmer la connexion élève">
-        <span data-i18n="words.confirm">Confirmer</span>
-        <i class="fas fa-chevron-right" aria-hidden="true"></i>
-      </button>
-    </div>
+<div id="classroom-login-container" style="display:none;">
+    <div class="inner-login-container">
+        <div id="classroom-login-code" class="container-border-left">
 
             <h3 class="font-weight-bold c-text-secondary" data-i18n="classroom.login.student"></h3>
             <div class="c-secondary-form mb-3">
@@ -110,12 +100,8 @@
         <button onclick="navigateLight('', 1)" class="btn close-login-classroom m-1"><i
                 class="fas fa-times"></i></button>
     </div>
-
-    <button onclick="navigateLight('', 1)" class="btn close-login-classroom" type="button" aria-label="Fermer le formulaire de connexion">
-      <i class="fas fa-times" aria-hidden="true"></i>
-    </button>
-  </section>
 </div>
+
 
 <!-- Register page -->
 <div id="classroom-register-container" style="display:none;">
@@ -302,11 +288,12 @@
             </div>
 
         </form>
-        <button onclick="navigateLight('login-choice')" class="btn close-login-classroom m-1" type="button" aria-label="Fermer la fenêtre d'inscription">
-            <i class="fas fa-times" aria-hidden="true"></i>
+        <button onclick="navigateLight('login-choice')" class="btn close-login-classroom m-1">
+            <i class="fas fa-times"></i>
         </button>
     </div>
 </div>
+
 
 
 <div id="login-container" class="inner-register-container" style="display:none;position:relative;">
@@ -355,27 +342,6 @@
                 <input id="totp_code-login-page" name="totp_code" placeholder="code Authenticator" class="form-control">
             </div>
 
-    <button type="submit"
-            style="margin-top:10px;"
-            onclick="checkLogin();"
-            class="btn c-btn-secondary"
-            id="login-button"
-            data-i18n="login_popup.form.btn_connect"
-            data-testid="classroomLoginSubmitBtn"
-            aria-label="Connexion">
-    </button>
-
-    <button type="button"
-            style="margin-top:10px; display:none;"
-            onclick="getNewValidationMail();"
-            class="btn c-btn-secondary"
-            id="btn-activate-account-classroom"
-            data-i18n="login_popup.form.btn_activate"
-            aria-label="Renvoyer l’e-mail d’activation">
-      placeholder activate
-    </button>
-  </form>
-</div>
 
             <button type='button' style="margin-top:10px;" onclick="checkLogin();" class="btn c-btn-secondary"
                 id="login-button" data-i18n="login_popup.form.btn_connect"
@@ -427,9 +393,8 @@
             <button class="btn c-btn-primary" id="connect-nongar-user"><span data-i18n="words.confirm"
                     class="text-capitalize"></span> <i class="fas fa-chevron-right"></i></button>
         </div>
-        <button onclick="navigateLight('login-choice')" class="btn close-login-classroom m-1" type="button" aria-label="Fermer la fenêtre de connexion">
-            <i class="fas fa-times" aria-hidden="true"></i>
-        </button>
+        <button onclick="navigateLight('login-choice')" class="btn close-login-classroom m-1"><i
+                class="fas fa-times"></i></button>
     </div>
 </div>
 
