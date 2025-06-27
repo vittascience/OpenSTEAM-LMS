@@ -30,6 +30,7 @@ if ($user) {
 
 require_once(__DIR__ . "/header.html");
 ?>
+
 <link rel="stylesheet" href="/classroom/assets/css/main.css">
 
 <script src="./assets/js/lib/rotate.js"></script>

@@ -548,12 +548,10 @@ class CoursesManager {
             classrooms = [],
             studentId = $('#attribute-activity-modal .student-attribute-form-row');
 
-        //const retroAttribution = $('#retro-attribution-activity-form').prop('checked')
-
         let dateBeginPicker = document.getElementById('date-begin-course-form'),
             dateEndPicker = document.getElementById('date-end-course-form');
 
-        const dateBegin = null,
+        let dateBegin = null,
             dateEnd = null;
 
         let isDateSelected = document.getElementById('isDate-course-form');

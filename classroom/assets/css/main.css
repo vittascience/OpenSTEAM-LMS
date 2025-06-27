@@ -314,7 +314,7 @@ button {
 }
 
 #classroom-login-gar img {
-    width: 128px;
+    width: 70px;
 }
 
 #classroom-dashboard-background {
@@ -2357,6 +2357,8 @@ h3.section-done {
     padding-left: 3rem;
     user-select: none;
     flex: 1;
+    height: 100%;
+    align-content: center;
 }
 
 .quiz-form-check > label.form-check-label > img {
@@ -3585,8 +3587,6 @@ h3.section-done {
     color: var(--bg-5);
     font-size: 40px;
     border: var(--bg-5);
-
-    background: var(--classroom-background);
 }
 
 .help-sign {

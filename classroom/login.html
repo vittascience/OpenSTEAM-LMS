@@ -43,7 +43,7 @@
             <div class="col-sm col-lg-3 text-center">
                 <img class="img-fluid" src="assets/media/assign_activities.png" alt="Assigner des activités"></br>
                 <span data-i18n="[html]classroom.login.attribute"></span>
-                
+
             </div>
             <div class="col-sm col-lg-3 text-center">
                 <img class="img-fluid" src="assets/media/visualise_activities.png" alt="Visualiser les activités"></br>
@@ -57,9 +57,9 @@
             <h2 data-i18n="faqInfo.title"></h2>
         </div>
     </div>
-
-
 </div>
+
+
 <!-- page de login à choix multiple -->
 <div id="classroom-login-container" style="display: none;">
   <section class="inner-login-container" role="region" aria-labelledby="login-title">
@@ -76,22 +76,39 @@
       </button>
     </div>
 
-    <div id="classroom-login-vittascience-account" class="container-border-center" role="region" aria-labelledby="teacher-login-title">
-      <h3 id="teacher-login-title" class="font-weight-bold c-text-primary" data-i18n="classroom.login.teacher">Connexion enseignant</h3>
-      <p data-i18n="classroom.login.hasAccount">Vous avez déjà un compte ?</p>
-      <button id="login-vittascience" class="btn c-btn-primary" type="button">
-        <span data-i18n="classroom.login.login">Connexion</span>
-        <i class="fas fa-chevron-down" aria-hidden="true"></i>
-      </button>
-      <button class="btn c-btn-primary mt-3" id="register-link" type="button">
-        <span class="text-white" data-i18n="classroom.login.registerLink">Créer un compte</span>
-        <i class="fas fa-chevron-down" aria-hidden="true"></i>
-      </button>
-    </div>
-
-    <div id="classroom-login-gar" class="container-border-right" role="complementary" aria-labelledby="gar-title">
-      <img src="assets/media/logoGAR.png" alt="Logo du Gestionnaire d'Accès aux Ressources (GAR)">
-      <span id="gar-title" class="gar-presentation-text my-3" data-i18n="[html]classroom.login.gar">Connexion via GAR</span>
+            <h3 class="font-weight-bold c-text-secondary" data-i18n="classroom.login.student"></h3>
+            <div class="c-secondary-form mb-3">
+                <!-- <img src="assets/media/orange_lock.png" class="icon-label"> -->
+                <label for="class-code" data-i18n="classroom.login.codeInput"></label></br>
+                <input type="text" placeholder="123ABC" name="secret_code" id="class-code" autocomplete="false"
+                    required>
+            </div>
+            <button class="btn c-btn-secondary text-capitalize" id="class-connexion" type="submit"><span
+                    data-i18n="words.confirm"></span>
+                <i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div id="classroom-login-vittascience-account" class="container-border-center">
+            <h3 class="font-weight-bold c-text-primary" data-i18n="classroom.login.teacher"></h3>
+            <p data-i18n="classroom.login.hasAccount"></p>
+            <span id="login-vittascience" class="btn c-btn-primary" role="button">
+                <span data-i18n="classroom.login.login"></span> <i class="fas fa-chevron-down"></i>
+            </span>
+            <span class="btn c-btn-primary mt-3" id="register-link">
+                <span class="text-white" data-i18n="classroom.login.registerLink"></span>
+                <i class="fas fa-chevron-down"></i>
+            </span>
+        </div>
+        <div id="classroom-login-gar" class="container-border-right">
+            <span class="gar-presentation-text my-3" data-i18n="[html]classroom.login.gar"></span>
+            <a class="d-flex btn-sso fw-bold" href="./gar.php">
+                <img src="./auth/svg/gar.svg" alt="gar svg logo" class="w-auto">
+                <span data-i18n="sso.gar">Demander un accès GAR</span>
+            </a>
+            
+            <div id="sso-buttons-container" class="d-flex justify-content-center flex-wrap w-100"></div>
+        </div>
+        <button onclick="navigateLight('', 1)" class="btn close-login-classroom m-1"><i
+                class="fas fa-times"></i></button>
     </div>
 
     <button onclick="navigateLight('', 1)" class="btn close-login-classroom" type="button" aria-label="Fermer le formulaire de connexion">
@@ -103,88 +120,98 @@
 <!-- Register page -->
 <div id="classroom-register-container" style="display:none;">
     <div class="inner-register-container">
-
         <form action="#" id="create-teacher-account-form">
-            <div class="form-group part-content-index part-row c-primary-form row">
+            <div class="form-group part-content-index part-row c-primary-form row mx-0" style="--bs-gutter-x: 2.5rem;">
 
                 <div class="col-md-12">
-                    <h3 class="font-weight-bold green-vitta text-center mb-4 text-uppercase"
-                        data-i18n="manager.account.registration.title"></h3>
-                    <p class="text-center" data-i18n="manager.account.registration.description"></p>
+                    <p class="text-center fs-4 fw-bold c-text-primary">
+                        <i class="fas fa-user-plus me-1 registration-icon" aria-hidden="true"></i>
+                        <span class="font-weight-bold text-center mb-4 text-uppercase"
+                            data-i18n="manager.account.registration.title"></span>
+                    </p>
+                    <p class="mb-1" data-i18n="manager.account.registration.description"></p>
+                    <p data-i18n="[html]manager.account.registration.mandatory"></p>
                 </div>
 
                 <div class="col-md-6">
                     <div class="row mb-4">
-                        <img src="assets/media/icon-pseudonyme.svg" class="filter-color-green">
-                        <label for="profile-form-first-name" class="tutorial-label"
-                            data-i18n="[html]manager.profil.firstname"></label>
-                        <input type="text" name="first-name" id="profile-form-first-name"
-                            class="form-control form-control-lg">
+                        <span>
+                            <i class="fa fa-user"></i>
+                            <label for="profile-form-first-name" class="tutorial-label" data-i18n="[html]manager.profil.firstname"></label>
+                        </span>
+                        <input type="text" name="first-name" id="profile-form-first-name" class="form-control form-control-lg">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="row mb-4">
-                        <img src="assets/media/icon-pseudonyme.svg" class="filter-color-green">
-                        <label for="profile-form-last-name" class="tutorial-label"
-                            data-i18n="[html]manager.profil.lastname"></label>
-                        <input type="text" name="last-name" id="profile-form-last-name"
-                            class="form-control form-control-lg">
+                        <span>
+                            <i class="fa fa-user"></i>
+                            <label for="profile-form-last-name" class="tutorial-label" data-i18n="[html]manager.profil.lastname"></label>
+                        </span>
+                        <input type="text" name="last-name" id="profile-form-last-name" class="form-control form-control-lg">
                     </div>
                 </div>
 
-                <div class="col-md-4" id="registration_pseudo">
+                <div class="col-md-12">
                     <div class="row mb-4">
-                        <img src="assets/media/icon-pseudonyme.svg" class="filter-color-green">
-                        <label for="profile-form-pseudo" class="tutorial-label"
-                            data-i18n="[html]manager.profil.nickname"></label>
-                        <input type="text" name="pseudo" id="profile-form-pseudo" class="form-control form-control-lg">
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="row mb-4">
-                        <img src="assets/media/icon-email.svg" class="filter-color-green">
-                        <label for="profile-form-email" class="tutorial-label"
-                            data-i18n="[html]manager.profil.email"></label>
+                        <span>
+                            <i class="fa fa-at"></i>
+                            <label for="profile-form-email" class="tutorial-label" data-i18n="[html]manager.profil.email"></label>
+                        </span>
                         <input type="email" name="email" id="profile-form-email" class="form-control form-control-lg">
                     </div>
                 </div>
 
-                <div class="col-md-4" id="registration_phone">
+                <div class="col-md-6" id="registration_pseudo">
                     <div class="row mb-4">
-                        <img src="assets/media/icon-phone.svg" class="filter-color-green">
-                        <label for="profile-form-phone" class="tutorial-label"
-                            data-i18n="manager.profil.phone"></label>
-                        <input type="text" name="phone-number" class="form-control form-control-lg"
-                            id="profile-form-phone" class="form-control form-control-lg">
+                        <span>
+                            <i class="fa fa-user"></i>
+                            <label for="profile-form-pseudo" class="tutorial-label" data-i18n="[html]manager.profil.nickname"></label>
+                        </span>
+                        <input type="text" name="pseudo" id="profile-form-pseudo" class="form-control form-control-lg">
+                    </div>
+                </div>
+
+                <div class="col-md-6" id="registration_phone">
+                    <div class="row mb-4">
+                        <span>
+                            <i class="fa fa-phone"></i>
+                            <label for="profile-form-phone" class="tutorial-label" data-i18n="manager.profil.phone"></label>
+                        </span>
+                        <input type="text" name="phone-number" class="form-control form-control-lg" id="profile-form-phone">
                     </div>
                 </div>
 
                 <div class="col-md-12" id="registration_bio">
                     <div class="row mb-4">
-                        <img src="assets/media/icon-information.svg" class="filter-color-green">
-                        <label for="profile-form-bio" class="tutorial-label"
-                            data-i18n="[html]manager.profil.bio"></label>
-                        <textarea class="form-control form-control-lg" name="mini-bio" id="profile-form-bio"
-                            rows="3"></textarea>
+                        <span>
+                            <i class="fa fa-info-circle"></i>
+                            <label for="profile-form-bio" class="tutorial-label" data-i18n="[html]manager.profil.bio"></label>
+                        </span>
+                        <textarea class="form-control form-control-lg" name="mini-bio" id="profile-form-bio" rows="3"></textarea>
                     </div>
                 </div>
 
                 <div class="col-md-12" id="registration_school">
                     <div class="row mb-4">
-                        <img src="assets/media/icon-school.svg" class="filter-color-green">
-                        <label for="profile-form-school" class="tutorial-label"
-                            data-i18n="[html]manager.profil.school"></label>
+                        <span>
+                            <i class="fa fa-school"></i>
+                            <label for="profile-form-school" class="tutorial-label"
+                                data-i18n="[html]manager.profil.school"></label>
+                        </span>
                         <input type="text" class="form-control form-control-lg" name="school" id="profile-form-school">
                     </div>
                 </div>
 
                 <div class="col-md-6" id="registration_grade">
                     <div class="row mb-4">
-                        <img src="assets/media/icon-information.svg" class="filter-color-green">
-                        <label for="profile-form-grade" class="tutorial-label"
-                            data-i18n="[html]manager.profil.grade"></label>
-                        <select class="form-control" id="profile-form-grade" name="grade">
+                        <span>
+                            <i class="fa fa-graduation-cap"></i>
+                            <label for="profile-form-grade" class="tutorial-label"
+                                data-i18n="[html]manager.profil.grade"></label>
+                        </span>
+                        <select class="form-control form-control-lg" id="profile-form-grade" name="grade"
+                            style="height:calc(2.875rem + 2px);">
                             <option selected value="0" data-i18n="manager.users.teacherGrades.0">Primaire</option>
                             <option value="1" data-i18n="manager.users.teacherGrades.1">Collège</option>
                             <option value="2" data-i18n="manager.users.teacherGrades.2">Lycée</option>
@@ -196,42 +223,50 @@
 
                 <div class="col-md-6" id="registration_subject">
                     <div class="row mb-4">
-                        <img src="assets/media/icon-information.svg" class="filter-color-green">
-                        <label for="profile-form-subject" class="tutorial-label"
-                            data-i18n="[html]manager.profil.subject"></label>
-                        <select class="form-control" id="profile-form-subject" name="subject">
+                        <span>
+                            <i class="fa fa-book"></i>
+                            <label for="profile-form-subject" class="tutorial-label"
+                                data-i18n="[html]manager.profil.subject"></label>
+                        </span>
+                        <select class="form-control form-control-lg" id="profile-form-subject" name="subject"
+                            style="height:calc(2.875rem + 2px);">
                         </select>
                     </div>
                 </div>
 
                 <div class="col-md-6">
-                    <div>
-                        <img src="assets/media/icon-lock.svg" class="filter-color-green">
-                        <label for="profile-form-password" class="tutorial-label"
-                            data-i18n="[html]manager.profil.password"></label>
-                    </div>
-                    <div class="form-inline">
-                        <input type="password" name="password" id="profile-form-password"
-                            class="form-control form-control-lg">
-                        <i class="classroom-clickable fas fa-low-vision ms-2 password-display-toggler"></i>
+                    <div class="row mb-4">
+                        <span>
+                            <i class="fa fa-key"></i>
+                            <label for="profile-form-password" class="tutorial-label" data-i18n="[html]manager.profil.password"></label>
+                        </span>
+                        <div class="input-group px-0">
+                            <input type="password" name="password" id="profile-form-password" class="form-control form-control-lg">
+                            <span class="input-group-text classroom-clickable password-display-toggler-updated h-100 px-2">
+                                <i class="far fa-eye"></i>
+                            </span>
+                        </div>
                         <p class="font-italic ms-2" data-i18n="manager.profil.passwordConstraints"></p>
                     </div>
                 </div>
 
                 <div class="col-md-6">
-                    <img src="assets/media/icon-lock.svg" class="filter-color-green">
-                    <label for="profile-form-confirm-password" class="tutorial-label"
-                        data-i18n="[html]manager.profil.confirmPassword"></label>
-                    <div class="form-inline">
-                        <input type="password" name="confirm-password" id="profile-form-confirm-password"
-                            class="form-control form-control-lg">
-                        <i class="classroom-clickable fas fa-low-vision ms-2 password-display-toggler"></i>
+                    <div class="row mb-4">
+                        <span>
+                            <i class="fa fa-key"></i>
+                            <label for="profile-form-confirm-password" class="tutorial-label" data-i18n="[html]manager.profil.confirmPassword"></label>
+                        </span>
+                        <div class="input-group px-0">
+                            <input type="password" name="confirm-password" id="profile-form-confirm-password" class="form-control form-control-lg">
+                            <span class="input-group-text classroom-clickable password-display-toggler-updated h-100 px-2">
+                                <i class="far fa-eye"></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <p data-i18n="[html]manager.account.registration.mandatory"></p>
-            <p data-i18n="[html]manager.account.registration.cguOpenSteam"></p>
+
+            <p data-i18n="[html]manager.account.registration.cguVittascience"></p>
 
             <div class="c-checkbox">
                 <input class="form-check-input" type="checkbox" id="cb_name_public">
@@ -241,14 +276,12 @@
             </div>
             <div class="c-checkbox">
                 <input class="form-check-input" type="checkbox" id="cb_newsletter">
-                <label class="form-check-label" for="cb_newsletter"
-                    data-i18n="manager.account.registration.newsletter">
+                <label class="form-check-label" for="cb_newsletter" data-i18n="manager.account.registration.newsletter">
                 </label>
             </div>
             <div class="c-checkbox">
                 <input class="form-check-input" type="checkbox" id="cb_alert_mail">
-                <label class="form-check-label" for="cb_alert_mail"
-                    data-i18n="manager.account.registration.mailAlert">
+                <label class="form-check-label" for="cb_alert_mail" data-i18n="manager.account.registration.mailAlert">
                 </label>
             </div>
             <div class="c-checkbox">
@@ -259,96 +292,68 @@
             </div>
             <div class="c-checkbox">
                 <input class="form-check-input" type="checkbox" id="cb_adult" required>
-                <label class="form-check-label" for="cb_adult" data-i18n="manager.account.registration.confirmAdult">
+                <label class="form-check-label" for="cb_adult"
+                    data-i18n="[html]manager.account.registration.confirmAdult">
                 </label>
             </div>
 
             <div class="col-md-12 d-flex flex-column align-items-center">
-                <input class="btn  mx-auto mt-3 btn-lg" type="submit"
-                    data-i18n="[value]classroom.login.signup">
+                <input class="btn c-btn-primary mt-3 btn-lg" type="submit" data-i18n="[value]classroom.login.signup">
             </div>
 
         </form>
-        <button onclick="navigateLight('login-choice')" class="btn close-login-classroom mt-3 me-3" type="button" aria-label="Fermer la fenêtre d'inscription">
+        <button onclick="navigateLight('login-choice')" class="btn close-login-classroom m-1" type="button" aria-label="Fermer la fenêtre d'inscription">
             <i class="fas fa-times" aria-hidden="true"></i>
         </button>
     </div>
 </div>
 
 
+<div id="login-container" class="inner-register-container" style="display:none;position:relative;">
+    <div class="login-form p-0" id="signupin-div">
+        <p class="text-center fs-4 fw-bold c-text-primary">
+            <span class="fa fa-sign-in-alt"></span>
+            <span data-i18n="login_popup.title" class="mx-2"></span>
+        </p>
 
-<div id="login-container" style="display:none;position:relative;">
-<div class="login-form" id="signupin-div" role="region" aria-labelledby="login-title">
-  <h1 id="login-title">
-    <i class="fa fa-sign-in-alt" aria-hidden="true"></i>
-    <span data-i18n="login_popup.title"></span>
-    <button onclick="navigateLight('login-choice')" class="btn close-login-classroom" type="button" aria-label="Fermer la fenêtre de connexion">
-      <i class="fas fa-times" aria-hidden="true"></i>
-    </button>
-  </h1>
+        <p data-i18n="login_popup.details"></p>
+        <p><a data-i18n="login-page.createAccount" href='#' onclick="displaySignupClass();"></a></p>
+        <div id="info-div-classroom"></div>
+        <form id="login-form" class="c-primary-form">
+            <div id="login-div-classroom">
+                <label for="login-mail-input" class="mt-2">
+                    <span class="fa fa-at"></span> <span data-i18n="login_popup.form.addressmail"></span><span
+                        class="mandatory">*</span>
+                </label>
+                <input name='mail' style="margin-bottom:5px;"
+                    data-i18n="[placeholder]login_popup.form.addressmail_placeholder"
+                    class="form-control form-control-lg" type="email" id="login-mail-input"
+                    data-testid="classroomLoginEmailInput">
 
-  <p data-i18n="login_popup.details"></p>
-  <p>
-    <a href="#" onclick="displaySignupClass();" aria-label="Créer un compte" role="button">
-      <span data-i18n="classroom.login.registerLink">S'inscrire</span>
-    </a>
-  </p>
+                <label for="login-pwd-input" class="mt-2">
+                    <span class="fa fa-key"></span> <span data-i18n="login_popup.form.password"></span><span
+                        class="mandatory">*</span>
+                </label>
+                <input name='password' data-i18n="[placeholder]login_popup.form.password_placeholder"
+                    class="form-control form-control-lg" type="password" id="login-pwd-input"
+                    data-testid="classroomLoginPasswordInput">
 
-  <div id="info-div-classroom" aria-live="polite" aria-atomic="true"></div>
+                <input type="text" name="za78e-username" autocomplete="off" value="" id="za78e-username"
+                    class="za78e-field" placeholder="za78e username" />
+                <input type="number" name="za78e-number" autocomplete="off" max="10" min="0" id="za78e-number"
+                    class="za78e-field" placeholder="za78e number" />
 
-  <form id="login-form" aria-labelledby="login-title">
-    <div id="login-div-classroom">
-      <label for="login-mail-input">
-        <i class="fa fa-at" aria-hidden="true"></i>
-        <span data-i18n="login_popup.form.addressmail"></span>
-        <span class="mandatory" aria-hidden="true">*</span>
-      </label>
-      <input name="mail"
-             style="margin-bottom:5px;"
-             data-i18n="[placeholder]login_popup.form.addressmail_placeholder"
-             class="form-control"
-             type="email"
-             id="login-mail-input"
-             required
-             aria-required="true"
-             autocomplete="email"
-             data-testid="classroomLoginEmailInput">
+                <div class="my-1 d-flex justify-content-end">
+                    <a class="hint" href="/classroom/password_manager.php"
+                        data-i18n="login_popup.form.forgot_password"></a>
+                </div>
+            </div>
 
-      <label for="login-pwd-input">
-        <i class="fa fa-key" aria-hidden="true"></i>
-        <span data-i18n="login_popup.form.password"></span>
-        <span class="mandatory" aria-hidden="true">*</span>
-      </label>
-      <input name="password"
-             data-i18n="[placeholder]login_popup.form.password_placeholder"
-             class="form-control"
-             type="password"
-             id="login-pwd-input"
-             required
-             aria-required="true"
-             autocomplete="current-password"
-             data-testid="classroomLoginPasswordInput">
-
-      <div style="display: none;" aria-hidden="true">
-        <input type="text" name="za78e-username" autocomplete="off" value="" id="za78e-username" class="za78e-field" placeholder="za78e username">
-        <input type="number" name="za78e-number" autocomplete="off" max="10" min="0" id="za78e-number" class="za78e-field" placeholder="za78e number">
-      </div>
-
-      <div>
-        <a class="hint" href="/classroom/password_manager.php" data-i18n="login_popup.form.forgot_password"></a>
-      </div>
-    </div>
-
-    <div class="mt-2 d-none" id="login-totp-div-classroom">
-      <label for="totp_code-login-page">Votre compte est protégé par une authentification à deux facteurs, veuillez entrer le code ci-dessous :</label>
-      <input id="totp_code-login-page"
-             name="totp_code"
-             placeholder="Code Authenticator"
-             class="form-control"
-             type="text"
-             inputmode="numeric"
-             aria-describedby="login-title">
-    </div>
+            <div class="mt-2 d-none" id="login-totp-div-classroom">
+                <label for="totp_code-login-page">Votre compte est protégé par une authentification à deux facteurs,
+                    veuillez entrer le code ci dessous :</label>
+                <input id="totp_code-login-page" name="totp_code" placeholder="code Authenticator" class="form-control">
+            </div>
 
     <button type="submit"
             style="margin-top:10px;"
@@ -372,6 +377,18 @@
   </form>
 </div>
 
+            <button type='button' style="margin-top:10px;" onclick="checkLogin();" class="btn c-btn-secondary"
+                id="login-button" data-i18n="login_popup.form.btn_connect"
+                data-testid="classroomLoginSubmitBtn"></button>
+            <button type='button' style="margin-top:10px; display:none;" onclick="getNewValidationMail();"
+                class="btn c-btn-secondary" id="btn-activate-account-classroom"
+                data-i18n="login_popup.form.btn_activate">placeholder activate</button>
+        </form>
+
+        <button onclick="navigateLight('login-choice')" class="btn close-login-classroom m-1">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
 </div>
 
 <!-- page de login via un lien -->
@@ -410,7 +427,7 @@
             <button class="btn c-btn-primary" id="connect-nongar-user"><span data-i18n="words.confirm"
                     class="text-capitalize"></span> <i class="fas fa-chevron-right"></i></button>
         </div>
-        <button onclick="navigateLight('login-choice')" class="btn close-login-classroom" type="button" aria-label="Fermer la fenêtre de connexion">
+        <button onclick="navigateLight('login-choice')" class="btn close-login-classroom m-1" type="button" aria-label="Fermer la fenêtre de connexion">
             <i class="fas fa-times" aria-hidden="true"></i>
         </button>
     </div>
@@ -450,49 +467,49 @@
 <script>
     UIManager.init().then((resolve) => {
         UserManager.init().then((resolve) => {
-                Main.init().then((resolve) => {
-                    loginFaqNeutral();
-                    /* FAQ BOXES */
-                    var headers = document.getElementsByClassName("faq-box-header");
-                    $(headers).rotate({
-                        bind: {
-                            click: function () {
-                                var drop = $(this).find(".faq-box-dropdown");
-                                var content = $(this).parent().find(".faq-box-content");
-                                if (drop.hasClass("dropped")) {
-                                    drop.rotate({
-                                        angle: drop.getRotateAngle(),
-                                        animateTo: 0
-                                    });
-                                    content.fadeOut("slow", function () {
-                                        drop.removeClass("dropped");
-                                    });
-                                } else {
-                                    drop.rotate({
-                                        angle: drop.getRotateAngle(),
-                                        animateTo: 90
-                                    });
-                                    content.fadeIn("slow", function () {
-                                        drop.addClass("dropped");
-                                    });
-                                }
+            Main.init().then((resolve) => {
+                loginFaqNeutral();
+                /* FAQ BOXES */
+                var headers = document.getElementsByClassName("faq-box-header");
+                $(headers).rotate({
+                    bind: {
+                        click: function () {
+                            var drop = $(this).find(".faq-box-dropdown");
+                            var content = $(this).parent().find(".faq-box-content");
+                            if (drop.hasClass("dropped")) {
+                                drop.rotate({
+                                    angle: drop.getRotateAngle(),
+                                    animateTo: 0
+                                });
+                                content.fadeOut("slow", function () {
+                                    drop.removeClass("dropped");
+                                });
+                            } else {
+                                drop.rotate({
+                                    angle: drop.getRotateAngle(),
+                                    animateTo: 90
+                                });
+                                content.fadeIn("slow", function () {
+                                    drop.addClass("dropped");
+                                });
                             }
                         }
-                    });
-                    if ($_GET('link') && firstRequestClass) {
-                        firstRequestClass = false;
-                        navigateLight($_GET('link'), 2)
                     }
-                    // Set the variable to false to indicate that the registration template is already set up
-                    firstRegisterLoad = false;
-                    // Setup the registration form before displaying it (trigger only on loading page)
-                    createRegistrationTemplateForLogin();
-                    // little delay to let the constant file load
-                    setTimeout(() => {
-                        createSubjectSelectTeacherForm(getSubjects(0));
-                    }, 500);
-                })
-            },
+                });
+                if ($_GET('link') && firstRequestClass) {
+                    firstRequestClass = false;
+                    navigateLight($_GET('link'), 2)
+                }
+                // Set the variable to false to indicate that the registration template is already set up
+                firstRegisterLoad = false;
+                // Setup the registration form before displaying it (trigger only on loading page)
+                createRegistrationTemplateForLogin();
+                // little delay to let the constant file load
+                setTimeout(() => {
+                    createSubjectSelectTeacherForm(getSubjects(0));
+                }, 500);
+            })
+        },
             (reason) => {
                 console.error("UserManager failed to load: " + reason);
                 failedToLoad();
@@ -500,3 +517,28 @@
         );
     })
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('/classroom/ajax_sso_buttons.php')
+            .then(response => response.text())
+            .then(html => {
+                if (html.trim() === '') {
+                    return;
+                }
+                const container = document.getElementById('sso-buttons-container');
+                if (!container) {
+                    return;
+                }
+                let translationForOr = i18next.t('classroom.login.orSso');
+                container.innerHTML += `<hr class="d-flex w-100 themed-hr-login">`;
+                container.innerHTML += `<span class="col-12">${translationForOr}</span>`;
+                container.innerHTML += '<div class="d-flex flex-column align-items-center mt-2 w-100">' + html + '</div>';
+            })
+            .catch(error => {
+                console.error('Erreur lors du chargement des boutons SSO:', error);
+            });
+    });
+</script>
+
+<script src="assets/js/scripts/passwordVisibility.js"></script>
