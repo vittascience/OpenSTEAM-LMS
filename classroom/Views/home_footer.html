@@ -74,115 +74,205 @@
 
 
 <script>
-    UIManager.init().then((resolve) => {
-        UserManager.init().then((resolve) => {
-                Main.init().then((resolve) => {
-                    const EVENTS_SCRIPTS = [{
-                            id: "modals",
-                            src: "assets/js/scripts/loadModals.js"
-                        },
-                        {
-                            id: "i18n",
-                            src: "assets/js/scripts/checkMail.js"
-                        }
-                    ];
-                    Loader.loadScripts(EVENTS_SCRIPTS).then(
-                        (resolve) => {
-                            let user = UserManager.getUser()
+// ———————— Initialisation ————————
+async function initUI() {
+    await UIManager.init();
+}
 
-                            if (user.isRegular) {
-                                $('body').addClass('theme-teacher')
-                                $('.user-picture').attr('src',`/classroom/assets/media/alphabet/${getFirstLetterOfPseudo(UserManager.getUser().firstname)}.png`)
+async function initUser() {
+    await UserManager.init();
+    return UserManager.getUser();
+}
 
-                                let administration = [];
-                                // Init the super and group admin
-                                let currentTask = (onEnd) => {
-                                    mainGroupAdmin.init().then((resolve) => {
-                                        administration[1] = resolve;
-                                        mainManager.init().then((resolve) => {
-                                            administration[0] = resolve;
-                                            createRegistrationTemplate();
-                                            goBackToThePreviousView(administration);
-                                            // Courses
-                                            coursesManager.actualizeCourse();
-                                            onEnd();
-                                        })
-                                    })
-                                }
+async function initMain() {
+    await Main.init();
+}
 
-                                Main.getClassroomManager()._addTaskToQueue(currentTask);
-                            } else {
-                                // panel => classroom-dashboard-activities-panel-teacher
-                                // nav => dashboard-activities-teacher
-                                $('#classroom-dashboard-sidebar').show()
-                                $('body').addClass('theme-student')
-                                $('.user-picture').attr('src',`/classroom/assets/media/alphabet/${getFirstLetterOfPseudo(UserManager.getUser().pseudo)}.png`)
-                                Main.getClassroomManager().getMyClassroom(UserManager.getUser().id).then(function (classroom) {
-                                    $('#classroom-name').html(classroom.name)
-                                    ClassroomSettings.classroom = classroom.link
-                                    if ($_GET('panel') && (ClassroomSettings.mixPanels.includes($_GET('panel')) || ClassroomSettings.studentPanels.includes($_GET('panel')))) {
-                                        navigatePanel($_GET('panel'), $_GET('nav'), $_GET('option'), $_GET('interface'))
-                                    } else {
-                                        navigatePanel(
-                                            'classroom-dashboard-profil-panel',
-                                            'dashboard-profil', $_GET('option'),
-                                            $_GET('interface'))
-                                    }
-                                    if (UserManager.getUser().isFromGar) {
-                                        document.getElementById('settings-student')
-                                            .style.display = 'none';
-                                    }
-                                })
-                            }
-                        },
-                        (reason) => {
-                            console.log("Loader failed to load: " + reason);
-                            failedToLoad();
-                        }
-                    );
-                })
-            },
-            (reason) => {
-                console.log("UserManager failed to load: " + reason);
-                failedToLoad();
-            }
-        );
-    })
+async function loadEventScripts(scripts) {
+    await Loader.loadScripts(scripts);
+}
 
-    // Update Rémi, allow to return in the manager or groupadmin mode after a refresh
-    function goBackToThePreviousView(administration = []) {
-        if ($_GET('panel') && 
-        (ClassroomSettings.mixPanels.includes($_GET('panel')) || 
-        ClassroomSettings.teacherPanels.includes($_GET('panel')) || 
-        ClassroomSettings.managerPanels.includes($_GET('panel')) ||
-        ClassroomSettings.groupAdminPanels.includes($_GET('panel')))) {
-            if (administration[0] === true && $_GET('panel').includes("manager") && $_GET('nav').includes("manager")) {
-                switchTomanager();
-                navigatePanel($_GET('panel'), $_GET('nav'), $_GET('option'), $_GET('interface'));
-                if ($_GET('panel') === "manager-dashboard-main") {
-                    getGroupsManagerInfo();
-                } else if ($_GET('panel') === "manager-apps-main") {
-                    getAndShowApps();
-                }
-            } else if (administration[1] === true && $_GET('panel').includes("groupadmin") && $_GET('nav').includes("groupadmin")) {
-                switchToGroupAdmin();
-                navigatePanel($_GET('panel'), $_GET('nav'), $_GET('option'), $_GET('interface'));
-                if ($_GET('panel') === "groupadmin-dashboard-users") {
-                    getTheGroupOftheAdmin();
-                } else if ($_GET('panel') === "groupadmin-apps-main") {
-                    setTimeout(() => {
-                        getGroupMonitoring();
-                    }, 500);
-                }
-            } else {
-                $('#classroom-dashboard-sidebar-teacher').show()
-                navigatePanel($_GET('panel'), $_GET('nav'), $_GET('option'), $_GET('interface'));
-            }
-        } else {
-            $('#classroom-dashboard-sidebar-teacher').show()
-            navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher', $_GET('option'), $_GET('interface'));
-        }
+function setUserPicture(char, type = 'png') {
+    $('.user-picture').attr('src', `/classroom/assets/media/alphabet/${char}.${type}`);
+}
+
+function applyTheme(isRegular) {
+    $('body').addClass(isRegular ? 'theme-teacher' : 'theme-student');
+}
+
+function setupRegularView(user) {
+    applyTheme(true);
+    setUserPicture(getFirstLetterOfPseudo(user.firstname));
+}
+
+function setupStudentView(user) {
+    applyTheme(false);
+    setUserPicture(getFirstLetterOfPseudo(user.pseudo));
+    $('#classroom-dashboard-sidebar').show();
+}
+
+// ———————— Administration (users "regular") ————————
+async function initAdminGroups() {
+    // Lance les deux init en parallèle
+    const [superAdmin, groupAdmin] = await Promise.all([
+        mainManager.init(),
+        mainGroupAdmin.init()
+    ]);
+    return { superAdmin, groupAdmin };
+}
+
+async function handleRegularUserFlow(onEnd) {
+    const { superAdmin, groupAdmin } = await initAdminGroups();
+    createRegistrationTemplate();
+    goBackToPreviousView([superAdmin, groupAdmin]);
+    coursesManager.actualizeCourse();
+    onEnd();
+}
+
+// ———————— Classroom (users "student") ————————
+async function handleStudentUserFlow(user) {
+    const classroom = await Main.getClassroomManager().getMyClassroom(user.id);
+    $('#classroom-name').text(classroom.name);
+    ClassroomSettings.classroom = classroom.link;
+
+    const panel = $_GET('panel');
+    const nav = $_GET('nav');
+    const opt = $_GET('option');
+    const iface = $_GET('interface');
+
+    if (panel && (ClassroomSettings.mixPanels.includes(panel) || ClassroomSettings.studentPanels.includes(panel))) {
+        navigatePanel(panel, nav, opt, iface);
+    } else {
+        navigatePanel('classroom-dashboard-profil-panel', 'dashboard-profil', opt, iface);
     }
+
+    if (user.isFromGar) {
+        $('#settings-student').hide();
+    }
+}
+
+// ———————— Bootstrap principal ————————
+(async function bootstrap() {
+    try {
+        await initUI();
+        const user = await initUser();
+        await initMain();
+
+        const SCRIPTS = [
+            { id: "modals", src: "assets/js/scripts/loadModals.js" },
+            { id: "i18n", src: "assets/js/scripts/checkMail.js" }
+        ];
+        await loadEventScripts(SCRIPTS);
+
+        if (user.isRegular) {
+            setupRegularView(user);
+            Main.getClassroomManager()._addTaskToQueue(handleRegularUserFlow);
+        } else {
+            setupStudentView(user);
+            await handleStudentUserFlow(user);
+        }
+
+        // This is for the SSO plugin only
+        if (user.sso) {
+            let profileData = document.getElementById('profile-password-and-mail');
+            if (profileData) {
+                profileData.style.display = 'none';
+            }
+        }
+
+    } catch (err) {
+        console.error("Initialization failed:", err);
+        failedToLoad();
+    }
+})();
+
+
+/* Refactored version of goBackToThePreviousView for better readability @Rémi C */
+function goBackToPreviousView(administration = []) {
+    const panel = $_GET('panel');
+    const nav = $_GET('nav');
+    const option = $_GET('option');
+    const iface = $_GET('interface');
+    const [isManagerAdmin, isGroupAdmin] = administration;
+
+    if (!panel || !isValidPanel(panel)) {
+        showTeacherSidebar();
+        return navigateDefault(option, iface);
+    }
+
+    if (isManagerAdmin && isManagerView(panel, nav)) {
+        handleManager(panel, nav, option, iface);
+        return;
+    }
+
+    if (isGroupAdmin && isGroupAdminView(panel, nav)) {
+        handleGroupAdmin(panel, nav, option, iface);
+        return;
+    }
+
+    showTeacherSidebar();
+    navigatePanel(panel, nav, option, iface);
+}
+
+function isValidPanel(panel) {
+    const { mixPanels, teacherPanels, managerPanels, groupAdminPanels } = ClassroomSettings;
+    return [mixPanels, teacherPanels, managerPanels, groupAdminPanels].some(list => list.includes(panel));
+}
+
+function isManagerView(panel, nav) {
+    return panel.includes("manager") && nav.includes("manager");
+}
+
+function isGroupAdminView(panel, nav) {
+    return panel.includes("groupadmin") && nav.includes("groupadmin");
+}
+
+function showTeacherSidebar() {
+    $('#classroom-dashboard-sidebar-teacher').show();
+}
+
+function navigateDefault(option, iface) {
+    return navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher', option, iface);
+}
+
+function handleManager(panel, nav, option, iface) {
+    switchToManagerHome();
+    navigatePanel(panel, nav, option, iface);
+
+    if (panel === "manager-dashboard-main") {
+        getGroupsManagerInfo();
+    } else if (panel === "manager-apps-main") {
+        getAndShowApps();
+    }
+}
+
+function switchToManagerHome() {
+    document.body.classList.add('theme-super-admin');
+    document.body.classList.remove('theme-group-admin', 'theme-teacher');
+    
+    document.getElementById('classroom-dashboard-sidebar-teacher').style.display = 'none';
+    document.getElementById('groupadmin-dashboard-sidebar').style.display = 'none';
+    document.getElementById('manager-dashboard-sidebar').style.display = 'block';
+    
+    navigatePanel('classroom-dashboard-profil-panel-manager', 'dashboard-profil-manager');
+    pseudoModal.closeAllModal();
+    
+    mainManager.getmanagerManager().getDefaultRestrictions().then(function(res) {
+        mainManager.getmanagerManager()._defaultRestrictions = res;
+    });
+}
+
+function handleGroupAdmin(panel, nav, option, iface) {
+    switchToGroupAdmin();
+    navigatePanel(panel, nav, option, iface);
+
+    if (panel === "groupadmin-dashboard-users") {
+        getTheGroupOftheAdmin();
+    } else if (panel === "groupadmin-apps-main") {
+        // Delay to ensure UI ready
+        setTimeout(getGroupMonitoring, 500);
+    }
+}
 </script>
 <script src="assets/js/utils/translate.js" defer></script>
 <!-- PLUGIN SCRIPTS-->

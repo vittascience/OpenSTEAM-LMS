@@ -706,17 +706,17 @@ class managerManager {
                     if (element.totalPagesCount > 1) {
                         htmlButtons += `<ul class="pagination justify-content-center">`;
                         if (element.previousPage > 1) {
-                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().showGroupMembers(${$group_id}, 1, ${usersperpage}, ${sort})"><a class="page-link" href="javascript:void(0)">First Page</a></li>`;
+                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().showGroupMembers(${$group_id}, 1, ${usersperpage}, ${sort})"><a class="page-link" role="button" href="javascript:void(0)">First Page</a></li>`;
                         }
                         if (element.currentPage > 1) {
-                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().showGroupMembers(${$group_id}, ${element.previousPage}, ${usersperpage}, ${sort})"><a class="page-link" href="javascript:void(0)">${element.previousPage}</a></li>`;
+                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().showGroupMembers(${$group_id}, ${element.previousPage}, ${usersperpage}, ${sort})"><a class="page-link" role="button" href="javascript:void(0)">${element.previousPage}</a></li>`;
                         }
-                        htmlButtons += `<li class="page-item active"><a class="page-link" href="javascript:void(0)">${element.currentPage}<a/></li>`;
+                        htmlButtons += `<li class="page-item active"><a class="page-link" role="button" href="javascript:void(0)">${element.currentPage}<a/></li>`;
                         if (element.currentPage < element.totalPagesCount) {
-                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().showGroupMembers(${$group_id}, ${element.nextPage}, ${usersperpage}, ${sort})"><a class="page-link" href="javascript:void(0)">${element.nextPage}</a></li>`;
+                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().showGroupMembers(${$group_id}, ${element.nextPage}, ${usersperpage}, ${sort})"><a class="page-link" role="button" href="javascript:void(0)">${element.nextPage}</a></li>`;
                         }
                         if (element.nextPage < element.totalPagesCount) {
-                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().showGroupMembers(${$group_id}, ${element.totalPagesCount}, ${usersperpage}, ${sort})"><a class="page-link" href="javascript:void(0)">Last Page - ${element.totalPagesCount}</a></li>`;
+                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().showGroupMembers(${$group_id}, ${element.totalPagesCount}, ${usersperpage}, ${sort})"><a class="page-link" role="button" href="javascript:void(0)">Last Page - ${element.totalPagesCount}</a></li>`;
                         }
                         htmlButtons += `</ul>`;
                     }
@@ -864,17 +864,17 @@ class managerManager {
                     if (element.totalPagesCount > 1) {
                         htmlButtons += `<ul class="pagination justify-content-center">`;
                         if (element.previousPage > 1) {
-                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().globalSearchUser(${name}, 1, ${usersperpage})"><a class="page-link" href="javascript:void(0)">First Page</a></li>`;
+                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().globalSearchUser(${name}, 1, ${usersperpage})"><a class="page-link" role="button" href="javascript:void(0)">First Page</a></li>`;
                         }
                         if (element.currentPage > 1) {
-                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().globalSearchUser(${name}, ${element.previousPage}, ${usersperpage})"><a class="page-link" href="javascript:void(0)">${element.previousPage}</a></li>`;
+                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().globalSearchUser(${name}, ${element.previousPage}, ${usersperpage})"><a class="page-link" role="button" href="javascript:void(0)">${element.previousPage}</a></li>`;
                         }
-                        htmlButtons += `<li class="page-item active"><a class="page-link" href="javascript:void(0)">${element.currentPage}</a></li>`;
+                        htmlButtons += `<li class="page-item active"><a class="page-link" role="button" href="javascript:void(0)">${element.currentPage}</a></li>`;
                         if (element.currentPage < element.totalPagesCount) {
-                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().globalSearchUser(${name}, ${element.nextPage}, ${usersperpage})"><a class="page-link" href="javascript:void(0)">${element.nextPage}</a></li>`;
+                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().globalSearchUser(${name}, ${element.nextPage}, ${usersperpage})"><a class="page-link" role="button" href="javascript:void(0)">${element.nextPage}</a></li>`;
                         }
                         if (element.nextPage < element.totalPagesCount) {
-                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().globalSearchUser(${name}, ${element.totalPagesCount}, ${usersperpage})"><a class="page-link" href="javascript:void(0)">Last Page - ${element.totalPagesCount}</a></li>`;
+                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().globalSearchUser(${name}, ${element.totalPagesCount}, ${usersperpage})"><a class="page-link" role="button" href="javascript:void(0)">Last Page - ${element.totalPagesCount}</a></li>`;
                         }
                         htmlButtons += `</ul>`;
                     }
@@ -1061,10 +1061,10 @@ class managerManager {
                     ${element.nbUsers}
                 </td>
                 <td>
-                    <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateGroupModal(${element.id})"><i class="fas fa-pencil-alt fa-2x"></i></a>
+                    <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateGroupModal(${element.id})" aria-label="Modifier le groupe ${element.name}"><i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i></a>
                 </td>
                 <td>
-                    <a class="c-link-red" href="javascript:void(0)" onclick="deleteGroup(${element.id})"><i class="fas fa-trash-alt fa-2x"></i></a>
+                    <a class="c-link-red" href="javascript:void(0)" onclick="deleteGroup(${element.id})" aria-label="Supprimer le groupe ${element.name}"><i class="fas fa-trash-alt fa-2x" aria-hidden="true"></i></a>
                 </td>
                 </tr>`;
             }
@@ -1123,10 +1123,10 @@ class managerManager {
                                 ${div_img}
                             </td>
                             <td>
-                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateGroupModal(${element.id})"><i class="fas fa-pencil-alt fa-2x"></i></a>
+                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateGroupModal(${element.id})" aria-label="Modifier le groupe ${element.name}"><i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i></a>
                             </td>
                             <td>
-                                <a class="c-link-red" href="javascript:void(0)" onclick="deleteGroup(${element.id})"><i class="fas fa-trash-alt fa-2x"></i></a>
+                                <a class="c-link-red" href="javascript:void(0)" onclick="deleteGroup(${element.id})" aria-label="Supprimer le groupe ${element.name}"><i class="fas fa-trash-alt fa-2x" aria-hidden="true"></i></a>
                             </td>
                         </tr>`;
                 }

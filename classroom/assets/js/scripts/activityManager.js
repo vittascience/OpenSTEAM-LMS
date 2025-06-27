@@ -339,11 +339,14 @@ function activitiesCreation(apps) {
             restrict = `launchCustomActivity('appOutDated')`;
         }
 
-        htmlContent+= `<div class="app-card" style="--border-color:${app.color};" onclick="${restrict}">
-            <img class="app-card-img" src="${app.image}" alt="${app.name}">
-            ${nameField}
-            ${descriptionField}
-        </div>`
+        htmlContent +=
+          `
+            <div class="app-card" style="--border-color:${app.color};" onclick="${restrict}" onkeydown="if(event.key==='Enter'||event.key===' '){${restrict}}" tabindex="0" aria-label="${app.name}">
+              <img class="app-card-img" src="${app.image}" alt="${app.name}"/>
+              ${nameField}
+              ${descriptionField}
+            </div>
+          `;
     });
     
     $('#activity-creation-grid').html(htmlContent);

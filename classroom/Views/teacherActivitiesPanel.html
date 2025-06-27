@@ -13,10 +13,11 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownTag" id="dropdown-tags-filter">
                     </div>
                 </div>
+                <label for="filter-activity-input" class="visually-hidden">Rechercher une activité</label>
                 <input type="search" id="filter-activity-input" data-i18n="[placeholder]manager.buttons.search" class="flex-fill">
 
-                <button id="filter-activity" class="btn btn-primary" style="width: 3em;height: 3em;">
-                    <i class="fas fa-search"></i>
+                <button id="filter-activity" class="btn btn-primary" style="width: 3em;height: 3em;" aria-label="Lancer la recherche">
+                    <i class="fas fa-search" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
@@ -37,7 +38,7 @@
                 <button class="btn c-btn-icon-only mx-1" onclick="foldersManager.displayModeSwitch('card')" id="switcherCard">
                     <img src="assets/media/folders/cadrillage.svg" alt="arb-folders" onload="SVGInject(this)">
                 </button>
-                <button class="btn c-btn-icon-only mx-1" onclick="foldersManager.displayModeSwitch('list')" id="switchList">
+                <button class="btn c-btn-icon-only mx-1" onclick="foldersManager.displayModeSwitch('list')" id="switcherList">
                     <img src="assets/media/folders/arborescence.svg" alt="arb-folders" onload="SVGInject(this)">
                 </button>
             </div>

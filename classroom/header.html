@@ -2,6 +2,9 @@
 <html lang="fr">
 
 <head>
+    <script src="accessibility/accessibility.js" type="module"></script>
+    <script src="accessibility/utils.js"></script>
+    <script src="assets/js/scripts/validate-forms.js"></script>
     <script src="assets/js/utils/listener.js"></script>
     <script src="/path.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -69,8 +72,10 @@
 
             if (localStorage.getItem('theme') === 'dark') {
                 $(".navbar-logo").attr("src", "/public/content/img/vittascience-footer.png");
+                $(".navbar-logo").attr("alt", "Logo Vittascience - thème sombre");
             } else {
                 $(".navbar-logo").attr("src", "/public/content/img/vittascience-logo.png");
+                $(".navbar-logo").attr("alt", "Logo Vittascience - thème clair");
             }
 
             $('#radio-' + givenThemeName + '-theme').prop("checked", true);
@@ -195,6 +200,15 @@
                 }
 
             }, 1000);
+
+            // Invisible aria live (for speech feedbacks)
+            const ariaLiveElement = document.createElement("div");
+            ariaLiveElement.id = "a11y-notifier";
+            ariaLiveElement.className = "visually-hidden";
+            ariaLiveElement.setAttribute("aria-live", "polite");
+            ariaLiveElement.setAttribute("aria-atomic", "true");
+
+            document.body.appendChild(ariaLiveElement);
         });
     </script>
     <script src="assets/js/lib/mobile_detect-1.4.2/mobile-detect.min.js"></script>

@@ -4278,7 +4278,7 @@ wbbdebug = false;
 			if (this.options.debug === true) {
 				var time = (new Date()).getTime();
 				if (typeof (console) != "undefined") {
-					console.log((time - this.startTime) + " ms: " + msg);
+					//console.log((time - this.startTime) + " ms: " + msg);
 				} else {
 					$("#exlog").append('<p>' + (time - this.startTime) + " ms: " + msg + '</p>');
 				}
@@ -4305,7 +4305,7 @@ wbbdebug = false;
 	$.log = function (msg) {
 		if (typeof (wbbdebug) != "undefined" && wbbdebug === true) {
 			if (typeof (console) != "undefined") {
-				console.log(msg);
+				//console.log(msg);
 			} else {
 				$("#exlog").append('<p>' + msg + '</p>');
 			}

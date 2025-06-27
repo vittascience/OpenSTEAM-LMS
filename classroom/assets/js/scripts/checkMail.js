@@ -19,6 +19,22 @@ class CheckMail {
         this._init();
     }
 
+    getMinMessageLength() {
+        return this._MIN_MESSAGE_SIZE;
+    }
+
+    getMaxMessageLength() {
+        return this._MAX_MESSAGE_SIZE;
+    }
+
+    getMinSubjectLength() {
+        return this._MIN_SUBJECT_SIZE;
+    }
+
+    getMaxSubjectLength() {
+        return this._MAX_SUBJECT_SIZE;
+    }
+
     /**
      * Setup the listeners
      */
@@ -195,3 +211,4 @@ class CheckMail {
 }
 
 let checkMail = new CheckMail();
+window.checkMailInstance = checkMail

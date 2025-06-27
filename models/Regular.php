@@ -19,6 +19,7 @@ class Regular extends User implements \JsonSerializable
     private $isActive;
     private $bio;
     private $telephone;
+    private $from_sso;
 
     const MAX_CLASS_NAME_SIZE = 30;
     const MIN_CLASS_NAME_SIZE = 2;
@@ -46,7 +47,8 @@ class Regular extends User implements \JsonSerializable
         $mailMessages,
         $recoveryToken,
         $newMail,
-        $isActive
+        $isActive,
+        $from_sso = null
     ) {
         parent::__construct(
             $id,
@@ -70,6 +72,7 @@ class Regular extends User implements \JsonSerializable
         $this->recoveryToken = $recoveryToken;
         $this->newMail = $newMail;
         $this->isActive = $isActive;
+        $this->from_sso = $from_sso;
     }
     public function getEmail()
     {
@@ -192,6 +195,16 @@ class Regular extends User implements \JsonSerializable
         return false;
     }
 
+    public function isFromSSO()
+    {
+        return $this->from_sso;
+    }
+
+    public function setFromSSO($from_sso)
+    {
+        $this->from_sso = $from_sso;
+    }
+
     public function jsonSerialize()
     {
         if ($this->getPrivateFlag() === 0) {
@@ -201,7 +214,8 @@ class Regular extends User implements \JsonSerializable
                 "surname" => $this->surname,
                 "bio" => $this->bio,
                 "picture" => $this->picture,
-                "picture_thumbnail" => $this->getThumbnailPicture()
+                "picture_thumbnail" => $this->getThumbnailPicture(),
+                "from_sso" => $this->from_sso,
             ];
         } else {
             $array = [
@@ -210,7 +224,8 @@ class Regular extends User implements \JsonSerializable
                 "surname" => null,
                 "bio" => $this->bio,
                 "picture" => $this->picture,
-                "picture_thumbnail" => $this->getThumbnailPicture()
+                "picture_thumbnail" => $this->getThumbnailPicture(),
+                "from_sso" => $this->from_sso,
             ];
         }
         return $array;

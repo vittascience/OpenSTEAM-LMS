@@ -23,6 +23,11 @@ function displayNotification(div, message, status, options = '{}') {
     let html = `<div id='notif-` + randId + `' class="vitta-notif status-` + status + `" data-i18n="` + message + `" data-i18n-options=` + options + `><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`
     $(div).append(html)
     $(div).localize()
+    
+    let notificationElement = $('#notif-' + randId);
+    let notificationText = notificationElement.text().trim();
+    notifyA11y(notificationText);
+    
     setTimeout(function () {
         $('#notif-' + randId).remove()
     }, 15000);
@@ -115,29 +120,34 @@ document.getElementById('password-change-form').addEventListener('submit', (e) =
 
 
 function sendMail() {
-    if (checkMailValid()) {
-        sendRecoveryMail().then((response) => {
-            if (response.emailSent) {
-                $('#email-send-success').toggle();
-                $('#password-recovery').toggle();
-            } else {
-                if (response.message) {
-                    if (response.message == "sending error") {
-                        displayNotification('#notif-div',
-                            "manager.account.errorSending",
-                            "error");
-                    } else if (response.message == "no user") {
-                        displayNotification('#notif-div',
-                            "manager.account.noUserFound",
-                            "error");
-                    } else if (response.message == "missing data") {
-                        displayNotification('#notif-div',
-                            "manager.account.missingData",
-                            "error");
-                    }
-                }
+    if (!checkMailValid()) return;
+    
+    sendRecoveryMail().then((response) => {
+        if (response.emailSent) {
+            toggleElementDisplay('email-send-success');
+            toggleElementDisplay('password-recovery');
+        } else if (response.message) {
+            const errorMessages = {
+                "sending error": "manager.account.errorSending",
+                "no user": "manager.account.noUserFound",
+                "missing data": "manager.account.missingData"
+            };
+            
+            const notificationKey = errorMessages[response.message];
+            if (notificationKey) {
+                displayNotification('#notif-div', notificationKey, "error");
             }
-        });
+        }
+    });
+}
+
+// Helper function to toggle element display with existence check
+function toggleElementDisplay(elementId) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.style.display = element.style.display === 'none' ? 'block' : 'none';
+    } else {
+        console.warn(`Element with ID '${elementId}' not found in the DOM`);
     }
 }
 

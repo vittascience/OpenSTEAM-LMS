@@ -768,7 +768,6 @@ function dashboardToCsv(link) {
             html += classroom.students[i].user.pseudo + ";"
             for (let j = 0; j < arrayActivities.length; j++) {
                 html += statusActivity(arrayActivities[j], 'csv') + ';'
-
             }
             html += "\n"
         }
@@ -830,7 +829,7 @@ function listIndexesActivities(students) {
         })
 
         for(let course of element.courses) {
-            if (!indexArray.includes(course.reference)) {
+            if (!indexArray.includes(course.reference) && course.activitiesReferences != null) {
                 indexArray.push(course.reference)
                 indexArraybis.push({
                     id: course.id,
@@ -1047,7 +1046,6 @@ function getFirstLetterOfPseudo(pseudo) {
  * @param {array} students - Array of students in a classroom
  */
 function displayStudentsInClassroom(students, link=false) {
-
     if (link && link != $_GET('option')) {
         return;
     }
@@ -1061,7 +1059,7 @@ function displayStudentsInClassroom(students, link=false) {
     const classroomId = getClassroomInListByLink(ClassroomSettings.classroom)[0].classroom.id;
     const reducedclassroomName = classroomName.length > 16 ? `${classroomName.substring(0, 16)}...` : classroomName;
 
-    document.querySelector('#header-table-teach').innerHTML = `<th class="table-title" style="max-width: 250px; font-size: 14pt; text-align: left; height: 3em;" data-bs-toggle="tooltip" title="${classroomName}">${reducedclassroomName}</th>`;
+    document.querySelector('#header-table-teach').innerHTML = `<th class="table-title" style="max-width: 250px; font-size: 14pt; text-align: left; height: 3em;" data-bs-toggle="tooltip" title="${classroomName}" role="columnheader" aria-label="Nom de la classe">${reducedclassroomName}</th>`;
 
     $('#is-monochrome').attr('data-link', link);
     $('#is-anonymised').attr('data-link', link);
@@ -1070,7 +1068,6 @@ function displayStudentsInClassroom(students, link=false) {
     let arrayIndexesActivities = listIndexesActivities(students);
 
     students.forEach(element => {
-
         // reorder the current student activities to fit to the classroom index of activities
         let arrayActivities = reorderActivities([...element.activities, ...element.courses], arrayIndexesActivities);
         let pseudo = element.user.pseudo;
@@ -1084,14 +1081,33 @@ function displayStudentsInClassroom(students, link=false) {
         // Add demoStudent's head table cell if it's the current student
         if (element.user.pseudo == demoStudentName) {
             html = `<tr>
-                <th class="username" data-student-id="${element.user.id}">
+                <th class="username" data-student-id="${element.user.id}" role="rowheader" aria-label="Élève ${element.user.pseudo}">
                     <div class="user-cell-container">
-                        <img class="propic" src="${_PATH}assets/media/alphabet/${getFirstLetterOfPseudo(element.user.pseudo)}.png" alt="Photo de profil">
-                        <div class="user-cell-username" title="${element.user.pseudo}">${pseudo}</div>
-                        <div class="dropdown">
-                            <i class="classroom-clickable line_height34 fas fa-exchange-alt" type="button" id="dropdown-studentItem-${element.user.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                            <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
-                                <li id="mode-apprenant" class="dropdown-item classroom-clickable col-12" href="#" onclick="modeApprenant()" data-i18n="classroom.profil.switchMode">Mode apprenant</li>
+                        <img class="propic" src="${_PATH}assets/media/alphabet/${getFirstLetterOfPseudo(element.user.pseudo)}.png" alt="Photo de profil de ${element.user.pseudo}">
+                        <div class="user-cell-username" id="username-${element.user.id}" title="${element.user.pseudo}">${pseudo}</div>
+                          <div class="dropdown">
+                            <i class="classroom-clickable line_height34 fas fa-exchange-alt" 
+                               type="button" 
+                               id="dropdown-studentItem-${element.user.id}" 
+                               data-bs-toggle="dropdown" 
+                               aria-haspopup="true" 
+                               aria-expanded="false"
+                               tabindex="0"
+                               role="button"
+                               aria-label="Actions sur l'élève ${element.user.pseudo}"
+                               onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); $(this).dropdown('toggle'); }">
+                            </i>
+                            <div class="dropdown-menu" 
+                                 role="menu" 
+                                 aria-labelledby="dropdown-studentItem-${element.user.id}">
+                                <button id="mode-apprenant" 
+                                    class="dropdown-item classroom-clickable col-12" 
+                                    onclick="modeApprenant()" 
+                                    role="menuitem"
+                                    tabindex="0"
+                                    aria-labelledby="username-${element.user.id}"
+                                    onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }"
+                                    data-i18n="classroom.profil.switchMode">Mode apprenant</button>
                             </div>
                         </div>
                     </div>
@@ -1099,25 +1115,73 @@ function displayStudentsInClassroom(students, link=false) {
         // Add the current student head table cell
         } else {
             html = `<tr>
-                <th class="username" data-student-id="${element.user.id}">
+                <th class="username" data-student-id="${element.user.id}" role="rowheader" aria-label="Élève ${element.user.pseudo}">
                     <div class="user-cell-container">
-                        <img class="propic" src="${_PATH}assets/media/alphabet/${getFirstLetterOfPseudo(element.user.pseudo)}.png" alt="Photo de profil">
-                        <div class="user-cell-username" title="${element.user.pseudo}">${pseudo}</div>`
+                        <img class="propic" src="${_PATH}assets/media/alphabet/${getFirstLetterOfPseudo(element.user.pseudo)}.png" alt="Photo de profil de ${element.user.pseudo}">
+                        <div class="user-cell-username" id="username-${element.user.id}" title="${element.user.pseudo}">${pseudo}</div>`
             if (!UserManager.getUser().isFromGar) {
-                html += `<div class="dropdown"><i class="classroom-clickable line_height34 fas fa-cog" type="button" id="dropdown-studentItem-${element.user.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                <div class="dropdown-menu" aria-labelledby="dropdown-studentItem-${element.user.id}">
-                <li class="col-12 pwd-display-stud" href="#"><div data-i18n="classroom.classes.panel.password">Votre mot de passe :</div> <span class="masked" id="masked">${element.pwd}</span><i class="classroom-clickable fas fa-low-vision switch-pwd ms-2"></i></li>
-                <li class="classroom-clickable col-12 dropdown-item" onclick="copyPinToClipboard('${element.pwd}')" data-i18n="classroom.profil.copyPinStudent">Copier le mot de passe</li> 
-                <li class="modal-student-password classroom-clickable col-12 dropdown-item" href="#" data-student-id="${element.user.id}" data-i18n="classroom.classes.panel.resetPassword">Régenérer le mot de passe</li>
-                <li class="classroom-clickable col-12 dropdown-item" href="#"><span class="classroom-clickable" data-i18n="classroom.classes.panel.editNickname" onclick="changePseudoModal(${element.user.id})">Modifier le pseudo</span></li>
-                <li class="dropdown-item modal-student-delete classroom-clickable col-12" href="#" data-i18n="classroom.classes.panel.delete" data-student-id="${element.user.id}">Supprimer</li>
-                </div>
+                html += `<div class="dropdown">
+                    <i class="classroom-clickable line_height34 fas fa-cog" 
+                       type="button" 
+                       id="dropdown-studentItem-${element.user.id}" 
+                       data-bs-toggle="dropdown" 
+                       aria-haspopup="true" 
+                       aria-expanded="false"
+                       tabindex="0"
+                       role="button"
+                       aria-label="Actions sur l'élève ${element.user.pseudo}"
+                       onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); $(this).dropdown('toggle'); }">
+                    </i>
+                    <div class="dropdown-menu" 
+                         role="menu" 
+                         aria-labelledby="dropdown-studentItem-${element.user.id}">
+                        <div class="col-12 pwd-display-stud" 
+                            role="menuitem"
+                            tabindex="0"
+                            aria-labelledby="username-${element.user.id}">
+                            <div data-i18n="classroom.classes.panel.password">Votre mot de passe :</div> 
+                            <span class="masked" id="masked">${element.pwd}</span>
+                            <i class="classroom-clickable fas fa-low-vision switch-pwd ms-2" 
+                               role="button"
+                               tabindex="0"
+                               aria-labelledby="username-${element.user.id}"
+                               onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
+                            </i>
+                        </div>
+                        <button class="classroom-clickable col-12 dropdown-item" 
+                            role="menuitem"
+                            tabindex="0"
+                            onclick="copyPinToClipboard('${element.pwd}')" 
+                            onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }"
+                            aria-labelledby="username-${element.user.id}"
+                            data-i18n="classroom.profil.copyPinStudent">Copier le mot de passe</button> 
+                        <button class="modal-student-password classroom-clickable col-12 dropdown-item" 
+                            role="menuitem"
+                            tabindex="0"
+                            data-student-id="${element.user.id}" 
+                            onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }"
+                            aria-labelledby="username-${element.user.id}"
+                            data-i18n="classroom.classes.panel.resetPassword">Régenérer le mot de passe</button>
+                        <button class="classroom-clickable col-12 dropdown-item" 
+                            role="menuitem"
+                            tabindex="0"
+                            aria-labelledby="username-${element.user.id}"
+                            onclick="changePseudoModal(${element.user.id})"
+                            onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }"
+                            data-i18n="classroom.classes.panel.editNickname">Modifier le pseudo</button>
+                        <button class="dropdown-item modal-student-delete classroom-clickable col-12" 
+                            role="menuitem"
+                            tabindex="0"
+                            data-i18n="classroom.classes.panel.delete" 
+                            data-student-id="${element.user.id}"
+                            aria-labelledby="username-${element.user.id}"
+                            onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">Supprimer</button>
+                    </div>
                 </div>
                 </div>`;
             }
             html += `</th>`;
         }
-
 
         let activityNumber = 1;
         // Display the current student activities in the dashboard
@@ -1134,23 +1198,57 @@ function displayStudentsInClassroom(students, link=false) {
                 let thModular = "";
                 let optionContent = "";
                 if (!isCourse) {
-                    thModular = `<th data-bs-toggle="tooltip" class="border-header-class" data-bs-placement="top" title="${arrayIndexesActivities[i].title.replaceAll('"', " ")}">`;
-                    optionContent = `<li class="ms-5" style="border-bottom:solid 2px black;">
+                    thModular = `<th data-bs-toggle="tooltip" class="border-header-class" data-bs-placement="top" title="${arrayIndexesActivities[i].title.replaceAll('"', " ")}" role="columnheader" aria-label="Activité ${activityNumber}">`;
+                    optionContent = `<div class="ms-5" style="border-bottom:solid 2px black;">
                                         <b>${ arrayIndexesActivities[i].title }</b>
-                                    </li>
-                                    <li class="classroom-clickable col-12 dropdown-item " onclick="activityWatch(${arrayIndexesActivities[i].id})" ><i class="fas fa-eye"></i> <span data-i18n="classroom.classes.panel.seeActivity">Voir l'activité</span></li>
-                                    <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${arrayIndexesActivities[i].id})"><i class="fas fa-pen"></i> <span data-i18n="classroom.classes.panel.editActivity">Modifier l'activité</span></li>
-                                    <li class="classroom-clickable col-12 dropdown-item" onclick="attributeActivity(${arrayIndexesActivities[i].id},${arrayIndexesActivities[i].reference})"><i class="fas fa-user-alt"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span></li>
-                                    <li class="dropdown-item classroom-clickable col-12" onclick="undoAttributeActivity(${arrayIndexesActivities[i].reference},'${Main.getClassroomManager().getClassroomIdByLink(ClassroomSettings.classroom)}')"><i class="fas fa-trash-alt"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span></li>`;
-                
+                                    </div>
+                                    <button class="classroom-clickable col-12 dropdown-item" 
+                                        role="menuitem"
+                                        tabindex="0"
+                                        onclick="activityWatch(${arrayIndexesActivities[i].id})"
+                                        onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
+                                        <i class="fas fa-eye"></i> <span data-i18n="classroom.classes.panel.seeActivity">Voir l'activité</span>
+                                    </button>
+                                    <button class="classroom-clickable col-12 dropdown-item" 
+                                        role="menuitem"
+                                        tabindex="0"
+                                        onclick="activityModify(${arrayIndexesActivities[i].id})"
+                                        onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
+                                        <i class="fas fa-pen"></i> <span data-i18n="classroom.classes.panel.editActivity">Modifier l'activité</span>
+                                    </button>
+                                    <button class="classroom-clickable col-12 dropdown-item" 
+                                        role="menuitem"
+                                        tabindex="0"
+                                        onclick="attributeActivity(${arrayIndexesActivities[i].id},${arrayIndexesActivities[i].reference})"
+                                        onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
+                                        <i class="fas fa-user-alt"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span>
+                                    </button>
+                                    <button class="dropdown-item classroom-clickable col-12" 
+                                        role="menuitem"
+                                        tabindex="0"
+                                        onclick="undoAttributeActivity(${arrayIndexesActivities[i].reference},'${Main.getClassroomManager().getClassroomIdByLink(ClassroomSettings.classroom)}')"
+                                        onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
+                                        <i class="fas fa-trash-alt"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span>
+                                    </button>`;
                 
                     $('#header-table-teach').append(`
                         ${thModular}
                         <div class="dropdown dropdown-act m-auto" style="width:30px;">
-                            <div id="dropdown-act-${activityNumber}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div id="dropdown-act-${activityNumber}" 
+                                 data-bs-toggle="dropdown" 
+                                 aria-haspopup="true" 
+                                 aria-expanded="false"
+                                 role="button"
+                                 tabindex="0"
+                                 aria-label="Actions sur l'activité '${arrayIndexesActivities[i].title}'"
+                                 onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); $(this).dropdown('toggle'); }">
                                     <span class="span-act">Act.</br>n°${ activityNumber }</span>
                                     <i style="display:none;font-size:2em;" class="fa fa-cog i-act" aria-hidden="true"></i>
-                                    <div class="dropdown-menu" aria-labelledby="dropdown-act-${activityNumber}" data-id="${arrayIndexesActivities[i].id}" style="text-transform: none;">
+                                    <div class="dropdown-menu" 
+                                         role="menu"
+                                         aria-labelledby="dropdown-act-${activityNumber}" 
+                                         data-id="${arrayIndexesActivities[i].id}" 
+                                         style="text-transform: none;">
                                     ${optionContent}
                                 </div>
                             </div>
@@ -1159,24 +1257,58 @@ function displayStudentsInClassroom(students, link=false) {
                     activityNumber++;
                 } else {
                     let tableLength = `colspan="${currentActivity.activitiesReferences.length}"`;
-                    let thModular = `<th data-bs-toggle="tooltip" class="border-header-class" ${tableLength} data-bs-placement="top" title="${currentActivity.course.title}">`;
+                    let thModular = `<th data-bs-toggle="tooltip" class="border-header-class" ${tableLength} data-bs-placement="top" title="${currentActivity.course.title}" role="columnheader" aria-label="Parcours ${activityNumber}">`;
                     optionContent = `
-                    <li class="ms-5" style="border-bottom:solid 2px black;">
+                    <div class="ms-5" style="border-bottom:solid 2px black;">
                         <b>${currentActivity.course.title}</b>
-                    </li>
+                    </div>
                     
-                    <li class="classroom-clickable col-12 dropdown-item " onclick="coursesManager.courseOverview(${currentActivity.course.id})" ><i class="fas fa-eye"></i> <span data-i18n="courses.show">Voir le parcours</span></li>
-                    <li class="classroom-clickable col-12 dropdown-item" onclick="coursesManager.updateCourse(${currentActivity.course.id})"><i class="fas fa-pen"></i> <span data-i18n="courses.update">Modifier le parcours</span></li>
-                    <li class="classroom-clickable col-12 dropdown-item" onclick="coursesManager.attributeCourse(${currentActivity.course.id}, ${currentActivity.reference})"><i class="fas fa-user-alt"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span></li>
-                    <li class="dropdown-item classroom-clickable col-12" onclick="coursesManager.undoAttribution(${currentActivity.course.id}, ${currentActivity.reference}, ${classroomId})"><i class="fas fa-trash-alt"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span></li>`;
+                    <button class="classroom-clickable col-12 dropdown-item" 
+                        role="menuitem"
+                        tabindex="0"
+                        onclick="coursesManager.courseOverview(${currentActivity.course.id})"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
+                        <i class="fas fa-eye"></i> <span data-i18n="courses.show">Voir le parcours</span>
+                    </button>
+                    <button class="classroom-clickable col-12 dropdown-item" 
+                        role="menuitem"
+                        tabindex="0"
+                        onclick="coursesManager.updateCourse(${currentActivity.course.id})"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
+                        <i class="fas fa-pen"></i> <span data-i18n="courses.update">Modifier le parcours</span>
+                    </button>
+                    <button class="classroom-clickable col-12 dropdown-item" 
+                        role="menuitem"
+                        tabindex="0"
+                        onclick="coursesManager.attributeCourse(${currentActivity.course.id}, ${currentActivity.reference})"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
+                        <i class="fas fa-user-alt"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span>
+                    </button>
+                    <button class="dropdown-item classroom-clickable col-12" 
+                        role="menuitem"
+                        tabindex="0"
+                        onclick="coursesManager.undoAttribution(${currentActivity.course.id}, ${currentActivity.reference}, ${classroomId})"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
+                        <i class="fas fa-trash-alt"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span>
+                    </button>`;
                 
                     $('#header-table-teach').append(`
                         ${thModular}
                         <div class="dropdown dropdown-act m-auto" style="width:30px;">
-                            <div id="dropdown-act-${activityNumber}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    ${`<span class="span-act">Par.</br>n°${ activityNumber }</span>`}
+                            <div id="dropdown-act-${activityNumber}" 
+                                 data-bs-toggle="dropdown" 
+                                 aria-haspopup="true" 
+                                 aria-expanded="false"
+                                 role="button"
+                                 tabindex="0"
+                                 onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); $(this).dropdown('toggle'); }">
+                                    <span class="span-act">Par.</br>n°${ activityNumber }</span>
                                     <i style="display:none;font-size:2em;" class="fa fa-cog i-act" aria-hidden="true"></i>
-                                    <div class="dropdown-menu" aria-labelledby="dropdown-act-${activityNumber}" data-id="" style="text-transform: none;">
+                                    <div class="dropdown-menu" 
+                                         role="menu"
+                                         aria-labelledby="dropdown-act-${activityNumber}" 
+                                         data-id="" 
+                                         style="text-transform: none;">
                                     ${optionContent}
                                 </div>
                             </div>
@@ -1202,17 +1334,17 @@ function displayStudentsInClassroom(students, link=false) {
             } else {
                 if (arrayIndexesActivities[i].isCourse) {
                     for (let k = 0; k < arrayIndexesActivities[i].courseLength; k++) {
-                        html += `<td class="no-activity bilan-cell"></td>`;
+                        html += `<td class="no-activity bilan-cell" role="cell" aria-label="Pas d'activité"></td>`;
                     }
                 } else {
-                    html += `<td class="no-activity bilan-cell"></td>`;
+                    html += `<td class="no-activity bilan-cell" role="cell" aria-label="Pas d\'activité"></td>`;
                 }
             }
         }
 
         // addition of 6 "empty" cells at the end of the current table row
         for (let i = 0; i < 6; i++) {
-            html += '<td class="no-activity bilan-cell"></td>';
+            html += '<td class="no-activity bilan-cell" role="cell" aria-label="Pas d\'activité"></td>';
         }
         // end of the current table row
         html += '</tr>';
@@ -1249,10 +1381,15 @@ function displayStudentsInClassroom(students, link=false) {
         $('#is-anonymised').prop('checked', false);
     }
 
+    $('#export-class-container').append(`<button id="download-csv" class="btn c-btn-tertiary" onclick="openDownloadCsvModal()" role="button" aria-label="Exporter en CSV"><i class="fa fa-download" aria-hidden="true"></i><span class="ms-1" data-i18n="classroom.activities.exportCsv">Exporter CSV</span></button>`).localize();
 
-    $('#export-class-container').append(`<button id="download-csv" class="btn c-btn-tertiary" onclick="openDownloadCsvModal()"><i class="fa fa-download" aria-hidden="true"></i><span class="ms-1" data-i18n="classroom.activities.exportCsv">Exporter CSV</span></button>`).localize();
-
-    $('#header-table-teach').append(`<th class="add-activity-th" colspan="7"> <button class="btn c-btn-primary dashboard-activities-teacher" onclick="pseudoModal.openModal('add-activity-modal')" data-i18n="classroom.activities.addActivity">Ajouter une activité</button></th>`).localize();
+    $('#header-table-teach').append(`<th class="add-activity-th" colspan="7" role="columnheader"> 
+        <button class="btn c-btn-primary dashboard-activities-teacher" 
+                onclick="pseudoModal.openModal('add-activity-modal')" 
+                role="button"
+                aria-label="Ajouter une activité"
+                data-i18n="classroom.activities.addActivity">Ajouter une activité</button>
+    </th>`).localize();
 
     // add four empty divs for monochrome styling
     $('#body-table-teach .bilan-cell').html(`<div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div>`);
@@ -1269,7 +1406,6 @@ function displayStudentsInClassroom(students, link=false) {
         classroomTable.classList.remove('dropdowns-opened');
         $(classroomTable).find('tr').removeClass('non-dropdown');
     });
-
 }
 
 function copyPinToClipboard(pin) {
@@ -1280,9 +1416,33 @@ function copyPinToClipboard(pin) {
 
 function renderActivityDashboard(currentActivity) {
     const formatedTimePast = typeof currentActivity.timePassed == 'undefined' ? '' : currentActivity.timePassed == 0 ? '' : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em><br><em>${i18next.t("classroom.activities.numberOfTries")} ${currentActivity.tries}</em>`;
-    let html = `<td class=" ${statusActivity(currentActivity, true, formatedTimePast)} bilan-cell classroom-clickable" data-state="${statusActivity(currentActivity, false)}" data-id="${currentActivity.id}" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" title="<b>${currentActivity.activity.title}</b>
-            <br>
-            <em>${getTranslatedActivityName(currentActivity.activity.type)}</em></br><em>${i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd)}</em>${formatedTimePast}"></td>`;
+    
+    // Label for the activity cell
+    const activityStatus = statusActivity(currentActivity, false);
+    const activityTitle = currentActivity.activity.title;
+    const activityType = getTranslatedActivityName(currentActivity.activity.type);
+    const dueDate = i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd);
+    const timeInfo = formatedTimePast ? formatedTimePast : '';
+    const ariaLabel = `${activityTitle} - ${activityType} - ${activityStatus} - ${dueDate}${timeInfo}`;
+    
+    let html = `<td class="${statusActivity(currentActivity, true, formatedTimePast)} bilan-cell classroom-clickable" 
+        tabindex="0"
+        role="cell"
+        data-state="${activityStatus}" 
+        data-id="${currentActivity.id}" 
+        data-bs-toggle="tooltip" 
+        data-bs-html="true" 
+        data-bs-placement="top" 
+        aria-label="${ariaLabel}"
+        title="<b>${activityTitle}</b>
+        <br>
+        <em>${activityType}</em></br>
+        <em>${dueDate}</em>${formatedTimePast}"
+        onclick="coursesManager.openActivity(${currentActivity.id})"
+        onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }"
+        >
+    </td>`;
+    
     return html;
 }
 
@@ -1315,16 +1475,54 @@ function displayNotification(div, message, status, options = '{}', timer = 20000
     // get i18n text
     let html = "";
     let i18nText = i18next.t(message);
+    
+    let ariaRole = 'status';
+    let ariaLive = 'polite';
+    let ariaLabel = '';
+    
+    switch(status) {
+        case 'error':
+            ariaRole = 'alert';
+            ariaLive = 'assertive';
+            ariaLabel = 'Erreur : ';
+            break;
+        case 'warning':
+            ariaRole = 'status';
+            ariaLive = 'assertive';
+            ariaLabel = 'Attention : ';
+            break;
+        case 'success':
+            ariaRole = 'status';
+            ariaLive = 'polite';
+            ariaLabel = 'Succès : ';
+            break;
+        default: // info
+            ariaRole = 'status';
+            ariaLive = 'polite';
+            ariaLabel = 'Information : ';
+    }
 
     if (i18nText == message) {
-        html = `<div id='notif-${randId}' onclick="closeOnClick('notif-${randId}')" class="vitta-notif status-${status}">${message}<div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`;
+        html = `<div id='notif-${randId}' onclick="closeOnClick('notif-${randId}')" class="vitta-notif status-${status}" role="${ariaRole}" aria-live="${ariaLive}" aria-atomic="true" aria-label="${ariaLabel}${message}">
+                    ${message}
+                    <div class="vitta-notif-exit-btn" role="button" tabindex="0" aria-label="Fermer la notification" onkeydown="if(event.key==='Enter'||event.key===' '){closeOnClick('notif-${randId}');}">
+                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                    </div>
+                </div>`;
     } else {
-        html = `<div id='notif-${randId}' onclick="closeOnClick('notif-${randId}')" class="vitta-notif status-${status}" data-i18n="${message}" data-i18n-options=${options}><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`
+        html = `<div id='notif-${randId}' onclick="closeOnClick('notif-${randId}')" class="vitta-notif status-${status}" data-i18n="${message}" data-i18n-options=${options} role="${ariaRole}" aria-live="${ariaLive}" aria-atomic="true" aria-label="${ariaLabel}">
+                    <div class="vitta-notif-exit-btn" role="button" tabindex="0" aria-label="Fermer la notification" onkeydown="if(event.key==='Enter'||event.key===' '){closeOnClick('notif-${randId}');}">
+                        <i class="fa fa-times-circle" aria-hidden="true"></i>
+                    </div>
+                </div>`
     }
 
     //let html = `<div id='notif-` + randId + `' class="vitta-notif status-` + status + `" data-i18n="` + message + `" data-i18n-options=` + options + `><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`
     $(div).append(html)
     $(div).localize()
+
+    notifyA11y(i18nText, status);
+
     setTimeout(function () {
         if ($('#notif-' + randId).length > 0) {
             $('#notif-' + randId).remove()
