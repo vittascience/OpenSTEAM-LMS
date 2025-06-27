@@ -17,8 +17,10 @@
                             d="M76.9 23a1.9 1.9 0 01.8 1.5 2.27 2.27 0 01-.6 1.6 2.17 2.17 0 01-3 0 1.82 1.82 0 01-.6-1.4 2.72 2.72 0 01.6-1.7l1.8-2.6H78L76.9 23zm6 0a1.9 1.9 0 01.8 1.5 2.27 2.27 0 01-.6 1.6 2.17 2.17 0 01-3 0 1.82 1.82 0 01-.6-1.4 2.72 2.72 0 01.6-1.7l1.8-2.6H84L82.9 23zM173.9 24.1a1.9 1.9 0 01-.8-1.5 2.11 2.11 0 01.6-1.6 2.17 2.17 0 013 0 1.82 1.82 0 01.6 1.4 2.72 2.72 0 01-.6 1.7l-1.8 2.6h-2.1zm-6 0a1.9 1.9 0 01-.8-1.5 2.11 2.11 0 01.6-1.6 2.17 2.17 0 013 0 1.82 1.82 0 01.6 1.4 2.72 2.72 0 01-.6 1.7l-1.8 2.6h-2.1z" />
                     </g>
                 </svg>
-                <input type="text" id="fake-blockly-input" name="name" maxlength="20"
-                    data-i18n="[value]classroom.login.hello" autocomplete="off" data-lpignore="true">
+                                 <label for="fake-blockly-input" class="sr-only">Texte à afficher dans l'exemple de code</label>
+                 <input type="text" id="fake-blockly-input" name="name" maxlength="20"
+                     data-i18n="[value]classroom.login.hello" autocomplete="off" data-lpignore="true" 
+                     aria-label="Texte à afficher dans l'exemple de code">
             </div>
             <span id="fake-code"><span style="color: #AC00B1;">print</span><span>(</span><span id="fake-code-text"
                     style="color:#009651;" data-i18n="classroom.login.hello"></span><span>)</span></span>
@@ -30,25 +32,26 @@
         </div>
 
         <div id="open-login-menu" style="flex-grow:2;">
-            <button class="btn btn-lg c-btn-primary" id="home-connexion"><span data-i18n="classroom.login.login"></span>
-                <i class="fas fa-chevron-right"></i></button></br>
+                         <button class="btn btn-lg c-btn-primary" id="home-connexion" aria-label="Ouvrir le menu de connexion">
+                 <span data-i18n="classroom.login.login"></span>
+                 <i class="fas fa-chevron-right" aria-hidden="true"></i>
+             </button>
         </div>
 
     </div>
     <div class="container">
         <div id="classroom-flow" class="row py-5 justify-content-md-center">
             <div class="col-sm col-lg-3 text-center">
-                <img class="img-fluid" src="assets/media/create_activities.png" alt=""></br>
-                <span data-i18n="[html]classroom.login.activities"></span>
-            </div>
-            <div class="col-sm col-lg-3 text-center">
-                <img class="img-fluid" src="assets/media/assign_activities.png" alt=""></br>
-                <span data-i18n="[html]classroom.login.attribute"></span>
-
-            </div>
-            <div class="col-sm col-lg-3 text-center">
-                <img class="img-fluid" src="assets/media/visualise_activities.png" alt=""></br>
-                <span data-i18n="[html]classroom.login.visualize"></span>
+                                 <img class="img-fluid" src="assets/media/create_activities.png" alt="Icône représentant la création d'activités">
+                 <p data-i18n="[html]classroom.login.activities"></p>
+             </div>
+             <div class="col-sm col-lg-3 text-center">
+                 <img class="img-fluid" src="assets/media/assign_activities.png" alt="Icône représentant l'assignation d'activités">
+                 <p data-i18n="[html]classroom.login.attribute"></p>
+             </div>
+             <div class="col-sm col-lg-3 text-center">
+                 <img class="img-fluid" src="assets/media/visualise_activities.png" alt="Icône représentant la visualisation des activités">
+                 <p data-i18n="[html]classroom.login.visualize"></p>
             </div>
         </div>
     </div>
@@ -62,273 +65,306 @@
 
 
 <!-- page de login à choix multiple -->
-<div id="classroom-login-container" style="display:none;">
-    <div class="inner-login-container">
-        <div id="classroom-login-code" class="container-border-left">
-
-            <h3 class="font-weight-bold c-text-secondary" data-i18n="classroom.login.student"></h3>
-            <div class="c-secondary-form mb-3">
-                <!-- <img src="assets/media/orange_lock.png" class="icon-label"> -->
-                <label for="class-code" data-i18n="classroom.login.codeInput"></label></br>
-                <input type="text" placeholder="123ABC" name="secret_code" id="class-code" autocomplete="false"
-                    required>
-            </div>
-            <button class="btn c-btn-secondary text-capitalize" id="class-connexion" type="submit"><span
-                    data-i18n="words.confirm"></span>
-                <i class="fas fa-chevron-right"></i></button>
+  <div id="classroom-login-container" style="display:none;" role="dialog" aria-labelledby="login-choice-title" aria-modal="true">
+     <div class="inner-login-container">
+         <h2 id="login-choice-title" class="sr-only">Choix du type de connexion</h2>
+         
+         <div id="classroom-login-code" class="container-border-left" role="region" aria-labelledby="student-login-title">
+             <h3 id="student-login-title" class="font-weight-bold c-text-secondary" data-i18n="classroom.login.student">Connexion élève</h3>
+             <form aria-labelledby="student-login-title">
+                 <div class="c-secondary-form mb-3">
+                  <div class="d-flex flex-column">
+                    <label for="class-code" data-i18n="classroom.login.codeInput">Code d'accès</label>
+                    <input type="text" placeholder="123ABC" name="secret_code" id="class-code" autocomplete="off"
+                        required aria-required="true" aria-describedby="class-code-help">
+                    <div id="class-code-help" class="sr-only">Saisissez le code fourni par votre enseignant</div>
+                  </div>
+                 </div>
+                 <button class="btn c-btn-secondary text-capitalize" id="class-connexion" type="submit" aria-label="Se connecter avec le code élève">
+                     <span data-i18n="words.confirm">Confirmer</span>
+                     <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                 </button>
+             </form>
         </div>
-        <div id="classroom-login-vittascience-account" class="container-border-center">
-            <h3 class="font-weight-bold c-text-primary" data-i18n="classroom.login.teacher"></h3>
-            <p data-i18n="classroom.login.hasAccount"></p>
-            <span id="login-vittascience" class="btn c-btn-primary" role="button">
-                <span data-i18n="classroom.login.login"></span> <i class="fas fa-chevron-down"></i>
-            </span>
-            <span class="btn c-btn-primary mt-3" id="register-link">
-                <span class="text-white" data-i18n="classroom.login.registerLink"></span>
-                <i class="fas fa-chevron-down"></i>
-            </span>
-        </div>
-        <div id="classroom-login-gar" class="container-border-right">
-            <span class="gar-presentation-text my-3" data-i18n="[html]classroom.login.gar"></span>
-            <a class="d-flex btn-sso fw-bold" href="./gar.php">
-                <img src="./auth/svg/gar.svg" alt="gar svg logo" class="w-auto">
-                <span data-i18n="sso.gar">Demander un accès GAR</span>
-            </a>
-            
-            <div id="sso-buttons-container" class="d-flex justify-content-center flex-wrap w-100"></div>
-        </div>
-        <button onclick="navigateLight('', 1)" class="btn close-login-classroom m-1"><i
-                class="fas fa-times"></i></button>
+                 <div id="classroom-login-vittascience-account" class="container-border-center" role="region" aria-labelledby="teacher-login-title">
+             <h3 id="teacher-login-title" class="font-weight-bold c-text-primary" data-i18n="classroom.login.teacher">Connexion enseignant</h3>
+             <p data-i18n="classroom.login.hasAccount">Vous avez déjà un compte ?</p>
+             <button id="login-vittascience" class="btn c-btn-primary" type="button" aria-label="Ouvrir le formulaire de connexion enseignant">
+                 <span data-i18n="classroom.login.login">Connexion</span> 
+                 <i class="fas fa-chevron-down" aria-hidden="true"></i>
+             </button>
+             <button class="btn c-btn-primary mt-3" id="register-link" type="button" aria-label="Ouvrir le formulaire d'inscription">
+                 <span class="text-white" data-i18n="classroom.login.registerLink">Créer un compte</span>
+                 <i class="fas fa-chevron-down" aria-hidden="true"></i>
+             </button>
+         </div>
+             <div id="classroom-login-gar" class="container-border-right" role="region" aria-labelledby="gar-title">
+             <h4 id="gar-title" class="gar-presentation-text my-3" data-i18n="[html]classroom.login.gar">Connexion via GAR</h4>
+             <a class="d-flex btn-sso fw-bold" href="./gar.php" aria-label="Se connecter via le Gestionnaire d'Accès aux Ressources">
+                 <img src="./auth/svg/gar.svg" alt="Logo du Gestionnaire d'Accès aux Ressources" class="w-auto">
+                 <span data-i18n="sso.gar">Demander un accès GAR</span>
+             </a>
+             
+             <div id="sso-buttons-container" class="d-flex justify-content-center flex-wrap w-100" role="group" aria-label="Boutons de connexion sociale"></div>
+         </div>
+         <button onclick="navigateLight('', 1)" class="btn close-login-classroom m-1" type="button" aria-label="Fermer le formulaire de connexion" tabindex="0">
+             <i class="fas fa-times" aria-hidden="true"></i>
+         </button>
     </div>
 </div>
 
 
 <!-- Register page -->
-<div id="classroom-register-container" style="display:none;">
-    <div class="inner-register-container">
-        <form action="#" id="create-teacher-account-form">
+ <div id="classroom-register-container" style="display:none;" role="dialog" aria-labelledby="register-title" aria-modal="true">
+     <div class="inner-register-container">
+         <form action="#" id="create-teacher-account-form" aria-labelledby="register-title" novalidate>
             <div class="form-group part-content-index part-row c-primary-form row mx-0" style="--bs-gutter-x: 2.5rem;">
 
                 <div class="col-md-12">
-                    <p class="text-center fs-4 fw-bold c-text-primary">
-                        <i class="fas fa-user-plus me-1 registration-icon" aria-hidden="true"></i>
-                        <span class="font-weight-bold text-center mb-4 text-uppercase"
-                            data-i18n="manager.account.registration.title"></span>
-                    </p>
+                                         <h2 id="register-title" class="text-center fs-4 fw-bold c-text-primary">
+                         <i class="fas fa-user-plus me-1 registration-icon" aria-hidden="true"></i>
+                         <span class="font-weight-bold text-center mb-4 text-uppercase"
+                             data-i18n="manager.account.registration.title">Création de compte</span>
+                     </h2>
                     <p class="mb-1" data-i18n="manager.account.registration.description"></p>
                     <p data-i18n="[html]manager.account.registration.mandatory"></p>
                 </div>
 
                 <div class="col-md-6">
                     <div class="row mb-4">
-                        <span>
-                            <i class="fa fa-user"></i>
-                            <label for="profile-form-first-name" class="tutorial-label" data-i18n="[html]manager.profil.firstname"></label>
-                        </span>
-                        <input type="text" name="first-name" id="profile-form-first-name" class="form-control form-control-lg">
+                                                 <span>
+                             <i class="fa fa-user" aria-hidden="true"></i>
+                             <label for="profile-form-first-name" class="tutorial-label" data-i18n="[html]manager.profil.firstname">Prénom <span class="mandatory" aria-label="obligatoire">*</span></label>
+                         </span>
+                         <input type="text" name="first-name" id="profile-form-first-name" class="form-control form-control-lg" required aria-required="true" aria-describedby="first-name-error">
+                         <div id="first-name-error" class="error-message" aria-live="polite"></div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="row mb-4">
-                        <span>
-                            <i class="fa fa-user"></i>
-                            <label for="profile-form-last-name" class="tutorial-label" data-i18n="[html]manager.profil.lastname"></label>
-                        </span>
-                        <input type="text" name="last-name" id="profile-form-last-name" class="form-control form-control-lg">
+                                                 <span>
+                             <i class="fa fa-user" aria-hidden="true"></i>
+                             <label for="profile-form-last-name" class="tutorial-label" data-i18n="[html]manager.profil.lastname">Nom <span class="mandatory" aria-label="obligatoire">*</span></label>
+                         </span>
+                         <input type="text" name="last-name" id="profile-form-last-name" class="form-control form-control-lg" required aria-required="true" aria-describedby="last-name-error">
+                         <div id="last-name-error" class="error-message" aria-live="polite"></div>
                     </div>
                 </div>
 
                 <div class="col-md-12">
                     <div class="row mb-4">
-                        <span>
-                            <i class="fa fa-at"></i>
-                            <label for="profile-form-email" class="tutorial-label" data-i18n="[html]manager.profil.email"></label>
-                        </span>
-                        <input type="email" name="email" id="profile-form-email" class="form-control form-control-lg">
+                                                 <span>
+                             <i class="fa fa-at" aria-hidden="true"></i>
+                             <label for="profile-form-email" class="tutorial-label" data-i18n="[html]manager.profil.email">Email <span class="mandatory" aria-label="obligatoire">*</span></label>
+                         </span>
+                         <input type="email" name="email" id="profile-form-email" class="form-control form-control-lg" required aria-required="true" aria-describedby="email-error">
+                         <div id="email-error" class="error-message" aria-live="polite"></div>
                     </div>
                 </div>
 
                 <div class="col-md-6" id="registration_pseudo">
                     <div class="row mb-4">
-                        <span>
-                            <i class="fa fa-user"></i>
-                            <label for="profile-form-pseudo" class="tutorial-label" data-i18n="[html]manager.profil.nickname"></label>
-                        </span>
-                        <input type="text" name="pseudo" id="profile-form-pseudo" class="form-control form-control-lg">
+                                                 <span>
+                             <i class="fa fa-user" aria-hidden="true"></i>
+                             <label for="profile-form-pseudo" class="tutorial-label" data-i18n="[html]manager.profil.nickname">Pseudonyme</label>
+                         </span>
+                         <input type="text" name="pseudo" id="profile-form-pseudo" class="form-control form-control-lg" aria-describedby="pseudo-help">
+                         <div id="pseudo-help" class="form-text">Votre identifiant unique sur la plateforme (optionnel)</div>
                     </div>
                 </div>
 
                 <div class="col-md-6" id="registration_phone">
                     <div class="row mb-4">
-                        <span>
-                            <i class="fa fa-phone"></i>
-                            <label for="profile-form-phone" class="tutorial-label" data-i18n="manager.profil.phone"></label>
-                        </span>
-                        <input type="text" name="phone-number" class="form-control form-control-lg" id="profile-form-phone">
+                                                 <span>
+                             <i class="fa fa-phone" aria-hidden="true"></i>
+                             <label for="profile-form-phone" class="tutorial-label" data-i18n="manager.profil.phone">Téléphone</label>
+                         </span>
+                         <input type="tel" name="phone-number" class="form-control form-control-lg" id="profile-form-phone" aria-describedby="phone-help">
+                         <div id="phone-help" class="form-text">Format : +33 1 23 45 67 89 (optionnel)</div>
                     </div>
                 </div>
 
                 <div class="col-md-12" id="registration_bio">
                     <div class="row mb-4">
-                        <span>
-                            <i class="fa fa-info-circle"></i>
-                            <label for="profile-form-bio" class="tutorial-label" data-i18n="[html]manager.profil.bio"></label>
-                        </span>
-                        <textarea class="form-control form-control-lg" name="mini-bio" id="profile-form-bio" rows="3"></textarea>
+                                                 <span>
+                             <i class="fa fa-info-circle" aria-hidden="true"></i>
+                             <label for="profile-form-bio" class="tutorial-label" data-i18n="[html]manager.profil.bio">Biographie</label>
+                         </span>
+                         <textarea class="form-control form-control-lg" name="mini-bio" id="profile-form-bio" rows="3" aria-describedby="bio-help"></textarea>
+                         <div id="bio-help" class="form-text">Décrivez-vous brièvement (optionnel)</div>
                     </div>
                 </div>
 
                 <div class="col-md-12" id="registration_school">
                     <div class="row mb-4">
-                        <span>
-                            <i class="fa fa-school"></i>
-                            <label for="profile-form-school" class="tutorial-label"
-                                data-i18n="[html]manager.profil.school"></label>
-                        </span>
-                        <input type="text" class="form-control form-control-lg" name="school" id="profile-form-school">
+                                                 <span>
+                             <i class="fa fa-school" aria-hidden="true"></i>
+                             <label for="profile-form-school" class="tutorial-label"
+                                 data-i18n="[html]manager.profil.school">Établissement</label>
+                         </span>
+                         <input type="text" class="form-control form-control-lg" name="school" id="profile-form-school" aria-describedby="school-help">
+                         <div id="school-help" class="form-text">Nom de votre établissement scolaire (optionnel)</div>
                     </div>
                 </div>
 
                 <div class="col-md-6" id="registration_grade">
                     <div class="row mb-4">
-                        <span>
-                            <i class="fa fa-graduation-cap"></i>
-                            <label for="profile-form-grade" class="tutorial-label"
-                                data-i18n="[html]manager.profil.grade"></label>
-                        </span>
-                        <select class="form-control form-control-lg" id="profile-form-grade" name="grade"
-                            style="height:calc(2.875rem + 2px);">
+                                                 <span>
+                             <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                             <label for="profile-form-grade" class="tutorial-label"
+                                 data-i18n="[html]manager.profil.grade">Niveau d'enseignement <span class="mandatory" aria-label="obligatoire">*</span></label>
+                         </span>
+                         <select class="form-control form-control-lg" id="profile-form-grade" name="grade"
+                             style="height:calc(2.875rem + 2px);" required aria-required="true" aria-describedby="grade-error">
                             <option selected value="0" data-i18n="manager.users.teacherGrades.0">Primaire</option>
                             <option value="1" data-i18n="manager.users.teacherGrades.1">Collège</option>
                             <option value="2" data-i18n="manager.users.teacherGrades.2">Lycée</option>
                             <option value="3" data-i18n="manager.users.teacherGrades.3">Lycée professionel</option>
-                            <option value="4" data-i18n="manager.users.teacherGrades.4">POST-BAC</option>
-                        </select>
+                                                         <option value="4" data-i18n="manager.users.teacherGrades.4">POST-BAC</option>
+                         </select>
+                         <div id="grade-error" class="error-message" aria-live="polite"></div>
                     </div>
                 </div>
 
                 <div class="col-md-6" id="registration_subject">
                     <div class="row mb-4">
-                        <span>
-                            <i class="fa fa-book"></i>
-                            <label for="profile-form-subject" class="tutorial-label"
-                                data-i18n="[html]manager.profil.subject"></label>
-                        </span>
-                        <select class="form-control form-control-lg" id="profile-form-subject" name="subject"
-                            style="height:calc(2.875rem + 2px);">
-                        </select>
+                                                 <span>
+                             <i class="fa fa-book" aria-hidden="true"></i>
+                             <label for="profile-form-subject" class="tutorial-label"
+                                 data-i18n="[html]manager.profil.subject">Matière <span class="mandatory" aria-label="obligatoire">*</span></label>
+                         </span>
+                         <select class="form-control form-control-lg" id="profile-form-subject" name="subject"
+                             style="height:calc(2.875rem + 2px);" required aria-required="true" aria-describedby="subject-error">
+                         </select>
+                         <div id="subject-error" class="error-message" aria-live="polite"></div>
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="row mb-4">
-                        <span>
-                            <i class="fa fa-key"></i>
-                            <label for="profile-form-password" class="tutorial-label" data-i18n="[html]manager.profil.password"></label>
-                        </span>
-                        <div class="input-group px-0">
-                            <input type="password" name="password" id="profile-form-password" class="form-control form-control-lg">
-                            <span class="input-group-text classroom-clickable password-display-toggler-updated h-100 px-2">
-                                <i class="far fa-eye"></i>
-                            </span>
-                        </div>
-                        <p class="font-italic ms-2" data-i18n="manager.profil.passwordConstraints"></p>
+                                                 <span>
+                             <i class="fa fa-key" aria-hidden="true"></i>
+                             <label for="profile-form-password" class="tutorial-label" data-i18n="[html]manager.profil.password">Mot de passe <span class="mandatory" aria-label="obligatoire">*</span></label>
+                         </span>
+                         <div class="input-group px-0">
+                             <input type="password" name="password" id="profile-form-password" class="form-control form-control-lg" required aria-required="true" aria-describedby="password-help password-error">
+                             <button type="button" class="btn btn-outline-secondary password-display-toggler" aria-label="Afficher/masquer le mot de passe" aria-pressed="false">
+                                 <i class="far fa-eye" aria-hidden="true"></i>
+                             </button>
+                         </div>
+                         <div id="password-help" class="form-text" data-i18n="manager.profil.passwordConstraints">Minimum 8 caractères</div>
+                         <div id="password-error" class="error-message" aria-live="polite"></div>
                     </div>
                 </div>
 
                 <div class="col-md-6">
                     <div class="row mb-4">
-                        <span>
-                            <i class="fa fa-key"></i>
-                            <label for="profile-form-confirm-password" class="tutorial-label" data-i18n="[html]manager.profil.confirmPassword"></label>
-                        </span>
-                        <div class="input-group px-0">
-                            <input type="password" name="confirm-password" id="profile-form-confirm-password" class="form-control form-control-lg">
-                            <span class="input-group-text classroom-clickable password-display-toggler-updated h-100 px-2">
-                                <i class="far fa-eye"></i>
-                            </span>
-                        </div>
+                                                 <span>
+                             <i class="fa fa-key" aria-hidden="true"></i>
+                             <label for="profile-form-confirm-password" class="tutorial-label" data-i18n="[html]manager.profil.confirmPassword">Confirmer le mot de passe <span class="mandatory" aria-label="obligatoire">*</span></label>
+                         </span>
+                         <div class="input-group px-0">
+                             <input type="password" name="confirm-password" id="profile-form-confirm-password" class="form-control form-control-lg" required aria-required="true" aria-describedby="confirm-password-error">
+                             <button type="button" class="btn btn-outline-secondary password-display-toggler" aria-label="Afficher/masquer la confirmation du mot de passe" aria-pressed="false">
+                                 <i class="far fa-eye" aria-hidden="true"></i>
+                             </button>
+                         </div>
+                         <div id="confirm-password-error" class="error-message" aria-live="polite"></div>
                     </div>
                 </div>
             </div>
 
             <p data-i18n="[html]manager.account.registration.cguVittascience"></p>
 
-            <div class="c-checkbox">
-                <input class="form-check-input" type="checkbox" id="cb_name_public">
-                <label class="form-check-label" for="cb_name_public"
-                    data-i18n="manager.account.registration.accountPublic">
-                </label>
-            </div>
-            <div class="c-checkbox">
-                <input class="form-check-input" type="checkbox" id="cb_newsletter">
-                <label class="form-check-label" for="cb_newsletter" data-i18n="manager.account.registration.newsletter">
-                </label>
-            </div>
-            <div class="c-checkbox">
-                <input class="form-check-input" type="checkbox" id="cb_alert_mail">
-                <label class="form-check-label" for="cb_alert_mail" data-i18n="manager.account.registration.mailAlert">
-                </label>
-            </div>
-            <div class="c-checkbox">
-                <input class="form-check-input" type="checkbox" id="cb_allow_contact">
-                <label class="form-check-label" for="cb_allow_contact"
-                    data-i18n="manager.account.registration.allowContact">
-                </label>
-            </div>
-            <div class="c-checkbox">
-                <input class="form-check-input" type="checkbox" id="cb_adult" required>
-                <label class="form-check-label" for="cb_adult"
-                    data-i18n="[html]manager.account.registration.confirmAdult">
-                </label>
-            </div>
+                         <fieldset>
+                 <legend class="sr-only">Options et confirmations</legend>
+                 <div class="c-checkbox">
+                     <input class="form-check-input" type="checkbox" id="cb_name_public">
+                     <label class="form-check-label" for="cb_name_public"
+                         data-i18n="manager.account.registration.accountPublic">Rendre mon profil public
+                     </label>
+                 </div>
+                 <div class="c-checkbox">
+                     <input class="form-check-input" type="checkbox" id="cb_newsletter">
+                     <label class="form-check-label" for="cb_newsletter" data-i18n="manager.account.registration.newsletter">S'abonner à la newsletter
+                     </label>
+                 </div>
+                 <div class="c-checkbox">
+                     <input class="form-check-input" type="checkbox" id="cb_alert_mail">
+                     <label class="form-check-label" for="cb_alert_mail" data-i18n="manager.account.registration.mailAlert">Recevoir des alertes par email
+                     </label>
+                 </div>
+                 <div class="c-checkbox">
+                     <input class="form-check-input" type="checkbox" id="cb_allow_contact">
+                     <label class="form-check-label" for="cb_allow_contact"
+                         data-i18n="manager.account.registration.allowContact">Autoriser les contacts
+                     </label>
+                 </div>
+                 <div class="c-checkbox">
+                     <input class="form-check-input" type="checkbox" id="cb_adult" required aria-required="true" aria-describedby="adult-error">
+                     <label class="form-check-label" for="cb_adult"
+                         data-i18n="[html]manager.account.registration.confirmAdult">Je confirme être majeur(e) <span class="mandatory" aria-label="obligatoire">*</span>
+                     </label>
+                     <div id="adult-error" class="error-message" aria-live="polite"></div>
+                 </div>
+             </fieldset>
 
-            <div class="col-md-12 d-flex flex-column align-items-center">
-                <input class="btn c-btn-primary mt-3 btn-lg" type="submit" data-i18n="[value]classroom.login.signup">
-            </div>
+                         <div class="col-md-12 d-flex flex-column align-items-center">
+                 <button class="btn c-btn-primary mt-3 btn-lg" type="submit" aria-label="Créer votre compte enseignant">
+                     <span data-i18n="classroom.login.signup">Créer le compte</span>
+                 </button>
+             </div>
 
-        </form>
-        <button onclick="navigateLight('login-choice')" class="btn close-login-classroom m-1">
-            <i class="fas fa-times"></i>
-        </button>
+         </form>
+         <button onclick="navigateLight('login-choice')" class="btn close-login-classroom m-1" type="button" aria-label="Fermer la fenêtre d'inscription" tabindex="0">
+             <i class="fas fa-times" aria-hidden="true"></i>
+         </button>
     </div>
 </div>
 
 
 
-<div id="login-container" class="inner-register-container" style="display:none;position:relative;">
-    <div class="login-form p-0" id="signupin-div">
-        <p class="text-center fs-4 fw-bold c-text-primary">
-            <span class="fa fa-sign-in-alt"></span>
-            <span data-i18n="login_popup.title" class="mx-2"></span>
-        </p>
+  <div id="login-container" class="inner-register-container" style="display:none;position:relative;" role="dialog" aria-labelledby="teacher-login-form-title" aria-modal="true">
+     <div class="login-form p-0" id="signupin-div">
+         <h2 id="teacher-login-form-title" class="text-center fs-4 fw-bold c-text-primary">
+             <i class="fa fa-sign-in-alt" aria-hidden="true"></i>
+             <span data-i18n="login_popup.title" class="mx-2">Connexion enseignant</span>
+         </h2>
 
         <p data-i18n="login_popup.details"></p>
-        <p><a data-i18n="login-page.createAccount" href='#' onclick="displaySignupClass();"></a></p>
-        <div id="info-div-classroom"></div>
-        <form id="login-form" class="c-primary-form">
+                 <p><a data-i18n="login-page.createAccount" href='#' onclick="displaySignupClass();" aria-label="Créer un compte enseignant">Créer un compte</a></p>
+         <div id="info-div-classroom" aria-live="polite" aria-atomic="true"></div>
+         <form id="login-form" class="c-primary-form" aria-labelledby="teacher-login-form-title" novalidate>
             <div id="login-div-classroom">
-                <label for="login-mail-input" class="mt-2">
-                    <span class="fa fa-at"></span> <span data-i18n="login_popup.form.addressmail"></span><span
-                        class="mandatory">*</span>
-                </label>
-                <input name='mail' style="margin-bottom:5px;"
-                    data-i18n="[placeholder]login_popup.form.addressmail_placeholder"
-                    class="form-control form-control-lg" type="email" id="login-mail-input"
-                    data-testid="classroomLoginEmailInput">
+                                 <label for="login-mail-input" class="mt-2">
+                     <i class="fa fa-at" aria-hidden="true"></i> 
+                     <span data-i18n="login_popup.form.addressmail">Adresse email</span>
+                     <span class="mandatory" aria-label="obligatoire">*</span>
+                 </label>
+                 <input name='mail' style="margin-bottom:5px;"
+                     data-i18n="[placeholder]login_popup.form.addressmail_placeholder"
+                     class="form-control form-control-lg" type="email" id="login-mail-input"
+                     data-testid="classroomLoginEmailInput" required aria-required="true" 
+                     autocomplete="email" aria-describedby="login-mail-error">
+                 <div id="login-mail-error" class="error-message" aria-live="polite"></div>
 
-                <label for="login-pwd-input" class="mt-2">
-                    <span class="fa fa-key"></span> <span data-i18n="login_popup.form.password"></span><span
-                        class="mandatory">*</span>
-                </label>
-                <input name='password' data-i18n="[placeholder]login_popup.form.password_placeholder"
-                    class="form-control form-control-lg" type="password" id="login-pwd-input"
-                    data-testid="classroomLoginPasswordInput">
+                                 <label for="login-pwd-input" class="mt-2">
+                     <i class="fa fa-key" aria-hidden="true"></i> 
+                     <span data-i18n="login_popup.form.password">Mot de passe</span>
+                     <span class="mandatory" aria-label="obligatoire">*</span>
+                 </label>
+                 <input name='password' data-i18n="[placeholder]login_popup.form.password_placeholder"
+                     class="form-control form-control-lg" type="password" id="login-pwd-input"
+                     data-testid="classroomLoginPasswordInput" required aria-required="true" 
+                     autocomplete="current-password" aria-describedby="login-pwd-error">
+                 <div id="login-pwd-error" class="error-message" aria-live="polite"></div>
 
-                <input type="text" name="za78e-username" autocomplete="off" value="" id="za78e-username"
-                    class="za78e-field" placeholder="za78e username" />
-                <input type="number" name="za78e-number" autocomplete="off" max="10" min="0" id="za78e-number"
-                    class="za78e-field" placeholder="za78e number" />
+                                 <div style="display: none;" aria-hidden="true">
+                     <input type="text" name="za78e-username" autocomplete="off" value="" id="za78e-username"
+                         class="za78e-field" placeholder="za78e username" tabindex="-1">
+                     <input type="number" name="za78e-number" autocomplete="off" max="10" min="0" id="za78e-number"
+                         class="za78e-field" placeholder="za78e number" tabindex="-1">
+                 </div>
 
                 <div class="my-1 d-flex justify-content-end">
                     <a class="hint" href="/classroom/password_manager.php"
@@ -336,65 +372,87 @@
                 </div>
             </div>
 
-            <div class="mt-2 d-none" id="login-totp-div-classroom">
-                <label for="totp_code-login-page">Votre compte est protégé par une authentification à deux facteurs,
-                    veuillez entrer le code ci dessous :</label>
-                <input id="totp_code-login-page" name="totp_code" placeholder="code Authenticator" class="form-control">
-            </div>
+                         <div class="mt-2 d-none" id="login-totp-div-classroom">
+                 <label for="totp_code-login-page">Votre compte est protégé par une authentification à deux facteurs,
+                     veuillez entrer le code ci-dessous :</label>
+                 <input id="totp_code-login-page" name="totp_code" placeholder="Code Authenticator" 
+                     class="form-control" type="text" inputmode="numeric" 
+                     aria-describedby="totp-help" required aria-required="true">
+                 <div id="totp-help" class="form-text">Saisissez le code à 6 chiffres de votre application d'authentification</div>
+             </div>
 
-
-            <button type='button' style="margin-top:10px;" onclick="checkLogin();" class="btn c-btn-secondary"
-                id="login-button" data-i18n="login_popup.form.btn_connect"
-                data-testid="classroomLoginSubmitBtn"></button>
-            <button type='button' style="margin-top:10px; display:none;" onclick="getNewValidationMail();"
-                class="btn c-btn-secondary" id="btn-activate-account-classroom"
-                data-i18n="login_popup.form.btn_activate">placeholder activate</button>
+             <button type='submit' style="margin-top:10px;" onclick="checkLogin();" class="btn c-btn-secondary"
+                 id="login-button" data-i18n="login_popup.form.btn_connect"
+                 data-testid="classroomLoginSubmitBtn" aria-label="Se connecter avec vos identifiants">
+                 <span data-i18n="login_popup.form.btn_connect">Connexion</span>
+             </button>
+             <button type='button' style="margin-top:10px; display:none;" onclick="getNewValidationMail();"
+                 class="btn c-btn-secondary" id="btn-activate-account-classroom"
+                 data-i18n="login_popup.form.btn_activate" aria-label="Renvoyer l'e-mail d'activation">
+                 <span>Renvoyer l'e-mail d'activation</span>
+             </button>
         </form>
 
-        <button onclick="navigateLight('login-choice')" class="btn close-login-classroom m-1">
-            <i class="fas fa-times"></i>
-        </button>
+                 <button onclick="navigateLight('login-choice')" class="btn close-login-classroom m-1" type="button" aria-label="Fermer la fenêtre de connexion" tabindex="0">
+             <i class="fas fa-times" aria-hidden="true"></i>
+         </button>
     </div>
 </div>
 
 <!-- page de login via un lien -->
-<div id="classroom-login-container-bis" style="display:none;">
-    <div class="inner-login-container">
-        <p id="classroom-desc"></p>
-        <div id="classroom-create-account" class="container-border-left container-border-left-enable">
-            <h3 class="font-weight-bold c-text-primary" data-i18n="classroom.login.signin"></h3>
-            <div class="c-primary-form">
-                <p data-i18n="classroom.login.firstVisit"></p>
-                <img src="assets/media/green_user.png" class="icon-label">
-                <label for="username" data-i18n="words.username" class="text-capitalize"></label></br>
-                <input type="text" placeholder="Vitta" name="username" id="new-user-pseudo-form" required>
-            </div>
-            <button class="btn c-btn-primary" id="create-user" type="submit"><span data-i18n="words.confirm"></span> <i
-                    class="fas fa-chevron-right"></i></button>
+ <div id="classroom-login-container-bis" style="display:none;" role="dialog" aria-labelledby="link-login-title" aria-modal="true">
+     <div class="inner-login-container">
+         <h2 id="link-login-title" class="sr-only">Connexion via lien</h2>
+         <p id="classroom-desc"></p>
+         <div id="classroom-create-account" class="container-border-left container-border-left-enable" role="region" aria-labelledby="new-user-title">
+             <h3 id="new-user-title" class="font-weight-bold c-text-primary" data-i18n="classroom.login.signin">Première connexion</h3>
+             <form aria-labelledby="new-user-title">
+                 <div class="c-primary-form">
+                     <p data-i18n="classroom.login.firstVisit">Première visite ?</p>
+                     <img src="assets/media/green_user.png" class="icon-label" alt="" aria-hidden="true">
+                     <label for="new-user-pseudo-form" data-i18n="words.username" class="text-capitalize">Nom d'utilisateur <span class="mandatory" aria-label="obligatoire">*</span></label>
+                     <input type="text" placeholder="Vitta" name="username" id="new-user-pseudo-form" required aria-required="true" aria-describedby="new-user-error">
+                     <div id="new-user-error" class="error-message" aria-live="polite"></div>
+                 </div>
+                 <button class="btn c-btn-primary" id="create-user" type="submit" aria-label="Créer votre profil utilisateur">
+                     <span data-i18n="words.confirm">Confirmer</span> 
+                     <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                 </button>
+             </form>
             <span id="warning-pseudo-used" style="display:none;" data-i18n="classroom.login.error.used"></span>
         </div>
-        <div id="classroom-login-account" class="container-border-right">
-            <div class="c-primary-form">
-                <h3 class="font-weight-bold c-text-primary" data-i18n="classroom.login.signin"></h3>
-                <p data-i18n="classroom.login.hasReturned"></p>
+                 <div id="classroom-login-account" class="container-border-right" role="region" aria-labelledby="existing-user-title">
+             <h3 id="existing-user-title" class="font-weight-bold c-text-primary" data-i18n="classroom.login.signin">Connexion utilisateur existant</h3>
+             <form aria-labelledby="existing-user-title">
+                 <div class="c-primary-form">
+                     <p data-i18n="classroom.login.hasReturned">Déjà utilisé cette classe ?</p>
 
-                <img src="assets/media/green_user.png" class="icon-label">
-                <label for="username" data-i18n="words.username" class="text-capitalize"></label></br>
-                <input type="text" placeholder="Vitta" id="user-pseudo-form" name="secret_code" required></br>
+                     <img src="assets/media/green_user.png" class="icon-label" alt="" aria-hidden="true">
+                     <label for="user-pseudo-form" data-i18n="words.username" class="text-capitalize">Nom d'utilisateur <span class="mandatory" aria-label="obligatoire">*</span></label>
+                     <input type="text" placeholder="Vitta" id="user-pseudo-form" name="secret_code" required aria-required="true" aria-describedby="user-pseudo-error">
+                     <div id="user-pseudo-error" class="error-message" aria-live="polite"></div>
 
-                <img src="assets/media/green_lock.png" class="icon-label">
-                <label for="username" data-i18n="words.password"></label></br>
-                <input type="password" placeholder="••••••••••" name="secret_code" id="user-password-form"
-                    required></br>
-                <a href="#" data-i18n="classroom.login.forgot"></a></br>
-                <span class="mt-2 mb-2 alert alert-warning mismatched-login" style="display:none;"
-                    data-i18n="classroom.login.error.badInput"></span>
-            </div>
-            <button class="btn c-btn-primary" id="connect-nongar-user"><span data-i18n="words.confirm"
-                    class="text-capitalize"></span> <i class="fas fa-chevron-right"></i></button>
-        </div>
-        <button onclick="navigateLight('login-choice')" class="btn close-login-classroom m-1"><i
-                class="fas fa-times"></i></button>
+                     <img src="assets/media/green_lock.png" class="icon-label" alt="" aria-hidden="true">
+                     <label for="user-password-form" data-i18n="words.password">Mot de passe <span class="mandatory" aria-label="obligatoire">*</span></label>
+                     <input type="password" placeholder="••••••••••" name="password" id="user-password-form"
+                         required aria-required="true" aria-describedby="user-password-error">
+                     <div id="user-password-error" class="error-message" aria-live="polite"></div>
+                     
+                     <a href="#" data-i18n="classroom.login.forgot">Mot de passe oublié ?</a>
+                     <div class="mt-2 mb-2 alert alert-warning mismatched-login" style="display:none;"
+                         data-i18n="classroom.login.error.badInput" role="alert" aria-live="assertive">
+                         Identifiants incorrects
+                     </div>
+                 </div>
+                 <button class="btn c-btn-primary" id="connect-nongar-user" type="submit" aria-label="Se connecter avec vos identifiants">
+                     <span data-i18n="words.confirm" class="text-capitalize">Confirmer</span> 
+                     <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                 </button>
+             </form>
+         </div>
+         <button onclick="navigateLight('login-choice')" class="btn close-login-classroom m-1" type="button" aria-label="Fermer la fenêtre de connexion" tabindex="0">
+             <i class="fas fa-times" aria-hidden="true"></i>
+         </button>
     </div>
 </div>
 
