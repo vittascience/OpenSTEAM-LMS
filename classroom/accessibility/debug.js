@@ -9,7 +9,7 @@ function initCleanLog() {
         const el = e.target;
         currentFocusedEl = el;
 
-        console.log('[Accessibility Debug] Focused element:', el);
+        //console.log('[Accessibility Debug] Focused element:', el);
         el.style.outline = 'none';
         el.style.boxShadow = 'none';
 

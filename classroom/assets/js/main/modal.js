@@ -512,11 +512,11 @@ $(document).ready(function() {
                 document.body.appendChild(backdrop);
             }
             backdrop.style.display = 'block';
-            console.log('Backdrop shown - visible modals:', visibleModals);
+            //console.log('Backdrop shown - visible modals:', visibleModals);
         } else {
             if (backdrop) {
                 backdrop.style.display = 'none';
-                console.log('Backdrop hidden - no visible modals');
+                //console.log('Backdrop hidden - no visible modals');
             }
         }
     }
@@ -526,7 +526,7 @@ $(document).ready(function() {
             if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
                 const target = mutation.target;
                 if (target.id && target.id.endsWith('-modal')) {
-                    console.log('Modal style changed:', target.id, 'display:', window.getComputedStyle(target).display);
+                    //console.log('Modal style changed:', target.id, 'display:', window.getComputedStyle(target).display);
                     checkAndUpdateBackdrop();
                 }
             }
@@ -555,7 +555,7 @@ $(document).ready(function() {
                             attributes: true,
                             attributeFilter: ['style', 'class']
                         });
-                        console.log('Started observing new modal:', node.id);
+                        //console.log('Started observing new modal:', node.id);
                     }
                 }
             });

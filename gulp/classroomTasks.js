@@ -61,7 +61,7 @@ class AutoBuildManager {
         await this.loadPluginsList();
         if (this.pluginsList.length) {
             await this.loadFilesList();
-            console.log(this.pluginsList);
+            //console.log(this.pluginsList);
             await this.emptyPluginsFolderInClassroom();
             this.createPluginsFolderInClassroom();
             await this.populatePluginsFolderInClassroom();
@@ -164,7 +164,7 @@ class AutoBuildManager {
     createTemporaryViewsFolder() {
         if (!fs.existsSync(this.temporaryViewsFolder)) {
             fs.mkdirSync(this.temporaryViewsFolder);
-            console.log('📁  folder created:', this.temporaryViewsFolder);
+            //console.log('📁  folder created:', this.temporaryViewsFolder);
         }
     }
 
@@ -174,7 +174,7 @@ class AutoBuildManager {
     createPluginsFolderInClassroom() {
         if (!fs.existsSync(this.pluginsFolderInClassroom)) {
             fs.mkdirSync(this.pluginsFolderInClassroom);
-            console.log('📁  folder created:', this.pluginsFolderInClassroom);
+            //console.log('📁  folder created:', this.pluginsFolderInClassroom);
         }
     }
 
@@ -215,7 +215,7 @@ class AutoBuildManager {
                             reject();
                             return console.error(err);
                         }
-                        console.log('📁  folder created:', path);
+                        //console.log('📁  folder created:', path);
                         resolve();
                     });
                 } else {
@@ -409,7 +409,7 @@ class AutoBuildManager {
      * @param {*} list
      */
     async readFolderForList(plugin, folder, list) {
-        console.log(folder);
+        //console.log(folder);
         return new Promise((resolve, reject) => {
             fs.readdir(folder, (err, files) => {
                 if (files) {
@@ -683,14 +683,14 @@ class AutoBuildManager {
                     const customBuildFilePath = `./plugins/${plugin.name}/${this.customBuildFileName}`;
                     fs.open(customBuildFilePath, (error, data) => {
                         if (error) {
-                            console.log(`There is no custom build for ${plugin.name} plugin!`);
+                            //console.log(`There is no custom build for ${plugin.name} plugin!`);
                             resolve();
                             return;
                         }
                         child_process.exec(`node ${customBuildFilePath}`, (error, stdout, stderr) => {
-                            console.log(`${stdout}`);
+                            //console.log(`${stdout}`);
                             if (error !== null) {
-                                console.log(`exec error: ${error}`);
+                                //console.log(`exec error: ${error}`);
                                 reject();
                                 return;
                             }

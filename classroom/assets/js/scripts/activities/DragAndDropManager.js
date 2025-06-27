@@ -121,14 +121,7 @@ class DragAndDropManager {
         });
         initializeDragulaWithOneContainer('activity-content', 'dropzone-preview', Activity.id);
 
-        solution.forEach(e => {
-            $('#preview-drag-and-drop-fields-teacher').append(dragAndDropManager.parseDraggableItems(e));
-        });
-
-        initializeDragulaWithOneContainer('activity-content', 'dropzone-preview', Activity.id);
-
         dragAndDropManager.initKeyboardAccessibleDragDrop();
-
         dragAndDropManager.showTeacherCommonCode(contentParsed);
     }
 

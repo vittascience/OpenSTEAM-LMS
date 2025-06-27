@@ -36,8 +36,14 @@ document.addEventListener("DOMContentLoaded", function () {
         const minMessage = checkMail.getMinMessageLength();
         const maxMessage = checkMail.getMaxMessageLength();
 
-        messageError.textContent = `Votre message doit contenir entre ${minMessage} et ${maxMessage} caractères.`;
-        subjectError.textContent = `L’objet doit contenir entre ${minSubject} et ${maxSubject} caractères.`;
+        if (messageError) {
+            messageError.textContent = `Votre message doit contenir entre ${minMessage} et ${maxMessage} caractères.`;
+        }
+
+        if (subjectError) {
+            subjectError.textContent = `L’objet doit contenir entre ${minSubject} et ${maxSubject} caractères.`;
+        }
+
 
         function validateForm() {
             const subjectLength = subjectInput.value.trim().length;
