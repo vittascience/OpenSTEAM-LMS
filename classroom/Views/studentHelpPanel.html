@@ -6,16 +6,16 @@
         <div id="about-contact-info-student">
             <form class="c-primary-form" id="about-contact-form-student">
                 <div class="input-group mb-3">
-                    <select id="help-student-select" class="form-control form-control-lg">
+                    <select id="help-student-select" class="form-control form-control-lg" aria-label="Sélectionner un enseignant pour demander de l'aide">
                     </select>
                 </div>
 
                 <div class="input-group mb-3">
-                    <input type="text" name="subject" class="form-control" id="learner-contact-subject-input" data-i18n="[placeholder]classroom.help.student.title" placeholder="Objet">
+                    <input type="text" name="subject" class="form-control" id="learner-contact-subject-input" data-i18n="[placeholder]classroom.help.student.title" placeholder="Objet" aria-label="Objet de votre demande d'aide">
                 </div>
 
                 <div class="input-group mb-3">
-                    <textarea name="message" class="form-control" id="learner-contact-message-input" rows="15" cols="25" style="resize: none; width: 100%;" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder" placeholder="Écrivez votre message ici. (Maximum 800 caractères)"></textarea>
+                    <textarea name="message" class="form-control" id="learner-contact-message-input" rows="15" cols="25" style="resize: none; width: 100%;" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.messagePlaceholder" placeholder="Écrivez votre message ici. (Maximum 800 caractères)" aria-label="Message de votre demande d'aide (maximum 800 caractères)"></textarea>
                 </div>
 
                 <input type="submit" class="btn c-btn-primary" data-i18n="[value]classroom.teacherHelpPanel.contactForm.sendButton" disabled="disabled" style="cursor:not-allowed;float: right;">

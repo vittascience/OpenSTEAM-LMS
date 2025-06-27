@@ -37,9 +37,11 @@
                 <textarea id="free-content" style="height:340px"></textarea>
             </div>
            
-            <div class="c-checkbox mt-2">
-                <input type="checkbox" name="free-autocorrect" id="free-autocorrect">
-                <label for="free-autocorrect" data-i18n="newActivities.autocorrect">Autocorrection</label>
+            <div class="c-checkbox mt-2" tabindex="0" aria-labelledby="free-autocorrect-label" aria-describedby="free-autocorrect-description">
+                <input type="checkbox" name="free-autocorrect" id="free-autocorrect" aria-describedby="free-autocorrect-description">
+                <label for="free-autocorrect" id="free-autocorrect-label" data-i18n="newActivities.autocorrect">Autocorrection</label>
+                <span id="free-autocorrect-description" class="sr-only">Cochez cette case pour activer l'autocorrection de cette activité</span>
+                <span id="free-autocorrect-status" class="sr-only" aria-live="polite">Désactivée</span>
             </div>
 
             <div class="content" id="free-correction-content" style="display: none;">
@@ -49,12 +51,12 @@
                 <div class="content">
                     <p>
                         <span data-i18n="newActivities.tolerance1"></span>
-                        <button id="free-tolerance-decrease" class="tolerance-btn">
-                            <i class="fas fa-minus"></i>
+                        <button id="free-tolerance-decrease" class="tolerance-btn" aria-label="Diminuer la tolérance">
+                            <i class="fas fa-minus" aria-hidden="true"></i>
                         </button>
                         <input type="number" id="free-tolerance" value="0">
-                        <button id="free-tolerance-increase" class="tolerance-btn">
-                            <i class="fas fa-plus"></i>
+                        <button id="free-tolerance-increase" class="tolerance-btn" aria-label="Augmenter la tolérance">
+                            <i class="fas fa-plus" aria-hidden="true"></i>
                         </button>
                         <span data-i18n="newActivities.tolerance2"></span></p>
                 </div>
@@ -93,11 +95,13 @@
                             </div>
 
                             <div class="col-md-auto d-flex align-items-center">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="quiz-checkbox-1">
-                                    <label class="form-check-label" for="quiz-checkbox-1" data-i18n="classroom.activities.correctAnswer">
+                                <div class="form-check" tabindex="0" aria-labelledby="quiz-checkbox-1-label" aria-describedby="quiz-checkbox-1-description">
+                                    <input class="form-check-input" type="checkbox" id="quiz-checkbox-1" aria-describedby="quiz-checkbox-1-description">
+                                    <label class="form-check-label" for="quiz-checkbox-1" id="quiz-checkbox-1-label" data-i18n="classroom.activities.correctAnswer">
                                         Réponse correcte
                                     </label>
+                                    <span id="quiz-checkbox-1-description" class="sr-only">Cochez cette case pour marquer cette proposition comme réponse correcte</span>
+                                    <span id="quiz-checkbox-1-status" class="sr-only" aria-live="polite">Désactivée</span>
                                 </div>
                             </div>
 
@@ -141,12 +145,12 @@
             <div class="content">
                 <p>
                     <span data-i18n="newActivities.tolerance1"></span>
-                    <button id="fill-in-tolerance-decrease" class="tolerance-btn">
-                        <i class="fas fa-minus"></i>
+                    <button id="fill-in-tolerance-decrease" class="tolerance-btn" aria-label="Diminuer la tolérance">
+                        <i class="fas fa-minus" aria-hidden="true"></i>
                     </button>
                     <input type="number" id="fill-in-tolerance" value="0">
-                    <button id="fill-in-tolerance-increase" class="tolerance-btn">
-                        <i class="fas fa-plus"></i>
+                    <button id="fill-in-tolerance-increase" class="tolerance-btn" aria-label="Augmenter la tolérance">
+                        <i class="fas fa-plus" aria-hidden="true"></i>
                     </button>
                     <span data-i18n="newActivities.tolerance2"></span>
                 </p>

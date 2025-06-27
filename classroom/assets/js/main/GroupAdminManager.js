@@ -258,13 +258,13 @@ class GroupAdminManager {
       <td>${droits}</td>
       <td>${div_img}</td>
       <td>
-        <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPasswordga(${element.id})">
-          <i class="fas fa-redo-alt fa-2x"></i>
+        <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPasswordga(${element.id})" aria-label="Réinitialiser le mot de passe de ${element.firstname} ${element.surname}">
+          <i class="fas fa-redo-alt fa-2x" aria-hidden="true"></i>
         </a>
       </td>
       <td>
-        <a class="c-link-secondary" href="javascript:void(0)" onclick="showUpdateUserModalGroupAdmin(${element.id})">
-          <i class="fas fa-pencil-alt fa-2x"></i>
+        <a class="c-link-secondary" href="javascript:void(0)" onclick="showUpdateUserModalGroupAdmin(${element.id})" aria-label="Modifier l'utilisateur ${element.firstname} ${element.surname}">
+          <i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i>
         </a>
       </td>
       <td>
@@ -289,13 +289,13 @@ class GroupAdminManager {
                     <td>${droits}</td>
                     <td>${div_img}</td>
                     <td>
-                        <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPasswordga(${element.id})">
-                        <i class="fas fa-redo-alt fa-2x"></i>
+                        <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPasswordga(${element.id})" aria-label="Réinitialiser le mot de passe de ${element.firstname} ${element.surname}">
+                        <i class="fas fa-redo-alt fa-2x" aria-hidden="true"></i>
                         </a>
                     </td>
                     <td>
-                        <a class="c-link-secondary" href="javascript:void(0)" onclick="showUpdateUserModalGroupAdmin(${element.id})">
-                        <i class="fas fa-pencil-alt fa-2x"></i>
+                        <a class="c-link-secondary" href="javascript:void(0)" onclick="showUpdateUserModalGroupAdmin(${element.id})" aria-label="Modifier l'utilisateur ${element.firstname} ${element.surname}">
+                        <i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i>
                         </a>
                     </td>
                     <td>
@@ -429,13 +429,13 @@ class GroupAdminManager {
                             <td>${$droits}</td>
                             <td>${div_img}</td>
                             <td>
-                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPasswordga(${element.id})">
-                                    <i class="fas fa-redo-alt fa-2x"></i>
+                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPasswordga(${element.id})" aria-label="Réinitialiser le mot de passe de ${element.firstname} ${element.surname}">
+                                    <i class="fas fa-redo-alt fa-2x" aria-hidden="true"></i>
                                 </a>
                             </td>
                             <td>
-                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showUpdateUserModalGroupAdmin(${element.id})">
-                                    <i class="fas fa-pencil-alt fa-2x"></i>
+                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showUpdateUserModalGroupAdmin(${element.id})" aria-label="Modifier l'utilisateur ${element.firstname} ${element.surname}">
+                                    <i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i>
                                 </a>
                             </td>
                             <td>
@@ -449,13 +449,13 @@ class GroupAdminManager {
                             <td>${$droits}</td>
                             <td>${div_img}</td>
                             <td>
-                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPasswordga(${element.id})">
-                                    <i class="fas fa-redo-alt fa-2x"></i>
+                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPasswordga(${element.id})" aria-label="Réinitialiser le mot de passe de ${element.firstname} ${element.surname}">
+                                    <i class="fas fa-redo-alt fa-2x" aria-hidden="true"></i>
                                 </a>
                             </td>
                             <td>
-                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showUpdateUserModalGroupAdmin(${element.id})">
-                                    <i class="fas fa-pencil-alt fa-2x"></i>
+                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showUpdateUserModalGroupAdmin(${element.id})" aria-label="Modifier l'utilisateur ${element.firstname} ${element.surname}">
+                                    <i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i>
                                 </a>
                             </td>
                             <td>

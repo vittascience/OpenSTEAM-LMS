@@ -873,7 +873,6 @@ hr {
 
 .c-checkbox [type="checkbox"]:not(:checked),
 .c-checkbox [type="checkbox"]:checked {
-    display: none;
     position: absolute;
     left: 0;
     opacity: 0.01;

@@ -23,6 +23,11 @@ function displayNotification(div, message, status, options = '{}') {
     let html = `<div id='notif-` + randId + `' class="vitta-notif status-` + status + `" data-i18n="` + message + `" data-i18n-options=` + options + `><div class="vitta-notif-exit-btn"><i class="fa fa-times-circle"></i></div></div>`
     $(div).append(html)
     $(div).localize()
+    
+    let notificationElement = $('#notif-' + randId);
+    let notificationText = notificationElement.text().trim();
+    notifyA11y(notificationText);
+    
     setTimeout(function () {
         $('#notif-' + randId).remove()
     }, 15000);

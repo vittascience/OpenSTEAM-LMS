@@ -2,17 +2,24 @@
     <div id="classroom-dashboard-container">
         <div id="classroom-dashboard-sidebar" class="sidebar-classroom" style="display:none;">
             <div id="classroom-sidebar-logo"></div>
-            <div class="classroom-navbar-button" id="dashboard-activities"><img src="assets/media/my_activities.svg"
+            <div class="classroom-navbar-button" id="dashboard-activities" 
+                 onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"
+                 onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');}"
+                 role="button" tabindex="0"><img src="assets/media/my_activities.svg"
                     alt="Icône activités">
                 <span data-i18n="classroom.ids.classroom-dashboard-activities-panel-teacher"></span>
             </div>
             <div class=" classroom-navbar-button" id="dashboard-help"
-                onclick="navigatePanel('classroom-dashboard-help-panel', 'dashboard-help')"><img
+                onclick="navigatePanel('classroom-dashboard-help-panel', 'dashboard-help')" 
+                onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('classroom-dashboard-help-panel', 'dashboard-help');}"
+                role="button" tabindex="0"><img
                     src="assets/media/call_for_help.svg" alt="Icône Appel à l'aide">
                 <span data-i18n="classroom.ids.classroom-dashboard-help-panel"></span>
             </div>
             <div id="dashboard-profil" class="classroom-navbar-button"
-                onclick="navigatePanel('classroom-dashboard-profil-panel', 'dashboard-profil')"><img
+                onclick="navigatePanel('classroom-dashboard-profil-panel', 'dashboard-profil')" 
+                onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('classroom-dashboard-profil-panel', 'dashboard-profil');}"
+                role="button" tabindex="0"><img
                     class="user-picture" src="assets/media/profile_picture.svg" alt="Photo de profil">
                 <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span>
             </div>

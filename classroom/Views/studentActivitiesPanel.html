@@ -1,6 +1,10 @@
 <div id="classroom-dashboard-activities-panel" style="display:none;" class="dashboard-block">
     <div class="section-container section-new">
-        <div class="section-header" onclick="sectionToggle('new')">
+        <div class="section-header" onclick="sectionToggle('new')" 
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); sectionToggle('new');}"
+             role="button" tabindex="0" aria-expanded="true" 
+             aria-controls="new-activities-list" 
+             aria-label="Basculer l'affichage des nouvelles activités">
             <i id="i-new" class="ms-2 fas fa-lg fa-chevron-down"></i>
             <h3 class="section-title" data-i18n="classroom.activities.new"></h3>
             <span class="resource-number"> </span>
@@ -9,7 +13,11 @@
     </div>
     
     <div class="section-container section-saved">
-        <div class="section-header" onclick="sectionToggle('saved')">
+        <div class="section-header" onclick="sectionToggle('saved')" 
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); sectionToggle('saved');}"
+             role="button" tabindex="0" aria-expanded="false" 
+             aria-controls="saved-activities-list" 
+             aria-label="Basculer l'affichage des brouillons">
             <i id="i-saved" class="ms-2 fas fa-lg fa-chevron-up"></i>
             <h3 class="section-title" >Brouillons</h3>
             <span class="resource-number"> </span>
@@ -18,7 +26,11 @@
     </div>
     
     <div class="section-container section-current">
-        <div class="section-header" onclick="sectionToggle('current')">
+        <div class="section-header" onclick="sectionToggle('current')" 
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); sectionToggle('current');}"
+             role="button" tabindex="0" aria-expanded="false" 
+             aria-controls="current-activities-list" 
+             aria-label="Basculer l'affichage des activités en cours">
             <i id="i-current" class="ms-2 fas fa-lg fa-chevron-up"></i>
             <h3 class="section-title" data-i18n="classroom.activities.current"></h3>
             <span class="resource-number"> </span>
@@ -27,7 +39,11 @@
     </div>
     
     <div class="section-container section-done">
-        <div class="section-header" onclick="sectionToggle('done')">
+        <div class="section-header" onclick="sectionToggle('done')" 
+             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); sectionToggle('done');}"
+             role="button" tabindex="0" aria-expanded="false" 
+             aria-controls="done-activities-list" 
+             aria-label="Basculer l'affichage des activités terminées">
             <i id="i-done" class="ms-2 fas fa-lg fa-chevron-up"></i>
             <h3 class="section-title" data-i18n="classroom.activities.done"></h3>
             <span class="resource-number"> </span>
@@ -47,7 +63,7 @@
                     <h3 id="activity-title" class="activity-title"></h3>
                     <div id="activity-views-switcher" class="p-2 align-self-end"></div>
                 </div>
-               
+
                 <!-- Used for status / date  -->
                 <p id="activity-details" class="activity-details"></p>
 
@@ -76,9 +92,9 @@
                 <!-- Used for content -->
                 <div id="activity-content-container" style="display:none;">
                     <label for="activity-content" id="label-activity-content" class="vitta-modal-title mt-2" data-i18n="newActivities.contentTitle">Contenu de l'activité</label>
-                    <div id="activity-content"></div>    
+                    <div id="activity-content"></div>
                 </div>
-                
+
                 <div id="activity-input-container" style="display:none;">
                     <label for="activity-input" class="vitta-modal-title mt-2" data-i18n="classroom.activities.putYourAnswer">Entrez votre réponse</label>
                     <textarea id="activity-input" style="height:400px"></textarea>
@@ -101,7 +117,7 @@
                 </div>
 
                 <div class="d-flex justify-content-center mt-2 flex-wrap gap-3">
-                    <button class="btn c-btn-primary mx-1" id="activity-validate" data-i18n="classroom.activities.validate" onclick="validateActivity(1)"> 
+                    <button class="btn c-btn-primary mx-1" id="activity-validate" data-i18n="classroom.activities.validate" onclick="validateActivity(1)">
                         <i class="fas fa-chevron-right"></i>
                     </button>
 

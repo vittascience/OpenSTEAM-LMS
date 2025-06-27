@@ -266,8 +266,8 @@ const classroomModals = {
         content: `
         <div id="add-student-div">
             <div class="c-primary-form row col-12">
-                <label class="col-5" data-i18n="classroom.modals.addStudent.pseudo">Pseudonyme</label>
-                <input class="col-5 student-form-name" type="text">
+                <label class="col-5" for="create-classroom-student-pseudo" data-i18n="classroom.modals.addStudent.pseudo">Pseudonyme</label>
+                <input class="col-5 student-form-name" type="text" id="create-classroom-student-pseudo">
             </div>
         </div>
         <button id="create-classroom-add-student-to-list" class="save-student-in-classroom c-btn-primary m-3"><i class="fas fa-save"></i> <span class="ms-1" data-i18n="clsave-student-in-classroomassroom.modals.addStudent.addStudentButton">Ajouter l'apprenant</span></button>
@@ -290,8 +290,8 @@ const classroomModals = {
         content: `
         <div id="update-classroom-add-student-div">
             <div class="c-primary-form row col-12">
-                <label class="col-5" data-i18n="classroom.modals.addStudent.pseudo">Pseudonyme</label>
-                <input class="col-5 student-form-name" type="text">
+                <label class="col-5" for="update-classroom-student-pseudo" data-i18n="classroom.modals.addStudent.pseudo">Pseudonyme</label>
+                <input class="col-5 student-form-name" type="text" id="update-classroom-student-pseudo">
             </div>
         </div>
         <button id="update-classroom-add-student-to-list" class="btn save-student-in-classroom c-btn-primary m-3"><i class="fas fa-save"></i> <span class="ms-1" data-i18n="classroom.modals.addStudent.addStudentButton">Ajouter l'apprenant</span></button>
@@ -311,40 +311,41 @@ const classroomModals = {
             icon: '',
             title: 'classroom.modals.addStudent.title'
         },
-        content: `<div class="m-4 p-4">
+        content: `<div class="m-4 p-4" role="dialog" aria-labelledby="add-student-title">
                     <div class="d-flex flex-column justify-content-center align-items-center">
-                        <p data-i18n="[html]classroom.modals.addStudent.ShowQrCodeRecommended" class="fw-bold fs-large">Vous pouvez faire rejoindre vos élèves par le lien de la classe ou par QR code</p>
-                        <button class="btn c-btn-secondary mb-3" onclick="Main.getClassroomManager().showLinkAndQrPanel();">
-                            <span data-i18n="[html]classroom.modals.addStudent.displayQrCodeAndLink"><i class="fas fa-qrcode me-2"></i>Afficher le lien et le QR code</span>
+                        <h2 id="add-student-title" class="fw-bold fs-large" data-i18n="[html]classroom.modals.addStudent.ShowQrCodeRecommended">Vous pouvez faire rejoindre vos élèves par le lien de la classe ou par QR code</h2>
+                        <button class="btn c-btn-secondary mb-3" onclick="Main.getClassroomManager().showLinkAndQrPanel();" aria-label="Afficher le lien et le QR code de la classe">
+                            <span data-i18n="[html]classroom.modals.addStudent.displayQrCodeAndLink"><i class="fas fa-qrcode me-2" aria-hidden="true"></i>Afficher le lien et le QR code</span>
                         </button>
                     </div>
 
-                    <div class="d-flex justify-content-center modal-separator mt-4 mb-4">
+                    <div class="d-flex justify-content-center modal-separator mt-4 mb-4" role="separator" aria-label="Séparateur">
                         <span data-i18n="classroom.modals.addActivity.orSeparator">OU</span>
                     </div>
 
                     <div class="d-flex flex-column align-items-center mx-3">
-                        <span data-i18n="classroom.modals.addStudent.createStudentProfile" class="fw-bold mb-3 fs-large">Créer le profil d'un l'élève</span>
+                        <h3 id="create-student-title" class="fw-bold mb-3 fs-large" data-i18n="classroom.modals.addStudent.createStudentProfile">Créer le profil d'un l'élève</h3>
                         <div class="c-primary-form row col-12 mb-3 mx-3">
-                            <input class="w-75 mx-auto student-form-name" type="text" id="add-student-input-from-modal" data-i18n="[placeholder]classroom.modals.addStudent.pseudo" placeholder="Pseudonyme">
+                            <label for="add-student-input-from-modal" class="visually-hidden">Pseudonyme de l'élève</label>
+                            <input class="w-75 mx-auto student-form-name" type="text" id="add-student-input-from-modal" data-i18n="[placeholder]classroom.modals.addStudent.pseudo"
+                            placeholder="Pseudonyme" aria-required="true" aria-labelledby="create-student-title add-student-input-from-modal">
                         </div>
-                        <button id="add-student-to-classroom" class="btn save-student-in-classroom c-btn-primary mb-3">
-                            <i class="fas fa-save me-2"></i> <span data-i18n="classroom.modals.addStudent.addStudentButton">Ajouter l'apprenant</span>
+                        <button id="add-student-to-classroom" class="btn save-student-in-classroom c-btn-primary mb-3" aria-label="Ajouter l'apprenant à la classe">
+                            <i class="fas fa-save me-2" aria-hidden="true"></i> <span data-i18n="classroom.modals.addStudent.addStudentButton">Ajouter l'apprenant</span>
                         </button>
                     </div>
 
-                    <div class="d-flex justify-content-center modal-separator mt-4 mb-4">
+                    <div class="d-flex justify-content-center modal-separator mt-4 mb-4" role="separator" aria-label="Séparateur">
                         <span data-i18n="classroom.modals.addActivity.orSeparator">OU</span>
                     </div>
 
                     <div class="d-flex flex-column justify-content-center align-items-center">
-                        <p class="fw-bold mb-3 fs-large"><span data-i18n="classroom.modals.addStudent.OptionByCSV" >Vous pouvez ajouter vos élèves via un fichier CSV</span></p>
-                        <button class="btn c-btn-primary" onclick="openCsvModal();">
-                            <span data-i18n="[html]classroom.modals.addStudent.addStudentByCsvButtonWithImg"><i class="fas fa-file-csv me-2"></i>Ajouter un fichier d'apprenants (.csv)</span>
+                        <h3 class="fw-bold mb-3 fs-large"><span data-i18n="classroom.modals.addStudent.OptionByCSV">Vous pouvez ajouter vos élèves via un fichier CSV</span></h3>
+                        <button class="btn c-btn-primary" onclick="openCsvModal();" aria-label="Ajouter des apprenants via un fichier CSV">
+                            <span data-i18n="[html]classroom.modals.addStudent.addStudentByCsvButtonWithImg"><i class="fas fa-file-csv me-2" aria-hidden="true"></i>Ajouter un fichier d'apprenants (.csv)</span>
                         </button>
                     </div>
-                </div>
-                    `,
+                </div>`,
         footer: ``
     },
     'manager-create-group': {
@@ -972,7 +973,7 @@ const classroomModals = {
                                 <div class="col-md">
                                     <label for="app_update_image" data-i18n="manager.table.image">Image</label>
                                     <input type="text" class="form-control" id="app_update_image">
-                                    <img src="" class="app_image_preview" id="app_update_image_preview">
+                                    <img src="" class="app_image_preview" id="app_update_image_preview" alt="Aperçu de l'image de l'application à modifier">
                                 </div>
                                 <div class="col-md">
                                     <label for="app_update_color" data-i18n="manager.table.color">Color</label>
@@ -1055,7 +1056,7 @@ const classroomModals = {
                                 <div class="col-md">
                                     <label for="app_create_image" data-i18n="manager.table.image">Image</label>
                                     <input type="text" class="form-control" id="app_create_image">
-                                    <img src="" class="app_image_preview" id="app_create_image_preview">
+                                    <img src="" class="app_image_preview" id="app_create_image_preview" alt="Aperçu de l'image de la nouvelle application">
                                 </div>
                                 <div class="col-md">
                                     <label for="app_create_color" data-i18n="manager.table.color">Color</label>

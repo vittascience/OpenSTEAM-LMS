@@ -8,9 +8,9 @@
 
         <div class="row">
             <div id="main-div-course" class="col-12 col-lg-8 mb-3" style="margin: 0 auto;overflow-wrap: break-word;">
-                
+
                 <h3 id="activity-title-course" class="activity-title"></h3>
-               
+
                 <!-- Used for status / date  -->
                 <p id="activity-details-course" class="activity-details"></p>
 
@@ -35,9 +35,9 @@
                 <!-- Used for content -->
                 <div id="activity-content-container-course" style="display:none;">
                     <label for="activity-content-course" id="label-activity-content-course" class="vitta-modal-title mt-2" data-i18n="newActivities.contentTitle">Contenu de l'activité</label>
-                    <p id="activity-content-course"></p>    
+                    <p id="activity-content-course"></p>
                 </div>
-                
+
                 <div id="activity-input-container-course" style="display:none;">
                     <label for="activity-input-course" class="vitta-modal-title mt-2" data-i18n="classroom.activities.putYourAnswer">Entrez votre réponse</label>
                     <textarea id="activity-input-course" style="height:400px"></textarea>
@@ -68,10 +68,10 @@
                 <div class="d-flex justify-content-center mt-2" id="course-btn-container" style="display:none;">
 
                     <div id="course-validate-buttons">
-                        <button class="btn c-btn-primary mx-1" id="course-validate-course" data-i18n="classroom.activities.validate" onclick="coursesManager.validateCourse(1)"> 
+                        <button class="btn c-btn-primary mx-1" id="course-validate-course" data-i18n="classroom.activities.validate" onclick="coursesManager.validateCourse(1)">
                             <i class="fas fa-chevron-right"></i>
                         </button>
-    
+
                         <button class="btn c-btn-grey mx-2" id="course-save-course" onclick="coursesManager.validateCourse(0)" data-i18n="classroom.activities.save-draft">
                             <i class="fas fa-chevron-right"></i>
                         </button>
@@ -80,11 +80,11 @@
                     <div id="course-options-course-buttons" style="display:none;">
 
                         <div class="row my-1 mx-3">
-                            <button class="btn c-btn-primary mx-1" id="course-next-course" onclick="coursesManager.readCourseFromStudent()"> 
+                            <button class="btn c-btn-primary mx-1" id="course-next-course" onclick="coursesManager.readCourseFromStudent()">
                                 Continuer le parcours >
                             </button>
                         </div>
-                        
+
                         <div class="row my-1 mx-3">
                             <button class="btn c-btn-grey mx-2" id="course-return" onclick="goBackToActivities()">
                                 Retourner au menu des activités

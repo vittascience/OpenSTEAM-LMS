@@ -69,23 +69,23 @@ class QuizManager {
             i++;
         } while ($(`#quiz-suggestion-${i}`).length > 0);
     
-        let divToAdd = `<div class="form-group c-primary-form" id="quiz-group-${i}">
+        let divToAdd = `<div class="form-group c-primary-form" id="quiz-group-${i}" role="group" aria-labelledby="quiz-label-suggestion-${i}">
                             <div class="row my-1">
                                 <div class="col">
                                     <label for="quiz-suggestion-${i}" id="quiz-label-suggestion-${i}">Proposition ${i}</label>
-                                    <button class="btn c-btn-secondary mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-${i}" onclick="quizManager.deleteQuizSuggestion(${i})">Delete</button>
+                                    <button class="btn c-btn-secondary mx-2" data-i18n="newActivities.delete" id="quiz-button-suggestion-${i}" onclick="quizManager.deleteQuizSuggestion(${i})" aria-label="Supprimer la proposition ${i}">Delete</button>
                                 </div>
 
                                 <div class="col-md-auto d-flex align-items-center">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}">
+                                        <input class="form-check-input" type="checkbox" id="quiz-checkbox-${i}" aria-label="Marquer comme réponse correcte pour la proposition ${i}">
                                         <label class="form-check-label" for="quiz-checkbox-${i}" data-i18n="classroom.activities.correctAnswer">
                                             Réponse correcte
                                         </label>
                                     </div>
                                 </div>
                             </div>
-                            <textarea id="quiz-suggestion-${i}" style="height:100px"></textarea>
+                            <textarea id="quiz-suggestion-${i}" style="height:100px" aria-label="Contenu de la proposition ${i}"></textarea>
                         </div>`;
 
         $('#quiz-suggestions-container').append(divToAdd);
@@ -280,20 +280,42 @@ class QuizManager {
 
         if (doable) {
             for (let i = 1; i < data.length+1; i++) {
-                content += ` <div class="col-12 col-lg-5 form-check quiz-form-check" id="qcm-doable-${i}${previewId}">
-                                <input class="form-check-input" type="checkbox" id="student-quiz-checkbox${id != null ? "-"+id : ""}-${i}${previewId}" ${data[i-1].isCorrect ? "checked" : ""}>
-                                <label class="form-check-label" data-raw="${data[i-1].inputVal}" for="student-quiz-checkbox${id != null ? "-"+id : ""}-${i}${previewId}" id="${correctionId}student-quiz-suggestion${id != null ? "-"+id : ""}-${i}${previewId}">${bbcodeContentIncludingMathLive(data[i-1].inputVal)}</label>
+                content += ` <div class="col-12 col-lg-5 form-check quiz-form-check" id="qcm-doable-${i}${previewId}" role="group" aria-labelledby="quiz-question-${i}${previewId}">
+                                <input class="form-check-input" type="checkbox" 
+                                    id="student-quiz-checkbox${id != null ? "-"+id : ""}-${i}${previewId}" 
+                                    ${data[i-1].isCorrect ? "checked" : ""}
+                                    aria-describedby="quiz-description-${i}${previewId}">
+                                <label class="form-check-label" 
+                                    data-raw="${data[i-1].inputVal}" 
+                                    for="student-quiz-checkbox${id != null ? "-"+id : ""}-${i}${previewId}" 
+                                    id="${correctionId}student-quiz-suggestion${id != null ? "-"+id : ""}-${i}${previewId}"
+                                    role="presentation">
+                                    ${bbcodeContentIncludingMathLive(data[i-1].inputVal)}
+                                </label>
+                                <span id="quiz-description-${i}${previewId}" class="sr-only">Option ${i} de ${data.length}</span>
                             </div>`;
             }
         } else {
             for (let i = 1; i < data.length+1; i++) {
-                content += ` <div class="col-12 col-lg-5 form-check quiz-form-check" id="qcm-not-doable-${i}">
-                                <input class="form-check-input" type="checkbox" id="student-quiz-checkbox${id != null ? "-"+id : ""}-${i}" ${data[i-1].isCorrect ? "checked" : ""} onclick="return false">
-                                <label class="form-check-label" data-raw="${data[i-1].inputVal}" for="student-quiz-checkbox${id != null ? "-"+id : ""}-${i}" id="${correctionId}student-quiz-suggestion${id != null ? "-"+id : ""}-${i}">${bbcodeContentIncludingMathLive(data[i-1].inputVal)}</label>
+                content += ` <div class="col-12 col-lg-5 form-check quiz-form-check" id="qcm-not-doable-${i}" role="group" aria-labelledby="quiz-question-${i}">
+                                <input class="form-check-input" type="checkbox" 
+                                    id="student-quiz-checkbox${id != null ? "-"+id : ""}-${i}" 
+                                    ${data[i-1].isCorrect ? "checked" : ""} 
+                                    onclick="return false"
+                                    aria-describedby="quiz-description-${i}"
+                                    aria-disabled="true">
+                                <label class="form-check-label" 
+                                    data-raw="${data[i-1].inputVal}" 
+                                    for="student-quiz-checkbox${id != null ? "-"+id : ""}-${i}" 
+                                    id="${correctionId}student-quiz-suggestion${id != null ? "-"+id : ""}-${i}"
+                                    role="presentation">
+                                    ${bbcodeContentIncludingMathLive(data[i-1].inputVal)}
+                                </label>
+                                <span id="quiz-description-${i}" class="sr-only">Option ${i} de ${data.length} (non modifiable)</span>
                             </div>`;
             }
         }
-        return `<div class="d-flex flex-row flex-wrap justify-content-around w-100">${content}</div>`;
+        return `<div class="d-flex flex-row flex-wrap justify-content-around w-100" role="list" aria-label="Options du quiz">${content}</div>`;
     }
 
     deleteQcmFields() {

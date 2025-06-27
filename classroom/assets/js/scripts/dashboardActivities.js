@@ -30,17 +30,24 @@ function activityItem(activity, state) {
     }
 
     let dateEndNotif = activity.activity.isLti ? "style='display:none'" : "";
-    let html = `<div class="activity-item">
-    <div>
-                    <div class="activity-card ${activityType} ">
-                        
-                        <div class="${activityStatus}" data-bs-toggle="tooltip" title="${activityStatusTitle}"><div class="ribbon__content"></div></div>
-                        <div class="activity-card-top">
-                            ${activity.activity.isAutocorrect ? `<img src='${_PATH}assets/media/auto-icon.svg' title='Auto'>` : "" }
-                        </div>
-                        <div class="activity-card-mid"></div>
-                        <div class="activity-card-bot">
-                            <div class="info-tutorials" ${dateEndNotif} data-id="${activity.activity.id}"  data-state="${state}">`
+    let html = `
+      <div class="activity-item" 
+           role="button" 
+           tabindex="0" 
+           aria-label="Activité ${activity.activity.title}"
+           onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-activity-panel', 'dashboard-activities', 'WK${activity.activity.id}', '${state}'); }">
+        <div>
+          <div class="activity-card ${activityType} ">                
+            <div class="${activityStatus}" data-bs-toggle="tooltip" title="${activityStatusTitle}">
+              <div class="ribbon__content"></div>
+            </div>
+            <div class="activity-card-top">
+              ${activity.activity.isAutocorrect ? `<img src='${_PATH}assets/media/auto-icon.svg' title='Auto' alt='Activité auto-corrigée'>` : "" }
+            </div>
+            <div class="activity-card-mid"></div>
+            <div class="activity-card-bot">
+            <div class="info-tutorials" ${dateEndNotif} data-id="${activity.activity.id}"  data-state="${state}">
+        `
 
     if (activity.dateEnd != undefined) {
         html += `<span> ` + i18next.t('classroom.activities.dateBefore') + ` ${formatDay(activity.dateEnd)} <i class="fas fa-stopwatch"></i></span>`
@@ -54,20 +61,24 @@ function activityItem(activity, state) {
 }
 
 function courseItem(course, state) {
-
     let activityStatus = "";
     //let dateEndNotif = activity.activity.isLti ? "style='display:none'" : "";
-    let html = `<div class="course-item" onclick="coursesManager.${course.course.format == 1 ? "readCourseOnePage" : "readCourseFromStudent"}('${course.course.id}', '${course.id}')">
+    let html = `<div class="course-item" 
+                     role="button" 
+                     tabindex="0" 
+                     aria-label="Parcours ${course.course.title}"
+                     onclick="coursesManager.${course.course.format == 1 ? "readCourseOnePage" : "readCourseFromStudent"}('${course.course.id}', '${course.id}')"
+                     onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); coursesManager.${course.course.format == 1 ? "readCourseOnePage" : "readCourseFromStudent"}('${course.course.id}', '${course.id}'); }">
                 <div>
                     <div class="course-card">        
                         <div class="${activityStatus}" data-bs-toggle="tooltip" title="${course.course.title}"><div class="ribbon__content"></div></div>
-                        <img src="${_PATH}assets/media/cards/card-course.png" class="course-card-img">
+                        <img src="${_PATH}assets/media/cards/card-course.png" class="course-card-img" alt="Icône de parcours">
                         <div class="course-card-info">
                             <div class="course-card-top">
                                 
                             </div>
                             <div class="course-card-mid">
-                                <span class="course-card-activities-count">${course.activities ? course.activities.length : 0}</span>
+                                <span class="course-card-activities-count" aria-label="${course.activities ? course.activities.length : 0} activités">${course.activities ? course.activities.length : 0}</span>
                             </div>
                             <div class="course-card-bot">
                                 <div class="info-tutorials" data-id="${course.course.id}"  data-state="${state}">`
@@ -84,12 +95,15 @@ function courseItem(course, state) {
 }
 
 function teacherSandboxItem(json) {
-
-    let html = `<div class="sandbox-item sandbox-teacher">
+    let html = `<div class="sandbox-item sandbox-teacher" 
+                     role="button" 
+                     tabindex="0" 
+                     aria-label="Projet ${decodeURI(json.name)}"
+                     onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); window.open('/${json.interface}/?link=${json.link}&embed=1', '_blank'); }">
                     <div class="sandbox-card sandbox-card-` + json.interface + `" data-id="${json.id}" data-href="/` + json.interface + `/?link=` + json.link + `&embed=1">
                         <div class="sandbox-card-top">
-                        <i class="fas fa-share fa-2x" style="grid-column-start: 1; grid-column-end: 1;" data-link="${json.link}" ></i>      
-                            <div class="dropdown"><i class="fas fa-cog fa-2x" style="grid-column-start: 3; grid-column-end: 3;" type="button" id="dropdown-teacherSandboxItem-${json.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                        <i class="fas fa-share fa-2x" style="grid-column-start: 1; grid-column-end: 1;" data-link="${json.link}" aria-label="Partager" role="button" tabindex="0"></i>      
+                            <div class="dropdown"><i class="fas fa-cog fa-2x" style="grid-column-start: 3; grid-column-end: 3;" type="button" id="dropdown-teacherSandboxItem-${json.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Options" role="button" tabindex="0"></i>
                     <div class="dropdown-menu" aria-labelledby="dropdown-teacherSandboxItem-${json.id}">`
     if (UserManager.getUser().isRegular) {
         html += `<li class="classroom-clickable col-12 dropdown-item" onclick="integrateProject('${location.origin}/${json.interface}/?link=${json.link}&embed=1')" href="#">` + i18next.t('classroom.activities.integrate') + `</li>`
@@ -114,77 +128,120 @@ function teacherActivityItem(activity, displayStyle) {
     }
     let content = "";
     if (displayStyle == "card") {
-        content = `<div class="activity-item activity-teacher" data-id="${activity.id}">
-                        <div>
-                            <div class="activity-card ${activityType}">
-                                <div class="activity-card-top">
-                                ${activity.isAutocorrect ? `<img src='${_PATH}assets/media/auto-icon.svg' title='Auto'>` : "" }
-                                <div class="dropdown">
-                                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-activityItem-${activity.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    </i>
-                                    <div class="dropdown-menu" aria-labelledby="dropdown-activityItem-${activity.id}" data-id="${activity.id}">
-                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
-                                        <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
-                                        <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
-                                        <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id}, true)" href="#">${capitalizeFirstLetter(i18next.t('words.rename'))}</li>
-                                        <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
-                                        <li class=" classroom-clickable col-12 dropdown-item" onclick="exportActivityToJSON(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('newActivities.export'))}</li>
-                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
-                                    </div>
-                                </div> 
-                            </div>
-                            <div class="activity-card-mid">
-                            </div>
-                            <div class="activity-card-bot">
-                                <div class="info-tutorials" data-id="${activity.id}">
-                                </div>
-                            </div>
-                            </div>
-                            <h3 data-bs-toggle="tooltip" title="${activity.title}" class="activity-item-title">${activity.title}</h3>
-                        </div>
-                    </div>`
+        content = `
+        <div class="activity-item activity-teacher" data-id="${activity.id}" role="article">
+            <div style="position: relative;">
+                <div class="activity-card ${activityType}" 
+                    role="button"
+                    tabindex="0"
+                    aria-label="${activity.title}"
+                    onclick="if(!event.target.closest('.dropdown')) { this.click(); }"
+                    onkeydown="if((event.key==='Enter'||event.key===' ') && !event.target.closest('.dropdown')) { event.preventDefault(); this.click(); }"
+                >
+                    <div class="activity-card-top">
+                        ${activity.isAutocorrect ? `<img src='${_PATH}assets/media/auto-icon.svg' title='${i18next.t('words.autocorrect')}' alt='${i18next.t('words.autocorrect')}' style="padding-right: 35px;">` : ""}
+                    </div>
+                    <div class="activity-card-mid"></div>
+                    <div class="activity-card-bot">
+                        <div class="info-tutorials" data-id="${activity.id}"></div>
+                    </div>
+                </div>
+                <div class="dropdown" style="position: absolute; top: 10px; right: 10px; z-index: 10;">
+                    <button
+                        type="button"
+                        id="dropdown-activityItem-${activity.id}"
+                        data-bs-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        aria-label="${i18next.t('words.options')} ${activity.title}"
+                        onclick="event.stopPropagation()"
+                        style="padding: 0; border: none; background: transparent; box-shadow: none; outline: none;">
+                        <i class="fas fa-cog fa-2x"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown-activityItem-${activity.id}" role="menu">
+                        <button class="dropdown-item classroom-clickable col-12" role="menuitem" onclick="attributeActivity(${activity.id})">${capitalizeFirstLetter(i18next.t('words.attribute'))}</button>
+                        <button class="dropdown-item classroom-clickable col-12" role="menuitem" onclick="createActivity(null,${activity.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</button>
+                        <button class="dropdown-item classroom-clickable col-12" role="menuitem" onclick="activityModify(${activity.id})">${capitalizeFirstLetter(i18next.t('words.modify'))}</button>
+                        <button class="dropdown-item classroom-clickable col-12" role="menuitem" onclick="activityModify(${activity.id}, true)">${capitalizeFirstLetter(i18next.t('words.rename'))}</button>
+                        <button class="dropdown-item modal-activity-delete classroom-clickable col-12" role="menuitem">${capitalizeFirstLetter(i18next.t('words.delete'))}</button>
+                        <button class="dropdown-item classroom-clickable col-12" role="menuitem" onclick="exportActivityToJSON(${activity.id})">${capitalizeFirstLetter(i18next.t('newActivities.export'))}</button>
+                        <button class="dropdown-item classroom-clickable col-12" role="menuitem" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</button>
+                    </ul>
+                </div>
+                <h3 class="activity-item-title" data-bs-toggle="tooltip" title="${activity.title}" aria-label="${activity.title}">${activity.title}</h3>
+            </div>
+        </div>
+                  `
     } else if (displayStyle == "list") {
+        let activityImg = foldersManager.icons.hasOwnProperty(activity.type) ? 
+            `<img class="list-item-img" src="${foldersManager.icons[activity.type]}" alt="${activity.type}" class="folder-icons">` : 
+            "<span class='list-item-img'> <div class='list-item-no-icon'><i class='fas fa-laptop'></i></div></span>";
 
-        let activityImg = foldersManager.icons.hasOwnProperty(activity.type) ? `<img class="list-item-img" src="${foldersManager.icons[activity.type]}" alt="${activity.type}" class="folder-icons">` : "<span class='list-item-img'> <div class='list-item-no-icon'><i class='fas fa-laptop'></i></div></span>";
-        /* let activityTypeImg = activity.type != null && "" ?  */
-        content = `<div class="row activity-item-list" data-id="${activity.id}">
+        content = `<div class="row activity-item-list" 
+                    data-id="${activity.id}"
+                    role="article"
+                    aria-label="${i18next.t('words.activity')} ${activity.title}">
         <div class="container-draggable">
             <div class="activity-list">
-                <div class="activity-list-icon">
+                <div class="activity-list-icon" role="img" aria-label="${activity.type || i18next.t('words.activity')}">
                     ${activityImg}
                 </div>
 
                 <div class="activity-list-center">
-                    <div class="activity-list-title">
+                    <div class="activity-list-title" role="heading" aria-level="3">
                         ${activity.title}
                     </div>
                     <div class="activity-list-info">
                             ${activity.isAutocorrect ? `<div class="activity-list-auto">
-                                <img src='${_PATH}assets/media/auto-icon-grey.svg' title='Auto' onload="SVGInject(this)">
+                                <img src='${_PATH}assets/media/auto-icon-grey.svg' 
+                                    title='${i18next.t('words.autocorrect')}' 
+                                    alt='${i18next.t('words.autocorrect')}'
+                                    style="padding-right: 35px;"
+                                    onload="SVGInject(this)">
                             </div>` 
                             : "" }
                     </div>
                 </div>
 
-                
-                
                 <div class="activity-list-options">
-                    <div class="activity-list-options dropdown">
-                        <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-activityItem-${activity.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="activity-list-options dropdown" role="menu">
+                        <i class="fas fa-cog fa-2x" 
+                            role="button"
+                            aria-label="${i18next.t('words.options')} ${activity.title}"
+                            type="button" 
+                            id="dropdown-list-activityItem-${activity.id}" 
+                            data-bs-toggle="dropdown" 
+                            aria-haspopup="true" 
+                            aria-expanded="false"
+                            onkeydown="if(event.key === 'Enter'){ event.preventDefault(); event.stopPropagation(); this.click(); }"
+                            tabindex="0">
                         </i>
-                        <div class="dropdown-menu" aria-labelledby="dropdown-list-activityItem-${activity.id}" data-id="${activity.id}">
-                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="attributeActivity(${activity.id})" style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</li>
-                            <li class="dropdown-item classroom-clickable col-12" href="#" onclick="createActivity(null,${activity.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</li>
-                            <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('words.modify'))}</li>
-                            <li class=" classroom-clickable col-12 dropdown-item" onclick="activityModify(${activity.id}, true)" href="#">${capitalizeFirstLetter(i18next.t('words.rename'))}</li>
-                            <li class="dropdown-item modal-activity-delete classroom-clickable col-12" href="#">${capitalizeFirstLetter(i18next.t('words.delete'))}</li>
-                            <li class=" classroom-clickable col-12 dropdown-item" onclick="exportActivityToJSON(${activity.id})" href="#">${capitalizeFirstLetter(i18next.t('newActivities.export'))}</li>
-                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')"></li>
+                        <div class="dropdown-menu" 
+                            role="menu"
+                            aria-labelledby="dropdown-list-activityItem-${activity.id}" 
+                            data-id="${activity.id}">
+                            <button class="classroom-clickable col-12 dropdown-item" 
+                                role="menuitem"
+                                onclick="event.stopPropagation(); attributeActivity(${activity.id})" 
+                                style="border-bottom:2px solid rgba(0,0,0,.15">${capitalizeFirstLetter(i18next.t('words.attribute'))}</button>
+                            <button class="dropdown-item classroom-clickable col-12" 
+                                role="menuitem"
+                                onclick="event.stopPropagation(); createActivity(null,${activity.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</button>
+                            <button class="classroom-clickable col-12 dropdown-item" 
+                                role="menuitem"
+                                onclick="event.stopPropagation(); activityModify(${activity.id})">${capitalizeFirstLetter(i18next.t('words.modify'))}</button>
+                            <button class="dropdown-item modal-activity-delete classroom-clickable col-12" 
+                                role="menuitem">${capitalizeFirstLetter(i18next.t('words.delete'))}</button>
+                            <button class="classroom-clickable col-12 dropdown-item" 
+                                role="menuitem"
+                                onclick="event.stopPropagation(); exportActivityToJSON(${activity.id})">${capitalizeFirstLetter(i18next.t('newActivities.export'))}</button>
+                            <button class="classroom-clickable col-12 dropdown-item" 
+                                role="menuitem"
+                                onclick="event.stopPropagation(); foldersManager.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</button>
                         </div>
                     </div> 
                 </div>
                 <div class="info-tutorials d-none" data-id="${activity.id}"></div>
-                
             </div>
         </div>
     </div>`
@@ -193,55 +250,89 @@ function teacherActivityItem(activity, displayStyle) {
 }
 
 function teacherFolder(folder, displayStyle) {
-    let content = "";
-    if (displayStyle == "card") {
-        content = `<div class="folder-item" data-id="${folder.id}">
-                    <div> 
-                        <div class="folder-card" data-id="${folder.id}">
-                            <img class="folder-close-icon" src="${_PATH}assets/media/folders/folder_close_icon.svg" onload="SVGInject(this)">
-                            <img class="folder-open-icon" src="${_PATH}assets/media/folders/folder_open_icon.svg" onload="SVGInject(this)">
-                            <div class="folder-card-top">
-                                <div class="dropdown">
-                                    <i class="fas fa-cog fa-2x" type="button" id="dropdown-folder-${folder.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    </i>
-                                    <div class="dropdown-menu" aria-labelledby="dropdown-folder-${folder.id}" data-id="${folder.id}">
-                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.updateFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.update'))}</li>
-                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${folder.id}, 'folder')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
-                                        <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.deleteFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.delete'))}</li>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="folder-card-mid">
-                            </div>
-                            <div class="folder-card-bot">
-                                <div class="info-tutorials" data-id="${folder.id}">
-                                </div>
-                            </div>
-                        </div>
-                        <h3 data-bs-toggle="tooltip" title="${folder.name}" class="activity-item-title">${folder.name}</h3>
-                    </div>
-                </div>`
+  let content = "";
+  if (displayStyle == "card") {
+      content = `
+      <div class="folder-item" data-id="${folder.id}" aria-label="Dossier ${folder.name}" tabindex="-1">
+          <div style="position: relative;">
+              <div class="folder-card" role="button" data-id="${folder.id}" tabindex="0"
+                  aria-label="${i18next.t('classroom.activities.seekFolder')} ${folder.name}"
+                  onclick="if(!event.target.closest('.dropdown')) { this.click(); }"
+                  onkeydown="if((event.key==='Enter'||event.key===' ') && !event.target.closest('.dropdown')) { event.preventDefault(); this.click(); }"
+              >
+                  <img class="folder-close-icon" src="${_PATH}assets/media/folders/folder_close_icon.svg" onload="SVGInject(this)">
+                  <img class="folder-open-icon" src="${_PATH}assets/media/folders/folder_open_icon.svg" onload="SVGInject(this)">
+                  <div class="folder-card-top">
+                  </div>
+                  <div class="folder-card-mid"></div>
+                  <div class="folder-card-bot">
+                      <div class="info-tutorials" data-id="${folder.id}"></div>
+                  </div>
+              </div>
+              <div class="dropdown" style="position: absolute; top: 10px; right: 10px; z-index: 10;">
+                  <button
+                    class="btn btn-link p-0"
+                    type="button"
+                    id="dropdown-folder-${folder.id}"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    aria-label="${i18next.t('words.options')} ${folder.name}"
+                    onclick="event.stopPropagation()"
+                    style="border: none; background: none; color: inherit;">
+                    <i class="fas fa-cog fa-2x" aria-hidden="true"></i>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdown-folder-${folder.id}" role="menu">
+                      <button class="dropdown-item classroom-clickable col-12" role="menuitem" onclick="event.stopPropagation(); foldersManager.updateFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.update'))}</button>
+                      <button class="dropdown-item classroom-clickable col-12" role="menuitem" onclick="event.stopPropagation(); foldersManager.moveToFolderModal(${folder.id}, 'folder')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</button>
+                      <button class="dropdown-item classroom-clickable col-12" role="menuitem" onclick="event.stopPropagation(); foldersManager.deleteFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.delete'))}</button>
+                  </ul>
+              </div>
+              <h3 data-bs-toggle="tooltip" title="${folder.name}" class="activity-item-title">${folder.name}</h3>
+          </div>
+      </div>
+      `
     } else if (displayStyle == "list") {
-        content = `<div class="row folder-item-list" data-id="${folder.id}">
+        content = `<div class="row folder-item-list" 
+                        data-id="${folder.id}" 
+                        role="button" 
+                        tabindex="0" 
+                        aria-label="Dossier ${folder.name}"
+                        onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); foldersManager.seekFolder(${folder.id}); }">
                         <div class="container-draggable">
                             <div class="folder-list" data-id="${folder.id}">
                                 <div class="folder-list-icon">
-                                    <img class="list-item-img list-folder-img-manager" src="${_PATH}assets/media/folders/folder_close_icon.svg" alt="folder_close" class="folder-icons" onload="SVGInject(this)">
+                                    <img class="list-item-img list-folder-img-manager" src="${_PATH}assets/media/folders/folder_close_icon.svg" alt="Icône de dossier" class="folder-icons" onload="SVGInject(this)">
                                 </div>
                                 
-                                <div class="folder-list-title">
+                                <div class="folder-list-title" role="heading" aria-level="3">
                                     ${folder.name}
                                 </div>
 
-                                <div class="folder-list-options ">
-                                    <div class="folder-list-options dropdown">
-                                        <i class="fas fa-cog fa-2x" type="button" id="dropdown-list-folder-${folder.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        </i>
-                                        <div class="dropdown-menu" aria-labelledby="dropdown-list-folder-${folder.id}" data-id="${folder.id}">
-                                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.updateFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.update'))}</li>
-                                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.moveToFolderModal(${folder.id}, 'folder')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</li>
-                                            <li class="classroom-clickable col-12 dropdown-item" href="#" onclick="foldersManager.deleteFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.delete'))}</li>
-                                        </div>
+                                <div class="folder-list-options dropdown">
+                                    <button class="btn btn-link p-0" 
+                                        type="button" 
+                                        id="dropdown-list-folder-${folder.id}" 
+                                        data-bs-toggle="dropdown" 
+                                        aria-haspopup="true" 
+                                        aria-expanded="false"
+                                        aria-label="${i18next.t('words.options')} ${folder.name}"
+                                        style="border: none; background: none; color: inherit;">
+                                        <i class="fas fa-cog fa-2x" aria-hidden="true"></i>
+                                    </button>
+                                    <div class="dropdown-menu" 
+                                        role="menu" 
+                                        aria-labelledby="dropdown-list-folder-${folder.id}" 
+                                        data-id="${folder.id}">
+                                        <button class="classroom-clickable col-12 dropdown-item" 
+                                            role="menuitem" 
+                                            onclick="event.stopPropagation(); foldersManager.updateFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.update'))}</button>
+                                        <button class="classroom-clickable col-12 dropdown-item" 
+                                            role="menuitem" 
+                                            onclick="event.stopPropagation(); foldersManager.moveToFolderModal(${folder.id}, 'folder')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</button>
+                                        <button class="classroom-clickable col-12 dropdown-item" 
+                                            role="menuitem" 
+                                            onclick="event.stopPropagation(); foldersManager.deleteFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.delete'))}</button>
                                     </div>
                                 </div>
                             </div>
@@ -262,28 +353,61 @@ function classeItem(classe, nbStudents, students) {
         }
         return count
     }
+    
     let maxAct = maxLength(students)
     let remainingCorrections = getRemainingCorrections(students);
-    let remainingCorrectionsSpanElt = remainingCorrections ? `<span class="results-correcting c-text-secondary"><i class="fas fa-pen"></i></i> ${remainingCorrections}</span>` : '';
-    let html = `<div class="class-item"><div class="class-card">
-                <div class="class-card-top"  data-id="${classe.id}" data-link="${classe.link}">
-                <span><i class="fas fa-user fa-2x"></i></i> ${nbStudents}</span>
-                ${remainingCorrectionsSpanElt}
-                <div class="dropdown"><i class="fas fa-cog fa-2x" type="button" id="dropdown-classeItem-${classe.id}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                    <div class="dropdown-menu" aria-labelledby="dropdown-classeItem-${classe.id}">
-                <li class="modal-classroom-modify classroom-clickable col-12 dropdown-item" href="#">` + capitalizeFirstLetter(i18next.t('words.modify')) + `</li>
-                <li class="dropdown-item modal-classroom-delete classroom-clickable col-12" href="#">` + capitalizeFirstLetter(i18next.t('words.delete')) + `</li>
-              </div>
-              </div>
-                </div>`
+
+    let remainingCorrectionsSpanElt = remainingCorrections ? `<span class="results-correcting c-text-secondary" role="status" aria-label="${remainingCorrections} corrections en attente"><i class="fas fa-pen" aria-hidden="true"></i> ${remainingCorrections}</span>` : '';
+    let html = `<div class="class-item" role="listitem">
+      <div class="class-card" style="position: relative;">
+        <div 
+            role="button"
+            tabindex="0"
+            aria-label="Classe ${classe.name} avec ${nbStudents} élèves"
+            onclick="if(!event.target.closest('.dropdown')) { this.click(); }"
+            onkeydown="if(event.key==='Enter'||event.key===' ') { if(!event.target.closest('.dropdown')) { event.preventDefault(); this.click(); } }">
+          <div class="class-card-top" data-id="${classe.id}" data-link="${classe.link}">
+            <span role="status" aria-label="${nbStudents} élèves"><i class="fas fa-user fa-2x" aria-hidden="true"></i> ${nbStudents}</span>
+            ${remainingCorrectionsSpanElt}
+          </div>`
 
     html += `<div class="class-card-mid">
                 <h3 class="activity-item-title">${classe.name}</h3>
             </div>`
+
     html += `<div class="class-card-bot">
-                ${i18next.t('classroom.activities.nbActivities', {'nbActi': maxAct})}
-            </div>`
-    html += `</div></div>`
+                <span role="status" aria-label="${i18next.t('classroom.activities.nbActivities', {'nbActi': maxAct})}">
+                    ${i18next.t('classroom.activities.nbActivities', {'nbActi': maxAct})}
+                </span>
+            </div>
+        </div>
+        <div class="dropdown class-card-dropdown" style="position: absolute; top: 10px; right: 10px; z-index: 10;">
+          <button class="btn btn-link p-0" 
+              type="button"
+              id="dropdown-classeItem-${classe.id}" 
+              data-bs-toggle="dropdown" 
+              aria-haspopup="true" 
+              aria-expanded="false"
+              aria-label="Options de la classe"
+              onclick="event.stopPropagation();"
+              style="border: none; background: none; color: inherit;">
+            <i class="fas fa-cog fa-2x" aria-hidden="true"></i>
+          </button>
+          <div class="dropdown-menu" 
+              role="menu" 
+              aria-labelledby="dropdown-classeItem-${classe.id}">
+              <button class="modal-classroom-modify classroom-clickable col-12 dropdown-item" 
+                  role="menuitem" 
+                  tabindex="0"
+                  onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">${capitalizeFirstLetter(i18next.t('words.modify'))}</button>
+              <button class="dropdown-item modal-classroom-delete classroom-clickable col-12" 
+                  role="menuitem" 
+                  tabindex="0"
+                  onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">${capitalizeFirstLetter(i18next.t('words.delete'))}</button>
+          </div>
+        </div>
+      </div>
+    </div>`
 
     return html;
 }
@@ -328,11 +452,20 @@ function classeList(classe, ref = null) {
     let html = `<div class="col-10 student-list-row">
             <div class="c-checkbox">
                 <input type="checkbox" id="class-${classe.classroom.id}" value="${classe.classroom.id}" ${checkedClass} class="list-students-classroom">
-                <label for="class-${classe.classroom.id}">${classe.classroom.name}</label>
+                <label for="class-${classe.classroom.id}" 
+                    tabindex="0" 
+                    aria-describedby="class-status-${classe.classroom.id}"
+                    onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); document.getElementById('class-${classe.classroom.id}').click(); }">${classe.classroom.name}</label>
+                <span id="class-status-${classe.classroom.id}" class="sr-only">${checkedClass ? i18next.t('words.selected') : i18next.t('words.notSelected')}</span>
             </div>
 
-            <button class="student-list-button" data-id="${classe.classroom.id}">
-                <i class="fas fa-chevron-right"></i>
+            <button class="student-list-button" 
+                data-id="${classe.classroom.id}"
+                aria-label="${i18next.t('words.show')} ${i18next.t('words.students')} ${classe.classroom.name}"
+                aria-expanded="false"
+                tabindex="0"
+                onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); $(this).click(); }">
+                <i class="fas fa-chevron-right" aria-hidden="true"></i>
             </button>`
     html += `<div class="student-list" id="student-list-${classe.classroom.id}" style="display:none;">`
 
@@ -345,10 +478,14 @@ function classeList(classe, ref = null) {
 
         html += `<div class="c-checkbox ms-3 student-attribute-form-row">
             <input type="checkbox" id="student-${student.user.id}" value="${student.user.id}" class="student-id" ${checked}>
-            <label class="mb-0" for="student-${student.user.id}">
+            <label class="mb-0" for="student-${student.user.id}"
+                tabindex="0" 
+                aria-describedby="student-status-${student.user.id}"
+                onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); document.getElementById('student-${student.user.id}').click(); }">
                 <img class="ms-1" src="${_PATH}assets/media/alphabet/${getFirstLetterOfPseudo(student.user.pseudo)}.png" alt="Photo de profil"></img>
                 <span>${student.user.pseudo}</span>
             </label>
+            <span id="student-status-${student.user.id}" class="sr-only">${checked ? i18next.t('words.selected') : i18next.t('words.notSelected')}</span>
         </div>`
     });
     html += `</div></div>`
@@ -429,16 +566,29 @@ $(document).on('keyup', function (e) {
     }
 });
 
-$('body').on('click', '.list-students-classroom', function () {
-    let isChecked = $(this).is(':checked')
+$('body').on('click change', '.list-students-classroom', function () {
+    let isChecked = $(this).is(':checked');
+    let classId = $(this).attr('id').replace('class-', '');
+    let $statusSpan = $(`#class-status-${classId}`);
+    
+    $statusSpan.text(isChecked ? i18next.t('words.selected') : i18next.t('words.notSelected'));
+    
     let studentCheckbox = $(this).parent().parent().find('.student-list input')
     studentCheckbox.each(function () {
         if (isChecked) {
-            $(this).prop('checked', true).change();;
+            $(this).prop('checked', true).change();
         } else {
-            $(this).prop('checked', false).change();;
+            $(this).prop('checked', false).change();
         }
     });
+})
+
+$('body').on('click change', '.student-id', function () {
+    let isChecked = $(this).is(':checked');
+    let studentId = $(this).attr('id').replace('student-', '');
+    let $statusSpan = $(`#student-status-${studentId}`);
+    
+    $statusSpan.text(isChecked ? i18next.t('words.selected') : i18next.t('words.notSelected'));
 })
 
 $('body').on('click', '.activity-list, .activity-list-item, .activity-card, .activity-item .activity-item-title', function () {
@@ -612,44 +762,99 @@ function loadActivityForTeacher() {
         $('#label-activity-content').text(i18next.t("newActivities.contentTitle"));
     }
 
+    // Activity details section
+    const activityDetails = document.querySelector('#activity-details');
+    activityDetails.setAttribute('role', 'region');
+    activityDetails.setAttribute('aria-label', i18next.t("classroom.activities.activityDetails"));
 
     if (Activity.correction >= 1) {
-        $('#activity-details').html(i18next.t("classroom.activities.activityOfUser") + Activity.user.pseudo + i18next.t("classroom.activities.userSentOn") + formatHour(Activity.dateSend))
-        document.querySelector('#activity-details').innerHTML += `<br><img class="chrono-icon" src="${_PATH}assets/media/icon_time_spent.svg">${i18next.t('classroom.activities.timePassed')} ${formatDuration(Activity.timePassed)}, ${i18next.t("classroom.activities.numberOfTries")} ${Activity.tries}`;
+        activityDetails.innerHTML = `
+            <div role="status">
+                ${i18next.t("classroom.activities.activityOfUser")} 
+                <span class="student-name">${Activity.user.pseudo}</span> 
+                ${i18next.t("classroom.activities.userSentOn")} 
+                <time datetime="${Activity.dateSend}">${formatHour(Activity.dateSend)}</time>
+            </div>
+            <div role="status">
+                <img class="chrono-icon" src="${_PATH}assets/media/icon_time_spent.svg" alt="" aria-hidden="true">
+                ${i18next.t('classroom.activities.timePassed')} 
+                <time datetime="${Activity.timePassed}">${formatDuration(Activity.timePassed)}</time>, 
+                ${i18next.t("classroom.activities.numberOfTries")} 
+                <span class="tries-count">${Activity.tries}</span>
+            </div>`;
+
         if (Activity.autocorrection) {
-            $("#activity-auto-corrected-disclaimer").show();
+            $("#activity-auto-corrected-disclaimer")
+                .show()
+                .attr('role', 'alert')
+                .attr('aria-live', 'polite');
         }
     } else {
-        $('#activity-details').html(i18next.t("classroom.activities.noSend"))
+        activityDetails.innerHTML = `<div role="status">${i18next.t("classroom.activities.noSend")}</div>`;
     }
 
     let content = manageContentForActivity();
 
     let correction = ''
-    correction += `<h4 class="c-text-primary text-center font-weight-bold">${i18next.t('classroom.activities.bilan.results')}</h4>`
+    correction += `<h4 class="c-text-primary text-center font-weight-bold" role="heading" aria-level="2">${i18next.t('classroom.activities.bilan.results')}</h4>`
+    
     if (Activity.activity.isAutocorrect) {
-        correction += `<h6 class="c-text-secondary text-center">${i18next.t('classroom.activities.isAutocorrected')}</h6>`
+        correction += `<h6 class="c-text-secondary text-center" role="heading" aria-level="3">${i18next.t('classroom.activities.isAutocorrected')}</h6>`
     }
+
     if (UserManager.getUser().isRegular && Activity.correction > 0) {
-
-        correction += `<div class="giveNote-container">`
-
+        correction += `<div class="giveNote-container" role="radiogroup" aria-label="${i18next.t('classroom.activities.gradeSelection')}">`
         
-        
-        correction += `<label for="givenote-3" onclick="setNote(3)"><input type="radio" id="givenote-3" ${Activity.note == 3 ? "checked=checked" : ""} name="giveNote" value="3">${" " + i18next.t('classroom.activities.accept')}</label>`;
-        correction += `<label for="givenote-2" onclick="setNote(2)"><input type="radio" id="givenote-2" ${Activity.note == 2 ? "checked=checked" : ""} name="giveNote" value="2">${" " + i18next.t('classroom.activities.vgood')}</label>`;
-        correction += `<label for="givenote-1" onclick="setNote(1)"><input type="radio" id="givenote-1" ${Activity.note == 1 ? "checked=checked" : ""} name="giveNote" value="1">${" " + i18next.t('classroom.activities.good')}</label>`;
-        correction += `<label for="givenote-0" onclick="setNote(0)"><input type="radio" id="givenote-0" ${Activity.note == 0 ? "checked=checked" : ""} name="giveNote" value="0">${" " + i18next.t('classroom.activities.refuse')}</label>`;
-        // @updated
-        correction += `<label for="givenote-4" onclick="setNote(4)"><input type="radio" id="givenote-4" ${Activity.note == 4 ? "checked=checked" : ""} name="giveNote" value="4">${" " + i18next.t('classroom.activities.nnoted')}</label></div>`;
+        // Radio buttons for grading
+        const grades = [
+            { value: 3, label: 'classroom.activities.accept' },
+            { value: 2, label: 'classroom.activities.vgood' },
+            { value: 1, label: 'classroom.activities.good' },
+            { value: 0, label: 'classroom.activities.refuse' },
+            { value: 4, label: 'classroom.activities.nnoted' }
+        ];
 
-        correction += '<div id="commentary-panel" class="c-primary-form"><label>' + i18next.t("classroom.activities.comments") + '</label><textarea id="commentary-textarea" style="width:100%" rows="8">' + Activity.commentary + '</textarea></div>'
-        correction += '<button onclick="giveNote()" class="btn c-btn-primary btn-sm text-wrap w-100"><span class="text-wrap">' + i18next.t('classroom.activities.sendResults') + '<i class="fas fa-chevron-right"> </i></span></button>'
+        grades.forEach(grade => {
+            correction += `
+                <label for="givenote-${grade.value}" class="grade-option">
+                    <input type="radio" 
+                           id="givenote-${grade.value}" 
+                           name="giveNote" 
+                           value="${grade.value}"
+                           ${Activity.note == grade.value ? "checked" : ""}
+                           aria-label="${i18next.t(grade.label)}"
+                           onclick="setNote(${grade.value})">
+                    <span>${i18next.t(grade.label)}</span>
+                </label>`;
+        });
+
+        correction += `</div>`;
+
+        // Commentary section
+        correction += `
+            <div id="commentary-panel" class="c-primary-form" role="region" aria-label="${i18next.t('classroom.activities.comments')}">
+                <label for="commentary-textarea">${i18next.t("classroom.activities.comments")}</label>
+                <textarea id="commentary-textarea" 
+                          style="width:100%" 
+                          rows="8"
+                          aria-label="${i18next.t('classroom.activities.comments')}"
+                          aria-required="true">${Activity.commentary}</textarea>
+            </div>`;
+
+        // Submit button
+        correction += `
+            <button onclick="giveNote()" 
+                    class="btn c-btn-primary btn-sm text-wrap w-100"
+                    role="button"
+                    aria-label="${i18next.t('classroom.activities.sendResults')}">
+                <span class="text-wrap">
+                    ${i18next.t('classroom.activities.sendResults')}
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                </span>
+            </button>`;
     }
 
     injectContentForActivity(content, Activity.correction, Activity.activity.type, correction, isDoable);
-
-
     isTheActivityIsDoable(false);
 }
 
