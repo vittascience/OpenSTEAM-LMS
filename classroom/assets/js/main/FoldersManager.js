@@ -345,7 +345,7 @@ class FoldersManager {
     makeContentForTree(item) {
         let radioString = this.makeTreeWithOutInitialFolderAndChildren(item);
         let content = `<ul>
-                        ${radioString}
+                        <li>${radioString}</li>
                         ${this.createChildUl(item.id)}
                     </ul>`
         return content;
@@ -374,8 +374,7 @@ class FoldersManager {
             content = `<label>📁 - ${folder.name}</label>`;
         } else {
             content = `<input type="radio" name="tree-structure" id="${randomString}" data-id="${folder.id}">
-                                <label for="${randomString}"><i class="fas fa-folder-open folder-breadcrumb"></i> - ${folder.name}</label>
-                            </input>`;
+                       <label for="${randomString}"><i class="fas fa-folder-open folder-breadcrumb"></i> - ${folder.name}</label>`;
         }
         return content;
     }
