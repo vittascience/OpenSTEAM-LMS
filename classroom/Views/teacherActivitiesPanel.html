@@ -163,8 +163,14 @@
 
         <div class="section-facultative-options">
 
-            <div class="section-header-facultative-options" onclick="facultativeOptions()">
-                <i id="i-facultative-options" class="ms-2 fas fa-lg fa-chevron-up"></i>
+            <div class="section-header-facultative-options" 
+                 onclick="facultativeOptions()" 
+                 role="button" 
+                 tabindex="0" 
+                 aria-label="Développer ou réduire les options facultatives" 
+                 aria-expanded="false"
+                 onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); facultativeOptions(); }">
+                <i id="i-facultative-options" class="ms-2 fas fa-lg fa-chevron-up" aria-hidden="true"></i>
                 <h3 class="section-title-facultative-options" data-i18n="classroom.activities.facultative">Options facultatives</h3>
             </div>
 

@@ -245,7 +245,7 @@
     <div class="container">
         <div class="row mx-auto my-2 c-primary-form">
             <div class="col-xl-9 my-1 mx-auto">
-                <label data-i18n="classroom.activities.form.title.label">Titre : </label>
+                <label for="global_title" data-i18n="classroom.activities.form.title.label">Titre : </label>
                 <input class="w-100" type="text" id="global_title">
             </div>
 
@@ -262,8 +262,8 @@
 
         <div class="section-preview-activity" id="activity-preview-div">
 
-            <div class="section-header-preview-activity" onclick="activityPreviewToggler()">
-                <i id="i-activity-preview" class="ms-2 fas fa-lg fa-chevron-up"></i>
+            <div class="section-header-preview-activity" onclick="activityPreviewToggler()" tabindex="0" role="button" aria-label="Basculer la prévisualisation de l'activité" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); activityPreviewToggler(); }">
+                <i id="i-activity-preview" class="ms-2 fas fa-lg fa-chevron-up" aria-hidden="true"></i>
                 <h3 class="section-title-preview-activity" data-i18n="classroom.activities.previewActivity">preview-activity</h3>
             </div>
 

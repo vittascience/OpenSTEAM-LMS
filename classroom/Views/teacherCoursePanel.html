@@ -48,8 +48,8 @@
                     <span data-i18n="courses.addActivity">Ajouter une activité</span>
                 </button>
 
-                <button class="btn c-btn-secondary mx-1" id="course-create-activity">
-                    <span data-i18n="courses.createActivity" onclick="showExercicePanel()"><span class="me-1" data-i18n="classroom.activities.add">Créer une activité</span><i class="fas fa-chevron-right"></i>
+                <button class="btn c-btn-secondary mx-1" id="course-create-activity" onclick="showExercicePanel()">
+                    <span data-i18n="courses.createActivity"><span class="me-1" data-i18n="classroom.activities.add">Créer une activité</span><i class="fas fa-chevron-right"></i></span>
                 </button>
             </div>
 
@@ -343,8 +343,14 @@
 
         <div class="section-facultative-options">
 
-            <div class="section-header-facultative-options" onclick="coursesManager.facultativeOptions()">
-                <i id="i-course-options" class="ms-2 fas fa-lg fa-chevron-up"></i>
+            <div class="section-header-facultative-options" 
+                 onclick="coursesManager.facultativeOptions()" 
+                 role="button" 
+                 tabindex="0" 
+                 aria-label="Développer ou réduire les options facultatives" 
+                 aria-expanded="false"
+                 onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); coursesManager.facultativeOptions(); }">
+                <i id="i-course-options" class="ms-2 fas fa-lg fa-chevron-up" aria-hidden="true"></i>
                 <h3 class="section-title-facultative-options" data-i18n="classroom.activities.facultative">Options facultatives</h3>
             </div>
 

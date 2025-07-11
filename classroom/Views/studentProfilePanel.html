@@ -7,21 +7,49 @@
                 <!-- <span id="establishment-name"></span> -->
         </div>
 
-        <div id="classroom-dashboard-profile-stats">
-                <div style="grid-column: 1; grid-row: 1;" class="activity-panel-link"><span
-                                class="stats-secondary todo-activities"></span><span class="text-span-initial stats-description"
-                                data-i18n="[html]classroom.profil.todo"></span></div>
-                <div style="grid-column: 2; grid-row: 0;" class="activity-panel-link"><span
-                                class="stats-primary done-activities"></span><span class="text-span-initial stats-description"
-                                data-i18n="[html]classroom.profil.done"></span></div>
+        <div id="classroom-dashboard-profile-stats" role="region" aria-label="Statistiques des activités">
+                <div style="grid-column: 1; grid-row: 1;" 
+                     class="activity-panel-link" 
+                     role="button" 
+                     tabindex="0"
+                     aria-label="Activités à faire, 0 activités à faire"
+                     onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"
+                     onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities'); }">
+                    <span class="stats-secondary todo-activities" aria-hidden="true"></span>
+                    <span class="text-span-initial stats-description" data-i18n="[html]classroom.profil.todo"></span>
+                </div>
+                <div style="grid-column: 2; grid-row: 0;" 
+                     class="activity-panel-link" 
+                     role="button" 
+                     tabindex="0"
+                     aria-label="Activités terminées, 0 activités terminées"
+                     onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"
+                     onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities'); }">
+                    <span class="stats-primary done-activities" aria-hidden="true"></span>
+                    <span class="text-span-initial stats-description" data-i18n="[html]classroom.profil.done"></span>
+                </div>
         </div>
         <!-- <div id="space-return-button"></div> -->
 
-        <div class="d-flex flex-column" style="gap: 1.5em;">
-                <button class="btn mb-2 c-btn-outline-primary" id="settings-student"><span data-i18n="words.settings" class="text-capitalize me-1 text-span-initial"></span><i class="fas fa-cog"></i></button>
-                <button id="teacherSwitchButton" class="btn  mb-2 c-btn-outline-primary" onclick="modeProf()"><span class="text-span-initial me-1" data-i18n="[html]classroom.profil.switchModeTeacher"></span><i class="fas fa-exchange-alt"></i></button>
-                <button class="btn mb-2 c-btn-red" onclick="goToDisconnect('classroom');"><span
-                                data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
-                        <i class="fas fa-power-off"></i></button>
+        <div class="d-flex flex-column" style="gap: 1.5em;" role="group" aria-label="Actions du profil">
+                <button class="btn mb-2 c-btn-outline-primary" 
+                        id="settings-student"
+                        aria-label="Paramètres du compte">
+                    <span data-i18n="words.settings" class="text-capitalize me-1 text-span-initial"></span>
+                    <i class="fas fa-cog" aria-hidden="true"></i>
+                </button>
+                <button id="teacherSwitchButton" 
+                        class="btn mb-2 c-btn-outline-primary" 
+                        onclick="modeProf()"
+                        aria-label="Passer en mode enseignant">
+                    <span class="text-span-initial me-1" data-i18n="[html]classroom.profil.switchModeTeacher"></span>
+                    <i class="fas fa-exchange-alt" aria-hidden="true"></i>
+                </button>
+                <button class="btn mb-2 c-btn-red" 
+                        onclick="goToDisconnect('classroom');"
+                        aria-label="Se déconnecter de la classe">
+                    <span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
+                    <i class="fas fa-power-off" aria-hidden="true"></i>
+                </button>
         </div>
 </div>

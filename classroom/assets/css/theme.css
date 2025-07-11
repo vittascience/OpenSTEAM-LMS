@@ -38,7 +38,7 @@
     --classroom-cell: #e3e3e3;
     --classroom-cell-rgb: 227, 227, 227;
 
-    --classroom-white: #FEFEFE;
+    --classroom-white: #FFFFFF;
     --classroom-black: #2B2B2B;
     --classroom-grey: #757575;
     --classroom-grey-rgb: 117, 117, 117;
@@ -65,7 +65,7 @@
 
 .theme-dark {
     --classroom-background: #000000;
-    --classroom-background-1: #202020;
+    --classroom-background-1: #2A2A2A;
     --classroom-text-0: #ffffff;
     --classroom-text-0-rgb: 255, 255, 255;
     --classroom-text-1: #fdfdfd;
