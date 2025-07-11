@@ -101,7 +101,7 @@ function makeWysiBBEditorAccessible(editorContainer) {
     toggleButton.addEventListener('focus', () => {
         toggleButton.style.opacity = '1';
         toggleButton.style.border = '2px solid #007bff';
-        toggleButton.style.background = 'rgba(0, 123, 255, 0.15)';
+        toggleButton.style.background = 'rgba(0, 123, 255, 0.5)';
     });
 
     toggleButton.addEventListener('blur', () => {

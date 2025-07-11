@@ -3846,6 +3846,12 @@ h3.section-done {
     position: relative;
 }
 
+.switcher:focus-within {
+    outline: 2px solid var(--classroom-primary);
+    outline-offset: 2px;
+    border-color: var(--classroom-primary);
+}
+
 .theme-dark .switcher {
   background: #fff;
 }
