@@ -251,6 +251,16 @@
     --bs-btn-disabled-border-color: var(--classroom-red);
 }
 
+.theme-dark .btn-red,
+.theme-dark .btn-danger,
+.theme-dark .btn-secondary,
+.theme-dark .c-btn-secondary,
+.theme-dark .switcher__label,
+.theme-dark .btn-primary,
+.theme-dark .c-btn-red {
+  color: #000 !important;
+}
+
 .btn-outline-red,
 .btn-outline-danger,
 .c-btn-outline-red {

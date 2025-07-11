@@ -1,7 +1,12 @@
 <div id="classroom-dashboard-background">
     <div id="classroom-dashboard-container">
         <div id="classroom-dashboard-sidebar" class="sidebar-classroom" style="display:none;">
-            <div id="classroom-sidebar-logo"></div>
+            <div id="classroom-sidebar-logo" 
+                 role="button" 
+                 tabindex="0" 
+                 aria-label="Retour à l'accueil - Navigation vers la page principale"
+                 onclick="navigateToHome()" 
+                 onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigateToHome();}"></div>
             <div class="classroom-navbar-button" id="dashboard-activities" 
                  onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"
                  onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');}"

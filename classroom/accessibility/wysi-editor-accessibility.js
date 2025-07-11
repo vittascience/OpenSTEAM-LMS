@@ -61,12 +61,33 @@ function makeWysiBBEditorAccessible(editorContainer) {
         document.body.appendChild(liveRegion);
     }
 
-    // Invisible keyboard input button
+    // Keyboard input button (visible when focused)
     const toggleButton = document.createElement('button');
     const finalLabelText = wysibbEditor.getAttribute('aria-label') || labelText || 'Éditeur de texte';
     toggleButton.textContent = `Éditer le contenu (appuyez sur Entrée). ${finalLabelText}. Zone d'édition activée. Appuyez sur Alt + F10 pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`;
-    toggleButton.className = 'sr-only';
+    toggleButton.className = 'wysibb-toggle-button';
     toggleButton.setAttribute('aria-controls', textarea?.id || '');
+    toggleButton.style.cssText = `
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 123, 255, 0.1);
+        border: 2px solid transparent;
+        border-radius: 4px;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        z-index: 10;
+        font-size: 14px;
+        color: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 10px;
+    `;
     
     toggleButton.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
@@ -75,6 +96,18 @@ function makeWysiBBEditorAccessible(editorContainer) {
             wysibbEditor.focus();
             liveRegionAnnounce(`Éditer le contenu (appuyez sur Entrée). ${finalLabelText}. Zone d'édition activée. Appuyez sur Alt + F10 pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`);
         }
+    });
+
+    toggleButton.addEventListener('focus', () => {
+        toggleButton.style.opacity = '1';
+        toggleButton.style.border = '2px solid #007bff';
+        toggleButton.style.background = 'rgba(0, 123, 255, 0.15)';
+    });
+
+    toggleButton.addEventListener('blur', () => {
+        toggleButton.style.opacity = '0';
+        toggleButton.style.border = '2px solid transparent';
+        toggleButton.style.background = 'rgba(0, 123, 255, 0.1)';
     });
     wysibbEditor.parentNode.insertBefore(toggleButton, wysibbEditor);
 

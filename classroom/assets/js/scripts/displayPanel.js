@@ -25,7 +25,16 @@ DisplayPanel.prototype.classroom_dashboard_profil_panel_teacher = function () {
         }
 
     })
-    getIntelFromClasses()
+    
+    getIntelFromClasses().then(function() {
+        const correctionsCount = getRemainingCorrections(Main.getClassroomManager()._myClasses.flatMap(c => c.students));
+        const correctionsElement = $('.tocorrect-activities');
+        correctionsElement.html(correctionsCount);
+        
+        const correctionsButton = $('.classroom-panel-link');
+        correctionsButton.attr('aria-label', `Accéder au panneau des classes - ${correctionsCount} ${correctionsCount === 1 ? 'correction à faire' : 'corrections à faire'}`);
+        correctionsButton.attr('title', `Gérer vos classes - ${correctionsCount} ${correctionsCount === 1 ? 'correction à faire' : 'corrections à faire'}`);
+    });
 }
 
 DisplayPanel.prototype.classroom_dashboard_profil_panel_groupadmin = function () {
@@ -39,10 +48,24 @@ DisplayPanel.prototype.classroom_dashboard_profil_panel_manager = function () {
 DisplayPanel.prototype.classroom_dashboard_profil_panel = function () {
     $('#user-name').html(UserManager.getUser().pseudo)
     Main.getClassroomManager().getStudentActivity().then(function (data) {
-        $('.todo-activities').html(countActivityDoable())
+        const todoCount = countActivityDoable();
+        const doneCount = data.doneActivities;
+        
+        $('.todo-activities').html(todoCount)
         $('.todo-courses').html(data.todoCourses)
-        $('.done-activities').html(data.doneActivities)
+        $('.done-activities').html(doneCount)
         $('.done-courses').html(data.doneCourses)
+        
+        const todoButton = document.querySelector('#classroom-dashboard-profile-stats .activity-panel-link[style*="grid-column: 1"]');
+        const doneButton = document.querySelector('#classroom-dashboard-profile-stats .activity-panel-link[style*="grid-column: 2"]');
+        
+        if (todoButton) {
+            todoButton.setAttribute('aria-label', `Activités à faire, ${todoCount} ${todoCount === 1 ? 'activité à faire' : 'activités à faire'}`);
+        }
+        
+        if (doneButton) {
+            doneButton.setAttribute('aria-label', `Activités terminées, ${doneCount} ${doneCount === 1 ? 'activité terminée' : 'activités terminées'}`);
+        }
     })
 }
 

@@ -1,6 +1,11 @@
 <div id="groupadmin-dashboard-sidebar" class="sidebar-classroom" style="display:none;">
     <!-- set your logo here -->
-    <div id="classroom-sidebar-logo"></div>
+    <div id="classroom-sidebar-logo" 
+         role="button" 
+         tabindex="0" 
+         aria-label="Retour à l'accueil - Navigation vers la page principale"
+         onclick="navigateToHome()" 
+         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigateToHome();}"></div>
 
     <div class="classroom-navbar-button" id="dashboard-groupadmin-users-side"
         onclick="navigatePanel('groupadmin-dashboard-users', 'dashboard-groupadmin-users-side')" role="button" tabindex="0">

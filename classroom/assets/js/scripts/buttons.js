@@ -391,6 +391,11 @@ function goToActivityPanel() {
     navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher');
 }
 
+function navigateToHome() {
+    notifyA11y("Retour à l'accueil");
+    document.location.href = document.location.origin;
+}
+
 
 function modeApprenant() {
     window.localStorage.showSwitchTeacherButton = 'true';
@@ -729,6 +734,11 @@ function studentActivitiesDisplay() {
     document.querySelector('#done-activities-list').innerHTML = '';
 
     $('.section-new .resource-number').html(activities.newActivities.length)
+    const newCount = activities.newActivities.length;
+    const newHeader = document.querySelector('.section-new .section-header');
+    if (newHeader) {
+        newHeader.setAttribute('aria-label', `Nouveaux, ${newCount} ${newCount === 1 ? 'nouvelle activité' : 'nouvelles activités'}`);
+    }
     activities.newActivities.forEach(element => {
         if (isDateNull(element.dateBegin, element.dateEnd) || checkDateForActivities(element.dateBegin.date, element.dateEnd.date)) {
             $('#new-activities-list').append(activityItem(element, "newActivities"));
@@ -737,6 +747,11 @@ function studentActivitiesDisplay() {
     });
 
     $('.section-saved .resource-number').html(activities.savedActivities.length)
+    const savedCount = activities.savedActivities.length;
+    const savedHeader = document.querySelector('.section-saved .section-header');
+    if (savedHeader) {
+        savedHeader.setAttribute('aria-label', `Brouillons, ${savedCount} ${savedCount === 1 ? 'activité en attente de correction' : 'activités en attente de correction'}`);
+    }
     activities.savedActivities.forEach(element => {
         if (isDateNull(element.dateBegin, element.dateEnd) || checkDateForActivities(element.dateBegin.date, element.dateEnd.date)) {
             $('#saved-activities-list').append(activityItem(element, "savedActivities"));
@@ -745,6 +760,11 @@ function studentActivitiesDisplay() {
     });
 
     $('.section-current .resource-number').html(activities.currentActivities.length)
+    const currentCount = activities.currentActivities.length;
+    const currentHeader = document.querySelector('.section-current .section-header');
+    if (currentHeader) {
+        currentHeader.setAttribute('aria-label', `En attente de correction, ${currentCount} ${currentCount === 1 ? 'activité en cours' : 'activités en cours'}`);
+    }
     activities.currentActivities.forEach(element => {
         if (isDateNull(element.dateBegin, element.dateEnd) || checkDateForActivities(element.dateBegin.date, element.dateEnd.date)) {
             $('#current-activities-list').append(activityItem(element, "currentActivities"));
@@ -753,6 +773,11 @@ function studentActivitiesDisplay() {
     });
 
     $('.section-done .resource-number').html(activities.doneActivities.length)
+    const doneCount = activities.doneActivities.length;
+    const doneHeader = document.querySelector('.section-done .section-header');
+    if (doneHeader) {
+        doneHeader.setAttribute('aria-label', `Terminés, ${doneCount} ${doneCount === 1 ? 'activité terminée' : 'activités terminées'}`);
+    }
     activities.doneActivities.forEach(element => {
         $('#done-activities-list').append(activityItem(element, "doneActivities"));
         index++;
@@ -776,15 +801,36 @@ function studentActivitiesDisplay() {
 
         if (course.courseState == 999) {
             let doneNumberElement = document.querySelector('.section-done .resource-number');
-            doneNumberElement.textContent = (parseInt(doneNumberElement.textContent) + 1).toString();
+            let currentCount = parseInt(doneNumberElement.textContent || '0') + 1;
+            doneNumberElement.textContent = currentCount.toString();
+            doneNumberElement.setAttribute('aria-label', currentCount + (currentCount === 1 ? ' activité terminée' : ' activités terminées'));
+            doneNumberElement.removeAttribute('aria-hidden');
+            const doneHeader = document.querySelector('.section-done .section-header');
+            if (doneHeader) {
+                doneHeader.setAttribute('aria-label', `Terminés, ${currentCount} ${currentCount === 1 ? 'activité terminée' : 'activités terminées'}`);
+            }
             document.querySelector('#done-activities-list').innerHTML += courseItem(course, "doneActivities");
         } else if ((course.courseState == 0 && course.activities[0].response != null) || course.courseState > 0 && course.courseState != 999 && saveCourse) {
             let savedNumberElement = document.querySelector('.section-saved .resource-number');
-            savedNumberElement.textContent = (parseInt(savedNumberElement.textContent) + 1).toString();
+            let currentCount = parseInt(savedNumberElement.textContent || '0') + 1;
+            savedNumberElement.textContent = currentCount.toString();
+            savedNumberElement.setAttribute('aria-label', currentCount + (currentCount === 1 ? ' activité en attente de correction' : ' activités en attente de correction'));
+            savedNumberElement.removeAttribute('aria-hidden');
+            const savedHeader = document.querySelector('.section-saved .section-header');
+            if (savedHeader) {
+                savedHeader.setAttribute('aria-label', `Brouillons, ${currentCount} ${currentCount === 1 ? 'activité en attente de correction' : 'activités en attente de correction'}`);
+            }
             document.querySelector('#saved-activities-list').innerHTML += courseItem(course, "currentActivities");
         } else if (course.courseState == 0 || !saveCourse) {
             let newNumberElement = document.querySelector('.section-new .resource-number');
-            newNumberElement.textContent = (parseInt(newNumberElement.textContent) + 1).toString();
+            let currentCount = parseInt(newNumberElement.textContent || '0') + 1;
+            newNumberElement.textContent = currentCount.toString();
+            newNumberElement.setAttribute('aria-label', currentCount + (currentCount === 1 ? ' nouvelle activité' : ' nouvelles activités'));
+            newNumberElement.removeAttribute('aria-hidden');
+            const newHeader = document.querySelector('.section-new .section-header');
+            if (newHeader) {
+                newHeader.setAttribute('aria-label', `Nouveaux, ${currentCount} ${currentCount === 1 ? 'nouvelle activité' : 'nouvelles activités'}`);
+            }
             document.querySelector('#new-activities-list').innerHTML += courseItem(course, "newActivities");
         }
     });
@@ -810,17 +856,17 @@ function studentActivitiesDisplay() {
 
 function manageToggleForStudentPanel() {
     // test toggle auto if activity in the section
-    if ($('.section-done .resource-number').html() > 0) {
+    if (parseInt($('.section-done .resource-number').text() || '0') > 0) {
         if ($('#done-activities-list').css("display") == 'none') {
             sectionToggle('done')
         }
     }
-    if ($('.section-saved .resource-number').html() > 0) {
+    if (parseInt($('.section-saved .resource-number').text() || '0') > 0) {
         if ($('#saved-activities-list').css("display") == 'none') {
             sectionToggle('saved')
         }
     }
-    if ($('.section-current .resource-number').html() > 0) {
+    if (parseInt($('.section-current .resource-number').text() || '0') > 0) {
         if ($('#current-activities-list').css("display") == 'none') {
             sectionToggle('current')
         }
@@ -3681,6 +3727,83 @@ function setCaret(contentId, id) {
 }
 
 document.body.style.setProperty("--keyboard-zindex", "3000");
+
+/**
+ * Managing the initial focus on accessibility
+ * Ensures that the classroom-sidebar-logo receives focus on first tab.
+ */
+function initializeFocusManagement() {
+    let hasTabbed = false;
+    
+    function setInitialFocus() {
+        const activeSidebar = document.querySelector('.sidebar-classroom:not([style*="display: none"])');
+        const logo = activeSidebar ? activeSidebar.querySelector('#classroom-sidebar-logo') : null;
+        
+        if (logo) {
+            if (!logo.hasAttribute('tabindex'))
+                logo.setAttribute('tabindex', '0');
+
+            logo.focus();
+        } else {
+            const firstNavButton = document.querySelector('.classroom-navbar-button:not([style*="display: none"])');
+            if (firstNavButton) {
+                if (!firstNavButton.hasAttribute('tabindex'))
+                    firstNavButton.setAttribute('tabindex', '0');
+
+                firstNavButton.focus();
+            }
+        }
+    }
+    
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Tab' && !hasTabbed) {
+            hasTabbed = true;
+            if (document.activeElement === document.body || 
+                document.activeElement === document.documentElement ||
+                !document.activeElement) {
+                
+                event.preventDefault();
+                setInitialFocus();
+            }
+        }
+    }, { once: false });
+    
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                const target = mutation.target;
+                if (target.classList.contains('sidebar-classroom')) {
+                    const isVisible = target.style.display !== 'none';
+                    if (isVisible && !hasTabbed) {
+                        setTimeout(() => {
+                            setInitialFocus();
+                        }, 100);
+                    }
+                }
+            }
+        });
+    });
+    
+    const sidebars = document.querySelectorAll('.sidebar-classroom');
+    sidebars.forEach(sidebar => {
+        observer.observe(sidebar, {
+            attributes: true,
+            attributeFilter: ['style']
+        });
+    });
+    
+    if (document.querySelector('.sidebar-classroom:not([style*="display: none"])')) {
+        setTimeout(() => {
+            setInitialFocus();
+        }, 500);
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeFocusManagement);
+} else {
+    initializeFocusManagement();
+}
 
 
 
