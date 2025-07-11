@@ -1,8 +1,0 @@
-/* Focus styles for labels when corresponding radio is focused */
-.switcher__input:focus + .switcher__label {
-    outline: 2px solid var(--classroom-primary, #007bff) !important;
-    outline-offset: 2px !important;
-    border-radius: 4px !important;
-    box-shadow: 0 0 0 2px var(--classroom-primary, #007bff), 0 0 0 4px rgba(0, 123, 255, 0.3) !important;
-    background-color: rgba(0, 123, 255, 0.1) !important;
-}
