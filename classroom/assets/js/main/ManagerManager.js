@@ -999,8 +999,11 @@ class managerManager {
             users_per_page = $('#users_per_page').val();
 
         data_table +=
-            `<tr>
-                <th scope="row" onclick="showGroupMembers(-1, 1 ,${users_per_page}, ${users_sort})">${i18next.t('manager.group.usersWithoutGroups')}</th>
+            `<tr role="button" tabindex="0" 
+                onclick="showGroupMembers(-1, 1 ,${users_per_page}, ${users_sort})" 
+                onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showGroupMembers(-1, 1 ,${users_per_page}, ${users_sort});}"
+                aria-label="Voir les utilisateurs sans groupe">
+                <th scope="row">${i18next.t('manager.group.usersWithoutGroups')}</th>
                 <td>${i18next.t('manager.group.usersWithoutGroupsDescription')}</td>
                 <td>
                     --
@@ -1022,17 +1025,29 @@ class managerManager {
 
                 if (element.totalPagesCount > 1) {
                     if (element.previousPage > 1) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainManager.getmanagerManager().getAllGroupsInfos(${sort}, 1, ${groupsperpage})">First Page</button>`;
+                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" tabindex="0" 
+                            onclick="mainManager.getmanagerManager().getAllGroupsInfos(${sort}, 1, ${groupsperpage})" 
+                            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();mainManager.getmanagerManager().getAllGroupsInfos(${sort}, 1, ${groupsperpage});}"
+                            aria-label="Aller à la première page">First Page</button>`;
                     }
                     if (element.currentPage > 1) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainManager.getmanagerManager().getAllGroupsInfos(${sort}, ${element.previousPage}, ${groupsperpage})">${element.previousPage}</button>`;
+                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" tabindex="0" 
+                            onclick="mainManager.getmanagerManager().getAllGroupsInfos(${sort}, ${element.previousPage}, ${groupsperpage})" 
+                            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();mainManager.getmanagerManager().getAllGroupsInfos(${sort}, ${element.previousPage}, ${groupsperpage});}"
+                            aria-label="Aller à la page ${element.previousPage}">${element.previousPage}</button>`;
                     }
-                    htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
+                    htmlButtons += `<button class="btn btn-primary btn-sm active mx-2" tabindex="0" aria-label="Page actuelle ${element.currentPage}" aria-current="page">${element.currentPage}</button>`;
                     if (element.currentPage < element.totalPagesCount) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainManager.getmanagerManager().getAllGroupsInfos(${sort}, ${element.nextPage}, ${groupsperpage})">${element.nextPage}</button>`;
+                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" tabindex="0" 
+                            onclick="mainManager.getmanagerManager().getAllGroupsInfos(${sort}, ${element.nextPage}, ${groupsperpage})" 
+                            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();mainManager.getmanagerManager().getAllGroupsInfos(${sort}, ${element.nextPage}, ${groupsperpage});}"
+                            aria-label="Aller à la page ${element.nextPage}">${element.nextPage}</button>`;
                     }
                     if (element.nextPage < element.totalPagesCount) {
-                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainManager.getmanagerManager().getAllGroupsInfos(${sort}, ${element.totalPagesCount}, ${groupsperpage})">Last Page - ${element.totalPagesCount}</button>`;
+                        htmlButtons += `<button class="btn btn-primary btn-sm mx-2" tabindex="0" 
+                            onclick="mainManager.getmanagerManager().getAllGroupsInfos(${sort}, ${element.totalPagesCount}, ${groupsperpage})" 
+                            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();mainManager.getmanagerManager().getAllGroupsInfos(${sort}, ${element.totalPagesCount}, ${groupsperpage});}"
+                            aria-label="Aller à la dernière page (page ${element.totalPagesCount})">Last Page - ${element.totalPagesCount}</button>`;
                     }
                 }
 
@@ -1051,22 +1066,35 @@ class managerManager {
                     });
                 }
                 data_table +=
-                    `<tr>
-                <th scope="row" onclick="showGroupMembers(${element.id}, 1 ,${users_per_page}, ${users_sort})">${element.name}</i></th>
-                <td>${element.description}</td>
-                <td>
-                    ${div_img}
-                </td>
-                <td>
-                    ${element.nbUsers}
-                </td>
-                <td>
-                    <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateGroupModal(${element.id})" aria-label="Modifier le groupe ${element.name}"><i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i></a>
-                </td>
-                <td>
-                    <a class="c-link-red" href="javascript:void(0)" onclick="deleteGroup(${element.id})" aria-label="Supprimer le groupe ${element.name}"><i class="fas fa-trash-alt fa-2x" aria-hidden="true"></i></a>
-                </td>
-                </tr>`;
+                    `<tr role="button" tabindex="0" 
+                        onclick="showGroupMembers(${element.id}, 1 ,${users_per_page}, ${users_sort})" 
+                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showGroupMembers(${element.id}, 1 ,${users_per_page}, ${users_sort});}"
+                        aria-label="Voir les membres du groupe ${element.name}">
+                        <th scope="row">${element.name}</th>
+                        <td>${element.description}</td>
+                        <td>
+                            ${div_img}
+                        </td>
+                        <td>
+                            ${element.nbUsers}
+                        </td>
+                        <td>
+                            <a class="c-link-secondary" href="javascript:void(0)" tabindex="0" 
+                               onclick="showupdateGroupModal(${element.id})" 
+                               onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showupdateGroupModal(${element.id});}"
+                               aria-label="Modifier le groupe ${element.name}">
+                                <i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a class="c-link-red" href="javascript:void(0)" tabindex="0" 
+                               onclick="deleteGroup(${element.id})" 
+                               onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();deleteGroup(${element.id});}"
+                               aria-label="Supprimer le groupe ${element.name}">
+                                <i class="fas fa-trash-alt fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>`;
             }
         });
         $('#groups_table_manager').html(data_table);

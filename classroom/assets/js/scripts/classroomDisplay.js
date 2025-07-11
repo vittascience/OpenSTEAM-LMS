@@ -152,7 +152,10 @@ document.addEventListener('click', function(event) {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.c-checkbox[aria-checked]').forEach(function(element) {
-        element.removeAttribute('aria-checked');
+    document.querySelectorAll('.c-checkbox').forEach(function(element) {
+        const checkbox = element.querySelector('input[type="checkbox"]');
+        if (checkbox) {
+            updateCheckboxAccessibility(element, checkbox);
+        }
     });
 });

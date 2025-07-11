@@ -1144,7 +1144,7 @@ function displayStudentsInClassroom(students, link=false) {
                             <i class="classroom-clickable fas fa-low-vision switch-pwd ms-2" 
                                role="button"
                                tabindex="0"
-                               aria-labelledby="username-${element.user.id}"
+                               aria-label="Afficher ou masquer le mot de passe de ${element.user.pseudo}"
                                onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
                             </i>
                         </div>
@@ -1153,19 +1153,19 @@ function displayStudentsInClassroom(students, link=false) {
                             tabindex="0"
                             onclick="copyPinToClipboard('${element.pwd}')" 
                             onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }"
-                            aria-labelledby="username-${element.user.id}"
+                            aria-label="Copier le mot de passe de ${element.user.pseudo}"
                             data-i18n="classroom.profil.copyPinStudent">Copier le mot de passe</button> 
                         <button class="modal-student-password classroom-clickable col-12 dropdown-item" 
                             role="menuitem"
                             tabindex="0"
                             data-student-id="${element.user.id}" 
                             onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }"
-                            aria-labelledby="username-${element.user.id}"
+                            aria-label="Régénérer le mot de passe de ${element.user.pseudo}"
                             data-i18n="classroom.classes.panel.resetPassword">Régenérer le mot de passe</button>
                         <button class="classroom-clickable col-12 dropdown-item" 
                             role="menuitem"
                             tabindex="0"
-                            aria-labelledby="username-${element.user.id}"
+                            aria-label="Modifier le pseudo de ${element.user.pseudo}"
                             onclick="changePseudoModal(${element.user.id})"
                             onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }"
                             data-i18n="classroom.classes.panel.editNickname">Modifier le pseudo</button>
@@ -1174,7 +1174,7 @@ function displayStudentsInClassroom(students, link=false) {
                             tabindex="0"
                             data-i18n="classroom.classes.panel.delete" 
                             data-student-id="${element.user.id}"
-                            aria-labelledby="username-${element.user.id}"
+                            aria-label="Supprimer l'élève ${element.user.pseudo}"
                             onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">Supprimer</button>
                     </div>
                 </div>
@@ -1206,29 +1206,33 @@ function displayStudentsInClassroom(students, link=false) {
                                         role="menuitem"
                                         tabindex="0"
                                         onclick="activityWatch(${arrayIndexesActivities[i].id})"
+                                        aria-label="Voir l'activité '${arrayIndexesActivities[i].title}'"
                                         onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
-                                        <i class="fas fa-eye"></i> <span data-i18n="classroom.classes.panel.seeActivity">Voir l'activité</span>
+                                        <i class="fas fa-eye" aria-hidden="true"></i> <span data-i18n="classroom.classes.panel.seeActivity">Voir l'activité</span>
                                     </button>
                                     <button class="classroom-clickable col-12 dropdown-item" 
                                         role="menuitem"
                                         tabindex="0"
                                         onclick="activityModify(${arrayIndexesActivities[i].id})"
+                                        aria-label="Modifier l'activité '${arrayIndexesActivities[i].title}'"
                                         onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
-                                        <i class="fas fa-pen"></i> <span data-i18n="classroom.classes.panel.editActivity">Modifier l'activité</span>
+                                        <i class="fas fa-pen" aria-hidden="true"></i> <span data-i18n="classroom.classes.panel.editActivity">Modifier l'activité</span>
                                     </button>
                                     <button class="classroom-clickable col-12 dropdown-item" 
                                         role="menuitem"
                                         tabindex="0"
                                         onclick="attributeActivity(${arrayIndexesActivities[i].id},${arrayIndexesActivities[i].reference})"
+                                        aria-label="Modifier l'attribution de l'activité '${arrayIndexesActivities[i].title}'"
                                         onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
-                                        <i class="fas fa-user-alt"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span>
+                                        <i class="fas fa-user-alt" aria-hidden="true"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span>
                                     </button>
                                     <button class="dropdown-item classroom-clickable col-12" 
                                         role="menuitem"
                                         tabindex="0"
                                         onclick="undoAttributeActivity(${arrayIndexesActivities[i].reference},'${Main.getClassroomManager().getClassroomIdByLink(ClassroomSettings.classroom)}')"
+                                        aria-label="Retirer l'attribution de l'activité '${arrayIndexesActivities[i].title}'"
                                         onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
-                                        <i class="fas fa-trash-alt"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span>
+                                        <i class="fas fa-trash-alt" aria-hidden="true"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span>
                                     </button>`;
                 
                     $('#header-table-teach').append(`
@@ -1240,7 +1244,7 @@ function displayStudentsInClassroom(students, link=false) {
                                  aria-expanded="false"
                                  role="button"
                                  tabindex="0"
-                                 aria-label="Actions sur l'activité '${arrayIndexesActivities[i].title}'"
+                                 aria-label="Menu d'actions pour l'activité '${arrayIndexesActivities[i].title}'"
                                  onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); $(this).dropdown('toggle'); }">
                                     <span class="span-act">Act.</br>n°${ activityNumber }</span>
                                     <i style="display:none;font-size:2em;" class="fa fa-cog i-act" aria-hidden="true"></i>
@@ -1267,29 +1271,33 @@ function displayStudentsInClassroom(students, link=false) {
                         role="menuitem"
                         tabindex="0"
                         onclick="coursesManager.courseOverview(${currentActivity.course.id})"
+                        aria-label="Voir le parcours '${currentActivity.course.title}'"
                         onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
-                        <i class="fas fa-eye"></i> <span data-i18n="courses.show">Voir le parcours</span>
+                        <i class="fas fa-eye" aria-hidden="true"></i> <span data-i18n="courses.show">Voir le parcours</span>
                     </button>
                     <button class="classroom-clickable col-12 dropdown-item" 
                         role="menuitem"
                         tabindex="0"
                         onclick="coursesManager.updateCourse(${currentActivity.course.id})"
+                        aria-label="Modifier le parcours '${currentActivity.course.title}'"
                         onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
-                        <i class="fas fa-pen"></i> <span data-i18n="courses.update">Modifier le parcours</span>
+                        <i class="fas fa-pen" aria-hidden="true"></i> <span data-i18n="courses.update">Modifier le parcours</span>
                     </button>
                     <button class="classroom-clickable col-12 dropdown-item" 
                         role="menuitem"
                         tabindex="0"
                         onclick="coursesManager.attributeCourse(${currentActivity.course.id}, ${currentActivity.reference})"
+                        aria-label="Modifier l'attribution du parcours '${currentActivity.course.title}'"
                         onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
-                        <i class="fas fa-user-alt"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span>
+                        <i class="fas fa-user-alt" aria-hidden="true"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span>
                     </button>
                     <button class="dropdown-item classroom-clickable col-12" 
                         role="menuitem"
                         tabindex="0"
                         onclick="coursesManager.undoAttribution(${currentActivity.course.id}, ${currentActivity.reference}, ${classroomId})"
+                        aria-label="Retirer l'attribution du parcours '${currentActivity.course.title}'"
                         onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
-                        <i class="fas fa-trash-alt"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span>
+                        <i class="fas fa-trash-alt" aria-hidden="true"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span>
                     </button>`;
                 
                     $('#header-table-teach').append(`
@@ -1301,6 +1309,7 @@ function displayStudentsInClassroom(students, link=false) {
                                  aria-expanded="false"
                                  role="button"
                                  tabindex="0"
+                                 aria-label="Menu d'actions pour le parcours '${currentActivity.course.title}'"
                                  onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); $(this).dropdown('toggle'); }">
                                     <span class="span-act">Par.</br>n°${ activityNumber }</span>
                                     <i style="display:none;font-size:2em;" class="fa fa-cog i-act" aria-hidden="true"></i>
@@ -1331,15 +1340,15 @@ function displayStudentsInClassroom(students, link=false) {
                         
                     }
                 }
-            } else {
-                if (arrayIndexesActivities[i].isCourse) {
-                    for (let k = 0; k < arrayIndexesActivities[i].courseLength; k++) {
-                        html += `<td class="no-activity bilan-cell" role="cell" aria-label="Pas d'activité"></td>`;
+                            } else {
+                    if (arrayIndexesActivities[i].isCourse) {
+                        for (let k = 0; k < arrayIndexesActivities[i].courseLength; k++) {
+                            html += `<td class="no-activity bilan-cell" role="cell" aria-label="Pas d'activité pour cette session"></td>`;
+                        }
+                    } else {
+                        html += `<td class="no-activity bilan-cell" role="cell" aria-label="Pas d'activité pour cette session"></td>`;
                     }
-                } else {
-                    html += `<td class="no-activity bilan-cell" role="cell" aria-label="Pas d\'activité"></td>`;
                 }
-            }
         }
 
         // addition of 6 "empty" cells at the end of the current table row
@@ -1381,13 +1390,15 @@ function displayStudentsInClassroom(students, link=false) {
         $('#is-anonymised').prop('checked', false);
     }
 
-    $('#export-class-container').append(`<button id="download-csv" class="btn c-btn-tertiary" onclick="openDownloadCsvModal()" role="button" aria-label="Exporter en CSV"><i class="fa fa-download" aria-hidden="true"></i><span class="ms-1" data-i18n="classroom.activities.exportCsv">Exporter CSV</span></button>`).localize();
+    $('#export-class-container').append(`<button id="download-csv" class="btn c-btn-tertiary" onclick="openDownloadCsvModal()" role="button" tabindex="0" aria-label="Exporter les données de la classe en format CSV" onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }"><i class="fa fa-download" aria-hidden="true"></i><span class="ms-1" data-i18n="classroom.activities.exportCsv">Exporter CSV</span></button>`).localize();
 
     $('#header-table-teach').append(`<th class="add-activity-th" colspan="7" role="columnheader"> 
         <button class="btn c-btn-primary dashboard-activities-teacher" 
                 onclick="pseudoModal.openModal('add-activity-modal')" 
                 role="button"
-                aria-label="Ajouter une activité"
+                tabindex="0"
+                aria-label="Ajouter une nouvelle activité à la classe"
+                onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }"
                 data-i18n="classroom.activities.addActivity">Ajouter une activité</button>
     </th>`).localize();
 
@@ -1411,6 +1422,9 @@ function displayStudentsInClassroom(students, link=false) {
 function copyPinToClipboard(pin) {
     navigator.clipboard.writeText(pin).then(function() {
         displayNotification('#notif-div', "classroom.profil.codeCopied", "success");
+    }).catch(function(err) {
+        console.error('Erreur lors de la copie dans le presse-papiers:', err);
+        displayNotification('#notif-div', "classroom.notif.copyError", "error");
     });
 }
 
@@ -1458,7 +1472,7 @@ function findOneActivityLinkUserByReference(reference, student) {
 }
 
 function appendAddStudentButton() {
-    $('#body-table-teach').append('<button id="add-student-dashboard-panel" class="btn c-btn-primary"><span data-i18n="classroom.activities.addLearners">Ajouter des apprenants</span> <i class="fas fa-plus"></i></button>').localize();
+    $('#body-table-teach').append('<tr role="row"><td role="cell" colspan="100%"><button id="add-student-dashboard-panel" class="btn c-btn-primary" aria-label="Ajouter des apprenants à la classe"><span data-i18n="classroom.activities.addLearners">Ajouter des apprenants</span> <i class="fas fa-plus" aria-hidden="true"></i></button></td></tr>').localize();
 }
 
 $('body').on('click', '.switch-pwd', function (event) {
@@ -1504,13 +1518,14 @@ function displayNotification(div, message, status, options = '{}', timer = 20000
 
     if (i18nText == message) {
         html = `<div id='notif-${randId}' onclick="closeOnClick('notif-${randId}')" class="vitta-notif status-${status}" role="${ariaRole}" aria-live="${ariaLive}" aria-atomic="true" aria-label="${ariaLabel}${message}">
-                    ${message}
+                    <span class="notification-content">${message}</span>
                     <div class="vitta-notif-exit-btn" role="button" tabindex="0" aria-label="Fermer la notification" onkeydown="if(event.key==='Enter'||event.key===' '){closeOnClick('notif-${randId}');}">
                         <i class="fa fa-times-circle" aria-hidden="true"></i>
                     </div>
                 </div>`;
     } else {
         html = `<div id='notif-${randId}' onclick="closeOnClick('notif-${randId}')" class="vitta-notif status-${status}" data-i18n="${message}" data-i18n-options=${options} role="${ariaRole}" aria-live="${ariaLive}" aria-atomic="true" aria-label="${ariaLabel}">
+                    <span class="notification-content"></span>
                     <div class="vitta-notif-exit-btn" role="button" tabindex="0" aria-label="Fermer la notification" onkeydown="if(event.key==='Enter'||event.key===' '){closeOnClick('notif-${randId}');}">
                         <i class="fa fa-times-circle" aria-hidden="true"></i>
                     </div>
@@ -1544,7 +1559,7 @@ function setStudentsSelect() {
     let classrooms = Main.getClassroomManager()._myClasses
     classrooms.forEach(function (classroom) {
         classroom.students.forEach(function (student) {
-            ClassroomSettings.studentList += `<input type="checkbox" class=" col-12 checkStudent-sandbox-${student.user.id}" value="${student.user.id}">${student.user.pseudo} from ${classroom.classroom.name}</option>`
+            ClassroomSettings.studentList += `<input type="checkbox" class=" col-12 checkStudent-sandbox-${student.user.id}" value="${student.user.id}" id="student-${student.user.id}" aria-label="Sélectionner l'élève ${student.user.pseudo} de la classe ${classroom.classroom.name}">${student.user.pseudo} from ${classroom.classroom.name}</option>`
         })
     })
 }
@@ -1562,14 +1577,14 @@ function actualizeStudentActivities(activity, correction) {
 }
 
 function addStudentRow(pseudo, studentId = false, isNotDeletable) {
-    return `<li data-pseudo="${pseudo}" data-id="${studentId}" class="row align-items-center my-1 ">
+    return `<li data-pseudo="${pseudo}" data-id="${studentId}" class="row align-items-center my-1 " role="listitem" aria-label="Élève ${pseudo}">
         <div class="col-2">
-            <img class="w-100 propic pic-width" src="${_PATH}assets/media/alphabet/` + getFirstLetterOfPseudo(pseudo) + `.png" alt="Photo de profil">
+            <img class="w-100 propic pic-width" src="${_PATH}assets/media/alphabet/` + getFirstLetterOfPseudo(pseudo) + `.png" alt="Photo de profil de ${pseudo}">
         </div>
-        <div class="col">` + pseudo + `</div>
+        <div class="col" role="text" aria-label="Nom de l'élève">` + pseudo + `</div>
         ${isNotDeletable ? '' : `<div class="col-2">
-            <button type="button" class="btn btn-danger remove-student h-50" data-bs-toggle="tooltip" data-bs-placement="top">
-                <i class="fas fa-times"></i>
+            <button type="button" class="btn btn-danger remove-student h-50" data-bs-toggle="tooltip" data-bs-placement="top" role="button" tabindex="0" aria-label="Supprimer l'élève ${pseudo}" onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
+                <i class="fas fa-times" aria-hidden="true"></i>
             </button>
         </div>`}
     </li>`;
@@ -1637,7 +1652,9 @@ deletionObserver.observe(document.querySelector("body"), { subtree: true, childL
 function browseRemovedNodes(removed_node) {
     if (removed_node.getAttribute && removed_node.getAttribute('data-bs-toggle') == 'tooltip') {
         const toolTipId = removed_node.getAttribute('aria-describedby');
-        document.getElementById(toolTipId) !== null ? document.getElementById(toolTipId).remove() : false;
+        if (toolTipId && document.getElementById(toolTipId)) {
+            document.getElementById(toolTipId).remove();
+        }
     }
     if (removed_node.childNodes) {
         for (let child of removed_node.childNodes) {
@@ -1689,6 +1706,13 @@ function populateAccountInfo(data){
  */
 document.querySelector('#validate-profile-update').addEventListener('click', () => {
     pseudoModal.openModal('profile-update-password-confirm');
+});
+
+// Initialize form accessibility when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initializeFormAccessibility();
+    initializeTableAccessibility();
+    initializeModalAccessibility();
 });
 
 document.querySelector('body').addEventListener('click', (e) => {
@@ -1775,6 +1799,15 @@ function teacherAccountUpdateFormCheck(formData){
         let currentElt = document.getElementById(formValues[input].id);
         if(currentElt.classList.contains('form-input-error')){
             currentElt.classList.remove('form-input-error');
+            currentElt.removeAttribute('aria-invalid');
+            currentElt.removeAttribute('aria-describedby');
+            
+            // Remove error message element if it exists
+            const errorId = `${formValues[input].id}-error`;
+            const errorElement = document.getElementById(errorId);
+            if (errorElement) {
+                errorElement.remove();
+            }
         }
     }
 
@@ -1819,7 +1852,116 @@ function teacherAccountUpdateFormCheck(formData){
  * @param {string} id - the id of the form input
  */
 function showFormInputError(id){
-    document.getElementById(id).classList.add('form-input-error');
+    const element = document.getElementById(id);
+    element.classList.add('form-input-error');
+    element.setAttribute('aria-invalid', 'true');
+    
+    // Add error message if not already present
+    if (!element.getAttribute('aria-describedby')) {
+        const errorId = `${id}-error`;
+        element.setAttribute('aria-describedby', errorId);
+        
+        // Create error message element if it doesn't exist
+        if (!document.getElementById(errorId)) {
+            const errorElement = document.createElement('div');
+            errorElement.id = errorId;
+            errorElement.className = 'form-error-message';
+            errorElement.setAttribute('role', 'alert');
+            errorElement.setAttribute('aria-live', 'polite');
+            element.parentNode.appendChild(errorElement);
+        }
+    }
+}
+
+/**
+ * Initialize accessibility features for form elements
+ */
+function initializeFormAccessibility() {
+    // Add aria-required to required form fields
+    const requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+    requiredFields.forEach(field => {
+        if (!field.hasAttribute('aria-required')) {
+            field.setAttribute('aria-required', 'true');
+        }
+    });
+    
+    // Add aria-describedby to form fields with help text
+    const helpTexts = document.querySelectorAll('.form-text, .help-text');
+    helpTexts.forEach(help => {
+        const fieldId = help.getAttribute('data-field-id');
+        if (fieldId) {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                const currentDescribedBy = field.getAttribute('aria-describedby');
+                const helpId = help.id || `help-${fieldId}`;
+                help.id = helpId;
+                field.setAttribute('aria-describedby', currentDescribedBy ? `${currentDescribedBy} ${helpId}` : helpId);
+            }
+        }
+    });
+}
+
+/**
+ * Initialize accessibility features for tables
+ */
+function initializeTableAccessibility() {
+    const tables = document.querySelectorAll('table');
+    tables.forEach(table => {
+        if (!table.hasAttribute('role')) {
+            table.setAttribute('role', 'table');
+        }
+        
+        if (!table.querySelector('caption')) {
+            const caption = document.createElement('caption');
+            caption.className = 'sr-only';
+            caption.textContent = 'Tableau de données';
+            table.insertBefore(caption, table.firstChild);
+        }
+    });
+    
+    const theads = document.querySelectorAll('thead');
+    theads.forEach(thead => {
+        if (!thead.hasAttribute('role')) {
+            thead.setAttribute('role', 'rowgroup');
+        }
+    });
+    
+    const tbodies = document.querySelectorAll('tbody');
+    tbodies.forEach(tbody => {
+        if (!tbody.hasAttribute('role')) {
+            tbody.setAttribute('role', 'rowgroup');
+        }
+    });
+}
+
+/**
+ * Initialize accessibility features for modals
+ */
+function initializeModalAccessibility() {
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => {
+        if (!modal.hasAttribute('role')) {
+            modal.setAttribute('role', 'dialog');
+        }
+        if (!modal.hasAttribute('aria-modal')) {
+            modal.setAttribute('aria-modal', 'true');
+        }
+        
+        const modalTitle = modal.querySelector('.modal-title, h1, h2, h3, h4, h5, h6');
+        if (modalTitle && !modalTitle.id) {
+            modalTitle.id = `modal-title-${Math.random().toString(36).substr(2, 9)}`;
+        }
+        if (modalTitle && modalTitle.id && !modal.hasAttribute('aria-labelledby')) {
+            modal.setAttribute('aria-labelledby', modalTitle.id);
+        }
+    });
+    
+    const modalButtons = document.querySelectorAll('[data-bs-toggle="modal"]');
+    modalButtons.forEach(button => {
+        if (!button.hasAttribute('aria-haspopup')) {
+            button.setAttribute('aria-haspopup', 'dialog');
+        }
+    });
 }
 
 /**

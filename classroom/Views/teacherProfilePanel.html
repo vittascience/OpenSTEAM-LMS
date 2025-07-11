@@ -8,36 +8,60 @@
         <!--  <span>CLASSE : <span id="classroom-subject-teacher"> matière enseignée</span></span> -->
     </div>
 
-    <div id="classroom-dashboard-profile-stats-teacher">
-        <div style="grid-column: 2; grid-row: 1;" class="activity-panel-link-t classroom-clickable"
-            onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')">
-            <span class="stats-primary owned-activities">--</span><span class="text-span-initial stats-description"
+    <div id="classroom-dashboard-profile-stats-teacher" role="region" aria-label="Statistiques des activités enseignant">
+        <div style="grid-column: 2; grid-row: 1;" 
+             class="activity-panel-link-t classroom-clickable"
+             role="button" 
+             tabindex="0"
+             onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')"
+             onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher'); }"
+             aria-label="Accéder au panneau des activités - 0 activités créées">
+            <span class="stats-primary owned-activities" aria-hidden="true">--</span>
+            <span class="text-span-initial stats-description"
                 data-i18n="[html]classroom.profil.create"></span>
         </div>
-        <div style="grid-column: 1; grid-row: 1;" class="classroom-panel-link classroom-clickable"
-            onclick="navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher')"><span
-                class="stats-secondary tocorrect-activities">--</span><span class="text-span-initial stats-description"
-                data-i18n="[html]classroom.profil.correctionToDo"></span></div>
+        <div style="grid-column: 1; grid-row: 1;" 
+             class="classroom-panel-link classroom-clickable"
+             role="button" 
+             tabindex="0"
+             onclick="navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher')"
+             onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher'); }"
+             aria-label="Accéder au panneau des classes - 0 corrections à faire">
+            <span class="stats-secondary tocorrect-activities" aria-hidden="true">--</span>
+            <span class="text-span-initial stats-description"
+                data-i18n="[html]classroom.profil.correctionToDo"></span>
+        </div>
     </div>
 
-    <div class="d-flex flex-column" style="gap: 1.5em;">
-        <button class="btn c-btn-outline-primary" id="settings-teacher">
+    <div class="d-flex flex-column" style="gap: 1.5em;" role="group" aria-label="Actions du profil enseignant">
+        <button class="btn c-btn-outline-primary" 
+                id="settings-teacher"
+                aria-label="Paramètres du compte enseignant">
             <span class="text-capitalize text-span-initial" data-i18n="words.settings" class="text-capitalize"></span>
-            <i class="fas fa-cog"></i>
+            <i class="fas fa-cog" aria-hidden="true"></i>
         </button>
 
-        <button class="btn c-btn-outline-secondary" id="help-teacher">
+        <button class="btn c-btn-outline-secondary" 
+                id="help-teacher"
+                aria-label="Accéder à l'aide et aux tutoriels">
             <span data-i18n="words.help" class="text-capitalize text-span-initial"></span>
-            <i class="fas fa-question-circle"></i>
+            <i class="fas fa-question-circle" aria-hidden="true"></i>
         </button>
 
-        <button class="btn c-btn-outline-primary" onclick="listeModeApprenant()" id="switch-student">
+        <button class="btn c-btn-outline-primary" 
+                onclick="listeModeApprenant()" 
+                id="switch-student"
+                aria-label="Passer en mode étudiant">
             <span data-i18n="classroom.profil.switchMode" class="text-span-initial me-1"></span>
-            <i class="fas fa-exchange-alt"></i></button>
+            <i class="fas fa-exchange-alt" aria-hidden="true"></i>
+        </button>
 
-        <button class="btn c-btn-red" onclick="goToDisconnect('classroom');" data-testid="classroomLogoutBtn">
+        <button class="btn c-btn-red" 
+                onclick="goToDisconnect('classroom');" 
+                data-testid="classroomLogoutBtn"
+                aria-label="Se déconnecter de la classe">
             <span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
-            <i class="fas fa-power-off"></i>
+            <i class="fas fa-power-off" aria-hidden="true"></i>
         </button>
     </div>
 </div>

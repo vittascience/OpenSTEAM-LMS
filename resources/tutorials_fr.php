@@ -22,7 +22,7 @@ return [
                 <center><b>https://vittascience.com/api/?apiKey=cKzpBK862HpjsRvo4Qd2POJZss6OpE5Q</b></center>
                 </br>Ce lien contient votre clé personnelle servant à obtenir les données de votre projet. <br/>
                Copier ce lien, puis cocher la case \"Activer l'API sur ce projet\".</p>
-                <iframe width='800' height='500' frameborder='0' style='border:1px #d6d6d6 solid;' src=\"https://vittascience.com/code?frameid=ym6svtpod4&embed=1&id=42\"></iframe>"
+                <iframe width='800' height='500' frameborder='0' style='border:1px #d6d6d6 solid;' src=\"https://vittascience.com/code?frameid=ym6svtpod4&embed=1&id=42\" title=\"Tutoriel API - Programme d'exemple pour comprendre les API\"></iframe>"
             ],
             [
                 "title" => "Récupérer les données",
@@ -43,7 +43,7 @@ return [
             [
                 "title" => "À vous de jouer !",
                 "content" => "<p>Vous savez maintenant comment fonctionne l'API et comment récupérer les données.</br> À vous de créer un programme pour partager les données que vous souhaitez !</p>
-                <iframe width='800' height='500' frameborder='0' style='border:1px #d6d6d6 solid;' src=\"https://vittascience.com/code?frameid=s6oq6xfhpf8&embed=1&id=43\"></iframe>"
+                <iframe width='800' height='500' frameborder='0' style='border:1px #d6d6d6 solid;' src=\"https://vittascience.com/code?frameid=s6oq6xfhpf8&embed=1&id=43\" title=\"Tutoriel API - Exercice pratique pour créer votre première API\"></iframe>"
             ],
         ],
         "author" => "Marchal Maxence",
