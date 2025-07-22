@@ -9,7 +9,12 @@
 <div id="classroom-dashboard-background">
     <div id="classroom-dashboard-container">
         <div id="classroom-dashboard-sidebar" class="sidebar-classroom" style="display:none;">
-            <div id="classroom-sidebar-logo"></div>
+            <div id="classroom-sidebar-logo" 
+                 role="button" 
+                 tabindex="0" 
+                 aria-label="Retour à l'accueil - Navigation vers la page principale"
+                 onclick="navigateToHome()" 
+                 onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigateToHome();}"></div>
             <div class="classroom-navbar-button" id="dashboard-activities" 
                  onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"
                  onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');}"
@@ -34,7 +39,12 @@
 
         </div>
 <div id="classroom-dashboard-sidebar-teacher" class="sidebar-classroom" style="display:none;">
-    <div id="classroom-sidebar-logo"></div>
+    <div id="classroom-sidebar-logo" 
+         role="button" 
+         tabindex="0" 
+         aria-label="Retour à l'accueil - Navigation vers la page principale"
+         onclick="navigateToHome()" 
+         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigateToHome();}"></div>
     <div class=" classroom-navbar-button" id="dashboard-classes-teacher"
         onclick="navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher')" 
         onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher');}"
@@ -56,35 +66,48 @@
 </div>
 <div id="manager-dashboard-sidebar" class="sidebar-classroom" style="display:none;">
     <!-- set your logo here -->
-    <div id="classroom-sidebar-logo"></div>
+    <div id="classroom-sidebar-logo" 
+         role="button" 
+         tabindex="0" 
+         aria-label="Retour à l'accueil - Navigation vers la page principale"
+         onclick="navigateToHome()" 
+         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigateToHome();}"></div>
 
     <div class="classroom-navbar-button" id="dashboard-manager-groups"
         onclick="navigatePanel('manager-dashboard-main', 'dashboard-manager-groups')" 
         onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('manager-dashboard-main', 'dashboard-manager-groups');}"
-        role="button" tabindex="0">
-        <img src="assets/media/my_classes.svg" alt="Icône classe">
+        role="button" tabindex="0"
+        aria-label="Accéder au panneau des utilisateurs - Gérer les comptes et groupes d'utilisateurs">
+        <img src="assets/media/my_classes.svg" alt="Icône classe" aria-hidden="true">
         <span data-i18n="manager.users.users">Utilisateurs</span>
     </div>
 
     <div class="classroom-navbar-button" id="dashboard-manager-apps"
         onclick="navigatePanel('manager-apps-main', 'dashboard-manager-apps')" 
         onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('manager-apps-main', 'dashboard-manager-apps');}"
-        role="button" tabindex="0">
-        <img src="assets/media/my_apps.svg" alt="Icône Apps">
+        role="button" tabindex="0"
+        aria-label="Accéder au panneau des applications - Gérer les applications et licences">
+        <img src="assets/media/my_apps.svg" alt="Icône Apps" aria-hidden="true">
         <span data-i18n="manager.apps.apps">Applications</span>
     </div>
 
     <div id="dashboard-profil-manager" class="classroom-navbar-button"
         onclick="navigatePanel('classroom-dashboard-profil-panel-manager', 'dashboard-profil-manager')" 
         onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('classroom-dashboard-profil-panel-manager', 'dashboard-profil-manager');}"
-        role="button" tabindex="0">
-        <img class="user-picture" src="assets/media/profile_picture.svg" alt="Photo de profil">
+        role="button" tabindex="0"
+        aria-label="Accéder à mon profil manager - Voir mes paramètres et informations du compte">
+        <img class="user-picture" src="assets/media/profile_picture.svg" alt="Photo de profil" aria-hidden="true">
         <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span>
     </div>
 </div>
 <div id="groupadmin-dashboard-sidebar" class="sidebar-classroom" style="display:none;">
     <!-- set your logo here -->
-    <div id="classroom-sidebar-logo"></div>
+    <div id="classroom-sidebar-logo" 
+         role="button" 
+         tabindex="0" 
+         aria-label="Retour à l'accueil - Navigation vers la page principale"
+         onclick="navigateToHome()" 
+         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigateToHome();}"></div>
 
     <div class="classroom-navbar-button" id="dashboard-groupadmin-users-side"
         onclick="navigatePanel('groupadmin-dashboard-users', 'dashboard-groupadmin-users-side')" role="button" tabindex="0">
@@ -171,7 +194,7 @@
         </div>
     </div>
 </div>
-<div id="classroom-dashboard-content" tabindex="0" role="main" aria-label="Contenu principal du tableau de bord de la classe">
+<div id="classroom-dashboard-content" role="main" aria-label="Contenu principal du tableau de bord de la classe">
 
 <div id="classroom-dashboard-profil-panel" style="display:none;" class="dashboard-block profile-panel">
         
@@ -182,28 +205,56 @@
                 <!-- <span id="establishment-name"></span> -->
         </div>
 
-        <div id="classroom-dashboard-profile-stats">
-                <div style="grid-column: 1; grid-row: 1;" class="activity-panel-link"><span
-                                class="stats-secondary todo-activities"></span><span class="text-span-initial stats-description"
-                                data-i18n="[html]classroom.profil.todo"></span></div>
-                <div style="grid-column: 2; grid-row: 0;" class="activity-panel-link"><span
-                                class="stats-primary done-activities"></span><span class="text-span-initial stats-description"
-                                data-i18n="[html]classroom.profil.done"></span></div>
+        <div id="classroom-dashboard-profile-stats" role="region" aria-label="Statistiques des activités">
+                <div style="grid-column: 1; grid-row: 1;" 
+                     class="activity-panel-link" 
+                     role="button" 
+                     tabindex="0"
+                     aria-label="Activités à faire, 0 activités à faire"
+                     onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"
+                     onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities'); }">
+                    <span class="stats-secondary todo-activities" aria-hidden="true"></span>
+                    <span class="text-span-initial stats-description" data-i18n="[html]classroom.profil.todo"></span>
+                </div>
+                <div style="grid-column: 2; grid-row: 0;" 
+                     class="activity-panel-link" 
+                     role="button" 
+                     tabindex="0"
+                     aria-label="Activités terminées, 0 activités terminées"
+                     onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"
+                     onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities'); }">
+                    <span class="stats-primary done-activities" aria-hidden="true"></span>
+                    <span class="text-span-initial stats-description" data-i18n="[html]classroom.profil.done"></span>
+                </div>
         </div>
         <!-- <div id="space-return-button"></div> -->
 
-        <div class="d-flex flex-column" style="gap: 1.5em;">
-                <button class="btn mb-2 c-btn-outline-primary" id="settings-student"><span data-i18n="words.settings" class="text-capitalize me-1 text-span-initial"></span><i class="fas fa-cog"></i></button>
-                <button id="teacherSwitchButton" class="btn  mb-2 c-btn-outline-primary" onclick="modeProf()"><span class="text-span-initial me-1" data-i18n="[html]classroom.profil.switchModeTeacher"></span><i class="fas fa-exchange-alt"></i></button>
-                <button class="btn mb-2 c-btn-red" onclick="goToDisconnect('classroom');"><span
-                                data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
-                        <i class="fas fa-power-off"></i></button>
+        <div class="d-flex flex-column" style="gap: 1.5em;" role="group" aria-label="Actions du profil">
+                <button class="btn mb-2 c-btn-outline-primary" 
+                        id="settings-student"
+                        aria-label="Paramètres du compte">
+                    <span data-i18n="words.settings" class="text-capitalize me-1 text-span-initial"></span>
+                    <i class="fas fa-cog" aria-hidden="true"></i>
+                </button>
+                <button id="teacherSwitchButton" 
+                        class="btn mb-2 c-btn-outline-primary" 
+                        onclick="modeProf()"
+                        aria-label="Passer en mode enseignant">
+                    <span class="text-span-initial me-1" data-i18n="[html]classroom.profil.switchModeTeacher"></span>
+                    <i class="fas fa-exchange-alt" aria-hidden="true"></i>
+                </button>
+                <button class="btn mb-2 c-btn-red" 
+                        onclick="goToDisconnect('classroom');"
+                        aria-label="Se déconnecter de la classe">
+                    <span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
+                    <i class="fas fa-power-off" aria-hidden="true"></i>
+                </button>
         </div>
 </div>
 <div id="classroom-dashboard-help-panel" style="display:none;" class="dashboard-block help-panel-student">
     <div class="contact-panel">
 
-        <h3 data-i18n="classroom.help.student.label"></h3>
+        <h2 data-i18n="classroom.help.student.label"></h2>
 
         <div id="about-contact-info-student">
             <form class="c-primary-form" id="about-contact-form-student">
@@ -403,7 +454,7 @@
              aria-controls="saved-activities-list" 
              aria-label="Basculer l'affichage des brouillons">
             <i id="i-saved" class="ms-2 fas fa-lg fa-chevron-up"></i>
-            <h3 class="section-title" >Brouillons</h3>
+            <h3 class="section-title" data-i18n="classroom.activities.saved">Brouillons</h3>
             <span class="resource-number"> </span>
         </div>
         <div id="saved-activities-list" style="display: none;"></div>
@@ -570,36 +621,60 @@
         <!--  <span>CLASSE : <span id="classroom-subject-teacher"> matière enseignée</span></span> -->
     </div>
 
-    <div id="classroom-dashboard-profile-stats-teacher">
-        <div style="grid-column: 2; grid-row: 1;" class="activity-panel-link-t classroom-clickable"
-            onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')">
-            <span class="stats-primary owned-activities">--</span><span class="text-span-initial stats-description"
+    <div id="classroom-dashboard-profile-stats-teacher" role="region" aria-label="Statistiques des activités enseignant">
+        <div style="grid-column: 2; grid-row: 1;" 
+             class="activity-panel-link-t classroom-clickable"
+             role="button" 
+             tabindex="0"
+             onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')"
+             onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher'); }"
+             aria-label="Accéder au panneau des activités - 0 activités créées">
+            <span class="stats-primary owned-activities" aria-hidden="true">--</span>
+            <span class="text-span-initial stats-description"
                 data-i18n="[html]classroom.profil.create"></span>
         </div>
-        <div style="grid-column: 1; grid-row: 1;" class="classroom-panel-link classroom-clickable"
-            onclick="navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher')"><span
-                class="stats-secondary tocorrect-activities">--</span><span class="text-span-initial stats-description"
-                data-i18n="[html]classroom.profil.correctionToDo"></span></div>
+        <div style="grid-column: 1; grid-row: 1;" 
+             class="classroom-panel-link classroom-clickable"
+             role="button" 
+             tabindex="0"
+             onclick="navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher')"
+             onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher'); }"
+             aria-label="Accéder au panneau des classes - 0 corrections à faire">
+            <span class="stats-secondary tocorrect-activities" aria-hidden="true">--</span>
+            <span class="text-span-initial stats-description"
+                data-i18n="[html]classroom.profil.correctionToDo"></span>
+        </div>
     </div>
 
-    <div class="d-flex flex-column" style="gap: 1.5em;">
-        <button class="btn c-btn-outline-primary" id="settings-teacher">
+    <div class="d-flex flex-column" style="gap: 1.5em;" role="group" aria-label="Actions du profil enseignant">
+        <button class="btn c-btn-outline-primary" 
+                id="settings-teacher"
+                aria-label="Paramètres du compte enseignant">
             <span class="text-capitalize text-span-initial" data-i18n="words.settings" class="text-capitalize"></span>
-            <i class="fas fa-cog"></i>
+            <i class="fas fa-cog" aria-hidden="true"></i>
         </button>
 
-        <button class="btn c-btn-outline-secondary" id="help-teacher">
+        <button class="btn c-btn-outline-secondary" 
+                id="help-teacher"
+                aria-label="Accéder à l'aide et aux tutoriels">
             <span data-i18n="words.help" class="text-capitalize text-span-initial"></span>
-            <i class="fas fa-question-circle"></i>
+            <i class="fas fa-question-circle" aria-hidden="true"></i>
         </button>
 
-        <button class="btn c-btn-outline-primary" onclick="listeModeApprenant()" id="switch-student">
+        <button class="btn c-btn-outline-primary" 
+                onclick="listeModeApprenant()" 
+                id="switch-student"
+                aria-label="Passer en mode étudiant">
             <span data-i18n="classroom.profil.switchMode" class="text-span-initial me-1"></span>
-            <i class="fas fa-exchange-alt"></i></button>
+            <i class="fas fa-exchange-alt" aria-hidden="true"></i>
+        </button>
 
-        <button class="btn c-btn-red" onclick="goToDisconnect('classroom');" data-testid="classroomLogoutBtn">
+        <button class="btn c-btn-red" 
+                onclick="goToDisconnect('classroom');" 
+                data-testid="classroomLogoutBtn"
+                aria-label="Se déconnecter de la classe">
             <span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
-            <i class="fas fa-power-off"></i>
+            <i class="fas fa-power-off" aria-hidden="true"></i>
         </button>
     </div>
 </div>
@@ -750,12 +825,12 @@
     </div>
 
     <div id="classroom-panel-table-container" class="stylized-scrollbar">
-        <table>
-            <thead>
-                <tr id="header-table-teach">
+        <table role="table" aria-label="Tableau des élèves et leurs activités">
+            <thead role="rowgroup">
+                <tr id="header-table-teach" role="row">
                 </tr>
             </thead>
-            <tbody id="body-table-teach">
+            <tbody id="body-table-teach" role="rowgroup">
 
             </tbody>
         </table>
@@ -1055,8 +1130,14 @@
 
         <div class="section-facultative-options">
 
-            <div class="section-header-facultative-options" onclick="facultativeOptions()">
-                <i id="i-facultative-options" class="ms-2 fas fa-lg fa-chevron-up"></i>
+            <div class="section-header-facultative-options" 
+                 onclick="facultativeOptions()" 
+                 role="button" 
+                 tabindex="0" 
+                 aria-label="Développer ou réduire les options facultatives" 
+                 aria-expanded="false"
+                 onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); facultativeOptions(); }">
+                <i id="i-facultative-options" class="ms-2 fas fa-lg fa-chevron-up" aria-hidden="true"></i>
                 <h3 class="section-title-facultative-options" data-i18n="classroom.activities.facultative">Options facultatives</h3>
             </div>
 
@@ -1488,11 +1569,18 @@
             <div class="row mb-2 c-primary-form" id="groups_options">
 
                 <!-- Search bar -->
-                <div class="col col-md-6 col-lg-8 d-flex align-items-center">
-                    <input class="flex-fill" type="search" id="name_group_search" placeholder="Rechercher" aria-label="Search" data-i18n="[placeholder]manager.buttons.search">
-                    <button class="btn c-btn-primary" id="search_group" style="width: 3em; height: 3em;" aria-label="Rechercher des groupes">
-                        <i class="fas fa-search" aria-hidden="true"></i>
+                <div class="col col-md-6 col-lg-8 d-flex align-items-center" role="search" aria-labelledby="group-search-label">
+                    <label for="name_group_search" id="group-search-label" class="sr-only">Rechercher des groupes</label>
+                    <input class="flex-fill" type="search" id="name_group_search" placeholder="Rechercher" 
+                           aria-label="Rechercher des groupes par nom ou description" 
+                           data-i18n="[placeholder]manager.buttons.search"
+                           aria-describedby="group-search-description">
+                    <button class="btn c-btn-primary" id="search_group" style="width: 3em; height: 3em;" 
+                            aria-label="Lancer la recherche de groupes"
+                            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('search_group').click();}">
+                      <i class="fas fa-search" aria-hidden="true"></i>
                     </button>
+                    <span id="group-search-description" class="sr-only">Appuyez sur Entrée pour rechercher ou cliquez sur le bouton de recherche</span>
                 </div>
 
                 <!-- View filter -->
@@ -1516,11 +1604,15 @@
             </div>
 
             <div class="mb-2" id="btn-create-manager">
-                <button class="btn c-btn-outline-primary mx-1" id="create_group_manager">
-                    <span data-i18n="manager.group.create">Créer un groupe</span> <i class="fas fa-chevron-right"></i>
+                <button class="btn c-btn-outline-primary mx-1" id="create_group_manager"
+                        aria-label="Créer un nouveau groupe d'utilisateurs"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('create_group_manager').click();}">
+                    <span data-i18n="manager.group.create">Créer un groupe</span> <i class="fas fa-chevron-right" aria-hidden="true"></i>
                 </button>
-                <button class="btn c-btn-outline-secondary mx-1" id="create_user_link_to_group_manager">
-                    <span data-i18n="manager.users.create">Créer un utilisateur</span> <i class="fas fa-chevron-right"></i>
+                <button class="btn c-btn-outline-secondary mx-1" id="create_user_link_to_group_manager"
+                        aria-label="Créer un nouvel utilisateur"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('create_user_link_to_group_manager').click();}">
+                    <span data-i18n="manager.users.create">Créer un utilisateur</span> <i class="fas fa-chevron-right" aria-hidden="true"></i>
                 </button>
             </div>
 
@@ -1545,11 +1637,18 @@
                 <div class="row mb-2 c-primary-form" id="users_options">
 
                     <!-- Search bar -->
-                    <div class="col col-md-6 col-lg-8 d-flex align-items-center">
-                        <input class="flex-fill" type="search" id="name_user_search" data-i18n="[placeholder]manager.buttons.search" placeholder="Rechercher" aria-label="Search">
-                        <button class="btn c-btn-primary" id="search_user" style="width: 3em; height: 3em;" aria-label="Rechercher des utilisateurs">
+                    <div class="col col-md-6 col-lg-8 d-flex align-items-center" role="search" aria-labelledby="user-search-label">
+                        <label for="name_user_search" id="user-search-label" class="sr-only">Rechercher des utilisateurs</label>
+                        <input class="flex-fill" type="search" id="name_user_search" 
+                               data-i18n="[placeholder]manager.buttons.search" placeholder="Rechercher" 
+                               aria-label="Rechercher des utilisateurs par nom ou prénom"
+                               aria-describedby="user-search-description">
+                        <button class="btn c-btn-primary" id="search_user" style="width: 3em; height: 3em;" 
+                                aria-label="Lancer la recherche d'utilisateurs"
+                                onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('search_user').click();}">
                             <i class="fas fa-search" aria-hidden="true"></i>
                         </button>
+                        <span id="user-search-description" class="sr-only">Appuyez sur Entrée pour rechercher ou cliquez sur le bouton de recherche</span>
                     </div>
                 
                     <!-- View filter -->
@@ -1572,7 +1671,9 @@
                     </div>
                 </div>
                 <div class="row my-2 group-header">
-                    <button class="btn btn-sm c-btn-grey" id="table_back_to_users" aria-label="Retour à la liste des groupes">
+                    <button class="btn btn-sm c-btn-grey" id="table_back_to_users" 
+                            aria-label="Retour à la liste des groupes"
+                            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('table_back_to_users').click();}">
                         <i class="fas fa-arrow-left" aria-hidden="true"></i>
                     </button>
                     <h2 id="group_name_from_table"></h2>
@@ -1876,7 +1977,7 @@
     <div class="container">
         <div class="row mx-auto my-2 c-primary-form">
             <div class="col-xl-9 my-1 mx-auto">
-                <label data-i18n="classroom.activities.form.title.label">Titre : </label>
+                <label for="global_title" data-i18n="classroom.activities.form.title.label">Titre : </label>
                 <input class="w-100" type="text" id="global_title">
             </div>
 
@@ -1893,8 +1994,8 @@
 
         <div class="section-preview-activity" id="activity-preview-div">
 
-            <div class="section-header-preview-activity" onclick="activityPreviewToggler()">
-                <i id="i-activity-preview" class="ms-2 fas fa-lg fa-chevron-up"></i>
+            <div class="section-header-preview-activity" onclick="activityPreviewToggler()" tabindex="0" role="button" aria-label="Basculer la prévisualisation de l'activité" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); activityPreviewToggler(); }">
+                <i id="i-activity-preview" class="ms-2 fas fa-lg fa-chevron-up" aria-hidden="true"></i>
                 <h3 class="section-title-preview-activity" data-i18n="classroom.activities.previewActivity">preview-activity</h3>
             </div>
 
@@ -2223,8 +2324,8 @@
                     <span data-i18n="courses.addActivity">Ajouter une activité</span>
                 </button>
 
-                <button class="btn c-btn-secondary mx-1" id="course-create-activity">
-                    <span data-i18n="courses.createActivity" onclick="showExercicePanel()"><span class="me-1" data-i18n="classroom.activities.add">Créer une activité</span><i class="fas fa-chevron-right"></i>
+                <button class="btn c-btn-secondary mx-1" id="course-create-activity" onclick="showExercicePanel()">
+                    <span data-i18n="courses.createActivity"><span class="me-1" data-i18n="classroom.activities.add">Créer une activité</span><i class="fas fa-chevron-right"></i></span>
                 </button>
             </div>
 
@@ -2518,8 +2619,14 @@
 
         <div class="section-facultative-options">
 
-            <div class="section-header-facultative-options" onclick="coursesManager.facultativeOptions()">
-                <i id="i-course-options" class="ms-2 fas fa-lg fa-chevron-up"></i>
+            <div class="section-header-facultative-options" 
+                 onclick="coursesManager.facultativeOptions()" 
+                 role="button" 
+                 tabindex="0" 
+                 aria-label="Développer ou réduire les options facultatives" 
+                 aria-expanded="false"
+                 onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); coursesManager.facultativeOptions(); }">
+                <i id="i-course-options" class="ms-2 fas fa-lg fa-chevron-up" aria-hidden="true"></i>
                 <h3 class="section-title-facultative-options" data-i18n="classroom.activities.facultative">Options facultatives</h3>
             </div>
 
