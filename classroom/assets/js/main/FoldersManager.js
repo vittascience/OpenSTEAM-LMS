@@ -37,7 +37,12 @@ class FoldersManager {
             }
         });
 
-        $('body').on('click', '.folder-list', function () {
+        $('body').on('click', '.folder-list', function (event) {
+            // Ignore clicks that come from dropdown buttons or their children
+            if ($(event.target).closest('.dropdown').length > 0) {
+                return;
+            }
+            
             if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
                 let id = $(this).attr('data-id');
                 foldersManager.openFolder(id);

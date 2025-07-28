@@ -418,10 +418,6 @@ button {
     cursor: pointer;
 }
 
-.theme-student .sidebar-classroom div:not(:first-child) {
-    color: #743a00 !important;
-}
-
 .sidebar-classroom .active:not(:first-child) {
     font-weight: 700;
     text-transform: uppercase;

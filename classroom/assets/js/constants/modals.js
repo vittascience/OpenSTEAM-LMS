@@ -132,7 +132,7 @@ const classroomModals = {
             title: 'classroom.modals.settingsTeacher.title'
         },
         content: `<div>
-                    <h4 data-i18n="classroom.modals.settingsTeacher.lang">Langue</h4>
+                    <2 data-i18n="classroom.modals.settingsTeacher.lang">Langue</h2>
                 
                     <div id="switch-lang-list">
                         <button class="btn c-btn-secondary" onclick="changeLang('fr')">
@@ -151,7 +151,7 @@ const classroomModals = {
                             العربية
                         </button>    
                     </div>
-                    <h4 data-i18n="classroom.modals.settingsTeacher.description">Pour modifier votre mot de passe ou d'autres paramètres de votre compte</h4>
+                    <h2 data-i18n="classroom.modals.settingsTeacher.description">Pour modifier votre mot de passe ou d'autres paramètres de votre compte</h2>
                     <div class="d-flex flex-column align-items-center" style="gap: 0.5rem;">
                         <button class="btn c-btn-primary" id="teacher-account-button" onclick="openTeacherAccountPanel()" data-i18n="classroom.modals.settingsTeacher.accessButton">
                             Accéder à votre profil
