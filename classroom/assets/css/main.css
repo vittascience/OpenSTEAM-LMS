@@ -4026,5 +4026,9 @@ th, td {
     }
 }
 
-
-
+#my_calculator:focus,
+#my_calculator:focus-within {
+    border: 2px solid var(--classroom-primary) !important;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(var(--classroom-primary-rgb), 0.25);
+}
