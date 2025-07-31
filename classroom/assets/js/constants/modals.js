@@ -24,6 +24,7 @@ const classroomModals = {
                          - 
                         <a data-i18n="classroom.modals.addStudentByCsv.csvTemplateNoPassword;[download]classroom.modals.addStudentByCsv.csvTemplateNoPassword" href="${_PATH}assets/media/lang/${langValue}/csv_template_nopw.csv"></a>.
                     </p>
+                    <label for="importcsv-fileinput" class="sr-only">Sélectionner un fichier CSV</label>
                     <input type="file" id="importcsv-fileinput" name="importcsvfileinput"/><br>
                     <button class="btn c-btn-secondary mt-2" onclick="importLearnerCsv()">
                         <i class="fas fa-file-csv"></i> 
@@ -40,6 +41,7 @@ const classroomModals = {
         },
         content: `<div class="text-center mx-auto w-100 mh-100 mb-2">
                     <p><span data-i18n="[html]classroom.modals.addStudentByCsv.descriptionUpdate"></span><a data-i18n="classroom.modals.addStudentByCsv.csvTemplateNoPassword;[download]classroom.modals.addStudentByCsv.csvTemplateNoPassword" href="${_PATH}assets/media/lang/${langValue}/csv_template_nopw.csv"></a>.</p>
+                    <label for="importcsv-fileinput-classroom-create" class="sr-only">Sélectionner un fichier CSV</label>
                     <input type="file" id="importcsv-fileinput-classroom-create" name="importcsvfileinput"/><br>
                     <button class="btn c-btn-secondary mt-2" onclick="importLearnerCsv()">
                         <i class="fas fa-file-csv"></i> 
@@ -56,6 +58,7 @@ const classroomModals = {
         },
         content: `<div class="text-center mx-auto w-100 mh-100 mb-2">
                     <p><span data-i18n="[html]classroom.modals.addStudentByCsv.descriptionUpdate"></span><a data-i18n="classroom.modals.addStudentByCsv.csvTemplateNoPassword;[download]classroom.modals.addStudentByCsv.csvTemplateNoPassword" href="${_PATH}assets/media/lang/${langValue}/csv_template_nopw.csv"></a>.</p>
+                    <label for="importcsv-fileinput-classroom-update" class="sr-only">Sélectionner un fichier CSV</label>
                     <input type="file" id="importcsv-fileinput-classroom-update" name="importcsvfileinput"/><br>
                     <button class="btn c-btn-secondary mt-2" onclick="importLearnerCsv(true)">
                         <i class="fas fa-file-csv"></i> 
@@ -119,6 +122,7 @@ const classroomModals = {
         <p class="text-center" data-i18n="classroom.modals.settingsTeacher.passwordDescription"></p>
         <div class="d-flex justify-content-center">
             <form class="pwd-display-stud pwd-display-stud-modal" href="#">
+                <label for="password-display-area" class="sr-only">Mot de passe</label>
                 <input type="password" readonly class="modal-pwd" id="password-display-area" autocomplete="off"><i class="classroom-clickable fas fa-low-vision ms-2 password-display-toggler"></i>
             </form>
             
@@ -252,7 +256,8 @@ const classroomModals = {
         },
         content: `
     <h4 data-i18n="classroom.modals.changePseudo.description">Modifier le pseudo</h4>
-    <input class="change-pseudo-modal" type="text">
+    <label for="change-pseudo-modal" class="sr-only">Nouveau pseudo</label>
+    <input class="change-pseudo-modal" type="text" id="change-pseudo-modal">
     <button id="update-pseudo-close" class="btn btn-lg c-btn-primary" data-i18n="classroom.modals.changePseudo.validateButton">Valider</button>
                 `,
         footer: ``
@@ -382,7 +387,7 @@ const classroomModals = {
             title: 'manager.buttons.group.updateA'
         },
         content: `  <div class="form-group c-secondary-form">
-                        <label for="group_name" data-i18n="[html]manager.group.name">Group name</label>
+                        <label for="upd_group_name" data-i18n="[html]manager.group.name">Group name</label>
                         <input type="text" class="form-control" id="upd_group_name" data-i18n="[placeholder]manager.group.academy">
                     </div>
                     <div class="form-group c-secondary-form">
@@ -514,13 +519,17 @@ const classroomModals = {
         <br>
         <div class="activity-add-form c-secondary-form">
             <label class="form-check-label" for="create_begin_date" data-i18n="[html]manager.table.dateBeginFA"></label>
+            <label for="create_begin_date" class="sr-only">Date de début</label>
             <input type="date" id="create_begin_date" name="trip-start" max="2100-12-31">
             <label class="form-check-label" for="create_end_date" data-i18n="[html]manager.table.dateEndFA"></label>
+            <label for="create_end_date" class="sr-only">Date de fin</label>
             <input type="date" id="create_end_date" name="trip-start" max="2100-12-31">
             <label class="form-check-label" for="create_max_students" data-i18n="[html]manager.table.maxStudentsFA"></label>
+            <label for="create_max_students" class="sr-only">Maximum d'apprenants</label>
             <input type="number" id="create_max_students">
 
             <label class="form-check-label" for="create_max_classrooms" data-i18n="[html]manager.table.maxClassroomsFA"></label>
+            <label for="create_max_classrooms" class="sr-only">Maximum de classes</label>
             <input type="number" id="create_max_classrooms">
         </div>
     </div>
@@ -800,6 +809,7 @@ const classroomModals = {
                             <p class="text-center" data-i18n="[html]manager.users.disableIntention">Vous vous apprêtez à désactiver l'utilisateur : <span id="mde_firstnameSA"></span></p>
                             <div class="text-center c-secondary-form">
                                 <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ ci dessous pour valider l'action.</p>
+                                <label for="validation_disableGroupAdmin" class="sr-only">Confirmation de désactivation</label>
                                 <input type="text" name="validation_disableGroupAdmin" id="validation_disableGroupAdmin" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
                             </div>
                             <div class="text-center">
@@ -824,6 +834,7 @@ const classroomModals = {
                             <div class="text-center c-secondary-form">
 
                                 <p data-i18n="manager.users.disable.message" class="text-center"></p>
+                                <label for="validation_deleteGroupAdmin" class="sr-only">Confirmation de suppression</label>
                                 <input type="text" name="validation_deleteGroupAdmin" id="validation_deleteGroupAdmin" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
                             </div>
                             <div class="text-center">
@@ -847,6 +858,7 @@ const classroomModals = {
                             <p class="text-center" data-i18n="[html]manager.users.deleteIntentionSA">Vous vous apprêtez à supprimer l'utilisateur : <span id="mdi_firstnameSA"></span></p>
                             <div class="text-center c-secondary-form">
                                 <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ ci-dessous pour valider l'action.</p>
+                                <label for="validation_delete" class="sr-only">Confirmation de suppression</label>
                                 <input type="text" name="validation_delete" id="validation_delete" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
                             </div>
                             <div class="text-center">
@@ -870,6 +882,7 @@ const classroomModals = {
                             <p class="text-center" data-i18n="[html]manager.users.disableIntention">Vous vous apprêtez à désactiver l'utilisateur : <span id="mde_firstnameSA"></span></p>
                             <div class="text-center c-secondary-form">
                                 <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ ci-dessous pour valider l'action.</p>
+                                <label for="validation_disable" class="sr-only">Confirmation de désactivation</label>
                                 <input type="text" name="validation_disable" id="validation_disable" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
                             </div>
                             <div class="text-center">
@@ -893,6 +906,7 @@ const classroomModals = {
                             <p class="text-center" data-i18n="[html]manager.group.deleteIntention">Vous vous apprêtez à suppression le groupe : <span id="md_group"></span></p>
                             <div class="text-center c-secondary-form">
                                 <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ ci-dessous pour valider l'action.</p>
+                                <label for="validation_delete_group" class="sr-only">Confirmation de suppression</label>
                                 <input type="text" name="validation_delete_group" id="validation_delete_group" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
                             </div>
                             <div class="text-center">
@@ -912,8 +926,9 @@ const classroomModals = {
         content: `<div id="manager-show-resetlink-modal">
         <div class="col-12">
             <h3 class="font-weight-bold text-info mx-auto text-center my-2" data-i18n="manager.users.showResetLink">Lien de réinitialisation de mot de passe</h3>
-            <div class="row">
+                          <div class="row">
               <div class="input-group mb-3">
+                    <label for="passwordLink" class="sr-only">Lien de réinitialisation</label>
                     <input type="text" class="form-control" id="passwordLink">
                     <div class="input-group-append">
                       <button class="btn c-btn-primary" onclick="copyLink('#passwordLink')" data-i18n="manager.buttons.copyLink">Copy the link</button>
@@ -937,6 +952,7 @@ const classroomModals = {
                         <div class="col-10 mx-auto">
                             <h3 class="font-weight-bold text-primary m-auto text-center my-3" data-i18n="manager.group.showLinkTitle">Lien du groupe</h3>
                             <div class="input-group c-secondary-form">
+                                <label for="groupLink" class="sr-only">Lien du groupe</label>
                                 <input type="text" class="form-control" id="groupLink">
                                 <div class="input-group-append ">
                                     <button class="btn c-btn-secondary input-group-selector" onclick="copyLink('#groupLink')" data-i18n="manager.buttons.copyLink">Copy the link</button>
@@ -1034,6 +1050,7 @@ const classroomModals = {
                             <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ ci-dessous pour valider l'action.</p>
                             <div class="text-center c-secondary-form">
                                 <input type="hidden" name="validation_delete_application_id" id="validation_delete_application_id">
+                                <label for="validation_delete_application" class="sr-only">Confirmation de suppression</label>
                                 <input type="text" name="validation_delete_application" id="validation_delete_application" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
                             </div>
                             <div class="text-center">
@@ -1193,6 +1210,7 @@ const classroomModals = {
                         <div class="col-12">
                             <form class="text-center c-primary-form">
                                 <p class="text-center" data-i18n="classroom.modals.profileUpdatePasswordConfirm.description"></p>
+                                <label for="current_password_prompt" class="sr-only">Mot de passe actuel</label>
                                 <input type="password" name="current_password_prompt" id="current_password_prompt" data-i18n="[placeholder]classroom.modals.profileUpdatePasswordConfirm.placeholderInput" autocomplete="off">
                             </form>
                             <div class="text-center">
@@ -1216,6 +1234,7 @@ const classroomModals = {
                             <p class="text-center" data-i18n="classroom.activities.deleteActivityDisclaimer"></p>
                             <div class="text-center c-secondary-form">
                                 <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ ci-dessous pour valider l'action.</p>
+                                <label for="validation-delete-activity" class="sr-only">Confirmation de suppression</label>
                                 <input type="text" name="validation-delete-activity" id="validation-delete-activity" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
                             </div>
                             <div class="text-center">
@@ -1260,6 +1279,7 @@ const classroomModals = {
     
             <div class="text-center c-secondary-form">
                 <input type="hidden" name="validation-delete-folder_id" id="validation-delete-folder_id">
+                <label for="validation-delete-folder" class="sr-only">Confirmation de suppression</label>
                 <input type="text" name="validation-delete-folder" id="validation-delete-folder" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
             </div>
     
@@ -1328,6 +1348,7 @@ const classroomModals = {
                             <h3 class="font-weight-bold c-text-red m-auto text-center" data-i18n="classroom.classes.deleteStudentConfirm"></h3>
                             <div class="text-center c-secondary-form">
                                 <p class="text-center" data-i18n="manager.users.deleteConfirmation">Veuillez écrire "supprimer" dans le champ ci-dessous pour valider l'action.</p>
+                                <label for="validation-delete-student" class="sr-only">Confirmation de suppression</label>
                                 <input type="text" name="validation-delete-student" id="validation-delete-student" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
                             </div>
                             <div class="text-center">
@@ -1355,6 +1376,7 @@ const classroomModals = {
         },
         content: `  <div id="add-activity-container" class="container-fluid">
 
+                        <label for="course-activity-search" class="sr-only">Rechercher une activité</label>
                         <input type="search" class="form-control" id="course-activity-search" class="course-activity-search" data-i18n="[placeholder]courses.searchActivity">
 
                         <div id="add-activity-content">
@@ -1380,6 +1402,7 @@ const classroomModals = {
                     
                             <div class="text-center c-secondary-form">
                                 <input type="hidden" name="validation-delete-course-id" id="validation-delete-course-id">
+                                <label for="validation-delete-course" class="sr-only">Confirmation de suppression</label>
                                 <input type="text" name="validation-delete-course" id="validation-delete-course" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
                             </div>
                     
@@ -1404,6 +1427,7 @@ const classroomModals = {
 
                             <div class="text-center c-secondary-form">
                                 <p data-i18n="manager.users.disable.message" class="text-center"></p>
+                                <label for="validation-delete-classroom" class="sr-only">Confirmation de suppression</label>
                                 <input type="text" name="validation-delete-classroom" id="validation-delete-classroom" data-i18n="[placeholder]manager.input.placeholder.ok" placeholder="supprimer">
                             </div>
 
