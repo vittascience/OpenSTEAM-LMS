@@ -314,12 +314,12 @@ function activitiesCreation(apps) {
 
         let nameField = "";
         if (i18next.t(titleRoad+app.name) != titleRoad+app.name) {
-            nameField = `<h3 class="app-card-title mt-2" data-i18n="${titleRoad+app.name}"></h3>`;
+            nameField = `<h2 class="app-card-title mt-2" data-i18n="${titleRoad+app.name}"></h2>`;
         } else if (i18next.t(app.name) != app.name) {
-            nameField = `<h3 class="app-card-title mt-2" data-i18n="${app.name}"></h3>`;
+            nameField = `<h2 class="app-card-title mt-2" data-i18n="${app.name}"></h2>`;
         } else {
             let appName = app.name.replaceAll("-", " ");
-            nameField = `<h3 class="app-card-title mt-2">${appName}</h3>`;
+            nameField = `<h2 class="app-card-title mt-2">${appName}</h2>`;
         }
 
         let descriptionField = "";

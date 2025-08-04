@@ -17,25 +17,23 @@
                 <h5 data-i18n='switchAccessibility.theme'>Thème</h5>
                 <div style="margin: 0 auto; width: 196px">
                     <input type="radio" id="radio-light-theme" name="theme" value="light">
-                    <label for="radio-light-theme" data-i18n='switchAccessibility.light_theme'>Thème
-                        clair</label><br>
+                    <label for="radio-light-theme" data-i18n='switchAccessibility.light_theme'>Thème clair</label><br>
 
                     <input type="radio" id="radio-dark-theme" name="theme" value="dark">
-                    <label for="radio-dark-theme" data-i18n='switchAccessibility.dark_theme'>Thème
-                        sombre</label><br>
+                    <label for="radio-dark-theme" data-i18n='switchAccessibility.dark_theme'>Thème sombre</label><br>
+
+                    <button type="button" class="btn btn-primary mt-2 apply-button" data-group="theme" data-i18n='switchAccessibility.apply_button'>Appliquer</button>
                 </div>
 
                 <h5 data-i18n='switchAccessibility.contrast'>Contraste</h5>
                 <div style="margin: 0 auto; width: 196px">
                     <input type="radio"  name="contrast" value="normal" id="radio-normal-contrast">
-                    <label for="radio-normal-contrast" data-i18n='switchAccessibility.normal_contrast'>
-                        Contraste normal
-                    </label><br>
+                    <label for="radio-normal-contrast" data-i18n='switchAccessibility.normal_contrast'>Contraste normal</label><br>
 
                     <input type="radio" name="contrast" value="high" id="radio-high-contrast">
-                    <label for="radio-high-contrast" data-i18n='switchAccessibility.high_contrast'>
-                        Contraste élevé
-                    </label><br>
+                    <label for="radio-high-contrast" data-i18n='switchAccessibility.high_contrast'>Contraste élevé</label><br>
+
+                    <button type="button" class="btn btn-primary mt-2 apply-button" data-group="contrast" data-i18n='switchAccessibility.apply_button'>Appliquer</button>
                 </div>
 
                 <h5 data-i18n='switchAccessibility.font'>Polices</h5>
@@ -54,9 +52,48 @@
 
                     <input type="radio" id="radio-verdana-font" name="font" value="verdana">
                     <label for="radio-verdana-font" style="font-family: 'Verdana'!important">Verdana</label><br>
+
+                    <button type="button" class="btn btn-primary mt-2 apply-button" data-group="font" data-i18n='switchAccessibility.apply_button'>Appliquer</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 <div id="classroom-dashboard-content" role="main" aria-label="Contenu principal du tableau de bord de la classe">
+
+<script>
+  document.querySelectorAll('.apply-button').forEach((button) => {
+    button.addEventListener('click', (event) => {
+        const group = event.target.getAttribute('data-group');
+        let selectedOption;
+
+        if (group === 'theme') {
+            selectedOption = document.querySelector('input[name="theme"]:checked');
+            if (selectedOption) {
+                console.log(`Applying Theme: ${selectedOption.value}`);
+                document.body.setAttribute('data-theme', selectedOption.value);
+            } else {
+                alert('Veuillez sélectionner un thème avant de cliquer sur Appliquer.');
+            }
+        } else if (group === 'contrast') {
+            selectedOption = document.querySelector('input[name="contrast"]:checked');
+            if (selectedOption) {
+                console.log(`Applying Contrast: ${selectedOption.value}`);
+                document.body.setAttribute('data-contrast', selectedOption.value);
+            } else {
+                alert('Veuillez sélectionner un contraste avant de cliquer sur Appliquer.');
+            }
+        } else if (group === 'font') {
+            selectedOption = document.querySelector('input[name="font"]:checked');
+            if (selectedOption) {
+                console.log(`Applying Font: ${selectedOption.value}`);
+                document.body.setAttribute('data-font', selectedOption.value);
+            } else {
+                alert('Veuillez sélectionner une police avant de cliquer sur Appliquer.');
+            }
+        }
+
+        event.stopImmediatePropagation();
+    });
+  });
+</script>
