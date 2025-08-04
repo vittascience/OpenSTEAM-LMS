@@ -736,11 +736,11 @@ class managerManager {
                         $premium = " -- ";
                     }
 
-                    let $droits = " <i class='fas fa-question fa-2x' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userNoRights') + "'></i>";
+                    let $droits = " <i class='fas fa-question fa-2x' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userNoRights') + "' role='img' aria-label='" + i18next.t('manager.table.userNoRights') + "'></i>";
                     if (element.hasOwnProperty('rights')) {
                         $droits = element.rights === "1" ?
-                            "<i class='fas fa-crown fa-2x c-text-gold' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userAdmin') + "' ></i>" :
-                            "<i class='fas fa-user fa-2x c-text-primary' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userTeacher') + "'></i>";
+                            "<i class='fas fa-crown fa-2x c-text-gold' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userAdmin') + "' role='img' aria-label='" + i18next.t('manager.table.userAdmin') + "'></i>" :
+                            "<i class='fas fa-user fa-2x c-text-primary' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userTeacher') + "' role='img' aria-label='" + i18next.t('manager.table.userTeacher') + "'></i>";
                     }
 
                     let div_img = ""
@@ -781,13 +781,13 @@ class managerManager {
                             <td>${div_img}</td>
                             <td>${$premium}</td>
                             <td>
-                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPassword(${element.id})">
-                                    <i class="fas fa-redo-alt fa-2x"></i>
+                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPassword(${element.id})" aria-label="Réinitialiser le mot de passe de ${element.firstname} ${element.surname}">
+                                    <i class="fas fa-redo-alt fa-2x" aria-hidden="true"></i>
                                 </a>
                             </td>
                             <td>
-                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal(${element.id})">
-                                    <i class="fas fa-pencil-alt fa-2x"></i>
+                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal(${element.id})" aria-label="Modifier l'utilisateur ${element.firstname} ${element.surname}">
+                                    <i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i>
                                 </a>
                             </td>
                             <td>
@@ -804,13 +804,13 @@ class managerManager {
                             <td>${div_img}</td>
                             <td>${$premium}</td>
                             <td>
-                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPassword(${element.id})">
-                                    <i class="fas fa-redo-alt fa-2x"></i>
+                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPassword(${element.id})" aria-label="Réinitialiser le mot de passe de ${element.firstname} ${element.surname}">
+                                    <i class="fas fa-redo-alt fa-2x" aria-hidden="true"></i>
                                 </a>
                             </td>
                             <td>
-                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal(${element.id})">
-                                    <i class="fas fa-pencil-alt fa-2x"></i>
+                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal(${element.id})" aria-label="Modifier l'utilisateur ${element.firstname} ${element.surname}">
+                                    <i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i>
                                 </a>
                             </td>
                             <td>
@@ -882,10 +882,10 @@ class managerManager {
                     $('#paginationButtons_users').html(htmlButtons);
                 } else {
                     mainManager.getmanagerManager()._allActualUsers.push(element);
-                    let $droits = " <i class='fas fa-question fa-2x' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userNoRights') + "' ></i> ";
+                    let $droits = " <i class='fas fa-question fa-2x' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userNoRights') + "' role='img' aria-label='" + i18next.t('manager.table.userNoRights') + "'></i> ";
                     if (element.hasOwnProperty('rights')) {
-                        $droits = element.rights === "1" ? "<i class='fas fa-crown fa-2x c-text-gold' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userAdmin') + "' ></i>" :
-                        "<i class='fas fa-user fa-2x c-text-primary' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userTeacher') + "'></i>";
+                        $droits = element.rights === "1" ? "<i class='fas fa-crown fa-2x c-text-gold' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userAdmin') + "' role='img' aria-label='" + i18next.t('manager.table.userAdmin') + "'></i>" :
+                        "<i class='fas fa-user fa-2x c-text-primary' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userTeacher') + "' role='img' aria-label='" + i18next.t('manager.table.userTeacher') + "'></i>";
                     }
 
                     let div_img = ""
@@ -933,13 +933,13 @@ class managerManager {
                             <td>${div_img}</td>
                             <td>${$premium}</td>
                             <td>
-                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPassword(${element.id})">
-                                    <i class="fas fa-redo-alt fa-2x"></i>
+                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPassword(${element.id})" aria-label="Réinitialiser le mot de passe de ${element.firstname} ${element.surname}">
+                                    <i class="fas fa-redo-alt fa-2x" aria-hidden="true"></i>
                                 </a>
                             </td>
                             <td>
-                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal(${element.id})">
-                                    <i class="fas fa-pencil-alt fa-2x"></i>
+                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal(${element.id})" aria-label="Modifier l'utilisateur ${element.firstname} ${element.surname}">
+                                    <i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i>
                                 </a>
                             </td>
                             <td>
@@ -955,13 +955,13 @@ class managerManager {
                             <td>${div_img}</td>
                             <td>${$premium}</td>
                             <td>
-                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPassword(${element.id})">
-                                    <i class="fas fa-redo-alt fa-2x"></i>
+                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPassword(${element.id})" aria-label="Réinitialiser le mot de passe de ${element.firstname} ${element.surname}">
+                                    <i class="fas fa-redo-alt fa-2x" aria-hidden="true"></i>
                                 </a>
                             </td>
                             <td>
-                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal(${element.id})">
-                                    <i class="fas fa-pencil-alt fa-2x"></i>
+                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal(${element.id})" aria-label="Modifier l'utilisateur ${element.firstname} ${element.surname}">
+                                    <i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i>
                                 </a>
                             </td>
                             <td>
@@ -999,7 +999,7 @@ class managerManager {
             users_per_page = $('#users_per_page').val();
 
         data_table +=
-            `<tr role="button" tabindex="0" 
+            `<tr tabindex="0" 
                 onclick="showGroupMembers(-1, 1 ,${users_per_page}, ${users_sort})" 
                 onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showGroupMembers(-1, 1 ,${users_per_page}, ${users_sort});}"
                 aria-label="Voir les utilisateurs sans groupe">
@@ -1066,7 +1066,7 @@ class managerManager {
                     });
                 }
                 data_table +=
-                    `<tr role="button" tabindex="0" 
+                    `<tr tabindex="0" 
                         onclick="showGroupMembers(${element.id}, 1 ,${users_per_page}, ${users_sort})" 
                         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showGroupMembers(${element.id}, 1 ,${users_per_page}, ${users_sort});}"
                         aria-label="Voir les membres du groupe ${element.name}">

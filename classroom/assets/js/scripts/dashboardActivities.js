@@ -168,7 +168,7 @@ function teacherActivityItem(activity, displayStyle) {
                         <button class="dropdown-item classroom-clickable col-12" role="menuitem" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</button>
                     </ul>
                 </div>
-                <h3 class="activity-item-title" data-bs-toggle="tooltip" title="${activity.title}" aria-label="${activity.title}">${activity.title}</h3>
+                <h2 class="activity-item-title" data-bs-toggle="tooltip" title="${activity.title}" aria-label="${activity.title}">${activity.title}</h2>
             </div>
         </div>
                   `
@@ -206,7 +206,7 @@ function teacherActivityItem(activity, displayStyle) {
                 <div class="activity-list-options">
                     <div class="activity-list-options dropdown" role="menu">
                         <i class="fas fa-cog fa-2x" 
-                            role="button"
+                            role="menuitem"
                             aria-label="${i18next.t('words.options')} ${activity.title}"
                             type="button" 
                             id="dropdown-list-activityItem-${activity.id}" 
@@ -288,17 +288,14 @@ function teacherFolder(folder, displayStyle) {
                       <button class="dropdown-item classroom-clickable col-12" role="menuitem" onclick="event.stopPropagation(); foldersManager.deleteFolder(${folder.id})">${capitalizeFirstLetter(i18next.t('manager.buttons.delete'))}</button>
                   </ul>
               </div>
-              <h3 data-bs-toggle="tooltip" title="${folder.name}" class="activity-item-title">${folder.name}</h3>
+              <h2 data-bs-toggle="tooltip" title="${folder.name}" class="activity-item-title">${folder.name}</h2>
           </div>
       </div>
       `
     } else if (displayStyle == "list") {
         content = `<div class="row folder-item-list" 
                         data-id="${folder.id}" 
-                        role="button" 
-                        tabindex="0" 
-                        aria-label="Dossier ${folder.name}"
-                        onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); foldersManager.seekFolder(${folder.id}); }">
+                        aria-label="Dossier ${folder.name}">
                         <div class="container-draggable">
                             <div class="folder-list" data-id="${folder.id}">
                                 <div class="folder-list-icon">
@@ -317,7 +314,8 @@ function teacherFolder(folder, displayStyle) {
                                         aria-haspopup="true" 
                                         aria-expanded="false"
                                         aria-label="${i18next.t('words.options')} ${folder.name}"
-                                        style="border: none; background: none; color: inherit;">
+                                        style="border: none; background: none; color: inherit;"
+                                        onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); return false; }">
                                         <i class="fas fa-cog fa-2x" aria-hidden="true"></i>
                                     </button>
                                     <div class="dropdown-menu" 
@@ -372,7 +370,7 @@ function classeItem(classe, nbStudents, students) {
           </div>`
 
     html += `<div class="class-card-mid">
-                <h3 class="activity-item-title">${classe.name}</h3>
+                <h2 class="activity-item-title">${classe.name}</h2>
             </div>`
 
     html += `<div class="class-card-bot">
@@ -591,7 +589,12 @@ $('body').on('click change', '.student-id', function () {
     $statusSpan.text(isChecked ? i18next.t('words.selected') : i18next.t('words.notSelected'));
 })
 
-$('body').on('click', '.activity-list, .activity-list-item, .activity-card, .activity-item .activity-item-title', function () {
+$('body').on('click', '.activity-list, .activity-list-item, .activity-card, .activity-item .activity-item-title', function (event) {
+    // Ignore clicks that come from dropdown buttons or their children
+    if ($(event.target).closest('.dropdown').length > 0) {
+        return;
+    }
+    
     if (!$(this).find("i:hover").length && !$(this).find(".dropdown-menu:hover").length) {
         let id, state, navigation;
         if (this.classList.contains('activity-item-title')) {
@@ -1221,4 +1224,3 @@ function isTheActivityOrCourseIsDoable(doable, hideValidationButton = false, isF
         }
     }
 }
-

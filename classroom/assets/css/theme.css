@@ -169,10 +169,22 @@ Used when the insterface is used by a group administrator */
 Used when the insterface is used by a super administrator */
 .theme-super-admin,
 .hue-rotate-super-admin {
-    --classroom-dashboard: #BB5D5D;
-    --classroom-dashboard-rgb: 187, 93, 93;
-    --classroom-dashboard-dark: #A84D4D;
-    --classroom-dashboard-dark-rgb: 168, 77, 77;
+    --classroom-dashboard: #A84D4D;
+    --classroom-dashboard-rgb: 168, 77, 77;
+    --classroom-dashboard-dark: #954545;
+    --classroom-dashboard-dark-rgb: 149, 69, 69;
+}
+
+.theme-light.theme-super-admin,
+.theme-light .hue-rotate-super-admin {
+   --classroom-dashboard: #a84d4d;
+   --classroom-dashboard-dark: #954545;
+}
+
+.theme-dark .theme-super-admin,
+.theme-dark .hue-rotate-super-admin {
+    --classroom-dashboard: #ff6b7a;
+    --classroom-dashboard-dark: #ff5566;
 }
 
 .theme-super-admin .sidebar-classroom div img:not(.user-picture) {

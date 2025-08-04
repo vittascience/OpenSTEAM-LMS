@@ -27,7 +27,7 @@
             <span id="fake-display" data-i18n="classroom.login.hello"></span>
         </div>
         <div id="heading-container" style="flex-grow:1;">
-            <h1 data-i18n="[html]classroom.login.neutralTitle"></h1>
+            <h1 data-i18n="[html]classroom.login.neutralTitle" role="heading" aria-level="1"></h1>
             <span class="sub-text" data-i18n="classroom.login.subtitle"></span>
         </div>
 
@@ -58,7 +58,7 @@
 
     <div id="classroom-faq">
         <div class="container py-5 mb-3">
-            <h2 data-i18n="faqInfo.title"></h2>
+            <h2 data-i18n="faqInfo.title" role="heading" aria-level="2"></h2>
         </div>
     </div>
 </div>
@@ -67,10 +67,10 @@
 <!-- page de login à choix multiple -->
   <div id="classroom-login-container" style="display:none;" role="dialog" aria-labelledby="login-choice-title" aria-modal="true">
      <div class="inner-login-container">
-         <h2 id="login-choice-title" class="sr-only">Choix du type de connexion</h2>
+         <h2 id="login-choice-title" class="sr-only" role="heading" aria-level="2">Choix du type de connexion</h2>
          
          <div id="classroom-login-code" class="container-border-left" role="region" aria-labelledby="student-login-title">
-             <h3 id="student-login-title" class="font-weight-bold c-text-secondary" data-i18n="classroom.login.student">Connexion élève</h3>
+             <h3 id="student-login-title" class="font-weight-bold c-text-secondary" data-i18n="classroom.login.student" role="heading" aria-level="3">Connexion élève</h3>
              <form aria-labelledby="student-login-title">
                  <div class="c-secondary-form mb-3">
                   <div class="d-flex flex-column">
@@ -87,7 +87,7 @@
              </form>
         </div>
                  <div id="classroom-login-vittascience-account" class="container-border-center" role="region" aria-labelledby="teacher-login-title">
-             <h3 id="teacher-login-title" class="font-weight-bold c-text-primary" data-i18n="classroom.login.teacher">Connexion enseignant</h3>
+             <h3 id="teacher-login-title" class="font-weight-bold c-text-primary" data-i18n="classroom.login.teacher" role="heading" aria-level="3">Connexion enseignant</h3>
              <p data-i18n="classroom.login.hasAccount">Vous avez déjà un compte ?</p>
              <button id="login-vittascience" class="btn c-btn-primary" type="button" aria-label="Ouvrir le formulaire de connexion enseignant">
                  <span data-i18n="classroom.login.login">Connexion</span> 
@@ -99,7 +99,7 @@
              </button>
          </div>
              <div id="classroom-login-gar" class="container-border-right" role="region" aria-labelledby="gar-title">
-             <h4 id="gar-title" class="gar-presentation-text my-3" data-i18n="[html]classroom.login.gar">Connexion via GAR</h4>
+             <h4 id="gar-title" class="gar-presentation-text my-3" data-i18n="[html]classroom.login.gar" role="heading" aria-level="4">Connexion via GAR</h4>
              <a class="d-flex btn-sso fw-bold" href="./gar.php" aria-label="Se connecter via le Gestionnaire d'Accès aux Ressources">
                  <img src="./auth/svg/gar.svg" alt="Logo du Gestionnaire d'Accès aux Ressources" class="w-auto">
                  <span data-i18n="sso.gar">Demander un accès GAR</span>
@@ -121,7 +121,7 @@
             <div class="form-group part-content-index part-row c-primary-form row mx-0" style="--bs-gutter-x: 2.5rem;">
 
                 <div class="col-md-12">
-                                         <h2 id="register-title" class="text-center fs-4 fw-bold c-text-primary">
+                                         <h2 id="register-title" class="text-center fs-4 fw-bold c-text-primary" role="heading" aria-level="2">
                          <i class="fas fa-user-plus me-1 registration-icon" aria-hidden="true"></i>
                          <span class="font-weight-bold text-center mb-4 text-uppercase"
                              data-i18n="manager.account.registration.title">Création de compte</span>
@@ -326,7 +326,7 @@
 
   <div id="login-container" class="inner-register-container" style="display:none;position:relative;" role="dialog" aria-labelledby="teacher-login-form-title" aria-modal="true">
      <div class="login-form p-0" id="signupin-div">
-         <h2 id="teacher-login-form-title" class="text-center fs-4 fw-bold c-text-primary">
+                     <h2 id="teacher-login-form-title" class="text-center fs-4 fw-bold c-text-primary" role="heading" aria-level="2">
              <i class="fa fa-sign-in-alt" aria-hidden="true"></i>
              <span data-i18n="login_popup.title" class="mx-2">Connexion enseignant</span>
          </h2>
@@ -402,10 +402,10 @@
 <!-- page de login via un lien -->
  <div id="classroom-login-container-bis" style="display:none;" role="dialog" aria-labelledby="link-login-title" aria-modal="true">
      <div class="inner-login-container">
-         <h2 id="link-login-title" class="sr-only">Connexion via lien</h2>
+         <h2 id="link-login-title" class="sr-only" role="heading" aria-level="2">Connexion via lien</h2>
          <p id="classroom-desc"></p>
          <div id="classroom-create-account" class="container-border-left container-border-left-enable" role="region" aria-labelledby="new-user-title">
-             <h3 id="new-user-title" class="font-weight-bold c-text-primary" data-i18n="classroom.login.signin">Première connexion</h3>
+             <h3 id="new-user-title" class="font-weight-bold c-text-primary" data-i18n="classroom.login.signin" role="heading" aria-level="3">Première connexion</h3>
              <form aria-labelledby="new-user-title">
                  <div class="c-primary-form">
                      <p data-i18n="classroom.login.firstVisit">Première visite ?</p>
@@ -422,7 +422,7 @@
             <span id="warning-pseudo-used" style="display:none;" data-i18n="classroom.login.error.used"></span>
         </div>
                  <div id="classroom-login-account" class="container-border-right" role="region" aria-labelledby="existing-user-title">
-             <h3 id="existing-user-title" class="font-weight-bold c-text-primary" data-i18n="classroom.login.signin">Connexion utilisateur existant</h3>
+             <h3 id="existing-user-title" class="font-weight-bold c-text-primary" data-i18n="classroom.login.signin" role="heading" aria-level="3">Connexion utilisateur existant</h3>
              <form aria-labelledby="existing-user-title">
                  <div class="c-primary-form">
                      <p data-i18n="classroom.login.hasReturned">Déjà utilisé cette classe ?</p>

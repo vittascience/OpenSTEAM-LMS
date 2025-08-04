@@ -64,7 +64,7 @@ function makeWysiBBEditorAccessible(editorContainer) {
     // Keyboard input button (visible when focused)
     const toggleButton = document.createElement('button');
     const finalLabelText = wysibbEditor.getAttribute('aria-label') || labelText || 'Éditeur de texte';
-    toggleButton.textContent = `Éditer le contenu (appuyez sur Entrée). ${finalLabelText}. Zone d'édition activée. Appuyez sur Alt + F10 pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`;
+    toggleButton.textContent = `Éditer le contenu (appuyez sur Entrée). Appuyez sur Alt + F10 pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`;
     toggleButton.className = 'wysibb-toggle-button';
     toggleButton.setAttribute('aria-controls', textarea?.id || '');
     toggleButton.style.cssText = `
@@ -89,41 +89,64 @@ function makeWysiBBEditorAccessible(editorContainer) {
         padding: 10px;
     `;
     
+    let isEditorActive = false;
+    
     toggleButton.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
+            isEditorActive = true;
+            toggleButton.style.display = 'none';
             wysibbEditor.setAttribute('tabindex', '0');
             wysibbEditor.focus();
-            liveRegionAnnounce(`Éditer le contenu (appuyez sur Entrée). ${finalLabelText}. Zone d'édition activée. Appuyez sur Alt + F10 pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`);
+            liveRegionAnnounce(`Éditer le contenu (appuyez sur Entrée). Appuyez sur Alt + F10 pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`);
         }
     });
 
     toggleButton.addEventListener('focus', () => {
-        toggleButton.style.opacity = '1';
-        toggleButton.style.border = '2px solid #007bff';
-        toggleButton.style.background = 'rgba(0, 123, 255, 0.15)';
+        // Only show if editor is not active and focus is via keyboard
+        if (!isEditorActive) {
+            toggleButton.style.opacity = '1';
+            toggleButton.style.border = '2px solid #007bff';
+            toggleButton.style.background = 'rgba(0, 123, 255, 0.5)';
+        }
     });
 
     toggleButton.addEventListener('blur', () => {
-        toggleButton.style.opacity = '0';
-        toggleButton.style.border = '2px solid transparent';
-        toggleButton.style.background = 'rgba(0, 123, 255, 0.1)';
+        if (!isEditorActive) {
+            toggleButton.style.opacity = '0';
+            toggleButton.style.border = '2px solid transparent';
+            toggleButton.style.background = 'rgba(0, 123, 255, 0.1)';
+        }
     });
+
+    // Track mouse clicks to hide the button
+    toggleButton.addEventListener('mousedown', () => {
+        if (!isEditorActive) {
+            toggleButton.style.opacity = '0';
+        }
+    });
+
     wysibbEditor.parentNode.insertBefore(toggleButton, wysibbEditor);
 
     wysibbEditor.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             e.preventDefault();
+            e.stopPropagation();
+            isEditorActive = false;
+            toggleButton.style.display = 'block';
             wysibbEditor.setAttribute('tabindex', '-1');
             toggleButton.focus();
             liveRegionAnnounce("Vous avez quitté la zone d'édition.");
-        }else if (e.code === 'F10' && e.altKey){
+        } else if (e.key === 'F10' && e.altKey) {
             e.preventDefault();
+            e.stopPropagation();
             enableToolbarNavigation(toolbar, wysibbEditor, liveRegion);
         }
     });
 
     toggleButton.addEventListener('click', () => {
+      isEditorActive = true;
+      toggleButton.style.display = 'none';
       wysibbEditor.setAttribute('tabindex', '0');
       wysibbEditor.focus();
       liveRegionAnnounce(`Éditer le contenu (appuyez sur Entrée). ${finalLabelText}. Zone d'édition activée. Appuyez sur Alt + F10 pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`);
@@ -132,8 +155,17 @@ function makeWysiBBEditorAccessible(editorContainer) {
     // If you exit without Esc (click, tab...), the keyboard input is locked again.
     wysibbEditor.addEventListener('blur', () => {
         setTimeout(() => {
-            if (document.activeElement !== wysibbEditor && !toolbar.contains(document.activeElement)) {
+            if (document.activeElement !== wysibbEditor && 
+                !toolbar.contains(document.activeElement) && 
+                document.activeElement !== toggleButton) {
+                // Same effect as pressing Escape
+                isEditorActive = false;
+                toggleButton.style.display = 'block';
+                toggleButton.style.opacity = '0';
+                toggleButton.style.border = '2px solid transparent';
+                toggleButton.style.background = 'rgba(0, 123, 255, 0.1)';
                 wysibbEditor.setAttribute('tabindex', '-1');
+                liveRegionAnnounce("Vous avez quitté la zone d'édition.");
             }
         }, 10);
     });
@@ -160,17 +192,21 @@ function enableToolbarNavigation(toolbar, returnFocusEl, liveRegion) {
         btn.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
+                e.stopPropagation();
                 btn.click();
             } else if (e.key === 'ArrowRight') {
                 e.preventDefault();
+                e.stopPropagation();
                 const next = buttons[index + 1];
                 if (next) next.focus();
             } else if (e.key === 'ArrowLeft') {
                 e.preventDefault();
+                e.stopPropagation();
                 const prev = buttons[index - 1];
                 if (prev) prev.focus();
             } else if (e.key === 'Escape') {
                 e.preventDefault();
+                e.stopPropagation();
                 disableToolbarNavigation(toolbar);
                 returnFocusEl.focus();
                 liveRegionAnnounce("Retour dans la zone d'édition.");
