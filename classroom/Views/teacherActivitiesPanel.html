@@ -25,7 +25,8 @@
         <div class="col-12 col-md-auto vertical-align-center mt-2 space-evenly">
 
             <div class="col-auto mx-auto mt-2">
-                <select name="filter-activity-select" id="filter-activity-select" class="c-primary-form">
+                <label for="filter-activity-select" class="visually-hidden">Trier les activités</label>
+                <select name="filter-activity-select" id="filter-activity-select" class="c-primary-form" aria-label="Trier les activités">
                     <option value="desc" data-i18n="classroom.filter.desc"></option>
                     <option value="asc" data-i18n="classroom.filter.asc"></option>
 
@@ -35,11 +36,13 @@
             </div>
 
             <div class="col-auto mt-2">
-                <button class="btn c-btn-icon-only mx-1" onclick="foldersManager.displayModeSwitch('card')" id="switcherCard">
-                    <img src="assets/media/folders/cadrillage.svg" alt="arb-folders" onload="SVGInject(this)">
+                <button class="btn c-btn-icon-only mx-1" onclick="foldersManager.displayModeSwitch('card')" id="switcherCard" 
+                        aria-label="Afficher en mode grille" title="Afficher en mode grille">
+                    <img src="assets/media/folders/cadrillage.svg" alt="Icône grille" onload="SVGInject(this)">
                 </button>
-                <button class="btn c-btn-icon-only mx-1" onclick="foldersManager.displayModeSwitch('list')" id="switcherList">
-                    <img src="assets/media/folders/arborescence.svg" alt="arb-folders" onload="SVGInject(this)">
+                <button class="btn c-btn-icon-only mx-1" onclick="foldersManager.displayModeSwitch('list')" id="switcherList" 
+                        aria-label="Afficher en mode liste" title="Afficher en mode liste">
+                    <img src="assets/media/folders/arborescence.svg" alt="Icône liste" onload="SVGInject(this)">
                 </button>
             </div>
         </div>
@@ -52,11 +55,13 @@
         <button id="new-activity-panel-2" onclick="coursesManager.showCoursePanel()" class="btn c-btn-outline-primary"><span class="me-1" data-i18n="courses.add">Créer un parcours</span><i class="fas fa-chevron-right"></i>
         </button>
 
-        <button class="btn c-btn-icon-only" id="new-activities-folder" onclick="foldersManager.openFolderModal()">
-            <img src="assets/media/folders/createFolder.svg" alt="folders" onload="SVGInject(this)">
+        <button class="btn c-btn-icon-only" id="new-activities-folder" onclick="foldersManager.openFolderModal()"
+                aria-label="Créer un nouveau dossier" title="Créer un nouveau dossier">
+            <img src="assets/media/folders/createFolder.svg" alt="Icône créer dossier" onload="SVGInject(this)">
         </button>
-        <button class="btn c-btn-icon-only" onclick="foldersManager.seekFolderModal()">
-            <img src="assets/media/folders/folder_tree.svg" alt="arb-folders" onload="SVGInject(this)" style="height: 30px;">
+        <button class="btn c-btn-icon-only" onclick="foldersManager.seekFolderModal()"
+                aria-label="Rechercher un dossier" title="Rechercher un dossier">
+            <img src="assets/media/folders/folder_tree.svg" alt="Icône recherche dossier" onload="SVGInject(this)" style="height: 30px;">
         </button>
 
         <button id="new-activity-panel-3" onclick="importActivityFromJSON()" class="btn c-btn-no-outline-primary ms-auto">
@@ -232,7 +237,7 @@
                                 <label for="isExo-activity-form" class="switcher__label text-capitalize" data-i18n="words.yes">Oui</label>
                             
                                 <input type="radio" name="isEval-activity-form" class="switcher__input switcher__input--right" value="true" id="isEval-activity-form"/>
-                                <label for="isEval-activity-form" class="switcher__label text-capitalize" data-i18n="words.no">Non</label>
+                                <label for="isEval-activity-form" class="switcher__label text-capitalize sr-only" data-i18n="words.no">Non</label>
                             
                                 <span class="switcher__toggle"></span>
                             </div>

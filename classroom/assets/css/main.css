@@ -418,10 +418,6 @@ button {
     cursor: pointer;
 }
 
-.theme-student .sidebar-classroom div:not(:first-child) {
-    color: #743a00 !important;
-}
-
 .sidebar-classroom .active:not(:first-child) {
     font-weight: 700;
     text-transform: uppercase;
@@ -3846,6 +3842,12 @@ h3.section-done {
     position: relative;
 }
 
+.switcher:focus-within {
+    outline: 2px solid var(--classroom-primary);
+    outline-offset: 2px;
+    border-color: var(--classroom-primary);
+}
+
 .theme-dark .switcher {
   background: #fff;
 }
@@ -4025,5 +4027,9 @@ th, td {
     }
 }
 
-
-
+#my_calculator:focus,
+#my_calculator:focus-within {
+    border: 2px solid var(--classroom-primary) !important;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(var(--classroom-primary-rgb), 0.25);
+}
