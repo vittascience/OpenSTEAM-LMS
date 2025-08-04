@@ -26,16 +26,17 @@ DisplayPanel.prototype.classroom_dashboard_profil_panel_teacher = function () {
 
     })
     
-    getIntelFromClasses().then(function() {
-        const correctionsCount = getRemainingCorrections(Main.getClassroomManager()._myClasses.flatMap(c => c.students));
-        const correctionsElement = $('.tocorrect-activities');
-        correctionsElement.html(correctionsCount);
-        
-        const correctionsButton = $('.classroom-panel-link');
-        correctionsButton.attr('aria-label', `Accéder au panneau des classes - ${correctionsCount} ${correctionsCount === 1 ? 'correction à faire' : 'corrections à faire'}`);
-        correctionsButton.attr('title', `Gérer vos classes - ${correctionsCount} ${correctionsCount === 1 ? 'correction à faire' : 'corrections à faire'}`);
-    });
+    getIntelFromClasses();
+
+    const correctionsCount = getRemainingCorrections(Main.getClassroomManager()._myClasses.flatMap(c => c.students));
+    const correctionsElement = $('.tocorrect-activities');
+    correctionsElement.html(correctionsCount);
+    
+    const correctionsButton = $('.classroom-panel-link');
+    correctionsButton.attr('aria-label', `Accéder au panneau des classes - ${correctionsCount} ${correctionsCount === 1 ? 'correction à faire' : 'corrections à faire'}`);
+    correctionsButton.attr('title', `Gérer vos classes - ${correctionsCount} ${correctionsCount === 1 ? 'correction à faire' : 'corrections à faire'}`);
 }
+
 
 DisplayPanel.prototype.classroom_dashboard_profil_panel_groupadmin = function () {
     $('#user-name-groupadmin').html(UserManager.getUser().firstname + " " + UserManager.getUser().surname)
