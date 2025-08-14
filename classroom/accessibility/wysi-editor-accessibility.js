@@ -64,7 +64,7 @@ function makeWysiBBEditorAccessible(editorContainer) {
     // Keyboard input button (visible when focused)
     const toggleButton = document.createElement('button');
     const finalLabelText = wysibbEditor.getAttribute('aria-label') || labelText || 'Éditeur de texte';
-    toggleButton.textContent = `Éditer le contenu (appuyez sur Entrée). Appuyez sur Alt + F10 pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`;
+    toggleButton.textContent = `Éditer le contenu (appuyez sur Entrée). Appuyez sur Alt + F10 (ou Fn + F10) pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`;
     toggleButton.className = 'wysibb-toggle-button';
     toggleButton.setAttribute('aria-controls', textarea?.id || '');
     toggleButton.style.cssText = `
@@ -98,7 +98,7 @@ function makeWysiBBEditorAccessible(editorContainer) {
             toggleButton.style.display = 'none';
             wysibbEditor.setAttribute('tabindex', '0');
             wysibbEditor.focus();
-            liveRegionAnnounce(`Éditer le contenu (appuyez sur Entrée). Appuyez sur Alt + F10 pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`);
+            liveRegionAnnounce(`Éditer le contenu (appuyez sur Entrée). Appuyez sur Alt + F10 (ou Fn + F10) pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`);
         }
     });
 
@@ -149,7 +149,7 @@ function makeWysiBBEditorAccessible(editorContainer) {
       toggleButton.style.display = 'none';
       wysibbEditor.setAttribute('tabindex', '0');
       wysibbEditor.focus();
-      liveRegionAnnounce(`Éditer le contenu (appuyez sur Entrée). ${finalLabelText}. Zone d'édition activée. Appuyez sur Alt + F10 pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`);
+      liveRegionAnnounce(`Éditer le contenu (appuyez sur Entrée). ${finalLabelText}. Zone d'édition activée. Appuyez sur Alt + F10 (ou Fn + F10) pour accéder à la barre d'outils. Appuyez sur Échap pour quitter.`);
     });
 
     // If you exit without Esc (click, tab...), the keyboard input is locked again.
