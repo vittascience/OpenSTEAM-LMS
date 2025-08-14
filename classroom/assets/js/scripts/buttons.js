@@ -329,6 +329,23 @@ async function navigatePanel(id, idNav, option = "", interface = '', isOnpopstat
     $('#' + id).show();
     $('#' + idNav).addClass("active");
 
+    // Accessibility: move focus inside the opened panel (only after first user interaction)
+    if (window.__a11yAllowPanelFocus === true) {
+        moveFocusIntoPanel(id);
+    }
+
+    // Always ensure focus for help panels goes to the contact section regardless of initial Tab state
+    if (/-help-panel/.test(id)) {
+        setTimeout(() => moveFocusIntoPanel(id), 150);
+    }
+
+    // If user navigates to the realtime calculator panel, initialize result monitoring
+    if (id === 'classroom-dashboard-realtime-calculator' || id === 'classroom-dashboard-realtime-calculator-student') {
+        setTimeout(() => {
+            try { setupCalculationMonitoring(); } catch (e) { /* noop */ }
+        }, 500);
+    }
+
     if (id == 'resource-center-classroom') {
         $('#classroom-dashboard-activities-panel-library-teacher').html('<iframe id="resource-center-classroom" src="/learn/?use=classroom" frameborder="0" style="height:80vh;width:80vw" title="Centre de ressources - Bibliothèque d\'activités"></iframe>');
     }
@@ -361,6 +378,12 @@ async function navigatePanel(id, idNav, option = "", interface = '', isOnpopstat
         displayPanel[formateId](option);
     }
 
+    // In case the panel content is populated asynchronously by displayPanel(),
+    // retry focusing shortly after DOM updates (only after first user interaction).
+    if (window.__a11yAllowPanelFocus === true) {
+        setTimeout(() => moveFocusIntoPanel(id), 150);
+    }
+
     $('.tooltip').remove()
     if (typeof Main.leaderline !== 'undefined') Main.leaderline.hide();
     $('[data-toggle="tooltip"]').tooltip()
@@ -368,6 +391,107 @@ async function navigatePanel(id, idNav, option = "", interface = '', isOnpopstat
     if (id == 'classroom-dashboard-activities-panel-teacher' && idNav == 'dashboard-activities-teacher') {
         foldersManager.goToFolder(foldersManager.actualFolder);
     }
+}
+
+/**
+ * Monitor TI calculator results and announce them via screen reader.
+ * Requires a global calcInstance with methods: isInitialized(), isBusy(), getFullPrecisionAnswer().
+ */
+function setupCalculationMonitoring() {
+    if (window.__calcMonitoringStarted === true) {
+        return;
+    }
+    if (typeof calcInstance === 'undefined') {
+        return;
+    }
+
+    window.__calcMonitoringStarted = true;
+
+    let lastResult = null;
+    function checkForResults() {
+        try {
+            if (!calcInstance || !calcInstance.isInitialized() || calcInstance.isBusy()) {
+                return;
+            }
+
+            const currentResult = calcInstance.getFullPrecisionAnswer();
+            if (currentResult && currentResult !== lastResult && currentResult !== '0' && currentResult !== '') {
+                notifyA11y('Résultat du calcul : ' + currentResult);
+                lastResult = currentResult;
+            }
+        } catch (_) { }
+    }
+
+    setInterval(checkForResults, 500);
+
+    const calculator = document.querySelector('.TI83CE');
+    if (calculator) {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    const target = mutation.target;
+                    if (target.id === 'TI83CE_KEY_ENTER_ENTRY_NONE' && target.classList.contains('ti_highlight_keys')) {
+                        setTimeout(checkForResults, 200);
+                    }
+                }
+            });
+        });
+
+        observer.observe(calculator, {
+            attributes: true,
+            attributeFilter: ['class'],
+            subtree: true
+        });
+    }
+}
+
+/**
+ * Move focus inside a given dashboard panel.
+ * Attempts to focus the first visible, enabled, focusable element inside the panel.
+ * Falls back to focusing the panel container (made programmatically focusable).
+ */
+function moveFocusIntoPanel(panelId) {
+    const panel = document.getElementById(panelId);
+    if (!panel || panel.style.display === 'none') {
+        return;
+    }
+
+    const focusableSelectors = [
+        'button:not([disabled])',
+        'a[href]',
+        'input:not([disabled])',
+        'select:not([disabled])',
+        'textarea:not([disabled])',
+        '[tabindex]:not([tabindex="-1"])',
+        'iframe'
+    ];
+
+    const candidates = Array.from(panel.querySelectorAll(focusableSelectors.join(',')));
+    const isVisible = (el) => {
+        if (!el.offsetParent && el.tagName.toLowerCase() !== 'body' && el.getClientRects().length === 0) return false;
+        const style = window.getComputedStyle(el);
+        return style.visibility !== 'hidden' && style.display !== 'none';
+    };
+
+    // Prefer focusing inside the contact panel first (help panel UX)
+    const contactSection = panel.querySelector('.contact-panel');
+    if (contactSection) {
+        const contactCandidates = Array.from(contactSection.querySelectorAll(focusableSelectors.join(','))).filter(isVisible);
+        if (contactCandidates.length > 0) {
+            try { contactCandidates[0].focus(); return; } catch (_) {}
+        }
+    }
+
+    const firstFocusable = candidates.find((el) => isVisible(el));
+
+    if (firstFocusable) {
+        try { firstFocusable.focus(); return; } catch (_) {}
+    }
+
+    if (!panel.hasAttribute('tabindex')) {
+        panel.setAttribute('tabindex', '-1');
+    }
+    try { panel.focus(); } catch (_) {}
 }
 
 /**
@@ -517,8 +641,7 @@ document.getElementsByTagName('body')[0].addEventListener('click', (e) => {
 
 //profil prof-->aide
 $('#help-teacher').click(function () {
-    navigatePanel('classroom-dashboard-help-panel-teacher', 'dashboard-profil-teacher')
-
+    navigatePanel('classroom-dashboard-help-panel-teacher', 'dashboard-profil-teacher');
 })
 //dropdow-accessibility
 $('#accessDropdown').click(function () {
@@ -2643,7 +2766,7 @@ $('#users_per_page_groupadmin, #sort_users_filter_groupadmin').change(() => {
     let actualGroup = mainGroupAdmin.getGroupAdminManager()._actualGroup;
     mainGroupAdmin.getGroupAdminManager().getUsersFromGroup(actualGroup, 1);
 })
-// 1. On bind l’événement uniquement si l’élément existe
+// 1. On bind l'événement uniquement si l'élément existe
 const createUserLink = document.getElementById('create_user_link_to_group_groupadmin');
 if (createUserLink) {
     createUserLink.addEventListener('click', onCreateUserClick);
@@ -2668,7 +2791,7 @@ async function onCreateUserClick() {
         createSubjectSelect(getSubjects(0), 1);
         buildApplicationsList(groupId);
     } catch (err) {
-        console.error('Erreur vérif. groupe plein :', err);
+        console.error('Erreur vérif. groupe plein :', err);
         displayNotification('#notif-div', 'manager.group.checkError', 'error');
     }
 }
@@ -3733,78 +3856,257 @@ document.body.style.setProperty("--keyboard-zindex", "3000");
  * Ensures that the classroom-sidebar-logo receives focus on first tab.
  */
 function initializeFocusManagement() {
-    let hasTabbed = false;
-    
-    function setInitialFocus() {
-        const activeSidebar = document.querySelector('.sidebar-classroom:not([style*="display: none"])');
-        const logo = activeSidebar ? activeSidebar.querySelector('#classroom-sidebar-logo') : null;
-        
-        if (logo) {
-            if (!logo.hasAttribute('tabindex'))
-                logo.setAttribute('tabindex', '0');
+	let hasTabbed = false;
+	
+	function setInitialFocus() {
+		const activeSidebar = document.querySelector('.sidebar-classroom:not([style*="display: none"])');
+		const logo = activeSidebar ? activeSidebar.querySelector('#classroom-sidebar-logo') : null;
+		
+		if (logo) {
+			if (!logo.hasAttribute('tabindex'))
+				logo.setAttribute('tabindex', '0');
 
-            logo.focus();
-        } else {
-            const firstNavButton = document.querySelector('.classroom-navbar-button:not([style*="display: none"])');
-            if (firstNavButton) {
-                if (!firstNavButton.hasAttribute('tabindex'))
-                    firstNavButton.setAttribute('tabindex', '0');
+			logo.focus();
+		} else {
+			const firstNavButton = document.querySelector('.classroom-navbar-button:not([style*="display: none"])');
+			if (firstNavButton) {
+				if (!firstNavButton.hasAttribute('tabindex'))
+					firstNavButton.setAttribute('tabindex', '0');
 
-                firstNavButton.focus();
-            }
-        }
+				firstNavButton.focus();
+			}
+		}
+	}
+	
+	document.addEventListener('keydown', function(event) {
+		if (event.key === 'Tab' && !hasTabbed) {
+			hasTabbed = true;
+			if (document.activeElement === document.body || 
+				document.activeElement === document.documentElement ||
+				!document.activeElement) {
+				
+				event.preventDefault();
+				setInitialFocus();
+				window.__a11yAllowPanelFocus = true;
+			}
+		}
+	}, { once: false });
+	
+	const observer = new MutationObserver(function(mutations) {
+		mutations.forEach(function(mutation) {
+			if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+				const target = mutation.target;
+				if (target.classList.contains('sidebar-classroom')) {
+					const isVisible = target.style.display !== 'none';
+					if (isVisible && !hasTabbed) {
+						setTimeout(() => {
+							setInitialFocus();
+						}, 100);
+					}
+				}
+			}
+		});
+	});
+	
+	const sidebars = document.querySelectorAll('.sidebar-classroom');
+	sidebars.forEach(sidebar => {
+		observer.observe(sidebar, {
+			attributes: true,
+			attributeFilter: ['style']
+		});
+	});
+	
+	if (document.querySelector('.sidebar-classroom:not([style*="display: none"])')) {
+		setTimeout(() => {
+			setInitialFocus();
+			// Do NOT enable panel auto-focus yet; wait for first Tab press
+		}, 500);
+	}
+
+	// Accessibility: enforce focus order Logo -> Topbar focusables -> Section buttons
+	function isElementVisible(el) {
+		if (!el) return false;
+		let node = el;
+		while (node && node !== document.body) {
+			const cs = window.getComputedStyle(node);
+			if (!cs) return false;
+			if (cs.display === 'none' || cs.visibility === 'hidden') return false;
+			node = node.parentElement;
+		}
+		if (el.getClientRects && el.getClientRects().length === 0) return false;
+		return true;
+	}
+
+	function getVisibleSidebars() {
+		return Array.from(document.querySelectorAll('.sidebar-classroom')).filter(isElementVisible);
+	}
+
+	function getActiveSidebar() {
+		const visible = getVisibleSidebars();
+		return visible.length ? visible[0] : null;
+	}
+
+	function getActiveLogo() {
+		const sidebar = getActiveSidebar();
+		return sidebar ? sidebar.querySelector('#classroom-sidebar-logo') : null;
+	}
+
+	function getTopbar() {
+		const tb = document.getElementById('classroom-dashboard-top-bar');
+		return isElementVisible(tb) ? tb : null;
+	}
+
+	function getFocusableWithin(container) {
+		if (!container) return [];
+		const selectors = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+		return Array.from(container.querySelectorAll(selectors)).filter(isElementVisible);
+	}
+
+	function getSectionButtons() {
+		const sidebar = getActiveSidebar();
+		if (!sidebar) return [];
+		return Array.from(sidebar.querySelectorAll('.classroom-navbar-button')).filter(isElementVisible);
+	}
+
+	function getSidebarFocusables() {
+		const sidebar = getActiveSidebar();
+		if (!sidebar) return [];
+		return getFocusableWithin(sidebar);
+	}
+
+	document.addEventListener('keydown', function (event) {
+		if (event.key !== 'Tab') return;
+
+		const logo = getActiveLogo();
+		const topbar = getTopbar();
+		let topbarFocusables = getFocusableWithin(topbar);
+		const sectionButtons = getSectionButtons();
+		const firstSection = sectionButtons[0];
+		const sidebarFocusables = getSidebarFocusables();
+		const lastSidebarFocusable = sidebarFocusables.length ? sidebarFocusables[sidebarFocusables.length - 1] : null;
+		const active = document.activeElement;
+
+		// From logo -> first topbar focusable (retry if needed), else -> first section
+		if (logo && active === logo && !event.shiftKey) {
+			event.preventDefault();
+			const tryFocusTopbar = () => {
+				topbarFocusables = getFocusableWithin(topbar);
+				if (topbarFocusables.length > 0) {
+					topbarFocusables[0].focus();
+					return true;
+				}
+				return false;
+			};
+			if (!tryFocusTopbar()) {
+				setTimeout(() => {
+					if (!tryFocusTopbar() && firstSection) firstSection.focus();
+				}, 100);
+			}
+			return;
+		}
+
+		// Within topbar: last -> first section on Tab, first -> logo on Shift+Tab
+		if (topbar && topbar.contains(active)) {
+			topbarFocusables = getFocusableWithin(topbar);
+			if (topbarFocusables.length > 0) {
+				const idx = topbarFocusables.indexOf(active);
+				if (idx !== -1) {
+					if (!event.shiftKey && idx === topbarFocusables.length - 1 && firstSection) {
+						event.preventDefault();
+						firstSection.focus();
+						return;
+					}
+					if (event.shiftKey && idx === 0 && logo) {
+						event.preventDefault();
+						logo.focus();
+						return;
+					}
+				}
+			}
+		}
+
+		// From first section with Shift+Tab -> last topbar focusable or logo
+		if (sectionButtons.length > 0 && active === sectionButtons[0] && event.shiftKey) {
+			topbarFocusables = getFocusableWithin(topbar);
+			if (topbarFocusables.length > 0) {
+				event.preventDefault();
+				topbarFocusables[topbarFocusables.length - 1].focus();
+				return;
+			}
+			if (logo) {
+				event.preventDefault();
+				logo.focus();
+				return;
+			}
+		}
+
+		// From last focusable in sidebar with Tab -> first focusable in active panel
+		if (lastSidebarFocusable && active === lastSidebarFocusable && !event.shiftKey) {
+			event.preventDefault();
+			if (!focusFirstInActivePanel()) {
+				setTimeout(() => { focusFirstInActivePanel(); }, 50);
+			}
+			return;
+		}
+
+		// From first focusable in panel with Shift+Tab -> last focusable in sidebar (fallback: topbar last, then logo)
+		{
+			const panel = getActivePanelContainer();
+			const panelFocusables = getFocusableWithin(panel);
+			const firstPanelFocusable = panelFocusables.length ? panelFocusables[0] : null;
+			if (firstPanelFocusable && active === firstPanelFocusable && event.shiftKey) {
+				event.preventDefault();
+				if (lastSidebarFocusable) {
+					lastSidebarFocusable.focus();
+					return;
+				}
+				topbarFocusables = getFocusableWithin(topbar);
+				if (topbarFocusables.length > 0) {
+					topbarFocusables[topbarFocusables.length - 1].focus();
+					return;
+				}
+				if (logo) {
+					logo.focus();
+					return;
+				}
+			}
+		}
+	}, { capture: true });
+
+	function getActivePanelContainer() {
+		const content = document.getElementById('classroom-dashboard-content');
+		if (!content) return null;
+		const visiblePanels = Array.from(content.querySelectorAll('.dashboard-block')).filter(isElementVisible);
+		return visiblePanels.length ? visiblePanels[0] : null;
+	}
+
+	function focusFirstInActivePanel() {
+		const panel = getActivePanelContainer();
+		if (!panel) return false;
+		const focusables = getFocusableWithin(panel);
+		if (focusables.length > 0) {
+			focusables[0].focus();
+			return true;
+		}
+		// Fallback: focus the panel itself
+		if (!panel.hasAttribute('tabindex')) panel.setAttribute('tabindex', '-1');
+		panel.focus();
+		return true;
+	}
+
+  // From last section with Tab -> first focusable in active panel
+  if (sectionButtons.length > 0 && active === sectionButtons[sectionButtons.length - 1] && !event.shiftKey) {
+    event.preventDefault();
+    // Try immediately, then retry shortly in case of async content
+    if (!focusFirstInActivePanel()) {
+      setTimeout(() => { focusFirstInActivePanel(); }, 50);
     }
-    
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Tab' && !hasTabbed) {
-            hasTabbed = true;
-            if (document.activeElement === document.body || 
-                document.activeElement === document.documentElement ||
-                !document.activeElement) {
-                
-                event.preventDefault();
-                setInitialFocus();
-            }
-        }
-    }, { once: false });
-    
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-                const target = mutation.target;
-                if (target.classList.contains('sidebar-classroom')) {
-                    const isVisible = target.style.display !== 'none';
-                    if (isVisible && !hasTabbed) {
-                        setTimeout(() => {
-                            setInitialFocus();
-                        }, 100);
-                    }
-                }
-            }
-        });
-    });
-    
-    const sidebars = document.querySelectorAll('.sidebar-classroom');
-    sidebars.forEach(sidebar => {
-        observer.observe(sidebar, {
-            attributes: true,
-            attributeFilter: ['style']
-        });
-    });
-    
-    if (document.querySelector('.sidebar-classroom:not([style*="display: none"])')) {
-        setTimeout(() => {
-            setInitialFocus();
-        }, 500);
-    }
+    return;
+  }
 }
 
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeFocusManagement);
+	document.addEventListener('DOMContentLoaded', initializeFocusManagement);
 } else {
-    initializeFocusManagement();
+	initializeFocusManagement();
 }
-
-
-
-

@@ -8,26 +8,26 @@
         </div>
 
         <div id="classroom-dashboard-profile-stats" role="region" aria-label="Statistiques des activités">
-                <div style="grid-column: 1; grid-row: 1;" 
-                     class="activity-panel-link" 
-                     role="button" 
-                     tabindex="0"
-                     aria-label="Activités à faire, 0 activités à faire"
-                     onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"
-                     onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities'); }">
-                    <span class="stats-secondary todo-activities" aria-hidden="true"></span>
-                    <span class="text-span-initial stats-description" data-i18n="[html]classroom.profil.todo"></span>
-                </div>
-                <div style="grid-column: 2; grid-row: 0;" 
-                     class="activity-panel-link" 
-                     role="button" 
-                     tabindex="0"
-                     aria-label="Activités terminées, 0 activités terminées"
-                     onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"
-                     onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities'); }">
-                    <span class="stats-primary done-activities" aria-hidden="true"></span>
-                    <span class="text-span-initial stats-description" data-i18n="[html]classroom.profil.done"></span>
-                </div>
+            <div style="grid-column: 2; grid-row: 0;" 
+                  class="activity-panel-link" 
+                  role="button" 
+                  tabindex="0"
+                  aria-label="Activités terminées, 0 activités terminées"
+                  onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"
+                  onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities'); }">
+                <span class="stats-primary done-activities" aria-hidden="true"></span>
+                <span class="text-span-initial stats-description" data-i18n="[html]classroom.profil.done"></span>
+            </div>
+            <div style="grid-column: 1; grid-row: 1;" 
+                  class="activity-panel-link" 
+                  role="button" 
+                  tabindex="0"
+                  aria-label="Activités à faire, 0 activités à faire"
+                  onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"
+                  onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities'); }">
+                <span class="stats-secondary todo-activities" aria-hidden="true"></span>
+                <span class="text-span-initial stats-description" data-i18n="[html]classroom.profil.todo"></span>
+            </div>
         </div>
         <!-- <div id="space-return-button"></div> -->
 
