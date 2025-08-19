@@ -164,12 +164,13 @@ function Modal(modalID = "a", options = {}) {
  * @param {string} modal ID of the modal element 
  */
 Modal.prototype.openModal = function (modal) {
-    this.trapFocusInModal(document.getElementById(modal));
+    const modalElement = document.getElementById(modal);
+    modalElement._returnFocusEl = document.activeElement;
     $(`#${modal}`).localize();
     this.closeAllModal();
     var zIndex = ModalsOpenedModals.length + 1000
     if (ModalsListModals.includes(modal)) {
-        const modalElement = document.getElementById(modal);
+        
         modalElement.setAttribute('style', `display: block; z-index: ${zIndex}`);
         modalElement.setAttribute('tabindex', '-1');
         modalElement.focus();
@@ -193,6 +194,14 @@ Modal.prototype.closeModal = function (modal) {
         modalElement.removeAttribute('style');
         var index = ModalsOpenedModals.indexOf(modal);
         ModalsOpenedModals.splice(index, 1);
+
+        // Restore focus to the invoker element if still in the document
+        const returnEl = modalElement._returnFocusEl;
+        if (returnEl && document.contains(returnEl)) {
+            setTimeout(() => {
+                try { returnEl.focus(); } catch (_) {}
+            }, 0);
+        }
     }
 }
 
