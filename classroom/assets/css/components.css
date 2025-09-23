@@ -384,6 +384,17 @@
     filter: brightness(0.9);
 }
 
+.breadcrumb > .c-btn-outline-primary:hover,
+#breadcrumb > .c-btn-outline-primary:hover {
+    filter: brightness(0.9);
+}
+
+.breadcrumb > .c-btn-outline-primary:focus,
+#breadcrumb > .c-btn-outline-primary:focus {
+    filter: brightness(0.8);
+}
+
+
 /* Forms */
 
 .c-primary-form input[type="text"],

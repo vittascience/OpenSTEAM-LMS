@@ -9,6 +9,17 @@
     </div>
 
     <div id="classroom-dashboard-profile-stats-teacher" role="region" aria-label="Statistiques des activités enseignant">
+        <div style="grid-column: 1; grid-row: 1;" 
+              class="classroom-panel-link classroom-clickable"
+              role="button" 
+              tabindex="0"
+              onclick="navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher')"
+              onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher'); }"
+              aria-label="Accéder au panneau des classes - 0 corrections à faire">
+            <span class="stats-secondary tocorrect-activities" aria-hidden="true">--</span>
+            <span class="text-span-initial stats-description"
+                data-i18n="[html]classroom.profil.correctionToDo"></span>
+        </div>
         <div style="grid-column: 2; grid-row: 1;" 
              class="activity-panel-link-t classroom-clickable"
              role="button" 
@@ -19,17 +30,6 @@
             <span class="stats-primary owned-activities" aria-hidden="true">--</span>
             <span class="text-span-initial stats-description"
                 data-i18n="[html]classroom.profil.create"></span>
-        </div>
-        <div style="grid-column: 1; grid-row: 1;" 
-             class="classroom-panel-link classroom-clickable"
-             role="button" 
-             tabindex="0"
-             onclick="navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher')"
-             onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher'); }"
-             aria-label="Accéder au panneau des classes - 0 corrections à faire">
-            <span class="stats-secondary tocorrect-activities" aria-hidden="true">--</span>
-            <span class="text-span-initial stats-description"
-                data-i18n="[html]classroom.profil.correctionToDo"></span>
         </div>
     </div>
 
