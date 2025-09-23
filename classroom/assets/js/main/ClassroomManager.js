@@ -234,6 +234,9 @@ class ClassroomManager {
         this.classLinkBeforeNewPanel = this.returnClassroomLinkFromUrl();
         !this.classLinkBeforeNewPanel ? btnReturn.classList.add('d-none') : btnReturn.classList.remove('d-none');
         navigatePanel('classroom-table-panel-teacher-code', 'dashboard-classes-teacher');
+        setTimeout(() => {
+            document.querySelector('#modal-backdrop').style.display = 'none';
+        }, 100);
     }
     
     

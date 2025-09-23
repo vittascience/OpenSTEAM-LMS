@@ -46,15 +46,15 @@ function checkLogin() {
                 infoBox = document.createElement("div");
                 infoBox.className = "alert alert-success";
                 infoBox.innerHTML = i18next.t('login_popup.success');
-                document.getElementById("info-div").innerHTML = "";
-                document.getElementById("info-div").style.display = "none";
-                document.getElementById("info-div").appendChild(infoBox);
-                $("#info-div").fadeIn("slow");
+                document.getElementById("info-div-classroom").innerHTML = "";
+                document.getElementById("info-div-classroom").style.display = "none";
+                document.getElementById("info-div-classroom").appendChild(infoBox);
+                $("#info-div-classroom").fadeIn("slow");
             } else {
-                document.getElementById("info-div").style.display = "none";
+                document.getElementById("info-div-classroom").style.display = "none";
                 infoBox.className = "alert alert-success";
                 infoBox.innerHTML = i18next.t('login_popup.success');
-                $("#info-div").fadeIn("slow");
+                $("#info-div-classroom").fadeIn("slow");
             }
             setTimeout(() => {
                 var redirect = $_GET("redirect");
@@ -135,7 +135,7 @@ function clearDivErrorNav() {
 }
 
 function returnInfoDiv() {
-    return document.getElementById("info-div");
+    return document.getElementById("info-div-classroom");
 }
 
 /**
