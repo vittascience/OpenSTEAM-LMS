@@ -186,7 +186,17 @@ $('body').on('click', '#update-pseudo-close', function () {
 //classroom modal-->supprimer
 $('body').on('click', '.modal-classroom-delete', function (e) {
     e.stopPropagation();
-    Main.getClassroomManager()._selectedClassroomToDelete = $(this).parent().parent().parent().attr('data-link');
+    
+    const card = this.closest('.class-card');
+    if (!card) return console.warn('Aucune .class-card parente');
+    
+    const linkEl = card.querySelector('[data-link]');
+    if (!linkEl) return console.warn('no [data-link] in .class-card');
+    
+    const link = linkEl.dataset.link;
+    
+    Main.getClassroomManager()._selectedClassroomToDelete = link;
+
     $('#validation-delete-classroom').val("");
     pseudoModal.openModal("delete-classroom");
     let inputInModal = document.getElementById("validation-delete-classroom")
@@ -199,7 +209,6 @@ function persistDeleteClassroom() {
 
     if (validation == placeholderWord) {
         Main.getClassroomManager().deleteClassroom(Main.getClassroomManager()._selectedClassroomToDelete).then(function (classroom) {
-            // concatenate classroom name + group in GAR context, else set only classroom name
             const classroomFullName = classroom.group != null ? `${classroom.name}-${classroom.group}` : `${classroom.name}`;
             deleteClassroomInList(classroom.link);
             classroomsDisplay();
@@ -217,13 +226,21 @@ function cancelDeleteClassroom() {
     Main.getClassroomManager()._selectedClassroomToDelete = null;
 }
 
-//classroom modal-->modifier
 $('body').on('click', '.modal-classroom-modify', function (e) {
-    // $('#classroom-classes-title').text(`${i18next.t('classroom.classes.form.updateTitle')}`);
-    e.stopPropagation();
-    ClassroomSettings.classroom = $(this).parent().parent().parent().attr('data-link');
-    navigatePanel('classroom-dashboard-form-classe-panel-update', 'dashboard-classes-teacher');
+  e.stopPropagation();
+
+  const card = this.closest('.class-card');
+  if (!card) return console.warn('Aucune .class-card parente');
+
+  const linkEl = card.querySelector('[data-link]');
+  if (!linkEl) return console.warn('no [data-link] in .class-card');
+
+  const link = linkEl.dataset.link;
+  ClassroomSettings.classroom = link;
+
+  navigatePanel('classroom-dashboard-form-classe-panel-update', 'dashboard-classes-teacher');
 });
+
 
 //ouvre le dashboard d'une classe
 $('body').on('click', '.class-card', function () {
@@ -338,49 +355,40 @@ document.querySelector('#classroom-create-form').addEventListener('submit', (e) 
     });
 });
 
-// Classroom update in database from classroom update panel
-document.querySelector('#classroom-update-form').addEventListener('submit', (e) => {
+document.querySelector('#classroom-update-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-    e.submitter.disabled = true;
-    Main.getClassroomManager().updateClassroom({
-        'name': document.querySelector('#classroom-form-name-update').value,
-        'school': document.querySelector('#classroom-form-school-update').value,
-        'link': ClassroomSettings.classroom,
-        'isBlocked': document.querySelector('#classroom-form-is-blocked-update').checked
-    }).then((classroom) => {
-        if(classroom.errorType){
-            displayNotification('#notif-div', `classroom.notif.${classroom.errorType}`, "error", `'{"ClassroomNameInvalid": "${classroom.errorType}"}'`);
-            e.submitter.disabled = false;
-            return;
-        }
-        const students = [];
-        const existingStudents = [];
-        for (let studentRowElt of document.querySelectorAll('#table-students-update ul li')){
-            if (studentRowElt.getAttribute('data-id') != 'false') {
-                existingStudents.push({
-                    'pseudo': studentRowElt.getAttribute('data-pseudo'),
-                    'id': studentRowElt.getAttribute('data-id')
-                });
-            } else {
-                students.push(studentRowElt.getAttribute('data-pseudo'));
-            }
-        }
-        Main.getClassroomManager().addUsersToGroup(students, existingStudents, classroom.link).then((response) => {
-            let noAdditionError = response.isUsersAdded ? response.isUsersAdded : response.noUser;
-            if(!noAdditionError){
-                displayNotification('#notif-div', "classroom.notif.classUpdatedButNotUsers", "error", `'{"classroomName": "${classroom.name}", "learnerNumber": "${response.currentLearnerCount+response.addedLearnerNumber}"}'`);
-                e.submitter.disabled = false;
-            }
-            else{
-                Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
-                    addUserAndGetDashboard(classroom.link)
-                    displayNotification('#notif-div', "classroom.notif.classroomUpdated", "success", `'{"classroomName": "${classroom.name}"}'`)
-                    e.submitter.disabled = false;
-                });
-            }
+
+    const submitter = e.submitter;
+    if (submitter) submitter.disabled = true;
+
+    try {
+        const classroomFound = Main.getClassroomManager()._myClasses.find(c => c.classroom.link === ClassroomSettings.classroom).classroom.isBlocked;
+        const classroom = await Main.getClassroomManager().updateClassroom({
+            name: document.querySelector('#classroom-form-name-update').value,
+            school: document.querySelector('#classroom-form-school-update').value,
+            link: ClassroomSettings.classroom,
+            isBlocked: classroomFound
         });
-    });
+        if (classroom.errorType) {
+            displayNotification('#notif-div', `classroom.notif.${classroom.errorType}`, 'error', `'{"ClassroomNameInvalid": "${classroom.errorType}"}'`);
+        }
+        updateClassroomElementWithNewInfo(classroom);
+        addUserAndGetDashboard(ClassroomSettings.classroom);
+    } catch (err) {
+        console.error(err);
+        // Ajuste la clé de notif d’erreur générique selon ton i18n
+        displayNotification('#notif-div', 'common.error.unknown', 'error');
+    } finally {
+        if (submitter) submitter.disabled = false;
+    }
 });
+
+function updateClassroomElementWithNewInfo(classroom) {
+    const classroomIndex = Main.getClassroomManager()._myClasses.findIndex(c => c.classroom.link === classroom.link);
+    if (classroomIndex !== -1) {
+        Main.getClassroomManager()._myClasses[classroomIndex].classroom = classroom;
+    }
+}
 
 //add students to an existing classroom on the classroom dashboard
 $('body').on('click', '#add-student-to-classroom', function () {
