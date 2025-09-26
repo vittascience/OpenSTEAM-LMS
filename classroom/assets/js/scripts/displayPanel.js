@@ -13,28 +13,27 @@ DisplayPanel.prototype.classroom_dashboard_profil_panel_teacher = function () {
     Main.getClassroomManager().getTeacherActivity().then(function (data) {
         const ownedActivitiesElement = $('.owned-activities');
         ownedActivitiesElement.html(data.ownedActivities);
-        
+
         ownedActivitiesElement.attr('aria-label', `${data.ownedActivities} activités créées`);
-        
+
         const activitiesButton = $('.activity-panel-link-t');
         activitiesButton.attr('aria-label', `Accéder au panneau des activités - ${data.ownedActivities} activités créées`);
         activitiesButton.attr('title', `Gérer vos activités - ${data.ownedActivities} activités créées`);
-        
+
         if (typeof notifyA11y !== 'undefined') {
             notifyA11y(`Nombre d'activités créées : ${data.ownedActivities}`, "info");
         }
 
     })
+
+    getIntelFromClasses();
+    const correctionsCount = getRemainingCorrections(Main.getClassroomManager()._myClasses.flatMap(c => c.students));
+    const correctionsElement = $('.tocorrect-activities');
+    correctionsElement.html(correctionsCount);
     
-    getIntelFromClasses().then(function() {
-        const correctionsCount = getRemainingCorrections(Main.getClassroomManager()._myClasses.flatMap(c => c.students));
-        const correctionsElement = $('.tocorrect-activities');
-        correctionsElement.html(correctionsCount);
-        
-        const correctionsButton = $('.classroom-panel-link');
-        correctionsButton.attr('aria-label', `Accéder au panneau des classes - ${correctionsCount} ${correctionsCount === 1 ? 'correction à faire' : 'corrections à faire'}`);
-        correctionsButton.attr('title', `Gérer vos classes - ${correctionsCount} ${correctionsCount === 1 ? 'correction à faire' : 'corrections à faire'}`);
-    });
+    const correctionsButton = $('.classroom-panel-link');
+    correctionsButton.attr('aria-label', `Accéder au panneau des classes - ${correctionsCount} ${correctionsCount === 1 ? 'correction à faire' : 'corrections à faire'}`);
+    correctionsButton.attr('title', `Gérer vos classes - ${correctionsCount} ${correctionsCount === 1 ? 'correction à faire' : 'corrections à faire'}`);
 }
 
 DisplayPanel.prototype.classroom_dashboard_profil_panel_groupadmin = function () {
@@ -50,19 +49,19 @@ DisplayPanel.prototype.classroom_dashboard_profil_panel = function () {
     Main.getClassroomManager().getStudentActivity().then(function (data) {
         const todoCount = countActivityDoable();
         const doneCount = data.doneActivities;
-        
+
         $('.todo-activities').html(todoCount)
         $('.todo-courses').html(data.todoCourses)
         $('.done-activities').html(doneCount)
         $('.done-courses').html(data.doneCourses)
-        
+
         const todoButton = document.querySelector('#classroom-dashboard-profile-stats .activity-panel-link[style*="grid-column: 1"]');
         const doneButton = document.querySelector('#classroom-dashboard-profile-stats .activity-panel-link[style*="grid-column: 2"]');
-        
+
         if (todoButton) {
             todoButton.setAttribute('aria-label', `Activités à faire, ${todoCount} ${todoCount === 1 ? 'activité à faire' : 'activités à faire'}`);
         }
-        
+
         if (doneButton) {
             doneButton.setAttribute('aria-label', `Activités terminées, ${doneCount} ${doneCount === 1 ? 'activité terminée' : 'activités terminées'}`);
         }
@@ -259,16 +258,6 @@ DisplayPanel.prototype.classroom_dashboard_form_classe_panel_update = function (
     let classroom = getClassroomInListByLink(ClassroomSettings.classroom)[0];
     $('#classroom-form-name-update').val(classroom.classroom.name);
     $('#classroom-form-school-update').val(classroom.classroom.school);
-    $('#add-student-div').html(BASE_STUDENT_FORM);
-    if (classroom.classroom.isBlocked) {
-        document.querySelector('#classroom-form-is-blocked-update').checked = true;
-    } else {
-        document.querySelector('#classroom-form-is-blocked-update').checked = false;
-    }
-    $('#table-students-update ul').html("");
-    classroom.students.forEach(function (student) {
-        $('#table-students-update ul').append(addStudentRow(student.user.pseudo, student.user.id, true));
-    })
 }
 
 DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function () {
@@ -373,78 +362,117 @@ async function tagManagement() {
 }
 
 DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
-    if (link != 'null') {
-        // hide the non relevant elements in gar context
-        if (UserManager.getUser().isFromGar) {
-            document.getElementById('add-student-container').style.display = 'none';
-            document.getElementById('classroom-info').style.display = 'none';
-        }
-        let realCode = document.getElementById('complete-classroom-link');
-        resetDisplayClassroom();
-        breadcrumbManager.setSpecificClass(getClassroomInListByLink(ClassroomSettings.classroom)[0].classroom.name, link);
-        // restore the add student div to its default content to remove potential changes from the update classroom modal
-        $('#classroom-form-name').val(''),
-            $('#classroom-form-school').val('')
-        $('#add-student-div').html(BASE_STUDENT_FORM);
-        if (!Main.getClassroomManager()._myClasses) {
-            Main.getClassroomManager().getClasses().then(function () {
-                let students = getClassroomInListByLink(link)[0].students
-                displayStudentsInClassroom(students, link)
-                $('.classroom-link').html(ClassroomSettings.classroom)
-                let realCode = document.getElementById('complete-classroom-link');
-                realCode.innerHTML = document.location.origin + '/classroom/login.php?link=' + ClassroomSettings.classroom;
-            })
-        } else {
-            if (link == null || link == '') {
-                if (ClassroomSettings.classroom != null) {
-                    link = ClassroomSettings.classroom;
-                } else {
-                    navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher');
-                    return;
-                }
-            }
+    if (link == 'null') {
+        navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher', 'WK' + id, '');
+        displayNotification('#notif-div', "classroom.login.noClass", "error");
+        return;
+    }
 
-            $('.classroom-link').html(ClassroomSettings.classroom)
-            realCode.innerHTML = document.location.origin + '/classroom/login.php?link=' + ClassroomSettings.classroom;
-            $('#classroom-code-share-qr-code').html('');
-            currentOriginUrl = new URL(window.location.href).origin;
-            fullPath = currentOriginUrl + '/classroom/login.php?link=' + ClassroomSettings.classroom;
-            QrCreator.render({
-                text: fullPath,
-                radius: 0.5,
-                ecLevel: 'H',
-                fill: getComputedStyle(document.documentElement).getPropertyValue('--classroom-primary'),
-                background: "white",
-                size: 300
-            }, document.querySelector('#classroom-code-share-qr-code'));
+    const user = UserManager.getUser();
+    if (user.isFromGar) hideElementsForGarUser();
 
-            // Block classroom feature
-            if (getClassroomInListByLink(link)[0].classroom.isBlocked == false) {
-                $('#blocking-class-tooltip').removeClass('greyscale')
-                $('#blocking-class-tooltip > i.fa').removeClass('fa-lock').addClass('fa-lock-open');
-                $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '1');
-                $('#blocking-class-tooltip').tooltip("dispose");
-                $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.classroomUnlockedClickToLock')).tooltip();
+    resetDisplayClassroom();
 
-            } else {
-                $('#blocking-class-tooltip').addClass('greyscale')
-                $('#blocking-class-tooltip > i.fa').removeClass('fa-lock-open').addClass('fa-lock');
-                $('#classroom-info > *:not(#blocking-class-tooltip)').css('opacity', '0.5');
-                $('#blocking-class-tooltip').tooltip("dispose");
-                $('#blocking-class-tooltip').attr("title", i18next.t('classroom.classes.classroomLockedClickToUnlock')).tooltip();
-            }
+    const currentClassroom = getClassroomInListByLink(ClassroomSettings.classroom)?.[0]?.classroom;
+    if (currentClassroom) {
+        breadcrumbManager.setSpecificClass(currentClassroom.name, link);
+    }
 
-            Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
-                let students = getClassroomInListByLink(link)[0].students
-                displayStudentsInClassroom(students, link);
-            });
-        }
-        dashboardAutoRefresh.refreshLater();
+    resetClassroomForm();
+
+    const classroomManager = Main.getClassroomManager();
+    if (!classroomManager._myClasses) {
+        classroomManager.getClasses().then(() => {
+            updateUIWithStudents(link);
+        });
     } else {
-        navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher', 'WK' + id, '')
-        displayNotification('#notif-div', "classroom.login.noClass", "error")
+        if (!link && ClassroomSettings.classroom) {
+            link = ClassroomSettings.classroom;
+        } else if (!link) {
+            navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher');
+            return;
+        }
+        updateUIWithStudents(link);
+    }
+
+    dashboardAutoRefresh.refreshLater();
+};
+
+function hideElementsForGarUser() {
+    document.getElementById('add-student-container').style.display = 'none';
+    document.getElementById('classroom-info').style.display = 'none';
+}
+
+function resetClassroomForm() {
+    document.getElementById('classroom-form-name').value = '';
+    document.getElementById('classroom-form-school').value = '';
+    document.getElementById('add-student-div').innerHTML = BASE_STUDENT_FORM;
+}
+
+function buildFullClassroomUrl(link) {
+    const origin = new URL(window.location.href).origin;
+    return `${origin}/classroom/login.php?link=${link}`;
+}
+
+function updateClassroomLinkUI(classroomCode) {
+    const realCode = document.getElementById('complete-classroom-link');
+    const fullLink = buildFullClassroomUrl(classroomCode);
+
+    Array.from(document.getElementsByClassName('classroom-link')).forEach(el => {
+        el.innerHTML = classroomCode;
+    });
+
+    realCode.innerHTML = fullLink;
+
+    const qrContainer = document.getElementById('classroom-code-share-qr-code');
+    qrContainer.innerHTML = '';
+
+    QrCreator.render({
+        text: fullLink,
+        radius: 0.5,
+        ecLevel: 'H',
+        fill: getComputedStyle(document.documentElement).getPropertyValue('--classroom-primary'),
+        background: "white",
+        size: 300
+    }, qrContainer);
+}
+
+function updateClassroomLockUI(isBlocked) {
+    const tooltip = document.getElementById('blocking-class-tooltip');
+    const icon = tooltip.querySelector('i.fa');
+    const infoContent = document.querySelectorAll('#classroom-info > *:not(#blocking-class-tooltip)');
+
+    tooltip.removeAttribute('data-original-title');
+    tooltip.removeAttribute('title');
+
+    if (isBlocked) {
+        tooltip.classList.add('greyscale');
+        icon.classList.remove('fa-lock-open');
+        icon.classList.add('fa-lock');
+        infoContent.forEach(el => el.style.opacity = '0.5');
+        tooltip.setAttribute("title", i18next.t('classroom.classes.classroomLockedClickToUnlock'));
+    } else {
+        tooltip.classList.remove('greyscale');
+        icon.classList.remove('fa-lock');
+        icon.classList.add('fa-lock-open');
+        infoContent.forEach(el => el.style.opacity = '1');
+        tooltip.setAttribute("title", i18next.t('classroom.classes.classroomUnlockedClickToLock'));
+    }
+
+    if (typeof bootstrap !== 'undefined' && bootstrap.Tooltip) {
+        new bootstrap.Tooltip(tooltip);
     }
 }
+
+function updateUIWithStudents(link) {
+    const classroomData = getClassroomInListByLink(link)?.[0];
+    if (!classroomData) return;
+
+    updateClassroomLinkUI(ClassroomSettings.classroom);
+    updateClassroomLockUI(classroomData.classroom.isBlocked);
+    displayStudentsInClassroom(classroomData.students, link);
+}
+
 DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) {
     document.getElementById('attribute-activity-to-students').setAttribute('disabled', '');
     if (ref != null && ref != 'null') {
@@ -687,15 +715,15 @@ function getIntelFromClasses() {
         const tocorrectElement = $('.tocorrect-activities');
         tocorrectElement.html('0');
         tocorrectElement.attr('aria-label', '0 activités à corriger');
-        
+
         const classesButton = $('.classroom-panel-link');
         classesButton.attr('aria-label', 'Accéder au panneau des classes - 0 activités à corriger');
         classesButton.attr('title', 'Gérer vos classes - 0 activités à corriger');
-        
+
         if (typeof notifyA11y !== 'undefined') {
             notifyA11y("Aucune activité à corriger", "info");
         }
-        
+
         if (document.querySelector('#mode-student-check').parentElement.querySelector('p.no-classes') === null) {
             $('#mode-student-check').after(NO_CLASS);
         }
@@ -723,20 +751,20 @@ function getIntelFromClasses() {
         });
         $('.no-classes').remove()
         $('#mode-student-check').show()
-        
+
         const tocorrectElement = $('.tocorrect-activities');
         tocorrectElement.html(correctionCount);
         tocorrectElement.attr('aria-label', `${correctionCount} activités à corriger`);
-        
+
         const classesButton = $('.classroom-panel-link');
-        const correctionText = correctionCount > 0 
+        const correctionText = correctionCount > 0
             ? `${correctionCount} activité${correctionCount > 1 ? 's' : ''} à corriger`
             : 'aucune activité à corriger';
         classesButton.attr('aria-label', `Accéder au panneau des classes - ${correctionText}`);
         classesButton.attr('title', `Gérer vos classes - ${correctionText}`);
-        
+
         if (typeof notifyA11y !== 'undefined') {
-            const message = correctionCount > 0 
+            const message = correctionCount > 0
                 ? `${correctionCount} activité${correctionCount > 1 ? 's' : ''} à corriger`
                 : "Aucune activité à corriger";
             notifyA11y(message, "info");

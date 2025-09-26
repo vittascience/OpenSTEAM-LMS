@@ -3857,6 +3857,7 @@ document.body.style.setProperty("--keyboard-zindex", "3000");
  */
 function initializeFocusManagement() {
 	let hasTabbed = false;
+  let sectionButtons;
 	
 	function setInitialFocus() {
 		const activeSidebar = document.querySelector('.sidebar-classroom:not([style*="display: none"])');
@@ -3965,7 +3966,8 @@ function initializeFocusManagement() {
 	function getSectionButtons() {
 		const sidebar = getActiveSidebar();
 		if (!sidebar) return [];
-		return Array.from(sidebar.querySelectorAll('.classroom-navbar-button')).filter(isElementVisible);
+    const visibleSectionButtons = Array.from(sidebar.querySelectorAll('.classroom-navbar-button')).filter(isElementVisible)
+		return visibleSectionButtons;
 	}
 
 	function getSidebarFocusables() {
@@ -3980,7 +3982,7 @@ function initializeFocusManagement() {
 		const logo = getActiveLogo();
 		const topbar = getTopbar();
 		let topbarFocusables = getFocusableWithin(topbar);
-		const sectionButtons = getSectionButtons();
+		sectionButtons = getSectionButtons();
 		const firstSection = sectionButtons[0];
 		const sidebarFocusables = getSidebarFocusables();
 		const lastSidebarFocusable = sidebarFocusables.length ? sidebarFocusables[sidebarFocusables.length - 1] : null;
@@ -4071,6 +4073,16 @@ function initializeFocusManagement() {
 				}
 			}
 		}
+
+		// From last section with Tab -> first focusable in active panel
+		if (sectionButtons.length > 0 && active === sectionButtons[sectionButtons.length - 1] && !event.shiftKey) {
+			event.preventDefault();
+			// Try immediately, then retry shortly in case of async content
+			if (!focusFirstInActivePanel()) {
+				setTimeout(() => { focusFirstInActivePanel(); }, 50);
+			}
+			return;
+		}
 	}, { capture: true });
 
 	function getActivePanelContainer() {
@@ -4093,16 +4105,6 @@ function initializeFocusManagement() {
 		panel.focus();
 		return true;
 	}
-
-  // From last section with Tab -> first focusable in active panel
-  if (sectionButtons.length > 0 && active === sectionButtons[sectionButtons.length - 1] && !event.shiftKey) {
-    event.preventDefault();
-    // Try immediately, then retry shortly in case of async content
-    if (!focusFirstInActivePanel()) {
-      setTimeout(() => { focusFirstInActivePanel(); }, 50);
-    }
-    return;
-  }
 }
 
 if (document.readyState === 'loading') {

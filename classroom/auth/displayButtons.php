@@ -4,6 +4,7 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 $enabledSSO = isset($_ENV['SSO_ENABLED']) ? array_map('strtolower', array_map('trim', explode(',', $_ENV['SSO_ENABLED']))) : [];
 $backurl = urlencode($_SERVER['REQUEST_URI']);
+$theme = isset($_GET['theme']) ? $_GET['theme'] : 'light';
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -49,9 +50,10 @@ if (in_array('microsoft', $enabledSSO)) {
 
 if (in_array('apple', $enabledSSO)) {
     $redirectUri = urlencode('https://' . $_SERVER['HTTP_HOST'] . '/public/sso/apple.php');
+    $imgStyle = $theme === 'dark' ? 'style="filter: invert(1);"' : '';
     echo <<<HTML
     <a href="https://appleid.apple.com/auth/authorize?response_type=code%20id_token&client_id=com.vittascience.sso&redirect_uri={$redirectUri}&response_mode=form_post&scope=name%20email&state={$appleSignInState}" class="btn-sso fw-bold">
-        <img src="./auth/svg/apple.svg" alt="apple svg logo" class="w-auto">
+        <img src="./auth/svg/apple.svg" alt="apple svg logo" class="w-auto" {$imgStyle}>
         <span data-i18n="sso.apple">Se connecter avec Apple</span>
     </a>
     HTML;
