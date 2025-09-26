@@ -362,7 +362,7 @@ async function tagManagement() {
 }
 
 DisplayPanel.prototype.classroom_table_panel_teacher = function (link) {
-    if (link === 'null') {
+    if (link == 'null') {
         navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher', 'WK' + id, '');
         displayNotification('#notif-div', "classroom.login.noClass", "error");
         return;
