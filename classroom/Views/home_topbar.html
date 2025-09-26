@@ -72,21 +72,22 @@
             if (selectedOption) {
                 document.body.setAttribute('data-theme', selectedOption.value);
             } else {
-                alert('Veuillez sélectionner un thème avant de cliquer sur Appliquer.');
+                //alert('Veuillez sélectionner un thème avant de cliquer sur Appliquer.');
+                console.warn('No theme selected');
             }
         } else if (group === 'contrast') {
             selectedOption = document.querySelector('input[name="contrast"]:checked');
             if (selectedOption) {
                 document.body.setAttribute('data-contrast', selectedOption.value);
             } else {
-                alert('Veuillez sélectionner un contraste avant de cliquer sur Appliquer.');
+                console.warn('No contrast selected');
             }
         } else if (group === 'font') {
             selectedOption = document.querySelector('input[name="font"]:checked');
             if (selectedOption) {
                 document.body.setAttribute('data-font', selectedOption.value);
             } else {
-                alert('Veuillez sélectionner une police avant de cliquer sur Appliquer.');
+                console.warn('No font selected');
             }
         }
 
