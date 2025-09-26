@@ -258,16 +258,6 @@ DisplayPanel.prototype.classroom_dashboard_form_classe_panel_update = function (
     let classroom = getClassroomInListByLink(ClassroomSettings.classroom)[0];
     $('#classroom-form-name-update').val(classroom.classroom.name);
     $('#classroom-form-school-update').val(classroom.classroom.school);
-    $('#add-student-div').html(BASE_STUDENT_FORM);
-    if (classroom.classroom.isBlocked) {
-        document.querySelector('#classroom-form-is-blocked-update').checked = true;
-    } else {
-        document.querySelector('#classroom-form-is-blocked-update').checked = false;
-    }
-    $('#table-students-update ul').html("");
-    classroom.students.forEach(function (student) {
-        $('#table-students-update ul').append(addStudentRow(student.user.pseudo, student.user.id, true));
-    })
 }
 
 DisplayPanel.prototype.classroom_dashboard_activities_panel_teacher = function () {

@@ -136,7 +136,7 @@ const classroomModals = {
             title: 'classroom.modals.settingsTeacher.title'
         },
         content: `<div>
-                    <2 data-i18n="classroom.modals.settingsTeacher.lang">Langue</h2>
+                    <h2 data-i18n="classroom.modals.settingsTeacher.lang">Langue</h2>
                 
                     <div id="switch-lang-list">
                         <button class="btn c-btn-secondary" onclick="changeLang('fr')">

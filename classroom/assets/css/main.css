@@ -225,7 +225,7 @@
     background-color: var(--classroom-primary-dark) !important;
 }
 
-.vitta-modal .modal-content-div h4 {
+.vitta-modal .modal-content-div h4, .vitta-modal .modal-content-div h2 {
     text-align: center;
     color: var(--classroom-text-0);
     margin-top: 0.7em;
@@ -1431,7 +1431,7 @@ img.btn-cabri {
 
 }
 
-#classroom-dashboard-activities-panel .section-header h3.section-title {
+#classroom-dashboard-activities-panel .section-header h3.section-title, #classroom-dashboard-activities-panel .section-header h2.section-title {
     padding: 0px;
     margin: 0px;
 }
@@ -1441,7 +1441,7 @@ img.btn-cabri {
     font-size: 1.5em;
 }
 
-#classroom-dashboard-activities-panel .section-header h3.section-title {
+#classroom-dashboard-activities-panel .section-header h3.section-title, #classroom-dashboard-activities-panel .section-header h2.section-title {
     padding: 0px;
     margin: 0px;
     width: auto;
