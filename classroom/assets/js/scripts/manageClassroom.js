@@ -362,7 +362,12 @@ document.querySelector('#classroom-update-form').addEventListener('submit', asyn
     if (submitter) submitter.disabled = true;
 
     try {
-        const classroomFound = Main.getClassroomManager()._myClasses.find(c => c.classroom.link === ClassroomSettings.classroom).classroom.isBlocked;
+        const foundClassroomObj = Main.getClassroomManager()._myClasses.find(c => c.classroom.link === ClassroomSettings.classroom);
+        if (!foundClassroomObj || !foundClassroomObj.classroom) {
+            displayNotification('#notif-div', 'classroom.notif.classroomNotFound', 'error');
+            return;
+        }
+        const classroomFound = foundClassroomObj.classroom.isBlocked;
         const classroom = await Main.getClassroomManager().updateClassroom({
             name: document.querySelector('#classroom-form-name-update').value,
             school: document.querySelector('#classroom-form-school-update').value,
