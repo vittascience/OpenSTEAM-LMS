@@ -537,8 +537,6 @@ class FoldersManager {
         let switcherCard = document.getElementById("switcherCard"), 
             switcherList =  document.getElementById("switcherList");
 
-        console.log("Display mode switch to: ", display);
-        console.log(switcherCard, switcherList);
         if (display == "list") {
             switcherCard.classList.add("half-opacity");
             switcherCard.classList.remove("selected-display");
