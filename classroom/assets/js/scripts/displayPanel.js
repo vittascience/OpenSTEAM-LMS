@@ -36,6 +36,7 @@ DisplayPanel.prototype.classroom_dashboard_profil_panel_teacher = function () {
     correctionsButton.attr('title', `Gérer vos classes - ${correctionsCount} ${correctionsCount === 1 ? 'correction à faire' : 'corrections à faire'}`);
 }
 
+
 DisplayPanel.prototype.classroom_dashboard_profil_panel_groupadmin = function () {
     $('#user-name-groupadmin').html(UserManager.getUser().firstname + " " + UserManager.getUser().surname)
 }
