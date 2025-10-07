@@ -385,6 +385,10 @@ button {
     transform: none;
 }
 
+.theme-dark .theme-super-admin .sidebar-classroom div:not(:first-child):not(.active) {
+  color: #000;
+}
+
 .sidebar-classroom div:not(:first-child) {
     font-weight: 700;
     text-transform: uppercase;
