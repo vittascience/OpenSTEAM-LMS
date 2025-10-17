@@ -87,7 +87,6 @@
     --bs-btn-disabled-color: var(--classroom-white);
     --bs-btn-disabled-bg: var(--classroom-primary);
     --bs-btn-disabled-border-color: var(--classroom-primary);
-
 }
 
 .btn-outline-primary,
@@ -114,6 +113,19 @@
     --bs-btn-disabled-border-color: var(--classroom-primary);
 }
 
+.theme-dark .btn-outline-primary,
+.theme-dark .c-btn-outline-primary {
+  --bs-btn-color: var(--classroom-primary);
+  --bs-btn-border-color: var(--classroom-primary);
+
+  --bs-btn-hover-bg: color-mix(in srgb, var(--classroom-primary) 35%, white 65%);
+  --bs-btn-hover-color: #000;
+  --bs-btn-hover-border-color: var(--classroom-primary);
+
+  --bs-btn-focus-box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--classroom-primary) 50%, white 50%);
+  --bs-btn-active-bg: color-mix(in srgb, var(--classroom-primary) 45%, white 55%);
+}
+
 .c-btn-no-outline-primary {
     --bs-btn-font-weight: 700;
     --bs-btn-border-radius: 256px;
@@ -133,6 +145,14 @@
     --bs-btn-disabled-color: var(--classroom-primary);
     --bs-btn-disabled-bg: transparent;
     --bs-btn-disabled-border-color: transparent;
+}
+
+.theme-dark .c-btn-no-outline-primary {
+  --bs-btn-color: var(--classroom-primary);
+  --bs-btn-hover-bg: color-mix(in srgb, var(--classroom-primary) 35%, white 65%);
+  --bs-btn-hover-color: #000;
+  --bs-btn-focus-box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--classroom-primary) 50%, white 50%);
+  --bs-btn-active-bg: color-mix(in srgb, var(--classroom-primary) 45%, white 55%);
 }
 
 .btn-secondary,
@@ -181,6 +201,19 @@
     --bs-btn-disabled-border-color: var(--classroom-secondary);
 }
 
+.theme-dark .btn-outline-secondary,
+.theme-dark .c-btn-outline-secondary {
+  --bs-btn-color: var(--classroom-secondary);
+  --bs-btn-border-color: var(--classroom-secondary);
+
+  --bs-btn-hover-color: var(--classroom-secondary);
+  --bs-btn-hover-bg: rgba(var(--classroom-secondary-rgb), 0.25);
+  --bs-btn-hover-border-color: var(--classroom-secondary);
+
+  --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--classroom-secondary-rgb), 0.4);
+  --bs-btn-active-bg: rgba(var(--classroom-secondary-rgb), 0.35);
+}
+
 .btn-tertiary,
 .c-btn-tertiary {
     --bs-btn-font-weight: 700;
@@ -226,6 +259,19 @@
     --bs-btn-disabled-color: var(--classroom-tertiary);
     --bs-btn-disabled-bg: transparent;
     --bs-btn-disabled-border-color: var(--classroom-tertiary);
+}
+
+.theme-dark .btn-outline-tertiary,
+.theme-dark .c-btn-outline-tertiary {
+  --bs-btn-color: var(--classroom-tertiary);
+  --bs-btn-border-color: var(--classroom-tertiary);
+
+  --bs-btn-hover-bg: color-mix(in srgb, var(--classroom-tertiary) 35%, white 65%);
+  --bs-btn-hover-color: #000;
+  --bs-btn-hover-border-color: var(--classroom-tertiary);
+
+  --bs-btn-focus-box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--classroom-tertiary) 50%, white 50%);
+  --bs-btn-active-bg: color-mix(in srgb, var(--classroom-tertiary) 45%, white 55%);
 }
 
 .btn-red,

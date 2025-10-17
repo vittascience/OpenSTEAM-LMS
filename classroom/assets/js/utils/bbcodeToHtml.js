@@ -8,15 +8,15 @@ function bbcodeToHtml(html) {
         }
     }
     //iframes
-    html = html.replace(/(\[iframe\])(https:\/\/(fr\.|en\.|)vittascience\.com[a-zA-Z0-9?=;&\/﻿]+)(\[\/iframe\])/gi, "<iframe width='100%' height='500' frameborder='0' allowfullscreen style='border:1px #d6d6d6 solid;' src=\"$2&embed=1&frameid=" + generateRandomString(6) + "\"></iframe>")
-    html = html.replace(/(\[iframe\])(http:\/\/51\.178\.95\.45[a-zA-Z0-9?=&\/]+)(\[\/iframe\])/gi, "<iframe width='100%' height='500' frameborder='0' allowfullscreen style='border:1px #d6d6d6 solid;' src=\"$2&embed=1&frameid=" + generateRandomString(6) + "\"></iframe>")
-    html = html.replace(/(\[iframe\])(http:\/\/vittascience[a-zA-Z0-9?=&\/\\]+)(\[\/iframe\])/gi, "<iframe width='100%' height='500' frameborder='0' allowfullscreen style='border:1px #d6d6d6 solid;' src=\"$2&embed=1&frameid=" + generateRandomString(6) + "\"></iframe>")
-    html = html.replace(/(\[iframe\])(https:\/\/(vgamma|valpha|vbeta|vdelta|vdemo).vittascience[a-zA-Z0-9?=&\/\\\.]+)(\[\/iframe\])/gi, "<iframe width='100%' height='500' frameborder='0' allowfullscreen style='border:1px #d6d6d6 solid;' src=\"$2&embed=1&frameid=" + generateRandomString(6) + "\"></iframe>")
+    html = html.replace(/(\[iframe\])(https:\/\/(fr\.|en\.|)vittascience\.com[a-zA-Z0-9?=;&\/﻿]+)(\[\/iframe\])/gi, "<iframe width='100%' height='500' frameborder='0' allowfullscreen style='border:1px #d6d6d6 solid;' src=\"$2&embed=1&frameid=" + generateRandomString(6) + "\" title=\"Contenu intégré\"></iframe>")
+    html = html.replace(/(\[iframe\])(http:\/\/51\.178\.95\.45[a-zA-Z0-9?=&\/]+)(\[\/iframe\])/gi, "<iframe width='100%' height='500' frameborder='0' allowfullscreen style='border:1px #d6d6d6 solid;' src=\"$2&embed=1&frameid=" + generateRandomString(6) + "\" title=\"Contenu intégré\"></iframe>")
+    html = html.replace(/(\[iframe\])(http:\/\/vittascience[a-zA-Z0-9?=&\/\\]+)(\[\/iframe\])/gi, "<iframe width='100%' height='500' frameborder='0' allowfullscreen style='border:1px #d6d6d6 solid;' src=\"$2&embed=1&frameid=" + generateRandomString(6) + "\" title=\"Contenu intégré\"></iframe>")
+    html = html.replace(/(\[iframe\])(https:\/\/(vgamma|valpha|vbeta|vdelta|vdemo).vittascience[a-zA-Z0-9?=&\/\\\.]+)(\[\/iframe\])/gi, "<iframe width='100%' height='500' frameborder='0' allowfullscreen style='border:1px #d6d6d6 solid;' src=\"$2&embed=1&frameid=" + generateRandomString(6) + "\" title=\"Contenu intégré\"></iframe>")
 
-    html = html.replace(/(\[iframe\])(https:\/\/view\.genial\.ly[a-zA-Z0-9?=&_\-\/﻿]+)(\[\/iframe\])/gi, "<iframe width='100%' height='500' frameborder='0' allowfullscreen style='border:1px #d6d6d6 solid;' src=\"$2\"></iframe>");
-    html = html.replace(/(\[iframe\])(https:\/\/docs\.google\.com[a-zA-Z0-9?=&_\-\/﻿]+)(\[\/iframe\])/gi, "<iframe width='100%' height='500' frameborder='0' allowfullscreen style='border:1px #d6d6d6 solid;' src=\"$2\"></iframe>");
+    html = html.replace(/(\[iframe\])(https:\/\/view\.genial\.ly[a-zA-Z0-9?=&_\-\/﻿]+)(\[\/iframe\])/gi, "<iframe width='100%' height='500' frameborder='0' allowfullscreen style='border:1px #d6d6d6 solid;' src=\"$2\" title=\"Contenu intégré Genially\"></iframe>");
+    html = html.replace(/(\[iframe\])(https:\/\/docs\.google\.com[a-zA-Z0-9?=&_\-\/﻿]+)(\[\/iframe\])/gi, "<iframe width='100%' height='500' frameborder='0' allowfullscreen style='border:1px #d6d6d6 solid;' src=\"$2\" title=\"Document Google\"></iframe>");
     // Cabri iframe
-    html = html.replace(/(\[iframe\])(http(s)?:\/\/.*?)(\[\/iframe\])/gi, "<iframe width='100%' height='620' frameborder='0' allowfullscreen style='border:1px #d6d6d6 solid;' src=\"$2\"></iframe>");
+    html = html.replace(/(\[iframe\])(http(s)?:\/\/.*?)(\[\/iframe\])/gi, "<iframe width='100%' height='620' frameborder='0' allowfullscreen style='border:1px #d6d6d6 solid;' src=\"$2\" title=\"Contenu intégré externe\"></iframe>");
     
     //url
     html = html.replace(/(href=)/gi, " target=\"_blank\" $1")
@@ -28,13 +28,13 @@ function bbcodeToHtml(html) {
     html = html.replace(/(\[embed\])(.+)(\[\/embed\])/gi, "<embed width=100% height=500 type=\"application/pdf\" src=\"$2\"/>")
 
     //vimeo
-    html = html.replace(/(\[vimeo\])([a-zA-Z0-9?=\-_&\/]+)(\[\/vimeo\])/gi, "<iframe src=\"https://player.vimeo.com/video/$2\" allowfullscreen allow='autoplay'>")
+    html = html.replace(/(\[vimeo\])([a-zA-Z0-9?=\-_&\/]+)(\[\/vimeo\])/gi, "<iframe src=\"https://player.vimeo.com/video/$2\" allowfullscreen allow='autoplay' title=\"Vidéo Vimeo\">")
 
     //youtube
-    html = html.replace(/(\[video\])([a-zA-Z0-9?=\-_&\/]+)(\[\/video\])/gi, "<iframe src='https://www.youtube.com/embed/$2' width=\"100%\" height=\"480\" frameborder=\"0\" allowfullscreen></iframe>")
+    html = html.replace(/(\[video\])([a-zA-Z0-9?=\-_&\/]+)(\[\/video\])/gi, "<iframe src='https://www.youtube.com/embed/$2' width=\"100%\" height=\"480\" frameborder=\"0\" allowfullscreen title=\"Vidéo YouTube\"></iframe>")
 
     //peertube
-    html = html.replace(/(\[peertube\])([a-zA-Z0-9?=\-_&.:\/]+)(\[\/peertube\])/gi, "<iframe src='$2' width=\"100%\" height=\"480\" frameborder=\"0\" allowfullscreen></iframe>")
+    html = html.replace(/(\[peertube\])([a-zA-Z0-9?=\-_&.:\/]+)(\[\/peertube\])/gi, "<iframe src='$2' width=\"100%\" height=\"480\" frameborder=\"0\" allowfullscreen title=\"Vidéo PeerTube\"></iframe>")
 
     //bold
     html = html.replace(/\[b\]/gi, "<strong>")

@@ -205,7 +205,6 @@
         if (group === 'theme') {
             selectedOption = document.querySelector('input[name="theme"]:checked');
             if (selectedOption) {
-                console.log(`Applying Theme: ${selectedOption.value}`);
                 document.body.setAttribute('data-theme', selectedOption.value);
             } else {
                 alert('Veuillez sélectionner un thème avant de cliquer sur Appliquer.');
@@ -213,7 +212,6 @@
         } else if (group === 'contrast') {
             selectedOption = document.querySelector('input[name="contrast"]:checked');
             if (selectedOption) {
-                console.log(`Applying Contrast: ${selectedOption.value}`);
                 document.body.setAttribute('data-contrast', selectedOption.value);
             } else {
                 alert('Veuillez sélectionner un contraste avant de cliquer sur Appliquer.');
@@ -221,7 +219,6 @@
         } else if (group === 'font') {
             selectedOption = document.querySelector('input[name="font"]:checked');
             if (selectedOption) {
-                console.log(`Applying Font: ${selectedOption.value}`);
                 document.body.setAttribute('data-font', selectedOption.value);
             } else {
                 alert('Veuillez sélectionner une police avant de cliquer sur Appliquer.');
@@ -242,26 +239,26 @@
         </div>
 
         <div id="classroom-dashboard-profile-stats" role="region" aria-label="Statistiques des activités">
-                <div style="grid-column: 1; grid-row: 1;" 
-                     class="activity-panel-link" 
-                     role="button" 
-                     tabindex="0"
-                     aria-label="Activités à faire, 0 activités à faire"
-                     onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"
-                     onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities'); }">
-                    <span class="stats-secondary todo-activities" aria-hidden="true"></span>
-                    <span class="text-span-initial stats-description" data-i18n="[html]classroom.profil.todo"></span>
-                </div>
-                <div style="grid-column: 2; grid-row: 0;" 
-                     class="activity-panel-link" 
-                     role="button" 
-                     tabindex="0"
-                     aria-label="Activités terminées, 0 activités terminées"
-                     onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"
-                     onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities'); }">
-                    <span class="stats-primary done-activities" aria-hidden="true"></span>
-                    <span class="text-span-initial stats-description" data-i18n="[html]classroom.profil.done"></span>
-                </div>
+            <div style="grid-column: 2; grid-row: 0;" 
+                  class="activity-panel-link" 
+                  role="button" 
+                  tabindex="0"
+                  aria-label="Activités terminées, 0 activités terminées"
+                  onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"
+                  onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities'); }">
+                <span class="stats-primary done-activities" aria-hidden="true"></span>
+                <span class="text-span-initial stats-description" data-i18n="[html]classroom.profil.done"></span>
+            </div>
+            <div style="grid-column: 1; grid-row: 1;" 
+                  class="activity-panel-link" 
+                  role="button" 
+                  tabindex="0"
+                  aria-label="Activités à faire, 0 activités à faire"
+                  onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"
+                  onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities'); }">
+                <span class="stats-secondary todo-activities" aria-hidden="true"></span>
+                <span class="text-span-initial stats-description" data-i18n="[html]classroom.profil.todo"></span>
+            </div>
         </div>
         <!-- <div id="space-return-button"></div> -->
 
@@ -658,6 +655,17 @@
     </div>
 
     <div id="classroom-dashboard-profile-stats-teacher" role="region" aria-label="Statistiques des activités enseignant">
+        <div style="grid-column: 1; grid-row: 1;" 
+              class="classroom-panel-link classroom-clickable"
+              role="button" 
+              tabindex="0"
+              onclick="navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher')"
+              onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher'); }"
+              aria-label="Accéder au panneau des classes - 0 corrections à faire">
+            <span class="stats-secondary tocorrect-activities" aria-hidden="true">--</span>
+            <span class="text-span-initial stats-description"
+                data-i18n="[html]classroom.profil.correctionToDo"></span>
+        </div>
         <div style="grid-column: 2; grid-row: 1;" 
              class="activity-panel-link-t classroom-clickable"
              role="button" 
@@ -668,17 +676,6 @@
             <span class="stats-primary owned-activities" aria-hidden="true">--</span>
             <span class="text-span-initial stats-description"
                 data-i18n="[html]classroom.profil.create"></span>
-        </div>
-        <div style="grid-column: 1; grid-row: 1;" 
-             class="classroom-panel-link classroom-clickable"
-             role="button" 
-             tabindex="0"
-             onclick="navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher')"
-             onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher'); }"
-             aria-label="Accéder au panneau des classes - 0 corrections à faire">
-            <span class="stats-secondary tocorrect-activities" aria-hidden="true">--</span>
-            <span class="text-span-initial stats-description"
-                data-i18n="[html]classroom.profil.correctionToDo"></span>
         </div>
     </div>
 
@@ -793,7 +790,7 @@
                 <input type="text" id="classroom-form-school-update" class="form-control form-control-lg">
             </div>   
         </div>
-        <a href="#" id="update-classroom-student-button" class="new-student-modal btn c-btn-primary m-3"><i class="fas fa-user-plus"></i><span class="ms-1" data-i18n="classroom.classes.form.addStudent"></span></a>
+        <!-- <a href="#" id="update-classroom-student-button" class="new-student-modal btn c-btn-primary m-3"><i class="fas fa-user-plus"></i><span class="ms-1" data-i18n="classroom.classes.form.addStudent"></span></a>
         <div class="table-students" id="table-students-update">
             <ul>
                 <li id="no-student-label-update" data-i18n="classroom.classes.form.noStudent"></li>
@@ -802,7 +799,7 @@
         <div class="c-checkbox mt-2">
             <input type="checkbox" name="classroom-form-is-blocked" id="classroom-form-is-blocked-update">
             <label for="classroom-form-is-blocked-update" data-i18n="classroom.classes.form.isBlockedButton"></label>
-        </div>
+        </div> -->
         <button type="submit" class="new-classroom-form btn c-btn-primary m-3"><i class="fas fa-save"></i><span class="ms-1" data-i18n="classroom.classes.form.save"></span> </button>
     </form>
 </div>
@@ -1295,8 +1292,15 @@
     </div>
 </div>
 <div id="classroom-dashboard-help-panel-teacher" style="display:none;" class="dashboard-block help-panel">
-    <div class="contact-panel">
-
+  <div class="contact-panel">
+      <div class="d-flex justify-content-start">
+          <button class="btn c-btn-outline-primary mb-3" id="help-back-button"
+            aria-label="Retour au profil"
+            onclick="navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher')">
+            <i class="fas fa-arrow-left" aria-hidden="true"></i>
+            <span>Retour au profil</span>
+          </button>
+      </div>
         <h2 data-i18n="classroom.teacherHelpPanel.contactForm.title" class="title-margin">Contacter Vittascience</h2>
 
         <div id="about-contact-info">
@@ -1346,7 +1350,7 @@
             <form id="groupadmin-about-contact-form" class="c-primary-form">
                 <div class="form-group">
                     <label for="groupadmin-contact-subject-input" class="sr-only">Objet</label>
-                    <input type="text" name="subject" class="form-control" id="groupadmin-contact-subject-input" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.objectPlaceholder" placeholder="Objet">
+                    <input type="text" name="subject" class="form-control my-1" id="groupadmin-contact-subject-input" data-i18n="[placeholder]classroom.teacherHelpPanel.contactForm.objectPlaceholder" placeholder="Objet">
                 </div>
                 <div class="form-group">
                     <label for="groupadmin-contact-message-input" class="sr-only">Message</label>

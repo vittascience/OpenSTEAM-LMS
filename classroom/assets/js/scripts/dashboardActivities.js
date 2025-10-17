@@ -355,7 +355,7 @@ function classeItem(classe, nbStudents, students) {
     let maxAct = maxLength(students)
     let remainingCorrections = getRemainingCorrections(students);
 
-    let remainingCorrectionsSpanElt = remainingCorrections ? `<span class="results-correcting c-text-secondary" role="status" aria-label="${remainingCorrections} corrections en attente"><i class="fas fa-pen" aria-hidden="true"></i> ${remainingCorrections}</span>` : '';
+    let remainingCorrectionsSpanElt = remainingCorrections ? `<span class="results-correcting c-text-secondary position-absolute bottom-0 end-0 m-2" role="status" aria-label="${remainingCorrections} corrections en attente"><i class="fas fa-pen" aria-hidden="true"></i> ${remainingCorrections}</span>` : '';
     let html = `<div class="class-item" role="listitem">
       <div class="class-card" style="position: relative;">
         <div 
@@ -366,7 +366,6 @@ function classeItem(classe, nbStudents, students) {
             onkeydown="if(event.key==='Enter'||event.key===' ') { if(!event.target.closest('.dropdown')) { event.preventDefault(); this.click(); } }">
           <div class="class-card-top" data-id="${classe.id}" data-link="${classe.link}">
             <span role="status" aria-label="${nbStudents} élèves"><i class="fas fa-user fa-2x" aria-hidden="true"></i> ${nbStudents}</span>
-            ${remainingCorrectionsSpanElt}
           </div>`
 
     html += `<div class="class-card-mid">
@@ -374,9 +373,10 @@ function classeItem(classe, nbStudents, students) {
             </div>`
 
     html += `<div class="class-card-bot">
-                <span role="status" aria-label="${i18next.t('classroom.activities.nbActivities', {'nbActi': maxAct})}">
+                <span role="status" aria-label="${i18next.t('classroom.activities.nbActivities', {'nbActi': maxAct})}">   
                     ${i18next.t('classroom.activities.nbActivities', {'nbActi': maxAct})}
                 </span>
+                ${remainingCorrectionsSpanElt} 
             </div>
         </div>
         <div class="dropdown class-card-dropdown" style="position: absolute; top: 10px; right: 10px; z-index: 10;">
