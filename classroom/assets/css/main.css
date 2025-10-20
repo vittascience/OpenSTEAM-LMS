@@ -225,7 +225,8 @@
     background-color: var(--classroom-primary-dark) !important;
 }
 
-.vitta-modal .modal-content-div h4, .vitta-modal .modal-content-div h2 {
+.vitta-modal .modal-content-div h4,
+.vitta-modal .modal-content-div h2 {
     text-align: center;
     color: var(--classroom-text-0);
     margin-top: 0.7em;
@@ -288,7 +289,7 @@ body {
 }
 
 .theme-dark .form-control::placeholder {
-  color: var(--classroom-text-0) !important;
+    color: var(--classroom-text-0) !important;
 }
 
 
@@ -386,7 +387,7 @@ button {
 }
 
 .theme-dark .theme-super-admin .sidebar-classroom div:not(:first-child):not(.active) {
-  color: #000;
+    color: #000;
 }
 
 .sidebar-classroom div:not(:first-child) {
@@ -495,7 +496,7 @@ button {
     grid-template-columns: var(--sidebar-size) 1fr;
     grid-template-rows: var(--topbar-size) 1fr;
     grid-template-areas: "sidebar navbar"
-                         "sidebar content";
+        "sidebar content";
     height: 100%;
 }
 
@@ -717,9 +718,9 @@ button {
         border-radius: 0px;
         height: auto;
         height: fill-available;
-                
+
         grid-row-end: 2;
-        
+
         padding-bottom: 50px;
     }
 
@@ -761,8 +762,8 @@ button {
 
 
 .theme-light #breadcrumb button {
-  border-color: #743a00;
-  color: #743a00;
+    border-color: #743a00;
+    color: #743a00;
 }
 
 
@@ -867,7 +868,7 @@ button {
     display: flex;
     flex-direction: column;
     width: 100%;
-    
+
     height: 100%;
     height: fill-available;
     height: --webkit-fill-available;
@@ -1128,7 +1129,7 @@ button {
     align-items: center;
     align-content: center;
     margin: 0.5em auto;
-    gap: 0.5em; 
+    gap: 0.5em;
 }
 
 #switch-lang-list-student {
@@ -1139,7 +1140,7 @@ button {
     align-items: center;
     align-content: center;
     margin: 0.5em auto;
-    gap: 0.5em; 
+    gap: 0.5em;
 }
 
 /* END PROFILE PANEL */
@@ -1369,7 +1370,7 @@ img.btn-cabri {
 
 /* DRAG AND DROP IN ACTIVITY LIST */
 
-#list-activities-teacher > div {
+#list-activities-teacher>div {
     outline: 3px solid transparent;
     transition: outline .2s;
     outline-offset: 1.5px;
@@ -1435,7 +1436,8 @@ img.btn-cabri {
 
 }
 
-#classroom-dashboard-activities-panel .section-header h3.section-title, #classroom-dashboard-activities-panel .section-header h2.section-title {
+#classroom-dashboard-activities-panel .section-header h3.section-title,
+#classroom-dashboard-activities-panel .section-header h2.section-title {
     padding: 0px;
     margin: 0px;
 }
@@ -1445,7 +1447,8 @@ img.btn-cabri {
     font-size: 1.5em;
 }
 
-#classroom-dashboard-activities-panel .section-header h3.section-title, #classroom-dashboard-activities-panel .section-header h2.section-title {
+#classroom-dashboard-activities-panel .section-header h3.section-title,
+#classroom-dashboard-activities-panel .section-header h2.section-title {
     padding: 0px;
     margin: 0px;
     width: auto;
@@ -1486,9 +1489,9 @@ h3.section-done {
     border-color: var(--classroom-primary);
 }
 
-.sandbox-item > div,
-.activity-item > div,
-.course-item > div {
+.sandbox-item>div,
+.activity-item>div,
+.course-item>div {
     cursor: pointer;
     display: grid;
     height: auto;
@@ -1549,7 +1552,7 @@ h3.section-done {
     display: grid;
     grid-auto-flow: row;
     grid-template-rows: auto 1fr auto;
-    position: relative; 
+    position: relative;
 }
 
 .folder-card svg {
@@ -1605,7 +1608,7 @@ h3.section-done {
 
 }
 
-.folder-item > div {
+.folder-item>div {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 170px auto;
@@ -1625,8 +1628,8 @@ h3.section-done {
 }
 
 .activity-item .dropdown button:first-child:focus {
-  border: 4px solid var(--classroom-shadow-1) !important;
-  border-radius: 10px !important;
+    border: 4px solid var(--classroom-shadow-1) !important;
+    border-radius: 10px !important;
 }
 
 .tree-folders {
@@ -1644,7 +1647,7 @@ h3.section-done {
 }
 
 .folder-breadcrumb {
-   color: var(--classroom-gold);
+    color: var(--classroom-gold);
 }
 
 .folder-icons {
@@ -1748,6 +1751,7 @@ h3.section-done {
     user-select: none;
     cursor: pointer;
 }
+
 .section-title-facultative-options,
 .section-title-preview-activity,
 .section-title-course-options {
@@ -1845,6 +1849,7 @@ h3.section-done {
 
 /* On medium screens we update the list item to have two rows for better content display */
 @media (max-width: 768px) {
+
     .activity-list .activity-list-center,
     .course-list .course-list-center {
         flex-direction: column;
@@ -1879,10 +1884,10 @@ h3.section-done {
 
 @media (max-width: 768px) {
 
-    .sandbox-item > div,
-    .activity-item > div,
-    .folder-item > div,
-    .course-item > div {
+    .sandbox-item>div,
+    .activity-item>div,
+    .folder-item>div,
+    .course-item>div {
         grid-template-rows: 90px auto;
         width: 160px;
         padding: 0.1em;
@@ -2065,15 +2070,15 @@ h3.section-done {
         font-size: 0.7em;
         line-height: 1.2em;
     }
-    
+
     .activity-search {
         width: 90%;
     }
-    
+
     .activity-search #filter-activity-select {
         width: 100%;
     }
-    
+
     .folder-card .folder-card-bot span {
         display: block;
         font-size: 0.7em;
@@ -2194,7 +2199,7 @@ h3.section-done {
 
 #fill-in-tolerance,
 #free-tolerance {
-    width: 4ch; 
+    width: 4ch;
     -moz-appearance: textfield;
     text-align: center;
 
@@ -2351,29 +2356,29 @@ h3.section-done {
 }
 
 .quiz-form-check {
-    --_color: 128,128,128;
+    --_color: 128, 128, 128;
     --_bg-opacity: 0;
-    
-    position: relative; 
+
+    position: relative;
     overflow: hidden;
-    
+
     margin: 0.5em;
     padding: 0;
     /* width: 100%; */
-    
+
     border: 1px solid rgb(var(--_color));
     border-radius: 1.25em;
     box-shadow: 0px 0px 6px var(--classroom-shadow-1);
-    background-color: rgba(var(--_color), var(--_bg-opacity)); 
-    
- 
+    background-color: rgba(var(--_color), var(--_bg-opacity));
+
+
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: flex-start;
 }
 
-.quiz-form-check > input.form-check-input {
+.quiz-form-check>input.form-check-input {
     position: absolute;
     top: 50%;
     margin-top: 0;
@@ -2381,17 +2386,17 @@ h3.section-done {
     left: 3rem;
 }
 
-.quiz-form-check > input.form-check-input:checked {
-    background-color:rgb(var(--_color));
+.quiz-form-check>input.form-check-input:checked {
+    background-color: rgb(var(--_color));
     border-color: rgb(var(--_color));
 }
 
-.quiz-form-check > input.form-check-input:focus {
-    border-color:rgb(var(--_color));
-    box-shadow: 0 0 0 0.25rem rgba(var(--_color),0.25);
+.quiz-form-check>input.form-check-input:focus {
+    border-color: rgb(var(--_color));
+    box-shadow: 0 0 0 0.25rem rgba(var(--_color), 0.25);
 }
 
-.quiz-form-check > label.form-check-label {
+.quiz-form-check>label.form-check-label {
     padding: 1em 1.5em;
     padding-left: 3rem;
     user-select: none;
@@ -2400,7 +2405,7 @@ h3.section-done {
     align-content: center;
 }
 
-.quiz-form-check > label.form-check-label > img {
+.quiz-form-check>label.form-check-label>img {
     max-width: 100%;
     height: auto;
 }
@@ -2461,7 +2466,7 @@ h3.section-done {
 
     display: grid;
     align-items: center;
-    
+
     border-radius: 50%;
 }
 
@@ -2489,7 +2494,7 @@ h3.section-done {
 
     display: grid;
     align-items: center;
-    
+
     border-radius: 50%;
     margin: 0.5em;
 }
@@ -2505,7 +2510,7 @@ h3.section-done {
     flex-wrap: wrap;
     align-items: center;
     text-wrap: balance;
-    
+
     gap: 0.5em;
     margin-bottom: 0px;
 }
@@ -2577,15 +2582,19 @@ h3.section-done {
 .giveNote-container #givenote-0 {
     accent-color: var(--correction-0);
 }
+
 .giveNote-container #givenote-1 {
     accent-color: var(--correction-1);
 }
+
 .giveNote-container #givenote-2 {
     accent-color: var(--correction-2);
 }
+
 .giveNote-container #givenote-3 {
     accent-color: var(--correction-3);
 }
+
 .giveNote-container #givenote-4 {
     accent-color: var(--classroom-text-2);
 }
@@ -3379,7 +3388,7 @@ h3.section-done {
     color: var(--classroom-text-2);
 }
 
-#classroom-code-share-container > div{
+#classroom-code-share-container>div {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -3387,13 +3396,13 @@ h3.section-done {
     padding: 1em;
 }
 
-#classroom-code-share-container > div > span {
+#classroom-code-share-container>div>span {
     width: 70%;
     font-size: 1.3em;
     text-align: center;
 }
 
-#classroom-code-share-container > div:nth-child(2) {
+#classroom-code-share-container>div:nth-child(2) {
     border-right: 2px solid var(--classroom-cell);
 }
 
@@ -3412,7 +3421,7 @@ h3.section-done {
     height: 20ch;
 }
 
-#classroom-table-panel-teacher-code #classroom-code-share-qr-code canvas {  
+#classroom-table-panel-teacher-code #classroom-code-share-qr-code canvas {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -3420,15 +3429,16 @@ h3.section-done {
 
 @media (max-width: 1180px) {
     #classroom-code-share-container {
-        grid-template-columns: 1fr;;
+        grid-template-columns: 1fr;
+        ;
     }
 
-    #classroom-code-share-container > div:nth-child(2) {
+    #classroom-code-share-container>div:nth-child(2) {
         border-right: 0;
         border-bottom: 2px solid var(--classroom-cell);
     }
 
-    #classroom-code-share-container > div > span {
+    #classroom-code-share-container>div>span {
         width: 90%;
     }
 
@@ -3457,7 +3467,7 @@ h3.section-done {
     right: 20px;
 
     border-radius: 50%;
-   
+
     cursor: pointer;
     margin: 14px 0px 0px 8px;
 
@@ -3714,7 +3724,7 @@ h3.section-done {
 
 .preview-container h3 {
     display: none;
-} 
+}
 
 
 .space-evenly {
@@ -3728,13 +3738,14 @@ h3.section-done {
     min-height: 25%;
 }
 
-.seach-app-galery{
+.seach-app-galery {
     width: 100%;
 }
 
 /* Courses */
 
-.activity-item-courses, .preview-activity-in-courses {
+.activity-item-courses,
+.preview-activity-in-courses {
     border: 1px solid var(--classroom-primary);
     border-radius: 1em;
     padding: 1em;
@@ -3742,7 +3753,7 @@ h3.section-done {
     margin-bottom: 1em;
 }
 
-.course-activities-content  {
+.course-activities-content {
     border: 1px solid black;
     border-radius: 1em;
     padding: 1em;
@@ -3853,7 +3864,7 @@ h3.section-done {
 }
 
 .theme-dark .switcher {
-  background: #fff;
+    background: #fff;
 }
 
 .switcher__input {
@@ -3973,7 +3984,8 @@ h3.section-done {
     opacity: 1;
 }
 
-th, td {
+th,
+td {
     color: var(--classroom-text-0) !important;
 }
 
@@ -4036,3 +4048,38 @@ th, td {
     outline: none;
     box-shadow: 0 0 0 0.2rem rgba(var(--classroom-primary-rgb), 0.25);
 }
+
+#usersTable td .btn,
+#usersTable td a {
+    font-size: 1rem;
+    padding: 0.25rem;
+}
+
+#usersTable td .d-flex {
+    gap: 0.4rem;
+}
+
+
+.user-admin-row>td {
+    background-color: #a84d4d54 !important;
+}
+
+.icon-table-size {
+    font-size: 1.5em;
+}
+
+.premium-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.2;
+}
+
+.premium-date {
+    font-size: 0.8em;
+    color: #555;
+    margin-top: 0.2em;
+    font-weight: bold;
+}
+
+.filters label { margin-right: 12px; }

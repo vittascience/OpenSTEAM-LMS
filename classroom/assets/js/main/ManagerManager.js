@@ -14,7 +14,7 @@ class managerManager {
      * Creates an instance of managerManager.
      * @public
      */
-    constructor() {
+    constructor(tableSelector = '#usersTable') {
         this._allGroups = []
         this._comboGroups = []
         this._addedCreateUserGroup = 0
@@ -30,6 +30,25 @@ class managerManager {
         this._tasksQueue = [];
         this._isExecutingTaskInQueue = false;
         this._defaultRestrictions = [];
+
+        this.tableSelector = tableSelector;
+        this.dt = null;
+
+        this.groupFilter = {};
+        this.initialPage = 1;
+        this.initialLen = 25;
+        this.initialSort = 'id';
+
+
+        this.tableSelector = tableSelector;
+        this.dt = null;
+
+        this.groupFilter = {};
+        this.extraFilters = {};
+
+        this.initialPage = 1;
+        this.initialLen = 25;
+        this.initialSort = 'id';
     }
 
     /**
@@ -118,6 +137,61 @@ class managerManager {
         })
     }
 
+    /**
+     * Récupère des utilisateurs paginés avec recherche/tri/filters.
+     *
+     * @param {Object}   [opts]
+     * @param {number}   [opts.page=1]               Page courante (1-based)
+     * @param {number}   [opts.nusers=25]            Nombre d'items par page (1..200)
+     * @param {string?}  [opts.search=null]          Recherche globale: firstname, surname, email, groupName
+     * @param {string}   [opts.sort='id']            Champ de tri (ex: 'id','email','groupName','premiumEnd'...)
+     * @param {('asc'|'desc')} [opts.dir='asc']      Direction de tri
+     * @param {Object}   [opts.filters={}]           Filtres avancés
+     *
+     * Filtres disponibles (extraits principaux) :
+     * - newsletter, is_active, is_admin, teacher: boolean (true/false)
+     * - email, email~, firstname, firstname~, surname, surname~, isFromSSO, isFromSSO~
+     * - isFromSSO = 'null' | 'notnull'              (équivaut à isFromSSO:null / :notnull)
+     *
+     * Filtres Groupe :
+     * - groupId: number                             (users dans ce groupe)
+     * - groupIdIn: number[] | "1,5,9"               (users dans l’un de ces groupes)
+     * - groupName: string                           (égalité stricte)
+     * - groupName~: string                          (LIKE)
+     * - hasGroup: boolean                           (au moins un groupe actif)
+     * - group: 'null' | 'notnull'                   (sans/avec groupe actif)
+     *
+     * @returns {Promise<Object|null>}               Réponse JSON { page, perPage, search, sort, dir, filters, result }
+     */
+    async fetchUserMetaSearchUpdated({
+        page = 1,
+        nusers = 100,
+        search = null,
+        sort = 'id',
+        dir = 'asc',
+        filters = {}
+    } = {}) {
+        const payload = { page, nusers, search, sort, dir, filter: filters };
+
+        try {
+            const response = await fetch('/routing/Routing.php?controller=user&action=user-meta-search', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+            const result = await response.json();
+            console.log('Résultat :', result);
+            return result;
+        } catch (error) {
+            console.error('Erreur lors de la requête :', error);
+            return null;
+        }
+    }
+
+
     // fetch all the applications linked to the group
     getApplicationsFromGroup($id) {
         return new Promise(function (resolve, reject) {
@@ -181,7 +255,7 @@ class managerManager {
      * @param {*} $restriction_id 
      * @returns promise
      */
-     getDefaultRestrictions() {
+    getDefaultRestrictions() {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -199,7 +273,7 @@ class managerManager {
     /**
      * @returns promise
      */
-     getDefaultActivitiesRestrictions() {
+    getDefaultActivitiesRestrictions() {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -217,7 +291,7 @@ class managerManager {
     /**
      * @returns promise
      */
-     getDefaultGroupsRestrictions() {
+    getDefaultGroupsRestrictions() {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -235,7 +309,7 @@ class managerManager {
     /**
      * @returns promise
      */
-     getDefaultUsersRestrictions() {
+    getDefaultUsersRestrictions() {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -294,7 +368,7 @@ class managerManager {
                 }
             });
         })
-    }  
+    }
 
     getAllApplications() {
         return new Promise(function (resolve, reject) {
@@ -371,7 +445,7 @@ class managerManager {
             });
         })
     }
-    
+
 
     createApplication($application_name, $application_description, $application_image, $lti_data, $application_color, $restriction_max, $application_sort_index) {
         return new Promise(function (resolve, reject) {
@@ -668,330 +742,307 @@ class managerManager {
         })
     }
 
-    showGroupMembers($group_id, $page, $userspp, $sort) {
-        mainManager.getmanagerManager()._actualGroup = $group_id;
-        const process = (data) => {
-            let $data_table = "",
-                $data_table_inactive ="",
-                group = "",
-                activeUsers = 0,
-                inactiveUsers = 0;
+    mapColToField(index) {
+        switch (index) {
+            case 0: return 'surname';
+            case 1: return 'firstname';
+            case 2: return 'email';
+            case 3: return 'newsletter';
+            case 4: return 'isFromSSO';
+            case 5: return 'groupRights';
+            // case 6: 'apps' non triable → on ne mappe pas
+            case 7: return 'premium';      // 👉 tri par statut premium (1/0)
+            // si tu préfères trier par date de fin premium :
+            // case 7: return 'premiumEnd';
+            default: return 'id';
+        }
+    }
 
-            mainManager.getmanagerManager()._allActualUsers = [];
+    renderRights(rights) {
+        if (rights === '1' || rights === 1)
+            return `<i class="fas fa-crown fa-2x c-text-gold" title="Admin"></i>`;
+        if (rights === '0' || rights === 0)
+            return `<i class="fas fa-user fa-2x c-text-primary" title="Teacher"></i>`;
+        return `<i class="fas fa-question fa-2x" title="No rights"></i>`;
+    }
 
-            mainManager.getmanagerManager()._allGroups.forEach(element => {
-                if (element.id == $group_id)
-                    group = element;
-            });
+    renderPremium(p) {
+        if (!p?.active) return '—';
+        const end = p?.dateEnd ? new Date(p.dateEnd) : null;
+        if (!end) return 'Premium';
+        return end < new Date() ? 'Premium expired' : 'Premium';
+    }
 
-            if ($group_id == -1)
-                $('#group_name_from_table').text(i18next.t('manager.group.usersWithoutGroups'));
-            else if ($group_id == -2)
-                $('#group_name_from_table').text(i18next.t('manager.group.usersInactiveOrNoRegular'));
-            else
-                $('#group_name_from_table').text(group.name);
+    init() {
+        if (this.dt) {
+            this.dt.destroy();
+            this.dt = null;
+        }
 
-            if (data == false) {
-                return;
-            }
+        const self = this;
 
+        this.dt = new DataTable(this.tableSelector, {
+            serverSide: true,
+            processing: true,
+            paging: true,
+            pageLength: this.initialLen,
+            lengthChange: false,
+            searching: true,
+            ordering: true,
 
-            data.forEach(element => {
-                if (element.hasOwnProperty('currentPage')) {
-                    mainManager.getmanagerManager()._paginationUsersInfo = element;
-                    let usersperpage = $('#users_per_page').val(),
-                        htmlButtons = "",
-                        sort = $('#sort_users_filter').val();
+            columns: [
+                { title: 'Nom', data: null, orderable: true, render: row => row.surname || '' },
+                { title: 'Prénom', data: null, orderable: true, render: row => row.firstname || '' },
+                { title: 'Email', data: null, orderable: true, render: row => row.email || '' },
+                { title: 'Newsletter', data: null, orderable: true, class: 'text-center', render: row => this.renderNewsletter(row.newsletter) },
+                { title: 'From SSO', data: null, orderable: true, class: 'text-center', render: row => this.renderSSO(row.isFromSSO) },
+                { title: 'Droits', data: null, orderable: false, class: 'text-center', render: row => this.renderRights(row) },
+                {
+                    title: 'Apps', data: null, orderable: false, render: row => (row.applications || []).map(a =>
+                        `<img src="${a?.image || 'assets/media/no-app-icon.svg'}" alt="${a?.name || ''}" title="${a?.name || ''}" style="max-height:24px;" class="mx-1">`
+                    ).join('')
+                },
+                { title: 'Premium', data: null, orderable: true, class: 'text-center', render: row => this.renderPremium(row.premiumData) },
+                {
+                    title: 'Actions',
+                    data: null,
+                    orderable: false,
+                    class: 'text-center',
+                    render: row => {
+                        const btnReset = `
+                            <a class="c-link-primary mx-1" href="javascript:void(0)" 
+                                onclick="resetUserPassword(${row.id})" title="Reset password">
+                                <i class="fas fa-redo-alt"></i>
+                            </a>`;
 
-                    if (element.totalPagesCount > 1) {
-                        htmlButtons += `<ul class="pagination justify-content-center">`;
-                        if (element.previousPage > 1) {
-                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().showGroupMembers(${$group_id}, 1, ${usersperpage}, ${sort})"><a class="page-link" role="button" href="javascript:void(0)">First Page</a></li>`;
-                        }
-                        if (element.currentPage > 1) {
-                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().showGroupMembers(${$group_id}, ${element.previousPage}, ${usersperpage}, ${sort})"><a class="page-link" role="button" href="javascript:void(0)">${element.previousPage}</a></li>`;
-                        }
-                        htmlButtons += `<li class="page-item active"><a class="page-link" role="button" href="javascript:void(0)">${element.currentPage}<a/></li>`;
-                        if (element.currentPage < element.totalPagesCount) {
-                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().showGroupMembers(${$group_id}, ${element.nextPage}, ${usersperpage}, ${sort})"><a class="page-link" role="button" href="javascript:void(0)">${element.nextPage}</a></li>`;
-                        }
-                        if (element.nextPage < element.totalPagesCount) {
-                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().showGroupMembers(${$group_id}, ${element.totalPagesCount}, ${usersperpage}, ${sort})"><a class="page-link" role="button" href="javascript:void(0)">Last Page - ${element.totalPagesCount}</a></li>`;
-                        }
-                        htmlButtons += `</ul>`;
-                    }
-                    $('#paginationButtons_users').html(htmlButtons);
-                } else {
+                        const btnEdit = `
+                            <a class="c-link-secondary mx-1" href="javascript:void(0)" 
+                                onclick="showupdateUserModal(${row.id})" title="Edit user">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>`;
 
-                    mainManager.getmanagerManager()._allActualUsers.push(element);
+                        const btnDelete = (row.is_active == 1)
+                            ? `<button class="btn btn-sm text-warning mx-1" 
+                                        onclick="disableUser(${row.id})" 
+                                        title="Disable user">
+                                <i class="fas fa-lock"></i>
+                                </button>`
+                            : `<button class="btn btn-sm text-danger mx-1" 
+                                        onclick="deleteUser(${row.id})" 
+                                        title="Delete user">
+                                <i class="fas fa-trash"></i>
+                                </button>`;
 
-                    let $premium = "";
-                    if (element.p_user != null) {
-                        if (element.p_date_end != null) {
-                            $premium = new Date(element.p_date_end) < new Date() ? "Premium expired" : "Premium";
-                        } else {
-                            $premium = "Premium";
-                        }
-                    } else {
-                        $premium = " -- ";
-                    }
-
-                    let $droits = " <i class='fas fa-question fa-2x' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userNoRights') + "' role='img' aria-label='" + i18next.t('manager.table.userNoRights') + "'></i>";
-                    if (element.hasOwnProperty('rights')) {
-                        $droits = element.rights === "1" ?
-                            "<i class='fas fa-crown fa-2x c-text-gold' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userAdmin') + "' role='img' aria-label='" + i18next.t('manager.table.userAdmin') + "'></i>" :
-                            "<i class='fas fa-user fa-2x c-text-primary' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userTeacher') + "' role='img' aria-label='" + i18next.t('manager.table.userTeacher') + "'></i>";
-                    }
-
-                    let div_img = ""
-                    if (element.hasOwnProperty('applications')) {
-                        element.applications.forEach(element_2 => {
-                            if (element_2.image != null && element_2.image != "") {
-                                div_img += `<img src="${element_2.image}" data-bs-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
-                            } else {
-                                div_img += `<img src="assets/media/no-app-icon.svg" data-bs-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
-                            }
-                        });
-                    }
-
-                    let rowDelete = "";
-                    if (element.hasOwnProperty('active')) {
-                        if (element.active == "1" ) {
-                            rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="manager.buttons.disable" onclick="disableUser(${element.id})">${i18next.t('manager.buttons.disable')} <i class="fas fa-user-lock"></i></button>`;
-                        } else {
-                            rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="deleteUser(${element.id})">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>`;
-                        }
-                    } else {
-                        rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="deleteUser(${element.id})">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>`;
-                    }
-
-                    let activeFlag = true;
-                    if (element.hasOwnProperty('active')) {
-                        if (element.active != "1" && $group_id != -2) {
-                            activeFlag = false;
-                        }
-                    } 
-                    if (activeFlag) {
-                        activeUsers++;
-                        $data_table +=
-                        `<tr>
-                            <td>${element.surname}</td>
-                            <td>${element.firstname}</td>
-                            <td>${$droits}</td>
-                            <td>${div_img}</td>
-                            <td>${$premium}</td>
-                            <td>
-                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPassword(${element.id})" aria-label="Réinitialiser le mot de passe de ${element.firstname} ${element.surname}">
-                                    <i class="fas fa-redo-alt fa-2x" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal(${element.id})" aria-label="Modifier l'utilisateur ${element.firstname} ${element.surname}">
-                                    <i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                            <td>
-                                ${rowDelete}
-                            </td>
-                        </tr>`;
-                    } else {
-                        inactiveUsers++;
-                        $data_table_inactive += 
-                        `<tr>
-                            <td>${element.surname}</td>
-                            <td>${element.firstname}</td>
-                            <td>${$droits}</td>
-                            <td>${div_img}</td>
-                            <td>${$premium}</td>
-                            <td>
-                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPassword(${element.id})" aria-label="Réinitialiser le mot de passe de ${element.firstname} ${element.surname}">
-                                    <i class="fas fa-redo-alt fa-2x" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal(${element.id})" aria-label="Modifier l'utilisateur ${element.firstname} ${element.surname}">
-                                    <i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                            <td>
-                                ${rowDelete}
-                            </td>
-                        </tr>`;
+                        return `
+                            <div class="d-flex justify-content-center align-items-center">
+                                ${btnReset}
+                                ${btnEdit}
+                                ${btnDelete}
+                            </div>`;
                     }
                 }
-            });
+            ],
 
-            $('#active-users-manager').html(i18next.t('manager.title.activeUsers') + " : " + activeUsers);
-            $('#inactive-users-manager').html(i18next.t('manager.title.inactiveUsers') + " : " + inactiveUsers);
+            ajax: async function (dtParams, callback) {
+                try {
+                    const start = Number(dtParams.start) || 0;
+                    const length = Number(dtParams.length) || self.initialLen;
+                    const page = Math.floor(start / length) + 1;
 
-            $('#table_info_group_data').html($data_table);
-            $('#table_info_group_data_inactive').html($data_table_inactive);
-            $('[data-bs-toggle="tooltip"]').tooltip()
+                    let sortField = self.initialSort;
+                    let dir = 'asc';
+                    if (Array.isArray(dtParams.order) && dtParams.order.length) {
+                        const o = dtParams.order[0];
+                        sortField = self.mapColToField(o.column);
+                        dir = (o.dir === 'desc') ? 'desc' : 'asc';
+                    }
 
-        }
-        $.ajax({
-            type: "POST",
-            url: "/routing/Routing.php?controller=superadmin&action=get_all_members_from_group",
-            data: {
-                id: $group_id,
-                page: $page,
-                userspp: $userspp,
-                sort: $sort
+                    const searchValue = (dtParams.search && dtParams.search.value) ? dtParams.search.value.trim() : null;
+
+                    const payload = {
+                        page,
+                        nusers: length,
+                        search: searchValue || null,
+                        sort: sortField,
+                        dir,
+                        // 👇 merge groupe + checkboxes ici
+                        filter: self._currentFilters()
+                    };
+
+                    // (debug) console.log('[DT payload]', payload);
+
+                    const res = await fetch('/routing/Routing.php?controller=user&action=user-meta-search', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!res.ok) {
+                        const t = await res.text();
+                        console.error('HTTP error', res.status, t);
+                        callback({ data: [], recordsTotal: 0, recordsFiltered: 0, error: 'HTTP ' + res.status });
+                        return;
+                    }
+
+                    const json = await res.json();
+                    const items = json?.result?.items || [];
+                    const total = Number(json?.result?.total ?? 0);
+                    const filtered = Number(json?.result?.filtered ?? total);
+
+                    // (option) header groupe
+                    const gName = items.find(u => u.group?.name)?.group?.name;
+                    const title = document.getElementById('group_name_from_table');
+                    if (title) {
+                        if (self.groupFilter?.group === 'null') title.textContent = 'Enseignants sans groupe';
+                        else title.textContent = gName || 'Tous les utilisateurs';
+                    }
+
+                    callback({
+                        data: items,
+                        recordsTotal: total,
+                        recordsFiltered: filtered,
+                        draw: dtParams.draw
+                    });
+                } catch (e) {
+                    console.error('DataTables ajax error', e);
+                    callback({ data: [], recordsTotal: 0, recordsFiltered: 0, error: String(e?.message || e) });
+                }
             },
-            success: function (response) {
-                process(JSON.parse(response));
-            },
-            error: function () {
-                reject();
+            rowCallback: (row, data) => {
+                if (data.is_admin == 1 || data.is_admin === true) {
+                    row.classList.add('user-admin-row');
+                } else {
+                    row.classList.remove('user-admin-row');
+                }
             }
+        });
+
+        if (this.initialPage > 1) {
+            const start = (this.initialPage - 1) * this.initialLen;
+            this.dt.page(start / this.initialLen).draw(false);
+        }
+    }
+
+    showGroup(group_id, page, userspp, sort) {
+        if (Number(group_id) === -1) this.groupFilter = { group: 'null' };
+        else if (Number(group_id) > 0) this.groupFilter = { groupId: Number(group_id) };
+        else this.groupFilter = { hasGroup: true };
+
+        this.initialPage = Number(page) || 1;
+        this.initialLen = Number(userspp) || 25;
+        this.initialSort = (typeof sort === 'string' ? sort : 'id');
+
+        this.init(); // la table repart avec filters = groupFilter + extraFilters (vides ici)
+    }
+
+    renderNewsletter(n) {
+        const yes = (n === 1 || n === '1' || n === true);
+        return yes ? `<i class="fas fa-envelope text-secondary icon-table-size"></i>` : `-`;
+    }
+
+    renderSSO(val) {
+        if (!val) return `-`;
+        if (val === 'google') return `<i class="fab fa-google text-secondary icon-table-size"></i>`;
+        if (val === 'microsoft') return `<i class="fab fa-microsoft text-secondary icon-table-size"></i>`;
+        if (val === 'apple') return `<i class="fab fa-apple text-secondary icon-table-size"></i>`;
+        if (val.toLowerCase().includes('saml')) return `<i class="fab fa-keycdn text-secondary icon-table-size"></i>`;
+        return `<span class="badge bg-info text-dark">${String(val)}</span>`;
+    }
+
+    renderPremium(p) {
+        if (!p?.active)
+            return `<span class="badge bg-secondary">Free</span>`;
+
+        const end = p?.dateEnd ? new Date(p.dateEnd) : null;
+        const type = p?.primaryType || 'Premium';
+        const label = this.getPremiumType(type);
+        const now = new Date();
+
+        if (!end)
+            return `<span class="badge bg-success">${label}</span>`;
+
+        const expired = end < now;
+        const badgeClass = expired ? 'bg-warning text-dark' : 'bg-success';
+        const dateText = end.toLocaleDateString();
+
+        return `
+            <div class="premium-cell">
+                <span class="badge ${badgeClass}">${label}${expired ? ' (expiré)' : ''}</span>
+                <div class="premium-date">${dateText}</div>
+            </div>
+        `;
+    }
+
+
+    getPremiumType(type) {
+        if (type == "LegacyPersonalPremium") {
+            type = "Ancien premium"
+        } else if (type == "PersonalPremium") {
+            type = "Premium"
+        } else if (type == "Group") {
+            type = "Premium Éducation"
+        } else {
+            type = "Standard"
+        }
+        return type;
+    }
+
+    renderRights(row) {
+        const r = row?.group?.rights;
+        if (r === 1 || r === '1') {
+            return `<i class="fas fa-crown text-secondary icon-table-size"></i>`;
+        }
+        if (r === 0 || r === '0') {
+            return `<i class="fas fa-user icon-table-size"></i>`;
+        }
+        return `-`;
+    }
+
+
+    _currentFilters() {
+        return { ...this.groupFilter, ...this.extraFilters };
+    }
+
+    // Appelé par la barre de filtres
+    setExtraFilters(obj) {
+        this.extraFilters = { ...obj };
+        // recharge la table (sans re-créer)
+        if (this.dt) this.dt.ajax.reload(null, true);
+    }
+
+    // Lie les checkboxes à this.extraFilters
+    bindFilters(containerId = 'userFilters') {
+        const root = document.getElementById(containerId);
+        if (!root) return;
+
+        const $admin = root.querySelector('#flt-admin');
+        const $newsletter = root.querySelector('#flt-newsletter');
+        const $premium = root.querySelector('#flt-premium');
+        const $fromsso = root.querySelector('#flt-fromsso');
+        const $clear = root.querySelector('#flt-clear');
+
+        const apply = () => {
+            const f = {};
+            // bool côté backend : 1/0
+            if ($admin?.checked) f.is_admin = 1;
+            if ($newsletter?.checked) f.newsletter = 1;
+            if ($premium?.checked) f.premium = 1;
+            // fromSSO: on veut "présents uniquement" -> notnull
+            if ($fromsso?.checked) f.isFromSSO = 'notnull';
+
+            this.setExtraFilters(f);
+        };
+
+        [$admin, $newsletter, $premium, $fromsso].forEach(el => {
+            el?.addEventListener('change', apply);
+        });
+
+        $clear?.addEventListener('click', () => {
+            [$admin, $newsletter, $premium, $fromsso].forEach(el => { if (el) el.checked = false; });
+            this.setExtraFilters({});
         });
     }
 
-    globalSearchUser($name, $page, $usersperpage) {
-        const process = (res) => {
-            mainManager.getmanagerManager()._allActualUsers = [];
-            let $data_table = "", 
-                $data_table_inactive = "";
-
-            $('#group_name_from_table').text(i18next.t('manager.group.searchResult'));
-            res.forEach(element => {
-                if (element.hasOwnProperty('currentPage')) {
-                    mainManager.getmanagerManager()._paginationUsersInfo = element;
-                    let name = $('#name_user_search').val(),
-                        usersperpage = $('#users_per_page').val(),
-                        htmlButtons = "";
-
-                    if (element.totalPagesCount > 1) {
-                        htmlButtons += `<ul class="pagination justify-content-center">`;
-                        if (element.previousPage > 1) {
-                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().globalSearchUser(${name}, 1, ${usersperpage})"><a class="page-link" role="button" href="javascript:void(0)">First Page</a></li>`;
-                        }
-                        if (element.currentPage > 1) {
-                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().globalSearchUser(${name}, ${element.previousPage}, ${usersperpage})"><a class="page-link" role="button" href="javascript:void(0)">${element.previousPage}</a></li>`;
-                        }
-                        htmlButtons += `<li class="page-item active"><a class="page-link" role="button" href="javascript:void(0)">${element.currentPage}</a></li>`;
-                        if (element.currentPage < element.totalPagesCount) {
-                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().globalSearchUser(${name}, ${element.nextPage}, ${usersperpage})"><a class="page-link" role="button" href="javascript:void(0)">${element.nextPage}</a></li>`;
-                        }
-                        if (element.nextPage < element.totalPagesCount) {
-                            htmlButtons += `<li class="page-item" onclick="mainManager.getmanagerManager().globalSearchUser(${name}, ${element.totalPagesCount}, ${usersperpage})"><a class="page-link" role="button" href="javascript:void(0)">Last Page - ${element.totalPagesCount}</a></li>`;
-                        }
-                        htmlButtons += `</ul>`;
-                    }
-
-                    $('#paginationButtons_users').html(htmlButtons);
-                } else {
-                    mainManager.getmanagerManager()._allActualUsers.push(element);
-                    let $droits = " <i class='fas fa-question fa-2x' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userNoRights') + "' role='img' aria-label='" + i18next.t('manager.table.userNoRights') + "'></i> ";
-                    if (element.hasOwnProperty('rights')) {
-                        $droits = element.rights === "1" ? "<i class='fas fa-crown fa-2x c-text-gold' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userAdmin') + "' role='img' aria-label='" + i18next.t('manager.table.userAdmin') + "'></i>" :
-                        "<i class='fas fa-user fa-2x c-text-primary' data-bs-toggle='tooltip' data-bs-placement='top' title='" + i18next.t('manager.table.userTeacher') + "' role='img' aria-label='" + i18next.t('manager.table.userTeacher') + "'></i>";
-                    }
-
-                    let div_img = ""
-                    if (element.hasOwnProperty('applications')) {
-                        element.applications.forEach(element_2 => {
-                            if (element_2.image != null && element_2.image != "") {
-                                div_img += `<img src="${element_2.image}" data-bs-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
-                            } else {
-                                div_img += `<img src="assets/media/no-app-icon.svg" data-bs-toggle="tooltip" alt="${element_2.name}" title="${element_2.name}" style="max-height: 24px;" class="mx-1">`;
-                            }
-                        });
-                    }
-
-                    let rowDelete = "";
-                    if (element.active != "1") {
-                        rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="deleteUser(${element.id})">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>`;
-                    } else {
-                        rowDelete = `<button class = "btn c-btn-red btn-sm" data-i18n="manager.buttons.disable" onclick="disableUser(${element.id})">${i18next.t('manager.buttons.disable')} <i class="fas fa-user-lock"></i></button>`;
-                    }
-
-                    let activeFlag = true;
-                    if (element.hasOwnProperty('active')) {
-                        if (element.active != "1") {
-                            activeFlag = false;
-                        }
-                    } 
-
-                    let $premium = "";
-                    if (element.p_user != null) {
-                        if (element.p_date_end != null) {
-                            $premium = new Date(element.p_date_end) < new Date() ? "Premium expired" : "Premium";
-                        } else {
-                            $premium = "Premium";
-                        }
-                    } else {
-                        $premium = " -- ";
-                    }
-
-                    if (activeFlag) {
-                        $data_table +=
-                        `<tr>
-                            <td>${element.surname}</td>
-                            <td>${element.firstname}</td>
-                            <td>${$droits}</td>
-                            <td>${div_img}</td>
-                            <td>${$premium}</td>
-                            <td>
-                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPassword(${element.id})" aria-label="Réinitialiser le mot de passe de ${element.firstname} ${element.surname}">
-                                    <i class="fas fa-redo-alt fa-2x" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal(${element.id})" aria-label="Modifier l'utilisateur ${element.firstname} ${element.surname}">
-                                    <i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                            <td>
-                                ${rowDelete}
-                            </td>
-                        </tr>`;
-                    } else {
-                        $data_table_inactive += 
-                        `<tr>
-                            <td>${element.surname}</td>
-                            <td>${element.firstname}</td>
-                            <td>${$droits}</td>
-                            <td>${div_img}</td>
-                            <td>${$premium}</td>
-                            <td>
-                                <a class="c-link-primary d-inline-block" href="javascript:void(0)" onclick="resetUserPassword(${element.id})" aria-label="Réinitialiser le mot de passe de ${element.firstname} ${element.surname}">
-                                    <i class="fas fa-redo-alt fa-2x" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <a class="c-link-secondary" href="javascript:void(0)" onclick="showupdateUserModal(${element.id})" aria-label="Modifier l'utilisateur ${element.firstname} ${element.surname}">
-                                    <i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                            <td>
-                                ${rowDelete}
-                            </td>
-                        </tr>`;
-                    }
-                }
-            });
-            $('#table_info_group_data').html($data_table);
-            $('#table_info_group_data_inactive').html($data_table_inactive);
-            $('[data-bs-toggle="tooltip"]').tooltip()
-
-        }
-        $.ajax({
-            type: "POST",
-            url: "/routing/Routing.php?controller=superadmin&action=global_search_user_by_name",
-            data: {
-                name: $name,
-                page: $page,
-                userspp: $usersperpage,
-            },
-            success: function (response) {
-                process(JSON.parse(response));
-            },
-            error: function () {
-                reject();
-            }
-        });
-    }
 
     showGroupsInTable(table) {
         let data_table = "",
@@ -1199,22 +1250,3 @@ class managerManager {
         })
     }
 }
-
-/*     deleteUserFromGroup($group_id, $user_id) {
-        const process = (data) => {
-        }
-        $.ajax({
-            type: "POST",
-            url: "/routing/Routing.php?controller=superadmin&action=delete_user_from_froup",
-            data: {
-                user_id: $user_id,
-                group_id: $group_id
-            },
-            success: function (response) {
-                process(JSON.parse(response));
-            },
-            error: function () {
-                reject();
-            }
-        });
-    } */

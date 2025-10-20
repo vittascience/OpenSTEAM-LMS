@@ -194,7 +194,7 @@
         </div>
     </div>
 </div>
-<div id="classroom-dashboard-content" role="main" aria-label="Contenu principal du tableau de bord de la classe">
+<div id="classroom-dashboard-content" role="main" aria-label="Contenu principal du tableau de bord de la classe" tabindex="0">
 
 <script>
   document.querySelectorAll('.apply-button').forEach((button) => {
@@ -1292,6 +1292,7 @@
     </div>
 </div>
 <div id="classroom-dashboard-help-panel-teacher" style="display:none;" class="dashboard-block help-panel">
+  
   <div class="contact-panel">
       <div class="d-flex justify-content-start">
           <button class="btn c-btn-outline-primary mb-3" id="help-back-button"
@@ -1301,6 +1302,7 @@
             <span>Retour au profil</span>
           </button>
       </div>
+
         <h2 data-i18n="classroom.teacherHelpPanel.contactForm.title" class="title-margin">Contacter Vittascience</h2>
 
         <div id="about-contact-info">
@@ -1616,18 +1618,20 @@
             <div class="row mb-2 c-primary-form" id="groups_options">
 
                 <!-- Search bar -->
-                <div class="col col-md-6 col-lg-8 d-flex align-items-center" role="search" aria-labelledby="group-search-label">
-                    <label for="name_group_search" id="group-search-label" class="sr-only">Rechercher des groupes</label>
-                    <input class="flex-fill" type="search" id="name_group_search" placeholder="Rechercher" 
-                           aria-label="Rechercher des groupes par nom ou description" 
-                           data-i18n="[placeholder]manager.buttons.search"
-                           aria-describedby="group-search-description">
-                    <button class="btn c-btn-primary" id="search_group" style="width: 3em; height: 3em;" 
-                            aria-label="Lancer la recherche de groupes"
-                            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('search_group').click();}">
-                      <i class="fas fa-search" aria-hidden="true"></i>
+                <div class="col col-md-6 col-lg-8 d-flex align-items-center" role="search"
+                    aria-labelledby="group-search-label">
+                    <label for="name_group_search" id="group-search-label" class="sr-only">Rechercher des
+                        groupes</label>
+                    <input class="flex-fill" type="search" id="name_group_search" placeholder="Rechercher"
+                        aria-label="Rechercher des groupes par nom ou description"
+                        data-i18n="[placeholder]manager.buttons.search" aria-describedby="group-search-description">
+                    <button class="btn c-btn-primary" id="search_group" style="width: 3em; height: 3em;"
+                        aria-label="Lancer la recherche de groupes"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('search_group').click();}">
+                        <i class="fas fa-search" aria-hidden="true"></i>
                     </button>
-                    <span id="group-search-description" class="sr-only">Appuyez sur Entrée pour rechercher ou cliquez sur le bouton de recherche</span>
+                    <span id="group-search-description" class="sr-only">Appuyez sur Entrée pour rechercher ou cliquez
+                        sur le bouton de recherche</span>
                 </div>
 
                 <!-- View filter -->
@@ -1652,14 +1656,16 @@
 
             <div class="mb-2" id="btn-create-manager">
                 <button class="btn c-btn-outline-primary mx-1" id="create_group_manager"
-                        aria-label="Créer un nouveau groupe d'utilisateurs"
-                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('create_group_manager').click();}">
-                    <span data-i18n="manager.group.create">Créer un groupe</span> <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    aria-label="Créer un nouveau groupe d'utilisateurs"
+                    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('create_group_manager').click();}">
+                    <span data-i18n="manager.group.create">Créer un groupe</span> <i class="fas fa-chevron-right"
+                        aria-hidden="true"></i>
                 </button>
                 <button class="btn c-btn-outline-secondary mx-1" id="create_user_link_to_group_manager"
-                        aria-label="Créer un nouvel utilisateur"
-                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('create_user_link_to_group_manager').click();}">
-                    <span data-i18n="manager.users.create">Créer un utilisateur</span> <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    aria-label="Créer un nouvel utilisateur"
+                    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('create_user_link_to_group_manager').click();}">
+                    <span data-i18n="manager.users.create">Créer un utilisateur</span> <i class="fas fa-chevron-right"
+                        aria-hidden="true"></i>
                 </button>
             </div>
 
@@ -1681,9 +1687,9 @@
             </div>
 
             <div id="table_details_users" class="c-primary-form" style="display: none;">
-                <div class="row mb-2 c-primary-form" id="users_options">
+                <!-- <div class="row mb-2 c-primary-form" id="users_options">
 
-                    <!-- Search bar -->
+
                     <div class="col col-md-6 col-lg-8 d-flex align-items-center" role="search" aria-labelledby="user-search-label">
                         <label for="name_user_search" id="user-search-label" class="sr-only">Rechercher des utilisateurs</label>
                         <input class="flex-fill" type="search" id="name_user_search" 
@@ -1698,7 +1704,7 @@
                         <span id="user-search-description" class="sr-only">Appuyez sur Entrée pour rechercher ou cliquez sur le bouton de recherche</span>
                     </div>
                 
-                    <!-- View filter -->
+                    
                     <div class="col-md d-flex flex-column">
                         <div class="col-12">
                             <select class="form-select w-100" id="sort_users_filter" aria-label="Trier les utilisateurs">
@@ -1716,7 +1722,7 @@
                             </select>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="row my-2 group-header">
                     <button class="btn btn-sm c-btn-grey" id="table_back_to_users" 
                             aria-label="Retour à la liste des groupes"
@@ -1726,7 +1732,7 @@
                     <h2 id="group_name_from_table"></h2>
                 </div>
 
-                <p data-i18n="manager.title.activeUsers" id="active-users-manager" class="font-weight-bold">PH Inactive users table PH</p>
+                <!-- <p data-i18n="manager.title.activeUsers" id="active-users-manager" class="font-weight-bold">PH Inactive users table PH</p>
                 <table class="table c-table">
                     <thead>
                         <tr>
@@ -1743,9 +1749,9 @@
                     <tbody id="table_info_group_data">
 
                     </tbody>
-                </table>
+                </table> -->
 
-                <p data-i18n="manager.title.inactiveUsers" id="inactive-users-manager" class="font-weight-bold">PH Inactive users table PH</p>
+                <!-- <p data-i18n="manager.title.inactiveUsers" id="inactive-users-manager" class="font-weight-bold">PH Inactive users table PH</p>
                 <table class="table c-table">
                     <thead>
                         <tr>
@@ -1766,7 +1772,35 @@
 
                 <nav id="paginationButtons_users" class="m-auto">
 
+                </nav> -->
+
+                <div class="mb-2" id="group_name_from_table"></div>
+
+
+                <div id="userFilters" class="filters">
+                    <label><input type="checkbox" id="flt-admin"> Admin</label>
+                    <label><input type="checkbox" id="flt-newsletter"> Newsletter</label>
+                    <label><input type="checkbox" id="flt-premium"> Premium</label>
+                    <label><input type="checkbox" id="flt-fromsso"> From SSO</label>
+                    <button id="flt-clear" type="button">Réinitialiser</button>
+                </div>
+
+
+                <table class="table" id="usersTable">
+                    <thead>
+                        <tr>
+
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody"></tbody>
+                </table>
+
+                <nav id="paginationButtons_users" class="m-auto d-flex gap-2">
+                    <button id="btnPrev">Previous</button>
+                    <span id="pagerInfo"></span>
+                    <button id="btnNext">Next</button>
                 </nav>
+
             </div>
 
             <div class="row">
@@ -2874,6 +2908,7 @@ async function initAdminGroups() {
     // Lance les deux init en parallèle
     const [superAdmin, groupAdmin] = await Promise.all([
         mainManager.init(),
+        mainManager.getmanagerManager().bindFilters('userFilters'),
         mainGroupAdmin.init()
     ]);
     return { superAdmin, groupAdmin };
