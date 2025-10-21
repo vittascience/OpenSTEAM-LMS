@@ -8,13 +8,19 @@ class FreeManager {
             } else {
                 $(`#free-tolerance`).val(1);
             }
+            // Announce change to screen readers
+            const newValue = $('#free-tolerance').val();
+            $('#free-tolerance-announcement').text(`Tolérance : ${newValue}`);
         })
-        
+
         $('body').on('click', '#free-tolerance-decrease', function () {
             let tolerance = parseInt($('#free-tolerance').val());
             if (tolerance > 0) {
                 $(`#free-tolerance`).val(tolerance-1);
             }
+            // Announce change to screen readers
+            const newValue = $('#free-tolerance').val();
+            $('#free-tolerance-announcement').text(`Tolérance : ${newValue}`);
         })
     }
 
