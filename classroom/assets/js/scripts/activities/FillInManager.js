@@ -24,13 +24,19 @@ class FillInManager {
             } else {
                 $(`#fill-in-tolerance`).val(1);
             }
+            // Announce change to screen readers
+            const newValue = $('#fill-in-tolerance').val();
+            $('#tolerance-announcement').text(`Tolérance : ${newValue}`);
         })
-        
+
         $('body').on('click', '#fill-in-tolerance-decrease', function () {
             let tolerance = parseInt($('#fill-in-tolerance').val());
             if (tolerance > 0) {
                 $(`#fill-in-tolerance`).val(tolerance-1);
             }
+            // Announce change to screen readers
+            const newValue = $('#fill-in-tolerance').val();
+            $('#tolerance-announcement').text(`Tolérance : ${newValue}`);
         })
     }
 

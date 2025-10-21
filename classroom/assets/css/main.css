@@ -2138,6 +2138,11 @@ h3.section-done {
     border-color: var(--border-color);
 }
 
+.theme-dark #activity-creation-grid .app-card:hover {
+    /* In dark mode, if border color is black (#000000), use a visible light color instead */
+    border-color: color-mix(in srgb, var(--border-color) 50%, var(--classroom-text-0) 50%);
+}
+
 #activity-creation-grid .app-card .app-card-title {
     font-weight: 600;
     font-size: 1.1em;
@@ -2225,6 +2230,15 @@ h3.section-done {
     display: inline-grid;
     justify-items: center;
     align-items: center;
+}
+
+.tolerance-btn:hover {
+  background-color: rgba(var(--classroom-primary-rgb), 0.4);
+}
+
+.tolerance-btn:focus-visible {
+  box-shadow: 0 0 0 5px rgba(var(--classroom-primary-rgb), 0.5);
+  outline: none;
 }
 
 .activities-fill-in-square {
@@ -3852,10 +3866,6 @@ h3.section-done {
     border-color: var(--classroom-primary);
 }
 
-.theme-dark .switcher {
-  background: #fff;
-}
-
 .switcher__input {
     position: absolute;
     clip: rect(0 0 0 0);
@@ -4035,4 +4045,12 @@ th, td {
     border: 2px solid var(--classroom-primary) !important;
     outline: none;
     box-shadow: 0 0 0 0.2rem rgba(var(--classroom-primary-rgb), 0.25);
+}
+
+#word-search:hover {
+  background-color: rgb(0 0 0 / 0.2);
+}
+
+#word-search:focus-visible {
+  box-shadow: 0 0 0 0.2rem rgba(var(--classroom-primary-rgb), 0.25);
 }

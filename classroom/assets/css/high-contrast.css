@@ -29,7 +29,7 @@ button.btn.c-btn-outline-primary {
 
 button.btn.c-btn-outline-primary:hover {
     color: var(--classroom-text-0);
-    background-color: var(--classroom-primary);
+    background-color: color-mix(in srgb, var(--classroom-primary) 70%, transparent);
 }
 
 button.btn.c-btn-outline-secondary {
@@ -40,7 +40,7 @@ button.btn.c-btn-outline-secondary {
 
 button.btn.c-btn-outline-secondary:hover {
     color: var(--classroom-text-0);
-    background-color: var(--classroom-secondary);
+    background-color: color-mix(in srgb, var(--classroom-secondary) 70%, transparent);
 }
 
 button.btn.c-btn-tertiary {
@@ -54,12 +54,11 @@ button.btn.c-btn-tertiary:hover {
     background-color: var(--classroom-tertiary);
 }
 
-button.btn.c-btn-red {
-    border: 2px solid var(--classroom-text-0);
-    color: var(--classroom-text-0);
+button.btn.c-btn-red:hover {
+    background-color: var(--classroom-red-dark);
 }
 
-button.btn.c-btn-red:hover {
+.theme-dark button.btn.c-btn-red:hover {
     color: var(--classroom-text-0);
     background-color: var(--classroom-red-dark);
 }
@@ -116,8 +115,8 @@ h3, h5, h6 {
     border: transparent !important;
 }
 
-.classroom-navbar-button > span {
-    color: white;
+.theme-student .classroom-navbar-button > span {
+    color: #743a00;
 }
 
 .theme-light .classroom-navbar-button.active > span {
@@ -287,10 +286,6 @@ a#validate-profile-update:hover {
 .faq-panel h2 {
     color: var(--classroom-text-0);
 }
-
-
-
-
 
 /* MY CLASSES */
 

@@ -67,6 +67,10 @@
     --bs-btn-focus-shadow-rgb: 126, 126, 126;
 }
 
+.theme-dark .btn-link:hover {
+    color: #27a5cd;
+}
+
 .btn-primary,
 .c-btn-primary {
     --bs-btn-font-weight: 700;
@@ -87,6 +91,20 @@
     --bs-btn-disabled-color: var(--classroom-white);
     --bs-btn-disabled-bg: var(--classroom-primary);
     --bs-btn-disabled-border-color: var(--classroom-primary);
+}
+
+.theme-dark .btn.c-btn-primary:focus-visible,
+.theme-dark .btn.c-btn-primary:active {
+  background-color: #1d826d;
+}
+
+.theme-dark .btn.c-btn-primary:hover {
+  background-color: #1e7389;
+}
+
+.c-checkbox [type="checkbox"]:checked:focus+label:before,
+.c-checkbox [type="checkbox"]:not(:checked):focus+label:before {
+    box-shadow: 0 0 0 0.3rem color-mix(in srgb, var(--classroom-primary) 50%, transparent) !important;
 }
 
 .btn-outline-primary,
@@ -118,12 +136,8 @@
   --bs-btn-color: var(--classroom-primary);
   --bs-btn-border-color: var(--classroom-primary);
 
-  --bs-btn-hover-bg: color-mix(in srgb, var(--classroom-primary) 35%, white 65%);
-  --bs-btn-hover-color: #000;
-  --bs-btn-hover-border-color: var(--classroom-primary);
-
-  --bs-btn-focus-box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--classroom-primary) 50%, white 50%);
-  --bs-btn-active-bg: color-mix(in srgb, var(--classroom-primary) 45%, white 55%);
+  --bs-btn-hover-bg: rgba(255, 255, 255, 0.05);
+  --bs-btn-hover-color: #FFF;
 }
 
 .c-btn-no-outline-primary {
@@ -175,6 +189,29 @@
     --bs-btn-disabled-color: var(--classroom-white);
     --bs-btn-disabled-bg: var(--classroom-secondary);
     --bs-btn-disabled-border-color: var(--classroom-secondary);
+}
+
+.theme-dark .btn-secondary,
+.theme-dark .c-btn-secondary {
+    --bs-btn-font-weight: 700;
+    --bs-btn-border-radius: 256px;
+    
+    --bs-btn-color: var(--classroom-white);
+    --bs-btn-bg: var(--classroom-secondary-dark);
+    --bs-btn-border-color: var(--classroom-secondary-dark);
+
+    --bs-btn-hover-color: var(--classroom-white);
+    
+    --bs-btn-hover-bg: color-mix(in srgb, var(--classroom-secondary-dark) 50%, transparent);
+    --bs-btn-hover-border-color: color-mix(in srgb, var(--classroom-secondary-dark) 50%, transparent);
+
+    --bs-btn-active-color: var(--classroom-white);
+    --bs-btn-active-bg: color-mix(in srgb, var(--classroom-secondary-dark) 50%, transparent);
+    --bs-btn-active-border-color: color-mix(in srgb, var(--classroom-secondary-dark) 50%, transparent);
+    
+    --bs-btn-disabled-color: var(--classroom-white);
+    --bs-btn-disabled-bg: var(--classroom-secondary-dark);
+    --bs-btn-disabled-border-color: var(--classroom-secondary-dark);
 }
 
 .btn-outline-secondary,
@@ -266,8 +303,7 @@
   --bs-btn-color: var(--classroom-tertiary);
   --bs-btn-border-color: var(--classroom-tertiary);
 
-  --bs-btn-hover-bg: color-mix(in srgb, var(--classroom-tertiary) 35%, white 65%);
-  --bs-btn-hover-color: #000;
+  --bs-btn-hover-bg: color-mix(in srgb, var(--classroom-tertiary) 15%, white 85%);
   --bs-btn-hover-border-color: var(--classroom-tertiary);
 
   --bs-btn-focus-box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--classroom-tertiary) 50%, white 50%);
@@ -297,15 +333,16 @@
     --bs-btn-disabled-border-color: var(--classroom-red);
 }
 
-.theme-dark .btn-red,
-.theme-dark .btn-danger,
-.theme-dark .btn-secondary,
-.theme-dark .c-btn-secondary,
-.theme-dark .switcher__label,
-.theme-dark .btn-primary,
-.theme-dark .c-btn-primary,
 .theme-dark .c-btn-red {
-  color: #000 !important;
+  color: #000;
+}
+
+.theme-dark .c-btn-red:hover,
+.theme-dark .c-btn-red:focus-visible,
+
+.theme-dark .c-btn-secondary:hover,
+.theme-dark .c-btn-secondary:focus-visible {
+  color: var(--classroom-white);
 }
 
 .btn-outline-red,
@@ -333,6 +370,11 @@
     --bs-btn-disabled-border-color: var(--classroom-red);
 }
 
+.c-btn-outline-red:focus-visible,
+.c-btn-outline-red:hover {
+  color: var(--bs-btn-color);
+}
+
 .btn-grey,
 .c-btn-grey {
     --bs-btn-font-weight: 700;
@@ -343,7 +385,7 @@
     --bs-btn-border-color: var(--classroom-grey);
 
     --bs-btn-hover-color: var(--classroom-white);
-    --bs-btn-hover-bg: var(--classroom-grey);
+    --bs-btn-hover-bg: var(--classroom-grey-dark);
     --bs-btn-hover-border-color: var(--classroom-grey);
 
     --bs-btn-active-color: var(--classroom-white);
@@ -906,12 +948,11 @@ hr {
 
 .form-check-input {
     background-color: var(--classroom-background);
-    border-color: var(--classroom-text-1);
 }
 
 .form-check-input:focus {
     border-color: var(--classroom-cell);
-    box-shadow: 0px 0px 10px rgb(126 126 126 / 25%);
+    box-shadow: 0 0 0 0.3rem color-mix(in srgb, var(--classroom-primary) 50%, transparent) !important;
 }
 
 .form-check-input:checked {

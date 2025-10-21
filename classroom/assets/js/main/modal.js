@@ -170,11 +170,12 @@ Modal.prototype.openModal = function (modal) {
     this.closeAllModal();
     var zIndex = ModalsOpenedModals.length + 1000
     if (ModalsListModals.includes(modal)) {
-        
+
         modalElement.setAttribute('style', `display: block; z-index: ${zIndex}`);
         modalElement.setAttribute('tabindex', '-1');
         modalElement.focus();
         ModalsOpenedModals.push(modal);
+        this.trapFocusInModal(modalElement);
     } else {
         throw 'Cannot open this modal, modal not included';
     }
