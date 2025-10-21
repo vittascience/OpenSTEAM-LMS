@@ -49,11 +49,288 @@ class managerManager {
         this.initialPage = 1;
         this.initialLen = 25;
         this.initialSort = 'id';
+
+
+        this.rolesBtn = null;
+        this.roles = [];
+
     }
 
-    /**
-     * GROUPS FUNCTION
-     */
+
+    async getAllRoles() {
+        const response = await fetch('/routing/Routing.php?controller=user&action=get_all_roles', { method: 'POST' });
+        return response.json();
+    }
+
+    async createRole(name) {
+        const response = await fetch('/routing/Routing.php?controller=user&action=create_role', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name })
+        });
+        return response.json();
+    }
+
+    async updateRole(id, name) {
+        const response = await fetch('/routing/Routing.php?controller=user&action=update_role', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, name })
+        });
+        return response.json();
+    }
+
+    async deleteRole(id) {
+        const response = await fetch('/routing/Routing.php?controller=user&action=delete_role', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id })
+        });
+        return response.json();
+    }
+
+    async toggleRole(id, active) {
+        const response = await fetch('/routing/Routing.php?controller=user&action=toggle_role', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, active })
+        });
+        return response.json();
+    }
+
+    openModaleManageRoles() {
+        pseudoModal.openModal('manage-roles');
+        this.manageContentModaleRoles();
+    }
+
+    async manageContentModaleRoles() {
+        const container = document.getElementById('customizable-modal-roles-content');
+        if (!container) return console.error("Le conteneur de la modale n'existe pas.");
+
+        container.textContent = ''; // vide proprement
+
+        // Formulaire d’ajout
+        const formWrapper = document.createElement('div');
+        formWrapper.className = 'mb-3 d-flex gap-2';
+
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.id = 'new-role-name';
+        input.className = 'form-control';
+        input.placeholder = 'Nom du rôle';
+
+        const addBtn = document.createElement('button');
+        addBtn.id = 'add-role-btn';
+        addBtn.className = 'btn btn-primary';
+        addBtn.textContent = 'Ajouter';
+
+        formWrapper.append(input, addBtn);
+
+        // Liste des rôles
+        const listContainer = document.createElement('div');
+        listContainer.id = 'roles-list';
+        listContainer.className = 'mt-3';
+
+        container.append(formWrapper, listContainer);
+
+        addBtn.addEventListener('click', async () => {
+            const name = input.value.trim();
+            if (!name) return;
+            const res = await this.createRole(name);
+            if (res.success) {
+                input.value = '';
+                await this.loadRoles(listContainer);
+            }
+        });
+
+        await this.loadRoles(listContainer);
+    }
+
+    async loadRoles(listContainer) {
+        listContainer.textContent = ''; // nettoie le contenu
+
+        const loader = document.createElement('div');
+        loader.className = 'text-center py-3';
+        const spinner = document.createElement('div');
+        spinner.className = 'spinner-border text-primary';
+        spinner.role = 'status';
+        loader.append(spinner);
+        listContainer.append(loader);
+
+        const data = await this.getAllRoles();
+        listContainer.textContent = ''; // nettoyage après le chargement
+
+        if (!data.success) {
+            const error = document.createElement('div');
+            error.className = 'text-danger';
+            error.textContent = 'Erreur lors du chargement des rôles.';
+            listContainer.append(error);
+            return;
+        }
+
+        if (!data.roles.length) {
+            const empty = document.createElement('div');
+            empty.className = 'text-muted';
+            empty.textContent = 'Aucun rôle trouvé.';
+            listContainer.append(empty);
+            return;
+        }
+
+        for (const role of data.roles) {
+            const row = document.createElement('div');
+            row.className = 'd-flex justify-content-between align-items-center border rounded p-2 mb-2';
+
+            // Nom (modifiable inline)
+            const nameContainer = document.createElement('div');
+            nameContainer.className = 'flex-grow-1';
+
+            const nameInput = document.createElement('input');
+            nameInput.type = 'text';
+            nameInput.value = role.name;
+            nameInput.readOnly = true;
+            nameInput.className = 'form-control form-control-sm border-0 bg-transparent';
+            nameInput.style.cursor = 'text';
+
+            nameContainer.append(nameInput);
+
+            // Boutons d’action
+            const actions = document.createElement('div');
+            actions.className = 'd-flex gap-2';
+
+            const toggleBtn = document.createElement('button');
+            toggleBtn.className = `btn btn-sm ${role.active ? 'btn-success' : 'btn-secondary'}`;
+            toggleBtn.textContent = role.active ? 'Actif' : 'Inactif';
+
+            const editBtn = document.createElement('button');
+            editBtn.className = 'btn btn-sm btn-warning';
+            editBtn.textContent = 'Modifier';
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'btn btn-sm btn-danger';
+            deleteBtn.textContent = 'Supprimer';
+
+            actions.append(toggleBtn, editBtn, deleteBtn);
+            row.append(nameContainer, actions);
+
+            // --- Événements ---
+
+            // Activer / désactiver
+            toggleBtn.addEventListener('click', async () => {
+                await this.toggleRole(role.id, !role.active);
+                await this.loadRoles(listContainer);
+            });
+
+            // Modifier inline
+            editBtn.addEventListener('click', async () => {
+                const editing = editBtn.textContent === 'Enregistrer';
+                if (!editing) {
+                    nameInput.readOnly = false;
+                    nameInput.classList.add('border');
+                    nameInput.focus();
+                    editBtn.textContent = 'Enregistrer';
+                    editBtn.classList.replace('btn-warning', 'btn-success');
+                } else {
+                    const newName = nameInput.value.trim();
+                    if (newName && newName !== role.name) {
+                        await this.updateRole(role.id, newName);
+                    }
+                    nameInput.readOnly = true;
+                    nameInput.classList.remove('border');
+                    editBtn.textContent = 'Modifier';
+                    editBtn.classList.replace('btn-success', 'btn-warning');
+                    await this.loadRoles(listContainer);
+                }
+            });
+
+            // Supprimer avec modale Bootstrap
+            deleteBtn.addEventListener('click', async () => {
+
+                const wrapper = document.createElement('div');
+                wrapper.className = 'modal fade';
+                wrapper.tabIndex = -1;
+
+                // Structure de la modale
+                const dialog = document.createElement('div');
+                dialog.className = 'modal-dialog modal-dialog-centered';
+
+                const content = document.createElement('div');
+                content.className = 'modal-content';
+
+                // --- Header ---
+                const header = document.createElement('div');
+                header.className = 'modal-header';
+
+                const title = document.createElement('h5');
+                title.className = 'modal-title';
+                title.textContent = 'Confirmer la suppression';
+
+                const closeBtn = document.createElement('button');
+                closeBtn.type = 'button';
+                closeBtn.className = 'btn-close';
+                closeBtn.setAttribute('data-bs-dismiss', 'modal');
+                closeBtn.setAttribute('aria-label', 'Fermer');
+
+                header.append(title, closeBtn);
+
+                const body = document.createElement('div');
+                body.className = 'modal-body';
+                const p = document.createElement('p');
+                p.innerHTML = `Voulez-vous vraiment supprimer le rôle <strong>${role.name}</strong> ?`;
+                body.append(p);
+
+                const footer = document.createElement('div');
+                footer.className = 'modal-footer';
+
+                const cancelBtn = document.createElement('button');
+                cancelBtn.type = 'button';
+                cancelBtn.className = 'btn btn-secondary';
+                cancelBtn.setAttribute('data-bs-dismiss', 'modal');
+                cancelBtn.textContent = 'Annuler';
+
+                const confirmBtn = document.createElement('button');
+                confirmBtn.type = 'button';
+                confirmBtn.className = 'btn btn-danger';
+                confirmBtn.textContent = 'Supprimer';
+
+                footer.append(cancelBtn, confirmBtn);
+
+                content.append(header, body, footer);
+                dialog.append(content);
+                wrapper.append(dialog);
+                document.body.append(wrapper);
+
+                const modal = new bootstrap.Modal(wrapper);
+                modal.show();
+
+                confirmBtn.addEventListener('click', async () => {
+                    await this.deleteRole(role.id);
+                    modal.hide();
+                    await this.loadRoles(listContainer);
+                });
+
+                wrapper.addEventListener('hidden.bs.modal', () => {
+                    wrapper.remove();
+                });
+
+            });
+
+            deleteBtn.addEventListener('click', () => {
+                this.createConfirmModal(
+                    'Confirmer la suppression',
+                    `Voulez-vous vraiment supprimer le rôle <strong>${role.name}</strong> ?`,
+                    async () => {
+                        await this.deleteRole(role.id);
+                        await this.loadRoles(listContainer);
+                    }
+                );
+            });
+
+
+            listContainer.append(row);
+        }
+    }
+
+
 
     isAdmin() {
         return new Promise(function (resolve, reject) {
@@ -751,7 +1028,7 @@ class managerManager {
             case 4: return 'isFromSSO';
             case 5: return 'groupRights';
             // case 6: 'apps' non triable → on ne mappe pas
-            case 7: return 'premium';      // 👉 tri par statut premium (1/0)
+            case 7: return 'premium';
             // si tu préfères trier par date de fin premium :
             // case 7: return 'premiumEnd';
             default: return 'id';
@@ -795,7 +1072,7 @@ class managerManager {
                 { title: 'Prénom', data: null, orderable: true, render: row => row.firstname || '' },
                 { title: 'Email', data: null, orderable: true, render: row => row.email || '' },
                 { title: 'Newsletter', data: null, orderable: true, class: 'text-center', render: row => this.renderNewsletter(row.newsletter) },
-                { title: 'From SSO', data: null, orderable: true, class: 'text-center', render: row => this.renderSSO(row.isFromSSO) },
+                { title: 'SSO', data: null, orderable: true, class: 'text-center', render: row => this.renderSSO(row.isFromSSO) },
                 { title: 'Droits', data: null, orderable: false, class: 'text-center', render: row => this.renderRights(row) },
                 {
                     title: 'Apps', data: null, orderable: false, render: row => (row.applications || []).map(a =>
@@ -803,6 +1080,7 @@ class managerManager {
                     ).join('')
                 },
                 { title: 'Premium', data: null, orderable: true, class: 'text-center', render: row => this.renderPremium(row.premiumData) },
+                { title: 'Roles', data: null, orderable: false, render: row => this.renderRoles(row) },
                 {
                     title: 'Actions',
                     data: null,
@@ -865,11 +1143,8 @@ class managerManager {
                         search: searchValue || null,
                         sort: sortField,
                         dir,
-                        // 👇 merge groupe + checkboxes ici
                         filter: self._currentFilters()
                     };
-
-                    // (debug) console.log('[DT payload]', payload);
 
                     const res = await fetch('/routing/Routing.php?controller=user&action=user-meta-search', {
                         method: 'POST',
@@ -932,26 +1207,52 @@ class managerManager {
         this.initialLen = Number(userspp) || 25;
         this.initialSort = (typeof sort === 'string' ? sort : 'id');
 
-        this.init(); // la table repart avec filters = groupFilter + extraFilters (vides ici)
+        this.init();
+    }
+
+
+    renderRoles(row) {
+        const roles = [];
+        row?.roles?.forEach(role => {
+            const cleanRole = role.replace('ROLE_', '');
+            roles.push(`<span class="badge bg-success mx-1">${cleanRole}</span>`);
+        });
+
+        return roles.join('<br>');
     }
 
     renderNewsletter(n) {
         const yes = (n === 1 || n === '1' || n === true);
-        return yes ? `<i class="fas fa-envelope text-secondary icon-table-size"></i>` : `-`;
+        return yes ? `<i class="fas fa-envelope text-primary icon-table-size"></i>` : `-`;
     }
 
     renderSSO(val) {
         if (!val) return `-`;
-        if (val === 'google') return `<i class="fab fa-google text-secondary icon-table-size"></i>`;
-        if (val === 'microsoft') return `<i class="fab fa-microsoft text-secondary icon-table-size"></i>`;
-        if (val === 'apple') return `<i class="fab fa-apple text-secondary icon-table-size"></i>`;
-        if (val.toLowerCase().includes('saml')) return `<i class="fab fa-keycdn text-secondary icon-table-size"></i>`;
+        if (val === 'google') return this.returnSSOSvg('google');
+        if (val === 'microsoft') return this.returnSSOSvg('microsoft');
+        if (val === 'apple') return this.returnSSOSvg('apple');
+        if (val.toLowerCase().includes('saml')) return this.returnSSOSvg('saml');
         return `<span class="badge bg-info text-dark">${String(val)}</span>`;
+    }
+
+    returnSSOSvg(sso) {
+        switch (sso) {
+            case 'google':
+                return `<img src="./auth/svg/google.svg" alt="google svg logo" class="w-auto sso-logo">`;
+            case 'microsoft':
+                return `<img src="./auth/svg/microsoft.svg" alt="microsoft svg logo" class="w-auto sso-logo">`;
+            case 'apple':
+                return `<img src="./auth/svg/apple.svg" alt="apple svg logo" class="w-auto sso-logo">`;
+            case 'saml':
+                return `<img src="./auth/svg/saml.svg" alt="saml svg logo" class="w-auto sso-logo">`;
+            default:
+                return 'error';
+        }
     }
 
     renderPremium(p) {
         if (!p?.active)
-            return `<span class="badge bg-secondary">Free</span>`;
+            return ` - `;
 
         const end = p?.dateEnd ? new Date(p.dateEnd) : null;
         const type = p?.primaryType || 'Premium';
@@ -973,16 +1274,15 @@ class managerManager {
         `;
     }
 
-
     getPremiumType(type) {
         if (type == "LegacyPersonalPremium") {
             type = "Ancien premium"
         } else if (type == "PersonalPremium") {
             type = "Premium"
-        } else if (type == "Group") {
-            type = "Premium Éducation"
+        } else if (type == "GroupPremium") {
+            type = "Premium de groupe"
         } else {
-            type = "Standard"
+            type = "inconnu"
         }
         return type;
     }

@@ -1542,4 +1542,14 @@ const classroomModals = {
                     </div>`,
         footer: ``
     },
+    'manage-roles': {
+        selector: '',
+        header: {
+            icon: '',
+            title: 'classroom.modals.manageRolesTitle'
+        },
+        content: `  <div id="customizable-modal-roles-content" class="container-fluid d-flex flex-wrap">
+                    </div>`,
+        footer: ``
+    },
 }

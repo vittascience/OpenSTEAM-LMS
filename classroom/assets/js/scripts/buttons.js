@@ -1556,6 +1556,14 @@ $('#search_group').click(() => {
     }
 })
 
+const rolesBtn = document.getElementById('manage_roles_btn');
+if (rolesBtn) {
+    rolesBtn.addEventListener('click', async () => {
+        const mm = mainManager.getmanagerManager();
+        mm.openModaleManageRoles();
+    });
+}
+
 $('#create_user_link_to_group_manager').click(function () {
     mainManager.getmanagerManager()._addedCreateUserGroup = 0;
     $('#group_add_sa').html("");
@@ -1674,116 +1682,214 @@ function appendSelectGroups(obj, item_id) {
 }
 
 function updateAppForUser(methodName = "update") {
-    const process = (data) => {
-        // Get the actual user's information
-        let user = mainManager.getmanagerManager()._actualUserDetails;
-        let defaultRestrictions = mainManager.getmanagerManager()._defaultRestrictions;
+    const mgr = mainManager.getmanagerManager();
 
-        let Restrictions = "";
+    const fmtDate = (v) => (v ? new Date(v).toISOString().split("T")[0] : "");
+    const clear = (node) => (node.textContent = "");
 
-        let dateBegin = "";
-        let dateEnd = "";
-        let maxStudents = defaultRestrictions[0].restrictions.maxStudents,
-            maxClassrooms = defaultRestrictions[0].restrictions.maxClassrooms;
+    function el(tag, props, ...children) {
+        const node = document.createElement(tag);
+        const p = props ?? {};
 
-        if (user[0]) {
-            if (user[0].restrictions.length > 0) {
-                dateBegin = user[0].restrictions[0].date_begin != null ? new Date(user[0].restrictions[0].date_begin).toISOString().split('T')[0] : null;
-                dateEnd = user[0].restrictions[0].date_end != null ? new Date(user[0].restrictions[0].date_end).toISOString().split('T')[0] : null;
-                if (user[0].restrictions[0].max_students != null && user[0].restrictions[0].max_students != undefined) {
-                    maxStudents = user[0].restrictions[0].max_students;
-                }
-                if (user[0].restrictions[0].max_classrooms != null && user[0].restrictions[0].max_classrooms != undefined) {
-                    maxClassrooms = user[0].restrictions[0].max_classrooms;
-                }
-            }
+        if (p.class) { node.className = p.class; delete p.class; }
+        if (p.style) {
+            if (typeof p.style === "string") node.style.cssText = p.style;
+            else Object.assign(node.style, p.style);
+            delete p.style;
+        }
+        if (p.dataset) { Object.assign(node.dataset, p.dataset); delete p.dataset; }
+
+        for (const [k, v] of Object.entries(p)) {
+            if (k in node) node[k] = v;
+            else node.setAttribute(k, v);
         }
 
-        $('#update_personal_apps_sa').html("");
-        $('#create_update_personal_apps_sa').html("");
-
-        let stringhtml = `<label>${i18next.t('manager.profil.personalApps')}</label>`;
-        data.forEach(element => {
-
-            let infoapp = "";
-
-            if (user[0]) {
-                if (user[0].hasOwnProperty('applications')) {
-                    user[0].applications.some(function (item) {
-                        if (element.id == item.id)
-                            infoapp = item;
-                    })
-                }
-            }
-
-            if (!infoapp) {
-                stringhtml += `<div class="c-checkbox">
-                <input class="form-check-input appuser" type="checkbox" value="${element.id}" id="${methodName}_application_${element.id}">
-                <label class="form-check-label font-weight-bold mb-2" style="color: var(--classroom-primary)" for="${methodName}_application_${element.id}" >
-                    ${element.name}
-                </label>
-                <br>
-                <div class="activity-add-form c-secondary-form" id="${methodName}_personal_apps_${element.id}" style="display:none;">
-                    <label class="form-check-label" for="${methodName}_max_activities_${element.id}">${i18next.t('manager.group.maxActivities')}</label>
-                    <input type="number" id="${methodName}_max_activities_${element.id}">
-                </div>
-                </div>`;
+        for (const child of children.flat()) {
+            if (child == null) continue;
+            if (typeof child === "object" && !child.nodeType && "html" in child) {
+                node.insertAdjacentHTML("beforeend", child.html);
             } else {
-                stringhtml += `<div class="c-checkbox">
-                <input class="form-check-input appuser" type="checkbox" checked value="${element.id}" id="${methodName}_application_${element.id}">
-                <label class="form-check-label font-weight-bold mb-2" style="color: var(--classroom-primary)" for="${methodName}_application_${element.id}">
-                    ${element.name}
-                </label>
-                <br>
-                <div class="activity-add-form c-secondary-form" id="${methodName}_personal_apps_${element.id}">
-                    <label class="form-check-label" for="${methodName}_max_activities_${element.id}">${i18next.t('manager.group.maxActivities')}</label>
-                    <input type="number" id="${methodName}_max_activities_${element.id}" value="${infoapp.max_activities}">
-                </div>
-                </div>`;
+                node.append(child?.nodeType ? child : document.createTextNode(String(child)));
             }
-        });
-
-        Restrictions = `<h6 class="form-check-label font-weight-bold mb-1" style="color: var(--classroom-primary)">${i18next.t('manager.users.globalRestrictions')}</h6>
-                        <br>
-                        <div class="activity-add-form c-secondary-form">
-                        <label class="form-check-label" for="update_begin_date">${i18next.t('manager.table.dateBeginFA')}</label>
-                        <input type="date" id="update_begin_date" name="trip-start" value="${dateBegin}" max="2100-12-31">
-                        <label class="form-check-label" for="update_end_date">${i18next.t('manager.table.dateEndFA')}</label>
-                        <input type="date" id="update_end_date" name="trip-start" value="${dateEnd}" max="2100-12-31">
-                        <label class="form-check-label" for="update_max_teacher">${i18next.t('manager.table.maxStudentsFA')}</label>
-                        <input type="number" id="update_max_teacher" value="${maxStudents}">
-
-
-                        <label class="form-check-label" for="update_max_classrooms">${i18next.t('manager.table.maxClassroomsFA')}</label>
-                        <input type="number" id="update_max_classrooms" value="${maxClassrooms}">
-
-                        </div>`;
-        $('#update_global_user_restrictions').html(Restrictions);
-
-
-        if (methodName == "update") {
-            $('#update_personal_apps_sa').html(stringhtml);
-        } else {
-            $('#create_update_personal_apps_sa').html(stringhtml);
         }
-
-        data.forEach(element => {
-            $(`#${methodName}_application_${element.id}`).change(function () {
-                $(`#${methodName}_personal_apps_${element.id}`).toggle();
-                mainManager.getmanagerManager().getActivityRestrictionFromApp(element.id).then((res) => {
-                    if ($(`#${methodName}_max_activities_${element.id}`).val() == "") {
-                        $(`#${methodName}_max_activities_${element.id}`).val(res.max_per_teachers)
-                    }
-                });
-            })
-        });
+        return node;
     }
 
-    mainManager.getmanagerManager().getAllApplications().then((res) => {
-        mainManager.getmanagerManager()._allApplications = res;
-        process(res)
-    })
+    const getGlobalRestrictions = (userArr, defaults) => {
+        const user = userArr?.[0];
+        const def = defaults?.[0]?.restrictions ?? {};
+        const ur = user?.restrictions?.[0] ?? {};
+        return {
+            dateBegin: fmtDate(ur.date_begin ?? null),
+            dateEnd: fmtDate(ur.date_end ?? null),
+            maxStudents: (ur.max_students ?? def.maxStudents) ?? 0,
+            maxClassrooms: (ur.max_classrooms ?? def.maxClassrooms) ?? 0,
+        };
+    };
+
+    const findUserApp = (userArr, appId) => {
+        const ua = userArr?.[0]?.applications;
+        if (!Array.isArray(ua)) return null;
+        for (let i = 0; i < ua.length; i++) {
+            if (ua[i]?.id == appId) return ua[i];
+        }
+        return null;
+    };
+
+    const renderGlobalRestrictions = (container, values) => {
+        const block = el(
+            "div",
+            { class: "activity-add-form c-secondary-form" },
+            el(
+                "h6",
+                {
+                    class: "form-check-label font-weight-bold mb-1",
+                    style: "color: var(--classroom-primary)",
+                },
+                { html: i18next.t("manager.users.globalRestrictions") }
+            ),
+
+            el("br"),
+            el(
+                "label",
+                { class: "form-check-label", htmlFor: "update_begin_date" },
+                { html: i18next.t("manager.table.dateBeginFA") }
+            ),
+            el("input", {
+                type: "date",
+                id: "update_begin_date",
+                name: "trip-start",
+                value: values.dateBegin,
+                max: "2100-12-31",
+            }),
+            el(
+                "label",
+                { class: "form-check-label", htmlFor: "update_end_date" },
+                { html: i18next.t("manager.table.dateEndFA") }
+            ),
+            el("input", {
+                type: "date",
+                id: "update_end_date",
+                name: "trip-start",
+                value: values.dateEnd,
+                max: "2100-12-31",
+            }),
+            el(
+                "label",
+                { class: "form-check-label", htmlFor: "update_max_teacher" },
+                { html: i18next.t("manager.table.maxStudentsFA") }
+            ),
+            el("input", {
+                type: "number",
+                id: "update_max_teacher",
+                value: values.maxStudents,
+            }),
+            el(
+                "label",
+                { class: "form-check-label", htmlFor: "update_max_classrooms" },
+                { html: i18next.t("manager.table.maxClassroomsFA") }
+            ),
+            el("input", {
+                type: "number",
+                id: "update_max_classrooms",
+                value: values.maxClassrooms,
+            })
+        );
+
+        clear(container);
+        container.appendChild(block);
+    };
+
+
+    const renderAppsList = (container, apps, userArr) => {
+        const frag = document.createDocumentFragment();
+
+        frag.append(el("label", {}, i18next.t("manager.profil.personalApps")));
+
+        for (const app of apps || []) {
+            const infoApp = findUserApp(userArr, app.id);
+            const checked = !!infoApp;
+            const checkboxId = `${methodName}_application_${app.id}`;
+            const wrapper = el("div", { class: "c-checkbox" });
+
+            const input = el("input", {
+                class: "form-check-input appuser",
+                type: "checkbox",
+                value: String(app.id),
+                id: checkboxId,
+                checked
+            });
+
+            const labelChildren = [];
+            if (app.iconClass) {
+                labelChildren.push(el("i", { class: app.iconClass, ariaHidden: "true" }), " ");
+            }
+            labelChildren.push(app.nameHtml ? { html: app.nameHtml } : (app.name ?? ""));
+
+            const label = el(
+                "label",
+                {
+                    class: "form-check-label font-weight-bold mb-2",
+                    htmlFor: checkboxId,
+                    style: "color: var(--classroom-primary)"
+                },
+                ...labelChildren
+            );
+
+            const formId = `${methodName}_personal_apps_${app.id}`;
+            const maxInputId = `${methodName}_max_activities_${app.id}`;
+
+            const form = el(
+                "div",
+                {
+                    class: "activity-add-form c-secondary-form",
+                    id: formId,
+                    style: checked ? "" : "display:none;"
+                },
+                el("label", { class: "form-check-label", htmlFor: maxInputId }, i18next.t("manager.group.maxActivities")),
+                el("input", {
+                    type: "number",
+                    id: maxInputId,
+                    value: infoApp?.max_activities ?? ""
+                })
+            );
+
+            input.addEventListener("change", () => {
+                form.style.display = input.checked ? "" : "none";
+                if (input.checked) {
+                    mgr.getActivityRestrictionFromApp(app.id).then((res) => {
+                        const maxField = document.getElementById(maxInputId);
+                        if (maxField && (maxField.value === "" || maxField.value == null)) {
+                            maxField.value = res?.max_per_teachers ?? "";
+                        }
+                    });
+                }
+            });
+
+            wrapper.append(input, label, el("br"), form);
+            frag.appendChild(wrapper);
+        }
+
+        clear(container);
+        container.appendChild(frag);
+    };
+
+    mgr.getAllApplications().then((apps) => {
+        mgr._allApplications = apps;
+
+        const userArr = mgr._actualUserDetails;
+        const defaults = mgr._defaultRestrictions;
+
+        const restrictionsVals = getGlobalRestrictions(userArr, defaults);
+        const globalContainer = document.getElementById("update_global_user_restrictions");
+        if (globalContainer) renderGlobalRestrictions(globalContainer, restrictionsVals);
+
+        const targetId = methodName === "update" ? "update_personal_apps_sa" : "create_update_personal_apps_sa";
+        const appsContainer = document.getElementById(targetId);
+        if (appsContainer) renderAppsList(appsContainer, apps, userArr);
+    });
 }
+
 
 function persistUpdateUserApp(user = 0) {
     if (user == 0) {

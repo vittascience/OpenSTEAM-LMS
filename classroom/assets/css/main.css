@@ -4060,8 +4060,8 @@ td {
 }
 
 
-.user-admin-row>td {
-    background-color: #a84d4d54 !important;
+.user-admin-row > td {
+    background-color: #a84d4d33;
 }
 
 .icon-table-size {
@@ -4083,3 +4083,7 @@ td {
 }
 
 .filters label { margin-right: 12px; }
+
+.sso-logo {
+    max-width: 24px;
+}

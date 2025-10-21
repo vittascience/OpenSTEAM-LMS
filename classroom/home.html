@@ -1667,6 +1667,12 @@
                     <span data-i18n="manager.users.create">Créer un utilisateur</span> <i class="fas fa-chevron-right"
                         aria-hidden="true"></i>
                 </button>
+                <button class="btn c-btn-outline-secondary mx-1" id="manage_roles_btn"
+                    aria-label="Gérer les rôles"
+                    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('manage_roles').click();}">
+                    <span data-i18n="manager.users.manageRoles">Gérer les rôles</span> <i class="fas fa-chevron-right"
+                        aria-hidden="true"></i>
+                </button>
             </div>
 
             <div id="table_details_admins">
@@ -2908,7 +2914,6 @@ async function initAdminGroups() {
     // Lance les deux init en parallèle
     const [superAdmin, groupAdmin] = await Promise.all([
         mainManager.init(),
-        mainManager.getmanagerManager().bindFilters('userFilters'),
         mainGroupAdmin.init()
     ]);
     return { superAdmin, groupAdmin };
