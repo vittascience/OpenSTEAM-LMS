@@ -4087,3 +4087,14 @@ td {
 .sso-logo {
     max-width: 24px;
 }
+
+.tri-toggle {
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  background: #f8f8f8;
+  cursor: pointer;
+}
+.tri-toggle[data-state="yes"] { background: #d4edda; }
+.tri-toggle[data-state="no"]  { background: #f8d7da; }
+.tri-toggle[data-state="all"] { background: #e2e3e5; }

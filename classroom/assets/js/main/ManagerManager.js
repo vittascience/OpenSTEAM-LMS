@@ -56,6 +56,15 @@ class managerManager {
 
     }
 
+    async updateUserRoles(id, roles = []) {
+        const response = await fetch('/routing/Routing.php?controller=user&action=update_user_roles', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId: id, roles: JSON.stringify(roles) })
+        });
+        return response.json();
+    }
+
 
     async getAllRoles() {
         const response = await fetch('/routing/Routing.php?controller=user&action=get_all_roles', { method: 'POST' });
@@ -107,29 +116,28 @@ class managerManager {
         const container = document.getElementById('customizable-modal-roles-content');
         if (!container) return console.error("Le conteneur de la modale n'existe pas.");
 
-        container.textContent = ''; // vide proprement
+        container.textContent = '';
 
-        // Formulaire d’ajout
         const formWrapper = document.createElement('div');
-        formWrapper.className = 'mb-3 d-flex gap-2';
+        formWrapper.className = 'my-3 d-flex gap-2 col-12';
 
         const input = document.createElement('input');
         input.type = 'text';
         input.id = 'new-role-name';
         input.className = 'form-control';
-        input.placeholder = 'Nom du rôle';
+        input.placeholder = i18next.t('classroom.modals.manageRoles.roleName');
 
         const addBtn = document.createElement('button');
         addBtn.id = 'add-role-btn';
         addBtn.className = 'btn btn-primary';
-        addBtn.textContent = 'Ajouter';
+        addBtn.textContent = i18next.t('classroom.modals.manageRoles.addButton');
 
         formWrapper.append(input, addBtn);
 
         // Liste des rôles
         const listContainer = document.createElement('div');
         listContainer.id = 'roles-list';
-        listContainer.className = 'mt-3';
+        listContainer.className = 'mt-3 col-12';
 
         container.append(formWrapper, listContainer);
 
@@ -147,7 +155,7 @@ class managerManager {
     }
 
     async loadRoles(listContainer) {
-        listContainer.textContent = ''; // nettoie le contenu
+        listContainer.textContent = '';
 
         const loader = document.createElement('div');
         loader.className = 'text-center py-3';
@@ -158,12 +166,12 @@ class managerManager {
         listContainer.append(loader);
 
         const data = await this.getAllRoles();
-        listContainer.textContent = ''; // nettoyage après le chargement
+        listContainer.textContent = '';
 
         if (!data.success) {
             const error = document.createElement('div');
             error.className = 'text-danger';
-            error.textContent = 'Erreur lors du chargement des rôles.';
+            error.textContent = i18next.t('classroom.modals.manageRoles.error');
             listContainer.append(error);
             return;
         }
@@ -171,7 +179,7 @@ class managerManager {
         if (!data.roles.length) {
             const empty = document.createElement('div');
             empty.className = 'text-muted';
-            empty.textContent = 'Aucun rôle trouvé.';
+            empty.textContent = i18next.t('classroom.modals.manageRoles.noRoles');
             listContainer.append(empty);
             return;
         }
@@ -198,16 +206,16 @@ class managerManager {
             actions.className = 'd-flex gap-2';
 
             const toggleBtn = document.createElement('button');
-            toggleBtn.className = `btn btn-sm ${role.active ? 'btn-success' : 'btn-secondary'}`;
-            toggleBtn.textContent = role.active ? 'Actif' : 'Inactif';
+            toggleBtn.className = `btn btn-sm ${role.active ? 'btn-primary' : 'btn-secondary'}`;
+            toggleBtn.textContent = role.active ? i18next.t('classroom.modals.manageRoles.deactivateButton') : i18next.t('classroom.modals.manageRoles.activateButton');
 
             const editBtn = document.createElement('button');
-            editBtn.className = 'btn btn-sm btn-warning';
-            editBtn.textContent = 'Modifier';
+            editBtn.className = 'btn btn-sm btn-tertiary';
+            editBtn.textContent = i18next.t('classroom.modals.manageRoles.updateButton');
 
             const deleteBtn = document.createElement('button');
             deleteBtn.className = 'btn btn-sm btn-danger';
-            deleteBtn.textContent = 'Supprimer';
+            deleteBtn.textContent = i18next.t('classroom.modals.manageRoles.deleteButton');
 
             actions.append(toggleBtn, editBtn, deleteBtn);
             row.append(nameContainer, actions);
@@ -222,12 +230,12 @@ class managerManager {
 
             // Modifier inline
             editBtn.addEventListener('click', async () => {
-                const editing = editBtn.textContent === 'Enregistrer';
+                const editing = editBtn.textContent === i18next.t('classroom.modals.manageRoles.saveButton');
                 if (!editing) {
                     nameInput.readOnly = false;
                     nameInput.classList.add('border');
                     nameInput.focus();
-                    editBtn.textContent = 'Enregistrer';
+                    editBtn.textContent = i18next.t('classroom.modals.manageRoles.saveButton');
                     editBtn.classList.replace('btn-warning', 'btn-success');
                 } else {
                     const newName = nameInput.value.trim();
@@ -236,7 +244,7 @@ class managerManager {
                     }
                     nameInput.readOnly = true;
                     nameInput.classList.remove('border');
-                    editBtn.textContent = 'Modifier';
+                    editBtn.textContent = i18next.t('classroom.modals.manageRoles.updateButton');
                     editBtn.classList.replace('btn-success', 'btn-warning');
                     await this.loadRoles(listContainer);
                 }
@@ -256,26 +264,25 @@ class managerManager {
                 const content = document.createElement('div');
                 content.className = 'modal-content';
 
-                // --- Header ---
                 const header = document.createElement('div');
                 header.className = 'modal-header';
 
                 const title = document.createElement('h5');
                 title.className = 'modal-title';
-                title.textContent = 'Confirmer la suppression';
+                title.textContent = i18next.t('classroom.modals.manageRoles.confirmDelete');
 
                 const closeBtn = document.createElement('button');
                 closeBtn.type = 'button';
                 closeBtn.className = 'btn-close';
                 closeBtn.setAttribute('data-bs-dismiss', 'modal');
-                closeBtn.setAttribute('aria-label', 'Fermer');
+                closeBtn.setAttribute('aria-label', i18next.t('classroom.modals.manageRoles.closeButton'));
 
                 header.append(title, closeBtn);
 
                 const body = document.createElement('div');
                 body.className = 'modal-body';
                 const p = document.createElement('p');
-                p.innerHTML = `Voulez-vous vraiment supprimer le rôle <strong>${role.name}</strong> ?`;
+                p.innerHTML = i18next.t('classroom.modals.manageRoles.doYouWantToDelete', { roleName: role.name });
                 body.append(p);
 
                 const footer = document.createElement('div');
@@ -285,12 +292,12 @@ class managerManager {
                 cancelBtn.type = 'button';
                 cancelBtn.className = 'btn btn-secondary';
                 cancelBtn.setAttribute('data-bs-dismiss', 'modal');
-                cancelBtn.textContent = 'Annuler';
+                cancelBtn.textContent = i18next.t('classroom.modals.manageRoles.cancelButton');
 
                 const confirmBtn = document.createElement('button');
                 confirmBtn.type = 'button';
                 confirmBtn.className = 'btn btn-danger';
-                confirmBtn.textContent = 'Supprimer';
+                confirmBtn.textContent = i18next.t('classroom.modals.manageRoles.deleteButton');
 
                 footer.append(cancelBtn, confirmBtn);
 
@@ -316,8 +323,8 @@ class managerManager {
 
             deleteBtn.addEventListener('click', () => {
                 this.createConfirmModal(
-                    'Confirmer la suppression',
-                    `Voulez-vous vraiment supprimer le rôle <strong>${role.name}</strong> ?`,
+                    i18next.t('classroom.modals.manageRoles.confirmDelete'),
+                    i18next.t('classroom.modals.manageRoles.doYouWantToDelete', { roleName: role.name }),
                     async () => {
                         await this.deleteRole(role.id);
                         await this.loadRoles(listContainer);
@@ -828,7 +835,7 @@ class managerManager {
      * @param {array} $user_app 
      * @returns 
      */
-    updateUserApps($user_id, $user_app, $global_user_restriction) {
+    async updateUserApps($user_id, $user_app, $global_user_restriction) {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 type: "POST",
@@ -1290,10 +1297,10 @@ class managerManager {
     renderRights(row) {
         const r = row?.group?.rights;
         if (r === 1 || r === '1') {
-            return `<i class="fas fa-crown text-secondary icon-table-size"></i>`;
+            return `<span class="badge bg-warning text-dark">Admin</span>`;
         }
         if (r === 0 || r === '0') {
-            return `<i class="fas fa-user icon-table-size"></i>`;
+            return `<span class="badge bg-success">Utilisateur</span>`;
         }
         return `-`;
     }

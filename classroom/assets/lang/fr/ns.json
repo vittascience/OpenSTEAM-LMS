@@ -588,7 +588,24 @@
 				"yesButton": "Oui, quitter",
 				"noButton": "Non, rester"
 			},
-			"exportMultipleTitle": "Exporter les activités"
+			"exportMultipleTitle": "Exporter les activités",
+			"manageRoles": {
+				"title": "Gérer les rôles",
+				"activateButton": "Activer",
+				"deactivateButton": "Désactiver",
+				"validateButton": "Valider",
+				"deleteButton": "Supprimer",
+				"updateButton": "Mettre à jour",
+				"saveButton": "Enregistrer",
+				"addButton": "Ajouter",
+				"closeButton": "Fermer",
+				"cancelButton": "Annuler",
+				"doYouWantToDelete": "Voulez-vous vraiment supprimer le rôle <strong>{{roleName}}</strong> ?",
+				"confirmDelete": "Confirmer la suppression du rôle",
+				"roleName": "Nom du rôle",
+				"error": "Erreur lors du chargement des rôles.",
+				"noRoles": "Aucun rôle trouvé."
+			}
 		},
 		"folders": {
 			"folderManagement": "Gestion des dossiers",
@@ -1255,6 +1272,7 @@
 			"appsUpdated": "Les applications de l'utilisateur ont été mise à jour",
 			"updateAppModalTitle": "Application",
 			"globalRestrictions": "Restrictions globales",
+			"personalRoles": "Rôles",
 			"teacherGrades": {
 				"0": "Primaire",
 				"1": "Collège",

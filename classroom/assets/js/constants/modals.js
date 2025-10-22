@@ -582,30 +582,29 @@ const classroomModals = {
             <textarea class="form-control" id="update_u_bio" rows="3"></textarea>
         </div>
     
-        <div class="row c-secondary-form">
-            <div class="form-check form-check-inline c-checkbox">
+        <div class="row c-secondary-form mt-2 px-3">
+            <div class="form-check-inline c-checkbox col-md-4 col-12 mx-0 px-0">
                 <input type="checkbox" id="update_u_is_active">
                 <label class="form-check-label" for="update_u_is_active" data-i18n="manager.account.active">
                     Compte actif
                 </label>
             </div>
     
-            <div class="form-check form-check-inline c-checkbox ms-3">
+            <div class="form-check-inline c-checkbox col-md-4 col-12 mx-0 px-0">
                 <input type="checkbox" id="update_u_is_admin">
                 <label class="form-check-label" for="update_u_is_admin" data-i18n="manager.users.admin">
                     Administrateur
                 </label>
             </div>
-        </div>
-    
-        <div class="row form-group c-secondary-form">
-            <div class="c-checkbox">
-                <input class="form-check-input" type="checkbox" id="update_u_is_teacher">
+
+            <div class="form-check-inline c-checkbox col-md-4 col-12 mx-0 px-0">
+                <input type="checkbox" id="update_u_is_teacher">
                 <label class="form-check-label" for="update_u_is_teacher" data-i18n="manager.users.teacher">
                     Enseignant
                 </label>
             </div>
         </div>
+    
     
         <div class="row c-secondary-form" id="update_user_teacher_infos" style="display: none;">
             <div class="form-group col-md" id="section_teacher_update_grade">
@@ -640,14 +639,17 @@ const classroomModals = {
 
         <hr>
 
-        <div id="update_global_user_restrictions">
+        <div id="update_global_user_restrictions" class="d-flex flex-wrap c-secondary-form">
+        </div>
+ 
+        <hr>
+
+        <div id="update_personal_apps_sa" class="d-flex flex-wrap c-secondary-form">
         </div>
 
         <hr>
 
-        <div id="update_personal_apps_sa">
-        
-        </div>
+        <div id="update_roles_sa" class="d-flex flex-wrap c-secondary-form"></div>
     </div>
     
     <button class="btn c-btn-secondary" onclick="updateUserModal()" data-i18n="manager.buttons.user.update">Update user</button>`,
@@ -1546,7 +1548,7 @@ const classroomModals = {
         selector: '',
         header: {
             icon: '',
-            title: 'classroom.modals.manageRolesTitle'
+            title: 'classroom.modals.manageRoles.title'
         },
         content: `  <div id="customizable-modal-roles-content" class="container-fluid d-flex flex-wrap">
                     </div>`,

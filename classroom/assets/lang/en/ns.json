@@ -563,7 +563,24 @@
 				"yesButton": "Yes, quit",
 				"noButton": "No, stay"
 			},
-			"exportMultipleTitle": "Export multiple activities" 
+			"exportMultipleTitle": "Export multiple activities",
+			"manageRoles": {
+				"title": "Manage roles",
+				"activateButton": "Activate",
+				"deactivateButton": "Deactivate",
+				"validateButton": "Validate",
+				"deleteButton": "Delete",
+				"updateButton": "Update",
+				"saveButton": "Save",
+				"closeButton": "Close",
+				"cancelButton": "Cancel",
+				"doYouWantToDelete": "Do you really want to delete the role <strong>{{roleName}}</strong>?",
+				"confirmDelete": "Confirm role deletion",
+				"addButton": "Add",
+				"roleName": "Role name",
+				"error": "Error loading roles.",
+				"noRoles": "No roles found."
+			}
 		},
 		"folders": {
 			"folderManagement": "Folder management",
@@ -834,7 +851,8 @@
 			"confirmPassword": "Confirm password <span class=\"c-text-red\">*</span>",
 			"help": "Help",
 			"onlyVisibleGroupAdmin": "Only visible to you as a group administrator:",
-			"onlyVisiblemanager": "Only visible to you as a manager:"
+			"onlyVisiblemanager": "Only visible to you as a manager:",
+			"noGroup": "Aucun groupe"
 		},
 		"account": {
 			"activate": {
@@ -936,6 +954,7 @@
 			"appsUpdated": "User apps have been updated",
 			"updateAppModalTitle": "Application",
 			"globalRestrictions": "Global restrictions",
+			"personalRoles": "Roles",
 			"teacherGrades": {
 				"0": "Elementary School",
 				"1": "Middle School",
