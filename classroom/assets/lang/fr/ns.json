@@ -605,6 +605,37 @@
 				"roleName": "Nom du rôle",
 				"error": "Erreur lors du chargement des rôles.",
 				"noRoles": "Aucun rôle trouvé."
+			},
+			"searchTable": {
+				"admin": "Admin",
+				"newsletter": "Newsletter",
+				"premium": "Premium",
+				"sso": "SSO",
+				"inactive": "Inactif",
+				"reset": "Réinitialiser",
+				"search": "Rechercher",
+				"previous": "Précédent",
+				"next": "Suivant",
+				"showingFrom" : "Affichage de {{start}} à {{end}} sur {{total}} entrées",
+				"filteredBy": "(filtré à partir de {{filtered}} entrées au total)",
+				"email": "E-mail",
+				"firstname": "Prénom",
+				"lastname": "Nom",
+				"apps" : "Applications",
+				"roles" : "Rôles",
+				"actions" : "Actions",
+				"all": "Tous",
+				"yes": "Oui",
+				"no": "Non",
+				"returnToGroup": "Liste des groupes",
+				"last": "Dernier",
+				"first": "Premier",
+				"emptyTable": "Aucune donnée disponible dans le tableau",
+				"infoEmpty": "Affichage de 0 à 0 sur 0 entrées",
+				"loadingRecords": "Chargement...",
+				"processing": "Traitement...",
+				"zeroRecords": "Aucun enregistrement correspondant trouvé",
+				"lengthMenu": "Afficher {{lengthMenu}} entrées par page"
 			}
 		},
 		"folders": {
@@ -1170,7 +1201,8 @@
 			"confirmPassword": "Confirmer le mot de passe <span class=\"c-text-red\">*</span>",
 			"help": "Appel à l'aide",
 			"onlyVisibleGroupAdmin": "Uniquement visible par vous en tant qu'administrateur de groupe :",
-			"onlyVisiblemanager": "Uniquement visible par vous en tant que manager :"
+			"onlyVisiblemanager": "Uniquement visible par vous en tant que manager :",
+			"noGroup": "Aucun groupe"
 		},
 		"account": {
 			"activate": {

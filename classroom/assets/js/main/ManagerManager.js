@@ -35,21 +35,11 @@ class managerManager {
         this.dt = null;
 
         this.groupFilter = {};
-        this.initialPage = 1;
-        this.initialLen = 25;
-        this.initialSort = 'id';
-
-
-        this.tableSelector = tableSelector;
-        this.dt = null;
-
-        this.groupFilter = {};
         this.extraFilters = {};
 
         this.initialPage = 1;
-        this.initialLen = 25;
+        this.initialLen = 100;
         this.initialSort = 'id';
-
 
         this.rolesBtn = null;
         this.roles = [];
@@ -1064,35 +1054,58 @@ class managerManager {
         }
 
         const self = this;
-
+ 
         this.dt = new DataTable(this.tableSelector, {
             serverSide: true,
             processing: true,
             paging: true,
+            lengthMenu: [50, 100, 250],
             pageLength: this.initialLen,
-            lengthChange: false,
+            lengthChange: true,
             searching: true,
             ordering: true,
+            responsive: true,
+            language: {
+                "lengthMenu": i18next.t('classroom.modals.searchTable.lengthMenu', { lengthMenu: '_MENU_' }),
+                "emptyTable": i18next.t('classroom.modals.searchTable.emptyTable'),
+                "info": i18next.t('classroom.modals.searchTable.showingFrom', { start: '_START_', end: '_END_', total: '_TOTAL_' }),
+                "infoEmpty": i18next.t('classroom.modals.searchTable.infoEmpty'),
+                "infoFiltered": i18next.t('classroom.modals.searchTable.filteredBy', { filtered: '_MAX_' }),
+                "infoPostFix": "",
+                "thousands": ",",
+                
+                "loadingRecords": i18next.t('classroom.modals.searchTable.loadingRecords'),
+                "processing": i18next.t('classroom.modals.searchTable.processing'),
+                "search": i18next.t('classroom.modals.searchTable.search'),
+                "zeroRecords": i18next.t('classroom.modals.searchTable.zeroRecords'),
+                "paginate": {
+                    "first": i18next.t('classroom.modals.searchTable.first'),
+                    "last": i18next.t('classroom.modals.searchTable.last'),
+                    "next": i18next.t('classroom.modals.searchTable.next'),
+                    "previous": i18next.t('classroom.modals.searchTable.previous')
+                },
+            },
 
             columns: [
-                { title: 'Nom', data: null, orderable: true, render: row => row.surname || '' },
-                { title: 'Prénom', data: null, orderable: true, render: row => row.firstname || '' },
-                { title: 'Email', data: null, orderable: true, render: row => row.email || '' },
-                { title: 'Newsletter', data: null, orderable: true, class: 'text-center', render: row => this.renderNewsletter(row.newsletter) },
-                { title: 'SSO', data: null, orderable: true, class: 'text-center', render: row => this.renderSSO(row.isFromSSO) },
-                { title: 'Droits', data: null, orderable: false, class: 'text-center', render: row => this.renderRights(row) },
+                { title: 'Nom', data: null, orderable: true, responsivePriority: 2, render: row => row.surname || '' },
+                { title: 'Prénom', data: null, orderable: true, responsivePriority: 2, render: row => row.firstname || '' },
+                { title: 'Email', data: null, orderable: true, responsivePriority: 1, render: row => row.email || '' },
+                { title: 'Newsletter', data: null, orderable: true, class: 'text-center', responsivePriority: 3, render: row => this.renderNewsletter(row.newsletter) },
+                { title: 'SSO', data: null, orderable: true, class: 'text-center', responsivePriority: 2, render: row => this.renderSSO(row.isFromSSO) },
+                { title: 'Droits', data: null, orderable: false, class: 'text-center', responsivePriority: 3, render: row => this.renderRights(row) },
                 {
-                    title: 'Apps', data: null, orderable: false, render: row => (row.applications || []).map(a =>
+                    title: 'Apps', data: null, orderable: false, responsivePriority: 4, render: row => (row.applications || []).map(a =>
                         `<img src="${a?.image || 'assets/media/no-app-icon.svg'}" alt="${a?.name || ''}" title="${a?.name || ''}" style="max-height:24px;" class="mx-1">`
                     ).join('')
                 },
-                { title: 'Premium', data: null, orderable: true, class: 'text-center', render: row => this.renderPremium(row.premiumData) },
-                { title: 'Roles', data: null, orderable: false, render: row => this.renderRoles(row) },
+                { title: 'Premium', data: null, orderable: true, responsivePriority: 2, class: 'text-center', render: row => this.renderPremium(row.premiumData) },
+                { title: 'Roles', data: null, orderable: false, responsivePriority: 3, render: row => this.renderRoles(row) },
                 {
                     title: 'Actions',
                     data: null,
                     orderable: false,
                     class: 'text-center',
+                    responsivePriority: 1,
                     render: row => {
                         const btnReset = `
                             <a class="c-link-primary mx-1" href="javascript:void(0)" 
@@ -1142,7 +1155,13 @@ class managerManager {
                         dir = (o.dir === 'desc') ? 'desc' : 'asc';
                     }
 
-                    const searchValue = (dtParams.search && dtParams.search.value) ? dtParams.search.value.trim() : null;
+                    const searchValue = (dtParams.search && dtParams.search.value)
+                        ? dtParams.search.value.trim()
+                        : null;
+
+                    const safeFilters = (self && typeof self._currentFilters === 'function')
+                        ? self._currentFilters()
+                        : { ...(self?.groupFilter || {}), ...(self?.extraFilters || {}) };
 
                     const payload = {
                         page,
@@ -1150,7 +1169,7 @@ class managerManager {
                         search: searchValue || null,
                         sort: sortField,
                         dir,
-                        filter: self._currentFilters()
+                        filter: safeFilters
                     };
 
                     const res = await fetch('/routing/Routing.php?controller=user&action=user-meta-search', {
@@ -1171,12 +1190,11 @@ class managerManager {
                     const total = Number(json?.result?.total ?? 0);
                     const filtered = Number(json?.result?.filtered ?? total);
 
-                    // (option) header groupe
-                    const gName = items.find(u => u.group?.name)?.group?.name;
                     const title = document.getElementById('group_name_from_table');
+                    title.textContent = '';
                     if (title) {
-                        if (self.groupFilter?.group === 'null') title.textContent = 'Enseignants sans groupe';
-                        else title.textContent = gName || 'Tous les utilisateurs';
+                        if (mainManager?.getmanagerManager()?.groupFilter?.groupId == 'null' || mainManager?.getmanagerManager()?.groupFilter?.groupId == undefined) title.textContent = i18next.t('manager.group.usersWithoutGroups');
+                        else title.textContent = self._allGroups.find(g => g.id == (self.groupFilter?.groupId || -1))?.name;
                     }
 
                     callback({
@@ -1199,19 +1217,27 @@ class managerManager {
             }
         });
 
+
         if (this.initialPage > 1) {
             const start = (this.initialPage - 1) * this.initialLen;
             this.dt.page(start / this.initialLen).draw(false);
         }
     }
 
+    reloadTable(keepPage = true) {
+        if (this.dt) {
+            this.dt.ajax.reload(null, keepPage === true ? false : true);
+        }
+    }
+
+
     showGroup(group_id, page, userspp, sort) {
         if (Number(group_id) === -1) this.groupFilter = { group: 'null' };
         else if (Number(group_id) > 0) this.groupFilter = { groupId: Number(group_id) };
         else this.groupFilter = { hasGroup: true };
 
-        this.initialPage = Number(page) || 1;
-        this.initialLen = Number(userspp) || 25;
+        this.initialPage = Number(page) || this.initialPage;
+        this.initialLen = Number(userspp) || this.initialLen;
         this.initialSort = (typeof sort === 'string' ? sort : 'id');
 
         this.init();
@@ -1305,51 +1331,79 @@ class managerManager {
         return `-`;
     }
 
-
-    _currentFilters() {
-        return { ...this.groupFilter, ...this.extraFilters };
+    stateLabelText(state) {
+        return state === 'yes' ? 'Oui' : state === 'no' ? 'Non' : 'Tous';
     }
 
-    // Appelé par la barre de filtres
-    setExtraFilters(obj) {
-        this.extraFilters = { ...obj };
-        // recharge la table (sans re-créer)
-        if (this.dt) this.dt.ajax.reload(null, true);
+    updateTriVisual(el) {
+        const wrapper = el.closest('label.tri');
+        if (!wrapper) return;
+        const s = el.dataset.state || 'all';
+        const badge = wrapper.querySelector('.state');
+        if (badge) badge.textContent = stateLabelText(s);
+        wrapper.dataset.state = s;
     }
 
-    // Lie les checkboxes à this.extraFilters
+
+    setTriState(el, state = 'all') {
+        el.dataset.state = state;
+        el.indeterminate = state === 'all';
+        el.checked = state === 'yes';
+        updateTriVisual(el);
+    }
+
     bindFilters(containerId = 'userFilters') {
         const root = document.getElementById(containerId);
         if (!root) return;
 
-        const $admin = root.querySelector('#flt-admin');
-        const $newsletter = root.querySelector('#flt-newsletter');
-        const $premium = root.querySelector('#flt-premium');
-        const $fromsso = root.querySelector('#flt-fromsso');
         const $clear = root.querySelector('#flt-clear');
 
         const apply = () => {
             const f = {};
-            // bool côté backend : 1/0
-            if ($admin?.checked) f.is_admin = 1;
-            if ($newsletter?.checked) f.newsletter = 1;
-            if ($premium?.checked) f.premium = 1;
-            // fromSSO: on veut "présents uniquement" -> notnull
-            if ($fromsso?.checked) f.isFromSSO = 'notnull';
+
+            const get = name => root.querySelector(`input[name="${name}"]:checked`)?.value || 'all';
+
+            const adminVal = get('flt-admin');
+            if (adminVal === 'yes') f.is_admin = true;
+            else if (adminVal === 'no') f.is_admin = false;
+
+            const newsVal = get('flt-newsletter');
+            if (newsVal === 'yes') f.newsletter = true;
+            else if (newsVal === 'no') f.newsletter = false;
+
+            const premVal = get('flt-premium');
+            if (premVal === 'yes') f.premium = true;
+            else if (premVal === 'no') f.premium = false;
+
+            const ssoVal = get('flt-fromsso');
+            if (ssoVal === 'yes') f.isFromSSO = 'notnull';
+            else if (ssoVal === 'no') f.isFromSSO = 'null';
+
+            const inactVal = get('flt-inactive');
+            if (inactVal === 'yes') f.is_active = false;
+            else if (inactVal === 'no') f.is_active = true;
 
             this.setExtraFilters(f);
         };
 
-        [$admin, $newsletter, $premium, $fromsso].forEach(el => {
-            el?.addEventListener('change', apply);
+        root.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', apply);
         });
 
         $clear?.addEventListener('click', () => {
-            [$admin, $newsletter, $premium, $fromsso].forEach(el => { if (el) el.checked = false; });
+            root.querySelectorAll('input[value="all"]').forEach(r => (r.checked = true));
             this.setExtraFilters({});
         });
+
+        apply();
     }
 
+    setExtraFilters(obj) {
+        this.extraFilters = { ...(obj || {}) };
+        if (this.dt) {
+            this.dt.ajax.reload(null, true);
+        }
+    }
 
     showGroupsInTable(table) {
         let data_table = "",

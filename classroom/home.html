@@ -1667,10 +1667,9 @@
                     <span data-i18n="manager.users.create">Créer un utilisateur</span> <i class="fas fa-chevron-right"
                         aria-hidden="true"></i>
                 </button>
-                <button class="btn c-btn-outline-secondary mx-1" id="manage_roles_btn"
-                    aria-label="Gérer les rôles"
+                <button class="btn c-btn-outline-secondary mx-1" id="manage_roles_btn" aria-label="Gérer les rôles"
                     onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('manage_roles').click();}">
-                    <span data-i18n="manager.users.manageRoles">Gérer les rôles</span> <i class="fas fa-chevron-right"
+                    <span data-i18n="classroom.modals.manageRoles.title">Gérer les rôles</span> <i class="fas fa-chevron-right"
                         aria-hidden="true"></i>
                 </button>
             </div>
@@ -1729,41 +1728,120 @@
                         </div>
                     </div>
                 </div> -->
-                <div class="row my-2 group-header">
-                    <button class="btn btn-sm c-btn-grey" id="table_back_to_users" 
-                            aria-label="Retour à la liste des groupes"
-                            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('table_back_to_users').click();}">
+                <div class="row my-2">
+                    <button class="btn btn-sm btn-grey w-auto mb-4" id="table_back_to_users"
+                        aria-label="Retour à la liste des groupes"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('table_back_to_users').click();}">
                         <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                        <span data-i18n="[html]classroom.modals.searchTable.returnToGroup"></span>
                     </button>
                     <h2 id="group_name_from_table"></h2>
                 </div>
-
+                
+                
                 <div class="mb-2" id="group_name_from_table"></div>
 
-                <div id="userFilters" class="filters">
-                    <label><input type="checkbox" id="flt-admin"> Admin</label>
-                    <label><input type="checkbox" id="flt-newsletter"> Newsletter</label>
-                    <label><input type="checkbox" id="flt-premium"> Premium</label>
-                    <label><input type="checkbox" id="flt-fromsso"> From SSO</label>
-                    <label><input type="checkbox" id="flt-inactive"> Inactif</label>
-                    <button id="flt-clear" type="button">Réinitialiser</button>
+                <div id="userFilters" class="row g-3 col-12 mx-auto">
+                    <div class="col-12 col-md-6 col-lg-4 col-xxl-3">
+                        <p class="fw-bold my-0"><span data-i18n="classroom.modals.searchTable.admin">Admin</span> :</p>
+                        <div class="switcher d-inline-block" role="radiogroup" aria-label="Filtre Admin" tabindex="0"
+                            id="switcher-admin">
+                            <input type="radio" class="switcher__input switcher__input--left" name="flt-admin"
+                                id="admin-opt-all" value="all" checked>
+                            <label class="switcher__label" for="admin-opt-all" data-i18n="classroom.modals.searchTable.all">Tous</label>
+                            <input type="radio" class="switcher__input switcher__input--middle1" name="flt-admin"
+                                id="admin-opt-yes" value="yes">
+                            <label class="switcher__label" for="admin-opt-yes" data-i18n="classroom.modals.searchTable.yes">Oui</label>
+                            <input type="radio" class="switcher__input switcher__input--right" name="flt-admin"
+                                id="admin-opt-no" value="no">
+                            <label class="switcher__label" for="admin-opt-no" data-i18n="classroom.modals.searchTable.no">Non</label>
+                            <span class="switcher__toggle" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-4 col-xxl-3">
+                        <p class="fw-bold my-0"><span data-i18n="classroom.modals.searchTable.newsletter">Newsletter</span> :</p>
+                        <div class="switcher d-inline-block" role="radiogroup" aria-label="Filtre Newsletter"
+                            tabindex="0" id="switcher-newsletter">
+                            <input type="radio" class="switcher__input switcher__input--left" name="flt-newsletter"
+                                id="newsletter-opt-all" value="all" checked>
+                            <label class="switcher__label" for="newsletter-opt-all" data-i18n="classroom.modals.searchTable.all">Tous</label>
+                            <input type="radio" class="switcher__input switcher__input--middle1" name="flt-newsletter"
+                                id="newsletter-opt-yes" value="yes">
+                            <label class="switcher__label" for="newsletter-opt-yes" data-i18n="classroom.modals.searchTable.yes">Oui</label>
+                            <input type="radio" class="switcher__input switcher__input--right" name="flt-newsletter"
+                                id="newsletter-opt-no" value="no">
+                            <label class="switcher__label" for="newsletter-opt-no" data-i18n="classroom.modals.searchTable.no">Non</label>
+                            <span class="switcher__toggle" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-4 col-xxl-3">
+                        <p class="fw-bold my-0"><span data-i18n="classroom.modals.searchTable.premium">Premium</span> :</p>
+                        <div class="switcher d-inline-block" role="radiogroup" aria-label="Filtre Premium" tabindex="0"
+                            id="switcher-premium">
+                            <input type="radio" class="switcher__input switcher__input--left" name="flt-premium"
+                                id="premium-opt-all" value="all" checked>
+                            <label class="switcher__label" for="premium-opt-all" data-i18n="classroom.modals.searchTable.all">Tous</label>
+                            <input type="radio" class="switcher__input switcher__input--middle1" name="flt-premium"
+                                id="premium-opt-yes" value="yes">
+                            <label class="switcher__label" for="premium-opt-yes" data-i18n="classroom.modals.searchTable.yes">Oui</label>
+                            <input type="radio" class="switcher__input switcher__input--right" name="flt-premium"
+                                id="premium-opt-no" value="no">
+                            <label class="switcher__label" for="premium-opt-no" data-i18n="classroom.modals.searchTable.no">Non</label>
+                            <span class="switcher__toggle" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-4 col-xxl-3">
+                        <p class="fw-bold my-0"><span data-i18n="classroom.modals.searchTable.sso">SSO</span> :</p>
+                        <div class="switcher d-inline-block" role="radiogroup" aria-label="Filtre From SSO" tabindex="0"
+                            id="switcher-fromsso">
+                            <input type="radio" class="switcher__input switcher__input--left" name="flt-fromsso"
+                                id="fromsso-opt-all" value="all" checked>
+                            <label class="switcher__label" for="fromsso-opt-all" data-i18n="classroom.modals.searchTable.all">Tous</label>
+                            <input type="radio" class="switcher__input switcher__input--middle1" name="flt-fromsso"
+                                id="fromsso-opt-yes" value="yes">
+                            <label class="switcher__label" for="fromsso-opt-yes" data-i18n="classroom.modals.searchTable.yes">Oui</label>
+                            <input type="radio" class="switcher__input switcher__input--right" name="flt-fromsso"
+                                id="fromsso-opt-no" value="no">
+                            <label class="switcher__label" for="fromsso-opt-no" data-i18n="classroom.modals.searchTable.no">Non</label>
+                            <span class="switcher__toggle" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-4 col-xxl-3">
+                        <p class="fw-bold my-0"><span data-i18n="classroom.modals.searchTable.inactive">Inactif</span> :</p>
+                        <div class="switcher d-inline-block" role="radiogroup" aria-label="Filtre Inactif" tabindex="0"
+                            id="switcher-inactive" data-name="flt-inactive" data-values='["all","yes","no"]'>
+                            <input type="radio" class="switcher__input switcher__input--left" name="flt-inactive"
+                                id="inactive-opt-0" value="all" checked>
+                            <label class="switcher__label" for="inactive-opt-0" data-i18n="classroom.modals.searchTable.all">Tous</label>
+
+                            <input type="radio" class="switcher__input switcher__input--middle1" name="flt-inactive"
+                                id="inactive-opt-1" value="yes">
+                            <label class="switcher__label" for="inactive-opt-1" data-i18n="classroom.modals.searchTable.yes">Oui</label>
+
+                            <input type="radio" class="switcher__input switcher__input--right" name="flt-inactive"
+                                id="inactive-opt-2" value="no">
+                            <label class="switcher__label" for="inactive-opt-2" data-i18n="classroom.modals.searchTable.no">Non</label>
+
+                            <span class="switcher__toggle" aria-hidden="true"></span>
+                        </div>
+                    </div>
                 </div>
 
+                <div class="col-12 text-center my-4"> 
+                    <button id="flt-clear" type="button" class="btn btn-secondary btn-sm col-12 col-lg-4" data-i18n="classroom.modals.searchTable.reset">Réinitialiser</button>
+                </div>
 
                 <table class="table" id="usersTable">
                     <thead>
                         <tr>
-
                         </tr>
                     </thead>
                     <tbody id="usersTableBody"></tbody>
                 </table>
-
-                <nav id="paginationButtons_users" class="m-auto d-flex gap-2">
-                    <button id="btnPrev">Previous</button>
-                    <span id="pagerInfo"></span>
-                    <button id="btnNext">Next</button>
-                </nav>
 
             </div>
 
@@ -2872,7 +2950,8 @@ async function initAdminGroups() {
     // Lance les deux init en parallèle
     const [superAdmin, groupAdmin] = await Promise.all([
         mainManager.init(),
-        mainGroupAdmin.init()
+        mainGroupAdmin.init(),
+        mainManager.getmanagerManager().bindFilters(),
     ]);
     return { superAdmin, groupAdmin };
 }

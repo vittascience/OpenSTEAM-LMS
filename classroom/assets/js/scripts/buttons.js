@@ -1973,7 +1973,7 @@ async function persistUpdateUserApp(user = 0) {
         case "success":
             displayNotification('#notif-div', "manager.users.appsUpdated", "success");
             pseudoModal.closeAllModal();
-            document.getElementById('user_apps_update').innerHTML = "";
+            //document.getElementById('user_apps_update').innerHTML = "";
             tempoAndShowUsersTable();
             break;
         case "User not found":
@@ -1996,13 +1996,13 @@ function showupdateUserModal(id) {
         clear(selectEl);
 
         const noGroupOpt = document.createElement('option');
-        noGroupOpt.value = -1;
-        noGroupOpt.textContent = i18next.t('manager.profil.noGroup') || 'Aucun groupe';
+        noGroupOpt.value = '-1'; // <- string pour être cohérent avec select.value
+        noGroupOpt.textContent = i18next.t('manager.profil.noGroup');
         selectEl.appendChild(noGroupOpt);
 
         groups.forEach(g => {
             const opt = document.createElement('option');
-            opt.value = g.id;
+            opt.value = String(g.id);
             opt.textContent = g.name ?? g.label ?? String(g.id);
             selectEl.appendChild(opt);
         });
@@ -2109,6 +2109,8 @@ function showupdateUserModal(id) {
     mm.getUserInfoWithHisGroups(id).then(function (res) {
         mm._actualUserDetails = res;
 
+        console.log(res);
+
         // Call updateAppForUser as in original (assuming it may be async but effects are separate)
         updateAppForUser();
 
@@ -2209,34 +2211,46 @@ function showupdateUserModal(id) {
                         const { formGroup, select, adminCheckbox } = createGroupFormRow(i);
                         actualGroupWrap.appendChild(formGroup);
                         populateSelectGroups(groupsData, select);
-                        select.value = g.id;
+                        select.value = String(g.id);          // <- met le bon groupe
                         adminCheckbox.checked = (g.rights === 1);
+
+                        // écoute le changement pour MAJ des apps visibles
+                        select.addEventListener('change', () => {
+                            mm._actualGroup = select.value === '-1' ? null : select.value;
+                            if (appsWrap) {
+                                if (mm._actualGroup) renderGroupApplications(appsWrap, mm._comboGroups, mm._actualGroup, res);
+                                else clear(appsWrap);
+                            }
+                        });
                     });
 
-                    // Set mm._actualGroup to the first group's ID if not already set
+                    // définit le groupe courant pour l’affichage des apps
                     if (!mm._actualGroup && res[0].groups[0]) {
-                        mm._actualGroup = res[0].groups[0].id;
+                        mm._actualGroup = String(res[0].groups[0].id);
                     }
+                    if (appsWrap) renderGroupApplications(appsWrap, mm._comboGroups, mm._actualGroup, res);
 
-                    if (appsWrap) {
-                        renderGroupApplications(appsWrap, mm._comboGroups, mm._actualGroup, res);
-                    }
                 } else {
+                    // aucun groupe → ne rien sélectionner
                     mm._updatedUserGroup += 1;
                     const { formGroup, select } = createGroupFormRow(0);
                     actualGroupWrap.appendChild(formGroup);
                     populateSelectGroups(groupsData, select);
+                    select.value = '-1';                      // <- aucun groupe par défaut
+                    mm._actualGroup = null;
 
-                    // Set a default value if groupsData exists
-                    if (groupsData.length > 0) {
-                        select.value = groupsData[0].id;
-                        mm._actualGroup = select.value;
-                    }
+                    if (appsWrap) clear(appsWrap);
 
-                    if (appsWrap) {
-                        renderGroupApplications(appsWrap, mm._comboGroups, mm._actualGroup, res);
-                    }
+                    // écoute le changement
+                    select.addEventListener('change', () => {
+                        mm._actualGroup = select.value === '-1' ? null : select.value;
+                        if (appsWrap) {
+                            if (mm._actualGroup) renderGroupApplications(appsWrap, mm._comboGroups, mm._actualGroup, res);
+                            else clear(appsWrap);
+                        }
+                    });
                 }
+
             }
         });
     });
@@ -2297,7 +2311,7 @@ async function updateUserModal() {
         $groups = [document.getElementById('update_u_is_group_admin0')?.checked || false, document.getElementById('update_u_group0')?.value || ''];
 
     $ApplicationFromGroup = [];
-    document.querySelectorAll('[name="group_app"]').forEach(function(element) {
+    document.querySelectorAll('[name="group_app"]').forEach(function (element) {
         const ApplicationTemp = [
             element.value,
             element.checked
@@ -2305,16 +2319,17 @@ async function updateUserModal() {
         $ApplicationFromGroup.push(ApplicationTemp);
     });
 
-    let updatesUserRes = await mainManager.getmanagerManager().updateUser($user_id, $firstname, 
-        $surname, $pseudo, 
-        $phone, $mail, $bio, 
-        $groups, $is_admin, $is_teacher, 
-        $teacher_grade, $teacher_suject, 
+    let updatesUserRes = await mainManager.getmanagerManager().updateUser($user_id, $firstname,
+        $surname, $pseudo,
+        $phone, $mail, $bio,
+        $groups, $is_admin, $is_teacher,
+        $teacher_grade, $teacher_suject,
         $school, $is_active, JSON.stringify($ApplicationFromGroup));
     switch (updatesUserRes.message) {
         case "success":
             displayNotification('#notif-div', "manager.users.userUpdated", "success");
             await persistUpdateUserApp($user_id);
+            mainManager.getmanagerManager().reloadTable();
             break;
         case "missing data":
             displayNotification('#notif-div', "manager.account.missingData", "error");
@@ -2326,8 +2341,9 @@ async function updateUserModal() {
             displayNotification('#notif-div', "manager.group.toManyStudentsInGroup", "error");
             break;
     }
+
     let $roles_ids = [];
-    document.querySelectorAll('input.form-check-input.roleuser:checked').forEach(function(element) {
+    document.querySelectorAll('input.form-check-input.roleuser:checked').forEach(function (element) {
         $roles_ids.push(element.value);
     });
     let rolesUpdatedRes = await mainManager.getmanagerManager().updateUserRoles($user_id, $roles_ids);

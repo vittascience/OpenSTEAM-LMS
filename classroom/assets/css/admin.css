@@ -94,3 +94,99 @@ fieldset.switch-to-admin legend {
     column-gap: 1em;
     row-gap: 0.5em;
 }
+
+
+#usersTable td .btn,
+#usersTable td a {
+    font-size: 1rem;
+    padding: 0.25rem;
+}
+
+#usersTable td .d-flex {
+    gap: 0.4rem;
+}
+
+
+.user-admin-row>td {
+    background-color: #a84d4d33;
+}
+
+.icon-table-size {
+    font-size: 1.5em;
+}
+
+.premium-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.2;
+}
+
+.premium-date {
+    font-size: 0.8em;
+    color: #555;
+    margin-top: 0.2em;
+    font-weight: bold;
+}
+
+.filters label {
+    margin-right: 12px;
+}
+
+.sso-logo {
+    max-width: 24px;
+}
+
+div.dt-container select.dt-input {
+    width: 4.5em;
+    padding-left: .5em;
+    border-color : var(--classroom-primary) !important;
+    border-radius : 256px;  
+    margin: 0 .5em;
+}
+
+div.dt-container .dt-search input {
+    border-color : var(--classroom-primary);
+    border-radius : 256px;    
+    margin-left: 1em;
+}
+
+div.dt-container .dt-search label {
+    font-weight: bold;
+}
+
+div.dt-container div.dt-layout-row div.dt-layout-cell.dt-layout-start label {
+    font-weight: bold;
+}
+
+div.dt-container .dt-length, div.dt-container .dt-search, div.dt-container .dt-info, div.dt-container .dt-processing, div.dt-container .dt-paging {
+    color: var(--classroom-text-2);
+    font-weight: bold;
+}
+
+/* Style pour la ligne de détails */
+table.dataTable > tbody > tr.child td ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+table.dataTable > tbody > tr.child:hover {
+    background: transparent !important;
+}
+
+table.dataTable > tbody > tr.child ul.dtr-details {
+  text-align: center;
+  margin: 0 auto;
+}
+
+
+table.dataTable > tbody > tr.child ul.dtr-details > li {
+  text-align: center;
+  justify-content: center;
+}
+
+
+table.dataTable > tbody > tr.child {
+  text-align: center;
+}
