@@ -2,9 +2,9 @@
     "config": {         "platform": {             "php": "7.3"         }     },
     "require-dev": {
         "phpunit/phpunit": "8.0.0",
-        "vittascience/vtuser": "dev-arz-new-search-users-funct",
+        "vittascience/vtuser": "1.3",
         "vittascience/vtinterfaces": "1.5.7",
-        "vittascience/vtclassroom": "1.3.37",
+        "vittascience/vtclassroom": "1.4",
         "vittascience/vtlearn": "1.4.40",
         "vittascience/vutils": "1.2.60",
         "symfony/var-dumper": "^5.3"
