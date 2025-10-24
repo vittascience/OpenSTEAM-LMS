@@ -5,18 +5,20 @@
             <div class="row mb-2 c-primary-form" id="groups_options">
 
                 <!-- Search bar -->
-                <div class="col col-md-6 col-lg-8 d-flex align-items-center" role="search" aria-labelledby="group-search-label">
-                    <label for="name_group_search" id="group-search-label" class="sr-only">Rechercher des groupes</label>
-                    <input class="flex-fill" type="search" id="name_group_search" placeholder="Rechercher" 
-                           aria-label="Rechercher des groupes par nom ou description" 
-                           data-i18n="[placeholder]manager.buttons.search"
-                           aria-describedby="group-search-description">
-                    <button class="btn c-btn-primary" id="search_group" style="width: 3em; height: 3em;" 
-                            aria-label="Lancer la recherche de groupes"
-                            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('search_group').click();}">
-                      <i class="fas fa-search" aria-hidden="true"></i>
+                <div class="col col-md-6 col-lg-8 d-flex align-items-center" role="search"
+                    aria-labelledby="group-search-label">
+                    <label for="name_group_search" id="group-search-label" class="sr-only">Rechercher des
+                        groupes</label>
+                    <input class="flex-fill" type="search" id="name_group_search" placeholder="Rechercher"
+                        aria-label="Rechercher des groupes par nom ou description"
+                        data-i18n="[placeholder]manager.buttons.search" aria-describedby="group-search-description">
+                    <button class="btn c-btn-primary" id="search_group" style="width: 3em; height: 3em;"
+                        aria-label="Lancer la recherche de groupes"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('search_group').click();}">
+                        <i class="fas fa-search" aria-hidden="true"></i>
                     </button>
-                    <span id="group-search-description" class="sr-only">Appuyez sur Entrée pour rechercher ou cliquez sur le bouton de recherche</span>
+                    <span id="group-search-description" class="sr-only">Appuyez sur Entrée pour rechercher ou cliquez
+                        sur le bouton de recherche</span>
                 </div>
 
                 <!-- View filter -->
@@ -41,14 +43,21 @@
 
             <div class="mb-2" id="btn-create-manager">
                 <button class="btn c-btn-outline-primary mx-1" id="create_group_manager"
-                        aria-label="Créer un nouveau groupe d'utilisateurs"
-                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('create_group_manager').click();}">
-                    <span data-i18n="manager.group.create">Créer un groupe</span> <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    aria-label="Créer un nouveau groupe d'utilisateurs"
+                    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('create_group_manager').click();}">
+                    <span data-i18n="manager.group.create">Créer un groupe</span> <i class="fas fa-chevron-right"
+                        aria-hidden="true"></i>
                 </button>
                 <button class="btn c-btn-outline-secondary mx-1" id="create_user_link_to_group_manager"
-                        aria-label="Créer un nouvel utilisateur"
-                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('create_user_link_to_group_manager').click();}">
-                    <span data-i18n="manager.users.create">Créer un utilisateur</span> <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    aria-label="Créer un nouvel utilisateur"
+                    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('create_user_link_to_group_manager').click();}">
+                    <span data-i18n="manager.users.create">Créer un utilisateur</span> <i class="fas fa-chevron-right"
+                        aria-hidden="true"></i>
+                </button>
+                <button class="btn c-btn-outline-secondary mx-1" id="manage_roles_btn" aria-label="Gérer les rôles"
+                    onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('manage_roles').click();}">
+                    <span data-i18n="classroom.modals.manageRoles.title">Gérer les rôles</span> <i class="fas fa-chevron-right"
+                        aria-hidden="true"></i>
                 </button>
             </div>
 
@@ -70,9 +79,9 @@
             </div>
 
             <div id="table_details_users" class="c-primary-form" style="display: none;">
-                <div class="row mb-2 c-primary-form" id="users_options">
+                <!-- <div class="row mb-2 c-primary-form" id="users_options">
 
-                    <!-- Search bar -->
+
                     <div class="col col-md-6 col-lg-8 d-flex align-items-center" role="search" aria-labelledby="user-search-label">
                         <label for="name_user_search" id="user-search-label" class="sr-only">Rechercher des utilisateurs</label>
                         <input class="flex-fill" type="search" id="name_user_search" 
@@ -87,7 +96,7 @@
                         <span id="user-search-description" class="sr-only">Appuyez sur Entrée pour rechercher ou cliquez sur le bouton de recherche</span>
                     </div>
                 
-                    <!-- View filter -->
+                    
                     <div class="col-md d-flex flex-column">
                         <div class="col-12">
                             <select class="form-select w-100" id="sort_users_filter" aria-label="Trier les utilisateurs">
@@ -105,57 +114,122 @@
                             </select>
                         </div>
                     </div>
-                </div>
-                <div class="row my-2 group-header">
-                    <button class="btn btn-sm c-btn-grey" id="table_back_to_users" 
-                            aria-label="Retour à la liste des groupes"
-                            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('table_back_to_users').click();}">
+                </div> -->
+                <div class="row my-2">
+                    <button class="btn btn-sm btn-grey w-auto mb-4" id="table_back_to_users"
+                        aria-label="Retour à la liste des groupes"
+                        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();document.getElementById('table_back_to_users').click();}">
                         <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                        <span data-i18n="[html]classroom.modals.searchTable.returnToGroup"></span>
                     </button>
                     <h2 id="group_name_from_table"></h2>
                 </div>
+                
+                
+                <div class="mb-2" id="group_name_from_table"></div>
 
-                <p data-i18n="manager.title.activeUsers" id="active-users-manager" class="font-weight-bold">PH Inactive users table PH</p>
-                <table class="table c-table">
+                <div id="userFilters" class="row g-3 col-12 mx-auto">
+                    <div class="col-12 col-md-6 col-lg-4 col-xxl-3">
+                        <p class="fw-bold my-0"><span data-i18n="classroom.modals.searchTable.admin">Admin</span> :</p>
+                        <div class="switcher d-inline-block" role="radiogroup" aria-label="Filtre Admin" tabindex="0"
+                            id="switcher-admin">
+                            <input type="radio" class="switcher__input switcher__input--left" name="flt-admin"
+                                id="admin-opt-all" value="all" checked>
+                            <label class="switcher__label" for="admin-opt-all" data-i18n="classroom.modals.searchTable.all">Tous</label>
+                            <input type="radio" class="switcher__input switcher__input--middle1" name="flt-admin"
+                                id="admin-opt-yes" value="yes">
+                            <label class="switcher__label" for="admin-opt-yes" data-i18n="classroom.modals.searchTable.yes">Oui</label>
+                            <input type="radio" class="switcher__input switcher__input--right" name="flt-admin"
+                                id="admin-opt-no" value="no">
+                            <label class="switcher__label" for="admin-opt-no" data-i18n="classroom.modals.searchTable.no">Non</label>
+                            <span class="switcher__toggle" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-4 col-xxl-3">
+                        <p class="fw-bold my-0"><span data-i18n="classroom.modals.searchTable.newsletter">Newsletter</span> :</p>
+                        <div class="switcher d-inline-block" role="radiogroup" aria-label="Filtre Newsletter"
+                            tabindex="0" id="switcher-newsletter">
+                            <input type="radio" class="switcher__input switcher__input--left" name="flt-newsletter"
+                                id="newsletter-opt-all" value="all" checked>
+                            <label class="switcher__label" for="newsletter-opt-all" data-i18n="classroom.modals.searchTable.all">Tous</label>
+                            <input type="radio" class="switcher__input switcher__input--middle1" name="flt-newsletter"
+                                id="newsletter-opt-yes" value="yes">
+                            <label class="switcher__label" for="newsletter-opt-yes" data-i18n="classroom.modals.searchTable.yes">Oui</label>
+                            <input type="radio" class="switcher__input switcher__input--right" name="flt-newsletter"
+                                id="newsletter-opt-no" value="no">
+                            <label class="switcher__label" for="newsletter-opt-no" data-i18n="classroom.modals.searchTable.no">Non</label>
+                            <span class="switcher__toggle" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-4 col-xxl-3">
+                        <p class="fw-bold my-0"><span data-i18n="classroom.modals.searchTable.premium">Premium</span> :</p>
+                        <div class="switcher d-inline-block" role="radiogroup" aria-label="Filtre Premium" tabindex="0"
+                            id="switcher-premium">
+                            <input type="radio" class="switcher__input switcher__input--left" name="flt-premium"
+                                id="premium-opt-all" value="all" checked>
+                            <label class="switcher__label" for="premium-opt-all" data-i18n="classroom.modals.searchTable.all">Tous</label>
+                            <input type="radio" class="switcher__input switcher__input--middle1" name="flt-premium"
+                                id="premium-opt-yes" value="yes">
+                            <label class="switcher__label" for="premium-opt-yes" data-i18n="classroom.modals.searchTable.yes">Oui</label>
+                            <input type="radio" class="switcher__input switcher__input--right" name="flt-premium"
+                                id="premium-opt-no" value="no">
+                            <label class="switcher__label" for="premium-opt-no" data-i18n="classroom.modals.searchTable.no">Non</label>
+                            <span class="switcher__toggle" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-4 col-xxl-3">
+                        <p class="fw-bold my-0"><span data-i18n="classroom.modals.searchTable.sso">SSO</span> :</p>
+                        <div class="switcher d-inline-block" role="radiogroup" aria-label="Filtre From SSO" tabindex="0"
+                            id="switcher-fromsso">
+                            <input type="radio" class="switcher__input switcher__input--left" name="flt-fromsso"
+                                id="fromsso-opt-all" value="all" checked>
+                            <label class="switcher__label" for="fromsso-opt-all" data-i18n="classroom.modals.searchTable.all">Tous</label>
+                            <input type="radio" class="switcher__input switcher__input--middle1" name="flt-fromsso"
+                                id="fromsso-opt-yes" value="yes">
+                            <label class="switcher__label" for="fromsso-opt-yes" data-i18n="classroom.modals.searchTable.yes">Oui</label>
+                            <input type="radio" class="switcher__input switcher__input--right" name="flt-fromsso"
+                                id="fromsso-opt-no" value="no">
+                            <label class="switcher__label" for="fromsso-opt-no" data-i18n="classroom.modals.searchTable.no">Non</label>
+                            <span class="switcher__toggle" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-4 col-xxl-3">
+                        <p class="fw-bold my-0"><span data-i18n="classroom.modals.searchTable.inactive">Inactif</span> :</p>
+                        <div class="switcher d-inline-block" role="radiogroup" aria-label="Filtre Inactif" tabindex="0"
+                            id="switcher-inactive" data-name="flt-inactive" data-values='["all","yes","no"]'>
+                            <input type="radio" class="switcher__input switcher__input--left" name="flt-inactive"
+                                id="inactive-opt-0" value="all" checked>
+                            <label class="switcher__label" for="inactive-opt-0" data-i18n="classroom.modals.searchTable.all">Tous</label>
+
+                            <input type="radio" class="switcher__input switcher__input--middle1" name="flt-inactive"
+                                id="inactive-opt-1" value="yes">
+                            <label class="switcher__label" for="inactive-opt-1" data-i18n="classroom.modals.searchTable.yes">Oui</label>
+
+                            <input type="radio" class="switcher__input switcher__input--right" name="flt-inactive"
+                                id="inactive-opt-2" value="no">
+                            <label class="switcher__label" for="inactive-opt-2" data-i18n="classroom.modals.searchTable.no">Non</label>
+
+                            <span class="switcher__toggle" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 text-center my-4"> 
+                    <button id="flt-clear" type="button" class="btn btn-secondary btn-sm col-12 col-lg-4" data-i18n="classroom.modals.searchTable.reset">Réinitialiser</button>
+                </div>
+
+                <table class="table" id="usersTable">
                     <thead>
                         <tr>
-                            <th scope="col" data-i18n="manager.table.lastname">Nom</th>
-                            <th scope="col" data-i18n="manager.table.firstname">Prénom</th>
-                            <th scope="col" data-i18n="manager.table.right">Rôle</th>
-                            <th scope="col" data-i18n="manager.table.applications">Applications</th>
-                            <th scope="col" data-i18n="">Premium</th>
-                            <th scope="col" data-i18n="manager.table.resetPassword">Régénérer le mot de passe</th>
-                            <th scope="col" data-i18n="manager.buttons.update">Modifier</th>
-                            <th scope="col" data-i18n="manager.buttons.disable">Supprimer</th>
                         </tr>
                     </thead>
-                    <tbody id="table_info_group_data">
-
-                    </tbody>
+                    <tbody id="usersTableBody"></tbody>
                 </table>
 
-                <p data-i18n="manager.title.inactiveUsers" id="inactive-users-manager" class="font-weight-bold">PH Inactive users table PH</p>
-                <table class="table c-table">
-                    <thead>
-                        <tr>
-                            <th scope="col" data-i18n="manager.table.lastname">Nom</th>
-                            <th scope="col" data-i18n="manager.table.firstname">Prénom</th>
-                            <th scope="col" data-i18n="manager.table.right">Rôle</th>
-                            <th scope="col" data-i18n="manager.table.applications">Applications</th>
-                            <th scope="col" data-i18n="">Premium</th>
-                            <th scope="col" data-i18n="manager.table.resetPassword">Régénérer le mot de passe</th>
-                            <th scope="col" data-i18n="manager.buttons.update">Modifier</th>
-                            <th scope="col" data-i18n="manager.buttons.delete">Supprimer</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table_info_group_data_inactive">
-
-                    </tbody>
-                </table>
-
-                <nav id="paginationButtons_users" class="m-auto">
-
-                </nav>
             </div>
 
             <div class="row">
