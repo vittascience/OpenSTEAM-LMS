@@ -17,7 +17,7 @@ fieldset.switch-to-admin legend {
 }
 
 .c-btn-dashboard {
-    color: var(--classroom-dashboard) !important;
+    color: var(--classroom-dashboard);
     border-color: var(--classroom-dashboard) !important;
 }
 
