@@ -1482,5 +1482,54 @@
 		"exportToCSV" : "Export to CSV",
 		"exportToPDF" : "Export to PDF",
 		"exportToXLS" : "Export to XLS"
+	},
+	"sso": {
+		"words": {
+			"or": "OR",
+			"user": "User",
+			"anonymous": "Anonymous"
+		},
+		"detectedAsLuxembourg": "We recommend you use the connection via the Luxembourg Ministry of National Education portal",
+		"google": "Sign in with Google",
+		"signupGoogle": "Sign up with Google",
+		"microsoft": "Sign in with Microsoft",
+		"signupMicrosoft": "Sign up with Microsoft",
+		"apple": "Sign in with Apple",
+		"signupApple": "Sign up with Apple",
+		"saml": "Sign in with IAM Luxembourg",
+		"signupSaml": "Sign up with IAM Luxembourg",
+		"messages": {
+			"emailNotVerified": "Your email address is not verified. Please verify your email address before signing in.",
+			"success": "Successfully connected! You will be redirected in a few seconds...",
+			"error": "An error occurred, if the problem persists, contact technical support.",
+			"errorSupportInformed": "The support team has been informed of the error.",
+			"accountWithEmailAlreadyExists": "An account with this email address already exists. Please sign in with your password.",
+			"identifiedWith": "You are identified with your <strong>{{provider}} account</strong>",
+			"usedData": "We only use the following data provided by your account: <strong>name, first name, email address and profile picture if you share them</strong>. No other information is retained.",
+			"disclaimer": "Vittascience only uses the following data provided by your {{ provider }} account: <strong>name, first name, email address and profile picture</strong>. <br> No other information is shared to Vittascience by {{ provider }}.",
+			"unknownSSO": "SSO connection error, please try again.",
+			"groupNotFound": "The group you are trying to add the user to does not exist.",
+			"errorAddingUserToGroup": "An error occurred while adding the user to the group.",
+			"emptyData": "A problem occurred while retrieving the data. If the problem persists, contact technical support.",
+			"emptySSO": "A problem occurred while retrieving SSO data. If the problem persists, contact technical support."
+		},
+		"modal": {
+			"title": "Welcome to Vittascience",
+			"content": "We are delighted to welcome you 😊, Would you like to receive Vittascience's monthly newsletter to stay informed about new features, events and educational content?",
+			"buttonYes": "Yes",
+			"buttonNo": "No"
+		},
+		"dashboard": {
+			"student": {
+				"profilePictureAlt": "Profile picture",
+				"notifCloseAria": "Close",
+				"clickClassToAccess": "Click on a class to access it.",
+				"noClassesYet": "You haven't joined any classes yet.",
+				"enterClassCodeBelow": "Enter a class code below to access it.",
+				"joinNewClass": "Join a new class",
+				"classLinkPlaceholder": "Class link (e.g.:123AB)",
+				"joinButton": "Join"
+			}
+		}
 	}
 }

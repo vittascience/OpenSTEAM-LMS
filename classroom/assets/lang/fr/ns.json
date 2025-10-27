@@ -1799,5 +1799,54 @@
 		"exportToCSV" : "Exporter en CSV",
 		"exportToPDF" : "Exporter en PDF",
 		"exportToXLS" : "Exporter en XLS"
+	},
+	"sso": {
+		"words": {
+			"or": "OU",
+			"user": "Utilisateur",
+			"anonymous": "Anonyme"
+		},
+		"detectedAsLuxembourg": "Nous vous recommandons d'utiliser la connexion via le portail du Ministère de l'Éducation Nationale du Luxembourg",
+		"google": "Se connecter avec Google",
+		"signupGoogle": "S'inscrire avec Google",
+		"microsoft": "Se connecter avec Microsoft",
+		"signupMicrosoft": "S'inscrire avec Microsoft",
+		"apple": "Se connecter avec Apple",
+		"signupApple": "S'inscrire avec Apple",
+		"saml": "Se connecter avec IAM Luxembourg",
+		"signupSaml": "S'inscrire avec IAM Luxembourg",
+		"messages": {
+			"emailNotVerified": "Votre adresse e-mail n'est pas vérifiée. Veuillez vérifier votre adresse e-mail avant de vous connecter.",
+			"success": "Connecté avec succès ! Vous allez être redirigé dans quelques secondes...",
+			"error": "Une erreur est survenue, si le problème persiste, contactez le support technique.",
+			"errorSupportInformed": "L'équipe de support a été informée de l'erreur.",
+			"accountWithEmailAlreadyExists": "Un compte avec cette adresse e-mail existe déjà. Veuillez vous connecter avec votre mot de passe.",
+			"identifiedWith": "Vous êtes identifié avec votre <strong>compte {{provider}}</strong>",
+			"usedData": "Nous utilisons uniquement les données suivantes fournies par votre compte : <strong>nom, prénom, adresse email et image de profil si vous les communiquez</strong>. Aucune autre information n'est conservée.",
+			"disclaimer": "Vittascience utilise uniquement les données suivantes fournies par votre compte {{ provider }} : <strong>nom, prénom, adresse email et image de profil</strong>. <br> Aucune autre information n'est partagée à Vittascience par {{ provider }}.",
+			"unknownSSO": "Erreur de connexion avec le SSO, veuillez réessayer.",
+			"groupNotFound": "Le groupe auquel vous essayez d'ajouter l'utilisateur n'existe pas.",
+			"errorAddingUserToGroup": "Une erreur est survenue lors de l'ajout de l'utilisateur au groupe.",
+			"emptyData": "Un problème est survenu lors de la récupération des données. si le problème persiste, contactez le support technique.",
+			"emptySSO": "Un problème est survenu lors de la récupération des données SSO. si le problème persiste, contactez le support technique."
+		},
+		"modal": {
+			"title": "Bienvenue sur Vittascience",
+			"content": "Nous sommes ravis de vous accueillir 😊, Souhaitez-vous recevoir la newsletter mensuelle de Vittascience pour rester informé(e) des nouveautés, événements et contenus pédagogiques ?",
+			"buttonYes": "Oui",
+			"buttonNo": "Non"
+		},
+		"dashboard": {
+			"student": {
+				"profilePictureAlt": "Photo de profil",
+				"notifCloseAria": "Fermer",
+				"clickClassToAccess": "Cliquer sur une classe pour y accéder.",
+				"noClassesYet": "Tu n'as encore rejoint aucune classe.",
+				"enterClassCodeBelow": "Entre un code de classe ci-dessous pour y accéder.",
+				"joinNewClass": "Rejoindre une nouvelle classe",
+				"classLinkPlaceholder": "Lien de la classe (ex:123AB)",
+				"joinButton": "Rejoindre"
+			}
+		}
 	}
 }
