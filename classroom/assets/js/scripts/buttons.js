@@ -478,20 +478,20 @@ function moveFocusIntoPanel(panelId) {
     if (contactSection) {
         const contactCandidates = Array.from(contactSection.querySelectorAll(focusableSelectors.join(','))).filter(isVisible);
         if (contactCandidates.length > 0) {
-            try { contactCandidates[0].focus(); return; } catch (_) {}
+            try { contactCandidates[0].focus(); return; } catch (_) { }
         }
     }
 
     const firstFocusable = candidates.find((el) => isVisible(el));
 
     if (firstFocusable) {
-        try { firstFocusable.focus(); return; } catch (_) {}
+        try { firstFocusable.focus(); return; } catch (_) { }
     }
 
     if (!panel.hasAttribute('tabindex')) {
         panel.setAttribute('tabindex', '-1');
     }
-    try { panel.focus(); } catch (_) {}
+    try { panel.focus(); } catch (_) { }
 }
 
 /**
@@ -1556,6 +1556,14 @@ $('#search_group').click(() => {
     }
 })
 
+const rolesBtn = document.getElementById('manage_roles_btn');
+if (rolesBtn) {
+    rolesBtn.addEventListener('click', async () => {
+        const mm = mainManager.getmanagerManager();
+        mm.openModaleManageRoles();
+    });
+}
+
 $('#create_user_link_to_group_manager').click(function () {
     mainManager.getmanagerManager()._addedCreateUserGroup = 0;
     $('#group_add_sa').html("");
@@ -1674,118 +1682,271 @@ function appendSelectGroups(obj, item_id) {
 }
 
 function updateAppForUser(methodName = "update") {
-    const process = (data) => {
-        // Get the actual user's information
-        let user = mainManager.getmanagerManager()._actualUserDetails;
-        let defaultRestrictions = mainManager.getmanagerManager()._defaultRestrictions;
+    const mgr = mainManager.getmanagerManager();
 
-        let Restrictions = "";
+    const fmtDate = (v) => (v ? new Date(v).toISOString().split("T")[0] : "");
+    const clear = (node) => (node.textContent = "");
 
-        let dateBegin = "";
-        let dateEnd = "";
-        let maxStudents = defaultRestrictions[0].restrictions.maxStudents,
-            maxClassrooms = defaultRestrictions[0].restrictions.maxClassrooms;
+    function el(tag, props, ...children) {
+        const node = document.createElement(tag);
+        const p = props ?? {};
 
-        if (user[0]) {
-            if (user[0].restrictions.length > 0) {
-                dateBegin = user[0].restrictions[0].date_begin != null ? new Date(user[0].restrictions[0].date_begin).toISOString().split('T')[0] : null;
-                dateEnd = user[0].restrictions[0].date_end != null ? new Date(user[0].restrictions[0].date_end).toISOString().split('T')[0] : null;
-                if (user[0].restrictions[0].max_students != null && user[0].restrictions[0].max_students != undefined) {
-                    maxStudents = user[0].restrictions[0].max_students;
-                }
-                if (user[0].restrictions[0].max_classrooms != null && user[0].restrictions[0].max_classrooms != undefined) {
-                    maxClassrooms = user[0].restrictions[0].max_classrooms;
-                }
-            }
+        if (p.class) { node.className = p.class; delete p.class; }
+        if (p.style) {
+            if (typeof p.style === "string") node.style.cssText = p.style;
+            else Object.assign(node.style, p.style);
+            delete p.style;
+        }
+        if (p.dataset) { Object.assign(node.dataset, p.dataset); delete p.dataset; }
+
+        for (const [k, v] of Object.entries(p)) {
+            if (k in node) node[k] = v;
+            else node.setAttribute(k, v);
         }
 
-        $('#update_personal_apps_sa').html("");
-        $('#create_update_personal_apps_sa').html("");
-
-        let stringhtml = `<label>${i18next.t('manager.profil.personalApps')}</label>`;
-        data.forEach(element => {
-
-            let infoapp = "";
-
-            if (user[0]) {
-                if (user[0].hasOwnProperty('applications')) {
-                    user[0].applications.some(function (item) {
-                        if (element.id == item.id)
-                            infoapp = item;
-                    })
-                }
-            }
-
-            if (!infoapp) {
-                stringhtml += `<div class="c-checkbox">
-                <input class="form-check-input appuser" type="checkbox" value="${element.id}" id="${methodName}_application_${element.id}">
-                <label class="form-check-label font-weight-bold mb-2" style="color: var(--classroom-primary)" for="${methodName}_application_${element.id}" >
-                    ${element.name}
-                </label>
-                <br>
-                <div class="activity-add-form c-secondary-form" id="${methodName}_personal_apps_${element.id}" style="display:none;">
-                    <label class="form-check-label" for="${methodName}_max_activities_${element.id}">${i18next.t('manager.group.maxActivities')}</label>
-                    <input type="number" id="${methodName}_max_activities_${element.id}">
-                </div>
-                </div>`;
+        for (const child of children.flat()) {
+            if (child == null) continue;
+            if (typeof child === "object" && !child.nodeType && "html" in child) {
+                node.insertAdjacentHTML("beforeend", child.html);
             } else {
-                stringhtml += `<div class="c-checkbox">
-                <input class="form-check-input appuser" type="checkbox" checked value="${element.id}" id="${methodName}_application_${element.id}">
-                <label class="form-check-label font-weight-bold mb-2" style="color: var(--classroom-primary)" for="${methodName}_application_${element.id}">
-                    ${element.name}
-                </label>
-                <br>
-                <div class="activity-add-form c-secondary-form" id="${methodName}_personal_apps_${element.id}">
-                    <label class="form-check-label" for="${methodName}_max_activities_${element.id}">${i18next.t('manager.group.maxActivities')}</label>
-                    <input type="number" id="${methodName}_max_activities_${element.id}" value="${infoapp.max_activities}">
-                </div>
-                </div>`;
+                node.append(child?.nodeType ? child : document.createTextNode(String(child)));
             }
-        });
-
-        Restrictions = `<h6 class="form-check-label font-weight-bold mb-1" style="color: var(--classroom-primary)">${i18next.t('manager.users.globalRestrictions')}</h6>
-                        <br>
-                        <div class="activity-add-form c-secondary-form">
-                        <label class="form-check-label" for="update_begin_date">${i18next.t('manager.table.dateBeginFA')}</label>
-                        <input type="date" id="update_begin_date" name="trip-start" value="${dateBegin}" max="2100-12-31">
-                        <label class="form-check-label" for="update_end_date">${i18next.t('manager.table.dateEndFA')}</label>
-                        <input type="date" id="update_end_date" name="trip-start" value="${dateEnd}" max="2100-12-31">
-                        <label class="form-check-label" for="update_max_teacher">${i18next.t('manager.table.maxStudentsFA')}</label>
-                        <input type="number" id="update_max_teacher" value="${maxStudents}">
-
-
-                        <label class="form-check-label" for="update_max_classrooms">${i18next.t('manager.table.maxClassroomsFA')}</label>
-                        <input type="number" id="update_max_classrooms" value="${maxClassrooms}">
-
-                        </div>`;
-        $('#update_global_user_restrictions').html(Restrictions);
-
-
-        if (methodName == "update") {
-            $('#update_personal_apps_sa').html(stringhtml);
-        } else {
-            $('#create_update_personal_apps_sa').html(stringhtml);
         }
-
-        data.forEach(element => {
-            $(`#${methodName}_application_${element.id}`).change(function () {
-                $(`#${methodName}_personal_apps_${element.id}`).toggle();
-                mainManager.getmanagerManager().getActivityRestrictionFromApp(element.id).then((res) => {
-                    if ($(`#${methodName}_max_activities_${element.id}`).val() == "") {
-                        $(`#${methodName}_max_activities_${element.id}`).val(res.max_per_teachers)
-                    }
-                });
-            })
-        });
+        return node;
     }
 
-    mainManager.getmanagerManager().getAllApplications().then((res) => {
-        mainManager.getmanagerManager()._allApplications = res;
-        process(res)
-    })
+    const getGlobalRestrictions = (userArr, defaults) => {
+        const user = userArr?.[0];
+        const def = defaults?.[0]?.restrictions ?? {};
+        const ur = user?.restrictions?.[0] ?? {};
+        return {
+            dateBegin: fmtDate(ur.date_begin ?? null),
+            dateEnd: fmtDate(ur.date_end ?? null),
+            maxStudents: (ur.max_students ?? def.maxStudents) ?? 0,
+            maxClassrooms: (ur.max_classrooms ?? def.maxClassrooms) ?? 0,
+        };
+    };
+
+    const findUserApp = (userArr, appId) => {
+        const ua = userArr?.[0]?.applications;
+        if (!Array.isArray(ua)) return null;
+        for (let i = 0; i < ua.length; i++) {
+            if (ua[i]?.id == appId) return ua[i];
+        }
+        return null;
+    };
+
+    const renderGlobalRestrictions = (container, values) => {
+        const block = el(
+            "div",
+            { class: "activity-add-form c-secondary-form" },
+            el(
+                "p",
+                {
+                    class: "form-check-label font-weight-bold mb-1",
+                    style: "color: var(--classroom-primary); font-size: 1.2em; font-weight: bold;",
+                },
+                { html: i18next.t("manager.users.globalRestrictions") }
+            ),
+
+            el("br"),
+            el(
+                "label",
+                { class: "form-check-label p-2", htmlFor: "update_begin_date" },
+                { html: i18next.t("manager.table.dateBeginFA") }
+            ),
+            el("input", {
+                type: "date",
+                class: "p-2",
+                id: "update_begin_date",
+                name: "trip-start",
+                value: values.dateBegin,
+                max: "2100-12-31",
+            }),
+            el(
+                "label",
+                { class: "form-check-label p-2", htmlFor: "update_end_date" },
+                { html: i18next.t("manager.table.dateEndFA") }
+            ),
+            el("input", {
+                type: "date",
+                class: "p-2",
+                id: "update_end_date",
+                name: "trip-start",
+                value: values.dateEnd,
+                max: "2100-12-31",
+            }),
+            el(
+                "label",
+                { class: "form-check-label p-2", htmlFor: "update_max_teacher" },
+                { html: i18next.t("manager.table.maxStudentsFA") }
+            ),
+            el("input", {
+                type: "number",
+                class: "p-2",
+                id: "update_max_teacher",
+                value: values.maxStudents,
+            }),
+            el(
+                "label",
+                { class: "form-check-label p-2", htmlFor: "update_max_classrooms" },
+                { html: i18next.t("manager.table.maxClassroomsFA") }
+            ),
+            el("input", {
+                type: "number",
+                class: "p-2",
+                id: "update_max_classrooms",
+                value: values.maxClassrooms,
+            })
+        );
+
+        clear(container);
+        container.appendChild(block);
+    };
+
+
+    const renderAppsList = (container, apps, userArr) => {
+        const frag = document.createDocumentFragment();
+
+        frag.append(el("p", { class: "form-check-label font-weight-bold mb-1 col-12 mb-2", style: "color: var(--classroom-primary); font-size: 1.2em; font-weight: bold;" }, i18next.t("manager.profil.personalApps")));
+
+        for (const app of apps || []) {
+            const infoApp = findUserApp(userArr, app.id);
+            const checked = !!infoApp;
+            const checkboxId = `${methodName}_application_${app.id}`;
+            const wrapper = el("div", { class: "c-checkbox col-xxl-6 col-12 p-2" });
+
+            const input = el("input", {
+                class: "form-check-input appuser",
+                type: "checkbox",
+                value: String(app.id),
+                id: checkboxId,
+                checked
+            });
+
+            const labelChildren = [];
+            if (app.iconClass) {
+                labelChildren.push(el("i", { class: app.iconClass, ariaHidden: "true" }), " ");
+            }
+            labelChildren.push(app.nameHtml ? { html: app.nameHtml } : (app.name ?? ""));
+
+            const label = el(
+                "label",
+                {
+                    class: "form-check-label font-weight-bold mb-2",
+                    htmlFor: checkboxId
+                },
+                ...labelChildren
+            );
+
+            const formId = `${methodName}_personal_apps_${app.id}`;
+            const maxInputId = `${methodName}_max_activities_${app.id}`;
+
+            const form = el(
+                "div",
+                {
+                    class: `activity-add-form c-secondary-form ${checked ? "d-flex" : "d-none"} flex-column`,
+                    id: formId,
+                },
+                el("label", { class: "form-check-label", htmlFor: maxInputId }, i18next.t("manager.group.maxActivities")),
+                el("input", {
+                    type: "number",
+                    id: maxInputId,
+                    value: infoApp?.max_activities ?? ""
+                })
+            );
+
+            input.addEventListener("change", () => {
+                const formEl = document.getElementById(formId);
+                if (input.checked) {
+                    formEl.classList.remove("d-none");
+                    formEl.classList.add("d-flex");
+                } else {
+                    formEl.classList.remove("d-flex");
+                    formEl.classList.add("d-none");
+                }
+                if (input.checked) {
+                    mgr.getActivityRestrictionFromApp(app.id).then((res) => {
+                        const maxField = document.getElementById(maxInputId);
+                        if (maxField && (maxField.value === "" || maxField.value == null)) {
+                            maxField.value = res?.max_per_teachers ?? "";
+                        }
+                    });
+                }
+            });
+
+            wrapper.append(input, label, el("br"), form);
+            frag.appendChild(wrapper);
+        }
+
+        clear(container);
+        container.appendChild(frag);
+    };
+
+    const findUserRole = (userArr, roleName) => {
+        const ur = JSON.parse(userArr?.[0]?.roles || '[]');
+        return ur.includes(roleName);
+    };
+
+    const renderRolesList = (container, roles, userArr) => {
+        const frag = document.createDocumentFragment();
+
+        frag.append(el("p", { class: "form-check-label font-weight-bold mb-1 col-12 mb-2", style: "color: var(--classroom-primary); font-size: 1.2em; font-weight: bold;" }, i18next.t("manager.users.personalRoles")));
+
+        for (const role of roles || []) {
+            if (!role.active) continue; // Skip inactive roles
+            const checked = findUserRole(userArr, role.name);
+            const checkboxId = `${methodName}_role_${role.id}`;
+            const wrapper = el("div", { class: "c-checkbox col-xxl-6 col-12 p-2" });
+
+            const input = el("input", {
+                class: "form-check-input roleuser",
+                type: "checkbox",
+                value: String(role.id),
+                id: checkboxId,
+                checked
+            });
+
+            const label = el(
+                "label",
+                {
+                    class: "form-check-label font-weight-bold mb-2",
+                    htmlFor: checkboxId
+                },
+                role.name.replace("ROLE_", "") ?? ""
+            );
+
+            wrapper.append(input, label);
+            frag.appendChild(wrapper);
+        }
+
+        clear(container);
+        container.appendChild(frag);
+    };
+
+    Promise.all([mgr.getAllApplications(), mgr.getAllRoles()]).then(([apps, response]) => {
+        const roles = response.roles || [];
+        mgr._allApplications = apps;
+        mgr._allRoles = roles;
+
+        const userArr = mgr._actualUserDetails;
+        const defaults = mgr._defaultRestrictions;
+
+        const restrictionsVals = getGlobalRestrictions(userArr, defaults);
+        const globalContainer = document.getElementById("update_global_user_restrictions");
+        if (globalContainer) renderGlobalRestrictions(globalContainer, restrictionsVals);
+
+        const targetId = methodName === "update" ? "update_personal_apps_sa" : "create_update_personal_apps_sa";
+        const appsContainer = document.getElementById(targetId);
+        if (appsContainer) renderAppsList(appsContainer, apps, userArr);
+
+        const rolesContainer = document.getElementById("update_roles_sa");
+        if (rolesContainer) renderRolesList(rolesContainer, roles, userArr);
+    });
 }
 
-function persistUpdateUserApp(user = 0) {
+
+async function persistUpdateUserApp(user = 0) {
     if (user == 0) {
         user = mainManager.getmanagerManager()._actualUserDetails[0].id;
     }
@@ -1807,176 +1968,291 @@ function persistUpdateUserApp(user = 0) {
         ApplicationsData.push(ApplicationTemp);
     });
 
-    mainManager.getmanagerManager().updateUserApps(user, JSON.stringify(ApplicationsData), JSON.stringify(GlobalRestrictions)).then((res) => {
-        if (res.message == "success") {
+    let updateUserAppsRes = await mainManager.getmanagerManager().updateUserApps(user, JSON.stringify(ApplicationsData), JSON.stringify(GlobalRestrictions));
+    switch (updateUserAppsRes.message) {
+        case "success":
             displayNotification('#notif-div', "manager.users.appsUpdated", "success");
             pseudoModal.closeAllModal();
-            $('#user_apps_update').html("");
+            //document.getElementById('user_apps_update').innerHTML = "";
             tempoAndShowUsersTable();
-        } else if (res.message == "User not found") {
+            break;
+        case "User not found":
             displayNotification('#notif-div', "manager.account.userNotFoundId", "error");
-        } else if (res.message == "missing data") {
+            break;
+        case "missing data":
             displayNotification('#notif-div', "manager.account.missingData", "error");
-        }
-    })
+            break;
+    }
 }
 
 function showupdateUserModal(id) {
-    let $groups = mainManager.getmanagerManager()._comboGroups;
-    mainManager.getmanagerManager()._updatedUserGroup = 0;
-    mainManager.getmanagerManager().getUserInfoWithHisGroups(id).then(function (res) {
-        //get the personal apps 
+    const mm = mainManager.getmanagerManager();
+    const groupsData = mm._comboGroups;
+    mm._updatedUserGroup = 0;
+
+    function clear(el) { while (el && el.firstChild) el.removeChild(el.firstChild); }
+
+    function populateSelectGroups(groups, selectEl) {
+        clear(selectEl);
+
+        const noGroupOpt = document.createElement('option');
+        noGroupOpt.value = '-1'; // <- string pour être cohérent avec select.value
+        noGroupOpt.textContent = i18next.t('manager.profil.noGroup');
+        selectEl.appendChild(noGroupOpt);
+
+        groups.forEach(g => {
+            const opt = document.createElement('option');
+            opt.value = String(g.id);
+            opt.textContent = g.name ?? g.label ?? String(g.id);
+            selectEl.appendChild(opt);
+        });
+    }
+
+
+    function createLabeledCheckbox({ id, labelText, labelI18n, checked }) {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'input-group-text c-checkbox c-checkbox-grey input-group-selector';
+
+        const input = document.createElement('input');
+        input.className = 'form-check-input';
+        input.type = 'checkbox';
+        input.id = id;
+        input.checked = !!checked;
+
+        const label = document.createElement('label');
+        label.className = 'form-check-label mx-1';
+        label.setAttribute('for', id);
+        if (labelI18n) label.setAttribute('data-i18n', labelI18n);
+        label.textContent = labelText;
+
+        wrapper.appendChild(input);
+        wrapper.appendChild(label);
+        return wrapper;
+    }
+
+    function createGroupFormRow(index) {
+        const formGroup = document.createElement('div');
+        formGroup.className = 'form-group c-secondary-form';
+
+        const label = document.createElement('label');
+        label.setAttribute('for', `update_u_group${index}`);
+        label.setAttribute('data-i18n', 'manager.profil.group');
+        label.textContent = 'Groupe';
+
+        const inputGroup = document.createElement('div');
+        inputGroup.className = 'input-group mb-3';
+        inputGroup.id = `update_u_actual_group${index}`;
+
+        const select = document.createElement('select');
+        select.className = 'form-control';
+        select.id = `update_u_group${index}`;
+
+        const append = document.createElement('div');
+        append.className = 'input-group-append';
+
+        const checkboxWrap = createLabeledCheckbox({
+            id: `update_u_is_group_admin${index}`,
+            labelText: 'Administrateur du groupe',
+            labelI18n: 'manager.users.groupAdmin',
+            checked: false
+        });
+
+        append.appendChild(checkboxWrap);
+        inputGroup.appendChild(select);
+        inputGroup.appendChild(append);
+        formGroup.appendChild(label);
+        formGroup.appendChild(inputGroup);
+
+        return { formGroup, select, adminCheckbox: checkboxWrap.querySelector('input') };
+    }
+
+    function renderGroupApplications(container, comboGroups, actualGroupId, userRes) {
+        while (container && container.firstChild) container.removeChild(container.firstChild);
+
+        const currentGroup = Array.isArray(comboGroups) ? comboGroups.find(el => el && el.id == actualGroupId) : null;
+        if (!currentGroup || !Array.isArray(currentGroup.applications)) return;
+
+        const title = document.createElement('p');
+        title.className = 'form-check-label font-weight-bold mb-1 fw-bold';
+        title.style.color = 'var(--classroom-primary)';
+        title.setAttribute('data-i18n', 'manager.profil.groupsApps');
+        title.textContent = i18next.t('manager.profil.groupsApps');
+        container.appendChild(title);
+
+        const grantedFromGroups = new Set(
+            (userRes?.[0]?.applications_from_groups ?? []).map(a => a.application)
+        );
+
+        currentGroup.applications.forEach(application => {
+            const line = document.createElement('div');
+            line.className = 'c-checkbox';
+
+            const input = document.createElement('input');
+            input.className = 'form-check-input';
+            input.type = 'checkbox';
+            input.name = 'group_app';
+            input.id = `group_app_${application.id}`;
+            input.value = String(application.id);
+            if (grantedFromGroups.has(application.id)) input.checked = true;
+
+            const label = document.createElement('label');
+            label.className = 'form-check-label';
+            label.setAttribute('for', `group_app_${application.id}`);
+            label.textContent = application.name;
+
+            line.appendChild(input);
+            line.appendChild(label);
+            container.appendChild(line);
+        });
+    }
+
+    mm.getUserInfoWithHisGroups(id).then(function (res) {
+        mm._actualUserDetails = res;
+
+        console.log(res);
+
+        // Call updateAppForUser as in original (assuming it may be async but effects are separate)
         updateAppForUser();
-        mainManager.getmanagerManager()._actualUserDetails = res;
-        $("#update_actualgroup_sa").html("");
-        $('#update_applications_sa').html("");
-        $('#update_personal_apps_sa').html('');
+
+        // Clear before open, as in original
+        const actualGroupWrap = document.getElementById('update_actualgroup_sa');
+        const appsWrap = document.getElementById('update_applications_sa');
+        const personalAppsWrap = document.getElementById('update_personal_apps_sa');
+        if (actualGroupWrap) clear(actualGroupWrap);
+        if (appsWrap) clear(appsWrap);
+        if (personalAppsWrap) clear(personalAppsWrap);
+
+        // Open the modal
         pseudoModal.openModal('manager-update-user');
 
-        if (res[0].isRegular != null || res[0].isActive != null) {
-            $('#update_u_mail_phone').hide();
-        }
-
-        $('#update_u_firstname').val(res[0].firstname);
-        $('#update_u_surname').val(res[0].surname);
-        $('#update_u_pseudo').val(res[0].pseudo);
-        $('#update_u_id').val(res[0].id);
-
-        if (res[0].isActive == true) {
-            $('#update_u_is_active').prop("checked", true);
-        } else {
-            $('#update_u_is_active').prop("checked", false);
-        }
-
-        $('#update_u_bio').val(res[0].bio);
-        $('#update_u_mail').val(res[0].email);
-        $('#update_u_phone').val(res[0].telephone);
-
-        $('#update_user_teacher_grade').change(() => {
-            switch ($('#update_user_teacher_grade').val()) {
-                case "0":
-                    createSubjectSelect(getSubjects(0), 2);
-                    break;
-                case "1":
-                    createSubjectSelect(getSubjects(1), 2);
-                    break;
-                case "2":
-                    createSubjectSelect(getSubjects(2), 2);
-                    break;
-                case "3":
-                    createSubjectSelect(getSubjects(3), 2);
-                    break;
-                case "4":
-                    createSubjectSelect(getSubjects(4), 2);
-                    break;
-                default:
-                    break;
-            }
-        })
-
-        if (res[0].isTeacher != null) {
-            $('#update_u_is_teacher').prop("checked", true);
-            $('#update_u_school').val(res[0].school);
-            $('#update_user_teacher_infos').show();
-            // set the grade then trigger the function to set the good subject
-            $('#update_user_teacher_grade').val(res[0].grade - 1);
-            $("#update_user_teacher_grade").trigger("change");
-            $('#update_user_teacher_subjects').val(res[0].subject - 1);
-        } else {
-            $('#update_u_is_teacher').prop("checked", false);
-            $('#update_user_teacher_infos').hide();
-        }
-
-        if (res[0].isAdmin == true) {
-            $('#update_u_is_admin').prop("checked", true);
-        } else {
-            $('#update_u_is_admin').prop("checked", false);
-        }
-
-        $("#update_u_is_teacher").change(() => {
-            if ($('#update_u_is_teacher').is(':checked')) {
-                $('#update_user_teacher_infos').show();
-                createSubjectSelect(getSubjects(0), 2);
-            } else {
-                $('#update_user_teacher_infos').hide();
-            }
-        })
-
-        if (res[0].hasOwnProperty('groups')) {
-            for (let i = 0; i < res[0].groups.length; i++) {
-                mainManager.getmanagerManager()._updatedUserGroup += 1;
-                let group = `<div class="form-group c-secondary-form">
-                                <label for="update_u_group${i}" data-i18n="manager.profil.group">Groupe</label>
-                                <div class="input-group mb-3" id="update_u_actual_group${i}">
-                                    <select class="form-control" id="update_u_group${i}">
-                                    </select>
-                                    <div class="input-group-append">
-                                        <div class="input-group-text c-checkbox c-checkbox-grey input-group-selector">
-                                            <input class="form-check-input" type="checkbox" id="update_u_is_group_admin${i}">
-                                            <label class="form-check-label mx-1" for="update_u_is_group_admin${i}" data-i18n="manager.users.groupAdmin">
-                                                Administrateur du groupe
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>`;
-                $("#update_actualgroup_sa").append(group);
-                if (res[0].groups[i].rights == 1) {
-                    $('#update_u_is_group_admin' + i).prop("checked", true);
-                }
-                const item_id = 'update_u_group' + i;
-                appendSelectGroups($groups, item_id);
-                $('#update_u_group' + i).val(res[0].groups[i].id);
+        // Populate after open, in requestAnimationFrame to avoid race conditions
+        requestAnimationFrame(() => {
+            if (res[0].isRegular != null || res[0].isActive != null) {
+                const mailPhone = document.getElementById('update_u_mail_phone');
+                if (mailPhone) mailPhone.style.display = 'none';
             }
 
-            let html = "";
-            html += "<label class='form-check-label font-weight-bold mb-1' style='color: var(--classroom-primary)' data-i18n='manager.profil.groupsApps'>Applications</label>";
-            mainManager.getmanagerManager()._comboGroups.forEach(element => {
-                if (element.id == mainManager.getmanagerManager()._actualGroup) {
-                    if (element.hasOwnProperty('applications')) {
-                        element.applications.forEach(application => {
-                            let checked = ""
-                            if (res[0].hasOwnProperty("applications_from_groups")) {
-                                res[0].applications_from_groups.forEach(element => {
-                                    if (application.id == element.application) {
-                                        checked = "checked";
-                                    }
-                                });
-                            }
-                            html += `<div class="c-checkbox">
-                                <input class="form-check-input" type="checkbox" name="group_app" id="group_app_${application.id}" value="${application.id}" ${checked}>
-                                <label class="form-check-label" for="group_app_${application.id}">
-                                    ${application.name}
-                                </label>
-                            </div>`;
-                        })
+            const f = document.getElementById('update_u_firstname');
+            if (f) f.value = res[0].firstname ?? '';
+
+            const s = document.getElementById('update_u_surname');
+            if (s) s.value = res[0].surname ?? '';
+
+            const p = document.getElementById('update_u_pseudo');
+            if (p) p.value = res[0].pseudo ?? '';
+
+            const uid = document.getElementById('update_u_id');
+            if (uid) uid.value = res[0].id ?? '';
+
+            const active = document.getElementById('update_u_is_active');
+            if (active) active.checked = res[0].isActive === true;
+
+            const bio = document.getElementById('update_u_bio');
+            if (bio) bio.value = res[0].bio ?? '';
+
+            const mail = document.getElementById('update_u_mail');
+            if (mail) mail.value = res[0].email ?? '';
+
+            const phone = document.getElementById('update_u_phone');
+            if (phone) phone.value = res[0].telephone ?? '';
+
+            const gradeSelect = document.getElementById('update_user_teacher_grade');
+            const subjectSelectWrap = document.getElementById('update_user_teacher_infos');
+            const subjectSelect = document.getElementById('update_user_teacher_subjects');
+
+            if (gradeSelect) {
+                gradeSelect.addEventListener('change', () => {
+                    switch (gradeSelect.value) {
+                        case '0': createSubjectSelect(getSubjects(0), 2); break;
+                        case '1': createSubjectSelect(getSubjects(1), 2); break;
+                        case '2': createSubjectSelect(getSubjects(2), 2); break;
+                        case '3': createSubjectSelect(getSubjects(3), 2); break;
+                        case '4': createSubjectSelect(getSubjects(4), 2); break;
+                        default: break;
                     }
-                }
-            });
-            $('#update_applications_sa').html(html);
+                });
+            }
 
-        } else {
-            mainManager.getmanagerManager()._updatedUserGroup += 1;
-            let group = `<div class="form-group c-secondary-form">
-                            <label for="update_u_group0" data-i18n="manager.profil.group">Groupe</label>
-                            <div class="input-group mb-3" id="update_u_actual_group0">
-                                <select class="form-control" id="update_u_group0">
-                                </select>
-                                <div class="input-group-append">
-                                    <div class="input-group-text c-checkbox c-checkbox-grey input-group-selector">
-                                        <input class="form-check-input" type="checkbox" id="update_u_is_group_admin0">
-                                        <label class="form-check-label mx-1" for="update_u_is_group_admin0" data-i18n="manager.users.groupAdmin">
-                                            Administrateur du groupe
-                                        </label>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </div>`;
-            $("#update_actualgroup_sa").append(group);
-            const item_id = 'update_u_group0';
-            appendSelectGroups($groups, item_id);
-        }
+            const teacherToggle = document.getElementById('update_u_is_teacher');
+            if (teacherToggle && subjectSelectWrap) {
+                if (res[0].isTeacher != null) {
+                    teacherToggle.checked = true;
+                    const school = document.getElementById('update_u_school');
+                    if (school) school.value = res[0].school ?? '';
+                    subjectSelectWrap.style.removeProperty('display');
+                    if (gradeSelect) {
+                        gradeSelect.value = String((res[0].grade ?? 1) - 1);
+                        gradeSelect.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                    if (subjectSelect) subjectSelect.value = String((res[0].subject ?? 1) - 1);
+                } else {
+                    teacherToggle.checked = false;
+                    subjectSelectWrap.style.display = 'none';
+                }
+
+                teacherToggle.addEventListener('change', () => {
+                    if (!subjectSelectWrap) return;
+                    if (teacherToggle.checked) {
+                        subjectSelectWrap.style.removeProperty('display');
+                        createSubjectSelect(getSubjects(0), 2);
+                    } else {
+                        subjectSelectWrap.style.display = 'none';
+                    }
+                });
+            }
+
+            const isAdmin = document.getElementById('update_u_is_admin');
+            if (isAdmin) isAdmin.checked = res[0].isAdmin === true;
+
+            if (actualGroupWrap) {
+                if (res[0].groups && Array.isArray(res[0].groups) && res[0].groups.length > 0) {
+                    res[0].groups.forEach((g, i) => {
+                        mm._updatedUserGroup += 1;
+                        const { formGroup, select, adminCheckbox } = createGroupFormRow(i);
+                        actualGroupWrap.appendChild(formGroup);
+                        populateSelectGroups(groupsData, select);
+                        select.value = String(g.id);          // <- met le bon groupe
+                        adminCheckbox.checked = (g.rights === 1);
+
+                        // écoute le changement pour MAJ des apps visibles
+                        select.addEventListener('change', () => {
+                            mm._actualGroup = select.value === '-1' ? null : select.value;
+                            if (appsWrap) {
+                                if (mm._actualGroup) renderGroupApplications(appsWrap, mm._comboGroups, mm._actualGroup, res);
+                                else clear(appsWrap);
+                            }
+                        });
+                    });
+
+                    // définit le groupe courant pour l’affichage des apps
+                    if (!mm._actualGroup && res[0].groups[0]) {
+                        mm._actualGroup = String(res[0].groups[0].id);
+                    }
+                    if (appsWrap) renderGroupApplications(appsWrap, mm._comboGroups, mm._actualGroup, res);
+
+                } else {
+                    // aucun groupe → ne rien sélectionner
+                    mm._updatedUserGroup += 1;
+                    const { formGroup, select } = createGroupFormRow(0);
+                    actualGroupWrap.appendChild(formGroup);
+                    populateSelectGroups(groupsData, select);
+                    select.value = '-1';                      // <- aucun groupe par défaut
+                    mm._actualGroup = null;
+
+                    if (appsWrap) clear(appsWrap);
+
+                    // écoute le changement
+                    select.addEventListener('change', () => {
+                        mm._actualGroup = select.value === '-1' ? null : select.value;
+                        if (appsWrap) {
+                            if (mm._actualGroup) renderGroupApplications(appsWrap, mm._comboGroups, mm._actualGroup, res);
+                            else clear(appsWrap);
+                        }
+                    });
+                }
+
+            }
+        });
     });
 }
 
@@ -2018,60 +2294,62 @@ function deleteGroupFromUpdate(id) {
     $('#update_u_actual_group' + id).remove();
 }
 
-function updateUserModal() {
-    let $firstname = $('#update_u_firstname').val(),
-        $surname = $('#update_u_surname').val(),
-        $user_id = $('#update_u_id').val(),
-        $bio = $('#update_u_bio').val(),
-        $mail = $('#update_u_mail').val(),
-        $pseudo = $('#update_u_pseudo').val(),
-        $phone = $('#update_u_phone').val(),
-        $school = $('#update_u_school').val(),
-        $is_active = $('#update_u_is_active').is(':checked'),
-        $is_admin = $('#update_u_is_admin').is(':checked'),
-        $is_teacher = $('#update_u_is_teacher').is(':checked'),
-        $teacher_grade = $('#update_user_teacher_grade').length ? $('#update_user_teacher_grade').val() + 1 : null,
-        $teacher_suject = $('#update_user_teacher_subjects').length ? $('#update_user_teacher_subjects').val() + 1 : null,
-        $groups = [$('#update_u_is_group_admin0').is(':checked'), $('#update_u_group0').val()];
+async function updateUserModal() {
+    let $firstname = document.getElementById('update_u_firstname')?.value || '',
+        $surname = document.getElementById('update_u_surname')?.value || '',
+        $user_id = document.getElementById('update_u_id')?.value || '',
+        $bio = document.getElementById('update_u_bio')?.value || '',
+        $mail = document.getElementById('update_u_mail')?.value || '',
+        $pseudo = document.getElementById('update_u_pseudo')?.value || '',
+        $phone = document.getElementById('update_u_phone')?.value || '',
+        $school = document.getElementById('update_u_school')?.value || '',
+        $is_active = document.getElementById('update_u_is_active')?.checked || false,
+        $is_admin = document.getElementById('update_u_is_admin')?.checked || false,
+        $is_teacher = document.getElementById('update_u_is_teacher')?.checked || false,
+        $teacher_grade = document.getElementById('update_user_teacher_grade') ? parseInt(document.getElementById('update_user_teacher_grade').value) + 1 : null,
+        $teacher_suject = document.getElementById('update_user_teacher_subjects') ? parseInt(document.getElementById('update_user_teacher_subjects').value) + 1 : null,
+        $groups = [document.getElementById('update_u_is_group_admin0')?.checked || false, document.getElementById('update_u_group0')?.value || ''];
 
     $ApplicationFromGroup = [];
-    $('[name="group_app"]').each(function () {
+    document.querySelectorAll('[name="group_app"]').forEach(function (element) {
         const ApplicationTemp = [
-            $(this).val(),
-            $(this).is(':checked')
-        ]
+            element.value,
+            element.checked
+        ];
         $ApplicationFromGroup.push(ApplicationTemp);
     });
 
+    let updatesUserRes = await mainManager.getmanagerManager().updateUser($user_id, $firstname,
+        $surname, $pseudo,
+        $phone, $mail, $bio,
+        $groups, $is_admin, $is_teacher,
+        $teacher_grade, $teacher_suject,
+        $school, $is_active, JSON.stringify($ApplicationFromGroup));
+    switch (updatesUserRes.message) {
+        case "success":
+            displayNotification('#notif-div', "manager.users.userUpdated", "success");
+            await persistUpdateUserApp($user_id);
+            mainManager.getmanagerManager().reloadTable();
+            break;
+        case "missing data":
+            displayNotification('#notif-div', "manager.account.missingData", "error");
+            break;
+        case "maxStudentsFromTeacher":
+            displayNotification('#notif-div', "manager.group.toManyStudentsFromTheTeacher", "error");
+            break;
+        case "maxStudentsInGroup":
+            displayNotification('#notif-div', "manager.group.toManyStudentsInGroup", "error");
+            break;
+    }
 
-    mainManager.getmanagerManager().updateUser($user_id,
-        $firstname,
-        $surname,
-        $pseudo,
-        $phone,
-        $mail,
-        $bio,
-        $groups,
-        $is_admin,
-        $is_teacher,
-        $teacher_grade,
-        $teacher_suject,
-        $school,
-        $is_active,
-        JSON.stringify($ApplicationFromGroup)).then((response) => {
-            if (response.message == "success") {
-                displayNotification('#notif-div', "manager.users.userUpdated", "success");
-                persistUpdateUserApp();
-            } else if (response.message == "missing data") {
-                displayNotification('#notif-div', "manager.account.missingData", "error");
-            } else if (response.response == false) {
-                displayNotification('#notif-div', "manager.group.groupFull", "error");
-            } else if (response.message == "maxStudentsFromTeacher") {
-                displayNotification('#notif-div', "manager.group.toManyStudentsFromTheTeacher", "error");
-            } else if (response.message = "maxStudentsInGroup") {
-                displayNotification('#notif-div', "manager.group.toManyStudentsInGroup", "error");
-            }
-        });
+    let $roles_ids = [];
+    document.querySelectorAll('input.form-check-input.roleuser:checked').forEach(function (element) {
+        $roles_ids.push(element.value);
+    });
+    let rolesUpdatedRes = await mainManager.getmanagerManager().updateUserRoles($user_id, $roles_ids);
+    if (rolesUpdatedRes.message == "success") {
+        displayNotification('#notif-div', "manager.users.rolesUpdated", "success");
+    }
 }
 
 
@@ -2419,7 +2697,7 @@ function cancelDeleteGroupAdmin() {
     pseudoModal.closeAllModal();
 }
 
-function showGroupMembers($group_id, $page, $userspp, $sort) {
+/* function showGroupMembers($group_id, $page, $userspp, $sort) {
     mainManager.getmanagerManager()._actualGroup = $group_id;
     mainManager.getmanagerManager().showGroupMembers($group_id, $page, $userspp, $sort);
     $('#table_details_users').show();
@@ -2429,6 +2707,29 @@ function showGroupMembers($group_id, $page, $userspp, $sort) {
     $('#users_options').show();
     $('#groups_options').hide();
     $('#btn-create-manager').hide();
+} */
+
+
+
+function showGroupMembers(group_id, page, userspp, sort) {
+    const mgr = mainManager.getmanagerManager();
+    mgr._actualGroup = group_id;
+
+
+    setDisplay('table_details_users', true);
+    setDisplay('table_details_admins', false);
+    setDisplay('paginationButtons_users', false);
+    setDisplay('paginationButtons_groups', false);
+    setDisplay('users_options', true);
+    setDisplay('groups_options', false);
+    setDisplay('btn-create-manager', false);
+
+    mgr.showGroup(group_id, page, userspp, sort);
+}
+
+function setDisplay(id, show) {
+    const el = document.getElementById(id);
+    if (el) el.style.display = show ? '' : 'none';
 }
 
 function showGroupMembersGroupAdmin(id) {
@@ -3856,259 +4157,259 @@ document.body.style.setProperty("--keyboard-zindex", "3000");
  * Ensures that the classroom-sidebar-logo receives focus on first tab.
  */
 function initializeFocusManagement() {
-	let hasTabbed = false;
-  let sectionButtons;
-	
-	function setInitialFocus() {
-		const activeSidebar = document.querySelector('.sidebar-classroom:not([style*="display: none"])');
-		const logo = activeSidebar ? activeSidebar.querySelector('#classroom-sidebar-logo') : null;
-		
-		if (logo) {
-			if (!logo.hasAttribute('tabindex'))
-				logo.setAttribute('tabindex', '0');
+    let hasTabbed = false;
+    let sectionButtons;
 
-			logo.focus();
-		} else {
-			const firstNavButton = document.querySelector('.classroom-navbar-button:not([style*="display: none"])');
-			if (firstNavButton) {
-				if (!firstNavButton.hasAttribute('tabindex'))
-					firstNavButton.setAttribute('tabindex', '0');
+    function setInitialFocus() {
+        const activeSidebar = document.querySelector('.sidebar-classroom:not([style*="display: none"])');
+        const logo = activeSidebar ? activeSidebar.querySelector('#classroom-sidebar-logo') : null;
 
-				firstNavButton.focus();
-			}
-		}
-	}
-	
-	document.addEventListener('keydown', function(event) {
-		if (event.key === 'Tab' && !hasTabbed) {
-			hasTabbed = true;
-			if (document.activeElement === document.body || 
-				document.activeElement === document.documentElement ||
-				!document.activeElement) {
-				
-				event.preventDefault();
-				setInitialFocus();
-				window.__a11yAllowPanelFocus = true;
-			}
-		}
-	}, { once: false });
-	
-	const observer = new MutationObserver(function(mutations) {
-		mutations.forEach(function(mutation) {
-			if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-				const target = mutation.target;
-				if (target.classList.contains('sidebar-classroom')) {
-					const isVisible = target.style.display !== 'none';
-					if (isVisible && !hasTabbed) {
-						setTimeout(() => {
-							setInitialFocus();
-						}, 100);
-					}
-				}
-			}
-		});
-	});
-	
-	const sidebars = document.querySelectorAll('.sidebar-classroom');
-	sidebars.forEach(sidebar => {
-		observer.observe(sidebar, {
-			attributes: true,
-			attributeFilter: ['style']
-		});
-	});
-	
-	if (document.querySelector('.sidebar-classroom:not([style*="display: none"])')) {
-		setTimeout(() => {
-			setInitialFocus();
-			// Do NOT enable panel auto-focus yet; wait for first Tab press
-		}, 500);
-	}
+        if (logo) {
+            if (!logo.hasAttribute('tabindex'))
+                logo.setAttribute('tabindex', '0');
 
-	// Accessibility: enforce focus order Logo -> Topbar focusables -> Section buttons
-	function isElementVisible(el) {
-		if (!el) return false;
-		let node = el;
-		while (node && node !== document.body) {
-			const cs = window.getComputedStyle(node);
-			if (!cs) return false;
-			if (cs.display === 'none' || cs.visibility === 'hidden') return false;
-			node = node.parentElement;
-		}
-		if (el.getClientRects && el.getClientRects().length === 0) return false;
-		return true;
-	}
+            logo.focus();
+        } else {
+            const firstNavButton = document.querySelector('.classroom-navbar-button:not([style*="display: none"])');
+            if (firstNavButton) {
+                if (!firstNavButton.hasAttribute('tabindex'))
+                    firstNavButton.setAttribute('tabindex', '0');
 
-	function getVisibleSidebars() {
-		return Array.from(document.querySelectorAll('.sidebar-classroom')).filter(isElementVisible);
-	}
+                firstNavButton.focus();
+            }
+        }
+    }
 
-	function getActiveSidebar() {
-		const visible = getVisibleSidebars();
-		return visible.length ? visible[0] : null;
-	}
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Tab' && !hasTabbed) {
+            hasTabbed = true;
+            if (document.activeElement === document.body ||
+                document.activeElement === document.documentElement ||
+                !document.activeElement) {
 
-	function getActiveLogo() {
-		const sidebar = getActiveSidebar();
-		return sidebar ? sidebar.querySelector('#classroom-sidebar-logo') : null;
-	}
+                event.preventDefault();
+                setInitialFocus();
+                window.__a11yAllowPanelFocus = true;
+            }
+        }
+    }, { once: false });
 
-	function getTopbar() {
-		const tb = document.getElementById('classroom-dashboard-top-bar');
-		return isElementVisible(tb) ? tb : null;
-	}
+    const observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                const target = mutation.target;
+                if (target.classList.contains('sidebar-classroom')) {
+                    const isVisible = target.style.display !== 'none';
+                    if (isVisible && !hasTabbed) {
+                        setTimeout(() => {
+                            setInitialFocus();
+                        }, 100);
+                    }
+                }
+            }
+        });
+    });
 
-	function getFocusableWithin(container) {
-		if (!container) return [];
-		const selectors = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
-		return Array.from(container.querySelectorAll(selectors)).filter(isElementVisible);
-	}
+    const sidebars = document.querySelectorAll('.sidebar-classroom');
+    sidebars.forEach(sidebar => {
+        observer.observe(sidebar, {
+            attributes: true,
+            attributeFilter: ['style']
+        });
+    });
 
-	function getSectionButtons() {
-		const sidebar = getActiveSidebar();
-		if (!sidebar) return [];
-    const visibleSectionButtons = Array.from(sidebar.querySelectorAll('.classroom-navbar-button')).filter(isElementVisible)
-		return visibleSectionButtons;
-	}
+    if (document.querySelector('.sidebar-classroom:not([style*="display: none"])')) {
+        setTimeout(() => {
+            setInitialFocus();
+            // Do NOT enable panel auto-focus yet; wait for first Tab press
+        }, 500);
+    }
 
-	function getSidebarFocusables() {
-		const sidebar = getActiveSidebar();
-		if (!sidebar) return [];
-		return getFocusableWithin(sidebar);
-	}
+    // Accessibility: enforce focus order Logo -> Topbar focusables -> Section buttons
+    function isElementVisible(el) {
+        if (!el) return false;
+        let node = el;
+        while (node && node !== document.body) {
+            const cs = window.getComputedStyle(node);
+            if (!cs) return false;
+            if (cs.display === 'none' || cs.visibility === 'hidden') return false;
+            node = node.parentElement;
+        }
+        if (el.getClientRects && el.getClientRects().length === 0) return false;
+        return true;
+    }
 
-	document.addEventListener('keydown', function (event) {
-		if (event.key !== 'Tab') return;
+    function getVisibleSidebars() {
+        return Array.from(document.querySelectorAll('.sidebar-classroom')).filter(isElementVisible);
+    }
 
-		const logo = getActiveLogo();
-		const topbar = getTopbar();
-		let topbarFocusables = getFocusableWithin(topbar);
-		sectionButtons = getSectionButtons();
-		const firstSection = sectionButtons[0];
-		const sidebarFocusables = getSidebarFocusables();
-		const lastSidebarFocusable = sidebarFocusables.length ? sidebarFocusables[sidebarFocusables.length - 1] : null;
-		const active = document.activeElement;
+    function getActiveSidebar() {
+        const visible = getVisibleSidebars();
+        return visible.length ? visible[0] : null;
+    }
 
-		// From logo -> first topbar focusable (retry if needed), else -> first section
-		if (logo && active === logo && !event.shiftKey) {
-			event.preventDefault();
-			const tryFocusTopbar = () => {
-				topbarFocusables = getFocusableWithin(topbar);
-				if (topbarFocusables.length > 0) {
-					topbarFocusables[0].focus();
-					return true;
-				}
-				return false;
-			};
-			if (!tryFocusTopbar()) {
-				setTimeout(() => {
-					if (!tryFocusTopbar() && firstSection) firstSection.focus();
-				}, 100);
-			}
-			return;
-		}
+    function getActiveLogo() {
+        const sidebar = getActiveSidebar();
+        return sidebar ? sidebar.querySelector('#classroom-sidebar-logo') : null;
+    }
 
-		// Within topbar: last -> first section on Tab, first -> logo on Shift+Tab
-		if (topbar && topbar.contains(active)) {
-			topbarFocusables = getFocusableWithin(topbar);
-			if (topbarFocusables.length > 0) {
-				const idx = topbarFocusables.indexOf(active);
-				if (idx !== -1) {
-					if (!event.shiftKey && idx === topbarFocusables.length - 1 && firstSection) {
-						event.preventDefault();
-						firstSection.focus();
-						return;
-					}
-					if (event.shiftKey && idx === 0 && logo) {
-						event.preventDefault();
-						logo.focus();
-						return;
-					}
-				}
-			}
-		}
+    function getTopbar() {
+        const tb = document.getElementById('classroom-dashboard-top-bar');
+        return isElementVisible(tb) ? tb : null;
+    }
 
-		// From first section with Shift+Tab -> last topbar focusable or logo
-		if (sectionButtons.length > 0 && active === sectionButtons[0] && event.shiftKey) {
-			topbarFocusables = getFocusableWithin(topbar);
-			if (topbarFocusables.length > 0) {
-				event.preventDefault();
-				topbarFocusables[topbarFocusables.length - 1].focus();
-				return;
-			}
-			if (logo) {
-				event.preventDefault();
-				logo.focus();
-				return;
-			}
-		}
+    function getFocusableWithin(container) {
+        if (!container) return [];
+        const selectors = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+        return Array.from(container.querySelectorAll(selectors)).filter(isElementVisible);
+    }
 
-		// From last focusable in sidebar with Tab -> first focusable in active panel
-		if (lastSidebarFocusable && active === lastSidebarFocusable && !event.shiftKey) {
-			event.preventDefault();
-			if (!focusFirstInActivePanel()) {
-				setTimeout(() => { focusFirstInActivePanel(); }, 50);
-			}
-			return;
-		}
+    function getSectionButtons() {
+        const sidebar = getActiveSidebar();
+        if (!sidebar) return [];
+        const visibleSectionButtons = Array.from(sidebar.querySelectorAll('.classroom-navbar-button')).filter(isElementVisible)
+        return visibleSectionButtons;
+    }
 
-		// From first focusable in panel with Shift+Tab -> last focusable in sidebar (fallback: topbar last, then logo)
-		{
-			const panel = getActivePanelContainer();
-			const panelFocusables = getFocusableWithin(panel);
-			const firstPanelFocusable = panelFocusables.length ? panelFocusables[0] : null;
-			if (firstPanelFocusable && active === firstPanelFocusable && event.shiftKey) {
-				event.preventDefault();
-				if (lastSidebarFocusable) {
-					lastSidebarFocusable.focus();
-					return;
-				}
-				topbarFocusables = getFocusableWithin(topbar);
-				if (topbarFocusables.length > 0) {
-					topbarFocusables[topbarFocusables.length - 1].focus();
-					return;
-				}
-				if (logo) {
-					logo.focus();
-					return;
-				}
-			}
-		}
+    function getSidebarFocusables() {
+        const sidebar = getActiveSidebar();
+        if (!sidebar) return [];
+        return getFocusableWithin(sidebar);
+    }
 
-		// From last section with Tab -> first focusable in active panel
-		if (sectionButtons.length > 0 && active === sectionButtons[sectionButtons.length - 1] && !event.shiftKey) {
-			event.preventDefault();
-			// Try immediately, then retry shortly in case of async content
-			if (!focusFirstInActivePanel()) {
-				setTimeout(() => { focusFirstInActivePanel(); }, 50);
-			}
-			return;
-		}
-	}, { capture: true });
+    document.addEventListener('keydown', function (event) {
+        if (event.key !== 'Tab') return;
 
-	function getActivePanelContainer() {
-		const content = document.getElementById('classroom-dashboard-content');
-		if (!content) return null;
-		const visiblePanels = Array.from(content.querySelectorAll('.dashboard-block')).filter(isElementVisible);
-		return visiblePanels.length ? visiblePanels[0] : null;
-	}
+        const logo = getActiveLogo();
+        const topbar = getTopbar();
+        let topbarFocusables = getFocusableWithin(topbar);
+        sectionButtons = getSectionButtons();
+        const firstSection = sectionButtons[0];
+        const sidebarFocusables = getSidebarFocusables();
+        const lastSidebarFocusable = sidebarFocusables.length ? sidebarFocusables[sidebarFocusables.length - 1] : null;
+        const active = document.activeElement;
 
-	function focusFirstInActivePanel() {
-		const panel = getActivePanelContainer();
-		if (!panel) return false;
-		const focusables = getFocusableWithin(panel);
-		if (focusables.length > 0) {
-			focusables[0].focus();
-			return true;
-		}
-		// Fallback: focus the panel itself
-		if (!panel.hasAttribute('tabindex')) panel.setAttribute('tabindex', '-1');
-		panel.focus();
-		return true;
-	}
+        // From logo -> first topbar focusable (retry if needed), else -> first section
+        if (logo && active === logo && !event.shiftKey) {
+            event.preventDefault();
+            const tryFocusTopbar = () => {
+                topbarFocusables = getFocusableWithin(topbar);
+                if (topbarFocusables.length > 0) {
+                    topbarFocusables[0].focus();
+                    return true;
+                }
+                return false;
+            };
+            if (!tryFocusTopbar()) {
+                setTimeout(() => {
+                    if (!tryFocusTopbar() && firstSection) firstSection.focus();
+                }, 100);
+            }
+            return;
+        }
+
+        // Within topbar: last -> first section on Tab, first -> logo on Shift+Tab
+        if (topbar && topbar.contains(active)) {
+            topbarFocusables = getFocusableWithin(topbar);
+            if (topbarFocusables.length > 0) {
+                const idx = topbarFocusables.indexOf(active);
+                if (idx !== -1) {
+                    if (!event.shiftKey && idx === topbarFocusables.length - 1 && firstSection) {
+                        event.preventDefault();
+                        firstSection.focus();
+                        return;
+                    }
+                    if (event.shiftKey && idx === 0 && logo) {
+                        event.preventDefault();
+                        logo.focus();
+                        return;
+                    }
+                }
+            }
+        }
+
+        // From first section with Shift+Tab -> last topbar focusable or logo
+        if (sectionButtons.length > 0 && active === sectionButtons[0] && event.shiftKey) {
+            topbarFocusables = getFocusableWithin(topbar);
+            if (topbarFocusables.length > 0) {
+                event.preventDefault();
+                topbarFocusables[topbarFocusables.length - 1].focus();
+                return;
+            }
+            if (logo) {
+                event.preventDefault();
+                logo.focus();
+                return;
+            }
+        }
+
+        // From last focusable in sidebar with Tab -> first focusable in active panel
+        if (lastSidebarFocusable && active === lastSidebarFocusable && !event.shiftKey) {
+            event.preventDefault();
+            if (!focusFirstInActivePanel()) {
+                setTimeout(() => { focusFirstInActivePanel(); }, 50);
+            }
+            return;
+        }
+
+        // From first focusable in panel with Shift+Tab -> last focusable in sidebar (fallback: topbar last, then logo)
+        {
+            const panel = getActivePanelContainer();
+            const panelFocusables = getFocusableWithin(panel);
+            const firstPanelFocusable = panelFocusables.length ? panelFocusables[0] : null;
+            if (firstPanelFocusable && active === firstPanelFocusable && event.shiftKey) {
+                event.preventDefault();
+                if (lastSidebarFocusable) {
+                    lastSidebarFocusable.focus();
+                    return;
+                }
+                topbarFocusables = getFocusableWithin(topbar);
+                if (topbarFocusables.length > 0) {
+                    topbarFocusables[topbarFocusables.length - 1].focus();
+                    return;
+                }
+                if (logo) {
+                    logo.focus();
+                    return;
+                }
+            }
+        }
+
+        // From last section with Tab -> first focusable in active panel
+        if (sectionButtons.length > 0 && active === sectionButtons[sectionButtons.length - 1] && !event.shiftKey) {
+            event.preventDefault();
+            // Try immediately, then retry shortly in case of async content
+            if (!focusFirstInActivePanel()) {
+                setTimeout(() => { focusFirstInActivePanel(); }, 50);
+            }
+            return;
+        }
+    }, { capture: true });
+
+    function getActivePanelContainer() {
+        const content = document.getElementById('classroom-dashboard-content');
+        if (!content) return null;
+        const visiblePanels = Array.from(content.querySelectorAll('.dashboard-block')).filter(isElementVisible);
+        return visiblePanels.length ? visiblePanels[0] : null;
+    }
+
+    function focusFirstInActivePanel() {
+        const panel = getActivePanelContainer();
+        if (!panel) return false;
+        const focusables = getFocusableWithin(panel);
+        if (focusables.length > 0) {
+            focusables[0].focus();
+            return true;
+        }
+        // Fallback: focus the panel itself
+        if (!panel.hasAttribute('tabindex')) panel.setAttribute('tabindex', '-1');
+        panel.focus();
+        return true;
+    }
 }
 
 if (document.readyState === 'loading') {
-	document.addEventListener('DOMContentLoaded', initializeFocusManagement);
+    document.addEventListener('DOMContentLoaded', initializeFocusManagement);
 } else {
-	initializeFocusManagement();
+    initializeFocusManagement();
 }

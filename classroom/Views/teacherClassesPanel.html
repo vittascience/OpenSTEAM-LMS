@@ -9,13 +9,29 @@
 
 
     <div class="list-classes mt-3" role="list">
-        <div class="class-item">
+        <div class="class-item" role="listitem">
             <div class="class-card-action action-new-class teacher-new-classe">
-                <i class="fas fa-plus fa-5x"></i>
+                <i class="fas fa-plus fa-5x" aria-hidden="true"></i>
                 <h4 id="classroom-card-class-title" data-i18n="classroom.classes.add"></h4>
             </div>
         </div>
     </div>
+    <script>
+        // Remove tabindex from child images in a list to comply with WCAG 1.3.1
+        const listElement = document.querySelector('.list-classes');
+        if (listElement) {
+            const observer = new MutationObserver(() => {
+                listElement.querySelectorAll('img[tabindex]').forEach(img => {
+                    img.removeAttribute('tabindex');
+                });
+            });
+            observer.observe(listElement, { childList: true, subtree: true });
+            // Clean on first load
+            listElement.querySelectorAll('img[tabindex]').forEach(img => {
+                img.removeAttribute('tabindex');
+            });
+        }
+    </script>
 </div>
 
 <div id="classroom-dashboard-form-classe-panel-update" style="display:none;" class="mx-3 dashboard-block classes-panel class-creation-form">

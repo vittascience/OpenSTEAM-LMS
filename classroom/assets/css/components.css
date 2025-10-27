@@ -339,10 +339,14 @@
 
 .theme-dark .c-btn-red:hover,
 .theme-dark .c-btn-red:focus-visible,
-
 .theme-dark .c-btn-secondary:hover,
 .theme-dark .c-btn-secondary:focus-visible {
   color: var(--classroom-white);
+}
+
+.theme-light .c-btn-outline-primary:hover,
+.theme-light .c-btn-outline-primary:focus-visible {
+  color: #000;
 }
 
 .btn-outline-red,
@@ -478,7 +482,9 @@
 }
 
 .breadcrumb > .c-btn-outline-primary:focus,
-#breadcrumb > .c-btn-outline-primary:focus {
+.breadcrumb > .c-btn-outline-primary:focus-visible,
+#breadcrumb > .c-btn-outline-primary:focus,
+#breadcrumb > .c-btn-outline-primary:focus-visible {
     filter: brightness(0.8);
 }
 

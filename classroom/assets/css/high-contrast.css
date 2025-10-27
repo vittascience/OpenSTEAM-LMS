@@ -176,10 +176,25 @@ h3, h5, h6 {
 
 button.btn.c-btn-secondary {
     border: 2px solid var(--classroom-text-0);
-    color: var(--classroom-text-0);
     background-color: var(--classroom-background);
+  }
+  
+.theme-dark .btn.c-btn-secondary {    
+  color: #fff;
 }
 
+.theme-dark .btn.c-btn-secondary:hover {    
+  color: #000;
+}
+
+.theme-light .btn.c-btn-secondary {    
+  color: #000;
+}
+
+.theme-light .btn.c-btn-secondary:hover {    
+  color: #fff;
+}
+  
 button.btn.c-btn-secondary:hover {
     background-color: var(--classroom-secondary);
 }
@@ -189,6 +204,11 @@ a.btn.c-btn-primary {
     border: 2px solid var(--classroom-text-0);
     color: var(--classroom-text-0);
     background-color: var(--classroom-background);
+}
+
+button.btn.c-btn-primary:hover,
+button.c-btn-no-outline-primary:hover {
+  color: #fff;
 }
 
 button.btn.btn-primary {
@@ -220,12 +240,19 @@ button.btn.c-btn-grey:hover {
 
 .theme-super-admin.btn.c-btn-outline-primary.c-btn-dashboard {
     border: 2px solid var(--classroom-text-0) !important;
-    color: var(--classroom-text-0) !important;
     background-color: var(--classroom-dashboard) !important;
 }
 
 .theme-super-admin.btn.c-btn-outline-primary.c-btn-dashboard:hover {
     background-color: var(--classroom-dashboard-dark) !important;
+}
+
+.theme-dark .theme-super-admin.btn.c-btn-outline-primary.c-btn-dashboard{
+  color: #000;
+}
+
+.theme-light .theme-super-admin.btn.c-btn-outline-primary.c-btn-dashboard{
+  color: #fff;
 }
 
 
