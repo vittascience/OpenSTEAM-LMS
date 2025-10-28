@@ -1,7 +1,7 @@
 <?php
-if(!empty($_COOKIE["isFromGar"]) && empty($_SESSION['phpCAS']['user'])){
-    setcookie("isFromGar","",time()-1);
-    return header("Location:https://maclasseti.fr/classroom/gar_user_disconnected.php"); 
+if (!empty($_COOKIE["isFromGar"]) && empty($_SESSION['phpCAS']['user'])) {
+    setcookie("isFromGar", "", time() - 1);
+    return header("Location:https://maclasseti.fr/classroom/gar_user_disconnected.php");
 }
 session_start();
 require_once(__DIR__ . "/../vendor/autoload.php");
@@ -14,13 +14,13 @@ use Utils\ConnectionManager;
 use Database\DatabaseManager;
 
 // load data from .env file
-$dotenv = Dotenv::createImmutable(__DIR__."/../");
+$dotenv = Dotenv::createImmutable(__DIR__ . "/../");
 $dotenv->safeLoad();
 
 // load demoStudent name from .env file or set it to default demoStudent
 $demoStudent = !empty($_ENV['VS_DEMOSTUDENT'])
-                ? htmlspecialchars(strip_tags(trim($_ENV['VS_DEMOSTUDENT'])))
-                : 'demoStudent';
+    ? htmlspecialchars(strip_tags(trim($_ENV['VS_DEMOSTUDENT'])))
+    : 'demoStudent';
 
 $user = ConnectionManager::getSharedInstance()->checkConnected();
 
@@ -29,14 +29,14 @@ if ($user) {
     die();
 }
 
-include_once(__DIR__ . "/../public/header.php");?>
+include_once(__DIR__ . "/../public/header.php"); ?>
 <script src="assets/js/utils/listener.js"></script>
 <script src="/path.js"></script>
 <?php require_once(__DIR__ . "/header.html"); ?>
 <script>
-document.querySelector("#bs4-css-import").disabled = true;
-document.querySelector(`link[href="assets/css/main.css"]`).disabled = true;
-document.querySelector(`link[href="assets/css/login.css"]`).disabled = true;
+    document.querySelector("#bs4-css-import").disabled = true;
+    document.querySelector(`link[href="assets/css/main.css"]`).disabled = true;
+    document.querySelector(`link[href="assets/css/login.css"]`).disabled = true;
 </script>
 
 <link rel="stylesheet" href="assets/css/theme-import.css">
@@ -47,19 +47,19 @@ document.querySelector(`link[href="assets/css/login.css"]`).disabled = true;
 
 <!-- schema markup -->
 <script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "MaClasseTI.fr",
-    "url": "https://www.maclasseti.fr/classroom",
-    "description": "Gérez vos classes avec MaClasseTI.fr",
-}
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "MaClasseTI.fr",
+        "url": "https://www.maclasseti.fr/classroom",
+        "description": "Gérez vos classes avec MaClasseTI.fr",
+    }
 </script>
 
 <style>
-input.placeholder-update::placeholder {
-    opacity: 0.8;
-}
+    input.placeholder-update::placeholder {
+        opacity: 0.8;
+    }
 </style>
 
 </head>
@@ -122,7 +122,7 @@ input.placeholder-update::placeholder {
             <div id="classroom-login-container-bis" style="display:none;">
                 <div class="inner-login-container row">
 
-                <a href="/classroom/login.php" class="btn c-btn-outline-grey" style="--classroom-grey: white;margin-bottom: 1em;">« Retour à la page de connexion</a>
+                    <a href="/classroom/login.php" class="btn c-btn-outline-grey" style="--classroom-grey: white;margin-bottom: 1em;">« Retour à la page de connexion</a>
                     <div class="col-12 mb-4">
                         <div class="card h-100 text-center no-hover">
                             <p id="classroom-desc" class="my-3 h5"></p>
@@ -178,159 +178,183 @@ input.placeholder-update::placeholder {
         </section>
     </section>
     <div class="modal fade" id="loginTeacherModal" tabindex="-1" aria-labelledby="loginTeacherModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="loginTeacherModalLabel">Connexion</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="login-form">
-                    <div id="info-div"></div>
-                    <div class="mb-3">
-                        <label for="login-mail-input">
-                            Adresse mail
-                        </label>
-                        <input name="mail" class="form-control" type="email" id="login-mail-input" placeholder="exemple@domaine.com">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="login-pwd-input">
-                            Mot de passe
-                        </label>
-                        <input name="password" data-i18n="[placeholder]login_popup.form.password_placeholder" class="form-control" type="password" id="login-pwd-input" placeholder="Votre mot de passe.">
-                        <div class="form-text">
-                            <a href="/classroom/password_manager.php">J'ai oublié mon mot de passe.</a>
-                        </div>
-                    </div>
-
-                    <div class="visually-hidden">
-                        <input type="text" name="za78e-username" autocomplete="off" value="" id="za78e-username" class="za78e-field" placeholder="za78e username">
-                        <input type="number" name="za78e-number" autocomplete="off" max="10" min="0" id="za78e-number" class="za78e-field" placeholder="za78e number">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                <button type="button" class="btn btn-red" onclick="checkLogin();" id="login-button">Se connecter</button>
-                <button type="button" style="display:none;" onclick="getNewValidationMail();" class="btn btn-secondary" id="btn-activate-account-classroom">Activer mon compte</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="signUpTeacherModal" tabindex="-1" aria-labelledby="signUpTeacherModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="signUpTeacherModalLabel">Inscription</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="#" id="create-teacher-account-form">
-                <div class="modal-body">
-
-                    <div class="row">
-
-                        <div class="col mb-3">
-                            <label for="profile-form-last-name">
-                                Nom <span class="text-primary">*</span>
-                            </label>
-                            <input type="text" name="last-name" id="profile-form-last-name" class="form-control">
-                        </div>
-
-                        <div class="col mb-3">
-                            <label for="profile-form-first-name" class="tutorial-label">
-                                Prénom <span class="text-primary">*</span>
-                            </label>
-                            <input type="text" name="first-name" id="profile-form-first-name" class="form-control">
-                        </div>
-                    </div>
-
-
-
-                    <div class="mb-3">
-                        <label for="profile-form-email">
-                            E-mail <span class="text-primary">*</span>
-                        </label>
-                        <input type="email" name="email" id="profile-form-email" class="form-control">
-                    </div>
-
-
-                    <div class="mb-3">
-                        <label for="profile-form-password">
-                            Mot de passe <span class="text-primary">*</span>
-                        </label>
-                        <input type="password" name="password" id="profile-form-password" class="form-control">
-                        <p class="form-text"></p>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="profile-form-confirm-password">
-                            Confirmer le mot de passe <span class="text-primary">*</span>
-                        </label>
-                        <input type="password" name="confirm-password" id="profile-form-confirm-password" class="form-control">
-                    </div>
-
-                    <p>Les champs marqués par un <span class="text-primary">*</span> sont obligatoires.</p>
-                    <p>En validant ce formulaire, vous acceptez les <a target="_blank" href="/classroom/cgu.php">conditions générales d'utilisation</a>.</p>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="cb_adult" required="">
-                        <label class="form-check-label" for="cb_adult">
-                            Je confirme avoir plus de 18 ans (article 1124 du code civil)
-                            <span class="text-primary">*</span>
-                        </label>
-                    </div>
-
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="cb_newsletter">
-                        <label class="form-check-label" for="cb_newsletter" data-bs-toggle="modal" data-bs-target="#newsletterModal">
-                            <a href="#newsletterModal" data-bs-toggle="modal" data-bs-target="#newsletterModal">
-                                Je souhaite recevoir des informations sur les produits, offres et services Texas Instruments.
-                            </a>
-                        </label>
-                    </div>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="loginTeacherModalLabel">Connexion</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <div class="modal-body">
+                    <form id="login-form">
+                        <div id="info-div"></div>
+                        <div class="mb-3">
+                            <label for="login-mail-input">
+                                Adresse mail
+                            </label>
+                            <input name="mail" class="form-control" type="email" id="login-mail-input" placeholder="exemple@domaine.com">
+                        </div>
 
+                        <div class="mb-3">
+                            <label for="login-pwd-input">
+                                Mot de passe
+                            </label>
+                            <input name="password" data-i18n="[placeholder]login_popup.form.password_placeholder" class="form-control" type="password" id="login-pwd-input" placeholder="Votre mot de passe.">
+                            <div class="form-text">
+                                <a href="/classroom/password_manager.php">J'ai oublié mon mot de passe.</a>
+                            </div>
+                        </div>
 
+                        <div class="visually-hidden">
+                            <input type="text" name="za78e-username" autocomplete="off" value="" id="za78e-username" class="za78e-field" placeholder="za78e username">
+                            <input type="number" name="za78e-number" autocomplete="off" max="10" min="0" id="za78e-number" class="za78e-field" placeholder="za78e number">
+                        </div>
+                    </form>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                    <input class="btn btn-red" type="submit" value="S'inscrire">
+                    <button type="button" class="btn btn-red" onclick="checkLogin();" id="login-button">Se connecter</button>
+                    <button type="button" style="display:none;" onclick="getNewValidationMail();" class="btn btn-secondary" id="btn-activate-account-classroom">Activer mon compte</button>
+
+                    <div class="d-flex justify-content-center modal-separator mt-4 mb-4" role="separator" aria-label="Séparateur">
+                        <span data-i18n="classroom.modals.addActivity.orSeparator" style="font-size:1.2em!important;">OU</span>
+                    </div>
+                    <div class="sso-btn f-flex justify-content-center w-100">
+                        <!--  google  -->
+                        <button type="button" class="btn w-100 mb-2 btn-sso-google" id="google-login-button">
+                            <img src="./auth/svg/google.svg" alt="Logo Google" style="height:20px; width:20px; margin-right:10px; vertical-align:middle;">
+                            Se connecter avec Google
+                        </button>
+                    </div>
                 </div>
-            </form>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="newsletterModal" aria-hidden="true" aria-labelledby="newsletterModalLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="newsletterModalLabel">Informations sur les produits, offres et services Texas Instruments</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Consentement général à l'utilisation de mes données à des fins marketing.</p>
-
-                <p>Je consens à l’utilisation de mes données fournies ci-dessus à des fins marketing comme indiqué ci-après : Texas Instruments France SAS, Texas Instruments Incorporated ainsi que ses filiales (« TI ») pourront utiliser les données personnelles fournies ci-dessus à des fins marketing pour,</p>
-
-                <ul>
-                    <li>m’informer par téléphone, courrier ou via e-mail des produits et services de TI,</li>
-                    <li>m’informer sur les évènements en relation avec les produits et services TI,</li>
-                    <li>m’envoyer des bulletins d’information TI et des brochures via e-mail, ou</li>
-                    <li>analyser ces données afin de mieux cibler les efforts marketing TI selon mes intérêts.</li>
-                </ul>
-
-                <p>À ces fins, TI peut également partager mes données personnelles avec des sous-traitants, et mes données peuvent être transférées et traitées dans ou hors de l'UE. TI traitera mes données conformément à la politique de confidentialité de TI.</p>
-
-                <p>Ce consentement n’est pas une obligation pour l’achat de produits ou de services auprès de TI, ni pour la participation à des concours ou à des tirages de TI. Je donne mon consentement volontairement et je peux le retirer à tout moment en envoyant un courrier électronique à <a href="https://ti-cares.freshdesk.com/nl/support/tickets/new">ti-cares.freshdesk.com/nl/support/tickets/new</a> ou en adressant une demande écrite à: Texas Instruments France SAS, 185-187 quai de la bataille de Stalingrad, 92130 Issy-les-Moulineaux</p>
-
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-red" data-bs-target="#signUpTeacherModal" data-bs-toggle="modal">D'accord</button>
             </div>
         </div>
     </div>
-</div>
+
+    <div class="modal fade" id="signUpTeacherModal" tabindex="-1" aria-labelledby="signUpTeacherModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="signUpTeacherModalLabel">Inscription</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="#" id="create-teacher-account-form">
+                    <div class="modal-body">
+
+                        <div class="row">
+
+                            <div class="col mb-3">
+                                <label for="profile-form-last-name">
+                                    Nom <span class="text-primary">*</span>
+                                </label>
+                                <input type="text" name="last-name" id="profile-form-last-name" class="form-control">
+                            </div>
+
+                            <div class="col mb-3">
+                                <label for="profile-form-first-name" class="tutorial-label">
+                                    Prénom <span class="text-primary">*</span>
+                                </label>
+                                <input type="text" name="first-name" id="profile-form-first-name" class="form-control">
+                            </div>
+                        </div>
+
+
+
+                        <div class="mb-3">
+                            <label for="profile-form-email">
+                                E-mail <span class="text-primary">*</span>
+                            </label>
+                            <input type="email" name="email" id="profile-form-email" class="form-control">
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="profile-form-password">
+                                Mot de passe <span class="text-primary">*</span>
+                            </label>
+                            <input type="password" name="password" id="profile-form-password" class="form-control">
+                            <p class="form-text"></p>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="profile-form-confirm-password">
+                                Confirmer le mot de passe <span class="text-primary">*</span>
+                            </label>
+                            <input type="password" name="confirm-password" id="profile-form-confirm-password" class="form-control">
+                        </div>
+
+                        <p>Les champs marqués par un <span class="text-primary">*</span> sont obligatoires.</p>
+                        <p>En validant ce formulaire, vous acceptez les <a target="_blank" href="/classroom/cgu.php">conditions générales d'utilisation</a>.</p>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="cb_adult" required="">
+                            <label class="form-check-label" for="cb_adult">
+                                Je confirme avoir plus de 18 ans (article 1124 du code civil)
+                                <span class="text-primary">*</span>
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="cb_newsletter">
+                            <label class="form-check-label" for="cb_newsletter" data-bs-toggle="modal" data-bs-target="#newsletterModal">
+                                <a href="#newsletterModal" data-bs-toggle="modal" data-bs-target="#newsletterModal">
+                                    Je souhaite recevoir des informations sur les produits, offres et services Texas Instruments.
+                                </a>
+                            </label>
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        <input class="btn btn-red" type="submit" value="S'inscrire">
+                    </div>
+                </form>
+
+                <div class="container">
+                    <div class="d-flex justify-content-center modal-separator mt-4 mb-4" role="separator" aria-label="Séparateur">
+                            <span data-i18n="classroom.modals.addActivity.orSeparator" style="font-size:1.2em!important;">OU</span>
+                    </div>
+                    <div class="sso-btn f-flex justify-content-center w-100 mb-4 px-3">
+                        <button type="button" class="btn w-100 mb-2 btn-sso-google" id="google-login-button">
+                            <img src="./auth/svg/google.svg" alt="Logo Google" style="height:20px; width:20px; margin-right:10px; vertical-align:middle;">
+                            S'inscrire avec Google
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="newsletterModal" aria-hidden="true" aria-labelledby="newsletterModalLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="newsletterModalLabel">Informations sur les produits, offres et services Texas Instruments</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Consentement général à l'utilisation de mes données à des fins marketing.</p>
+
+                    <p>Je consens à l’utilisation de mes données fournies ci-dessus à des fins marketing comme indiqué ci-après : Texas Instruments France SAS, Texas Instruments Incorporated ainsi que ses filiales (« TI ») pourront utiliser les données personnelles fournies ci-dessus à des fins marketing pour,</p>
+
+                    <ul>
+                        <li>m’informer par téléphone, courrier ou via e-mail des produits et services de TI,</li>
+                        <li>m’informer sur les évènements en relation avec les produits et services TI,</li>
+                        <li>m’envoyer des bulletins d’information TI et des brochures via e-mail, ou</li>
+                        <li>analyser ces données afin de mieux cibler les efforts marketing TI selon mes intérêts.</li>
+                    </ul>
+
+                    <p>À ces fins, TI peut également partager mes données personnelles avec des sous-traitants, et mes données peuvent être transférées et traitées dans ou hors de l'UE. TI traitera mes données conformément à la politique de confidentialité de TI.</p>
+
+                    <p>Ce consentement n’est pas une obligation pour l’achat de produits ou de services auprès de TI, ni pour la participation à des concours ou à des tirages de TI. Je donne mon consentement volontairement et je peux le retirer à tout moment en envoyant un courrier électronique à <a href="https://ti-cares.freshdesk.com/nl/support/tickets/new">ti-cares.freshdesk.com/nl/support/tickets/new</a> ou en adressant une demande écrite à: Texas Instruments France SAS, 185-187 quai de la bataille de Stalingrad, 92130 Issy-les-Moulineaux</p>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-red" data-bs-target="#signUpTeacherModal" data-bs-toggle="modal">D'accord</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="assets/js/lib/popper-1.16.0/popper.min.js"></script>
     <script src="assets/js/lib/bootstrap-4.4.1/bootstrap.min.js"></script>
@@ -360,36 +384,37 @@ input.placeholder-update::placeholder {
     <script src="assets/js/lib/i18nextBrowserLanguageDetector.min.js"></script>
     <script src="assets/js/utils/translate.js"></script>
     <script>
-    UIManager.init().then((resolve) => {
-        UserManager.init().then((resolve) => {
-                Main.init().then((resolve) => {
-                    if ($_GET('link') && firstRequestClass) {
-                        firstRequestClass = false;
-                        navigateLight($_GET('link'), 2)
-                    }
-                    // Set the variable to false to indicate that the registration template is already set up
-                    firstRegisterLoad = false;
-                })
-            },
-            (reason) => {
-                console.error("UserManager failed to load: " + reason);
-                failedToLoad();
-            }
-        );
-    })
+        UIManager.init().then((resolve) => {
+            UserManager.init().then((resolve) => {
+                    Main.init().then((resolve) => {
+                        if ($_GET('link') && firstRequestClass) {
+                            firstRequestClass = false;
+                            navigateLight($_GET('link'), 2)
+                        }
+                        // Set the variable to false to indicate that the registration template is already set up
+                        firstRegisterLoad = false;
+                    })
+                },
+                (reason) => {
+                    console.error("UserManager failed to load: " + reason);
+                    failedToLoad();
+                }
+            );
+        })
     </script>
     <script>
-    // If the actual page is not "home.php", add a notif div at the top of the body
-    $(() => {
-        const pageName = location.href.split("/").slice(-1);
-        if (pageName != "home.php") {
-            $('body').prepend('<div id="notif-div"></div>');
-        }
+        // If the actual page is not "home.php", add a notif div at the top of the body
+        $(() => {
+            const pageName = location.href.split("/").slice(-1);
+            if (pageName != "home.php") {
+                $('body').prepend('<div id="notif-div"></div>');
+            }
 
-        // show the #classroom-login-container div
-        $('#classroom-login-container').show();
-    })
+            // show the #classroom-login-container div
+            $('#classroom-login-container').show();
+        })
     </script>
     <?php include_once(__DIR__ . '/../public/footer.php'); ?>
 </body>
+
 </html>
