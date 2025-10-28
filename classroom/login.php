@@ -314,7 +314,7 @@ include_once(__DIR__ . "/../public/header.php"); ?>
                     <div class="d-flex justify-content-center modal-separator mt-4 mb-4" role="separator" aria-label="Séparateur">
                             <span data-i18n="classroom.modals.addActivity.orSeparator" style="font-size:1.2em!important;">OU</span>
                     </div>
-                    <div class="sso-btn f-flex justify-content-center w-100 mb-4 px-3">
+                    <div class="sso-btn f-flex justify-content-center w-100 mb-4 px-2">
                         <button type="button" class="btn w-100 mb-2 btn-sso-google" id="google-login-button">
                             <img src="./auth/svg/google.svg" alt="Logo Google" style="height:20px; width:20px; margin-right:10px; vertical-align:middle;">
                             S'inscrire avec Google

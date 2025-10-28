@@ -639,7 +639,6 @@ function getTeacherActivity() {
                 alt="${i18next.t('classroom.activities.isAutocorrect')}"
                 role="img"
                 aria-describedby="auto-desc"
-                tabindex="0"
             >
             <span id="auto-desc" class="sr-only">
                 ${i18next.t('classroom.activities.isAutocorrect')}
