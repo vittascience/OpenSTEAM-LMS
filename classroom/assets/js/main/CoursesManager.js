@@ -1148,9 +1148,10 @@ class CoursesManager {
 
         // proc the adequat function to render the activity
         if (coursesManager.activityType.includes(activity.activity.type)) {
+            console.log('customActivity', activity);
             const func = customActivity.renderActivities.filter(x => x[0] == activity.activity.type)[0];
             if (func) {
-                func[1](activityData, divActivity, activity.activity.id, activity.response);
+                func[1](activityData, divActivity, activity.activity.id, activity.response, activity);
             }
         } else if (activity.activity.isLti) {
             this.renderLtiActivity(activityData, divActivity, activity.activity.id, activity.response);
@@ -1225,7 +1226,7 @@ class CoursesManager {
                 this.manageValidateByTypeForOnePageCourse(saveBtn, 0);
             });
         }
-
+        console.log('validateBtn', activity.type, validateBtn);
         validateBtn.addEventListener('click', () => {
             this.manageValidateByTypeForOnePageCourse(validateBtn, 1);
         });
@@ -1481,6 +1482,7 @@ class CoursesManager {
             } else {
                 const course = this.getParcoursFromHisActivity(response);
                 if (course) {
+                    console.log('course', course);
                     let courseState = reValidate ? course.courseState : course.courseState + 1;
                     this._requestUpdateState(course.course.id, courseState, course.id).then((res) => {
                         if (res.hasOwnProperty('success')) {

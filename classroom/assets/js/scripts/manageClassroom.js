@@ -1444,14 +1444,14 @@ function copyPinToClipboard(pin) {
 function renderActivityDashboard(currentActivity) {
     const formatedTimePast = typeof currentActivity.timePassed == 'undefined' ? '' : currentActivity.timePassed == 0 ? '' : `<br><em>${i18next.t("classroom.classes.panel.timePassed") + formatDuration(currentActivity.timePassed)}</em><br><em>${i18next.t("classroom.activities.numberOfTries")} ${currentActivity.tries}</em>`;
     
-    // Label for the activity cell
+
     const activityStatus = statusActivity(currentActivity, false);
     const activityTitle = currentActivity.activity.title;
     const activityType = getTranslatedActivityName(currentActivity.activity.type);
     const dueDate = i18next.t("classroom.classes.panel.dueBy") + " " + formatDay(currentActivity.dateEnd);
     const timeInfo = formatedTimePast ? formatedTimePast : '';
     const ariaLabel = `${activityTitle} - ${activityType} - ${activityStatus} - ${dueDate}${timeInfo}`;
-    
+
     let html = `<td class="${statusActivity(currentActivity, true, formatedTimePast)} bilan-cell classroom-clickable" 
         tabindex="0"
         role="cell"
@@ -1464,11 +1464,11 @@ function renderActivityDashboard(currentActivity) {
         title="<b>${activityTitle}</b>
         <br>
         <em>${activityType}</em></br>
-        <em>${dueDate}</em>${formatedTimePast}"
-        onclick="coursesManager.openActivity(${currentActivity.id})"
-        onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }"
-        >
+        <em>${dueDate}</em>${formatedTimePast}">
     </td>`;
+
+    //onclick="coursesManager.openActivity(${currentActivity.id})"
+    //onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }"
     
     return html;
 }
