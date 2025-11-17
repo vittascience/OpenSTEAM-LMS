@@ -513,8 +513,6 @@ button {
     width: -webkit-fill-available;
     width: calc(calc(100vw - var(--sidebar-size) - 2em));
     /* screen - sidebar - 1em padding on both sides */
-
-    z-index: 900;
 }
 
 #classroom-dashboard-content {
@@ -563,6 +561,8 @@ button {
 
 #a11y-dropdown {
     max-height: 100%;
+    position: relative;
+    z-index: 1100;
 }
 
 #dropdownMenuButton {
