@@ -2109,8 +2109,6 @@ function showupdateUserModal(id) {
     mm.getUserInfoWithHisGroups(id).then(function (res) {
         mm._actualUserDetails = res;
 
-        console.log(res);
-
         // Call updateAppForUser as in original (assuming it may be async but effects are separate)
         updateAppForUser();
 
