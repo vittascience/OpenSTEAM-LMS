@@ -1150,7 +1150,7 @@ class CoursesManager {
         if (coursesManager.activityType.includes(activity.activity.type)) {
             const func = customActivity.renderActivities.filter(x => x[0] == activity.activity.type)[0];
             if (func) {
-                func[1](activityData, divActivity, activity.activity.id, activity.response);
+                func[1](activityData, divActivity, activity.activity.id, activity.response, activity);
             }
         } else if (activity.activity.isLti) {
             this.renderLtiActivity(activityData, divActivity, activity.activity.id, activity.response);
@@ -1225,7 +1225,6 @@ class CoursesManager {
                 this.manageValidateByTypeForOnePageCourse(saveBtn, 0);
             });
         }
-
         validateBtn.addEventListener('click', () => {
             this.manageValidateByTypeForOnePageCourse(validateBtn, 1);
         });

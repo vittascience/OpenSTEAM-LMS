@@ -85,18 +85,18 @@ $('body').on('click', '.activity-list-options i', function (event) {
     ClassroomSettings.activity = $(this).attr('id').replace("dropdown-list-activityItem-", "");
 })
 
+
 function persistDeleteActivity() {
-    let validation = $('#validation-delete-activity').val();
-    let placeholderWord = $('#validation-delete-activity').attr('placeholder');
+    let validation = document.getElementById('validation-delete-activity').value;
+    let placeholderWord = document.getElementById('validation-delete-activity').getAttribute('placeholder');
     if (validation == placeholderWord) {
         let activityTitle = getActivity(ClassroomSettings.activity).title;
         Main.getClassroomManager().deleteActivity(ClassroomSettings.activity).then(function (activity) {
             displayNotification('#notif-div', "classroom.notif.activityDeleted", "success", `'{"activityName": "${activityTitle}"}'`);
             deleteTeacherActivityInList(activity.id);
-            //teacherActivitiesDisplay();
             DisplayActivities();
             pseudoModal.closeModal('delete-activity-modal');
-            $('#validation-delete-activity').val("");
+            document.getElementById('validation-delete-activity').value = "";
         })
         ClassroomSettings.activity = null;
     } else {
@@ -108,22 +108,25 @@ function cancelDeleteActivity() {
     pseudoModal.closeModal('delete-activity-modal');
 }
 
-//activité modal-->supprimer
-$('body').on('click', '.modal-activity-delete', function () {
+function deleteActivity(activityId) {
+    ClassroomSettings.activity = activityId;
     pseudoModal.openModal('delete-activity-modal');
+
     let inputModal = document.getElementById('validation-delete-activity');
+    if (!inputModal) {
+        console.error("Element does not exists")
+    }
+    inputModal.innerText = "";
     inputModal.focus();
     
-    let activityId = ClassroomSettings.activity,
-        courseArray = [];
+    let courseArray = [];
     coursesManager.myCourses.forEach(course => {
         if (course.activities.find(c => c.id == activityId)) {
             courseArray.push(course.title);
         }
     });
     document.getElementById('activity-linked-to-course-message').style.display = courseArray.length > 0 ? 'block' : 'none';
-})
-
+}
 
 
 function activityModify(id, rename = false) {
@@ -135,8 +138,7 @@ function activityModify(id, rename = false) {
     }
 
     ClassroomSettings.activity = id
-    $('#activity-form-title').val('')
-    // $('.wysibb-text-editor').html('')
+    document.getElementById('activity-form-title').value = '';
 
     Main.getClassroomManager().getActivity(ClassroomSettings.activity).then((activity) => {     
         if (activity.type != "") {

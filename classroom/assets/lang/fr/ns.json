@@ -588,7 +588,55 @@
 				"yesButton": "Oui, quitter",
 				"noButton": "Non, rester"
 			},
-			"exportMultipleTitle": "Exporter les activités"
+			"exportMultipleTitle": "Exporter les activités",
+			"manageRoles": {
+				"title": "Gérer les rôles",
+				"activateButton": "Activer",
+				"deactivateButton": "Désactiver",
+				"validateButton": "Valider",
+				"deleteButton": "Supprimer",
+				"updateButton": "Mettre à jour",
+				"saveButton": "Enregistrer",
+				"addButton": "Ajouter",
+				"closeButton": "Fermer",
+				"cancelButton": "Annuler",
+				"doYouWantToDelete": "Voulez-vous vraiment supprimer le rôle <strong>{{roleName}}</strong> ?",
+				"confirmDelete": "Confirmer la suppression du rôle",
+				"roleName": "Nom du rôle",
+				"error": "Erreur lors du chargement des rôles.",
+				"noRoles": "Aucun rôle trouvé."
+			},
+			"searchTable": {
+				"admin": "Admin",
+				"newsletter": "Newsletter",
+				"premium": "Premium",
+				"sso": "SSO",
+				"inactive": "Inactif",
+				"reset": "Réinitialiser",
+				"search": "Rechercher",
+				"previous": "Précédent",
+				"next": "Suivant",
+				"showingFrom" : "Affichage de {{start}} à {{end}} sur {{total}} entrées",
+				"filteredBy": "(filtré à partir de {{filtered}} entrées au total)",
+				"email": "E-mail",
+				"firstname": "Prénom",
+				"lastname": "Nom",
+				"apps" : "Applications",
+				"roles" : "Rôles",
+				"actions" : "Actions",
+				"all": "Tous",
+				"yes": "Oui",
+				"no": "Non",
+				"returnToGroup": "Liste des groupes",
+				"last": "Dernier",
+				"first": "Premier",
+				"emptyTable": "Aucune donnée disponible dans le tableau",
+				"infoEmpty": "Affichage de 0 à 0 sur 0 entrées",
+				"loadingRecords": "Chargement...",
+				"processing": "Traitement...",
+				"zeroRecords": "Aucun enregistrement correspondant trouvé",
+				"lengthMenu": "Afficher {{lengthMenu}} entrées par page"
+			}
 		},
 		"folders": {
 			"folderManagement": "Gestion des dossiers",
@@ -1153,7 +1201,8 @@
 			"confirmPassword": "Confirmer le mot de passe <span class=\"c-text-red\">*</span>",
 			"help": "Appel à l'aide",
 			"onlyVisibleGroupAdmin": "Uniquement visible par vous en tant qu'administrateur de groupe :",
-			"onlyVisiblemanager": "Uniquement visible par vous en tant que manager :"
+			"onlyVisiblemanager": "Uniquement visible par vous en tant que manager :",
+			"noGroup": "Aucun groupe"
 		},
 		"account": {
 			"activate": {
@@ -1255,6 +1304,7 @@
 			"appsUpdated": "Les applications de l'utilisateur ont été mise à jour",
 			"updateAppModalTitle": "Application",
 			"globalRestrictions": "Restrictions globales",
+			"personalRoles": "Rôles",
 			"teacherGrades": {
 				"0": "Primaire",
 				"1": "Collège",
@@ -1386,7 +1436,8 @@
 			"groupUpdated": "Groupe modifié avec succès",
 			"groupCreateFailed": "Le groupe n'a pas pu être créé, il manque des informations",
 			"showLinkTitle": "Lien du groupe",
-			"usersWithoutGroups": "Enseignants sans groupe",
+			"teachersWithoutGroups": "Enseignants sans groupe",
+			"usersWithoutGroups": "Utilisateurs sans groupe",
 			"searchResult": "Résultat de la recherche",
 			"usersInactiveOrNoRegular": "Utilisateurs non regular",
 			"usersWithoutGroupsDescription": "Groupement d'enseignants n'étant liés à aucun groupe",
@@ -1748,5 +1799,54 @@
 		"exportToCSV" : "Exporter en CSV",
 		"exportToPDF" : "Exporter en PDF",
 		"exportToXLS" : "Exporter en XLS"
+	},
+	"sso": {
+		"words": {
+			"or": "OU",
+			"user": "Utilisateur",
+			"anonymous": "Anonyme"
+		},
+		"detectedAsLuxembourg": "Nous vous recommandons d'utiliser la connexion via le portail du Ministère de l'Éducation Nationale du Luxembourg",
+		"google": "Se connecter avec Google",
+		"signupGoogle": "S'inscrire avec Google",
+		"microsoft": "Se connecter avec Microsoft",
+		"signupMicrosoft": "S'inscrire avec Microsoft",
+		"apple": "Se connecter avec Apple",
+		"signupApple": "S'inscrire avec Apple",
+		"saml": "Se connecter avec IAM Luxembourg",
+		"signupSaml": "S'inscrire avec IAM Luxembourg",
+		"messages": {
+			"emailNotVerified": "Votre adresse e-mail n'est pas vérifiée. Veuillez vérifier votre adresse e-mail avant de vous connecter.",
+			"success": "Connecté avec succès ! Vous allez être redirigé dans quelques secondes...",
+			"error": "Une erreur est survenue, si le problème persiste, contactez le support technique.",
+			"errorSupportInformed": "L'équipe de support a été informée de l'erreur.",
+			"accountWithEmailAlreadyExists": "Un compte avec cette adresse e-mail existe déjà. Veuillez vous connecter avec votre mot de passe.",
+			"identifiedWith": "Vous êtes identifié avec votre <strong>compte {{provider}}</strong>",
+			"usedData": "Nous utilisons uniquement les données suivantes fournies par votre compte : <strong>nom, prénom, adresse email et image de profil si vous les communiquez</strong>. Aucune autre information n'est conservée.",
+			"disclaimer": "Vittascience utilise uniquement les données suivantes fournies par votre compte {{ provider }} : <strong>nom, prénom, adresse email et image de profil</strong>. <br> Aucune autre information n'est partagée à Vittascience par {{ provider }}.",
+			"unknownSSO": "Erreur de connexion avec le SSO, veuillez réessayer.",
+			"groupNotFound": "Le groupe auquel vous essayez d'ajouter l'utilisateur n'existe pas.",
+			"errorAddingUserToGroup": "Une erreur est survenue lors de l'ajout de l'utilisateur au groupe.",
+			"emptyData": "Un problème est survenu lors de la récupération des données. si le problème persiste, contactez le support technique.",
+			"emptySSO": "Un problème est survenu lors de la récupération des données SSO. si le problème persiste, contactez le support technique."
+		},
+		"modal": {
+			"title": "Bienvenue sur Vittascience",
+			"content": "Nous sommes ravis de vous accueillir 😊, Souhaitez-vous recevoir la newsletter mensuelle de Vittascience pour rester informé(e) des nouveautés, événements et contenus pédagogiques ?",
+			"buttonYes": "Oui",
+			"buttonNo": "Non"
+		},
+		"dashboard": {
+			"student": {
+				"profilePictureAlt": "Photo de profil",
+				"notifCloseAria": "Fermer",
+				"clickClassToAccess": "Cliquer sur une classe pour y accéder.",
+				"noClassesYet": "Tu n'as encore rejoint aucune classe.",
+				"enterClassCodeBelow": "Entre un code de classe ci-dessous pour y accéder.",
+				"joinNewClass": "Rejoindre une nouvelle classe",
+				"classLinkPlaceholder": "Lien de la classe (ex:123AB)",
+				"joinButton": "Rejoindre"
+			}
+		}
 	}
 }
