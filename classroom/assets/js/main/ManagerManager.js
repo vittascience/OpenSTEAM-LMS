@@ -457,7 +457,6 @@ class managerManager {
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
             const result = await response.json();
-            console.log('Résultat :', result);
             return result;
         } catch (error) {
             console.error('Erreur lors de la requête :', error);

@@ -332,6 +332,14 @@ a#validate-profile-update:hover {
     color: var(--classroom-text-0);
 }
 
+.theme-light #vitta-footer {
+  background-color: #000 !important;
+}
+
+.theme-light #vitta-footer .icon-circled {
+  color: #000 !important;
+}
+
 .c-primary-form input[type="text"] {
     border-color: var(--classroom-text-0) !important;
 }

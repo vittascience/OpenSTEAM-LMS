@@ -897,7 +897,7 @@ function addStudentActivityInList(student, activity) {
     if (classroomIndex && studentIndex) {
         Main.getClassroomManager()._myClasses[classroomIndex].students[studentIndex].push(activity)
     } else {
-        console.log("l'actualisation des activités a échoué")
+        console.error("l'actualisation des activités a échoué")
     }
 }
 
