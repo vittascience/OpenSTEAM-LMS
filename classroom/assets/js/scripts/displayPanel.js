@@ -248,10 +248,8 @@ DisplayPanel.prototype.classroom_dashboard_sandbox_panel = function () {
 }
 
 DisplayPanel.prototype.classroom_dashboard_form_classe_panel = function () {
-    //document.querySelector('#classroom-form-is-blocked').checked = false;
     $('#classroom-form-name').val('');
     $('#classroom-form-school').val('');
-    //$('#add-student-div').html(BASE_STUDENT_FORM);
 }
 
 DisplayPanel.prototype.classroom_dashboard_form_classe_panel_update = function () {
@@ -536,7 +534,6 @@ DisplayPanel.prototype.classroom_dashboard_activity_panel = function (id) {
                     navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities');
                     return;
                 }
-                // Run the activity tracker if the current activity is doable or exercise
                 if (Activity.evaluation != true || Activity.correction == null) {
                     Main.activityTracker = new ActivityTracker();
                     Main.activityTracker.startActivityTracker();
@@ -639,7 +636,6 @@ function getTeacherActivity() {
                 alt="${i18next.t('classroom.activities.isAutocorrect')}"
                 role="img"
                 aria-describedby="auto-desc"
-                tabindex="0"
             >
             <span id="auto-desc" class="sr-only">
                 ${i18next.t('classroom.activities.isAutocorrect')}

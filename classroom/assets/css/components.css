@@ -93,6 +93,13 @@
     --bs-btn-disabled-border-color: var(--classroom-primary);
 }
 
+
+.theme-dark .btn-primary,
+.theme-dark .c-btn-primary,
+.theme-dark .c-btn-secondary {
+    --bs-btn-color: var(--classroom-black);
+}
+
 .theme-dark .btn.c-btn-primary:focus-visible,
 .theme-dark .btn.c-btn-primary:active {
   background-color: #1d826d;
@@ -191,12 +198,17 @@
     --bs-btn-disabled-border-color: var(--classroom-secondary);
 }
 
+.theme-light .c-btn-secondary:hover,
+.theme-light .c-btn-secondary:focus-visible {
+    color: var(--classroom-black) !important;
+}
+
 .theme-dark .btn-secondary,
 .theme-dark .c-btn-secondary {
     --bs-btn-font-weight: 700;
     --bs-btn-border-radius: 256px;
     
-    --bs-btn-color: var(--classroom-white);
+    --bs-btn-color: var(--classroom-black);
     --bs-btn-bg: var(--classroom-secondary-dark);
     --bs-btn-border-color: var(--classroom-secondary-dark);
 
@@ -273,6 +285,11 @@
     --bs-btn-disabled-border-color: var(--classroom-tertiary);
 }
 
+.theme-dark .btn-tertiary,
+.theme-dark .c-btn-tertiary {
+  --bs-btn-color: var(--classroom-black);
+}
+
 .btn-outline-tertiary,
 .c-btn-outline-tertiary {
     --bs-btn-font-weight: 700;
@@ -339,10 +356,14 @@
 
 .theme-dark .c-btn-red:hover,
 .theme-dark .c-btn-red:focus-visible,
-
 .theme-dark .c-btn-secondary:hover,
 .theme-dark .c-btn-secondary:focus-visible {
   color: var(--classroom-white);
+}
+
+.theme-light .c-btn-outline-primary:hover,
+.theme-light .c-btn-outline-primary:focus-visible {
+  color: #000;
 }
 
 .btn-outline-red,
@@ -478,7 +499,9 @@
 }
 
 .breadcrumb > .c-btn-outline-primary:focus,
-#breadcrumb > .c-btn-outline-primary:focus {
+.breadcrumb > .c-btn-outline-primary:focus-visible,
+#breadcrumb > .c-btn-outline-primary:focus,
+#breadcrumb > .c-btn-outline-primary:focus-visible {
     filter: brightness(0.8);
 }
 
@@ -810,6 +833,10 @@ hr {
     color: var(--classroom-white);
     border-color: var(--classroom-primary);
     background-color: var(--classroom-primary);
+}
+  
+.theme-dark .wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn {
+  color: var(--classroom-black);
 }
 
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn.on,
@@ -1268,4 +1295,9 @@ input:checked+.slider-mini {
     background-color: var(--classroom-background);
     border-radius: 6px;
     border: 3px solid transparent;
+}
+
+.badge-beta {
+  /* color:#F36D78; */
+  color: #ba525b;
 }

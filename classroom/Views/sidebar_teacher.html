@@ -6,19 +6,22 @@
          onclick="navigateToHome()" 
          onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();navigateToHome();}"></div>
     <div class=" classroom-navbar-button" id="dashboard-classes-teacher"
-        onclick="navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher')" 
+        aria-label="Mes classes"
+        onclick="navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher')"
         onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('classroom-dashboard-classes-panel-teacher', 'dashboard-classes-teacher');}"
         role="button" tabindex="0">
         <img src="assets/media/my_classes.svg" alt="Icône classe">
         <span data-i18n="classroom.ids.classroom-dashboard-classes-panel-teacher"></span> </div>
     <div class="classroom-navbar-button" id="dashboard-activities-teacher"
-        onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')" 
+        aria-label="Mes activités"
+        onclick="navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')"
         onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher');}"
         role="button" tabindex="0">
         <img src="assets/media/my_activities.svg" alt="Icône activités">
         <span data-i18n="classroom.ids.classroom-dashboard-activities-panel-teacher"></span> </div>
     <div id="dashboard-profil-teacher" class="active classroom-navbar-button"
-        onclick="navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher')" 
+        aria-label="Profil"
+        onclick="navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher')"
         onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher');}"
         role="button" tabindex="0"><img
             class="user-picture" src="assets/media/profile_picture.svg" alt="Photo de profil">
