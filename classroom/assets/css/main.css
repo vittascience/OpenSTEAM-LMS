@@ -514,8 +514,6 @@ button {
     width: -webkit-fill-available;
     width: calc(calc(100vw - var(--sidebar-size) - 2em));
     /* screen - sidebar - 1em padding on both sides */
-
-    z-index: 900;
 }
 
 #classroom-dashboard-content {
@@ -564,6 +562,8 @@ button {
 
 #a11y-dropdown {
     max-height: 100%;
+    position: relative;
+    z-index: 1100;
 }
 
 #dropdownMenuButton {
@@ -1272,6 +1272,10 @@ img.btn-cabri {
 
 #classroom-dashboard-sandbox-creation-container .card.open-ide .interface-description {
     text-align: center;
+}
+
+.theme-dark #classroom-dashboard-sandbox-creation-container * {
+  color: var(--classroom-white);
 }
 
 #classroom-dashboard-sandbox-creation .sandbox-square {
@@ -3577,6 +3581,10 @@ h3.section-done {
 #classroom-dashboard-content .footer-link {
     color: #757575;
     font-weight: 600;
+}
+
+.theme-dark #classroom-dashboard-content .footer-link {
+    color: var(--classroom-text-0)
 }
 
 #classroom-dashboard-content #footer-content div {

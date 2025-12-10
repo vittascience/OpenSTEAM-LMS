@@ -163,7 +163,7 @@ function teacherActivityItem(activity, displayStyle) {
                         <button class="dropdown-item classroom-clickable col-12" role="menuitem" onclick="createActivity(null,${activity.id})">${capitalizeFirstLetter(i18next.t('words.duplicate'))}</button>
                         <button class="dropdown-item classroom-clickable col-12" role="menuitem" onclick="activityModify(${activity.id})">${capitalizeFirstLetter(i18next.t('words.modify'))}</button>
                         <button class="dropdown-item classroom-clickable col-12" role="menuitem" onclick="activityModify(${activity.id}, true)">${capitalizeFirstLetter(i18next.t('words.rename'))}</button>
-                        <button class="dropdown-item modal-activity-delete classroom-clickable col-12" role="menuitem">${capitalizeFirstLetter(i18next.t('words.delete'))}</button>
+                        <button class="dropdown-item classroom-clickable col-12" role="menuitem" onclick="deleteActivity(${activity.id})">${capitalizeFirstLetter(i18next.t('words.delete'))}</button>
                         <button class="dropdown-item classroom-clickable col-12" role="menuitem" onclick="exportActivityToJSON(${activity.id})">${capitalizeFirstLetter(i18next.t('newActivities.export'))}</button>
                         <button class="dropdown-item classroom-clickable col-12" role="menuitem" onclick="foldersManager.moveToFolderModal(${activity.id}, 'activity')">${capitalizeFirstLetter(i18next.t('classroom.activities.moveToFolder'))}</button>
                     </ul>
@@ -712,44 +712,30 @@ function statusActivity(activity, state = true, formatedTimePast = '') {
             return "à corriger"
         return "todo-activity"
     }
-    if (activity.note == 4) {
-        if (state == true)
-            return "bilan-4";
-        if (state == "csv")
-            return "Non noté"
-        return "done-activity"
-    } else if (activity.note == 3) {
-        if (state == true)
-            return "bilan-3";
-        if (state == "csv")
-            return "très bien"
-        return "done-activity"
-    } else if (activity.note == 2) {
-        if (state == true)
-            return "bilan-2";
-        if (state == "csv")
-            return "bien"
-        return "done-activity"
-    } else if (activity.note == 1) {
-        if (state == true)
-            return "bilan-1";
-        if (state == "csv")
-            return "correct"
-        return "done-activity"
-    } else {
-        if (state == true)
-            return "bilan-0";
-        if (state == "csv")
-            return "à revoir"
-        return "done-activity"
-    }
+    
+    // Handle note-based status
+    const noteStatusMap = {
+        4: { icon: "bilan-4", csv: "Non noté", class: "done-activity" },
+        3: { icon: "bilan-3", csv: "très bien", class: "done-activity" },
+        2: { icon: "bilan-2", csv: "bien", class: "done-activity" },
+        1: { icon: "bilan-1", csv: "correct", class: "done-activity" },
+        0: { icon: "bilan-0", csv: "à revoir", class: "done-activity" }
+    };
+
+    const noteStatus = noteStatusMap[activity.note] || noteStatusMap[0];
+    
+    if (state == true)
+        return noteStatus.icon;
+    if (state == "csv")
+        return noteStatus.csv;
+    return noteStatus.class;
 
 }
 
 
 
 function loadActivityForTeacher() {
-    $('#activity-views-switcher').html('');
+    document.getElementById('activity-views-switcher').innerHTML = '';
     breadcrumbManager.setActivityTitle(Activity.activity.title);
 
     let isDoable = Activity.correction == null ? true : false;
