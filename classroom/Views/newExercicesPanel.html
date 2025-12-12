@@ -254,11 +254,11 @@
 
 
             <div class="col-xl-9 my-1 mx-auto d-none flex-column" id="tags-activities">
-                <label>Ajouter des tags à votre activité</label>
+                <label id="taglist-label-new">Ajouter des tags à votre activité</label>
                 <div id="taglist" class="w-100 d-flex flex-wrap"></div>
                 <div class="input-group mb-3">
-                    <label for="taglist-select" class="sr-only">Sélectionner un tag</label>
-                    <select id="taglist-select" class="form-control"></select>
+                    <label for="taglist-select" class="visually-hidden">Sélectionner un tag à ajouter</label>
+                    <select id="taglist-select" class="form-control" aria-labelledby="taglist-label-new"></select>
                     <button id="add-tag-to-list" class="btn c-btn-primary">Ajouter le tag</button>
                 </div>
             </div>
