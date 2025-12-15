@@ -137,8 +137,10 @@ function activityModify(id, rename = false) {
         id = Main.getClassroomManager()._lastCreatedActivity;
     }
 
-    ClassroomSettings.activity = id
-    document.getElementById('activity-form-title').value = '';
+    ClassroomSettings.activity = id;
+    if (document.getElementById('activity-form-title') != null) {
+        document.getElementById('activity-form-title').value = '';
+    }
 
     Main.getClassroomManager().getActivity(ClassroomSettings.activity).then((activity) => {     
         if (activity.type != "") {
