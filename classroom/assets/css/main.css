@@ -3885,10 +3885,10 @@ h3.section-done {
     border-color: var(--classroom-primary);
 }
 
-.theme-dark .switcher {
+/* .theme-dark .switcher {
     background: #fff;
 }
-
+ */
 .switcher__input {
     position: absolute;
     clip: rect(0 0 0 0);
