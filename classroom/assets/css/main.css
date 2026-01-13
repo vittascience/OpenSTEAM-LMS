@@ -4078,3 +4078,19 @@ td {
 #word-search:focus-visible {
   box-shadow: 0 0 0 0.2rem rgba(var(--classroom-primary-rgb), 0.25);
 }
+
+
+.draggable-mirror img {
+    max-width: 100px !important;
+    max-height: 100px !important;
+    object-fit: contain !important;
+}
+
+
+.draggable-mirror:has(img) {
+    width: 100px !important;
+    height: 100px !important;
+    opacity: 0.8 !important;
+    margin-left: 200px !important;
+    margin-top: 200px !important;
+}
