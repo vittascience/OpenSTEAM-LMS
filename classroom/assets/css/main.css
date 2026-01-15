@@ -3638,7 +3638,14 @@ h3.section-done {
 
 #home-container #vitta-footer {
     position: static;
+}
 
+.theme-light #home-container #classroom-faq h2 {
+  color: #d97e00;
+}
+
+.theme-light #home-container #helpers span {
+  color: #ce7700;
 }
 
 .greyscale {
