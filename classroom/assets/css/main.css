@@ -4080,14 +4080,13 @@ td {
 }
 
 
-.draggable-mirror img {
+.draggable-mirror:not(.course-item-draggable) img {
     max-width: 100px !important;
     max-height: 100px !important;
     object-fit: contain !important;
 }
 
-
-.draggable-mirror:has(img) {
+.draggable-mirror:not(.course-item-draggable):has(img) {
     width: 100px !important;
     height: 100px !important;
     opacity: 0.8 !important;
