@@ -232,7 +232,7 @@ function teacherActivityItem(activity, displayStyle) {
                                 onclick="event.stopPropagation(); activityModify(${activity.id})">${capitalizeFirstLetter(i18next.t('words.modify'))}</button>
                             <button class="dropdown-item modal-activity-delete classroom-clickable col-12" 
                                 role="menuitem"
-                                onclick="event.stopPropagation(); activityDelete(${activity.id})">${capitalizeFirstLetter(i18next.t('words.delete'))}</button>
+                                onclick="event.stopPropagation(); deleteActivity(${activity.id})">${capitalizeFirstLetter(i18next.t('words.delete'))}</button>
                             <button class="classroom-clickable col-12 dropdown-item" 
                                 role="menuitem"
                                 onclick="event.stopPropagation(); exportActivityToJSON(${activity.id})">${capitalizeFirstLetter(i18next.t('newActivities.export'))}</button>
