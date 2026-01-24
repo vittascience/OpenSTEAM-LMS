@@ -76,6 +76,10 @@ span[id*="-dz-"] {
     display: none !important;
 }
 
+.course-activities-content .draggable-source--is-dragging img {
+    display: inline-block !important;
+}
+
 .draggable-source--is-dragging:has(img)::before {
     content: attr(data-drag-text);
     display: inline-block;
@@ -100,24 +104,6 @@ span[id*="-dz-"] img {
     vertical-align: middle;
 }
 
-.gu-mirror img {
-    display: none !important;
-}
-
-.gu-mirror:has(img)::before {
-    content: "📷 Image";
-    display: inline-block;
-    padding: 4px 8px;
-    font-size: 0.9em;
-    color: var(--classroom-text-0);
-}
-
-.gu-mirror img {
-    max-width: 150px !important;
-    max-height: 150px !important;
-    object-fit: contain !important;
-}
-
 @media (max-width: 768px) {
     .draggable-items img,
     .dropzone-preview img,
@@ -125,10 +111,5 @@ span[id*="-dz-"] img {
     span[id*="-dz-"] img {
         max-width: 100px;
         max-height: 100px;
-    }
-    
-    .gu-mirror img {
-        max-width: 100px !important;
-        max-height: 100px !important;
     }
 }
