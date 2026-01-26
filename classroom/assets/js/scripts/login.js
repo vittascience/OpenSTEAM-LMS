@@ -291,7 +291,8 @@ $(document).on('keydown', '.faq-box-header', function (event) {
     }
 });
 
-$('#create-user').click(function () {
+$('#create-user').click(function (event) {
+    event.preventDefault();
     let pseudo = $('#new-user-pseudo-form').val()
     let link = $_GET('link')
     Main.getClassroomManager().createAccount(pseudo, link).then(function (result) {
@@ -325,6 +326,7 @@ $('#create-user').click(function () {
 
 $(document).on('keydown', function (e) {
     if (e.keyCode === 13 && ($("#create-user").is(":focus") || $("#new-user-pseudo-form").is(":focus"))) {
+        e.preventDefault();
         let pseudo = $('#new-user-pseudo-form').val()
         let link = $_GET('link')
         Main.getClassroomManager().createAccount(pseudo, link).then(function () {
@@ -333,7 +335,8 @@ $(document).on('keydown', function (e) {
     }
 });
 
-$('#connect-nongar-user').click(function () {
+$('#connect-nongar-user').click(function (event) {
+    event.preventDefault();
     let pseudo = $('#user-pseudo-form').val()
     let password = $('#user-password-form').val()
     let link = $_GET('link')
@@ -349,6 +352,7 @@ $('#connect-nongar-user').click(function () {
 
 $(document).on('keydown', function (e) {
     if (e.keyCode === 13 && ($("#connect-nongar-user").is(":focus") || $("#user-password-form").is(":focus"))) {
+        e.preventDefault();
         let pseudo = $('#user-pseudo-form').val()
         let password = $('#user-password-form').val()
         let link = $_GET('link')

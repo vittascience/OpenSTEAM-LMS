@@ -7,3 +7,4 @@ composer.lock
 classroom/assets/plugins
 /.idea
 /dev
+/public
