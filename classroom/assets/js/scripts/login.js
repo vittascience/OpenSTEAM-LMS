@@ -196,16 +196,18 @@ function loginFaq() {
     for (let i = 1; i < 4; i++) {
         html += "<h3 data-i18n='[html]faqInfo." + i + ".section_title'></h3>";
         for (let j = 1; j < index[i - 1]; j++) {
+            const panelId = `faqInfo-${i}-${j}-panel`;
+            const buttonId = `faqInfo-${i}-${j}-button`;
             html += `<div class="kit-faq-box">
-            <div class="faq-box-header" style="transform: rotate(0deg); transform-origin: 50% 50% 0px;">
+            <div class="faq-box-header" id="${buttonId}" style="transform: rotate(0deg); transform-origin: 50% 50% 0px;" role="button" tabindex="0" aria-expanded="false" aria-controls="${panelId}" data-qa-faq-header="true">
                 <div class="faq-box-dropdown">
-                    <span class="fa fa-chevron-right" style="line-height:40px; font-size:16px;"></span>
+                    <span class="fa fa-chevron-right" style="line-height:40px; font-size:16px;" aria-hidden="true"></span>
                 </div>
                 <p style="font-size:16px; margin:0; padding:0;">
                     <b data-i18n='[html]faqInfo.` + i + `.question_list.` + j + `.title'></b>
                 </p>
             </div>
-            <div class="faq-box-content">
+            <div class="faq-box-content" id="${panelId}" role="region" aria-labelledby="${buttonId}" style="display: none;">
             <p data-i18n='[html]faqInfo.` + i + `.question_list.` + j + `.answer'></p>
             </div>
         </div>`
@@ -241,16 +243,18 @@ function loginFaqNeutral() {
     for (let i = 1; i < 4; i++) {
         html += "<h3 data-i18n='[html]faqInfoNeutral." + i + ".section_title'></h3>";
         for (let j = 1; j < index[i - 1]; j++) {
+            const panelId = `faqInfoNeutral-${i}-${j}-panel`;
+            const buttonId = `faqInfoNeutral-${i}-${j}-button`;
             html += `<div class="kit-faq-box">
-            <div class="faq-box-header" style="transform: rotate(0deg); transform-origin: 50% 50% 0px;">
+            <div class="faq-box-header" id="${buttonId}" style="transform: rotate(0deg); transform-origin: 50% 50% 0px;" role="button" tabindex="0" aria-expanded="false" aria-controls="${panelId}" data-qa-faq-header="true">
                 <div class="faq-box-dropdown">
-                    <span class="fa fa-chevron-right" style="line-height:40px; font-size:16px;"></span>
+                    <span class="fa fa-chevron-right" style="line-height:40px; font-size:16px;" aria-hidden="true"></span>
                 </div>
                 <p style="font-size:16px; margin:0; padding:0;">
                     <b data-i18n='[html]faqInfoNeutral.` + i + `.question_list.` + j + `.title'></b>
                 </p>
             </div>
-            <div class="faq-box-content">
+            <div class="faq-box-content" id="${panelId}" role="region" aria-labelledby="${buttonId}" style="display: none;">
             <p data-i18n='[html]faqInfoNeutral.` + i + `.question_list.` + j + `.answer'></p>
             </div>
         </div>`
@@ -262,6 +266,30 @@ function loginFaqNeutral() {
         $("#classroom-faq").localize();
     }
 }
+
+$(document).on('click', '.faq-box-header', function () {
+    const isExpanded = $(this).attr('aria-expanded') === 'true';
+    const panelId = $(this).attr('aria-controls');
+    const panel = $('#' + panelId);
+    const icon = $(this).find('.fa');
+
+    if (isExpanded) {
+        $(this).attr('aria-expanded', 'false');
+        panel.slideUp(300);
+        icon.removeClass('fa-chevron-down').addClass('fa-chevron-right');
+    } else {
+        $(this).attr('aria-expanded', 'true');
+        panel.slideDown(300);
+        icon.removeClass('fa-chevron-right').addClass('fa-chevron-down');
+    }
+});
+
+$(document).on('keydown', '.faq-box-header', function (event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        $(this).click();
+    }
+});
 
 $('#create-user').click(function (event) {
     event.preventDefault();
@@ -337,7 +365,6 @@ $(document).on('keydown', function (e) {
         }).catch(error => {});
     }
 });
-
 
 /**
  * Password display toggler : if an element that has the class password-display-toggler is clicked, it show/hide the password in the adjacent input element
