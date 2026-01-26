@@ -59,15 +59,27 @@ class DragAndDropManager {
 
     dragAndDropValidateActivity(correction = 1, isFromCourse = false) {
         let studentResponse = [];
+        let activityId = isFromCourse ? coursesManager.actualCourse.activity : Activity.activity.id;
+        let solution = JSON.parse(Activity.activity.solution);
+        
         for (let i = 0; i < $(`span[id^="dz-"]`).length; i++) {
             let string = document.getElementById(`dz-${i}`).children.length > 0 ? document.getElementById(`dz-${i}`).children[0].innerHTML : "";
+            let childId = document.getElementById(`dz-${i}`).children.length > 0 ? document.getElementById(`dz-${i}`).children[0].id : "";
+
+            solution.forEach(r => {
+                if (bbcodeToHtml(r) == string) {
+                    string = r;
+                } else if (r == childId) {
+                    string = childId;
+                }
+            });
+
             studentResponse.push({
                 string: string
             });
         }
 
-        let activityId = isFromCourse ? coursesManager.actualCourse.activity : Activity.activity.id,
-            activityLink = isFromCourse ? coursesManager.actualCourse.link : Activity.id;
+        let activityLink = isFromCourse ? coursesManager.actualCourse.link : Activity.id;
 
         Main.getClassroomManager().saveNewStudentActivity(activityId, correction, null, JSON.stringify(studentResponse), activityLink).then((response) => {
             if (isFromCourse) {
@@ -592,14 +604,17 @@ class DragAndDropManager {
                 let mathContent = parseMathLiveContent(studentResponses[i].string);
 
                 let correctAnswer = false;
+                // Check if answer is correct (compare both raw string and bbcode converted version)
                 if (studentResponses[i].string == solution[i]) {
+                    correctAnswer = true;
+                } else if (bbcodeToHtml(studentResponses[i].string) == bbcodeToHtml(solution[i])) {
                     correctAnswer = true;
                 }
 
                 if (mathContent) {
-                    studentContentString = studentContentString.replace(answer, `<div class='drag-and-drop-answer-teacher' id="corrected-student-response-${i}">${mathContent}</div>`);
+                    studentContentString = studentContentString.replace(answer, `<div class='drag-and-drop-answer-teacher ${correctAnswer ? "answer-correct" : ""}' id="corrected-student-response-${i}">${mathContent}</div>`);
                 } else if (bbcodeToHtml(studentResponses[i].string) != studentResponses[i].string) {
-                    studentContentString = studentContentString.replace(answer, bbcodeToHtml(studentResponses[i].string));
+                    studentContentString = studentContentString.replace(answer, `<div class='drag-and-drop-answer-teacher ${correctAnswer ? "answer-correct" : ""}' id="corrected-student-response-${i}">${bbcodeToHtml(studentResponses[i].string)}</div>`);
                 } else {
                     studentContentString = studentContentString.replace(answer, `<input readonly class='drag-and-drop-answer-teacher ${correctAnswer ? "answer-correct" : ""}' id="corrected-student-response-${i}" value="${studentResponses[i].string.toLowerCase()}" aria-label="Réponse de l'élève ${i + 1}: ${studentResponses[i].string.toLowerCase()} ${correctAnswer ? '(correcte)' : '(incorrecte)'}" ${autoWidthStyle}>`);
                 }
