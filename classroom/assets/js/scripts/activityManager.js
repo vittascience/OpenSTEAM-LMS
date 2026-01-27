@@ -266,7 +266,7 @@ function validateActivity(correction) {
 function validateDefaultResponseManagement(response) {
     $("#activity-validate").attr("disabled", false);
     if (response.note != null && response.correction > 1) {
-        if (response.note == 3) {
+        if (response.note >= 1) {
             navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities')
         } else if (response.note == 0) {
             navigatePanel('classroom-dashboard-activity-panel-fail', 'dashboard-activities')
