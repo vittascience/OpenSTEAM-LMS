@@ -187,6 +187,10 @@
 
 /* Subscribe section */
 
+.theme-dark #classroom-subscribe {
+  color: var(--vitta-black);
+}
+
 #classroom-subscribe {
     background-color: var(--vitta-green);
     color: var(--vitta-white);
@@ -197,6 +201,12 @@
     font-size: 3em;
 }
 
+.theme-dark #classroom-subscribe a,
+.theme-dark #classroom-subscribe a:hover,
+.theme-dark #classroom-subscribe a:focus {
+    color: var(--vitta-black);
+}
+
 #classroom-subscribe a {
     border: 2px solid var(--vitta-white);
     border-radius: 3em;
@@ -204,8 +214,16 @@
     color: var(--vitta-white);
     padding: 0.5em 1em;
     font-size: 1.2em;
+    transition: all 0.3s ease;
 }
 
+#classroom-subscribe a:hover,
+#classroom-subscribe a:focus {
+    background-color: var(--vitta-white);
+    color: var(--vitta-green);
+    outline: 2px solid var(--vitta-white);
+    outline-offset: 2px;
+}
 
 /* Stats section [unused for now] */
 

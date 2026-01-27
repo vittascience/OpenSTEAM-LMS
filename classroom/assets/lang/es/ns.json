@@ -319,6 +319,7 @@
         "previewActivity": "Vista previa de la actividad",
         "hintExist": "<i class='fas fa-info-circle'></i> Este ejercicio tiene una pista, sólo se puede mostrar si el alumno puede presentar la actividad varias veces",
         "anoStudent": "Estudiante",
+        "dropMe": "Suéltame",
         "bilan": {
           "title": "Balance de situación",
           "results": "Resultados",

@@ -1,0 +1,115 @@
+.drag-and-drop-answer-teacher,
+.draggable-items {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--classroom-text-0);
+    border-radius: 1em;
+    padding: 6px 1.5ch;
+    cursor: grab;
+    margin-bottom: 0;
+    margin-top: 0;
+    font-weight: 700;
+    align-self: center;
+}
+
+.drag-and-drop-answer-teacher {
+    background: var(--classroom-background);
+    color: var(--classroom-text-0);
+    cursor: pointer;
+    text-align: center;
+    user-select: none;
+    margin-bottom: 0.5em;
+}
+
+.droppable-items {
+    display: inline-flex;
+    border-radius: 1em;
+    margin: 0.30em 0;
+    min-width: none;
+    vertical-align: middle;
+}
+
+.droppable-items:empty {
+    border: 1px solid var(--classroom-text-0);
+    min-width: 5em;
+    min-height: 1.8em;
+}
+
+.drag-and-drop-fields {
+    border: 1px solid var(--classroom-text-0);
+    border-radius: 1em;
+    padding: 1em;
+    margin-block: 1em;
+    min-height: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    gap: 10px;
+}
+
+span[id^="dz-"],
+span[id*="-dz-"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 5em;
+    min-height: 1.8em;
+    vertical-align: middle;
+    border: 1px solid var(--classroom-text-0);
+    border-radius: 1em;
+    padding: 4px 8px;
+}
+
+.draggable-items img {
+    max-width: 150px;
+    max-height: 150px;
+    height: auto;
+    width: auto;
+    object-fit: contain;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.draggable-source--is-dragging img {
+    display: none !important;
+}
+
+.course-activities-content .draggable-source--is-dragging img {
+    display: inline-block !important;
+}
+
+.draggable-source--is-dragging:has(img)::before {
+    content: attr(data-drag-text);
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 0.9em;
+}
+
+.draggable-mirror {
+    opacity: 0.35 !important;
+    pointer-events: none;
+}
+
+.dropzone-preview img,
+span[id^="dz-"] img,
+span[id*="-dz-"] img {
+    max-width: 150px;
+    max-height: 150px;
+    height: auto;
+    width: auto;
+    object-fit: contain;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+@media (max-width: 768px) {
+    .draggable-items img,
+    .dropzone-preview img,
+    span[id^="dz-"] img,
+    span[id*="-dz-"] img {
+        max-width: 100px;
+        max-height: 100px;
+    }
+}

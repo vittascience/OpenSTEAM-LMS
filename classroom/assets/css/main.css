@@ -2257,30 +2257,6 @@ h3.section-done {
     border-radius: 10px;
 }
 
-.drag-and-drop-answer-teacher,
-.draggable-items {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--classroom-text-0);
-    border-radius: 1em;
-    padding: 6px 1.5ch;
-    cursor: grab;
-    margin-bottom: 0;
-    margin-top: 0;
-    font-weight: 700;
-    align-self: center;
-}
-
-.drag-and-drop-answer-teacher {
-    background: var(--classroom-background);
-    color: var(--classroom-text-0);
-    cursor: pointer;
-    text-align: center;
-    user-select: none;
-    margin-bottom: 0.5em;
-}
-
 .fill-in-answer-teacher {
     background: var(--classroom-background);
     color: var(--classroom-text-0);
@@ -2288,37 +2264,6 @@ h3.section-done {
     text-align: center;
     user-select: none;
     margin-bottom: 0.5em;
-}
-
-.droppable-items {
-    display: inline-flex;
-    border-radius: 1em;
-    margin: 0.30em 0;
-    min-width: none;
-}
-
-.droppable-items:empty {
-    border: 1px solid var(--classroom-text-0);
-    transform: translateY(50%);
-    min-width: 5em;
-    min-height: 1.8em;
-
-}
-
-.drag-and-drop-fields {
-    border: 1px solid var(--classroom-text-0);
-    border-radius: 1em;
-    padding: 1em;
-}
-
-.drag-and-drop-fields {
-    margin-block: 1em;
-    min-height: 60px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
-    gap: 10px;
 }
 
 
@@ -3638,7 +3583,14 @@ h3.section-done {
 
 #home-container #vitta-footer {
     position: static;
+}
 
+.theme-light #home-container #classroom-faq h2 {
+  color: #d97e00;
+}
+
+.theme-light #home-container #helpers span {
+  color: #ce7700;
 }
 
 .greyscale {
@@ -4078,3 +4030,19 @@ td {
 #word-search:focus-visible {
   box-shadow: 0 0 0 0.2rem rgba(var(--classroom-primary-rgb), 0.25);
 }
+
+/* 
+.draggable-mirror:not(.course-item-draggable) img {
+    max-width: 100px !important;
+    max-height: 100px !important;
+    object-fit: contain !important;
+}
+
+.draggable-mirror:not(.course-item-draggable):has(img) {
+    width: 100px !important;
+    height: 100px !important;
+    opacity: 0.8 !important;
+    margin-left: 200px !important;
+    margin-top: 200px !important;
+}
+ */

@@ -2801,7 +2801,7 @@ function optionsGroupApplications($type) {
 
         // toggle the description if the checkbox is checked
         data.forEach(element => {
-            $(`#application_${element.id}`).change(function () {
+            $(`#application_${element.id}`).on('change', function () {
                 $(`#apps_restriction_${element.id}`).toggle();
 
                 mainManager.getmanagerManager().getActivityRestrictionFromApp(element.id).then((response) => {
