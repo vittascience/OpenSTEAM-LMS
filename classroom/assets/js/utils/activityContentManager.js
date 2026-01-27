@@ -507,7 +507,33 @@ function initializeDragulaWithOneContainer(idContainer, classDropZone, activityI
         },
     );
 
+    const droppable = Main.getClassroomManager().droppable[droppableName];
+    
+    // Add translated text and ARIA attributes for accessibility
+    droppable.on('drag:start', (evt) => {
+        const source = evt.source;
+        if (source.querySelector('img')) {
+            const dragText = i18next.t('classroom.activities.dropMe');
+            source.setAttribute('data-drag-text', dragText);
+            source.setAttribute('aria-label', dragText);
+        }
+        // Add keyboard instructions
+        source.setAttribute('aria-grabbed', 'true');
+    });
+    
+    droppable.on('drag:stop', (evt) => {
+        const source = evt.source;
+        source.removeAttribute('data-drag-text');
+        source.setAttribute('aria-grabbed', 'false');
+    });
+
     Main.getClassroomManager().droppable[droppableName].on('droppable:stop', (evt) => {
+        const mirror = document.querySelector('.draggable-mirror');
+        if (mirror) {
+            mirror.classList.remove('over-valid-dropzone');
+            mirror.style.border = '';
+        }
+        
         if (evt.dropzone.classList.contains('drag-and-drop-fields')) {
             if (evt.dropzone.classList.contains("draggable-dropzone--occupied")) {
                 evt.dropzone.classList.remove("draggable-dropzone--occupied");

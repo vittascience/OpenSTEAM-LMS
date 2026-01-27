@@ -39,11 +39,11 @@ class CoursesManager {
         };
 
         this.onePageCourseActivitiesLimit = [];
-        
+
 
         this.wbbptions = null;
 
-        this.activityType = [ "reading", "dragAndDrop", "fillIn", "quiz", "free"];
+        this.activityType = ["reading", "dragAndDrop", "fillIn", "quiz", "free"];
 
         this.sortable = null;
     }
@@ -85,6 +85,27 @@ class CoursesManager {
             pseudoModal.openModal('attribute-activity-modal');
             $("#attribute-activity-modal").localize();
         })
+
+        // AJOUT : Délégation d'événements pour les boutons de suppression
+        document.addEventListener('click', (e) => {
+            const deleteBtn = e.target.closest('.btn-delete-course');
+            if (deleteBtn) {
+                e.stopPropagation();
+                e.preventDefault();
+                const courseId = parseInt(deleteBtn.dataset.courseId);
+                if (courseId) {
+                    this.deleteActivityFromCourse(courseId);
+                }
+            }
+        });
+
+        // AJOUT : Empêcher le mousedown sur les boutons de suppression
+        document.addEventListener('mousedown', (e) => {
+            const deleteBtn = e.target.closest('.btn-delete-course');
+            if (deleteBtn) {
+                e.stopPropagation();
+            }
+        });
 
         const courseFormat = document.getElementsByName('course-format');
         for (let i = 0; i < courseFormat.length; i++) {
@@ -172,7 +193,7 @@ class CoursesManager {
         }
     }
 
-    
+
 
 
     facultativeOptions() {
@@ -190,15 +211,19 @@ class CoursesManager {
             courseDiv.classList.add('course-item-draggable');
             courseDiv.setAttribute('data-course-id', course.id);
             courseDiv.innerHTML = `
-                <div class="preview-activity-in-courses">
-                    ${activityImg}    
-                    ${course.title}
-                    <button class="btn btn-warning btn-sm btn-delete-course" onclick="coursesManager.deleteActivityFromCourse(${course.id})">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </div>`;
+            <div class="preview-activity-in-courses">
+                <span class="drag-handle" style="cursor: move; padding: 5px; margin-right: 10px;">
+                    <i class="fas fa-grip-vertical"></i>
+                </span>
+                ${activityImg}    
+                ${course.title}
+                <button class="btn btn-warning btn-sm btn-delete-course" data-course-id="${course.id}">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>`;
             coursesDiv.appendChild(courseDiv);
         });
+
         if (coursesDiv.innerHTML == '') {
             coursesDiv.innerHTML = `<p data-i18n="courses.informationWhenEmpty" class="text-center my-2">Cliquer sur les boutons ci-dessus pour ajouter des activités au parcours.</p>`;
         } else {
@@ -208,20 +233,45 @@ class CoursesManager {
     }
 
     dragulaInit() {
-        this.sortable = new Draggable.Sortable(document.querySelectorAll('.course-activities-content'), {
+        if (this.sortable) {
+            try {
+                this.sortable.destroy();
+            } catch (e) {
+                console.error('Erreur destruction sortable:', e);
+            }
+            this.sortable = null;
+        }
+
+        const container = document.getElementById('course-activities-content');
+        if (!container) {
+            console.error('Container #course-activities-content not found');
+            return;
+        }
+
+        this.sortable = new Draggable.Sortable([container], {
             draggable: '.course-item-draggable',
+            handle: '.drag-handle',
+            mirror: {
+                constrainDimensions: true,
+            }
         });
+
+        let sortTimeout = null;
         this.sortable.on('sortable:stop', () => {
-            setTimeout(() => {
+            if (sortTimeout) {
+                clearTimeout(sortTimeout);
+            }
+            sortTimeout = setTimeout(() => {
                 this.sortActualCourseArrayFromDiv();
-            }, 150);
+                sortTimeout = null;
+            }, 100);
         });
     }
 
     undoAttribution(id, references = [], classId = null) {
         this._requestUsersUnlinkCourse(id, references, classId).then((res) => {
             if (res.hasOwnProperty('success')) {
-                Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(()=>{
+                Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
                     displayNotification('#notif-div', "classroom.notif.attributeActivityUndone", "success");
                     navigatePanel('classroom-table-panel-teacher', 'dashboard-classes-teacher', ClassroomSettings.classroom);
                 });
@@ -239,23 +289,28 @@ class CoursesManager {
     }
 
     sortActualCourseArrayFromDiv() {
-        const courseItems = document.querySelectorAll('div[class^=course-item-draggable]');
+        const container = document.getElementById('course-activities-content');
+        if (!container) return;
+
+        const courseItems = container.querySelectorAll('.course-item-draggable:not(.draggable-mirror):not(.draggable--original)');
+
         this.courseData.courses = [];
         this.courseOrder = [];
+
         courseItems.forEach(item => {
             const courseId = parseInt(item.getAttribute('data-course-id'));
             let activity = Main.getClassroomManager()._myTeacherActivities.find(activity => activity.id === courseId);
-            this.courseData.courses.push(activity);
-            this.courseOrder.push(activity.id);
+            if (activity && !this.courseOrder.includes(activity.id)) {
+                this.courseData.courses.push(activity);
+                this.courseOrder.push(activity.id);
+            }
         });
     }
 
     addActivityToCourse() {
-        // get all the activities
         const activitiesDiv = document.getElementById('add-activity-content'),
             activities = Main.getClassroomManager()._myTeacherActivities;
-
-        // filter with the ones that are not in the course
+            
         let activitiesToAdd = activities.filter(activity => {
             return !this.courseData.courses.some(course => {
                 return course.id === activity.id;
@@ -265,7 +320,7 @@ class CoursesManager {
         activitiesDiv.innerHTML = '';
         activitiesDiv.setAttribute('role', 'list');
         activitiesDiv.setAttribute('aria-label', 'Liste des activités disponibles');
-        
+
         // create the list of activities
         activitiesToAdd.forEach(activity => {
             this.createCheckboxElements(activitiesDiv, activity);
@@ -290,7 +345,7 @@ class CoursesManager {
             activitiesDiv.innerHTML = '';
             activitiesDiv.setAttribute('role', 'list');
             activitiesDiv.setAttribute('aria-label', 'Liste des activités disponibles');
-            
+
             activitiesToAdd.forEach(activity => {
                 if (activity.title.toLowerCase().includes(search.toLowerCase())) {
                     this.createCheckboxElements(activitiesDiv, activity);
@@ -302,11 +357,11 @@ class CoursesManager {
 
     createCheckboxElements(target = null, activity = null) {
         // Activity icon with proper alt text
-        let activityImg = foldersManager.icons.hasOwnProperty(activity.type) 
+        let activityImg = foldersManager.icons.hasOwnProperty(activity.type)
             ? `<img class="list-item-img d-inline" 
                     src="${foldersManager.icons[activity.type]}" 
                     alt="${i18next.t('words.activity')} ${activity.type}" 
-                    class="folder-icons">` 
+                    class="folder-icons">`
             : `<span class='list-item-img' aria-hidden="true"> 
                 <div class='list-item-no-icon'>
                     <i class='fas fa-laptop'></i>
@@ -359,12 +414,15 @@ class CoursesManager {
     }
 
     manageActivitiesOrder(checked, activityId) {
+        activityId = parseInt(activityId);
+
         if (checked) {
-            this.courseOrder.push(parseInt(activityId));
-        } else {
-            if (this.courseOrder.indexOf(parseInt(activityId)) > -1) {
-                this.courseOrder.splice(this.courseOrder.indexOf(parseInt(activityId)), 1);
+            // Vérifier si l'ID n'est pas déjà dans courseOrder
+            if (!this.courseOrder.includes(activityId)) {
+                this.courseOrder.push(activityId);
             }
+        } else {
+            this.courseOrder = this.courseOrder.filter(id => id !== activityId);
         }
     }
 
@@ -377,26 +435,37 @@ class CoursesManager {
     persistActivityToCourse() {
         const activities = Main.getClassroomManager()._myTeacherActivities;
         const activitiesChecked = document.getElementsByClassName('activity-item-checkbox-input');
-
+        this.courseOrder = [...new Set(this.courseOrder)];
 
         let tempLimit = new Map(),
             limited = false;
-        
+
+        let newIds = [];
 
         for (let i = 0; i < activitiesChecked.length; i++) {
             let id = parseInt(activitiesChecked[i].value);
             if (activitiesChecked[i].checked && id) {
-
-                let acti = activities.find(activity => {
-                    return activity.id === id;
-                })
-                this.courseData.courses.push(acti);
-                tempLimit.set(acti.type, tempLimit.get(acti.type) ? tempLimit.get(acti.type) + 1 : 1);
+                newIds.push(id);
             }
         }
 
+        // Ajouter seulement les nouvelles activités
+        newIds.forEach(id => {
+            if (!this.courseData.courses.some(c => c.id === id)) {
+                let acti = activities.find(activity => activity.id === id);
+                if (acti) {
+                    this.courseData.courses.push(acti);
+                    tempLimit.set(acti.type, tempLimit.get(acti.type) ? tempLimit.get(acti.type) + 1 : 1);
+                }
+            } else {
+                let acti = activities.find(activity => activity.id === id);
+                if (acti) {
+                    tempLimit.set(acti.type, tempLimit.get(acti.type) ? tempLimit.get(acti.type) + 1 : 1);
+                }
+            }
+        });
 
-        for(let i = 0; i < this.courseData.courses.length; i++) {
+        for (let i = 0; i < this.courseData.courses.length; i++) {
             let acti = this.courseData.courses[i];
             let type = acti.type;
             if (this.onePageCourseActivitiesLimit.length > 0 && this.onePageCourseActivitiesLimit.some(limit => limit[0] == type)) {
@@ -417,7 +486,6 @@ class CoursesManager {
         }
 
         this.orderCourseActivities();
-
         this.refreshCourses();
         this.emptyDivFromActivityToCourse();
         pseudoModal.closeModal('add-activity-to-course');
@@ -427,7 +495,8 @@ class CoursesManager {
         this.courseData.courses = this.courseData.courses.filter(course => {
             return course.id !== activityId;
         });
-        this.courseOrder.splice(this.courseOrder.indexOf(activityId), 1);
+
+        this.courseOrder = this.courseOrder.filter(id => id !== activityId);
         this.refreshCourses();
     }
 
@@ -444,7 +513,7 @@ class CoursesManager {
         const title = document.getElementById('course-title').value,
             description = document.getElementById('course-description').value,
             image = null;
-            //image = document.getElementById('course-image').files[0];
+        //image = document.getElementById('course-image').files[0];
 
         if (title && description) {
             this.courseData.title = title;
@@ -461,7 +530,7 @@ class CoursesManager {
             difficulty = document.getElementById('course-difficulty').value,
             language = getCookie("lng") != "" ? getCookie("lng") : "fr",
             license = document.getElementById('course-license').value;
-            let format = parseInt(document.querySelector('input[name="course-format"]:checked').value);
+        let format = parseInt(document.querySelector('input[name="course-format"]:checked').value);
 
 
         if (duration && difficulty && language && license) {
@@ -793,7 +862,7 @@ class CoursesManager {
                         }
                     }
                 });
-                
+
             }
         }
     }
@@ -819,7 +888,7 @@ class CoursesManager {
     }
 
     manageAllActivityResponse(response, isLti = false) {
-        
+
         let messageDiv = document.getElementById("course-result-message"),
             endCourse = document.getElementById("course-options-course-buttons"),
             messageContent = document.getElementById("course-result-message-content"),
@@ -860,11 +929,11 @@ class CoursesManager {
         let course = id == null ? Main.getClassroomManager()._myCourses.find(course => course.course.id == this.actualCourse.id && course.id == courseLink) : Main.getClassroomManager()._myCourses.find(course => course.course.id == id && course.id == courseLink);
         let courseLength = course.activities.length,
             courseSuccess = 0;
-     
+
         for (let i = 0; i < course.activities.length; i++) {
             let note = 0;
 
-            
+
             if (course.activities[i].note == 3) {
                 note = i18next.t('classroom.courses.note-3');
             } else if (course.activities[i].note < 3 && course.activities[i].note > 0) {
@@ -877,7 +946,7 @@ class CoursesManager {
 
             let html = `<div class="course-activities-result-activity" id="course-${course.id}"> 
                             <div class="preview-result-course-activity-title">
-                                <p onclick="coursesManager.loadActivity(${course.course.id}, ${course.activities[i].id}, ${course.id})">ACTVITÉ <br> N°${i+1}</p>
+                                <p onclick="coursesManager.loadActivity(${course.course.id}, ${course.activities[i].id}, ${course.id})">ACTVITÉ <br> N°${i + 1}</p>
                             </div>
 
                             <div>
@@ -931,7 +1000,7 @@ class CoursesManager {
             } else {
                 coursesManager.actualCourse.courseLink = courseLink;
             }
-    
+
             let course = Main.getClassroomManager()._myCourses.find(course => course.course.id == id && course.id == courseLink);
             if (course.courseState == 999) {
                 this.viewCourseActivitiesResult(id, courseLink);
@@ -939,12 +1008,12 @@ class CoursesManager {
             }
 
             Activity = course.activities[course.courseState];
-            
+
 
             this.actualCourse = {
-                id: id, 
-                state: course.courseState, 
-                link: Activity.id, 
+                id: id,
+                state: course.courseState,
+                link: Activity.id,
                 activity: Activity.activity.id,
                 courseLink: course.id
             };
@@ -973,12 +1042,12 @@ class CoursesManager {
                 this.viewCourseActivitiesResult(id, courseLink);
                 return false;
             }
-            
+
             Activity = course.activities[course.courseState];
             this.actualCourse = {
-                id: id, 
-                state: course.courseState, 
-                link: Activity.id, 
+                id: id,
+                state: course.courseState,
+                link: Activity.id,
                 activity: Activity.activity.id,
                 courseLink: course.id
             };
@@ -1008,7 +1077,7 @@ class CoursesManager {
             let html = `<div class="course-activities-result-activity" id="course-${course.id}" onclick="coursesManager.simulateActivityOpen(${course.activities[i].id})"> 
                             <div class="preview-result-course-activity-title d-flex align-items-center">
                                 <img class="list-item-img" src="${imagePath}" alt="image-${imageAlt}">
-                                <p onclick="">ACTVITÉ N°${i+1}</p>
+                                <p onclick="">ACTVITÉ N°${i + 1}</p>
                             </div>
 
                             <div class="align-self-center"> 
@@ -1017,8 +1086,8 @@ class CoursesManager {
                             <div class="activity-list-info d-flex align-items-center">
                                 ${course.activities[i].isAutocorrect ? `<div class="activity-list-auto">
                                     <img src='${_PATH}assets/media/auto-icon-grey.svg' title='Auto' onload="SVGInject(this)">
-                                </div>` 
-                                : "" }
+                                </div>`
+                    : ""}
                             </div>
                         </div>`;
 
@@ -1096,7 +1165,7 @@ class CoursesManager {
         // insert title and description in the div
         onePageCourseContent.appendChild(courseTitle);
         onePageCourseContent.appendChild(courseDescription);
-    
+
         for (let i = 0; i < course.activities.length; i++) {
             this.processForOneActivity(course.activities[i], onePageCourseContent);
         }
@@ -1110,7 +1179,7 @@ class CoursesManager {
      * @param {*} onePageCourseContent 
      */
     processForOneActivity(activity, onePageCourseContent = document.getElementById('one-page-course-student-content'), course = null) {
-        const activityType = [ "reading", "dragAndDrop", "fillIn", "quiz", "free"];
+        const activityType = ["reading", "dragAndDrop", "fillIn", "quiz", "free"];
 
         let divActivity = document.createElement('div');
         if (document.getElementById(`activity-${activity.activity.id}-course-one-page`) != null) {
@@ -1146,7 +1215,6 @@ class CoursesManager {
             isDoable = activityType.includes(Activity.activity.type) ? true : false;
         }
 
-        // proc the adequat function to render the activity
         if (coursesManager.activityType.includes(activity.activity.type)) {
             const func = customActivity.renderActivities.filter(x => x[0] == activity.activity.type)[0];
             if (func) {
@@ -1220,7 +1288,7 @@ class CoursesManager {
             saveBtn.innerHTML = i18next.t('classroom.activities.save-draft');
             btnDiv.appendChild(saveBtn);
 
-            
+
             saveBtn.addEventListener('click', () => {
                 this.manageValidateByTypeForOnePageCourse(saveBtn, 0);
             });
@@ -1281,10 +1349,9 @@ class CoursesManager {
     * @param {Object} optionalData
     * @return {Object} contentData
     */
-    returnContentForActivityInOnePageCourse(content, activity, correction_div, isDoable)
-    {
+    returnContentForActivityInOnePageCourse(content, activity, correction_div, isDoable) {
         let contentData = "";
-    
+
         if (activity.activity.type == null) {
             if (typeof correction == 'string') {
                 contentData.correction = bbcodeToHtml(correction);
@@ -1292,7 +1359,7 @@ class CoursesManager {
                 contentData.correction = correction;
             }
         }
-    
+
         const funct = customActivity.getManageDisplayCustom.filter(activityValidate => activityValidate[0] == activity.activity.type)[0];
         if (funct) {
             contentData = funct[1](content, activity, correction_div);
@@ -1303,10 +1370,10 @@ class CoursesManager {
                 contentData = this.manageDisplayOldActivitiesForOnePageCourse(activity.activity.correction, content, correction_div, isDoable);
             };
         }
-    
+
         return contentData;
     }
-    
+
     manageDisplayOldActivitiesForOnePageCourse(correction, content, correction_div, isDoable) {
         const activityData = {
             states: null,
@@ -1315,14 +1382,14 @@ class CoursesManager {
             doable: isDoable,
             type: null
         }
-    
+
         activityData.content = content;
         if (!isDoable) {
             if (correction != 1 || UserManager.getUser().isRegular) {
                 activityData.correction = correction_div;
             }
         }
-    
+
         return activityData;
     }
 
@@ -1340,8 +1407,8 @@ class CoursesManager {
             document.forms[activityData.content[1]].submit();
         }
     }
-    
-    
+
+
     manageDisplayLtiForOnePageCourse(activity, content, correction_div, isDoable) {
         const activityData = {
             states: null,
@@ -1399,7 +1466,7 @@ class CoursesManager {
         const data = coursesManager.manageDisplayLtiForOnePageCourse(activityData, content, "", true);
         const courseState = reValidate ? course.courseState : course.courseState + 1;
 
-        const res  =  await coursesManager._requestUpdateState(course.course.id, courseState, course.id);
+        const res = await coursesManager._requestUpdateState(course.course.id, courseState, course.id);
         if (res.hasOwnProperty('success')) {
             if (res.success) {
                 course.courseState = parseInt(res.courseLinkUser.courseState);
@@ -1431,9 +1498,9 @@ class CoursesManager {
      * @param {htmlelement} btn 
      */
     manageValidateByTypeForOnePageCourse(btn, correction) {
-        const   id = btn.dataset.id,
-                type = btn.dataset.type,
-                link = btn.dataset.link;
+        const id = btn.dataset.id,
+            type = btn.dataset.type,
+            link = btn.dataset.link;
 
         const funct = customActivity.activityValidateOnePageCourse.filter(activityValidate => activityValidate[0] == type)[0];
         if (funct && type != 'reading') {
@@ -1449,7 +1516,7 @@ class CoursesManager {
                     return activity.id == link && activity.activity.id == id;
                 })[0];
                 defaultProcessValidateActivity(1, false, this.callBackForCourseOnePage, foundActivity);
-            } 
+            }
         }
     }
 
@@ -1512,7 +1579,7 @@ class CoursesManager {
         });
         return parcours;
     }
-    
+
     launchLtiResourceOnePageCourse(activityId, activityLink, activityType, activityContent, isStudentLaunch = false, studentResourceUrl = false) {
         let height = window.innerHeight - 220;
         return [`<input id="activity-score" type="text" hidden/>
@@ -1523,10 +1590,10 @@ class CoursesManager {
             <input type="hidden" id="activities_link_user" name="activities_link_user" value="${activityId}">
             <input type="hidden" id="student_resource_url" name="student_resource_url" value="${studentResourceUrl}">
         </form>
-        <iframe id="lti_student_iframe_${activityId}" src="about:blank" data-id="${activityId}" data-link="${activityLink}" name="lti_student_iframe_${activityId}" title="Tool Content" width="100%" style="height: ${height}px" allow="fullscreen *; microphone *; camera *; serial *; usb *"></iframe>`, 
+        <iframe id="lti_student_iframe_${activityId}" src="about:blank" data-id="${activityId}" data-link="${activityLink}" name="lti_student_iframe_${activityId}" title="Tool Content" width="100%" style="height: ${height}px" allow="fullscreen *; microphone *; camera *; serial *; usb *"></iframe>`,
         `resource_launch_form_${activityId}`];
     }
-    
+
     manageContentActivitiesOnePageCourse(activity) {
         let content = "";
         if (IsJsonString(activity.activity.content)) {

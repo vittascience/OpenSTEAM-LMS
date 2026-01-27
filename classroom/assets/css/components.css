@@ -198,10 +198,10 @@
     --bs-btn-disabled-border-color: var(--classroom-secondary);
 }
 
-.theme-light .c-btn-secondary:hover,
+/* .theme-light .c-btn-secondary:hover,
 .theme-light .c-btn-secondary:focus-visible {
     color: var(--classroom-black) !important;
-}
+} */
 
 .theme-dark .btn-secondary,
 .theme-dark .c-btn-secondary {
