@@ -318,6 +318,7 @@
       "previewActivity": "معاينة النشاط",
       "hintExist": "<i class='fas fa-info-circle'></i>يحتوي هذا التمرين على تلميح ، ولا يمكن عرضه إلا إذا كان بإمكان الطالب إرسال النشاط عدة مرات",
       "anoStudent": "تلميذ",
+      "dropMe": "أسقطني",
       "bilan": {
         "title": "حصيلة",
         "results": "نتائج",
