@@ -94,10 +94,11 @@
 }
 
 
-.theme-dark .btn-primary,
-.theme-dark .c-btn-primary {
+/* .theme-dark .btn-primary,
+.theme-dark .c-btn-primary,
+.theme-dark .c-btn-secondary {
     --bs-btn-color: var(--classroom-black);
-}
+} */
 
 .theme-dark .btn.c-btn-primary:focus-visible,
 .theme-dark .btn.c-btn-primary:active {
@@ -207,7 +208,7 @@
     --bs-btn-font-weight: 700;
     --bs-btn-border-radius: 256px;
 
-    --bs-btn-color: var(--classroom-black);
+    /* --bs-btn-color: var(--classroom-black); */
     --bs-btn-bg: var(--classroom-secondary-dark);
     --bs-btn-border-color: var(--classroom-secondary-dark);
 
@@ -284,10 +285,10 @@
     --bs-btn-disabled-border-color: var(--classroom-tertiary);
 }
 
-.theme-dark .btn-tertiary,
+/* .theme-dark .btn-tertiary,
 .theme-dark .c-btn-tertiary {
   --bs-btn-color: var(--classroom-black);
-}
+} */
 
 .btn-outline-tertiary,
 .c-btn-outline-tertiary {
@@ -834,9 +835,9 @@ hr {
     background-color: var(--classroom-primary);
 }
 
-.theme-dark .wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn {
+/* .theme-dark .wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn {
   color: var(--classroom-black);
-}
+} */
 
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn.on,
 .wysibb .wysibb-toolbar .wysibb-toolbar-container .mswitch.wysibb-toolbar-btn.on:hover {
