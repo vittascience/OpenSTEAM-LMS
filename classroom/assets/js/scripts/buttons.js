@@ -835,6 +835,9 @@ function countCourseDoable() {
 function countActivityDoable() {
     let today = new Date();
     let doableActivity = Main.getClassroomManager()._myActivities.newActivities.filter(activity => {
+        if (Main.getClassroomManager().excludeActivityFromDashboard(activity)) {
+            return false;
+        }
         if (activity.dateBegin == null || activity.dateEnd == null) {
             return true;
         }
@@ -844,6 +847,12 @@ function countActivityDoable() {
     }).length;
 
     return doableActivity;
+}
+
+function countActivityDone() {
+    return Main.getClassroomManager()._myActivities.doneActivities.filter(activity => {
+        return !Main.getClassroomManager().excludeActivityFromDashboard(activity);
+    }).length;
 }
 
 function studentActivitiesDisplay() {
@@ -856,55 +865,71 @@ function studentActivitiesDisplay() {
     document.querySelector('#saved-activities-list').innerHTML = '';
     document.querySelector('#done-activities-list').innerHTML = '';
 
-    $('.section-new .resource-number').html(activities.newActivities.length)
-    const newCount = activities.newActivities.length;
+    let newCount = 0;
+    activities.newActivities.forEach(element => {
+        if (Main.getClassroomManager().excludeActivityFromDashboard(element)) {
+            return;
+        }
+        if (isDateNull(element.dateBegin, element.dateEnd) || checkDateForActivities(element.dateBegin.date, element.dateEnd.date)) {
+            $('#new-activities-list').append(activityItem(element, "newActivities"));
+            newCount++;
+            index++;
+        }
+    });
+    $('.section-new .resource-number').html(newCount);
     const newHeader = document.querySelector('.section-new .section-header');
     if (newHeader) {
         newHeader.setAttribute('aria-label', `Nouveaux, ${newCount} ${newCount === 1 ? 'nouvelle activité' : 'nouvelles activités'}`);
     }
-    activities.newActivities.forEach(element => {
+
+    let savedCount = 0;
+    activities.savedActivities.forEach(element => {
+        if (Main.getClassroomManager().excludeActivityFromDashboard(element)) {
+            return;
+        }
         if (isDateNull(element.dateBegin, element.dateEnd) || checkDateForActivities(element.dateBegin.date, element.dateEnd.date)) {
-            $('#new-activities-list').append(activityItem(element, "newActivities"));
+            $('#saved-activities-list').append(activityItem(element, "savedActivities"));
+            savedCount++;
             index++;
         }
     });
-
-    $('.section-saved .resource-number').html(activities.savedActivities.length)
-    const savedCount = activities.savedActivities.length;
+    $('.section-saved .resource-number').html(savedCount);
     const savedHeader = document.querySelector('.section-saved .section-header');
     if (savedHeader) {
         savedHeader.setAttribute('aria-label', `Brouillons, ${savedCount} ${savedCount === 1 ? 'activité en attente de correction' : 'activités en attente de correction'}`);
     }
-    activities.savedActivities.forEach(element => {
+
+    let currentCount = 0;
+    activities.currentActivities.forEach(element => {
+        if (Main.getClassroomManager().excludeActivityFromDashboard(element)) {
+            return;
+        }
         if (isDateNull(element.dateBegin, element.dateEnd) || checkDateForActivities(element.dateBegin.date, element.dateEnd.date)) {
-            $('#saved-activities-list').append(activityItem(element, "savedActivities"));
+            $('#current-activities-list').append(activityItem(element, "currentActivities"));
+            currentCount++;
             index++;
         }
     });
-
-    $('.section-current .resource-number').html(activities.currentActivities.length)
-    const currentCount = activities.currentActivities.length;
+    $('.section-current .resource-number').html(currentCount);
     const currentHeader = document.querySelector('.section-current .section-header');
     if (currentHeader) {
         currentHeader.setAttribute('aria-label', `En attente de correction, ${currentCount} ${currentCount === 1 ? 'activité en cours' : 'activités en cours'}`);
     }
-    activities.currentActivities.forEach(element => {
-        if (isDateNull(element.dateBegin, element.dateEnd) || checkDateForActivities(element.dateBegin.date, element.dateEnd.date)) {
-            $('#current-activities-list').append(activityItem(element, "currentActivities"));
-            index++;
-        }
-    });
 
-    $('.section-done .resource-number').html(activities.doneActivities.length)
-    const doneCount = activities.doneActivities.length;
+    let doneCount = 0;
+    activities.doneActivities.forEach(element => {
+        if (Main.getClassroomManager().excludeActivityFromDashboard(element)) {
+            return;
+        }
+        $('#done-activities-list').append(activityItem(element, "doneActivities"));
+        doneCount++;
+        index++;
+    });
+    $('.section-done .resource-number').html(doneCount);
     const doneHeader = document.querySelector('.section-done .section-header');
     if (doneHeader) {
         doneHeader.setAttribute('aria-label', `Terminés, ${doneCount} ${doneCount === 1 ? 'activité terminée' : 'activités terminées'}`);
     }
-    activities.doneActivities.forEach(element => {
-        $('#done-activities-list').append(activityItem(element, "doneActivities"));
-        index++;
-    });
 
     Main.getClassroomManager()._myCourses.forEach(course => {
         let today = new Date(),
@@ -960,10 +985,10 @@ function studentActivitiesDisplay() {
 
     manageToggleForStudentPanel();
 
-    if (activities.doneActivities.length < 1) {
+    if (doneCount < 1) {
         $('#average-score').hide();
     } else {
-        $('#number-activities-done').html(activities.doneActivities.length);
+        $('#number-activities-done').html(doneCount);
         $('#score-student').html($('#body-table-bilan .bilan-success').length);
         $('#average-score').show();
     }

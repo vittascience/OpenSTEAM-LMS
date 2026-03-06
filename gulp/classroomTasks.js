@@ -235,8 +235,29 @@ class AutoBuildManager {
                 plugin.images.forEach((imageFile) => {
                     promises.push(
                         new Promise((resolve, reject) => {
-                            gulp.src(`${this.pluginFolder}/${plugin.name}/public/images/${imageFile}`).pipe(gulp.dest(`${this.pluginsFolderInClassroom}/images/`)).on('finish', () => {
-                                resolve();
+                            // Check if imageFile is a directory
+                            fs.stat(`${this.pluginFolder}/${plugin.name}/public/images/${imageFile}`, (err, stats) => {
+                                if (err) {
+                                    console.error(`Error accessing ${imageFile}:`, err);
+                                    resolve();
+                                    return;
+                                }
+                                
+                                if (stats.isDirectory()) {
+                                    // Copy directory and all its contents recursively
+                                    gulp.src(`${this.pluginFolder}/${plugin.name}/public/images/${imageFile}/**/*`, { base: `${this.pluginFolder}/${plugin.name}/public/images` })
+                                        .pipe(gulp.dest(`${this.pluginsFolderInClassroom}/images/`))
+                                        .on('finish', () => {
+                                            resolve();
+                                        });
+                                } else {
+                                    // Copy single file
+                                    gulp.src(`${this.pluginFolder}/${plugin.name}/public/images/${imageFile}`)
+                                        .pipe(gulp.dest(`${this.pluginsFolderInClassroom}/images/`))
+                                        .on('finish', () => {
+                                            resolve();
+                                        });
+                                }
                             });
                         })
                     );

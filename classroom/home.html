@@ -1,7 +1,20 @@
     <link rel="stylesheet" href="assets/css/modal.css">
-    <!-- PLUGIN CSS-->
+    <link rel="stylesheet" href="assets/plugins/css/uploadScorm.css">
+<link rel="stylesheet" href="assets/plugins/css/acadekids.login.css">
+<link rel="stylesheet" href="assets/plugins/css/acadekids.main.css">
+<link rel="stylesheet" href="assets/plugins/css/acadekids.theme.css">
+<link rel="stylesheet" href="assets/plugins/css/lato-v23-latin-700.woff">
+<link rel="stylesheet" href="assets/plugins/css/lato-v23-latin-700.woff2">
+<link rel="stylesheet" href="assets/plugins/css/lato-v23-latin-900.woff">
+<link rel="stylesheet" href="assets/plugins/css/lato-v23-latin-900.woff2">
+<link rel="stylesheet" href="assets/plugins/css/lato-v23-latin-regular.woff">
+<link rel="stylesheet" href="assets/plugins/css/lato-v23-latin-regular.woff2">
+<link rel="stylesheet" href="assets/plugins/css/adminJourneyMap.css">
+<link rel="stylesheet" href="assets/plugins/css/gamification.css">
+<link rel="stylesheet" href="assets/plugins/css/journeyDashboard.css">
+<link rel="stylesheet" href="assets/plugins/css/journeyMap.css">
+<link rel="stylesheet" href="assets/plugins/css/studentJourneyMap.css">
 
-    <!-- END PLUGIN CSS -->
     <script src="assets/js/scripts/classroom-lang.js"></script>
 </head>
 
@@ -37,6 +50,13 @@
                 <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span>
             </div>
 
+            <div  id="dashboard-journey-student" class="classroom-navbar-button"
+                    onclick="navigatePanel('classroom-dashboard-journey-panel-students', 'dashboard-journey-student')"
+                    onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('classroom-dashboard-journey-panel-students', 'dashboard-journey-student');}"
+                    role="button" tabindex="0">
+                    <i class="fas fa-map" style="font-size:4em;"></i>
+                    <span data-i18n="[html]gamification.student.profile.myJourneyMap">Mes aventures</span>
+            </div>
         </div>
 <div id="classroom-dashboard-sidebar-teacher" class="sidebar-classroom" style="display:none;">
     <div id="classroom-sidebar-logo" 
@@ -66,6 +86,28 @@
         role="button" tabindex="0"><img
             class="user-picture" src="assets/media/profile_picture.svg" alt="Photo de profil">
         <span data-i18n="classroom.ids.classroom-dashboard-profil-panel-teacher"></span></div>
+
+
+    <div class="classroom-navbar-button" id="dashboard-badge-management-teacher"
+        aria-label="Gestion des badges"
+        onclick="navigateToBadgeManagement()"
+        onkeydown="if(event.key==='Enter'||event.key===' '){navigateToBadgeManagement();}"
+        role="button" tabindex="0">
+        <!-- <img src="assets/media/badge_management.svg" alt="Icône gestion des badges"> -->
+        <i class="far fa-id-badge" style="font-size:4em;"></i>
+        <span data-i18n="teacher.badges.badgeManagement"></span> 
+    </div>
+
+
+    <div class="classroom-navbar-button" id="dashboard-journey-management-teacher"
+        aria-label="Gestion des Journey"
+        onclick="navigatePanel('classroom-dashboard-admin-journey-map-panel', 'dashboard-journey-management-teacher');"
+        onkeydown="if(event.key==='Enter'||event.key===' '){navigatePanel('classroom-dashboard-admin-journey-map-panel', 'dashboard-journey-management-teacher');}"
+        role="button" tabindex="0">
+        <!-- <img src="assets/media/journey_management.svg" alt="Icône gestion des journeys"> -->
+        <i class="fas fa-map" style="font-size:4em;"></i>
+        <span data-i18n="teacher.journey.journeyManagement"></span>
+    </div>
 </div>
 <div id="manager-dashboard-sidebar" class="sidebar-classroom" style="display:none;">
     <!-- set your logo here -->
@@ -233,59 +275,100 @@
   });
 </script>
 <div id="classroom-dashboard-profil-panel" style="display:none;" class="dashboard-block profile-panel">
-        
-        <div class="d-flex flex-column text-center align-items-center">
+
+    <div class="d-flex d-column col-12 h-100 align-items-center">
+
+        <div class="left profile-panel-student-gamification  col-6">
+            <div class="d-flex flex-column text-center align-items-center">
                 <img src="assets/media/profile_picture.svg" alt="Photo de profil" class="user-picture">
                 <span id="user-name" class="mt-4" data-i18n="classroom.profile.identity"></span>
                 <span><span data-i18n="classroom.profil.class"></span><span id="classroom-name"></span></span>
-                <!-- <span id="establishment-name"></span> -->
-        </div>
-
-        <div id="classroom-dashboard-profile-stats" role="region" aria-label="Statistiques des activités">
-            <div style="grid-column: 2; grid-row: 0;" 
-                  class="activity-panel-link" 
-                  role="button" 
-                  tabindex="0"
-                  aria-label="Activités terminées, 0 activités terminées"
-                  onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"
-                  onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities'); }">
-                <span class="stats-primary done-activities" aria-hidden="true"></span>
-                <span class="text-span-initial stats-description" data-i18n="[html]classroom.profil.done"></span>
             </div>
-            <div style="grid-column: 1; grid-row: 1;" 
-                  class="activity-panel-link" 
-                  role="button" 
-                  tabindex="0"
-                  aria-label="Activités à faire, 0 activités à faire"
-                  onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"
-                  onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities'); }">
-                <span class="stats-secondary todo-activities" aria-hidden="true"></span>
-                <span class="text-span-initial stats-description" data-i18n="[html]classroom.profil.todo"></span>
-            </div>
-        </div>
-        <!-- <div id="space-return-button"></div> -->
 
-        <div class="d-flex flex-column" style="gap: 1.5em;" role="group" aria-label="Actions du profil">
-                <button class="btn mb-2 c-btn-outline-primary" 
-                        id="settings-student"
-                        aria-label="Paramètres du compte">
+            <div id="classroom-dashboard-profile-stats" role="region" aria-label="Statistiques des activités">
+                <div style="grid-column: 2; grid-row: 0;" class="activity-panel-link" role="button" tabindex="0"
+                    aria-label="Activités terminées, 0 activités terminées"
+                    onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"
+                    onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities'); }">
+                    <span class="stats-primary done-activities" aria-hidden="true"></span>
+                    <span class="text-span-initial stats-description" data-i18n="[html]classroom.profil.done"></span>
+                </div>
+                <div style="grid-column: 1; grid-row: 1;" class="activity-panel-link" role="button" tabindex="0"
+                    aria-label="Activités à faire, 0 activités à faire"
+                    onclick="navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities')"
+                    onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); navigatePanel('classroom-dashboard-activities-panel', 'dashboard-activities'); }">
+                    <span class="stats-secondary todo-activities" aria-hidden="true"></span>
+                    <span class="text-span-initial stats-description" data-i18n="[html]classroom.profil.todo"></span>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column" style="gap: 1.5em;" role="group" aria-label="Actions du profil">
+<!--                 <button class="btn mb-2 c-btn-outline-secondary" id="journey-map-button"
+                    onclick="navigatePanel('classroom-dashboard-journey-panel-students', 'dashboard-journey-student')"
+                    aria-label="Voir ma carte d'apprentissage">
+                    <span data-i18n="[html]gamification.student.profile.myJourneyMap"
+                        class="text-capitalize me-1 text-span-initial">Mon parcours</span>
+                    <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+                </button> -->
+
+                <button class="btn mb-2 c-btn-outline-primary" id="customize-avatar-button"
+                    onclick="navigatePanel('classroom-dashboard-avatar-panel', 'dashboard-avatar')"
+                    aria-label="Personnaliser l'avatar">
+                    <span data-i18n="[html]classroom.profil.customizeAvatar"
+                        class="text-capitalize me-1 text-span-initial">Mon avatar</span>
+                    <i class="fas fa-user-cog" aria-hidden="true"></i>
+                </button>
+
+                <button class="btn mb-2 c-btn-outline-primary" id="settings-student" aria-label="Paramètres du compte">
                     <span data-i18n="words.settings" class="text-capitalize me-1 text-span-initial"></span>
                     <i class="fas fa-cog" aria-hidden="true"></i>
                 </button>
-                <button id="teacherSwitchButton" 
-                        class="btn mb-2 c-btn-outline-primary" 
-                        onclick="modeProf()"
-                        aria-label="Passer en mode enseignant">
+                <button id="teacherSwitchButton" class="btn mb-2 c-btn-primary" onclick="modeProf()"
+                    aria-label="Passer en mode enseignant">
                     <span class="text-span-initial me-1" data-i18n="[html]classroom.profil.switchModeTeacher"></span>
                     <i class="fas fa-exchange-alt" aria-hidden="true"></i>
                 </button>
-                <button class="btn mb-2 c-btn-red" 
-                        onclick="goToDisconnect('classroom');"
-                        aria-label="Se déconnecter de la classe">
+                <button class="btn mb-2 c-btn-red" onclick="goToDisconnect('classroom');"
+                    aria-label="Se déconnecter de la classe">
                     <span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
                     <i class="fas fa-power-off" aria-hidden="true"></i>
                 </button>
+            </div>
         </div>
+
+
+        <div class="right col-6 h-75">
+            <!-- Section Badges Gamification -->
+            <div id="gamification-badges-section" class="gamification-badges-section">
+                <div id="badges-container" class="badges-grid">
+                    <!-- Les badges seront injectés ici par badgeManager.js -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+<div id="classroom-dashboard-avatar-panel" style="display:none;" class="dashboard-block avatar-panel">
+    
+    <div class="panel-header mb-3">
+        <button class="btn mb-2 c-btn-primary" 
+                onclick="navigatePanel('classroom-dashboard-profil-panel', 'dashboard-profile')"
+                aria-label="Retour au profil">
+            Retour au profil
+            <i class="fas fa-arrow-left"></i>
+        </button>
+    </div>
+
+    <!-- Conteneur pour l'éditeur d'avatar -->
+    <div id="avatar-editor-container" class="avatar-editor-wrapper">
+        <!-- Le contenu sera injecté par avatarManager.js -->
+    </div>
+
 </div>
 <div id="classroom-dashboard-help-panel" style="display:none;" class="dashboard-block help-panel-student">
     <div class="contact-panel">
@@ -592,7 +675,7 @@
                         <i class="fas fa-chevron-right"></i>
                     </button>
 
-                    <button class="btn c-btn-grey mx-2" id="activity-save" style="display:none;" onclick="validateActivity(0)" data-i18n="classroom.activities.save-draft">
+                    <button class="btn c-btn-secondary mx-2" id="activity-save" style="display:none;" onclick="validateActivity(0)" data-i18n="classroom.activities.save-draft">
                         <i class="fas fa-chevron-right"></i>
                     </button>
 
@@ -647,6 +730,12 @@
         </button>
     </div>
 </div>
+
+
+<!-- JourneyMap -->
+<div id="classroom-dashboard-journey-panel-students" style="display:none;" class="dashboard-block journey-panel">
+    <div id="journey-map-container-students"></div>
+</div>
 <div id="classroom-dashboard-profil-panel-teacher" class="dashboard-block profile-panel" style="display:none;">
     <!-- Div alert when application has expired -->
     <div id="info-applications" class="alert alert-danger text-center" style="display:none;"></div>
@@ -683,21 +772,21 @@
     </div>
 
     <div class="d-flex flex-column" style="gap: 1.5em;" role="group" aria-label="Actions du profil enseignant">
-        <button class="btn c-btn-outline-primary" 
+        <button class="btn c-btn-primary" 
                 id="settings-teacher"
                 aria-label="Paramètres du compte enseignant">
             <span class="text-capitalize text-span-initial" data-i18n="words.settings" class="text-capitalize"></span>
             <i class="fas fa-cog" aria-hidden="true"></i>
         </button>
 
-        <button class="btn c-btn-outline-secondary" 
+        <button class="btn c-btn-secondary" 
                 id="help-teacher"
                 aria-label="Accéder à l'aide et aux tutoriels">
             <span data-i18n="words.help" class="text-capitalize text-span-initial"></span>
             <i class="fas fa-question-circle" aria-hidden="true"></i>
         </button>
 
-        <button class="btn c-btn-outline-primary" 
+        <button class="btn c-btn-tertiary" 
                 onclick="listeModeApprenant()" 
                 id="switch-student"
                 aria-label="Passer en mode étudiant">
@@ -763,7 +852,7 @@
     <div id="space-groupes"></div>
 
     <div class="buttons-interactions">
-        <button id="teacher-new-classroom-btn" class="btn c-btn-outline-primary teacher-new-classe">
+        <button id="teacher-new-classroom-btn" class="btn c-btn-primary teacher-new-classe">
             <span data-i18n="classroom.classes.add"></span> <i class="fas fa-chevron-right"></i>
         </button>
     </div>
@@ -809,16 +898,6 @@
                 <input type="text" id="classroom-form-school-update" class="form-control form-control-lg">
             </div>   
         </div>
-        <!-- <a href="#" id="update-classroom-student-button" class="new-student-modal btn c-btn-primary m-3"><i class="fas fa-user-plus"></i><span class="ms-1" data-i18n="classroom.classes.form.addStudent"></span></a>
-        <div class="table-students" id="table-students-update">
-            <ul>
-                <li id="no-student-label-update" data-i18n="classroom.classes.form.noStudent"></li>
-            </ul>
-        </div>
-        <div class="c-checkbox mt-2">
-            <input type="checkbox" name="classroom-form-is-blocked" id="classroom-form-is-blocked-update">
-            <label for="classroom-form-is-blocked-update" data-i18n="classroom.classes.form.isBlockedButton"></label>
-        </div> -->
         <button type="submit" class="new-classroom-form btn c-btn-primary m-3"><i class="fas fa-save"></i><span class="ms-1" data-i18n="classroom.classes.form.save"></span> </button>
     </form>
 </div>
@@ -837,16 +916,6 @@
                 <input type="text" id="classroom-form-school" class="form-control form-control-lg">
             </div>   
         </div>
-<!--         <a href="#" id="create-classroom-student-button" class="new-student-modal btn c-btn-primary m-3"><i class="fas fa-user-plus"></i><span class="ms-1" data-i18n="classroom.classes.form.addStudent"></span></a>
-        <div class="table-students" id="table-students">
-            <ul>
-                <li id="no-student-label" data-i18n="classroom.classes.form.noStudent"></li>
-            </ul>
-        </div>
-        <div class="c-checkbox mt-2">
-            <input type="checkbox" name="classroom-form-is-blocked" id="classroom-form-is-blocked">
-            <label for="classroom-form-is-blocked" data-i18n="classroom.classes.form.isBlockedButton"></label>
-        </div> -->
         <button type="submit" class="new-classroom-form btn c-btn-primary m-3"><i class="fas fa-save"></i><span class="ms-1" data-i18n="classroom.classes.form.save"></span> </button>
     </form>
 </div>
@@ -1017,6 +1086,124 @@
         </div>
     </div>
 </div>
+
+
+<div id="classroom-dashboard-badge-management-panel-teacher" style="display:none;" class="dashboard-block teacher-badge-management-container">
+    
+    <div class="teacher-management-header">
+        <h2 class="teacher-management-title">
+            <span data-i18n="teacher.badges.title">Gestion des badges</span>
+        </h2>
+        <p class="teacher-management-subtitle" data-i18n="teacher.badges.subtitle">
+            Attribuez des badges à vos élèves pour récompenser leurs progrès et leurs réalisations
+        </p>
+    </div>
+
+    <div class="teacher-filters-section">
+        <div class="teacher-search-bar">
+            <i class="fas fa-search"></i>
+            <input 
+                type="text" 
+                id="student-search" 
+                class="teacher-search-input" 
+                placeholder="Rechercher un élève..."
+                data-i18n="[placeholder]teacher.badges.searchStudent"
+            >
+        </div>
+
+        <div class="teacher-filter-group">
+            <label for="class-filter" data-i18n="teacher.badges.selectClass">Sélectionner une classe :</label>
+            <select id="class-filter" class="teacher-select">
+                <option value="all" data-i18n="teacher.badges.allClasses">Toutes les classes</option>
+            </select>
+        </div>
+
+        <div class="teacher-filter-group">
+            <label for="badge-category-filter" data-i18n="teacher.badges.filterByCategory">Filtrer par catégorie :</label>
+            <select id="badge-category-filter" class="teacher-select">
+                <option value="all" data-i18n="teacher.badges.allCategories">Toutes les catégories</option>
+                <option value="academic" data-i18n="gamification.badges.categories.academic">Académique</option>
+                <option value="social" data-i18n="gamification.badges.categories.social">Social</option>
+                <option value="special" data-i18n="gamification.badges.categories.special">Spécial</option>
+                <option value="seasonal" data-i18n="gamification.badges.categories.seasonal">Saisonnier</option>
+                <option value="general" data-i18n="gamification.badges.categories.general">Général</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="teacher-main-content">
+        <div class="teacher-students-panel">
+            <h3 class="teacher-panel-title">
+                <i class="fas fa-users"></i>
+                <span data-i18n="teacher.badges.students">Élèves</span>
+                <span id="students-count" class="teacher-count-badge">0</span>
+            </h3>
+            
+            <div id="students-list" class="teacher-students-list">
+                <div class="teacher-loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <span data-i18n="teacher.badges.loadingStudents">Chargement des élèves...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="teacher-badges-panel">
+            <div id="no-student-selected" class="teacher-empty-state">
+                <i class="fas fa-hand-pointer"></i>
+                <h3 data-i18n="teacher.badges.selectStudentPrompt">Sélectionnez un élève</h3>
+                <p data-i18n="teacher.badges.selectStudentDesc">
+                    Choisissez un élève dans la liste pour voir ses badges et en attribuer de nouveaux
+                </p>
+            </div>
+
+            <div id="student-badge-panel" class="teacher-student-badge-panel" style="display: none;">
+
+
+                <div class="teacher-selected-student">
+                    <div class="teacher-student-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="teacher-student-info">
+                        <h3 id="selected-student-name" class="teacher-student-name">-</h3>
+                        <p id="selected-student-class" class="teacher-student-class">-</p>
+                        <div class="teacher-student-stats">
+                            <span class="teacher-stat">
+                                <i class="fas fa-trophy"></i>
+                                <span id="selected-student-badges-count">0</span>
+                                <span data-i18n="teacher.badges.badgesEarned">badges gagnés</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="teacher-tabs">
+                    <button class="teacher-tab c-btn-primary active" data-tab="available" data-i18n="teacher.badges.availableBadges">
+                        Badges disponibles
+                    </button>
+                    <button class="teacher-tab c-btn-secondary" data-tab="earned" data-i18n="teacher.badges.earnedBadges">
+                        Badges gagnés
+                    </button>
+                </div>
+
+                <div class="teacher-tab-content">
+                    <div id="available-badges-tab" class="teacher-tab-panel active">
+                        <div class="teacher-badges-grid" id="available-badges-grid">
+                        </div>
+                    </div>
+
+                    <div id="earned-badges-tab" class="teacher-tab-panel">
+                        <div class="teacher-badges-list" id="earned-badges-list">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="classroom-dashboard-activities-panel-teacher" style="display:none;" class="dashboard-block">
     <div class="d-flex justify-content-center c-primary-form row" style="margin: 0 auto;">
 
@@ -1068,10 +1255,10 @@
     </div>
 
     <div class="buttons-interactions flex-wrap d-inline-flex col-12 mt-3">
-        <button id="new-activity-panel-1" onclick="showExercicePanel()" class=" btn c-btn-outline-secondary"><span class="me-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
+        <button id="new-activity-panel-1" onclick="showExercicePanel()" class=" btn c-btn-secondary"><span class="me-1" data-i18n="classroom.activities.add"></span><i class="fas fa-chevron-right"></i>
         </button>
 
-        <button id="new-activity-panel-2" onclick="coursesManager.showCoursePanel()" class="btn c-btn-outline-primary"><span class="me-1" data-i18n="courses.add">Créer un parcours</span><i class="fas fa-chevron-right"></i>
+        <button id="new-activity-panel-2" onclick="coursesManager.showCoursePanel()" class="btn c-btn-primary"><span class="me-1" data-i18n="courses.add">Créer un parcours</span><i class="fas fa-chevron-right"></i>
         </button>
 
         <button class="btn c-btn-icon-only" id="new-activities-folder" onclick="foldersManager.openFolderModal()"
@@ -1083,7 +1270,7 @@
             <img src="assets/media/folders/folder_tree.svg" alt="Icône recherche dossier" onload="SVGInject(this)" style="height: 30px;">
         </button>
 
-        <button id="new-activity-panel-3" onclick="importActivityFromJSON()" class="btn c-btn-no-outline-primary ms-auto">
+        <button id="new-activity-panel-3" onclick="importActivityFromJSON()" class="btn c-btn-outline-tertiary ms-auto">
             <span class="me-1" data-i18n="newActivities.import">Importer une activité</span><i class="fas fa-download"></i>
         </button>
     </div>
@@ -1310,11 +1497,20 @@
 
     </div>
 </div>
+
+<!-- JourneyMap -->
+<div id="classroom-dashboard-journey-panel-teachers" style="display:none;" class="dashboard-block journey-panel">
+    <div id="journey-map-container-teachers"></div>
+</div>
+
+<div id="classroom-dashboard-admin-journey-map-panel" style="display: none;" class="dashboard-block journey-panel-admin">
+    <div id="admin-journey-map-container"></div>
+</div>
 <div id="classroom-dashboard-help-panel-teacher" style="display:none;" class="dashboard-block help-panel">
   
   <div class="contact-panel">
       <div class="d-flex justify-content-start">
-          <button class="btn c-btn-outline-primary mb-3" id="help-back-button"
+          <button class="btn c-btn-primary mb-3" id="help-back-button"
             aria-label="Retour au profil"
             onclick="navigatePanel('classroom-dashboard-profil-panel-teacher', 'dashboard-profil-teacher')">
             <i class="fas fa-arrow-left" aria-hidden="true"></i>
@@ -1405,14 +1601,14 @@
 
     <div class="d-flex flex-column text-center">
         <img src="assets/media/profile_picture.svg" alt="Photo de profil" class="user-picture">
-        <span id="user-name-groupadmin" class="mt-4" data-i18n="classroom.profil.identity">PLACEHOLDER</span>
+        <span id="user-name-groupadmin" class="mt-4" data-i18n="classroom.profil.identity">Nom</span>
     </div>
 
     <div class="d-flex flex-column" style="gap: 1.5em;">
-        <button class="btn c-btn-outline-primary" id="settings-groupadmin"><span class="text-capitalize text-span-initial" data-i18n="words.settings" class="text-capitalize"></span> <i class="fas fa-cog"></i>
+        <button class="btn c-btn-primary" id="settings-groupadmin"><span class="text-capitalize text-span-initial" data-i18n="words.settings" class="text-capitalize"></span> <i class="fas fa-cog"></i>
         </button>
 
-        <button class="btn c-btn-outline-primary" onclick="switchToProf()"><span data-i18n="classroom.profil.switchModeTeacher" class="text-span-initial me-1"></span><i class="fas fa-exchange-alt"></i></button>
+        <button class="btn c-btn-secondary" onclick="switchToProf()"><span data-i18n="classroom.profil.switchModeTeacher" class="text-span-initial me-1"></span><i class="fas fa-exchange-alt"></i></button>
 
         <button class="btn c-btn-red" onclick="goToDisconnect('classroom');"><span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
             <i class="fas fa-power-off"></i>
@@ -1569,14 +1765,14 @@
 
     <div class="d-flex flex-column text-center">
         <img src="assets/media/profile_picture.svg" alt="Photo de profil" class="user-picture">
-        <span id="user-name-manager" class="mt-4" data-i18n="classroom.profil.identity">PLACEHOLDER</span>
+        <span id="user-name-manager" class="mt-4" data-i18n="classroom.profil.identity">Nom</span>
     </div>
 
     <div class="d-flex flex-column" style="gap: 1.5em;">
-        <button class="btn c-btn-outline-primary" id="settings-manager"><span class="text-capitalize text-span-initial" data-i18n="words.settings" class="text-capitalize"></span> <i class="fas fa-cog"></i>
+        <button class="btn c-btn-primary" id="settings-manager"><span class="text-capitalize text-span-initial" data-i18n="words.settings" class="text-capitalize"></span> <i class="fas fa-cog"></i>
         </button>
 
-        <button class="btn c-btn-outline-primary" onclick="switchToProf()"><span data-i18n="classroom.profil.switchModeTeacher" class="text-span-initial me-1"></span><i class="fas fa-exchange-alt"></i></button>
+        <button class="btn c-btn-secondary" onclick="switchToProf()"><span data-i18n="classroom.profil.switchModeTeacher" class="text-span-initial me-1"></span><i class="fas fa-exchange-alt"></i></button>
 
         <button class="btn c-btn-red" onclick="goToDisconnect('classroom');"  data-testid="classroomLogoutBtn"><span data-i18n="words.disconnect" class="text-capitalize text-span-initial"></span>
             <i class="fas fa-power-off"></i>
@@ -2128,11 +2324,11 @@
 
 
             <div class="col-xl-9 my-1 mx-auto d-none flex-column" id="tags-activities">
-                <label id="taglist-label-new">Ajouter des tags à votre activité</label>
+                <label>Ajouter des tags à votre activité</label>
                 <div id="taglist" class="w-100 d-flex flex-wrap"></div>
                 <div class="input-group mb-3">
-                    <label for="taglist-select" class="visually-hidden">Sélectionner un tag à ajouter</label>
-                    <select id="taglist-select" class="form-control" aria-labelledby="taglist-label-new"></select>
+                    <label for="taglist-select" class="sr-only">Sélectionner un tag</label>
+                    <select id="taglist-select" class="form-control"></select>
                     <button id="add-tag-to-list" class="btn c-btn-primary">Ajouter le tag</button>
                 </div>
             </div>
@@ -2249,7 +2445,7 @@
 
         </div>
         <p data-i18n="classroom.activities.form.hint"></p>
-        <button class="btn c-btn-outline-primary" onclick="activityModify(0)" data-i18n="classroom.activities.form.modify"></button>
+        <button class="btn c-btn-secondary" onclick="activityModify(0)" data-i18n="classroom.activities.form.modify"></button>
     </div>
 </div>
 
@@ -2466,7 +2662,7 @@
             <p data-i18n="[html]classroom.courses.selectActivities"></p>
 
             <div class="col-sm mb-2 d-flex justify-content-center">
-                <button class="btn c-btn-grey mx-1" id="course-add-activity" onclick="coursesManager.addActivityToCourse()">
+                <button class="btn c-btn-primary mx-1" id="course-add-activity" onclick="coursesManager.addActivityToCourse()">
                     <span data-i18n="courses.addActivity">Ajouter une activité</span>
                 </button>
 
@@ -2738,7 +2934,7 @@
             </div>
 
             <p data-i18n="classroom.activities.form.hint"></p>
-            <button class="btn c-btn-outline-primary" onclick="coursesManager.updateCourse()" data-i18n="courses.update">
+            <button class="btn c-btn-secondary" onclick="coursesManager.updateCourse()" data-i18n="courses.update">
                 Modifier le parcours
             </button>
             
@@ -3129,9 +3325,21 @@ function handleGroupAdmin(panel, nav, option, iface) {
 }
 </script>
 <script src="assets/js/utils/translate.js" defer></script>
-<!-- PLUGIN SCRIPTS-->
+<script src="assets/plugins/js/scormActivity.js"></script>
+<script src="assets/plugins/js/scormUpload.js"></script>
+<script src="assets/plugins/js/navigation.js"></script>
+<script src="assets/plugins/js/adminJourneyMapManager.js"></script>
+<script src="assets/plugins/js/animationManager.js"></script>
+<script src="assets/plugins/js/avatarManager.js"></script>
+<script src="assets/plugins/js/badgeManager.js"></script>
+<script src="assets/plugins/js/gamification-i18n.js"></script>
+<script src="assets/plugins/js/gamificationManager.js"></script>
+<script src="assets/plugins/js/journeyDashboardEnricher.js"></script>
+<script src="assets/plugins/js/journeyMapManager.js"></script>
+<script src="assets/plugins/js/studentJourneyMapManager.js"></script>
+<script src="assets/plugins/js/teacherBadgeManager.js"></script>
+<script src="assets/plugins/js/utils.js"></script>
 
-<!-- END PLUGIN SCRIPTS -->
 </body>
 
 </html>

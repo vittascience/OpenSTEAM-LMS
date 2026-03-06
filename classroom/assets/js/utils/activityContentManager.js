@@ -489,15 +489,37 @@ function cancelImport() {
 }
 
 
+function destroyAllDraggableInstances() {
+    Object.keys(Main.getClassroomManager().droppable).forEach(key => {
+        if (Main.getClassroomManager().droppable[key] != undefined) {
+            Main.getClassroomManager().droppable[key].destroy();
+            delete Main.getClassroomManager().droppable[key];
+        }
+    });
+
+    document.querySelectorAll('.draggable-mirror').forEach(el => el.remove());
+    document.querySelectorAll('.draggable--original').forEach(el => {
+        el.classList.remove('draggable--original');
+        el.style.display = '';
+    });
+    document.querySelectorAll('.draggable-source--is-dragging').forEach(el => {
+        el.classList.remove('draggable-source--is-dragging');
+    });
+    document.querySelectorAll('.draggable-dropzone--occupied').forEach(el => {
+        el.classList.remove('draggable-dropzone--occupied');
+    });
+    document.querySelectorAll('.draggable-container--placed').forEach(el => {
+        el.classList.remove('draggable-container--placed');
+    });
+}
+
 function initializeDragulaWithOneContainer(idContainer, classDropZone, activityId = null) {
     let droppableName = 'droppable'
     if (activityId != null) {
         droppableName += '-'+activityId;
     }
 
-    if (Main.getClassroomManager().droppable[droppableName] != undefined) {
-        Main.getClassroomManager().droppable[droppableName].destroy();
-    }
+    destroyAllDraggableInstances();
 
     Main.getClassroomManager().droppable[droppableName] = new Draggable.Droppable(
         document.querySelectorAll(`#${idContainer}`),
