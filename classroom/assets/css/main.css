@@ -380,8 +380,16 @@ button {
     background-color: rgba(255, 255, 255, 0.15);
 }
 
+.sidebar-classroom #classroom-sidebar-logo:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 7px var(--classroom-dashboard);
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
 .sidebar-classroom #classroom-sidebar-logo:focus:not(:focus-visible) {
     outline: none;
+    box-shadow: none;
     background-color: transparent;
     transform: none;
 }
@@ -582,6 +590,13 @@ button {
     --bs-btn-padding-x: 1em;
     --bs-btn-padding-y: 0.2em;
     height: 100%;
+}
+
+#dropdownMenuButton:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 7px var(--classroom-dashboard);
+    border-radius: 4px;
 }
 
 .a11y-dropdown {
@@ -3890,10 +3905,6 @@ h3.section-done {
     outline: 2px solid var(--classroom-primary);
     outline-offset: 2px;
     border-color: var(--classroom-primary);
-}
-
-.theme-dark .switcher {
-    background: #fff;
 }
 
 .switcher__input {
