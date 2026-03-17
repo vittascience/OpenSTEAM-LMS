@@ -176,6 +176,9 @@ class DragAndDropManager {
             item.setAttribute('aria-pressed', 'false');
             item.setAttribute('aria-grabbed', 'false');
             item.setAttribute('tabindex', '0');
+            
+            // Disable math-field interactions inside draggable items
+            dragAndDropManager.disableMathFieldInteraction(item);
 
             item.addEventListener('keydown', e => {
                 if (e.key === 'Enter' || e.key === ' ') {
@@ -255,6 +258,35 @@ class DragAndDropManager {
         });
     }
 
+    disableMathFieldInteraction(element) {
+        // Find all math-field elements inside the draggable item
+        const mathFields = element.querySelectorAll('math-field');
+        mathFields.forEach(mathField => {
+            // Remove tabindex to prevent focus
+            mathField.setAttribute('tabindex', '-1');
+            // Make it truly read-only
+            mathField.setAttribute('read-only', 'true');
+            mathField.removeAttribute('contenteditable');
+            // Hide from screen readers (parent will handle aria)
+            mathField.setAttribute('aria-hidden', 'true');
+            // Prevent all pointer events on math-field
+            mathField.style.pointerEvents = 'none';
+            mathField.style.userSelect = 'none';
+            
+            // Stop event propagation from math-field
+            ['mousedown', 'click', 'dblclick', 'keydown', 'keyup', 'focus'].forEach(eventType => {
+                mathField.addEventListener(eventType, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // Focus parent instead
+                    if (eventType === 'mousedown' || eventType === 'click') {
+                        element.focus();
+                    }
+                }, true);
+            });
+        });
+    }
+
 
 
     showTeacherCommonCode(contentParsed) {
@@ -305,12 +337,18 @@ class DragAndDropManager {
         
         if (correction <= 1 || correction == null) {
             if (!UserManager.getUser().isRegular) {
+                destroyAllDraggableInstances();
 
                 // reset both div course and normal to avoid id duplication
                 const dragDropText = document.getElementById('drag-and-drop-text');
                 const dragDropTextCourse = document.getElementById('drag-and-drop-text-course');
                 if (dragDropText) dragDropText.innerHTML = "";
                 if (dragDropTextCourse) dragDropTextCourse.innerHTML = "";
+
+                const dragDropFields = document.getElementById('drag-and-drop-fields');
+                const dragDropFieldsCourse = document.getElementById('drag-and-drop-fields-course');
+                if (dragDropFields) dragDropFields.innerHTML = "";
+                if (dragDropFieldsCourse) dragDropFieldsCourse.innerHTML = "";
 
                 let ContentString = manageDragAndDropText(content.dragAndDropFields.contentForTeacher);
                 const dragDropTextElement = document.getElementById('drag-and-drop-text' + course);
@@ -389,7 +427,8 @@ class DragAndDropManager {
                 let mathContent = parseMathLiveContent(studentResponses[i].string);
 
                 if (mathContent) {
-                    studentContentString = studentContentString.replace(answer, `<div class='drag-and-drop-answer-teacher' id="corrected-student-response-${i}">${mathContent}</div>`);
+                    // For math content, use min-width and auto width instead of fixed ch width
+                    studentContentString = studentContentString.replace(answer, `<div class='drag-and-drop-answer-teacher' id="corrected-student-response-${i}" style="display:inline-block; min-width:3em; width:auto;">${mathContent}</div>`);
                 } else if (bbcodeToHtml(studentResponses[i].string) != studentResponses[i].string) {
                     studentContentString = studentContentString.replace(answer, bbcodeToHtml(studentResponses[i].string));
                 } else {
@@ -400,6 +439,29 @@ class DragAndDropManager {
             const studentResponseContent = document.getElementById('activity-student-response-content' + course);
             if (studentResponseContent) {
                 studentResponseContent.innerHTML = `<div>${bbcodeContentIncludingMathLive(studentContentString)}</div>`;
+                
+                // Fix math-field styles in the DOM after insertion
+                // Use double requestAnimationFrame to ensure the DOM is fully rendered
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        const mathFields = studentResponseContent.querySelectorAll('math-field');
+                        mathFields.forEach(mathField => {
+                            mathField.style.minWidth = '3em';
+                            mathField.style.display = 'inline-block';
+                            mathField.style.width = 'auto';
+                        });
+                        
+                        const mathContainers = studentResponseContent.querySelectorAll('.drag-and-drop-answer-teacher');
+                        mathContainers.forEach(container => {
+                            if (container.querySelector('math-field')) {
+                                container.style.display = 'inline-block';
+                                container.style.minWidth = '3em';
+                                container.style.width = 'auto';
+                                container.style.verticalAlign = 'middle';
+                            }
+                        });
+                    });
+                });
             }
             
             const studentResponse = document.getElementById('activity-student-response' + course);
@@ -590,6 +652,43 @@ class DragAndDropManager {
         return returnedItem;
     }
 
+    fixMathFieldStyles(htmlString) {
+        // Create a temporary container to parse and modify the HTML
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlString;
+        
+        // Find all math-field elements and force proper styling
+        const mathFields = tempDiv.querySelectorAll('math-field');
+        mathFields.forEach(mathField => {
+            // Remove any restrictive width styles
+            mathField.style.removeProperty('width');
+            mathField.style.removeProperty('height');
+            mathField.style.minWidth = '3em';
+            mathField.style.display = 'inline-block';
+            mathField.style.width = 'auto';
+            mathField.style.height = 'auto';
+            mathField.setAttribute('read-only', 'true');
+        });
+        
+        // Find all divs containing math-fields and ensure they have proper width
+        const mathContainers = tempDiv.querySelectorAll('.drag-and-drop-answer-teacher');
+        mathContainers.forEach(container => {
+            if (container.querySelector('math-field')) {
+                // Remove any restrictive width/height styles
+                container.style.removeProperty('width');
+                container.style.removeProperty('height');
+                container.style.display = 'inline-flex';
+                container.style.minWidth = 'fit-content';
+                container.style.width = 'fit-content';
+                container.style.height = 'fit-content';
+                container.style.verticalAlign = 'middle';
+                container.style.padding = '6px 12px';
+            }
+        });
+        
+        return tempDiv.innerHTML;
+    }
+
     returnCorrectedContent(activity, content) {
         let studentResponses = JSON.parse(activity.response);
         let studentContentString = content.dragAndDropFields.contentForTeacher;
@@ -612,6 +711,7 @@ class DragAndDropManager {
                 }
 
                 if (mathContent) {
+                    // For math content, DON'T use any fixed width/height - let it size naturally
                     studentContentString = studentContentString.replace(answer, `<div class='drag-and-drop-answer-teacher ${correctAnswer ? "answer-correct" : ""}' id="corrected-student-response-${i}">${mathContent}</div>`);
                 } else if (bbcodeToHtml(studentResponses[i].string) != studentResponses[i].string) {
                     studentContentString = studentContentString.replace(answer, `<div class='drag-and-drop-answer-teacher ${correctAnswer ? "answer-correct" : ""}' id="corrected-student-response-${i}">${bbcodeToHtml(studentResponses[i].string)}</div>`);
@@ -621,6 +721,8 @@ class DragAndDropManager {
             }
             
             correctedContent = bbcodeContentIncludingMathLive(studentContentString);
+            // Fix math-field styles after bbcode processing
+            correctedContent = dragAndDropManager.fixMathFieldStyles(correctedContent);
         }
 
         return correctedContent;

@@ -48,7 +48,7 @@ DisplayPanel.prototype.classroom_dashboard_profil_panel = function () {
     $('#user-name').html(UserManager.getUser().pseudo)
     Main.getClassroomManager().getStudentActivity().then(function (data) {
         const todoCount = countActivityDoable();
-        const doneCount = data.doneActivities;
+        const doneCount = countActivityDone();
 
         $('.todo-activities').html(todoCount)
         $('.todo-courses').html(data.todoCourses)

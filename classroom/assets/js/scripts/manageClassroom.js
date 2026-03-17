@@ -1430,6 +1430,11 @@ function displayStudentsInClassroom(students, link=false) {
         classroomTable.classList.remove('dropdowns-opened');
         $(classroomTable).find('tr').removeClass('non-dropdown');
     });
+
+    // Plugin hook: post-render callback (no-op without plugin)
+    if (typeof window.onDashboardRendered === 'function') {
+        window.onDashboardRendered(students, arrayIndexesActivities, classroomId);
+    }
 }
 
 function copyPinToClipboard(pin) {
