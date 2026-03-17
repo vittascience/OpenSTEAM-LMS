@@ -50,6 +50,7 @@ class ClassroomManager {
         this.classLinkBeforeNewPanel = null;
 
         this.dashboardFilters = [];
+        this.courseDashboardFilters = [];
     }
 
     /**
@@ -1787,6 +1788,18 @@ class ClassroomManager {
 
     excludeActivityFromDashboard(item) {
         let filteredDashboard = Main.getClassroomManager().dashboardFilters;
+        let filtered = false;
+        for (let i = 0; i < filteredDashboard.length; i++) {
+            if (item.hasOwnProperty(filteredDashboard[i]) && item[filteredDashboard[i]]) {
+                filtered = true;
+                break;
+            }
+        }
+        return filtered;
+    }
+
+    excludeCourseFromDashboard(item) {
+        let filteredDashboard = Main.getClassroomManager().courseDashboardFilters;
         let filtered = false;
         for (let i = 0; i < filteredDashboard.length; i++) {
             if (item.hasOwnProperty(filteredDashboard[i]) && item[filteredDashboard[i]]) {

@@ -823,6 +823,9 @@ function checkDateForActivities(dateBegin, dateEnd) {
 function countCourseDoable() {
     let today = new Date();
     let doableCourse = Main.getClassroomManager()._myCourses.filter(course => {
+        if (Main.getClassroomManager().excludeCourseFromDashboard(course)) {
+            return false;
+        }
         let dateBegin = new Date(course.dateBegin.date);
         let dateEnd = new Date(course.dateEnd.date);
         return today >= dateBegin && today <= dateEnd;
@@ -932,6 +935,9 @@ function studentActivitiesDisplay() {
     }
 
     Main.getClassroomManager()._myCourses.forEach(course => {
+        if (Main.getClassroomManager().excludeCourseFromDashboard(course)) {
+            return;
+        }
         let today = new Date(),
             dateBegin = course.dateBegin ? new Date(course.dateBegin.date) : null,
             dateEnd = course.dateEnd ? new Date(course.dateEnd.date) : null;
@@ -1172,6 +1178,9 @@ function teacherActivitiesDisplay(list = Main.getClassroomManager()._myTeacherAc
 
     if (!excludedObjects.includes("courses")) {
         coursesManager.myCourses.forEach(course => {
+            if (Main.getClassroomManager().excludeCourseFromDashboard(course)) {
+                return;
+            }
             if (course.folder == null && foldersManager.actualFolder == null) {
                 $('#list-activities-teacher').append(coursesManager.teacherCourseItem(course, displayStyle));
             } else if (course.folder != null) {
