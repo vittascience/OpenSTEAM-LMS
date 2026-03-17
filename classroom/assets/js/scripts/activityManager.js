@@ -239,13 +239,17 @@ function titleForward() {
 
 function defaultCallback(activity, correction, interface) {
     if (!interface) {
-        navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
         actualizeStudentActivities(activity, correction);
         $("#activity-validate").attr("disabled", false);
+        const event = new CustomEvent('lms:activityValidated', { cancelable: true, detail: { activityId: Activity.activity.id, note: activity.note, correction: activity.correction, isSuccess: true, hasPendingCorrection: false } });
+        if (!document.dispatchEvent(event)) return;
+        navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities');
     } else {
-        actualizeStudentActivities(activity, correction)
+        actualizeStudentActivities(activity, correction);
         $("#activity-validate").attr("disabled", false);
-        navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher')
+        const event = new CustomEvent('lms:activityValidated', { cancelable: true, detail: { activityId: Activity.activity.id, note: activity.note, correction: activity.correction, isSuccess: true, hasPendingCorrection: true } });
+        if (!document.dispatchEvent(event)) return;
+        navigatePanel('classroom-dashboard-activity-panel-correcting', 'dashboard-classes-teacher');
     }
 }
 
@@ -265,6 +269,9 @@ function validateActivity(correction) {
 
 function validateDefaultResponseManagement(response) {
     $("#activity-validate").attr("disabled", false);
+    const _isSuccess = response.note != null && response.correction > 1 && response.note >= 1;
+    const event = new CustomEvent('lms:activityValidated', { cancelable: true, detail: { activityId: Activity.activity.id, note: response.note, correction: response.correction, isSuccess: _isSuccess, hasPendingCorrection: !_isSuccess } });
+    if (!document.dispatchEvent(event)) return;
     if (response.note != null && response.correction > 1) {
         if (response.note >= 1) {
             navigatePanel('classroom-dashboard-activity-panel-success', 'dashboard-activities')
@@ -312,10 +319,11 @@ function activitiesCreation(apps) {
             outDated = app.outDated;
         }
 
+        const i18nOpts = { nsSeparator: false };
         let nameField = "";
-        if (i18next.t(titleRoad+app.name) != titleRoad+app.name) {
+        if (i18next.t(titleRoad+app.name, i18nOpts) != titleRoad+app.name) {
             nameField = `<h2 class="app-card-title mt-2" data-i18n="${titleRoad+app.name}"></h2>`;
-        } else if (i18next.t(app.name) != app.name) {
+        } else if (i18next.t(app.name, i18nOpts) != app.name) {
             nameField = `<h2 class="app-card-title mt-2" data-i18n="${app.name}"></h2>`;
         } else {
             let appName = app.name.replaceAll("-", " ");
@@ -323,9 +331,9 @@ function activitiesCreation(apps) {
         }
 
         let descriptionField = "";
-        if (i18next.t(descriptionRoad+app.description) != descriptionRoad+app.description) {
-            descriptionField = `<p class="app-card-description" data-i18n="${descriptionRoad+app.description}"></p>`;
-        } else if (i18next.t(app.description) != app.description) {
+        if (i18next.t(descriptionRoad+app.name, i18nOpts) != descriptionRoad+app.name) {
+            descriptionField = `<p class="app-card-description" data-i18n="${descriptionRoad+app.name}"></p>`;
+        } else if (i18next.t(app.description, i18nOpts) != app.description) {
             descriptionField = `<p class="app-card-description" data-i18n="${app.description}"></p>`;
         } else {
             descriptionField = `<p class="app-card-description">${app.description}</p>`;

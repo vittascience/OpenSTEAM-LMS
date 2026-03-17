@@ -1,5 +1,15 @@
 {
-    "config": {         "platform": {             "php": "7.3"         }     },
+    "config": {
+        "platform": {
+            "php": "7.3"
+        },
+        "audit": {
+            "ignore": [
+                "PKSA-z3gr-8qht-p93v",
+                "PKSA-y2cr-5h3j-g3ys"
+            ]
+        }
+    },
     "require-dev": {
         "phpunit/phpunit": "8.0.0",
         "vittascience/vtuser": "1.3.5",
@@ -18,7 +28,8 @@
         "phpmailer/phpmailer": "^6.1",
         "aiken/i18next": "dev-master",
         "vlucas/phpdotenv": "^4.1",
-        "google/apiclient": "^2.0",
+        "google/apiclient": "^2.14",
+        "firebase/php-jwt": "^6.0",
         "jasig/phpcas": "^1.3",
         "guzzlehttp/guzzle": "^7.5",
         "symfony/cache": "^5.3",

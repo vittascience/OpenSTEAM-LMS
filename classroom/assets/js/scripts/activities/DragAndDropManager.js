@@ -337,12 +337,18 @@ class DragAndDropManager {
         
         if (correction <= 1 || correction == null) {
             if (!UserManager.getUser().isRegular) {
+                destroyAllDraggableInstances();
 
                 // reset both div course and normal to avoid id duplication
                 const dragDropText = document.getElementById('drag-and-drop-text');
                 const dragDropTextCourse = document.getElementById('drag-and-drop-text-course');
                 if (dragDropText) dragDropText.innerHTML = "";
                 if (dragDropTextCourse) dragDropTextCourse.innerHTML = "";
+
+                const dragDropFields = document.getElementById('drag-and-drop-fields');
+                const dragDropFieldsCourse = document.getElementById('drag-and-drop-fields-course');
+                if (dragDropFields) dragDropFields.innerHTML = "";
+                if (dragDropFieldsCourse) dragDropFieldsCourse.innerHTML = "";
 
                 let ContentString = manageDragAndDropText(content.dragAndDropFields.contentForTeacher);
                 const dragDropTextElement = document.getElementById('drag-and-drop-text' + course);

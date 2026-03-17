@@ -150,7 +150,7 @@ class FreeManager {
             if (!UserManager.getUser().isRegular) {
                 const wbbptions = Main.getClassroomManager().wbbOpt;
                 $('#activity-input'+course).wysibb(wbbptions);
-                $('#activity-input').htmlcode("");
+                $('#activity-input'+course).htmlcode("");
                 if (parsed != null && parsed != '') {
                     if (parsed != false) {
                         $('#activity-input'+course).forceInsertBbcode(parsed);
