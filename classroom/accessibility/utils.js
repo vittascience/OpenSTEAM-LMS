@@ -1,14 +1,38 @@
+const _a11yQueue = [];
+let _a11yProcessing = false;
+
 function notifyA11y(message, type = 'info') {
-    const notifier = document.getElementById('a11y-notifier');
-    
-    if (!notifier) {
-        console.warn('a11y-notifier element not found');
+    // Les messages error/warning/success ont priorité sur info :
+    // si un message prioritaire est en attente, on ignore les info
+    const isPriority = type !== 'info';
+    if (!isPriority && _a11yQueue.some(item => item.type !== 'info')) {
         return;
     }
-    
+    _a11yQueue.push({ message, type });
+    if (!_a11yProcessing) {
+        _processA11yQueue();
+    }
+}
+
+function _processA11yQueue() {
+    if (_a11yQueue.length === 0) {
+        _a11yProcessing = false;
+        return;
+    }
+
+    _a11yProcessing = true;
+    const { message, type } = _a11yQueue.shift();
+    const notifier = document.getElementById('a11y-notifier');
+
+    if (!notifier) {
+        console.warn('a11y-notifier element not found');
+        _a11yProcessing = false;
+        return;
+    }
+
     notifier.textContent = '';
-    
-    switch(type) {
+
+    switch (type) {
         case 'error':
             notifier.setAttribute('aria-live', 'assertive');
             notifier.setAttribute('role', 'alert');
@@ -25,9 +49,15 @@ function notifyA11y(message, type = 'info') {
             notifier.setAttribute('aria-live', 'polite');
             notifier.setAttribute('role', 'status');
     }
-    
+
+    // Délai court pour que le changement d'aria-live soit pris en compte
     setTimeout(() => {
         notifier.textContent = message;
+        // Attendre que le lecteur d'écran ait le temps d'annoncer avant le suivant
+        setTimeout(() => {
+            notifier.textContent = '';
+            setTimeout(_processA11yQueue, 50);
+        }, 1500);
     }, 100);
 }
 
