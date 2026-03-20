@@ -380,13 +380,18 @@ function listStudentsToAttribute(ref = null) {
     if (classes.length == 0) {
         $('#attribute-activity-to-students-close').after(NO_CLASS)
         $('#attribute-activity-to-students-close').hide()
-
     } else {
-        classes.forEach(element => {
-            $('#list-student-attribute-modal').append(classeList(element, ref))
+        const pending = classes
+            .filter(c => c.students.length === 0)
+            .map(c => Main.getClassroomManager().getClassroomStudents(c.classroom.id));
+
+        Promise.all(pending).then(() => {
+            classes.forEach(element => {
+                $('#list-student-attribute-modal').append(classeList(element, ref))
+            });
+            $('.no-classes').remove()
+            $('#attribute-activity-to-students-close').show()
         });
-        $('.no-classes').remove()
-        $('#attribute-activity-to-students-close').show()
     }
 }
 

@@ -1080,7 +1080,7 @@ function displayStudentsInClassroom(students, link=false) {
     // get the current classroom index of activities
     let arrayIndexesActivities = listIndexesActivities(students);
 
-    const studentRows = []; // collect all row HTML strings for virtual rendering
+    const studentRows = [];
     students.forEach((element, elementIdx) => {
         // reorder the current student activities to fit to the classroom index of activities
         let arrayActivities = reorderActivities([...element.activities, ...element.courses], arrayIndexesActivities);
@@ -1380,7 +1380,11 @@ function displayStudentsInClassroom(students, link=false) {
         const POOL = 60;
         const table = container.querySelector('table');
         const tbody = document.getElementById('body-table-teach');
-        const tmpTbody = document.createElement('tbody'); // shared parser, never attached to DOM
+        const tmpTbody = document.createElement('tbody');
+
+        // Neutralize img src in all HTML strings so tr.innerHTML never triggers a network request.
+        // fillRow will move the existing pooled <img> nodes (already loaded) instead.
+        const allRowsSafe = allRows.map(html => html.replace(/(<img\b[^>]*?)\ssrc=/gi, '$1 data-vs-src='));
 
         // Freeze column widths so table-layout:fixed doesn't squash them
         Array.from(document.querySelectorAll('#header-table-teach th')).forEach(th => {
@@ -1408,7 +1412,7 @@ function displayStudentsInClassroom(students, link=false) {
 
         // Build initial pool (rows 0..POOL-1)
         tmpTbody.innerHTML = allRows.slice(0, POOL).join('');
-        const pool = Array.from(tmpTbody.children); // pool[i] is always in DOM order
+        const pool = Array.from(tmpTbody.children);
         pool.forEach(tr => tbody.appendChild(tr));
 
         // postProcess all pool rows once at init
@@ -1420,10 +1424,10 @@ function displayStudentsInClassroom(students, link=false) {
         const botSp = document.createElement('tr');
         botSp.innerHTML = '<td colspan="999" style="padding:0;border:none;height:0"></td>';
         tbody.appendChild(botSp);
-        appendAddStudentButton(); // permanently after botSp, never touched by scroll
+        appendAddStudentButton();
 
         const rowH = (pool[0] && pool[0].offsetHeight) || 44;
-        let anchor = 0; // pool[0] shows allRows[anchor], pool[POOL-1] shows allRows[anchor+POOL-1]
+        let anchor = 0;
 
         function setSpacers(a) {
             topSp.firstElementChild.style.height = Math.max(0, a * rowH) + 'px';
@@ -1431,17 +1435,48 @@ function displayStudentsInClassroom(students, link=false) {
         }
         setSpacers(0);
 
-        // Update an existing <tr> node with the content of allRows[rowIdx]
+        // Reusable anchor element to resolve any relative URL → absolute, once.
+        const _urlResolver = document.createElement('a');
+        function resolveUrl(url) { _urlResolver.href = url; return _urlResolver.href; }
+
+        // Update an existing <tr> node with the content of allRows[rowIdx].
+        // Uses allRowsSafe (no img src) so tr.innerHTML never fires a network request.
+        // Existing pooled <img> nodes are moved via replaceWith() — zero requests.
         function fillRow(tr, rowIdx) {
-            // No dispose needed: tr.innerHTML detaches old children from DOM,
-            // making their Bootstrap event listeners permanently inactive.
-            tmpTbody.innerHTML = allRows[rowIdx];
-            const src = tmpTbody.firstElementChild;
-            // Sync attributes
+            // Parse the safe version (no img src) into tmpTbody
+            tmpTbody.innerHTML = allRowsSafe[rowIdx];
+            const newRow = tmpTbody.firstElementChild;
+
+            // Capture existing img nodes and their target src from data-vs-src
+            // Resolve to absolute URL so comparison with img.src (always absolute) works correctly
+            const existingImgs = Array.from(tr.querySelectorAll('img'));
+            const newImgMeta = Array.from(newRow.querySelectorAll('img')).map(img => ({
+                src: img.dataset.vsSrc ? resolveUrl(img.dataset.vsSrc) : '',
+                alt: img.alt,
+                className: img.className
+            }));
+
+            // Sync tr attributes (preserves data-student-idx etc.)
             while (tr.attributes.length) tr.removeAttribute(tr.attributes[0].name);
-            for (const attr of src.attributes) tr.setAttribute(attr.name, attr.value);
-            tr.innerHTML = src.innerHTML;
-            // Cheap immediate ops (no DOM structural change)
+            for (const attr of newRow.attributes) tr.setAttribute(attr.name, attr.value);
+            tr.innerHTML = newRow.innerHTML;
+
+            // Re-insert existing img nodes (DOM move = guaranteed zero request)
+            // Only update .src if the letter actually changed (pool of 26 images)
+            const freshImgs = Array.from(tr.querySelectorAll('img'));
+            freshImgs.forEach((freshImg, i) => {
+                const saved = existingImgs[i];
+                if (!saved) return;
+                const meta = newImgMeta[i];
+                if (meta) {
+                    if (meta.src && saved.src !== meta.src) saved.src = meta.src;
+                    saved.alt = meta.alt;
+                    saved.className = meta.className;
+                }
+                freshImg.replaceWith(saved);
+            });
+
+            // Cheap immediate ops
             $(tr).localize();
             $(tr).find('.bilan-cell').html('<div class="monochrome-grade-div"></div>'.repeat(4));
         }
@@ -1461,7 +1496,7 @@ function displayStudentsInClassroom(students, link=false) {
             for (let i = 0; i < delta; i++) {
                 const tr = pool.shift();
                 fillRow(tr, anchor + POOL + i);
-                tbody.insertBefore(tr, botSp); // DOM move: old front → new back
+                tbody.insertBefore(tr, botSp);
                 pool.push(tr);
             }
             anchor += delta;
@@ -1470,12 +1505,12 @@ function displayStudentsInClassroom(students, link=false) {
 
         // Scroll up by delta: recycle back rows to front (iterate reverse for correct DOM order)
         function recycleUp(delta) {
-            const ref = pool[0]; // fixed anchor point; all insertions go before this
+            const ref = pool[0];
             const newEntries = [];
             for (let i = delta - 1; i >= 0; i--) {
                 const tr = pool.pop();
                 fillRow(tr, anchor - delta + i);
-                tbody.insertBefore(tr, ref); // reverse iteration → ascending visual order
+                tbody.insertBefore(tr, ref);
                 newEntries.unshift(tr);
             }
             pool.unshift(...newEntries);
