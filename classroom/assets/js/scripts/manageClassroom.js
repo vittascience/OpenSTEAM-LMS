@@ -1080,7 +1080,8 @@ function displayStudentsInClassroom(students, link=false) {
     // get the current classroom index of activities
     let arrayIndexesActivities = listIndexesActivities(students);
 
-    students.forEach(element => {
+    const studentRows = []; // collect all row HTML strings for virtual rendering
+    students.forEach((element, elementIdx) => {
         // reorder the current student activities to fit to the classroom index of activities
         let arrayActivities = reorderActivities([...element.activities, ...element.courses], arrayIndexesActivities);
         let pseudo = element.user.pseudo;
@@ -1370,11 +1371,148 @@ function displayStudentsInClassroom(students, link=false) {
         }
         // end of the current table row
         html += '</tr>';
-        $('#body-table-teach').append(html).localize();
-        $('[data-bs-toggle="tooltip"]').tooltip()
+        // Embed absolute index so anonymizeStudents works correctly with virtual scroll
+        studentRows.push('<tr data-student-idx="' + elementIdx + '">' + html.slice(4));
     });
-    
-    appendAddStudentButton();
+
+    // === Virtual Scroll (table-layout: fixed, sliding window ~60 rows) ===
+    (function vScroll(allRows, container) {
+        const POOL = 60;
+        const table = container.querySelector('table');
+        const tbody = document.getElementById('body-table-teach');
+        const tmpTbody = document.createElement('tbody'); // shared parser, never attached to DOM
+
+        // Freeze column widths so table-layout:fixed doesn't squash them
+        Array.from(document.querySelectorAll('#header-table-teach th')).forEach(th => {
+            th.style.width = Math.max(th.offsetWidth, 30) + 'px';
+        });
+        table.style.tableLayout = 'fixed';
+
+        // Small class — render all at once, no virtual scroll
+        if (allRows.length <= POOL) {
+            tmpTbody.innerHTML = allRows.join('');
+            Array.from(tmpTbody.children).forEach(el => tbody.appendChild(el));
+            const els = Array.from(tbody.children);
+            $(els).find('[data-bs-toggle="tooltip"]').tooltip();
+            $(els).localize();
+            $(els).find('.bilan-cell').html('<div class="monochrome-grade-div"></div>'.repeat(4));
+            if ($('#is-anonymised').prop('checked')) anonymizeStudents();
+            appendAddStudentButton();
+            return;
+        }
+
+        // Spacers — only 2 extra nodes in DOM for total height
+        const topSp = document.createElement('tr');
+        topSp.innerHTML = '<td colspan="999" style="padding:0;border:none;height:0"></td>';
+        tbody.appendChild(topSp);
+
+        // Build initial pool (rows 0..POOL-1)
+        tmpTbody.innerHTML = allRows.slice(0, POOL).join('');
+        const pool = Array.from(tmpTbody.children); // pool[i] is always in DOM order
+        pool.forEach(tr => tbody.appendChild(tr));
+
+        // postProcess all pool rows once at init
+        $(pool).find('[data-bs-toggle="tooltip"]').tooltip();
+        $(pool).localize();
+        $(pool).find('.bilan-cell').html('<div class="monochrome-grade-div"></div>'.repeat(4));
+        if ($('#is-anonymised').prop('checked')) anonymizeStudents();
+
+        const botSp = document.createElement('tr');
+        botSp.innerHTML = '<td colspan="999" style="padding:0;border:none;height:0"></td>';
+        tbody.appendChild(botSp);
+        appendAddStudentButton(); // permanently after botSp, never touched by scroll
+
+        const rowH = (pool[0] && pool[0].offsetHeight) || 44;
+        let anchor = 0; // pool[0] shows allRows[anchor], pool[POOL-1] shows allRows[anchor+POOL-1]
+
+        function setSpacers(a) {
+            topSp.firstElementChild.style.height = Math.max(0, a * rowH) + 'px';
+            botSp.firstElementChild.style.height = Math.max(0, (allRows.length - a - POOL) * rowH) + 'px';
+        }
+        setSpacers(0);
+
+        // Update an existing <tr> node with the content of allRows[rowIdx]
+        function fillRow(tr, rowIdx) {
+            // No dispose needed: tr.innerHTML detaches old children from DOM,
+            // making their Bootstrap event listeners permanently inactive.
+            tmpTbody.innerHTML = allRows[rowIdx];
+            const src = tmpTbody.firstElementChild;
+            // Sync attributes
+            while (tr.attributes.length) tr.removeAttribute(tr.attributes[0].name);
+            for (const attr of src.attributes) tr.setAttribute(attr.name, attr.value);
+            tr.innerHTML = src.innerHTML;
+            // Cheap immediate ops (no DOM structural change)
+            $(tr).localize();
+            $(tr).find('.bilan-cell').html('<div class="monochrome-grade-div"></div>'.repeat(4));
+        }
+
+        // Expensive tooltip init deferred until scroll stops
+        let ppTimer = null;
+        function scheduleTooltips() {
+            clearTimeout(ppTimer);
+            ppTimer = setTimeout(() => {
+                $(pool).find('[data-bs-toggle="tooltip"]').tooltip();
+                if ($('#is-anonymised').prop('checked')) anonymizeStudents();
+            }, 200);
+        }
+
+        // Scroll down by delta: recycle front rows to back
+        function recycleDown(delta) {
+            for (let i = 0; i < delta; i++) {
+                const tr = pool.shift();
+                fillRow(tr, anchor + POOL + i);
+                tbody.insertBefore(tr, botSp); // DOM move: old front → new back
+                pool.push(tr);
+            }
+            anchor += delta;
+            setSpacers(anchor);
+        }
+
+        // Scroll up by delta: recycle back rows to front (iterate reverse for correct DOM order)
+        function recycleUp(delta) {
+            const ref = pool[0]; // fixed anchor point; all insertions go before this
+            const newEntries = [];
+            for (let i = delta - 1; i >= 0; i--) {
+                const tr = pool.pop();
+                fillRow(tr, anchor - delta + i);
+                tbody.insertBefore(tr, ref); // reverse iteration → ascending visual order
+                newEntries.unshift(tr);
+            }
+            pool.unshift(...newEntries);
+            anchor -= delta;
+            setSpacers(anchor);
+        }
+
+        let raf = null;
+        function update() {
+            const sT = container.scrollTop;
+            const visFirst = Math.floor(sT / rowH);
+            // Keep a small above-fold buffer (3 rows) to cover fast upward scrolls
+            const newAnchor = Math.max(0, Math.min(Math.max(0, visFirst - 3), allRows.length - POOL));
+            if (newAnchor === anchor) return;
+
+            const delta = newAnchor - anchor;
+            if (Math.abs(delta) >= POOL) {
+                // Large jump: rewrite all pool slots, no DOM moves needed
+                anchor = newAnchor;
+                pool.forEach((tr, i) => fillRow(tr, newAnchor + i));
+                setSpacers(anchor);
+            } else if (delta > 0) {
+                recycleDown(delta);
+            } else {
+                recycleUp(-delta);
+            }
+            scheduleTooltips();
+        }
+
+        function onScroll() {
+            if (raf) return;
+            raf = requestAnimationFrame(() => { raf = null; update(); });
+        }
+        container.addEventListener('scroll', onScroll, { passive: true });
+
+    })(studentRows, document.getElementById('classroom-panel-table-container'));
+    // === End Virtual Scroll ===
     // get classroom settings from localstorage
     let settings = getClassroomDisplaySettings(link);
     
@@ -1418,18 +1556,19 @@ function displayStudentsInClassroom(students, link=false) {
     // add four empty divs for monochrome styling
     $('#body-table-teach .bilan-cell').html(`<div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div>`);
 
-    $('#classroom-panel-table-container table .dropdown').on('show.bs.dropdown', (event) => {
-        let classroomTable = event.target.closest('table');
-        classroomTable.classList.add('dropdowns-opened');
-        $(classroomTable).find('tr').addClass('non-dropdown');
-        event.target.closest('tr').classList.remove('non-dropdown');
-    });
-    
-    $('#classroom-panel-table-container table .dropdown').on('hidden.bs.dropdown', (event) => {
-        let classroomTable = event.target.closest('table');
-        classroomTable.classList.remove('dropdowns-opened');
-        $(classroomTable).find('tr').removeClass('non-dropdown');
-    });
+    // Delegated event binding so lazy-loaded rows also receive these handlers
+    $('#classroom-panel-table-container table').off('show.bs.dropdown.lazyrows hidden.bs.dropdown.lazyrows')
+        .on('show.bs.dropdown.lazyrows', '.dropdown', (event) => {
+            let classroomTable = event.target.closest('table');
+            classroomTable.classList.add('dropdowns-opened');
+            $(classroomTable).find('tr').addClass('non-dropdown');
+            event.target.closest('tr').classList.remove('non-dropdown');
+        })
+        .on('hidden.bs.dropdown.lazyrows', '.dropdown', (event) => {
+            let classroomTable = event.target.closest('table');
+            classroomTable.classList.remove('dropdowns-opened');
+            $(classroomTable).find('tr').removeClass('non-dropdown');
+        });
 
     // Plugin hook: post-render callback (no-op without plugin)
     if (typeof window.onDashboardRendered === 'function') {
