@@ -1077,7 +1077,7 @@ function classroomsDisplay() {
     let classes = Main.getClassroomManager()._myClasses;
     if (classes.length) {
         classes.forEach(classroom => {
-            $('.list-classes').append(classeItem(classroom.classroom, classroom.students.length, classroom.students));
+            $('.list-classes').append(classeItem(classroom.classroom, classroom.studentCount ?? classroom.students.length, classroom.students, classroom.pendingCorrections, classroom.activitiesCount));
         });
     } else {
         $('.list-classes').append(noContentDiv).localize();
@@ -1088,7 +1088,7 @@ function classroomsDisplay() {
         let classes = Main.getClassroomManager()._myClasses;
         if (classes.length) {
             classes.forEach(classroom => {
-                $('.list-classes').append(classeItem(classroom.classroom, classroom.students.length, classroom.students));
+                $('.list-classes').append(classeItem(classroom.classroom, classroom.studentCount ?? classroom.students.length, classroom.students, classroom.pendingCorrections, classroom.activitiesCount));
             });
         } else {
             $('.list-classes').append(noContentDiv).localize();
