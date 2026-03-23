@@ -113,3 +113,22 @@ span[id*="-dz-"] img {
         max-height: 100px;
     }
 }
+
+/* Math-field specific styles */
+.drag-and-drop-answer-teacher math-field,
+.draggable-items math-field,
+span[id^="dz-"] math-field,
+span[id*="-dz-"] math-field {
+    min-width: 3em !important;
+    width: auto !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+    font-size: 1em !important;
+}
+
+.drag-and-drop-answer-teacher:has(math-field),
+.draggable-items:has(math-field) {
+    min-width: 3em !important;
+    width: auto !important;
+    padding: 6px 12px !important;
+}

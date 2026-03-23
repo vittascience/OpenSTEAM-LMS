@@ -1490,17 +1490,17 @@ class managerManager {
                             ${element.nbUsers}
                         </td>
                         <td>
-                            <a class="c-link-secondary" href="javascript:void(0)" tabindex="0" 
-                               onclick="showupdateGroupModal(${element.id})" 
-                               onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showupdateGroupModal(${element.id});}"
+                            <a class="c-link-secondary" href="javascript:void(0)" tabindex="0"
+                               onclick="event.stopPropagation();showupdateGroupModal(${element.id})"
+                               onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();showupdateGroupModal(${element.id});}"
                                aria-label="Modifier le groupe ${element.name}">
                                 <i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i>
                             </a>
                         </td>
                         <td>
-                            <a class="c-link-red" href="javascript:void(0)" tabindex="0" 
-                               onclick="deleteGroup(${element.id})" 
-                               onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();deleteGroup(${element.id});}"
+                            <a class="c-link-red" href="javascript:void(0)" tabindex="0"
+                               onclick="event.stopPropagation();deleteGroup(${element.id})"
+                               onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();event.stopPropagation();deleteGroup(${element.id});}"
                                aria-label="Supprimer le groupe ${element.name}">
                                 <i class="fas fa-trash-alt fa-2x" aria-hidden="true"></i>
                             </a>
