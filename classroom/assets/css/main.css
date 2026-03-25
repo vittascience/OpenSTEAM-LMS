@@ -4057,3 +4057,6 @@ td {
     margin-top: 200px !important;
 }
  */
+.theme-dark #access-form .btn-close {
+  background-color: #fff !important;
+}
