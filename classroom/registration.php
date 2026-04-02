@@ -15,8 +15,9 @@ use User\Entity\Regular;
 use Utils\ConnectionManager;
 
 // Load env variables 
-$dotenv = Dotenv::createImmutable(__DIR__ . "/../");
-$dotenv->safeLoad();
+$dir  = is_file('/run/secrets/app_env') ? '/run/secrets' : __DIR__ . '/../';
+$file = is_file('/run/secrets/app_env') ? 'app_env'      : '.env';
+Dotenv::createImmutable($dir, $file)->safeLoad();
 
 $uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
 $token = isset($_GET['token']) ? htmlspecialchars($_GET['token']) : null;

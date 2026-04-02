@@ -339,13 +339,6 @@ async function navigatePanel(id, idNav, option = "", interface = '', isOnpopstat
         setTimeout(() => moveFocusIntoPanel(id), 150);
     }
 
-    // If user navigates to the realtime calculator panel, initialize result monitoring
-    if (id === 'classroom-dashboard-realtime-calculator' || id === 'classroom-dashboard-realtime-calculator-student') {
-        setTimeout(() => {
-            try { setupCalculationMonitoring(); } catch (e) { /* noop */ }
-        }, 500);
-    }
-
     if (id == 'resource-center-classroom') {
         $('#classroom-dashboard-activities-panel-library-teacher').html('<iframe id="resource-center-classroom" src="/learn/?use=classroom" frameborder="0" style="height:80vh;width:80vw" title="Centre de ressources - Bibliothèque d\'activités"></iframe>');
     }
@@ -393,57 +386,7 @@ async function navigatePanel(id, idNav, option = "", interface = '', isOnpopstat
     }
 }
 
-/**
- * Monitor TI calculator results and announce them via screen reader.
- * Requires a global calcInstance with methods: isInitialized(), isBusy(), getFullPrecisionAnswer().
- */
-function setupCalculationMonitoring() {
-    if (window.__calcMonitoringStarted === true) {
-        return;
-    }
-    if (typeof calcInstance === 'undefined') {
-        return;
-    }
 
-    window.__calcMonitoringStarted = true;
-
-    let lastResult = null;
-    function checkForResults() {
-        try {
-            if (!calcInstance || !calcInstance.isInitialized() || calcInstance.isBusy()) {
-                return;
-            }
-
-            const currentResult = calcInstance.getFullPrecisionAnswer();
-            if (currentResult && currentResult !== lastResult && currentResult !== '0' && currentResult !== '') {
-                notifyA11y('Résultat du calcul : ' + currentResult);
-                lastResult = currentResult;
-            }
-        } catch (_) { }
-    }
-
-    setInterval(checkForResults, 500);
-
-    const calculator = document.querySelector('.TI83CE');
-    if (calculator) {
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                    const target = mutation.target;
-                    if (target.id === 'TI83CE_KEY_ENTER_ENTRY_NONE' && target.classList.contains('ti_highlight_keys')) {
-                        setTimeout(checkForResults, 200);
-                    }
-                }
-            });
-        });
-
-        observer.observe(calculator, {
-            attributes: true,
-            attributeFilter: ['class'],
-            subtree: true
-        });
-    }
-}
 
 /**
  * Move focus inside a given dashboard panel.
