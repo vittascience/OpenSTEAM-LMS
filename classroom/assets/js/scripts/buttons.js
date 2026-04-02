@@ -330,8 +330,10 @@ async function navigatePanel(id, idNav, option = "", interface = '', isOnpopstat
     $('#' + idNav).addClass("active");
 
     // Accessibility: move focus inside the opened panel (only after first user interaction)
+    // Use setTimeout(0) so the keyup event fires on the originating nav button before focus moves,
+    // preventing accidental activation of the first focusable element in the new panel.
     if (window.__a11yAllowPanelFocus === true) {
-        moveFocusIntoPanel(id);
+        setTimeout(() => moveFocusIntoPanel(id), 0);
     }
 
     // Always ensure focus for help panels goes to the contact section regardless of initial Tab state
