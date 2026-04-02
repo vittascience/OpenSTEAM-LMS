@@ -286,6 +286,14 @@ class ClassroomManager {
                                 classroom.classroom.name = `${classroom.classroom.name} | ${classroom.classroom.groupe}`;
                             }
                         }
+                        // Preserve already lazy-loaded students so they are not wiped
+                        const oldClasses = container._myClasses || [];
+                        for (let newEntry of response) {
+                            const existing = oldClasses.find(c => c.classroom.id === newEntry.classroom.id);
+                            if (existing && existing.students.length > 0) {
+                                newEntry.students = existing.students;
+                            }
+                        }
                         container._myClasses = response;
                         Main.getClassroomManager().countClassroomAndStudents(response);
                         onEnd();
@@ -310,9 +318,36 @@ class ClassroomManager {
         };
         data.forEach((classroom) => {
             teacherData.classrooms++;
-            teacherData.students += classroom.students.length;
+            // Use server-provided studentCount (students array is lazy-loaded)
+            teacherData.students += classroom.studentCount ?? classroom.students.length;
         });
         UserManager.getUser().teacherData = teacherData;
+    }
+
+    /**
+     * Load full student data for one classroom (lazy, called on click).
+     * Stores result in _myClasses so subsequent clicks don't re-fetch.
+     */
+    getClassroomStudents(classroomId) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                type: 'POST',
+                dataType: 'JSON',
+                url: '/routing/Routing.php?controller=classroom&action=get_classroom_students',
+                data: { classroomId: classroomId },
+                success: (response) => {
+                    if (response.error) {
+                        console.error('getClassroomStudents error:', response.error);
+                        resolve([]);
+                        return;
+                    }
+                    const entry = this._myClasses.find(c => c.classroom.id == classroomId);
+                    if (entry) entry.students = response.students;
+                    resolve(response.students);
+                },
+                error: (e) => { console.error(e); reject(e); }
+            });
+        });
     }
 
     /**

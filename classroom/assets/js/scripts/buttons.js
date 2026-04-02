@@ -341,13 +341,6 @@ async function navigatePanel(id, idNav, option = "", interface = '', isOnpopstat
         setTimeout(() => moveFocusIntoPanel(id), 150);
     }
 
-    // If user navigates to the realtime calculator panel, initialize result monitoring
-    if (id === 'classroom-dashboard-realtime-calculator' || id === 'classroom-dashboard-realtime-calculator-student') {
-        setTimeout(() => {
-            try { setupCalculationMonitoring(); } catch (e) { /* noop */ }
-        }, 500);
-    }
-
     if (id == 'resource-center-classroom') {
         $('#classroom-dashboard-activities-panel-library-teacher').html('<iframe id="resource-center-classroom" src="/learn/?use=classroom" frameborder="0" style="height:80vh;width:80vw" title="Centre de ressources - Bibliothèque d\'activités"></iframe>');
     }
@@ -395,57 +388,7 @@ async function navigatePanel(id, idNav, option = "", interface = '', isOnpopstat
     }
 }
 
-/**
- * Monitor TI calculator results and announce them via screen reader.
- * Requires a global calcInstance with methods: isInitialized(), isBusy(), getFullPrecisionAnswer().
- */
-function setupCalculationMonitoring() {
-    if (window.__calcMonitoringStarted === true) {
-        return;
-    }
-    if (typeof calcInstance === 'undefined') {
-        return;
-    }
 
-    window.__calcMonitoringStarted = true;
-
-    let lastResult = null;
-    function checkForResults() {
-        try {
-            if (!calcInstance || !calcInstance.isInitialized() || calcInstance.isBusy()) {
-                return;
-            }
-
-            const currentResult = calcInstance.getFullPrecisionAnswer();
-            if (currentResult && currentResult !== lastResult && currentResult !== '0' && currentResult !== '') {
-                notifyA11y('Résultat du calcul : ' + currentResult);
-                lastResult = currentResult;
-            }
-        } catch (_) { }
-    }
-
-    setInterval(checkForResults, 500);
-
-    const calculator = document.querySelector('.TI83CE');
-    if (calculator) {
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-                    const target = mutation.target;
-                    if (target.id === 'TI83CE_KEY_ENTER_ENTRY_NONE' && target.classList.contains('ti_highlight_keys')) {
-                        setTimeout(checkForResults, 200);
-                    }
-                }
-            });
-        });
-
-        observer.observe(calculator, {
-            attributes: true,
-            attributeFilter: ['class'],
-            subtree: true
-        });
-    }
-}
 
 /**
  * Move focus inside a given dashboard panel.
@@ -480,20 +423,26 @@ function moveFocusIntoPanel(panelId) {
     if (contactSection) {
         const contactCandidates = Array.from(contactSection.querySelectorAll(focusableSelectors.join(','))).filter(isVisible);
         if (contactCandidates.length > 0) {
-            try { contactCandidates[0].focus(); return; } catch (_) { }
+            try { contactCandidates[0].focus(); return; } catch (_) {
+                console.error('Failed to focus contact section element, falling back to regular focus flow');
+            }
         }
     }
 
     const firstFocusable = candidates.find((el) => isVisible(el));
 
     if (firstFocusable) {
-        try { firstFocusable.focus(); return; } catch (_) { }
+        try { firstFocusable.focus(); return; } catch (_) {
+            console.error('Failed to focus first focusable element, falling back to panel focus');
+        }
     }
 
     if (!panel.hasAttribute('tabindex')) {
         panel.setAttribute('tabindex', '-1');
     }
-    try { panel.focus(); } catch (_) { }
+    try { panel.focus(); } catch (_) { 
+        console.error('Failed to focus panel container');
+    }
 }
 
 /**
@@ -1079,7 +1028,7 @@ function classroomsDisplay() {
     let classes = Main.getClassroomManager()._myClasses;
     if (classes.length) {
         classes.forEach(classroom => {
-            $('.list-classes').append(classeItem(classroom.classroom, classroom.students.length, classroom.students));
+            $('.list-classes').append(classeItem(classroom.classroom, classroom.studentCount ?? classroom.students.length, classroom.students, classroom.pendingCorrections, classroom.activitiesCount));
         });
     } else {
         $('.list-classes').append(noContentDiv).localize();
@@ -1090,7 +1039,7 @@ function classroomsDisplay() {
         let classes = Main.getClassroomManager()._myClasses;
         if (classes.length) {
             classes.forEach(classroom => {
-                $('.list-classes').append(classeItem(classroom.classroom, classroom.students.length, classroom.students));
+                $('.list-classes').append(classeItem(classroom.classroom, classroom.studentCount ?? classroom.students.length, classroom.students, classroom.pendingCorrections, classroom.activitiesCount));
             });
         } else {
             $('.list-classes').append(noContentDiv).localize();

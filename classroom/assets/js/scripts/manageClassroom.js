@@ -1080,7 +1080,8 @@ function displayStudentsInClassroom(students, link=false) {
     // get the current classroom index of activities
     let arrayIndexesActivities = listIndexesActivities(students);
 
-    students.forEach(element => {
+    const studentRows = [];
+    students.forEach((element, elementIdx) => {
         // reorder the current student activities to fit to the classroom index of activities
         let arrayActivities = reorderActivities([...element.activities, ...element.courses], arrayIndexesActivities);
         let pseudo = element.user.pseudo;
@@ -1370,10 +1371,22 @@ function displayStudentsInClassroom(students, link=false) {
         }
         // end of the current table row
         html += '</tr>';
-        $('#body-table-teach').append(html).localize();
-        $('[data-bs-toggle="tooltip"]').tooltip()
+        studentRows.push(html);
     });
-    
+
+    // Preload unique letter images (max 26 requests); browser cache serves subsequent rows
+    new Set(students.map(s => getFirstLetterOfPseudo(s.user.pseudo))).forEach(letter => {
+        const _img = new Image();
+        _img.src = `${_PATH}assets/media/alphabet/${letter}.png`;
+    });
+
+    // Render all students directly into the table
+    const tbody = document.getElementById('body-table-teach');
+    const tmpTbody = document.createElement('tbody');
+    tmpTbody.innerHTML = studentRows.join('');
+    Array.from(tmpTbody.children).forEach(el => tbody.appendChild(el));
+    $(tbody).find('[data-bs-toggle="tooltip"]').tooltip();
+    $(tbody).localize();
     appendAddStudentButton();
     // get classroom settings from localstorage
     let settings = getClassroomDisplaySettings(link);
@@ -1418,18 +1431,19 @@ function displayStudentsInClassroom(students, link=false) {
     // add four empty divs for monochrome styling
     $('#body-table-teach .bilan-cell').html(`<div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div><div class="monochrome-grade-div"></div>`);
 
-    $('#classroom-panel-table-container table .dropdown').on('show.bs.dropdown', (event) => {
-        let classroomTable = event.target.closest('table');
-        classroomTable.classList.add('dropdowns-opened');
-        $(classroomTable).find('tr').addClass('non-dropdown');
-        event.target.closest('tr').classList.remove('non-dropdown');
-    });
-    
-    $('#classroom-panel-table-container table .dropdown').on('hidden.bs.dropdown', (event) => {
-        let classroomTable = event.target.closest('table');
-        classroomTable.classList.remove('dropdowns-opened');
-        $(classroomTable).find('tr').removeClass('non-dropdown');
-    });
+    // Delegated event binding so lazy-loaded rows also receive these handlers
+    $('#classroom-panel-table-container table').off('show.bs.dropdown.lazyrows hidden.bs.dropdown.lazyrows')
+        .on('show.bs.dropdown.lazyrows', '.dropdown', (event) => {
+            let classroomTable = event.target.closest('table');
+            classroomTable.classList.add('dropdowns-opened');
+            $(classroomTable).find('tr').addClass('non-dropdown');
+            event.target.closest('tr').classList.remove('non-dropdown');
+        })
+        .on('hidden.bs.dropdown.lazyrows', '.dropdown', (event) => {
+            let classroomTable = event.target.closest('table');
+            classroomTable.classList.remove('dropdowns-opened');
+            $(classroomTable).find('tr').removeClass('non-dropdown');
+        });
 
     // Plugin hook: post-render callback (no-op without plugin)
     if (typeof window.onDashboardRendered === 'function') {
@@ -1994,27 +2008,20 @@ class DashboardAutoRefresh {
     refresh() {
         if($_GET('panel') == 'classroom-table-panel-teacher' && $_GET('option')){
             this.isRefreshing = true;
-            let previousClassroomState, newClassroomState;
-            if (getClassroomInListByLink($_GET('option'))[0]) {
-                previousClassroomState = {
-                    data: JSON.stringify(getClassroomInListByLink($_GET('option'))[0].students),
-                    link: $_GET('option')
-                };
-            }
-            Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
-                if ($_GET('option') == previousClassroomState.link) {
-                    if (getClassroomInListByLink($_GET('option'))[0]) {
-                        newClassroomState = JSON.stringify(getClassroomInListByLink($_GET('option'))[0].students);
-                    }
-                    // Only refresh the classroom if it has changed
-                    if (previousClassroomState.data != newClassroomState){
-                        if (getClassroomInListByLink($_GET('option'))[0]) {
-                            let students = getClassroomInListByLink($_GET('option'))[0].students;
+            const link = $_GET('option');
+            const entry = getClassroomInListByLink(link)?.[0];
+            if (entry) {
+                const previousStudentsJson = JSON.stringify(entry.students);
+                Main.getClassroomManager().getClassroomStudents(entry.classroom.id).then((students) => {
+                    if ($_GET('option') == link) {
+                        const newStudentsJson = JSON.stringify(students);
+                        // Only refresh the classroom display if data has changed
+                        if (previousStudentsJson != newStudentsJson) {
                             displayStudentsInClassroom(students);
                         }
                     }
-                }
-            });
+                });
+            }
             setTimeout(() => { this.refresh() }, this.refreshInterval);
         } else {
             this.isRefreshing = false;

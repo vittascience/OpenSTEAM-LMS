@@ -78,11 +78,13 @@ $('body').on('change', '#is-anonymised', function () {
 });
 
 function anonymizeStudents() {
-    $('.username').each(function (index,el) {
+    $('.username').each(function (index, el) {
+        // Use absolute student index embedded during virtual scroll rendering
+        const absIdx = parseInt($(el).closest('tr').attr('data-student-idx') ?? index);
         $(el).children().children('img').attr('src', _PATH + 'assets/media/alphabet/E.png')
-        $(el).children().children('img').attr('alt', 'Photo de profil anonymisée - Étudiant ' + (index + 1))
+        $(el).children().children('img').attr('alt', 'Photo de profil anonymisée - Étudiant ' + (absIdx + 1))
         $(el).children().children('img').attr('anonymized', 'true')
-        $(el).children().children('.user-cell-username').text(i18next.t('classroom.activities.anoStudent') + " " + index)
+        $(el).children().children('.user-cell-username').text(i18next.t('classroom.activities.anoStudent') + " " + absIdx)
         $(el).children().children('.user-cell-username').attr('title', '')
     })
 }
