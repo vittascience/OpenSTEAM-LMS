@@ -421,20 +421,26 @@ function moveFocusIntoPanel(panelId) {
     if (contactSection) {
         const contactCandidates = Array.from(contactSection.querySelectorAll(focusableSelectors.join(','))).filter(isVisible);
         if (contactCandidates.length > 0) {
-            try { contactCandidates[0].focus(); return; } catch (_) { }
+            try { contactCandidates[0].focus(); return; } catch (_) {
+                console.error('Failed to focus contact section element, falling back to regular focus flow');
+            }
         }
     }
 
     const firstFocusable = candidates.find((el) => isVisible(el));
 
     if (firstFocusable) {
-        try { firstFocusable.focus(); return; } catch (_) { }
+        try { firstFocusable.focus(); return; } catch (_) {
+            console.error('Failed to focus first focusable element, falling back to panel focus');
+        }
     }
 
     if (!panel.hasAttribute('tabindex')) {
         panel.setAttribute('tabindex', '-1');
     }
-    try { panel.focus(); } catch (_) { }
+    try { panel.focus(); } catch (_) { 
+        console.error('Failed to focus panel container');
+    }
 }
 
 /**
