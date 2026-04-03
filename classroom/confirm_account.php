@@ -18,8 +18,9 @@ $page = isset($_GET['page']) ? htmlspecialchars($_GET['page']) : null;
 
 if (!$page) {
     // Load env variables 
-    $dotenv = Dotenv::createImmutable(__DIR__."/../");
-    $dotenv->safeLoad();
+    $dir  = is_file('/run/secrets/app_env') ? '/run/secrets' : __DIR__ . '/../';
+    $file = is_file('/run/secrets/app_env') ? 'app_env'      : '.env';
+    Dotenv::createImmutable($dir, $file)->safeLoad();
     // bind and sanitize incoming token
     $confirmToken = isset($_GET['token']) 
                     ? trim(htmlspecialchars(preg_replace('/<[^>]*>[^<]*<[^>]*>/', '',$_GET['token'])))

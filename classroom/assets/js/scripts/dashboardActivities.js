@@ -342,7 +342,7 @@ function teacherFolder(folder, displayStyle) {
 }
 
 
-function classeItem(classe, nbStudents, students) {
+function classeItem(classe, nbStudents, students, overridePendingCorrections = null, overrideActivitiesCount = null) {
     function maxLength(array) {
         let count = 0
         for (let i = 0; i < array.length; i++) {
@@ -353,8 +353,8 @@ function classeItem(classe, nbStudents, students) {
         return count
     }
     
-    let maxAct = maxLength(students)
-    let remainingCorrections = getRemainingCorrections(students);
+    let maxAct = overrideActivitiesCount !== null ? overrideActivitiesCount : maxLength(students);
+    let remainingCorrections = overridePendingCorrections !== null ? overridePendingCorrections : getRemainingCorrections(students);
 
     let remainingCorrectionsSpanElt = remainingCorrections ? `<span class="results-correcting c-text-secondary position-absolute bottom-0 end-0 m-2" role="status" aria-label="${remainingCorrections} corrections en attente"><i class="fas fa-pen" aria-hidden="true"></i> ${remainingCorrections}</span>` : '';
     let html = `<div class="class-item" role="listitem">

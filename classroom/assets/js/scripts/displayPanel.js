@@ -27,7 +27,10 @@ DisplayPanel.prototype.classroom_dashboard_profil_panel_teacher = function () {
     })
 
     getIntelFromClasses();
-    const correctionsCount = getRemainingCorrections(Main.getClassroomManager()._myClasses.flatMap(c => c.students));
+    // pendingCorrections is pre-computed server-side in the lightweight get_by_user response
+    const correctionsCount = Main.getClassroomManager()._myClasses.reduce(
+        (sum, c) => sum + (c.pendingCorrections ?? getRemainingCorrections(c.students ?? [])), 0
+    );
     const correctionsElement = $('.tocorrect-activities');
     correctionsElement.html(correctionsCount);
     
@@ -468,7 +471,16 @@ function updateUIWithStudents(link) {
 
     updateClassroomLinkUI(ClassroomSettings.classroom);
     updateClassroomLockUI(classroomData.classroom.isBlocked);
-    displayStudentsInClassroom(classroomData.students, link);
+
+    if (classroomData.students && classroomData.students.length > 0) {
+        // Already loaded (cached from a previous click)
+        displayStudentsInClassroom(classroomData.students, link);
+    } else {
+        // Lazy-load: first click on this classroom
+        Main.getClassroomManager().getClassroomStudents(classroomData.classroom.id).then(students => {
+            displayStudentsInClassroom(students, link);
+        });
+    }
 }
 
 DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) {
