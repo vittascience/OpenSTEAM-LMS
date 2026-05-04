@@ -8,3 +8,11 @@ classroom/assets/plugins
 /.idea
 /dev
 /public
+
+# SimpleSAMLphp — runtime & secrets
+simplesaml/cache/
+simplesaml/log/
+simplesaml/tmp/
+simplesaml/cert/*.pem
+simplesaml/config/config.php
+simplesaml/metadata/

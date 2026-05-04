@@ -148,13 +148,76 @@ $config += [
     ],
 
     /*
+     * SP local ENSEIGNANT — pointe vers le second IdP local (auth: gar-test-enseignant).
+     * Utilisé par gar_saml_access_local_ens.php pour tester le flow prof.
+     */
+    'gar-local-ens' => [
+        'saml:SP',
+        'entityID' => 'http://localhost:90/gar-local-ens',
+        'idp'      => 'http://localhost:90/simplesaml/',   // même IdP que gar-local, l'authproc sélectionne le profil
+        'privatekey'  => 'saml-dev.pem',
+        'certificate' => 'saml-dev.crt',
+        'signature.algorithm' => 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256',
+        'sign.authnrequest' => true,
+        'WantAssertionsSigned' => true,
+        'acs.Bindings' => ['urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST'],
+        'attributes' => ['IDO', 'UAI', 'PRE', 'NOM', 'PRO', 'DIV', 'GRO', 'P_MEL', 'idENT'],
+        'attributes.required' => ['IDO', 'UAI'],
+    ],
+
+    // SP élève 2 — Sophie, 6ème A (même classe que Jean)
+    'gar-local-eleve2' => [
+        'saml:SP',
+        'entityID' => 'http://localhost:90/gar-local-eleve2',
+        'idp'      => 'http://localhost:90/simplesaml/',
+        'privatekey'  => 'saml-dev.pem',
+        'certificate' => 'saml-dev.crt',
+        'signature.algorithm' => 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256',
+        'sign.authnrequest' => true,
+        'WantAssertionsSigned' => true,
+        'acs.Bindings' => ['urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST'],
+        'attributes' => ['IDO', 'UAI', 'PRE', 'NOM', 'PRO', 'DIV', 'GRO', 'P_MEL', 'idENT'],
+        'attributes.required' => ['IDO', 'UAI'],
+    ],
+
+    // SP élève 3 — Luca, 5ème B (classe de Thomas)
+    'gar-local-eleve3' => [
+        'saml:SP',
+        'entityID' => 'http://localhost:90/gar-local-eleve3',
+        'idp'      => 'http://localhost:90/simplesaml/',
+        'privatekey'  => 'saml-dev.pem',
+        'certificate' => 'saml-dev.crt',
+        'signature.algorithm' => 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256',
+        'sign.authnrequest' => true,
+        'WantAssertionsSigned' => true,
+        'acs.Bindings' => ['urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST'],
+        'attributes' => ['IDO', 'UAI', 'PRE', 'NOM', 'PRO', 'DIV', 'GRO', 'P_MEL', 'idENT'],
+        'attributes.required' => ['IDO', 'UAI'],
+    ],
+
+    // SP enseignant 2 — Thomas, 5ème B seulement
+    'gar-local-ens2' => [
+        'saml:SP',
+        'entityID' => 'http://localhost:90/gar-local-ens2',
+        'idp'      => 'http://localhost:90/simplesaml/',
+        'privatekey'  => 'saml-dev.pem',
+        'certificate' => 'saml-dev.crt',
+        'signature.algorithm' => 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256',
+        'sign.authnrequest' => true,
+        'WantAssertionsSigned' => true,
+        'acs.Bindings' => ['urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST'],
+        'attributes' => ['IDO', 'UAI', 'PRE', 'NOM', 'PRO', 'DIV', 'GRO', 'P_MEL', 'idENT'],
+        'attributes.required' => ['IDO', 'UAI'],
+    ],
+
+    /*
      * Backend d'authentification factice pour l'IdP local.
      * exampleauth:Static renvoie immédiatement les attributs sans page de login.
      *
      * Pour simuler un élève :
      */
     'gar-test-eleve' => [
-        'exampleauth:Static',
+        'exampleauth:StaticSource',
         'IDO' => ['testeleve001'],
         'UAI' => ['0123456A'],
         'PRE' => ['Jean'],
@@ -163,11 +226,33 @@ $config += [
         'DIV' => ['6A##6ème A'],
         'GRO' => ['6A-MATHS##Groupe Maths##6A'],
     ],
+    // Élève 2 : Sophie — même UAI, même 6ème A (peut rejoindre Marie)
+    'gar-test-eleve2' => [
+        'exampleauth:StaticSource',
+        'IDO' => ['testeleve002'],
+        'UAI' => ['0123456A'],
+        'PRE' => ['Sophie'],
+        'NOM' => ['TestEleve2'],
+        'PRO' => ['National_elv'],
+        'DIV' => ['6A##6ème A'],
+        'GRO' => ['6A-MATHS##Groupe Maths##6A'],
+    ],
+    // Élève 3 : Luca — 5ème B (classe de Thomas)
+    'gar-test-eleve3' => [
+        'exampleauth:StaticSource',
+        'IDO' => ['testeleve003'],
+        'UAI' => ['0123456A'],
+        'PRE' => ['Luca'],
+        'NOM' => ['TestEleve3'],
+        'PRO' => ['National_elv'],
+        'DIV' => ['5B##5ème B'],
+        'GRO' => ['5B-SVT##Groupe SVT##5B'],
+    ],
     /*
      * Pour simuler un enseignant :
      */
     'gar-test-enseignant' => [
-        'exampleauth:Static',
+        'exampleauth:StaticSource',
         'IDO' => ['testenseignant001'],
         'UAI' => ['0123456A'],
         'PRE' => ['Marie'],
@@ -177,11 +262,23 @@ $config += [
         'GRO' => ['6A-MATHS##Groupe Maths##6A'],
         'P_MEL' => ['marie.test@ac-test.fr'],
     ],
+    // Enseignant 2 : Thomas — 5ème B seulement
+    'gar-test-enseignant2' => [
+        'exampleauth:StaticSource',
+        'IDO' => ['testenseignant002'],
+        'UAI' => ['0123456A'],
+        'PRE' => ['Thomas'],
+        'NOM' => ['TestEnseignant2'],
+        'PRO' => ['National_ens'],
+        'DIV' => ['5B##5ème B'],
+        'GRO' => ['5B-SVT##Groupe SVT##5B'],
+        'P_MEL' => ['thomas.test@ac-test.fr'],
+    ],
     /*
      * Pour simuler un employé (sans division) :
      */
     'gar-test-employe' => [
-        'exampleauth:Static',
+        'exampleauth:StaticSource',
         'IDO' => ['testemploye001'],
         'UAI' => ['0123456A'],
         'PRE' => ['Pierre'],
