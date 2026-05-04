@@ -674,6 +674,16 @@ button {
         grid-auto-flow: column;
         align-items: flex-start;
         justify-content: space-evenly;
+        /* Mobile: éviter le chevauchement quand des plugins ajoutent des entrées */
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .sidebar-classroom::-webkit-scrollbar {
+        display: none;
     }
 
     .sidebar-classroom #classroom-sidebar-logo {
@@ -681,8 +691,10 @@ button {
     }
 
     .sidebar-classroom div:not(:first-child) {
-        width: 100px;
-        height: 100px;
+        flex: 1 1 0;
+        min-width: 56px;
+        max-width: 100px;
+        height: 100%;
         background: transparent;
         grid-template-rows: 1fr 0;
     }
@@ -692,8 +704,8 @@ button {
     }
 
     .sidebar-classroom div img {
-        width: 60px;
-        height: 60px;
+        width: clamp(36px, 12vw, 60px);
+        height: clamp(36px, 12vw, 60px);
     }
 
     .sidebar-classroom .active:not(:first-child) {

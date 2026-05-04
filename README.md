@@ -81,6 +81,10 @@ VS_SET_FROM=your_website.com
 # set the default student name to every classroom to be created
 VS_DEMOSTUDENT=vittademo
 
+# (optional) client-wide display name for the demo student account shown in the UI.
+# Does not change the DB pseudo (VS_DEMOSTUDENT). Leave empty to use VS_DEMOSTUDENT.
+DEMOSTUDENT_DISPLAY=
+
 # path to use for the activity logger(ie: routing/Routing.php)
 VS_LOG_PATH=/logs/log.log
 
