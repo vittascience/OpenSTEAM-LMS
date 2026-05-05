@@ -16,3 +16,20 @@ simplesaml/tmp/
 simplesaml/cert/*.pem
 simplesaml/config/config.php
 simplesaml/metadata/
+
+# Fichiers déployés par PluginGARv2/custom_build.js — ne pas committer
+classroom/CAS.php
+classroom/CAS_prod.php
+classroom/SAML.php
+classroom/SAML_prod.php
+classroom/SAML_local.php
+classroom/gar_access.php
+classroom/gar_access_prod.php
+classroom/gar_user_disconnected.php
+classroom/gar_saml_access_local.php
+classroom/gar_user_disconnect_local.php
+classroom/disconnect_saml.php
+classroom/disconnect_saml_prod.php
+classroom/disconnect.php
+classroom/disconnect_gar_prod.php
+classroom/phpCAS.log
