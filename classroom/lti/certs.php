@@ -37,4 +37,8 @@ function create_public_jwks($privateKeysArr) {
                 } catch (\Exception $e) {
                         continue;
                 }
+	}
+	echo json_encode(['keys' => $jwks]);
+}
+
 create_public_jwks($privateKeysArr);
