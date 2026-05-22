@@ -4043,6 +4043,25 @@ h3.section-done {
     left: calc((95px * 4) + 4px);
 }
 
+/* Switchers responsives dans #userFilters */
+#userFilters .switcher {
+    width: 100%;
+    min-width: unset;
+}
+#userFilters .switcher__label {
+    flex: 1;
+    min-width: 0;
+}
+#userFilters .switcher__toggle {
+    width: calc((100% - 10px) / 3);
+}
+#userFilters .switcher__input--middle1:checked~.switcher__toggle {
+    left: calc((100% - 10px) / 3 + 5px);
+}
+#userFilters .switcher__input--right:checked~.switcher__toggle {
+    left: calc(2 * (100% - 10px) / 3 + 5px);
+}
+
 .mnh-2-5 {
     min-height: 2.5em;
 }
