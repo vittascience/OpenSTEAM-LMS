@@ -15,7 +15,7 @@ $user = ConnectionManager::getSharedInstance()->checkConnected(); ?>
     <link rel='stylesheet' type='text/css' href='/classroom/assets/css/main.css' />
     <script src="assets/js/lib/marked.min.js"></script>
     <link rel="stylesheet" href="assets/css/lib/fontAwesome-5.13.0/css/all.min.css">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
 </head>
 
 <body>
