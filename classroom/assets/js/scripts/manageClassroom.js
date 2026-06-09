@@ -106,7 +106,7 @@ $('body').on('click', '.teacher-new-classe', function (event) {
 
 function getMaxClass() {
     if (UserManager.getUser().restrictions.premium) {
-        return 20
+        return UserManager.getUser().restrictions.maxClassroomsPremium
     } else {
         return UserManager.getUser().restrictions.maxClassrooms
     }
