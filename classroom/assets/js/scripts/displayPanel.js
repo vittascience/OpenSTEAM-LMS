@@ -48,7 +48,12 @@ DisplayPanel.prototype.classroom_dashboard_profil_panel_manager = function () {
 }
 
 DisplayPanel.prototype.classroom_dashboard_profil_panel = function () {
-    $('#user-name').html(UserManager.getUser().pseudo)
+    // Show the demo student alias if the connected user is the demo account
+    const userPseudo = UserManager.getUser().pseudo;
+    const displayPseudo = (userPseudo === demoStudentName && typeof getDemoStudentDisplayName === 'function')
+        ? getDemoStudentDisplayName()
+        : userPseudo;
+    $('#user-name').html(displayPseudo)
     Main.getClassroomManager().getStudentActivity().then(function (data) {
         const todoCount = countActivityDoable();
         const doneCount = countActivityDone();
@@ -186,7 +191,7 @@ DisplayPanel.prototype.classroom_dashboard_help_panel_teacher = function () {
     let html = '';
     let index = [7, 12, 5, 3, 3, 3]; // number of questions+1 per category in faq
 
-    let capitalizedDemoStudentName = `${demoStudentName.charAt(0).toUpperCase()}${demoStudentName.slice(1)}`;
+    let capitalizedDemoStudentName = getCapitalizedDemoStudentDisplayName();
 
     for (let i = 1; i <= index.length; i++) {
         const sectionTitle = i18next.t(`faqTeacherNeutral.${i}.section_title`);
