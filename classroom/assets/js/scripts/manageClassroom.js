@@ -1087,13 +1087,21 @@ function displayStudentsInClassroom(students, link=false) {
         let pseudo = element.user.pseudo;
         let html = '';
 
+        // For the demo student account, display the teacher-customized alias
+        // (frontend-only). Backend `pseudo` is preserved for logic (id matching,
+        // CSV exports, stats filtering, reservedNickname checks).
+        const isDemoStudent = element.user.pseudo == demoStudentName;
+        if (isDemoStudent && typeof getDemoStudentDisplayName === 'function') {
+            pseudo = getDemoStudentDisplayName();
+        }
+
         // shorten the current student nickname to fit in the table
-        if (element.user.pseudo.length > 10) {
-            pseudo = element.user.pseudo.slice(0, 9) + "&#8230;";
+        if (pseudo.length > 10) {
+            pseudo = pseudo.slice(0, 9) + "&#8230;";
         }
 
         // Add demoStudent's head table cell if it's the current student
-        if (element.user.pseudo == demoStudentName) {
+        if (isDemoStudent) {
             html = `<tr>
                 <th class="username" data-student-id="${element.user.id}" role="rowheader" aria-label="Élève ${element.user.pseudo}">
                     <div class="user-cell-container">
@@ -1416,7 +1424,7 @@ function displayStudentsInClassroom(students, link=false) {
         $('#is-anonymised').prop('checked', false);
     }
 
-    $('#export-class-container').append(`<button id="download-csv" class="btn c-btn-tertiary" onclick="openDownloadCsvModal()" role="button" tabindex="0" aria-label="Exporter les données de la classe en format CSV" onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }"><i class="fa fa-download" aria-hidden="true"></i><span class="ms-1" data-i18n="classroom.activities.exportCsv">Exporter CSV</span></button>`).localize();
+    $('#export-class-container').append(`<button id="download-csv" class="btn c-btn-tertiary" onclick="openDownloadCsvModal()" role="button" tabindex="0" aria-label="Exporter les données de la classe en format CSV" onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }"><i class="fa fa-download" aria-hidden="true"></i><span class="ms-1 d-none d-xl-inline" data-i18n="classroom.activities.exportCsv">Exporter CSV</span></button>`).localize();
 
     $('#header-table-teach').append(`<th class="add-activity-th" colspan="7" role="columnheader"> 
         <button class="btn c-btn-primary dashboard-activities-teacher" 
@@ -1733,6 +1741,7 @@ function populateAccountInfo(data){
     teacherIdInputElt.value = data.teacherId;
 }
 
+/**
 /**
  * Update teacher form submit listener
  */

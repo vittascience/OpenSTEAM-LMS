@@ -6,22 +6,23 @@
         "audit": {
             "ignore": [
                 "PKSA-z3gr-8qht-p93v",
-                "PKSA-y2cr-5h3j-g3ys"
+                "PKSA-y2cr-5h3j-g3ys",
+                "PKSA-zh4j-by9m-7mz8"
             ]
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "8.0.0",
+        "phpunit/phpunit": "^9.6",
         "vittascience/vtuser": "1.3.6",
         "vittascience/vtinterfaces": "1.5.8",
-        "vittascience/vtclassroom": "1.4.4",
+        "vittascience/vtclassroom": "1.4.5",
         "vittascience/vtlearn": "1.4.6",
         "vittascience/vutils": "1.3.1",
         "symfony/var-dumper": "^5.3"
     },
     "require": {
         "doctrine/orm": "^2.6.2",
-        "symfony/yaml": "2.*",
+        "symfony/yaml": "^5.4",
         "mikey179/vfsstream": "^1.6.8",
         "monolog/monolog": "^2.0",
         "chriskonnertz/bbcode": "^1.1",

@@ -73,7 +73,7 @@ try {
             $user['isRegular'] = $regular['email'];
             $user['sso'] = $regular['fromSSO'] ?? false;
             
-        } catch (error $e) {
+        } catch (\Throwable $e) {
             $user['isRegular'] = false;
         }
 

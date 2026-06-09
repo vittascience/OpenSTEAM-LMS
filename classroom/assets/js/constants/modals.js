@@ -5,7 +5,10 @@ const BASE_STUDENT_FORM = `<div class="c-primary-form row col-12">
 </div>`;
 const LINK_REGEX = /(\[iframe\].*link=)([a-f0-9]{13})/
 const NO_CLASS = "<p class='no-classes text-center'> Vous devez d'abord créer une classe pour pouvoir utiliser cette fonctionalité"
-const capitalizedDemoStudentName = `${demoStudentName.charAt().toUpperCase()}${demoStudentName.slice(1)}`
+// Display name (teacher-customizable via localStorage). For backend logic
+// (comparisons with user.pseudo, "reservedNickname" messages), keep using
+// `demoStudentName` which mirrors the .env value VS_DEMOSTUDENT.
+const capitalizedDemoStudentName = getCapitalizedDemoStudentDisplayName()
 const cookies = document.cookie.split(';')
 const lang = cookies.filter(entry => entry.trim().startsWith('lng'))
 const langValue = lang[0] ? lang[0].split('=')[1] : 'fr'
@@ -155,6 +158,7 @@ const classroomModals = {
                             العربية
                         </button>    
                     </div>
+                    <hr>
                     <h2 data-i18n="classroom.modals.settingsTeacher.description">Pour modifier votre mot de passe ou d'autres paramètres de votre compte</h2>
                     <div class="d-flex flex-column align-items-center" style="gap: 0.5rem;">
                         <button class="btn c-btn-primary" id="teacher-account-button" onclick="openTeacherAccountPanel()" data-i18n="classroom.modals.settingsTeacher.accessButton">
