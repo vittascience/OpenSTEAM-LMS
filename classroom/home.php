@@ -11,8 +11,9 @@ if(is_dir($openClassroomDir)){
 }
 use Dotenv\Dotenv;
 // load data from .env file
-$dotenv = Dotenv::createImmutable(__DIR__."/../");
-$dotenv->safeLoad();
+$dir  = is_file('/run/secrets/app_env') ? '/run/secrets' : __DIR__ . '/../';
+$file = is_file('/run/secrets/app_env') ? 'app_env'      : '.env';
+Dotenv::createImmutable($dir, $file)->safeLoad();
 
 // load demoStudent name from .env file or set it to default demoStudent
 $demoStudent = !empty($_ENV['VS_DEMOSTUDENT']) ? $_ENV['VS_DEMOSTUDENT'] : 'demostudent';

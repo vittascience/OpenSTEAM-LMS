@@ -14,8 +14,9 @@ use Dotenv\Dotenv;
 use User\Entity\Regular;
 
 // Load env variables 
-$dotenv = Dotenv::createImmutable(__DIR__."/../");
-$dotenv->safeLoad();
+$dir  = is_file('/run/secrets/app_env') ? '/run/secrets' : __DIR__ . '/../';
+$file = is_file('/run/secrets/app_env') ? 'app_env'      : '.env';
+Dotenv::createImmutable($dir, $file)->safeLoad();
 
 // make sure we receive a token from url params else set token to null
 $token = isset($_GET['token']) 

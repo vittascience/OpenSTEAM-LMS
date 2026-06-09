@@ -937,6 +937,12 @@ button {
 
 
 
+/* Skip rendering of off-screen rows — browser handles it natively, no JS needed */
+#body-table-teach tr {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 44px;
+}
+
 #body-table-teach .propic {
     width: 36px;
     height: 36px;
@@ -4057,3 +4063,6 @@ td {
     margin-top: 200px !important;
 }
  */
+.theme-dark #access-form .btn-close {
+  background-color: #fff !important;
+}
