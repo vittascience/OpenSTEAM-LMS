@@ -460,18 +460,15 @@ class AutoBuildManager {
      * @returns {boolean} True if there is duplicate view file
      */
     checkViewConflict() {
-        let viewFiles = [];
         let alreadySeen = [];
-        this.pluginsList.forEach((plugin) => {
-            viewFiles = viewFiles.concat(plugin.views);
-        });
-
-        for (let file of viewFiles) {
-            if (alreadySeen[file]) {
-                console.error(`Warning: conflict detected in views file: ${file}`);
-                return true;
-            } else {
-                alreadySeen[file] = true;
+        for (const plugin of this.pluginsList) {
+            for (const file of plugin.views) {
+                if (alreadySeen[file]) {
+                    console.error(`Error: duplicate view "${file}" in plugin "${plugin.name}"`);
+                    return true;
+                } else {
+                    alreadySeen[file] = true;
+                }
             }
         }
         return false;
