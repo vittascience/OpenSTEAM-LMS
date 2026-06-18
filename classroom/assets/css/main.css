@@ -495,7 +495,7 @@ button {
 
 #classroom-dashboard-container {
     --mobile-top-bar-height: 3.5em;
-    --mobile-bottom-bar-height: 110px;
+    --mobile-bottom-bar-height: 95px;
 
     --sidebar-size: 150px;
     --topbar-size: 3rem;
@@ -627,7 +627,7 @@ button {
     }
 
     .sidebar-classroom div img {
-        width: 80%;
+        width: 60%;
     }
 
     .sidebar-classroom div:not(:first-child) span {
@@ -636,7 +636,105 @@ button {
 
 }
 
+@media (max-height: 890px) {
+    #classroom-dashboard-container {
+        --sidebar-size: 105px;
+    }
 
+    .sidebar-classroom div img {
+        width: 45%;
+    }
+    .sidebar-classroom div:not(:first-child) span {
+        font-size: 0.75em;
+    }
+}
+
+@media (max-height: 650px) {
+    #classroom-dashboard-container {
+        --sidebar-size: 88px;
+    }
+    .sidebar-classroom div img {
+        width: 32% !important;
+    }
+    .sidebar-classroom div:not(:first-child) span {
+        font-size: 0.65em;
+    }
+}
+
+/* Hauteurs intermédiaires — texte vertical à la place des icônes */
+@media (max-height: 500px) {
+    #classroom-dashboard-container {
+        --sidebar-size: 74px;
+    }
+    .sidebar-classroom {
+        gap: 6px;
+    }
+    .sidebar-classroom #classroom-sidebar-logo {
+        max-height: 60px;
+    }
+    /* Cacher toutes les icônes, afficher le texte uniquement */
+    .sidebar-classroom div img {
+        display: none;
+    }
+    .sidebar-classroom div:not(:first-child) span {
+        display: block !important;
+        font-size: 0.6em;
+        line-height: 1.2;
+        word-break: break-word;
+        overflow: hidden;
+        max-height: 3em;
+        margin-top: 0;
+        text-align: center;
+    }
+}
+
+/* Hauteurs extrêmes — items répartis sur toute la hauteur */
+@media (max-height: 380px) {
+    #classroom-dashboard-container {
+        --sidebar-size: 68px;
+    }
+    .sidebar-classroom {
+        gap: 0;
+        justify-content: space-evenly;
+    }
+    .sidebar-classroom div img {
+        width: 55% !important;
+    }
+}
+
+/* ── Sidebar dense : réduction anticipée selon le nombre de boutons ─── */
+/* Principe : plus la sidebar est chargée, plus la compression démarre tôt */
+
+/* 4+ boutons nav (ex: groupadmin, ou teacher + 1 plugin) :
+   réduction dès 1000px au lieu de 890px */
+@media (max-height: 1000px) {
+    .sidebar-classroom:has(> :nth-child(5)) {
+        gap: 10px;
+    }
+    .sidebar-classroom:has(> :nth-child(5)) div:not(:first-child) span {
+        font-size: 0.72em;
+    }
+    .sidebar-classroom:has(> :nth-child(5)) div img {
+        width: 42% !important;
+    }
+}
+
+/* 5+ boutons nav (sidebar très chargée, ex: admin avec plusieurs plugins) :
+   réduction dès 1100px, logo compressé, gap réduit */
+@media (max-height: 1100px) {
+    .sidebar-classroom:has(> :nth-child(6)) {
+        gap: 8px;
+    }
+    .sidebar-classroom:has(> :nth-child(6)) #classroom-sidebar-logo {
+        max-height: 80px;
+    }
+    .sidebar-classroom:has(> :nth-child(6)) div:not(:first-child) span {
+        font-size: 0.68em;
+    }
+    .sidebar-classroom:has(> :nth-child(6)) div img {
+        width: 38% !important;
+    }
+}
 
 
 @media (max-width: 767.98px) {
@@ -674,6 +772,16 @@ button {
         grid-auto-flow: column;
         align-items: flex-start;
         justify-content: space-evenly;
+        /* Mobile: éviter le chevauchement quand des plugins ajoutent des entrées */
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .sidebar-classroom::-webkit-scrollbar {
+        display: none;
     }
 
     .sidebar-classroom #classroom-sidebar-logo {
@@ -681,8 +789,10 @@ button {
     }
 
     .sidebar-classroom div:not(:first-child) {
-        width: 100px;
-        height: 100px;
+        flex: 1 1 0;
+        min-width: 56px;
+        max-width: 100px;
+        height: 100%;
         background: transparent;
         grid-template-rows: 1fr 0;
     }
@@ -692,8 +802,8 @@ button {
     }
 
     .sidebar-classroom div img {
-        width: 60px;
-        height: 60px;
+        width: clamp(36px, 12vw, 60px);
+        height: auto;
     }
 
     .sidebar-classroom .active:not(:first-child) {
@@ -739,6 +849,19 @@ button {
         padding-bottom: 50px;
     }
 
+}
+
+/* Barre du bas : réduction légère selon la hauteur disponible */
+@media (max-width: 767.98px) and (max-height: 600px) {
+    #classroom-dashboard-container {
+        --mobile-bottom-bar-height: 82px;
+    }
+}
+
+@media (max-width: 767.98px) and (max-height: 450px) {
+    #classroom-dashboard-container {
+        --mobile-bottom-bar-height: 62px;
+    }
 }
 
 /* BREADCRUMBS */
@@ -3918,6 +4041,25 @@ h3.section-done {
 
 .switcher__input--middle4:checked~.switcher__toggle {
     left: calc((95px * 4) + 4px);
+}
+
+/* Switchers responsives dans #userFilters */
+#userFilters .switcher {
+    width: 100%;
+    min-width: unset;
+}
+#userFilters .switcher__label {
+    flex: 1;
+    min-width: 0;
+}
+#userFilters .switcher__toggle {
+    width: calc((100% - 10px) / 3);
+}
+#userFilters .switcher__input--middle1:checked~.switcher__toggle {
+    left: calc((100% - 10px) / 3 + 5px);
+}
+#userFilters .switcher__input--right:checked~.switcher__toggle {
+    left: calc(2 * (100% - 10px) / 3 + 5px);
 }
 
 .mnh-2-5 {

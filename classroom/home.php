@@ -17,6 +17,8 @@ Dotenv::createImmutable($dir, $file)->safeLoad();
 
 // load demoStudent name from .env file or set it to default demoStudent
 $demoStudent = !empty($_ENV['VS_DEMOSTUDENT']) ? $_ENV['VS_DEMOSTUDENT'] : 'demostudent';
+// Optional client-wide display name override (frontend-only, does not change DB pseudo)
+$demoStudentDisplay = !empty($_ENV['DEMOSTUDENT_DISPLAY']) ? $_ENV['DEMOSTUDENT_DISPLAY'] : '';
 
 if (isset($_SESSION['idProf'])) {
     $user = $entityManager->getRepository('User\Entity\User')
@@ -33,7 +35,8 @@ require_once(__DIR__ . "/header.html");
 
 // add script tag with demoStudent name to make it available on the whole site
 $demoStudent = str_replace('"', '', $demoStudent);
-echo "<script>const demoStudentName = `{$demoStudent}`</script>";
+$demoStudentDisplay = str_replace('"', '', $demoStudentDisplay);
+echo "<script>const demoStudentName = `{$demoStudent}`; const demoStudentDisplayDefault = `{$demoStudentDisplay}`;</script>";
 
 require_once(__DIR__ . "/home.html");
 

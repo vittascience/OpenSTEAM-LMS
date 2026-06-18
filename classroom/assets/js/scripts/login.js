@@ -192,10 +192,11 @@ if ($_GET('denied')) {
 
 function loginFaq() {
     let html = ''
-    let index = [8, 8, 4]
-    for (let i = 1; i < 4; i++) {
+    let i = 1;
+    while (i18next.exists('faqInfo.' + i + '.section_title')) {
         html += "<h3 data-i18n='[html]faqInfo." + i + ".section_title'></h3>";
-        for (let j = 1; j < index[i - 1]; j++) {
+        let j = 1;
+        while (i18next.exists('faqInfo.' + i + '.question_list.' + j + '.title')) {
             const panelId = `faqInfo-${i}-${j}-panel`;
             const buttonId = `faqInfo-${i}-${j}-button`;
             html += `<div class="kit-faq-box">
@@ -211,8 +212,9 @@ function loginFaq() {
             <p data-i18n='[html]faqInfo.` + i + `.question_list.` + j + `.answer'></p>
             </div>
         </div>`
-
+            j++;
         }
+        i++;
     }
     $('#classroom-faq div h2').after(html)
     if ($("#classroom-faq").localize) {
@@ -239,10 +241,11 @@ $('.faq-box-header').on('click keydown', function (event) {
 
 function loginFaqNeutral() {
     let html = ''
-    let index = [6, 7, 3]
-    for (let i = 1; i < 4; i++) {
+    let i = 1;
+    while (i18next.exists('faqInfoNeutral.' + i + '.section_title')) {
         html += "<h3 data-i18n='[html]faqInfoNeutral." + i + ".section_title'></h3>";
-        for (let j = 1; j < index[i - 1]; j++) {
+        let j = 1;
+        while (i18next.exists('faqInfoNeutral.' + i + '.question_list.' + j + '.title')) {
             const panelId = `faqInfoNeutral-${i}-${j}-panel`;
             const buttonId = `faqInfoNeutral-${i}-${j}-button`;
             html += `<div class="kit-faq-box">
@@ -258,8 +261,9 @@ function loginFaqNeutral() {
             <p data-i18n='[html]faqInfoNeutral.` + i + `.question_list.` + j + `.answer'></p>
             </div>
         </div>`
-
+            j++;
         }
+        i++;
     }
     $('#classroom-faq div h2').after(html)
     if ($("#classroom-faq").localize) {
