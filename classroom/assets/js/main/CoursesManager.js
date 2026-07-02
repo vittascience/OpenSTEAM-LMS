@@ -271,10 +271,14 @@ class CoursesManager {
     undoAttribution(id, references = [], classId = null) {
         this._requestUsersUnlinkCourse(id, references, classId).then((res) => {
             if (res.hasOwnProperty('success')) {
-                Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
-                    displayNotification('#notif-div', "classroom.notif.attributeActivityUndone", "success");
-                    navigatePanel('classroom-table-panel-teacher', 'dashboard-classes-teacher', ClassroomSettings.classroom);
-                });
+                const effectiveClassId = classId ?? ClassroomSettings.classroom;
+                const myClasses = Main.getClassroomManager()._myClasses;
+                if (myClasses) {
+                    const entry = myClasses.find(c => c.classroom.id == effectiveClassId || c.classroom.link == effectiveClassId);
+                    if (entry) entry.students = [];
+                }
+                displayNotification('#notif-div', "classroom.notif.attributeActivityUndone", "success");
+                navigatePanel('classroom-table-panel-teacher', 'dashboard-classes-teacher', ClassroomSettings.classroom);
             } else {
                 displayNotification('error', res.message);
             }
@@ -646,9 +650,17 @@ class CoursesManager {
 
         this._requestUsersLinkCourse(this.courseId, students, classrooms, this.attriReference, dateBegin, dateEnd).then((res) => {
             if (res == true) {
+                const myClasses = Main.getClassroomManager()._myClasses;
+                if (myClasses) {
+                    classrooms.forEach(cId => {
+                        const entry = myClasses.find(c => c.classroom.id == parseInt(cId));
+                        if (entry) entry.students = [];
+                    });
+                }
                 displayNotification('#notif-div', "classroom.notif.courseAttributed", "success")
                 $('#attribute-course-to-students').attr('disabled', false)
                 navigatePanel('classroom-dashboard-activities-panel-teacher', 'dashboard-activities-teacher')
+                this.actualizeCourse(true);
             } else {
                 displayNotification('#notif-div', "classroom.notif.courseNotAttributed", "error")
             }

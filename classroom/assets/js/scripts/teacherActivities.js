@@ -221,10 +221,10 @@ function attributeActivity(id, ref = null) {
 
 function undoAttributeActivity(ref,classroomId) {
     Main.getClassroomManager().undoAttributeActivity(ref,classroomId).then(function (result) {
-        Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(()=>{
-            displayNotification('#notif-div', "classroom.notif.attributeActivityUndone", "success");
-            navigatePanel('classroom-table-panel-teacher', 'dashboard-classes-teacher', ClassroomSettings.classroom);
-        });
+        const entry = Main.getClassroomManager()._myClasses?.find(c => c.classroom.id == classroomId);
+        if (entry) entry.students = [];
+        displayNotification('#notif-div', "classroom.notif.attributeActivityUndone", "success");
+        navigatePanel('classroom-table-panel-teacher', 'dashboard-classes-teacher', ClassroomSettings.classroom);
     })
 }
 
@@ -284,16 +284,22 @@ $('body').on('click', '#attribute-activity-to-students', function () {
                 "retroAttribution" : retroAttribution,
                 "ref" : ClassroomSettings.ref
             }).then(function () {
-                Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(function () {
-                    if (ClassroomSettings.ref == null) {
-                        displayNotification('#notif-div', "classroom.notif.activityAttributed", "success", `'{"activityTitle": "${activity.title}"}'`);
-                    } else {
-                        displayNotification('#notif-div', "classroom.notif.activityAttributionChanged", "success", `'{"activityTitle": "${activity.title}"}'`);
-                        ClassroomSettings.ref = null;
-                    }
-                    $('#attribute-activity-to-students').attr('disabled', false)
-                    ClassroomSettings.activity = false
-                });
+                const myClasses = Main.getClassroomManager()._myClasses;
+                if (myClasses) {
+                    classrooms.forEach(cId => {
+                        const entry = myClasses.find(c => c.classroom.id == parseInt(cId));
+                        if (entry) entry.students = [];
+                    });
+                }
+                if (ClassroomSettings.ref == null) {
+                    displayNotification('#notif-div', "classroom.notif.activityAttributed", "success", `'{"activityTitle": "${activity.title}"}'`);
+                } else {
+                    displayNotification('#notif-div', "classroom.notif.activityAttributionChanged", "success", `'{"activityTitle": "${activity.title}"}'`);
+                    ClassroomSettings.ref = null;
+                }
+                $('#attribute-activity-to-students').attr('disabled', false)
+                ClassroomSettings.activity = false
+                processDisplay();
             })
 
         });

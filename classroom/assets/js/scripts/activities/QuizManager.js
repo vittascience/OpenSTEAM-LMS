@@ -446,8 +446,8 @@ class QuizManager {
             element.classList.remove('quiz-answer-incorrect');
         });
 
-        for (let i = 1; i < $(`input[id^="student-quiz-suggestion${activityTag}-"]`).length+1; i++) {
-            $(`#student-quiz-suggestion${activityTag}-'${i}`).parent().addClass('quiz-answer-correct');
+        for (let i = 1; i < $(`label[id^="student-quiz-suggestion${activityTag}-"]`).length+1; i++) {
+            $(`#student-quiz-suggestion${activityTag}-${i}`).parent().addClass('quiz-answer-correct');
         }
 
         for (let i = 0; i < response.badResponse.length; i++) {
