@@ -1,8 +1,38 @@
 <?php
-if(!empty($_COOKIE["isFromGar"]) && empty($_SESSION['phpCAS']['user'])){
-    setcookie("isFromGar","",time()-1);
-    setcookie("isGarTest","",time()-1);
-    return header("Location:/classroom/gar_user_disconnect.php");
+if (!empty($_COOKIE["isFromGar"])) {
+    $casAuthenticated = !empty($_SESSION['phpCAS']['user']);
+
+    $samlAuthenticated = false;
+    if (!$casAuthenticated) {
+        require_once __DIR__ . '/../vendor/autoload.php';
+        \SimpleSAML\Configuration::setConfigDir(__DIR__ . '/../simplesaml/config');
+
+        $garAuthSource = !empty($_COOKIE['isGarTest']) ? 'gar-dev' : 'gar-prod';
+        $samlAuthenticated = (new \SimpleSAML\Auth\Simple($garAuthSource))->isAuthenticated();
+
+        // SimpleSAMLphp's phpsession backend hijacks the active PHP session name/cookie
+        // Release it and restore the LMS's own session name before this script's session_start().
+        if (class_exists('\SimpleSAML\Session')) {
+            try {
+                $ssp = \SimpleSAML\Session::getSessionFromRequest();
+                if ($ssp !== null) {
+                    $ssp->cleanup();
+                }
+            } catch (\Throwable $e) {
+                error_log('SSP cleanup error: ' . $e->getMessage());
+            }
+        }
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_write_close();
+        }
+        session_name('PHPSESSID');
+    }
+
+    if (!$casAuthenticated && !$samlAuthenticated) {
+        setcookie("isFromGar", "", time() - 1);
+        setcookie("isGarTest", "", time() - 1);
+        return header("Location:/classroom/gar_user_disconnected.php");
+    }
 }
 session_start();
 require_once(__DIR__ . "/../vendor/autoload.php");
