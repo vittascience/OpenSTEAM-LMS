@@ -2403,8 +2403,6 @@ function createUserAndLinkToGroup() {
                 displayNotification('#notif-div', "manager.group.groupFull", "error");
             }
         });
-    pseudoModal.closeAllModal();
-    tempoAndShowUsersTable()
 }
 
 
