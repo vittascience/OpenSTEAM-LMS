@@ -2312,7 +2312,6 @@ async function updateUserModal() {
         case "success":
             displayNotification('#notif-div', "manager.users.userUpdated", "success");
             await persistUpdateUserApp($user_id);
-            mainManager.getmanagerManager().reloadTable();
             break;
         case "missing data":
             displayNotification('#notif-div', "manager.account.missingData", "error");
@@ -2333,6 +2332,8 @@ async function updateUserModal() {
     if (rolesUpdatedRes.message == "success") {
         displayNotification('#notif-div', "manager.users.rolesUpdated", "success");
     }
+
+    mainManager.getmanagerManager().reloadTable();
 }
 
 
@@ -2420,7 +2421,7 @@ function tempoAndShowUsersTable() {
         usersperpage = $('#users_per_page').val(),
         group_actuel = mainManager.getmanagerManager()._actualGroup;
     setTimeout(() => {
-        mainManager.getmanagerManager().showGroupMembers(group_actuel, 1, usersperpage, sort);
+        showGroupMembers(group_actuel, 1, usersperpage, sort);
     }, 500);
 }
 
