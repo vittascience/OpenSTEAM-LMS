@@ -2420,9 +2420,7 @@ function tempoAndShowUsersTable() {
     let sort = $('#sort_users_filter').val(),
         usersperpage = $('#users_per_page').val(),
         group_actuel = mainManager.getmanagerManager()._actualGroup;
-    setTimeout(() => {
-        showGroupMembers(group_actuel, 1, usersperpage, sort);
-    }, 500);
+    showGroupMembers(group_actuel, 1, usersperpage, sort);
 }
 
 function tempoAndShowUsersTableGroupAdmin() {
