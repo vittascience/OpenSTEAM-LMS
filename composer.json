@@ -15,7 +15,7 @@
         "phpunit/phpunit": "^9.6",
         "vittascience/vtuser": "1.4.1",
         "vittascience/vtinterfaces": "1.5.12",
-        "vittascience/vtclassroom": "1.4.7",
+        "vittascience/vtclassroom": "1.4.9",
         "vittascience/vtlearn": "1.5.1",
         "vittascience/vutils": "1.4.0",
         "symfony/var-dumper": "^5.3"

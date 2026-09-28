@@ -1570,5 +1570,14 @@
 			"title": "Congratulations!",
 			"description": "You have completed the tour of the interface. <br> Enjoy!"
 		}
+	},
+	"groupAdminRequest": {
+		"title": "Your group has no administrator",
+		"onlyVisible": "Only visible to you:",
+		"description": "The group “{{group}}” has no administrator yet. Would you like to request this role? You would then be able to manage its members.",
+		"accept": "Request to become administrator",
+		"decline": "No thanks",
+		"success": "Your request has been sent. You will receive an email once it has been processed.",
+		"error": "Unable to send your request."
 	}
 }

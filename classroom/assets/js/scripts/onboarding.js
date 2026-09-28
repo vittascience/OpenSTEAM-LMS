@@ -38,7 +38,7 @@ const Onboarding = (function () {
         ];
     }
 
-    function centeredStep(id, titleKey, descriptionKey, buttonKey, isLast) {
+    function centeredStep(id, titleKey, descriptionKey, buttonKey) {
         return {
             id,
             classes: 'text-center',
@@ -47,7 +47,7 @@ const Onboarding = (function () {
             buttons: (tour) => [{
                 text: buttonLabel(buttonKey),
                 classes: 'btn btn-secondary mx-auto',
-                action: isLast ? tour.complete : tour.next
+                action: tour.next
             }]
         };
     }
@@ -65,11 +65,11 @@ const Onboarding = (function () {
         };
     }
 
-    registerStep(centeredStep('welcome-step', 'onboarding.welcome.hello', 'onboarding.welcome.description', 'onboarding.begin', false));
+    registerStep(centeredStep('welcome-step', 'onboarding.welcome.hello', 'onboarding.welcome.description', 'onboarding.begin'));
     registerStep(listStep('activities-step', 'onboarding.activities', '#dashboard-activities-teacher'));
     registerStep(listStep('classes-step', 'onboarding.classes', '#dashboard-classes-teacher'));
     registerStep(listStep('profile-step', 'onboarding.profile', '#dashboard-profil-teacher'));
-    registerStep(centeredStep('done-step', 'onboarding.done.title', 'onboarding.done.description', 'onboarding.finish', true));
+    registerStep(centeredStep('done-step', 'onboarding.done.title', 'onboarding.done.description', 'onboarding.finish'));
 
     function waitFor(condition) {
         return new Promise(resolve => {
@@ -106,7 +106,11 @@ const Onboarding = (function () {
         if (!isEligible(user)) return;
 
         for (const hook of beforeStartHooks) {
-            await hook(user);
+            try {
+                await hook(user);
+            } catch (e) {
+                console.error('Onboarding beforeStart hook failed', e);
+            }
         }
 
         const tour = new Shepherd.Tour({

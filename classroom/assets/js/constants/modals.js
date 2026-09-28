@@ -178,6 +178,17 @@ const classroomModals = {
                             </fieldset>
 
                         </div>
+
+                        <div id="group-admin-request-option" style="display: none;">
+                            <fieldset class="switch-to-admin">
+                                <legend>
+                                    <i class="fas fa-eye"></i>
+                                    <span data-i18n="groupAdminRequest.onlyVisible">Uniquement visible par vous :</span>
+                                </legend>
+                                <p class="group-admin-request-description"></p>
+                                <button class="btn mb-2 c-btn-outline-primary" onclick="GroupAdminRequest.accept()" data-i18n="groupAdminRequest.accept">Devenir administrateur</button>
+                            </fieldset>
+                        </div>
                         
                         <div class="border-1" id="manager_options" style="display: none;">
                             <fieldset class="switch-to-admin ">

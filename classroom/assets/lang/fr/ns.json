@@ -1887,5 +1887,14 @@
 			"title": "Félicitations !",
 			"description": "Vous avez terminé le tour de l’interface. <br> Bonne découverte !"
 		}
+	},
+	"groupAdminRequest": {
+		"title": "Votre groupe n’a pas d’administrateur",
+		"onlyVisible": "Uniquement visible par vous :",
+		"description": "Le groupe « {{group}} » n’a pas encore d’administrateur. Souhaitez-vous en faire la demande ? Vous pourrez alors gérer ses membres.",
+		"accept": "Demander à devenir administrateur",
+		"decline": "Non merci",
+		"success": "Votre demande a été envoyée. Vous recevrez un mail dès qu’elle aura été traitée.",
+		"error": "Impossible d’envoyer votre demande."
 	}
 }

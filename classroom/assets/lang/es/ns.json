@@ -1357,6 +1357,15 @@
         "title": "¡Enhorabuena!",
         "description": "Has terminado el recorrido por la interfaz. <br> ¡Que lo disfrutes!"
       }
+    },
+    "groupAdminRequest": {
+      "title": "Tu grupo no tiene administrador",
+      "onlyVisible": "Solo visible para ti:",
+      "description": "El grupo «{{group}}» aún no tiene administrador. ¿Quieres solicitarlo? Así podrás gestionar a sus miembros.",
+      "accept": "Solicitar ser administrador",
+      "decline": "No, gracias",
+      "success": "Tu solicitud se ha enviado. Recibirás un correo cuando se haya procesado.",
+      "error": "No se ha podido enviar tu solicitud."
     }
   }
   
