@@ -1331,5 +1331,52 @@
       "exportToCSV" : "تصدير إلى CSV",
       "exportToPDF" : "تصدير إلى PDF",
       "exportToXLS" : "تصدير إلى XLS"
+  },
+  "onboarding": {
+    "begin": "ابدأ",
+    "next": "النصيحة التالية",
+    "help": "الحصول على المساعدة",
+    "finish": "إنهاء",
+    "welcome": {
+      "hello": "مرحبًا {{firstname}}!",
+      "description": "اكتشف واجهة مصممة لإنشاء الأنشطة ومشاركتها بسهولة مع متعلميك!"
+    },
+    "activities": {
+      "description": "في تبويب <span class=\"text-secondary fw-semibold\">أنشطتي</span>، يمكنك:",
+      "list": {
+        "1": "استخدام <span class=\"text-secondary fw-semibold\">بنك موارد تشاركي</span> لاكتشاف أنشطة مع متعلميك،",
+        "2": "<span class=\"text-secondary fw-semibold\">إنشاء أنشطتك ومساراتك الخاصة،</span>",
+        "3": "ثم <span class=\"text-secondary fw-semibold\">إسنادها</span> إلى متعلميك!"
+      }
+    },
+    "classes": {
+      "description": "في تبويب <span class=\"text-secondary fw-semibold\">فصولي</span>، يمكنك:",
+      "list": {
+        "1": "<span class=\"text-secondary fw-semibold\">إنشاء فصولك الخاصة وإضافة المتعلمين</span>،",
+        "2": "<span class=\"text-secondary fw-semibold\">تصحيح إجابات</span> متعلميك على الأنشطة،",
+        "3": "و<span class=\"text-secondary fw-semibold\">متابعة تقدمهم</span>."
+      }
+    },
+    "profile": {
+      "description": "في تبويب <span class=\"text-secondary fw-semibold\">الملف الشخصي</span>، يمكنك:",
+      "list": {
+        "1": "<span class=\"text-secondary fw-semibold\">إدارة إعدادات حسابك</span>",
+        "2": "<span class=\"text-secondary fw-semibold\">عرض إحصائياتك</span>",
+        "3": "و<span class=\"text-secondary fw-semibold\">التواصل</span> مع الفريق إذا احتجت إلى المساعدة."
+      }
+    },
+    "done": {
+      "title": "تهانينا!",
+      "description": "لقد أنهيت جولة الواجهة. <br> استمتع بتجربتك!"
+    }
+  },
+  "groupAdminRequest": {
+    "title": "لا يوجد مسؤول لمجموعتك",
+    "onlyVisible": "مرئي لك فقط:",
+    "description": "لا يوجد بعد مسؤول للمجموعة «{{group}}». هل ترغب في تقديم طلب لتصبح مسؤولها؟ ستتمكن حينها من إدارة أعضائها.",
+    "accept": "طلب أن أصبح مسؤولًا",
+    "decline": "لا، شكرًا",
+    "success": "تم إرسال طلبك. ستتلقى بريدًا إلكترونيًا بمجرد معالجته.",
+    "error": "تعذّر إرسال طلبك."
   }
 }

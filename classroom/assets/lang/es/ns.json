@@ -1319,6 +1319,53 @@
       "exportToCSV" : "Exportar en CSV",
       "exportToPDF" : "Exportar en PDF",
       "exportToXLS" : "Exportar en XLS"
+    },
+    "onboarding": {
+      "begin": "Empezar",
+      "next": "Siguiente consejo",
+      "help": "Obtener ayuda",
+      "finish": "Terminar",
+      "welcome": {
+        "hello": "¡Hola {{firstname}}!",
+        "description": "¡Descubre una interfaz pensada para crear y compartir fácilmente actividades con tus alumnos!"
+      },
+      "activities": {
+        "description": "En la pestaña <span class=\"text-secondary fw-semibold\">Mis Actividades</span>, podrás:",
+        "list": {
+          "1": "Utilizar un <span class=\"text-secondary fw-semibold\">banco de recursos colaborativo</span> para descubrir actividades con tus alumnos,",
+          "2": "<span class=\"text-secondary fw-semibold\">Crear tus propias actividades y recorridos,</span>",
+          "3": "¡Y luego <span class=\"text-secondary fw-semibold\">asignarlas</span> a tus alumnos!"
+        }
+      },
+      "classes": {
+        "description": "En la pestaña <span class=\"text-secondary fw-semibold\">Mis Clases</span>, podrás:",
+        "list": {
+          "1": "<span class=\"text-secondary fw-semibold\">Crear tus propias clases y añadir alumnos</span>,",
+          "2": "<span class=\"text-secondary fw-semibold\">Corregir las respuestas</span> de tus alumnos a las actividades,",
+          "3": "y <span class=\"text-secondary fw-semibold\">seguir su progreso</span>."
+        }
+      },
+      "profile": {
+        "description": "En la pestaña <span class=\"text-secondary fw-semibold\">Perfil</span>, podrás:",
+        "list": {
+          "1": "<span class=\"text-secondary fw-semibold\">Gestionar los ajustes de tu cuenta</span>",
+          "2": "<span class=\"text-secondary fw-semibold\">Ver tus estadísticas</span>",
+          "3": "y <span class=\"text-secondary fw-semibold\">contactar</span> con el equipo si necesitas ayuda."
+        }
+      },
+      "done": {
+        "title": "¡Enhorabuena!",
+        "description": "Has terminado el recorrido por la interfaz. <br> ¡Que lo disfrutes!"
+      }
+    },
+    "groupAdminRequest": {
+      "title": "Tu grupo no tiene administrador",
+      "onlyVisible": "Solo visible para ti:",
+      "description": "El grupo «{{group}}» aún no tiene administrador. ¿Quieres solicitarlo? Así podrás gestionar a sus miembros.",
+      "accept": "Solicitar ser administrador",
+      "decline": "No, gracias",
+      "success": "Tu solicitud se ha enviado. Recibirás un correo cuando se haya procesado.",
+      "error": "No se ha podido enviar tu solicitud."
     }
   }
   

@@ -1532,5 +1532,52 @@
 				"joinButton": "Join"
 			}
 		}
+	},
+	"onboarding": {
+		"begin": "Start",
+		"next": "Next tip",
+		"help": "Get help",
+		"finish": "Finish",
+		"welcome": {
+			"hello": "Hello {{firstname}}!",
+			"description": "Discover an interface designed to easily create and share activities with your learners!"
+		},
+		"activities": {
+			"description": "In the <span class=\"text-secondary fw-semibold\">My Activities</span> tab, you will be able to:",
+			"list": {
+				"1": "Use a <span class=\"text-secondary fw-semibold\">collaborative resource bank</span> to discover activities with your learners.",
+				"2": "<span class=\"text-secondary fw-semibold\">Create your own activities and courses.</span>",
+				"3": "Then <span class=\"text-secondary fw-semibold\">assign them</span> to your learners!"
+			}
+		},
+		"classes": {
+			"description": "In the <span class=\"text-secondary fw-semibold\">My Classes</span> tab, you will be able to:",
+			"list": {
+				"1": "<span class=\"text-secondary fw-semibold\">Create your own classes and add learners</span>",
+				"2": "<span class=\"text-secondary fw-semibold\">Correct your learners' answers</span> to the activities",
+				"3": "and <span class=\"text-secondary fw-semibold\">follow their progress</span>"
+			}
+		},
+		"profile": {
+			"description": "In the <span class=\"text-secondary fw-semibold\">Profile</span> tab, you will be able to:",
+			"list": {
+				"1": "<span class=\"text-secondary fw-semibold\">Manage your account settings</span>",
+				"2": "<span class=\"text-secondary fw-semibold\">View your statistics</span>",
+				"3": "and <span class=\"text-secondary fw-semibold\">contact</span> the team if you need help."
+			}
+		},
+		"done": {
+			"title": "Congratulations!",
+			"description": "You have completed the tour of the interface. <br> Enjoy!"
+		}
+	},
+	"groupAdminRequest": {
+		"title": "Your group has no administrator",
+		"onlyVisible": "Only visible to you:",
+		"description": "The group “{{group}}” has no administrator yet. Would you like to request this role? You would then be able to manage its members.",
+		"accept": "Request to become administrator",
+		"decline": "No thanks",
+		"success": "Your request has been sent. You will receive an email once it has been processed.",
+		"error": "Unable to send your request."
 	}
 }

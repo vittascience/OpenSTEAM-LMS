@@ -85,6 +85,9 @@ VS_DEMOSTUDENT=vittademo
 # Does not change the DB pseudo (VS_DEMOSTUDENT). Leave empty to use VS_DEMOSTUDENT.
 DEMOSTUDENT_DISPLAY=
 
+# (optional) show the onboarding tour to teachers on their first visit
+VS_ONBOARDING_ENABLED=false
+
 # path to use for the activity logger(ie: routing/Routing.php)
 VS_LOG_PATH=/logs/log.log
 
