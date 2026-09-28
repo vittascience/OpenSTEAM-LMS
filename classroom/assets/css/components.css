@@ -731,6 +731,15 @@
     --bs-border-width: 2px;
 }
 
+/* Bootstrap tables without .c-table otherwise keep a white background in dark theme */
+.theme-dark .table {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--classroom-text-0);
+    --bs-table-border-color: var(--classroom-cell);
+    --bs-table-hover-bg: rgba(var(--classroom-text-0-rgb), 0.075);
+    --bs-table-hover-color: var(--classroom-text-0);
+}
+
 .c-table thead th {
     border-bottom: 0px solid transparent;
     border-top: 0px solid transparent;
