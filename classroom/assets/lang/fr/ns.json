@@ -1849,5 +1849,43 @@
 				"joinButton": "Rejoindre"
 			}
 		}
+	},
+	"onboarding": {
+		"begin": "Commencer",
+		"next": "Conseil suivant",
+		"help": "Obtenir de l’aide",
+		"finish": "Terminer",
+		"welcome": {
+			"hello": "Bonjour {{firstname}} !",
+			"description": "Découvrez une interface pensée pour créer et partager facilement des activités avec vos apprenants !"
+		},
+		"activities": {
+			"description": "Dans l’onglet <span class=\"text-secondary fw-semibold\">Mes Activités</span>, vous allez pouvoir :",
+			"list": {
+				"1": "Utiliser une <span class=\"text-secondary fw-semibold\">banque de ressources collaborative</span> pour découvrir des activités avec vos apprenants,",
+				"2": "<span class=\"text-secondary fw-semibold\">Créer vos propres activités et parcours,</span>",
+				"3": "Puis <span class=\"text-secondary fw-semibold\">les attribuer</span> à vos apprenants !"
+			}
+		},
+		"classes": {
+			"description": "Dans l’onglet <span class=\"text-secondary fw-semibold\">Mes Classes</span>, vous allez pouvoir :",
+			"list": {
+				"1": "<span class=\"text-secondary fw-semibold\">Créer vos propres classes et ajouter des apprenants</span>,",
+				"2": "<span class=\"text-secondary fw-semibold\">Corriger les réponses</span> de vos apprenants aux activités,",
+				"3": "et <span class=\"text-secondary fw-semibold\">suivre leur progression</span>."
+			}
+		},
+		"profile": {
+			"description": "Dans l’onglet <span class=\"text-secondary fw-semibold\">Profil</span>, vous allez pouvoir :",
+			"list": {
+				"1": "<span class=\"text-secondary fw-semibold\">Gérer vos paramètres de compte</span>",
+				"2": "<span class=\"text-secondary fw-semibold\">Visualiser vos statistiques</span>",
+				"3": "et <span class=\"text-secondary fw-semibold\">contacter</span> l’équipe si vous avez besoin d’aide."
+			}
+		},
+		"done": {
+			"title": "Félicitations !",
+			"description": "Vous avez terminé le tour de l’interface. <br> Bonne découverte !"
+		}
 	}
 }
