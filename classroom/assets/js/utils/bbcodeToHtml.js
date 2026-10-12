@@ -20,7 +20,6 @@ function bbcodeToHtml(html) {
     
     //url
     html = html.replace(/(href=)/gi, " target=\"_blank\" $1")
-    html = html.replace(/(\[url=)(.+?(?=\]))(\])(.+?(?=\[))(\[\/url\])/gi, "<a href='$2' target=\"_blank\">$4</a>")
 
     //pdf
     html = html.replace(/\[embed title=(.+)\](.+)(\[\/embed\])/gi, "<embed width=100% height=500 type=\"application/pdf\" src=\"$2\"/ title=\"$1\">")
@@ -120,7 +119,11 @@ function bbcodeToHtml(html) {
     html = html.replace(/\[\/size\]/gi, "</span>")
 
     html = html.replace(/\[imgcustom title=(.*?) width=([a-zA-Z0-9?=&\/\\:\-,\+%._ ]*)(\])(.*?)(\[\/imgcustom\])/gi, '<img src="$4" title="$1" style="width:$2;" class="img-fluid img-custom">');
-    
+
+    // url last, so link labels may span lines and wrap already converted tags (images, bold...)
+    html = html.replace(/\[url=([^\]]+)\]([\s\S]*?)\[\/url\]/gi, "<a href='$1' target=\"_blank\">$2</a>")
+    html = html.replace(/\[url\]([^\[\]]+)\[\/url\]/gi, "<a href='$1' target=\"_blank\">$1</a>")
+
     return html
 }
 
