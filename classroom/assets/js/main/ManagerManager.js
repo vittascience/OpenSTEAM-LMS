@@ -1094,7 +1094,7 @@ class managerManager {
                 { title: 'Droits', data: null, orderable: false, class: 'text-center', responsivePriority: 3, render: row => this.renderRights(row) },
                 {
                     title: 'Apps', data: null, orderable: false, responsivePriority: 4, render: row => (row.applications || []).map(a =>
-                        `<img src="${a?.image || 'assets/media/no-app-icon.svg'}" alt="${a?.name || ''}" title="${a?.name || ''}" style="max-height:24px;" class="mx-1">`
+                        `<img src="${a?.image || _PATH + 'assets/media/no-app-icon.svg'}" alt="${a?.name || ''}" title="${a?.name || ''}" style="max-height:24px;" class="mx-1">`
                     ).join('')
                 },
                 { title: 'Premium', data: null, orderable: true, responsivePriority: 2, class: 'text-center', render: row => this.renderPremium(row.premiumData) },
@@ -1270,13 +1270,13 @@ class managerManager {
     returnSSOSvg(sso) {
         switch (sso) {
             case 'google':
-                return `<img src="./auth/svg/google.svg" alt="google svg logo" class="w-auto sso-logo">`;
+                return `<img src="${_PATH}auth/svg/google.svg" alt="google svg logo" class="w-auto sso-logo">`;
             case 'microsoft':
-                return `<img src="./auth/svg/microsoft.svg" alt="microsoft svg logo" class="w-auto sso-logo">`;
+                return `<img src="${_PATH}auth/svg/microsoft.svg" alt="microsoft svg logo" class="w-auto sso-logo">`;
             case 'apple':
-                return `<img src="./auth/svg/apple.svg" alt="apple svg logo" class="w-auto sso-logo">`;
+                return `<img src="${_PATH}auth/svg/apple.svg" alt="apple svg logo" class="w-auto sso-logo">`;
             case 'saml':
-                return `<img src="./auth/svg/saml.svg" alt="saml svg logo" class="w-auto sso-logo">`;
+                return `<img src="${_PATH}auth/svg/saml.svg" alt="saml svg logo" class="w-auto sso-logo">`;
             default:
                 return 'error';
         }

@@ -260,7 +260,7 @@ function openModalWithActivitiesChoise() {
         if (!title) {return;}
         activityDiv.classList.add("col-6", "my-2", "d-flex");
         activityDiv.innerHTML = `<input type="checkbox" id="import-activity-${activity.id}" name="import-activity-${activity.id}" value="${activity.id}">
-                                    <label for="import-activity-${activity.id}"><img src="assets/media/activity/${activity.type}.png" class="import-multiple-activities" alt="${activity.type}">${title}</label>`;
+                                    <label for="import-activity-${activity.id}"><img src="${_PATH}assets/media/activity/${activity.type}.png" class="import-multiple-activities" alt="${activity.type}">${title}</label>`;
         modalContent.appendChild(activityDiv);
     });
 
@@ -418,7 +418,7 @@ function importMultipleActivitiesFromJSON() {
                 let title = textToLowerCase(truncateTextByLength(activity.title, 25));
                 if (!title) {return;}
                 activityDiv.classList.add("col-6", "my-2", "d-flex");
-                activityDiv.innerHTML = `<div for="import-activity-${activity.id}"><img src="assets/media/activity/${activity.type}.png" class="import-multiple-activities" alt="${activity.type}">${title}</div>`;
+                activityDiv.innerHTML = `<div for="import-activity-${activity.id}"><img src="${_PATH}assets/media/activity/${activity.type}.png" class="import-multiple-activities" alt="${activity.type}">${title}</div>`;
                 modalContent.appendChild(activityDiv);
             });
 
