@@ -13,11 +13,11 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^9.6",
-        "vittascience/vtuser": "1.4.1",
+        "vittascience/vtuser": "1.4.3",
         "vittascience/vtinterfaces": "1.5.12",
         "vittascience/vtclassroom": "1.4.9",
-        "vittascience/vtlearn": "1.5.1",
-        "vittascience/vutils": "1.4.0",
+        "vittascience/vtlearn": "1.5.2",
+        "vittascience/vutils": "1.4.2",
         "symfony/var-dumper": "^5.3"
     },
     "require": {
