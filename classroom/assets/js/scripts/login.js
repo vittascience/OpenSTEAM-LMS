@@ -309,6 +309,9 @@ $('#create-user').click(function (event) {
                     case 'classroomBlocked':
                         displayNotification('#notif-div', "classroom.notif.cantLoginClassroomBlocked", "error");
                         break;
+                    case 'invalidLink':
+                        displayNotification('#notif-div', "classroom.notif.invalidLink", "error");
+                        break;
                     case 'reservedNickname':
                         displayNotification('#notif-div', `classroom.notif.${result.errorType}`, "error", `'{"reservedNickname": "${result.currentNickname}"}'`);
                         break;
