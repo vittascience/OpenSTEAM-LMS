@@ -1,13 +1,14 @@
 {
     "config": {
         "platform": {
-            "php": "7.3"
+            "php": "8.5"
         },
         "audit": {
             "ignore": [
                 "PKSA-z3gr-8qht-p93v",
                 "PKSA-y2cr-5h3j-g3ys",
-                "PKSA-zh4j-by9m-7mz8"
+                "PKSA-zh4j-by9m-7mz8",
+                "PKSA-12sz-bcny-pk4m"
             ]
         }
     },
