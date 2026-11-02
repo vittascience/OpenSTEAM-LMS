@@ -211,14 +211,15 @@ function createTeacherAccountv2(formData) {
 /**
  * Link the teacher to the group
  */
-function linkTeacherToGroup(user, group) {
+function linkTeacherToGroup(user, group, groupCode) {
     return new Promise((resolve, reject) => {
         $.ajax({
             type: 'POST',
             url: '/routing/Routing.php?controller=groupadmin&action=linkTeacherToGroup',
             data: {
                 'user_id': user,
-                'group_id': group
+                'group_id': group,
+                'gcode': groupCode
             },
             success: function (response) {
                 resolve(response);
@@ -232,7 +233,7 @@ function linkTeacherToGroup(user, group) {
 
 function linkTeacherToGroupProcess() {
     $('#linkTeacherToGroupBtn').attr('disabled', true);
-    linkTeacherToGroup(Informations.userId, Informations.groupId).then((response) => {
+    linkTeacherToGroup(Informations.userId, Informations.groupId, Informations.linkCode).then((response) => {
         document.location = Informations.urlWithCode + `&page=${response.message}`;
     })
 }
