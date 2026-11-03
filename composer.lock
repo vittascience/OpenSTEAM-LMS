@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0b9aa8a78de1245fe5e5cb17d5344d9c",
+    "content-hash": "39229d3def6e3a94dbb9fe03fcd63e13",
     "packages": [
         {
             "name": "aiken/i18next",
@@ -6353,16 +6353,16 @@
         },
         {
             "name": "vittascience/vtclassroom",
-            "version": "1.4.11",
+            "version": "1.4.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vittascience/vclassroom.git",
-                "reference": "47b3c04cf06b172e546da18f04f7ac0ab530f943"
+                "reference": "f5597ea2e2e9c61328d31a771797f2e6844b998f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vittascience/vclassroom/zipball/47b3c04cf06b172e546da18f04f7ac0ab530f943",
-                "reference": "47b3c04cf06b172e546da18f04f7ac0ab530f943",
+                "url": "https://api.github.com/repos/vittascience/vclassroom/zipball/f5597ea2e2e9c61328d31a771797f2e6844b998f",
+                "reference": "f5597ea2e2e9c61328d31a771797f2e6844b998f",
                 "shasum": ""
             },
             "require": {
@@ -6387,9 +6387,9 @@
             "description": "LMS management system",
             "support": {
                 "issues": "https://github.com/vittascience/vclassroom/issues",
-                "source": "https://github.com/vittascience/vclassroom/tree/1.4.11"
+                "source": "https://github.com/vittascience/vclassroom/tree/1.4.12"
             },
-            "time": "2026-11-03T11:34:25+00:00"
+            "time": "2026-11-03T13:17:44+00:00"
         },
         {
             "name": "vittascience/vtinterfaces",
