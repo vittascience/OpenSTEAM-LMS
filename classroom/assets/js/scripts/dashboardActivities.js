@@ -909,7 +909,7 @@ function manageDisplayLti(correction, content, correction_div, isDoable, activit
         if (!UserManager.getUser().isRegular) {
             if (!Activity.evaluation && correction < 2) {
                 document.querySelector('#activity-content'+course).innerHTML += `
-                <button onclick="launchLtiResource(${Activity.id}, '${Activity.activity.type}', '${safeHttpUrl(content)}', true, '${safeHttpUrl(Activity.url)}')">Modifier le travail</button>`;
+                <button data-type="${quoteAttr(Activity.activity.type)}" onclick="launchLtiResource(${Activity.id}, this.dataset.type, '${safeHttpUrl(content)}', true, '${safeHttpUrl(Activity.url)}')">Modifier le travail</button>`;
             }
         }
         

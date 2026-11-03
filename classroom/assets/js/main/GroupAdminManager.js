@@ -268,7 +268,7 @@ class GroupAdminManager {
         </a>
       </td>
       <td>
-        <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.disable" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">
+        <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.disable" onclick="disableUserGroupAdmin(${element.id}, this.dataset.name)" data-name="${quoteAttr(element.firstname)}">
           ${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i>
         </button>
       </td>
@@ -299,10 +299,10 @@ class GroupAdminManager {
                         </a>
                     </td>
                     <td>
-                        <button class="btn c-btn-primary btn-sm" data-i18n="manager.buttons.activate" onclick="activateUserGroupAdmin(${element.id}, '${element.firstname}')">
+                        <button class="btn c-btn-primary btn-sm" data-i18n="manager.buttons.activate" onclick="activateUserGroupAdmin(${element.id}, this.dataset.name)" data-name="${quoteAttr(element.firstname)}">
                         ${i18next.t('manager.buttons.activate')} <i class="fas fa-user-minus"></i>
                         </button>
-                        <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="deleteUserGroupAdmin(${element.id}, '${element.firstname}')">
+                        <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="deleteUserGroupAdmin(${element.id}, this.dataset.name)" data-name="${quoteAttr(element.firstname)}">
                         ${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i>
                         </button>
                     </td>
@@ -382,17 +382,17 @@ class GroupAdminManager {
 
                     if (element.totalPagesCount > 1) {
                         if (element.previousPage > 1) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainGroupAdmin.getGroupAdminManager().globalSearchUser(${name}, 1, ${usersperpage})">First Page</button>`;
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainGroupAdmin.getGroupAdminManager().globalSearchUser(this.dataset.search, 1, ${usersperpage})" data-search="${quoteAttr(name)}">First Page</button>`;
                         }
                         if (element.currentPage > 1) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainGroupAdmin.getGroupAdminManager().globalSearchUser(${name}, ${element.previousPage}, ${usersperpage})">${element.previousPage}</button>`;
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainGroupAdmin.getGroupAdminManager().globalSearchUser(this.dataset.search, ${element.previousPage}, ${usersperpage})" data-search="${quoteAttr(name)}">${element.previousPage}</button>`;
                         }
                         htmlButtons += `<button class="btn btn-primary btn-sm active mx-2">${element.currentPage}</button>`;
                         if (element.currentPage < element.totalPagesCount) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainGroupAdmin.getGroupAdminManager().globalSearchUser(${name}, ${element.nextPage}, ${usersperpage})">${element.nextPage}</button>`;
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainGroupAdmin.getGroupAdminManager().globalSearchUser(this.dataset.search, ${element.nextPage}, ${usersperpage})" data-search="${quoteAttr(name)}">${element.nextPage}</button>`;
                         }
                         if (element.nextPage < element.totalPagesCount) {
-                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainGroupAdmin.getGroupAdminManager().globalSearchUser(${name}, ${element.totalPagesCount}, ${usersperpage})">Last Page - ${element.totalPagesCount}</button>`;
+                            htmlButtons += `<button class="btn btn-primary btn-sm mx-2" onclick="mainGroupAdmin.getGroupAdminManager().globalSearchUser(this.dataset.search, ${element.totalPagesCount}, ${usersperpage})" data-search="${quoteAttr(name)}">Last Page - ${element.totalPagesCount}</button>`;
                         }
                     }
 
@@ -439,7 +439,7 @@ class GroupAdminManager {
                                 </a>
                             </td>
                             <td>
-                                <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.disable" onclick="disableUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
+                                <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.disable" onclick="disableUserGroupAdmin(${element.id}, this.dataset.name)" data-name="${quoteAttr(element.firstname)}">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
                             </td>
                         </tr>`;
                     } else {
@@ -459,8 +459,8 @@ class GroupAdminManager {
                                 </a>
                             </td>
                             <td>
-                                <button class="btn c-btn-primary btn-sm" data-i18n="manager.buttons.activate" onclick="activateUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.activate')} <i class="fas fa-user-minus"></i></button>
-                                <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="deleteUserGroupAdmin(${element.id}, '${element.firstname}')">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
+                                <button class="btn c-btn-primary btn-sm" data-i18n="manager.buttons.activate" onclick="activateUserGroupAdmin(${element.id}, this.dataset.name)" data-name="${quoteAttr(element.firstname)}">${i18next.t('manager.buttons.activate')} <i class="fas fa-user-minus"></i></button>
+                                <button class="btn c-btn-red btn-sm" data-i18n="manager.buttons.delete" onclick="deleteUserGroupAdmin(${element.id}, this.dataset.name)" data-name="${quoteAttr(element.firstname)}">${i18next.t('manager.buttons.delete')} <i class="fas fa-user-minus"></i></button>
                             </td>
                         </tr>`;
                     }

@@ -341,7 +341,7 @@ function activitiesCreation(apps) {
         
 
 
-        let restrict = app.name != "" ? `launchCustomActivity('${app.name}')` : `launchCustomActivity('custom')`;
+        let restrict = app.name != "" ? `launchCustomActivity(this.dataset.app)` : `launchCustomActivity('custom')`;
 
         if (outDated) {
             restrict = `launchCustomActivity('appOutDated')`;
@@ -349,7 +349,7 @@ function activitiesCreation(apps) {
 
         htmlContent +=
           `
-            <div class="app-card" style="--border-color:${app.color};" onclick="${restrict}" onkeydown="if(event.key==='Enter'||event.key===' '){${restrict}}" tabindex="0" aria-label="${app.name}">
+            <div class="app-card" style="--border-color:${app.color};" data-app="${quoteAttr(app.name)}" onclick="${restrict}" onkeydown="if(event.key==='Enter'||event.key===' '){${restrict}}" tabindex="0" aria-label="${app.name}">
               <img class="app-card-img" src="${app.image}" alt="${app.name}"/>
               ${nameField}
               ${descriptionField}
