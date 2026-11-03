@@ -9,7 +9,7 @@
         "vittascience/vtuser": "1.4.7",
         "vittascience/vtinterfaces": "1.5.12",
         "vittascience/vtclassroom": "1.4.13",
-        "vittascience/vtlearn": "1.5.4",
+        "vittascience/vtlearn": "1.5.6",
         "vittascience/vutils": "1.4.2",
         "symfony/var-dumper": "^7.4"
     },

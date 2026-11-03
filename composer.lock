@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fcf698741da1bcd1bf4ee86f5c8d3309",
+    "content-hash": "78eac70b4ac5c275d16440f94e44c6d4",
     "packages": [
         {
             "name": "aiken/i18next",
@@ -6553,16 +6553,16 @@
         },
         {
             "name": "vittascience/vtlearn",
-            "version": "1.5.4",
+            "version": "1.5.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vittascience/vlearn.git",
-                "reference": "ed940be2b73b9ad0078a76641138af74cf2b7ff5"
+                "reference": "7311714ee9b1b254154208e8787cac7a94d06395"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vittascience/vlearn/zipball/ed940be2b73b9ad0078a76641138af74cf2b7ff5",
-                "reference": "ed940be2b73b9ad0078a76641138af74cf2b7ff5",
+                "url": "https://api.github.com/repos/vittascience/vlearn/zipball/7311714ee9b1b254154208e8787cac7a94d06395",
+                "reference": "7311714ee9b1b254154208e8787cac7a94d06395",
                 "shasum": ""
             },
             "require": {
@@ -6587,9 +6587,9 @@
             "description": "Resource center management system",
             "support": {
                 "issues": "https://github.com/vittascience/vlearn/issues",
-                "source": "https://github.com/vittascience/vlearn/tree/1.5.4"
+                "source": "https://github.com/vittascience/vlearn/tree/1.5.6"
             },
-            "time": "2026-11-03T16:19:20+00:00"
+            "time": "2026-11-03T17:24:53+00:00"
         },
         {
             "name": "vittascience/vtuser",
