@@ -143,6 +143,11 @@ function safeHttpUrl(url) {
     return url.trim().replace(/['"<>\\]/g, (char) => '%' + char.charCodeAt(0).toString(16).toUpperCase());
 }
 
+// Course titles and descriptions are stored as typed (not HTML-encoded): escape them wherever they go into HTML
+function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' })[char]);
+}
+
 // For data-* values read by inline handlers: escapes only the quote so entities still decode once, as before
 function quoteAttr(value) {
     return String(value ?? '').replace(/"/g, '&quot;');

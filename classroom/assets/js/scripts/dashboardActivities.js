@@ -66,12 +66,12 @@ function courseItem(course, state) {
     let html = `<div class="course-item" 
                      role="button" 
                      tabindex="0" 
-                     aria-label="Parcours ${course.course.title}"
+                     aria-label="Parcours ${escapeHtml(course.course.title)}"
                      onclick="coursesManager.${course.course.format == 1 ? "readCourseOnePage" : "readCourseFromStudent"}('${course.course.id}', '${course.id}')"
                      onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); coursesManager.${course.course.format == 1 ? "readCourseOnePage" : "readCourseFromStudent"}('${course.course.id}', '${course.id}'); }">
                 <div>
                     <div class="course-card">        
-                        <div class="${activityStatus}" data-bs-toggle="tooltip" title="${course.course.title}"><div class="ribbon__content"></div></div>
+                        <div class="${activityStatus}" data-bs-toggle="tooltip" title="${escapeHtml(course.course.title)}"><div class="ribbon__content"></div></div>
                         <img src="${_PATH}assets/media/cards/card-course.png" class="course-card-img" alt="Icône de parcours">
                         <div class="course-card-info">
                             <div class="course-card-top">
@@ -88,7 +88,7 @@ function courseItem(course, state) {
     }
 
     html += `</div></div></div></div>`
-    html += `<h3 data-bs-toggle="tooltip" title="${course.course.title}" class="activity-item-title">${course.course.title}</h3>`
+    html += `<h3 data-bs-toggle="tooltip" title="${escapeHtml(course.course.title)}" class="activity-item-title">${escapeHtml(course.course.title)}</h3>`
     html += `</div></div>`
 
     return html;
