@@ -8,8 +8,8 @@
         "phpunit/phpunit": "^10.5",
         "vittascience/vtuser": "1.4.7",
         "vittascience/vtinterfaces": "1.5.12",
-        "vittascience/vtclassroom": "1.4.12",
-        "vittascience/vtlearn": "1.5.2",
+        "vittascience/vtclassroom": "1.4.13",
+        "vittascience/vtlearn": "1.5.4",
         "vittascience/vutils": "1.4.2",
         "symfony/var-dumper": "^7.4"
     },

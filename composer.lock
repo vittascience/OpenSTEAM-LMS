@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "78c78125cea82776149d3a94b63d427e",
+    "content-hash": "fcf698741da1bcd1bf4ee86f5c8d3309",
     "packages": [
         {
             "name": "aiken/i18next",
@@ -6473,16 +6473,16 @@
         },
         {
             "name": "vittascience/vtclassroom",
-            "version": "1.4.12",
+            "version": "1.4.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vittascience/vclassroom.git",
-                "reference": "f5597ea2e2e9c61328d31a771797f2e6844b998f"
+                "reference": "44bf548e58cce45503a247334a5ad3376ce67fb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vittascience/vclassroom/zipball/f5597ea2e2e9c61328d31a771797f2e6844b998f",
-                "reference": "f5597ea2e2e9c61328d31a771797f2e6844b998f",
+                "url": "https://api.github.com/repos/vittascience/vclassroom/zipball/44bf548e58cce45503a247334a5ad3376ce67fb6",
+                "reference": "44bf548e58cce45503a247334a5ad3376ce67fb6",
                 "shasum": ""
             },
             "require": {
@@ -6507,9 +6507,9 @@
             "description": "LMS management system",
             "support": {
                 "issues": "https://github.com/vittascience/vclassroom/issues",
-                "source": "https://github.com/vittascience/vclassroom/tree/1.4.12"
+                "source": "https://github.com/vittascience/vclassroom/tree/1.4.13"
             },
-            "time": "2026-11-03T13:17:44+00:00"
+            "time": "2026-11-03T16:14:08+00:00"
         },
         {
             "name": "vittascience/vtinterfaces",
@@ -6553,16 +6553,16 @@
         },
         {
             "name": "vittascience/vtlearn",
-            "version": "1.5.2",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vittascience/vlearn.git",
-                "reference": "232fd23cacc642b257d9cc950433af95289705c2"
+                "reference": "ed940be2b73b9ad0078a76641138af74cf2b7ff5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vittascience/vlearn/zipball/232fd23cacc642b257d9cc950433af95289705c2",
-                "reference": "232fd23cacc642b257d9cc950433af95289705c2",
+                "url": "https://api.github.com/repos/vittascience/vlearn/zipball/ed940be2b73b9ad0078a76641138af74cf2b7ff5",
+                "reference": "ed940be2b73b9ad0078a76641138af74cf2b7ff5",
                 "shasum": ""
             },
             "require": {
@@ -6587,9 +6587,9 @@
             "description": "Resource center management system",
             "support": {
                 "issues": "https://github.com/vittascience/vlearn/issues",
-                "source": "https://github.com/vittascience/vlearn/tree/1.5.2"
+                "source": "https://github.com/vittascience/vlearn/tree/1.5.4"
             },
-            "time": "2026-10-10T01:14:56+00:00"
+            "time": "2026-11-03T16:19:20+00:00"
         },
         {
             "name": "vittascience/vtuser",
