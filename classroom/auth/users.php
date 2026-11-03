@@ -139,7 +139,8 @@ function manageUserFromSSO($entityManager, $formatedUserData, $actualUrl, $sso)
 
 function redirectTo($actualUrl, $firstConnect = false) {
     $welcomeParam = $firstConnect ? (strpos($actualUrl, '?') !== false ? '&welcome=1' : '?welcome=1') : '';
-    if (!empty($_SESSION['backurl'])) {
+    // backurl comes from the request: only a local path, "@evil.com" or "//evil.com" would leave the site
+    if (!empty($_SESSION['backurl']) && preg_match('#^/(?![/\\\\])#', $_SESSION['backurl'])) {
         header("refresh:3;url=$actualUrl" . $_SESSION['backurl'] . $welcomeParam);
     } else {
         header("refresh:3;url=$actualUrl/" . $welcomeParam);

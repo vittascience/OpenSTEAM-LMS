@@ -34,8 +34,8 @@ $regularUser = $entityManager->getRepository(Regular::class)->findOneBy(
     array('confirmToken'=>$token)
 );
 
-// no recordffound
-if($regularUser == null){
+// no record found, or a registration token (no pending new email)
+if($regularUser == null || empty($regularUser->getNewMail())){
     setcookie("invalidUser",true, strtotime("+1 minute"));
     $redirect = "{$_ENV['VS_HOST']}/classroom";
 }
