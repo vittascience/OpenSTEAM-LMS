@@ -11,6 +11,7 @@ $rootPath = findRelativeRoute();
 require_once $rootPath . 'vendor/autoload.php';
 
 require_once $rootPath . 'bootstrap.php';
+require_once __DIR__ . "/security.php";
 
 use \Firebase\JWT\JWT;
 use Classroom\Entity\LtiTool;
@@ -19,12 +20,22 @@ $nonce = $_REQUEST['nonce'];
 
 $platform_url = "https://{$_SERVER['HTTP_HOST']}";
 
-$loginHint = json_decode($_REQUEST['login_hint'], true);
-
-$ltiTool = $entityManager->getRepository(LtiTool::class)->findOneByClientId($_REQUEST['client_id']);
+$ltiTool = $entityManager->getRepository(LtiTool::class)->findOneByClientId($_REQUEST['client_id'] ?? '');
 
 if (!$ltiTool) {
 	echo 'Tool not found!';
+	exit;
+}
+
+// The hint carries the user and role, only trust what ltilaunch.php / contentitem.php signed
+$loginHint = verifyLtiLoginHint($_REQUEST['login_hint'] ?? '', $ltiTool);
+if (!$loginHint) {
+	echo 'Invalid login hint!';
+	exit;
+}
+
+if (!isLtiToolRedirectUri($_REQUEST['redirect_uri'] ?? '', $ltiTool)) {
+	echo 'Invalid redirect uri!';
 	exit;
 }
 
@@ -118,8 +129,8 @@ $token = JWT::encode(
 );
 ?>
 
-<form name="post_redirect" method="post" action="<?php echo $_REQUEST['redirect_uri']?>">
-  <input type="hidden" name="state"  value="<?php echo $_REQUEST['state'] ?>">
+<form name="post_redirect" method="post" action="<?php echo htmlspecialchars($_REQUEST['redirect_uri'], ENT_QUOTES) ?>">
+  <input type="hidden" name="state"  value="<?php echo htmlspecialchars($_REQUEST['state'] ?? '', ENT_QUOTES) ?>">
   <input type="hidden" name="id_token" value="<?php echo $token ?>">
   <noscript>
     <input type="submit" value="Click here to continue">

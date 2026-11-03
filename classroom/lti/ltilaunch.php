@@ -11,9 +11,11 @@ $rootPath = findRelativeRoute();
 require_once $rootPath . 'vendor/autoload.php';
 
 require_once $rootPath . 'bootstrap.php';
+require_once __DIR__ . "/security.php";
 
 use Classroom\Entity\Applications;
 use Classroom\Entity\LtiTool;
+use Classroom\Entity\ActivityLinkUser;
 
 if (empty($_SESSION["id"])) {
 	echo "You must be logged in to use this file";
@@ -46,11 +48,8 @@ if ($studentLaunch == null) {
 	echo "Bad student launch requested!";
 	exit;
 } else {
-	if ($studentLaunch == "true"){
-		$studentLaunch = true;
-	} else {
-		$studentLaunch = false;
-	}
+	// Only teachers may launch as Instructor
+	$studentLaunch = $studentLaunch == "true" || !isLtiTeacher($entityManager, $_SESSION["id"]);
 }
 
 if ($activitiesLinkUser == null) {
@@ -60,6 +59,13 @@ if ($activitiesLinkUser == null) {
 
 if ($studentResourceUrl == null) {
 	echo "Bad student resource url requested!";
+	exit;
+}
+
+// The tool grades this activity: it must be the user's own (teacher previews use a non-existent id)
+$activityLinkUser = $entityManager->getRepository(ActivityLinkUser::class)->find(intval($activitiesLinkUser));
+if ($activityLinkUser ? $activityLinkUser->getUser()->getId() != $_SESSION["id"] : $studentLaunch) {
+	echo "Bad activities link user requested!";
 	exit;
 }
 
@@ -73,7 +79,7 @@ if (!$ltiTool) {
 	exit;
 }
 
-$loginHint = json_encode([
+$loginHint = signLtiLoginHint([
 	"lineitemId" => $targetLinkUri,
 	"userId" => $_SESSION["id"], 
 	"isStudentLaunch" => $studentLaunch, 
@@ -82,7 +88,9 @@ $loginHint = json_encode([
 	"deploymentId" => $ltiTool->getDeploymentId(),
 	"deepLink" => false,
 	"studentResourceUrl" => $studentResourceUrl
-]);
+], $ltiTool);
+$loginHint = htmlspecialchars($loginHint, ENT_QUOTES);
+$targetLinkUri = htmlspecialchars($targetLinkUri, ENT_QUOTES);
 
 echo "
 <form name='lti_student_login_form' action='{$ltiTool->getLoginUrl()}' method='post'>
