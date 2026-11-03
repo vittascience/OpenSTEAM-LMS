@@ -87,7 +87,8 @@ try {
     exit;
   }
 
-  $activityLinkUser->setUrl($comment);
+  // the comment is shown to the teacher as an iframe: only keep http(s) URLs
+  if (is_string($comment) && preg_match('#^https?://#i', $comment)) $activityLinkUser->setUrl($comment);
 
   if($gradingProgress == "FullyGraded") {
     $convertedScore = 3 / $scoreMaximum * $scoreGiven;

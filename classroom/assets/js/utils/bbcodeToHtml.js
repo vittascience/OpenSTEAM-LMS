@@ -124,7 +124,23 @@ function bbcodeToHtml(html) {
     html = html.replace(/\[url=([^\]]+)\]([\s\S]*?)\[\/url\]/gi, "<a href='$1' target=\"_blank\">$2</a>")
     html = html.replace(/\[url\]([^\[\]]+)\[\/url\]/gi, "<a href='$1' target=\"_blank\">$1</a>")
 
-    return html
+    return sanitizeRichContent(html)
+}
+
+// Rich content is written by teachers and students: keep the markup bbcode produces, drop scripts, on* handlers and javascript: URLs
+const RICH_CONTENT_PURIFY_CONFIG = {
+    ADD_TAGS: ['iframe', 'embed', 'math-field'],
+    ADD_ATTR: ['allowfullscreen', 'frameborder', 'allow', 'target', 'read-only', 'default-mode'],
+};
+
+function sanitizeRichContent(html) {
+    return DOMPurify.sanitize(html, RICH_CONTENT_PURIFY_CONFIG);
+}
+
+// Only http(s) URLs, with quotes encoded so the value can't break out of an HTML attribute or a JS string
+function safeHttpUrl(url) {
+    if (typeof url !== 'string' || !/^https?:\/\//i.test(url.trim())) return '';
+    return url.trim().replace(/['"<>\\]/g, (char) => '%' + char.charCodeAt(0).toString(16).toUpperCase());
 }
 
 

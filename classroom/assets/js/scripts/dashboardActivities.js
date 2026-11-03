@@ -905,11 +905,11 @@ function manageDisplayLti(correction, content, correction_div, isDoable, activit
         launchLtiResource(Activity.id, Activity.activity.type, content, !UserManager.getUser().isRegular, false, "#activity-content", isFromCourse);
     } else {
         document.querySelector('#activity-content'+course).innerHTML = `
-        <iframe src="${Activity.url}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`;
+        <iframe src="${safeHttpUrl(Activity.url)}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`;
         if (!UserManager.getUser().isRegular) {
             if (!Activity.evaluation && correction < 2) {
                 document.querySelector('#activity-content'+course).innerHTML += `
-                <button onclick="launchLtiResource(${Activity.id}, '${Activity.activity.type}', '${content}', true, '${Activity.url}')">Modifier le travail</button>`;
+                <button onclick="launchLtiResource(${Activity.id}, '${Activity.activity.type}', '${safeHttpUrl(content)}', true, '${safeHttpUrl(Activity.url)}')">Modifier le travail</button>`;
             }
         }
         

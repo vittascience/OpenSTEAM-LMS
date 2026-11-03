@@ -1259,7 +1259,7 @@ class CoursesManager {
         }
 
         let hintDiv = document.getElementById(`hint-${activityId}`);
-        hintDiv.innerHTML = response.hint;
+        hintDiv.innerHTML = sanitizeRichContent(response.hint);
         hintDiv.classList.remove("d-none");
     }
 
@@ -1441,10 +1441,10 @@ class CoursesManager {
         if (isDoable) {
             activityData.content = this.launchLtiResourceOnePageCourse(activity.id, activity.activity.id, activity.activity.type, content, !UserManager.getUser().isRegular, url);
         } else {
-            activityData.content = `<iframe src="${activity.url}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`;
+            activityData.content = `<iframe src="${safeHttpUrl(activity.url)}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`;
             if (!UserManager.getUser().isRegular) {
                 if (!activity.evaluation && activity.activity.correction < 2) {
-                    activityData.content += `<button onclick="launchLtiResource(${activity.id}, '${activity.activity.type}', '${content}', true, '${activity.url}')">Modifier le travail</button>`;
+                    activityData.content += `<button onclick="launchLtiResource(${activity.id}, '${activity.activity.type}', '${safeHttpUrl(content)}', true, '${safeHttpUrl(activity.url)}')">Modifier le travail</button>`;
                 }
             }
             if (correction != 1 || UserManager.getUser().isRegular) {
