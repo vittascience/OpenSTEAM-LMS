@@ -106,6 +106,7 @@ $formatedUserData = formatUserData($decodedPayloadArray, 'apple');
 if ($decodedPayloadArray['email_verified'] !== true) {
     echo i18next::getTranslation("sso.messages.emailNotVerified");
     header("refresh:3;url=$actualUrl");
+    exit;
 }
 
 manageUserFromSSO($entityManager, $formatedUserData, $actualUrl, 'apple');
