@@ -2,18 +2,13 @@
     "config": {
         "platform": {
             "php": "8.5"
-        },
-        "audit": {
-            "ignore": [
-                "PKSA-12sz-bcny-pk4m"
-            ]
         }
     },
     "require-dev": {
         "phpunit/phpunit": "^10.5",
         "vittascience/vtuser": "1.4.3",
         "vittascience/vtinterfaces": "1.5.12",
-        "vittascience/vtclassroom": "1.4.10",
+        "vittascience/vtclassroom": "1.4.12",
         "vittascience/vtlearn": "1.5.2",
         "vittascience/vutils": "1.4.2",
         "symfony/var-dumper": "^7.4"
@@ -33,10 +28,10 @@
         "guzzlehttp/guzzle": "^7.5",
         "symfony/cache": "^7.4",
         "doctrine/annotations": "^2.0",
-        "phpseclib/phpseclib": "~2.0",
+        "phpseclib/phpseclib": "^3.0.57",
         "php-opencloud/openstack": "^3.2",
         "league/oauth2-google": "^4.0",
-        "codercat/jwk-to-pem": "^1.0"
+        "codercat/jwk-to-pem": "^1.1"
     },
     "autoload": {
         "psr-4": {
