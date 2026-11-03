@@ -67,6 +67,26 @@ $comment = $grade->comment;
 try {
   // $lineItemId is the id of the activityLinkUser (sent back from the tool)
   $activityLinkUser = $entityManager->getRepository(ActivityLinkUser::class)->find($activityId);
+  if (!$activityLinkUser) {
+    http_response_code(404);
+    echo json_encode(['Error:' => 'Unknown activity']);
+    exit;
+  }
+
+  // A tool may only grade activities of its own application
+  $application = $ltiTool->getApplication();
+  if (!$application || $activityLinkUser->getActivity()->getType() !== $application->getName()) {
+    http_response_code(403);
+    echo json_encode(['Error:' => 'Activity not handled by this tool']);
+    exit;
+  }
+
+  if ($gradingProgress == "FullyGraded" && !($scoreMaximum > 0)) {
+    http_response_code(400);
+    echo json_encode(['Error:' => 'Invalid scoreMaximum']);
+    exit;
+  }
+
   $activityLinkUser->setUrl($comment);
 
   if($gradingProgress == "FullyGraded") {

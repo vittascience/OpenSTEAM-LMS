@@ -10,6 +10,7 @@ $rootPath = findRelativeRoute();
 require_once $rootPath . 'vendor/autoload.php';
 
 require_once $rootPath . 'bootstrap.php';
+require_once __DIR__ . "/security.php";
 
 use Classroom\Entity\Applications;
 use Classroom\Entity\LtiTool;
@@ -56,7 +57,7 @@ if ($isUpdate != null && $updateUrl != null) {
 	$loginHint['updateUrl'] = $updateUrl;
 }
 
-$loginHint = json_encode($loginHint);
+$loginHint = htmlspecialchars(signLtiLoginHint($loginHint, $ltiTool), ENT_QUOTES);
 
 echo "
 <form name='lti_teacher_login_form' action='{$ltiTool->getLoginUrl()}' method='post'>
