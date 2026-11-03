@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "715629070da47eb288bc36fa4d8d3ef9",
+    "content-hash": "7486fd093a588528e93b24d0a12ded85",
     "packages": [
         {
             "name": "aiken/i18next",
@@ -6593,16 +6593,16 @@
         },
         {
             "name": "vittascience/vtuser",
-            "version": "1.4.3",
+            "version": "1.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vittascience/vuser.git",
-                "reference": "8c9dbb4161bd5a5b10d9372b4a2e5c46b471754d"
+                "reference": "47f8c2d516a1597acc95149bbcf6abce0ff161ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vittascience/vuser/zipball/8c9dbb4161bd5a5b10d9372b4a2e5c46b471754d",
-                "reference": "8c9dbb4161bd5a5b10d9372b4a2e5c46b471754d",
+                "url": "https://api.github.com/repos/vittascience/vuser/zipball/47f8c2d516a1597acc95149bbcf6abce0ff161ba",
+                "reference": "47f8c2d516a1597acc95149bbcf6abce0ff161ba",
                 "shasum": ""
             },
             "require": {
@@ -6624,9 +6624,9 @@
             "description": "An user management system",
             "support": {
                 "issues": "https://github.com/vittascience/vuser/issues",
-                "source": "https://github.com/vittascience/vuser/tree/1.4.3"
+                "source": "https://github.com/vittascience/vuser/tree/1.4.5"
             },
-            "time": "2026-10-12T09:15:37+00:00"
+            "time": "2026-11-03T14:30:12+00:00"
         },
         {
             "name": "vittascience/vutils",
