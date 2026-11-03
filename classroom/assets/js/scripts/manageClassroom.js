@@ -1283,17 +1283,17 @@ function displayStudentsInClassroom(students, link=false) {
                     activityNumber++;
                 } else {
                     let tableLength = `colspan="${currentActivity.activitiesReferences.length}"`;
-                    let thModular = `<th data-bs-toggle="tooltip" class="border-header-class" ${tableLength} data-bs-placement="top" title="${currentActivity.course.title}" role="columnheader" aria-label="Parcours ${activityNumber}">`;
+                    let thModular = `<th data-bs-toggle="tooltip" class="border-header-class" ${tableLength} data-bs-placement="top" title="${escapeHtml(currentActivity.course.title)}" role="columnheader" aria-label="Parcours ${activityNumber}">`;
                     optionContent = `
                     <div class="ms-5" style="border-bottom:solid 2px black;">
-                        <b>${currentActivity.course.title}</b>
+                        <b>${escapeHtml(currentActivity.course.title)}</b>
                     </div>
                     
                     <button class="classroom-clickable col-12 dropdown-item" 
                         role="menuitem"
                         tabindex="0"
                         onclick="coursesManager.courseOverview(${currentActivity.course.id})"
-                        aria-label="Voir le parcours '${currentActivity.course.title}'"
+                        aria-label="Voir le parcours '${escapeHtml(currentActivity.course.title)}'"
                         onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
                         <i class="fas fa-eye" aria-hidden="true"></i> <span data-i18n="courses.show">Voir le parcours</span>
                     </button>
@@ -1301,7 +1301,7 @@ function displayStudentsInClassroom(students, link=false) {
                         role="menuitem"
                         tabindex="0"
                         onclick="coursesManager.updateCourse(${currentActivity.course.id})"
-                        aria-label="Modifier le parcours '${currentActivity.course.title}'"
+                        aria-label="Modifier le parcours '${escapeHtml(currentActivity.course.title)}'"
                         onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
                         <i class="fas fa-pen" aria-hidden="true"></i> <span data-i18n="courses.update">Modifier le parcours</span>
                     </button>
@@ -1309,7 +1309,7 @@ function displayStudentsInClassroom(students, link=false) {
                         role="menuitem"
                         tabindex="0"
                         onclick="coursesManager.attributeCourse(${currentActivity.course.id}, ${currentActivity.reference})"
-                        aria-label="Modifier l'attribution du parcours '${currentActivity.course.title}'"
+                        aria-label="Modifier l'attribution du parcours '${escapeHtml(currentActivity.course.title)}'"
                         onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
                         <i class="fas fa-user-alt" aria-hidden="true"></i> <span data-i18n="classroom.classes.panel.editAttribution">Modifier l'attribution</span>
                     </button>
@@ -1317,7 +1317,7 @@ function displayStudentsInClassroom(students, link=false) {
                         role="menuitem"
                         tabindex="0"
                         onclick="coursesManager.undoAttribution(${currentActivity.course.id}, ${currentActivity.reference}, ${classroomId})"
-                        aria-label="Retirer l'attribution du parcours '${currentActivity.course.title}'"
+                        aria-label="Retirer l'attribution du parcours '${escapeHtml(currentActivity.course.title)}'"
                         onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); this.click(); }">
                         <i class="fas fa-trash-alt" aria-hidden="true"></i> <span data-i18n="classroom.classes.panel.removeAttribution">Retirer l'attribution</span>
                     </button>`;
@@ -1331,7 +1331,7 @@ function displayStudentsInClassroom(students, link=false) {
                                  aria-expanded="false"
                                  role="button"
                                  tabindex="0"
-                                 aria-label="Menu d'actions pour le parcours '${currentActivity.course.title}'"
+                                 aria-label="Menu d'actions pour le parcours '${escapeHtml(currentActivity.course.title)}'"
                                  onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.stopPropagation(); $(this).dropdown('toggle'); }">
                                     <span class="span-act">Par.</br>n°${ activityNumber }</span>
                                     <i style="display:none;font-size:2em;" class="fa fa-cog i-act" aria-hidden="true"></i>

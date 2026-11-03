@@ -768,7 +768,7 @@ class CoursesManager {
     teacherCourseItem(course, displayStyle) {
         let content = "";
         if (displayStyle == "card") {
-            content = `<div class="course-item course-teacher" data-id="${course.id}" aria-label="Activité ${course.title}" tabindex="-1">
+            content = `<div class="course-item course-teacher" data-id="${course.id}" aria-label="Activité ${escapeHtml(course.title)}" tabindex="-1">
                             <div>
                                 <div class="course-card"
                                     onkeydown="if(event.key==='Enter'||event.key===' '){ event.preventDefault(); event.target.click(); }" tabindex="0"
@@ -798,7 +798,7 @@ class CoursesManager {
                                     </div>
                                 </div>
                             </div>
-                            <h3 data-bs-toggle="tooltip" title="${course.title}" class="course-item-title">${course.title}</h3>
+                            <h3 data-bs-toggle="tooltip" title="${escapeHtml(course.title)}" class="course-item-title">${escapeHtml(course.title)}</h3>
                             </div>
                         </div>`
         } else if (displayStyle == "list") {
@@ -814,7 +814,7 @@ class CoursesManager {
         
                         <div class="course-list-center">
                             <div class="course-list-title">
-                                ${course.title}
+                                ${escapeHtml(course.title)}
                             </div>
                         </div>
         
@@ -1111,7 +1111,7 @@ class CoursesManager {
             activitiesResultDiv.innerHTML += html;
         }
 
-        $('#course-title-options').html(course.title + " - " + this.makeOptionsCourseForOverview(course));
+        $('#course-title-options').html(escapeHtml(course.title) + " - " + this.makeOptionsCourseForOverview(course));
 
         navigatePanel('classroom-dashboard-teacher-course-panel', 'dashboard-activities-teacher');
         breadcrumbManager.setCourseTitle(course.title, course.id);
@@ -1172,12 +1172,12 @@ class CoursesManager {
         // create h3 title 
         const courseTitle = document.createElement('h3');
         courseTitle.classList.add('fw7-primary', 'my-2', 'text-center');
-        courseTitle.innerHTML = course.course.title;
+        courseTitle.textContent = course.course.title;
 
         // create p description
         const courseDescription = document.createElement('p');
         courseDescription.classList.add('fw7-uncolored', 'my-2', 'text-center');
-        courseDescription.innerHTML = course.course.description;
+        courseDescription.textContent = course.course.description;
 
         // insert title and description in the div
         onePageCourseContent.appendChild(courseTitle);

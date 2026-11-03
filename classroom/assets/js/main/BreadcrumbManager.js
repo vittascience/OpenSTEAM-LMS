@@ -61,7 +61,7 @@ class BreadcrumbManager {
         const btnBC = document.createElement('button');
         btnBC.classList.add('btn', 'c-btn-outline-primary');
         btnBC.setAttribute('type', 'button');
-        btnBC.innerHTML = "📚 " + title;
+        btnBC.textContent = "📚 " + title;
 
         btnBC.addEventListener('click', () => {
             coursesManager.courseOverview(courseId)
