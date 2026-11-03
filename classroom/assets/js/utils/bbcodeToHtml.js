@@ -143,6 +143,11 @@ function safeHttpUrl(url) {
     return url.trim().replace(/['"<>\\]/g, (char) => '%' + char.charCodeAt(0).toString(16).toUpperCase());
 }
 
+// For data-* values read by inline handlers: escapes only the quote so entities still decode once, as before
+function quoteAttr(value) {
+    return String(value ?? '').replace(/"/g, '&quot;');
+}
+
 
 function generateRandomString(length = 10) {
     let characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

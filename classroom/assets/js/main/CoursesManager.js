@@ -1444,7 +1444,7 @@ class CoursesManager {
             activityData.content = `<iframe src="${safeHttpUrl(activity.url)}" width="100%" style="height: 60vh;" allowfullscreen=""></iframe>`;
             if (!UserManager.getUser().isRegular) {
                 if (!activity.evaluation && activity.activity.correction < 2) {
-                    activityData.content += `<button onclick="launchLtiResource(${activity.id}, '${activity.activity.type}', '${safeHttpUrl(content)}', true, '${safeHttpUrl(activity.url)}')">Modifier le travail</button>`;
+                    activityData.content += `<button data-type="${quoteAttr(activity.activity.type)}" onclick="launchLtiResource(${activity.id}, this.dataset.type, '${safeHttpUrl(content)}', true, '${safeHttpUrl(activity.url)}')">Modifier le travail</button>`;
                 }
             }
             if (correction != 1 || UserManager.getUser().isRegular) {

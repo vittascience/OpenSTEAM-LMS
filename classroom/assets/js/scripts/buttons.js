@@ -3549,7 +3549,7 @@ function getAndShowApps() {
                                 <a class="c-link-secondary" href="javascript:void(0)" onclick="updateApp(${application.id})" aria-label="Modifier l'application ${application.name}"><i class="fas fa-pencil-alt fa-2x" aria-hidden="true"></i></a>
                             </td>
                             <td>
-                                <a class="c-link-red" href="javascript:void(0)" onclick="deleteApp(${application.id}, '${application.name}')" aria-label="Supprimer l'application ${application.name}"><i class="fas fa-trash-alt fa-2x" aria-hidden="true"></i></a>
+                                <a class="c-link-red" href="javascript:void(0)" onclick="deleteApp(${application.id}, this.dataset.name)" data-name="${quoteAttr(application.name)}" aria-label="Supprimer l'application ${application.name}"><i class="fas fa-trash-alt fa-2x" aria-hidden="true"></i></a>
                             </td>
                         </tr>`;
         });
