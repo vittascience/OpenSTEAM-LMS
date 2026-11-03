@@ -13,7 +13,7 @@
         "phpunit/phpunit": "^10.5",
         "vittascience/vtuser": "1.4.3",
         "vittascience/vtinterfaces": "1.5.12",
-        "vittascience/vtclassroom": "1.4.10",
+        "vittascience/vtclassroom": "1.4.11",
         "vittascience/vtlearn": "1.5.2",
         "vittascience/vutils": "1.4.2",
         "symfony/var-dumper": "^7.4"
