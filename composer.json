@@ -6,7 +6,7 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^10.5",
-        "vittascience/vtuser": "1.4.6",
+        "vittascience/vtuser": "1.4.7",
         "vittascience/vtinterfaces": "1.5.12",
         "vittascience/vtclassroom": "1.4.12",
         "vittascience/vtlearn": "1.5.2",
