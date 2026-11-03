@@ -18,7 +18,6 @@ use Lti\Entity\LtiScore;
 use User\Entity\User;
 use Classroom\Entity\ActivityLinkUser;
 use Classroom\Entity\LtiTool;
-use phpseclib\Crypt\RSA;
 
 $headers = apache_request_headers();
 $jwtToken = explode("Bearer ", $headers['Authorization'])[1];

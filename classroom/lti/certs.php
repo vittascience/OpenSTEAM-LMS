@@ -11,8 +11,8 @@ $rootPath = findRelativeRoute();
 require_once $rootPath . 'vendor/autoload.php';
 require_once $rootPath . 'bootstrap.php';
 
-use phpseclib\Crypt\RSA;
-use Firebase\JWT\JWT;
+use phpseclib3\Crypt\PublicKeyLoader;
+use phpseclib3\Crypt\RSA\PublicKey;
 use Classroom\Entity\LtiTool;
 
 $ltiTools = $entityManager->getRepository(LtiTool::class)->findAll();
@@ -26,19 +26,21 @@ function create_public_jwks($privateKeysArr) {
 	$jwks = [];
 
 	foreach ($privateKeysArr as $kid => $private_key) {
-		$key = new RSA();
-		$key->setHash("sha256");
-		$key->loadKey($private_key);
-		$key->setPublicKey(false, RSA::PUBLIC_FORMAT_PKCS8);
-		if ( !$key->publicExponent ) {
+		try {
+			$key = PublicKeyLoader::load($private_key)->getPublicKey();
+		} catch (\Throwable $e) {
 			continue;
 		}
+		if (!$key instanceof PublicKey) {
+			continue;
+		}
+		$jwk = json_decode($key->toString('JWK'), true)['keys'][0];
 		$components = array(
 			'kty' => 'RSA',
 			'alg' => 'RS256',
 			'use' => 'sig',
-			'e' => JWT::urlsafeB64Encode($key->publicExponent->toBytes()),
-			'n' => JWT::urlsafeB64Encode($key->modulus->toBytes()),
+			'e' => $jwk['e'],
+			'n' => $jwk['n'],
 			'kid' => $kid,
 		);
 		$jwks[] = $components;
