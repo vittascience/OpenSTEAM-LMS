@@ -110,6 +110,7 @@ function manageUserFromSSO($entityManager, $formatedUserData, $actualUrl, $sso)
             $legacyUser = createUserFromSSO($formatedUserData, $entityManager);
             $userRegular = createRegularFromSSO($legacyUser, $formatedUserData, $entityManager, $sso);
             // the user will choose if he wants to receive the newsletter or not after the first connection
+            session_regenerate_id(true);
             $_SESSION["id"] = $legacyUser->getId();
             $_SESSION["token"] = createToken($legacyUser->getId());
             echo i18next::getTranslation("sso.messages.success");
@@ -128,6 +129,7 @@ function manageUserFromSSO($entityManager, $formatedUserData, $actualUrl, $sso)
             exit;
         }
         $userRegular = $userExist;
+        session_regenerate_id(true);
         $_SESSION["id"] = $userRegular->getUser()->getId();
         $_SESSION["token"] = createToken($userRegular->getUser()->getId());
         echo i18next::getTranslation("sso.messages.success");
