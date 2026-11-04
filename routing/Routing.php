@@ -6,13 +6,10 @@ use Dotenv\Dotenv;
 use Monolog\Logger;
 use VittaLogger\Log;
 use Utils\Backend\Errors;
-use Doctrine\ORM\ORMException;
-use Doctrine\DBAL\DBALException;
 
 use User\Controller\ControllerUser;
 use User\Entity\UserPremium;
 
-use Doctrine\DBAL\Driver\PDOException;
 use Learn\Controller\ControllerCourse;
 
 use Learn\Controller\ControllerLesson;
@@ -58,8 +55,11 @@ try {
     // Get User.
     session_start();
     $user = null;
-    if (isset($_SESSION["id"])) {
-        $user = $entityManager->getRepository('User\Entity\User')->find(intval($_SESSION["id"]))->jsonSerialize();
+    $sessionUser = isset($_SESSION["id"]) ? $entityManager->getRepository('User\Entity\User')->find(intval($_SESSION["id"])) : null;
+    // An account deleted while logged in continues as anonymous
+    if (!$sessionUser) unset($_SESSION["id"]);
+    if ($sessionUser) {
+        $user = $sessionUser->jsonSerialize();
         $storedClassroom = $entityManager->getRepository('Classroom\Entity\ClassroomLinkUser')->findBy(['user' => $_SESSION["id"]]);
         if ($storedClassroom) {
             $user["classroom"] = [];
@@ -222,7 +222,11 @@ try {
             $log->info($action, OK);
             break;
         case 'upload':
-            $action = lcfirst(str_replace('_', '', ucwords($action, '_')));
+            $action = lcfirst(str_replace('_', '', ucwords((string) $action, '_')));
+            if (!in_array($action, ['uploadImgFromTextEditor', 'getAllMyImages', 'deleteImage', 'uploadFileFromTextEditor'], true)) {
+                echo json_encode(Errors::createError('unknownAction'));
+                break;
+            }
             $controllerUpload = new ControllerUpload($entityManager, $user);
             echo json_encode(call_user_func(
                 array($controllerUpload, $action)
@@ -243,16 +247,8 @@ try {
 } catch (EntityOperatorException $e) {
     $log->error($action, $e->getFile(), $e->getLine(), $e->getMessage());
     echo (json_encode(Errors::createError($e->getMessage())));
-} catch (DBALException $e) {
-    $log->error($action, $e->getFile(), $e->getLine(), $e->getMessage());
-    echo (json_encode(Errors::createError($e->getMessage())));
-} catch (PDOException $e) {
-    $log->error($action, $e->getFile(), $e->getLine(), $e->getMessage());
-    echo (json_encode(Errors::createError($e->getMessage())));
-} catch (ORMException $e) {
-    $log->error($action, $e->getFile(), $e->getLine(), $e->getMessage());
-    echo (json_encode(Errors::createError($e->getMessage())));
-} catch (Exception $e) {
-    $log->error($action, $e->getFile(), $e->getLine(), $e->getMessage());
-    echo (json_encode(Errors::createError($e->getMessage())));
+} catch (\Throwable $e) {
+    // Database and PHP errors stay in the log, the client only learns that something failed
+    $log->error($action, $e->getFile(), $e->getLine(), get_class($e) . ': ' . $e->getMessage());
+    echo (json_encode(Errors::createError('serverError')));
 }
