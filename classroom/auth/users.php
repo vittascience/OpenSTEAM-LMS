@@ -46,9 +46,13 @@ function createUserFromSSO($userData, $entityManager)
 
     $user = new User();
     $substituteIcon = getRandomIcon();
-    $user->setFirstname(!empty($userData['given_name']) ? $userData['given_name'] : $userTranslation);
-    $user->setSurname(!empty($userData['family_name']) ? $userData['family_name'] : $anonymousTranslation);
-    $user->setPseudo(!empty($userData['name']) ? $userData['name'] : $anonymousTranslation . " " . $userTranslation);
+    // Users pick any name at the provider: store it encoded like every other name
+    $firstname = htmlspecialchars(strip_tags(trim($userData['given_name'] ?? '')));
+    $surname = htmlspecialchars(strip_tags(trim($userData['family_name'] ?? '')));
+    $pseudo = htmlspecialchars(strip_tags(trim($userData['name'] ?? '')));
+    $user->setFirstname($firstname !== '' ? $firstname : $userTranslation);
+    $user->setSurname($surname !== '' ? $surname : $anonymousTranslation);
+    $user->setPseudo($pseudo !== '' ? $pseudo : $anonymousTranslation . " " . $userTranslation);
     $user->setPicture(!empty($userData['picture']) ? $userData['picture'] : $substituteIcon);
     $randomPassword = bin2hex(random_bytes(10));
     $passwordHash = password_hash($randomPassword, PASSWORD_BCRYPT);
