@@ -78,7 +78,7 @@ function finalizeRegistrationFormCheck(formData) {
 document.getElementById('finalize-registration-form').addEventListener('submit', (e) => {
     e.preventDefault();
     let data = new FormData(e.target);
-    let token = getCookie('token');
+    let token = $_GET('token');
     if (finalizeRegistrationFormCheck(data)) {
         finalizeRegistration(data, token).then((response) => {
             if (response.finalized == true) {

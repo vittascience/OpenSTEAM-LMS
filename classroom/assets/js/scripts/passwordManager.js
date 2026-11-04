@@ -91,7 +91,7 @@ function checkMailValid() {
 document.getElementById('password-change-form').addEventListener('submit', (e) => {
     e.preventDefault();
     let data = new FormData(e.target);
-    let token = getCookie('token');
+    let token = $_GET('token');
     if (passwordFormCheck(data)) {
         finalizePasswordChange(data, token).then((response) => {
             if (response.changed == true) {
