@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c19cdfbeb2d7d2301063dbdffc77b09",
+    "content-hash": "64fb2197de5fc2967216474d98134142",
     "packages": [
         {
             "name": "aiken/i18next",
@@ -6473,16 +6473,16 @@
         },
         {
             "name": "vittascience/vtclassroom",
-            "version": "1.4.14",
+            "version": "dev-arz-doctrine3-compat",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vittascience/vclassroom.git",
-                "reference": "e2c7b4d0c347b667ab90ebb00ad175c66717f6b5"
+                "reference": "cbd7bf79c10749ab6daca1f31648601b0984e0e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vittascience/vclassroom/zipball/e2c7b4d0c347b667ab90ebb00ad175c66717f6b5",
-                "reference": "e2c7b4d0c347b667ab90ebb00ad175c66717f6b5",
+                "url": "https://api.github.com/repos/vittascience/vclassroom/zipball/cbd7bf79c10749ab6daca1f31648601b0984e0e8",
+                "reference": "cbd7bf79c10749ab6daca1f31648601b0984e0e8",
                 "shasum": ""
             },
             "require": {
@@ -6507,22 +6507,22 @@
             "description": "LMS management system",
             "support": {
                 "issues": "https://github.com/vittascience/vclassroom/issues",
-                "source": "https://github.com/vittascience/vclassroom/tree/1.4.14"
+                "source": "https://github.com/vittascience/vclassroom/tree/arz-doctrine3-compat"
             },
-            "time": "2026-11-04T12:10:42+00:00"
+            "time": "2026-11-05T13:43:14+00:00"
         },
         {
             "name": "vittascience/vtinterfaces",
-            "version": "1.5.12",
+            "version": "dev-arz-doctrine3-compat",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vittascience/vinterfaces.git",
-                "reference": "f7649e96e06272401e74bb26160a4a50d4e30f47"
+                "reference": "a049b61221056bd512f3bc31bdb3ecc96226b826"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vittascience/vinterfaces/zipball/f7649e96e06272401e74bb26160a4a50d4e30f47",
-                "reference": "f7649e96e06272401e74bb26160a4a50d4e30f47",
+                "url": "https://api.github.com/repos/vittascience/vinterfaces/zipball/a049b61221056bd512f3bc31bdb3ecc96226b826",
+                "reference": "a049b61221056bd512f3bc31bdb3ecc96226b826",
                 "shasum": ""
             },
             "require": {
@@ -6547,9 +6547,9 @@
             "description": "An ide management system",
             "support": {
                 "issues": "https://github.com/vittascience/vinterfaces/issues",
-                "source": "https://github.com/vittascience/vinterfaces/tree/1.5.12"
+                "source": "https://github.com/vittascience/vinterfaces/tree/arz-doctrine3-compat"
             },
-            "time": "2026-08-27T15:12:16+00:00"
+            "time": "2026-11-05T13:43:14+00:00"
         },
         {
             "name": "vittascience/vtlearn",
@@ -6593,16 +6593,16 @@
         },
         {
             "name": "vittascience/vtuser",
-            "version": "1.4.8",
+            "version": "dev-arz-doctrine3-compat",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vittascience/vuser.git",
-                "reference": "e507e13b6632cfdc0aab162cdca7bbcf2497ec08"
+                "reference": "b2db60b3c334e8cfdd53d77f8ff8bc4b2424cade"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vittascience/vuser/zipball/e507e13b6632cfdc0aab162cdca7bbcf2497ec08",
-                "reference": "e507e13b6632cfdc0aab162cdca7bbcf2497ec08",
+                "url": "https://api.github.com/repos/vittascience/vuser/zipball/b2db60b3c334e8cfdd53d77f8ff8bc4b2424cade",
+                "reference": "b2db60b3c334e8cfdd53d77f8ff8bc4b2424cade",
                 "shasum": ""
             },
             "require": {
@@ -6624,22 +6624,22 @@
             "description": "An user management system",
             "support": {
                 "issues": "https://github.com/vittascience/vuser/issues",
-                "source": "https://github.com/vittascience/vuser/tree/1.4.8"
+                "source": "https://github.com/vittascience/vuser/tree/arz-doctrine3-compat"
             },
-            "time": "2026-11-04T11:21:32+00:00"
+            "time": "2026-11-05T13:43:14+00:00"
         },
         {
             "name": "vittascience/vutils",
-            "version": "1.4.2",
+            "version": "dev-arz-doctrine3-compat",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vittascience/vutils.git",
-                "reference": "8346da85e4e2597f9fcf2cb5d0458337fee504d3"
+                "reference": "54f1f34f85e5a3e19b7872dc6fe0bc70266e6c0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vittascience/vutils/zipball/8346da85e4e2597f9fcf2cb5d0458337fee504d3",
-                "reference": "8346da85e4e2597f9fcf2cb5d0458337fee504d3",
+                "url": "https://api.github.com/repos/vittascience/vutils/zipball/54f1f34f85e5a3e19b7872dc6fe0bc70266e6c0a",
+                "reference": "54f1f34f85e5a3e19b7872dc6fe0bc70266e6c0a",
                 "shasum": ""
             },
             "require": {
@@ -6664,15 +6664,19 @@
             "description": "Misc php functions",
             "support": {
                 "issues": "https://github.com/vittascience/vutils/issues",
-                "source": "https://github.com/vittascience/vutils/tree/1.4.2"
+                "source": "https://github.com/vittascience/vutils/tree/arz-doctrine3-compat"
             },
-            "time": "2026-10-06T08:59:09+00:00"
+            "time": "2026-11-05T13:43:23+00:00"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "aiken/i18next": 20
+        "aiken/i18next": 20,
+        "vittascience/vtclassroom": 20,
+        "vittascience/vtinterfaces": 20,
+        "vittascience/vtuser": 20,
+        "vittascience/vutils": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
