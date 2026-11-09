@@ -6201,12 +6201,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/vittascience/vlearn",
-                "reference": "12d9f9b573dd649536e170cde67d0779376568a5"
+                "reference": "f8ee2e58b6c983887bff73da4f6d439f8b1193ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vittascience/vlearn/zipball/12d9f9b573dd649536e170cde67d0779376568a5",
-                "reference": "12d9f9b573dd649536e170cde67d0779376568a5",
+                "url": "https://api.github.com/repos/vittascience/vlearn/zipball/f8ee2e58b6c983887bff73da4f6d439f8b1193ef",
+                "reference": "f8ee2e58b6c983887bff73da4f6d439f8b1193ef",
                 "shasum": ""
             },
             "require": {
@@ -6229,7 +6229,7 @@
                 }
             ],
             "description": "Resource center management system",
-            "time": "2026-11-09T02:31:51+00:00"
+            "time": "2026-11-09T17:27:28+00:00"
         },
         {
             "name": "vittascience/vtuser",
@@ -6237,12 +6237,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/vittascience/vuser",
-                "reference": "401faf3ce9b91df22d8fe6f83c9c2d67c0740779"
+                "reference": "86ae6ecf40bd64db71db6eddb734e73c87cb6177"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vittascience/vuser/zipball/401faf3ce9b91df22d8fe6f83c9c2d67c0740779",
-                "reference": "401faf3ce9b91df22d8fe6f83c9c2d67c0740779",
+                "url": "https://api.github.com/repos/vittascience/vuser/zipball/86ae6ecf40bd64db71db6eddb734e73c87cb6177",
+                "reference": "86ae6ecf40bd64db71db6eddb734e73c87cb6177",
                 "shasum": ""
             },
             "require": {
@@ -6263,7 +6263,7 @@
                 }
             ],
             "description": "An user management system",
-            "time": "2026-11-09T02:31:51+00:00"
+            "time": "2026-11-09T17:29:48+00:00"
         },
         {
             "name": "vittascience/vutils",
