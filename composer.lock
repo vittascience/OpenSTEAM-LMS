@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "64fb2197de5fc2967216474d98134142",
+    "content-hash": "e34ab3d6d8e54e9b98b15905009f93ed",
     "packages": [
         {
             "name": "aiken/i18next",
@@ -147,83 +147,6 @@
                 "source": "https://github.com/acodercat/php-jwk-to-pem/tree/1.1"
             },
             "time": "2021-04-28T07:37:03+00:00"
-        },
-        {
-            "name": "doctrine/annotations",
-            "version": "2.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/annotations.git",
-                "reference": "901c2ee5d26eb64ff43c47976e114bf00843acf7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/901c2ee5d26eb64ff43c47976e114bf00843acf7",
-                "reference": "901c2ee5d26eb64ff43c47976e114bf00843acf7",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/lexer": "^2 || ^3",
-                "ext-tokenizer": "*",
-                "php": "^7.2 || ^8.0",
-                "psr/cache": "^1 || ^2 || ^3"
-            },
-            "require-dev": {
-                "doctrine/cache": "^2.0",
-                "doctrine/coding-standard": "^10",
-                "phpstan/phpstan": "^1.10.28",
-                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
-                "symfony/cache": "^5.4 || ^6.4 || ^7",
-                "vimeo/psalm": "^4.30 || ^5.14"
-            },
-            "suggest": {
-                "php": "PHP 8.0 or higher comes with attributes, a native replacement for annotations"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Doctrine\\Common\\Annotations\\": "lib/Doctrine/Common/Annotations"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Guilherme Blanco",
-                    "email": "guilhermeblanco@gmail.com"
-                },
-                {
-                    "name": "Roman Borschel",
-                    "email": "roman@code-factory.org"
-                },
-                {
-                    "name": "Benjamin Eberlei",
-                    "email": "kontakt@beberlei.de"
-                },
-                {
-                    "name": "Jonathan Wage",
-                    "email": "jonwage@gmail.com"
-                },
-                {
-                    "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com"
-                }
-            ],
-            "description": "Docblock Annotations Parser",
-            "homepage": "https://www.doctrine-project.org/projects/annotations.html",
-            "keywords": [
-                "annotations",
-                "docblock",
-                "parser"
-            ],
-            "support": {
-                "issues": "https://github.com/doctrine/annotations/issues",
-                "source": "https://github.com/doctrine/annotations/tree/2.0.2"
-            },
-            "abandoned": true,
-            "time": "2024-09-05T10:17:24+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -6473,31 +6396,31 @@
         },
         {
             "name": "vittascience/vtclassroom",
-            "version": "dev-arz-doctrine3-compat",
+            "version": "dev-arz-doctrine3-attributes",
             "source": {
                 "type": "git",
-                "url": "https://github.com/vittascience/vclassroom.git",
-                "reference": "cbd7bf79c10749ab6daca1f31648601b0984e0e8"
+                "url": "https://github.com/vittascience/vclassroom",
+                "reference": "9c084f6077f95d69762085fbcc57e446082b3e23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vittascience/vclassroom/zipball/cbd7bf79c10749ab6daca1f31648601b0984e0e8",
-                "reference": "cbd7bf79c10749ab6daca1f31648601b0984e0e8",
+                "url": "https://api.github.com/repos/vittascience/vclassroom/zipball/9c084f6077f95d69762085fbcc57e446082b3e23",
+                "reference": "9c084f6077f95d69762085fbcc57e446082b3e23",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "doctrine/orm": "^2.20 || ^3.7",
+                "php": ">=8.5"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
+                "psr-4": {
                     "Classroom\\": "src/"
                 },
-                "psr-4": {
+                "psr-0": {
                     "Classroom\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "authors": [
                 {
                     "name": "Clément Menard",
@@ -6505,39 +6428,35 @@
                 }
             ],
             "description": "LMS management system",
-            "support": {
-                "issues": "https://github.com/vittascience/vclassroom/issues",
-                "source": "https://github.com/vittascience/vclassroom/tree/arz-doctrine3-compat"
-            },
-            "time": "2026-11-05T13:43:14+00:00"
+            "time": "2026-11-09T02:27:05+00:00"
         },
         {
             "name": "vittascience/vtinterfaces",
-            "version": "dev-arz-doctrine3-compat",
+            "version": "dev-arz-doctrine3-attributes",
             "source": {
                 "type": "git",
-                "url": "https://github.com/vittascience/vinterfaces.git",
-                "reference": "a049b61221056bd512f3bc31bdb3ecc96226b826"
+                "url": "https://github.com/vittascience/vinterfaces",
+                "reference": "0f4330591ca2c1165834cf6e7d7bc4e9b6ce669a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vittascience/vinterfaces/zipball/a049b61221056bd512f3bc31bdb3ecc96226b826",
-                "reference": "a049b61221056bd512f3bc31bdb3ecc96226b826",
+                "url": "https://api.github.com/repos/vittascience/vinterfaces/zipball/0f4330591ca2c1165834cf6e7d7bc4e9b6ce669a",
+                "reference": "0f4330591ca2c1165834cf6e7d7bc4e9b6ce669a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "doctrine/orm": "^2.20 || ^3.7",
+                "php": ">=8.5"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
+                "psr-4": {
                     "Interfaces\\": "src/"
                 },
-                "psr-4": {
+                "psr-0": {
                     "Interfaces\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "authors": [
                 {
                     "name": "Clément Menard",
@@ -6545,39 +6464,35 @@
                 }
             ],
             "description": "An ide management system",
-            "support": {
-                "issues": "https://github.com/vittascience/vinterfaces/issues",
-                "source": "https://github.com/vittascience/vinterfaces/tree/arz-doctrine3-compat"
-            },
-            "time": "2026-11-05T13:43:14+00:00"
+            "time": "2026-11-09T02:27:58+00:00"
         },
         {
             "name": "vittascience/vtlearn",
-            "version": "1.5.6",
+            "version": "dev-arz-doctrine3-attributes",
             "source": {
                 "type": "git",
-                "url": "https://github.com/vittascience/vlearn.git",
-                "reference": "7311714ee9b1b254154208e8787cac7a94d06395"
+                "url": "https://github.com/vittascience/vlearn",
+                "reference": "c821afc93caf815b0df360e1b603007def928085"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vittascience/vlearn/zipball/7311714ee9b1b254154208e8787cac7a94d06395",
-                "reference": "7311714ee9b1b254154208e8787cac7a94d06395",
+                "url": "https://api.github.com/repos/vittascience/vlearn/zipball/c821afc93caf815b0df360e1b603007def928085",
+                "reference": "c821afc93caf815b0df360e1b603007def928085",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "doctrine/orm": "^2.20 || ^3.7",
+                "php": ">=8.5"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
+                "psr-4": {
                     "Learn\\": "src/"
                 },
-                "psr-4": {
+                "psr-0": {
                     "Learn\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "authors": [
                 {
                     "name": "Clément Menard",
@@ -6585,28 +6500,25 @@
                 }
             ],
             "description": "Resource center management system",
-            "support": {
-                "issues": "https://github.com/vittascience/vlearn/issues",
-                "source": "https://github.com/vittascience/vlearn/tree/1.5.6"
-            },
-            "time": "2026-11-03T17:24:53+00:00"
+            "time": "2026-11-09T02:27:06+00:00"
         },
         {
             "name": "vittascience/vtuser",
-            "version": "dev-arz-doctrine3-compat",
+            "version": "dev-arz-doctrine3-attributes",
             "source": {
                 "type": "git",
-                "url": "https://github.com/vittascience/vuser.git",
-                "reference": "b2db60b3c334e8cfdd53d77f8ff8bc4b2424cade"
+                "url": "https://github.com/vittascience/vuser",
+                "reference": "d55b6353955851a9cfda58db606eea6f903f0764"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vittascience/vuser/zipball/b2db60b3c334e8cfdd53d77f8ff8bc4b2424cade",
-                "reference": "b2db60b3c334e8cfdd53d77f8ff8bc4b2424cade",
+                "url": "https://api.github.com/repos/vittascience/vuser/zipball/d55b6353955851a9cfda58db606eea6f903f0764",
+                "reference": "d55b6353955851a9cfda58db606eea6f903f0764",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "doctrine/orm": "^2.20 || ^3.7",
+                "php": ">=8.5"
             },
             "type": "library",
             "autoload": {
@@ -6614,7 +6526,6 @@
                     "User\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "authors": [
                 {
                     "name": "Clément Menard",
@@ -6622,39 +6533,35 @@
                 }
             ],
             "description": "An user management system",
-            "support": {
-                "issues": "https://github.com/vittascience/vuser/issues",
-                "source": "https://github.com/vittascience/vuser/tree/arz-doctrine3-compat"
-            },
-            "time": "2026-11-05T13:43:14+00:00"
+            "time": "2026-11-09T02:27:05+00:00"
         },
         {
             "name": "vittascience/vutils",
-            "version": "dev-arz-doctrine3-compat",
+            "version": "dev-arz-doctrine3-attributes",
             "source": {
                 "type": "git",
-                "url": "https://github.com/vittascience/vutils.git",
-                "reference": "54f1f34f85e5a3e19b7872dc6fe0bc70266e6c0a"
+                "url": "https://github.com/vittascience/vutils",
+                "reference": "07a85dd30c78c462db1ae3f1dae90137c4511f10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vittascience/vutils/zipball/54f1f34f85e5a3e19b7872dc6fe0bc70266e6c0a",
-                "reference": "54f1f34f85e5a3e19b7872dc6fe0bc70266e6c0a",
+                "url": "https://api.github.com/repos/vittascience/vutils/zipball/07a85dd30c78c462db1ae3f1dae90137c4511f10",
+                "reference": "07a85dd30c78c462db1ae3f1dae90137c4511f10",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "doctrine/orm": "^2.20 || ^3.7",
+                "php": ">=8.5"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
+                "psr-4": {
                     "Utils\\": "src/"
                 },
-                "psr-4": {
+                "psr-0": {
                     "Utils\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "authors": [
                 {
                     "name": "Clément Menard",
@@ -6662,11 +6569,7 @@
                 }
             ],
             "description": "Misc php functions",
-            "support": {
-                "issues": "https://github.com/vittascience/vutils/issues",
-                "source": "https://github.com/vittascience/vutils/tree/arz-doctrine3-compat"
-            },
-            "time": "2026-11-05T13:43:23+00:00"
+            "time": "2026-11-09T02:27:05+00:00"
         }
     ],
     "aliases": [],
@@ -6675,6 +6578,7 @@
         "aiken/i18next": 20,
         "vittascience/vtclassroom": 20,
         "vittascience/vtinterfaces": 20,
+        "vittascience/vtlearn": 20,
         "vittascience/vtuser": 20,
         "vittascience/vutils": 20
     },
