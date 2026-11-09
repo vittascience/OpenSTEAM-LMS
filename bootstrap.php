@@ -9,20 +9,18 @@ require_once "vendor/autoload.php";
 
 // Doctrine ORM configuration, mapping read from PHP attributes
 $isDevMode = true;
-$proxyDir = null;
-$cache = null;
 // Array of all namespaces containing entities.
-$config = ORMSetup::createAttributeMetadataConfiguration(
+$config = ORMSetup::createAttributeMetadataConfig(
     array(
         __DIR__ . "/vendor/vittascience/vtuser/src/Entity",
         __DIR__ . "/vendor/vittascience/vtclassroom/src/Entity",
         __DIR__ . "/vendor/vittascience/vtinterfaces/src/Entity",
         __DIR__ . "/vendor/vittascience/vtlearn/Entity",
     ),
-    $isDevMode,
-    $proxyDir,
-    $cache
+    $isDevMode
 );
+// PHP 8.4 native lazy objects: no proxy classes to generate anymore.
+$config->enableNativeLazyObjects(true);
 
 // Load env variables 
 /* $dotenv = Dotenv::createImmutable(__DIR__);
