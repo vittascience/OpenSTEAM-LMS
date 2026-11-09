@@ -1,19 +1,18 @@
 <?php
 
-use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\ORMSetup;
 use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\DriverManager;
 use Dotenv\Dotenv;
 
 require_once "vendor/autoload.php";
 
-// Create a simple "default" Doctrine ORM configuration for Annotations
+// Doctrine ORM configuration, mapping read from PHP attributes
 $isDevMode = true;
 $proxyDir = null;
 $cache = null;
-$useSimpleAnnotationReader = false;
-// Array of all namespaces containing entities with annotations.
-$config = Setup::createAnnotationMetadataConfiguration(
+// Array of all namespaces containing entities.
+$config = ORMSetup::createAttributeMetadataConfiguration(
     array(
         __DIR__ . "/vendor/vittascience/vtuser/src/Entity",
         __DIR__ . "/vendor/vittascience/vtclassroom/src/Entity",
@@ -22,8 +21,7 @@ $config = Setup::createAnnotationMetadataConfiguration(
     ),
     $isDevMode,
     $proxyDir,
-    $cache,
-    $useSimpleAnnotationReader
+    $cache
 );
 
 // Load env variables 
@@ -51,4 +49,4 @@ $connectionParams = array(
 
 $conn = DriverManager::getConnection($connectionParams);
 // obtaining the entity manager
-$entityManager = EntityManager::create($conn, $config);
+$entityManager = new EntityManager($conn, $config);
