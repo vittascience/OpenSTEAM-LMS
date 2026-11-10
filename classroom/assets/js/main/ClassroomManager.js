@@ -286,14 +286,6 @@ class ClassroomManager {
                                 classroom.classroom.name = `${classroom.classroom.name} | ${classroom.classroom.groupe}`;
                             }
                         }
-                        // Preserve already lazy-loaded students so they are not wiped
-                        const oldClasses = container._myClasses || [];
-                        for (let newEntry of response) {
-                            const existing = oldClasses.find(c => c.classroom.id === newEntry.classroom.id);
-                            if (existing && existing.students.length > 0) {
-                                newEntry.students = existing.students;
-                            }
-                        }
                         container._myClasses = response;
                         Main.getClassroomManager().countClassroomAndStudents(response);
                         onEnd();
