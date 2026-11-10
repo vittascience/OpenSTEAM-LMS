@@ -268,7 +268,7 @@ $('body').on('click', '#attribute-activity-to-students', function () {
                 
             if (document.getElementById('isDate-activity-form').checked) {
                 dateBegin = $("#date-begin-activity-form").val()
-                dateEnd = $("#date-end-activity-form").val
+                dateEnd = $("#date-end-activity-form").val()
             }
         
             Main.getClassroomManager().attributeActivity({
