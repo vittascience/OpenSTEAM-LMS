@@ -502,11 +502,7 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) 
         $('#introduction-activity-form').val(attribution.introduction)
         $('#date-begin-activity-form').val(formatDateInput(new Date(attribution.dateBegin.date)))
         $('#date-end-activity-form').val(formatDateInput(new Date(attribution.dateEnd.date)))
-        if (attribution.evaluation == false) {
-            $('#isEval-activity-form').attr('checked', 'checked')
-        } else {
-            $('#isExo-activity-form').attr('checked', 'checked')
-        }
+        setEvaluationSwitch(attribution.evaluation == true);
         if (attribution.autocorrection == true) {
             ClassroomSettings.willAutocorrect = true;
         }
@@ -519,7 +515,15 @@ DisplayPanel.prototype.classroom_dashboard_new_activity_panel3 = function (ref) 
         $('#date-end-activity-form').val(formatDateInput(future))
         $('#introduction-activity-form').val('')
         $('#retro-attribution-activity-form').prop('checked', true)
+        setEvaluationSwitch(false);
     }
+}
+
+// evaluation = single submission ("No"); the change handler doesn't fire on programmatic checks, so sync ClassroomSettings here
+function setEvaluationSwitch(isEvaluation) {
+    document.getElementById('isEval-activity-form').checked = isEvaluation;
+    document.getElementById('isExo-activity-form').checked = !isEvaluation;
+    ClassroomSettings.isEvaluation = isEvaluation;
 }
 
 //COURSEDISPLAY
