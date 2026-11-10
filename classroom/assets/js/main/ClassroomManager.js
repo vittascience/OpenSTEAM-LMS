@@ -76,7 +76,11 @@ class ClassroomManager {
             let currentTask = this._tasksQueue.shift();
             await new Promise((resolve, reject) => {
                 try {
-                    currentTask(resolve);
+                    // Async tasks (e.g. handleRegularUserFlow) that reject would never call onEnd
+                    Promise.resolve(currentTask(resolve)).catch((error) => {
+                        console.warn(error);
+                        resolve();
+                    });
                 } catch (error) {
                     console.warn(error);
                     resolve();
