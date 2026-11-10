@@ -76,7 +76,11 @@ class ClassroomManager {
             let currentTask = this._tasksQueue.shift();
             await new Promise((resolve, reject) => {
                 try {
-                    currentTask(resolve);
+                    // Async tasks (e.g. handleRegularUserFlow) that reject would never call onEnd
+                    Promise.resolve(currentTask(resolve)).catch((error) => {
+                        console.warn(error);
+                        resolve();
+                    });
                 } catch (error) {
                     console.warn(error);
                     resolve();
@@ -96,10 +100,12 @@ class ClassroomManager {
     getStudentActivities(container) {
         return new Promise(function (resolve, reject) {
             var process = function (thisInstance, response) {
-                if (response.error_message && response.error_message !== undefined) {
-                    thisInstance.errors.push(GET_PUBLIC_PROJECTS_ERROR)
+                // An error payload keeps the previous list so the panel still renders
+                if (response.error || response.errorType) {
+                    console.error(response);
+                } else {
+                    thisInstance._myActivities = response;
                 }
-                thisInstance._myActivities = response;
                 resolve()
 
             };
@@ -115,6 +121,7 @@ class ClassroomManager {
                 },
                 error: function (e) {
                     console.error(e)
+                    resolve()
                 }
             });
         })
@@ -278,20 +285,16 @@ class ClassroomManager {
                     dataType: "JSON",
                     url: "/routing/Routing.php?controller=classroom&action=get_by_user",
                     success: function (response) {
-                        if (response.error_message && response.error_message !== undefined) {
-                            container.errors.push(GET_PUBLIC_PROJECTS_ERROR)
+                        // An error payload keeps the previous list; the queue must always move on
+                        if (!Array.isArray(response)) {
+                            console.error(response);
+                            onEnd();
+                            resolve();
+                            return;
                         }
                         for (let classroom of response){
                             if(classroom.classroom.groupe) {
                                 classroom.classroom.name = `${classroom.classroom.name} | ${classroom.classroom.groupe}`;
-                            }
-                        }
-                        // Preserve already lazy-loaded students so they are not wiped
-                        const oldClasses = container._myClasses || [];
-                        for (let newEntry of response) {
-                            const existing = oldClasses.find(c => c.classroom.id === newEntry.classroom.id);
-                            if (existing && existing.students.length > 0) {
-                                newEntry.students = existing.students;
                             }
                         }
                         container._myClasses = response;
@@ -302,6 +305,7 @@ class ClassroomManager {
                     error: function (e) {
                         console.error(e);
                         onEnd();
+                        resolve();
                     }
                 });
             }
@@ -359,9 +363,6 @@ class ClassroomManager {
     getTeachers(container) {
         return new Promise(function (resolve, reject) {
             var process = function (thisInstance, response) {
-                if (response.error_message && response.error_message !== undefined) {
-                    thisInstance.errors.push(GET_PUBLIC_PROJECTS_ERROR)
-                }
                 thisInstance._myTeachers = response;
                 resolve()
 
@@ -396,18 +397,20 @@ class ClassroomManager {
         return new Promise((resolve, reject) => {
             let currentTask = (onEnd) => {
                 let process = function (thisInstance, res) {
-                    if (res.error_message && res.error_message !== undefined) {
-                        thisInstance.errors.push(GET_PUBLIC_PROJECTS_ERROR)
+                    // An error payload keeps the previous list so the panel still renders
+                    if (Array.isArray(res)) {
+                        thisInstance._myTeacherActivities = res;
+                    } else {
+                        console.error(res);
                     }
-                    thisInstance._myTeacherActivities = res;
                     resolve()
-                    onEnd();
                 };
                $.ajax({
                     type: "POST",
                     dataType: "JSON",
                     url: "/routing/Routing.php?controller=activity&action=get_mine_for_classroom",
                     success: function (response) {
+                        // App icons are only cosmetic: a failure there must not leave the queue waiting forever
                         Main.getClassroomManager().getAllApps().then(res => {
                             const intervalForFolders = setInterval(() => {
                                 if (typeof foldersManager !== 'undefined') {
@@ -419,12 +422,16 @@ class ClassroomManager {
                                     }
                                 }
                             }, 100);
+                        }).catch((e) => {
+                            console.error(e);
+                        }).finally(() => {
                             process(container, response);
                             onEnd();
                         });
                     },
                     error: function (e) {
                         console.error(e)
+                        resolve();
                         onEnd();
                     }
                 });
@@ -1088,10 +1095,7 @@ class ClassroomManager {
                     dataType: "JSON",
                     url: "/routing/Routing.php?controller=activity_link_user&action=add_users",
                     data: data,
-                    success: function (response) {                        
-                        if (response.error_message && response.error_message !== undefined) {
-                            container.errors.push(GET_PUBLIC_PROJECTS_ERROR);
-                        }
+                    success: function (response) {
                         onEnd()
                         resolve(response);
                     },

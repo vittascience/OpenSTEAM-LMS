@@ -129,8 +129,7 @@ function persistDeleteStudent() {
     if (validation == placeholderWord) {
         ClassroomSettings.student = parseInt($("#student-to-delete-id").val());
         Main.getClassroomManager().deleteStudent(ClassroomSettings.student).then(() => {
-            let classroom = deleteStudentInList(ClassroomSettings.student, ClassroomSettings.classroom)
-            displayStudentsInClassroom(classroom.students)
+            reloadClassroomStudents(ClassroomSettings.classroom);
             displayNotification('#notif-div', "classroom.notif.accountIsDelete", "success")
         })
         $('#validation-delete-student').val("");
@@ -174,9 +173,7 @@ function changePseudoModal(id) {
 $('body').on('click', '#update-pseudo-close', function () {
     Main.getClassroomManager().changePseudo(ClassroomSettings.student, $('.change-pseudo-modal').val()).then(function (formerPseudo) {
         pseudoModal.closeModal('update-pseudo-modal');
-        // Refresh instant
-        dashboardAutoRefresh.refresh();
-        changePseudoStudentInList(ClassroomSettings.student, ClassroomSettings.classroom, $('.change-pseudo-modal').val());
+        reloadClassroomStudents(ClassroomSettings.classroom);
         displayNotification('#notif-div', "classroom.notif.pseudoUpdated", "success", `'{"newPseudo": "${$('.change-pseudo-modal').val()}"}'`);
         $('.change-pseudo-modal').val('');
     })
@@ -521,8 +518,7 @@ function importLearnerCsv(update = false){
             if (response == true) {
                 pseudoModal.closeModal('import-csv');
                 Main.getClassroomManager().getClasses(Main.getClassroomManager()).then(() => {
-                    let students = getClassroomInListByLink(ClassroomSettings.classroom)[0].students;
-                    displayStudentsInClassroom(students);
+                    reloadClassroomStudents(ClassroomSettings.classroom);
                     displayNotification('#notif-div', "classroom.notif.usersAddedFromCsv", "success");
                 });
             } else {
@@ -905,31 +901,13 @@ function deleteClassroomInList(link) {
     Main.getClassroomManager()._myClasses = Main.getClassroomManager()._myClasses.filter(x => x.classroom.link !== link)
 }
 
-function deleteStudentInList(id, linkClassroom) {
-    let classroom = getClassroomInListByLink(linkClassroom)[0]
-    let classroomToChange = classroom.students.filter(x => x.user.id !== id)
-    classroomToChange = {
-        classroom: classroom.classroom,
-        students: classroomToChange
-    }
-    Main.getClassroomManager()._myClasses = Main.getClassroomManager()._myClasses.filter(x => x.classroom.link !== linkClassroom)
-    Main.getClassroomManager()._myClasses.push(classroomToChange)
-    return classroomToChange
-}
-
-function changePseudoStudentInList(id, linkClassroom, pseudo) {
-    let classroom = getClassroomInListByLink(linkClassroom)[0];
-    let userToChange = classroom.students.filter(x => x.user.id == id)[0];
-    userToChange.user.pseudo = pseudo
-    let studentList = classroom.students.filter(x => x.user.id !== id)
-    studentList.push(userToChange)
-    classroom = {
-        classroom: classroom.classroom,
-        students: studentList
-    }
-    Main.getClassroomManager()._myClasses = Main.getClassroomManager()._myClasses.filter(x => x.classroom.link !== linkClassroom)
-    Main.getClassroomManager()._myClasses.push(classroom)
-    return classroom
+// Refetches the classroom's students after a change so the dashboard never shows the cached list
+function reloadClassroomStudents(link) {
+    const entry = getClassroomInListByLink(link)[0];
+    if (!entry) return;
+    Main.getClassroomManager().getClassroomStudents(entry.classroom.id).then((students) => {
+        displayStudentsInClassroom(students, link);
+    });
 }
 
 function getStudentInListById(id, students) {
