@@ -73,9 +73,16 @@ try {
     exit;
   }
 
-  // A tool may only grade activities of its own application
-  $application = $ltiTool->getApplication();
-  if (!$application || $activityLinkUser->getActivity()->getType() !== $application->getName()) {
+  // A tool may only grade activities of its own applications (one tool can be registered once per application under the same client_id)
+  $activityType = $activityLinkUser->getActivity()->getType();
+  $isHandled = false;
+  foreach ($entityManager->getRepository(LtiTool::class)->findBy(['clientId' => $ltiIssuer]) as $tool) {
+    if ($tool->getApplication() && $tool->getApplication()->getName() === $activityType) {
+      $isHandled = true;
+      break;
+    }
+  }
+  if (!$isHandled) {
     http_response_code(403);
     echo json_encode(['Error:' => 'Activity not handled by this tool']);
     exit;
